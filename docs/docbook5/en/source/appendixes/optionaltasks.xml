@@ -1303,244 +1303,6 @@
             </itemizedlist>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="GitInitTask">
-        <title>GitInitTask</title>
-        <para>Create an empty git repository or reinitialize an existing one.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>gitPath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary</entry>
-                        <entry>/usr/bin/git</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>repository</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git repository</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>bare</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Create bare repository. See --bare option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html"
-                                role="extern">git-init</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
-&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
-
-&lt;!-- Initialize normal repository -->
-&lt;gitinit repository="${repo.dir.resolved}" />
-
-&lt;!-- Initialize bare repository -->
-&lt;gitinit bare="true" repository="${repo.dir.resolved}" /></programlisting>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="GitCloneTask">
-        <title>GitCloneTask</title>
-        <para>Clone a repository into a new directory.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>gitPath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary</entry>
-                        <entry>/usr/bin/git</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>repository</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The (possibly remote) repository to clone from.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>targetPath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The name of a new directory to clone into. Cloning into an existing
-                            directory is only allowed if the directory is empty.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>bare</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Create bare repository. See --bare option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html"
-                                >git-clone</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>depth</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>Create a shallow clone with a history truncated to the specified number of revisions.
-                            See --depth option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html"
-                                >git-clone</link>.</entry>
-                        <entry><literal>0</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
-&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
-
-&lt;!-- Clone repository -->
-&lt;gitclone
-    repository="git://github.com/path/to/repo/repo.git"
-    targetPath="${repo.dir.resolved}" />
-
-&lt;!-- Clone bare repository -->
-&lt;gitclone
-    repository="git://github.com/path/to/repo/repo.git"
-    targetPath="${repo.dir.resolved}"
-    bare="true" /></programlisting>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="GitGcTask">
-        <title>GitGcTask</title>
-        <para>Cleanup unnecessary files and optimize the local repository.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>gitPath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary.</entry>
-                        <entry>/usr/bin/git</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>repository</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The repository to cleanup.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>aggressive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This option will cause git gc to more aggressively optimize the
-                            repository at the expense of taking much more time. See --aggressive
-                            option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
-                                >git-gc</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>auto</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>With this option, git gc checks whether any housekeeping is required;
-                            if not, it exits without performing any work. See --auto option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
-                                >git-gc</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>noprune</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Do not prune any loose objects. See --no-prune option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
-                                >git-gc</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>prune</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Prune loose objects older than date. See --prune option of <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
-                                >git-gc</link>.</entry>
-                        <entry>2.weeks.ago</entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
-&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
-
-&lt;!-- Clone repository -->
-&lt;gitclone
-    repository="git://github.com/path/to/repo/repo.git"
-    targetPath="${repo.dir.resolved}" />
-
-&lt;!-- Cleanup repository-->
-&lt;gitgc
-    repository="${repo.dir.resolved}"
-    aggressive="true"
-    prune="1.week.ago" /></programlisting>
-        </sect2>
-    </sect1>
     <sect1 role="taskdef" xml:id="GitBranchTask">
         <title>GitBranchTask</title>
         <para> Create, move or delete repository branches. See official <link
@@ -1722,6 +1484,314 @@ Note that you can omit both startpoint and track attributes in this case
     move="true" /></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="GitCheckoutTask">
+        <title>GitCheckoutTask</title>
+        <para> Checkout a branch or paths to the working tree. See official <link
+                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+        >documentation</link>.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>gitPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git binary</entry>
+                        <entry>/usr/bin/git</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repository</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git repository</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>branchname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Branch to checkout. See &lt;branch> in <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                        >git-checkout</link>.</entry>
+                        <entry>origin</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>startpoint</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of a commit at which to start the new branch; Defaults to
+                            HEAD. See &lt;start_point> in <link
+                                    xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                            >git-checkout</link>.</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>create</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Create a new branch named &lt;branchname> and start it at
+                            &lt;startpoint></entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>forcecreate</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Creates the branch &lt;branchname> and start it at &lt;startpoint>;
+                            if it already exists, then reset it to &lt;startpoint>. This is
+                            equivalent to running "git branch" with "-f".</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>merge</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>See --merge in <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                        >git-checkout</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>track</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>See --track in <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                        >git-checkout</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>notrack</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>See --no-track in <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                        >git-checkout</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Quiet, suppress feedback messages. See --quiet in <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                        >git-checkout</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>force</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>When switching branches, proceed even if the index or the working
+                            tree differs from HEAD. This is used to throw away local changes. See
+                            --force in <link
+                                    xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
+                            >git-checkout</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
+                &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+
+                &lt;!-- clone repository -->
+                &lt;gitclone
+                repository="git://github.com/path/to/repo/repo.git"
+                targetPath="${repo.dir.resolved}" />
+
+                &lt;!-- create and switch to "mybranch" branch -->
+                &lt;gitcheckout
+                repository="${repo.dir.resolved}"
+                branchname="mybranch" quiet="true" create="true" />
+
+                &lt;!-- get back to "master" branch -->
+                &lt;gitcheckout
+                repository="${repo.dir.resolved}"
+                branchname="master" quiet="true" />
+
+                &lt;!-- create (force) already created branch -->
+                &lt;gitcheckout
+                repository="${repo.dir.resolved}"
+                branchname="mybranch" quiet="true"
+                forceCreate="true" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="GitCloneTask">
+        <title>GitCloneTask</title>
+        <para>Clone a repository into a new directory.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>gitPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git binary</entry>
+                        <entry>/usr/bin/git</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repository</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The (possibly remote) repository to clone from.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>targetPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of a new directory to clone into. Cloning into an existing
+                            directory is only allowed if the directory is empty.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>bare</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Create bare repository. See --bare option of <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html"
+                        >git-clone</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Create a shallow clone with a history truncated to the specified number of revisions.
+                            See --depth option of <link
+                                    xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html"
+                            >git-clone</link>.</entry>
+                        <entry><literal>0</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
+                &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+
+                &lt;!-- Clone repository -->
+                &lt;gitclone
+                repository="git://github.com/path/to/repo/repo.git"
+                targetPath="${repo.dir.resolved}" />
+
+                &lt;!-- Clone bare repository -->
+                &lt;gitclone
+                repository="git://github.com/path/to/repo/repo.git"
+                targetPath="${repo.dir.resolved}"
+                bare="true" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="GitCommitTask">
+        <title>GitCommitTask</title>
+        <para> Record changes to the repository. See official <link
+                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
+        >documentation</link>.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>gitPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git binary</entry>
+                        <entry>/usr/bin/git</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repository</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git repository</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>message</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Commit message</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>allFiles</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to automatically stage files that have been modified and deleted
+                            (see --all in <link
+                                    xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
+                            >git-commit</link>)</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;!-- commit all modified / deleted files -->;
+                &lt;gitcommit
+                repository="/path/to/repo"
+                message="Commit message" allFiles="true" />;</programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="GitFetchTask">
         <title>GitFetchTask</title>
         <para> Download objects and refs from another repository. See official <link
@@ -1880,11 +1950,104 @@ Note that you can omit both startpoint and track attributes in this case
     quiet="true" /></programlisting>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="GitCheckoutTask">
-        <title>GitCheckoutTask</title>
-        <para> Checkout a branch or paths to the working tree. See official <link
-                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                >documentation</link>.</para>
+    <sect1 role="taskdef" xml:id="GitGcTask">
+        <title>GitGcTask</title>
+        <para>Cleanup unnecessary files and optimize the local repository.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>gitPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git binary.</entry>
+                        <entry>/usr/bin/git</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repository</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The repository to cleanup.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>aggressive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This option will cause git gc to more aggressively optimize the
+                            repository at the expense of taking much more time. See --aggressive
+                            option of <link
+                                    xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
+                            >git-gc</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>auto</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>With this option, git gc checks whether any housekeeping is required;
+                            if not, it exits without performing any work. See --auto option of <link
+                                    xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
+                            >git-gc</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>noprune</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Do not prune any loose objects. See --no-prune option of <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
+                        >git-gc</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>prune</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Prune loose objects older than date. See --prune option of <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html"
+                        >git-gc</link>.</entry>
+                        <entry>2.weeks.ago</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
+                &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+
+                &lt;!-- Clone repository -->
+                &lt;gitclone
+                repository="git://github.com/path/to/repo/repo.git"
+                targetPath="${repo.dir.resolved}" />
+
+                &lt;!-- Cleanup repository-->
+                &lt;gitgc
+                repository="${repo.dir.resolved}"
+                aggressive="true"
+                prune="1.week.ago" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="GitInitTask">
+        <title>GitInitTask</title>
+        <para>Create an empty git repository or reinitialize an existing one.</para>
 
         <table>
             <title>Attributes</title>
@@ -1919,85 +2082,11 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>branchname</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Branch to checkout. See &lt;branch> in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
-                        <entry>origin</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>startpoint</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The name of a commit at which to start the new branch; Defaults to
-                            HEAD. See &lt;start_point> in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
-                        <entry/>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>create</literal></entry>
+                        <entry><literal>bare</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Create a new branch named &lt;branchname> and start it at
-                            &lt;startpoint></entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>forcecreate</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Creates the branch &lt;branchname> and start it at &lt;startpoint>;
-                            if it already exists, then reset it to &lt;startpoint>. This is
-                            equivalent to running "git branch" with "-f".</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>merge</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>See --merge in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>track</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>See --track in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>notrack</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>See --no-track in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Quiet, suppress feedback messages. See --quiet in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>force</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>When switching branches, proceed even if the index or the working
-                            tree differs from HEAD. This is used to throw away local changes. See
-                            --force in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                                >git-checkout</link>.</entry>
+                        <entry>Create bare repository. See --bare option of <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-init.html"
+                                role="extern">git-init</link>.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -2007,35 +2096,20 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
-&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+                &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
-&lt;!-- clone repository -->
-&lt;gitclone
-    repository="git://github.com/path/to/repo/repo.git"
-    targetPath="${repo.dir.resolved}" />
+                &lt;!-- Initialize normal repository -->
+                &lt;gitinit repository="${repo.dir.resolved}" />
 
-&lt;!-- create and switch to "mybranch" branch -->
-&lt;gitcheckout
-    repository="${repo.dir.resolved}"
-    branchname="mybranch" quiet="true" create="true" />
-
-&lt;!-- get back to "master" branch -->
-&lt;gitcheckout
-    repository="${repo.dir.resolved}"
-    branchname="master" quiet="true" />
-
-&lt;!-- create (force) already created branch -->
-&lt;gitcheckout
-    repository="${repo.dir.resolved}"
-    branchname="mybranch" quiet="true"
-    forceCreate="true" /></programlisting>
+                &lt;!-- Initialize bare repository -->
+                &lt;gitinit bare="true" repository="${repo.dir.resolved}" /></programlisting>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="GitCommitTask">
-        <title>GitCommitTask</title>
-        <para> Record changes to the repository. See official <link
-                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
-                >documentation</link>.</para>
+    <sect1 role="taskdef" xml:id="GitLogTask">
+        <title>GitLogTask</title>
+        <para> Show commit logs. See official <link
+                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html"
+        >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -2070,20 +2144,82 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>message</literal></entry>
+                        <entry><literal>paths</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Commit message</entry>
+                        <entry>&lt;paentry> arguments to git-log. Accepts one or more paths
+                            delimited by PATH_SEPARATOR</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>allFiles</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether to automatically stage files that have been modified and deleted
-                    (see --all in <link
-                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
-                            >git-commit</link>)</entry>
+                        <entry><literal>outputProperty</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Property name to set with output value from git-log</entry>
                         <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Commit format. See --format of git-log. Can be one of
+                            <literal>oneline</literal>, <literal>short</literal>,
+                            <literal>medium</literal>, <literal>full</literal>,
+                            <literal>fuller</literal>, <literal>email</literal>,
+                            <literal>raw</literal> and
+                            <literal>format:&lt;string></literal></entry>
+                        <entry>medium</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>date</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Date format. See --date of git-log.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>since</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>&lt;since> argument to git-log.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>until</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>&lt;until> argument to git-log.</entry>
+                        <entry>HEAD</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>stat</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Generate a diffstat. See --stat of git-log</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>nameStatus</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Names + status of changed files. See --name-status of
+                            git-log.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>maxCount</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Number of commits to show. See -&lt;n>|-n|--max-count of
+                            git-log.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>noMerges</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Don't show commits with more than one parent. See --no-merges of
+                            git-log.</entry>
+                        <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -2091,18 +2227,24 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;!-- commit all modified / deleted files -->;
-&lt;gitcommit
-    repository="/path/to/repo"
-    message="Commit message" allFiles="true" />;</programlisting>
-        </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
-                </listitem>
-            </itemizedlist>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
+                &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+
+                &lt;!-- clone repository -->
+                &lt;gitclone
+                repository="git://github.com/path/to/repo/repo.git"
+                targetPath="${repo.dir.resolved}" />
+                <!-- write git-log output to "logs" variable -->
+                &lt;gitlog
+                paths="${repo.dir.resolved}"
+                format="oneline"
+                maxCount="2"
+                stat="true"
+                noMerges="false"
+                since="Sun Jan 23 23:55:42 2011 +0300"
+                until="Mon Jan 24 09:59:33 2011 +0300"
+                outputProperty="logs"
+                repository="${repo.dir.resolved}" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitMergeTask">
@@ -2787,148 +2929,6 @@ Note that you can omit both startpoint and track attributes in this case
     list="true"
     outputProperty="tags"
     pattern="marked" /></programlisting>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="GitLogTask">
-        <title>GitLogTask</title>
-        <para> Show commit logs. See official <link
-                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html"
-                >documentation</link>.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>gitPath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary</entry>
-                        <entry>/usr/bin/git</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>repository</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git repository</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>paths</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>&lt;paentry> arguments to git-log. Accepts one or more paths
-                            delimited by PATH_SEPARATOR</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>outputProperty</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Property name to set with output value from git-log</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>format</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Commit format. See --format of git-log. Can be one of
-                                <literal>oneline</literal>, <literal>short</literal>,
-                                <literal>medium</literal>, <literal>full</literal>,
-                                <literal>fuller</literal>, <literal>email</literal>,
-                                <literal>raw</literal> and
-                            <literal>format:&lt;string></literal></entry>
-                        <entry>medium</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>date</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Date format. See --date of git-log.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>since</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>&lt;since> argument to git-log.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>until</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>&lt;until> argument to git-log.</entry>
-                        <entry>HEAD</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>stat</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Generate a diffstat. See --stat of git-log</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>nameStatus</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Names + status of changed files. See --name-status of
-                            git-log.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>maxCount</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>Number of commits to show. See -&lt;n>|-n|--max-count of
-                            git-log.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>noMerges</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Don't show commits with more than one parent. See --no-merges of
-                            git-log.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
-&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
-
-&lt;!-- clone repository -->
-&lt;gitclone
-    repository="git://github.com/path/to/repo/repo.git"
-    targetPath="${repo.dir.resolved}" />
-<!-- write git-log output to "logs" variable -->
-&lt;gitlog
-    paths="${repo.dir.resolved}"
-    format="oneline"
-    maxCount="2"
-    stat="true"
-    noMerges="false"
-    since="Sun Jan 23 23:55:42 2011 +0300"
-    until="Mon Jan 24 09:59:33 2011 +0300"
-    outputProperty="logs"
-    repository="${repo.dir.resolved}" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GrowlNotifyTask">
