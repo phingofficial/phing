@@ -3773,14 +3773,14 @@ Note that you can omit both startpoint and track attributes in this case
                                 <entry><literal role="type">String</literal></entry>
                                 <entry>Name of the key/property.</entry>
                                 <entry>n/a</entry>
-                                <entry>yes</entry>
+                                <entry>Yes</entry>
                             </row>
                             <row>
                                 <entry><literal>operation</literal></entry>
                                 <entry><literal role="type">String</literal></entry>
                                 <entry>The operation to perform on the existing value, which must be numeric. Possible values are "+" and "-", which add and subtract 1, respectively from the existing value. If the value doesn't already exist, the set is not performed, triggering an error.</entry>
                                 <entry>n/a</entry>
-                                <entry>No, if operation is specified.</entry>
+                                <entry>No</entry>
                             </row>
                             <row>
                                 <entry><literal>value</literal></entry>
