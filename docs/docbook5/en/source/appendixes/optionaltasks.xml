@@ -5636,54 +5636,6 @@ Note that you can omit both startpoint and track attributes in this case
         </sect2>
     </sect1>
 
-    <sect1 role="taskdef" xml:id="PackageAsPathTask">
-        <title>PackageAsPathTask</title>
-        <para>
-            Converts dot-notation packages to relative paths and stores
-            it in a property.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>package</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The package to convert.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>name</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The property to store the path in.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <para>Sample build command:</para>
-            <programlisting language="xml">&lt;packageaspath package="phing.classes" name="path"/></programlisting>
-        </sect2>
-    </sect1>
-
     <sect1 role="taskdef" xml:id="NotifySendTask">
         <title>NotifySendTask</title>
         <para>This is a wrapper for notify-send, for displaying desktop notifications locally.</para>
@@ -5731,6 +5683,53 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
     </sect1>
 
+    <sect1 role="taskdef" xml:id="PackageAsPathTask">
+        <title>PackageAsPathTask</title>
+        <para>
+            Converts dot-notation packages to relative paths and stores
+            it in a property.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>package</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The package to convert.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The property to store the path in.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <para>Sample build command:</para>
+            <programlisting language="xml">&lt;packageaspath package="phing.classes" name="path"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="ParallelTask">
         <title>ParallelTask</title>
         <para>Executes nested tasks in parallel.</para>
