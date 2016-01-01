@@ -13026,7 +13026,7 @@ a2.a3.a4=false</programlisting>
                     </row>
                     <row>
                         <entry><literal>lint</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
                         <entry>Performs a PHP lint test on the deployment scripts before creating the package.</entry>
                         <entry>false</entry>
                         <entry>No</entry>
