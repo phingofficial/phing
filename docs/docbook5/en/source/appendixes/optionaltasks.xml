@@ -5907,6 +5907,77 @@ Note that you can omit both startpoint and track attributes in this case
                 folder.</para>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PathToFileSetTask">
+        <title>PathToFileSetTask</title>
+        <para>Coverts a path to a fileset. This is useful if you have a path but need to use a fileset as input
+            in a phing task.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>dir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The root of the directory tree of this FileSet.</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pathrefid</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The reference to the path to convert from.</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>ignorenonrelative</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This boolean controls what will happen if any of the files in the path are not in the
+                            directory for the fileset. If this is "true" the files are ignored, if this is "false"
+                            a build exception is thrown. (Note: if files are not present no check is made).</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>This is the identifier of the fileset to create. This fileset will contain the files that
+                            are relative to the directory root. Any files that are not present will not be placed in the
+                            set.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;path id="modified.sources.path" dir="C:\Path\to\phing\classes\phing\" />
+                &lt;pathtofileset name="modified.sources.fileset"
+                pathrefid="modified.sources.path"
+                dir="." />
+
+                &lt;copy todir="C:\Path\to\phing\docs\api">
+                &lt;mapper type="glob" from="*.php" to="*.php.bak" />
+                &lt;fileset refid="modified.sources.fileset" />
+                &lt;/copy></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="PDOSQLExecTask">
         <title>PDOSQLExecTask</title>
         <para> The <literal>PDOSQLExecTask</literal> executes SQL statements using PDO.</para>
