@@ -9256,8 +9256,8 @@ description="Measures the size of the project and count it's tests">
                 listed under the "default" package.</para>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="RegexTask">
-        <title>RegexTask</title>
+    <sect1 role="taskdef" xml:id="PropertyRegexTask">
+        <title>PropertyRegexTask</title>
         <para> Performs regular expression operations on an subject string, and sets the results to a property.
             There are two different operations that can be performed:
             <itemizedlist>
