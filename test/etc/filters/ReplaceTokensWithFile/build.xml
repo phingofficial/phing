@@ -10,4 +10,16 @@
 		</copy>
 		<delete file="properties_out.ini"/>
 	</target>
+
+	<target name="testSlashInToken">
+		<copy file="properties.ini"
+			  tofile="properties_out.ini" overwrite="true">
+
+			<filterchain>
+				<replacetokenswithfile begintoken="//#file:" endtoken=":endfile#"
+									   dir="" postfix=".tpl" />
+			</filterchain>
+		</copy>
+		<delete file="properties_out.ini"/>
+	</target>
 </project>
