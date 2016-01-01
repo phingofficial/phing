@@ -4230,7 +4230,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>Single file to perform check on.</entry>
                         <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>No, unless no <literal>fileset</literal> elements are present</entry>
                     </row>
                     <row>
                         <entry><literal>haltOnError</literal></entry>
@@ -4277,6 +4277,14 @@ Note that you can omit both startpoint and track attributes in this case
             &lt;/fileset>
         &lt;/jshint></programlisting>
         </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="JslLintTask">
         <title>JslLintTask</title>
@@ -4317,7 +4325,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to source file</entry>
                         <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>No, unless no <literal>fileset</literal> elements are present</entry>
                     </row>
                     <row>
                         <entry><literal>haltonfailure</literal></entry>
