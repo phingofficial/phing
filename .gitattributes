@@ -4,8 +4,7 @@ bin/* ident
 *.css ident
 *.xsl ident
 *.rng ident
-docs/api export-ignore
-docs/docbook5/en/source export-ignore
+docs export-ignore
 test export-ignore
 .travis.* export-ignore
 composer.lock export-ignore
