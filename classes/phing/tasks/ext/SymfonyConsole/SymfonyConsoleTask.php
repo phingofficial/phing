@@ -106,7 +106,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * Set the name of the property to store the hash value in
+     * Set the name of the property to store the application output in
      * @param $property
      * @return void
      */

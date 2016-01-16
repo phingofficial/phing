@@ -11605,6 +11605,20 @@ host="webserver" command="ls" /></programlisting>
                         <entry>true</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry>propertyName</entry>
+                        <entry>String</entry>
+                        <entry>The name of the property to store the application output in</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry>checkReturn</entry>
+                        <entry>Boolean</entry>
+                        <entry>Whether to check the return code.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
