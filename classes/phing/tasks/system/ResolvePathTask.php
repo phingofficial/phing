@@ -51,7 +51,9 @@ class ResolvePathTask extends Task
     /** The [possibly] relative file/path that needs to be resolved. */
     private $file;
 
-    /** Base directory used for resolution. */
+    /** Base directory used for resolution.
+     * @var PhingFile
+     */
     private $dir;
 
     /**
@@ -137,7 +139,6 @@ class ResolvePathTask extends Task
      */
     public function main()
     {
-
         if (!$this->propertyName) {
             throw new BuildException("You must specify the propertyName attribute", $this->getLocation());
         }
@@ -153,11 +154,10 @@ class ResolvePathTask extends Task
         // use that as basedir to which file was relative.
         // -- unless the file specified is an absolute path
         if ($this->dir !== null && !$fs->isAbsolute(new PhingFile($this->file))) {
-            $resolved = new PhingFile($this->dir->getPath(), $this->file);
-        } else {
-            // otherwise just resolve it relative to project basedir
-            $resolved = $this->project->resolveFile($this->file);
+            $this->file = new PhingFile($this->dir->getPath(), $this->file);
         }
+
+        $resolved = $this->project->resolveFile($this->file);
 
         $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), $this->logLevel);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());
