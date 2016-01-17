@@ -183,7 +183,11 @@ abstract class HttpTask extends Task
             throw new BuildException("Required attribute 'url' is missing");
         }
 
-        $this->processResponse($this->createRequest()->send());
+        try {
+            $this->processResponse($this->createRequest()->send());
+        } catch (HTTP_Request2_MessageException $e) {
+            throw new BuildException($e);
+        }
     }
 
     /**
