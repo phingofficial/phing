@@ -2931,6 +2931,148 @@ Note that you can omit both startpoint and track attributes in this case
     pattern="marked" /></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="GitDescribeTask">
+    <title>GitDescribeTask</title>
+    <para>This task finds the most recent tag that is reachable from a commit.
+        If the tag points to the commit, then only the tag is shown.
+        Otherwise, it suffixes the tag name with the number of additional
+        commits on top of the tagged object and the abbreviated object name
+        of the most recent commit.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>gitPath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Git binary</entry>
+                    <entry>/usr/bin/git</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Git repository</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set with output value from git-describe.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>all</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Instead of using only the annotated tags, use any
+                        ref found in refs/ namespace. This option enables
+                        matching any known branch, remote-tracking branch,
+                        or lightweight tag.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>tags</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Instead of using only the annotated tags, use any
+                        tag found in refs/tags namespace. This option enables
+                        matching a lightweight (non-annotated) tag.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>contains</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Instead of finding the tag that predates the commit,
+                        find the tag that comes after the commit, and thus
+                        contains it. Automatically implies --tags.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>long</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Always output the long format (the tag, the number
+                        of commits and the abbreviated commit name) even when
+                        it matches a tag.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>always</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Show uniquely abbreviated commit object as fallback.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>abbrev</literal></entry>
+                    <entry><literal role="type">Integer</literal></entry>
+                    <entry>Instead of using the default 7 hexadecimal
+                        digits as the abbreviated object name, use n digits,
+                        or as many digits as needed to form a unique object name.
+                        An n of 0 will suppress long format, only showing
+                        the closest tag.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>match</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Only consider tags matching the given glob(7)
+                        pattern, excluding the "refs/tags/" prefix.
+                        This can be used to avoid leaking private tags from
+                        the repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>committish</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Commit-ish object names to describe. Defaults to HEAD if omitted.</entry>
+                    <entry>HEAD</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>canditates</literal></entry>
+                    <entry><literal role="type">Integer</literal></entry>
+                    <entry>Instead of considering only the 10 most recent tags
+                        as candidates to describe the input commit-ish consider
+                        up to n candidates. Increasing n above 10 will take
+                        slightly longer but may produce a more accurate result.
+                        An n of 0 will cause only exact matches to be output.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;gitdescribe repository="${repo.dir}"
+    tags="true"
+    abbrev="0"
+    match="*-*-*.*"
+    outputProperty="mostRecentTag" /></programlisting>
+    </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="GrowlNotifyTask">
         <title>GrowlNotifyTask</title>
         <para>When you have a long process and want to be notified when it is finished, without to stay
