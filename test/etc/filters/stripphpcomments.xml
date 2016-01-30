@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project default="cleanup">
+
+  <target name="init">
+    <mkdir dir="result" />
+  </target>
+
+  <target name="cleanup">
+    <delete dir="result"/>
+  </target>
+
+  <target name="testStripPhpComments" depends="init">
+    <copy todir="result" file="input/stripphpcomments.test">
+      <filterchain>
+        <stripphpcomments />
+      </filterchain>
+    </copy>
+  </target>
+
+</project>
