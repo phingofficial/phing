@@ -44,7 +44,7 @@ class JsHintTask extends Task
     /**
      * All fileset objects assigned to this task
      *
-     * @var unknown
+     * @var FileSet[]
      */
     protected $filesets = array();
 
@@ -180,7 +180,8 @@ class JsHintTask extends Task
 
         $this->_checkJsHintIsInstalled();
 
-        $command = 'jshint --reporter=' . $this->reporter . ' ' . implode(' ', $fileList);
+        $fileList = array_map('escapeshellarg', $fileList);
+        $command = sprintf('jshint --reporter=%s %s', $this->reporter, implode(' ', $fileList));
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);

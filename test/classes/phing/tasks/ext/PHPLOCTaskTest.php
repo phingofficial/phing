@@ -66,4 +66,21 @@ class PHPLOCTaskTest extends BuildFileTest
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml');
     }
+
+    public function testFormatters()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt'
+        );
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv'
+        );
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt');
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv');
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml');
+    }
 }

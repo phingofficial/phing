@@ -44,4 +44,16 @@ class ReplaceTokensWithFileTest extends BuildFileTest
             '[filter:ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"'
         );
     }
+
+    /**
+     * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046
+     */
+    public function testSlashInToken()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $this->assertInLogs(
+            '[filter:ReplaceTokensWithFile] Replaced "//#file:testReplace:endfile#" with content from file "testReplace.tpl"'
+        );
+    }
 }

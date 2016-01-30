@@ -37,7 +37,7 @@ class IsFailure implements Condition
      */
     public function setCode($c)
     {
-        $this->code = $c;
+        $this->code = (int) $c;
     }
 
     /**
@@ -50,11 +50,23 @@ class IsFailure implements Condition
     }
 
     /**
+     * Checks whether exitValue signals a failure on the current system.
+     *
+     * @param int $code
+     *
+     * @return bool
+     */
+    protected function isFailureCode($code)
+    {
+        return $code !== 0;
+    }
+
+    /**
      * Fulfill the condition interface.
      * @return boolean the result of evaluating the specified return code.
      */
     public function evaluate()
     {
-        return ExecTask::isFailureCode($this->code);
+        return $this->isFailureCode($this->code);
     }
 }

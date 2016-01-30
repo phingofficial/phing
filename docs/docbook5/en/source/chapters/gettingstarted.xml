@@ -245,8 +245,8 @@
                             </row>
                             <row>
                                 <entry>depends</entry>
-                                <entry>A comma-separated list of targets this target depends
-                                    on.</entry>
+                                <entry>A comma-separated list of targets this target 
+                                    depends on.</entry>
                                 <entry>No</entry>
                             </row>
                             <row>
@@ -367,11 +367,11 @@
             it defines a <link linkend="FileSet">fileset</link> and two <link linkend="Target">targets</link>.
             Let us have a quick rundown of this build file.</para>
 
-        <para> The first five four within the <literal>project</literal> tag define properties. They
-            appear in the two ways this tag can occur: </para>
+        <para> The first four tags within the <literal>project</literal> tag define properties. They
+            appear in two possible variants: </para>
         <itemizedlist>
             <listitem>
-                <para>The second <literal>property</literal> tag contains only the
+                <para>The first <literal>property</literal> tag contains only the
                         <literal>file</literal> attribute. The value has to be a relative or
                     absolute path to a property file (for the format, see <xref
                         xlink:href="#app.fileformats"/>).</para>

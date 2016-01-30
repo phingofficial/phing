@@ -372,10 +372,10 @@
                     </row>
                     <row>
                         <entry><literal>maxparallel</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
                         <entry>Limit the amount of parallelism by passing at most this many sourcefiles at once.
                             Set it to &lt;= 0 for unlimited.</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>0</literal></entry>
                         <entry>No</entry>
                         <entry></entry>
                     </row>
@@ -471,6 +471,110 @@
                 <listitem><para><literal>srcfile</literal></para></listitem>
             </itemizedlist>
         </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="AttribTask">
+    <title>AttribTask</title>
+    <para>Changes the attributes of a file or all files inside specified
+        directories. Right now it has effect only under Windows.
+        Each of the 4 possible permissions has its own attribute,
+        matching the arguments for the attrib command.
+    </para>
+    <para>FileSets or FileLists can be specified using nested <literal>fileset</literal> and <literal>filelist</literal>
+        elements.</para>
+    <para>By default this task won't do anything unless it detects it is running on a Windows system.
+    If you know for sure that you have a "attrib" executable on your PATH that is command line compatible
+    with the Windows command, you can use the task's os attribute and set its value to your current os.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>file</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The file or directory of which the permissions must be changed.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>readonly</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The readonly permission.</entry>
+                    <entry>n/a</entry>
+                    <entry morerows="3" valign="middle">at least one of the four.</entry>
+                </row>
+                <row>
+                    <entry><literal>archive</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The archive permission.</entry>
+                    <entry>n/a</entry>
+                </row>
+                <row>
+                    <entry><literal>system</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The system permission.</entry>
+                    <entry>n/a</entry>
+                </row>
+                <row>
+                    <entry><literal>hidden</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The hidden permission.</entry>
+                    <entry>n/a</entry>
+                </row>
+                <row>
+                    <entry><literal>verbose</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to print a summary after execution or not. Defaults to false.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>os</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>List of Operating Systems on which the command may be executed.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;attrib file="${dist}/run.bat" readonly="true" hidden="true"/></programlisting>
+        <para>makes the "run.bat" file read-only and hidden.
+        </para>
+        <programlisting language="xml">&lt;attrib readonly="false">
+    &lt;fileset dir="${meta.inf}" includes="**/*.xml"/>
+&lt;/attrib></programlisting>
+        <para>makes all ".xml" files below ${meta.inf} readable.
+        </para>
+    </sect2>
+
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal><link linkend="FileList">filelist</link></literal></para>
+            </listitem>
+            <listitem>
+                <para><literal><link linkend="FileSet">fileset</link></literal></para>
+            </listitem>
+        </itemizedlist>
+    </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="AvailableTask">
         <title>AvailableTask </title>
@@ -796,7 +900,8 @@
             <programlisting language="xml">&lt;chown file="my-file.txt" user="foo" />
 &lt;chown file="my-file.txt" user="username.groupname" />
 &lt;chown file="/home/test/my-directory" user="bar" />
-&lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /></programlisting>
+&lt;chown file="/home/test/my-file.txt" user="foo"
+verbose="true" failonerror="false" /></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -1485,7 +1590,7 @@
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="echoproperties">
-        <title>echoproperties</title>
+        <title>EchoPropertiesTask </title>
         <para> Displays all the current properties in the project.
             The output can be sent to a file if desired.
             This task can be used as a somewhat contrived means of returning data from an <literal>&lt;phing></literal>
@@ -1543,7 +1648,7 @@
                     </row>
                     <row>
                         <entry><literal>failonerror</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
                         <entry>By default, the "failonerror" attribute is enabled.
                             If an error occurs while writing the properties to a file, and this attribute is enabled,
                             then a BuildException will be thrown, causing the build to fail.
@@ -1838,6 +1943,14 @@
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>status</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Exit using the specified status code; assuming the generated Exception is not caught,
+                            PHP will exit with this status.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -1850,7 +1963,23 @@
 &lt;fail if="errorprop" message="Detected error!" />
 
 &lt;!-- Exit unless ${dontfail} prop is defined. -->
-&lt;fail unless="dontfail" message="Detected error!" /></programlisting>
+&lt;fail unless="dontfail" message="Detected error!" />
+
+&lt;!-- Using a condition to achieve the same effect:
+&lt;fail message="Detected error!">
+    &lt;condition>
+        &lt;not>
+            &lt;isset property="dontfail"/>
+        &lt;/not>
+    &lt;/condition>
+&lt;/fail></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Parameters specified as nested elements.</title>
+            <para>As an alternative to the <literal>if/unless</literal> attributes, conditional failure can be achieved
+                using a single nested <literal>&lt;condition></literal> element,
+                which should contain exactly one core or custom condition.
+            </para>
         </sect2>
     </sect1>
 
@@ -2400,77 +2529,6 @@
                 is a child of CopyTask and inherits all attributes.</para>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="PathToFileSetTask">
-        <title>PathToFileSetTask</title>
-        <para>Coverts a path to a fileset. This is useful if you have a path but need to use a fileset as input
-            in a phing task.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>dir</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The root of the directory tree of this FileSet.</entry>
-                        <entry><literal>n/a</literal></entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>pathrefid</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The reference to the path to convert from.</entry>
-                        <entry><literal>n/a</literal></entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>ignorenonrelative</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This boolean controls what will happen if any of the files in the path are not in the
-                            directory for the fileset. If this is "true" the files are ignored, if this is "false"
-                            a build exception is thrown. (Note: if files are not present no check is made).</entry>
-                        <entry>false</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>name</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>This is the identifier of the fileset to create. This fileset will contain the files that
-                            are relative to the directory root. Any files that are not present will not be placed in the
-                            set.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Examples</title>
-            <programlisting language="xml">&lt;path id="modified.sources.path" dir="C:\Path\to\phing\classes\phing\" />
-&lt;pathtofileset name="modified.sources.fileset"
-                  pathrefid="modified.sources.path"
-                  dir="." />
-
-&lt;copy todir="C:\Path\to\phing\docs\api">
-    &lt;mapper type="glob" from="*.php" to="*.php.bak" />
-    &lt;fileset refid="modified.sources.fileset" />
-&lt;/copy></programlisting>
-        </sect2>
-    </sect1>
     <sect1 role="taskdef" xml:id="PhingTask">
         <title>PhingTask </title>
         <para>This task calls another build file. You may specify the target that is to be called
@@ -2550,7 +2608,7 @@
         <sect2>
             <title>Examples</title>
             <programlisting language="xml">&lt;!-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
- &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
+&lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
 
 &lt;!-- Do a more complex call -->
 &lt;phing phingfile="somebuild.xml" target="sometarget">
@@ -3334,8 +3392,8 @@
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;retry retrycount="3">
-                $lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/>
-                &lt;/retry></programlisting>
+       &lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/>
+&lt;/retry></programlisting>
             <para>This example shows how to use <literal>&lt;retry></literal> to
                 wrap a task which must interact with an unreliable network resource.
             </para>
@@ -4000,7 +4058,8 @@ Includes the Type named "CustomProject" and makes it available by
         </table>
         <sect2>
             <title>Examples</title>
-            <programlisting language="xml">&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
+            <programlisting language="xml">&lt;uptodate property="propelBuild.notRequired"
+  targetfile="${deploy}/propelClasses.tgz">
   &lt;fileset dir="${src}/propel">
     &lt;include="**/*.php"/>
   &lt;/fileset>

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -26,7 +26,7 @@
  * @version  $Id$
  * @package  phing
  */
-class BuildException extends Exception
+class BuildException extends RuntimeException
 {
 
     /**
@@ -54,7 +54,7 @@ class BuildException extends Exception
      * @param Location|Exception|null $p2
      * @param Location|null           $p3
      */
-    public function __construct($p1, $p2 = null, $p3 = null)
+    public function __construct($p1 = "", $p2 = null, $p3 = null)
     {
 
         $cause = null;
@@ -126,5 +126,4 @@ class BuildException extends Exception
         $this->location = $loc;
         $this->message = $loc->toString() . ': ' . $this->message;
     }
-
 }

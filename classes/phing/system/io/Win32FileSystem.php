@@ -231,6 +231,8 @@ class Win32FileSystem extends FileSystem
      */
     public function normalize($strPath)
     {
+        $strPath = $this->fixEncoding($strPath);
+
         if ($this->_isPharArchive($strPath)) {
             return str_replace('\\', '/', $strPath);
         }
@@ -618,6 +620,23 @@ class Win32FileSystem extends FileSystem
         @closedir($dir);
 
         return $vv;
+    }
+
+    /**
+     * On Windows platforms, PHP will mangle non-ASCII characters, see http://bugs.php.net/bug.php?id=47096
+     *
+     * @param $strPath
+     * @return mixed|string
+     */
+    private function fixEncoding($strPath)
+    {
+        $codepage = 'Windows-' . trim(strstr(setlocale(LC_CTYPE, 0), '.'), '.');
+        if (function_exists('iconv')) {
+            $strPath = iconv('UTF-8', $codepage . '//IGNORE', $strPath);
+        } elseif (function_exists('mb_convert_encoding')) {
+            $strPath = mb_convert_encoding($strPath, $codepage, 'UTF-8');
+        }
+        return $strPath;
     }
 
 }

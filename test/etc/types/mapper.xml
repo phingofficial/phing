@@ -42,6 +42,29 @@
       </copy>
   </target>
 
+  <target name="test4">
+    <mkdir dir="copytest" />
+    <copy todir="copytest" enableMultipleMappings="true">
+      <mapper type="firstmatch">
+        <mapper type="glob" from="*.xml" to="*.php1"/>
+        <mapper type="glob" from="*.php" to="*.php2"/>
+      </mapper>
+      <fileset dir="../../../classes/phing/mappers"/>
+    </copy>
+  </target>
+
+  <target name="testCutDirsMapper">
+    <property name="input" value="copytest/testinput"/>
+    <property name="output" value="copytest/testoutput"/>
+    <mkdir dir="${input}/a/b/c"/>
+    <touch file="${input}/a/b/D"/>
+    <touch file="${input}/a/b/c/E"/>
+    <copy todir="${output}">
+      <mapper type="cutdirs" to="2"/>
+      <fileset dir="${input}"/>
+    </copy>
+  </target>
+
   <target name="cleanup">
     <delete dir="copytest" />
   </target>

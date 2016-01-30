@@ -39,7 +39,7 @@ require_once 'PhpDocumentor/phpDocumentor/Errors.inc';
 class PhingPhpDocumentorErrorTracker extends ErrorTracker
 {
 
-    /*
+    /**
      * @var object	Reference to the task we're called with
      */
     private $task;

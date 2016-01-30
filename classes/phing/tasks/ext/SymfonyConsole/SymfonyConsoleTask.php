@@ -35,7 +35,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      *
-     * @var Array of Arg a collection of Arg objects
+     * @var Arg[] a collection of Arg objects
      */
     private $args = array();
 
@@ -49,7 +49,7 @@ class SymfonyConsoleTask extends Task
      *
      * @var string path to symfony console application
      */
-    private $console = 'php app/console';
+    private $console = 'app/console';
 
     /**
      *
@@ -106,7 +106,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * Set the name of the property to store the hash value in
+     * Set the name of the property to store the application output in
      * @param $property
      * @return void
      */
@@ -197,7 +197,7 @@ class SymfonyConsoleTask extends Task
             $this->createArg()->setName("no-debug");
         }
         $cmd = array(
-            $this->console,
+            Commandline::quoteArgument($this->console),
             $this->command,
             implode(' ', $this->args)
         );

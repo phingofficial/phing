@@ -245,8 +245,14 @@ class Mapper extends DataType
                 case 'composite':
                     $this->classname = 'phing.mappers.CompositeMapper';
                     break;
+                case 'cutdirs':
+                    $this->classname = 'phing.mappers.CutDirsMapper';
+                    break;
                 case 'identity':
                     $this->classname = 'phing.mappers.IdentityMapper';
+                    break;
+                case 'firstmatch':
+                    $this->classname = 'phing.mappers.FirstMatchMapper';
                     break;
                 case 'flatten':
                     $this->classname = 'phing.mappers.FlattenMapper';

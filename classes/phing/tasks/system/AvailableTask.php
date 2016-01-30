@@ -21,7 +21,7 @@
 
 require_once 'phing/Task.php';
 include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/tasks/system/condition/ConditionBase.php';
+include_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * <available> task.
@@ -33,7 +33,7 @@ include_once 'phing/tasks/system/condition/ConditionBase.php';
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class AvailableTask extends Task
+class AvailableTask extends Task implements Condition
 {
 
     /** Property to check for. */

@@ -311,4 +311,25 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
         return $o;
     }
 
+    /**
+     * add a readable selector entry on the selector list
+     */
+    public function createReadable()
+    {
+        $o = new ReadableSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
+     * add a writable selector entry on the selector list
+     */
+    public function createWritable()
+    {
+        $o = new WritableSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
 }

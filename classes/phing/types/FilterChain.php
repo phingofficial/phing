@@ -28,6 +28,7 @@ include_once 'phing/filters/LineContains.php';
 include_once 'phing/filters/LineContainsRegexp.php';
 include_once 'phing/filters/EscapeUnicode.php';
 include_once 'phing/filters/ExpandProperties.php';
+include_once 'phing/filters/PhpArrayMapLines.php';
 include_once 'phing/filters/PrefixLines.php';
 include_once 'phing/filters/ReplaceRegexp.php';
 include_once 'phing/filters/ReplaceTokens.php';
@@ -168,6 +169,15 @@ class FilterChain extends DataType
      * @param PrefixLines $o
      */
     public function addEscapeUnicode(EscapeUnicode $o)
+    {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
+    /**
+     * @param PhpArrayMapLines $o
+     */
+    public function addPhpArrayMapLines(PhpArrayMapLines $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;

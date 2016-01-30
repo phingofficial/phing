@@ -131,11 +131,15 @@ class rSTTaskTest extends BuildFileTest
 
     public function testGetToolPathHtmlFormat()
     {
-        $rt = new rSTTask();
-        $ref = new ReflectionClass($rt);
-        $method = $ref->getMethod('getToolPath');
-        $method->setAccessible(true);
-        $this->assertContains('rst2html', $method->invoke($rt, 'html'));
+        if (method_exists('ReflectionMethod', 'setAccessible')) {
+            $rt = new rSTTask();
+            $ref = new ReflectionClass($rt);
+            $method = $ref->getMethod('getToolPath');
+            $method->setAccessible(true);
+            $this->assertContains('rst2html', $method->invoke($rt, 'html'));
+        } else {
+            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
+        }
     }
 
     public function testSingleFileParameterFile()

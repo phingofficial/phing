@@ -2,6 +2,36 @@ P     H     I     N     G
 =========================
 
 
+Dec. 4, 2015 - Phing 2.13
+-------------------------
+
+This release contains the following new or improved functionality:
+
+ * '-listener' command line argument
+ * SSL connections in FtpDeploy task
+ * IsFailure condition
+ * Crap4J PHPUnit formatter
+ * FirstMatch mapper
+ * PhpArrayMapLines filter
+ * NotifySend, Attrib tasks
+ * Json and Xml command line loggers
+ * Property parser now supports YAML files
+ * PHPUnit 5.x supported
+ * PHP 7 fixes
+ * Updated Apigen support
+ * PhpCodeSniffer task can now populate a property with used sniffs
+ * PHPMD and PhpCodeSniffer task can now cache results to speed up
+   subsequent runs
+ * Various typo and bug fixes, documentation updates
+
+The following tickets were closed in this release:
+
+ * [1224] JSHint and space in the path of the workspace (Windows 7)
+ * [1221] Case insensitive switch doesn't work
+ * [1217] Add ability to ignore symlinks in zip task
+ * [1212] Add support for formatters for PhpLoc task
+ * [1187] Disable compression of phing.phar to make it work on hhvm
+
 Aug. 24, 2015 - Phing 2.12
 --------------------------
 

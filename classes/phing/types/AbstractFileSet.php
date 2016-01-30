@@ -44,6 +44,8 @@ include_once 'phing/types/selectors/OrSelector.php';
 include_once 'phing/types/selectors/PresentSelector.php';
 include_once 'phing/types/selectors/SizeSelector.php';
 include_once 'phing/types/selectors/TypeSelector.php';
+include_once 'phing/types/selectors/ReadableSelector.php';
+include_once 'phing/types/selectors/WritableSelector.php';
 
 include_once 'phing/util/DirectoryScanner.php';
 
@@ -228,6 +230,12 @@ class AbstractFileSet extends DataType implements SelectorContainer
         }
 
         return $this->defaultPatterns->createExcludesFile();
+    }
+
+    public function setFile(PhingFile $file)
+    {
+        $this->setDir($file->getParentFile());
+        $this->createInclude()->setName($file->getName());
     }
 
     /**
@@ -703,6 +711,28 @@ class AbstractFileSet extends DataType implements SelectorContainer
     public function createType()
     {
         $o = new TypeSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
+     * add a readable selector entry on the selector list
+     */
+    public function createReadable()
+    {
+        $o = new ReadableSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
+     * add a writable selector entry on the selector list
+     */
+    public function createWritable()
+    {
+        $o = new WritableSelector();
         $this->appendSelector($o);
 
         return $o;
