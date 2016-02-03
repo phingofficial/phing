@@ -155,8 +155,13 @@ class FormatterElement
         }
 
         if ($this->type == "summary") {
-            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
-            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
+            if (version_compare(PHP_VERSION, '5.5.0', 'ge')) {
+                require_once 'phing/tasks/ext/phpunit/formatter/SummaryYieldPHPUnitResultFormatter.php';
+                $this->formatter = new SummaryYieldPHPUnitResultFormatter($this->parent);
+            } else {
+                require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
+                $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
+            }
         } elseif ($this->type == "clover") {
             require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
             $this->formatter = new CloverPHPUnitResultFormatter($this->parent);

@@ -68,6 +68,8 @@ class PHPUnitTask extends Task
      */
     private $configuration = null;
 
+    protected $withPhpGenerator;
+
     /**
      * Initialize Task.
      * This method includes any necessary PHPUnit libraries and triggers
@@ -76,6 +78,7 @@ class PHPUnitTask extends Task
      */
     public function init()
     {
+        $this->withPhpGenerator = version_compare(PHP_VERSION, '5.5.0', 'ge');
     }
 
     private function loadPHPUnit()
@@ -443,24 +446,40 @@ class PHPUnitTask extends Task
             require $this->bootstrap;
         }
 
-        foreach ($this->batchtests as $batchTest) {
-            $this->appendBatchTestToTestSuite($batchTest, $suite);
-        }
 
-        $this->execute($suite);
+        if ($this->withPhpGenerator) {
+            foreach ($this->batchtests as $batchTest) {
+                foreach ($batchTest->elements() as $element) {
+                    $suite->setTests(array());
+
+                    $testClass = new $element();
+                    if (!($testClass instanceof PHPUnit_Framework_TestSuite)) {
+                        $testClass = new ReflectionClass($element);
+                    }
+                    $suite->addTestSuite($testClass);
+
+                    $this->execute($suite);
+                }
+            }
+        } else {
+            foreach ($this->batchtests as $batchTest) {
+                $this->appendBatchTestToTestSuite($batchTest, $suite);
+            }
+            $this->execute($suite);
+        }
 
         if ($this->testfailed) {
             throw new BuildException($this->testfailuremessage);
         }
 
         $autoloadNew = spl_autoload_functions();
-        if(is_array($autoloadNew)) {
+        if (is_array($autoloadNew)) {
             foreach ($autoloadNew as $autoload) {
                 spl_autoload_unregister($autoload);
             }
         }
 
-        if(is_array($autoloadSave)) {
+        if (is_array($autoloadSave)) {
             foreach ($autoloadSave as $autoload) {
                 spl_autoload_register($autoload);
             }
@@ -566,10 +585,10 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest                   $batchTest
+     * @param BatchTest|BatchTestYield    $batchTest
      * @param PHPUnit_Framework_TestSuite $suite
      */
-    protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
+    protected function appendBatchTestToTestSuite($batchTest, PHPUnit_Framework_TestSuite $suite)
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
@@ -595,7 +614,13 @@ class PHPUnitTask extends Task
      */
     public function createBatchTest()
     {
-        $batchtest = new BatchTest($this->getProject());
+        if ($this->withPhpGenerator) {
+            // requires PHP 5.5 or above
+            require_once 'phing/tasks/ext/phpunit/BatchTestYield.php';
+            $batchtest = new BatchTestYield($this->getProject());
+        } else {
+            $batchtest = new BatchTest($this->getProject());
+        }
 
         $this->batchtests[] = $batchtest;
 
