@@ -38,7 +38,8 @@
         "sebastian/phpcpd": "2.x",
         "sebastian/git": "~1.0",
         "squizlabs/php_codesniffer": "~2.2",
-        "symfony/yaml": "~2.7"
+        "symfony/yaml": "~2.7",
+        "mikey179/vfsStream": "^1.6"
     },
     "autoload": {
         "classmap": ["classes/phing/"]

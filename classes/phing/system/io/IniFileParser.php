@@ -36,15 +36,15 @@ class IniFileParser implements FileParserInterface
      */
     public function parseFile(PhingFile $file)
     {
-        if (($lines = @file($file)) === false) {
+        if (($lines = @file($file, FILE_IGNORE_NEW_LINES)) === false) {
             throw new IOException("Unable to parse contents of $file");
         }
 
         // concatenate lines ending with backslash
         $linesCount = count($lines);
         for ($i = 0; $i < $linesCount; $i++) {
-            if (substr($lines[$i], -2, 1) === '\\') {
-                $lines[$i + 1] = substr($lines[$i], 0, -2) . ltrim($lines[$i + 1]);
+            if (substr($lines[$i], -1, 1) === '\\') {
+                $lines[$i + 1] = substr($lines[$i], 0, -1) . ltrim($lines[$i + 1]);
                 $lines[$i] = '';
             }
         }
