@@ -162,6 +162,21 @@ class ServerTask extends Task
                     )
                 );
             } else {
+                // Wait 0.5 seconds to allow the webserver to shutdown.
+                usleep(500000);
+                if(!proc_get_status($handle)['running'])
+                {
+                    rewind($temp_err);
+                    $err_message = stream_get_contents($temp_err);
+
+                    throw new BuildException(
+                        sprintf(
+                            "Web server stopped prematurely. Server reported: %s",
+                            $err_message
+                        )
+                    );
+                }
+
                 $this->log(
                     sprintf(
                         "Started web server, listening on http://%s:%d",
