@@ -142,45 +142,56 @@ class ServerTask extends Task
 
         $cmd = Commandline::toString($this->commandline->getCommandline(), true);
 
+        $temp_out = tmpfile();
+        $temp_err = tmpfile();
+
         $streams = array(
             array("file", "/dev/null", "r"),
-            array("file", "/dev/null", "w"),
-            array("file", "/dev/null", "w"),
+            $temp_out,
+            $temp_err
         );
 
         $handle = proc_open($cmd, $streams, $pipes);
 
-        if (!is_resource($handle)) {
-            throw new BuildException(
-                sprintf(
-                    "%s failed to start server process.",
-                    get_class($this)
-                )
-            );
-        } else {
-            $this->log(
-                sprintf(
-                    "Started web server, listening on http://%s:%d",
-                    $this->address,
-                    $this->port
-                ),
-                Project::MSG_INFO
-            );
-
-            $msg = isset($this->router)
-                ? sprintf("with %s as docroot and %s as router", $this->docroot, $this->router)
-                : sprintf("with %s as docroot", $this->docroot);
-
-            $this->log($msg, Project::MSG_VERBOSE);
-        }
-
         try {
-            foreach ($this->tasks as $task) {
-                $task->perform();
+            if (!is_resource($handle)) {
+                throw new BuildException(
+                    sprintf(
+                        "%s failed to start server process.",
+                        get_class($this)
+                    )
+                );
+            } else {
+                $this->log(
+                    sprintf(
+                        "Started web server, listening on http://%s:%d",
+                        $this->address,
+                        $this->port
+                    ),
+                    Project::MSG_INFO
+                );
+
+                $msg = isset($this->router)
+                    ? sprintf("with %s as docroot and %s as router", $this->docroot, $this->router)
+                    : sprintf("with %s as docroot", $this->docroot);
+
+                $this->log($msg, Project::MSG_VERBOSE);
+            }
+
+
+            try {
+                foreach ($this->tasks as $task) {
+                    $task->perform();
+                }
+            } catch(Exception $e) {
+                $exception = $e;
             }
         } catch(Exception $e) {
             $exception = $e;
         }
+
+        fclose($temp_out);
+        fclose($temp_err);
 
         // Terminate server with SIGINT
         proc_terminate($handle, 2);
