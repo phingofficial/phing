@@ -152,7 +152,10 @@ class ServerTask extends Task
 
         if (!is_resource($handle)) {
             throw new BuildException(
-                get_class($this) . ' could not start web server.'
+                sprintf(
+                    "%s failed to start server process.",
+                    get_class($this)
+                )
             );
         } else {
             $this->log(
