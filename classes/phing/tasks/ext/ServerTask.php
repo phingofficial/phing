@@ -176,7 +176,8 @@ class ServerTask extends Task
             } else {
                 // Wait 0.5 seconds to allow the webserver to shutdown.
                 usleep(500000);
-                if(!proc_get_status($handle)['running'])
+                $server_status = proc_get_status($handle);
+                if(!$server_status['running'])
                 {
                     rewind($temp_err);
                     $err_message = stream_get_contents($temp_err);
