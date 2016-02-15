@@ -1036,7 +1036,9 @@
                     <row>
                         <entry><literal>exclude</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Excluded file matching pattern.</entry>
+                        <entry>Excluded file matching pattern. Use
+                        comma seperated values to exclude multiple
+                        files/directories, e.g.: a,b</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>

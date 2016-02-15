@@ -93,6 +93,7 @@ class FileSyncTask extends Task
 
     /**
      * Exclude file matching pattern.
+     * Use comma seperated values to exclude multiple files/directories, e.g.: a,b
      * @var string
      */
     protected $exclude;
@@ -297,7 +298,9 @@ class FileSyncTask extends Task
         }
 
         if ($this->exclude !== null) {
-            $options .= ' --exclude="' . $this->exclude . '"';
+            //remove trailing comma if any
+            $this->exclude = trim($this->exclude, ',');
+            $options .= ' --exclude="' . str_replace(',', '" --exclude="', $this->exclude) . '"';
         }
 
         if ($this->excludeFile !== null) {
