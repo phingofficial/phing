@@ -417,6 +417,12 @@ class PHPUnitTask extends Task
 
         $suite = new PHPUnit_Framework_TestSuite('AllTests');
 
+        $autoloadSave = spl_autoload_functions();
+
+        if ($this->bootstrap) {
+            require $this->bootstrap;
+        }
+
         if ($this->configuration) {
             $arguments = $this->handlePHPUnitConfiguration($this->configuration);
 
@@ -435,12 +441,6 @@ class PHPUnitTask extends Task
             $fe->setType("summary");
             $fe->setUseFile(false);
             $this->formatters[] = $fe;
-        }
-
-        $autoloadSave = spl_autoload_functions();
-
-        if ($this->bootstrap) {
-            require $this->bootstrap;
         }
 
         foreach ($this->batchtests as $batchTest) {
