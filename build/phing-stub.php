@@ -6,7 +6,8 @@ try {
     include 'phar://phing.phar/bin/phing.php';
 } catch (PharException $e) {
     echo $e->getMessage();
-    die('Cannot initialize Phar');
+    echo 'Cannot initialize Phar';
+    exit(1);
 }
 
 __HALT_COMPILER();
