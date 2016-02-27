@@ -1755,7 +1755,7 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>By default, we escape shell metacharacters before executing. Setting
                             this to false will disable this precaution.</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
