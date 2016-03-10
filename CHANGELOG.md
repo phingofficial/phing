@@ -2,6 +2,38 @@ P     H     I     N     G
 =========================
 
 
+Mar. 10, 2016 - Phing 2.14
+--------------------------
+
+This release contains the following new or improved functionality:
+
+ * Phing can now emit a specific status code on exit after failing
+ * Added IsPropertyTrue/IsPropertyFalse conditions
+ * Added IsWritable / IsReadable selectors
+ * Added GitDescribe task
+ * Added CutDirs mapper
+ * Line breaks in property files on Windows machines fixed
+ * FileSync task now supports excluding multiple files/directories
+ * Various typo and bug fixes, documentation updates
+
+The following tickets were closed in this release:
+
+ * [1245] ExecTask documentation has incorrect escape attribute default value
+ * [1244] phpunit task -- problem when listener depends on bootstrap
+ * [1242] symfonyConsoleTask does not quote path to console
+ * [1241] SymfonyConsoleTask's checkreturn / propertyname are not documented
+ * [1239] ResolvePath just concatenates if "dir" attribute is present
+ * [1237] HttpGetTask should catch HTTP_Request2_Exception, throw BuildException
+ * [1236] version-compare condition typo in documentation
+ * [1235] misworded sentence in documentation
+ * [1234] IsFailure condition always evaluates to TRUE
+ * [1231] JsHintTask fails when filename contains double quotes
+ * [1198] PropertyTask resolving UTF-8 special chars in file attribute
+ * [1194] Update relax-ng schema
+ * [1132] Provide SHA512 sum of all generated archives for a release
+ * [1131] Verification of changelog file fails when your file is in a directory added in your classpathref
+ * [1046] ReplaceTokensWithFile doesn't support begintoken/endtokens with / in them
+
 Dec. 4, 2015 - Phing 2.13
 -------------------------
 
