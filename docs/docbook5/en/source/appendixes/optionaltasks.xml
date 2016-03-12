@@ -10229,6 +10229,95 @@ host="webserver" todir="/www/htdocs/project/">
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="SmartyTask">
+        <title>SmartyTask</title>
+        <para>A task for generating output by using Smarty.</para>
+
+        <table>
+            <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>controlTemplate</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The control template used to generate the output.</entry>
+                            <entry>none</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>templatePath</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The path where Smarty will look for templates.</entry>
+                            <entry>none</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>outputDirectory</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The output directory, will be created if it doesn't exist.</entry>
+                            <entry>none</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>compilePath</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The path Smarty uses as a "cache" for compiled templates.</entry>
+                            <entry>none</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>forceCompile</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>Whether Smarty should always recompile templates.</entry>
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>configPath</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The path where Smarty will look for config files.</entry>
+                            <entry>none</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>leftDelimiter</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The template left delimiter.</entry>
+                            <entry>none</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>rightDelimiter</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The template right delimiter.</entry>
+                            <entry>none</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>contextProperties</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The path to a property file that will be fed into the initial template context.</entry>
+                            <entry>none</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+        </table>
+    </sect1>
     <sect1 role="taskdef" xml:id="SshTask">
         <title>SshTask</title>
         <para> The <literal>SshTask</literal> executes commands on a remote host using ssh. This
