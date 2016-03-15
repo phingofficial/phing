@@ -127,6 +127,9 @@ class Phing
     /** Whether to capture PHP errors to buffer. */
     private static $phpErrorCapture = false;
 
+    /** Whether to values in a property file should override existing values. */
+    private $propertyFileOverride = false;
+
     /** Array of captured PHP errors */
     private static $capturedPhpErrors = array();
 
@@ -419,6 +422,11 @@ class Phing
             unset($args[$key]);
         }
 
+        if (false !== ($key = array_search('-propertyfileoverride', $args, true))) {
+            $this->propertyFileOverride = true;
+            unset($args[$key]);
+        }
+
         // 3) Finally, cycle through to parse remaining args
         //
         $keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
@@ -503,10 +511,18 @@ class Phing
                     $msg = "You must specify a filename when using the -propertyfile argument";
                     throw new ConfigurationException($msg);
                 } else {
-                    $p = new Properties();
-                    $p->load(new PhingFile($args[++$i]));
+                    $filename = $args[++$i];
+                    $fileParserFactory = new FileParserFactory();
+                    $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
+                    $p = new Properties(null, $fileParser);
+                    $p->load(new PhingFile($filename));
                     foreach ($p->getProperties() as $prop => $value) {
-                        $this->setProperty($prop, $value);
+                        if ($this->propertyFileOverride) {
+                            self::$definedProps->setProperty($prop, $value);
+                        }
+                        else {
+                            $this->setProperty($prop, $value);
+                        }
                     }
                 }
             } elseif ($arg == "-keep-going" || $arg == "-k") {
@@ -1006,6 +1022,7 @@ class Phing
         $msg .= "  -keep-going, -k        execute all targets that do not depend" . PHP_EOL;
         $msg .= "                         on failed target(s)" . PHP_EOL;
         $msg .= "  -propertyfile <file>   load all properties from file" . PHP_EOL;
+        $msg .= "  -propertyfileoverride  values in property file override existing values" . PHP_EOL;
         $msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
         $msg .= "                         filesystem and use it" . PHP_EOL;
         $msg .= "  -inputhandler <file>   the class to use to handle user input" . PHP_EOL;
