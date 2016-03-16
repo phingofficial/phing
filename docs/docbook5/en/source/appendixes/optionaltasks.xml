@@ -9559,6 +9559,67 @@ description="Measures the size of the project and count it's tests">
 &lt;echo message="${pack.name}"/></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="ReplaceRegexpTask">
+        <title>>ReplaceRegexpTask</title>
+        <para>Replaces the occurrences of a given regular expression with a substitution pattern
+            in a selected file or set of files.</para>
+        <table>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>File to apply regular expression on</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes (or <literal>fileset</literal>)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>match</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Regular expression match pattern</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes (or <literal>pattern</literal>)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pattern</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Regular expression match pattern</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>replace</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The replacement string</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
         <title>rSTTask</title>
         <para> Renders rST (reStructuredText) files into different output formats.</para>
