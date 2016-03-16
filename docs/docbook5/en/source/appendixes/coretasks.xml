@@ -467,7 +467,7 @@
                 </listitem>
                 <listitem><para><literal><link linkend="FileSet">fileset</link></literal></para></listitem>
                 <listitem><para><literal><link linkend="FileList">filelist</link></literal></para></listitem>
-                <listitem><para><literal><link linkend="DirSet">dirset</link></literal></para></listitem>
+                <listitem><para><literal>dirset</literal></para></listitem>
                 <listitem><para><literal>srcfile</literal></para></listitem>
             </itemizedlist>
         </sect2>
@@ -686,7 +686,7 @@
         </sect2>
 
     </sect1>
-    <sect1 role="taskdef" xml:id="Basename">
+    <sect1 role="taskdef" xml:id="BasenameTask">
         <title>Basename </title>
         <para>Task to determine the basename of a specified file, optionally minus a specified suffix. </para>
         <para>When this task executes, it will set the specified property to the value of the last path element
@@ -1437,7 +1437,7 @@ verbose="true" failonerror="false" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="Diagnostics">
+    <sect1 role="taskdef" xml:id="DiagnosticsTask">
         <title>Diagnostics</title>
         <para> Runs phing's -diagnostics code inside phing itself.
             This is good for debugging phing's configuration under an IDE.
@@ -1449,7 +1449,7 @@ verbose="true" failonerror="false" /></programlisting>
                 &lt;/target></programlisting>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="Dirname">
+    <sect1 role="taskdef" xml:id="DirnameTask">
         <title>Dirname</title>
         <para> Task to determine the directory path of a specified file.
         </para>
@@ -1589,7 +1589,7 @@ verbose="true" failonerror="false" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="echoproperties">
+    <sect1 role="taskdef" xml:id="EchoPropertiesTask">
         <title>EchoPropertiesTask </title>
         <para> Displays all the current properties in the project.
             The output can be sent to a file if desired.
@@ -1679,7 +1679,7 @@ verbose="true" failonerror="false" /></programlisting>
                 could not be created or written to, but will still allow the build to continue.</para>
             <programlisting language="xml">&lt;echoproperties prefix="phing."/></programlisting>
             <para>List all properties beginning with "phing."</para>
-            <echoproperties regex="/.*phing.*/"/>
+            <programlisting language="xml">&lt;echoproperties regex="/.*phing.*/"/></programlisting>
             <para>Lists all properties that contain "phing" in their names.</para>
         </sect2>
     </sect1>
@@ -3117,7 +3117,7 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;echo>${someprop}&lt;/echo></programlisting>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="Record">
+    <sect1 role="taskdef" xml:id="RecordTask">
         <title>Record</title>
         <para> A recorder is a listener to the current build process that records the output to a file.
         </para>
@@ -3345,7 +3345,7 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;echo>Resolved [absolute] path: ${absolute_path}&lt;/echo></programlisting>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="Retry">
+    <sect1 role="taskdef" xml:id="RetryTask">
         <title>Retry</title>
         <para> Retry is a container which executes a single nested task until
             either: there is no failure; or: its retrycount has been exceeded.
