@@ -107,6 +107,9 @@ class Project
     /**  Build listeneers */
     private $listeners = array();
 
+    /** @var DefaultExcludesContainer $globalExcludes */
+    private $globalExcludes;
+
     /**
      * Keep going flag.
      */
@@ -117,8 +120,25 @@ class Project
      */
     public function __construct()
     {
-        $this->fileUtils = new FileUtils();
-        $this->inputHandler = new DefaultInputHandler();
+        $this->globalExcludes = new DefaultExcludesContainer();
+        $this->fileUtils      = new FileUtils();
+        $this->inputHandler   = new DefaultInputHandler();
+    }
+
+    /**
+     * @return DefaultExcludesContainer
+     */
+    public function getGlobalExcludes()
+    {
+        return $this->globalExcludes;
+    }
+
+    /**
+     * @param DefaultPatternContainer $excludes
+     */
+    public function setGlobalExcludes(DefaultPatternContainer $excludes)
+    {
+        $this->globalExcludes = $excludes;
     }
 
     /**
