@@ -26,7 +26,6 @@ include_once 'phing/system/io/FileParserInterface.php';
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
- * @requires PHP 5.3
  */
 class IniFileParserTest extends PHPUnit_Framework_TestCase
 {
@@ -35,9 +34,13 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->parser = new IniFileParser();
-        $vfsStreamClass = 'org\bovigo\vfs\vfsStream';
-        $this->root = $vfsStreamClass::setup();
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
+        } else {
+            $this->parser = new IniFileParser();
+            // php 5.2 parser compatibility ...
+            $this->root = call_user_func('org\bovigo\vfs\vfsStream::setup');
+        }
     }
 
     /**
