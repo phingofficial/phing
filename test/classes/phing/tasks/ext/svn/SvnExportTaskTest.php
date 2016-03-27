@@ -31,7 +31,7 @@ class SvnExportTaskTest extends AbstractSvnTaskTest
 {
     public function setUp()
     {
-        parent::setUp('SvnExportTest.xml', false);
+        $this->initialize('SvnExportTest.xml', false);
     }
 
     public function testExportSimple()

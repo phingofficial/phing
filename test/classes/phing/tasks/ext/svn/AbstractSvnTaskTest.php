@@ -33,7 +33,7 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
 
     protected $savedErrorLevel = 0;
 
-    public function setUp($buildFilename, $createDirectory = true)
+    protected function initialize($buildFilename, $createDirectory = true)
     {
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory

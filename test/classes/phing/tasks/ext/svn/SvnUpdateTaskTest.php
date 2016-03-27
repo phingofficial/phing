@@ -31,7 +31,7 @@ class SvnUpdateTaskTest extends AbstractSvnTaskTest
 {
     public function setUp()
     {
-        parent::setUp('SvnUpdateTest.xml', false);
+        $this->initialize('SvnUpdateTest.xml', false);
     }
 
     public function testUpdateSimple()

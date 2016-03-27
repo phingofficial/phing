@@ -31,7 +31,7 @@ class SvnListTaskTest extends AbstractSvnTaskTest
 {
     public function setUp()
     {
-        parent::setUp('SvnListTest.xml');
+        $this->initialize('SvnListTest.xml');
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 

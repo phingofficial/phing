@@ -31,7 +31,7 @@ class SvnCheckoutTaskTest extends AbstractSvnTaskTest
 {
     public function setUp()
     {
-        parent::setUp('SvnCheckoutTest.xml');
+        $this->initialize('SvnCheckoutTest.xml');
     }
 
     public function testCheckoutSimple()

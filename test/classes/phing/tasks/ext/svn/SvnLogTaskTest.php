@@ -31,7 +31,7 @@ class SvnLogTaskTest extends AbstractSvnTaskTest
 {
     public function setUp()
     {
-        parent::setUp('SvnLogTest.xml');
+        $this->initialize('SvnLogTest.xml');
     }
 
     public function testGetLog()
