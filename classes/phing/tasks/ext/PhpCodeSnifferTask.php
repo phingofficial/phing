@@ -63,6 +63,10 @@ class PhpCodeSnifferTask extends Task
     // parameters to customize output
     protected $showSniffs = false;
     protected $format = 'full';
+
+    /**
+     * @var PhpCodeSnifferTask_FormatterElement[]
+     */
     protected $formatters = array();
 
     /**
@@ -322,7 +326,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Create object for nested formatter element.
-     * @return CodeSniffer_FormatterElement
+     * @return PhpCodeSnifferTask_FormatterElement
      */
     public function createFormatter()
     {
@@ -530,8 +534,12 @@ class PhpCodeSnifferTask extends Task
         $_SERVER['argv'] = array('t');
         $_SERVER['argc'] = 1;
         foreach ($this->formatters as $fe) {
-            $output = ($fe->getUseFile() ? $fe->getOutFile() : null);
-            $_SERVER['argv'][] = '--report-' . $fe->getType() . '=' . $output;
+            if ($fe->getUseFile()) {
+                $_SERVER['argv'][] = '--report-' . $fe->getType() . '=' . $fe->getOutfile();
+            } else {
+                $_SERVER['argv'][] = '--report-' . $fe->getType();
+            }
+
             $_SERVER['argc']++;
         }
 
