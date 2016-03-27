@@ -23,11 +23,10 @@
 include_once 'phing/system/io/YamlFileParser.php';
 include_once 'phing/system/io/FileParserInterface.php';
 
-use org\bovigo\vfs\vfsStream;
-
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
+ * @requires PHP 5.3
  */
 class IniFileParserTest extends PHPUnit_Framework_TestCase
 {
@@ -37,7 +36,8 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->parser = new IniFileParser();
-        $this->root = vfsStream::setup();
+        $vfsStreamClass = 'org\bovigo\vfs\vfsStream';
+        $this->root = $vfsStreamClass::setup();
     }
 
     /**
