@@ -30,17 +30,17 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class IsPropertyFalseCondition extends ConditionBase implements Condition
 {
-    /** @var string|null $name */
-    private $name = null;
+    /** @var string|null $property */
+    private $property = null;
 
     /**
-     * @param string $name
+     * @param string $property
      *
      * @return void
      */
-    public function  setProperty($name)
+    public function setProperty($property)
     {
-        $this->name = $name;
+        $this->property = $property;
     }
 
     /**
@@ -50,10 +50,10 @@ class IsPropertyFalseCondition extends ConditionBase implements Condition
      */
     public function evaluate()
     {
-        if ($this->name === null) {
+        if ($this->property === null) {
             throw new BuildException("Property name must be set.");
         }
 
-        return !(bool) $this->getProject()->getProperty($this->name);
+        return !(bool) $this->getProject()->getProperty($this->property);
     }
 }

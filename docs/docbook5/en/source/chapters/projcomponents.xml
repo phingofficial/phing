@@ -781,7 +781,7 @@
                     </thead>
                     <tbody>
                         <row>
-                            <entry><literal>name</literal></entry>
+                            <entry><literal>property</literal></entry>
                             <entry>property to test</entry>
                             <entry>Yes</entry>
                         </row>
@@ -810,7 +810,7 @@
                     </thead>
                     <tbody>
                         <row>
-                            <entry><literal>name</literal></entry>
+                            <entry><literal>property</literal></entry>
                             <entry>property name to test</entry>
                             <entry>Yes</entry>
                         </row>
