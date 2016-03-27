@@ -567,7 +567,7 @@ class PhpCodeSnifferTask extends Task
             $outputFile = $this->docFile->getPath();
             $check = file_put_contents($outputFile, $output);
 
-            if (is_bool($check) && !$check) {
+            if ($check === false) {
                 throw new BuildException('Error writing doc to ' . $outputFile);
             }
         } elseif ($this->docGenerator !== '' && $this->docFile === null) {
