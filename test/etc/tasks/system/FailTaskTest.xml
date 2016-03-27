@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FailTaskTest" default="test">
+    <target name="testNested1" description="should pass">
+        <fail>
+            <condition>
+                <or/>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="testNested2" description="should fail">
+        <fail>
+            <condition>
+                <and/>
+            </condition>
+        </fail>
+    </target>
+</project>
