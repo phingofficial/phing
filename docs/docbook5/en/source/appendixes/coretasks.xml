@@ -211,7 +211,7 @@
         <title>ApplyTask </title>
         <para>Applies a system command on each resource of the specified resource collection.</para>
         <para>When the os attribute is specified, then the command is only executed when run on one of the specified operating systems.</para>
-        <para>The files of a number of Resource Collections – including but not restricted to FileSets, FileLists or DirSets  – are passed as arguments to the system command.</para>
+        <para>The files of a number of Resource Collections – including but not restricted to FileSets or FileLists  – are passed as arguments to the system command.</para>
 
         <table>
             <title>Attributes</title>
@@ -239,6 +239,16 @@
                         <entry>The command to execute without any command line arguments.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
+                        <entry></entry>
+                    </row>
+                    <row>
+                        <entry><literal>dest</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>the directory where the command is expected to place target files when it is executed.
+                            This attribute is valid only when used in conjunction with a nested mapper; if omitted,
+                            the target filenames returned by the mapper will be interpreted as absolute paths.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
                         <entry></entry>
                     </row>
                     <row>
@@ -379,6 +389,24 @@
                         <entry>No</entry>
                         <entry></entry>
                     </row>
+                    <row>
+                        <entry><literal>type</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>One of file, dir or both. If set to file, only the names of plain files will be sent to the command.
+                            If set to dir, only the names of directories are considered.
+                            Note: The type attribute does not apply to nested dirsets - dirsets always implicitly assume type to be dir.</entry>
+                        <entry><literal>file</literal></entry>
+                        <entry>No</entry>
+                        <entry></entry>
+                    </row>
+                    <row>
+                        <entry><literal>force</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to bypass timestamp comparisons for target files.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                        <entry></entry>
+                    </row>
 
 
             </tbody>
@@ -469,6 +497,8 @@
                 <listitem><para><literal><link linkend="FileList">filelist</link></literal></para></listitem>
                 <listitem><para><literal>dirset</literal></para></listitem>
                 <listitem><para><literal>srcfile</literal></para></listitem>
+                <listitem><para><literal>targetfile</literal></para></listitem>
+                <listitem><para><literal>mapper</literal></para></listitem>
             </itemizedlist>
         </sect2>
     </sect1>
