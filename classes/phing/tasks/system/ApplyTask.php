@@ -202,6 +202,15 @@ class ApplyTask extends Task
     }
 
     /**
+     * Specify the directory where target files are to be placed.
+     * @param PhingFile $destDir the PhingFile object representing the destination directory.
+     */
+    public function setDest(PhingFile $destDir)
+    {
+        $this->destDir = $destDir;
+    }
+    
+    /**
      * @param boolean $b
      */
     public function setForce($b)
