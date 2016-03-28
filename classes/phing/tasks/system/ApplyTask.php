@@ -28,9 +28,8 @@ include_once 'phing/types/DirSet.php';
  * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)
  *
  * @author    Utsav Handa <handautsav at hotmail dot com>
+ * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.system
- *
- * @todo      Add support for mapper, targetfile expressions
  */
 class ApplyTask extends Task
 {
@@ -39,7 +38,7 @@ class ApplyTask extends Task
      * Configuration(s)
      *
      */
-    //[TBA]const TARGETFILE_ID = '__TARGETFILE__';
+    const TARGETFILE_ID = '__TARGETFILE__';
     const SOURCEFILE_ID = '__SOURCEFILE__';
 
     /**
@@ -171,6 +170,44 @@ class ApplyTask extends Task
      */
     protected $maxparallel = 0;
 
+    protected static $types = array(
+        'FILE' => 'file',
+        'DIR' => 'dir',
+        'BOTH' => 'both',
+    );
+
+    protected $type = 'file';
+    protected $targetFilePos;
+    protected $srcFilePos;
+    protected $srcIsFirst = true;
+
+    protected $skipEmpty = false;
+    private $force = false;
+
+    /** @var Mapper $mapperElement */
+    protected $mapperElement;
+
+    /** @var FileNameMapper $mapper */
+    protected $mapper;
+
+    /** @var PhingFile $destDir */
+    protected $destDir;
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @param boolean $b
+     */
+    public function setForce($b)
+    {
+        $this->force = $b;
+    }
 
     /**
      * Supports embedded <filelist> element.
@@ -184,6 +221,17 @@ class ApplyTask extends Task
         return $this->filelists[$num - 1];
     }
 
+    public function createMapper()
+    {
+        if ($this->mapperElement !== null) {
+            throw new BuildException(
+                'Cannot define more than one mapper',
+                $this->getLocation()
+            );
+        }
+        $this->mapperElement = new Mapper($this->getProject());
+        return $this->mapperElement;
+    }
 
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
@@ -198,7 +246,7 @@ class ApplyTask extends Task
 
 
     /**
-     * Nested adder, adds a set of dirs (nested dirset attribute).
+     * Nested adder, adds a set of files (nested dirset attribute).
      *
      * @param DirSet $dirSet
      * @return void
@@ -264,8 +312,7 @@ class ApplyTask extends Task
     /**
      * File to which output should be written
      *
-     * @param $append
-     * @internal param PhingFile $outputfile Output log file
+     * @param boolean $append
      *
      * @return void
      */
@@ -291,7 +338,7 @@ class ApplyTask extends Task
     /**
      * To add the source filename at the end of command of automatically
      *
-     * @param Boolean $addsourcefile Identifier for adding source file at the end of command
+     * @param boolean $addsourcefile Identifier for adding source file at the end of command
      *
      * @return void
      */
@@ -438,23 +485,41 @@ class ApplyTask extends Task
         $this->maxparallel = (int) $max;
     }
 
-    /** [TBA]
+    /**
      * Supports embedded <targetfile> element.
-     *
-     * @return void
+     * @return CommandlineMarker
+     * @throws BuildException
      */
-    /**public function createTargetfile() {
-     * return $this->commandline->addArguments( array(self::TARGETFILE_ID) );
-     * }*/
+    public function createTargetfile()
+    {
+        if ($this->targetFilePos !== null) {
+            throw new BuildException(
+                $this->getTaskType() . ' doesn\'t support multiple '
+                . 'targetfile elements.',
+                $this->getLocation()
+            );
+        }
+        $this->targetFilePos = $this->commandline->createMarker();
+        $this->srcIsFirst = ($this->srcFilePos !== null);
+        return $this->targetFilePos;
+    }
 
     /**
      * Supports embedded <srcfile> element.
-     *
-     * @return void
+     * @return CommandlineMarker
+     * @throws BuildException
      */
     public function createSrcfile()
     {
-        return $this->commandline->addArguments(array(self::SOURCEFILE_ID));
+        if ($this->srcFilePos !== null) {
+            throw new BuildException(
+                $this->getTaskType() . ' doesn\'t support multiple '
+                    . 'srcfile elements.',
+                $this->getLocation()
+            );
+        }
+        $this->srcFilePos = $this->commandline->createMarker();
+        return $this->srcFilePos;
     }
 
     /**
@@ -502,14 +567,48 @@ class ApplyTask extends Task
             $this->buildCommand();
 
             // Process //
-            // - FileLists
-            foreach ($this->filelists as $fl) {
-                $this->process($fl->getFiles($this->project), $fl->getDir($this->project));
-            }
-            unset($this->filelists);
-
+            $totalFiles = 0;
+            $totalDirs = 0;
+            $fileNames = array();
+            $haveExecuted = false;
             // - FileSets
             foreach ($this->filesets as $fs) {
+                $currentType = $this->type;
+                if ($fs instanceof DirSet) {
+                    if ($this->type !== self::$types['DIR']) {
+                        $this->log("Found a nested dirset but type is $this->type . "
+                            . "Temporarily switching to type=\"dir\" on the"
+                            . " assumption that you really did mean"
+                            . " <dirset> not <fileset>.", Project::MSG_DEBUG
+                        );
+                        $currentType = 'dir';
+                    }
+                }
+
+                $base = $fs->getDir($this->project);
+                $ds = $fs->getDirectoryScanner($this->project);
+
+                if ($currentType !== self::$types['DIR']) {
+                    $s = $this->getFiles($base, $ds);
+                    for ($j = 0; $j < count($s); $j++) {
+                        $totalFiles++;
+                        $fileNames[] = $s[$j];
+                        $baseDirs[] = $base;
+                    }
+                }
+                if ($currentType !== self::$types['FILE']) {
+                    $s = $this->getDirs($base, $ds);
+                    for ($j = 0; $j < count($s); $j++) {
+                        $totalDirs++;
+                        $fileNames[] = $s[$j];
+                        $baseDirs[] = $base;
+                    }
+                }
+                if (count($fileNames) === 0 && $this->skipEmpty) {
+                    $this->logSkippingFileset($currentType, $ds, $base);
+                    continue;
+                }
+
                 $this->process(
                     $fs->getDirectoryScanner($this->project)->getIncludedFiles(),
                     $fs->getDir($this->project)
@@ -517,7 +616,24 @@ class ApplyTask extends Task
             }
             unset($this->filesets);
 
+            // - FileLists
+            /** @var FileList $fl */
+            foreach ($this->filelists as $fl) {
+                $totalFiles++;
+                $this->process($fl->getFiles($this->project), $fl->getDir($this->project));
+            }
+            unset($this->filelists);
         }
+
+        if ($haveExecuted) {
+                $this->log(
+                    "Applied " . $this->commandline->getExecutable() . " to "
+                    . $totalFiles . " file"
+                    . ($totalFiles !== 1 ? "s" : "") . " and "
+                    . $totalDirs . " director"
+                    . ($totalDirs !== 1 ? "ies" : "y") . ".",
+                    $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
+            }
 
         /// Cleanup //
         $this->cleanup();
@@ -530,6 +646,40 @@ class ApplyTask extends Task
     /**********************************************************************************/
     /********************** T A S K  C O R E  M E T H O D S ***************************/
     /**********************************************************************************/
+
+    protected function getFiles(PhingFile $baseDir, DirectoryScanner $ds)
+    {
+        return $this->restrict($ds->getIncludedFiles(), $baseDir);
+    }
+
+    protected function getDirs(PhingFile $baseDir, DirectoryScanner $ds)
+    {
+        return $this->restrict($ds->getIncludedDirectories(), $baseDir);
+    }
+
+    protected function getFilesAndDirs(FileList $list)
+    {
+        return $this->restrict($list->getFiles($this->getProject()), $list->getDir($this->getProject()));
+    }
+
+    protected function restrict($s, PhingFile $baseDir)
+    {
+        $sfs = new SourceFileScanner($this);
+        return ($this->mapper == null || $this->force)
+            ? $s
+            : $sfs->restrict($s, $baseDir, $this->destDir, $this->mapper);
+    }
+
+    private function logSkippingFileset($currentType, DirectoryScanner $ds, PhingFile $base)
+    {
+        $includedCount = (
+            ($currentType !== self::$types['DIR']) ? count($ds->getIncludedFiles()) : 0
+            ) . (
+            ($currentType !== self::$types['FILES']) ? count($ds->getIncludedDirectories()) : 0);
+        $this->log("Skipping fileset for directory " . $base . ". It is "
+            . (($includedCount > 0) ? "up to date." : "empty."),
+            $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
+    }
 
     /**
      * Checks whether the current O.S. should be supported
@@ -601,8 +751,7 @@ class ApplyTask extends Task
 
             // Log
             $this->log(
-                'Working directory change ' . ($dirchangestatus ? 'successful' : 'failed') . ' to ' . $this->dir->getPath(
-                ),
+                'Working directory change ' . ($dirchangestatus ? 'successful' : 'failed') . ' to ' . $this->dir->getPath(),
                 $this->loglevel
             );
 
@@ -619,7 +768,7 @@ class ApplyTask extends Task
         // Getting the O.S. type identifier
         // Validating the 'filesystem' for determining the OS type [UNIX, WINNT and WIN32]
         // (Another usage could be with 'os.name' for determination)
-        if ('WIN' == strtoupper(substr(Phing::getProperty('host.fstype'), 0, 3))) {
+        if ('WIN' === strtoupper(substr(Phing::getProperty('host.fstype'), 0, 3))) {
             $this->osvariant = 'WIN'; // Probable Windows flavour
         } else {
             $this->osvariant = 'LIN'; // Probable GNU/Linux flavour
@@ -627,6 +776,11 @@ class ApplyTask extends Task
 
         // Log
         $this->log('Operating System variant identified : ' . $this->osvariant, $this->loglevel);
+
+        if ($this->mapperElement !== null) {
+            $this->mapper = $this->mapperElement->getImplementation();
+            $this->log('Mapper identified : ' . $this->mapperElement->getDescription(), $this->loglevel);
+        }
 
         // Log
         $this->log('Initializing completed ', $this->loglevel);
@@ -664,7 +818,7 @@ class ApplyTask extends Task
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
 
             // Validating the O.S. variant
-            if ('WIN' == $this->osvariant) {
+            if ('WIN' === $this->osvariant) {
                 $this->realCommand .= ' > NUL'; // MS Windows output nullification
             } else {
                 $this->realCommand .= ' 1>/dev/null'; // GNU/Linux output nullification
@@ -685,7 +839,7 @@ class ApplyTask extends Task
 
             // Validating the O.S. variant
             if ('WIN' == $this->osvariant) {
-                $this->realCommand = 'start /b ' . $this->realCommand; // MS Windows background process forking
+                $this->realCommand = 'start /b ' . $this->realcommand; // MS Windows background process forking
             } else {
                 $this->realCommand .= ' &'; // GNU/Linux background process forking
             }
@@ -761,7 +915,7 @@ class ApplyTask extends Task
             // Sets the output property
             if ($this->outputProperty) {
                 $previousValue = $this->project->getProperty($this->outputProperty);
-                if (! empty($previousValue)) {
+                if (!empty($previousValue)) {
                     $previousValue .= "\n";
                 }
                 $this->project->setProperty($this->outputProperty, $previousValue . implode("\n", $output));
