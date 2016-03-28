@@ -560,6 +560,8 @@ class ApplyTask extends Task
         // Initialize //
         $this->initialize();
 
+        $haveExecuted = false;
+
         // Validate O.S. applicability
         if ($this->validateOS()) {
 
@@ -570,7 +572,6 @@ class ApplyTask extends Task
             $totalFiles = 0;
             $totalDirs = 0;
             $fileNames = array();
-            $haveExecuted = false;
             // - FileSets
             foreach ($this->filesets as $fs) {
                 $currentType = $this->type;
