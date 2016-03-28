@@ -139,6 +139,15 @@ class DirectoryScanner implements SelectorScanner
         "**/.gitattributes",
         "**/.gitignore",
         "**/.gitmodules",
+        "**/.hg",
+        "**/.hg/**",
+        "**/.hgignore",
+        "**/.hgsub",
+        "**/.hgsubstate",
+        "**/.hgtags",
+        "**/.bzr",
+        "**/.bzr/**",
+        "**/.bzrignore",
     );
 
     /** The base directory which should be scanned. */
