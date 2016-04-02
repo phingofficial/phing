@@ -411,6 +411,8 @@ class CommandlineArgument
 
     private $parts = array();
     private $outer;
+    private $prefix = '';
+    private $suffix = '';
 
     /**
      * @param Commandline $outer
@@ -466,6 +468,26 @@ class CommandlineArgument
     public function setFile(PhingFile $value)
     {
         $this->parts = array($value->getAbsolutePath());
+    }
+
+    /**
+     * Set the prefix to be placed in front of every part of the argument.
+     *
+     * @param string $prefix fixed prefix string.
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix !== null ? $prefix : '';
+    }
+
+    /**
+     * Set the suffix to be placed at the end of every part of the argument.
+     *
+     * @param string $suffix fixed suffix string.
+     */
+    public function setSuffix($suffix)
+    {
+        $this->suffix = $suffix !== null ? $suffix : '';
     }
 
     /**
