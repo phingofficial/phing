@@ -2529,6 +2529,89 @@ verbose="true" failonerror="false" /></programlisting>
                 is a child of CopyTask and inherits all attributes.</para>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PathConvert">
+        <title>PathConvert</title>
+        <para>Converts a path form for a particular platform, optionally storing the
+            resultinto a given property. It can also be used when you need to convert
+            FileList, FileSet, DirSet into a list, separated by a given character, such
+            as a comma or space, or, conversely, e.g. to convert a list of files
+            in a FileList into a path.
+        </para>
+        <para>Nested <lieral>map</lieral> elements can be specified to map Windows
+            drive letters to Unix paths, and vice-versa.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>targetos</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The target architecture.
+                            This is a shorthand mechanism for specifying both
+                            pathsep and dirsep according to the specified target
+                            architecture.</entry>
+                        <entry>N/A</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>dirsep</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry> The character(s) to use as the directory separator
+                            in the generated paths.</entry>
+                        <entry><literal>PhingFile::$separator</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pathsep</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The character(s) to use as the path-element separator
+                            in the generated paths.</entry>
+                        <entry><literal>PhingFile::$pathSeparator</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property in which to place the
+                            converted path.</entry>
+                        <entry>result will be logged if unset</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>refid</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>What to convert, given as a reference to a path,
+                            fileset or dirset defined elsewhere</entry>
+                        <entry>if omitted, a nested path element must be supplied.</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>setonempty</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Should the property be set, even if the result is
+                            the empty string?</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+    </sect1>
     <sect1 role="taskdef" xml:id="PhingTask">
         <title>PhingTask </title>
         <para>This task calls another build file. You may specify the target that is to be called
