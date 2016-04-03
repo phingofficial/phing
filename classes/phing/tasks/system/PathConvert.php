@@ -123,6 +123,7 @@ class PathConvert extends Task
     public function setTargetos($target)
     {
         $this->targetOS = $target;
+        $this->targetWindows = $this->targetOS !== 'unix';
     }
 
     /**
