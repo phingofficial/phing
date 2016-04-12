@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PathConvertTest" default="test" basedir=".">
+
+  <target name="testDirChar">
+    <pathconvert property="def|ghi" dirsep="|">
+      <map from="${application.startdir}/abc/" to=''/>
+      <path dir="abc/def/ghi"/>
+    </pathconvert>
+  </target>
+
+</project>
