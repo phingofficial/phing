@@ -630,7 +630,7 @@ class Win32FileSystem extends FileSystem
      */
     private function fixEncoding($strPath)
     {
-        $codepage = 'Windows-' . trim(strstr(setlocale(LC_CTYPE, 0), '.'), '.');
+        $codepage = 'CP' . trim(strstr(setlocale(LC_CTYPE, ''), '.'), '.');
         if (function_exists('iconv')) {
             $strPath = iconv('UTF-8', $codepage . '//IGNORE', $strPath);
         } elseif (function_exists('mb_convert_encoding')) {
