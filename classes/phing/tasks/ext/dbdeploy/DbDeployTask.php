@@ -255,6 +255,12 @@ class DbDeployTask extends Task
                 $fullFileName = $this->dir . '/' . $fileName;
                 $fh = fopen($fullFileName, 'r');
                 $contents = fread($fh, filesize($fullFileName));
+                $count_bad_comments = substr_count($contents, '--//');
+                if ($count_bad_comments > 0) {
+                    $this->log('Your SQL delta includes "--//" which, if a comment, should be replaced with "-- //"
+                    to avoid the delta failing.  You may need to manually undo part of this delta.\n\n'
+                        . $contents, Project::MSG_WARN);
+                }
                 // allow construct with and without space added
                 $split = strpos($contents, '-- //@UNDO');
                 if ($split === false) {
