@@ -162,6 +162,18 @@
             </table>
         </sect2>
     </sect1>
+    <sect1 xml:id="FilterMapper">
+        <title>FilterMapper </title>
+        <para>This mapper implementation applies a filterchain to the source file name.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;mapper type=&quot;filter&quot;&gt;
+            &lt;linecontains&gt;
+                &lt;contains value=&quot;foo&quot;&gt;
+                &lt;contains value=&quot;bar&quot;&gt;
+            &lt;/linecontains&gt;</programlisting>
+        </sect2>
+    </sect1>
     <sect1 xml:id="FirstMatchMapper">
         <title>FirstMatchMapper </title>
         <para>This mapper supports an arbitrary number of nested mappers and
