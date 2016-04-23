@@ -251,6 +251,9 @@ class Mapper extends DataType
                 case 'identity':
                     $this->classname = 'phing.mappers.IdentityMapper';
                     break;
+                case 'filter':
+                    $this->classname = 'phing.mappers.FilterMapper';
+                    break;
                 case 'firstmatch':
                     $this->classname = 'phing.mappers.FirstMatchMapper';
                     break;
