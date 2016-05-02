@@ -5,18 +5,18 @@ running the deb-setup.sh script (available in the script directory)
 
 Setup of DocBook
 ==================================
-This setup assumes version >= 1.78.1 version of the DocBook stylesheets which is as of this 
+This setup assumes version >= 1.78.1 version of the DocBook stylesheets which is as of this
 writing the latest version. That version can be got with:
 
-wget -q https://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.tar.bz2  
+wget -q https://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.tar.bz2
 
 Webhelp
 ==================================
-To produce webhelp output there are som initial one-off preparations that must be done.
+To produce webhelp output there are some initial one-off preparations that must be done.
 
-1. Follow the general setup instruction for webhelp. 
+1. Follow the general setup instruction for webhelp.
    See http://docbook.sourceforge.net/release/xsl/1.78.1/webhelp/docs/
-   Note: The setup instructions are Windows focused. To run on GNU/Linux the jar files are named slightly different. 
+   Note: The setup instructions are Windows focused. To run on GNU/Linux the jar files are named slightly different.
    The needed jar files for the property values are:
 
       xercesImpl.jar=/usr/share/java/xerces-j2.jar
@@ -33,22 +33,22 @@ To produce webhelp output there are som initial one-off preparations that must b
 
      $>phing webhelp
 
-    Note: This can take well over 3 minutes even on a fast server. 
+    Note: This can take well over 3 minutes even on a fast server.
 
 The resulting output is placed under 'output/webhelp'
 
 
 TROUBLESHOOTING
 ==================================
-If you get an errer while running the ant script along the lines of
+If you get an error while running the ant script along the lines of
 
 [xslt] : Warning! file:/usr/share/xml/docbook/stylesheet/nwalsh5/current/xhtml/autoidx.xsl: line 552: Attribute 'href' outside of element.
 ...
 [xslt] : Error! file:/usr/share/xml/docbook/stylesheet/nwalsh5/current/webhelp/xsl/webhelp.xsl: line 8: Circular variable/parameter reference in '[variable(chunk.hierarchy)]'.
 ....
 
-This most likely means that the saxon6 jar has not been loaded. Review you paths in the webhelp "build.properties" 
+This most likely means that the saxon6 jar has not been loaded. Review you paths in the webhelp "build.properties"
 especially the "xslt-processor-classpath" path. A common problemn seems to be that some linux distributions installs
-the saxon jar with full version number, say "saxon-6.6.5.jar". One way to solve this, and to some extent, future 
-proof the  solution is to create a soft link "saxon6.jar->saxon-6.5.5.jar" or similar to remove the minor version 
-number dependency.  
+the saxon jar with full version number, say "saxon-6.6.5.jar". One way to solve this, and to some extent, future
+proof the  solution is to create a soft link "saxon6.jar->saxon-6.5.5.jar" or similar to remove the minor version
+number dependency.
