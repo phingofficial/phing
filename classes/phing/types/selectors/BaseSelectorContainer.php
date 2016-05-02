@@ -301,6 +301,17 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
     }
 
     /**
+     * add a different selector entry on the selector list
+     */
+    public function createDifferent()
+    {
+        $o = new DifferentSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
      * add a type selector entry on the selector list
      */
     public function createType()

@@ -137,4 +137,8 @@ interface SelectorContainer
      */
     public function createDepend();
 
+    /**
+     * add a different selector entry on the selector list
+     */
+    public function createDifferent();
 }

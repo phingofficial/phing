@@ -30,6 +30,10 @@
                 a specific depth in a directory tree</para>
         </listitem>
         <listitem>
+            <para><xref xlink:href="#Different"/> - Select files that are different from
+                those elsewhere</para>
+        </listitem>
+        <listitem>
             <para><xref xlink:href="#Filename"/> - Select files/directories whose name
                 matches a particular pattern. Equivalent to the include and exclude elements of a
                 patternset.</para>
@@ -294,6 +298,90 @@
                         <entry>The maximum number of directory levels below the base directory that
                             a file can be and still be selected.</entry>
                         <entry>0</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+    </sect1>
+    <sect1 role="typedef" xml:id="Different" xreflabel="&lt;Different>">
+        <title>Different </title>
+        
+        <para>The <literal>&lt;different></literal> selector will select a file if it is deemed to be
+            'different' from an equivalent file in another location. The rules for determining difference
+            between the two files are as follows:</para>
+
+        <itemizedlist>
+            <listitem>
+                <para>If a file is only present in the resource collection you apply the selector to but
+                    not in targetdir (or after applying the mapper) the file is selected.</para>
+            </listitem>
+            <listitem>
+                <para>If a file is only present in targetdir (or after applying the mapper) it is ignored.</para>
+            </listitem>
+            <listitem>
+                <para>Files with different lengths are different.</para>
+            </listitem>
+            <listitem>
+                <para>If ignoreFileTimes is turned off, then differing file timestamps will cause files to be
+                    regarded as different.</para>
+            </listitem>
+            <listitem>
+                <para>Unless ignoreContents is set to true, a byte-for-byte check is run against the two files.</para>
+            </listitem>
+        </itemizedlist>
+
+        <para>This is a useful selector to work with programs and tasks that don't handle dependency
+            checking properly; even if a predecessor task always creates its output files, followup
+            tasks can be driven off copies made with a different selector, so their dependencies are driven
+            on the absolute state of the files, not just a timestamp. For example: anything fetched from
+            a web site, or the output of some program. To reduce the amount of checking, when using this
+            task inside a &lt;copy> task, set preservelastmodified to true to propagate the timestamp from the
+            source file to the destination file.</para>
+
+        <para>The &lt;different> selector supports the use of a contained &lt;mapper> element to define
+            the location of the file to be compared against. If no &lt;mapper> element is specified,
+            the identity type mapper is used.</para>
+        
+        <programlisting language="xml">&lt;fileset dir="${phing.1.5}/classes" includes="**/*.php">
+            &lt;different targetdir="${phing.1.4.1}/classes"
+                       ignoreFileTimes="true"/>
+        &lt;/fileset></programlisting>
+
+        <table>
+            <title> Attributes for the <literal>&lt;different></literal> selector </title>
+            <tgroup cols="4">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="description" colnum="2" colwidth="3*"/>
+                <colspec colname="default" colnum="3" colwidth="1*"/>
+                <colspec colname="required" colnum="4" colwidth="1*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>targetdir</literal></entry>
+                        <entry>The base directory to look for the files to compare against. The
+                            precise location depends on a combination of this attribute and the
+                            <literal>mapper</literal> element, if any.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>ignoreFileTimes</literal></entry>
+                        <entry>Whether to use file times in the comparison or not.</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>ignoreContents</literal></entry>
+                        <entry>Whether to do a byte per byte compare.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>

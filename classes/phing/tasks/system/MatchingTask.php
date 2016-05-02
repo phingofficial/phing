@@ -408,6 +408,15 @@ abstract class MatchingTask extends Task implements SelectorContainer
     }
 
     /**
+     * add a different selector entry on the selector list
+     * @return DifferentSelector
+     */
+    public function createDifferent()
+    {
+        return $this->fileset->createDifferent();
+    }
+
+    /**
      * Accessor for the implict fileset.
      *
      * @return FileSet

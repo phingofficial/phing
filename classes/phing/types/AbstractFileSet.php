@@ -35,6 +35,7 @@ include_once 'phing/types/selectors/ContainsRegexpSelector.php';
 include_once 'phing/types/selectors/DateSelector.php';
 include_once 'phing/types/selectors/DependSelector.php';
 include_once 'phing/types/selectors/DepthSelector.php';
+include_once 'phing/types/selectors/DifferentSelector.php';
 include_once 'phing/types/selectors/ExtendSelector.php';
 include_once 'phing/types/selectors/FilenameSelector.php';
 include_once 'phing/types/selectors/MajoritySelector.php';
@@ -733,6 +734,17 @@ class AbstractFileSet extends DataType implements SelectorContainer
     public function createWritable()
     {
         $o = new WritableSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
+     * add a different selector entry on the selector list
+     */
+    public function createDifferent()
+    {
+        $o = new DifferentSelector();
         $this->appendSelector($o);
 
         return $o;
