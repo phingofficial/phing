@@ -7,3 +7,6 @@ build/pear
 test/reports
 docs/api/docs
 vendor
+bin/*
+!bin/pear*
+!bin/phing*
