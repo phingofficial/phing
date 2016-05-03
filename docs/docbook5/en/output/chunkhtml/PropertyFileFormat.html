@@ -24,7 +24,24 @@ text.width=${myapp.window.hsize}
 # <span class="bold"><strong>Everything</strong></span> behind the equal sign is the value, you do
 # not have to enclose strings:
 text=This is some text, Your OS is ${php.os}
+</pre>
 
-# I guess that is all there is to property files</pre>
+Property files may also be formatted in YAML format:
+<pre class="programlisting"># Property files contain key/value pairs
+key: value
 
+# Nested values will be available as concatenated strings after import. E.g.,
+# you may access these values with keys in the form of "myapp.window.hsize".
+myapp:
+  window:
+     hsize: 300
+     vsize: 200
+     xpos: 10
+     ypos: 100
+
+# You can refer to values of other properties by enclosing their
+# keys in "${}".
+text:
+  width: "${myapp.window.hsize}"
+</pre>
     </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="app.fileformats.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.fileformats.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="app.bibliography.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix I. File Formats </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Bibliography</td></tr></table></div></body></html>
