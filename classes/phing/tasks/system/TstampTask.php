@@ -152,7 +152,9 @@ class TstampCustomFormat
             throw new BuildException("pattern attribute must be provided");
         }
 
+        $oldlocale = "";
         if (!empty($this->locale)) {
+            $oldlocale = setlocale(LC_ALL, 0);
             setlocale(LC_ALL, $this->locale);
         }
 
@@ -161,7 +163,7 @@ class TstampCustomFormat
 
         if (!empty($this->locale)) {
             // reset locale
-            setlocale(LC_ALL, null);
+            setlocale(LC_ALL, $oldlocale);
         }
     }
 }
