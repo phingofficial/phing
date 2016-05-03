@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  *  Based on Apache Ant Wait For:
