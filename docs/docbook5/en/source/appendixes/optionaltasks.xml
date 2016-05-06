@@ -3345,6 +3345,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgArchiveTask">
         <title>HgArchiveTask</title>
+        <para>Create an unversioned archive of a Mercurial repository revision.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="version" value="v0_1_2"/>
@@ -3354,6 +3355,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgCloneTask">
         <title>HgCloneTask</title>
+        <para>Make a copy of an existing Mercurial repository.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
@@ -3364,6 +3366,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgCommitTask">
         <title>HgCommitTask</title>
+        <para>Commit changes to a Mercurial repository.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
@@ -3373,6 +3376,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgInitTask">
         <title>HgInitTask</title>
+        <para>Create a new Mercurial repository.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
@@ -3382,6 +3386,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgLogTask">
         <title>HgLogTask</title>
+        <para>Show revision history of entire Mercurial repository or files, or limit to a number of revisions. Optionally store the history to a phing property.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
@@ -3391,6 +3396,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgPullTask">
         <title>HgPullTask</title>
+        <para>Pull changes from a specified Mercurial repository to a local one.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;hgpull quiet="false" insecure="true" repository="${repo.dir}"/> </programlisting>
@@ -3398,6 +3404,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgPushTask">
         <title>HgPushTask</title>
+        <para>Push changes from the local Mercurial repository to the specified destination.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
@@ -3406,6 +3413,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgRevertTask">
         <title>HgRevertTask</title>
+        <para>Revert files to their checkout state from the Mercurial repository.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;hgrevert all="true"/> </programlisting>
@@ -3413,6 +3421,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgTagTask">
         <title>HgTagTask</title>
+        <para>Add a tag for the current or specified revision of the local Mercurial repository.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;hgtag user="phingbot" message="tagging new release" name="v0.1.2"/> </programlisting>
@@ -3420,6 +3429,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="HgUpdateTask">
         <title>HgUpdateTask</title>
+        <para>Update the Mercurial repository's working directory or switch revisions.</para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
