@@ -44,7 +44,7 @@ class HgTagTask extends HgBaseTask
      *
      * @var string
      */
-    protected $tag = '';
+    protected $name = '';
 
     /**
      * Revision
@@ -64,6 +64,16 @@ class HgTagTask extends HgBaseTask
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * Get the name of the tag to be used.
+     *
+     * @return void
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -116,20 +126,22 @@ class HgTagTask extends HgBaseTask
         } else {
             $dir = $this->repository;
         }
-        $clone->setCwd($dir);
 
         if ($this->revision !== '') {
             $clone->setRev($this->revision);
         }
+        if ($this->user !== null) {
+            $clone->setUser($this->user);
+        }
         $message = $this->getMessage();
         $clone->setMessage($message);
-        $clone->setTag($this->getTag());
+        $clone->addName($this->getName());
 
         chdir($dir);
 
         try {
-            $this->log("Executing: " . $tag->asString(), Project::MSG_INFO);
-            $output = $tag->execute();
+            $this->log("Executing: " . $clone, Project::MSG_INFO);
+            $output = $clone->execute();
             if ($output !== '') {
                 $this->log($output);
             }
