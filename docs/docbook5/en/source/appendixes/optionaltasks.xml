@@ -3331,6 +3331,101 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project&gt;</programlisting>
         </sect2>
     </sect1>
+
+    <sect1 role="taskdef" xml:id="HgAddTask">
+        <title>HgAddTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hgadd repository="${repo.dir.resolved}">
+    &lt;fileset dir="."/>
+&lt;/hgadd></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgArchiveTask">
+        <title>HgArchiveTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="version" value="v0_1_2"/>
+&lt;hgarchive destination="${version}.zip" />
+&lt;hgarchive destination="${version}.tgz" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgCloneTask">
+        <title>HgCloneTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;property name="repo.url" value="https://bitbucket.org/spaetz/ceyx-mapcss" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hgclone repository="${repo.url}" quiet="false" insecure="true" targetPath="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgCommitTask">
+        <title>HgCommitTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hgcommit message="[ci skip] Compress .js files." user="phingbot" repository="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgInitTask">
+        <title>HgInitTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hginit repository="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgLogTask">
+        <title>HgLogTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hglog maxCount="1" format="{files}\n" outputproperty="hgfiles" repository="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgPullTask">
+        <title>HgPullTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hgpull quiet="false" insecure="true" repository="${repo.dir}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgPushTask">
+        <title>HgPushTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;hgpush haltonerror="true" repository="{repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgRevertTask">
+        <title>HgRevertTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hgrevert all="true"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgTagTask">
+        <title>HgTagTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hgtag user="phingbot" message="tagging new release" name="v0.1.2"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgUpdateTask">
+        <title>HgUpdateTask</title>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;hgupdate repository="${repo.dir.resolved}" branch="dev"/> </programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="HttpGetTask">
         <title>HttpGetTask</title>
         <para>This task will download a file through HTTP GET and save it to a specified directory.
