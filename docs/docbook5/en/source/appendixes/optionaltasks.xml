@@ -3334,6 +3334,7 @@ Note that you can omit both startpoint and track attributes in this case
 
     <sect1 role="taskdef" xml:id="HgAddTask">
         <title>HgAddTask</title>
+        <para>Add files to Mercurial repository on the next commit.</para>
 
     <table>
         <title>Attributes</title>
@@ -3370,6 +3371,14 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;hgadd repository="${repo.dir.resolved}">
     &lt;fileset dir="."/>
 &lt;/hgadd></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="HgArchiveTask">
