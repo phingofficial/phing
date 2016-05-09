@@ -76,6 +76,13 @@ class HgAddTask extends HgBaseTask
         } else {
             $dir = $this->repository;
         }
+
+        if (!file_exists($dir)) {
+            throw new BuildException("\"$dir\" does not exist.");
+        } elseif (!is_dir($dir)) {
+            throw new BuildException("\"$dir\" is not a directory.");
+        }
+
         chdir($dir);
 
         if (file_exists('.hgignore')) {
