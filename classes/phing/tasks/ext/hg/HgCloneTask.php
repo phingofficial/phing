@@ -37,7 +37,7 @@ class HgCloneTask extends HgBaseTask
      *
      * @var string
      */
-    protected $targetPath;
+    protected $targetPath = '';
 
     /**
      * Set path to source repo
@@ -83,6 +83,9 @@ class HgCloneTask extends HgBaseTask
             $files = scandir($target);
             if (is_array($files) && count($files) > 2) {
                 throw new BuildException("Directory \"$target\" is not empty");
+            }
+            if (!is_dir($target)) {
+                throw new BuildException("\"$target\" is not a directory");
             }
         }
         $msg = sprintf('hg cloning %s to %s', $repository, $target);
