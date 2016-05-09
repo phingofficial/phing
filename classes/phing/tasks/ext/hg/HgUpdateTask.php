@@ -33,13 +33,6 @@ use Siad007\VersionControl\HG\Factory;
 class HgUpdateTask extends HgBaseTask
 {
     /**
-     * User argument
-     *
-     * @var string
-     */
-    protected $user = '';
-
-    /**
      * Branch argument
      *
      * Defaults to 'default'
@@ -108,7 +101,7 @@ class HgUpdateTask extends HgBaseTask
     public function main()
     {
         $pull = Factory::getInstance('pull');
-        $pull->setInsecure($this->getInsecure());
+        $pull->setClean($this->getClean());
         $pull->setQuiet($this->getQuiet());
 
         $cwd = getcwd();

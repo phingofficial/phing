@@ -120,6 +120,9 @@ class HgTagTask extends HgBaseTask
         $clone = Factory::getInstance('tag');
         $cwd = getcwd();
 
+        if ($this->name === '') {
+            throw new BuildException("Tag name must be set.");
+        }
         if ($this->repository === '') {
             $prog = $this->getProject();
             $dir = $prog->getProperty('application.startdir');

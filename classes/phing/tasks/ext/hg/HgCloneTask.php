@@ -40,13 +40,6 @@ class HgCloneTask extends HgBaseTask
     protected $targetPath;
 
     /**
-     * Insecure argument
-     *
-     * @var bool
-     */
-    protected $insecure = false;
-
-    /**
      * Set path to source repo
      *
      * @param string $targetPath Path to repository used as source
@@ -66,28 +59,6 @@ class HgCloneTask extends HgBaseTask
     public function getTargetPath()
     {
         return $this->targetPath;
-    }
-
-    /**
-     * Set insecure attribute
-     *
-     * @param string $insecure 'yes', etc.
-     *
-     * @return void
-     */
-    public function setInsecure($insecure)
-    {
-        $this->insecure = StringHelper::booleanValue($insecure);
-    }
-
-    /**
-     * Get 'insecure' attribute value.
-     *
-     * @return bool
-     */
-    public function getInsecure()
-    {
-        return $this->insecure;
     }
 
     /**
