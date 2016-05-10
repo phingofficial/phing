@@ -71,13 +71,7 @@ class HgPullTask extends HgBaseTask
         } else {
             $dir = $this->repository;
         }
-        if (file_exists($dir)) {
-            if (!is_dir($dir)) {
-                throw new BuildException("Repository '$dir' is not a directory.");
-            }
-        } else {
-            throw new BuildException("Repository directory '$dir' does not exist.");
-        }
+        $this->checkRepositoryIsDirAndExists($dir);
         chdir($dir);
 
         try {

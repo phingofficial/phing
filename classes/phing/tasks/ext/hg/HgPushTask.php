@@ -52,6 +52,16 @@ class HgPushTask extends HgBaseTask
     }
 
     /**
+     * Return haltonerror value.
+     *
+     * @return bool
+     */
+    public function getHaltonerror()
+    {
+        return $this->haltonerror;
+    }
+
+    /**
      * The main entry point method.
      *
      * @throws BuildException
@@ -63,9 +73,14 @@ class HgPushTask extends HgBaseTask
         $this->log('Pushing...', Project::MSG_INFO);
         $clone->setInsecure($this->getInsecure());
         $clone->setQuiet($this->getQuiet());
-        $project = $this->getProject();
-        $dir = $project->getProperty('application.startdir');
+        if ($this->repository === '') {
+            $project = $this->getProject();
+            $dir = $project->getProperty('application.startdir');
+        } else {
+            $dir = $this->repository;
+        }
         $cwd = getcwd();
+        $this->checkRepositoryIsDirAndExists($dir);
         chdir($dir);
         try {
             $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
