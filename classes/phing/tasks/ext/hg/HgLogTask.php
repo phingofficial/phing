@@ -33,13 +33,6 @@ use Siad007\VersionControl\HG\Factory;
 class HgLogTask extends HgBaseTask
 {
     /**
-     * Current working directory
-     *
-     * @var string
-     */
-    protected $cwd = null;
-
-    /**
      * Maximum number of changes to get. See --limit
      *
      * @var int
@@ -76,7 +69,7 @@ class HgLogTask extends HgBaseTask
      */
     public function setMaxcount($count)
     {
-        $this->maxCount = (int) $count;
+        $this->maxCount = $count;
     }
 
     /**
@@ -124,18 +117,6 @@ class HgLogTask extends HgBaseTask
     }
 
     /**
-     * Set current working directory.
-     *
-     * @param string $cwd current working directory
-     *
-     * @return void
-     */
-    public function setCwd($cwd)
-    {
-        $this->cwd = $cwd;
-    }
-
-    /**
      * Set revision attribute
      *
      * @param string $revision Revision
@@ -157,12 +138,17 @@ class HgLogTask extends HgBaseTask
         $clone = Factory::getInstance('log');
 
         if ($this->repository === '') {
-            $clone->setCwd($this->cwd);
+            $project = $this->getProject();
+            $dir = $project->getProperty('application.startdir');
         } else {
-            $clone->setCwd($this->repository);
+            $dir = $this->repository;
         }
+        $clone->setCwd($dir);
 
         if ($this->maxCount !== null) {
+            if (!is_int($this->maxCount) || $this->maxCount <= 0) {
+                throw new BuildException("maxcount should be a positive integer.");
+            }
             $clone->setLimit('' . $this->maxCount);
         }
 
