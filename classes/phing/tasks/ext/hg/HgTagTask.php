@@ -53,7 +53,6 @@ class HgTagTask extends HgBaseTask
      */
     protected $revision = '';
 
-
     /**
      * Set the name argument
      *
@@ -138,8 +137,13 @@ class HgTagTask extends HgBaseTask
         }
         $message = $this->getMessage();
         $clone->setMessage($message);
-        $clone->addName($this->getName());
+        $name = $this->getName();
+        if ($name == '') {
+            throw new BuildException("Name attribute must be set.");
+        }
+        $clone->addName($name);
 
+        $this->checkRepositoryIsDirAndExists($dir);
         chdir($dir);
 
         try {

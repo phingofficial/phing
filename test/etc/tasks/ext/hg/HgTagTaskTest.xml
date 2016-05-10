@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<project name="hgRevertTest" default="invalid">
+    <property name="tmp.dir" value="./../../../../tmp/hgtest" />
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <target name="wrongRepositoryDirDoesntExist" description="Wrong repository directory">
+        <hgtag repository="inconcievable-buttercup" name="new-tag"/>
+	</target>
+
+    <target name="tag" description="test user and name">
+        <hginit repository="${tmp.dir.resolved}"/>
+        <hgtag repository="${tmp.dir.resolved}" user="test" name="new-tag"/>
+	</target>
+    <target name="testRevision" description="test revision">
+        <hginit repository="${tmp.dir.resolved}"/>
+        <hgtag repository="${tmp.dir.resolved}" user="test" revision="deadbeef" name="new-tag"/>
+	</target>
+</project>

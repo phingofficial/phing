@@ -17,4 +17,3 @@
         <hgrevert repository="${tmp.dir.resolved}" all="true" revision="deadbeef0a0b"/>
 	</target>
 </project>
-

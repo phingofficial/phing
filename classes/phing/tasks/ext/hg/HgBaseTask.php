@@ -49,6 +49,13 @@ abstract class HgBaseTask extends Task
     protected $quiet = false;
 
     /**
+     * Username.
+     *
+     * @var string
+     */
+    protected $user = '';
+
+    /**
      * Set repository attribute
      *
      * @param string $repository Repository
