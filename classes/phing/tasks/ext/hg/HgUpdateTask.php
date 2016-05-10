@@ -100,7 +100,7 @@ class HgUpdateTask extends HgBaseTask
      */
     public function main()
     {
-        $pull = Factory::getInstance('pull');
+        $pull = Factory::getInstance('update');
         $pull->setClean($this->getClean());
         $pull->setQuiet($this->getQuiet());
 
@@ -113,6 +113,7 @@ class HgUpdateTask extends HgBaseTask
             $dir = $this->repository;
         }
 
+        $this->checkRepositoryIsDirAndExists($dir);
         chdir($dir);
         try {
             $this->log("Executing: " . $pull->asString(), Project::MSG_INFO);
