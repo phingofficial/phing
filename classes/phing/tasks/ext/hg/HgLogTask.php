@@ -146,7 +146,11 @@ class HgLogTask extends HgBaseTask
         $clone->setCwd($dir);
 
         if ($this->maxCount !== null) {
-            if (!is_int($this->maxCount) || $this->maxCount <= 0) {
+            $max = filter_var($this->maxCount, FILTER_VALIDATE_INT);
+            if ($max) {
+                $max = (int) $this->maxCount;
+            }
+            if (!$max || (int) $this->maxCount <= 0) {
                 throw new BuildException("maxcount should be a positive integer.");
             }
             $clone->setLimit('' . $this->maxCount);
