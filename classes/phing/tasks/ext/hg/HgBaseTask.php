@@ -14,7 +14,7 @@
 /**
  * Depending on composer for pulling in siad007's VersionControl_HG package.
  */
-require 'vendor/autoload.php';
+@require_once 'vendor/autoload.php';
 
 /**
  * Base task for integrating phing and mercurial.
