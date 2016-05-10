@@ -84,6 +84,9 @@ class HgCommitTask extends HgBaseTask
         $clone->setQuiet($this->getQuiet());
         $clone->setMessage($message);
 
+        if (trim($user) === "") {
+            throw new BuildException('"user" parameter can not be set to ""');
+        }
         if ($user !== null) {
             $clone->setUser($user);
             $this->log("Commit: user = '$user'", Project::MSG_VERBOSE);
