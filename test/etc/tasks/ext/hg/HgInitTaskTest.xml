@@ -7,7 +7,7 @@
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
     </target>
-    
+
     <target name="hgInit" description="Initialize normal repository">
         <hginit repository="${tmp.dir.resolved}"/>
 	</target>

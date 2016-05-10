@@ -75,7 +75,16 @@ class HgRevertTask extends HgBaseTask
     public function setFile($file)
     {
         $this->file = $file;
+    }
 
+    /**
+     * Get filename to be reverted.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
     /**
@@ -101,11 +110,20 @@ class HgRevertTask extends HgBaseTask
         $clone = Factory::getInstance('revert');
         $clone->setQuiet($this->getQuiet());
         $clone->setAll($this->all);
+        if ($this->repository === '') {
+            $project = $this->getProject();
+            $dir = $project->getProperty('application.startdir');
+        } else {
+            $dir = $this->repository;
+        }
+        $cwd = getcwd();
+        $this->checkRepositoryIsDirAndExists($dir);
+        chdir($dir);
         if ($this->revision !== '') {
             $clone->setRev($this->revision);
         }
-        if ($file !== null) {
-            $clone->addName($file);
+        if ($this->file !== null) {
+            $clone->addName($this->file);
         }
 
         try {
