@@ -735,16 +735,39 @@ class SassTask extends Task
         return $this->lineNumbers;
     }
 
+    /**
+     * Whether to use the 'sass' command line tool.
+     *
+     * @param string $value Jenkins style boolean value.
+     *
+     * @return void
+     * @link   http://sass-lang.com/install
+     */
     public function setUseSass($value)
     {
         $this->useSass = StringHelper::booleanValue($value);
     }
 
+    /**
+     * Whether to use the scssphp compiler.
+     *
+     * @param string $value Jenkins style boolean value.
+     *
+     * @return void
+     * @link   http://leafo.github.io/scssphp/
+     */
     public function setUseScssphp($value)
     {
         $this->useScssphp = StringHelper::booleanValue($value);
     }
 
+    /**
+     * Set single filename to compile from scss to css.
+     *
+     * @param string $file Single filename to compile.
+     *
+     * @return void
+     */
     public function setFile($file)
     {
         $this->file = $file;
@@ -1010,6 +1033,11 @@ class SassTask extends Task
         return $success;
     }
 
+    /**
+     * Initialise and return an instance of the ScssPhp Compiler.
+     *
+     * @return Leafo\ScssPhp\Compiler
+     */
     public function initialiseScssphp()
     {
         $scss = new Leafo\ScssPhp\Compiler();
