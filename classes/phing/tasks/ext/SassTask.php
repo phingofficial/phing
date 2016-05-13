@@ -759,6 +759,13 @@ class SassTask extends Task
     public function setUseScssphp($value)
     {
         $this->useScssphp = StringHelper::booleanValue($value);
+        if (version_compare(PHP_VERSION, '5.2', '<=')) {
+            $this->useScssphp = false;
+            $this->log(
+                "SCSSPHP is incompatible with this version of PHP",
+                Project::MSG_INFO
+            );
+        }
     }
 
     /**
@@ -783,6 +790,13 @@ class SassTask extends Task
     {
         include_once 'System.php';
         @include_once 'vendor/autoload.php';
+        if (version_compare(PHP_VERSION, '5.2', '<=')) {
+            $this->useScssphp = false;
+            $this->log(
+                "SCSSPHP is incompatible with this version of PHP",
+                Project::MSG_INFO
+            );
+        }
     }
 
     /**
