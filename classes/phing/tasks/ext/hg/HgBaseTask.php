@@ -12,11 +12,6 @@
  */
 
 /**
- * Depending on composer for pulling in siad007's VersionControl_HG package.
- */
-//@require_once 'vendor/autoload.php';
-
-/**
  * Base task for integrating phing and mercurial.
  *
  * @category Tasks
@@ -163,4 +158,19 @@ abstract class HgBaseTask extends Task
         }
         return true;
     }
+
+    /**
+     * Initialise the task.
+     *
+     * @return void
+     */
+    public function init()
+    {
+        /**
+         * Depending on composer for pulling in siad007's VersionControl_HG package.
+         */
+        @include_once 'vendor/autoload.php';
+    }
+
+
 }
