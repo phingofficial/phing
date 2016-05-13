@@ -166,10 +166,14 @@ abstract class HgBaseTask extends Task
      */
     public function init()
     {
-        /**
-         * Depending on composer for pulling in siad007's VersionControl_HG package.
-         */
-        @include_once 'vendor/autoload.php';
+        if (version_compare(PHP_VERSION, '5.4', "<")) {
+            throw new BuildException('This task requires PHP 5.4+');
+        } else {
+            /**
+            * Depending on composer for pulling in siad007's VersionControl_HG.
+            */
+            @include_once 'vendor/autoload.php';
+        }
     }
 
 
