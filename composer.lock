@@ -2998,6 +2998,54 @@
             "time": "2015-11-21 02:21:41"
         },
         {
+            "name": "siad007/versioncontrol_hg",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/siad007/versioncontrol_hg.git",
+                "reference": "68c8327db927602942280e39efcb92bdeda79445"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/siad007/versioncontrol_hg/zipball/68c8327db927602942280e39efcb92bdeda79445",
+                "reference": "68c8327db927602942280e39efcb92bdeda79445",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "mehr-als-nix/assumptions": "~1",
+                "phpunit/phpunit": "~4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Siad007\\VersionControl\\HG\\": "src",
+                    "Siad007\\VersionControl\\HG\\Tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com",
+                    "role": "Lead"
+                }
+            ],
+            "description": "VersionControl_HG is a library that provides an OO interface to handle Mercurial repositories.",
+            "time": "2015-06-16 20:02:10"
+        },
+        {
             "name": "squizlabs/php_codesniffer",
             "version": "2.4.0",
             "source": {
