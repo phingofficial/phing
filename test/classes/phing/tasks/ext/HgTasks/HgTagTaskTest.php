@@ -29,6 +29,7 @@ class HgTagTaskTest extends BuildFileTest
         );
     }
 
+    /*
     public function testTag()
     {
         $this->expectBuildExceptionContaining(
@@ -38,6 +39,7 @@ class HgTagTaskTest extends BuildFileTest
         );
         $this->assertInLogs('Executing: tag --user \'test\' new-tag');
     }
+    */
 
     public function testRevision()
     {
