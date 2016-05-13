@@ -14,7 +14,7 @@
 /**
  * Pull in Base class.
  */
-require_once 'HgBaseTask.php';
+require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
  * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
