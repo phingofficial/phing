@@ -91,7 +91,7 @@ class SassTask extends Task
      *
      * @var array
      */
-    protected $filesets = [];
+    protected $filesets = array();
 
     /**
      * Additional flags to pass to sass.
@@ -1002,7 +1002,7 @@ class SassTask extends Task
             throw new BuildException('Input file and output file are the same!');
         }
 
-        $output = [];
+        $output = array();
         $return = null;
 
         $fullCommand = $this->executable;
@@ -1016,7 +1016,7 @@ class SassTask extends Task
         $this->log("Executing: {$fullCommand}", Project::MSG_INFO);
         exec($fullCommand, $output, $return);
 
-        return [$return, $output];
+        return array($return, $output);
     }
 
     /**
