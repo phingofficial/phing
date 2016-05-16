@@ -1047,6 +1047,17 @@ class SassTask extends Task
         return $success;
     }
 
+    public function getNewCompiler()
+    {
+        $compiler = '\\Leafo\\ScssPhp\\Compiler';
+        $obj = call_user_func_array(
+            array($compiler, '__construct'),
+            array()
+        );
+        var_dump ($obj);
+        return self::$factory;
+    }
+
     /**
      * Initialise and return an instance of the ScssPhp Compiler.
      *
@@ -1054,7 +1065,8 @@ class SassTask extends Task
      */
     public function initialiseScssphp()
     {
-        $scss = new Leafo\ScssPhp\Compiler();
+        //$scss = new Leafo\ScssPhp\Compiler();
+        $scss = $this->getNewCompiler();
         if ($this->style) {
             $ucStyle = ucfirst(strtolower($this->style));
             $scss->setFormatter('Leafo\\ScssPhp\\Formatter\\' . $ucStyle);
@@ -1063,7 +1075,7 @@ class SassTask extends Task
             $scss->setEncoding($this->encoding);
         }
         if ($this->lineNumbers) {
-            $scss->setLineNumberStyle(Leafo\ScssPhp\Compiler::LINE_COMMENTS);
+            $scss->setLineNumberStyle(1);
         }
         if ($this->loadPath !== '') {
             $scss->setImportPaths(explode(PATH_SEPARATOR, $this->loadPath));
