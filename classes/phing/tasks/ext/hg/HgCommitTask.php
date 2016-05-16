@@ -17,11 +17,6 @@
 require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
- * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
- */
-use Siad007\VersionControl\HG\Factory;
-
-/**
  * Integration/Wrapper for hg commit
  *
  * @category Tasks
@@ -78,7 +73,7 @@ class HgCommitTask extends HgBaseTask
 
         $user = $this->getUser();
 
-        $clone = Factory::getInstance('commit');
+        $clone = $this->getFactoryInstance('commit');
         $msg = sprintf("Commit: '%s'", $message);
         $this->log($msg, Project::MSG_INFO);
         $clone->setQuiet($this->getQuiet());

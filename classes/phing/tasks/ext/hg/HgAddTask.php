@@ -17,11 +17,6 @@
 require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
- * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
- */
-use Siad007\VersionControl\HG\Factory;
-
-/**
  * Integration/Wrapper for hg add
  *
  * @category Tasks
@@ -66,7 +61,7 @@ class HgAddTask extends HgBaseTask
     public function main()
     {
         $filesAdded = false;
-        $clone = Factory::getInstance('add');
+        $clone = $this->getFactoryInstance('add');
         $clone->setQuiet($this->getQuiet());
 
         $cwd = getcwd();
@@ -99,7 +94,7 @@ class HgAddTask extends HgBaseTask
                 $ds = $fs->getDirectoryScanner($project);
                 $fromDir = $fs->getDir($project);
                 if ($fromDir->getName() === '.') {
-                    $statusClone = Factory::getInstance('status');
+                    $statusClone = $this->getFactoryInstance('status');
                     $statusClone->setUnknown(true);
                     $statusClone->setNoStatus(true);
                     $statusClone->setRepository($this->getRepository());

@@ -17,11 +17,6 @@
 require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
- * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
- */
-use Siad007\VersionControl\HG\Factory;
-
-/**
  * Integration/Wrapper for hg clone
  *
  * @category Tasks
@@ -69,7 +64,7 @@ class HgCloneTask extends HgBaseTask
      */
     public function main()
     {
-        $clone = Factory::getInstance('clone');
+        $clone = $this->getFactoryInstance('clone');
         $repository = $this->getRepository();
         if ($repository === '') {
             throw new BuildException('"repository" is a required parameter');

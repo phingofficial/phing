@@ -17,11 +17,6 @@
 require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
- * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
- */
-use Siad007\VersionControl\HG\Factory;
-
-/**
  * Integration/Wrapper for hg update
  *
  * @category Tasks
@@ -100,7 +95,7 @@ class HgUpdateTask extends HgBaseTask
      */
     public function main()
     {
-        $pull = Factory::getInstance('update');
+        $pull = $this->getFactoryInstance('update');
         $pull->setClean($this->getClean());
         $pull->setQuiet($this->getQuiet());
 

@@ -17,11 +17,6 @@
 require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
- * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
- */
-use Siad007\VersionControl\HG\Factory;
-
-/**
  * Integration/Wrapper for hg revert
  *
  * @category Tasks
@@ -107,7 +102,7 @@ class HgRevertTask extends HgBaseTask
      */
     public function main()
     {
-        $clone = Factory::getInstance('revert');
+        $clone = $this->getFactoryInstance('revert');
         $clone->setQuiet($this->getQuiet());
         $clone->setAll($this->all);
         if ($this->repository === '') {

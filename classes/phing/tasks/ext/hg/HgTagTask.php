@@ -17,11 +17,6 @@
 require_once 'phing/tasks/ext/hg/HgBaseTask.php';
 
 /**
- * Pull in and use https://packagist.org/packages/siad007/versioncontrol_hg
- */
-use Siad007\VersionControl\HG\Factory;
-
-/**
  * Integration/Wrapper for hg tag
  *
  * @category Tasks
@@ -116,7 +111,7 @@ class HgTagTask extends HgBaseTask
      */
     public function main()
     {
-        $clone = Factory::getInstance('tag');
+        $clone = $this->getFactoryInstance('tag');
         $cwd = getcwd();
 
         if ($this->name === '') {

@@ -50,6 +50,7 @@ abstract class HgBaseTask extends Task
      */
     protected $user = '';
 
+    static $factory = null;
     /**
      * Set repository attribute
      *
@@ -176,5 +177,14 @@ abstract class HgBaseTask extends Task
         }
     }
 
+    public function getFactoryInstance($command, $options = array())
+    {
+        $vchq = '\\Siad007\\VersionControl\\HG\\Factory';
+        self::$factory = call_user_func_array(
+            array($vchq, 'getInstance'),
+            array($command, $options)
+        );
+        return self::$factory;
+    }
 
 }
