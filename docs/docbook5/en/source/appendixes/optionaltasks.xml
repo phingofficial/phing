@@ -3331,6 +3331,626 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project&gt;</programlisting>
         </sect2>
     </sect1>
+
+    <sect1 role="taskdef" xml:id="HgAddTask">
+        <title>HgAddTask</title>
+        <para>Add files to Mercurial repository on the next commit.
+        This is available for PHP 5.4 and higher.</para>
+
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hgadd repository="${repo.dir.resolved}">
+    &lt;fileset dir="."/>
+&lt;/hgadd></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgArchiveTask">
+        <title>HgArchiveTask</title>
+        <para>Create an unversioned archive of a Mercurial repository revision.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>destination</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of archive to create.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>revision</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Revision to distribute in the archive.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="version" value="v0_1_2"/>
+&lt;hgarchive destination="${version}.zip" />
+&lt;hgarchive destination="${version}.tgz" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgCloneTask">
+        <title>HgCloneTask</title>
+        <para>Make a copy of an existing Mercurial repository.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>insecure</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Do not verify server certificate.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>targetPath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Directory to clone into.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;property name="repo.url" value="https://bitbucket.org/spaetz/ceyx-mapcss" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hgclone repository="${repo.url}" quiet="false" insecure="true" targetPath="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgCommitTask">
+        <title>HgCommitTask</title>
+        <para>Commit changes to a Mercurial repository.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>message</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Commit message.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>user</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>User to record as the committer.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hgcommit message="[ci skip] Compress .js files." user="phingbot" repository="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgInitTask">
+        <title>HgInitTask</title>
+        <para>Create a new Mercurial repository.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>insecure</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Do not verify server certificate.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hginit repository="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgLogTask">
+        <title>HgLogTask</title>
+        <para>Show revision history of entire Mercurial repository or files, or limit to a number of revisions. Optionally store the history to a phing property.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>format</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Display with template, e.g. "{rev}\n", "{branch}" etc.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>maxCount</literal></entry>
+                    <entry><literal role="type">Integer</literal></entry>
+                    <entry>Number of commits to show/limit.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>revision</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Show the specified revision or range.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+&lt;hglog maxCount="1" format="{files}\n" outputproperty="hgfiles" repository="${repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgPullTask">
+        <title>HgPullTask</title>
+        <para>Pull changes from a specified Mercurial repository to a local one.
+        This is available for PHP 5.4 and higher.</para>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>insecure</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Do not verify server certificate.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hgpull quiet="false" insecure="true" repository="${repo.dir}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgPushTask">
+        <title>HgPushTask</title>
+        <para>Push changes from the local Mercurial repository to the specified destination.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>insecure</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Do not verify server certificate.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;hgpush haltonerror="true" repository="{repo.dir.resolved}"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgRevertTask">
+        <title>HgRevertTask</title>
+        <para>Revert files to their checkout state from the Mercurial repository.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>all</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Revert all Changes when no other details are given.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>name</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of file to revert.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>revision</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Revision to revert to.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hgrevert all="true"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgTagTask">
+        <title>HgTagTask</title>
+        <para>Add a tag for the current or specified revision of the local Mercurial repository.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>message</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Message to add/edit tag with.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>name</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of tag.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>revision</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Revision to tag.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>user</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>User to record as the committer.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hgtag user="phingbot" message="tagging new release" name="v0.1.2"/> </programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="HgUpdateTask">
+        <title>HgUpdateTask</title>
+        <para>Update the Mercurial repository's working directory or switch revisions.
+        This is available for PHP 5.4 and higher.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>branch</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>A specific branch to pull.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>clean</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Discard uncommitted changes.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>quiet</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Work silently unless an error occurs.</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>repository</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Mercurial repository.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="repo.dir" value="./repo.directory" />
+&lt;hgupdate repository="${repo.dir.resolved}" branch="dev"/> </programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="HttpGetTask">
         <title>HttpGetTask</title>
         <para>This task will download a file through HTTP GET and save it to a specified directory.

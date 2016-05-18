@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name="hgUpdateTest" default="invalid">
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="wrongRepositoryDirDoesntExist" description="Wrong repository directory">
+        <hgupdate repository="inconcievable-buttercup"/>
+	</target>
+    <target name="wrongRepository" description="Wrong repository directory">
+        <hgupdate repository=""/>
+	</target>
+</project>
