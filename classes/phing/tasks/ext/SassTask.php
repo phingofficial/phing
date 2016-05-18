@@ -1047,6 +1047,11 @@ class SassTask extends Task
         return $success;
     }
 
+    /**
+     * Get ScssPhp Compiler.
+     *
+     * @return Leafo\ScssPhp\Compiler
+     */
     public function getNewCompiler()
     {
         $compiler = '\\Leafo\\ScssPhp\\Compiler';
@@ -1054,7 +1059,6 @@ class SassTask extends Task
             array($compiler, '__construct'),
             array()
         );
-        var_dump ($obj);
         return self::$factory;
     }
 
