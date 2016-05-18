@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="hgInitTest" default="invalid">
+
+    <property name="tmp.dir" value="./../../../../tmp/hgtest" />
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="hgInit" description="Initialize normal repository">
+        <hginit repository="${tmp.dir.resolved}"/>
+	</target>
+
+    <target name="wrongRepository" description="Wrong repository directory">
+        <hginit repository="inconcievable-buttercup"/>
+	</target>
+
+</project>

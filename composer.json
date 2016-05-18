@@ -35,6 +35,7 @@
         "phploc/phploc": "~2.0.6",
         "phpmd/phpmd": "~2.2",
         "phpunit/phpunit": ">=3.7",
+        "siad007/versioncontrol_hg": "^1.0",
         "sebastian/phpcpd": "2.x",
         "sebastian/git": "~1.0",
         "squizlabs/php_codesniffer": "~2.2",
@@ -67,6 +68,7 @@
         "pear/versioncontrol_svn": "A simple OO-style interface for Subversion, the free/open-source version control system",
         "pear/versioncontrol_git": "A library that provides OO interface to handle Git repository",
         "pear/archive_tar": "Tar file management class",
+        "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
         "tedivm/jshrink": "Javascript Minifier built in PHP"
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="hgArchiveTest" default="invalid">
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="wrongRepositoryDirDoesntExist" description="Wrong repository directory">
+        <hgpull repository="inconcievable-buttercup"/>
+	</target>
+    <target name="wrongRepository" description="Wrong repository directory">
+        <hgpull repository=""/>
+	</target>
+</project>

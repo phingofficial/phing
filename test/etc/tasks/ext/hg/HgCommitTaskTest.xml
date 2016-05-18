@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<project name="hgCommitTest" default="invalid">
+    <target name="messageNotSpecified" description="Message not specified">
+        <hgcommit/>
+	</target>
+
+    <target name="userNotEmptyString" description="user parameter can not be an empty string">
+        <hgcommit message="test" user=""/>
+	</target>
+</project>
