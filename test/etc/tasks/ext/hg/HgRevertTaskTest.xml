@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="hgRevertTest" default="invalid">
+    <property name="tmp.dir" value="./../../../../tmp/hgtest" />
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+
+    <target name="fileNotSpecified" description="file not specified">
+        <hginit repository="${tmp.dir.resolved}"/>
+        <hgrevert repository="${tmp.dir.resolved}" />
+	</target>
+
+    <target name="revertAll" description="test all attribute">
+        <hginit repository="${tmp.dir.resolved}"/>
+        <hgrevert repository="${tmp.dir.resolved}" all="true"/>
+	</target>
+    <target name="revertAllWithRevisionSet" description="test all attribute">
+        <hginit repository="${tmp.dir.resolved}"/>
+        <hgrevert repository="${tmp.dir.resolved}" all="true" revision="deadbeef0a0b"/>
+	</target>
+</project>
