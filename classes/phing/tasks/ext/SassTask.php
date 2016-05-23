@@ -55,6 +55,8 @@ class SassTask extends Task
     protected $useSass = true;
     protected $useScssphp = true;
     protected $file = null;
+    protected $output = null;
+    protected $scssCompiler = null;
 
     /**
      * Contains the path info of our file to allow us to parse.
@@ -129,6 +131,32 @@ class SassTask extends Task
      * @var string
      */
     protected $outputpath = '';
+
+    /**
+     * Set input file (For example style.scss)
+     *
+     * Synonym for @see setFile
+     *
+     * @param string $file Filename
+     *
+     * @return void
+     */
+    public function setInput($file)
+    {
+        $this->setFile($file);
+    }
+
+    /**
+     * Set name of output file.
+     *
+     * @param string $file Filename of [css] to output.
+     *
+     * @return void
+     */
+    public function setOutput($file)
+    {
+        $this->output = $file;
+    }
 
     /**
      * Sets the failonerror flag. Default: true
@@ -823,7 +851,7 @@ class SassTask extends Task
         }
 
         // If both are set to be used, prefer sass over scssphp.
-        $useScssphp = false;
+        $lUseScssphp = false;
         if ($this->useSass && $this->useScssphp) {
             if (System::which($this->executable) === false) {
                 if ($this->loadScssphp() === false) {
@@ -838,8 +866,7 @@ class SassTask extends Task
                         return;
                     }
                 } else {
-                    $useScssphp = true;
-                    $scss = $this->initialiseScssphp();
+                    $lUseScssphp = true;
                 }
             }
         } elseif (!$this->useSass && !$this->useScssphp) {
@@ -873,19 +900,73 @@ class SassTask extends Task
                     return;
                 }
             } else {
-                $useScssphp = true;
-                $scss = $this->initialiseScssphp();
+                $lUseScssphp = true;
+                $this->scssCompiler = $this->initialiseScssphp();
             }
         }
 
-        $specifiedOutputPath = (strlen($this->outputpath) > 0);
+        if (count($this->filesets) > 0) {
+            $this->processFilesets($lUseScssphp);
+        } elseif ($this->file !== null) {
+            $this->processFile($lUseScssphp);
+        }
+    }
 
+    /**
+     * Compile a specified file.
+     *
+     * If output file is not specified, but outputpath is, place output in
+     * that directory. If neither is specified, place .css file in the
+     * directory that the input file is in.
+     *
+     * @param boolean $useScssphp Whether to use the scssphp compiler.
+     *
+     * @return void
+     */
+    public function processFile($useScssphp)
+    {
+        $this->log("Process file", Project::MSG_INFO);
+        if (is_null($this->output)) {
+            $specifiedOutputPath = (strlen($this->outputpath) > 0);
+            if ($specifiedOutputPath === false) {
+                $info = pathinfo($this->file);
+                $path = $info['dirname'];
+                $this->outputpath = $path;
+            } else {
+                $path = $this->outputpath;
+            }
+            $output = $path . DIRECTORY_SEPARATOR . $info['filename'];
+            if (!$this->removeoldext) {
+                $output .= '.' . $this->pathInfo['extension'];
+            }
+
+            if (strlen($this->newext) > 0) {
+                $output .= '.' . $this->newext;
+            }
+            $this->output = $output;
+        } else {
+            $output = $this->output;
+        }
+
+        $this->compile($this->file, $output, $useScssphp);
+    }
+
+    /**
+     * Process filesets - compiling/generating css files as required.
+     *
+     * @param boolean $useScssphp Whether to use the scssphp compiler.
+     *
+     * @return void
+     */
+    public function processFilesets($useScssphp)
+    {
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($this->project);
             $files = $ds->getIncludedFiles();
             $dir = $fs->getDir($this->project)->getPath();
 
             // If output path isn't defined then set it to the path of our fileset.
+            $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {
                 $this->outputpath = $dir;
             }
@@ -908,62 +989,75 @@ class SassTask extends Task
                     && ($this->extfilter === ''
                     || $this->extfilter === $this->pathInfo['extension'])
                 ) {
-                    $outputFile = $this->buildOutputFilePath($file);
-                    $output = null;
+                    $outputFile = $this->buildOutputFilePath();
+                    $this->compile($fullFilePath, $outputFile, $useScssphp);
+                }
+            }
+        }
+    }
 
-                    if (!$useScssphp) {
-                        try {
-                            $output = $this->executeCommand(
+    /**
+     * Compile
+     *
+     * @param string  $fullFilePath Fully qualified filename to compile.
+     * @param string  $outputFile   Filename for generated css.
+     * @param boolean $lUseScssphp  Whether to use scssphp compiler.
+     *
+     * @return void
+     */
+    public function compile($fullFilePath, $outputFile, $lUseScssphp)
+    {
+        $output = null;
+        if (!$lUseScssphp) {
+            try {
+                $output = $this->executeCommand(
+                    $fullFilePath,
+                    $outputFile
+                );
+                if ($this->failonerror && $output[0] !== 0) {
+                    throw new BuildException(
+                        "Result returned as not 0. Result: {$output[0]}",
+                        Project::MSG_INFO
+                    );
+                }
+            } catch (Exception $e) {
+                if ($this->failonerror) {
+                    throw $e;
+                } else {
+                    $this->log(
+                        "Result: {$output[0]}",
+                        Project::MSG_INFO
+                    );
+                }
+            }
+        } else {
+            $this->log(
+                sprintf("Compiling '%s' via scssphp", $fullFilePath),
+                Project::MSG_INFO
+            );
+            $input = file_get_contents($fullFilePath);
+            try {
+                $out = $this->scssCompiler->compile($input, $fullFilePath);
+                if ($out !== '') {
+                    $success = file_put_contents($outputFile, $out);
+                    if ($success) {
+                        $this->log(
+                            sprintf(
+                                "'%s' compiled and written to '%s'",
                                 $fullFilePath,
                                 $outputFile
-                            );
-                            if ($this->failonerror && $output[0] !== 0) {
-                                throw new BuildException(
-                                    "Result returned as not 0. Result: {$output[0]}",
-                                    Project::MSG_INFO
-                                );
-                            }
-                        } catch (Exception $e) {
-                            if ($this->failonerror) {
-                                throw $e;
-                            } else {
-                                $this->log(
-                                    "Result: {$output[0]}",
-                                    Project::MSG_INFO
-                                );
-                            }
-                        }
-                    } else {
-                        $this->log(
-                            sprintf("Compiling '%s' via scssphp", $fullFilePath),
-                            Project::MSG_INFO
+                            ),
+                            Project::MSG_VERBOSE
                         );
-                        $input = file_get_contents($fullFilePath);
-                        try {
-                            $out = $scss->compile($input, $fullFilePath);
-                            if ($out !== '') {
-                                $success = file_put_contents($outputFile, $out);
-                                if ($success) {
-                                    $this->log(
-                                        sprintf(
-                                            "'%s' compiled and written to '%s'",
-                                            $fullFilePath,
-                                            $outputFile
-                                        ),
-                                        Project::MSG_VERBOSE
-                                    );
-                                }
-                            } else {
-                                $this->log('Compilation resulted in empty string');
-                            }
-                        } catch (Exception $ex) {
-                            if ($this->failonerror) {
-                                throw new BuildException($ex->getMessage());
-                            } else {
-                                $this->log($ex->getMessage(), Project::MSG_ERR);
-                            }
-                        }
                     }
+                } else {
+                    $this->log('Compilation resulted in empty string');
+                }
+            } catch (Exception $ex) {
+                if ($this->failonerror) {
+                    throw new BuildException($ex->getMessage());
+                } else {
+                    $this->log($ex->getMessage(), Project::MSG_ERR);
                 }
             }
         }
