@@ -46,16 +46,81 @@ require_once 'phing/Task.php';
 class SassTask extends Task
 {
 
+    /**
+     * Style to generate to.
+     *
+     * @var string
+     */
     protected $style = 'nested';
+
+    /**
+     * Stack trace on error.
+     *
+     * @var bool
+     */
     protected $trace = false;
+
+    /**
+     * Unix-style newlines?
+     *
+     * @var bool
+     */
     protected $unixnewlines = true;
+
+    /**
+     * Encoding
+     *
+     * @var string
+     */
     protected $encoding = 'utf-8';
+
+    /**
+     * SASS import path.
+     *
+     * @var string
+     */
     protected $loadPath = '';
+
+    /**
+     * Whether to just check syntax
+     *
+     * @var bool
+     */
     protected $check = false;
+
+    /**
+     * Whether to use the sass command line tool.
+     *
+     * @var bool
+     */
     protected $useSass = true;
+
+    /**
+     * Whether to use the scssphp compiler, if available.
+     *
+     * @var bool
+     */
     protected $useScssphp = true;
+
+    /**
+     * Input filename if only processing one file is required.
+     *
+     * @var string|null
+     */
     protected $file = null;
+
+    /**
+     * Output filename
+     *
+     * @var string|null
+     */
     protected $output = null;
+
+    /**
+     * Scssphp compiler
+     *
+     * @var object
+     */
     protected $scssCompiler = null;
 
     /**
