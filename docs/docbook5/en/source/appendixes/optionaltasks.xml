@@ -10796,10 +10796,24 @@ key="AmazonKey" secret="AmazonSecret" /></programlisting>
                     <entry>No</entry>
                 </row>
                 <row>
+                    <entry><literal>file</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of single file to process.</entry>
+                    <entry><literal>N/A</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
                     <entry><literal>flags</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional flags to set for sass executable.</entry>
                     <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>input</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of single file to process. Synonym for file.</entry>
+                    <entry><literal>N/A</literal></entry>
                     <entry>No</entry>
                 </row>
                 <row>
@@ -10835,6 +10849,16 @@ key="AmazonKey" secret="AmazonSecret" /></programlisting>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to cache parsed sass files.</entry>
                     <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>output</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Corresponding output file for 'file'/'input' parameter.
+If not specified and outputpath is, then the generated file is placed there, with the filename based on the input file.
+If neither is specified, then the generated file is placed into the directory that the input file is in.
+                    </entry>
+                    <entry><literal>N/A</literal></entry>
                     <entry>No</entry>
                 </row>
                 <row>
