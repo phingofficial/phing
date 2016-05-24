@@ -4004,6 +4004,13 @@ file defines a task in the format: name=path.to.Task -->
                             <entry>n/a</entry>
                             <entry>No</entry>
                         </row>
+                        <row>
+                            <entry><literal>timezone</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The timezone to use for displaying time.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
                     </tbody>
                 </tgroup>
             </table>
