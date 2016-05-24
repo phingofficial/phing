@@ -10705,6 +10705,241 @@ key="AmazonKey" secret="AmazonSecret" /></programlisting>
         </sect2>
 
     </sect1>
+
+    <sect1 role="taskdef" xml:id="SassTask">
+        <title>SassTask</title>
+        <para>The <literal>SassTask</literal> converts SCSS or Sass files to CSS using either the
+        <link xlink:href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#using_sass" role="extern">'sass' gem</link>
+        or the <link xlink:href="http://leafo.github.io/scssphp/" role="extern">scssphp package</link>.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>check</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to just check the syntax of the input files.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>compact</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Set the style to compact.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+
+                <row>
+                    <entry><literal>compressed</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Set the style to compressed.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>crunched</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Set the style to crunched. Supported by scssphp, not sass.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+
+                <row>
+                    <entry><literal>expand</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Set the style to expanded.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+
+                <row>
+                    <entry><literal>encoding</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Default encoding for input files. Supported by scssphp.</entry>
+                    <entry>utf-8</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>executable</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location/name of the sass executable, if required.</entry>
+                    <entry>sass</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>extfilter</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Extension to filter against.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>failonerror</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to fail/halt if an error occurs.</entry>
+                    <entry><literal>False</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>file</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of single file to process.</entry>
+                    <entry><literal>N/A</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>flags</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional flags to set for sass executable.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>input</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of single file to process. Synonym for file.</entry>
+                    <entry><literal>N/A</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>keepsubdirectories</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to keep the directory structure when compiling.</entry>
+                    <entry>True</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>linenumbers</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to annotate generated CSS with source file and line numbers.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>nested</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Set the style to expanded.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>newext</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Extension for newly created files.</entry>
+                    <entry>css</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>nocache</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to cache parsed sass files.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>output</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Corresponding output file for 'file'/'input' parameter.
+If not specified and outputpath is, then the generated file is placed there, with the filename based on the input file.
+If neither is specified, then the generated file is placed into the directory that the input file is in.
+                    </entry>
+                    <entry><literal>N/A</literal></entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>outputpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Where to place the generated CSS files.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>path</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Specify sass import path. e.g. --load-path ...</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>removeoldext</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to strip existing extension off the output filename.</entry>
+                    <entry>True</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>style</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of style to output. Must be one of 'nested', 'compact', 'compressed', 'crunched' or 'expanded'. 'Helper' attributes may also be used. 'crunched' is supported by scssphp only.</entry>
+                    <entry>nested</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>trace</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to show a full stack trace on error.</entry>
+                    <entry>False</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>unixnewlines</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Use Unix-style newlines in written files.</entry>
+                    <entry>True</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>useSass</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use the 'sass' command line tool. Takes precedence over scssphp if both are available and enabled.</entry>
+                    <entry>True</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>useScssphp</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use the 'scssphp' PHP package.</entry>
+                    <entry>True</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <para>The useSass and useScssphp attributes can be used to indicate which compiler should be used, which would be useful if both are available.
+    If both are available and enabled, then the 'sass' compiler is used rather than the scssphp library.
+    </para>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">
+&lt;sass style="compact" trace="yes" unixnewlines="yes" outputpath="${compiled.dir.resolved}">
+    &lt;fileset dir="."/>
+&lt;/sass></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+
     <sect1 role="taskdef" xml:id="ScpTask">
         <title>ScpTask</title>
         <para> The <literal>ScpTask</literal> copies files to and from a remote host using scp. This
