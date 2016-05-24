@@ -159,6 +159,7 @@
                 <ref name="rst"/>
                 <ref name="s3put"/>
                 <ref name="s3get"/>
+                <ref name="sass"/>
                 <ref name="scp"/>
                 <ref name="ssh"/>
                 <ref name="simpletest"/>
@@ -4655,6 +4656,154 @@
         </element>
     </define>
 
+    <define name="sass">
+        <element name="sass">
+            <interleave>
+                <optional>
+                <choice>
+                    <attribute name="file">
+                        <data type="string"/>
+                    </attribute>
+                    <attribute name="input">
+                        <data type="string"/>
+                    </attribute>
+                </choice>
+                </optional>
+                <optional>
+                    <attribute name="check">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="compact">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="compressed">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="crunched">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="expand">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="encoding">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="executable">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="extfilter">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="flags">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="force">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="keepsubdirectories">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="newext"/>
+                </optional>
+                <optional>
+                    <attribute name="linenumbers">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="nested">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="nocache">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="output">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="outputpath">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="path">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="removeoldext">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="style">
+                        <choice>
+                            <value>compact</value>
+                            <value>compressed</value>
+                            <value>crunched</value>
+                            <value>expanded</value>
+                            <value>nested</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="trace">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="unixnewlines">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="useScssphp">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="useSass">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <zeroOrMore>
+                    <ref name="fileset"/>
+                </zeroOrMore>
+            </interleave>
+        </element>
+    </define>
 
     <define name="scp">
         <element name="scp">
