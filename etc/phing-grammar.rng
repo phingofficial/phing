@@ -106,6 +106,7 @@
                 <ref name="gitcheckout"/>
                 <ref name="gitclone"/>
                 <ref name="gitcommit"/>
+                <ref name="gitdescribe"/>
                 <ref name="gitfetch"/>
                 <ref name="gitgc"/>
                 <ref name="gitinit"/>
@@ -115,6 +116,12 @@
                 <ref name="gitpush"/>
                 <ref name="gittag"/>
                 <ref name="growlnotify"/>
+                <ref name="hgadd"/>
+                <ref name="hgcommit"/>
+                <ref name="hglog"/>
+                <ref name="hgpull"/>
+                <ref name="hgpush"/>
+                <ref name="hgupdate"/>
                 <ref name="httpget"/>
                 <ref name="httprequest"/>
                 <ref name="inifile"/>
@@ -203,6 +210,7 @@
                 <ref name="adhoc-type"/>
                 <ref name="append"/>
                 <ref name="apply"/>
+                <ref name="attrib"/>
                 <ref name="available"/>
                 <ref name="basename"/>
                 <ref name="chmod"/>
@@ -265,6 +273,9 @@
                 <attribute name="name"/>
                 <optional>
                     <attribute name="depends"/>
+                </optional>
+                <optional>
+                    <attribute name="hidden"/>
                 </optional>
                 <optional>
                     <attribute name="if"/>
@@ -358,6 +369,9 @@
                         </zeroOrMore>
                     </group>
                 </choice>
+                <optional>
+                <attribute name="includes"/>
+                </optional>
             </interleave>
         </element>
     </define>
@@ -570,6 +584,52 @@
                     </attribute>
                     <attribute name="maxparallel">
                         <data type="integer"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="attrib">
+        <element name="available">
+            <interleave>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <choice>
+                            <ref name="fileset"/>
+                            <ref name="filelist"/>
+                        </choice>
+                    </oneOrMore>
+                </choice>
+                <optional>
+                    <attribute name="archive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="hidden">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="os">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="readonly">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="system">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean"/>
                     </attribute>
                 </optional>
             </interleave>
@@ -1967,7 +2027,9 @@
     <define name="report">
         <element name="report">
             <attribute name="todir"/>
-            <attribute name="styledir"/>
+            <optional>
+                <attribute name="styledir"/>
+            </optional>
             <optional>
                 <attribute name="title"/>
             </optional>
@@ -2368,6 +2430,66 @@
                 <optional>
                     <attribute name="allFiles">
                         <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="gitdescribe">
+        <element name="gitdescribe">
+            <interleave>
+                <attribute name="repository">
+                    <data type="string"/>
+                </attribute>
+                <optional>
+                    <attribute name="all">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="always">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="tags">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="contains">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="abbrev">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="candidates">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="committish">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="long">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="match">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="outputProperty">
+                        <data type="string"/>
                     </attribute>
                 </optional>
             </interleave>
@@ -2788,6 +2910,99 @@
         <element name="postparameter">
             <attribute name="name"/>
             <attribute name="value"/>
+        </element>
+    </define>
+
+    <define name="hgadd">
+        <element name="hgadd">
+            <interleave>
+                <attribute name="repository"/>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="hgcommit">
+        <element name="hgcommit">
+            <interleave>
+                <attribute name="repository"/>
+                <optional>
+                    <attribute name="message"/>
+                </optional>
+                <optional>
+                    <attribute name="user"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="hgpull">
+        <element name="hgpull">
+            <interleave>
+                <attribute name="repository"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="hgpush">
+        <element name="hgpush">
+            <interleave>
+                <optional>
+                    <attribute name="repository"/>
+                </optional>
+                <optional>
+                    <attribute name="haltonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="insecure">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="hglog">
+        <element name="hglog">
+            <interleave>
+                <attribute name="repository"/>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="maxCount">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="outputProperty">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="revision"/>
+                </optional>
+                <optional>
+                    <attribute name="quiet"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="hgupdate">
+        <element name="hgupdate">
+            <interleave>
+                <attribute name="repository"/>
+                <optional>
+                    <attribute name="branch">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+            </interleave>
         </element>
     </define>
 
@@ -4972,6 +5187,8 @@
                 <attribute name="name"/>
                 <optional>
                     <attribute name="category"/>
+                </optional>
+                <optional>
                     <attribute name="action"/>
                 </optional>
             </interleave>
