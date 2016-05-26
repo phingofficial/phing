@@ -92,10 +92,12 @@
             <choice>
                 <ref name="apigen"/>
                 <ref name="autoloader"/>
+                <ref name="capsule"/>
                 <ref name="composer"/>
                 <ref name="coverage-merger"/>
                 <ref name="coverage-report"/>
                 <ref name="coverage-setup"/>
+                <ref name="coverage-threshold"/>
                 <ref name="dbdeploy"/>
                 <ref name="exportproperties"/>
                 <ref name="filehash"/>
@@ -1168,6 +1170,9 @@
                     <data type="boolean"/>
                 </attribute>
             </optional>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
         </element>
     </define>
 
@@ -1843,6 +1848,30 @@
         </element>
     </define>
 
+    <define name="capsule">
+        <element name="capsule">
+            <interleave>
+                <attribute name="controlTemplate">
+                    <data type="string"/>
+                </attribute>
+                <attribute name="templatePath"/>
+                    <data type="string"/>
+                </attribute>
+                <attribute name="outputDirectory"/>
+                    <data type="string"/>
+                </attribute>
+                <attribute name="outputFile"/>
+                    <data type="string"/>
+                </attribute>
+                <optional>
+                    <attribute name="contextProperties">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+            <interleave>
+        </element>
+    </define>
+
     <define name="composer">
         <element name="composer">
             <interleave>
@@ -1869,6 +1898,9 @@
             <interleave>
                 <optional>
                     <attribute name="executable"/>
+                </optional>
+                <optional>
+                    <attribute name="action"/>
                 </optional>
                 <optional>
                     <attribute name="config"/>
@@ -1916,6 +1948,9 @@
                     <attribute name="templateconfig"/>
                 </optional>
                 <optional>
+                    <attribute name="templatetheme"/>
+                </optional>
+                <optional>
                     <attribute name="allowedhtml"/>
                 </optional>
                 <optional>
@@ -1926,6 +1961,11 @@
                 </optional>
                 <optional>
                     <attribute name="accesslevels"/>
+                </optional>
+                <optional>
+                    <attribute name="annotationgroups">
+                        <data type="string"/>
+                    </attribute>
                 </optional>
                 <optional>
                     <attribute name="internal">
@@ -1953,7 +1993,7 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="sourcecode">
+                    <attribute name="nosourcecode">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -2183,6 +2223,9 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="algorithm"/>
+                </optional>
+                <optional>
                     <attribute name="propertyname"/>
                 </optional>
             </interleave>
@@ -2254,13 +2297,25 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="depends">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <attribute name="dir"/>
+                </optional>
+                <optional>
+                    <attribute name="dirmode"/>
+                </optional>
+                <optional>
+                    <attribute name="filemode"/>
                 </optional>
                 <optional>
                     <attribute name="mode">
                         <choice>
                             <value>ascii</value>
                             <value>binary</value>
+                            <value>bin</value>
                         </choice>
                     </attribute>
                 </optional>
@@ -2271,6 +2326,21 @@
                 </optional>
                 <optional>
                     <attribute name="passive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="rawdatafallback">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="skipOnSameSize">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ssl">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -2411,6 +2481,11 @@
                 <optional>
                     <attribute name="bare">
                         <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="depth">
+                        <data type="int"/>
                     </attribute>
                 </optional>
             </interleave>
@@ -4298,6 +4373,11 @@
                 <optional>
                     <attribute name="cachefile"/>
                 </optional>
+                <optional>
+                    <attribute name="pharLocation">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
             </interleave>
         </element>
     </define>
@@ -4384,6 +4464,11 @@
             <optional>
                 <attribute name="haltonerror">
                     <data type="boolean"/>
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="pharLocation">
+                    <data type="string"/>
                 </attribute>
             </optional>
             <oneOrMore>
@@ -6066,6 +6151,8 @@
                     <attribute name="classname"/>
                     <attribute name="type">
                         <choice>
+                            <value type="string">cutdirs</value>
+                            <value type="string">firstmatch</value>
                             <value type="string">flatten</value>
                             <value type="string">glob</value>
                             <value type="string">merge</value>
