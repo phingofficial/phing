@@ -1854,13 +1854,13 @@
                 <attribute name="controlTemplate">
                     <data type="string"/>
                 </attribute>
-                <attribute name="templatePath"/>
+                <attribute name="templatePath">
                     <data type="string"/>
                 </attribute>
-                <attribute name="outputDirectory"/>
+                <attribute name="outputDirectory">
                     <data type="string"/>
                 </attribute>
-                <attribute name="outputFile"/>
+                <attribute name="outputFile">
                     <data type="string"/>
                 </attribute>
                 <optional>
@@ -1868,7 +1868,7 @@
                         <data type="string"/>
                     </attribute>
                 </optional>
-            <interleave>
+            </interleave>
         </element>
     </define>
 
