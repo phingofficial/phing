@@ -104,6 +104,7 @@ class TstampCustomFormat
     private $propertyName = "";
     private $pattern = "";
     private $locale = "";
+    private $timezone = "";
 
     /**
      * The property to receive the date/time string in the given pattern
@@ -137,6 +138,14 @@ class TstampCustomFormat
     }
 
     /**
+     * @param string $timezone
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
+    /**
      * validate parameter and execute the format.
      *
      * @param TstampTask $tstamp reference to task
@@ -158,12 +167,21 @@ class TstampCustomFormat
             setlocale(LC_ALL, $this->locale);
         }
 
+        $savedTimezone = date_default_timezone_get();
+        if (!empty($this->timezone)) {
+            date_default_timezone_set($this->timezone);
+        }
+
         $value = strftime($this->pattern);
         $tstamp->prefixProperty($this->propertyName, $value);
 
         if (!empty($this->locale)) {
             // reset locale
             setlocale(LC_ALL, $oldlocale);
+        }
+
+        if (!empty($this->timezone)) {
+            date_default_timezone_set($savedTimezone);
         }
     }
 }
