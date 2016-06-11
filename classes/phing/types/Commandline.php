@@ -136,6 +136,9 @@ class Commandline
     public function getCommandline()
     {
         $args = $this->getArguments();
+        foreach ($args as &$arg) {
+            $arg = self::quoteArgument($arg, true);
+        }
         if ($this->executable === null) {
             return $args;
         }
