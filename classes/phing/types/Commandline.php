@@ -154,7 +154,7 @@ class Commandline
             $parts = $arg->getParts();
             if ($parts !== null) {
                 foreach ($parts as $part) {
-                    $result[] = $part;
+                    $result[] = $arg->escape ? self::quoteArgument($part, true) : $part;
                 }
             }
         }
@@ -411,6 +411,7 @@ class CommandlineArgument
 
     private $parts = array();
     private $outer;
+    public $escape = false;
 
     /**
      * @param Commandline $outer
@@ -418,6 +419,14 @@ class CommandlineArgument
     public function __construct(Commandline $outer)
     {
         $this->outer = $outer;
+    }
+
+    /**
+     * @param bool $escape
+     */
+    public function setEscape($escape)
+    {
+        $this->escape = $escape;
     }
 
     /**

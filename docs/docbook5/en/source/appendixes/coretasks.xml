@@ -1883,6 +1883,12 @@ verbose="true" failonerror="false" /></programlisting>
                                             arguments.</entry>
                                         <entry>n/a</entry>
                                     </row>
+                                    <row>
+                                        <entry><literal>escape</literal></entry>
+                                        <entry><literal role="type">Boolean</literal></entry>
+                                        <entry>Force escape for this attribute.</entry>
+                                        <entry><literal>false</literal></entry>
+                                    </row>
                                 </tbody>
                             </tgroup>
                         </table>
