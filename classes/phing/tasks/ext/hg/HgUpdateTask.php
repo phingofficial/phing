@@ -96,6 +96,11 @@ class HgUpdateTask extends HgBaseTask
     public function main()
     {
         $pull = $this->getFactoryInstance('update');
+        try {
+            $pull->setBranch($this->getBranch());
+        } catch (Exception $ex) {
+            $this->log("Caught: " . $ex->getMessage(), Project::MSG_DEBUG);
+        }
         $pull->setClean($this->getClean());
         $pull->setQuiet($this->getQuiet());
 
