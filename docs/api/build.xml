@@ -11,13 +11,6 @@
         <param value="${buildfile.dir}/../.."/>
     </php>
 
-    <condition property="phpdoc2.task.available">
-        <and>
-            <available file="${phingpkg.home}/classes/phing/tasks/ext/phpdoc/PhpDocumentor2Task.php" />
-            <available resource="phpDocumentor/src/phpDocumentor/Bootstrap.php" />
-        </and>
-    </condition>
-
     <target name="prepare">
         <mkdir dir="${buildfile.dir}/docs"/>
     </target>
@@ -43,9 +36,6 @@
      </target>
 
     <target name="build">
-        <fail unless="phpdoc2.task.available"
-            message="PhpDocumentor 2 is not installed" />
-
         <phingcall target="clean" />
         <phingcall target="prepare" />
         <phingcall target="docs" />
