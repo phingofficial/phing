@@ -12,7 +12,8 @@
     </target>
 
     <target name="allParamsSet" description="Gc with all parameters present">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
@@ -27,7 +28,8 @@
     </target>
 
     <target name="autoParamSet" description="Gc --auto">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
@@ -35,7 +37,8 @@
     </target>
 
     <target name="nopruneParamSet" description="Gc --noprune">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
@@ -43,7 +46,8 @@
     </target>
 
     <target name="aggressiveParamSet" description="Gc --aggressive">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
@@ -51,7 +55,8 @@
     </target>
 
     <target name="pruneParamSet" description="Gc --prune=date">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 

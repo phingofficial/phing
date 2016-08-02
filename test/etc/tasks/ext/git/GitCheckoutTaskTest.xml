@@ -12,7 +12,8 @@
     </target>
 
     <target name="checkoutExistingBranch" description="Checkout from existing branch">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
@@ -25,7 +26,8 @@
     </target>
 
     <target name="checkoutNonExistingBranch" description="Checkout from non-existing branch">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
@@ -42,7 +44,8 @@
     </target>
 
     <target name="checkoutMerge" description="Checkout with -m">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
@@ -59,7 +62,8 @@
     </target>
 
     <target name="checkoutCreateBranch" description="Checkout with -b">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
@@ -77,7 +81,8 @@
     </target>
 
     <target name="checkoutForceCreateBranch" description="Checkout with -B">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
@@ -103,7 +108,8 @@
     </target>
 
     <target name="checkoutForceCreateBranchFailed" description="Checkout with -B">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
@@ -120,6 +126,5 @@
             branchname="co-create-branch" quiet="true" 
             create="true" />
     </target>
-
 
 </project>

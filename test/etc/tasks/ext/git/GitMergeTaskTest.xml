@@ -12,7 +12,8 @@
     </target>
 
     <target name="allParamsSet" description="all parameters present">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <!-- create couple of test branches -->
@@ -37,7 +38,8 @@
     </target>
 
     <target name="wrongStrategySet" description="git-merge --strategy">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <!-- create couple of test branches -->
@@ -51,7 +53,8 @@
     </target>
 
     <target name="strategySet" description="git-merge --strategy">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <!-- create couple of test branches -->
@@ -65,7 +68,8 @@
     </target>
 
     <target name="remoteSet" description="git-merge commit">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <!-- create couple of test branches -->
@@ -78,7 +82,8 @@
     </target>
 
     <target name="fastForwardCommitSet" description="git-merge --no-ff">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
@@ -99,7 +104,8 @@
     </target>
 
     <target name="noCommitSet" description="git-merge --no-commit">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <!-- create couple of test branches -->

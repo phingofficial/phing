@@ -13,7 +13,8 @@
 
     <target name="gitDescribeTask">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />

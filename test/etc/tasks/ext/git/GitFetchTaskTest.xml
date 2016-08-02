@@ -12,7 +12,8 @@
     </target>
 
     <target name="fetchAllRemotes" description="Fetch from all remotes">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch
@@ -20,7 +21,8 @@
     </target>
 
     <target name="allParamsSet" description="all parameters present">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch
@@ -37,7 +39,8 @@
     </target>
 
     <target name="refspecSet" description="git-fetch --track">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch 

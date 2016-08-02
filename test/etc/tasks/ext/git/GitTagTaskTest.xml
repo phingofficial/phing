@@ -14,7 +14,8 @@
     <target name="gitTagCreate" 
         description="Create non-annotated tag">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -24,7 +25,8 @@
     <target name="gitTagCreateDuplicate" 
         description="Create duplicate non-annotated tag">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -34,7 +36,8 @@
     <target name="gitTagForceCreateDuplicate" 
         description="Create (force) duplicate non-annotated tag">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -47,7 +50,8 @@
     <target name="gitTagReplaceCreateDuplicate" 
         description="Check alternative 'replace' attribute">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -59,7 +63,8 @@
 
     <target name="gitTagCreateAnnotatedNoMessage" 
         description="git-tag -a tagname">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag 
@@ -71,7 +76,8 @@
 
     <target name="gitTagCreateAnnotated" 
         description="git-tag -a tagname">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag 
@@ -83,7 +89,8 @@
 
     <target name="gitTagCreateAnnotatedImplicit" 
         description="git-tag -a tagname w/o providing -a option explicitly">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag 
@@ -95,7 +102,8 @@
 
     <target name="gitTagDelete" 
         description="git-tag -d tagname(s)">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -108,7 +116,8 @@
 
     <target name="gitTagListByPattern" 
         description="git-tag -l pattern">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -120,7 +129,8 @@
 
     <target name="gitTagOutpuPropertySet" 
         description="git-tag -l pattern">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
@@ -134,7 +144,8 @@
 
     <target name="gitTagWithCommitSet" 
         description="git-tag c573116f395d36497a1ac1dba565ecd3d3944277">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" 
@@ -148,7 +159,8 @@
 
     <target name="gitTagWithObjectSet" 
         description="git-tag c573116f395d36497a1ac1dba565ecd3d3944277">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" 
@@ -163,7 +175,8 @@
     <target name="gitTagFileSet" description="git-tag -F">
         <property name="msg.dir" value="./../../../../tmp" />
         <resolvepath propertyName="msg.dir.resolved" file="${msg.dir}" />
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag repository="${tmp.dir.resolved}" 
@@ -173,10 +186,10 @@
             list="true" num="1" />
     </target>
 
-
     <target name="gitTagCreateSignedDefaultKey" 
         description="git-tag -s tagname">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gittag 
@@ -185,7 +198,6 @@
             message="Version 1.0 tag"/>
         <gittag repository="${tmp.dir.resolved}" list="true"/>
     </target>
-
 
     <target name="noRepository" description="No repo dir argument provided">
         <gittag />
