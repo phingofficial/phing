@@ -45,6 +45,19 @@ class GitCloneTask extends GitBaseTask
     private $isBare = false;
 
     /**
+     * Whether --single-branch key should be set for git-clone
+     * @var bool
+     */
+    private $singleBranch = false;
+    
+    /**
+     * Branch to check out
+     * 
+     * @var string
+     */
+    private $branch = "";
+
+    /**
      * Path to target directory
      * @var string
      */
@@ -98,16 +111,12 @@ class GitCloneTask extends GitBaseTask
     {
         $command = $client->getCommand('clone')
             ->setOption('q')
+            ->setOption('bare', $this->isBare())
+            ->setOption('single-branch', $this->isSingleBranch())
+            ->setOption('depth', $this->hasDepth() ? $this->getDepth() : false)
+            ->setOption('branch', $this->hasBranch() ? $this->getBranch() : false)
             ->addArgument($this->getRepository())
             ->addArgument($this->getTargetPath());
-
-        if ($this->isBare()) {
-            $command->setOption('bare', true);
-        }
-
-        if ($this->hasDepth()) {
-            $command->setOption('depth', $this->getDepth());
-        }
 
         if (is_dir($this->getTargetPath()) && version_compare('1.6.1.4', $client->getGitVersion(), '>=')) {
             $isEmptyDir = true;
@@ -199,4 +208,43 @@ class GitCloneTask extends GitBaseTask
         $this->isBare = (bool) $flag;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isSingleBranch()
+    {
+        return $this->singleBranch;
+    }
+
+    /**
+     * @param boolean $singleBranch
+     */
+    public function setSingleBranch($singleBranch)
+    {
+        $this->singleBranch = $singleBranch;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBranch()
+    {
+        return $this->branch;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasBranch()
+    {
+        return !empty($this->branch);
+    }
+    
+    /**
+     * @param string $branch
+     */
+    public function setBranch($branch)
+    {
+        $this->branch = $branch;
+    }
 }

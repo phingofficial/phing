@@ -12,7 +12,8 @@
     </target>
 
     <target name="allParamsSet" description="all parameters present">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
@@ -26,13 +27,14 @@
     <target name="noRepository" description="Required param checking">
         <gitbranch />
     </target>
-
+    
     <target name="noBranchname" description="Required param checking">
         <gitbranch repository="${tmp.dir.resolved}"/>
     </target>
 
     <target name="trackParamSet" description="git-branch --track">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -42,7 +44,8 @@
     </target>
 
     <target name="noTrackParamSet" description="git-branch --no-track">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -52,7 +55,8 @@
     </target>
 
     <target name="setUpstreamParamSet" description="git-branch --set-upstream">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -62,7 +66,8 @@
     </target>
 
     <target name="forceParamSet" description="git-branch --force">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -77,7 +82,8 @@
     </target>
 
     <target name="deleteBranch" description="git-branch -d|-D">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -97,7 +103,8 @@
     </target>
 
     <target name="moveBranch" description="git-branch -m">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -115,7 +122,8 @@
     </target>
 
     <target name="forceMoveBranch" description="git-branch -M">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -133,7 +141,8 @@
     </target>
 
     <target name="moveBranchNoNewbranch" description="git-branch -m">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
@@ -146,7 +155,8 @@
     </target>
 
     <target name="forceMoveBranchNoNewbranch" description="git-branch -M">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 

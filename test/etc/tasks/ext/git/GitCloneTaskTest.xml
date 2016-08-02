@@ -12,20 +12,22 @@
     </target>
     
     <target name="gitClone" description="Clone read-only github repo">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
 	</target>
 
     <target name="gitCloneBare" description="Clone bare github repo">
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}"
             bare="true" />
 	</target>
 
     <target name="wrongRepository" description="Path to repository not found">
-        <gitclone 
+        <gitclone
             repository="this-is-plain-wrong" 
             targetPath="${tmp.dir.resolved}" />
 	</target>

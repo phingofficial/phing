@@ -1700,6 +1700,22 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>0</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>singleBranch</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Clone only one branch. See --single-branch option of <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html"
+                        >git-clone</link>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>branch</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Checkout <literal>branch</literal> instead of the remote's HEAD.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>

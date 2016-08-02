@@ -2488,6 +2488,16 @@
                         <data type="int"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="singleBranch">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="branch">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
             </interleave>
         </element>
     </define>
