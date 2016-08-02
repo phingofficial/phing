@@ -39,8 +39,8 @@ class GitCloneTask extends GitBaseTask
     private $depth = 0;
 
     /**
-     * Whether --bare key should be set for git-init
-     * @var string
+     * Whether --bare key should be set for git-clone
+     * @var bool
      */
     private $isBare = false;
 
@@ -73,18 +73,8 @@ class GitCloneTask extends GitBaseTask
             );
         }
 
-        $client = $this->getGitClient(false, getcwd());
-
         try {
-            if ($this->hasDepth()) {
-                $this->doShallowClone($client);
-            } else {
-                $client->createClone(
-                    $this->getRepository(),
-                    $this->isBare(),
-                    $this->getTargetPath()
-                );
-            }
+            $this->doClone($this->getGitClient(false, getcwd()));
         } catch (Exception $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
@@ -98,19 +88,26 @@ class GitCloneTask extends GitBaseTask
     }
 
     /**
-     * Create a shallow clone with a history truncated to the specified number of revisions.
+     * Create a new clone
      *
      * @param VersionControl_Git $client
      *
      * @throws VersionControl_Git_Exception
      */
-    protected function doShallowClone(VersionControl_Git $client)
+    protected function doClone(VersionControl_Git $client)
     {
         $command = $client->getCommand('clone')
-            ->setOption('depth', $this->getDepth())
             ->setOption('q')
             ->addArgument($this->getRepository())
             ->addArgument($this->getTargetPath());
+
+        if ($this->isBare()) {
+            $command->setOption('bare', true);
+        }
+
+        if ($this->hasDepth()) {
+            $command->setOption('depth', $this->getDepth());
+        }
 
         if (is_dir($this->getTargetPath()) && version_compare('1.6.1.4', $client->getGitVersion(), '>=')) {
             $isEmptyDir = true;
@@ -179,7 +176,7 @@ class GitCloneTask extends GitBaseTask
     /**
      * Alias @see getBare()
      *
-     * @return string
+     * @return bool
      */
     public function isBare()
     {
@@ -187,7 +184,7 @@ class GitCloneTask extends GitBaseTask
     }
 
     /**
-     * @return string
+     * @return bool
      */
     public function getBare()
     {
