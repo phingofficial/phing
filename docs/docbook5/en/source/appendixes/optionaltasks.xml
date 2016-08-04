@@ -2206,7 +2206,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>until</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>&lt;until> argument to git-log.</entry>
-                        <entry>HEAD</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
