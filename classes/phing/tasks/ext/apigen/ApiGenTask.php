@@ -320,11 +320,22 @@ class ApiGenTask extends Task
      *
      * @param boolean $noSourceCode
      */
-    public function setNoSourceCode($noSourceCode)
+    public function setSourceCode($noSourceCode)
     {
-        if((bool) $noSourceCode) {
+        if(!((bool) $noSourceCode)) {
             $this->options['no-source-code'] = null;
         }
+    }
+
+    /**
+     * Sets if highlighted source code files should not be generated.
+     *
+     * @deprecated 
+     * @param boolean $noSourceCode
+     */
+    public function setNoSourceCode($noSourceCode)
+    {
+        $this->setSourceCode(!$noSourceCode);
     }
 
     /**
