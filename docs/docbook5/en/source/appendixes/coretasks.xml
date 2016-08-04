@@ -2543,7 +2543,7 @@ verbose="true" failonerror="false" /></programlisting>
             as a comma or space, or, conversely, e.g. to convert a list of files
             in a FileList into a path.
         </para>
-        <para>Nested <lieral>map</lieral> elements can be specified to map Windows
+        <para>Nested <literal>map</literal> elements can be specified to map Windows
             drive letters to Unix paths, and vice-versa.
         </para>
         <table>
