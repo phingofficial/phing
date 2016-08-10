@@ -10199,7 +10199,7 @@ description="Measures the size of the project and count it's tests">
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ReplaceRegexpTask">
-        <title>>ReplaceRegexpTask</title>
+        <title>ReplaceRegexpTask</title>
         <para>Replaces the occurrences of a given regular expression with a substitution pattern
             in a selected file or set of files.</para>
         <table>
