@@ -215,7 +215,7 @@ class UpToDateTask extends Task implements Condition
             $fl = $this->_filelists[$i];
             $srcFiles = $fl->getFiles($this->project);
             $upToDate = $upToDate && $this->scanDir(
-                    $fs->getDir($this->project),
+                    $fl->getDir($this->project),
                     $srcFiles
                 );
         }
