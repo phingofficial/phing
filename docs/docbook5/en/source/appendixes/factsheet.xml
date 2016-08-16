@@ -95,7 +95,7 @@
 
                     <row>
                         <entry><literal>php.classpath</literal></entry>
-                        <entry>The value of the environment variable <literal>PHP_CLASSPATH</literal>.</entry>
+                        <entry>The value of the <literal>PHP_CLASSPATH</literal>. Same as the include path returned by get_include_path().</entry>
                     </row>
                     <row>
                         <entry><literal>php.version</literal></entry>
