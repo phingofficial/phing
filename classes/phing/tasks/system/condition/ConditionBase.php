@@ -274,6 +274,14 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createIsFileSelected()
+    {
+        include_once 'phing/tasks/system/condition/IsFileSelected.php';
+        $num = array_push($this->conditions, new IsFileSelected());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project

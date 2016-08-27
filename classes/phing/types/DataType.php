@@ -164,6 +164,13 @@ class DataType extends ProjectComponent
         $this->checked = true;
     }
 
+    public static function pushAndInvokeCircularReferenceCheck(DataType $dt, &$stk, Project $p)
+    {
+        array_push($stk, $dt);
+        $dt->dieOnCircularReference($stk, $p);
+        array_pop($stk);
+    }
+
     /**
      * Performs the check for circular references and returns the referenced object.
      *
