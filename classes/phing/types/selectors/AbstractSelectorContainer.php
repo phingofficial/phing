@@ -274,6 +274,17 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     }
 
     /**
+     * add a selector different entry on the selector list
+     */
+    public function createDifferent()
+    {
+        $o = new DifferentSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
      * add a selector size entry on the selector list
      */
     public function createSize()
