@@ -892,6 +892,42 @@
             <programlisting language="xml">&lt;filesmatch file1="${file1}" file2="${file2}"/></programlisting>
 
         </sect2>
+        <sect2 xml:id="conditions.isfileselected">
+            <title><literal>isfileselected</literal></title>
+            <para>Test whether a file passes an embedded selector. </para>
+            <table>
+                <title>isfileselected Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>file</literal></entry>
+                            <entry>The file to check if is passes the embedded selector.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>basedir</literal></entry>
+                            <entry>The base directory to use for name based selectors.
+                                It this is not set, the project's basedirectory will be used.</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;isfileselected file="a.xml">
+  &lt;date datetime="06/28/2000 2:02 pm" when="equal"/>
+&lt;/isfileselected></programlisting>
+
+        </sect2>
         <sect2 xml:id="conditions.isfailure">
             <title><literal>isfailure</literal></title>
             <para>Test the return code of an executable for failure. </para>
