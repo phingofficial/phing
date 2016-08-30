@@ -36,12 +36,14 @@ include_once 'phing/system/io/IOException.php';
  */
 class TouchTask extends Task
 {
-
+    /** @var PhingFile $file */
     private $file;
     private $millis = -1;
     private $dateTime;
     private $filesets = array();
     private $fileUtils;
+    private $mkdirs = false;
+    private $verbose = true;
 
     /**
      *
@@ -84,6 +86,26 @@ class TouchTask extends Task
     public function setDatetime($dateTime)
     {
         $this->dateTime = (string) $dateTime;
+    }
+
+    /**
+     * Set whether nonexistent parent directories should be created
+     * when touching new files.
+     * @param boolean $mkdirs whether to create parent directories.
+     */
+    public function setMkdirs($mkdirs)
+    {
+        $this->mkdirs = $mkdirs;
+    }
+
+    /**
+     * Set whether the touch task will report every file it creates;
+     * defaults to <code>true</code>.
+     * @param boolean $verbose flag.
+     */
+    public function setVerbose($verbose)
+    {
+        $this->verbose = $verbose;
     }
 
     /**
@@ -136,9 +158,9 @@ class TouchTask extends Task
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
-                $this->log("Creating " . $this->file->__toString(), Project::MSG_INFO);
+                $this->log("Creating " . $this->file->__toString(), $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
                 try { // try to create file
-                    $this->file->createNewFile();
+                    $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
                     throw new BuildException("Error creating new file " . $this->file->__toString(
                         ), $ioe, $this->location);
