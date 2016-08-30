@@ -906,9 +906,8 @@ class DOSMapper implements FileNameMapper {
         <sect2>
             <title> Using the Mapper </title>
             <para>Assuming that this mapper is saved to <literal>myapp/mappers/DOSMapper.php
-                </literal>(relative to a path on PHP's <literal>include_path</literal> or in
-                    <literal>PHP_CLASSPATH</literal> env variable), then you would refer to it like
-                this in your build file: </para>
+                </literal>(relative to a path on PHP's <literal>include_path</literal>,
+                    then you would refer to it like this in your build file: </para>
             <programlisting language="xml">&lt;mapper classname="myapp.mappers.DOSMapper"/></programlisting>
         </sect2>
     </sect1>
