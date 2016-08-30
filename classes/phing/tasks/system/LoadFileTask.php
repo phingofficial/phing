@@ -132,21 +132,25 @@ class LoadFileTask extends Task
         if ($this->quiet && $this->failOnError) {
             throw new BuildException("quiet and failonerror cannot both be set to true");
         }
-        if (!$this->file->exists()) {
-            $message = (string)$this->file . ' doesn\'t exist';
-            if ($this->failOnError) {
-                throw new BuildException($message);
-            } else {
-                $this->log($message, $this->quiet ? Project::MSG_WARN : Project::MSG_ERR);
-                return;
-            }
-        }
-
-        $this->log("loading " . (string)$this->file . " into property " . $this->property, Project::MSG_VERBOSE);
-        // read file (through filterchains)
-        $contents = "";
 
         try {
+            if (is_string($this->file)) {
+                $this->file = new PhingFile($this->file);
+            }
+            if (!$this->file->exists()) {
+                $message = (string)$this->file . ' doesn\'t exist';
+                if ($this->failOnError) {
+                    throw new BuildException($message);
+                } else {
+                    $this->log($message, $this->quiet ? Project::MSG_WARN : Project::MSG_ERR);
+                    return;
+                }
+            }
+
+            $this->log("loading " . (string)$this->file . " into property " . $this->property, Project::MSG_VERBOSE);
+            // read file (through filterchains)
+            $contents = "";
+
             if ($this->file->length() > 0) {
                 $reader = FileUtils::getChainedReader(new FileReader($this->file), $this->filterChains, $this->project);
                 while (-1 !== ($buffer = $reader->read())) {
