@@ -2437,6 +2437,24 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to halt the build on failure.</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Do not display a diagnostic message (unless Phing
+                            has been invoked with the -verbose or -debug switches)
+                            or modify the exit status to reflect an error.
+                            Setting this to <literal>true</literal> implies setting failonerror
+                            to <literal>false</literal>.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
