@@ -932,6 +932,7 @@ class SassTask extends Task
                     }
                 } else {
                     $lUseScssphp = true;
+                    $this->scssCompiler = $this->initialiseScssphp();
                 }
             }
         } elseif (!$this->useSass && !$this->useScssphp) {
