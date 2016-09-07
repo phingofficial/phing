@@ -1213,12 +1213,17 @@ class SassTask extends Task
      */
     public function getNewCompiler()
     {
-        $compiler = '\\Leafo\\ScssPhp\\Compiler';
-        $obj = call_user_func_array(
-            array($compiler, '__construct'),
-            array()
-        );
-        return self::$factory;
+        // Support for namespaces was added in PHP 5.3. Provide a fallback for
+        // PHP 5.2.
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            $compiler = '\\Leafo\\ScssPhp\\Compiler';
+            $obj = call_user_func_array(
+                array($compiler, '__construct'),
+                array()
+            );
+            return self::$factory;
+        }
+        return new Leafo\ScssPhp\Compiler();
     }
 
     /**
@@ -1228,7 +1233,6 @@ class SassTask extends Task
      */
     public function initialiseScssphp()
     {
-        //$scss = new Leafo\ScssPhp\Compiler();
         $scss = $this->getNewCompiler();
         if ($this->style) {
             $ucStyle = ucfirst(strtolower($this->style));
