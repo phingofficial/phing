@@ -2,6 +2,33 @@ P     H     I     N     G
 =========================
 
 
+Sep. 14, 2016 - Phing 2.15
+--------------------------
+
+This release contains the following new or improved functionality:
+
+ * PHP 7.0 compatibility was improved
+ * Phing grammar was updated
+ * Tasks to work with Mercurial were added
+ * Various typo and bug fixes, documentation updates
+
+The following tickets were closed in this release:
+
+
+ * [1263] Error in SassTask on PHP 7
+ * [1262] Fatal error in SassTask when Sass gem is not installed
+ * [1259] PHP_CLASSPATH Enviroment Variable
+ * [1258] ApigenTask issue
+ * [1257] The phpunit-code-coverage version 4.x breaks the phing-tasks-phpunit component
+ * [1254] ftpdeploy : [PHP Error] require_once(PEAR.php): failed to open stream: No such file or directory [line 251 of site\vendor\phing\phing\src\Task\Ext\FtpDeploy.php]
+ * [1253] Phing gitlog task not return last commit when committer's system time is set forward
+ * [1249] First tstamp task is generating wrong timestamp
+ * [1247] IsProperty(True/False)Condition doesn't support the 'name' attribute
+ * [1246] FailTask with nested condition always fails
+ * [1243] Command line argument with "|" character must be quoted
+ * [1238] Add documentation for Smarty and ReplaceRegexp tasks
+ * [566] Add Mercurial support
+
 Mar. 10, 2016 - Phing 2.14
 --------------------------
 
