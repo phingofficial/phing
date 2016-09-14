@@ -1213,17 +1213,10 @@ class SassTask extends Task
      */
     public function getNewCompiler()
     {
-        // Support for namespaces was added in PHP 5.3. Provide a fallback for
-        // PHP 5.2.
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            $compiler = '\\Leafo\\ScssPhp\\Compiler';
-            $obj = call_user_func_array(
-                array($compiler, '__construct'),
-                array()
-            );
-            return self::$factory;
-        }
-        return new Leafo\ScssPhp\Compiler();
+        // Instantiate the class in a way that is compatible with
+        // PHP 5.2 up to 7.x.
+        $compiler = '\\Leafo\\ScssPhp\\Compiler';
+        return new $compiler;
     }
 
     /**
