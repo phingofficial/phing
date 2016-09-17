@@ -12994,6 +12994,108 @@ host="webserver" command="ls" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Variable">
+        <title>Variable</title>
+        <para> DESCRIPTION OF TASK.
+            The Variable task provides a mutable property to Phing and works much
+            like variable assignment in PHP. This task is similar to the standard
+            Phing Property task, except that THESE PROPERTIES ARE MUTABLE.
+            While this goes against the standard Phing use of properties,
+            occasionally it is useful to be able to change a property value within
+            the build. In general, use of this task is DISCOURAGED, and the standard
+            Phing Property should be used if possible. Having said that, in real
+            life I use this a lot.</para>
+        <para>
+            Variables can be set individually or loaded from a standard properties
+            file. A 'feature' of variables is that they can override properties,
+            but properties cannot override variables.
+            So if an already established property exists, its value can be reassigned
+            by use of this task.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>None</entry>
+                        <entry>Yes, unless 'file' is used.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>value</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The value of the property.</entry>
+                        <entry>""</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>unset</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Removes the property from the project as if it had never been set.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of a standard properties file to load variables from.</entry>
+                        <entry>None</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;var name="x" value="6"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 -->
+
+&lt;var name="x" value="12"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 12 -->
+
+&lt;var name="x" value="6 + ${x}"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 + 12 -->
+
+&lt;var name="str" value="I "/>
+&lt;var name="str" value="${str} am "/>
+&lt;var name="str" value="${str} a "/>
+&lt;var name="str" value="${str} string."/>
+&lt;echo>${str}&lt;/echo>     &lt;!-- print: I am a string. -->
+
+&lt;var name="x" value="6"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 -->
+
+&lt;property name="x" value="12"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 (property can't override) -->
+
+&lt;var name="x" value="blue"/>
+&lt;tstamp>
+&lt;format property="x" pattern="%A"/>
+&lt;/tstamp>
+&lt;echo>Today is ${x}.&lt;/echo> &lt;!-- print: Today is blue. -->
+
+&lt;var name="x" value="" unset="true"/>
+&lt;tstamp>
+&lt;format property="x" pattern="%A"/>
+&lt;/tstamp>
+&lt;echo>Today is ${x}.&lt;/echo> &lt;!-- print: Today is Friday. --></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="VersionTask">
         <title>VersionTask</title>
         <para> The <literal>VersionTask</literal> increments a three-part version number from a

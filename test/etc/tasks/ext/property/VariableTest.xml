@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="VariableTest" default="testVariable">
+    <target name="testVariable">
+        <var name="testprop1" value="aa"/>
+        <var file="../../../tasks/property1.properties"/>
+        <echo message="testprop1=${testprop1}, testprop3=${testprop3}, testprop4=${testprop4}"/>
+
+        <var name="${testprop4}" value="1234"/>
+        <echo>1: ${testprop4}</echo>
+        <property name="${testprop4}" value="this is not set"/>
+        <echo>2: ${testprop4}</echo>
+
+        <var name="x" value="6"/>
+        <echo>3: x = ${x}</echo>   <!-- print: 6 -->
+
+        <var name="x" value="12"/>
+        <echo>4: x = ${x}</echo>   <!-- print: 12 -->
+
+        <var name="x" value="6 + ${x}"/>
+        <echo>5: x = ${x}</echo>   <!-- print: 6 + 12 -->
+
+        <var name="str" value="I "/>
+        <var name="str" value="${str} am "/>
+        <var name="str" value="${str} a "/>
+        <var name="str" value="${str} string."/>
+        <echo>6: ${str}</echo>     <!-- print: I am a string. -->
+
+        <var name="x" value="6"/>
+        <echo>7: x = ${x}</echo>   <!-- print: 6 -->
+
+        <property name="x" value="12"/>
+        <echo>8: x = ${x}</echo>   <!-- print: 6 (property can't override) -->
+    </target>
+</project>
