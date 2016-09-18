@@ -197,7 +197,7 @@ class Variable extends PropertyTask
      *
      * @param Properties $props  The feature to be added to the Properties attribute
      */
-    protected function addProperties(Properties $props)
+    protected function addProperties($props)
     {
         $this->resolveAllProperties($props);
         foreach ($props as $name => $value) {
