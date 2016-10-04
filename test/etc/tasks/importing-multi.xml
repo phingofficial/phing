@@ -4,7 +4,7 @@
     <import optional="true">
         <fileset dir="imports">
             <patternset>
-                <include name="**/imported-multi-*.xml"/>
+                <include name="imported-multi-*.xml"/>
             </patternset>
         </fileset>
     </import>
