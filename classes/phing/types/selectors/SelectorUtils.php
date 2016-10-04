@@ -150,7 +150,7 @@ class SelectorUtils
         $patternReplacements = array(
             $dirSep . '\*\*' . $dirSep => $dirSep . '.*' . $trailingDirSep,
             $dirSep . '\*\*' => $trailingDirSep,
-            '\*\*' . $dirSep => '.*' . $trailingDirSep,
+            '\*\*' . $dirSep => '.*' . $dirSep,
             '\*\*' => '.*',
             '\*' => '[^' . $dirSep . ']*',
             '\?' => '[^' . $dirSep . ']'
