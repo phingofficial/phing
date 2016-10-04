@@ -42,6 +42,7 @@ include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/PrintStream.php';
 include_once 'phing/system/io/FileOutputStream.php';
+include_once 'phing/system/io/FileParserFactory.php';
 include_once 'phing/system/io/FileReader.php';
 include_once 'phing/system/util/Register.php';
 
