@@ -50,6 +50,29 @@ class LoadFileTask extends Task
      */
     private $filterChains = array();
 
+    private $failOnError = true;
+
+    private $quiet = false;
+
+    /**
+     * @param bool $fail
+     */
+    public function setFailOnError($fail)
+    {
+        $this->failOnError = $fail;
+    }
+
+    /**
+     * @param bool $quiet
+     */
+    public function setQuiet($quiet)
+    {
+        $this->quiet = $quiet;
+        if ($quiet) {
+            $this->failOnError = false;
+        }
+    }
+
     /**
      * Set file to read
      * @param PhingFile $file
@@ -106,17 +129,58 @@ class LoadFileTask extends Task
         if (empty($this->property)) {
             throw new BuildException("Attribute 'property' required", $this->getLocation());
         }
-
-        // read file (through filterchains)
-        $contents = "";
-
-        $reader = FileUtils::getChainedReader(new FileReader($this->file), $this->filterChains, $this->project);
-        while (-1 !== ($buffer = $reader->read())) {
-            $contents .= $buffer;
+        if ($this->quiet && $this->failOnError) {
+            throw new BuildException("quiet and failonerror cannot both be set to true");
         }
-        $reader->close();
 
-        // publish as property
-        $this->project->setProperty($this->property, $contents);
+        try {
+            if (is_string($this->file)) {
+                $this->file = new PhingFile($this->file);
+            }
+            if (!$this->file->exists()) {
+                $message = (string)$this->file . ' doesn\'t exist';
+                if ($this->failOnError) {
+                    throw new BuildException($message);
+                } else {
+                    $this->log($message, $this->quiet ? Project::MSG_WARN : Project::MSG_ERR);
+                    return;
+                }
+            }
+
+            $this->log("loading " . (string)$this->file . " into property " . $this->property, Project::MSG_VERBOSE);
+            // read file (through filterchains)
+            $contents = "";
+
+            if ($this->file->length() > 0) {
+                $reader = FileUtils::getChainedReader(new FileReader($this->file), $this->filterChains, $this->project);
+                while (-1 !== ($buffer = $reader->read())) {
+                    $contents .= $buffer;
+                }
+                $reader->close();
+            } else {
+                $this->log("Do not set property " . $this->property . " as its length is 0.",
+                    $this->quiet ? Project::MSG_VERBOSE : Project::MSG_INFO);
+            }
+
+            // publish as property
+            if ($contents !== '') {
+                $this->project->setNewProperty($this->property, $contents);
+                $this->log("loaded " . strlen($contents) . " characters", Project::MSG_VERBOSE);
+                $this->log($this->property . " := " . $contents, Project::MSG_DEBUG);
+            }
+        } catch (IOException $ioe) {
+            $message = "Unable to load resource: " . $ioe->getMessage();
+            if ($this->failOnError) {
+                throw new BuildException($message, $ioe, $this->getLocation());
+            } else {
+                $this->log($message, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
+            }
+        } catch (BuildException $be) {
+            if ($this->failOnError) {
+                throw $be;
+            } else {
+                $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
+            }
+        }
     }
 }
