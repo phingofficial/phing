@@ -22,6 +22,5 @@ cache:
 script: ./.travis.sh
 
 notifications:
-  irc: "chat.freenode.net#phing"
   slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH
   
