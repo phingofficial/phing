@@ -247,6 +247,7 @@
                 <ref name="reflexive"/>
                 <ref name="resolvepath"/>
                 <ref name="retry"/>
+                <ref name="sleep"/>
                 <ref name="switch"/>
                 <ref name="taskdef"/>
                 <ref name="tempfile"/>
@@ -1234,6 +1235,16 @@
             <interleave>
                 <attribute name="property"/>
                 <attribute name="file"/>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="filterchain"/>
@@ -1504,6 +1515,38 @@
         </element>
     </define>
 
+    <define name="sleep">
+        <element name="switch">
+            <interleave>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="hours">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="minutes">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="seconds">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="milliseconds">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="switch">
         <element name="switch">
             <interleave>
@@ -1594,6 +1637,16 @@
                 <optional>
                     <attribute name="millis">
                         <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="mkdirs">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean"/>
                     </attribute>
                 </optional>
             </interleave>
