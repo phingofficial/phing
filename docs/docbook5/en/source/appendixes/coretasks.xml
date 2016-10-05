@@ -4010,6 +4010,21 @@ file defines a task in the format: name=path.to.Task -->
                         <entry><literal>now</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>mkdirs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to create nonexistent parent directories
+                            when touching new files.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>verbose</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to log the creation of new files.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>

@@ -665,6 +665,11 @@ class PhingFile
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
+        /** @var PhingFile $parent */
+        $parent = $this->getParentFile();
+        if ($parents && !$parent->exists()) {
+            $parent->mkdirs();
+        }
         $file = FileSystem::getFileSystem()->createNewFile($this->path);
 
         return $file;
