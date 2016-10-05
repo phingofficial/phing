@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3.5 Other Install methods</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.settingup.html" title="Chapter 3 Setting-up Phing"><link rel="prev" href="ch03s04.html" title="3.4 Composer Install"><link rel="next" href="ch03s06.html" title="3.6 Calling Phing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.5  Other Install methods </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s04.html">Prev</a> </td><th width="60%" align="center">Chapter 3 Setting-up Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch03s06.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idm45980817247456"></a>3.5  Other Install methods </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3.5 Other Install methods</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.settingup.html" title="Chapter 3 Setting-up Phing"><link rel="prev" href="ch03s04.html" title="3.4 Composer Install"><link rel="next" href="ch03s06.html" title="3.6 Calling Phing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.5  Other Install methods </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s04.html">Prev</a> </td><th width="60%" align="center">Chapter 3 Setting-up Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch03s06.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idm45109098818208"></a>3.5  Other Install methods </h2></div></div></div>
         
 
         <p> If you are not using the PEAR installer, you will need to setup your environment in
@@ -30,11 +30,6 @@
                 <p>Set the <code class="literal">PHP_COMMAND</code> environment variable to where your Php
                     binary is located (including the binary i.e. PHP_COMMAND=/usr/bin/php).</p>
             </li><li class="listitem">
-                <p>Set the <code class="literal">PHP_CLASSPATH</code> environment variable (see the section
-                    below). This should be set at least point to PHING_HOME/classes. Alternatively,
-                    you can also just add the phing/classes directory to your PHP include_path ini
-                    setting.</p>
-            </li><li class="listitem">
                 <p>Check your php.ini file to make sure that you have the following
                     settings:</p>
                 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
@@ -45,10 +40,7 @@
                     </li></ul></div>
             </li></ul></div>
 
-        <p>If you are using Phing in conjunction with another application, you may need to add
-            additional paths to <code class="literal">PHP_CLASSPATH</code>.</p>
-
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45980814500208"></a>3.5.1  Unix </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109104093968"></a>3.5.1  Unix </h3></div></div></div>
             
 
             <p> Assuming you are running a Unix dialect operating system with the bash bourne
@@ -57,27 +49,24 @@
 
             <pre class="screen">export PHP_COMMAND=/usr/bin/php
 export PHING_HOME=/opt/phing
-export PHP_CLASSPATH=${PHING_HOME}/classes
 export PATH=${PATH}:${PHING_HOME}/bin</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45980814497232"></a>3.5.2  Windows </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109104091056"></a>3.5.2  Windows </h3></div></div></div>
             
 
             <p>On the Windows platform, assuming Phing is installed in <code class="filename">c:\opt\phing</code>. The following sets up your environment:</p>
 
             <pre class="screen">set PHP_COMMAND=c:\opt\php\php.exe
 set PHING_HOME=c:\opt\phing
-set PHP_CLASSPATH=c:\opt\phing\classes
 set PATH=%PATH%;%PHING_HOME%\bin</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45980814494448"></a>3.5.3 Advanced</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109104088304"></a>3.5.3 Advanced</h3></div></div></div>
             
 
             <p>There are lots of variants that can be used to run/prepare Phing. You need at
                 least the following:</p>
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p>If you want Phing to be able to use other packages / classes, you can either add them to
-                        the <code class="literal">PHP_CLASSPATH</code> or to PHP's include_path.</p>
+                    <p>If you want Phing to be able to use other packages / classes, you can add them to PHP's include_path.</p>
                 </li><li class="listitem">
                     <p>Some Tasks in <code class="filename">phing/tasks/ext</code> may require 3rd party
                         libraries to be installed. Generally, tools with compatible license (and

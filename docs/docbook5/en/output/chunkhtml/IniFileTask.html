@@ -2,17 +2,17 @@
         
         <p>The <code class="literal">IniFileTask</code> is inspired by the <a class="ulink" href="http://ant-contrib.sourceforge.net/tasks/tasks/inifile.html" target="_top">Ant-Contrib IniFile</a> and
         can be used to build and edit .ini files.</p>
-        <div class="table"><a name="idm45980806508528"></a><p class="formal-object-title"><span class="label">Table C.47: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idm45109090308784"></a><p class="formal-object-title"><span class="label">Table C.47: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">dest</code></td><td><code class="literal">string</code></td><td>The name of the .ini file to write to. If not specified, the source file will be modified instead.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">haltOnError</code></td><td><code class="literal">boolean</code></td><td>Should the build fail when problems occur?</td><td>false</td><td>No</td></tr><tr><td><code class="literal">source</code></td><td><code class="literal">string</code></td><td>The name of the .ini file to read from. If not specified, the dest file will be used instead.</td><td>none</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45980806487584"></a>C.41.1 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109090287584"></a>C.41.1 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">remove</code>
                     </p>
                     <p>Use to remove either a specific key or section from an .ini file</p>
-                    <div class="table"><a name="idm45980806484688"></a><p class="formal-object-title"><span class="label">Table C.48: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idm45109090284656"></a><p class="formal-object-title"><span class="label">Table C.48: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">section</code></td><td><code class="literal">String</code></td><td>Name of the section.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Name of the key to remove. If not specified the entire section is removed.</td><td>n/a</td><td>No</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -20,13 +20,13 @@
                     <p><code class="literal">set</code>
                     </p>
                     <p>Use to set a key in a section to a specific value</p>
-                    <div class="table"><a name="idm45980806465328"></a><p class="formal-object-title"><span class="label">Table C.49: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idm45109090265008"></a><p class="formal-object-title"><span class="label">Table C.49: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">section</code></td><td><code class="literal">String</code></td><td>Name of the section.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Name of the key/property.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">operation</code></td><td><code class="literal">String</code></td><td>The operation to perform on the existing value, which must be numeric. Possible values are "+" and "-", which add and subtract 1, respectively from the existing value. If the value doesn't already exist, the set is not performed, triggering an error.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The new value for the property.</td><td>n/a</td><td>No, if operation is specified.</td></tr></tbody></table>
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45980806441984"></a>C.41.2 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109090239776"></a>C.41.2 Example</h3></div></div></div>
             
             <pre class="programlisting">
 &lt;inifile
