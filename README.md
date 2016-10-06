@@ -53,7 +53,7 @@ Installation
 
          {
              "require-dev": {
-                 "phing/phing": "3.*"
+                 "phing/phing": "3.0.x-dev"
              }
          }
 
@@ -63,6 +63,7 @@ Installation
   The archive can then be executed by running:
 
          $ php phing-latest.phar
+
   3. **PEAR**
 
   The preferred method to install Phing is through PEAR and the Phing PEAR
