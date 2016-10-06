@@ -9320,10 +9320,6 @@ description="Measures the size of the project and count it's tests">
             <emphasis role="bold">NB:</emphasis> if you have installed the
             PHPUnit PHAR, make sure you set the
             <literal>pharlocation</literal> attribute!</para>
-        <para>
-            <emphasis role="bold">NB:</emphasis> the identifiers <literal>phpunit2</literal>
-            (PHPUnit2Task) and <literal>phpunit3</literal> (PHPUnit3Task) have been deprecated! </para>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -9673,10 +9669,6 @@ description="Measures the size of the project and count it's tests">
     <sect1 role="taskdef" xml:id="PHPUnitReport">
         <title>PHPUnitReport</title>
         <para>This task transforms PHPUnit xml reports to HTML using XSLT.</para>
-        <para>
-            <emphasis role="bold">NB:</emphasis> the identifiers <literal>phpunit2report</literal>
-            (PHPUnit2Report) and <literal>phpunit3report</literal> (PHPUnit3Report)have been
-            deprecated! </para>
 
         <table>
             <title>Attributes</title>
@@ -13381,9 +13373,6 @@ a2.a3.a4=false</programlisting>
   &lt;/fileset>
 &lt;/zendcodeanalyzer></programlisting>
             <para>Analyze a set of PHP source files and disable a few warnings.</para>
-            <para>
-                <emphasis role="bold">NOTE:</emphasis> the <literal>analyze</literal> tag has been
-                deprecated as of Phing 2.4.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
