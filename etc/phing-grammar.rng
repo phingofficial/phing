@@ -171,7 +171,6 @@
                 <ref name="sass"/>
                 <ref name="scp"/>
                 <ref name="ssh"/>
-                <ref name="simpletest"/>
                 <ref name="smarty"/>
                 <ref name="stopwatch"/>
                 <ref name="svncheckout"/>
@@ -5285,50 +5284,6 @@
                     </attribute>
                 </optional>
             </interleave>
-        </element>
-    </define>
-
-    <!--
-        =========================================
-        SimpleTestTask
-        =========================================
-    -->
-    <define name="simpletest">
-        <element name="simpletest">
-            <interleave>
-                <optional>
-                    <attribute name="printsummary">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="haltonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="haltonfailure">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="failureproperty"/>
-                </optional>
-                <optional>
-                    <attribute name="errorproperty"/>
-                </optional>
-                <optional>
-                    <attribute name="debug">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-            </interleave>
-            <optional>
-                <ref name="formatter"/>
-            </optional>
-            <oneOrMore>
-                <ref name="fileset"/>
-            </oneOrMore>
         </element>
     </define>
 

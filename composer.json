@@ -23,7 +23,6 @@
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
-        "lastcraft/simpletest": "@dev",
         "pear/archive_tar": "1.4.x",
         "pear/http_request2": "dev-trunk",
         "pear/net_growl": "dev-trunk",

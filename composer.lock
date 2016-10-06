@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a10a4a25543ec760b6a3b1f37ebf27e",
-    "content-hash": "3dea2ead040ad5dfb419c2a75937829d",
+    "hash": "69514a8c914496a8ecc783b6b6d575d4",
+    "content-hash": "0ec0a7de3ba4772171f3fd66a4a3dd9b",
     "packages": [],
     "packages-dev": [
         {
@@ -753,44 +753,6 @@
             "description": "A parsing and comparison library for semantic versioning.",
             "homepage": "http://github.com/kherge/Version",
             "time": "2012-08-16 17:13:03"
-        },
-        {
-            "name": "lastcraft/simpletest",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lox/simpletest.git",
-                "reference": "d02732a94f1e78f2b45665d80c9b89caf2ee318e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lox/simpletest/zipball/d02732a94f1e78f2b45665d80c9b89caf2ee318e",
-                "reference": "d02732a94f1e78f2b45665d80c9b89caf2ee318e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0.5"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "."
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Baker",
-                    "email": "marcus@lastcraft.com",
-                    "role": "Original project lead"
-                }
-            ],
-            "description": "Unit testing, mock objects and web testing framework for PHP built around test cases.",
-            "homepage": "http://simpletest.org/",
-            "time": "2012-12-04 07:26:10"
         },
         {
             "name": "mikey179/vfsStream",
@@ -4895,7 +4857,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "lastcraft/simpletest": 20,
         "pear/http_request2": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
