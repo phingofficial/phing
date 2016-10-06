@@ -38,10 +38,7 @@ class YamlFileParser implements FileParserInterface
         }
 
         try {
-            // We load the Yaml class without the use of namespaces to prevent
-            // parse errors in PHP 5.2.
-            $parserClass = '\Symfony\Component\Yaml\Parser';
-            $parser = new $parserClass;
+            $parser = new \Symfony\Component\Yaml\Parser;
             // Cast properties to array in case parse() returns null.
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
         } catch (Exception $e) {

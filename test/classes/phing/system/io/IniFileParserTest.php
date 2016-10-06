@@ -34,13 +34,8 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        } else {
-            $this->parser = new IniFileParser();
-            // php 5.2 parser compatibility ...
-            $this->root = call_user_func('org\bovigo\vfs\vfsStream::setup');
-        }
+        $this->parser = new IniFileParser();
+        $this->root = \org\bovigo\vfs\vfsStream::setup();
     }
 
     /**
