@@ -151,6 +151,10 @@ class PhingCallTask extends Task
      */
     public function main()
     {
+        if ($this->getOwningTarget()->getName() === "") {
+            $this->log("Cowardly refusing to call target '{$this->subTarget}' from the root", Project::MSG_WARN);
+            return;
+        }
 
         $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
         if ($this->callee === null) {
