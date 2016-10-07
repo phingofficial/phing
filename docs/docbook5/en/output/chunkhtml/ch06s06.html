@@ -1,7 +1,7 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.6 Writing Tasks</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s05.html" title="6.5 Build Lifecycle"><link rel="next" href="ch06s07.html" title="6.7 Writing Types"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.6  Writing Tasks </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s05.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s07.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idm45109103834560"></a>6.6  Writing Tasks </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.6 Writing Tasks</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s05.html" title="6.5 Build Lifecycle"><link rel="next" href="ch06s07.html" title="6.7 Writing Types"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.6  Writing Tasks </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s05.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s07.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idm45974442220160"></a>6.6  Writing Tasks </h2></div></div></div>
         
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109103833408"></a>6.6.1  Creating A Task </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442219008"></a>6.6.1  Creating A Task </h3></div></div></div>
             
 
             <p>We will start creating a rather simple task which basically does nothing more than
@@ -52,7 +52,7 @@ class MyEchoTask extends Task {
                 task to Phing so that it can be executed during the build process.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109103828592"></a>6.6.2  Using the Task </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442214192"></a>6.6.2  Using the Task </h3></div></div></div>
             
 
             <p>The task shown [above] must somehow get loaded and called by Phing. Therefore it must be made
@@ -88,14 +88,14 @@ class MyEchoTask extends Task {
                 "message".</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097925488"></a>6.6.3 Source Discussion </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442207056"></a>6.6.3 Source Discussion </h3></div></div></div>
             
 
             <p>Now that you've got the knowledge to execute the task in a buildfile it's time to
                 discuss how everything works.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097923984"></a>6.6.4 Task Structure </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442205552"></a>6.6.4 Task Structure </h3></div></div></div>
             
 
             <p>All files containing the definition of a task class follow a common well formed
@@ -121,7 +121,7 @@ class MyEchoTask extends Task {
                 </li></ul></div>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097911904"></a>6.6.5 Includes </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442193408"></a>6.6.5 Includes </h3></div></div></div>
             
 
             <p>Always include/require all the classes needed for this task in full written
@@ -130,7 +130,7 @@ class MyEchoTask extends Task {
                 proprietary classes.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097909728"></a>6.6.6  Class Declaration </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442191232"></a>6.6.6  Class Declaration </h3></div></div></div>
             
 
             <p>If you look at line 5 in [the source code of the task] you will find the
@@ -152,7 +152,7 @@ class MyEchoTask extends Task {
                 </li></ul></div>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097902816"></a>6.6.7  Class Properties </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442184320"></a>6.6.7  Class Properties </h3></div></div></div>
             
 
             <p>The next lines you are coding are class properties. Most of them are inherited
@@ -178,7 +178,7 @@ class MyEchoTask extends Task {
                     <code class="filename">docs/api/</code> directory.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097894672"></a>6.6.8  The Constructor </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442176176"></a>6.6.8  The Constructor </h3></div></div></div>
             
 
             <p> The next block that follows is the class's constructor. It must be present and
@@ -187,7 +187,7 @@ class MyEchoTask extends Task {
                 prior declared properties here.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097892464"></a>6.6.9  Setter Methods </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442173968"></a>6.6.9  Setter Methods </h3></div></div></div>
             
 
             <p> As you can see in the XML definition of our task ([see buildfile above] , line 9)
@@ -215,13 +215,13 @@ class MyEchoTask extends Task {
                 task for further disposal.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097886352"></a>6.6.10  Creator Methods </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442167856"></a>6.6.10  Creator Methods </h3></div></div></div>
             
 
             <p>Creator methods allow you to manage nested XML tags in your new Phing Task.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097885008"></a>6.6.11 
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442166512"></a>6.6.11 
                 <code class="literal">init()</code> Method </h3></div></div></div>
             
 
@@ -239,7 +239,7 @@ class MyEchoTask extends Task {
                 error.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097880464"></a>6.6.12 
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442161936"></a>6.6.12 
                 <code class="literal">main()</code> Method </h3></div></div></div>
             
 
@@ -252,7 +252,7 @@ class MyEchoTask extends Task {
                 two parameters: a event constant and the message to log.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45109097877440"></a>6.6.13  Arbitrary Methods </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm45974442158912"></a>6.6.13  Arbitrary Methods </h3></div></div></div>
             
 
             <p>For the more or less simple cases (as our example) all the logic of the task is
