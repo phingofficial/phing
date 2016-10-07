@@ -1253,6 +1253,7 @@ verbose="true" failonerror="false" /></programlisting>
         <para>Allows rudimentary interfacing with the CVS versioning system.</para>
         <para>As you would expect, this lets you do pretty much anything with CVS. The CvsTask calls
             ExecTask which actually does the command execution.</para>
+        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -1401,6 +1402,7 @@ verbose="true" failonerror="false" /></programlisting>
             to provide a password in your build file.</para>
         <para>If no password file is specified the default location <literal>.cvspass</literal> in
             users home directory is used.</para>
+        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">

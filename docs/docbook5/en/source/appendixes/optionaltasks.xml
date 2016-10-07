@@ -11590,6 +11590,7 @@ host="webserver" command="ls" /></programlisting>
         <title>SimpleTestTask</title>
         <para> This task runs testcases using the <link xlink:href="http://www.simpletest.org/"
                 role="extern">SimpleTest</link> framework.</para>
+        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
 
         <table>
             <title>Attributes</title>
