@@ -173,6 +173,7 @@
                 <ref name="ssh"/>
                 <ref name="simpletest"/>
                 <ref name="smarty"/>
+                <ref name="sonar"/>
                 <ref name="stopwatch"/>
                 <ref name="svncheckout"/>
                 <ref name="svncommit"/>
@@ -5348,6 +5349,35 @@
                     <attribute name="rightDelimiter"/>
                     <attribute name="contextProperties"/>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="sonar">
+        <element name="sonar">
+            <interleave>
+                <attribute name="executable"/>
+                <optional>
+                    <attribute name="errors"/>
+                </optional>
+                <optional>
+                    <attribute name="debug"/>
+                </optional>
+                <optional>
+                    <attribute name="configuration"/>
+                </optional>
+            </interleave>
+            <oneOrMore>
+                <ref name="sonar-property"/>
+            </oneOrMore>
+        </element>
+    </define>
+    
+    <define name="sonar-property">
+        <element name="property">
+            <interleave>
+                <attribute name="name"/>
+                <attribute name="value"/>
             </interleave>
         </element>
     </define>

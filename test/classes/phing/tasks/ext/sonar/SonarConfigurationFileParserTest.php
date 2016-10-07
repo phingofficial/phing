@@ -18,14 +18,14 @@
  */
 
 require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/sonar/ConfigurationFileParser.php';
+require_once 'phing/tasks/ext/sonar/SonarConfigurationFileParser.php';
 
 /**
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
  */
-class ConfigurationFileParserTest extends BuildFileTest
+class SonarConfigurationFileParserTest extends BuildFileTest
 {
 
     protected function setUp()
@@ -37,33 +37,40 @@ class ConfigurationFileParserTest extends BuildFileTest
     private function initParser($fileName)
     {
         $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
-        $parser = new ConfigurationFileParser($fullFileName, $this->getProject());
+        $parser = new SonarConfigurationFileParser($fullFileName, $this->getProject());
 
         return $parser;
     }
 
+    /**
+     * @expectedException BuildException
+     */
     public function test_construct_fileIsNull_throwsException()
     {
         $file = null;
 
-        $this->expectException(BuildException);
-        new ConfigurationFileParser($file, $this->getProject());
+        new SonarConfigurationFileParser($file, $this->getProject());
     }
 
+    /**
+     * @expectedException BuildException
+     */
     public function test_construct_fileIsEmpty_throwsException()
     {
         $file = '';
 
-        $this->expectException(BuildException);
-        new ConfigurationFileParser($file, $this->getProject());
+        new SonarConfigurationFileParser($file, $this->getProject());
     }
 
+
+    /**
+     * @expectedException BuildException
+     */
     public function test_construct_fileDoesNotExist_throwsException()
     {
         $file = 'ThisFileDoesNotExist';
-        $parser = new ConfigurationFileParser($file, $this->getProject());
+        $parser = new SonarConfigurationFileParser($file, $this->getProject());
 
-        $this->expectException(BuildException);
         $parser->parse();
     }
 

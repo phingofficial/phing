@@ -7,8 +7,6 @@
     <property name="sonar.projectVersion" value="4711" />
     <property name="sonar.sources" value="foo" />
 
-	<taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" />
-
     <target name="invalid">
         <fail>This file should only be run via a testcase.</fail>
     </target>
@@ -16,27 +14,57 @@
     <!-- "executable" attribute -->
 
     <target name="executable-attribute-is-missing">
-        <sonar />
+        <sonar>
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
     </target>
 
     <target name="executable-attribute-is-empty">
-        <sonar executable="" />
+        <sonar executable="">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
     </target>
 
     <target name="executable-path-does-not-exist">
-        <sonar executable="this/path/does/not/exist" />
+        <sonar executable="this/path/does/not/exist">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
     </target>
 
     <target name="executable-file-is-not-executable">
-        <sonar executable="non-executable-file" />
+        <sonar executable="non-executable-file">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
     </target>
 
     <target name="executable-is-not-sonar-scanner-and-has-no-version-string">
-        <sonar executable="cd" />
+        <sonar executable="cd">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
     </target>
 
     <target name="executable-is-not-sonar-scanner-and-has-version-string">
-        <sonar executable="php" />
+        <sonar executable="php">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
     </target>
 
     <!-- "errors" attribute -->

@@ -19,14 +19,14 @@
 
 require_once 'phing/BuildException.php';
 require_once 'phing/Project.php';
-require_once 'phing/tasks/ext/sonar/Property.php';
+require_once 'phing/tasks/ext/sonar/SonarProperty.php';
 
 /**
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
  */
-class ConfigurationFileParser
+class SonarConfigurationFileParser
 {
 
     /**

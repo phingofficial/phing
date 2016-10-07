@@ -23,7 +23,7 @@
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
   * @package phing.tasks.ext.sonar
  */
-class Property
+class SonarProperty
 {
 
     /**

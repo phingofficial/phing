@@ -20,8 +20,8 @@
 require_once 'phing/BuildException.php';
 require_once 'phing/Project.php';
 require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/sonar/ConfigurationFileParser.php';
-require_once 'phing/tasks/ext/sonar/Property.php';
+require_once 'phing/tasks/ext/sonar/SonarConfigurationFileParser.php';
+require_once 'phing/tasks/ext/sonar/SonarProperty.php';
 
 /**
  * Runs SonarQube Scanner.
@@ -147,10 +147,10 @@ class SonarTask extends Task
     /**
      * Adds a nested Property element.
      *
-     * @param Property $property
+     * @param SonarProperty $property
      * @return void
      */
-    public function addProperty(Property $property)
+    public function addProperty(SonarProperty $property)
     {
         $this->propertyElements[] = $property;
 
@@ -177,11 +177,11 @@ class SonarTask extends Task
      */
     public function main()
     {
-        $this->validateExecutable();
         $this->validateErrors();
         $this->validateDebug();
         $this->validateConfiguration();
         $this->validateProperties();
+        $this->validateExecutable();
 
         $command = sprintf('%s %s', escapeshellcmd($this->executable), $this->constructOptionsString());
 
@@ -232,7 +232,7 @@ class SonarTask extends Task
 
     /**
      *
-     * @throws BuildExecution
+     * @throws BuildException
      * @return void
      */
     private function validateExecutable()
@@ -407,7 +407,7 @@ class SonarTask extends Task
             return array();
         }
 
-        $parser = new ConfigurationFileParser($this->configuration, $this->project);
+        $parser = new SonarConfigurationFileParser($this->configuration, $this->project);
         return $parser->parse();
     }
 

@@ -351,7 +351,7 @@ class ForeachTask extends Task
     }
 
     /**
-     * @return Property
+     * @return SonarProperty
      */
     public function createProperty()
     {

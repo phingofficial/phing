@@ -33,8 +33,9 @@ class SonarTaskTest extends BuildFileTest
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/SonarTaskTest.xml';
         $this->configureProject($buildXmlFile);
     }
-
-    private function ignoreFailureIfDueToMissingParameters($e) {
+    
+    private function ignoreFailureIfDueToMissingParameters(Exception $e)
+    {
         // NOTE: Execution will finally fail due to missing properties.
         // We ignore this failure, but pass ary failures that are
         // caused by other errors.
