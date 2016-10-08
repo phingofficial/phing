@@ -139,7 +139,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  the build-time.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -158,7 +157,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  occurred during the build. Also outputs the total build-time.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
@@ -224,7 +222,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Prints the current target name
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
@@ -244,7 +241,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
@@ -256,7 +252,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
