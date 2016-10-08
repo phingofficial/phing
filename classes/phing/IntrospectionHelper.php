@@ -472,6 +472,10 @@ class IntrospectionHelper
                     $nestedElement = new $classname();
                 }
 
+                if ($nestedElement instanceof Task && $element instanceof Task) {
+                    $nestedElement->setOwningTarget($element->getOwningTarget());
+                }
+
                 $method->invoke($element, $nestedElement);
 
             } catch (Exception $exc) {
