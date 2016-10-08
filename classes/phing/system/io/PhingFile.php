@@ -265,7 +265,7 @@ class PhingFile
             $basedir .= self::$separator;
         }
         $path = $this->getPath();
-        if (!substr($path, 0, strlen($basedir)) == $basedir) {
+        if (substr($path, 0, strlen($basedir)) != $basedir) {
             //path does not begin with basedir, we don't modify it
             return $path;
         }
