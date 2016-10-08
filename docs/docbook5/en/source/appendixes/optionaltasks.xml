@@ -1112,7 +1112,7 @@
         </table>
         <sect2>
             <title>Examples</title>
-            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" 
+            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1"
   destinationdir="/var/www/project1" />
 
 &lt;filesync sourcedir="host::module" destinationdir="/var/www/project1/" />
@@ -6873,7 +6873,7 @@ Note that you can omit both startpoint and track attributes in this case
       &lt;/fileset>
 &lt;/pdosqlexec></programlisting>
 
-            <programlisting language="xml">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" 
+            <programlisting language="xml">&lt;pdosqlexec url="mysql:host=localhost;dbname=test"
   userid="username" password="password">
   &lt;transaction src="path/to/sqlfile.sql"/>
   &lt;formatter type="plain" outfile="path/to/output.txt"/>
@@ -7116,7 +7116,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;pearpkg name="phing" dir="${build.src.dir}" 
+            <programlisting language="xml">&lt;pearpkg name="phing" dir="${build.src.dir}"
             destFile="${build.base.dir}/package.xml">
 &lt;fileset dir=".">
   &lt;include name="**"/>
@@ -8619,7 +8619,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Examples</title>
-                <programlisting language="xml">&lt;target name="-measure-and-log" 
+                <programlisting language="xml">&lt;target name="-measure-and-log"
     description="Measures and logs the size of the project" hidden="true">
     &lt;tstamp>
     &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
@@ -8633,7 +8633,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;/phploc>
 &lt;/target></programlisting>
 <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
-<programlisting language="xml">&lt;target name="project-size-and-tests" 
+<programlisting language="xml">&lt;target name="project-size-and-tests"
 description="Measures the size of the project and count it's tests">
     &lt;phploc countTests="true">
     &lt;fileset dir=".">
@@ -10326,7 +10326,7 @@ description="Measures the size of the project and count it's tests">
         <sect2>
             <title>Example</title>
             <para>Uploading a file</para>
-            <programlisting language="xml">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" 
+            <programlisting language="xml">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket"
 key="AmazonKey" secret="AmazonSecret" /></programlisting>
             <para>You can also define "bucket, key, secret" outside of the task call:</para>
             <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
@@ -10424,7 +10424,7 @@ key="AmazonKey" secret="AmazonSecret" /></programlisting>
         <sect2>
             <title>Example</title>
             <para>Downloading an object</para>
-            <programlisting language="xml">&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" 
+            <programlisting language="xml">&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket"
 key="AmazonKey" secret="AmazonSecret" /></programlisting>
             <para>You can also define "bucket, key, secret" outside of the task call:</para>
             <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
@@ -10964,6 +10964,149 @@ host="webserver" todir="/www/htdocs/project/">
                 </tgroup>
         </table>
     </sect1>
+
+	<sect1 role="taskdef" xml:id="SonarTask">
+        <title>SonarTask</title>
+        <para>This task runs <link xlink:href="http://www.sonarqube.org/" role="extern">SonarQube Scanner</link>, a
+            tool for code analysis and <emphasis>continuous inspection</emphasis>.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>executable</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Fully-qualified path of SonarQube Scanner executable. If executable is in <emphasis>PATH</emphasis> environment variable, the executable name is sufficient.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configuration</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path of configuration file. The file format is that of a properties file (as used by Java), i.e. a list of key-value pairs <literal>&lt;key&gt;=&lt;value&gt;</literal>.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>errors</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets errors flag of SonarQube Scanner. Allowed values are "<literal>true</literal>", "<literal>false</literal>", "<literal>yes</literal>", "<literal>no</literal>", "<literal>1</literal>", and "<literal>0</literal>".</entry>
+                        <entry><literal role="type">false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>debug</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets debug flag of SonarQube Scanner. Allowed values are "<literal>true</literal>", "<literal>false</literal>", "<literal>yes</literal>", "<literal>no</literal>", "<literal>1</literal>", and "<literal>0</literal>".</entry>
+                        <entry><literal role="type">false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+                <sect3><title>Minimal Example</title>
+                    <para>This example assumes that the SonarQube Scanner is called <emphasis>sonarqube-scanner</emphasis> and is available on the <emphasis>PATH</emphasis>.</para>
+                    <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="sonar-minimal-example" default="sonar"&gt;
+    &lt;taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" /&gt;
+
+    &lt;sonar executable="sonarqube-scanner"&gt;
+        &lt;property name="sonar.projectKey"     value="my-unique-project-key" /&gt;
+        &lt;property name="sonar.projectName"    value="Foo Project" /&gt;
+        &lt;property name="sonar.projectVersion" value="0.1.0" /&gt;
+        &lt;property name="sonar.sources"        value="src" /&gt;
+    &lt;/sonar&gt;
+&lt;/project&gt;</programlisting>
+                </sect3>
+                <sect3><title>Full Example</title>
+                    <para>This example consists of two files &#x2013; <emphasis>build.xml</emphasis> and <emphasis>sonar-project.properties</emphasis>.</para>
+                    <para>The <emphasis>build.xml</emphasis>:</para>
+                    <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="sonar-full-example" default="sonar"&gt;
+    &lt;taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" /&gt;
+
+    &lt;sonar
+      executable="path/to/sonarqube-scanner"
+      errors="true"
+      debug="true"
+      configuration="path/to/sonar-project.properties"
+    &gt;
+        &lt;!-- Assume that mandatory SonarQube parameters are defined in configuration file! --&gt;
+        &lt;property name="sonar.log.level" value="DEBUG" /&gt;
+    &lt;/sonar&gt;
+&lt;/project&gt;</programlisting>
+                    <para>The configuration file <emphasis>path/to/sonar-project.properties</emphasis>:</para>
+                    <programlisting>sonar.projectKey     = my-unique-project-key
+sonar.projectName    = Foo Project
+sonar.projectVersion = 0.1.0
+sonar.sources        = src</programlisting>
+                </sect3>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>property</literal>
+                    </para>
+					<para>Analysis parameters of SonarQube Scanner can be defined in a configuration file or via nested <literal>property</literal> elements. If both a configuration file and property elements are provided, the properties are merged. Values from <literal>property</literal> elements overwrite values from the configuration file if their property keys are equal.</para>
+
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>name</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Name of property.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>value</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Value of property.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+
     <sect1 role="taskdef" xml:id="SshTask">
         <title>SshTask</title>
         <para> The <literal>SshTask</literal> executes commands on a remote host using ssh. This
@@ -11893,10 +12036,10 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" 
+            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn"
          workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
-            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" 
-         repositoryurl="http://svn.example.com/myrepo/tags" 
+            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn"
+         repositoryurl="http://svn.example.com/myrepo/tags"
          orderDescending="true" limit="10" /></programlisting>
             <para>The latter example could produce a list of your tags like this:</para>
             <programlisting language="xml">revision | author | date         | item
@@ -11993,9 +12136,9 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" 
+            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
             workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" 
+            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
             repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
             <para>The latter example could produce a history of the latest revisions in the
                 trunk:</para>
@@ -13004,7 +13147,7 @@ host="webserver" command="ls" /></programlisting>
   &lt;include name="chapter*.xml"/>
   &lt;include name="appendix*.xml"/>
 &lt;/fileset>
-&lt;property name="docbook.relaxng" 
+&lt;property name="docbook.relaxng"
     value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
 
 &lt;xmllint schema="${docbook.relaxng}" useRNG="yes">

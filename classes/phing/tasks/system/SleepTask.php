@@ -176,7 +176,7 @@ class SleepTask extends Task
         try {
             $this->validateAttributes();
             $sleepTime = $this->getSleepTime();
-            usleep($sleepTime);
+            usleep($sleepTime * 1000);
         } catch (Exception $e) {
             if ($this->failOnError) {
                 throw new BuildException($e);

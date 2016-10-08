@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="sonar-test" default="invalid">
+    <property name="sonar.executable" value="sonarqube-scanner" />
+
+    <property name="sonar.projectKey" value="phing-test" />
+    <property name="sonar.projectName" value="phing-test" />
+    <property name="sonar.projectVersion" value="4711" />
+    <property name="sonar.sources" value="foo" />
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase.</fail>
+    </target>
+
+    <!-- "executable" attribute -->
+
+    <target name="executable-attribute-is-missing">
+        <sonar>
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="executable-attribute-is-empty">
+        <sonar executable="">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="executable-path-does-not-exist">
+        <sonar executable="this/path/does/not/exist">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="executable-file-is-not-executable">
+        <sonar executable="non-executable-file">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="executable-is-not-sonar-scanner-and-has-no-version-string">
+        <sonar executable="cd">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="executable-is-not-sonar-scanner-and-has-version-string">
+        <sonar executable="php">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <!-- "errors" attribute -->
+
+    <target name="errors-attribute-is-missing">
+        <sonar executable="${sonar.executable}">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="errors-attribute-is-empty">
+        <sonar executable="${sonar.executable}" errors="" />
+    </target>
+
+    <target name="errors-value-is-invalid">
+        <sonar executable="${sonar.executable}" errors="foo" />
+    </target>
+
+    <!-- "debug" attribute -->
+
+    <target name="debug-attribute-is-missing">
+        <sonar executable="${sonar.executable}">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="debug-attribute-is-empty">
+        <sonar executable="${sonar.executable}" debug="" />
+    </target>
+
+    <target name="debug-value-is-invalid">
+        <sonar executable="${sonar.executable}" debug="foo" />
+    </target>
+
+    <!-- "configuration" attribute -->
+
+    <target name="configuration-attribute-is-missing">
+        <sonar executable="${sonar.executable}">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="configuration-attribute-is-empty">
+        <sonar executable="${sonar.executable}" configuration="">
+            <property name="sonar.projectKey" value="${sonar.projectKey}" />
+            <property name="sonar.projectName" value="${sonar.projectName}" />
+            <property name="sonar.projectVersion" value="${sonar.projectVersion}" />
+            <property name="sonar.sources" value="${sonar.sources}" />
+        </sonar>
+    </target>
+
+    <target name="configuration-path-does-not-exist">
+        <sonar
+            executable="${sonar.executable}"
+            configuration="this/path/does/not/exist"
+        />
+    </target>
+
+    <!-- property elements -->
+
+    <target name="attributes-are-missing">
+        <sonar executable="${sonar.executable}">
+            <property />
+        </sonar>
+    </target>
+
+    <target name="name-is-missing">
+        <sonar executable="${sonar.executable}">
+            <property value="foo" />
+        </sonar>
+    </target>
+
+    <target name="value-is-missing">
+        <sonar executable="${sonar.executable}">
+            <property name="foo" />
+        </sonar>
+    </target>
+</project>

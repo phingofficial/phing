@@ -37,6 +37,7 @@ require_once 'phing/system/io/PhingFile.php';
 abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 {
 
+    /** @var Project */
     protected $project;
 
     /**
@@ -89,8 +90,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      *  run a target, expect for any build exception
      *
-     * @param  target target to run
-     * @param  cause  information string to reader of report
+     * @param string $target target to run
+     * @param string $cause  information string to reader of report
      */
     protected function expectBuildException($target, $cause)
     {
@@ -130,10 +131,9 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      *  execute the target, verify output matches expectations
      *
-     * @param  target  target to execute
-     * @param  output  output to look for
+     * @param string $target  target to execute
+     * @param string $output  output to look for
      */
-
     protected function expectOutput($target, $output)
     {
         $this->executeTarget($target);
@@ -144,9 +144,9 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      *  execute the target, verify output matches expectations
      *  and that we got the named error at the end
-     * @param  target  target to execute
-     * @param  output  output to look for
-     * @param  error   Description of Parameter
+     * @param string $target  target to execute
+     * @param string $output  output to look for
+     * @param string $error   Description of Parameter
      */
 
     protected function expectOutputAndError($target, $output, $error)
@@ -201,7 +201,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      *  set up to run the named project
      *
-     * @param  filename name of project file to run
+     * @param string $filename name of project file to run
      * @throws BuildException
      */
     protected function configureProject($filename)
@@ -246,19 +246,19 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
     /**
      * get the directory of the project
-     * @return the base dir of the project
+     * @return PhingFile the base dir of the project
      */
     protected function getProjectDir()
     {
-        return $this->project->getBaseDir();
+        return $this->project->getBasedir();
     }
 
     /**
      *  run a target, wait for a build exception
      *
-     * @param  target target to run
-     * @param  cause  information string to reader of report
-     * @param  msg    the message value of the build exception we are waiting for
+     * @param string $target target to run
+     * @param string $cause  information string to reader of report
+     * @param string $msg    the message value of the build exception we are waiting for
      * set to null for any build exception to be valid
      */
     protected function expectSpecificBuildException($target, $cause, $msg)
@@ -285,10 +285,10 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      *  run a target, expect an exception string
      *  containing the substring we look for (case sensitive match)
      *
-     * @param  target target to run
-     * @param  cause  information string to reader of report
-     * @param  msg    the message value of the build exception we are waiting for
-     * @param  contains  substring of the build exception to look for
+     * @param string $target target to run
+     * @param string $cause  information string to reader of report
+     * @param string $msg    the message value of the build exception we are waiting for
+     * @param string $contains  substring of the build exception to look for
      */
     protected function expectBuildExceptionContaining($target, $cause, $contains)
     {
@@ -312,9 +312,9 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * call a target, verify property is as expected
      *
-     * @param target build file target
-     * @param property property name
-     * @param value expected value
+     * @param string $target build file target
+     * @param string $property property name
+     * @param string $value expected value
      */
 
     protected function expectPropertySet($target, $property, $value = "true")
@@ -325,8 +325,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
     /**
      * assert that a property equals a value; comparison is case sensitive.
-     * @param property property name
-     * @param value expected value
+     * @param string $property property name
+     * @param string $value expected value
      */
     protected function assertPropertyEquals($property, $value)
     {
@@ -336,7 +336,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
     /**
      * assert that a property equals &quot;true&quot;
-     * @param property property name
+     * @param string $property property name
      */
     protected function assertPropertySet($property)
     {
@@ -345,7 +345,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
     /**
      * assert that a property is null
-     * @param property property name
+     * @param string $property property name
      */
     protected function assertPropertyUnset($property)
     {
@@ -354,8 +354,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
     /**
      * call a target, verify property is null
-     * @param target build file target
-     * @param property property name
+     * @param string $target build file target
+     * @param string $property property name
      */
     protected function expectPropertyUnset($target, $property)
     {
@@ -366,8 +366,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      * Retrieve a resource from the caller classloader to avoid
      * assuming a vm working directory. The resource path must be
      * relative to the package name or absolute from the root path.
-     * @param resource the resource to retrieve its url.
-     * @throws AssertionFailureException if resource is not found.
+     * @param resource $resource the resource to retrieve its url.
+     * @throws BuildException if resource is not found.
      */
     protected function getResource($resource)
     {
