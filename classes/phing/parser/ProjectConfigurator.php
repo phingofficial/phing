@@ -388,7 +388,7 @@ class ProjectConfigurator
     private static function replacePropertyCallback($matches)
     {
         $propertyName = $matches[1];
-        if (!isset(self::$propReplaceProperties[$propertyName])) {
+        if (!array_key_exists($propertyName, self::$propReplaceProperties)) {
             self::$propReplaceProject->log(
                 'Property ${' . $propertyName . '} has not been set.',
                 self::$propReplaceLogLevel
