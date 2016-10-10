@@ -2,6 +2,14 @@ P     H     I     N     G
 =========================
 
 
+Oct. 11, 2016 - Phing 2.15.1
+----------------------------
+
+This release fixes a missing include and two bugs:
+
+ * [https://www.phing.info/trac/ticket/1264] delete fileset /foo.php deletes /baz.foo.php
+ * [https://www.phing.info/trac/ticket/1038] PhingFile getPathWithoutBase does not work for files outside basedir
+
 Sep. 14, 2016 - Phing 2.15.0
 ----------------------------
 
