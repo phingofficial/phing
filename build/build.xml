@@ -371,8 +371,9 @@
     -->
     <target name="generate-hash">
         <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
-        <echo file="${filename}.sha512">${phar.hash} ${filename}</echo>
-
+        <basename property="basefilename" file="${filename}"/>
+        <echo file="${filename}.sha512">${phar.hash} ${basefilename}
+</echo>
     </target>
 
 </project>
