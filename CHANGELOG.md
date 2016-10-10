@@ -2,8 +2,8 @@ P     H     I     N     G
 =========================
 
 
-Sep. 14, 2016 - Phing 2.15
---------------------------
+Sep. 14, 2016 - Phing 2.15.0
+----------------------------
 
 This release contains the following new or improved functionality:
 
@@ -13,7 +13,6 @@ This release contains the following new or improved functionality:
  * Various typo and bug fixes, documentation updates
 
 The following tickets were closed in this release:
-
 
  * [1263] Error in SassTask on PHP 7
  * [1262] Fatal error in SassTask when Sass gem is not installed
@@ -29,8 +28,8 @@ The following tickets were closed in this release:
  * [1238] Add documentation for Smarty and ReplaceRegexp tasks
  * [566] Add Mercurial support
 
-Mar. 10, 2016 - Phing 2.14
---------------------------
+Mar. 10, 2016 - Phing 2.14.0
+----------------------------
 
 This release contains the following new or improved functionality:
 
@@ -61,8 +60,8 @@ The following tickets were closed in this release:
  * [1131] Verification of changelog file fails when your file is in a directory added in your classpathref
  * [1046] ReplaceTokensWithFile doesn't support begintoken/endtokens with / in them
 
-Dec. 4, 2015 - Phing 2.13
--------------------------
+Dec. 4, 2015 - Phing 2.13.0
+---------------------------
 
 This release contains the following new or improved functionality:
 
@@ -91,8 +90,8 @@ The following tickets were closed in this release:
  * [1212] Add support for formatters for PhpLoc task
  * [1187] Disable compression of phing.phar to make it work on hhvm
 
-Aug. 24, 2015 - Phing 2.12
---------------------------
+Aug. 24, 2015 - Phing 2.12.0
+----------------------------
 
 This release contains the following new or improved functionality:
 
@@ -121,8 +120,8 @@ The following tickets were closed in this release:
  * [1178] Parameter getValue is null when parameter is equal to 0
  * [1148] phpdoc2 via phar
 
-May 20, 2015 - Phing 2.11
--------------------------
+May 20, 2015 - Phing 2.11.0
+---------------------------
 
 This release contains the following new or improved functionality:
 
@@ -154,7 +153,7 @@ This release fixes the following tickets:
  * [1171] Socket condition does not work
 
 Feb. 9, 2015 - Phing 2.10.0
---------------------------
+---------------------------
 
 This release contains the following new or improved functionality:
 
@@ -790,11 +789,9 @@ Jul. 28, 2010 - Phing 2.4.2
   * [489] PearPackage Task fatal error trying to process Fileset options
   * [487] Allow files in subdirectories in ReplaceTokensWithFile filter
   * [486] PHP Errors in PDOSQLExecTask
-  * [485] ReplaceTokensWithFile filter does not allow HTML translation to be
-      switched off
+  * [485] ReplaceTokensWithFile filter does not allow HTML translation to be switched off
   * [484] Make handling of incomplete tests when logging XML configurable
-  * [483] Bug in FileUtils::copyFile() on Linux - when using FilterChains,
-      doesn't preserve attributes
+  * [483] Bug in FileUtils::copyFile() on Linux - when using FilterChains, doesn't preserve attributes
   * [482] Bug in ChownTask with verbose set to false
   * [480] ExportPropertiesTask does not export all the initialized properties
   * [477] HttpRequestTask should NOT validate output if regex is not provided
@@ -1143,9 +1140,7 @@ Aug. 21, 2006 - Phing 2.2.0
   * Added PhpLintTask (Knut Urdalen)
   * Added XmlLintTask (Knut Urdalen)
   * Added ZendCodeAnalyzerTask (Knut Urdalen)
-  * Removed CoverageFormatter class (MR)
-    NOTE: This changes the usage of the collection of PHPUnit2 code coverage reports, see the
-    updated documentation for the CoverageSetupTask
+  * Removed CoverageFormatter class (MR). NOTE: This changes the usage of the collection of PHPUnit2 code coverage reports, see the updated documentation for the CoverageSetupTask
   * Added Unzip and Untar tasks contributed by Joakim Bodin
   * [8], [49] Fixed bugs in TarTask related to including empty directories (HL)
   * [44] Fixed bug related to copying empty dirs. (HL)
@@ -1172,26 +1167,24 @@ June 17, 2005 - Phing 2.1.0
   * Renamed File -> PhingFile to avoid namespace collisions (Michiel Rook)
   * Add ZipTask to create .zip files (Michiel Rook)
   * Removed redudant logging of build errors in Phing::start() (Michiel Rook)
-  * Added tasks to execute PHPUnit2 testsuites and generate coverage and
-    test reports. (Michiel Rook, Sebastian Bergmann)
-  * Added SvnLastRevisionTask that stores the number of the last revision
-    of a workingcopy in a property. (Michiel Rook)
+  * Added tasks to execute PHPUnit2 testsuites and generate coverage and test reports. (Michiel Rook, Sebastian Bergmann)
+  * Added SvnLastRevisionTask that stores the number of the last revision of a workingcopy in a property. (Michiel Rook)
   * Added MailTask that sends a message by mail() (Michiel Rook, contributed by Francois Harvey)
   * New IncludePathTask (<includepath/>) for adding values to PHP's include_path. (Hans Lellelid)
   * Fix to Phing::import() to *not* attempt to invoke __autoload() in class_exists() check. (Hans Lellelid)
   * Fixed AppendTask to allow use of only <fileset> as source. (Hans Lellelid)
   * Removed dependency on posix, by changing posix_uname to php_uname if needed. (Christian Stocker)
   * Fixed issues: (Michiel Rook)
-    11  ExtendedFileStream does not work on Windows
-    12  CoverageFormatter problem on Windows
-    13  DOMElement warnings in PHPUnit2 tasks
-    14  RuntimeException conflicts with SPL class
-    15  It is not possible to execute it with PHP5.1
-    16  Add Passthru option to ExecTask
-    17  Blank list on foreach task will loop once
-    19  Problem with <formatter outfile="...">
-    20  Phpunit2report missing XSL stylesheets
-    21  Warnings when output dir does not exist in PHPUnit2Report
+  * [11] ExtendedFileStream does not work on Windows
+  * [12] CoverageFormatter problem on Windows
+  * [13] DOMElement warnings in PHPUnit2 tasks
+  * [14] RuntimeException conflicts with SPL class
+  * [15] It is not possible to execute it with PHP5.1
+  * [16] Add Passthru option to ExecTask
+  * [17] Blank list on foreach task will loop once
+  * [19] Problem with <formatter outfile="...">
+  * [20] Phpunit2report missing XSL stylesheets
+  * [21] Warnings when output dir does not exist in PHPUnit2Report
 
 Oct 16, 2004 - Phing 2.0.0
 --------------------------
@@ -1214,12 +1207,9 @@ March 19, 2004 - Phing 2.0.0b2
   * Brought up-to-date w/ PHP5.0.0RC1 (Hans)
   * Fixed bug in seting XSLT params using XSLTask (Hans, Jeff Moss)
   * Fixed PHPUnit test framework for PHPUnit-2.0.0alpha3
-  * Added "Adhoc" tasks, which allow for defining PHP task or type classes within the
-  buildfile. (Hans)
-  * Added PhpEvalTask which allows property values to be set to simple PHP evaluations or
-  the results of function/method calls. (Hans)
-  * Added new phing.listener.PearLogger listener (logger).  Also, the -logfile arg is now
-  supported. (Hans)
+  * Added "Adhoc" tasks, which allow for defining PHP task or type classes within the buildfile. (Hans)
+  * Added PhpEvalTask which allows property values to be set to simple PHP evaluations or the results of function/method calls. (Hans)
+  * Added new phing.listener.PearLogger listener (logger).  Also, the -logfile arg is now supported. (Hans)
   * Fixed broken ForeachTask task.  (Manuel)
 
 Dec 24, 2003 - Phing 2.0.0b1
@@ -1235,10 +1225,8 @@ Dec 24, 2003 - Phing 2.0.0b1
   * CreoleSQLExec task is now operational.
   * Corrected non-fatal bugs in: DeleteTask, ReflexiveTask
   * All core Phing classes now in PHP5 syntax (no "var" used, etc.)
-  * CopyTask will not stop build execution if a file cannot be copied (will log and
-  continue to next file).
-  * New abstract MatchingTask task makes it easier to create your own tasks that use
-  selectors.
+  * CopyTask will not stop build execution if a file cannot be copied (will log and continue to next file).
+  * New abstract MatchingTask task makes it easier to create your own tasks that use selectors.
   * Removed redundant calls in DirectoryScanner (<fileset> scanning now much faster).
   * Fixed fatal errors in File::equals()
 
@@ -1252,8 +1240,7 @@ Nov 24, 2003 - Phing 2.0.0a2
   * New TranslateGettext filter substitutes _("hello!") with "hola!" / "bonjour!" / etc.
   * More consistent use of classhints to enable auto-casting by IntrospectionHelper
   * Fixed infinite loop bug in FileUtils::normalize() for paths containing "/./"
-  * Fixed bug in CopyFile/fileset that caused termination of copy operation on encounter
-  of unreadable file
+  * Fixed bug in CopyFile/fileset that caused termination of copy operation on encounter of unreadable file
 
 Nov 6, 20003 - Phing 2.0.0a1
 ----------------------------
