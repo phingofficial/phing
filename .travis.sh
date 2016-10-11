@@ -46,7 +46,7 @@
     else
     	echo -e "\nInstalling composer packages ... "
     	composer selfupdate --quiet
-        composer install -o --no-progress --prefer-dist
+        composer install -o --no-progress --prefer-dist --ignore-platform-reqs
     fi
 
     if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
