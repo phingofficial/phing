@@ -5,7 +5,7 @@
 		<taskdef name="myphplint" classname="TestPhpLintTask" />
 		<myphplint haltonfailure="true">
 			<fileset dir=".">
-				<include name="*.php" />
+				<include name="**/*.php" />
 			</fileset>
 		</myphplint>
 	</target>
