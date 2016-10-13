@@ -2,6 +2,13 @@ P     H     I     N     G
 =========================
 
 
+Oct. 13, 2016 - Phing 2.15.2
+----------------------------
+
+This release fixes a regression introduced in 2.15.1:
+
+ * #593 - Changed behavior in <fileset/> filtering in 2.15.1
+
 Oct. 11, 2016 - Phing 2.15.1
 ----------------------------
 
