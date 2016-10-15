@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
-
+ */
 include_once 'phing/filters/BaseFilterReader.php';
 include_once 'phing/filters/ChainableReader.php';
 
@@ -55,7 +51,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Returns the  stream without Php comments.
      *
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      */
@@ -66,71 +62,40 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
         if ($buffer === -1) {
             return -1;
         }
+        $newStr = '';
+        $tokens = token_get_all($buffer);
 
-        // This regex replace /* */ and // style comments
-        $buffer = preg_replace(
-            '/\/\*[^*]*\*+([^\/*][^*]*\*+)*\/|# [^\n]*|\/\/[^\n]*|("(\\\\.|[^"\\\\])*"|\'(\\\\.|[^\'\\\\])*\'|.[^\/#"\'\\\\]*)/s',
-            "$2",
-            $buffer
-        );
+        foreach ($tokens as $token) {
+            if (is_array($token)) {
+                list($id, $text) = $token;
 
-        // The regex above is not identical to, but is based on the expression below:
-        //
-        // created by Jeffrey Friedl
-        //   and later modified by Fred Curtis.
-        //     s{
-        //          /\*         ##  Start of /* ... */ comment
-        //          [^*]*\*+    ##  Non-* followed by 1-or-more *'s
-        //          (
-        //            [^/*][^*]*\*+
-        //          )*          ##  0-or-more things which don't start with /
-        //                      ##    but do end with '*'
-        //          /           ##  End of /* ... */ comment
-        //
-        //        |         ##     OR  various things which aren't comments:
-        //
-        //          (
-        //            "           ##  Start of " ... " string
-        //            (
-        //              \\.           ##  Escaped char
-        //            |               ##    OR
-        //              [^"\\]        ##  Non "\
-        //            )*
-        //           "           ##  End of " ... " string
-        //
-        //          |         ##     OR
-        //
-        //            '           ##  Start of ' ... ' string
-        //            (
-        //              \\.           ##  Escaped char
-        //            |               ##    OR
-        //              [^'\\]        ##  Non '\
-        //            )*
-        //            '           ##  End of ' ... ' string
-        //
-        //          |         ##     OR
-        //
-        //            .           ##  Anything other char
-        //            [^/"'\\]*   ##  Chars which doesn't start a comment, string or escape
-        //          )
-        //        }{$2}gxs;
+                switch ($id) {
+                    case T_COMMENT:
+                    case T_DOC_COMMENT:
+                        // no action on comments
+                        continue 2;
 
-        return $buffer;
+                    default:
+                        $newStr .= $text;
+                        continue 2;
+                }
+            }
+            $newStr .= $token;
+        }
+
+        return $newStr;
     }
 
-    /*
+    /**
      * Returns the next character in the filtered stream, not including
      * Php comments.
      *
-     * @return the next character in the resulting stream, or -1
+     * @return int the next character in the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      * @throws IOException if the underlying stream throws an IOException
      *                     during reading
      * @deprecated
-     */
-    /**
-     * @return int
      */
     public function readChar()
     {
@@ -186,7 +151,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return a new filter based on this configuration, but filtering
+     * @return $this a new filter based on this configuration, but filtering
      *           the specified reader
      */
     public function chain(Reader $reader)
