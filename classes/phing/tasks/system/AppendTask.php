@@ -166,6 +166,15 @@ class AppendTask extends Task
     }
 
     /**
+     * Sets specific file to append.
+     * @param PhingFile $f
+     */
+    public function setFile(PhingFile $f)
+    {
+        $this->file = $f;
+    }
+
+    /**
      * Supports embedded <filelist> element.
      *
      * @return FileList
