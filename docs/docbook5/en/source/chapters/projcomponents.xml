@@ -540,6 +540,7 @@
             <itemizedlist>
                 <listitem>url - the URL of the request.</listitem>
                 <listitem>errorsBeginAt - number at which errors begin at.</listitem>
+                <listitem>quiet - Set quiet mode, which suppresses warnings if chmod() fails.</listitem>
             </itemizedlist>
             <table>
                 <title>http Attributes</title>
@@ -563,6 +564,11 @@
                         <row>
                             <entry><literal>errorsBeginAt</literal></entry>
                             <entry>Number at which errors begin at. - Default: 400</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>quiet</literal></entry>
+                            <entry>Set quiet mode, which suppresses warnings if chmod() fails. Default is false</entry>
                             <entry>No</entry>
                         </row>
                     </tbody>
