@@ -97,7 +97,7 @@ class HttpCondition extends ProjectComponent implements Condition
         curl_setopt($handle, CURLOPT_NOBODY, true);
 
         if (!curl_exec($handle)) {
-            $this->log("Possible malformed URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
+            $this->log("No response received from URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
 
             return false;
         }
