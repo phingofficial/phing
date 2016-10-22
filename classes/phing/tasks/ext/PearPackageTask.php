@@ -154,7 +154,7 @@ class PearPackageTask extends MatchingTask
         // validation & return errors
         $e = $this->pkg->setOptions($this->preparedOptions);
 
-        if (PEAR::isError($e)) {
+        if (@PEAR::isError($e)) {
             throw new BuildException("Unable to set options.", new Exception($e->getMessage()));
         }
 
@@ -241,7 +241,7 @@ class PearPackageTask extends MatchingTask
         $this->setOptions();
 
         $e = $this->pkg->writePackageFile();
-        if (PEAR::isError($e)) {
+        if (@PEAR::isError($e)) {
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
 

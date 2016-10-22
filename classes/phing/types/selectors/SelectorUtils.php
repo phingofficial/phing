@@ -125,15 +125,9 @@ class SelectorUtils
     /**
      * Tests whether or not a given path matches a given pattern.
      *
-     * @param The $pattern
-     * @param The $str
-     * @param bool|Whether $isCaseSensitive
-     * @internal param The $pattern pattern to match against. Must not be
-     *                <code>null</code>.
-     * @internal param The $str path to match, as a String. Must not be
-     *                <code>null</code>.
-     * @internal param Whether $isCaseSensitive or not matching should be performed
-     *                        case sensitively.
+     * @param string $pattern The pattern to match against. Must not be <code>null</code>.
+     * @param string $str The path to match, as a String. Must not be <code>null</code>.
+     * @param bool $isCaseSensitive Whether or not matching should be performed case sensitively.
      *
      * @return bool <code>true</code> if the pattern matches against the string,
      */
@@ -150,7 +144,7 @@ class SelectorUtils
         $patternReplacements = array(
             $dirSep . '\*\*' . $dirSep => $dirSep . '.*' . $trailingDirSep,
             $dirSep . '\*\*' => $trailingDirSep,
-            '\*\*' . $dirSep => '.*' . $trailingDirSep,
+            '\*\*' . $dirSep => '(.*' . $dirSep . ')?',
             '\*\*' => '.*',
             '\*' => '[^' . $dirSep . ']*',
             '\?' => '[^' . $dirSep . ']'

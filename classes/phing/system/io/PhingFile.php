@@ -265,7 +265,7 @@ class PhingFile
             $basedir .= self::$separator;
         }
         $path = $this->getPath();
-        if (!substr($path, 0, strlen($basedir)) == $basedir) {
+        if (substr($path, 0, strlen($basedir)) != $basedir) {
             //path does not begin with basedir, we don't modify it
             return $path;
         }
@@ -665,6 +665,11 @@ class PhingFile
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
+        /** @var PhingFile $parent */
+        $parent = $this->getParentFile();
+        if ($parents && !$parent->exists()) {
+            $parent->mkdirs();
+        }
         $file = FileSystem::getFileSystem()->createNewFile($this->path);
 
         return $file;

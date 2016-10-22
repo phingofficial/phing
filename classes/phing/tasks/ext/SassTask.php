@@ -932,6 +932,7 @@ class SassTask extends Task
                     }
                 } else {
                     $lUseScssphp = true;
+                    $this->scssCompiler = $this->initialiseScssphp();
                 }
             }
         } elseif (!$this->useSass && !$this->useScssphp) {
@@ -1213,12 +1214,10 @@ class SassTask extends Task
      */
     public function getNewCompiler()
     {
+        // Instantiate the class in a way that is compatible with
+        // PHP 5.2 up to 7.x.
         $compiler = '\\Leafo\\ScssPhp\\Compiler';
-        $obj = call_user_func_array(
-            array($compiler, '__construct'),
-            array()
-        );
-        return self::$factory;
+        return new $compiler;
     }
 
     /**
@@ -1228,7 +1227,6 @@ class SassTask extends Task
      */
     public function initialiseScssphp()
     {
-        //$scss = new Leafo\ScssPhp\Compiler();
         $scss = $this->getNewCompiler();
         if ($this->style) {
             $ucStyle = ucfirst(strtolower($this->style));

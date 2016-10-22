@@ -248,6 +248,8 @@ class UnknownElement extends Task
      */
     public function getTaskName()
     {
-        return $this->realThing === null ? parent::getTaskName() : $this->realThing->getTaskName();
+        return $this->realThing === null || !$this->realThing instanceof Task
+            ? parent::getTaskName()
+            : $this->realThing->getTaskName();
     }
 }

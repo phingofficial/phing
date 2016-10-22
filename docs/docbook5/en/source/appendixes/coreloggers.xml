@@ -161,6 +161,15 @@
         </para>
     </sect1>
 
+    <sect1 role="loggerdef" xml:id="ProfileLogger">
+        <title>ProfileLogger</title>
+        <para>This logger stores the time needed for executing a task, target
+        and the whole build and prints these information.
+        The output contains a timestamp when entering the build, target or task
+        and a timestamp and the needed time when exiting.
+        </para>
+    </sect1>
+
     <sect1 role="loggerdef" xml:id="TimestampedLogger">
         <title>TimestampedLogger</title>
         <para>Acts like the default logger, except that the final

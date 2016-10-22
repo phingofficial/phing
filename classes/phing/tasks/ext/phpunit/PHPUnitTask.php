@@ -481,11 +481,22 @@ class PHPUnitTask extends Task
             $pwd = dirname(__FILE__);
             $path = realpath($pwd . '/../../../');
 
-            $filter = new PHP_CodeCoverage_Filter();
+            if (class_exists('PHP_CodeCoverage_Filter')) {
+                $filter = new PHP_CodeCoverage_Filter();
+            } elseif (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
+                $filterClass = '\SebastianBergmann\CodeCoverage\Filter';
+                $filter = new $filterClass;
+            }
             if (method_exists($filter, 'addDirectoryToBlacklist')) {
                 $filter->addDirectoryToBlacklist($path);
             }
-            $runner->setCodecoverage(new PHP_CodeCoverage(null, $filter));
+            if (class_exists('PHP_CodeCoverage')) {
+                $codeCokverage = new PHP_CodeCoverage(null, $filter);
+            } elseif (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
+                $codeCokverageClass = '\SebastianBergmann\CodeCoverage\CodeCoverage';
+                $codeCokverage = new $codeCokverageClass(null, $filter);
+            }
+            $runner->setCodecoverage($codeCokverage);
         }
 
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);

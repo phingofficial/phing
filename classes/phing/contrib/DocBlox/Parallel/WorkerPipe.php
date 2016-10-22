@@ -112,7 +112,6 @@ class DocBlox_Parallel_WorkerPipe
         $pipe = @fopen($this->path, 'r+');
 
         if (! $pipe) {
-            $arguments = $this->worker->getArguments();
             return array(
                 '',
                 'Worker died unexpectedly',

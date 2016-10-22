@@ -34,6 +34,7 @@ class HttpCondition extends ProjectComponent implements Condition
 {
     private $errorsBeginAt;
     private $url;
+    private $quiet = false;
 
     public function __construct()
     {
@@ -65,6 +66,15 @@ class HttpCondition extends ProjectComponent implements Condition
     }
 
     /**
+     * Set quiet mode, which suppresses warnings if curl_exec() fails.
+     * @param $bool
+     */
+    public function setQuiet($bool)
+    {
+        $this->quiet = $bool;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @return true if the HTTP request succeeds
@@ -78,7 +88,7 @@ class HttpCondition extends ProjectComponent implements Condition
         }
 
         if (!filter_var($this->url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-            $this->log("Possible malformed URL: " . $this->url, Project::MSG_WARN);
+            $this->log("Possible malformed URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
         }
 
         $this->log("Checking for " . $this->url, Project::MSG_VERBOSE);
@@ -87,7 +97,7 @@ class HttpCondition extends ProjectComponent implements Condition
         curl_setopt($handle, CURLOPT_NOBODY, true);
 
         if (!curl_exec($handle)) {
-            $this->log("Possible malformed URL: " . $this->url, Project::MSG_ERR);
+            $this->log("No response received from URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
 
             return false;
         }

@@ -133,9 +133,9 @@
         <title>AppendTask </title>
         <para>The Append Task appends text or contents of files to a specified file.</para>
         <para>In the example above, AppendTask is reading a filename from
-                <literal>book/PhingGuide.book</literal>, processing the file contents with XSLT, and
+            <literal>book/PhingGuide.book</literal>, processing the file contents with XSLT, and
             then appending the result to the file located at
-                <literal>${process.outputfile}</literal>. This is a real example from the build file
+            <literal>${process.outputfile}</literal>. This is a real example from the build file
             used to generate this book!</para>
 
         <table>
@@ -159,9 +159,68 @@
                     <row>
                         <entry><literal>destFile</literal></entry>
                         <entry><literal role="type">File</literal></entry>
-                        <entry>Path of file to which text should be appended.</entry>
+                        <entry>Path of file to which text should be appended.
+                            If not specified the console will be used instead.</entry>
                         <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>append</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Specifies whether or not the file specified by 'destfile'
+                            should be appended. Defaults to "no".</entry>
+                        <entry>No</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>overwrite</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Specifies whether or not the file specified by 'destfile' should
+                            be written to even if it is newer than all source files.</entry>
+                        <entry>yes</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>fixlastline</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Specifies whether or not to check if each file concatenated
+                            is terminated by a new line.
+                            If this attribute is "yes" a new line will be appended to
+                            the stream if the file did not end in a new line.
+                            This attribute does not apply to embedded text.</entry>
+                        <entry>no</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>eol</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Specifies what the end of line character are for use by the fixlastline attribute.
+                            Valid values for this property are:
+                            <itemizedlist>
+                                <listitem>
+                                    <para><literal>cr: a single CR</literal></para>
+                                </listitem>
+                                <listitem>
+                                    <para><literal>lf: a single LF</literal></para>
+                                </listitem>
+                                <listitem>
+                                    <para><literal>crlf: the pair CRLF</literal></para>
+                                </listitem>
+                                <listitem>
+                                    <para><literal>mac: a single CR</literal></para>
+                                </listitem>
+                                <listitem>
+                                    <para><literal>unix: a single LF</literal></para>
+                                </listitem>
+                                <listitem>
+                                    <para><literal>dos: the pair CRLF</literal></para>
+                                </listitem>
+                            </itemizedlist>
+                            The default is platform dependent. For Unix platforms, the default is "lf".
+                            For DOS based systems (including Windows), the default is "crlf".
+                            For Mac OS, the default is "cr".</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>file</literal></entry>
@@ -183,13 +242,13 @@
         <sect2>
             <title>Examples</title>
             <programlisting language="xml">&lt;append destFile="${process.outputfile}">
-  &lt;filterchain>
-    &lt;xsltfilter style="${process.stylesheet}">
-         &lt;param name="mode" expression="${process.xslt.mode}"/>
-    &lt;/xsltfilter>
-  &lt;/filterchain>
-  &lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
-&lt;/append></programlisting>
+                &lt;filterchain>
+                &lt;xsltfilter style="${process.stylesheet}">
+                &lt;param name="mode" expression="${process.xslt.mode}"/>
+                &lt;/xsltfilter>
+                &lt;/filterchain>
+                &lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
+                &lt;/append></programlisting>
         </sect2>
 
         <sect2 role="nestedtags">
@@ -203,6 +262,64 @@
                 </listitem>
                 <listitem>
                     <para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal>path</literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal>header, footer</literal>
+                        Used to prepend or postpend text into the concatenated stream.
+                        The text may be in-line or be in a file.
+                        <table>
+                            <title>Attributes</title>
+                            <tgroup cols="5">
+                                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                                <thead>
+                                    <row>
+                                        <entry>Name</entry>
+                                        <entry>Type</entry>
+                                        <entry>Description</entry>
+                                        <entry>Default</entry>
+                                        <entry>Required</entry>
+                                    </row>
+                                </thead>
+                                <tbody>
+                                    <row>
+                                        <entry><literal>filtering</literal></entry>
+                                        <entry><literal role="type">Boolean</literal></entry>
+                                        <entry>Whether to filter the text provided by this sub element.</entry>
+                                        <entry>yes</entry>
+                                        <entry>No</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>file</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>A file to place at the head or tail of the concatenated text.</entry>
+                                        <entry>n/a</entry>
+                                        <entry>No</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>trim</literal></entry>
+                                        <entry><literal role="type">Boolean</literal></entry>
+                                        <entry>Whether to trim the value.</entry>
+                                        <entry>no</entry>
+                                        <entry>No</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>trimleading</literal></entry>
+                                        <entry><literal role="type">Boolean</literal></entry>
+                                        <entry>Whether to trim leading white space on each line.</entry>
+                                        <entry>no</entry>
+                                        <entry>No</entry>
+                                    </row>
+                                </tbody>
+                            </tgroup>
+                        </table>
+                    </para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -1136,6 +1253,7 @@ verbose="true" failonerror="false" /></programlisting>
         <para>Allows rudimentary interfacing with the CVS versioning system.</para>
         <para>As you would expect, this lets you do pretty much anything with CVS. The CvsTask calls
             ExecTask which actually does the command execution.</para>
+        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -1284,6 +1402,7 @@ verbose="true" failonerror="false" /></programlisting>
             to provide a password in your build file.</para>
         <para>If no password file is specified the default location <literal>.cvspass</literal> in
             users home directory is used.</para>
+        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -2443,6 +2562,24 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to halt the build on failure.</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Do not display a diagnostic message (unless Phing
+                            has been invoked with the -verbose or -debug switches)
+                            or modify the exit status to reflect an error.
+                            Setting this to <literal>true</literal> implies setting failonerror
+                            to <literal>false</literal>.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -3488,6 +3625,72 @@ verbose="true" failonerror="false" /></programlisting>
             </para>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="SleepTask">
+        <title>SleepTask</title>
+        <para>A task for sleeping a short period of time, useful when a build or
+            deployment process requires an interval between tasks.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>hours</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>hours to to add to the sleep time</entry>
+                        <entry>0</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>minutes</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>minutes to add to the sleep time</entry>
+                        <entry>0</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>seconds</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>seconds to add to the sleep time</entry>
+                        <entry>0</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>milliseconds</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>milliseconds to add to the sleep time</entry>
+                        <entry>0</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>flag controlling whether to break the build on an error.</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;sleep seconds="2"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="SwitchTask">
         <title>SwitchTask </title>
         <para>Task definition for the phing task to switch on a particular value.</para>
@@ -3807,6 +4010,21 @@ file defines a task in the format: name=path.to.Task -->
                         <entry>The number of milliseconds since Midnight Jan 1 1970 (Unix
                             epoche).</entry>
                         <entry><literal>now</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>mkdirs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to create nonexistent parent directories
+                            when touching new files.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>verbose</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to log the creation of new files.</entry>
+                        <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

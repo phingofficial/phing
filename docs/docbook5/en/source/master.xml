@@ -48,6 +48,13 @@
                 </personname>
                 <email>johan162@gmail.com</email>
             </author>
+            <author>
+                <personname>
+                    <firstname>Ken</firstname>
+                    <surname>Guest</surname>
+                </personname>
+                <email>ken@linux.ie</email>
+            </author>
         </authorgroup>
         <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
         <copyright>
