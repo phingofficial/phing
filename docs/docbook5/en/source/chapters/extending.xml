@@ -586,6 +586,43 @@ class MyEchoTask extends Task {
 
             <para>Creator methods allow you to manage nested XML tags in your new Phing Task.</para>
 
+            <para>For example, you might be developing a task that would contain a nested "color" XML tag.
+            In this instance a creator method named <literal>createcolor</literal> would be required.</para>
+            
+            <programlisting language="xml">&lt;tag>
+  &lt;color red="..." green="..." blue="...">
+&lt;/tag>
+            </programlisting>
+
+            <para>If the XML for the task and the subtag look like the above, the PHP code for it could look something like the following:</para>
+
+            <programlisting language="php">
+class TagTask extends Task
+{
+    protected $colors = array();
+
+    public function createColor()
+    {
+        $colorObj = new TagColor();
+        $this->colors[] = $colorObj;
+        return $colorObj;
+    }
+}
+
+class TagColor
+{
+    public function setRed($value)
+    {
+    }
+
+    public function setGreen($value)
+    {
+    }
+
+    public function setBlue($value)
+    {
+    }
+}</programlisting>
         </sect2>
         <sect2>
             <title>
@@ -631,6 +668,7 @@ class MyEchoTask extends Task {
     // definition
 }</programlisting>
         </sect2>
+
     </sect1>
 
     <sect1>
