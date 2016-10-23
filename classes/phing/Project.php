@@ -46,7 +46,10 @@ class Project
     const MSG_WARN = 1;
     const MSG_ERR = 0;
 
-    /** contains the targets */
+    /**
+     * contains the targets
+     * @var Target[]
+     */
     private $targets = array();
     /** global filterset (future use) */
     private $globalFilterSet = array();
@@ -111,6 +114,11 @@ class Project
      * Keep going flag.
      */
     private $keepGoingMode = false;
+
+    /**
+     * @var string[]
+     */
+    private $executedTargetNames = array();
 
     /**
      *  Constructor, sets any default vars.
@@ -702,11 +710,19 @@ class Project
 
     /**
      * Returns the available targets
-     * @return array
+     * @return Target[]
      */
     public function getTargets()
     {
         return $this->targets;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getExecutedTargetNames()
+    {
+        return $this->executedTargetNames;
     }
 
     /**
@@ -864,6 +880,8 @@ class Project
      */
     public function executeTargets($targetNames)
     {
+        $this->executedTargetNames = $targetNames;
+
         foreach ($targetNames as $tname) {
             $this->executeTarget($tname);
         }
@@ -886,7 +904,7 @@ class Project
 
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
-        $sortedTargets = $this->_topoSort($targetName, $this->targets);
+        $sortedTargets = $this->topoSort($targetName);
 
         $curIndex = (int) 0;
         $curTarget = null;
@@ -949,19 +967,16 @@ class Project
 
     /**
      * Topologically sort a set of Targets.
-     * @param  string $root is the (String) name of the root Target. The sort is
+     * @param  string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @param  array $targets is a array representing a "name to Target" mapping
      * @throws BuildException
      * @throws Exception
-     * @return array of Strings with the names of the targets in
-     *               sorted order.
+     * @return Target[] targets in sorted order
      */
-    public function _topoSort($root, &$targets)
+    public function topoSort($rootTarget)
     {
-
-        $root = (string) $root;
+        $rootTarget = (string) $rootTarget;
         $ret = array();
         $state = array();
         $visiting = array();
@@ -974,15 +989,15 @@ class Project
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($root, $targets, $state, $visiting, $ret);
+        $this->_tsort($rootTarget, $state, $visiting, $ret);
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
             $retHuman .= $ret[$i]->toString() . " ";
         }
-        $this->log("Build sequence for target '$root' is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
-        $keys = array_keys($targets);
+        $keys = array_keys($this->targets);
         while ($keys) {
             $curTargetName = (string) array_shift($keys);
             if (!isset($state[$curTargetName])) {
@@ -992,7 +1007,7 @@ class Project
             }
 
             if ($st === null) {
-                $this->_tsort($curTargetName, $targets, $state, $visiting, $ret);
+                $this->_tsort($curTargetName, $state, $visiting, $ret);
             } elseif ($st === "VISITING") {
                 throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
@@ -1026,22 +1041,21 @@ class Project
 
     /**
      * @param $root
-     * @param $targets
      * @param $state
      * @param $visiting
      * @param $ret
      * @throws BuildException
      * @throws Exception
      */
-    public function _tsort($root, &$targets, &$state, &$visiting, &$ret)
+    public function _tsort($root, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
         $visiting[] = $root;
 
-        if (!isset($targets[$root]) || !($targets[$root] instanceof Target)) {
+        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $target = null;
         } else {
-            $target = $targets[$root];
+            $target = $this->targets[$root];
         }
 
         // make sure we exist
@@ -1066,7 +1080,7 @@ class Project
             }
             if ($m === null) {
                 // not been visited
-                $this->_tsort($cur, $targets, $state, $visiting, $ret);
+                $this->_tsort($cur, $state, $visiting, $ret);
             } elseif ($m == "VISITING") {
                 // currently visiting this node, so have a cycle
                 throw $this->_makeCircularException($cur, $visiting);
