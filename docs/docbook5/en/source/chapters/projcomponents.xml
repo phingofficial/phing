@@ -306,7 +306,7 @@
 
 &lt;filterreader classname="phing.filters.ReplaceTokens">
   &lt;param type="token" name="BC_PATH" value="${top.builddir}/"/>
-  &lt;param type="token" name="BC_PATH" 
+  &lt;param type="token" name="BC_PATH"
   value="${top.builddir}/testsite/user/${lang}/"/>
 &lt;/filterreader></programlisting>
             <para> As the pipe concept in Unix, the filter concept is quite complex but powerful. To
@@ -488,7 +488,7 @@
             </table>
 
         </sect2>
-        
+
         <sect2 xml:id="conditions.versioncompare">
             <title><literal>versioncompare</literal></title>
             <para>Compares two given versions</para>
@@ -531,7 +531,7 @@
                 </tgroup>
             </table>
             <programlisting language="xml">&lt;versioncompare version="${aProperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
-            <para>This condition internally uses PHP version_compare(). Operators and behavior are the same.</para> 
+            <para>This condition internally uses PHP version_compare(). Operators and behavior are the same.</para>
         </sect2>
         <sect2 xml:id="conditions.http">
             <title><literal>http</literal></title>
@@ -540,6 +540,7 @@
             <itemizedlist>
                 <listitem>url - the URL of the request.</listitem>
                 <listitem>errorsBeginAt - number at which errors begin at.</listitem>
+                <listitem>quiet - Set quiet mode, which suppresses warnings and errors.</listitem>
             </itemizedlist>
             <table>
                 <title>http Attributes</title>
@@ -563,6 +564,11 @@
                         <row>
                             <entry><literal>errorsBeginAt</literal></entry>
                             <entry>Number at which errors begin at. - Default: 400</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>quiet</literal></entry>
+                            <entry>Set quiet mode, which suppresses warnings and errors. Default is false</entry>
                             <entry>No</entry>
                         </row>
                     </tbody>

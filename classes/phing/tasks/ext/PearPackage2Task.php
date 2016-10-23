@@ -285,7 +285,7 @@ class PearPackage2Task extends PearPackageTask
         $this->pkg->addRelease();
         $this->pkg->generateContents();
         $e = $this->pkg->writePackageFile();
-        if (PEAR::isError($e)) {
+        if (@PEAR::isError($e)) {
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
     }

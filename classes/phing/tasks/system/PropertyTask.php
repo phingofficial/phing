@@ -329,8 +329,10 @@ class PropertyTask extends Task
 
                 if ($referencedObject instanceof Exception) {
                     $reference = $referencedObject->getMessage();
-                } else {
+                } elseif (method_exists($referencedObject, 'toString')) {
                     $reference = $referencedObject->toString();
+                } else {
+                    $reference = (string) $referencedObject;
                 }
 
                 $this->addProperty($this->name, $reference);
@@ -340,8 +342,10 @@ class PropertyTask extends Task
 
                     if ($referencedObject instanceof Exception) {
                         $reference = $referencedObject->getMessage();
-                    } else {
+                    } elseif (method_exists($referencedObject, 'toString')) {
                         $reference = $referencedObject->toString();
+                    } else {
+                        $reference = (string) $referencedObject;
                     }
                     $this->addProperty($this->name, $reference);
                 } else {
