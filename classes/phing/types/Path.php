@@ -320,6 +320,15 @@ class Path extends DataType
                     $d = new PhingFile($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
+            } elseif ($o instanceof FileSet) {
+                $fs = $o;
+                $ds = $fs->getDirectoryScanner($this->getProject());
+                $filestrs = $ds->getIncludedFiles();
+                $dir = $fs->getDir($this->getProject());
+                foreach ($filestrs as $fstr) {
+                    $d = new PhingFile($dir, $fstr);
+                    $result[] = $d->getAbsolutePath();
+                }
             } elseif ($o instanceof FileList) {
                 $fl = $o;
                 $dirstrs = $fl->getFiles($this->project);
