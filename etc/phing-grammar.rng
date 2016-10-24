@@ -78,11 +78,13 @@
     <define name="coretypes">
         <zeroOrMore>
             <choice>
-                <ref name="fileset"/>
-                <ref name="filelist"/>
-                <ref name="path"/>
                 <ref name="classpath"/>
+                <ref name="dirset"/>
                 <ref name="excludes"/>
+                <ref name="filelist"/>
+                <ref name="fileset"/>
+                <ref name="path"/>
+                <ref name="patternset"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -375,6 +377,48 @@
                 </choice>
                 <optional>
                 <attribute name="includes"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="patternset">
+        <element name="patternset">
+            <interleave>
+                <choice>
+                    <attribute name="refid">
+                        <data type="IDREF"/>
+                    </attribute>
+                    <group>
+                        <optional>
+                            <choice>
+                                <attribute name="id">
+                                    <data type="ID"/>
+                                </attribute>
+                                <attribute name="refid">
+                                    <data type="IDREF"/>
+                                </attribute>
+                            </choice>
+                        </optional>
+                        <zeroOrMore>
+                            <choice>
+                                <ref name="include"/>
+                                <ref name="exclude"/>
+                            </choice>
+                        </zeroOrMore>
+                    </group>
+                </choice>
+                <optional>
+                    <attribute name="includes"/>
+                </optional>
+                <optional>
+                    <attribute name="excludes"/>
+                </optional>
+                <optional>
+                    <attribute name="includesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="excludesfile"/>
                 </optional>
             </interleave>
         </element>
