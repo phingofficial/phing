@@ -431,7 +431,7 @@ class AppendTask extends Task
                         continue;
                     }
 
-                    $file = is_string($file) ? new PhingFile($file) : $file;
+                    $file = is_string($file) ? new PhingFile($dir->getPath(), $file) : $file;
                     $basenameSlot->setValue($file);
                     $pathSlot->setValue($file->getPath());
                     $this->appendFile($writer, $file);
