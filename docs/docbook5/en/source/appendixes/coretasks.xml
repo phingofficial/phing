@@ -168,8 +168,8 @@
                         <entry><literal>append</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Specifies whether or not the file specified by 'destfile'
-                            should be appended. Defaults to "no".</entry>
-                        <entry>No</entry>
+                            should be appended. Defaults to "yes".</entry>
+                        <entry>yes</entry>
                         <entry>No</entry>
                     </row>
                     <row>
