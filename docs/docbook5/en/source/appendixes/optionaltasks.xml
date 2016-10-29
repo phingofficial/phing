@@ -11309,43 +11309,43 @@ host="webserver" todir="/www/htdocs/project/">
         </table>
         <sect2>
             <title>Examples</title>
-            <sect3><title>Minimal Example</title>
-                <para>This example assumes that the SonarQube Scanner is called <emphasis>sonarqube-scanner</emphasis> and is available on the <emphasis>PATH</emphasis>.</para>
-                <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-                    &lt;project name="sonar-minimal-example" default="sonar"&gt;
-                    &lt;taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" /&gt;
+                <sect3><title>Minimal Example</title>
+                    <para>This example assumes that the SonarQube Scanner is called <emphasis>sonarqube-scanner</emphasis> and is available on the <emphasis>PATH</emphasis>.</para>
+                    <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="sonar-minimal-example" default="sonar"&gt;
+    &lt;taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" /&gt;
 
-                    &lt;sonar executable="sonarqube-scanner"&gt;
-                    &lt;property name="sonar.projectKey"     value="my-unique-project-key" /&gt;
-                    &lt;property name="sonar.projectName"    value="Foo Project" /&gt;
-                    &lt;property name="sonar.projectVersion" value="0.1.0" /&gt;
-                    &lt;property name="sonar.sources"        value="src" /&gt;
-                    &lt;/sonar&gt;
-                    &lt;/project&gt;</programlisting>
-            </sect3>
-            <sect3><title>Full Example</title>
-                <para>This example consists of two files &#x2013; <emphasis>build.xml</emphasis> and <emphasis>sonar-project.properties</emphasis>.</para>
-                <para>The <emphasis>build.xml</emphasis>:</para>
-                <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-                    &lt;project name="sonar-full-example" default="sonar"&gt;
-                    &lt;taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" /&gt;
+    &lt;sonar executable="sonarqube-scanner"&gt;
+        &lt;property name="sonar.projectKey"     value="my-unique-project-key" /&gt;
+        &lt;property name="sonar.projectName"    value="Foo Project" /&gt;
+        &lt;property name="sonar.projectVersion" value="0.1.0" /&gt;
+        &lt;property name="sonar.sources"        value="src" /&gt;
+    &lt;/sonar&gt;
+&lt;/project&gt;</programlisting>
+                </sect3>
+                <sect3><title>Full Example</title>
+                    <para>This example consists of two files &#x2013; <emphasis>build.xml</emphasis> and <emphasis>sonar-project.properties</emphasis>.</para>
+                    <para>The <emphasis>build.xml</emphasis>:</para>
+                    <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="sonar-full-example" default="sonar"&gt;
+    &lt;taskdef name="sonar" classname="phing.tasks.ext.sonar.SonarTask" /&gt;
 
-                    &lt;sonar
-                    executable="path/to/sonarqube-scanner"
-                    errors="true"
-                    debug="true"
-                    configuration="path/to/sonar-project.properties"
-                    &gt;
-                    &lt;!-- Assume that mandatory SonarQube parameters are defined in configuration file! --&gt;
-                    &lt;property name="sonar.log.level" value="DEBUG" /&gt;
-                    &lt;/sonar&gt;
-                    &lt;/project&gt;</programlisting>
-                <para>The configuration file <emphasis>path/to/sonar-project.properties</emphasis>:</para>
-                <programlisting>sonar.projectKey     = my-unique-project-key
-                    sonar.projectName    = Foo Project
-                    sonar.projectVersion = 0.1.0
-                    sonar.sources        = src</programlisting>
-            </sect3>
+    &lt;sonar
+      executable="path/to/sonarqube-scanner"
+      errors="true"
+      debug="true"
+      configuration="path/to/sonar-project.properties"
+    &gt;
+        &lt;!-- Assume that mandatory SonarQube parameters are defined in configuration file! --&gt;
+        &lt;property name="sonar.log.level" value="DEBUG" /&gt;
+    &lt;/sonar&gt;
+&lt;/project&gt;</programlisting>
+                    <para>The configuration file <emphasis>path/to/sonar-project.properties</emphasis>:</para>
+                    <programlisting>sonar.projectKey     = my-unique-project-key
+sonar.projectName    = Foo Project
+sonar.projectVersion = 0.1.0
+sonar.sources        = src</programlisting>
+                </sect3>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -11353,7 +11353,7 @@ host="webserver" todir="/www/htdocs/project/">
                 <listitem>
                     <para><literal>property</literal>
                     </para>
-                    <para>Analysis parameters of SonarQube Scanner can be defined in a configuration file or via nested <literal>property</literal> elements. If both a configuration file and property elements are provided, the properties are merged. Values from <literal>property</literal> elements overwrite values from the configuration file if their property keys are equal.</para>
+					<para>Analysis parameters of SonarQube Scanner can be defined in a configuration file or via nested <literal>property</literal> elements. If both a configuration file and property elements are provided, the properties are merged. Values from <literal>property</literal> elements overwrite values from the configuration file if their property keys are equal.</para>
 
                     <table>
                         <title>Attributes</title>
