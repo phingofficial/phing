@@ -805,14 +805,18 @@
 
     <define name="condition">
         <element name="condition">
-            <attribute name="property"/>
+            <attribute name="property">
+                <data type="string"/>
+            </attribute>
             <optional>
-                <attribute name="value"/>
+                <attribute name="value" a:defaultValue="true"/>
+            </optional>
+            <optional>
+                <attribute name="else"/>
             </optional>
             <optional>
                 <choice>
-                    <ref name="or"/>
-                    <ref name="and"/>
+                    <ref name="conditions"/>
                 </choice>
             </optional>
         </element>
