@@ -130,6 +130,13 @@
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>ignorewhitespace</literal></entry>
+                        <entry>Whether to eliminate whitespace before checking
+                            for the string in the text attribute.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
