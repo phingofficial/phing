@@ -6600,6 +6600,7 @@
             <ref name="versioncompare"/>
             <ref name="available_cond"/>
             <ref name="http"/>
+            <ref name="matches_cond"/>
         </choice>
     </define>
 
@@ -6793,6 +6794,24 @@
                 <attribute name="url"/>
                 <optional>
                     <attribute name="errorsBeginAt"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="matches_cond">
+        <element name="matches">
+            <interleave>
+                <attribute name="string"/>
+                <attribute name="pattern"/>
+                <optional>
+                    <attribute name="casesensitive"/>
+                </optional>
+                <optional>
+                    <attribute name="multiline"/>
+                </optional>
+                <optional>
+                    <attribute name="modifiers"/>
                 </optional>
             </interleave>
         </element>

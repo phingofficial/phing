@@ -46,6 +46,12 @@ class ConditionTaskTest extends BuildFileTest
     public function testSocketCondition()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('socket  ');
+        $this->assertPropertyUnset('socket');
+    }
+
+    public function testMatches()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('matches', 'true');
     }
 }

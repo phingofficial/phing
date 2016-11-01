@@ -34,4 +34,10 @@
             <socket server="localhost" port="1337" />
         </condition>
     </target>
+
+    <target name="testMatches">
+        <condition property="matches">
+            <matches string="package.ABC.name" pattern="package\.([^.]*)\.name" casesensitive="false" />
+        </condition>
+    </target>
 </project>
