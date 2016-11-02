@@ -23,7 +23,6 @@
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
-        "lastcraft/simpletest": "@dev",
         "pear/archive_tar": "1.4.x",
         "pear/http_request2": "dev-trunk",
         "pear/net_growl": "dev-trunk",
@@ -40,7 +39,8 @@
         "sebastian/git": "~1.0",
         "squizlabs/php_codesniffer": "~2.2",
         "symfony/yaml": "~2.7",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsStream": "^1.6",
+        "simpletest/simpletest": "^1.1"
     },
     "autoload": {
         "classmap": ["classes/phing/"]

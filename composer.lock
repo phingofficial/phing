@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3151654aa98b1153ffc48a311c9eeda7",
-    "content-hash": "63955069103e395f86c2df933caa4682",
+    "hash": "31931c0076b1616f9019fde4e8d4ea49",
+    "content-hash": "73d1010e22fdbc50859d0bfd1a9b82b9",
     "packages": [],
     "packages-dev": [
         {
@@ -724,44 +724,6 @@
             "time": "2012-08-16 17:13:03"
         },
         {
-            "name": "lastcraft/simpletest",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lox/simpletest.git",
-                "reference": "d02732a94f1e78f2b45665d80c9b89caf2ee318e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lox/simpletest/zipball/d02732a94f1e78f2b45665d80c9b89caf2ee318e",
-                "reference": "d02732a94f1e78f2b45665d80c9b89caf2ee318e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0.5"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "."
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Baker",
-                    "email": "marcus@lastcraft.com",
-                    "role": "Original project lead"
-                }
-            ],
-            "description": "Unit testing, mock objects and web testing framework for PHP built around test cases.",
-            "homepage": "http://simpletest.org/",
-            "time": "2012-12-04 07:26:10"
-        },
-        {
             "name": "mikey179/vfsStream",
             "version": "v1.6.2",
             "source": {
@@ -1092,7 +1054,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/3599cf0fe455a4e281da464f6510bfc5c2ce54c4",
+                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/f36670a10bb9586d0e5f9d291f979cb6c8f94bfc",
                 "reference": "f36670a10bb9586d0e5f9d291f979cb6c8f94bfc",
                 "shasum": ""
             },
@@ -1146,7 +1108,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_Growl/zipball/b11fdbf93bb1adecb0cc6bda779e47ce54f3d526",
+                "url": "https://api.github.com/repos/pear/Net_Growl/zipball/845dac9651ef06337fb62ac51da1d4004081f767",
                 "reference": "845dac9651ef06337fb62ac51da1d4004081f767",
                 "shasum": ""
             },
@@ -3046,6 +3008,78 @@
             "time": "2015-06-16 20:02:10"
         },
         {
+            "name": "simpletest/simpletest",
+            "version": "v1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simpletest/simpletest.git",
+                "reference": "43d947f842b7295c091a57c979a4533d3d6e9212"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simpletest/simpletest/zipball/43d947f842b7295c091a57c979a4533d3d6e9212",
+                "reference": "43d947f842b7295c091a57c979a4533d3d6e9212",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Lars Vierbergen",
+                    "email": "vierbergenlars@gmail.com"
+                },
+                {
+                    "name": "Lachlan Donald",
+                    "email": "lachlan@ljd.cc"
+                },
+                {
+                    "name": "Marcus Baker",
+                    "email": "marcus@lastcraft.com",
+                    "role": "Original project lead"
+                },
+                {
+                    "name": "Jason Sweat",
+                    "role": "Original developer"
+                },
+                {
+                    "name": "Travis Swicegood",
+                    "role": "Original developer"
+                },
+                {
+                    "name": "Perrick Penet",
+                    "role": "Original developer"
+                },
+                {
+                    "name": "Edward Z. Yang",
+                    "role": "Original developer"
+                }
+            ],
+            "description": "Unit testing, mock objects and web testing framework for PHP built around test cases.",
+            "homepage": "http://simpletest.org/",
+            "keywords": [
+                "SimpleTest",
+                "code-coverage",
+                "junit",
+                "php",
+                "selenium",
+                "testing",
+                "unit-test",
+                "xunit"
+            ],
+            "time": "2013-09-21 21:04:19"
+        },
+        {
             "name": "squizlabs/php_codesniffer",
             "version": "2.4.0",
             "source": {
@@ -4554,7 +4588,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "lastcraft/simpletest": 20,
         "pear/http_request2": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
