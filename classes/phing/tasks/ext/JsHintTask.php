@@ -74,7 +74,17 @@ class JsHintTask extends Task
      *
      * @var array
      */
-    private $xmlAttributes;
+    private $xmlAttributes = array(
+        'severity' => array(
+            'error' => 'error',
+            'warning' => 'warning',
+            'info' => 'info'
+        ),
+        'fileError' => 'error',
+        'line' => 'line',
+        'column' => 'column',
+        'message' => 'message',
+    );
 
     /**
      * Path where the the report in Checkstyle format should be saved
@@ -135,25 +145,14 @@ class JsHintTask extends Task
     {
         $this->reporter = $reporter;
 
-        switch ($this->reporter) {
-            case 'jslint':
-                $this->xmlAttributes = array(
-                    'severity' => array('error' => 'E', 'warning' => 'W', 'info' => 'I'),
-                    'fileError' => 'issue',
-                    'line' => 'line',
-                    'column' => 'char',
-                    'message' => 'reason',
-                );
-                break;
-            default:
-                $this->xmlAttributes = array(
-                    'severity' => array('error' => 'error', 'warning' => 'warning', 'info' => 'info'),
-                    'fileError' => 'error',
-                    'line' => 'line',
-                    'column' => 'column',
-                    'message' => 'message',
-                );
-                break;
+        if ($this->reporter === 'jslint') {
+            $this->xmlAttributes = array(
+                'severity' => array('error' => 'E', 'warning' => 'W', 'info' => 'I'),
+                'fileError' => 'issue',
+                'line' => 'line',
+                'column' => 'char',
+                'message' => 'reason',
+            );
         }
     }
 

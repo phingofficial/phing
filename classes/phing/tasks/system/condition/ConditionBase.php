@@ -311,6 +311,14 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createMatches()
+    {
+        include_once 'phing/tasks/system/condition/Matches.php';
+        $num = array_push($this->conditions, new Matches());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project

@@ -1071,17 +1071,26 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>else</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The value to set the property to if the condition
+                            evaluates to false. By default the property will remain
+                            unset.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
         <sect2>
             <title>Examples</title>
             <programlisting language="xml">&lt;condition property="isMacOrWindows">
-    &lt;or>
-      &lt;os family="mac"/>
-      &lt;os family="windows"/>
-    &lt;/or>
-  &lt;/condition></programlisting>
+  &lt;or>
+    &lt;os family="mac"/>
+    &lt;os family="windows"/>
+  &lt;/or>
+&lt;/condition></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
