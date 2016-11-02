@@ -167,12 +167,12 @@ class PHPUnitReportTask extends Task
             }
         }
 
-        $proc->importStyleSheet($xsl);
+        $proc->importStylesheet($xsl);
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
         if ($this->format == "noframes") {
             $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
-            $writer->write($proc->transformToXML($document));
+            $writer->write($proc->transformToXml($document));
             $writer->close();
         } else {
             ExtendedFileStream::registerStream();
@@ -187,7 +187,7 @@ class PHPUnitReportTask extends Task
             // no output for the framed report
             // it's all done by extension...
             $proc->setParameter('', 'output.dir', $toDir);
-            $proc->transformToXML($document);
+            $proc->transformToXml($document);
 
             ExtendedFileStream::unregisterStream();
         }
@@ -212,6 +212,7 @@ class PHPUnitReportTask extends Task
             $children = $xp->query("./testsuite", $node);
 
             if ($children->length) {
+                /** @var $child DOMElement */
                 foreach ($children as $child) {
                     $rootElement->appendChild($child);
 
