@@ -19,7 +19,8 @@
         "irc": "irc://irc.freenode.net/phing"
     },
     "require": {
-        "php": ">=5.2.0"
+        "php": ">=5.2.0",
+        "symfony/yaml": "^3.1"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
@@ -38,7 +39,6 @@
         "sebastian/phpcpd": "2.x",
         "sebastian/git": "~1.0",
         "squizlabs/php_codesniffer": "~2.2",
-        "symfony/yaml": "~2.7",
         "mikey179/vfsStream": "^1.6",
         "simpletest/simpletest": "^1.1"
     },
