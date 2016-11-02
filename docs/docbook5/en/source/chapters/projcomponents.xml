@@ -444,6 +444,16 @@
                 </listitem>
             </itemizedlist>
 
+            <para>Note: machines running OSX match on the <literal>mac</literal> and <literal>unix</literal> families!
+                To test for Macs that don't run a Unix-like OS, use the following code:</para>
+            <programlisting language="xml">&lt;condition property="isMacOsButNotMacOsX"&gt;
+    &lt;and&gt;
+        &lt;os family="mac"/&gt;
+        &lt;not&gt;
+            &lt;os family="unix"/&gt;
+        &lt;/not&gt;
+    &lt;/and&gt;
+&lt;/condition&gt;</programlisting>
         </sect2>
         <sect2 xml:id="conditions.equals">
             <title><literal>equals</literal></title>
