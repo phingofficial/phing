@@ -30,23 +30,51 @@
 
 class Location
 {
-
+    /** @var null|string $fileName */
     private $fileName;
+    
+    /** @var int|null $lineNumber */
     private $lineNumber;
+    
+    /** @var int|null $columnNumber */
     private $columnNumber;
 
     /**
      * Constructs the location consisting of a file name and line number
      *
-     * @param  string  the filename
-     * @param  integer the line number
-     * @param  integer the column number
+     * @param  string $fileName the filename
+     * @param  integer $lineNumber the line number
+     * @param  integer $columnNumber the column number
      */
     public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
     {
         $this->fileName = $fileName;
         $this->lineNumber = $lineNumber;
         $this->columnNumber = $columnNumber;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @return null|int
+     */
+    public function getLineNumber()
+    {
+        return $this->lineNumber;
+    }
+
+    /**
+     * @return null|int
+     */
+    public function getColumnNumber()
+    {
+        return $this->columnNumber;
     }
 
     /**
