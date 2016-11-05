@@ -66,10 +66,7 @@ abstract class ProjectComponent
      * Returns the file/location where this task was defined.
      *
      * @return Location the file/location where this task was defined.
-     *         Should not return <code>null</code>. Location.UNKNOWN_LOCATION
-     *         is used for unknown locations.
-     *
-     * @see Location#UNKNOWN_LOCATION
+     *         Should not return <code>null</code>.
      */
     public function getLocation()
     {
@@ -80,10 +77,7 @@ abstract class ProjectComponent
      * Sets the file/location where this task was defined.
      *
      * @param Location $location The file/location where this task was defined.
-     *                 Should not be <code>null</code>--use
-     *                 Location.UNKNOWN_LOCATION if the location isn't known.
-     *
-     * @see Location#UNKNOWN_LOCATION
+     *                 Should not be <code>null</code>
      */
     public function setLocation(Location $location)
     {

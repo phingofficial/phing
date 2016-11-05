@@ -330,11 +330,11 @@ class PDOSQLExecTask extends PDOTask
             ) {
                 throw new BuildException("Source file or fileset/filelist, "
                     . "transactions or sql statement "
-                    . "must be set!", $this->location);
+                    . "must be set!", $this->getLocation());
             }
 
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
-                throw new BuildException("Source file does not exist!", $this->location);
+                throw new BuildException("Source file does not exist!", $this->getLocation());
             }
 
             // deal with the filesets
@@ -401,7 +401,7 @@ class PDOSQLExecTask extends PDOTask
                     }
                 }
                 $this->closeConnection();
-                throw new BuildException($e->getMessage(), $this->location);
+                throw new BuildException($e->getMessage(), $this->getLocation());
             } catch (PDOException $e) {
                 if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
                     try {
@@ -410,7 +410,7 @@ class PDOSQLExecTask extends PDOTask
                     }
                 }
                 $this->closeConnection();
-                throw new BuildException($e->getMessage(), $this->location);
+                throw new BuildException($e->getMessage(), $this->getLocation());
             }
 
             // Close the formatters.

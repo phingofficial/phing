@@ -144,7 +144,7 @@ class TouchTask extends Task
             }
             $this->_touch();
         } catch (Exception $ex) {
-            throw new BuildException("Error touch()ing file", $ex, $this->location);
+            throw new BuildException("Error touch()ing file", $ex, $this->getLocation());
         }
 
         $this->millis = $savedMillis;
@@ -163,7 +163,7 @@ class TouchTask extends Task
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
                     throw new BuildException("Error creating new file " . $this->file->__toString(
-                        ), $ioe, $this->location);
+                        ), $ioe, $this->getLocation());
                 }
             }
         }

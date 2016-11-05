@@ -148,7 +148,7 @@ abstract class PDOTask extends Task
     {
 
         if ($this->url === null) {
-            throw new BuildException("Url attribute must be set!", $this->location);
+            throw new BuildException("Url attribute must be set!", $this->getLocation());
         }
 
         try {
@@ -181,7 +181,7 @@ abstract class PDOTask extends Task
             return $conn;
 
         } catch (PDOException $e) {
-            throw new BuildException($e->getMessage(), $this->location);
+            throw new BuildException($e->getMessage(), $this->getLocation());
         }
 
     }

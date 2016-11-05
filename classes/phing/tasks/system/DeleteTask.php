@@ -145,7 +145,7 @@ class DeleteTask extends Task
         }
 
         if ($this->quiet && $this->failonerror) {
-            throw new BuildException("quiet and failonerror cannot both be set to true", $this->location);
+            throw new BuildException("quiet and failonerror cannot both be set to true", $this->getLocation());
         }
 
         // delete a single file

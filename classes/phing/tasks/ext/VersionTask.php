@@ -169,7 +169,7 @@ class VersionTask extends Task
     {
         // check Releasetype
         if (is_null($this->releasetype)) {
-            throw new BuildException('releasetype attribute is required', $this->location);
+            throw new BuildException('releasetype attribute is required', $this->getLocation());
         }
         // known releasetypes
         $releaseTypes = array(
@@ -182,7 +182,7 @@ class VersionTask extends Task
             throw new BuildException(sprintf(
                 'Unknown Releasetype %s..Must be one of Major, Minor or Bugfix',
                 $this->releasetype
-            ), $this->location);
+            ), $this->getLocation());
         }
     }
 
@@ -197,18 +197,18 @@ class VersionTask extends Task
         if ($this->file === null ||
             strlen($this->file) == 0
         ) {
-            throw new BuildException('You must specify a file containing the version number', $this->location);
+            throw new BuildException('You must specify a file containing the version number', $this->getLocation());
         }
 
         $content = file_get_contents($this->file);
         if (strlen($content) == 0) {
-            throw new BuildException(sprintf('Supplied file %s is empty', $this->file), $this->location);
+            throw new BuildException(sprintf('Supplied file %s is empty', $this->file), $this->getLocation());
         }
 
         // check for three-part number
         $split = explode('.', $content);
         if (count($split) !== 3) {
-            throw new BuildException('Unknown version number format', $this->location);
+            throw new BuildException('Unknown version number format', $this->getLocation());
         }
 
     }
@@ -223,7 +223,7 @@ class VersionTask extends Task
         if (is_null($this->property) ||
             strlen($this->property) === 0
         ) {
-            throw new BuildException('Property for publishing version number is not set', $this->location);
+            throw new BuildException('Property for publishing version number is not set', $this->getLocation());
         }
     }
 }

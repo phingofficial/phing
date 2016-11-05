@@ -454,7 +454,7 @@ class rSTTask extends Task
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
-                'Cannot define more than one mapper', $this->location
+                'Cannot define more than one mapper', $this->getLocation()
             );
         }
         $this->mapperElement = new Mapper($this->project);

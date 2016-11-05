@@ -136,7 +136,7 @@ class MoveTask extends CopyTask
 
                     $f->delete();
                 } catch (IOException $ioe) {
-                    $this->logError("Failed to move $from to $to: " . $ioe->getMessage(), $this->location);
+                    $this->logError("Failed to move $from to $to: " . $ioe->getMessage(), $this->getLocation());
                 }
             } // foreach fileCopyMap
         } // if copyMapSize

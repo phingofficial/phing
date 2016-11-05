@@ -75,15 +75,15 @@ class PhpEvalTask extends Task
     {
 
         if ($this->function === null && $this->expression === null) {
-            throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->location);
+            throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->getLocation());
         }
 
         if ($this->function !== null && $this->expression !== null) {
-            throw new BuildException("You can specify function or expression, but not both.", $this->location);
+            throw new BuildException("You can specify function or expression, but not both.", $this->getLocation());
         }
 
         if ($this->expression !== null && !empty($this->params)) {
-            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->location);
+            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->getLocation());
         }
 
         if ($this->function !== null) {

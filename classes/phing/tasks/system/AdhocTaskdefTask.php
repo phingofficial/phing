@@ -70,7 +70,7 @@ class AdhocTaskdefTask extends AdhocTask
     public function main()
     {
         if ($this->name === null) {
-            throw new BuildException("The name attribute is required for adhoc task definition.", $this->location);
+            throw new BuildException("The name attribute is required for adhoc task definition.", $this->getLocation());
         }
 
         $taskdefs = $this->getProject()->getTaskDefinitions();
@@ -89,7 +89,7 @@ class AdhocTaskdefTask extends AdhocTask
             // instantiate it to make sure it is an instance of Task
             $t = new $classname();
             if (!($t instanceof Task)) {
-                throw new BuildException("The adhoc class you defined must be an instance of phing.Task", $this->location);
+                throw new BuildException("The adhoc class you defined must be an instance of phing.Task", $this->getLocation());
             }
 
             $this->log("Task " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
