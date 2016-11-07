@@ -1621,12 +1621,14 @@ class Phing
      * Converts shorthand notation values as returned by ini_get()
      * @see http://www.php.net/ini_get
      * @param string $val
-     * @return int|string
+     * @return int
      */
     private static function convertShorthand($val)
     {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
+
+        $val = (int) $val;
 
         switch ($last) {
             // The 'G' modifier is available since PHP 5.1.0
