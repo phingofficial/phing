@@ -13047,6 +13047,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>relative</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to create relative symlinks</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
