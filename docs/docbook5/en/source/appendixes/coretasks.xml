@@ -4054,6 +4054,74 @@ file defines a task in the format: name=path.to.Task -->
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="TruncateTask">
+        <title>TruncateTask </title>
+        <para>Set the length of one file, as the intermittently available
+            truncate Unix utility/function.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the file.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>length</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Specifies the new file length (in bytes) to set.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>adjust</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Specifies the number of bytes (and positive/negative
+                            direction) by which to adjust file lengths.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>create</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to create nonexistent files.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>mkdirs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to create nonexistent parent directories
+                            when creating new files.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;truncate file="foo" /></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="trycatch" xml:id="TryCatchTask">
         <title>TryCatchTask</title>
         <para>This task is a wrapper task that lets you run tasks(s) when another set of tasks fails,

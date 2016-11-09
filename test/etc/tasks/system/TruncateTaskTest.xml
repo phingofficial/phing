@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TruncateTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}" />
+    </target>
+
+    <target name="testBasic">
+        <truncate file="${tmp.dir}/foo" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.basic.length" />
+    </target>
+
+    <target name="testExplicit">
+        <truncate file="${tmp.dir}/foo" length="1034" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.explicit.length" />
+    </target>
+
+    <target name="testExtend">
+        <truncate file="${tmp.dir}/foo" length="5" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.extend.length" />
+        <truncate file="${tmp.dir}/foo" adjust="5" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.extend.adjust.length" />
+    </target>
+
+    <target name="testTruncate">
+        <truncate file="${tmp.dir}/foo" length="5" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.truncate.length" />
+        <truncate file="${tmp.dir}/foo" adjust="-5" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.truncate.adjust.length" />
+    </target>
+
+    <target name="testNoCreate">
+        <truncate file="${tmp.dir}/foo" create="false" length="0" />
+    </target>
+
+    <target name="testMkdirs">
+        <truncate file="${tmp.dir}/baz/foo" mkdirs="true" length="0" />
+        <filesize file="${tmp.dir}/baz/foo" propertyname="test.mkdirs.length" />
+    </target>
+
+    <target name="testInvalidAttrs">
+        <truncate file="foo" length="0" adjust="0" />
+    </target>
+
+    <target name="testBadLength">
+        <truncate file="foo" length="-10" />
+    </target>
+
+    <target name="testNoFiles">
+        <truncate length="0" />
+    </target>
+
+    <target name="main"/>
+</project>
