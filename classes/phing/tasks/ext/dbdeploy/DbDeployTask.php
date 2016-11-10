@@ -88,6 +88,13 @@ class DbDeployTask extends Task
     protected $undoOutputFile = 'dbdeploy_undo.sql';
 
     /**
+     * File listing all the patch files in the patch file directory that need to be executed
+     *
+     * @var string
+     */
+    protected $listFile = 'migrate.lst';
+
+    /**
      * The deltaset that's being used
      *
      * @var string
@@ -298,23 +305,13 @@ class DbDeployTask extends Task
      */
     protected function getDeltasFilesArray()
     {
-        $files = [];
+         $listFilePath = realpath($this->dir . '/' . $this->listFile);
 
-        $baseDir = realpath($this->dir);
-        $dh = opendir($baseDir);
+         if ($listFilePath === false) {
+             throw new \Exception('The file migrate.lst is not present !');
+         }
 
-        if ($dh === false) {
-            return $files;
-        }
-
-        $fileChangeNumberPrefix = '';
-        while (($file = readdir($dh)) !== false) {
-            if (preg_match('[\d+]', $file, $fileChangeNumberPrefix)) {
-                $files[intval($fileChangeNumberPrefix[0])] = $file;
-            }
-        }
-
-        return $files;
+         return file($listFilePath);
     }
 
     /**
