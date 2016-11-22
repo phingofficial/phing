@@ -881,7 +881,10 @@ class SassTask extends Task
      */
     public function init()
     {
-        include_once 'System.php';
+        @include_once 'System.php';
+        if (!class_exists('System')) {
+            throw new BuildException("You must have installed PEAR in order to use SassTask.");
+        }
         @include_once 'vendor/autoload.php';
         if (version_compare(PHP_VERSION, '5.2', '<=')) {
             $this->useScssphp = false;
