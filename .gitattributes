@@ -8,3 +8,4 @@ docs export-ignore
 test export-ignore
 .travis.* export-ignore
 composer.lock export-ignore
+*.sh text eol=lf
