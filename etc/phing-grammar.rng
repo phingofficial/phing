@@ -254,6 +254,7 @@
                 <ref name="taskdef"/>
                 <ref name="tempfile"/>
                 <ref name="touch"/>
+                <ref name="truncate"/>
                 <ref name="trycatch"/>
                 <ref name="tstamp"/>
                 <ref name="typedef"/>
@@ -1694,6 +1695,30 @@
                 </optional>
                 <optional>
                     <attribute name="verbose">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="truncate">
+        <element name="truncate">
+            <interleave>
+                <attribute name="file"/>
+                <optional>
+                    <attribute name="adjust"/>
+                </optional>
+                <optional>
+                    <attribute name="length"/>
+                </optional>
+                <optional>
+                    <attribute name="create" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="mkdirs" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>

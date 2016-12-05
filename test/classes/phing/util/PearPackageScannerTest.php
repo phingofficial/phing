@@ -158,7 +158,7 @@ class PearPackageScannerTest extends BuildFileTest
         $this->assertEquals(
             $arFiles,
             array(
-                'Console/Table.php'
+                'Console' . DIRECTORY_SEPARATOR . 'Table.php'
             )
         );
     }

@@ -36,6 +36,7 @@
         <include name="CREDITS.md"/>
         <include name="LICENSE"/>
         <include name="README.md"/>
+        <include name="composer.*"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}/classes/phing" id="classes">
@@ -71,7 +72,7 @@
         ==============================================
     -->
     <target name="main"
-        depends="clean,clean-external,create-api-docs,copy-files,create-package-xml,tar,phar"
+        depends="clean,clean-external,create-api-docs,copy-files,create-package-xml,composer,package.pear,package.full,package.phar"
     />
 
     <!--
@@ -224,11 +225,21 @@
 
     <!--
         ==============================================
+        Run composer
+        ==============================================
+    -->
+    <target name="composer"
+        depends="setproperties">
+        <exec dir="${build.full.dir}" passthru="true" command="composer install -o --no-dev --prefer-dist"/>
+    </target>
+
+    <!--
+        ==============================================
         Create a tar.gz of the files, which will be
         installed by pear package manager.
         ==============================================
     -->
-    <target name="tar"
+    <target name="package.pear"
         depends="setproperties">
 
         <echo>-----------------------------</echo>
@@ -271,6 +282,20 @@
             <param name="filename" value="${tarfile-docs}"/>
         </phingcall>
 
+    </target>
+
+    <!--
+        ==============================================
+        Create full package files (tgz and zip)
+        ==============================================
+    -->
+    <target name="package.full"
+        depends="setproperties">
+
+        <echo>-----------------------------</echo>
+        <echo>| Creating full packages    |</echo>
+        <echo>-----------------------------</echo>
+
         <property name="tgzfile-full" value="${build.full.dir}/../${pkgname}.tgz"/>
         <delete file="${tgzfile-full}" failonerror="false"/>
         <tar compression="gzip" destFile="${tgzfile-full}"
@@ -296,7 +321,7 @@
         Create a phar package of the files.
         ==============================================
     -->
-    <target name="phar"
+    <target name="package.phar"
         if="version"
         depends="setproperties">
 
@@ -311,6 +336,7 @@
                 <include name="bin/**" />
                 <include name="classes/**" />
                 <include name="etc/**" />
+                <include name="vendor/**" />
             </fileset>
             <metadata>
                 <element name="version" value="${version}" />

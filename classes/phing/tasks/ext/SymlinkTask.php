@@ -89,6 +89,13 @@ class SymlinkTask extends Task
     private $_overwrite = false;
 
     /**
+     * Whether to create relative symlinks
+     *
+     * @var boolean
+     */
+    private $relative = false;
+
+    /**
      * setter for _target
      *
      * @param  string $target
@@ -131,6 +138,14 @@ class SymlinkTask extends Task
     public function setOverwrite($overwrite)
     {
         $this->_overwrite = $overwrite;
+    }
+
+    /**
+     * @param boolean $relative
+     */
+    public function setRelative($relative)
+    {
+        $this->relative = $relative;
     }
 
     /**
@@ -184,6 +199,14 @@ class SymlinkTask extends Task
     }
 
     /**
+     * @return boolean
+     */
+    public function isRelative()
+    {
+        return $this->relative;
+    }
+
+    /**
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
      *
@@ -212,7 +235,11 @@ class SymlinkTask extends Task
                 throw new BuildException('Link must be an existing directory when using fileset');
             }
 
-            $fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
+            if ($this->isRelative()) {
+                $fromDir = $fs->getDir($this->getProject())->getPath();
+            } else {
+                $fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
+            }
 
             if (!is_dir($fromDir)) {
                 $this->log('Directory doesn\'t exist: ' . $fromDir, Project::MSG_WARN);

@@ -76,7 +76,7 @@ class AppendTask extends Task
     /** @var TextElement $footer */
     private $footer;
 
-    private $append = false;
+    private $append = true;
 
     private $fixLastLine = false;
 

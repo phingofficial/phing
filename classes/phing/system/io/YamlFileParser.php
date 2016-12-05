@@ -38,6 +38,14 @@ class YamlFileParser implements FileParserInterface
         }
 
         try {
+            if (!class_exists('\Symfony\Component\Yaml\Parser')) {
+                throw new BuildException(
+                    get_class($this)
+                    . ' depends on \Symfony\Component\Yaml\Parser '
+                    . 'being installed and on include_path.'
+                );
+            }
+
             $parser = new \Symfony\Component\Yaml\Parser;
             // Cast properties to array in case parse() returns null.
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));

@@ -5043,6 +5043,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>config</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>JSHint config path.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12571,6 +12578,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Whether to override the symlink if it exists but points to a
                             different location</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>relative</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to create relative symlinks</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
