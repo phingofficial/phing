@@ -171,6 +171,11 @@
                             <entry>The description of the project.</entry>
                             <entry>No</entry>
                         </row>
+                        <row>
+                            <entry><literal>strict</literal></entry>
+                            <entry>Enables the strict-mode for the project build process.</entry>
+                            <entry>No</entry>
+                        </row>
                     </tbody>
                 </tgroup>
             </table>
