@@ -156,7 +156,7 @@ class ProjectConfigurator
      * Creates the ExpatParser, sets root handler and kick off parsing
      * process.
      *
-     * @throws BuildException if there is any kind of execption during
+     * @throws BuildException if there is any kind of exception during
      *                        the parsing process
      */
     protected function parse()
