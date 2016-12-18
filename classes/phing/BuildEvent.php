@@ -77,7 +77,7 @@ class BuildEvent extends EventObject
     protected $priority = Project::MSG_VERBOSE;
 
     /**
-     * The execption that caused the event, if any
+     * The exception that caused the event, if any
      *
      * @var    object
      */
