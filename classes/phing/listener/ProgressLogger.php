@@ -36,11 +36,8 @@ class ProgressLogger extends AnsiColorLogger
      */
     public function buildStarted(BuildEvent $event)
     {
-        echo "\n";
-
+        $this->startTime = Phing::currentTimeMillis();
         $this->bar->setMessage($event->getProject()->getProperty("phing.file"), 'buildfile');
-        
-        parent::buildStarted($event);
     }
 
     /**
@@ -125,7 +122,8 @@ class ProgressLogger extends AnsiColorLogger
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $this->bar->setMessage($event->getMessage());
+            $this->bar->setMessage(str_replace(["\n","\r"], ["",""], $event->getMessage()));
+            $this->bar->display();
         }
     }
 
