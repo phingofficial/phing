@@ -210,7 +210,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function configureProject($filename)
     {
-        $this->logBuffer = "";
+        $this->logBuffer = array();
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
@@ -228,10 +228,9 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function executeTarget($targetName)
     {
-
         $this->outBuffer = "";
         $this->errBuffer = "";
-        $this->logBuffer = "";
+        $this->logBuffer = array();
         $this->fullLogBuffer = "";
         $this->buildException = null;
         $this->project->executeTarget($targetName);
