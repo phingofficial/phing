@@ -43,7 +43,7 @@ class IsTrueCondition extends ProjectComponent implements Condition
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = (bool) $value;
     }
 
     /**
