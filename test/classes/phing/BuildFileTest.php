@@ -228,6 +228,10 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function executeTarget($targetName)
     {
+        if (empty($this->project)) {
+            return;
+        }
+
         $this->outBuffer = "";
         $this->errBuffer = "";
         $this->logBuffer = array();
