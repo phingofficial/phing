@@ -2,6 +2,33 @@ P     H     I     N     G
 =========================
 
 
+Dec. , 2016 - Phing 2.16.0
+--------------------------
+
+This release contains the following new or improved functionality:
+
+ * Append, Property, Sleep, Sonar and Truncate tasks
+ * Improved PHP 7.1 compatibility
+ * Various typo and bug fixes, documentation updates
+
+This release will most likely be the last minor update in the 2.x series. Phing 3.x will drop support for PHP < 5.6.
+
+The issues tickets were closed in this release:
+
+ * Relative symlinks \(Trac \#1124\) [\#567](https://github.com/phingofficial/phing/issues/567)
+ * phing should get a strict mode \(Trac \#918\) [\#554](https://github.com/phingofficial/phing/issues/554)
+ * Sass task fails when PEAR is not installed [\#624](https://github.com/phingofficial/phing/issues/624)
+ * PHP notice on 7.1: A non well formed numeric value encountered [\#622](https://github.com/phingofficial/phing/issues/622)
+ * JSHint — Support of specific config file path [\#615](https://github.com/phingofficial/phing/issues/615)
+ * phar file not working - \Symfony\Component\Yaml\Parser' not found [\#614](https://github.com/phingofficial/phing/issues/614)
+ * Git auto modified file with phing vendor [\#613](https://github.com/phingofficial/phing/issues/613)
+ * An issue with 'append' task when adding a list of files in a directory \(v2.15.1\) [\#597](https://github.com/phingofficial/phing/issues/597)
+ * An issue with 'file' attribute of 'append' task \(v2.15.1\) [\#595](https://github.com/phingofficial/phing/issues/595)
+ * JsHintTask fails when reporter attribute is not set \(Trac \#1230\) [\#582](https://github.com/phingofficial/phing/issues/582)
+ * OS detection fails on OSX \(Trac \#1227\) [\#581](https://github.com/phingofficial/phing/issues/581)
+ * stripphpcomments matches links in html \(Trac \#1219\) [\#579](https://github.com/phingofficial/phing/issues/579)
+ * Can not delete git folders on windows \(Trac \#956\) [\#556](https://github.com/phingofficial/phing/issues/556)
+
 Oct. 13, 2016 - Phing 2.15.2
 ----------------------------
 
