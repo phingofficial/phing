@@ -374,7 +374,7 @@ class CoverageReportTask extends Task
 
                 if ($subpackageName !== null) {
                     $this->addSubpackageToPackage($packageName, $subpackageName);
-                    $this->addClassToSubpackage($className, $classElement);
+                    $this->addClassToSubpackage($reflection->getName(), $classElement);
                 } else {
                     $this->addClassToPackage($packageName, $classElement);
                 }
