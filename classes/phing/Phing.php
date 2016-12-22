@@ -851,7 +851,7 @@ class Phing
         } elseif ($this->loggerClassname !== null) {
             self::import($this->loggerClassname);
             // get class name part
-            $classname = self::import($this->loggerClassname);
+            $classname = 'Phing\\' .self::import($this->loggerClassname);
             $logger = new $classname();
             if (!($logger instanceof BuildLogger)) {
                 throw new BuildException($classname . ' does not implement the BuildLogger interface.');
