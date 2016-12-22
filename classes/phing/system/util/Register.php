@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 
 /**
  * Static class to handle a slot-listening system.

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 
 /**
  * Copyright (c) 2007-2011 bitExpert AG

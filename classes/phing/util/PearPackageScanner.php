@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * Part of phing, the PHP build tool
  *

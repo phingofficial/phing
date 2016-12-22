@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  *  Patches a file by applying a 'diff' file to it
  *

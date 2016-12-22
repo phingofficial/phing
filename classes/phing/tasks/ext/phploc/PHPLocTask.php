@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

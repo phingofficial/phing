@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * Utilise Mercurial from within Phing.
  *
