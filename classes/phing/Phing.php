@@ -656,7 +656,7 @@ class Phing
         $project = new Project();
 
         self::setCurrentProject($project);
-        set_error_handler(array(Phing::class, 'handlePhpError'));
+        set_error_handler(array('Phing\Phing', 'handlePhpError'));
 
         $error = null;
 
