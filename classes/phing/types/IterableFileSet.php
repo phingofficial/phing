@@ -29,7 +29,7 @@
  */
 class IterableFileSet
     extends FileSet
-    implements IteratorAggregate
+    implements \IteratorAggregate
 {
     /**
      * @return Iterator
