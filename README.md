@@ -43,6 +43,8 @@ Supported PHP versions
   as this is getting increasingly hard to test, we encourage users to
   upgrade to PHP 5.3 or higher.
 
+  Version 2.16 will most likely be the last minor version in the 2.x series.
+
 Installation
 ------------
 
