@@ -162,7 +162,7 @@ class UnixFileSystem extends FileSystem
         }
 
         if (class_exists('Phar', false) && method_exists('Phar', 'running')) {
-            $phar = Phar::running();
+            $phar = \Phar::running();
             $pharAlias = 'phar://' . Phing::PHAR_ALIAS;
 
             if ($phar && strpos($pathname, $phar) === 0) {
