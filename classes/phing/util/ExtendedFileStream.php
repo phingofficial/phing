@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 
 include_once 'phing/system/io/PhingFile.php';
 

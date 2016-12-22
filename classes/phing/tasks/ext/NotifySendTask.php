@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * Utilise notify-send from within Phing.
  *

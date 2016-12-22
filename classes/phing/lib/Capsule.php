@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 
 /**
  * Capsule is a simple "template" engine that essentially provides an isolated context

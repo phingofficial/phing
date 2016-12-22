@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.

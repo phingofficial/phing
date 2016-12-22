@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * Class for collecting details for setting values in ini file
  *

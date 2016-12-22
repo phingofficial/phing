@@ -62,7 +62,7 @@ class PharPackageTaskTest extends BuildFileTest
         // whenever it fails to add an OpenSSL signature)
         $dest = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar';
         $this->assertFileExists($dest);
-        $phar = new Phar($dest);
+        $phar = new \Phar($dest);
         $signature = $phar->getSignature();
         $this->assertEquals('OpenSSL', $signature['hash_type']);
 

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -162,7 +162,7 @@ class UnixFileSystem extends FileSystem
         }
 
         if (class_exists('Phar', false) && method_exists('Phar', 'running')) {
-            $phar = Phar::running();
+            $phar = \Phar::running();
             $pharAlias = 'phar://' . Phing::PHAR_ALIAS;
 
             if ($phar && strpos($pathname, $phar) === 0) {

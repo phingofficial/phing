@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * INI file modification task for Phing, the PHP build tool.
  *

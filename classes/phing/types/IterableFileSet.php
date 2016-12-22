@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /*
  * $Id$
  *
@@ -29,7 +29,7 @@
  */
 class IterableFileSet
     extends FileSet
-    implements IteratorAggregate
+    implements \IteratorAggregate
 {
     /**
      * @return Iterator

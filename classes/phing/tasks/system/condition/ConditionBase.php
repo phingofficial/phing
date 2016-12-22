@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /*
  *  $Id$
  *
@@ -37,7 +37,7 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent
-    implements IteratorAggregate, CustomChildCreator
+    implements \IteratorAggregate, CustomChildCreator
 {
 
     public $conditions = array(); // needs to be public for "inner" class access
@@ -80,7 +80,7 @@ abstract class ConditionBase extends ProjectComponent
     }
 
     /**
-     * Required for IteratorAggregate
+     * Required for \IteratorAggregate
      */
     public function getIterator()
     {

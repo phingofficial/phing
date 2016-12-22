@@ -19,6 +19,12 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
+use Phing\FileSet;
+use Phing\MatchingTask;
+use Phing\PhingFile;
+use Phing\Project;
+
 require_once 'phing/tasks/system/MatchingTask.php';
 include_once 'phing/types/FileSet.php';
 include_once 'phing/tasks/ext/pearpackage/Fileset.php';

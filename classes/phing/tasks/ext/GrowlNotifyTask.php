@@ -1,4 +1,4 @@
-<?php
+<?php namespace Phing;
 /**
  * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
  *
