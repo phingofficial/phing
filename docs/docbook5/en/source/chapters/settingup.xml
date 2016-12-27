@@ -76,13 +76,6 @@
                             </entry>
                         </row>
                         <row>
-                            <entry>SimpleTest 1.0.1 beta+</entry>
-                            <entry>Optional; enables additional task(s)</entry>
-                            <entry><link xlink:href="http://simpletest.sourceforge.net"
-                                    role="external">http://simpletest.sourceforge.net</link>
-                            </entry>
-                        </row>
-                        <row>
                             <entry>phpDocumentor 2.0.0b7+ (PEAR package)</entry>
                             <entry>Optional; enables additional task(s)</entry>
                             <entry><link xlink:href="http://pear.phpdoc.org"

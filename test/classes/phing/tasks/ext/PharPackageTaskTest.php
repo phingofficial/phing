@@ -41,7 +41,6 @@ class PharPackageTaskTest extends BuildFileTest
 
     /**
      * @requires extension openssl
-     * @requires PHP 5.3.10
      */
     public function testOpenSSLSignature()
     {

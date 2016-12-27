@@ -39,16 +39,32 @@ The Latest Version
 Supported PHP versions
 ----------------------
 
-  We aim to keep Phing 2.x compatible with PHP 5.2 and higher. However,
-  as this is getting increasingly hard to test, we encourage users to
-  upgrade to PHP 5.3 or higher.
-
-  Version 2.16 will most likely be the last minor version in the 2.x series.
+  Phing 3.x is compatible with PHP 5.6 and higher.
 
 Installation
 ------------
 
-  1. **PEAR**
+  1. **Composer**
+  
+  Install Phing by adding a dependency to
+  [phing/phing](https://packagist.org/packages/phing/phing) to the
+  require-dev or require section of your project's composer.json
+  configuration file, and running 'composer install':
+
+         {
+             "require-dev": {
+                 "phing/phing": "3.0.x-dev"
+             }
+         }
+
+  2. **Phar**
+  
+  Download the [Phar archive](https://www.phing.info/get/phing-latest.phar).
+  The archive can then be executed by running:
+
+         $ php phing-latest.phar
+
+  3. **PEAR**
 
   The preferred method to install Phing is through PEAR and the Phing PEAR
   channel. You can install Phing by adding the pear.phing.info channel
@@ -58,25 +74,6 @@ Installation
          $ pear channel-discover pear.phing.info
          $ pear install [--alldeps] phing/phing
 
-  2. **Composer**
-  
-  Install Phing by adding a dependency to
-  [phing/phing](https://packagist.org/packages/phing/phing) to the
-  require-dev or require section of your project's composer.json
-  configuration file, and running 'composer install':
-
-         {
-             "require-dev": {
-                 "phing/phing": "2.*"
-             }
-         }
-
-  3. **Phar**
-  
-  Download the [Phar archive](https://www.phing.info/get/phing-latest.phar).
-  The archive can then be executed by running:
-
-         $ php phing-latest.phar
 
 Running the (unit) tests
 ------------------------

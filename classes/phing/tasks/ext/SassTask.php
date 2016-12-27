@@ -1211,26 +1211,13 @@ class SassTask extends Task
     }
 
     /**
-     * Get ScssPhp Compiler.
-     *
-     * @return Leafo\ScssPhp\Compiler
-     */
-    public function getNewCompiler()
-    {
-        // Instantiate the class in a way that is compatible with
-        // PHP 5.2 up to 7.x.
-        $compiler = '\\Leafo\\ScssPhp\\Compiler';
-        return new $compiler;
-    }
-
-    /**
      * Initialise and return an instance of the ScssPhp Compiler.
      *
      * @return Leafo\ScssPhp\Compiler
      */
     public function initialiseScssphp()
     {
-        $scss = $this->getNewCompiler();
+        $scss = new \Leafo\ScssPhp\Compiler();
         if ($this->style) {
             $ucStyle = ucfirst(strtolower($this->style));
             $scss->setFormatter('Leafo\\ScssPhp\\Formatter\\' . $ucStyle);

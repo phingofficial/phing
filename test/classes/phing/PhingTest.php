@@ -47,14 +47,12 @@ class PhingTest extends PHPUnit_Framework_TestCase
      */
     public function testImportPSR0()
     {
-        // Test the namespace support only if PHP >= 5.3
-        if (version_compare(PHP_VERSION, '5.3', '>=')) {
-            $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
-            self::assertEquals(self::NAMESPACED_CLASS, $className);
-            self::assertTrue(class_exists(self::NAMESPACED_CLASS));
-        }
+        // Test the namespace support
+        $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
+        self::assertEquals(self::NAMESPACED_CLASS, $className);
+        self::assertTrue(class_exists(self::NAMESPACED_CLASS));
 
-        // Test PEAR stadard
+        // Test PEAR standard
         $className = Phing::import(self::SEPARATED_CLASS, self::getClassPath());
         self::assertEquals(self::SEPARATED_CLASS, $className);
         self::assertTrue(class_exists(self::SEPARATED_CLASS));

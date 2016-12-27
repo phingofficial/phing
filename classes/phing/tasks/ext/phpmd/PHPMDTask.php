@@ -249,8 +249,7 @@ class PHPMDTask extends Task
         }
 
         if ($this->newVersion) {
-            //weird syntax to allow 5.2 parser compatibility
-            $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
+            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
             require_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
         } else {
             require_once 'PHP/PMD/AbstractRule.php';
@@ -341,9 +340,7 @@ class PHPMDTask extends Task
 
         // Create a rule set factory
         if ($this->newVersion) {
-            $ruleSetClass = '\PHPMD\RuleSetFactory';
-            $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatibility
-
+            $ruleSetFactory = new \PHPMD\RuleSetFactory();
         } else {
             if (!class_exists("PHP_PMD_RuleSetFactory")) {
                     @include 'PHP/PMD/RuleSetFactory.php';

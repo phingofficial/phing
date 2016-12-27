@@ -25,7 +25,6 @@ require_once 'phing/BuildFileTest.php';
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
  * @package phing.tasks.system
- * @requires PHP 5.3.2
  */
 class ApplyTaskTest extends BuildFileTest
 {
@@ -40,12 +39,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped(
-                'Need at least PHP version 5.3.2 to run this unit test'
-            );
-        }
-
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
 
