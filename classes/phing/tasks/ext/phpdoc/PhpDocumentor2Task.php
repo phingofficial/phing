@@ -69,6 +69,17 @@ class PhpDocumentor2Task extends Task
     private $pharLocation = '';
 
     /**
+     * Path to the phpDocumentor 2 source
+     * @var string
+     */
+    private $phpDocumentorPath = "";
+
+    /**
+     * @var \phpDocumentor\Application
+     */
+    private $app = null;
+
+    /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @param FileSet $fs
@@ -99,7 +110,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets the template to use
-     * @param strings $template
+     * @param string $template
      */
     public function setTemplate($template)
     {
@@ -108,7 +119,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets the title of the project
-     * @param strings $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -133,13 +144,132 @@ class PhpDocumentor2Task extends Task
     }
 
     /**
-     * Forces phpDocumentor to be quiet
-     * @deprecated
-     * @param boolean $quiet
+     * Finds and initializes the phpDocumentor installation
      */
-    public function setQuiet($quiet)
+    private function initializePhpDocumentor()
     {
-        $this->project->log(__CLASS__ . ": the 'quiet' option has been deprecated", Project::MSG_WARN);
+        $phpDocumentorPath = '';
+
+        if (!empty($this->pharLocation)) {
+            include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
+
+            if (!class_exists('phpDocumentor\\Bootstrap')) {
+                throw new BuildException(
+                    $this->pharLocation . ' does not look like a phpDocumentor 2 .phar'
+                );
+            }
+        } elseif (class_exists('Composer\\Autoload\\ClassLoader', false)) {
+            if (!class_exists('phpDocumentor\\Bootstrap')) {
+                throw new BuildException('You need to install phpDocumentor 2 or add your include path to your composer installation.');
+            }
+        } else {
+            $phpDocumentorPath = $this->findPhpDocumentorPath();
+
+            if (empty($phpDocumentorPath)) {
+                throw new BuildException("Please make sure phpDocumentor 2 is installed and on the include_path.");
+            }
+
+            set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
+
+            require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
+        }
+
+        $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
+
+        $this->phpDocumentorPath = $phpDocumentorPath;
+    }
+
+    /**
+     * Build a list of files (from the fileset elements)
+     * and call the phpDocumentor parser
+     *
+     * @return string
+     */
+    private function parseFiles()
+    {
+        $parser = $this->app['parser'];
+        $builder = $this->app['descriptor.builder'];
+
+        $builder->createProjectDescriptor();
+        $projectDescriptor = $builder->getProjectDescriptor();
+        $projectDescriptor->setName($this->title);
+
+        $paths = array();
+
+        // filesets
+        foreach ($this->filesets as $fs) {
+            $ds = $fs->getDirectoryScanner($this->project);
+            $dir = $fs->getDir($this->project);
+            $srcFiles = $ds->getIncludedFiles();
+
+            foreach ($srcFiles as $file) {
+                $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
+            }
+        }
+
+        $this->project->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
+
+        $files = new \phpDocumentor\Fileset\Collection();
+        $files->addFiles($paths);
+
+        $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
+        $mapper->garbageCollect($files);
+        $mapper->populate($projectDescriptor);
+
+        $parser->setPath($files->getProjectRoot());
+        $parser->setDefaultPackageName($this->defaultPackageName);
+
+        $parser->parse($builder, $files);
+
+        $mapper->save($projectDescriptor);
+
+        return $mapper;
+    }
+
+    /**
+     * Transforms the parsed files
+     */
+    private function transformFiles()
+    {
+        $transformer = $this->app['transformer'];
+        $compiler = $this->app['compiler'];
+        $builder = $this->app['descriptor.builder'];
+        $projectDescriptor = $builder->getProjectDescriptor();
+
+        $transformer->getTemplates()->load($this->template, $transformer);
+        $transformer->setTarget($this->destDir->getAbsolutePath());
+
+        foreach ($compiler as $pass) {
+            $pass->execute($projectDescriptor);
+        }
+    }
+
+    /**
+     * Runs phpDocumentor 2
+     */
+    public function run()
+    {
+    }
+
+    /**
+     * Find the correct php documentor path
+     *
+     * @return null|string
+     */
+    private function findPhpDocumentorPath()
+    {
+        $phpDocumentorPath = null;
+        $directories = array('phpDocumentor', 'phpdocumentor');
+        foreach ($directories as $directory) {
+            foreach (Phing::explodeIncludePath() as $path) {
+                $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . 'src';
+                if (file_exists($testPhpDocumentorPath)) {
+                    $phpDocumentorPath = $testPhpDocumentorPath;
+                }
+            }
+        }
+
+        return $phpDocumentorPath;
     }
 
     /**
@@ -160,16 +290,15 @@ class PhpDocumentor2Task extends Task
             throw new BuildException("The phpdocumentor2 task requires PHP 5.3+");
         }
 
-        require_once 'phing/tasks/ext/phpdoc/PhpDocumentor2Wrapper.php';
+        $this->initializePhpDocumentor();
 
-        $wrapper = new PhpDocumentor2Wrapper();
-        $wrapper->setProject($this->project);
-        $wrapper->setFilesets($this->filesets);
-        $wrapper->setDestDir($this->destDir);
-        $wrapper->setTemplate($this->template);
-        $wrapper->setTitle($this->title);
-        $wrapper->setDefaultPackageName($this->defaultPackageName);
-        $wrapper->setPharLocation($this->pharLocation);
-        $wrapper->run();
+        $cache = $this->app['descriptor.cache'];
+        $cache->getOptions()->setCacheDir($this->destDir->getAbsolutePath());
+
+        $this->parseFiles();
+
+        $this->project->log("Transforming...", Project::MSG_VERBOSE);
+
+        $this->transformFiles();
     }
 }
