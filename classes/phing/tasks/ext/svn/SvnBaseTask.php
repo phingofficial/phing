@@ -221,23 +221,6 @@ abstract class SvnBaseTask extends Task
     }
 
     /**
-     * Sets the recursive switch
-     * @deprecated
-     * @param $value
-     */
-    public function setRecursive($value)
-    {
-    }
-
-    /**
-     * Returns the recursive switch
-     * @deprecated
-     */
-    public function getRecursive()
-    {
-    }
-
-    /**
      * Sets the depth switch
      * @param $value
      */

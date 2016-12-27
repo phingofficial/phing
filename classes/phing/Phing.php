@@ -1743,17 +1743,6 @@ class Phing
     }
 
     /**
-     * Halts the system.
-     * @deprecated This method is deprecated and is no longer called by Phing internally.  Any
-     *              normal shutdown routines are handled by the shutdown() method.
-     * @see shutdown()
-     */
-    public static function halt()
-    {
-        self::shutdown();
-    }
-
-    /**
      * Performs any shutdown routines, such as stopping timers.
      * @return void
      */

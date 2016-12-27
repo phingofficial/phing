@@ -103,24 +103,6 @@ class AppendTask extends Task
     }
 
     /**
-     * Set target file to append to.
-     *
-     * @deprecated Will be removed with final release.
-     *
-     * @param PhingFile $f
-     *
-     * @return void
-     */
-    public function setTo(PhingFile $f)
-    {
-        $this->log(
-            "The 'to' attribute is deprecated in favor of 'destFile'; please update your code.",
-            Project::MSG_WARN
-        );
-        $this->to = $f;
-    }
-
-    /**
      * The more conventional naming for method to set destination file.
      *
      * @param PhingFile $f

@@ -120,19 +120,6 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * Nested <srcfiles> element.
-     *
-     * @deprecated Deprecated since Phing 2.4.0
-     */
-    public function createSrcfiles()
-    {
-        $fs = new FileSet();
-        $this->sourceFileSets[] = $fs;
-
-        return $fs;
-    }
-
-    /**
      * Nested <fileset> element.
      * @param FileSet $fs
      */

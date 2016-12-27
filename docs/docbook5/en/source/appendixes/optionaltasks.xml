@@ -9155,13 +9155,6 @@ description="Measures the size of the project and count it's tests">
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>DEPRECATED</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
                         <entry><literal>template</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of the documentation template to use.</entry>
@@ -11925,14 +11918,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
-                    <row>
-                        <entry><literal>forceCompatible</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
-                            1.2)</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12014,14 +11999,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of property to use</entry>
                         <entry>svn.list</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>forceCompatible</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
-                            1.2)</entry>
-                        <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -12121,14 +12098,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of property to use</entry>
                         <entry>svn.list</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>forceCompatible</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
-                            1.2)</entry>
-                        <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>

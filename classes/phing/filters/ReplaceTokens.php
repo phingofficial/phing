@@ -63,12 +63,6 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     const DEFAULT_END_TOKEN = "@";
 
     /**
-     * [Deprecated] Data that must be read from, if not null.
-     * @var string
-     */
-    private $_queuedData = null;
-
-    /**
      * Array to hold the replacee-replacer pairs (String to String).
      * @var array
      */
