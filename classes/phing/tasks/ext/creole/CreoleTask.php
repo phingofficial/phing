@@ -174,7 +174,7 @@ abstract class CreoleTask extends Task
     {
 
         if ($this->url === null) {
-            throw new BuildException("Url attribute must be set!", $this->location);
+            throw new BuildException("Url attribute must be set!", $this->getLocation());
         }
 
         try {
@@ -185,7 +185,7 @@ abstract class CreoleTask extends Task
             $dsn = Creole::parseDSN($this->url);
 
             if (!isset($dsn["username"]) && $this->userId === null) {
-                throw new BuildException("Username must be in URL or userid attribute must be set.", $this->location);
+                throw new BuildException("Username must be in URL or userid attribute must be set.", $this->getLocation());
             }
 
             if ($this->userId) {
@@ -206,7 +206,7 @@ abstract class CreoleTask extends Task
             return $conn;
 
         } catch (SQLException $e) {
-            throw new BuildException($e->getMessage(), $this->location);
+            throw new BuildException($e->getMessage(), $this->getLocation());
         }
 
     }

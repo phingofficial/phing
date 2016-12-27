@@ -300,12 +300,12 @@ class CreoleSQLExecTask extends CreoleTask
                 if (count($this->transactions) === 0) {
                     throw new BuildException("Source file or fileset, "
                         . "transactions or sql statement "
-                        . "must be set!", $this->location);
+                        . "must be set!", $this->getLocation());
                 }
             }
 
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
-                throw new BuildException("Source file does not exist!", $this->location);
+                throw new BuildException("Source file does not exist!", $this->getLocation());
             }
 
             // deal with the filesets
@@ -368,7 +368,7 @@ class CreoleSQLExecTask extends CreoleTask
                     } catch (SQLException $ex) {
                     }
                 }
-                throw new BuildException($e->getMessage(), $this->location);
+                throw new BuildException($e->getMessage(), $this->getLocation());
             } catch (SQLException $e) {
                 if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
                     try {
@@ -376,7 +376,7 @@ class CreoleSQLExecTask extends CreoleTask
                     } catch (SQLException $ex) {
                     }
                 }
-                throw new BuildException($e->getMessage(), $this->location);
+                throw new BuildException($e->getMessage(), $this->getLocation());
             }
 
             $this->log(

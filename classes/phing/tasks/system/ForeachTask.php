@@ -343,7 +343,7 @@ class ForeachTask extends Task
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->location);
+            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
         }
         $this->mapperElement = new Mapper($this->project);
 
