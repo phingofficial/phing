@@ -112,21 +112,6 @@ class InputStreamReader extends Reader
     }
 
     /**
-     * Reads a entire file and stores the data in the variable
-     * passed by reference.
-     *
-     * @param object &$rBuffer Reference. Variable of where to put contents.
-     *
-     * @return bool TRUE on success. Err object on failure.
-     * @author  Charlie Killian, charlie@tizac.com
-     * @deprecated Use read() or BufferedReader instead.
-     */
-    public function readInto(&$rBuffer)
-    {
-        return $this->inStream->readInto($rBuffer);
-    }
-
-    /**
      * Returns string representation of attached stream.
      * @return string
      */

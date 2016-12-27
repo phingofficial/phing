@@ -77,28 +77,6 @@ class StringHelper
     }
 
     /**
-     * Converts a string to an indexed array of chars
-     * There's really no reason for this to be used in PHP, since strings
-     * are all accessible using the $string{0} notation.
-     *
-     * @param string $str
-     *
-     * @return array
-     *
-     * @deprecated
-     */
-    public static function toCharArray($str)
-    {
-        $ret = array();
-        $len = strlen($str);
-        for ($i = 0; $i < $len; $i++) {
-            $ret[] = $str{$i};
-        }
-
-        return $ret;
-    }
-
-    /**
      * Get the qualifier part of a qualified name.
      * E.g. eg.Cat -> eg
      *

@@ -168,21 +168,6 @@ class InputStream
     }
 
     /**
-     * Reads a entire until EOF and places contents in passed-in variable.  Stream is closed after read.
-     *
-     * @param  string      &$rBuffer String variable where read contents will be put.
-     * @return TRUE        on success.
-     * @author  Charlie Killian, charlie@tizac.com
-     * @throws IOException - if there is an error reading from stream.
-     * @deprecated - Instead, use the read() method or a BufferedReader.
-     */
-    public function readInto(&$rBuffer)
-    {
-        $rBuffer = $this->read();
-        $this->close();
-    }
-
-    /**
      * Returns string representation of attached stream.
      * @return string
      */

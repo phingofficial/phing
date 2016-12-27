@@ -589,8 +589,8 @@ class SmartyTask extends Task
                     $f = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
                         try {
-                            $fr = new FileReader($f);
-                            $fr->readInto($value);
+                            $br = new BufferedReader(new FileReader($f));
+                            $value = $br->read();
                         } catch (Exception $e) {
                             throw $e;
                         }
