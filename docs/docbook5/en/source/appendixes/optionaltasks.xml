@@ -12950,15 +12950,29 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>file</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>File containing three-part version number to increment</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry><literal>build.version</literal></entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>property</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Property which contains the resulting version number</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry><literal>build.version</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>propFile</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Set to true, if version should be saved as property file.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>startingVersion</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Starting version string, if version file does not exist.</entry>
+                        <entry><literal>0.0.0</literal></entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>
