@@ -536,34 +536,31 @@ class CopyTask extends Task
             return;
         }
 
-        if ($mapSize > 1) {
-          $this->log(
-            "Copying " . $mapSize . " files to " . $this->destDir->getAbsolutePath(
+        $this->log(
+            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath(
             )
-          );
-        }
-
+        );
         // walks the map and actually copies the files
         $count = 0;
         foreach ($this->fileCopyMap as $from => $toFiles) {
             if (is_array($toFiles)) {
                 foreach ($toFiles as $to) {
-                    $this->copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total, $this->verbosity);
+                    $this->copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total);
                 }
             } else {
-                $this->copyToSingleDestination($from, $toFiles, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total, Project::MSG_INFO);
+                $this->copyToSingleDestination($from, $toFiles, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total);
             }
         }
     }
 
-    private function copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, &$count, &$total, $verbocity = Project::MSG_VERBOSE)
+    private function copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, &$count, &$total)
     {
         if ($from === $to) {
             $this->log("Skipping self-copy of " . $from, $this->verbosity);
             $total--;
             return;
         }
-        $this->log("From " . $from . " to " . $to, $verbocity);
+        $this->log("From " . $from . " to " . $to, $this->verbosity);
         try { // try to copy file
 
             $fromFile = new PhingFile($from);
