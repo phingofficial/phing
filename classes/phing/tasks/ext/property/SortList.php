@@ -47,7 +47,7 @@ class SortList extends AbstractPropertySetterTask
     );
 
     /** @var string $flags */
-    private $flags;
+    private $flags = "";
 
     public function setValue($value)
     {
@@ -85,14 +85,13 @@ class SortList extends AbstractPropertySetterTask
         }
 
         if ($val === null) {
-            throw new BuildException("Either the 'Value' or 'Refid' attribute must be set.");
+            throw new BuildException("Either the 'value' or 'refid' attribute must be set.");
         }
 
         $propList = explode($this->delimiter, $val);
 
         if ($this->flags) {
-            $this->validateFlags();
-            sort($propList, $this->flags);
+            sort($propList, $this->validateFlags());
         } else {
             sort($propList);
         }
@@ -102,9 +101,9 @@ class SortList extends AbstractPropertySetterTask
 
     private function validateFlags()
     {
-        $flags = explode('|', $this->flags);
+        $flags = 0;
 
-        foreach ($flags as $flag) {
+        foreach (explode('|', $this->flags) as $flag) {
             $flag = trim($flag);
             $flag = strtoupper($flag);
 
@@ -112,13 +111,9 @@ class SortList extends AbstractPropertySetterTask
                 throw new BuildException($flag . ' is not a valid sort flag.');
             }
 
-            if (version_compare(phpversion(), '5.4', '<')
-                && in_array($flag, array('SORT_NATURAL', 'SORT_FLAG_CASE'), true)
-            ) {
-                throw new BuildException('Sort flag not supported by php lower than 5.4');
-            }
-
-            $this->flags |= constant($flag);
+            $flags |= constant($flag);
         }
+
+        return $flags;
     }
 }
