@@ -41,14 +41,18 @@ class TarTask extends MatchingTask
     const FAIL = "fail";
     const OMIT = "omit";
 
+    /** @var PhingFile */
     private $tarFile;
+
+    /** @var PhingFile */
     private $baseDir;
+
     private $includeEmpty = true; // Whether to include empty dirs in the TAR
 
     private $longFileMode = "warn";
 
+    /** @var TarFileSet[] */
     private $filesets = array();
-    private $fileSetFiles = array();
 
     /**
      * Indicates whether the user has been warned about long files already.
@@ -297,7 +301,7 @@ class TarTask extends MatchingTask
     }
 
     /**
-     * @return array
+     * @return bool
      * @throws BuildException
      */
     private function isArchiveUpToDate()
