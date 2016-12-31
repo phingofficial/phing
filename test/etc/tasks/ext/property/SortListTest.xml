@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SortListTest" default="testSortList">
+    <target name="testSortList">
+        <property name="my.list" value="z,y,x,w,v,u,t" />
+        <sortlist property="my.sorted.list" value="${my.list}"
+                  delimiter="," />
+    </target>
+    <target name="testDelimFlags">
+        <property name="my.list" value="z;y;X;w;v;U;t" />
+        <sortlist property="my.sorted.list" value="${my.list}"
+                  delimiter=";"
+                  flags="SORT_NATURAL|SORT_FLAG_CASE" />
+    </target>
+    <target name="testRef">
+        <property id="test" name="my.list" value="z;y;X;w;v;U;t" />
+        <sortlist property="my.sorted.list" refid="test"
+                  delimiter=";"
+                  flags="SORT_REGULAR" />
+    </target>
+</project>
