@@ -24,9 +24,6 @@ class SortListTest extends BuildFileTest
         $this->assertPropertyEquals('my.sorted.list', 't,u,v,w,x,y,z');
     }
 
-    /**
-     * @requires PHP 5.4
-     */
     public function testDelimFlags()
     {
         $this->executeTarget(__FUNCTION__);
