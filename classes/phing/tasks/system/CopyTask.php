@@ -36,22 +36,38 @@ include_once 'phing/mappers/FlattenMapper.php';
  */
 class CopyTask extends Task
 {
+    /** @var PhingFile */
     protected $file = null; // the source file (from xml attribute)
+
+    /** @var PhingFile */
     protected $destFile = null; // the destiantion file (from xml attribute)
+
+    /** @var PhingFile */
     protected $destDir = null; // the destination dir (from xml attribute)
+
     protected $overwrite = false; // overwrite destination (from xml attribute)
     protected $preserveLMT = false; // sync timestamps (from xml attribute)
     protected $preservePermissions = true; // sync permissions (from xml attribute)
     protected $includeEmpty = true; // include empty dirs? (from XML)
     protected $flatten = false; // apply the FlattenMapper right way (from XML)
+
+    /** @var Mapper */
     protected $mapperElement = null;
 
     protected $fileCopyMap = array(); // asoc array containing mapped file names
     protected $dirCopyMap = array(); // asoc array containing mapped file names
     protected $completeDirMap = array(); // asoc array containing complete dir names
+
+    /** @var FileUtils */
     protected $fileUtils = null; // a instance of fileutils
+
+    /** @var AbstractFileSet[] */
     protected $filesets = array(); // all fileset objects assigned to this task
+
+    /** @var FileList[] */
     protected $filelists = array(); // all filelist objects assigned to this task
+
+    /** @var FilterChain[] */
     protected $filterChains = array(); // all filterchains objects assigned to this task
 
     protected $verbosity = Project::MSG_VERBOSE;
@@ -438,7 +454,7 @@ class CopyTask extends Task
      * @param $fromDir
      * @param $toDir
      * @param $names
-     * @param $mapper
+     * @param FileNameMapper $mapper
      * @param $map
      *
      * @return void
@@ -467,6 +483,8 @@ class CopyTask extends Task
                 $dest = new PhingFile($toDir, $mapped[0]);
                 $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
             } else {
+                $mappedFiles = [];
+
                 foreach ($mapped as $mappedFile) {
                     if ($mappedFile === null) {
                         continue;
@@ -553,6 +571,16 @@ class CopyTask extends Task
         }
     }
 
+    /**
+     * @param $from
+     * @param $to
+     * @param RegisterSlot $fromSlot
+     * @param RegisterSlot $fromBasenameSlot
+     * @param RegisterSlot $toSlot
+     * @param RegisterSlot $toBasenameSlot
+     * @param $count
+     * @param $total
+     */
     private function copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, &$count, &$total)
     {
         if ($from === $to) {

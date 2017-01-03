@@ -182,7 +182,7 @@ class MoveTask extends CopyTask
      *
      * @return bool
      */
-    private function okToDelete($d)
+    private function okToDelete(PhingFile $d)
     {
         $list = $d->listDir();
         if ($list === null) {
@@ -212,7 +212,7 @@ class MoveTask extends CopyTask
      * @throws BuildException
      * @throws IOException
      */
-    private function deleteDir($d)
+    private function deleteDir(PhingFile $d)
     {
 
         $list = $d->listDir();

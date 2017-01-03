@@ -40,6 +40,7 @@ class EchoTask extends Task
 
     protected $level = "info";
 
+    /** @var AbstractFileSet[] */
     protected $filesets = array();
 
     public function main()
@@ -51,14 +52,15 @@ class EchoTask extends Task
             case "warning":
                 $loglevel = Project::MSG_WARN;
                 break;
-            case "info":
-                $loglevel = Project::MSG_INFO;
-                break;
             case "verbose":
                 $loglevel = Project::MSG_VERBOSE;
                 break;
             case "debug":
                 $loglevel = Project::MSG_DEBUG;
+                break;
+            case "info":
+            default:
+                $loglevel = Project::MSG_INFO;
                 break;
         }
 
