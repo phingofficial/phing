@@ -22,19 +22,19 @@
 require_once 'phing/BuildFileTest.php';
 
 /**
- * Tests the Copy Task
+ * Tests the Move Task
  *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
  */
-class CopyTaskTest extends BuildFileTest
+class MoveTaskTest extends BuildFileTest
 {
     public function setUp()
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/CopyTaskTest.xml"
+            . "/etc/tasks/system/MoveTaskTest.xml"
         );
         $this->executeTarget("setup");
     }
@@ -44,39 +44,39 @@ class CopyTaskTest extends BuildFileTest
         $this->executeTarget("clean");
     }
 
-    public function testCopyDanglingSymlink()
+    public function testMoveSingleFile()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Dangling symlinks don't work on Windows");
-        }
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/fileB');
+    }
 
-        $this->executeTarget("testCopyDanglingSymlink");
-        $this->assertInLogs("Copying 1 file to");
+    public function testMoveFileSet()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
     /**
-     * Test for {@link http://www.phing.info/trac/ticket/981}
-     * FileUtil::copyFile(): preserveLastModified causes
-     * empty symlink target file
+     * Regression test for ticket {@link http://www.phing.info/trac/ticket/582}
+     * - Add haltonerror attribute to copy/move tasks
      */
-    public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
+    public function testIgnoreErrors()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Bug not applicable on Window");
-        }
-
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
-        $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
+        $this->assertInLogs("Could not find file ");
     }
 
     /**
-     * Regression test for ticket {@link http://www.phing.info/trac/ticket/229}
-     * - CopyTask should accept filelist subelement
+     * Regression test for ticket {@link http://www.phing.info/trac/ticket/307}
+     * - Replaceregexp filter works in Copy task but not Move task
      */
-    public function testCopyFileList()
+    public function testReplaceRegexp()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+
+        $contents = file_get_contents(PHING_TEST_BASE . "/etc/tasks/system/tmp/anotherfile.bak");
+
+        $this->assertEquals("BAR", $contents);
     }
 }
