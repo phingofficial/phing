@@ -224,7 +224,7 @@ class PhingFile
      * last.  If the name sequence is empty then the pathname does not name
      * a parent directory.
      *
-     * @return The abstract pathname of the parent directory named by this
+     * @return PhingFile The abstract pathname of the parent directory named by this
      *             abstract pathname, or null if this pathname
      *             does not name a parent
      */

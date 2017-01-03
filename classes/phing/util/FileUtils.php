@@ -164,6 +164,42 @@ class FileUtils
         }
     }
 
+
+    /**
+     * Attempts to rename a file from a source to a destination.
+     * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
+     * Otherwise, the source file is renamed only if the destination file is older than it.
+     *
+     * @param PhingFile $sourceFile
+     * @param PhingFile $destFile
+     * @param boolean $overwrite
+     * @return boolean
+     */
+    public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
+    {
+        // ensure that parent dir of dest file exists!
+        $parent = $destFile->getParentFile();
+        if ($parent !== null) {
+            if (!$parent->exists()) {
+                $parent->mkdirs();
+            }
+        }
+
+        if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
+            if ($destFile->exists()) {
+                try {
+                    $destFile->delete();
+                } catch (Exception $e) {
+                    throw new BuildException(
+                        "Unable to remove existing file " . $destFile->__toString() . ": " . $e->getMessage()
+                    );
+                }
+            }
+        }
+
+        return $sourceFile->renameTo($destFile);
+    }
+
     /**
      * Interpret the filename as a file relative to the given file -
      * unless the filename already represents an absolute filename.

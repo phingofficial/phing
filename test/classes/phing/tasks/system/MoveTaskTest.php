@@ -57,6 +57,13 @@ class MoveTaskTest extends BuildFileTest
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
+    public function testRenameDirectory()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
+    }
+
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/582}
      * - Add haltonerror attribute to copy/move tasks

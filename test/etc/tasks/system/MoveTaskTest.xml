@@ -26,6 +26,13 @@
         </move>
     </target>
 
+    <target name="testRenameDirectory">
+        <mkdir dir="${tmp.dir}/base"/>
+        <mkdir dir="${tmp.dir}/base/f"/>
+        <touch file="${tmp.dir}/base/fileA"/>
+        <move file="${tmp.dir}/base/" tofile="${tmp.dir}/new"/>
+    </target>
+
     <target name="testIgnoreErrors">
         <move file="no_such_file.txt" tofile="other_path.txt" overwrite="true" haltonerror="false" />
     </target>
