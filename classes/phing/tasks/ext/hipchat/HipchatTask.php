@@ -28,8 +28,8 @@ require_once 'phing/Task.php';
  *  sorting contacts. If you share my opinion then please upvote this feature request:
  *  https://jira.atlassian.com/browse/HCPUB-363 )
  *
- * <hipchat room="1337" authToken="********" color="red" notify="true">
- *     Hello World!
+ * <hipchat room="1337" authToken="********" color="red" notify="true" format="html">
+ *     Hello &lt;i&gt;World&lt;/i&gt;!
  * </hipchat>
  *
  * @author Suat Özgür <suat.oezguer@mindgeek.com>
@@ -43,6 +43,7 @@ class HipchatTask extends Task {
     private $color = 'yellow';
     private $notify = false;
     private $message = null;
+    private $format = 'text';
 
     public function main()
     {
@@ -66,7 +67,7 @@ class HipchatTask extends Task {
             'color' => $this->getColor(),
             'message' => $this->getMessage(),
             'notify' => $this->isNotify(),
-            'message_format' => 'text',
+            'message_format' => $this->getFormat(),
         );
 
         $result = $this->executeApiCall($url, $data);
@@ -93,6 +94,21 @@ class HipchatTask extends Task {
         $this->domain = $domain;
     }
 
+    /**
+     * @return String
+     */
+    public function getFormat() {
+        return $this->format;
+    }
+
+    /**
+     * @param $format
+     */
+    public function setFormat($format) {
+        $format = ($format != 'text' && $format != 'html') ? 'text' : $format;
+        $this->format = $format;
+    }    
+    
     /**
      * @return string
      */
