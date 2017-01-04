@@ -37,16 +37,6 @@ include_once 'phing/system/io/IOException.php';
  */
 class MoveTask extends CopyTask
 {
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->forceOverwrite = true;
-    }
-
     /**
      * Validates attributes coming in from XML
      *
@@ -86,22 +76,23 @@ class MoveTask extends CopyTask
                 $f = new PhingFile($from);
                 $d = new PhingFile($to);
 
-                $moved = false;
                 try { // try to rename
                     $this->log("Attempting to rename $from to $to", $this->verbosity);
-                    $this->fileUtils->copyFile(
-                        $f,
-                        $d,
-                        $this->forceOverwrite,
-                        $this->preserveLMT,
-                        $this->filterChains,
-                        $this->getProject(),
-                        $this->mode
-                    );
-                    $f->delete(true);
-                    $moved = true;
+                    if (!empty($this->filterChains)) {
+                        $this->fileUtils->copyFile(
+                            $f,
+                            $d,
+                            $this->overwrite,
+                            $this->preserveLMT,
+                            $this->filterChains,
+                            $this->getProject(),
+                            $this->mode
+                        );
+                        $f->delete(true);
+                    } else {
+                        $this->fileUtils->renameFile($f, $d, $this->overwrite);
+                    }
                 } catch (IOException $ioe) {
-                    $moved = false;
                     $this->logError("Failed to rename $from to $to: " . $ioe->getMessage());
                 }
             }
@@ -127,7 +118,7 @@ class MoveTask extends CopyTask
                     $this->fileUtils->copyFile(
                         $f,
                         $d,
-                        $this->forceOverwrite,
+                        $this->overwrite,
                         $this->preserveLMT,
                         $this->filterChains,
                         $this->getProject(),
@@ -182,7 +173,7 @@ class MoveTask extends CopyTask
      *
      * @return bool
      */
-    private function okToDelete($d)
+    private function okToDelete(PhingFile $d)
     {
         $list = $d->listDir();
         if ($list === null) {
@@ -212,7 +203,7 @@ class MoveTask extends CopyTask
      * @throws BuildException
      * @throws IOException
      */
-    private function deleteDir($d)
+    private function deleteDir(PhingFile $d)
     {
 
         $list = $d->listDir();

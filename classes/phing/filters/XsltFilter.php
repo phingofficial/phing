@@ -231,8 +231,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
         // Read XSLT
         $_xsl = null;
-        $xslFr = new FileReader($this->xslFile);
-        $xslFr->readInto($_xsl);
+        $br = new BufferedReader(new FileReader($this->xslFile));
+        $_xsl = $br->read();
 
         $this->log(
             "Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(),

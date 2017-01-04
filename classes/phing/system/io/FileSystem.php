@@ -505,7 +505,7 @@ abstract class FileSystem
 
         // Recursively copy a directory
         if ($src->isDirectory()) {
-            return $this->copyr($src->getAbsolutePath(), $dest->getAbsolutePath());
+            $this->copyr($src->getAbsolutePath(), $dest->getAbsolutePath());
         }
 
         $srcPath = $src->getAbsolutePath();

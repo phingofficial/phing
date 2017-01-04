@@ -32,14 +32,12 @@ include_once 'phing/types/FileSet.php';
  */
 class ChmodTask extends Task
 {
-
     private $file;
 
     private $mode;
 
+    /** @var AbstractFileSet[] */
     private $filesets = array();
-
-    private $filesystem;
 
     private $quiet = false;
     private $failonerror = true;
@@ -188,8 +186,8 @@ class ChmodTask extends Task
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . vsprintf('%o', $mode) . ': ' . $total_files);
-            $this->log('Total directories changed to ' . vsprintf('%o', $mode) . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_files);
+            $this->log('Total directories changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_dirs);
         }
 
     }
@@ -210,7 +208,7 @@ class ChmodTask extends Task
         try {
             $file->setMode($mode);
             if ($this->verbose) {
-                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", $mode));
+                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
             }
         } catch (Exception $e) {
             if ($this->failonerror) {

@@ -411,8 +411,8 @@ class CapsuleTask extends Task
                     $value = "";
                     $f = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
-                        $fr = new FileReader($f);
-                        $fr->readInto($value);
+                        $br = new BufferedReader(new FileReader($f));
+                        $value = $br->read();
                     }
 
                 } // if ends with file.contents

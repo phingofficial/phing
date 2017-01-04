@@ -198,7 +198,7 @@ class DirectoryScanner implements SelectorScanner
     /** Should the file system be treated as a case sensitive one? */
     protected $isCaseSensitive = true;
 
-    /** Selectors */
+    /** @var FileSelector[] Selectors */
     protected $selectors = null;
 
     protected $filesDeselected;
@@ -632,7 +632,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, and matched none of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return the names of the files
+     * @return array names of the files
      */
     public function getIncludedFiles()
     {
@@ -643,7 +643,7 @@ class DirectoryScanner implements SelectorScanner
      * Get the names of the files that matched at none of the include patterns.
      * The names are relative to the basedir.
      *
-     * @return the names of the files
+     * @return array the names of the files
      */
     public function getNotIncludedFiles()
     {
@@ -657,7 +657,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, an matched also at least one of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return the names of the files
+     * @return array the names of the files
      */
 
     public function getExcludedFiles()
@@ -674,7 +674,7 @@ class DirectoryScanner implements SelectorScanner
      * <p>The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.</p>
      *
-     * @return the names of the files which were deselected.
+     * @return array the names of the files which were deselected.
      *
      * @see #slowScan
      */
@@ -690,7 +690,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, an matched none of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return the names of the directories
+     * @return array the names of the directories
      */
 
     public function getIncludedDirectories()
@@ -703,7 +703,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns.
      * The names are relative to the basedir.
      *
-     * @return the names of the directories
+     * @return array the names of the directories
      */
     public function getNotIncludedDirectories()
     {
@@ -719,7 +719,7 @@ class DirectoryScanner implements SelectorScanner
      * <p>The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.</p>
      *
-     * @return the names of the directories which were deselected.
+     * @return array the names of the directories which were deselected.
      *
      * @see #slowScan
      */
@@ -735,7 +735,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, an matched also at least one of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return the names of the directories
+     * @return array the names of the directories
      */
     public function getExcludedDirectories()
     {
@@ -761,8 +761,7 @@ class DirectoryScanner implements SelectorScanner
     /**
      * Sets the selectors that will select the filelist.
      *
-     * @param specifies $selectors
-     * @internal param specifies $selectors the selectors to be invoked on a scan
+     * @param array $selectors the selectors to be invoked on a scan
      */
     public function setSelectors($selectors)
     {

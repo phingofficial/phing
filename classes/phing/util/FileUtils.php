@@ -164,6 +164,42 @@ class FileUtils
         }
     }
 
+
+    /**
+     * Attempts to rename a file from a source to a destination.
+     * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
+     * Otherwise, the source file is renamed only if the destination file is older than it.
+     *
+     * @param PhingFile $sourceFile
+     * @param PhingFile $destFile
+     * @param boolean $overwrite
+     * @return boolean
+     */
+    public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
+    {
+        // ensure that parent dir of dest file exists!
+        $parent = $destFile->getParentFile();
+        if ($parent !== null) {
+            if (!$parent->exists()) {
+                $parent->mkdirs();
+            }
+        }
+
+        if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
+            if ($destFile->exists()) {
+                try {
+                    $destFile->delete();
+                } catch (Exception $e) {
+                    throw new BuildException(
+                        "Unable to remove existing file " . $destFile->__toString() . ": " . $e->getMessage()
+                    );
+                }
+            }
+        }
+
+        return $sourceFile->renameTo($destFile);
+    }
+
     /**
      * Interpret the filename as a file relative to the given file -
      * unless the filename already represents an absolute filename.
@@ -262,11 +298,10 @@ class FileUtils
             $dosWithDrive = true;
 
             $ca = str_replace('/', '\\', $path);
-            $ca = StringHelper::toCharArray($ca);
 
             $path = strtoupper($ca[0]) . ':';
 
-            for ($i = 2, $_i = count($ca); $i < $_i; $i++) {
+            for ($i = 2, $_i = strlen($ca); $i < $_i; $i++) {
                 if (($ca[$i] !== '\\') ||
                     ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
                 ) {
