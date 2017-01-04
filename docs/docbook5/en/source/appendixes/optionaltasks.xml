@@ -4021,6 +4021,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>html or text</entry>
+                        <entry>text</entry>
+                        <entry>No</entry>
+                    </row>			
+                    <row>
                         <entry><literal>domain</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Domain name of your HipChat server.</entry>
