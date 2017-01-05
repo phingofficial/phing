@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DispatchTaskTest" default="main">
+
+    <target name="testDispatch">
+        <adhoc-task name="dispatch"><![CDATA[
+		    include_once 'phing/dispatch/DispatchTask.php';
+		    include_once 'phing/BuildException.php';
+
+			class CustomDispatchTask extends DispatchTask
+			{
+    			public function list()
+    			{
+					$this->log("list success!", Project::MSG_INFO);
+    			}
+
+    			public function show()
+    			{
+					$this->log("show success!", Project::MSG_INFO);
+				}
+
+			    public function main()
+			    {
+			    }
+			}
+		]]></adhoc-task>
+        <dispatch action="list"/>
+        <dispatch action="show"/>
+    </target>
+
+    <target name="main"/>
+</project>

@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/Task.php';
+require_once 'phing/dispatch/Dispatchable.php';
+require_once 'phing/UnknownElement.php';
+
 /**
  * Determines and Executes the action method for the task.
  *
@@ -58,7 +62,11 @@ class DispatchUtils
                     $c = new ReflectionClass($dispatchable);
                     $actionM = $c->getMethod($mName);
                     $o = $actionM->invoke($dispatchable);
-                    $methodName = trim($o->toString());
+                    if (method_exists($o, 'toString')) {
+                        $methodName = trim($o->toString());
+                    } else {
+                        $methodName = trim((string) $o);
+                    }
                     if (empty($methodName)) {
                         throw new ReflectionException();
                     }
