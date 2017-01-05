@@ -8,14 +8,14 @@
 
 			class CustomDispatchTask extends DispatchTask
 			{
-    			public function list()
+    			public function first()
     			{
-					$this->log("list success!", Project::MSG_INFO);
+					$this->log("first success!", Project::MSG_INFO);
     			}
 
-    			public function show()
+    			public function second()
     			{
-					$this->log("show success!", Project::MSG_INFO);
+					$this->log("second success!", Project::MSG_INFO);
 				}
 
 			    public function main()
@@ -23,8 +23,8 @@
 			    }
 			}
 		]]></adhoc-task>
-        <dispatch action="list"/>
-        <dispatch action="show"/>
+        <dispatch action="first"/>
+        <dispatch action="second"/>
     </target>
 
     <target name="main"/>
