@@ -3627,7 +3627,16 @@ verbose="true" failonerror="false" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="RunTargetTask">
         <title>RunTargetTask</title>
-        <para>Phing task that runs a target.</para>
+        <para>Phing task that runs a target without creating a new project.</para>
+        <caution><title>Difference to <literal>&lt;phingcall&gt;</literal></title>
+            <para>
+                The main difference of <literal>&lt;runtarget&gt;</literal> and <literal>&lt;phingcall&gt;</literal>
+                is that <literal>&lt;phingcall&gt;</literal> will start the phing target in a new project and will
+                not affect the main project.<literal>&lt;runtarget&gt;</literal> calls a target in the same project,
+                which could be have an effect on any existing properties. Dependency management would only be given
+                by <literal>&lt;phingcall&gt;</literal>.
+            </para>
+        </caution>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
