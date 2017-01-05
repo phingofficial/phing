@@ -145,7 +145,7 @@ class IntrospectionHelper
                 // There are a few "reserved" names that might look like attribute setters
                 // but should actually just be skipped.  (Note: this means you can't ever
                 // have an attribute named "location" or "tasktype" or a nested element named "task".)
-                if ($name === "setlocation" || $name === "settasktype" || $name === "addtask" || $name === "addlistener") {
+                if ($name === "setlocation" || $name === "settasktype" || $name === "addtask") {
                     continue;
                 }
 
