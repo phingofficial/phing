@@ -167,14 +167,7 @@ abstract class HgBaseTask extends Task
      */
     public function init()
     {
-        if (version_compare(PHP_VERSION, '5.4', "<")) {
-            throw new BuildException('This task requires PHP 5.4+');
-        } else {
-            /**
-            * Depending on composer for pulling in siad007's VersionControl_HG.
-            */
-            @include_once 'vendor/autoload.php';
-        }
+        @include_once 'vendor/autoload.php';
     }
 
     public function getFactoryInstance($command, $options = array())

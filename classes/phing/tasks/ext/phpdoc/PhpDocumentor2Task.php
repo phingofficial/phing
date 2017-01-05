@@ -286,10 +286,6 @@ class PhpDocumentor2Task extends Task
             throw new BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
         }
 
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            throw new BuildException("The phpdocumentor2 task requires PHP 5.3+");
-        }
-
         $this->initializePhpDocumentor();
 
         $cache = $this->app['descriptor.cache'];
