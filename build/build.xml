@@ -81,7 +81,7 @@
         ==============================================
     -->
     <target name="setproperties">
-        
+
         <loadfile property="version" file="${phingpkg.home}/etc/VERSION.TXT"/>
 
         <property name="pkgname" value="phing-${version}"/>
@@ -137,6 +137,12 @@
             <fileset refid="all"/>
         </copy>
 
+        <copy file="${buildfile.dir}/manifest.xml" tofile="${build.full.dir}/manifest.xml">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+
         <copy todir="${build.src.dir}">
             <fileset refid="classes"/>
             <fileset refid="etc"/>
@@ -165,7 +171,7 @@
         <phing phingfile="build.xml" dir="${phingpkg.home}/docs/api"
             target="build"
         />
-        
+
         <delete>
             <fileset dir=".">
                 <include name="*.log"/>
@@ -337,6 +343,7 @@
                 <include name="classes/**" />
                 <include name="etc/**" />
                 <include name="vendor/**" />
+                <include name="manifest.xml" />
             </fileset>
             <metadata>
                 <element name="version" value="${version}" />
@@ -402,8 +409,22 @@
     <target name="generate-hash">
         <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
         <basename property="basefilename" file="${filename}"/>
-        <echo file="${filename}.sha512">${phar.hash} ${basefilename}
-</echo>
+        <echo file="${filename}.sha512">${phar.hash} ${basefilename}</echo>
+
+        <filehash file="${filename}" algorithm="sha384" propertyname="phar.hash"/>
+        <echo file="${filename}.sha384">${phar.hash} ${basefilename}</echo>
+
+        <filehash file="${filename}" algorithm="sha256" propertyname="phar.hash"/>
+        <echo file="${filename}.sha256">${phar.hash} ${basefilename}</echo>
+
+        <filehash file="${filename}" algorithm="sha1" propertyname="phar.hash"/>
+        <echo file="${filename}.sha1">${phar.hash} ${basefilename}</echo>
+
+        <exec command="gpg" checkreturn="true" logoutput="true">
+            <arg value="-u mrook@php.net --detach-sign --output" />
+            <arg path="${filename}.asc" />
+            <arg path="${filename}" />
+        </exec>
     </target>
 
 </project>
