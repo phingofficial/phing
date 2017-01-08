@@ -4,6 +4,7 @@
     <resolvepath propertyName="output" file="${tmp.dir}"/>
     <property name="file" value="${output}/file"/>
     <resolvepath propertyName="file_ref" file="${file}"/>
+    <property name="chmod.tmp" value="${output}/../phing-symlink-test"/>
 
     <target name="setUp">
         <mkdir dir="${output}"/>
@@ -23,7 +24,6 @@
         <symlink overwrite="true" link="${output}/link" resource="${file_ref}"/>
         <symlink overwrite="true" link="${output}/link" resource="${file_ref}"/>
     </target>
-
 
     <target name="testCreateDoubleHanging" depends="init">
         <symlink overwrite="true" link="${output}/link2" resource="${hanging_ref}"/>
@@ -48,7 +48,6 @@
 
     <target name="testDeleteWithNoPermissionToRenameTarget" depends="init">
         <!-- must be outside of ${output} or "base" tearDown will fail -->
-        <property name="chmod.tmp" value="${output}/../phing-symlink-test"/>
         <mkdir dir="${chmod.tmp}/A"/>
         <chmod mode="555" file="${chmod.tmp}"/>
         <symlink link="${output}/link" resource="${chmod.tmp}/A"/>
