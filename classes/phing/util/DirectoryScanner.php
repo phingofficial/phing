@@ -268,13 +268,11 @@ class DirectoryScanner implements SelectorScanner
      * recursively. All '/' and '\' characters are replaced by
      * DIRECTORY_SEPARATOR
      *
-     * @param basedir the (non-null) basedir for scanning
+     * @param string $basedir the (non-null) basedir for scanning
      */
-    public function setBasedir($_basedir)
+    public function setBasedir($basedir)
     {
-        $_basedir = str_replace('\\', DIRECTORY_SEPARATOR, $_basedir);
-        $_basedir = str_replace('/', DIRECTORY_SEPARATOR, $_basedir);
-        $this->basedir = $_basedir;
+        $this->basedir = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $basedir);
     }
 
     /**
@@ -456,7 +454,7 @@ class DirectoryScanner implements SelectorScanner
         $d = dir($_dir);
         $list = array();
         while (($entry = $d->read()) !== false) {
-            if ($entry != "." && $entry != "..") {
+            if ($entry !== '.' && $entry !== '..') {
                 $list[] = $entry;
             }
         }
@@ -600,7 +598,7 @@ class DirectoryScanner implements SelectorScanner
      */
     protected function couldHoldIncluded($_name)
     {
-        for ($i = 0; $i < count($this->includes); $i++) {
+        for ($i = 0, $iMax = count($this->includes); $i < $iMax; $i++) {
             if (DirectoryScanner::matchPatternStart($this->includes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
@@ -618,7 +616,7 @@ class DirectoryScanner implements SelectorScanner
      */
     protected function isExcluded($_name)
     {
-        for ($i = 0; $i < count($this->excludes); $i++) {
+        for ($i = 0, $iMax = count($this->excludes); $i < $iMax; $i++) {
             if (DirectoryScanner::matchPath($this->excludes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
@@ -632,7 +630,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, and matched none of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return array names of the files
+     * @return string[] the names of the files
      */
     public function getIncludedFiles()
     {
@@ -690,7 +688,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, an matched none of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return array the names of the directories
+     * @return string[] the names of the directories
      */
 
     public function getIncludedDirectories()
@@ -703,7 +701,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns.
      * The names are relative to the basedir.
      *
-     * @return array the names of the directories
+     * @return string[] the names of the directories
      */
     public function getNotIncludedDirectories()
     {
@@ -719,7 +717,7 @@ class DirectoryScanner implements SelectorScanner
      * <p>The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.</p>
      *
-     * @return array the names of the directories which were deselected.
+     * @return string[] the names of the directories which were deselected.
      *
      * @see #slowScan
      */
@@ -735,7 +733,7 @@ class DirectoryScanner implements SelectorScanner
      * patterns, an matched also at least one of the exclude patterns.
      * The names are relative to the basedir.
      *
-     * @return array the names of the directories
+     * @return string[] the names of the directories
      */
     public function getExcludedDirectories()
     {
@@ -752,8 +750,7 @@ class DirectoryScanner implements SelectorScanner
     {
         //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
         foreach ($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+            $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $pattern);
             $this->excludes[] = $pattern;
         }
     }
