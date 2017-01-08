@@ -11,8 +11,13 @@
     </target>
 
     <target name="tearDown">
-        <chmod file="${chmod.tmp}" mode="755" quiet="true"/>
-        <delete dir="${chmod.tmp}" quiet="true"/>
+        <if>
+            <available file="${chmod.tmp}" />
+            <then>
+                <chmod file="${chmod.tmp}" mode="755" quiet="true"/>
+                <delete dir="${chmod.tmp}" quiet="true"/>
+            </then>
+        </if>
         <delete dir="${output}" quiet="true"/>
     </target>
 
