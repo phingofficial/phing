@@ -16,7 +16,7 @@
     
     <target name="testDeleteDanglingSymlink">
         <mkdir dir="${tmp.dir}/base"/>
-		<symlink target="${tmp.dir}/base/all" link="${tmp.dir}/base/dangling_symlink"/>
+		<symlink resource="${tmp.dir}/base/all" link="${tmp.dir}/base/dangling_symlink"/>
 
         <delete>
             <fileset dir="${tmp.dir}/base">

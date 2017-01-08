@@ -11,7 +11,7 @@
 	</target>
 	
 	<target name="testDanglingSymlink">
-		<symlink target="fake" link="${tmp.dir}/l"/>
+		<symlink resource="fake" link="${tmp.dir}/l"/>
 		<available file="${tmp.dir}/l" type="file"
 		followSymlinks="true"
 		property="prop.testDanglingSymlink" />
@@ -19,14 +19,14 @@
 	
 	<target name="testFileSymlink">
 		<touch file="${tmp.dir}/a"/>
-		<symlink target="a" link="${tmp.dir}/b"/>
+		<symlink resource="a" link="${tmp.dir}/b"/>
 		<available file="${tmp.dir}/b" type="file"
 		followSymlinks="true"
 		property="prop.testFileSymlink" />
 	</target>
 	
 	<target name="testFileAbsoluteSymlink">
-		<symlink target="${phing.file}" link="${tmp.dir}/a"/>
+		<symlink resource="${phing.file}" link="${tmp.dir}/a"/>
 		<available file="${tmp.dir}/a" type="file"
 		followSymlinks="true"
 		property="prop.testFileAbsoluteSymlink" />
@@ -34,14 +34,14 @@
 	
 	<target name="testDirectorySymlink">
 		<mkdir dir="${tmp.dir}/c"/>
-		<symlink target="c" link="${tmp.dir}/d"/>
+		<symlink resource="c" link="${tmp.dir}/d"/>
 		<available file="${tmp.dir}/d" type="dir"
 		followSymlinks="true"
 		property="prop.testDirectorySymlink" />
 	</target>
 	
 	<target name="testDirectoryAbsoluteSymlink">
-		<symlink target="${phing.dir}" link="${tmp.dir}/d"/>
+		<symlink resource="${phing.dir}" link="${tmp.dir}/d"/>
 		<available file="${tmp.dir}/d" type="dir"
 		followSymlinks="true"
 		property="prop.testDirectoryAbsoluteSymlink" />
