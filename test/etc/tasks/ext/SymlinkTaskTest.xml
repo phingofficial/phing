@@ -3,7 +3,7 @@
     <property name="tmp.dir" value="tmp"/>
     <resolvepath propertyName="output" file="${tmp.dir}"/>
     <property name="file" value="${output}/file"/>
-    <resolvepath propertyName="^file_ref" file="${file}"/>
+    <resolvepath propertyName="file_ref" file="${file}"/>
 
     <target name="setUp">
         <mkdir dir="${output}"/>
