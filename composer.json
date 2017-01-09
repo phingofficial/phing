@@ -15,8 +15,10 @@
         }
     ],
     "support": {
-        "issues": "https://www.phing.info/trac/report",
-        "irc": "irc://irc.freenode.net/phing"
+        "issues": "https://github.com/phingofficial/phing/issues",
+        "source": "https://github.com/phingofficial/phing/",
+        "irc": "irc://irc.freenode.net/phing",
+        "docs": "https://www.phing.info/docs/guide/stable/"
     },
     "require": {
         "php": ">=5.6",
