@@ -339,7 +339,7 @@ class ProjectConfigurator
      * @return string  the replaced string or <code>null</code> if the string
      *                          itself was null
      */
-    public static function replaceProperties(Project $project, $value, $keys, $logLevel = Project::MSG_VERBOSE)
+    public static function replaceProperties(Project $project, $value, $keys, $logLevel = Project::MSG_DEBUG)
     {
 
         if ($value === null) {
