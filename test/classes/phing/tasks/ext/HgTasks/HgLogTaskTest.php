@@ -2,7 +2,7 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/hg/HgLogTask.php';
-require_once dirname(__FILE__) . '/HgTestsHelper.php';
+require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgLogTaskTest extends BuildFileTest
 {

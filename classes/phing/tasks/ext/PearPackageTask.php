@@ -140,7 +140,7 @@ class PearPackageTask extends MatchingTask
                 throw new BuildException("You must use a <fileset> tag to specify the files to include in the package.xml");
             }
             $this->preparedOptions['filelistgenerator'] = 'Fileset';
-            $this->preparedOptions['usergeneratordir'] = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'pearpackage';
+            $this->preparedOptions['usergeneratordir'] = __DIR__ . DIRECTORY_SEPARATOR . 'pearpackage';
             // Some PHING-specific options needed by our Fileset reader
             $this->preparedOptions['phing_project'] = $this->project;
             $this->preparedOptions['phing_filesets'] = $this->filesets;

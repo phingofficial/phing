@@ -1082,7 +1082,7 @@ class Phing
      */
     public static function getPhingVersion()
     {
-        $path = dirname(dirname(dirname(__FILE__)));
+        $path = dirname(dirname(__DIR__));
 
         $gitInformation = self::getGitInformation($path);
 
@@ -1398,7 +1398,7 @@ class Phing
         } else {
             // We're not using PEAR, so do one additional check based on path of
             // current file (Phing.php)
-            $maybeHomeDir = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+            $maybeHomeDir = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
             $testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
             if (file_exists($testPath)) {
                 return $testPath;

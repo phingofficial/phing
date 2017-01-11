@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__FILE__) . '/BaseHttpTaskTest.php';
+require_once __DIR__ . '/BaseHttpTaskTest.php';
 
 /**
  * @author Alexey Borzov <avb@php.net>

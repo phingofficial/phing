@@ -108,7 +108,7 @@ class ExecTaskTest extends BuildFileTest
         $this->assertAttributeIsSetTo(
             'dir',
             new PhingFile(
-                realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
+                realpath(__DIR__ . '/../../../../etc/tasks/system')
             )
         );
     }
@@ -158,7 +158,7 @@ class ExecTaskTest extends BuildFileTest
         $this->assertAttributeIsSetTo(
             'output',
             new PhingFile(
-                realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
+                realpath(__DIR__ . '/../../../../etc/tasks/system')
                 . '/outputfilename'
             )
         );
@@ -169,7 +169,7 @@ class ExecTaskTest extends BuildFileTest
         $this->assertAttributeIsSetTo(
             'error',
             new PhingFile(
-                realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
+                realpath(__DIR__ . '/../../../../etc/tasks/system')
                 . '/errorfilename'
             )
         );

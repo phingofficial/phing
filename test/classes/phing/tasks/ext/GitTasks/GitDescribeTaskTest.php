@@ -19,7 +19,7 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitDescribeTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
+require_once __DIR__ . '/GitTestsHelper.php';
 
 /**
  * @package phing.tasks.ext

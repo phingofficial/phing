@@ -478,7 +478,7 @@ class PHPUnitTask extends Task
             /**
              * Add some defaults to the PHPUnit filter
              */
-            $pwd = dirname(__FILE__);
+            $pwd = __DIR__;
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('PHP_CodeCoverage_Filter')) {
