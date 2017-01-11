@@ -1385,7 +1385,12 @@
                 <choice>
                     <group>
                         <attribute name="name"/>
-                        <attribute name="value"/>
+                        <choice>
+                            <group>
+                                <attribute name="loc"/>
+                                <attribute name="value"/>
+                            </group>
+                        </choice>
                     </group>
                     <attribute name="file"/>
                     <optional>
@@ -1405,6 +1410,9 @@
                 </optional>
                 <optional>
                     <attribute name="fallback"/>
+                </optional>
+                <optional>
+                    <attribute name="basedir"/>
                 </optional>
             </interleave>
         </element>

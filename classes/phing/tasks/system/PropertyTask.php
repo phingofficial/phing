@@ -42,12 +42,18 @@ class PropertyTask extends Task
     /** value of the property */
     protected $value;
 
+    /** @var Reference $reference */
     protected $reference;
     protected $env; // Environment
     protected $file;
     protected $ref;
     protected $prefix;
     protected $fallback;
+
+    private $resolvePath = false;
+
+    /** @var PhingFile $basedir */
+    private $basedir;
 
     /** Whether to force overwrite of existing property. */
     protected $override = false;
@@ -77,12 +83,23 @@ class PropertyTask extends Task
     }
 
     /**
+     * Sets 'basedir' attribute.
+     * @param PhingFile $basedir new value
+     */
+    public function setBasedir($basedir) {
+        if (is_string($basedir)) {
+            $basedir = new PhingFile($basedir);
+        }
+        $this->basedir = $basedir;
+    }
+
+    /**
      * Sets a the name of current property component
      * @param $name
      */
     public function setName($name)
     {
-        $this->name = (string) $name;
+        $this->name = (string)$name;
     }
 
     /** Get property component name. */
@@ -93,17 +110,16 @@ class PropertyTask extends Task
 
     /**
      * Sets a the value of current property component.
-     * @param    mixed      Value of name, all scalars allowed
+     * @param mixed $value Value of name, all scalars allowed
      */
     public function setValue($value)
     {
-        $this->value = (string) $value;
+        $this->value = (string)$value;
     }
 
     /**
      * Sets value of property to CDATA tag contents.
-     * @param $value
-     * @internal param string $values
+     * @param string $values
      * @since 2.2.0
      */
     public function addText($value)
@@ -115,6 +131,23 @@ class PropertyTask extends Task
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Sets the property to the absolute filename of the
+     * given file. If the value of this attribute is an absolute path, it
+     * is left unchanged (with / and \ characters converted to the
+     * current platforms conventions). Otherwise it is taken as a path
+     * relative to the project's basedir and expanded.
+     * @param PhingFile $location path to set
+     */
+    public function setLoc($location)
+    {
+        if (is_string($location)) {
+            $location = new PhingFile($location);
+        }
+        $this->setValue($location);
+        $this->resolvePath = true;
     }
 
     /** Set a file to use as the source for properties.
@@ -187,8 +220,7 @@ class PropertyTask extends Task
      * Note also that properties are case sensitive, even if the
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
-     * @param prefix $env
-     * @internal param prefix $env
+     * @param string $env
      */
     public function setEnvironment($env)
     {
@@ -209,7 +241,7 @@ class PropertyTask extends Task
      */
     public function setUserProperty($v)
     {
-        $this->userProperty = (boolean) $v;
+        $this->userProperty = (boolean)$v;
     }
 
     /**
@@ -225,7 +257,7 @@ class PropertyTask extends Task
      */
     public function setOverride($v)
     {
-        $this->override = (boolean) $v;
+        $this->override = (boolean)$v;
     }
 
     /**
@@ -241,7 +273,7 @@ class PropertyTask extends Task
      */
     public function toString()
     {
-        return (string) $this->value;
+        return (string)$this->value;
     }
 
     /**
@@ -274,7 +306,7 @@ class PropertyTask extends Task
      */
     public function setLogoutput($logOutput)
     {
-        $this->logOutput = (bool) $logOutput;
+        $this->logOutput = (bool)$logOutput;
     }
 
     /**
@@ -289,13 +321,13 @@ class PropertyTask extends Task
      * set the property in the project to the value.
      * if the task was give a file or env attribute
      * here is where it is loaded
+     * @throws \BuildException
      */
     public function main()
     {
         if ($this->name !== null) {
             if ($this->value === null && $this->reference === null) {
-                throw new BuildException("You must specify value or refid with the name attribute", $this->getLocation(
-                ));
+                throw new BuildException("You must specify value or refid with the name attribute", $this->getLocation());
             }
         } else {
             if ($this->file === null && $this->env === null) {
@@ -311,7 +343,25 @@ class PropertyTask extends Task
         }
 
         if (($this->name !== null) && ($this->value !== null)) {
-            $this->addProperty($this->name, $this->value);
+            if ($this->resolvePath) {
+                try {
+                    $from = $this->value instanceof PhingFile ? $this->value : new PhingFile($this->value);
+
+                    $fs = FileSystem::getFileSystem();
+
+                    if ($this->basedir !== null && !$fs->isAbsolute($from)) {
+                        $from = new PhingFile($this->basedir->getPath(), $from);
+                    }
+
+                    $resolved = $this->project->resolveFile($from);
+
+                    $this->addProperty($this->name, $resolved->getAbsolutePath());
+                } catch (Exception $e) {
+                    throw new BuildException($e, $this->getLocation());
+                }
+            } else {
+                $this->addProperty($this->name, $this->value);
+            }
         }
 
         if ($this->file !== null) {
@@ -332,7 +382,7 @@ class PropertyTask extends Task
                 } elseif (method_exists($referencedObject, 'toString')) {
                     $reference = $referencedObject->toString();
                 } else {
-                    $reference = (string) $referencedObject;
+                    $reference = (string)$referencedObject;
                 }
 
                 $this->addProperty($this->name, $reference);
@@ -345,7 +395,7 @@ class PropertyTask extends Task
                     } elseif (method_exists($referencedObject, 'toString')) {
                         $reference = $referencedObject->toString();
                     } else {
-                        $reference = (string) $referencedObject;
+                        $reference = (string)$referencedObject;
                     }
                     $this->addProperty($this->name, $reference);
                 } else {
@@ -363,7 +413,7 @@ class PropertyTask extends Task
     {
 
         $props = new Properties();
-        if (substr($prefix, strlen($prefix) - 1) == '.') {
+        if (substr($prefix, strlen($prefix) - 1) === '.') {
             $prefix .= ".";
         }
         $this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
@@ -394,7 +444,7 @@ class PropertyTask extends Task
 
     /**
      * add a name value pair to the project property set
-     * @param string $name  name of property
+     * @param string $name name of property
      * @param string $value value to set
      */
     protected function addProperty($name, $value)

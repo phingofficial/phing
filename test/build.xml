@@ -9,32 +9,33 @@
 		
 		=========================================================================================					
 	-->
-	<property name="tests.dir" value="./tests"/>
-	<property name="tests.phpunit.dir" value="."/>
-	<property name="tests.reports.dir" value="${tests.phpunit.dir}/reports"/>
+
+	<property name="test.class" value="${test}"/>
+
 	<property name="tests.codecoverage" value="false"/>
+
+	<property name="tests.dir" loc="./tests"/>
+	<property name="tests.phpunit.dir" loc="."/>
+	<property name="tests.reports.dir.resolved" loc="${tests.phpunit.dir}/reports"/>
+	<property name="tests.dir.resolved" loc="${tests.phpunit.dir}"/>
+	<property name="tests.classes.dir.resolved" loc="${tests.phpunit.dir}/classes"/>
+	<property name="phing.classes.dir.resolved" loc="../classes"/>
+	<property name="phing.etc.dir.resolved" loc="../etc"/>
+
+
+	<path id="incthis">
+		<pathelement dir="${tests.dir.resolved}"/>
+		<pathelement dir="${tests.classes.dir.resolved}"/>
+	</path>
 
 	<!--
 		=========================================================================================
 		PHPUnit Targets
 		~~~~~~~~~~~~~~~~
-		
-		=========================================================================================					
+
+		=========================================================================================
 	-->
 
-	<property name="test.class" value="${test}"/>
-	
-	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
-    <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
-	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
-	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
-	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
-	
-	<path id="incthis">
-		<pathelement dir="${tests.dir.resolved}"/>
-		<pathelement dir="${tests.classes.dir.resolved}"/>
-	</path>
-	
 	<target name="configure">
 		<echo>-------------------------------------------------</echo>
 		<echo> +++++ Running Phing  unit tests</echo>

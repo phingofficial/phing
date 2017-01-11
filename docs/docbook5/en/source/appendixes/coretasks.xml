@@ -2976,7 +2976,8 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>The value of the Property.</entry>
                         <entry>n/a</entry>
                         <entry>Yes (unless using
-                        <literal>file</literal> or
+                        <literal>loc</literal>,
+                        <literal>file</literal>, or
                         <literal>environment</literal>)</entry>
                     </row>
                     <row>
@@ -2986,6 +2987,24 @@ verbose="true" failonerror="false" /></programlisting>
                             as prefix. Thus if you specify environment="myenv" you will be
                             able to access OS-specific environment variables via property
                             names "myenv.PATH" or "myenv.TERM".</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>loc</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets the property to the absolute filename of the given file.
+                            If the value of this attribute is an absolute path, it is left
+                            unchanged (with / and \ characters converted to the current
+                            platforms conventions). Otherwise it is taken as a path relative
+                            to the project's basedir and expanded.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>basedir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The basedir to calculate the relative path from.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -3303,6 +3322,7 @@ verbose="true" failonerror="false" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="ResolvePathTask">
         <title>ResolvePathTask </title>
+        <para>Deprecated use <xref xlink:href="#PropertyTask" /> with loc attribute instead.</para>
         <para>The <literal>ResolvePathTask</literal> turns a relative path into an absolute path, with
             respect to specified directory or the project basedir (if no dir attribute
             specified).</para>

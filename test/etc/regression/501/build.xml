@@ -3,8 +3,9 @@
     <target name="main" description="Unit testing and code coverage">
         <property name="base.dir" value="../../../.." />
         <property name="build.dir" value="." />
-        <resolvepath propertyName="base.dir.resolved" file="${base.dir}" />
-        <resolvepath propertyName="build.dir.resolved" file="${build.dir}" />
+        <property name="base.dir.resolved" file="${base.dir}" />
+        <property name="build.dir.resolved" file="${build.dir}" />
+
         <coverage-setup database="${build.dir}/coverage.db">
             <fileset dir="${base.dir.resolved}/classes/phing/system">
                 <exclude name="form/**/*.php"/>
