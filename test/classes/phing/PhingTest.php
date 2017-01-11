@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__FILE__) . '/../../../classes/phing/Phing.php';
+require_once __DIR__ . '/../../../classes/phing/Phing.php';
 
 /**
  * Core Phing class test
@@ -75,6 +75,6 @@ class PhingTest extends PHPUnit_Framework_TestCase
      */
     protected static function getClassPath()
     {
-        return dirname(__FILE__) . '/../../etc/importclasses';
+        return __DIR__ . '/../../etc/importclasses';
     }
 }

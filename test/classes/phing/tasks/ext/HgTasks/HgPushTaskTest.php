@@ -1,7 +1,7 @@
 <?php
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/hg/HgPushTask.php';
-require_once dirname(__FILE__) . '/HgTestsHelper.php';
+require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgPushTaskTest extends BuildFileTest
 {

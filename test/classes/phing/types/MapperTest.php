@@ -40,7 +40,7 @@ class MapperTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->project = new Project();
-        $this->project->setBasedir(dirname(__FILE__));
+        $this->project->setBasedir(__DIR__);
     }
 
     public function testEmptyElementIfIsReference()

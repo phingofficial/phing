@@ -249,10 +249,10 @@ class GrowlNotifyTask extends Task
 
         // relative location
         if (strpos($icon, '..') === 0) {
-            $icon = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . $icon);
+            $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
 
         } elseif (strpos($icon, '.') === 0) {
-            $icon = dirname(__FILE__) . substr($icon, 1);
+            $icon = __DIR__ . substr($icon, 1);
         }
 
         $this->appicon = $icon;
@@ -410,10 +410,10 @@ class GrowlNotifyTask extends Task
 
         // relative location
         if (strpos($icon, '..') === 0) {
-            $icon = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . $icon);
+            $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
 
         } elseif (strpos($icon, '.') === 0) {
-            $icon = dirname(__FILE__) . substr($icon, 1);
+            $icon = __DIR__ . substr($icon, 1);
         }
 
         $this->icon = $icon;

@@ -8,10 +8,10 @@
  */
 
 // Use composers autoload.php if available
-if (file_exists(dirname(__FILE__) . '/../vendor/autoload.php')) {
-    require_once dirname(__FILE__) . '/../vendor/autoload.php';
-} elseif (file_exists(dirname(__FILE__) . '/../../../autoload.php')) {
-    require_once dirname(__FILE__) . '/../../../autoload.php';
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
+    require_once __DIR__ . '/../../../autoload.php';
 }
 
 // Set any INI options for PHP
@@ -19,7 +19,7 @@ if (file_exists(dirname(__FILE__) . '/../vendor/autoload.php')) {
 
 /* set include paths */
 set_include_path(
-            dirname(__FILE__) . '/../classes' .
+            __DIR__ . '/../classes' .
             PATH_SEPARATOR .
             get_include_path()
         );
