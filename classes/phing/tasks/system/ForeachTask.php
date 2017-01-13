@@ -104,7 +104,7 @@ class ForeachTask extends Task
         $this->callee = $this->project->createTask("phingcall");
         $this->callee->setOwningTarget($this->getOwningTarget());
         $this->callee->setTaskName($this->getTaskName());
-        $this->callee->setLocation($this->getLocation());
+        $this->callee->setInternalLocation($this->getLocation());
         $this->callee->init();
     }
 

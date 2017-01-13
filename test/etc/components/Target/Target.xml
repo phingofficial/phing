@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="TargetTest" default="invalid">
-    <property name="cur.dir.resolved" loc="." />
+    <property name="cur.dir.resolved" location="." />
 	
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>

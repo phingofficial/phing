@@ -124,7 +124,7 @@ class ElementHandler extends AbstractHandler
             $this->child->setTaskName($propType);
             $this->child->setTaskType($propType);
             $this->child->setProject($project);
-            $this->child->setLocation($this->parser->getLocation());
+            $this->child->setInternalLocation($this->parser->getLocation());
 
             if ($this->target !== null) {
                 $this->child->setOwningTarget($this->target);

@@ -139,9 +139,9 @@ class PropertyTask extends Task
      * is left unchanged (with / and \ characters converted to the
      * current platforms conventions). Otherwise it is taken as a path
      * relative to the project's basedir and expanded.
-     * @param PhingFile $location path to set
+     * @param $location path to set
      */
-    public function setLoc($location)
+    public function setLocation($location)
     {
         if (is_string($location)) {
             $location = new PhingFile($location);

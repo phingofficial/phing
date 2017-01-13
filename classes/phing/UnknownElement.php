@@ -226,7 +226,7 @@ class UnknownElement extends Task
         // used to set the location within the xmlfile so that exceptions can
         // give detailed messages
 
-        $task->setLocation($this->getLocation());
+        $task->setInternalLocation($this->getLocation());
         $attrs = $w->getAttributes();
         if (isset($attrs['id'])) {
             $this->project->addReference($attrs['id'], $task);

@@ -14,13 +14,13 @@
 
 	<property name="tests.codecoverage" value="false"/>
 
-	<property name="tests.dir" loc="./tests"/>
-	<property name="tests.phpunit.dir" loc="."/>
-	<property name="tests.reports.dir.resolved" loc="${tests.phpunit.dir}/reports"/>
-	<property name="tests.dir.resolved" loc="${tests.phpunit.dir}"/>
-	<property name="tests.classes.dir.resolved" loc="${tests.phpunit.dir}/classes"/>
-	<property name="phing.classes.dir.resolved" loc="../classes"/>
-	<property name="phing.etc.dir.resolved" loc="../etc"/>
+	<property name="tests.dir" location="./tests"/>
+	<property name="tests.phpunit.dir" location="."/>
+	<property name="tests.reports.dir.resolved" location="${tests.phpunit.dir}/reports"/>
+	<property name="tests.dir.resolved" location="${tests.phpunit.dir}"/>
+	<property name="tests.classes.dir.resolved" location="${tests.phpunit.dir}/classes"/>
+	<property name="phing.classes.dir.resolved" location="../classes"/>
+	<property name="phing.etc.dir.resolved" location="../etc"/>
 
 
 	<path id="incthis">
