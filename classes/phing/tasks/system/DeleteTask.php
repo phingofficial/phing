@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+include_once 'phing/traits/DirSetAware.php';
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
@@ -29,6 +30,8 @@ require_once 'phing/Task.php';
  */
 class DeleteTask extends Task
 {
+    use DirSetAware;
+
     protected $file;
     protected $dir;
     protected $filesets = [];
@@ -136,11 +139,12 @@ class DeleteTask extends Task
      */
     public function main()
     {
-        if ($this->file === null && $this->dir === null && count($this->filesets) === 0 && count(
-                $this->filelists
-            ) === 0
+        if ($this->file === null && $this->dir === null && count($this->dirsets) === 0
+            && count($this->filesets) === 0 && count($this->filelists) === 0
         ) {
-            throw new BuildException("At least one of the file or dir attributes, or a fileset element, or a filelist element must be set.");
+            throw new BuildException(
+                "At least one of the file or dir attributes, or a fileset, filelist or dirset element must be set."
+            );
         }
 
         if ($this->quiet && $this->failonerror) {
@@ -179,20 +183,34 @@ class DeleteTask extends Task
             }
         }
 
-        // delete the directory
         if ($this->dir !== null) {
-            if ($this->dir->exists() && $this->dir->isDirectory()) {
-                if ($this->verbosity === Project::MSG_VERBOSE) {
-                    $this->log("Deleting directory " . $this->dir->__toString());
-                }
-                $this->removeDir($this->dir);
+            $this->dirsets[] = $this->dir;
+        }
+        foreach ($this->dirsets as $dirset) {
+            if (!$dirset instanceof PhingFile) {
+                $ds = $dirset->getDirectoryScanner($this->getProject());
+                $dirs = $ds->getIncludedDirectories();
+                $baseDir = $ds->getBasedir();
             } else {
-                $message = "Directory " . $this->dir->getAbsolutePath() . " does not exist or is not a directory.";
-
-                if ($this->failonerror) {
-                    throw new BuildException($message);
+                $dirs[0] = $dirset;
+            }
+            foreach ($dirs as $dir) {
+                if (!$dir instanceof PhingFile) {
+                    $dir = new PhingFile($baseDir, $dir);
+                }
+                if ($dir->exists() && $dir->isDirectory()) {
+                    if ($this->verbosity === Project::MSG_VERBOSE) {
+                        $this->log("Deleting directory " . $dir->__toString());
+                    }
+                    $this->removeDir($dir);
                 } else {
-                    $this->log($message, ($this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN));
+                    $message = "Directory " . $dir->getAbsolutePath() . " does not exist or is not a directory.";
+
+                    if ($this->failonerror) {
+                        throw new BuildException($message);
+                    } else {
+                        $this->log($message, ($this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN));
+                    }
                 }
             }
         }

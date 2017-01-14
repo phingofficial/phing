@@ -23,6 +23,7 @@ include_once 'phing/util/FileUtils.php';
 include_once 'phing/util/SourceFileScanner.php';
 include_once 'phing/mappers/IdentityMapper.php';
 include_once 'phing/mappers/FlattenMapper.php';
+include_once 'phing/traits/DirSetAware.php';
 
 /**
  * A phing copy task.  Copies a file or directory to a new file
@@ -36,6 +37,8 @@ include_once 'phing/mappers/FlattenMapper.php';
  */
 class CopyTask extends Task
 {
+    use DirSetAware;
+
     /** @var PhingFile */
     protected $file = null; // the source file (from xml attribute)
 
@@ -344,6 +347,32 @@ class CopyTask extends Task
             $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
         }
 
+        foreach ($this->dirsets as $dirset) {
+            try {
+                $ds = $dirset->getDirectoryScanner($project);
+                $fromDir = $dirset->getDir($project);
+                $srcDirs = $ds->getIncludedDirectories();
+
+                $srcFiles = [];
+                foreach ($srcDirs as $srcDir) {
+                    $srcFiles[] = $srcDir;
+                }
+
+                if (!$this->flatten && $this->mapperElement === null && $ds->isEverythingIncluded()
+                ) {
+                    $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
+                }
+
+                $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+            } catch (BuildException $e) {
+                if ($this->haltonerror === true) {
+                    throw $e;
+                }
+
+                $this->logError($e->getMessage());
+            }
+        }
+
         // process filesets
         foreach ($this->filesets as $fs) {
             try {
@@ -384,7 +413,7 @@ class CopyTask extends Task
      */
     protected function validateAttributes()
     {
-        if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
+        if ($this->file === null && count($this->dirsets) === 0 && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException("CopyTask. Specify at least one source - a file, fileset or filelist.");
         }
 
@@ -400,7 +429,7 @@ class CopyTask extends Task
             throw new BuildException("Use a fileset to copy directories.");
         }
 
-        if ($this->destFile !== null && count($this->filesets) > 0) {
+        if ($this->destFile !== null && (count($this->filesets) > 0 || count($this->dirsets) > 0)) {
             throw new BuildException("Cannot concatenate multiple files into a single file.");
         }
 

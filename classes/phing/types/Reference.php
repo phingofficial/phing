@@ -27,14 +27,16 @@ class Reference
     /** @var string $refid */
     protected $refid;
 
+    /** @var Project $project */
+    private $project;
+
     /**
      * @param string $id
      */
-    public function __construct($id = null)
+    public function __construct(Project $project, $id = null)
     {
-        if ($id !== null) {
-            $this->setRefId($id);
-        }
+        $this->setRefId($id);
+        $this->setProject($project);
     }
 
     /**
@@ -62,8 +64,11 @@ class Reference
      *
      * @return Reference
      */
-    public function getReferencedObject(Project $project)
+    public function getReferencedObject(Project $project = null)
     {
+        if ($project !== null) {
+            $project = $this->project;
+        }
         if ($this->refid === null) {
             throw new BuildException("No reference specified");
         }
@@ -74,5 +79,15 @@ class Reference
         }
 
         return $o;
+    }
+
+    public function __toString()
+    {
+        return $this->refid;
+    }
+
+    private function setProject($project)
+    {
+        $this->project = $project;
     }
 }

@@ -39,7 +39,12 @@ abstract class ProjectComponent
     private $location;
     
     private $description;
-    
+
+    public function __construct()
+    {
+        $this->location = new Location();
+    }
+
     /**
      * References the project to the current component.
      *

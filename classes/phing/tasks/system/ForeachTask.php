@@ -23,6 +23,7 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/FileSystem.php';
 include_once 'phing/mappers/FileNameMapper.php';
 include_once 'phing/tasks/system/PhingTask.php';
+include_once 'phing/traits/DirSetAware.php';
 
 /**
  * <foreach> task
@@ -50,12 +51,16 @@ include_once 'phing/tasks/system/PhingTask.php';
  */
 class ForeachTask extends Task
 {
+    use DirSetAware;
 
     /** Delimter-separated list of values to process. */
     private $list;
 
     /** Name of parameter to pass to callee */
     private $param;
+
+    /** @var PropertyTask[] $params */
+    private $params = [];
 
     /** Name of absolute path parameter to pass to callee */
     private $absparam;
@@ -69,10 +74,10 @@ class ForeachTask extends Task
      */
     private $callee;
 
-    /** Array of filesets */
+    /** @var FileSet[] $fileset */
     private $filesets = [];
 
-    /** Instance of mapper **/
+    /** Instance of mapper */
     private $mapperElement;
 
     /**
@@ -99,14 +104,20 @@ class ForeachTask extends Task
      */
     private $total_dirs = 0;
 
-    public function init()
-    {
-        $this->callee = $this->project->createTask("phingcall");
-        $this->callee->setOwningTarget($this->getOwningTarget());
-        $this->callee->setTaskName($this->getTaskName());
-        $this->callee->setLocation($this->getLocation());
-        $this->callee->init();
-    }
+    /** @var bool $trim */
+    private $trim = false;
+
+    /** @var  $inheritAll */
+    private $inheritAll = false;
+
+    /** @var bool $inheritRefs */
+    private $inheritRefs = false;
+
+    /** @var Path $currPath */
+    private $currPath;
+
+    /** @var PhingReference[] $references */
+    private $references = [];
 
     /**
      * This method does the work.
@@ -115,8 +126,8 @@ class ForeachTask extends Task
      */
     public function main()
     {
-        if ($this->list === null && count($this->filesets) == 0 && count($this->filelists) == 0) {
-            throw new BuildException("Need either list, nested fileset or nested filelist to iterate through");
+        if ($this->list === null && $this->currPath === null && count($this->dirsets) === 0 && count($this->filesets) == 0 && count($this->filelists) == 0) {
+            throw new BuildException("Need either list, path, nested fileset, nested dirset or nested filelist to iterate through");
         }
         if ($this->param === null) {
             throw new BuildException("You must supply a property name to set on each iteration in param");
@@ -125,22 +136,21 @@ class ForeachTask extends Task
             throw new BuildException("You must supply a target to perform");
         }
 
-        $callee = $this->callee;
-        $callee->setTarget($this->calleeTarget);
-        $callee->setInheritAll(true);
-        $callee->setInheritRefs(true);
+        $callee = $this->createCallTarget();
         $mapper = null;
 
         if ($this->mapperElement !== null) {
             $mapper = $this->mapperElement->getImplementation();
         }
 
-        if (trim($this->list)) {
+        if ($this->list !== null) {
             $arr = explode($this->delimiter, $this->list);
             $total_entries = 0;
 
             foreach ($arr as $value) {
-                $value = trim($value);
+                if ($this->trim) {
+                    $value = trim($value);
+                }
                 $premapped = '';
                 if ($mapper !== null) {
                     $premapped = $value;
@@ -163,6 +173,16 @@ class ForeachTask extends Task
             }
         }
 
+        if ($this->currPath !== null) {
+            $pathElements = $this->currPath->listPaths();
+            foreach ($pathElements as $pathElement) {
+                $ds = new DirectoryScanner();
+                $ds->setBasedir($pathElement);
+                $ds->scan();
+                $this->process($callee, new PhingFile($pathElement), $ds->getIncludedFiles(), array());
+            }
+        }
+
         // filelists
         foreach ($this->filelists as $fl) {
             $srcFiles = $fl->getFiles($this->project);
@@ -177,6 +197,13 @@ class ForeachTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $this->process($callee, $fs->getDir($this->project), $srcFiles, $srcDirs);
+        }
+
+        foreach ($this->dirsets as $dirset) {
+            $ds = $dirset->getDirectoryScanner($this->project);
+            $srcDirs = $ds->getIncludedDirectories();
+
+            $this->process($callee, $dirset->getDir($this->project), [], $srcDirs);
         }
 
         if ($this->list === null) {
@@ -195,10 +222,10 @@ class ForeachTask extends Task
     /**
      * Processes a list of files & directories
      *
-     * @param Task      $callee
+     * @param PhingCallTask $callee
      * @param PhingFile $fromDir
-     * @param array     $srcFiles
-     * @param array     $srcDirs
+     * @param array $srcFiles
+     * @param array $srcDirs
      */
     protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
     {
@@ -283,6 +310,11 @@ class ForeachTask extends Task
         }
     }
 
+    public function setTrim($trim)
+    {
+        $this->trim = $trim;
+    }
+
     /**
      * @param $list
      */
@@ -300,11 +332,20 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param $param
+     * @param PropertyTask $param
      */
-    public function setParam($param)
+    public function addParam(PropertyTask $param)
     {
-        $this->param = (string) $param;
+        $this->params[] = $param;
+    }
+
+    /**
+     * Corresponds to <code>&lt;phingcall&gt;</code>'s nested
+     * <code>&lt;reference&gt;</code> element.
+     */
+    public function addReference(PhingReference $r)
+    {
+        $this->references[] = $r;
     }
 
     /**
@@ -334,6 +375,15 @@ class ForeachTask extends Task
         $this->filesets[] = $fs;
     }
 
+    public function createPath()
+    {
+        if ($this->currPath === null) {
+            $this->currPath = new Path($this->getProject());
+        }
+
+        return $this->currPath;
+    }
+
     /**
      * Nested creator, creates one Mapper for this task
      *
@@ -351,11 +401,27 @@ class ForeachTask extends Task
     }
 
     /**
-     * @return SonarProperty
+     * @return PropertyTask
      */
     public function createProperty()
     {
         return $this->callee->createProperty();
+    }
+
+    /**
+     * @return PropertyTask
+     */
+    public function createParam()
+    {
+        return $this->callee->createProperty();
+    }
+
+    /**
+     * @param string $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
     }
 
     /**
@@ -367,5 +433,62 @@ class ForeachTask extends Task
         $num = array_push($this->filelists, new FileList());
 
         return $this->filelists[$num - 1];
+    }
+
+    /**
+     * Corresponds to <code>&lt;antcall&gt;</code>'s <code>inheritall</code>
+     * attribute.
+     */
+    public function setInheritall($b)
+    {
+        $this->inheritAll = $b;
+    }
+
+    /**
+     * Corresponds to <code>&lt;antcall&gt;</code>'s <code>inheritrefs</code>
+     * attribute.
+     */
+    public function setInheritrefs($b)
+    {
+        $this->inheritRefs = $b;
+    }
+
+    private function createCallTarget()
+    {
+        /** @var PhingCallTask $ct */
+        $ct = $this->getProject()->createTask("phingcall");
+        $ct->setOwningTarget($this->getOwningTarget());
+        $ct->setTaskName($this->getTaskName());
+        $ct->setLocation($this->getLocation());
+        $ct->init();
+        $ct->setTarget($this->calleeTarget);
+        $ct->setInheritAll($this->inheritAll);
+        $ct->setInheritRefs($this->inheritRefs);
+        foreach ($this->params as $param) {
+            $toSet = $ct->createParam();
+            $toSet->setName($param->getName());
+            if ($param->getValue() !== null) {
+                $toSet->setValue($param->getValue());
+            }
+
+            if ($param->getFile() != null) {
+                $toSet->setFile($param->getFile());
+            }
+            if ($param->getPrefix() != null) {
+                $toSet->setPrefix($param->getPrefix());
+            }
+            if ($param->getRefid() != null) {
+                $toSet->setRefid($param->getRefid());
+            }
+            if ($param->getEnvironment() != null) {
+                $toSet->setEnvironment($param->getEnvironment());
+            }
+        }
+
+        foreach ($this->references as $ref) {
+            $ct->addReference($ref);
+        }
+
+        return $ct;
     }
 }

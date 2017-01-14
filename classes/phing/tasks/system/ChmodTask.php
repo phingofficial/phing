@@ -21,6 +21,7 @@
 
 require_once 'phing/Task.php';
 include_once 'phing/types/FileSet.php';
+include_once 'phing/traits/DirSetAware.php';
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -32,6 +33,8 @@ include_once 'phing/types/FileSet.php';
  */
 class ChmodTask extends Task
 {
+    use DirSetAware;
+
     private $file;
 
     private $mode;
@@ -123,8 +126,10 @@ class ChmodTask extends Task
      */
     private function checkParams()
     {
-        if ($this->file === null && empty($this->filesets)) {
-            throw new BuildException("Specify at least one source - a file or a fileset.");
+        if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
+            throw new BuildException(
+                "Specify at least one source - a file, dirset or a fileset."
+            );
         }
 
         if ($this->mode === null) {
@@ -159,6 +164,8 @@ class ChmodTask extends Task
             $total_files = 1;
             $this->chmodFile($this->file, $mode);
         }
+
+        $this->filesets = array_merge($this->filesets, $this->dirsets);
 
         // filesets
         foreach ($this->filesets as $fs) {

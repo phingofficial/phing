@@ -26,7 +26,18 @@
 		
 		<delete dir="${tmp.dir}/base"/>
     </target>
-    
+
+    <target name="testDirset">
+        <mkdir dir="${tmp.dir}/test-one"/>
+        <mkdir dir="${tmp.dir}/test-two"/>
+        <mkdir dir="${tmp.dir}/test-three"/>
+        <delete>
+            <dirset dir="${tmp.dir}">
+                <include name="*"/>
+            </dirset>
+        </delete>
+    </target>
+
     <target name="testDeleteNonExistingDirectory">
     	<delete dir="${tmp.dir}/base/non-existing-dir" failonerror="true"/>
     </target>

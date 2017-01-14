@@ -131,6 +131,19 @@ class PhingCallTask extends Task
     }
 
     /**
+     * Reference element identifying a data type to carry
+     * over to the invoked target.
+     * @param PhingReference $r the specified <code>Ant.Reference</code>.
+     */
+    public function addReference(PhingReference $r)
+    {
+        if ($this->callee == null) {
+            $this->init();
+        }
+        $this->callee->addReference($r);
+    }
+
+    /**
      *  init this task by creating new instance of the phing task and
      *  configuring it's by calling its own init method.
      */

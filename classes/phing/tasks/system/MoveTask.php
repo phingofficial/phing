@@ -37,6 +37,7 @@ include_once 'phing/system/io/IOException.php';
  */
 class MoveTask extends CopyTask
 {
+
     /**
      * Validates attributes coming in from XML
      *
@@ -157,6 +158,17 @@ class MoveTask extends CopyTask
             // process filesets
             foreach ($this->filesets as $fs) {
                 $dir = $fs->getDir($this->project);
+                if ($this->okToDelete($dir)) {
+                    $this->deleteDir($dir);
+                }
+            }
+        }
+
+        $dirsets = $this->getDirSets();
+        if (count($dirsets) > 0) {
+            // process dirsets
+            foreach ($dirsets as $ds) {
+                $dir = $ds->getDir($this->project);
                 if ($this->okToDelete($dir)) {
                     $this->deleteDir($dir);
                 }

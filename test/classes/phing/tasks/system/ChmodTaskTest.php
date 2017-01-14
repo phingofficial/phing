@@ -47,4 +47,14 @@ class ChmodTaskTest extends BuildFileTest
         
         $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
+
+    public function testChangeModeDirSet()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        clearstatcache();
+        $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/A');
+
+        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+    }
 }
