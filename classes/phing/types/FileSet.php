@@ -34,7 +34,7 @@ require_once 'phing/types/AbstractFileSet.php';
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author  Magesh Umasankar (Ant)
  */
-class FileSet extends AbstractFileSet
+class FileSet extends AbstractFileSet implements IteratorAggregate
 {
     /**
      * Return a FileSet that has the same basedir and same patternsets as this one.
@@ -46,5 +46,14 @@ class FileSet extends AbstractFileSet
         } else {
             return new FileSet($this);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getIterator()
+    {
+        $ds = $this->getDirectoryScanner($this->getProject());
+        return $ds->getIncludedFiles() + $ds->getIncludedDirectories();
     }
 }

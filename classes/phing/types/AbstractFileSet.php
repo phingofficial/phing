@@ -69,7 +69,7 @@ include_once 'phing/util/DirectoryScanner.php';
  * @see        ProjectComponent
  * @package    phing.types
  */
-class AbstractFileSet extends DataType implements SelectorContainer
+abstract class AbstractFileSet extends DataType implements SelectorContainer, IteratorAggregate
 {
 
     // These vars are public for cloning purposes
@@ -749,4 +749,6 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
         return $o;
     }
+
+    abstract public function getIterator();
 }
