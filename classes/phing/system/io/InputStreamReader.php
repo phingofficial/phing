@@ -52,13 +52,13 @@ class InputStreamReader extends Reader
      */
     public function close()
     {
-        return $this->inStream->close();
+        $this->inStream->close();
     }
 
     /**
      * Skip over $n bytes.
      * @param int $n
-     * @return int|void
+     * @return int
      */
     public function skip($n)
     {

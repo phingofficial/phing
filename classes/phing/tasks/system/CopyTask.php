@@ -603,10 +603,10 @@ class CopyTask extends Task
             $this->fileUtils->copyFile(
                 $fromFile,
                 $toFile,
+                $this->getProject(),
                 $this->overwrite,
                 $this->preserveLMT,
                 $this->filterChains,
-                $this->getProject(),
                 $this->mode,
                 $this->preservePermissions
             );

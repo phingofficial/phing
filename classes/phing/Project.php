@@ -606,7 +606,7 @@ class Project
      * on failed target(s) will be executed.  If the keepGoing settor/getter
      * methods are used in conjunction with the <code>ant.executor.class</code>
      * property, they will have no effect.
-     * @param keepGoingMode &quot;keep-going&quot; mode
+     * @param bool $keepGoingMode &quot;keep-going&quot; mode
      */
     public function setKeepGoingMode($keepGoingMode)
     {
@@ -646,8 +646,6 @@ class Project
             }
             $this->setPropertyInternal('env.' . $name, $value);
         }
-
-        return true;
     }
 
     /**

@@ -37,26 +37,6 @@ class StringHelper
     private static $FALSE_VALUES = array("off", "false", "f", "no", "0");
 
     /**
-     * Replaces identifier tokens with corresponding text values in passed string.
-     *
-     * @param  array  $strings      Array of strings to multiply. (If string is passed, will convert to array)
-     * @param  array  $tokens       The tokens to search for.
-     * @param  array  $replacements The values with which to replace found tokens.
-     *
-     * @return string
-     */
-    public static function multiply($strings, $tokens, $replacements)
-    {
-        $strings = (array) $strings;
-        $results = array();
-        foreach ($strings as $string) {
-            $results[] = str_replace($tokens, $replacements, $string);
-        }
-
-        return $results;
-    }
-
-    /**
      * Remove qualification to name.
      * E.g. eg.Cat -> Cat
      *
@@ -73,25 +53,6 @@ class StringHelper
             return $qualifiedName; // there is no '.' in the qualifed name
         } else {
             return substr($qualifiedName, $pos + 1); // start just after '.'
-        }
-    }
-
-    /**
-     * Get the qualifier part of a qualified name.
-     * E.g. eg.Cat -> eg
-     *
-     * @param $qualifiedName
-     * @param string $separator
-     *
-     * @return string
-     */
-    public static function qualifier($qualifiedName, $separator = '.')
-    {
-        $pos = strrchr($qualifiedName, $separator);
-        if ($pos === false) {
-            return '';
-        } else {
-            return substr($qualifiedName, 0, $pos);
         }
     }
 

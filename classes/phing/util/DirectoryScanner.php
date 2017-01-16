@@ -150,16 +150,27 @@ class DirectoryScanner implements SelectorScanner
         "**/.bzrignore",
     );
 
-    /** The base directory which should be scanned. */
+    /**
+     * The base directory which should be scanned.
+     * @var string
+     */
     protected $basedir;
 
-    /** The patterns for the files that should be included. */
+    /**
+     * The patterns for the files that should be included.
+     * @var string[]
+     */
     protected $includes = null;
 
-    /** The patterns for the files that should be excluded. */
+    /** The patterns for the files that should be excluded.
+     * @var string[]
+     */
     protected $excludes = null;
 
-    /** Whether to expand/dereference symbolic links, default is false */
+    /**
+     * Whether to expand/dereference symbolic links, default is false
+     * @var bool
+     */
     protected $expandSymbolicLinks = false;
 
     /**
@@ -216,12 +227,9 @@ class DirectoryScanner implements SelectorScanner
      *
      * pattern=**\a and str=b will yield true.
      *
-     * @param string $pattern
-     * @param string $str
-     * @param bool $isCaseSensitive
-     * @internal param the $pattern pattern to match against
-     * @internal param the $str string (path) to match
-     * @internal param must $isCaseSensitive matches be case sensitive?
+     * @param string $pattern the pattern to match against
+     * @param string $str the string (path) to match
+     * @param bool $isCaseSensitive must matches be case sensitive?
      * @return boolean true if matches, otherwise false
      */
     public function matchPatternStart($pattern, $str, $isCaseSensitive = true)
@@ -268,7 +276,7 @@ class DirectoryScanner implements SelectorScanner
      * recursively. All '/' and '\' characters are replaced by
      * DIRECTORY_SEPARATOR
      *
-     * @param basedir the (non-null) basedir for scanning
+     * @param string $_basedir the (non-null) basedir for scanning
      */
     public function setBasedir($_basedir)
     {
@@ -305,8 +313,7 @@ class DirectoryScanner implements SelectorScanner
      *
      * When a pattern ends with a '/' or '\', "**" is appended.
      *
-     * @param array $_includes
-     * @internal param list $includes of include patterns
+     * @param array $_includes list of include patterns
      */
     public function setIncludes($_includes = array())
     {
@@ -332,10 +339,8 @@ class DirectoryScanner implements SelectorScanner
      *
      * When a pattern ends with a '/' or '\', "**" is appended.
      *
-     * @param array $_excludes
-     * @internal param list $excludes of exclude patterns
+     * @param array $_excludes list of exclude patterns
      */
-
     public function setExcludes($_excludes = array())
     {
         if (empty($_excludes) || is_null($_excludes)) {
@@ -450,7 +455,6 @@ class DirectoryScanner implements SelectorScanner
      * @return array directory entries
      * @author  Albert Lash, alash@plateauinnovation.com
      */
-
     public function listDir($_dir)
     {
         $d = dir($_dir);
@@ -471,12 +475,10 @@ class DirectoryScanner implements SelectorScanner
      * matching of includes and excludes. When a directory is found, it is
      * scanned recursively.
      *
-     * @param $_rootdir
-     * @param $_vpath
-     * @param $_fast
-     * @internal param the $dir directory to scan
-     * @internal param the $vpath path relative to the basedir (needed to prevent
-     *              problems with an absolute path when using dir)
+     * @param string $_rootdir the directory to scan
+     * @param string $_vpath the path relative to the basedir (needed to prevent
+     *                       problems with an absolute path when using dir)
+     * @param bool $_fast
      *
      * @see #filesIncluded
      * @see #filesNotIncluded
@@ -576,8 +578,7 @@ class DirectoryScanner implements SelectorScanner
     /**
      * Tests whether a name matches against at least one include pattern.
      *
-     * @param $_name
-     * @internal param the $name name to match
+     * @param string $_name the name to match
      * @return bool <code>true</code> when the name matches against at least one
      */
     protected function isIncluded($_name)

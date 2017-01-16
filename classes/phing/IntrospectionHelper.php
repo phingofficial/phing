@@ -106,6 +106,7 @@ class IntrospectionHelper
      * Factory method for helper objects.
      *
      * @param string $class The class to create a Helper for
+     * @return IntrospectionHelper
      */
     public static function getHelper($class)
     {
@@ -284,7 +285,7 @@ class IntrospectionHelper
     /**
      * Sets the named attribute.
      * @param Project $project
-     * @param string $element
+     * @param object $element
      * @param string $attributeName
      * @param mixed $value
      * @throws BuildException

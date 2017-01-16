@@ -39,11 +39,10 @@ class FileUtils
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
      * @param  boolean $dirmode     Directory creation mask to select
-     * @param  boolean $returnoctal Whether the return value is in octal representation
      *
-     * @return string  Creation Mask
+     * @return int  Creation Mask in octal representation
      */
-    public static function getDefaultFileCreationMask($dirmode = false, $returnoctal = false)
+    public static function getDefaultFileCreationMask($dirmode = false)
     {
 
         // Preparing the creation mask base permission
@@ -52,7 +51,7 @@ class FileUtils
         // Default mask information
         $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
 
-        return ($returnoctal ? octdec($defaultmask) : $defaultmask);
+        return octdec($defaultmask);
     }
 
     /**
@@ -98,10 +97,10 @@ class FileUtils
     public function copyFile(
         PhingFile $sourceFile,
         PhingFile $destFile,
+        Project $project,
         $overwrite = false,
         $preserveLastModified = true,
         &$filterChains = null,
-        Project $project,
         $mode = 0755,
         $preservePermissions = true
     ) {
@@ -153,7 +152,7 @@ class FileUtils
                 // By default, PHP::Copy also copies the file permissions. Therefore,
                 // re-setting the mode with the "user file-creation mask" information.
                 if ($preservePermissions === false) {
-                    $destFile->setMode(FileUtils::getDefaultFileCreationMask(false, true));
+                    $destFile->setMode(FileUtils::getDefaultFileCreationMask(false));
                 }
             }
 
@@ -172,7 +171,6 @@ class FileUtils
      *
      * @param PhingFile $sourceFile
      * @param PhingFile $destFile
-     * @param boolean $overwrite
      * @return boolean
      */
     public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
@@ -197,7 +195,7 @@ class FileUtils
             }
         }
 
-        return $sourceFile->renameTo($destFile);
+        $sourceFile->renameTo($destFile);
     }
 
     /**
@@ -408,7 +406,7 @@ class FileUtils
             }
         } else {
             do {
-                $result = new PhingFile($parent, $prefix . substr(md5(time()), 0, 8) . $suffix);
+                $result = new PhingFile($parent, $prefix . substr(md5((string) time()), 0, 8) . $suffix);
             } while ($result->exists());
         }
 

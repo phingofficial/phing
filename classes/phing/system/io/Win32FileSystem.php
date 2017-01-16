@@ -498,17 +498,14 @@ class Win32FileSystem extends FileSystem
             $drive = (string) $path{0};
             $dir = (string) $this->_getDriveDirectory($drive);
 
-            $np = (string) "";
             if ($dir !== null) {
                 /* When resolving a directory-relative path that refers to a
                 drive other than the current drive, insist that the caller
                 have read permission on the result */
                 $p = (string) $drive . (':' . $dir . $this->slashify(substr($path, 2)));
 
-                if (!$this->checkAccess($p, false)) {
-                    // FIXME
-                    // throw security error
-                    die("Can't resolve path $p");
+                if (!$this->checkAccess(new PhingFile($p), false)) {
+                    throw new IOException("Can't resolve path $p");
                 }
 
                 return $p;

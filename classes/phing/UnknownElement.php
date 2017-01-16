@@ -154,30 +154,6 @@ class UnknownElement extends Task
     }
 
     /**
-     * @param IntrospectionHelper $ih
-     * @param $parent
-     * @param UnknownElement $child
-     * @param RuntimeConfigurable $childWrapper
-     * @return bool
-     */
-    public function handleChild(
-        IntrospectionHelper $ih,
-        $parent,
-        UnknownElement $child,
-        RuntimeConfigurable $childWrapper
-    ) {
-        $childWrapper->setProxy($realChild);
-        if ($realChild instanceof Task) {
-            $realChild->setRuntimeConfigurableWrapper($childWrapper);
-        }
-
-        $childWrapper->maybeConfigure($this->project);
-        $child->handleChildren($realChild, $childWrapper);
-
-        return true;
-    }
-
-    /**
      * Creates a named task or data type. If the real object is a task,
      * it is configured up to the init() stage.
      *

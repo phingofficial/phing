@@ -334,7 +334,7 @@ class Target implements TaskContainer
                 if ($o instanceof Task) {
                     // child is a task
                     $o->perform();
-                } else {
+                } elseif ($o instanceof RuntimeConfigurable) {
                     // child is a RuntimeConfigurable
                     $o->maybeConfigure($this->project);
                 }

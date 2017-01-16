@@ -34,7 +34,6 @@ include_once 'phing/parser/ProjectConfigurator.php';
 include_once 'phing/parser/RootHandler.php';
 include_once 'phing/parser/ProjectHandler.php';
 include_once 'phing/parser/TargetHandler.php';
-include_once 'phing/parser/DataTypeHandler.php';
 
 include_once 'phing/system/util/Properties.php';
 include_once 'phing/util/StringHelper.php';
@@ -163,6 +162,11 @@ class Phing
 
     /** Whether or not output to the log is to be unadorned. */
     private $emacsMode = false;
+
+    /**
+     * @var string
+     */
+    private $searchForThis;
 
     /**
      * Entry point allowing for more options from other front ends.

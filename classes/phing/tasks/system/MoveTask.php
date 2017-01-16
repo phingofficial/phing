@@ -82,10 +82,10 @@ class MoveTask extends CopyTask
                         $this->fileUtils->copyFile(
                             $f,
                             $d,
+                            $this->getProject(),
                             $this->overwrite,
                             $this->preserveLMT,
                             $this->filterChains,
-                            $this->getProject(),
                             $this->mode
                         );
                         $f->delete(true);
@@ -118,10 +118,10 @@ class MoveTask extends CopyTask
                     $this->fileUtils->copyFile(
                         $f,
                         $d,
+                        $this->getProject(),
                         $this->overwrite,
                         $this->preserveLMT,
                         $this->filterChains,
-                        $this->getProject(),
                         $this->mode
                     );
 

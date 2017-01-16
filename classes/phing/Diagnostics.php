@@ -49,7 +49,7 @@ class Diagnostics
     {
         $home = Phing::getProperty(Phing::PHING_HOME);
         if ($home == null) {
-            return null;
+            return [];
         }
         $currentWorkingDir = getcwd();
         chdir($home);

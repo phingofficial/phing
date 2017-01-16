@@ -272,7 +272,7 @@ class UnixFileSystem extends FileSystem
             $strPath = (string) $f->getPath();
             $perms = (int) (@fileperms($strPath) & 0444);
 
-            return FileSystem::getFileSystem()->chmod($strPath, $perms);
+            FileSystem::getFileSystem()->chmod($strPath, $perms);
         } else {
             throw new Exception("IllegalArgumentType: Argument is not File");
         }
@@ -282,7 +282,7 @@ class UnixFileSystem extends FileSystem
      * compares file paths lexicographically
      * @param PhingFile $f1
      * @param PhingFile $f2
-     * @return int|void
+     * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -306,7 +306,8 @@ class UnixFileSystem extends FileSystem
         global $php_errormsg;
 
         if (!$src->isLink()) {
-            return parent::copy($src, $dest);
+            parent::copy($src, $dest);
+            return;
         }
 
         $srcPath = $src->getAbsolutePath();
@@ -335,11 +336,11 @@ class UnixFileSystem extends FileSystem
 
     /**
      * returns the contents of a directory in an array
-     * @param $f
+     * @param PhingFile $f
      * @throws Exception
-     * @return array
+     * @return string[]
      */
-    public function lister($f)
+    public function listContents(PhingFile $f)
     {
         $dir = @opendir($f->getAbsolutePath());
         if (!$dir) {

@@ -341,14 +341,14 @@ abstract class FileSystem
      *
      * @param  PhingFile $f
      * @param  boolean   $recursive
-     * @return void
+     * @throws IOException
      */
     public function delete(PhingFile $f, $recursive = false)
     {
         if ($f->isDirectory()) {
-            return $this->rmdir($f->getPath(), $recursive);
+            $this->rmdir($f->getPath(), $recursive);
         } else {
-            return $this->unlink($f->getPath());
+            $this->unlink($f->getPath());
         }
     }
 
@@ -469,6 +469,7 @@ abstract class FileSystem
     /**
      * List the available filesystem roots, return array of PhingFile objects
      * @throws IOException
+     * @return PhingFile[]
      */
     public function listRoots()
     {
@@ -483,6 +484,7 @@ abstract class FileSystem
      * @param PhingFile $f1
      * @param PhingFile $f2
      * @throws IOException
+     * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -878,5 +880,16 @@ abstract class FileSystem
                 return ($mtime1 < $mtime2) ? -1 : 1;
             } // end compare
         }
+    }
+
+    /**
+     * returns the contents of a directory in an array
+     * @param PhingFile $f
+     * @throws Exception
+     * @return string[]
+     */
+    public function listContents(PhingFile $f)
+    {
+        throw new IOException("listContents() not implemented by local fs driver");
     }
 }

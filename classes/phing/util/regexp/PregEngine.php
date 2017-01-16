@@ -187,7 +187,7 @@ class PregEngine implements RegexpEngine
      */
     public function match($pattern, $source, &$matches)
     {
-        return preg_match($this->preparePattern($pattern), $source, $matches);
+        return preg_match($this->preparePattern($pattern), $source, $matches) > 0;
     }
 
     /**
@@ -199,7 +199,7 @@ class PregEngine implements RegexpEngine
      */
     public function matchAll($pattern, $source, &$matches)
     {
-        return preg_match_all($this->preparePattern($pattern), $source, $matches);
+        return preg_match_all($this->preparePattern($pattern), $source, $matches) > 0;
     }
 
     /**
