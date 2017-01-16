@@ -102,7 +102,11 @@ class rSTTask extends Task
      */
     protected $destination = null;
 
+    /**
+     * @var AbstractFileSet[]
+     */
     protected $filesets = array(); // all fileset objects assigned to this task
+
     protected $mapperElement = null;
 
     /**
@@ -126,6 +130,11 @@ class rSTTask extends Task
      * @var boolean
      */
     protected $uptodate = false;
+
+    /**
+     * @var FileUtils
+     */
+    private $fileUtils;
 
     /**
      * Sets up this object internal stuff. i.e. the default mode.
@@ -215,7 +224,8 @@ class rSTTask extends Task
     protected function render($tool, $source, $targetFile)
     {
         if (count($this->filterChains) == 0) {
-            return $this->renderFile($tool, $source, $targetFile);
+            $this->renderFile($tool, $source, $targetFile);
+            return;
         }
 
         $tmpTarget = tempnam(sys_get_temp_dir(), 'rST-');
@@ -224,10 +234,10 @@ class rSTTask extends Task
         $this->fileUtils->copyFile(
             new PhingFile($tmpTarget),
             new PhingFile($targetFile),
+            $this->getProject(),
             true,
             false,
             $this->filterChains,
-            $this->getProject(),
             $this->mode
         );
         unlink($tmpTarget);
