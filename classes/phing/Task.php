@@ -21,6 +21,7 @@
 
 require_once 'phing/ProjectComponent.php';
 include_once 'phing/RuntimeConfigurable.php';
+include_once 'phing/dispatch/DispatchUtils.php';
 
 /**
  * The base class for all Tasks.
@@ -144,13 +145,19 @@ abstract class Task extends ProjectComponent
      * Provides a project level log event to the task.
      *
      * @param string $msg The message to log
-     * @param integer $level The priority of the message
+     * @param int $level The priority of the message
+     * @param Exception $t
      * @see BuildEvent
      * @see BuildListener
+     * @throws \BuildException
      */
-    public function log($msg, $level = Project::MSG_INFO)
+    public function log($msg, $level = Project::MSG_INFO, $t = null)
     {
-        $this->project->logObject($this, $msg, $level);
+        if ($this->getProject() !== null) {
+            $this->getProject()->logObject($this, $msg, $level, $t);
+        } else {
+            parent::log($msg, $level);
+        }
     }
 
     /**
@@ -223,7 +230,7 @@ abstract class Task extends ProjectComponent
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
-            $this->main();
+            DispatchUtils::main($this);
             $this->project->fireTaskFinished($this, $null = null);
         } catch (Exception $exc) {
             if ($exc instanceof BuildException) {

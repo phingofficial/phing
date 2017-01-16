@@ -1,45 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="SymlinkTaskTest" default="main">
     <property name="tmp.dir" value="tmp"/>
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
-   
-    <target name="setup">
-        <mkdir dir="${tmp.dir}"/>
+    <resolvepath propertyName="output" file="${tmp.dir}"/>
+    <property name="file" value="${output}/file"/>
+    <resolvepath propertyName="file_ref" file="${file}"/>
+    <property name="chmod.tmp" value="${output}/../phing-symlink-test"/>
+
+    <target name="setUp">
+        <mkdir dir="${output}"/>
     </target>
 
-    <target name="clean">
-        <delete dir="${tmp.dir}"/>
+    <target name="tearDown">
+        <if>
+            <available file="${chmod.tmp}" />
+            <then>
+                <chmod file="${chmod.tmp}" mode="755" quiet="true"/>
+                <delete dir="${chmod.tmp}" quiet="true"/>
+            </then>
+        </if>
+        <delete dir="${output}" quiet="true"/>
     </target>
 
-    <target name="testSymlinkExists">
-        <touch file="${tmp.dir.resolved}/fake1"/>
-        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
-        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
+    <target name="init">
+        <touch file="${file_ref}" />
     </target>
 
-    <target name="testOverwritingSymlink">
-        <touch file="${tmp.dir.resolved}/fake1"/>
-        <touch file="${tmp.dir.resolved}/fake2"/>
-        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
-        <symlink target="${tmp.dir.resolved}/fake2" link="${tmp.dir.resolved}/l" overwrite="true"/>
+    <target name="testCreateDouble" depends="init">
+        <symlink overwrite="true" link="${output}/link" resource="${file_ref}"/>
+        <symlink overwrite="true" link="${output}/link" resource="${file_ref}"/>
     </target>
 
-    <target name="testOverwritingDirectory">
-        <mkdir dir="${tmp.dir.resolved}/l"/>
-        <touch file="${tmp.dir.resolved}/fake1"/>
-        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l" overwrite="true"/>
+    <target name="testCreateDoubleHanging" depends="init">
+        <symlink overwrite="true" link="${output}/link2" resource="${hanging_ref}"/>
+        <symlink overwrite="true" link="${output}/link2" resource="${hanging_ref}"/>
     </target>
 
-    <target name="testNotOverwritingSymlink">
-        <touch file="${tmp.dir.resolved}/fake1"/>
-        <touch file="${tmp.dir.resolved}/fake2"/>
-        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
-        <symlink target="${tmp.dir.resolved}/fake2" link="${tmp.dir.resolved}/l"/>
+    <target name="testCreateOverFile" depends="init">
+        <touch file="${output}/link3" />
+        <symlink overwrite="true" link="${output}/link3" resource="${file_ref}"/>
     </target>
 
-    <target name="testOverwriteDanglingSymlink">
-        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
-        <symlink target="${tmp.dir.resolved}/fake2" link="${tmp.dir.resolved}/l" overwrite="true"/>
+    <target name="testDeleteOfBrokenLink" depends="init">
+        <symlink link="${output}/link" resource="${file_ref}"/>
+        <delete file="${file_ref}"/>
+        <symlink link="${output}/link" action="delete"/>
+    </target>
+
+    <target name="testDeleteLinkToParent" depends="init">
+        <symlink link="${output}/link" resource="${output}"/>
+        <symlink link="${output}/link" action="delete"/>
+    </target>
+
+    <target name="testDeleteWithNoPermissionToRenameTarget" depends="init">
+        <!-- must be outside of ${output} or "base" tearDown will fail -->
+        <mkdir dir="${chmod.tmp}/A"/>
+        <chmod mode="555" file="${chmod.tmp}"/>
+        <symlink link="${output}/link" resource="${chmod.tmp}/A"/>
+        <symlink link="${output}/link" action="delete"/>
+    </target>
+
+    <target name="testDeleteLinkInSameDirAsBuildFile" depends="setUp">
+        <mkdir dir="${output}/Templates"/>
+        <mkdir dir="${output}/project1"/>
+        <symlink action="single" link="${output}/project1/Templates" resource="../Templates"/>
+        <echo file="${output}/project1/build.xml"><![CDATA[
+<project name="project1" default="build" basedir=".">
+    <target name="build">
+        <symlink action="delete" link="Templates"/>
+    </target>
+</project>]]></echo>
+        <phing phingfile="${output}/project1/build.xml"/>
     </target>
 
     <target name="main"/>
