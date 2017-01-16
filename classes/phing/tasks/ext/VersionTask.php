@@ -249,11 +249,11 @@ class VersionTask extends Task
             throw new BuildException('releasetype attribute is required', $this->getLocation());
         }
         // known releasetypes
-        $releaseTypes = array(
+        $releaseTypes = [
             self::RELEASETYPE_MAJOR,
             self::RELEASETYPE_MINOR,
             self::RELEASETYPE_BUGFIX
-        );
+        ];
 
         if (!in_array($this->releasetype, $releaseTypes)) {
             throw new BuildException(sprintf(

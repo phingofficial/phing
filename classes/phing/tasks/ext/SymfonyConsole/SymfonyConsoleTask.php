@@ -37,7 +37,7 @@ class SymfonyConsoleTask extends Task
      *
      * @var Arg[] a collection of Arg objects
      */
-    private $args = array();
+    private $args = [];
 
     /**
      *
@@ -196,11 +196,11 @@ class SymfonyConsoleTask extends Task
         if (!$this->debug && !$this->isNoDebugArgPresent()) {
             $this->createArg()->setName("no-debug");
         }
-        $cmd = array(
+        $cmd = [
             Commandline::quoteArgument($this->console),
             $this->command,
             implode(' ', $this->args)
-        );
+        ];
         $cmd = implode(' ', $cmd);
 
         return $cmd;
@@ -215,7 +215,7 @@ class SymfonyConsoleTask extends Task
 
         $this->log("executing $cmd");
         $return = null;
-        $output = array();
+        $output = [];
         exec($cmd, $output, $return);
 
         $lines = implode("\r\n", $output);

@@ -49,28 +49,28 @@ class rSTTask extends Task
      * @see $format
      * @see $targetExt
      */
-    protected static $supportedFormats = array(
+    protected static $supportedFormats = [
         'html',
         'latex',
         'man',
         'odt',
         's5',
         'xml'
-    );
+    ];
 
     /**
      * Maps formats to file extensions
      *
      * @var array
      */
-    protected static $targetExt = array(
+    protected static $targetExt = [
         'html' => 'html',
         'latex' => 'tex',
         'man' => '3',
         'odt' => 'odt',
         's5' => 'html',
         'xml' => 'xml',
-    );
+    ];
 
     /**
      * Input file in rST format.
@@ -105,7 +105,7 @@ class rSTTask extends Task
     /**
      * @var AbstractFileSet[]
      */
-    protected $filesets = array(); // all fileset objects assigned to this task
+    protected $filesets = []; // all fileset objects assigned to this task
 
     protected $mapperElement = null;
 
@@ -114,7 +114,7 @@ class rSTTask extends Task
      *
      * @var array
      */
-    protected $filterChains = array();
+    protected $filterChains = [];
 
     /**
      * mode to create directories with

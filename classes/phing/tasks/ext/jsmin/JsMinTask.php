@@ -39,7 +39,7 @@ class JsMinTask extends Task
      *
      * @var  FileSet
      */
-    protected $filesets = array();
+    protected $filesets = [];
     /**
      * Whether the build should fail, if
      * errors occurred

@@ -66,14 +66,14 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Array to hold the replacee-replacer pairs (String to String).
      * @var array
      */
-    private $_tokens = array();
+    private $_tokens = [];
 
     /**
      * Array to hold the token sources that make tokens from
      * different sources available
      * @var array
      */
-    private $_tokensources = array();
+    private $_tokensources = [];
 
     /**
      * Array holding all tokens given directly to the Filter and
@@ -109,7 +109,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
          * done a bit more elegantly
          */
         if ($this->_alltokens === null) {
-            $this->_alltokens = array();
+            $this->_alltokens = [];
 
             $count = count($this->_tokensources);
             for ($i = 0; $i < $count; $i++) {
@@ -168,7 +168,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
         // filter buffer
         $buffer = preg_replace_callback(
             "/" . preg_quote($this->_beginToken, '/') . "([\w\.\-:]+?)" . preg_quote($this->_endToken, '/') . "/",
-            array($this, 'replaceTokenCallback'),
+            [$this, 'replaceTokenCallback'],
             $buffer
         );
 
@@ -355,7 +355,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                         } else {
                             if ($type === "tokensource") {
                                 // Store data from nested tags in local array
-                                $arr = array();
+                                $arr = [];
 
                                 $subparams = $params[$i]->getParams();
                                 foreach ($subparams as $subparam) {

@@ -45,7 +45,7 @@ class PHPCPDTask extends Task
      *
      * @var FileSet[]
      */
-    protected $filesets = array();
+    protected $filesets = [];
 
     /**
      * Minimum number of identical lines.
@@ -73,14 +73,14 @@ class PHPCPDTask extends Task
      *
      * @var array
      */
-    protected $allowedFileExtensions = array('php');
+    protected $allowedFileExtensions = ['php'];
 
     /**
      * List of exclude directory patterns.
      *
      * @var array
      */
-    protected $ignorePatterns = array('.git', '.svn', 'CVS', '.bzr', '.hg');
+    protected $ignorePatterns = ['.git', '.svn', 'CVS', '.bzr', '.hg'];
 
     /**
      * The format for the report
@@ -94,7 +94,7 @@ class PHPCPDTask extends Task
      *
      * @var PHPCPDFormatterElement[]
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * @var bool
@@ -163,7 +163,7 @@ class PHPCPDTask extends Task
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->allowedFileExtensions = array();
+        $this->allowedFileExtensions = [];
 
         $token = ' ,;';
         $ext = strtok($fileExtensions, $token);
@@ -181,7 +181,7 @@ class PHPCPDTask extends Task
      */
     public function setIgnorePatterns($ignorePatterns)
     {
-        $this->ignorePatterns = array();
+        $this->ignorePatterns = [];
 
         $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
@@ -297,7 +297,7 @@ class Application
 
         $this->validateFormatters();
 
-        $filesToParse = array();
+        $filesToParse = [];
 
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->getPath();

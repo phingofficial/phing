@@ -72,7 +72,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * different sources available
      * @var array
      */
-    private $_tokensources = array();
+    private $_tokensources = [];
 
     /**
      * Character marking the beginning of a token.
@@ -313,7 +313,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         // filter buffer
         $buffer = preg_replace_callback(
             "$" . preg_quote($this->_beginToken) . "([\w\.\-:\/]+?)" . preg_quote($this->_endToken) . "$",
-            array($this, 'replaceTokenCallback'),
+            [$this, 'replaceTokenCallback'],
             $buffer
         );
 

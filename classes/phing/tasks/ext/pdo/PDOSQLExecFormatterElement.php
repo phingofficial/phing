@@ -100,7 +100,7 @@ class PDOSQLExecFormatterElement
      * Parameters for a custom formatter.
      * @var array Parameter[]
      */
-    private $formatterParams = array();
+    private $formatterParams = [];
 
     /**
      * @var PDOSQLExecTask
@@ -179,7 +179,7 @@ class PDOSQLExecFormatterElement
                         $this->formatter
                     ) . " does not have a $method method.", $this->getLocation());
             }
-            call_user_func(array($this->formatter, $method), $param->getValue());
+            call_user_func([$this->formatter, $method], $param->getValue());
         }
     }
 

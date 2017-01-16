@@ -58,7 +58,7 @@ class ImportTask extends Task
     /**
      * @var array
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @var bool

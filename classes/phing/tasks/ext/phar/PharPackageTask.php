@@ -87,7 +87,7 @@ class PharPackageTask
     /**
      * @var array
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @var PharMetadata

@@ -12,8 +12,8 @@ class provider_failTest extends PHPUnit_Framework_TestCase {
  }
 
  public function provider() {
-  return array(
-   array(true,true)
-  );
+  return [
+   [true,true]
+  ];
  }
 }

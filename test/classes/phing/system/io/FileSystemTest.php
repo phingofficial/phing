@@ -78,10 +78,10 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
     public function fileSystemMappingsDataProvider()
     {
-        return array(
-            array('UnixFileSystem', 'UNIX'),
-            array('Win32FileSystem', 'WIN32'),
-            array('WinNTFileSystem', 'WINNT')
-        );
+        return [
+            ['UnixFileSystem', 'UNIX'],
+            ['Win32FileSystem', 'WIN32'],
+            ['WinNTFileSystem', 'WINNT']
+        ];
     }
 }

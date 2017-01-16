@@ -75,7 +75,7 @@ class YamlFileParser implements FileParserInterface
      */
     private function flattenArray(array $arrayToFlatten, $separator = '.', $flattenedKey = '')
     {
-        $flattenedArray = array();
+        $flattenedArray = [];
         foreach ($arrayToFlatten as $key => $value) {
             $tmpFlattendKey = (!empty($flattenedKey) ? $flattenedKey.$separator : '') . $key;
             // only append next value if is array and is an associative array

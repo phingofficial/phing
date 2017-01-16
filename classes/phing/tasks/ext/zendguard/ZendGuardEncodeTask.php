@@ -35,7 +35,7 @@ include_once 'phing/util/StringHelper.php';
  */
 class ZendGuardEncodeTask extends MatchingTask
 {
-    protected $filesets = array();
+    protected $filesets = [];
     protected $encodeCommand;
 
     /**

@@ -39,7 +39,7 @@ abstract class ExtractBaseTask extends MatchingTask
      */
     protected $todir;
     protected $removepath;
-    protected $filesets = array(); // all fileset objects assigned to this task
+    protected $filesets = []; // all fileset objects assigned to this task
 
     /**
      * Set to true to always extract (and possibly overwrite)
@@ -106,7 +106,7 @@ abstract class ExtractBaseTask extends MatchingTask
 
         $this->validateAttributes();
 
-        $filesToExtract = array();
+        $filesToExtract = [];
         if ($this->file !== null) {
             if ($this->forceExtract || !$this->isDestinationUpToDate($this->file)) {
                 $filesToExtract[] = $this->file;

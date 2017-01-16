@@ -51,7 +51,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * XSLT Params.
      * @var array
      */
-    private $xsltParams = array();
+    private $xsltParams = [];
 
     /**
      * Whether to use loadHTML() to parse the input XML file.

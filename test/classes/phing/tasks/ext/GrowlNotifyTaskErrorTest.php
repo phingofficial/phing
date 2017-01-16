@@ -77,9 +77,9 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
 
         $gntpMock = Net_Growl::singleton(
             $name,
-            array(),
+            [],
             '',
-            array('protocol' => 'gntpMock')
+            ['protocol' => 'gntpMock']
         );
 
         /*

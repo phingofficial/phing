@@ -49,7 +49,7 @@ class ApiGenTask extends Task
      *
      * @var string
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * Sets the ApiGen executable name.
@@ -418,7 +418,7 @@ class ApiGenTask extends Task
      */
     protected function constructArguments()
     {
-        $args = array();
+        $args = [];
         foreach ($this->options as $option => $value) {
             if (is_bool($value)) {
                 $args[] = '--' . $option . '=' . ($value ? 'yes' : 'no');

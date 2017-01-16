@@ -46,8 +46,8 @@ class ApplyTask extends Task
      * File Set/List of files.
      * @var array
      */
-    protected $filesets = array();
-    protected $filelists = array();
+    protected $filesets = [];
+    protected $filelists = [];
 
     /**
      * Commandline managing object
@@ -454,7 +454,7 @@ class ApplyTask extends Task
      */
     public function createSrcfile()
     {
-        return $this->commandline->addArguments(array(self::SOURCEFILE_ID));
+        return $this->commandline->addArguments([self::SOURCEFILE_ID]);
     }
 
     /**
@@ -743,7 +743,7 @@ class ApplyTask extends Task
             }
 
             // Preparing the command to be executed
-            $filecommand = str_replace(array(self::SOURCEFILE_ID), array($absolutefilename), $this->realCommand);
+            $filecommand = str_replace([self::SOURCEFILE_ID], [$absolutefilename], $this->realCommand);
 
             // Command execution
             list($returncode, $output) = $this->executeCommand($filecommand);
@@ -794,7 +794,7 @@ class ApplyTask extends Task
     {
 
         // Var(s)
-        $output = array();
+        $output = [];
         $return = null;
 
         // Validating the command executor container
@@ -806,7 +806,7 @@ class ApplyTask extends Task
             $this->loglevel
         );
 
-        return array($return, $output);
+        return [$return, $output];
     }
 
     /**
@@ -839,10 +839,10 @@ class ApplyTask extends Task
     {
 
         // Var(s)
-        $files = array();
+        $files = [];
 
         // Validating the 'file' information
-        $files = (is_array($filename)) ? $filename : array($filename);
+        $files = (is_array($filename)) ? $filename : [$filename];
 
         // Processing the file information
         foreach ($files as $index => $file) {

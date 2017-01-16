@@ -31,10 +31,10 @@
 class StringHelper
 {
     /** @var array */
-    private static $TRUE_VALUES = array("on", "true", "t", "yes", "1");
+    private static $TRUE_VALUES = ["on", "true", "t", "yes", "1"];
 
     /** @var array */
-    private static $FALSE_VALUES = array("off", "false", "f", "no", "0");
+    private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
 
     /**
      * Remove qualification to name.
@@ -67,7 +67,7 @@ class StringHelper
         if ($prefix == null) {
             return $columns;
         }
-        $qualified = array();
+        $qualified = [];
         foreach ($columns as $key => $column) {
             $qualified[$key] = $prefix . $column;
         }

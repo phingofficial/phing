@@ -49,11 +49,11 @@ class PhkPackageTask extends Task
     /**
      * @var array
      */
-    private $modifiers = array();
+    private $modifiers = [];
     /**
      * @var array
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * @return PhkPackageWebAccess

@@ -65,7 +65,7 @@ class PhingXMLContext
     /** The project to configure. */
     private $project;
 
-    private $configurators = array();
+    private $configurators = [];
 
     /**
      * @param $cfg
@@ -94,7 +94,7 @@ class PhingXMLContext
     }
 
     /** Impoerted files */
-    private $importStack = array();
+    private $importStack = [];
 
     /**
      * @param $file

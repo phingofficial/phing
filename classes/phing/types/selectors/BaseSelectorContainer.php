@@ -32,7 +32,7 @@ require_once 'phing/types/selectors/BaseSelector.php';
 abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer
 {
 
-    private $selectorsList = array();
+    private $selectorsList = [];
 
     /**
      * Indicates whether there are any selectors here.
@@ -57,7 +57,7 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      */
     public function getSelectors(Project $p)
     {
-        $result = array();
+        $result = [];
         for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
             $result[] = clone $this->selectorsList[$i];
         }

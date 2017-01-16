@@ -40,7 +40,7 @@ abstract class ConditionBase extends ProjectComponent
     implements IteratorAggregate, CustomChildCreator
 {
 
-    public $conditions = array(); // needs to be public for "inner" class access
+    public $conditions = []; // needs to be public for "inner" class access
 
     /** @var string $taskName */
     private $taskName = 'condition';

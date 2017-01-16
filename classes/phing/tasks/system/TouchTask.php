@@ -40,7 +40,7 @@ class TouchTask extends Task
     private $file;
     private $millis = -1;
     private $dateTime;
-    private $filesets = array();
+    private $filesets = [];
     private $fileUtils;
     private $mkdirs = false;
     private $verbose = true;

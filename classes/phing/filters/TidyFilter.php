@@ -45,7 +45,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     private $encoding = 'utf8';
 
     /** @var array Parameter[] */
-    private $configParameters = array();
+    private $configParameters = [];
 
     /**
      * Set the encoding for resulting (X)HTML document.
@@ -83,7 +83,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      */
     private function getDistilledConfig()
     {
-        $config = array();
+        $config = [];
         foreach ($this->configParameters as $p) {
             $config[$p->getName()] = $p->getValue();
         }

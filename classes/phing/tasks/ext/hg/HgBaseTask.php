@@ -170,12 +170,12 @@ abstract class HgBaseTask extends Task
         @include_once 'vendor/autoload.php';
     }
 
-    public function getFactoryInstance($command, $options = array())
+    public function getFactoryInstance($command, $options = [])
     {
         $vchq = '\\Siad007\\VersionControl\\HG\\Factory';
         self::$factory = call_user_func_array(
-            array($vchq, 'getInstance'),
-            array($command, $options)
+            [$vchq, 'getInstance'],
+            [$command, $options]
         );
         return self::$factory;
     }

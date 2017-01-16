@@ -38,7 +38,7 @@ class ChownTask extends Task
     private $group;
 
     /** @var AbstractFileSet[] */
-    private $filesets = array();
+    private $filesets = [];
 
     private $quiet = false;
     private $failonerror = true;

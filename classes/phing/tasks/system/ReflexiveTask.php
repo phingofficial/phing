@@ -55,14 +55,14 @@ class ReflexiveTask extends Task
      *
      * @var FileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * Any filters to be applied before append happens.
      *
      * @var FilterChain[]
      */
-    private $filterChains = array();
+    private $filterChains = [];
 
     /** Alias for setFrom()
      * @param PhingFile $f
@@ -106,7 +106,7 @@ class ReflexiveTask extends Task
         // compile a list of all files to modify, both file attrib and fileset elements
         // can be used.
 
-        $files = array();
+        $files = [];
 
         if ($this->file !== null) {
             $files[] = $this->file;

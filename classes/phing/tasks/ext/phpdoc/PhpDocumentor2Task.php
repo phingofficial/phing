@@ -36,7 +36,7 @@ class PhpDocumentor2Task extends Task
      * List of filesets
      * @var FileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * Destination/target directory
@@ -194,7 +194,7 @@ class PhpDocumentor2Task extends Task
         $projectDescriptor = $builder->getProjectDescriptor();
         $projectDescriptor->setName($this->title);
 
-        $paths = array();
+        $paths = [];
 
         // filesets
         foreach ($this->filesets as $fs) {
@@ -259,7 +259,7 @@ class PhpDocumentor2Task extends Task
     private function findPhpDocumentorPath()
     {
         $phpDocumentorPath = null;
-        $directories = array('phpDocumentor', 'phpdocumentor');
+        $directories = ['phpDocumentor', 'phpdocumentor'];
         foreach ($directories as $directory) {
             foreach (Phing::explodeIncludePath() as $path) {
                 $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . 'src';

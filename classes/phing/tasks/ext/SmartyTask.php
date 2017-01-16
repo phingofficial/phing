@@ -53,7 +53,7 @@ class SmartyTask extends Task
      * Variables that are assigned to the context on parse/compile.
      * @var array
      */
-    protected $properties = array();
+    protected $properties = [];
 
     /**
      * This is the control template that governs the output.

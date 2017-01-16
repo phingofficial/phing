@@ -37,14 +37,14 @@ class SortList extends AbstractPropertySetterTask
     private $delimiter = ",";
 
     /** @var array $flags */
-    private static $allowedFlags = array(
+    private static $allowedFlags = [
         'SORT_REGULAR',
         'SORT_NUMERIC',
         'SORT_STRING',
         'SORT_LOCALE_STRING',
         'SORT_NATURAL',
         'SORT_FLAG_CASE'
-    );
+    ];
 
     /** @var string $flags */
     private $flags = "";

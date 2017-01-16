@@ -286,7 +286,7 @@ class ExecTask extends Task
     {
         $this->log("Executing command: " . $this->realCommand, $this->logLevel);
 
-        $output = array();
+        $output = [];
         $return = null;
 
         if ($this->passthru) {
@@ -295,7 +295,7 @@ class ExecTask extends Task
             exec($this->realCommand, $output, $return);
         }
 
-        return array($return, $output);
+        return [$return, $output];
     }
 
     /**

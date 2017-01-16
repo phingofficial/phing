@@ -78,9 +78,9 @@ class HttpGetTask extends HttpTask
             throw new BuildException("Required attribute 'dir' is missing");
         }
 
-        $config = array(
+        $config = [
             'ssl_verify_peer' => $this->sslVerifyPeer
-        );
+        ];
         if (isset($this->proxy)) {
             $config['proxy'] = $this->proxy;
         }

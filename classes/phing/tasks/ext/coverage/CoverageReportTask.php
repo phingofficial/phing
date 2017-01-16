@@ -38,7 +38,7 @@ class CoverageReportTask extends Task
 {
     private $outfile = "coverage.xml";
 
-    private $transformers = array();
+    private $transformers = [];
 
     /** the classpath to use (optional) */
     private $classpath = null;
@@ -273,7 +273,7 @@ class CoverageReportTask extends Task
 
             $lines = array_filter($lines);
 
-            $lines = array_map(array($this, 'stripDiv'), $lines);
+            $lines = array_map([$this, 'stripDiv'], $lines);
 
             return $lines;
         } else {

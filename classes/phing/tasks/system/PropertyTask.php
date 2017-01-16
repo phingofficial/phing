@@ -58,7 +58,7 @@ class PropertyTask extends Task
     /**
      * All filterchain objects assigned to this task
      */
-    protected $filterChains = array();
+    protected $filterChains = [];
 
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
@@ -464,12 +464,12 @@ class PropertyTask extends Task
 
             $value = $props->getProperty($name);
             $resolved = false;
-            $resolveStack = array();
+            $resolveStack = [];
 
             while (!$resolved) {
 
-                $fragments = array();
-                $propertyRefs = array();
+                $fragments = [];
+                $propertyRefs = [];
 
                 // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
                 self::parsePropertyString($value, $fragments, $propertyRefs);

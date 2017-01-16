@@ -39,7 +39,7 @@ class UnknownElement extends Task
 
     private $elementName;
     private $realThing;
-    private $children = array();
+    private $children = [];
 
     /**
      * Constructs a UnknownElement object

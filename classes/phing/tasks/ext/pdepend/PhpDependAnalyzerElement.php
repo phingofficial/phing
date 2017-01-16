@@ -43,7 +43,7 @@ class PhpDependAnalyzerElement
      *
      * @var array
      */
-    protected $value = array();
+    protected $value = [];
 
     /**
      * Sets the analyzer type
@@ -82,7 +82,7 @@ class PhpDependAnalyzerElement
      */
     public function setValue($value)
     {
-        $this->value = array();
+        $this->value = [];
 
         $token = ' ,;';
         $values = strtok($value, $token);

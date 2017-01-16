@@ -84,28 +84,28 @@ class SvnListTask extends SvnBaseTask
         $this->setup('list');
 
         if ($this->oldVersion) {
-            $this->svn->setOptions(array('fetchmode' => VERSIONCONTROL_SVN_FETCHMODE_XML));
-            $output = $this->run(array('--xml'));
+            $this->svn->setOptions(['fetchmode' => VERSIONCONTROL_SVN_FETCHMODE_XML]);
+            $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn list --xml'.");
             }
 
             $objects = $xmlObj->list->entry;
-            $entries = array();
+            $entries = [];
 
             foreach ($objects as $object) {
-                $entries[] = array(
-                    'commit' => array(
+                $entries[] = [
+                    'commit' => [
                         'revision' => (string) $object->commit['revision'],
                         'author' => (string) $object->commit->author,
                         'date' => (string) $object->commit->date
-                    ),
+                    ],
                     'name' => (string) $object->name
-                );
+                ];
             }
         } else {
-            $output = $this->run(array());
+            $output = $this->run([]);
             $entries = $output['list'][0]['entry'];
         }
 

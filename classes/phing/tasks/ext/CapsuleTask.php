@@ -43,7 +43,7 @@ class CapsuleTask extends Task
      * Any vars assigned via the build file.
      * @var array AssignedVar[]
      */
-    protected $assignedVars = array();
+    protected $assignedVars = [];
 
     /**
      * This is the control template that governs the output.

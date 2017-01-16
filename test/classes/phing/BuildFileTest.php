@@ -43,7 +43,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * @var array Array of log BuildEvent objects.
      */
-    public $logBuffer = array();
+    public $logBuffer = [];
 
     private $outBuffer;
     private $errBuffer;
@@ -206,7 +206,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function configureProject($filename)
     {
-        $this->logBuffer = array();
+        $this->logBuffer = [];
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
@@ -230,7 +230,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
         $this->outBuffer = "";
         $this->errBuffer = "";
-        $this->logBuffer = array();
+        $this->logBuffer = [];
         $this->fullLogBuffer = "";
         $this->buildException = null;
         $this->project->executeTarget($targetName);

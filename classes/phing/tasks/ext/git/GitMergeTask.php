@@ -87,14 +87,14 @@ class GitMergeTask extends GitBaseTask
      * Valid merge strategies
      * @var array
      */
-    private $validStrategies = array(
+    private $validStrategies = [
         'octopus',
         'ours',
         'theirs',
         'recursive',
         'resolve',
         'subtree'
-    );
+    ];
 
     /**
      * The main entry point for the task

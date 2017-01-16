@@ -287,7 +287,7 @@ class Mapper extends DataType
     private function getRef()
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->project);
         }

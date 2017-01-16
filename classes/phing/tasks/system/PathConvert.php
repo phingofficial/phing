@@ -65,7 +65,7 @@ class PathConvert extends Task
      * Path prefix map
      * @var MapEntry[]
      */
-    private $prefixMap = array();
+    private $prefixMap = [];
     /**
      * User override on path sep char
      */

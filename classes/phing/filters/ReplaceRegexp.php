@@ -45,7 +45,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
     /**
      * @var array RegularExpression[]
      */
-    private $regexps = array();
+    private $regexps = [];
 
     /**
      * Creator method handles nested <regexp> tags.

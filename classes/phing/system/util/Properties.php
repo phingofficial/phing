@@ -37,7 +37,7 @@ include_once 'phing/system/io/IniFileParser.php';
 class Properties
 {
 
-    private $properties = array();
+    private $properties = [];
 
     /**
      * @var FileParserInterface

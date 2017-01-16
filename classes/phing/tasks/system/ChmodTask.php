@@ -37,7 +37,7 @@ class ChmodTask extends Task
     private $mode;
 
     /** @var AbstractFileSet[] */
-    private $filesets = array();
+    private $filesets = [];
 
     private $quiet = false;
     private $failonerror = true;

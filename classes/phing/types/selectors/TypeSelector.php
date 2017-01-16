@@ -39,7 +39,7 @@ class TypeSelector extends BaseExtendSelector
     const TYPE_KEY = "type";
 
     /** Valid types */
-    private static $types = array('file', 'dir', 'link');
+    private static $types = ['file', 'dir', 'link'];
 
     /**
      * @return string A string describing this object

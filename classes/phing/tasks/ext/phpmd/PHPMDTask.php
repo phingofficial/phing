@@ -45,7 +45,7 @@ class PHPMDTask extends Task
      *
      * @var FileSet[]
      */
-    protected $filesets = array();
+    protected $filesets = [];
 
     /**
      * The rule-set filenames or identifier.
@@ -66,14 +66,14 @@ class PHPMDTask extends Task
      *
      * @var array
      */
-    protected $allowedFileExtensions = array('php');
+    protected $allowedFileExtensions = ['php'];
 
     /**
      * List of exclude directory patterns.
      *
      * @var array
      */
-    protected $ignorePatterns = array('.git', '.svn', 'CVS', '.bzr', '.hg');
+    protected $ignorePatterns = ['.git', '.svn', 'CVS', '.bzr', '.hg'];
 
     /**
      * The format for the report
@@ -87,7 +87,7 @@ class PHPMDTask extends Task
      *
      * @var PHPMDFormatterElement[]
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * @var bool
@@ -154,7 +154,7 @@ class PHPMDTask extends Task
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->allowedFileExtensions = array();
+        $this->allowedFileExtensions = [];
 
         $token = ' ,;';
         $ext = strtok($fileExtensions, $token);
@@ -172,7 +172,7 @@ class PHPMDTask extends Task
      */
     public function setIgnorePatterns($ignorePatterns)
     {
-        $this->ignorePatterns = array();
+        $this->ignorePatterns = [];
 
         $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
@@ -270,7 +270,7 @@ class PHPMDTask extends Task
      */
     protected function getFilesToParse()
     {
-        $filesToParse = array();
+        $filesToParse = [];
 
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->getPath();
@@ -318,7 +318,7 @@ class PHPMDTask extends Task
             $this->formatters[] = $fmt;
         }
 
-        $reportRenderers = array();
+        $reportRenderers = [];
 
         foreach ($this->formatters as $fe) {
             if ($fe->getType() == '') {

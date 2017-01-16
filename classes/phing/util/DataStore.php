@@ -32,7 +32,7 @@ require_once 'phing/system/io/FileWriter.php';
  */
 class DataStore
 {
-    private $data = array();
+    private $data = [];
     private $file = null;
 
     /**

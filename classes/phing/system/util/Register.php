@@ -42,7 +42,7 @@ class Register
 {
 
     /** Slots that have been registered */
-    private static $slots = array();
+    private static $slots = [];
 
     /**
      * Returns RegisterSlot for specified key.
@@ -128,7 +128,7 @@ class RegisterSlot
      */
     private function implodeArray(array $arr)
     {
-        $values = array();
+        $values = [];
 
         foreach ($arr as $value) {
             if (is_array($value)) {

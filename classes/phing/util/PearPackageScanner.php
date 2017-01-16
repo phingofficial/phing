@@ -217,21 +217,21 @@ class PearPackageScanner extends DirectoryScanner
 
         if ($this->includes === null) {
             // No includes supplied, so set it to 'matches all'
-            $this->includes = array("**");
+            $this->includes = ["**"];
         }
         if ($this->excludes === null) {
-            $this->excludes = array();
+            $this->excludes = [];
         }
 
-        $this->filesIncluded = array();
-        $this->filesNotIncluded = array();
-        $this->filesExcluded = array();
-        $this->filesDeselected = array();
+        $this->filesIncluded = [];
+        $this->filesNotIncluded = [];
+        $this->filesExcluded = [];
+        $this->filesDeselected = [];
 
-        $this->dirsIncluded = array();
-        $this->dirsNotIncluded = array();
-        $this->dirsExcluded = array();
-        $this->dirsDeselected = array();
+        $this->dirsIncluded = [];
+        $this->dirsNotIncluded = [];
+        $this->dirsExcluded = [];
+        $this->dirsDeselected = [];
         $origFirstFile = null;
 
         foreach ($list as $file => $att) {

@@ -44,8 +44,8 @@ class UpToDateTask extends Task implements Condition
     private $_value;
     private $_sourceFile;
     private $_targetFile;
-    private $sourceFileSets = array();
-    private $_filelists = array();
+    private $sourceFileSets = [];
+    private $_filelists = [];
 
     protected $mapperElement = null;
 

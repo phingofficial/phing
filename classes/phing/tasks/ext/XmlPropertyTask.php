@@ -224,7 +224,7 @@ class XmlPropertyTask extends PropertyTask
             throw new IOException("Unable to parse XML file $filePath");
         }
 
-        $path = array();
+        $path = [];
 
         if ($this->_keepRoot) {
             $path[] = dom_import_simplexml($xml)->tagName;
@@ -280,7 +280,7 @@ class XmlPropertyTask extends PropertyTask
 
             // Add tag
             if (count($value->children())) {
-                $this->_addNode($value, array_merge($path, array($tag)), $prop);
+                $this->_addNode($value, array_merge($path, [$tag]), $prop);
             } else {
                 $val = (string) $value;
 

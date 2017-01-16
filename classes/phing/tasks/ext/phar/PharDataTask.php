@@ -50,7 +50,7 @@ class PharDataTask extends MatchingTask
     /**
      * @var IterableFileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @return FileSet

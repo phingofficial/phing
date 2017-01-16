@@ -41,7 +41,7 @@ class XsltTask extends CopyTask
     private $xsltFilter;
 
     /** Parameters to pass to XSLT procesor. */
-    private $parameters = array();
+    private $parameters = [];
 
     /**
      * Setup the filterchains w/ XSLTFilter that we will use while copying the files.

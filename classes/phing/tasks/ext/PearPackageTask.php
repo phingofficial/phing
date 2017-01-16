@@ -89,24 +89,24 @@ class PearPackageTask extends MatchingTask
     private $packageFile;
 
     /** @var array FileSet[] */
-    private $filesets = array();
+    private $filesets = [];
 
     /** @var PEAR_PackageFileManager */
     protected $pkg;
 
-    private $preparedOptions = array();
+    private $preparedOptions = [];
 
     /** @var array PearPkgOption[] */
-    protected $options = array();
+    protected $options = [];
 
     /** Nested <mapping> (complex options) types. */
-    protected $mappings = array();
+    protected $mappings = [];
 
     /**
      * Nested <role> elements
      * @var PearPkgRole[]
      */
-    protected $roles = array();
+    protected $roles = [];
 
     public function init()
     {
@@ -404,7 +404,7 @@ class PearPkgMapping
 {
 
     private $name;
-    private $elements = array();
+    private $elements = [];
 
     /**
      * @param $v
@@ -444,7 +444,7 @@ class PearPkgMapping
      */
     public function getValue()
     {
-        $value = array();
+        $value = [];
         foreach ($this->getElements() as $el) {
             if ($el->getKey() !== null) {
                 $value[$el->getKey()] = $el->getValue();
@@ -467,7 +467,7 @@ class PearPkgMappingElement
 
     private $key;
     private $value;
-    private $elements = array();
+    private $elements = [];
 
     /**
      * @param $v
@@ -498,7 +498,7 @@ class PearPkgMappingElement
     public function getValue()
     {
         if (!empty($this->elements)) {
-            $value = array();
+            $value = [];
             foreach ($this->elements as $el) {
                 if ($el->getKey() !== null) {
                     $value[$el->getKey()] = $el->getValue();

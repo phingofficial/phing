@@ -180,7 +180,7 @@ class ProjectConfigurator
                 $newCurrent = new Target();
                 $newCurrent->setProject($this->project);
                 $newCurrent->setName('');
-                $ctx->setCurrentTargets(array());
+                $ctx->setCurrentTargets([]);
                 $ctx->setImplicitTarget($newCurrent);
 
                 // this is an imported file
@@ -192,7 +192,7 @@ class ProjectConfigurator
                 $ctx->setImplicitTarget($currentImplicit);
                 $ctx->setCurrentTargets($currentTargets);
             } else {
-                $ctx->setCurrentTargets(array());
+                $ctx->setCurrentTargets([]);
                 $this->_parse($ctx);
                 $ctx->getImplicitTarget()->main();
             }
@@ -365,7 +365,7 @@ class ProjectConfigurator
         while (strpos($sb, '${') !== false) {
             $sb = preg_replace_callback(
                 '/\$\{([^\$}]+)\}/',
-                array('ProjectConfigurator', 'replacePropertyCallback'),
+                ['ProjectConfigurator', 'replacePropertyCallback'],
                 $sb
             );
 

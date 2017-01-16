@@ -40,7 +40,7 @@ class BuildPhingPEARPackageTask extends MatchingTask
 
     private $mode = 'source';
 
-    private $filesets = array();
+    private $filesets = [];
 
     /** Package file */
     private $packageFile;
@@ -80,24 +80,29 @@ class BuildPhingPEARPackageTask extends MatchingTask
         }
 
         if ($this->mode == "docs") {
-            $options['dir_roles'] = array(  'phing_guide' => 'doc',
+            $options['dir_roles'] = [
+                'phing_guide' => 'doc',
                                             'api' => 'doc',
-                                            'example' => 'doc');
+                                            'example' => 'doc'
+            ];
         } else {
             // add install exceptions
-            $options['installexceptions'] = array(  'bin/phing.php' => '/',
+            $options['installexceptions'] = [
+                'bin/phing.php' => '/',
                                                     'bin/pear-phing' => '/',
                                                     'bin/pear-phing.bat' => '/',
-                                                    );
+            ];
 
-            $options['dir_roles'] = array(  'etc' => 'data');
+            $options['dir_roles'] = ['etc' => 'data'];
 
-            $options['exceptions'] = array( 'bin/pear-phing.bat' => 'script',
+            $options['exceptions'] = [
+                'bin/pear-phing.bat' => 'script',
                                             'bin/pear-phing' => 'script',
                                             'CREDITS.md' => 'doc',
                                             'CHANGELOG.md' => 'doc',
                                             'LICENSE' => 'doc',
-                                            'README.md' => 'doc');
+                                            'README.md' => 'doc'
+            ];
         }
 
         $pkg->setOptions($options);

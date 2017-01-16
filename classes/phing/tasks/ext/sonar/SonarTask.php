@@ -64,14 +64,14 @@ class SonarTask extends Task
      * @var array Nested *Property* elements.
      * @see Property
      */
-    private $propertyElements = array();
+    private $propertyElements = [];
 
     /**
      * The command-line options passed to the SonarQube Scanner executable.
      *
      * @var array
      */
-    private $commandLineOptions = array();
+    private $commandLineOptions = [];
 
     /**
      * Map containing SonarQube's "analysis parameters".
@@ -81,7 +81,7 @@ class SonarTask extends Task
      *
      * @var array
      */
-    private $properties = array();
+    private $properties = [];
 
     /**
      * Sets the path of the SonarQube Scanner executable.
@@ -385,12 +385,12 @@ class SonarTask extends Task
         }
 
         // Check if all properties required by SonarQube Scanner are set ...
-        $requiredProperties = array(
+        $requiredProperties = [
             'sonar.projectKey',
             'sonar.projectName',
             'sonar.projectVersion',
             'sonar.sources'
-        );
+        ];
         $intersection = array_intersect($requiredProperties, array_keys($this->properties));
         if (count($intersection) < count($requiredProperties)) {
             $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(', ', $requiredProperties) . '.';
@@ -404,7 +404,7 @@ class SonarTask extends Task
      */
     private function parseConfigurationFile() {
         if (($this->configuration === null) || ($this->configuration === '')) {
-            return array();
+            return [];
         }
 
         $parser = new SonarConfigurationFileParser($this->configuration, $this->project);

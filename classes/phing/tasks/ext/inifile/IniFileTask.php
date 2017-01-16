@@ -52,13 +52,13 @@ class InifileTask extends Task
      *
      * @var array
      */
-    protected $sets = array();
+    protected $sets = [];
     /**
      * Removals
      *
      * @var array
      */
-    protected $removals = array();
+    protected $removals = [];
 
     /**
      * IniFileConfig instance

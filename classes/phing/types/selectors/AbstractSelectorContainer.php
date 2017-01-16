@@ -29,7 +29,7 @@ require_once 'phing/types/DataType.php';
 abstract class AbstractSelectorContainer extends DataType implements SelectorContainer
 {
 
-    private $selectorsList = array();
+    private $selectorsList = [];
 
     /**
      * Performs the check for circular references and returns the
@@ -44,7 +44,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     public function getRef(Project $p)
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             array_push($stk, $this);
             $this->dieOnCircularReference($stk, $p);
         }
@@ -148,7 +148,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
             return $this->getRef($p)->getSelectors($p);
         } else {
             // *copy* selectors
-            $result = array();
+            $result = [];
             for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
                 $result[] = clone $this->selectorsList[$i];
             }

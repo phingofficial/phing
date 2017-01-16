@@ -331,7 +331,7 @@ class UnixFileSystem extends FileSystem
             die ("Can not access root");
         }
 
-        return array(new PhingFile("/"));
+        return [new PhingFile("/")];
     }
 
     /**
@@ -346,7 +346,7 @@ class UnixFileSystem extends FileSystem
         if (!$dir) {
             throw new Exception("Can't open directory " . $f->__toString());
         }
-        $vv = array();
+        $vv = [];
         while (($file = @readdir($dir)) !== false) {
             if ($file == "." || $file == "..") {
                 continue;

@@ -333,7 +333,7 @@ class FileUtils
             }
         }
 
-        $s = array();
+        $s = [];
         array_push($s, $root);
         $tok = strtok($path, DIRECTORY_SEPARATOR);
         while ($tok !== false) {

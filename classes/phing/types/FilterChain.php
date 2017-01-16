@@ -55,7 +55,7 @@ include_once 'phing/filters/XsltFilter.php';
 class FilterChain extends DataType
 {
 
-    private $filterReaders = array();
+    private $filterReaders = [];
 
     /**
      * @param null $project

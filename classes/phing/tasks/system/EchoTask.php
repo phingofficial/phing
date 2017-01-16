@@ -41,7 +41,7 @@ class EchoTask extends Task
     protected $level = "info";
 
     /** @var AbstractFileSet[] */
-    protected $filesets = array();
+    protected $filesets = [];
 
     public function main()
     {

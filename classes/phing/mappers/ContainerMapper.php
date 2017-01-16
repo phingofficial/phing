@@ -26,7 +26,7 @@ include_once 'phing/mappers/FileNameMapper.php';
  */
 abstract class ContainerMapper implements FileNameMapper
 {
-    private $mappers = array();
+    private $mappers = [];
 
     /**
      * Add a <code>Mapper</code>.

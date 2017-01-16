@@ -33,10 +33,10 @@ include_once 'phing/types/DataType.php';
 class PatternSet extends DataType
 {
 
-    private $includeList = array();
-    private $excludeList = array();
-    private $includesFileList = array();
-    private $excludesFileList = array();
+    private $includeList = [];
+    private $excludeList = [];
+    private $includesFileList = [];
+    private $excludesFileList = [];
 
     /**
      * Makes this instance in effect a reference to another PatternSet
@@ -348,7 +348,7 @@ class PatternSet extends DataType
     public function getRef(Project $p)
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             array_push($stk, $this);
             $this->dieOnCircularReference($stk, $p);
         }
@@ -376,7 +376,7 @@ class PatternSet extends DataType
             return null;
         }
 
-        $tmpNames = array();
+        $tmpNames = [];
         foreach ($list as $ne) {
             $pattern = (string) $ne->evalName($p);
             if ($pattern !== null && strlen($pattern) > 0) {
@@ -407,7 +407,7 @@ class PatternSet extends DataType
                     $this->readPatterns($inclFile, $this->includeList, $p);
                 }
             }
-            $this->includesFileList = array();
+            $this->includesFileList = [];
         }
 
         if (!empty($this->excludesFileList)) {
@@ -421,7 +421,7 @@ class PatternSet extends DataType
                     $this->readPatterns($exclFile, $this->excludeList, $p);
                 }
             }
-            $this->excludesFileList = array();
+            $this->excludesFileList = [];
         }
     }
 

@@ -68,12 +68,12 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * files to load
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * all filterchains objects assigned to this task
      */
-    private $filterChains = array();
+    private $filterChains = [];
 
     /**
      * SQL statement
@@ -93,7 +93,7 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * SQL transactions to perform
      */
-    private $transactions = array();
+    private $transactions = [];
 
     /**
      * SQL Statement delimiter
@@ -284,7 +284,7 @@ class CreoleSQLExecTask extends CreoleTask
     public function main()
     {
 
-        $savedTransaction = array();
+        $savedTransaction = [];
         for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
             $savedTransaction[] = clone $this->transactions[$i];
         }

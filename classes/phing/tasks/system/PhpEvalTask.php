@@ -41,7 +41,7 @@ class PhpEvalTask extends Task
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
     protected $returnProperty = null; // name of property to set to return value
-    protected $params = array(); // parameters for function calls
+    protected $params = []; // parameters for function calls
 
     protected $logLevel = Project::MSG_INFO;
 
@@ -104,7 +104,7 @@ class PhpEvalTask extends Task
             // import the classname & unqualify it, if necessary
             $this->class = Phing::import($this->class);
 
-            $user_func = array($this->class, $this->function);
+            $user_func = [$this->class, $this->function];
             $h_func = $this->class . '::' . $this->function; // human-readable (for log)
         } else {
             $user_func = $this->function;
@@ -112,7 +112,7 @@ class PhpEvalTask extends Task
         }
 
         // put parameters into simple array
-        $params = array();
+        $params = [];
         foreach ($this->params as $p) {
             $params[] = $p->getValue();
         }

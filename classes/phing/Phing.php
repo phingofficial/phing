@@ -77,7 +77,7 @@ class Phing
     private $buildFile = null;
 
     /** The build targets */
-    private $targets = array();
+    private $targets = [];
 
     /**
      * Set of properties that are passed in from commandline or invoking code.
@@ -86,7 +86,7 @@ class Phing
     private static $definedProps;
 
     /** Names of classes to add as listeners to project */
-    private $listeners = array();
+    private $listeners = [];
 
     /**
      * keep going mode
@@ -119,7 +119,7 @@ class Phing
     private static $importPaths;
 
     /** System-wide static properties (moved from System) */
-    private static $properties = array();
+    private static $properties = [];
 
     /** Static system timer. */
     private static $timer;
@@ -134,7 +134,7 @@ class Phing
     private $propertyFileOverride = false;
 
     /** Array of captured PHP errors */
-    private static $capturedPhpErrors = array();
+    private static $capturedPhpErrors = [];
 
     /**
      * @var OUtputStream Stream for standard output.
@@ -158,7 +158,7 @@ class Phing
      * @var array Struct of array(setting-name => setting-value)
      * @see restoreIni()
      */
-    private static $origIniSettings = array();
+    private static $origIniSettings = [];
 
     /** Whether or not output to the log is to be unadorned. */
     private $emacsMode = false;
@@ -667,7 +667,7 @@ class Phing
         $project = new Project();
 
         self::setCurrentProject($project);
-        set_error_handler(array('Phing', 'handlePhpError'));
+        set_error_handler(['Phing', 'handlePhpError']);
 
         $error = null;
 
@@ -939,12 +939,12 @@ class Phing
 
             if (self::$phpErrorCapture) {
 
-                self::$capturedPhpErrors[] = array(
+                self::$capturedPhpErrors[] = [
                     'message' => $message,
                     'level' => $level,
                     'line' => $line,
                     'file' => $file
-                );
+                ];
 
             } else {
 
@@ -983,7 +983,7 @@ class Phing
     public static function startPhpErrorCapture()
     {
         self::$phpErrorCapture = true;
-        self::$capturedPhpErrors = array();
+        self::$capturedPhpErrors = [];
     }
 
     /**
@@ -1000,7 +1000,7 @@ class Phing
      */
     public static function clearCapturedPhpErrors()
     {
-        self::$capturedPhpErrors = array();
+        self::$capturedPhpErrors = [];
     }
 
     /**
@@ -1142,8 +1142,8 @@ class Phing
         // split the targets in top-level and sub-targets depending
         // on the presence of a description
 
-        $subNames = array();
-        $topNameDescMap = array();
+        $subNames = [];
+        $topNameDescMap = [];
 
         foreach ($targets as $currentTarget) {
             $targetName = $currentTarget->getName();
@@ -1175,13 +1175,13 @@ class Phing
         $defaultTarget = $project->getDefaultTarget();
 
         if ($defaultTarget !== null && $defaultTarget !== "") {
-            $defaultName = array();
-            $defaultDesc = array();
+            $defaultName = [];
+            $defaultDesc = [];
             $defaultName[] = $defaultTarget;
 
             $indexOfDefDesc = array_search($defaultTarget, $topNames, true);
             if ($indexOfDefDesc !== false && $indexOfDefDesc >= 0) {
-                $defaultDesc = array();
+                $defaultDesc = [];
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
@@ -1512,7 +1512,7 @@ class Phing
         self::setProperty('php.tmpdir', sys_get_temp_dir());
 
         // try to detect machine dependent information
-        $sysInfo = array();
+        $sysInfo = [];
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && function_exists("posix_uname")) {
             $sysInfo = posix_uname();
         } else {

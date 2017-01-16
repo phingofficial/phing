@@ -54,21 +54,21 @@ class CopyTask extends Task
     /** @var Mapper */
     protected $mapperElement = null;
 
-    protected $fileCopyMap = array(); // asoc array containing mapped file names
-    protected $dirCopyMap = array(); // asoc array containing mapped file names
-    protected $completeDirMap = array(); // asoc array containing complete dir names
+    protected $fileCopyMap = []; // asoc array containing mapped file names
+    protected $dirCopyMap = []; // asoc array containing mapped file names
+    protected $completeDirMap = []; // asoc array containing complete dir names
 
     /** @var FileUtils */
     protected $fileUtils = null; // a instance of fileutils
 
     /** @var AbstractFileSet[] */
-    protected $filesets = array(); // all fileset objects assigned to this task
+    protected $filesets = []; // all fileset objects assigned to this task
 
     /** @var FileList[] */
-    protected $filelists = array(); // all filelist objects assigned to this task
+    protected $filelists = []; // all filelist objects assigned to this task
 
     /** @var FilterChain[] */
-    protected $filterChains = array(); // all filterchains objects assigned to this task
+    protected $filterChains = []; // all filterchains objects assigned to this task
 
     protected $verbosity = Project::MSG_VERBOSE;
 
@@ -336,7 +336,7 @@ class CopyTask extends Task
         foreach ($this->filelists as $fl) {
             $fromDir = $fl->getDir($project);
             $srcFiles = $fl->getFiles($project);
-            $srcDirs = array($fl->getDir($project));
+            $srcDirs = [$fl->getDir($project)];
 
             if (!$this->flatten && $this->mapperElement === null) {
                 $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
@@ -463,7 +463,7 @@ class CopyTask extends Task
     {
         $toCopy = null;
         if ($this->overwrite) {
-            $v = array();
+            $v = [];
             foreach ($names as $name) {
                 $result = $mapper->main($name);
                 if ($result !== null) {

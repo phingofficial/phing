@@ -69,12 +69,12 @@ class FileParserFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function parserTypeProvider()
     {
-        return array(
-            array('properties', 'IniFileParser'),
-            array('ini', 'IniFileParser'),
-            array('foo', 'IniFileParser'),
-            array('yml', 'YamlFileParser'),
-            array('yaml', 'YamlFileParser'),
-        );
+        return [
+            ['properties', 'IniFileParser'],
+            ['ini', 'IniFileParser'],
+            ['foo', 'IniFileParser'],
+            ['yml', 'YamlFileParser'],
+            ['yaml', 'YamlFileParser'],
+        ];
     }
 }

@@ -69,7 +69,7 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
 
         $textArray = preg_split("~\R~", $text);
 
-        $lines = array();
+        $lines = [];
         foreach ($textArray as $offset => $line) {
             $lines[] = trim(json_encode($line), '"');
             if (strlen($line) !== strlen($lines[$offset])) {

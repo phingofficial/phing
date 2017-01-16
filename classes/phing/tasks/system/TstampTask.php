@@ -34,7 +34,7 @@ require_once 'phing/Task.php';
  */
 class TstampTask extends Task
 {
-    private $customFormats = array();
+    private $customFormats = [];
 
     private $prefix = "";
 

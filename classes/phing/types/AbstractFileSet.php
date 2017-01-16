@@ -90,10 +90,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public $defaultPatterns;
 
-    public $additionalPatterns = array();
+    public $additionalPatterns = [];
     public $dir;
     public $isCaseSensitive = true;
-    public $selectors = array();
+    public $selectors = [];
 
     /**
      * @param null $fileset
@@ -405,7 +405,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     public function getRef(Project $p)
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             array_push($stk, $this);
             $this->dieOnCircularReference($stk, $p);
         }
@@ -493,7 +493,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return $this->getRef($p)->getSelectors($p);
         } else {
             // *copy* selectors
-            $result = array();
+            $result = [];
             for ($i = 0, $size = count($this->selectors); $i < $size; $i++) {
                 $result[] = clone $this->selectors[$i];
             }

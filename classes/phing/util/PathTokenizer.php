@@ -37,7 +37,7 @@ class PathTokenizer
     /**
      * A array of tokens, created by preg_split().
      */
-    private $tokens = array();
+    private $tokens = [];
 
     /**
      * A string which stores any path components which have been read ahead

@@ -38,10 +38,10 @@ class MailTask extends Task
     protected $msg = null;
     protected $from = null;
 
-    protected $filesets = array();
+    protected $filesets = [];
 
     protected $backend = 'mail';
-    protected $backendParams = array();
+    protected $backendParams = [];
 
     public function main()
     {
@@ -69,11 +69,11 @@ class MailTask extends Task
             throw new BuildException('Need the PEAR Mail_mime package to send attachments');
         }
 
-        $mime = new Mail_mime(array('text_charset' => 'UTF-8'));
-        $hdrs = array(
+        $mime = new Mail_mime(['text_charset' => 'UTF-8']);
+        $hdrs = [
             'From' => $this->from,
             'Subject' => $this->subject
-        );
+        ];
         $mime->setTXTBody($this->msg);
 
         foreach ($this->filesets as $fs) {

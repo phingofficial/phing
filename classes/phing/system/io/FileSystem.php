@@ -380,7 +380,7 @@ abstract class FileSystem
         if (!$d) {
             return null;
         }
-        $list = array();
+        $list = [];
         while ($entry = $d->read()) {
             if ($entry != "." && $entry != "..") {
                 array_push($list, $entry);

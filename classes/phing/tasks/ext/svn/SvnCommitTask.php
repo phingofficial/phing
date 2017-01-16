@@ -94,7 +94,7 @@ class SvnCommitTask extends SvnBaseTask
             "Committing SVN working copy at '" . $this->getWorkingCopy() . "' with message '" . $this->GetMessage() . "'"
         );
 
-        $output = $this->run(array(), array('message' => $this->GetMessage()));
+        $output = $this->run([], ['message' => $this->GetMessage()]);
 
         if (preg_match('/[\s]*Committed revision[\s]+([\d]+)/', $output, $matches)) {
             $this->project->setProperty($this->getPropertyName(), $matches[1]);

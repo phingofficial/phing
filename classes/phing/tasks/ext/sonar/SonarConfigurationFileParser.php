@@ -84,7 +84,7 @@ class SonarConfigurationFileParser
      */
     public function parse()
     {
-        $this->properties = array();
+        $this->properties = [];
 
         $contents = @file_get_contents($this->file);
 

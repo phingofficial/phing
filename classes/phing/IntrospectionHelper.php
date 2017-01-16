@@ -49,26 +49,26 @@ class IntrospectionHelper
      *
      * @var array string[]
      */
-    private $attributeSetters = array();
+    private $attributeSetters = [];
 
     /**
      * Holds methods to create nested elements.
      *
      * @var array string[]
      */
-    private $nestedCreators = array();
+    private $nestedCreators = [];
 
     /**
      * Holds methods to store configured nested elements.
      *
      * @var array string[]
      */
-    private $nestedStorers = array();
+    private $nestedStorers = [];
 
     /**
      * Map from attribute names to nested types.
      */
-    private $nestedTypes = array();
+    private $nestedTypes = [];
 
     /**
      * New idea in phing: any class can register certain
@@ -80,7 +80,7 @@ class IntrospectionHelper
      *         function setListeningReplace($slot) {}
      * @var array string[]
      */
-    private $slotListeners = array();
+    private $slotListeners = [];
 
     /**
      * The method to add PCDATA stuff.
@@ -100,7 +100,7 @@ class IntrospectionHelper
      * The cache of IntrospectionHelper classes instantiated by getHelper().
      * @var array IntrospectionHelpers[]
      */
-    private static $helpers = array();
+    private static $helpers = [];
 
     /**
      * Factory method for helper objects.
@@ -577,7 +577,7 @@ class IntrospectionHelper
      */
     public function getAttributes()
     {
-        $attribs = array();
+        $attribs = [];
         foreach (array_keys($this->attributeSetters) as $setter) {
             $attribs[] = $this->getPropertyName($setter, "set");
         }

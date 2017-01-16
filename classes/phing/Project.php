@@ -50,14 +50,14 @@ class Project
      * contains the targets
      * @var Target[]
      */
-    private $targets = array();
+    private $targets = [];
     /** global filterset (future use) */
-    private $globalFilterSet = array();
+    private $globalFilterSet = [];
     /**  all globals filters (future use) */
-    private $globalFilters = array();
+    private $globalFilters = [];
 
     /** Project properties map (usually String to String). */
-    private $properties = array();
+    private $properties = [];
 
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -65,7 +65,7 @@ class Project
      * project properties, so only the project properties need to be queried.
      * Mapping is String to String.
      */
-    private $userProperties = array();
+    private $userProperties = [];
 
     /**
      * Map of inherited "user" properties - that are those "user"
@@ -73,16 +73,16 @@ class Project
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties = array();
+    private $inheritedProperties = [];
 
     /** task definitions for this project*/
-    private $taskdefs = array();
+    private $taskdefs = [];
 
     /** type definitions for this project */
-    private $typedefs = array();
+    private $typedefs = [];
 
     /** holds ref names and a reference to the referred object*/
-    private $references = array();
+    private $references = [];
 
     /** The InputHandler being used by this project. */
     private $inputHandler;
@@ -111,7 +111,7 @@ class Project
     private $fileUtils;
 
     /**  Build listeneers */
-    private $listeners = array();
+    private $listeners = [];
 
     /**
      * Keep going flag.
@@ -121,7 +121,7 @@ class Project
     /**
      * @var string[]
      */
-    private $executedTargetNames = array();
+    private $executedTargetNames = [];
 
     /**
      *  Constructor, sets any default vars.
@@ -1001,9 +1001,9 @@ class Project
     public function topoSort($rootTarget)
     {
         $rootTarget = (string) $rootTarget;
-        $ret = array();
-        $state = array();
-        $visiting = array();
+        $ret = [];
+        $state = [];
+        $visiting = [];
 
         // We first run a DFS based sort using the root as the starting node.
         // This creates the minimum sequence of Targets to the root node.
@@ -1215,7 +1215,7 @@ class Project
      */
     public function removeBuildListener(BuildListener $listener)
     {
-        $newarray = array();
+        $newarray = [];
         for ($i = 0, $size = count($this->listeners); $i < $size; $i++) {
             if ($this->listeners[$i] !== $listener) {
                 $newarray[] = $this->listeners[$i];

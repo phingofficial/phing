@@ -33,12 +33,12 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Used for liquibase -Dname=value properties.
      */
-    private $properties = array();
+    private $properties = [];
 
     /**
      * Used to set liquibase --name=value parameters
      */
-    private $parameters = array();
+    private $parameters = [];
 
     protected $jar;
     protected $changeLogFile;
@@ -277,7 +277,7 @@ abstract class AbstractLiquibaseTask extends Task
         if ($this->passthru) {
             passthru($command);
         } else {
-            $output = array();
+            $output = [];
             $return = null;
             exec($command, $output, $return);
             $output = implode(PHP_EOL, $output);
@@ -370,7 +370,7 @@ class LiquibaseParameter extends DataType
     public function getRef(Project $p)
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             array_push($stk, $this);
             $this->dieOnCircularReference($stk, $p);
         }
@@ -434,7 +434,7 @@ class LiquibaseProperty extends DataType
     public function getRef(Project $p)
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             array_push($stk, $this);
             $this->dieOnCircularReference($stk, $p);
         }

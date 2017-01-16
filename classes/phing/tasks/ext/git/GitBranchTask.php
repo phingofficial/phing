@@ -81,12 +81,12 @@ class GitBranchTask extends GitBaseTask
      * delete, forceDelete, move, forceMove
      * @var array
      */
-    private $extraOptions = array(
+    private $extraOptions = [
         'd' => false,
         'D' => false,
         'm' => false,
         'M' => false,
-    );
+    ];
 
     /**
      * The main entry point for the task

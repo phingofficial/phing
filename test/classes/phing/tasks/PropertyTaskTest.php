@@ -81,11 +81,11 @@ class PropertyTaskTest extends BuildFileTest
 
     public function circularDefinitionTargets()
     {
-        return array(
-            array('test3'),
-            array('testCircularDefinition1'),
-            array('testCircularDefinition2'),
-        );
+        return [
+            ['test3'],
+            ['testCircularDefinition1'],
+            ['testCircularDefinition2'],
+        ];
     }
 
     /**

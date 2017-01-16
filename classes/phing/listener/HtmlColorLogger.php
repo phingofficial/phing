@@ -138,12 +138,12 @@ class HtmlColorLogger extends DefaultLogger
                 $this->colorsSet = true;
             }
 
-            $search = array('<', '>');
-            $replace = array('&lt;', '&gt;');
+            $search = ['<', '>'];
+            $replace = ['&lt;', '&gt;'];
             $message = str_replace($search, $replace, $message);
 
-            $search = array("\t", "\n", "\r");
-            $replace = array('&nbsp;&nbsp;&nbsp;', '<br>', '');
+            $search = ["\t", "\n", "\r"];
+            $replace = ['&nbsp;&nbsp;&nbsp;', '<br>', ''];
             $message = str_replace($search, $replace, $message);
 
             if (preg_match('@^( +)([^ ].+)@', $message, $matches)) {

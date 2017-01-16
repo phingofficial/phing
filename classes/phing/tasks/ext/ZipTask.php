@@ -50,7 +50,7 @@ class ZipTask extends MatchingTask
      */
     private $includeEmpty = true;
 
-    private $filesets = array();
+    private $filesets = [];
     
     private $ignoreLinks = false;
 
@@ -316,7 +316,7 @@ class ZipFileSet extends FileSet
             $this->files = $ds->getIncludedFiles();
 
             // build a list of directories implicitly added by any of the files
-            $implicitDirs = array();
+            $implicitDirs = [];
             foreach ($this->files as $file) {
                 $implicitDirs[] = dirname($file);
             }
@@ -336,7 +336,7 @@ class ZipFileSet extends FileSet
 
             $implicitDirs = array_unique($implicitDirs);
 
-            $emptyDirectories = array();
+            $emptyDirectories = [];
 
             if ($includeEmpty) {
                 // Now add any empty dirs (dirs not covered by the implicit dirs)
