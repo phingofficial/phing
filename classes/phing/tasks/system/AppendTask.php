@@ -252,7 +252,6 @@ class AppendTask extends Task
         $this->validate();
 
         try {
-
             if ($this->to !== null) {
                 // create a file writer to append to "to" file.
                 $writer = new FileWriter($this->to, $this->append);

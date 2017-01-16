@@ -32,7 +32,6 @@ include_once 'phing/system/io/Reader.php';
  */
 class BufferedReader extends Reader
 {
-
     private $bufferSize = 0;
     private $buffer = null;
     private $bufferPos = 0;
@@ -72,7 +71,6 @@ class BufferedReader extends Reader
 
             // not all files end with a newline character, so we also need to check EOF
             if (!$this->in->eof()) {
-
                 $notValidPart = strrchr($data, "\n");
                 $notValidPartSize = strlen($notValidPart);
 
@@ -87,7 +85,6 @@ class BufferedReader extends Reader
                     // Rewind to the beginning of the forgotten stuff.
                     $this->in->skip(-$notValidPartSize + 1);
                 }
-
             } // if !EOF
         }
 
@@ -140,7 +137,6 @@ class BufferedReader extends Reader
      */
     public function readChar()
     {
-
         if ($this->buffer === null) {
             // Buffer is empty, fill it ...
             $read = $this->in->read($this->bufferSize);

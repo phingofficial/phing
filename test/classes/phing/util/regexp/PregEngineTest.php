@@ -121,8 +121,8 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
     {
         $pregEngine = new PregEngine();
         $pregEngine->setModifiers('gu');
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'u'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'g'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'u'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'g'));
     }
 
     /**
@@ -157,10 +157,10 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $pregEngine = new PregEngine();
 
         $pregEngine->setModifiers('guummmii');
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'u'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'g'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'i'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'm'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'u'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'g'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'i'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'm'));
     }
 
     /**
@@ -261,4 +261,3 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<12>', $result);
     }
 }
- 

@@ -382,7 +382,6 @@ class LiquibaseParameter extends DataType
             return $o;
         }
     }
-
 }
 
 /**

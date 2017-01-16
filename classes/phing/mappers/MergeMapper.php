@@ -71,5 +71,4 @@ class MergeMapper implements FileNameMapper
     public function setFrom($from)
     {
     }
-
 }

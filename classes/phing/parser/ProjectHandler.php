@@ -142,7 +142,7 @@ class ProjectHandler extends AbstractHandler
             $project->setPhingVersion($ver);
         }
 
-        if($strict !== null) {
+        if ($strict !== null) {
             $project->setStrictMode(StringHelper::booleanValue($strict));
         }
 
@@ -175,7 +175,6 @@ class ProjectHandler extends AbstractHandler
      */
     public function startElement($name, $attrs)
     {
-
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
 

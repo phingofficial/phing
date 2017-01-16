@@ -5,7 +5,6 @@ require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgCommitTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -38,4 +37,3 @@ class HgCommitTaskTest extends BuildFileTest
         );
     }
 }
-

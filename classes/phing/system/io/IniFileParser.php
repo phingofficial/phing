@@ -62,7 +62,6 @@ class IniFileParser implements FileParserInterface
             $property = trim(substr($line, 0, $pos));
             $value = trim(substr($line, $pos + 1));
             $properties[$property] = $this->inVal($value);
-
         } // for each line
 
         return $properties;

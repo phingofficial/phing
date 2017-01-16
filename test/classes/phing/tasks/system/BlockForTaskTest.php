@@ -29,7 +29,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class BlockForTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

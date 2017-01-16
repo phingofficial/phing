@@ -33,7 +33,6 @@ require_once __DIR__ . '/../../../classes/phing/Phing.php';
  */
 class PhingTest extends PHPUnit_Framework_TestCase
 {
-
     const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
     const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
     const DOTED_CLASS = 'Vendor.Package.DotedClass';

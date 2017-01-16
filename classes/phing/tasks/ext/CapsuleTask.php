@@ -260,12 +260,9 @@ class CapsuleTask extends Task
                 $fullPath = $this->project->resolveFile($sources[$i]);
                 $this->log("Using contextProperties file: " . $fullPath->toString());
                 $source->load($fullPath);
-
             } catch (Exception $e) {
-
                 throw new BuildException("Context properties file " . $sources[$i] .
                     " could not be found in the file system!");
-
             }
 
             $keys = $source->keys();
@@ -392,9 +389,7 @@ class CapsuleTask extends Task
         // control context so they are available
         // in the control/worker templates.
         if ($this->contextProperties !== null) {
-
             foreach ($this->contextProperties->keys() as $property) {
-
                 $value = $this->contextProperties->getProperty($property);
 
                 // Special exception (from Texen)
@@ -414,7 +409,6 @@ class CapsuleTask extends Task
                         $br = new BufferedReader(new FileReader($f));
                         $value = $br->read();
                     }
-
                 } // if ends with file.contents
 
                 if (StringHelper::isBoolean($value)) {
@@ -422,9 +416,7 @@ class CapsuleTask extends Task
                 }
 
                 $c->put($property, $value);
-
             } // foreach property
-
         } // if contextProperties !== null
 
         try {

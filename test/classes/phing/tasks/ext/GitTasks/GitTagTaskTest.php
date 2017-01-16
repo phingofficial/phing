@@ -30,7 +30,6 @@ require_once __DIR__ . '/GitTestsHelper.php';
  */
 class GitTagTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
@@ -203,5 +202,4 @@ class GitTagTaskTest extends BuildFileTest
             '"repository" is required parameter'
         );
     }
-
 }

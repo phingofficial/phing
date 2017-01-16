@@ -100,7 +100,6 @@ class PearPackageScannerTest extends BuildFileTest
                 'File does not exist: ' . $file . ' at ' . $fullpath
             );
         }
-
     }
 
     /**
@@ -192,5 +191,4 @@ class PearPackageScannerTest extends BuildFileTest
             $arFiles
         );
     }
-
 }

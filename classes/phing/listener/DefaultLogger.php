@@ -73,7 +73,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function __construct()
     {
-
     }
 
     /**

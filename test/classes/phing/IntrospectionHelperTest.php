@@ -68,7 +68,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
     public function testElementCreators()
     {
-
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
             $this->fail("create cannot take param");
@@ -89,7 +88,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
-
     }
 
     /*
@@ -361,7 +359,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
 class IHProjectComponent
 {
-
     public function addText($text)
     {
     }
@@ -427,5 +424,4 @@ class IHFail5
     public function setBlah()
     {
     }
-
 }

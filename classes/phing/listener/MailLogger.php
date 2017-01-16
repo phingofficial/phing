@@ -151,11 +151,9 @@ class MailLogger extends DefaultLogger
         $value = $properties[$propertyName];
         if ($value === null) {
             $value = $defaultValue;
-
         }
         if ($value === null) {
             throw new BadMethodCallException('Missing required parameter: ' . $propertyName);
-
         }
         return $value;
     }

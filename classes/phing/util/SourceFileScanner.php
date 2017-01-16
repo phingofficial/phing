@@ -81,7 +81,6 @@ class SourceFileScanner
         $v = [];
 
         for ($i = 0, $size = count($files); $i < $size; $i++) {
-
             $targets = $mapper->main($files[$i]);
             if (empty($targets)) {
                 $this->task->log($files[$i] . " skipped - don't know how to handle it", Project::MSG_VERBOSE);
@@ -112,7 +111,6 @@ class SourceFileScanner
             $targetList = "";
 
             for ($j = 0, $_j = count($targets); (!$added && $j < $_j); $j++) {
-
                 $dest = null;
                 if ($destDir === null) {
                     $dest = new PhingFile($targets[$j]);
@@ -157,7 +155,6 @@ class SourceFileScanner
                     Project::MSG_VERBOSE
                 );
             }
-
         }
         $result = [];
         $result = $v;

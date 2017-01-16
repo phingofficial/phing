@@ -103,7 +103,6 @@ abstract class ExtractBaseTask extends MatchingTask
      */
     public function main()
     {
-
         $this->validateAttributes();
 
         $filesToExtract = [];
@@ -169,7 +168,6 @@ abstract class ExtractBaseTask extends MatchingTask
 
         $compressedArchiveContent = $this->listArchiveContent($compressedArchiveFile);
         if (is_array($compressedArchiveContent)) {
-
             $fileSystem = FileSystem::getFileSystem();
             foreach ($compressedArchiveContent as $compressArchivePathInfo) {
                 $compressArchiveFilename = $compressArchivePathInfo['filename'];
@@ -191,7 +189,6 @@ abstract class ExtractBaseTask extends MatchingTask
                     return false;
                 }
             }
-
         }
 
         return true;
@@ -211,7 +208,6 @@ abstract class ExtractBaseTask extends MatchingTask
      */
     protected function validateAttributes()
     {
-
         if ($this->file === null && count($this->filesets) === 0) {
             throw new BuildException("Specify at least one source compressed archive - a file or a fileset.");
         }
@@ -233,5 +229,4 @@ abstract class ExtractBaseTask extends MatchingTask
                 ) . " to extract.");
         }
     }
-
 }

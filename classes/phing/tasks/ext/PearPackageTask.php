@@ -227,7 +227,6 @@ class PearPackageTask extends MatchingTask
      */
     public function main()
     {
-
         if ($this->dir === null) {
             throw new BuildException("You must specify the \"dir\" attribute for PEAR package task.");
         }
@@ -244,7 +243,6 @@ class PearPackageTask extends MatchingTask
         if (@PEAR::isError($e)) {
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
-
     }
 
     /**
@@ -355,7 +353,6 @@ class PearPackageTask extends MatchingTask
  */
 class PearPkgOption
 {
-
     private $name;
     private $value;
 
@@ -392,7 +389,6 @@ class PearPkgOption
     {
         $this->value = trim($txt);
     }
-
 }
 
 /**
@@ -402,7 +398,6 @@ class PearPkgOption
  */
 class PearPkgMapping
 {
-
     private $name;
     private $elements = [];
 
@@ -464,7 +459,6 @@ class PearPkgMapping
  */
 class PearPkgMappingElement
 {
-
     private $key;
     private $value;
     private $elements = [];
@@ -523,7 +517,6 @@ class PearPkgMappingElement
 
         return $e;
     }
-
 }
 
 /**

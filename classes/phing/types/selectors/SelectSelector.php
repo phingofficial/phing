@@ -143,5 +143,4 @@ class SelectSelector extends AndSelector
             );
         }
     }
-
 }

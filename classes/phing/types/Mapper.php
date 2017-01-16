@@ -43,7 +43,6 @@ include_once 'phing/mappers/ContainerMapper.php';
  */
 class Mapper extends DataType
 {
-
     protected $type;
     protected $classname;
     protected $from;

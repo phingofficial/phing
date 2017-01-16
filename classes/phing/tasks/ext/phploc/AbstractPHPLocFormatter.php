@@ -108,5 +108,4 @@ abstract class AbstractPHPLocFormatter
     {
         return $this->outfile;
     }
-
 }

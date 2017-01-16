@@ -34,7 +34,6 @@ include_once 'phing/filters/ChainableReader.php';
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {
-
     private $processed = false;
 
     /**
@@ -47,7 +46,6 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if ($this->processed === true) {
             return -1; // EOF
         }

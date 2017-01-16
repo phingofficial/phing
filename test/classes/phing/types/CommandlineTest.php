@@ -88,5 +88,4 @@ class CommandlineTest extends PHPUnit_Framework_TestCase
         self::assertInstanceOf('CommandlineMarker', $marker);
         self::assertEquals(0, $marker->getPosition());
     }
-
 }

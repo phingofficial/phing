@@ -34,7 +34,6 @@ include_once 'phing/types/Reference.php';
  */
 class MapperTest extends PHPUnit_Framework_TestCase
 {
-
     private $project;
 
     public function setUp()
@@ -144,7 +143,6 @@ class MapperTest extends PHPUnit_Framework_TestCase
             throw $e;
         }
     }
-
 }
 
 /**
@@ -152,7 +150,6 @@ class MapperTest extends PHPUnit_Framework_TestCase
  */
 class TaskdefForCopyTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/types/mapper.xml");

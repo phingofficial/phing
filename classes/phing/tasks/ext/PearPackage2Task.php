@@ -90,7 +90,6 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  */
 class PearPackage2Task extends PearPackageTask
 {
-
     public function init()
     {
         include_once 'PEAR/PackageFileManager2.php';
@@ -289,5 +288,4 @@ class PearPackage2Task extends PearPackageTask
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
     }
-
 }

@@ -148,7 +148,6 @@ class TouchTask extends Task
         }
 
         $this->millis = $savedMillis;
-
     }
 
     /**
@@ -180,7 +179,6 @@ class TouchTask extends Task
 
         // deal with the filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->getProject());
             $fromDir = $fs->getDir($this->getProject());
 
@@ -212,5 +210,4 @@ class TouchTask extends Task
         }
         $file->setLastModified($this->millis);
     }
-
 }

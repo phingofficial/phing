@@ -142,7 +142,7 @@ class PharDataTask extends MatchingTask
             if ($this->compression !== PHAR::NONE && $pharData->canCompress($this->compression)) {
                 try {
                     $pharData->compress($this->compression);
-                } catch(UnexpectedValueException $uve) {
+                } catch (UnexpectedValueException $uve) {
                     $pharData->compressFiles($this->compression);
                 }
 

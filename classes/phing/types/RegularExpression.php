@@ -37,7 +37,6 @@ include_once 'phing/util/regexp/Regexp.php';
  */
 class RegularExpression extends DataType
 {
-
     private $regexp = null;
     /**
      * @todo Probably both $ignoreCase and $multiline should be removed

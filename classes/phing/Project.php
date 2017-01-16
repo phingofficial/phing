@@ -536,7 +536,8 @@ class Project
      * @access   public
      * @author   Utsav Handa, handautsav@hotmail.com
      */
-    public function setStrictMode($strictmode) {
+    public function setStrictMode($strictmode)
+    {
         $this->strictMode = (bool) $strictmode;
         $this->setProperty("phing.project.strictmode", $this->strictMode);
     }
@@ -545,7 +546,8 @@ class Project
      * Get the strict-mode status for the project
      * @return boolean
      */
-    public function getStrictmode() {
+    public function getStrictmode()
+    {
         return $this->strictMode;
     }
 
@@ -1196,10 +1198,9 @@ class Project
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
-        if ( ($this->strictMode) && (Project::MSG_WARN == $level) ) {
-          throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
+        if (($this->strictMode) && (Project::MSG_WARN == $level)) {
+            throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
         }
-
     }
 
     /**

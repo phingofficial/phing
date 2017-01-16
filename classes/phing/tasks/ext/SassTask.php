@@ -718,7 +718,7 @@ class SassTask extends Task
     public function setStyle($style)
     {
         $style = strtolower($style);
-        switch($style) {
+        switch ($style) {
         case 'nested':
         case 'compact':
         case 'compressed':
@@ -1031,7 +1031,7 @@ class SassTask extends Task
                 $this->pathInfo = pathinfo($file);
 
                 $run = true;
-                switch(strtolower($this->pathInfo['extension'])) {
+                switch (strtolower($this->pathInfo['extension'])) {
                 case 'scss':
                 case 'sass':
                     break;

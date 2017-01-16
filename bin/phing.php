@@ -62,17 +62,13 @@ try {
 
     // Invoke any shutdown routines.
     Phing::shutdown();
-
 } catch (ConfigurationException $x) {
-
     Phing::printMessage($x);
     exit(-1); // This was convention previously for configuration errors.
-
 } catch (Exception $x) {
 
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 
     exit(1);
-
 }

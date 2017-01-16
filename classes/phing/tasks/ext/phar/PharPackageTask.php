@@ -30,8 +30,7 @@ require_once 'phing/tasks/ext/phar/PharMetadata.php';
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  */
-class PharPackageTask
-    extends MatchingTask
+class PharPackageTask extends MatchingTask
 {
     /**
      * @var PhingFile
@@ -323,7 +322,6 @@ class PharPackageTask
                 // alongside the phar.
                 $details = openssl_pkey_get_details($private);
                 file_put_contents($this->destinationFile . '.pubkey', $details['key']);
-
             } else {
                 $phar->setSignatureAlgorithm($this->signatureAlgorithm);
             }
@@ -365,7 +363,6 @@ class PharPackageTask
             }
         }
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
-
             if (!extension_loaded('openssl')) {
                 throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation(
                 ));

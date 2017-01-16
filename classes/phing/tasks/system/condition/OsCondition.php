@@ -31,7 +31,6 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  */
 class OsCondition implements Condition
 {
-
     private $family;
 
     /**
@@ -69,5 +68,4 @@ class OsCondition implements Condition
 
         return false;
     }
-
 }

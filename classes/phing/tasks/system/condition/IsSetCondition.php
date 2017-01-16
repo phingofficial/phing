@@ -32,7 +32,6 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class IsSetCondition extends ProjectComponent implements Condition
 {
-
     private $property;
 
     /**
@@ -56,5 +55,4 @@ class IsSetCondition extends ProjectComponent implements Condition
 
         return $this->project->getProperty($this->property) !== null;
     }
-
 }

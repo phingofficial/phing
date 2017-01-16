@@ -394,7 +394,6 @@ class SmartyTask extends Task
      */
     public function setContextProperties($file)
     {
-
         $sources = explode(",", $file);
         $this->contextProperties = new Properties();
 
@@ -414,12 +413,9 @@ class SmartyTask extends Task
                 $fullPath = $this->project->resolveFile($sources[$i]);
                 $this->log("Using contextProperties file: " . $fullPath->__toString());
                 $source->load($fullPath);
-
             } catch (Exception $e) {
-
                 throw new BuildException("Context properties file " . $sources[$i] .
                     " could not be found in the file system!");
-
             }
 
             $keys = $source->keys();
@@ -569,9 +565,7 @@ class SmartyTask extends Task
         // control context so they are available
         // in the control/worker templates.
         if ($this->contextProperties !== null) {
-
             foreach ($this->contextProperties->keys() as $property) {
-
                 $value = $this->contextProperties->getProperty($property);
 
                 // Special exception (from Texen)
@@ -595,7 +589,6 @@ class SmartyTask extends Task
                             throw $e;
                         }
                     }
-
                 } // if ends with file.contents
 
                 if (StringHelper::isBoolean($value)) {
@@ -603,9 +596,7 @@ class SmartyTask extends Task
                 }
 
                 $c->assign($property, $value);
-
             } // foreach property
-
         } // if contextProperties !== null
 
         try {

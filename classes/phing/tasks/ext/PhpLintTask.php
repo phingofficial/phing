@@ -33,7 +33,6 @@ require_once 'phing/system/io/FileWriter.php';
  */
 class PhpLintTask extends Task
 {
-
     protected $file; // the source file (from xml attribute)
     protected $filesets = []; // all fileset objects assigned to this task
 

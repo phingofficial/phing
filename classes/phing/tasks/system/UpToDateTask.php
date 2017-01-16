@@ -39,7 +39,6 @@ include_once 'phing/mappers/MergeMapper.php';
  */
 class UpToDateTask extends Task implements Condition
 {
-
     private $_property;
     private $_value;
     private $_sourceFile;

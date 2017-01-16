@@ -35,7 +35,6 @@
  */
 class MajoritySelector extends BaseSelectorContainer
 {
-
     private $allowtie = true;
 
     /**
@@ -74,7 +73,6 @@ class MajoritySelector extends BaseSelectorContainer
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $yesvotes = 0;

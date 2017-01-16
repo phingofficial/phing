@@ -106,7 +106,6 @@ class BuildPhingPEARPackageTask extends MatchingTask
         }
 
         $pkg->setOptions($options);
-
     }
 
     /**
@@ -189,19 +188,19 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 
         // "package" dependencies
         if ($this->mode != "docs") {
-            $package->addPackageDepWithChannel( 'optional', 'phingdocs', 'pear.phing.info', $this->version);
-            $package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.4.0');
-            $package->addPackageDepWithChannel( 'optional', 'VersionControl_Git', 'pear.php.net', '0.4.3');
-            $package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pecl.php.net', '2.0.5');
-            $package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.8');
-            $package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
-            $package->addPackageDepWithChannel( 'optional', 'Services_Amazon_S3', 'pear.php.net', '0.3.1');
-            $package->addPackageDepWithChannel( 'optional', 'HTTP_Request2', 'pear.php.net', '2.1.1');
-            $package->addPackageDepWithChannel( 'optional', 'PHP_Depend', 'pear.pdepend.org', '0.10.0');
-            $package->addPackageDepWithChannel( 'optional', 'PHP_PMD', 'pear.phpmd.org', '1.1.0');
-            $package->addPackageDepWithChannel( 'optional', 'phpDocumentor', 'pear.phpdoc.org', '2.0.0b7');
-            $package->addPackageDepWithChannel( 'optional', 'PHP_CodeSniffer', 'pear.php.net', '1.5.0');
-            $package->addPackageDepWithChannel( 'optional', 'Net_Growl', 'pear.php.net', '2.6.0');
+            $package->addPackageDepWithChannel('optional', 'phingdocs', 'pear.phing.info', $this->version);
+            $package->addPackageDepWithChannel('optional', 'VersionControl_SVN', 'pear.php.net', '0.4.0');
+            $package->addPackageDepWithChannel('optional', 'VersionControl_Git', 'pear.php.net', '0.4.3');
+            $package->addPackageDepWithChannel('optional', 'Xdebug', 'pecl.php.net', '2.0.5');
+            $package->addPackageDepWithChannel('optional', 'Archive_Tar', 'pear.php.net', '1.3.8');
+            $package->addPackageDepWithChannel('optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
+            $package->addPackageDepWithChannel('optional', 'Services_Amazon_S3', 'pear.php.net', '0.3.1');
+            $package->addPackageDepWithChannel('optional', 'HTTP_Request2', 'pear.php.net', '2.1.1');
+            $package->addPackageDepWithChannel('optional', 'PHP_Depend', 'pear.pdepend.org', '0.10.0');
+            $package->addPackageDepWithChannel('optional', 'PHP_PMD', 'pear.phpmd.org', '1.1.0');
+            $package->addPackageDepWithChannel('optional', 'phpDocumentor', 'pear.phpdoc.org', '2.0.0b7');
+            $package->addPackageDepWithChannel('optional', 'PHP_CodeSniffer', 'pear.php.net', '1.5.0');
+            $package->addPackageDepWithChannel('optional', 'Net_Growl', 'pear.php.net', '2.6.0');
 
             // now add the replacements, chdir() to source directory
             // to allow addReplacement() to find the specified files
@@ -226,7 +225,6 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         if (PEAR::isError($e)) {
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
-
     }
 
     /**

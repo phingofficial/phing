@@ -35,7 +35,6 @@ require_once 'phing/types/selectors/BaseSelector.php';
  */
 class DependSelector extends BaseSelector
 {
-
     private $targetdir = null;
     private $mapperElement = null;
     private $map = null;

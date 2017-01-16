@@ -205,7 +205,6 @@ class MoveTask extends CopyTask
      */
     private function deleteDir(PhingFile $d)
     {
-
         $list = $d->listDir();
         if ($list === null) {
             return; // on an io error list() can return null

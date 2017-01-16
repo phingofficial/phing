@@ -34,7 +34,6 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  */
 class DateSelector extends BaseExtendSelector
 {
-
     private $seconds = -1; // millis in Ant, but PHP doesn't support that level of precision
     private $dateTime = null;
     private $includeDirs = false;
@@ -234,5 +233,4 @@ class DateSelector extends BaseExtendSelector
             return (abs($file->lastModified() - $this->seconds) <= $this->granularity);
         }
     }
-
 }

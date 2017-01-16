@@ -36,7 +36,6 @@ require_once 'phing/Task.php';
  */
 class PhpEvalTask extends Task
 {
-
     protected $expression; // Expression to evaluate
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
@@ -73,7 +72,6 @@ class PhpEvalTask extends Task
     /** Main entry point. */
     public function main()
     {
-
         if ($this->function === null && $this->expression === null) {
             throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->getLocation());
         }
@@ -99,7 +97,6 @@ class PhpEvalTask extends Task
      */
     protected function callFunction()
     {
-
         if ($this->class !== null) {
             // import the classname & unqualify it, if necessary
             $this->class = Phing::import($this->class);
@@ -206,7 +203,6 @@ class PhpEvalTask extends Task
  */
 class FunctionParam
 {
-
     private $val;
 
     /**

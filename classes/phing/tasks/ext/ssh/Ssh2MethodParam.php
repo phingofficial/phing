@@ -201,5 +201,4 @@ class Ssh2MethodParam extends DataType
             return $o;
         }
     }
-
 }

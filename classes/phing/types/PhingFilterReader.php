@@ -33,7 +33,6 @@ include_once 'phing/types/Parameter.php';
  */
 class PhingFilterReader extends DataType
 {
-
     private $className;
     private $parameters = [];
     private $classPath;

@@ -45,5 +45,4 @@ class IsFailureTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Command failed with return code 0');
     }
-
 }

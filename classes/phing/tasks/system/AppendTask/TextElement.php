@@ -127,24 +127,24 @@ class TextElement extends ProjectComponent
         }
         if ($this->trimLeading) {
             $current = str_split($this->value);
-                $b = '';
-                $startOfLine = true;
-                $pos = 0;
-                while ($pos < count($current)) {
-                    $ch = $current[$pos++];
-                    if ($startOfLine) {
-                        if ($ch == ' ' || $ch == "\t") {
-                            continue;
-                        }
-                        $startOfLine = false;
+            $b = '';
+            $startOfLine = true;
+            $pos = 0;
+            while ($pos < count($current)) {
+                $ch = $current[$pos++];
+                if ($startOfLine) {
+                    if ($ch == ' ' || $ch == "\t") {
+                        continue;
                     }
-                    $b .= $ch;
-                    if ($ch == "\n" || $ch == "\r") {
-                        $startOfLine = true;
-                    }
+                    $startOfLine = false;
                 }
-                $this->value = $b;
+                $b .= $ch;
+                if ($ch == "\n" || $ch == "\r") {
+                    $startOfLine = true;
+                }
             }
+            $this->value = $b;
+        }
         if ($this->trim) {
             $this->value = trim($this->value);
         }

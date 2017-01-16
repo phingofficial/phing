@@ -89,7 +89,6 @@ class PathConvert extends Task
     /** Create a nested PATH element */
     public function createPath()
     {
-
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
@@ -322,7 +321,6 @@ class PathConvert extends Task
      */
     private function validateSetup()
     {
-
         if ($this->path === null) {
             throw new BuildException("You must specify a path to convert");
         }
@@ -370,7 +368,6 @@ class PathConvert extends Task
         return new BuildException("You must not specify nested <path> "
             . "elements when using the refid attribute.");
     }
-
 }
 
 /**
@@ -398,7 +395,6 @@ class MapEntry
      */
     public function setFrom($from)
     {
-
         $this->outer->from = $from;
     }
 

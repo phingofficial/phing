@@ -30,7 +30,6 @@
  */
 class InputRequest
 {
-
     protected $prompt;
     protected $input;
     protected $defaultValue;

@@ -361,7 +361,6 @@ class PropertyTask extends Task
      */
     protected function loadEnvironment($prefix)
     {
-
         $props = new Properties();
         if (substr($prefix, strlen($prefix) - 1) == '.') {
             $prefix .= ".";
@@ -454,7 +453,6 @@ class PropertyTask extends Task
      */
     protected function resolveAllProperties(Properties $props)
     {
-
         foreach ($props->keys() as $name) {
             // There may be a nice regex/callback way to handle this
             // replacement, but at the moment it is pretty complex, and
@@ -467,7 +465,6 @@ class PropertyTask extends Task
             $resolveStack = [];
 
             while (!$resolved) {
-
                 $fragments = [];
                 $propertyRefs = [];
 
@@ -519,7 +516,6 @@ class PropertyTask extends Task
                 $value = $sb;
                 $props->setProperty($name, $value);
             } // while (!$resolved)
-
         } // while (count($keys)
     }
 
@@ -540,12 +536,10 @@ class PropertyTask extends Task
      */
     protected function parsePropertyString($value, &$fragments, &$propertyRefs)
     {
-
         $prev = 0;
         $pos = 0;
 
         while (($pos = strpos($value, '$', $prev)) !== false) {
-
             if ($pos > $prev) {
                 array_push($fragments, StringHelper::substring($value, $prev, $pos - 1));
             }

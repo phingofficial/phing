@@ -36,7 +36,6 @@ include_once 'phing/input/MultipleChoiceInputRequest.php';
  */
 class InputTask extends Task
 {
-
     private $validargs;
     private $message = ""; // required
     private $propertyName; // required
@@ -109,7 +108,6 @@ class InputTask extends Task
      */
     public function main()
     {
-
         if ($this->propertyName === null) {
             throw new BuildException("You must specify a value for propertyName attribute.");
         }
@@ -159,5 +157,4 @@ class InputTask extends Task
             $this->project->setUserProperty($this->propertyName, $value);
         }
     }
-
 }

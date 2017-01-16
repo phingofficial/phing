@@ -5,7 +5,6 @@ require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgRevertTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');

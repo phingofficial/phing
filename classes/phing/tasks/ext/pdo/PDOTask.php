@@ -36,7 +36,6 @@ include_once 'phing/types/Reference.php';
  */
 abstract class PDOTask extends Task
 {
-
     private $caching = true;
 
     /**
@@ -146,13 +145,11 @@ abstract class PDOTask extends Task
      */
     protected function getConnection()
     {
-
         if ($this->url === null) {
             throw new BuildException("Url attribute must be set!", $this->getLocation());
         }
 
         try {
-
             $this->log("Connecting to " . $this->getUrl(), Project::MSG_VERBOSE);
 
             $user = null;
@@ -179,11 +176,9 @@ abstract class PDOTask extends Task
             }
 
             return $conn;
-
         } catch (PDOException $e) {
             throw new BuildException($e->getMessage(), $this->getLocation());
         }
-
     }
 
     /**

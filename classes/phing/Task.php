@@ -219,7 +219,6 @@ abstract class Task extends ProjectComponent
      */
     public function perform()
     {
-
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();

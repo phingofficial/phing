@@ -31,7 +31,6 @@ require_once 'Ssh2MethodParam.php';
  */
 class SshTask extends Task
 {
-
     private $host = "";
     private $port = 22;
     private $methods = null;
@@ -336,5 +335,4 @@ class SshTask extends Task
             throw new BuildException("SSH Task failed: " . $result_error);
         }
     }
-
 }

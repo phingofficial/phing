@@ -141,5 +141,5 @@ abstract class MappingSelector extends BaseSelector
      * @param PhingFile $destfile destination file
      * @return true if source file compares with destination file
      */
-    protected abstract function selectionTest(PhingFile $srcfile, PhingFile $destfile);
+    abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile);
 }

@@ -72,5 +72,4 @@ class ChownTaskTest extends BuildFileTest
             'chowntestB group should have changed'
         );
     }
-
 }

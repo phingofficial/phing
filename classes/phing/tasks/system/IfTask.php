@@ -109,7 +109,6 @@ require_once 'phing/tasks/system/SequentialTask.php';
  */
 class IfTask extends ConditionBase
 {
-
     private $thenTasks = null;
     private $elseIfTasks = [];
     private $elseTasks = null;
@@ -157,7 +156,6 @@ class IfTask extends ConditionBase
 
     public function main()
     {
-
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <if>");
         }
@@ -197,7 +195,6 @@ class IfTask extends ConditionBase
  */
 class ElseIfTask extends ConditionBase
 {
-
     private $thenTasks = null;
 
     /**
@@ -218,7 +215,6 @@ class ElseIfTask extends ConditionBase
      */
     public function evaluate()
     {
-
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <elseif>");
         }

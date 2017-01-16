@@ -26,7 +26,6 @@ include_once 'phing/system/io/FileSystem.php';
  */
 class Win32FileSystem extends FileSystem
 {
-
     protected $slash;
     protected $altSlash;
     protected $semicolon;
@@ -635,5 +634,4 @@ class Win32FileSystem extends FileSystem
         }
         return $strPath;
     }
-
 }

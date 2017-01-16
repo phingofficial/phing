@@ -53,7 +53,6 @@ include_once 'phing/system/io/StringReader.php';
  */
 class CreoleSQLExecTask extends CreoleTask
 {
-
     private $goodSql = 0;
     private $totalSql = 0;
 
@@ -283,7 +282,6 @@ class CreoleSQLExecTask extends CreoleTask
      */
     public function main()
     {
-
         $savedTransaction = [];
         for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
             $savedTransaction[] = clone $this->transactions[$i];
@@ -332,13 +330,11 @@ class CreoleSQLExecTask extends CreoleTask
             $this->conn = $this->getConnection();
 
             try {
-
                 $this->statement = $this->conn->createStatement();
 
                 $out = null;
 
                 try {
-
                     if ($this->output !== null) {
                         $this->log("Opening output file " . $this->output, Project::MSG_VERBOSE);
                         $out = new BufferedWriter(new FileWriter($this->output->getAbsolutePath(), $this->append));
@@ -391,7 +387,6 @@ class CreoleSQLExecTask extends CreoleTask
         // finally {
         $this->transactions = $savedTransaction;
         $this->sqlCommand = $savedSqlCommand;
-
     }
 
 
@@ -498,7 +493,6 @@ class CreoleSQLExecTask extends CreoleTask
             }
 
             $this->goodSql++;
-
         } catch (SQLException $e) {
             $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
             if ($this->onError != "continue") {
@@ -514,13 +508,11 @@ class CreoleSQLExecTask extends CreoleTask
      */
     protected function printResults($out = null)
     {
-
         $rs = null;
         do {
             $rs = $this->statement->getResultSet();
 
             if ($rs !== null) {
-
                 $this->log("Processing new result set.", Project::MSG_VERBOSE);
 
                 $line = "";
@@ -552,7 +544,6 @@ class CreoleSQLExecTask extends CreoleTask
 
                     $first = true;
                     foreach ($fields as $columnValue) {
-
                         if ($columnValue != null) {
                             $columnValue = trim($columnValue);
                         }
@@ -572,7 +563,6 @@ class CreoleSQLExecTask extends CreoleTask
                         print($line . PHP_EOL);
                     }
                     $line = "";
-
                 } // while rs->next()
             }
         } while ($this->statement->getMoreResults());
@@ -593,7 +583,6 @@ class CreoleSQLExecTask extends CreoleTask
  */
 class SQLExecTransaction
 {
-
     private $tSrcFile = null;
     private $tSqlCommand = "";
     private $parent;

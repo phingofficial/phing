@@ -30,7 +30,6 @@ require_once __DIR__ . '/GitTestsHelper.php';
  */
 class GitPushTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
@@ -126,5 +125,4 @@ class GitPushTaskTest extends BuildFileTest
             'At least one destination must be provided'
         );
     }
-
 }

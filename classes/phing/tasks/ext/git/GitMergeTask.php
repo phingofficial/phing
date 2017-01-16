@@ -162,7 +162,6 @@ class GitMergeTask extends GitBaseTask
             Project::MSG_INFO
         );
         $this->log('git-merge output: ' . trim($output), Project::MSG_INFO);
-
     }
 
     /**

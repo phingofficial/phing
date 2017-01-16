@@ -219,5 +219,4 @@ class PregEngine implements RegexpEngine
 
         return preg_replace($this->preparePattern($pattern), $replace, $source, $this->limit);
     }
-
 }

@@ -177,7 +177,7 @@ class SymfonyConsoleTask extends Task
      */
     private function isNoDebugArgPresent()
     {
-        foreach($this->args as $arg) {
+        foreach ($this->args as $arg) {
             if ($arg->getName() == "no-debug") {
                 return true;
             }

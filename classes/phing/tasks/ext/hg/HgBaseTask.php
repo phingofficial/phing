@@ -50,7 +50,7 @@ abstract class HgBaseTask extends Task
      */
     protected $user = '';
 
-    static $factory = null;
+    public static $factory = null;
     /**
      * Set repository attribute
      *
@@ -179,5 +179,4 @@ abstract class HgBaseTask extends Task
         );
         return self::$factory;
     }
-
 }

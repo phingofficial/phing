@@ -236,8 +236,6 @@ class ReplaceRegexpTask extends Task
                 }
                 $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
             }
-
         }
-
     }
 }

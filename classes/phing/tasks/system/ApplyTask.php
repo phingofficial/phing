@@ -477,7 +477,6 @@ class ApplyTask extends Task
      */
     public function init()
     {
-
         $this->commandline = new Commandline();
         $this->loglevel = Project::MSG_VERBOSE;
     }
@@ -516,7 +515,6 @@ class ApplyTask extends Task
                 );
             }
             unset($this->filesets);
-
         }
 
         /// Cleanup //
@@ -524,7 +522,6 @@ class ApplyTask extends Task
 
         // Log
         $this->log('End ', $this->loglevel);
-
     }
 
     /**********************************************************************************/
@@ -605,7 +602,6 @@ class ApplyTask extends Task
                 ),
                 $this->loglevel
             );
-
         }
 
         ///// Preparing the task environment /////
@@ -656,11 +652,9 @@ class ApplyTask extends Task
 
         // Setting command output redirection with content appending
         if ($this->output !== null) {
-
             $this->realCommand .= ' 1>';
             $this->realCommand .= ($this->appendoutput ? '>' : ''); // Append output
             $this->realCommand .= ' ' . escapeshellarg($this->output->getPath());
-
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
 
             // Validating the O.S. variant
@@ -689,7 +683,6 @@ class ApplyTask extends Task
             } else {
                 $this->realCommand .= ' &'; // GNU/Linux background process forking
             }
-
         }
 
         // Log
@@ -731,7 +724,8 @@ class ApplyTask extends Task
                     $files,
                     0,
                     (($this->maxparallel > 0) ? $this->maxparallel : count($files))
-                );;
+                );
+                ;
 
                 $absolutefilename = implode(' ', $this->getFilePath($slicedfiles, $basedir, $this->relative));
             }
@@ -755,7 +749,6 @@ class ApplyTask extends Task
                 if ($this->returnProperty) {
                     $this->project->setProperty($this->returnProperty, $returncode);
                 }
-
             }
 
             // Sets the output property
@@ -777,7 +770,6 @@ class ApplyTask extends Task
             if (($this->parallel) && (!array_key_exists($count, $files))) {
                 break;
             }
-
         } // Each file processing loop ends
 
         return;
@@ -866,5 +858,4 @@ class ApplyTask extends Task
     {
         throw new BuildException('ApplyTask: ' . (string) $information);
     }
-
 }

@@ -123,7 +123,6 @@ class StringHelper
      */
     public static function isBoolean($s)
     {
-
         if (is_bool($s)) {
             return true; // it already is boolean
         }

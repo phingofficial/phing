@@ -137,7 +137,6 @@ class ManifestTask extends Task
             }
 
             $this->checksum = $data;
-
         } elseif ($mixed === true) {
             $this->checksum = ['md5'];
         }
@@ -189,10 +188,8 @@ class ManifestTask extends Task
 
         if ($this->action == 'w') {
             $this->write();
-
         } elseif ($this->action == 'r') {
             $this->read();
-
         }
     }
 
@@ -217,7 +214,6 @@ class ManifestTask extends Task
         }
 
         foreach ($this->filesets as $fs) {
-
             $dir = $fs->getDir($this->project)->getPath();
 
             $ds = $fs->getDirectoryScanner($project);
@@ -242,7 +238,6 @@ class ManifestTask extends Task
                 $this->meta['totalFileCount']++;
                 $this->meta['totalFileSize'] += filesize($dir . '/' . $file_path);
             }
-
         }
 
         file_put_contents($this->file, $manifest);
@@ -282,7 +277,6 @@ class ManifestTask extends Task
             if (in_array($algo, hash_algos())) {
                 return hash($algo, $this->salt . $msg);
             }
-
         }
 
         if (extension_loaded('mhash')) {
@@ -290,7 +284,6 @@ class ManifestTask extends Task
 
             if (defined('MHASH_' . $algo)) {
                 return mhash('MHASH_' . $algo, $this->salt . $msg);
-
             }
         }
 

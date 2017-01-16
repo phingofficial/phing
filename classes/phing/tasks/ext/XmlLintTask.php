@@ -30,7 +30,6 @@ require_once 'phing/Task.php';
  */
 class XmlLintTask extends Task
 {
-
     protected $file; // the source file (from xml attribute)
     protected $schema; // the schema file (from xml attribute)
     protected $filesets = []; // all fileset objects assigned to this task

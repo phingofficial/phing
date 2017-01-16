@@ -369,7 +369,6 @@ class PDOSQLExecTask extends PDOTask
             $this->conn = $this->getConnection();
 
             try {
-
                 $this->statement = null;
 
                 // Initialize the formatters.
@@ -420,7 +419,6 @@ class PDOSQLExecTask extends PDOTask
                 $this->goodSql . " of " . $this->totalSql .
                 " SQL statements executed successfully"
             );
-
         } catch (Exception $e) {
             $this->transactions = $savedTransaction;
             $this->sqlCommand = $savedSqlCommand;
@@ -440,7 +438,6 @@ class PDOSQLExecTask extends PDOTask
      */
     public function runStatements(Reader $reader)
     {
-
         if (self::DELIM_NONE == $this->delimiterType) {
             require_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
@@ -457,7 +454,6 @@ class PDOSQLExecTask extends PDOTask
                 $this->log("SQL: " . $query, Project::MSG_VERBOSE);
                 $this->execSQL($query);
             }
-
         } catch (PDOException $e) {
             throw $e;
         }
@@ -510,7 +506,6 @@ class PDOSQLExecTask extends PDOTask
             $this->statement = null;
 
             $this->goodSql++;
-
         } catch (PDOException $e) {
             $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
             if ($this->onError != "continue") {
@@ -545,7 +540,6 @@ class PDOSQLExecTask extends PDOTask
         foreach ($formatters as $formatter) {
             $formatter->initialize();
         }
-
     }
 
     /**
@@ -566,9 +560,7 @@ class PDOSQLExecTask extends PDOTask
      */
     protected function processResults()
     {
-
         try {
-
             $this->log("Processing new result set.", Project::MSG_VERBOSE);
 
             $formatters = $this->getConfiguredFormatters();
@@ -578,7 +570,6 @@ class PDOSQLExecTask extends PDOTask
                     $formatter->processRow($row);
                 }
             }
-
         } catch (Exception $x) {
             $this->log("Error processing reults: " . $x->getMessage(), Project::MSG_ERR);
             foreach ($formatters as $formatter) {
@@ -586,7 +577,6 @@ class PDOSQLExecTask extends PDOTask
             }
             throw $x;
         }
-
     }
 
     /**
@@ -611,7 +601,6 @@ class PDOSQLExecTask extends PDOTask
  */
 class PDOSQLExecTransaction
 {
-
     private $tSrcFile = null;
     private $tSqlCommand = "";
     private $parent;

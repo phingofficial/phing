@@ -101,7 +101,6 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      */
     private function replaceTokenCallback($matches)
     {
-
         $key = $matches[1];
 
         /* Get tokens from tokensource and merge them with the

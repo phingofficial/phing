@@ -96,7 +96,6 @@ class WikiPublishTaskTest extends BuildFileTest
         } catch (BuildException $e) {
             $this->assertEquals('Wiki page id or title is required', $e->getMessage());
         }
-
     }
 
     /**

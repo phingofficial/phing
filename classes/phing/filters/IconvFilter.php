@@ -42,11 +42,8 @@ include_once 'phing/filters/ChainableReader.php';
  * @version   $Id$
  * @package   phing.filters
  */
-class IconvFilter
-    extends BaseParamFilterReader
-    implements ChainableReader
+class IconvFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     private $_inputEncoding;
 
     private $_outputEncoding;

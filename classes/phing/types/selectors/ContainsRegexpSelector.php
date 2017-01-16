@@ -145,7 +145,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         if ($file->isDirectory()) {
@@ -182,5 +181,4 @@ class ContainsRegexpSelector extends BaseExtendSelector
             throw new BuildException("Could not read file " . $filename);
         }
     }
-
 }

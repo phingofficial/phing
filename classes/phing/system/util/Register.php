@@ -153,5 +153,4 @@ class RegisterSlot
             return (string) $this->value;
         }
     }
-
 }

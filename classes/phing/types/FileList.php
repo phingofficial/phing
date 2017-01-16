@@ -179,7 +179,6 @@ class FileList extends DataType
      */
     public function getFiles(Project $p)
     {
-
         if ($this->isReference()) {
             $ret = $this->getRef($p);
             $ret = $ret->getFiles($p);

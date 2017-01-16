@@ -207,7 +207,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);

@@ -51,7 +51,6 @@ include_once 'phing/system/util/Properties.php';
  */
 class HtmlColorLogger extends DefaultLogger
 {
-
     const CLASS_ERR = 'phing_err';
     const CLASS_VERBOSE = 'phing_verbose';
     const CLASS_DEBUG = 'phing_debug';
@@ -90,7 +89,6 @@ class HtmlColorLogger extends DefaultLogger
      */
     final private function setColors()
     {
-
         $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
 
         try {
@@ -132,7 +130,6 @@ class HtmlColorLogger extends DefaultLogger
     final protected function printMessage($message, OutputStream $stream, $priority)
     {
         if ($message !== null) {
-
             if (!$this->colorsSet) {
                 $this->setColors();
                 $this->colorsSet = true;

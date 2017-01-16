@@ -283,7 +283,6 @@ class ZipTask extends MatchingTask
             }
         }
     }
-
 }
 
 /**
@@ -296,7 +295,6 @@ class ZipTask extends MatchingTask
  */
 class ZipFileSet extends FileSet
 {
-
     private $files = null;
 
     /**
@@ -309,9 +307,7 @@ class ZipFileSet extends FileSet
      */
     public function getFiles(Project $p, $includeEmpty = true)
     {
-
         if ($this->files === null) {
-
             $ds = $this->getDirectoryScanner($p);
             $this->files = $ds->getIncludedFiles();
 

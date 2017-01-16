@@ -34,7 +34,6 @@ include_once 'phing/util/StringHelper.php';
  */
 class TarTask extends MatchingTask
 {
-
     const TAR_NAMELEN = 100;
 
     const WARN = "warn";
@@ -274,8 +273,6 @@ class TarTask extends MatchingTask
                     throw new BuildException($tar->error_object->getMessage());
                 }
             }
-
-
         } catch (IOException $ioe) {
             $msg = "Problem creating TAR: " . $ioe->getMessage();
             $this->filesets = $savedFileSets;
@@ -332,7 +329,6 @@ class TarTask extends MatchingTask
  */
 class TarFileSet extends FileSet
 {
-
     private $files = null;
 
     private $mode = 0100644;
@@ -356,9 +352,7 @@ class TarFileSet extends FileSet
      */
     public function getFiles(Project $p, $includeEmpty = true)
     {
-
         if ($this->files === null) {
-
             $ds = $this->getDirectoryScanner($p);
             $this->files = $ds->getIncludedFiles();
 
@@ -395,7 +389,6 @@ class TarFileSet extends FileSet
                     }
                 }
             } // if $includeEmpty
-
         } // if ($this->files===null)
 
         return $this->files;

@@ -32,7 +32,6 @@ include_once 'phing/types/DataType.php';
  */
 class PatternSet extends DataType
 {
-
     private $includeList = [];
     private $excludeList = [];
     private $includesFileList = [];
@@ -237,7 +236,6 @@ class PatternSet extends DataType
                 }
                 $line = $patternReader->readLine();
             }
-
         } catch (IOException $ioe) {
             $msg = "An error occurred while reading from pattern file: " . $patternfile->__toString();
             if ($patternReader) {
@@ -371,7 +369,6 @@ class PatternSet extends DataType
      */
     private function makeArray(&$list, Project $p)
     {
-
         if (count($list) === 0) {
             return null;
         }

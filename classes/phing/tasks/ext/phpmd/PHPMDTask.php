@@ -343,7 +343,7 @@ class PHPMDTask extends Task
             $ruleSetFactory = new \PHPMD\RuleSetFactory();
         } else {
             if (!class_exists("PHP_PMD_RuleSetFactory")) {
-                    @include 'PHP/PMD/RuleSetFactory.php';
+                @include 'PHP/PMD/RuleSetFactory.php';
             }
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
         }

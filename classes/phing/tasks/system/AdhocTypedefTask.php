@@ -49,7 +49,6 @@ class AdhocTypedefTask extends AdhocTask
     /** Main entry point */
     public function main()
     {
-
         if ($this->name === null) {
             throw new BuildException("The name attribute is required for adhoc task definition.", $this->getLocation());
         }

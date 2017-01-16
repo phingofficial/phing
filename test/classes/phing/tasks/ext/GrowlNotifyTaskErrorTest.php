@@ -205,5 +205,4 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
             );
         }
     }
-
 }

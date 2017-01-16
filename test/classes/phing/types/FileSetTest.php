@@ -32,10 +32,8 @@ include_once 'phing/types/FileSet.php';
  */
 class FileSetTest extends AbstractFileSetTest
 {
-
     protected function getInstance()
     {
         return new FileSet();
     }
-
 }

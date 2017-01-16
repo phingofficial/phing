@@ -40,7 +40,6 @@ include_once 'phing/IntrospectionHelper.php';
  */
 class ProjectConfigurator
 {
-
     public $project;
     public $locator;
 
@@ -196,7 +195,6 @@ class ProjectConfigurator
                 $this->_parse($ctx);
                 $ctx->getImplicitTarget()->main();
             }
-
         } catch (Exception $exc) {
             //throw new BuildException("Error reading project file", $exc);
             throw $exc;
@@ -250,7 +248,6 @@ class ProjectConfigurator
      */
     public static function configure($target, $attrs, Project $project)
     {
-
         if ($target instanceof TaskAdapter) {
             $target = $target->getProxy();
         }
@@ -341,7 +338,6 @@ class ProjectConfigurator
      */
     public static function replaceProperties(Project $project, $value, $keys, $logLevel = Project::MSG_VERBOSE)
     {
-
         if ($value === null) {
             return null;
         }

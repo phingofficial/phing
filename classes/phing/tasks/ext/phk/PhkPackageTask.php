@@ -186,7 +186,6 @@ class PhkPackageTask extends Task
      */
     public function init()
     {
-
     }
 
     /**

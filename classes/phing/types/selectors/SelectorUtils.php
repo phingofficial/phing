@@ -38,7 +38,6 @@ include_once 'phing/util/StringHelper.php';
  */
 class SelectorUtils
 {
-
     private static $instance;
 
     /**

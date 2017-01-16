@@ -29,7 +29,6 @@ require_once 'phing/Task.php';
  */
 class DeleteTask extends Task
 {
-
     protected $file;
     protected $dir;
     protected $filesets = [];
@@ -299,7 +298,6 @@ class DeleteTask extends Task
                         $this->log($message, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
                     }
                 }
-
             }
         }
 

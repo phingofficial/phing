@@ -28,7 +28,6 @@ require_once 'phing/types/DataType.php';
  */
 abstract class AbstractSelectorContainer extends DataType implements SelectorContainer
 {
-
     private $selectorsList = [];
 
     /**

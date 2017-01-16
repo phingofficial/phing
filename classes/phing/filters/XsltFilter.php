@@ -198,7 +198,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!class_exists('XSLTProcessor')) {
             throw new BuildException("Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.");
         }
@@ -263,7 +262,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     protected function process($xml, $xsl)
     {
-
         $processor = new XSLTProcessor();
 
         // Create and setup document.
@@ -360,7 +358,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
  */
 class XSLTParam
 {
-
     private $name;
 
     /** @var RegisterSlot */

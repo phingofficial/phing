@@ -167,7 +167,6 @@ class PhingTask extends Task
             // $this->newTarget = null;
 
             foreach ($this->filesets as $fs) {
-
                 $ds = $fs->getDirectoryScanner($this->project);
 
                 $fromDir = $fs->getDir($this->project);
@@ -207,7 +206,6 @@ class PhingTask extends Task
      */
     private function processFile()
     {
-
         $buildFailed = false;
         $savedDir = $this->dir;
         $savedPhingFile = $this->phingFile;
@@ -216,7 +214,6 @@ class PhingTask extends Task
         $savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
 
         try {
-
             if ($this->newProject === null) {
                 $this->reinit();
             }
@@ -224,7 +221,6 @@ class PhingTask extends Task
             $this->initializeProject();
 
             if ($this->dir !== null) {
-
                 $dirAbsPath = $this->dir->getAbsolutePath();
 
                 // BE CAREFUL! -- when the basedir is changed for a project,
@@ -244,7 +240,6 @@ class PhingTask extends Task
                 if ($savedDir !== null) { // has been set explicitly
                     $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
                 }
-
             } else {
 
                 // Since we're not changing the basedir here (for file resolution),
@@ -277,13 +272,11 @@ class PhingTask extends Task
                 $this->getOwningTarget() !== null &&
                 $this->newTarget == $this->getOwningTarget()->getName()
             ) {
-
                 throw new BuildException("phing task calling its own parent target");
             }
 
             $this->addReferences();
             $this->newProject->executeTarget($this->newTarget);
-
         } catch (Exception $e) {
             $buildFailed = true;
             $this->log($e->getMessage(), Project::MSG_ERR);
@@ -331,7 +324,6 @@ class PhingTask extends Task
      */
     private function initializeProject()
     {
-
         $this->newProject->setInputHandler($this->project->getInputHandler());
 
         foreach ($this->project->getBuildListeners() as $listener) {
@@ -363,7 +355,6 @@ class PhingTask extends Task
             // set System built-in properties separately,
             // b/c we won't inherit them.
             $this->newProject->setSystemProperties();
-
         } else {
             // set all properties from calling project
             $properties = $this->project->getProperties();
@@ -378,9 +369,7 @@ class PhingTask extends Task
                     $this->newProject->setNewProperty($name, $value);
                 }
             }
-
         }
-
     }
 
     /**
@@ -617,7 +606,6 @@ class PhingTask extends Task
 
         return $this->references[$num - 1];
     }
-
 }
 
 /**
@@ -628,7 +616,6 @@ class PhingTask extends Task
  */
 class PhingReference extends Reference
 {
-
     private $targetid = null;
 
     /**

@@ -75,7 +75,6 @@ class PEAR_PackageFileManager_Fileset
      */
     public function getFileList()
     {
-
         $allfiles = [];
 
         foreach ($this->filesets as $fs) {
@@ -95,7 +94,6 @@ class PEAR_PackageFileManager_Fileset
         $struc = [];
 
         foreach ($allfiles as $basedir => $files) {
-
             foreach ($files as $file) {
 
                 // paths are relative to $basedir above
@@ -158,7 +156,6 @@ class PEAR_PackageFileManager_Fileset
      */
     private function setupDirs($struc, $dir, $contents)
     {
-
         if (!count($dir)) {
             foreach ($contents as $dir => $files) {
                 if (is_string($dir)) {

@@ -36,10 +36,8 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @version   $Id$
  * @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent
-    implements IteratorAggregate, CustomChildCreator
+abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator
 {
-
     public $conditions = []; // needs to be public for "inner" class access
 
     /** @var string $taskName */
@@ -332,7 +330,6 @@ abstract class ConditionBase extends ProjectComponent
 
         return $this->conditions[$num - 1];
     }
-
 }
 
 /**

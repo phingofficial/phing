@@ -36,7 +36,6 @@ include_once 'phing/system/io/IniFileParser.php';
  */
 class Properties
 {
-
     private $properties = [];
 
     /**
@@ -177,9 +176,8 @@ class Properties
         $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
         $bw->newLine();
         foreach ($this->getProperties() as $key => $value) {
-                $bw->write($key . "=" . $value);
-                $bw->newLine();
-
+            $bw->write($key . "=" . $value);
+            $bw->newLine();
         }
         $bw->flush();
     }

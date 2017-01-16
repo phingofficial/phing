@@ -496,7 +496,7 @@ class PhpCodeSnifferTask extends Task
          * Verifying if standard is installed only after setting config data.
          * Custom standard paths could be provided via installed_paths config parameter.
          */
-        foreach($this->standards as $standard) {
+        foreach ($this->standards as $standard) {
             if (PHP_CodeSniffer::isInstalledStandard($standard) === false) {
                 // They didn't select a valid coding standard, so help them
                 // out by letting them know which standards are installed.
@@ -723,7 +723,6 @@ class PhpCodeSnifferTask extends Task
             }
         }
     }
-
 } //end phpCodeSnifferTask
 
 /**
@@ -761,7 +760,6 @@ class PhpCodeSnifferTask_FormatterElement extends DataType
         if ($this->useFile && empty($this->outfile)) {
             throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
         }
-
     }
 
     /**
@@ -811,5 +809,4 @@ class PhpCodeSnifferTask_FormatterElement extends DataType
     {
         return $this->outfile;
     }
-
 } //end FormatterElement

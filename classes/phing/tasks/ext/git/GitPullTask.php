@@ -203,7 +203,6 @@ class GitPullTask extends GitBaseTask
 
         $this->log('git-pull: complete', Project::MSG_INFO);
         $this->log('git-pull output: ' . trim($output), Project::MSG_INFO);
-
     }
 
     /**
@@ -485,5 +484,4 @@ class GitPullTask extends GitBaseTask
     {
         return $this->getForce();
     }
-
 }

@@ -171,5 +171,4 @@ class PhingCallTask extends Task
         $this->callee->setInheritRefs($this->inheritRefs);
         $this->callee->main();
     }
-
 }

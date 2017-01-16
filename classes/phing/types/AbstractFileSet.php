@@ -442,7 +442,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function hasPatterns()
     {
-
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->hasPatterns();
         }

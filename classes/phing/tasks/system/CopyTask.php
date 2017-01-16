@@ -311,7 +311,6 @@ class CopyTask extends Task
      */
     public function main()
     {
-
         $this->validateAttributes();
 
         if ($this->file !== null) {
@@ -385,7 +384,6 @@ class CopyTask extends Task
      */
     protected function validateAttributes()
     {
-
         if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException("CopyTask. Specify at least one source - a file, fileset or filelist.");
         }

@@ -5,7 +5,6 @@ require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgTagTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -51,7 +50,5 @@ class HgTagTaskTest extends BuildFileTest
         $this->assertInLogs(
             'Executing: tag --rev \'deadbeef\' --user \'test\' new-tag'
         );
-
     }
 }
-

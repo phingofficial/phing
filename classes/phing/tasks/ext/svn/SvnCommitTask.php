@@ -107,6 +107,5 @@ class SvnCommitTask extends SvnBaseTask
              */
             $this->project->setProperty($this->getPropertyName(), '');
         }
-
     }
 }

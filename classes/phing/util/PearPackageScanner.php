@@ -249,7 +249,6 @@ class PearPackageScanner extends DirectoryScanner
             $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 
             if ($this->isIncluded($file)) {
-
                 if ($this->isExcluded($file)) {
                     $this->everythingIncluded = false;
                     if (@is_dir($file)) {
@@ -293,5 +292,4 @@ class PearPackageScanner extends DirectoryScanner
 
         return true;
     }
-
 }

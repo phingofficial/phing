@@ -57,7 +57,6 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         $buffer = $this->in->read($len);
         if ($buffer === -1) {
             return -1;

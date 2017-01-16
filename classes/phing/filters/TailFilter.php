@@ -67,7 +67,6 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         while (($buffer = $this->in->read($len)) !== -1) {
             // Remove the last "\n" from buffer for
             // prevent explode to add an empty cell at

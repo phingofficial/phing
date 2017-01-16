@@ -36,7 +36,6 @@ require_once 'phing/Task.php';
  */
 class UnknownElement extends Task
 {
-
     private $elementName;
     private $realThing;
     private $children = [];
@@ -69,7 +68,6 @@ class UnknownElement extends Task
      */
     public function maybeConfigure()
     {
-
         $this->realThing = $this->makeObject($this, $this->wrapper);
         $this->wrapper->setProxy($this->realThing);
         if ($this->realThing instanceof Task) {
@@ -79,7 +77,6 @@ class UnknownElement extends Task
             $this->wrapper->maybeConfigure($this->getProject());
         }
         $this->handleChildren($this->realThing, $this->wrapper);
-
     }
 
     /**
@@ -89,7 +86,6 @@ class UnknownElement extends Task
      */
     public function main()
     {
-
         if ($this->realThing === null) {
             // plain impossible to get here, maybeConfigure should
             // have thrown an exception.
@@ -99,7 +95,6 @@ class UnknownElement extends Task
         if ($this->realThing instanceof Task) {
             $this->realThing->main();
         }
-
     }
 
     /**
@@ -121,7 +116,6 @@ class UnknownElement extends Task
      */
     public function handleChildren($parent, $parentWrapper)
     {
-
         if ($parent instanceof TaskAdapter) {
             $parent = $parent->getProxy();
         }
@@ -130,7 +124,6 @@ class UnknownElement extends Task
         $ih = IntrospectionHelper::getHelper($parentClass);
 
         for ($i = 0, $childrenCount = count($this->children); $i < $childrenCount; $i++) {
-
             $childWrapper = $parentWrapper->getChild($i);
             $child = $this->children[$i];
 
@@ -188,7 +181,6 @@ class UnknownElement extends Task
      */
     protected function makeTask(UnknownElement $ue, RuntimeConfigurable $w, $onTopLevel = false)
     {
-
         $task = $this->project->createTask($ue->getTag());
 
         if ($task === null) {

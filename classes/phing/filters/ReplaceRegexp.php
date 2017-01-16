@@ -91,7 +91,6 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         $buffer = $this->in->read($len);
 
         if ($buffer === -1) {
@@ -135,5 +134,4 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 
         return $newFilter;
     }
-
 }

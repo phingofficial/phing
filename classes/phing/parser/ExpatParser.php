@@ -73,7 +73,6 @@ class ExpatParser extends AbstractSAXParser
      */
     public function __construct(Reader $reader, $filename = null)
     {
-
         $this->reader = $reader;
         if ($filename !== null) {
             $this->file = new PhingFile($filename);
@@ -129,7 +128,6 @@ class ExpatParser extends AbstractSAXParser
      */
     public function parse()
     {
-
         while (($data = $this->reader->read()) !== -1) {
             if (!xml_parse($this->parser, $data, $this->reader->eof())) {
                 $error = xml_error_string(xml_get_error_code($this->parser));

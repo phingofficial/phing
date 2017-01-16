@@ -173,16 +173,16 @@ class RecorderTask extends Task implements SubBuildListener
      */
     protected function getRecorder($name, Project $proj)
     {
-            // create a recorder entry
+        // create a recorder entry
             $entry = isset(self::$recorderEntries[$name]) ? self::$recorderEntries[$name] : new RecorderEntry($name);
 
-            if ($this->append == null) {
-                $entry->openFile(false);
-            } else {
-                $entry->openFile(StringHelper::booleanValue($this->append));
-            }
-            $entry->setProject($proj);
-            self::$recorderEntries[$name] = $entry;
+        if ($this->append == null) {
+            $entry->openFile(false);
+        } else {
+            $entry->openFile(StringHelper::booleanValue($this->append));
+        }
+        $entry->setProject($proj);
+        self::$recorderEntries[$name] = $entry;
 
         return $entry;
     }

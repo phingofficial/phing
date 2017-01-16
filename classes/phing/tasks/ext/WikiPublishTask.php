@@ -267,7 +267,6 @@ class WikiPublishTask extends Task
      */
     private function validateAttributes()
     {
-
         if (null === $this->apiUrl) {
             throw new BuildException('Wiki apiUrl is required');
         }
@@ -275,7 +274,6 @@ class WikiPublishTask extends Task
         if (null === $this->id && null === $this->title) {
             throw new BuildException('Wiki page id or title is required');
         }
-
     }
 
     /**

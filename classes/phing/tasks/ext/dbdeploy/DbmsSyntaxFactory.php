@@ -44,7 +44,7 @@ class DbmsSyntaxFactory
     public function getDbmsSyntax()
     {
         switch ($this->dbms) {
-            case('sqlite') :
+            case('sqlite'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
 
                 return new DbmsSyntaxSQLite();

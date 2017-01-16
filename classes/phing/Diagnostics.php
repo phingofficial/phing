@@ -207,7 +207,6 @@ class Diagnostics
         if (!$tempDirectory->exists()) {
             $out->println("Warning, php.tmpdir directory does not exist: " . $tempdir);
             return;
-
         }
 
         $now = time();

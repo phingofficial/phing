@@ -98,7 +98,6 @@ class ReflexiveTask extends Task
     /** Append the file(s). */
     public function main()
     {
-
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("You must specify a file or fileset(s) for the <reflexive> task.");
         }
@@ -167,7 +166,6 @@ class ReflexiveTask extends Task
                 }
                 $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
             }
-
         }
     }
 }

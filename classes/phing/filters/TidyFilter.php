@@ -101,7 +101,6 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!class_exists('Tidy')) {
             throw new BuildException("You must enable the 'tidy' extension in your PHP configuration in order to use the Tidy filter.");
         }
@@ -123,7 +122,6 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
         $tidy->cleanRepair();
 
         return tidy_get_output($tidy);
-
     }
 
     /**
@@ -158,15 +156,11 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
                 if ($param->getType() == "config") {
                     $this->configParameters[] = $param;
                 } else {
-
                     if ($param->getName() == "encoding") {
                         $this->setEncoding($param->getValue());
                     }
-
                 }
-
             }
         }
     }
-
 }

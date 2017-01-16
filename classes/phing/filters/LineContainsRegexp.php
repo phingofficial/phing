@@ -68,7 +68,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);

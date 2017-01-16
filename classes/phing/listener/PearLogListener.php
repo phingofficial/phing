@@ -82,7 +82,6 @@ class PearLogListener implements BuildListener
      */
     protected function configureLogging()
     {
-
         $type = Phing::getDefinedProperty('pear.log.type');
         $name = Phing::getDefinedProperty('pear.log.name');
         $ident = Phing::getDefinedProperty('pear.log.ident');

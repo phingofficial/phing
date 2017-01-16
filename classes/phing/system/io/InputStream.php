@@ -87,7 +87,6 @@ class InputStream
      */
     public function read($len = null)
     {
-
         if ($this->eof()) {
             return -1;
         }

@@ -27,7 +27,6 @@ require_once 'phing/tasks/ext/sonar/SonarConfigurationFileParser.php';
  */
 class SonarConfigurationFileParserTest extends BuildFileTest
 {
-
     protected function setUp()
     {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/ConfigurationFileParserTest.xml';

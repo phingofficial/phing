@@ -506,7 +506,6 @@ class ZendGuardEncodeTask extends MatchingTask
         $command .= " ";
 
         $this->encodeCommand = $command;
-
     }
 
     /**
@@ -529,7 +528,6 @@ class ZendGuardEncodeTask extends MatchingTask
 
         return true;
     }
-
 }
 
 /**
@@ -554,14 +552,11 @@ class ZendGuardFileSet extends FileSet
      */
     public function getFiles(Project $p, $includeEmpty = true)
     {
-
         if ($this->files === null) {
-
             $ds = $this->getDirectoryScanner($p);
             $this->files = $ds->getIncludedFiles();
         } // if ($this->files===null)
 
         return $this->files;
     }
-
 }

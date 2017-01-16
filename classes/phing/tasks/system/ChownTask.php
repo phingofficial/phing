@@ -31,7 +31,6 @@ include_once 'phing/types/FileSet.php';
  */
 class ChownTask extends Task
 {
-
     private $file;
 
     private $user;
@@ -132,7 +131,6 @@ class ChownTask extends Task
      */
     private function checkParams()
     {
-
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("Specify at least one source - a file or a fileset.");
         }
@@ -170,7 +168,6 @@ class ChownTask extends Task
 
         // filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
@@ -194,7 +191,6 @@ class ChownTask extends Task
             $this->log('Total files changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_files);
             $this->log('Total directories changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_dirs);
         }
-
     }
 
     /**
@@ -233,5 +229,4 @@ class ChownTask extends Task
             }
         }
     }
-
 }

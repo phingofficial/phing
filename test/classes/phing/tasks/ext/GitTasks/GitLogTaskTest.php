@@ -30,7 +30,6 @@ require_once __DIR__ . '/GitTestsHelper.php';
  */
 class GitLogTaskTest extends BuildFileTest
 {
-
     private $testCommits = [
         [
             'commit' => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f',
@@ -309,5 +308,4 @@ class GitLogTaskTest extends BuildFileTest
             '"repository" is required parameter'
         );
     }
-
 }

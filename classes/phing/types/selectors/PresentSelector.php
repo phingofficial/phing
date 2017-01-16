@@ -150,7 +150,6 @@ class PresentSelector extends BaseSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         // Determine file whose existence is to be checked

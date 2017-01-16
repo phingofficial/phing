@@ -165,7 +165,7 @@ class JsMinTask extends Task
 
                 $contents = file_get_contents($fullPath . '/' . $file);
 
-                $minified = \JShrink\Minifier::minify($contents); 
+                $minified = \JShrink\Minifier::minify($contents);
 
                 file_put_contents($target, $minified);
             } catch (Exception $jsme) {

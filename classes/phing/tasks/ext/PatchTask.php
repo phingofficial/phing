@@ -283,6 +283,5 @@ class PatchTask extends Task
         if ($exitCode != 0 && $this->haltOnFailure) {
             throw new BuildException("Task exited with code $exitCode");
         }
-
     }
 }

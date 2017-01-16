@@ -189,7 +189,6 @@ class UnixFileSystem extends FileSystem
      */
     public function resolve($parent, $child)
     {
-
         if ($child === "") {
             return $parent;
         }
@@ -328,7 +327,7 @@ class UnixFileSystem extends FileSystem
     public function listRoots()
     {
         if (!$this->checkAccess('/', false)) {
-            die ("Can not access root");
+            die("Can not access root");
         }
 
         return [new PhingFile("/")];
@@ -368,7 +367,6 @@ class UnixFileSystem extends FileSystem
 
             // "/foo/" --> "/foo", but "/" --> "/"
             $p = substr($p, 0, strlen($p) - 1);
-
         }
 
         return $p;
@@ -386,5 +384,4 @@ class UnixFileSystem extends FileSystem
 
         return (bool) @is_writable($dir);
     }
-
 }

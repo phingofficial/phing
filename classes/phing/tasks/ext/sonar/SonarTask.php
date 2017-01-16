@@ -32,7 +32,6 @@ require_once 'phing/tasks/ext/sonar/SonarProperty.php';
  */
 class SonarTask extends Task
 {
-
     const EXIT_SUCCESS = 0;
 
     /**
@@ -402,7 +401,8 @@ class SonarTask extends Task
      *
      * @return array
      */
-    private function parseConfigurationFile() {
+    private function parseConfigurationFile()
+    {
         if (($this->configuration === null) || ($this->configuration === '')) {
             return [];
         }

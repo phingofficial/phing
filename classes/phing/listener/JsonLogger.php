@@ -88,20 +88,23 @@ class JsonLogger extends XmlLogger
         $jsnode = [];
 
         if (!$isRoot) {
-            if (count($xmlnode->attributes()) > 0){
+            if (count($xmlnode->attributes()) > 0) {
                 $jsnode["@attribute"] = [];
-                foreach($xmlnode->attributes() as $key => $value)
+                foreach ($xmlnode->attributes() as $key => $value) {
                     $jsnode["@attribute"][$key] = (string)$value;
+                }
             }
 
             $textcontent = trim((string) $xmlnode);
-            if (count($textcontent) > 0)
+            if (count($textcontent) > 0) {
                 $jsnode['_'] = $textcontent;
+            }
 
             foreach ($xmlnode->children() as $childxmlnode) {
                 $childname = $childxmlnode->getName();
-                if (!array_key_exists($childname, $jsnode))
+                if (!array_key_exists($childname, $jsnode)) {
                     $jsnode[$childname] = [];
+                }
                 array_push($jsnode[$childname], $this->xml2js($childxmlnode, false));
             }
             return $jsnode;

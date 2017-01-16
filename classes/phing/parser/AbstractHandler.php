@@ -32,7 +32,6 @@ include_once 'phing/parser/ExpatParseException.php';
  */
 abstract class AbstractHandler
 {
-
     public $parentHandler = null;
     public $parser = null;
 

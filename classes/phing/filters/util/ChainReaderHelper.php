@@ -141,7 +141,6 @@ class ChainReaderHelper
      */
     public function getAssembledReader()
     {
-
         $instream = $this->primaryReader;
         $filterReadersCount = count($this->filterChains);
         $finalFilters = [];
@@ -186,7 +185,6 @@ class ChainReaderHelper
                     }
 
                     $instream = $impl; // now that it's been chained
-
                 } elseif (($filter instanceof ChainableReader) && ($filter instanceof Reader)) {
                     if ($this->getProject() !== null && ($filter instanceof BaseFilterReader)) {
                         $filter->setProject($this->getProject());
@@ -200,5 +198,4 @@ class ChainReaderHelper
 
         return $instream;
     }
-
 }

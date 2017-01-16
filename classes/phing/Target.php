@@ -427,5 +427,4 @@ class Target implements TaskContainer
 
         return $result;
     }
-
 }

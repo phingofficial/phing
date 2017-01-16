@@ -27,9 +27,7 @@
  * @since 2.4.0
  * @internal
  */
-class IterableFileSet
-    extends FileSet
-    implements IteratorAggregate
+class IterableFileSet extends FileSet implements IteratorAggregate
 {
     /**
      * @return Iterator

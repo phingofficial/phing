@@ -520,7 +520,6 @@ class ZendGuardLicenseTask extends Task
         // merge all the values
         $content = '';
         foreach ($contentArr as $valuePair) {
-
             list($key, $value) = $valuePair;
 
             $content .= $key . " = " . $value . "\n";
@@ -558,5 +557,4 @@ class ZendGuardLicenseTask extends Task
             }
         }
     }
-
 }

@@ -32,7 +32,6 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  */
 class TypeSelector extends BaseExtendSelector
 {
-
     private $type;
 
     /** Key to used for parameterized custom selector */
@@ -128,5 +127,4 @@ class TypeSelector extends BaseExtendSelector
             return $this->type === 'file';
         }
     }
-
 }

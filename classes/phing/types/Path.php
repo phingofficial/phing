@@ -65,7 +65,6 @@ include_once 'phing/types/FileSet.php';
  */
 class Path extends DataType
 {
-
     private $elements = [];
 
     /**
@@ -352,7 +351,6 @@ class Path extends DataType
      */
     public function __toString()
     {
-
         $list = $this->listPaths();
 
         // empty path return empty string
@@ -480,14 +478,12 @@ class Path extends DataType
      */
     public function dieOnCircularReference(&$stk, Project $p)
     {
-
         if ($this->checked) {
             return;
         }
 
         // elements can contain strings, FileSets, Reference, etc.
         foreach ($this->elements as $o) {
-
             if ($o instanceof Reference) {
                 $o = $o->getReferencedObject($p);
             }

@@ -31,7 +31,6 @@ require_once 'phing/types/selectors/BaseSelector.php';
  */
 abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer
 {
-
     private $selectorsList = [];
 
     /**

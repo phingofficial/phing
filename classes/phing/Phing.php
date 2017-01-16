@@ -183,7 +183,6 @@ class Phing
      */
     public static function start($args, array $additionalUserProperties = null)
     {
-
         try {
             $m = new Phing();
             $m->execute($args);
@@ -216,9 +215,9 @@ class Phing
         } catch (BuildException $exc) {
             // avoid printing output twice: self::printMessage($exc);
         } catch (Exception $exc) {
-             echo $exc->getTraceAsString();
-             self::printMessage($exc);
-         }
+            echo $exc->getTraceAsString();
+            self::printMessage($exc);
+        }
 
         // everything fine, shutdown
         self::handleLogfile();
@@ -364,7 +363,6 @@ class Phing
      */
     public function execute($args)
     {
-
         self::$definedProps = new Properties();
         $this->searchForThis = null;
 
@@ -440,7 +438,6 @@ class Phing
         $keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
         $max = $keys ? max($keys) : -1;
         for ($i = 0; $i <= $max; $i++) {
-
             if (!array_key_exists($i, $args)) {
                 // skip this argument, since it must have been removed above.
                 continue;
@@ -505,9 +502,9 @@ class Phing
                     $this->loggerClassname = $args[++$i];
                 }
             } elseif ($arg == "-no-strict") {
-              $this->strictMode = false;
+                $this->strictMode = false;
             } elseif ($arg == "-strict") {
-              $this->strictMode = true;
+                $this->strictMode = true;
             } elseif ($arg == "-inputhandler") {
                 if ($this->inputHandlerClassname !== null) {
                     throw new ConfigurationException("Only one input handler class may be specified.");
@@ -531,8 +528,7 @@ class Phing
                     foreach ($p->getProperties() as $prop => $value) {
                         if ($this->propertyFileOverride) {
                             self::$definedProps->setProperty($prop, $value);
-                        }
-                        else {
+                        } else {
                             $this->setProperty($prop, $value);
                         }
                     }
@@ -659,7 +655,6 @@ class Phing
      */
     public function runBuild()
     {
-
         if (!$this->readyToRun) {
             return;
         }
@@ -714,7 +709,7 @@ class Phing
 
         // Set the project mode
         $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
-	
+    
         // make sure that we have a target to execute
         if (count($this->targets) === 0) {
             $this->targets[] = $project->getDefaultTarget();
@@ -732,7 +727,6 @@ class Phing
 
         // execute targets if help param was not given
         if (!$this->projectHelp) {
-
             try {
                 $project->executeTargets($this->targets);
             } catch (Exception $exc) {
@@ -936,18 +930,14 @@ class Phing
 
         // don't want to print suppressed errors
         if (error_reporting() > 0) {
-
             if (self::$phpErrorCapture) {
-
                 self::$capturedPhpErrors[] = [
                     'message' => $message,
                     'level' => $level,
                     'line' => $line,
                     'file' => $file
                 ];
-
             } else {
-
                 $message = '[PHP Error] ' . $message;
                 $message .= ' [line ' . $line . ' of ' . $file . ']';
 
@@ -969,11 +959,8 @@ class Phing
                         self::log($message, Project::MSG_ERR);
 
                 } // switch
-
             } // if phpErrorCapture
-
         } // if not @
-
     }
 
     /**
@@ -1015,7 +1002,6 @@ class Phing
     /**  Prints the usage of how to use this class */
     public static function printUsage()
     {
-
         $msg = "";
         $msg .= "phing [options] [target [target2 [target3] ...]]" . PHP_EOL;
         $msg .= "Options: " . PHP_EOL;
@@ -1186,7 +1172,6 @@ class Phing
             }
 
             $this->_printTargets($defaultName, $defaultDesc, "Default target:", $maxLength);
-
         }
         $this->_printTargets($topNames, $topDescriptions, "Main targets:", $maxLength);
         $this->_printTargets($subNames, null, "Subtargets:", 0);
@@ -1211,7 +1196,6 @@ class Phing
      */
     private function _printTargets($names, $descriptions, $heading, $maxlen)
     {
-
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
             $spaces .= $spaces;
@@ -1250,7 +1234,6 @@ class Phing
      */
     public static function import($dotPath, $classpath = null)
     {
-
         if (strpos($dotPath, '.') !== false) {
             $classname = StringHelper::unqualify($dotPath);
         } else {
@@ -1300,7 +1283,6 @@ class Phing
      */
     public static function __import($path, $classpath = null)
     {
-
         if ($classpath) {
 
             // Apparently casting to (string) no longer invokes __toString() automatically.
@@ -1351,7 +1333,6 @@ class Phing
      */
     public static function getResourcePath($path)
     {
-
         if (self::$importPaths === null) {
             self::$importPaths = self::explodeIncludePath();
         }
@@ -1665,7 +1646,6 @@ class Phing
      */
     private static function setIni()
     {
-
         self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
 
         // We won't bother storing original max_execution_time, since 1) the value in

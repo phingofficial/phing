@@ -359,5 +359,4 @@ class GitBranchTask extends GitBaseTask
     {
         return $this->newbranch;
     }
-
 }

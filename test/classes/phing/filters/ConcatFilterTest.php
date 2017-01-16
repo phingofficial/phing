@@ -28,7 +28,6 @@ include_once 'phing/util/FileUtils.php';
  */
 class ConcatFilterTest extends BuildFileTest
 {
-
     protected $fu;
 
     public function setUp()
@@ -50,5 +49,4 @@ class ConcatFilterTest extends BuildFileTest
         $result = $this->getProject()->resolveFile("result/concatfilter.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
-
 }

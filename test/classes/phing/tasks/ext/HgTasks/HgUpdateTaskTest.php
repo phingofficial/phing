@@ -5,7 +5,6 @@ require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgUpdateTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -39,4 +38,3 @@ class HgUpdateTaskTest extends BuildFileTest
         $this->assertInLogs("Executing: hg update");
     }
 }
-

@@ -237,7 +237,6 @@ class Commandline
      */
     public static function translateCommandline($to_process)
     {
-
         if (!$to_process) {
             return [];
         }
@@ -347,7 +346,6 @@ class Commandline
      */
     public function describeCommand($args = null)
     {
-
         if ($args === null) {
             $args = $this->getCommandline();
         }
@@ -408,7 +406,6 @@ class Commandline
  */
 class CommandlineArgument
 {
-
     private $parts = [];
     private $outer;
     public $escape = false;
@@ -498,7 +495,6 @@ class CommandlineArgument
  */
 class CommandlineMarker
 {
-
     private $position;
     private $realPos = -1;
     private $outer;

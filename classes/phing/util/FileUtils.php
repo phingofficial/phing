@@ -104,7 +104,6 @@ class FileUtils
         $mode = 0755,
         $preservePermissions = true
     ) {
-
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && $destFile->isFile()) {
                 $destFile->delete();
@@ -124,7 +123,6 @@ class FileUtils
             }
 
             if ((is_array($filterChains)) && (!empty($filterChains))) {
-
                 $in = self::getChainedReader(new BufferedReader(new FileReader($sourceFile)), $filterChains, $project);
                 $out = new BufferedWriter(new FileWriter($destFile));
 
@@ -144,7 +142,6 @@ class FileUtils
                 if ($preservePermissions === true) {
                     $destFile->setMode($sourceFile->getMode());
                 }
-
             } else {
                 // simple copy (no filtering)
                 $sourceFile->copyTo($destFile);
@@ -159,7 +156,6 @@ class FileUtils
             if ($preserveLastModified && !$destFile->isLink()) {
                 $destFile->setLastModified($sourceFile->lastModified());
             }
-
         }
     }
 
@@ -274,7 +270,6 @@ class FileUtils
      */
     public function normalize($path)
     {
-
         $path = (string) $path;
         $orig = $path;
 
@@ -316,7 +311,6 @@ class FileUtils
                 $root = substr($path, 0, 3);
                 $path = substr($path, 3);
             }
-
         } else {
             if (strlen($path) == 1) {
                 $root = DIRECTORY_SEPARATOR;
@@ -425,7 +419,6 @@ class FileUtils
      */
     public function contentEquals(PhingFile $file1, PhingFile $file2)
     {
-
         if (!($file1->exists() || $file2->exists())) {
             return false;
         }

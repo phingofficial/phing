@@ -57,7 +57,6 @@ class PhingFile
      */
     public function __construct($arg1 = null, $arg2 = null)
     {
-
         if (self::$separator === null || self::$pathSeparator === null) {
             $fs = FileSystem::getFileSystem();
             self::$separator = $fs->getSeparator();

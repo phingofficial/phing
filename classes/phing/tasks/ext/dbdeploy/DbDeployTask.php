@@ -154,7 +154,6 @@ class DbDeployTask extends Task
             $this->log('Checkall: ' . ($this->checkall ? 'On' : 'Off'));
 
             $this->deploy();
-
         } catch (Exception $e) {
             throw new BuildException($e);
         }

@@ -466,7 +466,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function getTargetByName($name)
     {
-
         foreach ($this->project->getTargets() as $target) {
             if ($target->getName() == $name) {
                 return $target;
@@ -484,7 +483,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function getTaskFromTarget($target, $taskName, $pos = 0)
     {
-
         $rchildren = new ReflectionProperty(get_class($target), 'children');
         $rchildren->setAccessible(true);
         $n = -1;
@@ -522,7 +520,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
     {
-
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), 'ApplyTask');
 
         $propertyName = ($propertyName === null) ? $property : $propertyName;
@@ -530,5 +527,4 @@ class ApplyTaskTest extends BuildFileTest
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }
-
 }

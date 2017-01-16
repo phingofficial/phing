@@ -30,7 +30,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class CustomTaskFileSetTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/337/build.xml");

@@ -58,5 +58,4 @@ class PHPMDTaskTest extends BuildFileTest
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml');
     }
-
 }

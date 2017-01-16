@@ -150,7 +150,6 @@ class PDOSQLExecFormatterElement
      */
     public function prepare()
     {
-
         if (!$this->formatter) {
             throw new BuildException("No formatter specified (use type or classname attribute)", $this->getLocation());
         }

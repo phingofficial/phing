@@ -33,7 +33,6 @@ include_once 'phing/tasks/system/PropertyTask.php';
  */
 class XmlPropertyTask extends PropertyTask
 {
-
     private $_keepRoot = true;
     private $_collapseAttr = false;
     private $_delimiter = ',';
@@ -159,7 +158,6 @@ class XmlPropertyTask extends PropertyTask
      */
     public function main()
     {
-
         if ($this->file === null) {
             throw new BuildException("You must specify file to load properties from", $this->getLocation());
         }
@@ -181,7 +179,6 @@ class XmlPropertyTask extends PropertyTask
         try { // try to load file
             if ($file->exists()) {
                 return $this->_getProperties($file);
-
             } else {
                 if ($this->getRequired()) {
                     throw new BuildException("Could not load required properties file.", $ioe);
@@ -262,7 +259,6 @@ class XmlPropertyTask extends PropertyTask
     protected function _addNode($node, $path, $prop)
     {
         foreach ($node as $tag => $value) {
-
             $prefix = implode('.', $path);
 
             if (!empty($prefix) > 0) {

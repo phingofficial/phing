@@ -191,5 +191,4 @@ class ImportTask extends Task
         );
         ProjectConfigurator::configureProject($this->project, $file);
     } //end importFile
-
 } //end ImportTask

@@ -375,7 +375,6 @@ class DirectoryScanner implements SelectorScanner
      */
     public function scan()
     {
-
         if ((empty($this->basedir)) || (!@is_dir($this->basedir))) {
             return false;
         }
@@ -423,7 +422,6 @@ class DirectoryScanner implements SelectorScanner
      */
     protected function slowScan()
     {
-
         if ($this->haveSlowResults) {
             return;
         }
@@ -489,7 +487,6 @@ class DirectoryScanner implements SelectorScanner
      */
     private function scandir($_rootdir, $_vpath, $_fast)
     {
-
         if (!is_readable($_rootdir)) {
             return;
         }
@@ -497,7 +494,6 @@ class DirectoryScanner implements SelectorScanner
         $newfiles = self::listDir($_rootdir);
 
         for ($i = 0, $_i = count($newfiles); $i < $_i; $i++) {
-
             $file = $_rootdir . DIRECTORY_SEPARATOR . $newfiles[$i];
             $name = $_vpath . $newfiles[$i];
 
@@ -552,7 +548,6 @@ class DirectoryScanner implements SelectorScanner
                     if (!$_fast) {
                         $this->scandir($file, $name . DIRECTORY_SEPARATOR, $_fast);
                     }
-
                 } elseif (@is_file($file)) {
                     if ($this->isIncluded($name)) {
                         if (!$this->isExcluded($name)) {
@@ -806,5 +801,4 @@ class DirectoryScanner implements SelectorScanner
 
         return true;
     }
-
 }

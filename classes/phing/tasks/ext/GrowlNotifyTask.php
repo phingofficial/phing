@@ -250,7 +250,6 @@ class GrowlNotifyTask extends Task
         // relative location
         if (strpos($icon, '..') === 0) {
             $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
-
         } elseif (strpos($icon, '.') === 0) {
             $icon = __DIR__ . substr($icon, 1);
         }
@@ -327,22 +326,22 @@ class GrowlNotifyTask extends Task
         }
 
         switch ($priority) {
-            case 'low' :
+            case 'low':
                 $priority = Net_Growl::PRIORITY_LOW;
                 break;
-            case 'moderate' :
+            case 'moderate':
                 $priority = Net_Growl::PRIORITY_MODERATE;
                 break;
-            case 'normal' :
+            case 'normal':
                 $priority = Net_Growl::PRIORITY_NORMAL;
                 break;
-            case 'high' :
+            case 'high':
                 $priority = Net_Growl::PRIORITY_HIGH;
                 break;
-            case 'emergency' :
+            case 'emergency':
                 $priority = Net_Growl::PRIORITY_EMERGENCY;
                 break;
-            default :
+            default:
                 throw new BuildException(
                     '"priority" attribute is invalid.'
                 );
@@ -371,10 +370,10 @@ class GrowlNotifyTask extends Task
         }
 
         switch ($protocol) {
-            case 'udp' :
-            case 'gntp' :
+            case 'udp':
+            case 'gntp':
                 break;
-            default :
+            default:
                 throw new BuildException(
                     '"protocol" attribute is invalid.' .
                     ' Expect to be either udp or gntp.'
@@ -411,7 +410,6 @@ class GrowlNotifyTask extends Task
         // relative location
         if (strpos($icon, '..') === 0) {
             $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
-
         } elseif (strpos($icon, '.') === 0) {
             $icon = __DIR__ . substr($icon, 1);
         }
@@ -482,7 +480,6 @@ class GrowlNotifyTask extends Task
             ];
             foreach ($logRequest as $key => $value) {
                 $this->log($key . ': ' . $value, Project::MSG_DEBUG);
-
             }
 
             $options = [
@@ -506,12 +503,10 @@ class GrowlNotifyTask extends Task
                 }
             }
             $this->log('Notification was sent to remote host ' . $this->host);
-
         } catch (Net_Growl_Exception $e) {
             throw new BuildException(
                 'Growl Exception : ' . $e->getMessage()
             );
         }
     }
-
 }

@@ -289,5 +289,4 @@ class Capsule
         }
         $this->vars[$name] = $value;
     }
-
 }

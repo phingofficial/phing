@@ -31,7 +31,6 @@ include_once 'phing/Task.php';
  */
 class EchoTask extends Task
 {
-
     protected $msg = "";
 
     protected $file = "";

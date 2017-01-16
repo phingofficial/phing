@@ -172,13 +172,11 @@ abstract class CreoleTask extends Task
      */
     protected function getConnection()
     {
-
         if ($this->url === null) {
             throw new BuildException("Url attribute must be set!", $this->getLocation());
         }
 
         try {
-
             $this->log("Connecting to " . $this->getUrl(), Project::MSG_VERBOSE);
             $info = new Properties();
 
@@ -204,11 +202,9 @@ abstract class CreoleTask extends Task
             $conn->setAutoCommit($this->autocommit);
 
             return $conn;
-
         } catch (SQLException $e) {
             throw new BuildException($e->getMessage(), $this->getLocation());
         }
-
     }
 
     /**

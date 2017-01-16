@@ -248,7 +248,6 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     private function replaceTokenCallback($matches)
     {
-
         $filetoken = $matches[1];
 
         // We look in all specified directories for the named file and use
@@ -361,10 +360,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
                 if ($params[$i] !== null) {
                     $name = $params[$i]->getName();
                     switch ($name) {
-                        case 'begintoken' :
+                        case 'begintoken':
                             $this->_beginToken = $params[$i]->getValue();
                             break;
-                        case 'endtoken' :
+                        case 'endtoken':
                             $this->_endToken = $params[$i]->getValue();
                             break;
                         case 'dir':

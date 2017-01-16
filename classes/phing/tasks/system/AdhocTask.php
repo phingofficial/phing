@@ -89,5 +89,4 @@ class AdhocTask extends Task
     {
         $this->script = $script;
     }
-
 }
