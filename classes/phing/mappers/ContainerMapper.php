@@ -26,6 +26,9 @@ include_once 'phing/mappers/FileNameMapper.php';
  */
 abstract class ContainerMapper implements FileNameMapper
 {
+    /**
+     * @var Mapper[]
+     */
     private $mappers = [];
 
     /**
@@ -86,8 +89,8 @@ abstract class ContainerMapper implements FileNameMapper
     }
 
     /**
-     * Get the <code>List</code> of <code>FileNameMapper</code>s.
-     * @return FileNameMapper[]
+     * Get the <code>List</code> of <code>Mapper</code>s.
+     * @return Mapper[]
      */
     public function getMappers()
     {

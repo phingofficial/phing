@@ -320,8 +320,19 @@ class ProjectConfigurator
     // variables, since the replaceProperties() is called statically.
     // This is IMO better than using global variables in the callback.
 
+    /**
+     * @var Project
+     */
     private static $propReplaceProject;
+
+    /**
+     * @var array
+     */
     private static $propReplaceProperties;
+
+    /**
+     * @var int
+     */
     private static $propReplaceLogLevel = Project::MSG_VERBOSE;
 
     /**
@@ -415,8 +426,8 @@ class ProjectConfigurator
      * Scan Attributes for the id attribute and maybe add a reference to
      * project.
      *
-     * @param object the element's object
-     * @param array  the element's attributes
+     * @param object $target the element's object
+     * @param array  $attr the element's attributes
      */
     public function configureId($target, $attr)
     {

@@ -49,13 +49,12 @@ class ExpatParser extends AbstractSAXParser
     /** @var Reader */
     private $reader;
 
+    /**
+     * @var PhingFile
+     */
     private $file;
 
     private $buffer = 4096;
-
-    private $error_string = "";
-
-    private $line = 0;
 
     /** @var Location Current cursor pos in XML file. */
     private $location;
@@ -102,7 +101,7 @@ class ExpatParser extends AbstractSAXParser
      * Returns the location object of the current parsed element. It describes
      * the location of the element within the XML file (line, char)
      *
-     * @return object the location of the current parser
+     * @return Location the location of the current parser
      */
     public function getLocation()
     {
@@ -121,7 +120,6 @@ class ExpatParser extends AbstractSAXParser
     /**
      * Starts the parsing process.
      *
-     * @param  string  the option to set
      * @return int                 1 if the parsing succeeded
      * @throws ExpatParseException if something gone wrong during parsing
      * @throws IOException         if XML file can not be accessed

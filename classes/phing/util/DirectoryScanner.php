@@ -446,9 +446,9 @@ class DirectoryScanner implements SelectorScanner
     }
 
     /**
-     * Lists contens of a given directory and returns array with entries
+     * Lists contents of a given directory and returns array with entries
      *
-     * @param   src String. Source path and name file to copy.
+     * @param string $_dir directory to list contents for
      *
      * @return array directory entries
      * @author  Albert Lash, alash@plateauinnovation.com

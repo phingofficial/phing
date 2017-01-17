@@ -75,7 +75,7 @@ class Properties
     public function load(PhingFile $file)
     {
         if ($file->canRead()) {
-            $this->parse($file, false);
+            $this->parse($file);
 
             $this->file = $file;
         } else {
@@ -87,8 +87,6 @@ class Properties
      * Parses the file given.
      *
      * @param  PhingFile $file
-     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
-     * @return array   Properties loaded from file (no prop replacements done yet).
      */
     protected function parse(PhingFile $file)
     {

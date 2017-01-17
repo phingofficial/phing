@@ -49,12 +49,13 @@ class ProjectHandler extends AbstractHandler
     /**
      * Constructs a new ProjectHandler
      *
-     * @param  object  the ExpatParser object
-     * @param  object  the parent handler that invoked this handler
-     * @param  ProjectConfigurator $configurator the ProjectConfigurator object
+     * @param ExpatParser $parser  the ExpatParser object
+     * @param AbstractHandler $parentHandler the parent handler that invoked this handler
+     * @param ProjectConfigurator $configurator the ProjectConfigurator object
      * @param PhingXMLContext $context
      */
-    public function __construct($parser, $parentHandler, $configurator, PhingXMLContext $context)
+    public function __construct(ExpatParser $parser, AbstractHandler $parentHandler,
+        ProjectConfigurator $configurator, PhingXMLContext $context)
     {
         parent::__construct($parser, $parentHandler);
 
@@ -169,8 +170,8 @@ class ProjectHandler extends AbstractHandler
      * Handles start elements within the <project> tag by creating and
      * calling the required handlers for the detected element.
      *
-     * @param  string  the tag that comes in
-     * @param  array   attributes the tag carries
+     * @param  string $name the tag that comes in
+     * @param  array  $attrs attributes the tag carries
      * @throws ExpatParseException if a unxepected element occurs
      */
     public function startElement($name, $attrs)
@@ -178,7 +179,7 @@ class ProjectHandler extends AbstractHandler
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
 
-        if ($name == "target") {
+        if ($name === "target") {
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {

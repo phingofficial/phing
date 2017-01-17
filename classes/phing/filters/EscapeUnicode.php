@@ -90,10 +90,10 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
      * Creates a new EscapeUnicode using the passed in
      * Reader for instantiation.
      *
-     * @param rdr A Reader object providing the underlying stream.
+     * @param Reader $rdr A Reader object providing the underlying stream.
      *            Must not be <code>null</code>.
      *
-     * @return a new filter based on this configuration, but filtering
+     * @return Reader a new filter based on this configuration, but filtering
      *         the specified reader
      */
     public function chain(Reader $rdr)
