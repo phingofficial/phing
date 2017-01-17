@@ -124,7 +124,8 @@ class CoverageReportTransformer
             $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
         }
 
-        $proc->importStyleSheet($xsl);
+        $proc->registerPHPFunctions('nl2br');
+        $proc->importStylesheet($xsl);
 
         ExtendedFileStream::registerStream();
 

@@ -278,7 +278,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
             $xmlDom->loadXML($xml);
         }
 
-        $xslDom->loadxml($xsl);
+        $xslDom->loadXML($xsl);
 
         if (defined('XSL_SECPREF_WRITE_FILE')) {
             $processor->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
@@ -294,7 +294,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
         $errorlevel = error_reporting();
         error_reporting($errorlevel & ~E_WARNING);
-        @$result = $processor->transformToXML($xmlDom);
+        @$result = $processor->transformToXml($xmlDom);
         error_reporting($errorlevel);
 
         if (false === $result) {
