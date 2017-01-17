@@ -41,13 +41,6 @@ class Variable extends PropertyTask
         $this->remove = $b;
     }
 
-    public function init()
-    {
-        if (version_compare(phpversion(), '5.3', '<')) {
-            throw new BuildException('PHP version is less than 5.3');
-        }
-    }
-
     /**
      * Execute this task.
      *
