@@ -162,7 +162,7 @@ class PHPUnitReportTask extends Task
         if (defined('XSL_SECPREF_WRITE_FILE')) {
             $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
         }
-
+        $proc->registerPHPFunctions('nl2br');
         $proc->importStylesheet($xsl);
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
