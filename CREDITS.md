@@ -32,6 +32,7 @@ Phing 2.x Development
   - Lineke Kerckhoffs-Willems <lineke@phpassionate.com>
   - Utsav Handa <handautsav@hotmail.com>
   - Ken Guest <ken@linux.ie>
+  - Siad Ardroumli <siad.ardroumli@gmail.com>
 
   If you've done work on Phing and you are not listed here, please feel free
   to add yourself.
