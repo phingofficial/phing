@@ -234,7 +234,9 @@ class DocBlox_Parallel_Manager extends ArrayObject
 
         /** @var DocBlox_Parallel_Worker $worker */
         foreach ($this as $worker) {
-            $worker->pipe->push();
+            if (isset($worker->pipe)) {
+                $worker->pipe->push();
+            }
         }
 
         $this->is_running = false;
