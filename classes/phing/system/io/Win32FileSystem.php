@@ -634,4 +634,20 @@ class Win32FileSystem extends FileSystem
         }
         return $strPath;
     }
+
+    /**
+     * @param PhingFile $f
+     * @return array
+     * @throws Exception
+     */
+    public function listContents(PhingFile $f)
+    {
+        $iterator = new FilesystemIterator($f->getAbsolutePath());
+        $filelist = array();
+        foreach($iterator as $entry) {
+            $filelist[] = $entry->getFilename();
+        }
+
+        return $filelist;
+    }
 }
