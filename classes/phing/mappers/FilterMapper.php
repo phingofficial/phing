@@ -56,7 +56,7 @@ class FilterMapper extends FilterChain implements FileNameMapper
      * Return the result of the filters on the sourcefilename.
      *
      * @param string $sourceFileName the filename to map
-     * @return a one-element array of converted filenames, or null if
+     * @return array a one-element array of converted filenames, or null if
      *          the filterchain returns an empty string.
      *
      * @throws BuildException
@@ -66,7 +66,7 @@ class FilterMapper extends FilterChain implements FileNameMapper
         try {
             $stringReader = new StringReader($sourceFileName);
 
-            $filterChains = array($this);
+            $filterChains = [$this];
 
             $chainedReader = FileUtils::getChainedReader(
                 $stringReader,
@@ -75,11 +75,8 @@ class FilterMapper extends FilterChain implements FileNameMapper
             );
 
             $result = $chainedReader->read();
-            if ($result === '') {
-                return null;
-            } else {
-                return array($result);
-            }
+
+            return $result !== '' ? [$result] : null;
         } catch (BuildException $ex) {
             throw $ex;
         } catch (Exception $ex) {

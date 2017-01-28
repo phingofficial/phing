@@ -125,7 +125,7 @@ class Mapper extends DataType
 
     /**
      * Add a nested <code>FileNameMapper</code>.
-     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
+     * @param Mapper $fileNameMapper the <code>FileNameMapper</code> to add.
      * @throws BuildException
      */
     public function add(Mapper $fileNameMapper)
@@ -156,6 +156,24 @@ class Mapper extends DataType
     public function addMapper(Mapper $mapper)
     {
         $this->add($mapper);
+    }
+
+    /**
+     * @param Mapper $mapper
+     * @throws \BuildException
+     */
+    public function addConfiguredMapper(Mapper $mapper)
+    {
+        $this->add($mapper->getImplementation());
+    }
+
+    /**
+     * @param FileNameMapper $filenameMapper
+     * @throws \BuildException
+     */
+    public function addConfigured(FileNameMapper $filenameMapper)
+    {
+        $this->add($filenameMapper);
     }
 
     /**
