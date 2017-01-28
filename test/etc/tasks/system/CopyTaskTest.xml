@@ -54,5 +54,11 @@
 		<delete dir="copies"/>
 	</target>
 	
+	<target name="testOverwriteExistingSymlink">
+		<symlink target="${tmp.dir}/target-a" link="${tmp.dir}/link-a"/>
+		<symlink target="${tmp.dir}/target-b" link="${tmp.dir}/link-b"/>
+		<copy file="${tmp.dir}/link-a" tofile="${tmp.dir}/link-b" overwrite="true"/>
+	</target>
+
 	<target name="main"/>
 </project>

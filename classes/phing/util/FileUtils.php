@@ -105,7 +105,7 @@ class FileUtils
         $preservePermissions = true
     ) {
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
-            if ($destFile->exists() && $destFile->isFile()) {
+            if ($destFile->exists() && ($destFile->isFile() || $destFile->isLink())) {
                 $destFile->delete();
             }
 

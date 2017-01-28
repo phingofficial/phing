@@ -321,7 +321,7 @@ class CopyTask extends Task
                 if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
                 } else {
-                    $this->log($this->file->getName() . " omitted, is up to date");
+                    $this->log($this->file->getName() . " omitted, " . $this->destFile->getName() . " is up to date");
                 }
             } else {
                 // terminate build
