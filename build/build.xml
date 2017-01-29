@@ -4,9 +4,7 @@
 -->
 <project name="phing" basedir="." default="main">
 
-    <php function="dirname" returnProperty="buildfile.dir">
-        <param value="${phing.file}"/>
-    </php>
+    <dirname property="buildfile.dir" file="${phing.file}"/>
 
     <php function="realpath" returnProperty="phingpkg.home">
         <param value="${buildfile.dir}/.."/>
