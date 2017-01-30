@@ -40,6 +40,8 @@ include_once 'phing/IntrospectionHelper.php';
  */
 class ProjectConfigurator
 {
+    const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
+
     public $project;
     public $locator;
 
@@ -162,11 +164,11 @@ class ProjectConfigurator
     {
         try {
             // get parse context
-            $ctx = $this->project->getReference("phing.parsing.context");
+            $ctx = $this->project->getReference(self::PARSING_CONTEXT_REFERENCE);
             if (null == $ctx) {
                 // make a new context and register it with project
                 $ctx = new PhingXMLContext($this->project);
-                $this->project->addReference("phing.parsing.context", $ctx);
+                $this->project->addReference(self::PARSING_CONTEXT_REFERENCE, $ctx);
             }
 
             //record this parse with context

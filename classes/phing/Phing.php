@@ -685,7 +685,7 @@ class Phing
 
         $project->setKeepGoingMode($this->keepGoingMode);
 
-        $project->setUserProperty("phing.version", $this->getPhingVersion());
+        $project->setUserProperty("phing.version", static::getPhingVersion());
 
         $e = self::$definedProps->keys();
         while (count($e)) {
@@ -1083,7 +1083,7 @@ class Phing
      *
      * @throws IOException
      */
-    public static function printDescription(Project $project)
+    public function printDescription(Project $project)
     {
         if ($project->getDescription() !== null) {
             self::$out->write($project->getDescription() . PHP_EOL);
