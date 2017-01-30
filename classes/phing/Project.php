@@ -75,12 +75,6 @@ class Project
      */
     private $inheritedProperties = [];
 
-    /** task definitions for this project*/
-    private $taskdefs = [];
-
-    /** type definitions for this project */
-    private $typedefs = [];
-
     /** holds ref names and a reference to the referred object*/
     private $references = [];
 
@@ -156,46 +150,9 @@ class Project
         // set builtin properties
         $this->setSystemProperties();
 
-        // load default tasks
-        $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
+        $componentHelper = ComponentHelper::getComponentHelper($this);
 
-        try { // try to load taskdefs
-            $props = new Properties();
-            $in = new PhingFile((string) $taskdefs);
-
-            if ($in === null) {
-                throw new BuildException("Can't load default task list");
-            }
-            $props->load($in);
-
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
-                $this->addTaskDefinition($key, $value);
-            }
-        } catch (IOException $ioe) {
-            throw new BuildException("Can't load default task list");
-        }
-
-        // load default tasks
-        $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
-
-        try { // try to load typedefs
-            $props = new Properties();
-            $in = new PhingFile((string) $typedefs);
-            if ($in === null) {
-                throw new BuildException("Can't load default datatype list");
-            }
-            $props->load($in);
-
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
-                $this->addDataTypeDefinition($key, $value);
-            }
-        } catch (IOException $ioe) {
-            throw new BuildException("Can't load default datatype list");
-        }
+        $componentHelper->initDefaultDefinitions();
     }
 
     /** returns the global filterset (future use) */
@@ -658,15 +615,7 @@ class Project
      */
     public function addTaskDefinition($name, $class, $classpath = null)
     {
-        if ($class === "") {
-            $this->log("Task $name has no class defined.", Project::MSG_ERR);
-        } elseif (!isset($this->taskdefs[$name])) {
-            Phing::import($class, $classpath);
-            $this->taskdefs[$name] = $class;
-            $this->log("  +Task definition: $name ($class)", Project::MSG_DEBUG);
-        } else {
-            $this->log("Task $name ($class) already registered, skipping", Project::MSG_VERBOSE);
-        }
+        ComponentHelper::getComponentHelper($this)->addTaskDefinition($name, $class, $classpath);
     }
 
     /**
@@ -675,7 +624,7 @@ class Project
      */
     public function getTaskDefinitions()
     {
-        return $this->taskdefs;
+        return ComponentHelper::getComponentHelper($this)->getTaskDefinitions();
     }
 
     /**
@@ -686,13 +635,7 @@ class Project
      */
     public function addDataTypeDefinition($typeName, $typeClass, $classpath = null)
     {
-        if (!isset($this->typedefs[$typeName])) {
-            Phing::import($typeClass, $classpath);
-            $this->typedefs[$typeName] = $typeClass;
-            $this->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
-        } else {
-            $this->log("Type $typeName ($typeClass) already registered, skipping", Project::MSG_VERBOSE);
-        }
+        ComponentHelper::getComponentHelper($this)->addDataTypeDefinition($typeName, $typeClass, $classpath);
     }
 
     /**
@@ -701,7 +644,7 @@ class Project
      */
     public function getDataTypeDefinitions()
     {
-        return $this->typedefs;
+        return ComponentHelper::getComponentHelper($this)->getDataTypeDefinitions();
     }
 
     /**
@@ -752,65 +695,15 @@ class Project
     }
 
     /**
-     * Create a new task instance and return reference to it. This method is
-     * sorta factory like. A _local_ instance is created and a reference returned to
-     * that instance. Usually PHP destroys local variables when the function call
-     * ends. But not if you return a reference to that variable.
-     * This is kinda error prone, because if no reference exists to the variable
-     * it is destroyed just like leaving the local scope with primitive vars. There's no
-     * central place where the instance is stored as in other OOP like languages.
-     *
-     * [HL] Well, ZE2 is here now, and this is  still working. We'll leave this alone
-     * unless there's any good reason not to.
+     * Create a new task instance and return reference to it.
      *
      * @param  string         $taskType Task name
      * @return Task           A task object
      * @throws BuildException
-     *                                 Exception
      */
     public function createTask($taskType)
     {
-        try {
-            $classname = "";
-            $tasklwr = strtolower($taskType);
-            foreach ($this->taskdefs as $name => $class) {
-                if (strtolower($name) === $tasklwr) {
-                    $classname = $class;
-                    break;
-                }
-            }
-
-            if ($classname === "") {
-                return null;
-            }
-
-            $cls = Phing::import($classname);
-
-            if (!class_exists($cls)) {
-                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
-            }
-
-            $o = new $cls();
-
-            if ($o instanceof Task) {
-                $task = $o;
-            } else {
-                $this->log("  (Using TaskAdapter for: $taskType)", Project::MSG_DEBUG);
-                // not a real task, try adapter
-                $taskA = new TaskAdapter();
-                $taskA->setProxy($o);
-                $task = $taskA;
-            }
-            $task->setProject($this);
-            $task->setTaskType($taskType);
-            // set default value, can be changed by the user
-            $task->setTaskName($taskType);
-            $this->log("  +Task: " . $taskType, Project::MSG_DEBUG);
-        } catch (Exception $t) {
-            throw new BuildException("Could not create task of type: " . $taskType, $t);
-        }
-        // everything fine return reference
-        return $task;
+        return ComponentHelper::getComponentHelper($this)->createTask($taskType);
     }
 
     /**
@@ -822,35 +715,7 @@ class Project
      */
     public function createCondition($conditionType)
     {
-        try {
-            $classname = "";
-            $tasklwr = strtolower($conditionType);
-            foreach ($this->typedefs as $name => $class) {
-                if (strtolower($name) === $tasklwr) {
-                    $classname = $class;
-                    break;
-                }
-            }
-
-            if ($classname === "") {
-                return null;
-            }
-
-            $cls = Phing::import($classname);
-
-            if (!class_exists($cls)) {
-                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
-            }
-
-            $o = new $cls();
-            if ($o instanceof Condition) {
-                return $o;
-            } else {
-                throw new BuildException("Not actually a condition");
-            }
-        } catch (Exception $e) {
-            throw new BuildException("Could not create condition of type: " . $conditionType, $e);
-        }
+        return ComponentHelper::getComponentHelper($this)->createCondition($conditionType);
     }
 
     /**
@@ -864,37 +729,7 @@ class Project
      */
     public function createDataType($typeName)
     {
-        try {
-            $cls = "";
-            $typelwr = strtolower($typeName);
-            foreach ($this->typedefs as $name => $class) {
-                if (strtolower($name) === $typelwr) {
-                    $cls = StringHelper::unqualify($class);
-                    break;
-                }
-            }
-
-            if ($cls === "") {
-                return null;
-            }
-
-            if (!class_exists($cls)) {
-                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
-            }
-
-            $type = new $cls();
-            $this->log("  +Type: $typeName", Project::MSG_DEBUG);
-            if (!($type instanceof DataType)) {
-                throw new Exception("$class is not an instance of phing.types.DataType");
-            }
-            if ($type instanceof ProjectComponent) {
-                $type->setProject($this);
-            }
-        } catch (Exception $t) {
-            throw new BuildException("Could not create type: $typeName", $t);
-        }
-        // everything fine return reference
-        return $type;
+        return ComponentHelper::getComponentHelper($this)->createDataType($typeName);
     }
 
     /**
