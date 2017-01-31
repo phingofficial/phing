@@ -109,7 +109,7 @@ class TokenSource extends DataType
     public function getTokens()
     {
         if (count($this->tokens) == 0) {
-            $this->Load();
+            $this->load();
         }
 
         return $this->tokens;

@@ -63,7 +63,7 @@ class HgTagTask extends HgBaseTask
     /**
      * Get the name of the tag to be used.
      *
-     * @return void
+     * @return string
      */
     public function getName()
     {

@@ -40,11 +40,10 @@ class FileInputStream extends InputStream
      * Construct a new FileInputStream.
      *
      * @param  PhingFile|string $file   Path to the file
-     * @param  boolean          $append Whether to append (ignored)
      * @throws Exception        - if invalid argument specified.
      * @throws IOException      - if unable to open file.
      */
-    public function __construct($file, $append = false)
+    public function __construct($file)
     {
         if ($file instanceof PhingFile) {
             $this->file = $file;

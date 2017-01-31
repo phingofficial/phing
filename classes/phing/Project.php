@@ -520,7 +520,7 @@ class Project
         }
 
         $dir = $this->fileUtils->normalize($dir);
-        $dir = FileSystem::getFilesystem()->canonicalize($dir);
+        $dir = FileSystem::getFileSystem()->canonicalize($dir);
 
         $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {

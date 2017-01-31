@@ -40,7 +40,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * Returns the  stream without Php comments and whitespace.
      *
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      */
@@ -86,7 +86,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return a new filter based on this configuration, but filtering
+     * @return StripWhitespace a new filter based on this configuration, but filtering
      *           the specified reader
      */
     public function chain(Reader $reader)

@@ -79,7 +79,7 @@ class UnixFileSystem extends FileSystem
     public function normalize($strPathname)
     {
         if (!strlen($strPathname)) {
-            return;
+            return '';
         }
 
         // Start normalising after any scheme that is present.

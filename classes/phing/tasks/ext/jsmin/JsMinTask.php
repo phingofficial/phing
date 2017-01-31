@@ -137,7 +137,7 @@ class JsMinTask extends Task
                 if ($this->failonerror) {
                     throw $be;
                 } else {
-                    $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+                    $this->log($be->getMessage(), Project::MSG_WARN);
                 }
             }
         }

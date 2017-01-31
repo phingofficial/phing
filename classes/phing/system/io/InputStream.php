@@ -151,7 +151,7 @@ class InputStream
         }
         if (false === @fclose($this->stream)) {
             // FAILED.
-            $msg = "Cannot fclose " . $this->file->__toString() . " $php_errormsg";
+            $msg = "Cannot fclose " . $this->__toString() . " $php_errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;

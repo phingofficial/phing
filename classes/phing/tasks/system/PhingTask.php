@@ -540,7 +540,7 @@ class PhingTask extends Task
      *
      * @param $s
      */
-    public function setPhingfile($s)
+    public function setPhingFile($s)
     {
         // it is a string and not a file to handle relative/absolute
         // otherwise a relative file will be resolved based on the current
@@ -605,40 +605,5 @@ class PhingTask extends Task
         $num = array_push($this->references, new PhingReference());
 
         return $this->references[$num - 1];
-    }
-}
-
-/**
- * Helper class that implements the nested <reference>
- * element of <phing> and <phingcall>.
- *
- * @package   phing.tasks.system
- */
-class PhingReference extends Reference
-{
-    private $targetid = null;
-
-    /**
-     * Set the id that this reference to be stored under in the
-     * new project.
-     *
-     * @param the $targetid
-     * @internal param the $targetid id under which this reference will be passed to
-     *        the new project
-     */
-    public function setToRefid($targetid)
-    {
-        $this->targetid = $targetid;
-    }
-
-    /**
-     * Get the id under which this reference will be stored in the new
-     * project
-     *
-     * @return the id of the reference in the new project.
-     */
-    public function getToRefid()
-    {
-        return $this->targetid;
     }
 }

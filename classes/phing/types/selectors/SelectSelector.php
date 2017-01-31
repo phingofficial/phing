@@ -91,7 +91,7 @@ class SelectSelector extends AndSelector
     /**
      * Returns the set of selectors as an array.
      * @param Project $p
-     * @return \an|array
+     * @return array
      */
     public function getSelectors(Project $p)
     {
@@ -117,10 +117,9 @@ class SelectSelector extends AndSelector
     /**
      * Add a new selector into this container.
      *
-     * @param FileSelector|the $selector
+     * @param FileSelector $selector new selector to add
+     * @return void
      * @throws BuildException
-     * @internal param the $selector new selector to add
-     * @return the selector that was added
      */
     public function appendSelector(FileSelector $selector)
     {

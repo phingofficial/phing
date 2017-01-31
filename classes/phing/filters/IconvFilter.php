@@ -51,7 +51,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns first n lines of stream.
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      * @exception IOException if the underlying stream throws an IOException
@@ -123,7 +123,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
      * @param Reader $reader
      * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering the specified reader.
+     * @return self A new filter based on this configuration, but filtering the specified reader.
      */
     public function chain(Reader $reader)
     {

@@ -45,14 +45,14 @@ interface SelectorContainer
      *
      * @param Project $p
      *
-     * @return array an array of selectors in this container
+     * @return BaseSelectorContainer[] an array of selectors in this container
      */
     public function getSelectors(Project $p);
 
     /**
      * Returns an array for accessing the set of selectors.
      *
-     * @return an enumerator that goes through each of the selectors
+     * @return BaseSelectorContainer[] an enumerator that goes through each of the selectors
      */
     public function selectorElements();
 

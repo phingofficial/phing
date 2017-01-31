@@ -165,7 +165,7 @@ class PhingCallTask extends Task
             throw new BuildException("Attribute target is required.", $this->getLocation());
         }
 
-        $this->callee->setPhingfile($this->project->getProperty("phing.file"));
+        $this->callee->setPhingFile($this->project->getProperty("phing.file"));
         $this->callee->setTarget($this->subTarget);
         $this->callee->setInheritAll($this->inheritAll);
         $this->callee->setInheritRefs($this->inheritRefs);

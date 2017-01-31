@@ -287,7 +287,7 @@ class PearPackageScanner extends DirectoryScanner
             } else {
                 $base_dir = dirname($this->packageFile);
             }
-            $this->setBaseDir($base_dir);
+            $this->setBasedir($base_dir);
         }
 
         return true;

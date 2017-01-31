@@ -31,6 +31,9 @@ require_once 'phing/types/selectors/BaseSelector.php';
  */
 abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer
 {
+    /**
+     * @var BaseSelectorContainer[]
+     */
     private $selectorsList = [];
 
     /**
@@ -93,9 +96,8 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
     /**
      * Add a new selector into this container.
      *
-     * @param FileSelector|the $selector
-     * @internal param the $selector new selector to add
-     * @return the selector that was added
+     * @param FileSelector $selector new selector to add
+     * @return void
      */
     public function appendSelector(FileSelector $selector)
     {

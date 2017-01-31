@@ -28,7 +28,7 @@ include_once 'phing/types/AbstractFileSet.php';
  *
  * @package phing.types
  */
-class DirSet extends AbstractFileSet implements IteratorAggregate
+class DirSet extends AbstractFileSet
 {
 
     /**

@@ -71,11 +71,6 @@ class ManifestTask extends Task
     private $action = 'w';
 
     /**
-     * The target file passed in the buildfile.
-     */
-    private $destFile = null;
-
-    /**
      * Holds filesets
      *
      * @var array An Array of objects
@@ -106,6 +101,11 @@ class ManifestTask extends Task
      * @var array
      */
     private $meta = ['totalFileCount' => 0, 'totalFileSize' => 0];
+
+    /**
+     * @var PhingFile The target file passed in the buildfile.
+     */
+    private $file;
 
     /**
      * The setter for the attribute "file".

@@ -164,7 +164,7 @@ class PhkPackageTask extends Task
     /**
      * True or false.
      *
-     * @param srting $strip
+     * @param string $strip
      */
     public function setStrip($strip)
     {
@@ -174,7 +174,7 @@ class PhkPackageTask extends Task
     /**
      * Path to PHK_Creator.phk file.
      *
-     * @param srting $path
+     * @param string $path
      */
     public function setPhkCreatorPath($path)
     {

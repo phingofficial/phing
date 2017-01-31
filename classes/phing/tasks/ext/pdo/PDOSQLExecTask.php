@@ -79,19 +79,19 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Files to load
-     * @var array FileSet[]
+     * @var FileSet[]
      */
     private $filesets = [];
 
     /**
      * Files to load
-     * @var array FileList[]
+     * @var FileList[]
      */
     private $filelists = [];
 
     /**
      * Formatter elements.
-     * @var array PDOSQLExecFormatterElement[]
+     * @var PDOSQLExecFormatterElement[]
      */
     private $formatters = [];
 
@@ -210,8 +210,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the file encoding to use on the SQL files read in
      *
-     * @param the $encoding
-     * @internal param the $encoding encoding to use on the files
+     * @param string $encoding the encoding to use on the files
      */
     public function setEncoding($encoding)
     {
@@ -311,7 +310,7 @@ class PDOSQLExecTask extends PDOTask
         // Initialize the formatters here.  This ensures that any parameters passed to the formatter
         // element get passed along to the actual formatter object
         foreach ($this->formatters as $fe) {
-            $fe->prepare();
+            $fe->prepare($this->getLocation());
         }
 
         $savedTransaction = [];
@@ -587,67 +586,6 @@ class PDOSQLExecTask extends PDOTask
         if ($this->conn) {
             unset($this->conn);
             $this->conn = null;
-        }
-    }
-}
-
-/**
- * "Inner" class that contains the definition of a new transaction element.
- * Transactions allow several files or blocks of statements
- * to be executed using the same JDBC connection and commit
- * operation in between.
- *
- * @package   phing.tasks.ext.pdo
- */
-class PDOSQLExecTransaction
-{
-    private $tSrcFile = null;
-    private $tSqlCommand = "";
-    private $parent;
-
-    /**
-     * @param $parent
-     */
-    public function __construct($parent)
-    {
-        // Parent is required so that we can log things ...
-        $this->parent = $parent;
-    }
-
-    /**
-     * @param PhingFile $src
-     */
-    public function setSrc(PhingFile $src)
-    {
-        $this->tSrcFile = $src;
-    }
-
-    /**
-     * @param $sql
-     */
-    public function addText($sql)
-    {
-        $this->tSqlCommand .= $sql;
-    }
-
-    /**
-     * @throws IOException, PDOException
-     */
-    public function runTransaction()
-    {
-        if (!empty($this->tSqlCommand)) {
-            $this->parent->log("Executing commands", Project::MSG_INFO);
-            $this->parent->runStatements(new StringReader($this->tSqlCommand));
-        }
-
-        if ($this->tSrcFile !== null) {
-            $this->parent->log(
-                "Executing file: " . $this->tSrcFile->getAbsolutePath(),
-                Project::MSG_INFO
-            );
-            $reader = new FileReader($this->tSrcFile);
-            $this->parent->runStatements($reader);
-            $reader->close();
         }
     }
 }

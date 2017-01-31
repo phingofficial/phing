@@ -234,7 +234,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     /**
      * Returns the "end token" character.
      *
-     * @return the character used to denote the beginning of a token
+     * @return string the character used to denote the beginning of a token
      */
     public function getEndToken()
     {

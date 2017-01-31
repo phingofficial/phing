@@ -34,7 +34,7 @@ require_once 'phing/types/AbstractFileSet.php';
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author  Magesh Umasankar (Ant)
  */
-class FileSet extends AbstractFileSet implements IteratorAggregate
+class FileSet extends AbstractFileSet
 {
     /**
      * Return a FileSet that has the same basedir and same patternsets as this one.

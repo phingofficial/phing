@@ -31,16 +31,59 @@ require_once 'Ssh2MethodParam.php';
  */
 class SshTask extends Task
 {
+    /**
+     * @var string
+     */
     private $host = "";
+
+    /**
+     * @var int
+     */
     private $port = 22;
+
+    /**
+     * @var Ssh2MethodParam
+     */
     private $methods = null;
+
+    /**
+     * @var string
+     */
     private $username = "";
+
+    /**
+     * @var string
+     */
     private $password = "";
+
+    /**
+     * @var string
+     */
     private $command = "";
+
+    /**
+     * @var string
+     */
     private $pubkeyfile = '';
+
+    /**
+     * @var string
+     */
     private $privkeyfile = '';
+
+    /**
+     * @var string
+     */
     private $privkeyfilepassphrase = '';
+
+    /**
+     * @var string
+     */
     private $pty = '';
+
+    /**
+     * @var bool
+     */
     private $failonerror = false;
 
     /**
@@ -54,6 +97,11 @@ class SshTask extends Task
      * @var boolean
      */
     private $display = true;
+
+    /**
+     * @var resource
+     */
+    private $connection;
 
     /**
      * @param $host

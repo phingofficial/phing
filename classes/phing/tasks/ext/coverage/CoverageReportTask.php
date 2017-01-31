@@ -40,7 +40,10 @@ class CoverageReportTask extends Task
 
     private $transformers = [];
 
-    /** the classpath to use (optional) */
+    /**
+     * the classpath to use (optional)
+     * @var Path
+     */
     private $classpath = null;
 
     /** the path to the GeSHi library (optional) */
@@ -48,6 +51,11 @@ class CoverageReportTask extends Task
 
     /** the path to the GeSHi language files (optional) */
     private $geshilanguagespath = "";
+
+    /**
+     * @var DOMDocument
+     */
+    private $doc;
 
     /**
      * @param Path $classpath

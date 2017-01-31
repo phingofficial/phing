@@ -50,7 +50,7 @@ abstract class MappingSelector extends BaseSelector
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
-     * @return a mapper to be configured
+     * @return Mapper a mapper to be configured
      * @throws BuildException if more than one mapper defined
      */
     public function createMapper()

@@ -81,7 +81,7 @@ class DataStore
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      *
-     * @return none
+     * @return void
      */
     public function put($key, $value, $autocommit = false)
     {
@@ -111,7 +111,7 @@ class DataStore
     /**
      * Commits data store to disk
      *
-     * @return none
+     * @return void
      */
     public function commit()
     {
@@ -122,7 +122,7 @@ class DataStore
      * Internal function to read data store from file
      *
      * @throws BuildException
-     * @return none
+     * @return void
      */
     private function read()
     {
@@ -140,7 +140,7 @@ class DataStore
      * Internal function to write data store to file
      *
      * @throws BuildException
-     * @return none
+     * @return void
      */
     private function write()
     {
@@ -156,5 +156,3 @@ class DataStore
         }
     }
 }
-
-;

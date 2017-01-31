@@ -59,11 +59,6 @@ abstract class PDOTask extends Task
     private $password;
 
     /**
-     * RDBMS Product needed for this SQL.
-     **/
-    private $rdbms;
-
-    /**
      * Initialize the PDOTask
      * This method checks if the PDO classes are available and triggers
      * appropriate error if they cannot be found.  This is not done in header
@@ -89,8 +84,7 @@ abstract class PDOTask extends Task
 
     /**
      * Sets the database connection URL; required.
-     * @param The $url
-     * @internal param The $url url to set
+     * @param string The url to set
      */
     public function setUrl($url)
     {
@@ -99,8 +93,7 @@ abstract class PDOTask extends Task
 
     /**
      * Sets the password; required.
-     * @param The $password
-     * @internal param The $password password to set
+     * @param string $password The password to set
      */
     public function setPassword($password)
     {
@@ -110,8 +103,7 @@ abstract class PDOTask extends Task
     /**
      * Auto commit flag for database connection;
      * optional, default false.
-     * @param The $autocommit
-     * @internal param The $autocommit autocommit to set
+     * @param bool $autocommit The autocommit to set
      */
     public function setAutocommit($autocommit)
     {
@@ -121,8 +113,7 @@ abstract class PDOTask extends Task
     /**
      * Sets the version string, execute task only if
      * rdbms version match; optional.
-     * @param The $version
-     * @internal param The $version version to set
+     * @param string $version The version to set
      */
     public function setVersion($version)
     {
@@ -140,7 +131,7 @@ abstract class PDOTask extends Task
     /**
      * Creates a new Connection as using the driver, url, userid and password specified.
      * The calling method is responsible for closing the connection.
-     * @return Connection     the newly created connection.
+     * @return PDO     the newly created connection.
      * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
      */
     protected function getConnection()
@@ -191,7 +182,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the autocommit.
-     * @return Returns a boolean
+     * @return bool
      */
     public function isAutocommit()
     {

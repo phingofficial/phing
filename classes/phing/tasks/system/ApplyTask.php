@@ -51,7 +51,7 @@ class ApplyTask extends Task
 
     /**
      * Commandline managing object
-     * @var commandline
+     * @var Commandline
      */
     protected $commandline;
 
@@ -579,7 +579,7 @@ class ApplyTask extends Task
 
         // Executable
         if ($this->commandline->getExecutable() === null) {
-            return $this->throwBuildException('Please provide "executable" information');
+            $this->throwBuildException('Please provide "executable" information');
         }
 
         // Retrieving the current working directory
@@ -590,7 +590,7 @@ class ApplyTask extends Task
 
             // Try expanding (any) symbolic links
             if (!$this->dir->getCanonicalFile()->isDirectory()) {
-                return $this->throwBuildException("'" . $this->dir . "' is not a valid directory");
+                $this->throwBuildException("'" . $this->dir . "' is not a valid directory");
             }
 
             // Change working directory

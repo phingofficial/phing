@@ -243,7 +243,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns an enumerator for accessing the set of selectors.
      *
-     * @return an enumerator that goes through each of the selectors
+     * @return array an enumerator that goes through each of the selectors
      */
     public function selectorElements()
     {

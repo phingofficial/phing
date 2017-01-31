@@ -41,16 +41,10 @@ class TextElement extends ProjectComponent
         $this->filtering = $filtering;
     }
 
-    /** return the filtering attribute */
-    private function getFiltering()
-    {
-        return $this->filtering;
-    }
-
     /**
      * The encoding of the text element
      *
-     * @param encoding the name of the charset used to encode
+     * @param string $encoding the name of the charset used to encode
      */
     public function setEncoding($encoding)
     {
@@ -59,7 +53,7 @@ class TextElement extends ProjectComponent
 
     /**
      * set the text using a file
-     * @param file the file to use
+     * @param PhingFile $file the file to use
      * @throws BuildException if the file does not exist, or cannot be
      *                        read
      */
@@ -89,7 +83,7 @@ class TextElement extends ProjectComponent
 
     /**
      * set the text using inline
-     * @param value the text to place inline
+     * @param string $value the text to place inline
      */
     public function addText($value)
     {
@@ -98,16 +92,16 @@ class TextElement extends ProjectComponent
 
     /**
      * s:^\s*:: on each line of input
-     * @param strip if true do the trim
+     * @param bool $trimLeading if true do the trim
      */
-    public function setTrimLeading($strip)
+    public function setTrimLeading($trimLeading)
     {
-        $this->trimLeading = $strip;
+        $this->trimLeading = $trimLeading;
     }
 
     /**
      * whether to call text.trim()
-     * @param trim if true trim the text
+     * @param bool $trim if true trim the text
      */
     public function setTrim($trim)
     {
@@ -115,7 +109,7 @@ class TextElement extends ProjectComponent
     }
 
     /**
-     * @return the text, after possible trimming
+     * @return string the text, after possible trimming
      */
     public function getValue()
     {

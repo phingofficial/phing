@@ -78,7 +78,7 @@ class InifileTask extends Task
      *
      * @param string $readFile Filename
      *
-     * @return void
+     * @return bool
      */
     public function checkReadFile($readFile)
     {
@@ -111,7 +111,7 @@ class InifileTask extends Task
      *
      * @param string $writeFile Filename
      *
-     * @return void
+     * @return bool
      */
     public function checkWriteFile($writeFile)
     {

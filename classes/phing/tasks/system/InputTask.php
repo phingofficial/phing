@@ -67,8 +67,7 @@ class InputTask extends Task
 
     /**
      * Sets the Message which gets displayed to the user during the build run.
-     * @param The $message
-     * @internal param The $message message to be displayed.
+     * @param string $message The message to be displayed.
      */
     public function setMessage($message)
     {

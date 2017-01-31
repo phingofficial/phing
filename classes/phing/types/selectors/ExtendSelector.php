@@ -118,7 +118,7 @@ class ExtendSelector extends BaseSelector
      * @param PhingFile $basedir
      * @param string $filename The filename
      * @param PhingFile $file
-     * @return \whether
+     * @return bool
      * @throws BuildException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

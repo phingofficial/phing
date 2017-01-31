@@ -198,6 +198,21 @@ class SassTask extends Task
     protected $outputpath = '';
 
     /**
+     * @var bool
+     */
+    protected $force;
+
+    /**
+     * @var bool
+     */
+    protected $lineNumbers;
+
+    /**
+     * @var bool
+     */
+    protected $noCache;
+
+    /**
      * Set input file (For example style.scss)
      *
      * Synonym for @see setFile
