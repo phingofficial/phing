@@ -193,8 +193,8 @@ class Variable extends PropertyTask
     protected function addProperties($props)
     {
         $this->resolveAllProperties($props);
-        foreach ($props as $name => $value) {
-            $this->forceProperty($name, $value);
+        foreach ($props->keys() as $name) {
+            $this->forceProperty($name, $props->getProperty($name));
         }
     }
 
