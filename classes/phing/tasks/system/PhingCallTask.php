@@ -140,7 +140,7 @@ class PhingCallTask extends Task
         $this->callee->setOwningTarget($this->getOwningTarget());
         $this->callee->setTaskName($this->getTaskName());
         $this->callee->setHaltOnFailure(true);
-        $this->callee->setLocation($this->getLocation());
+        $this->callee->setInternalLocation($this->getLocation());
         $this->callee->init();
     }
 

@@ -139,6 +139,9 @@ class ResolvePathTask extends Task
      */
     public function main()
     {
+        $this->log(get_class() . ' is deprecated and will be removed in next version.', Project::MSG_WARN);
+        $this->log('Please rewrite your build scripts to use the PropertyTask with loc attribute.', Project::MSG_WARN);
+
         if (!$this->propertyName) {
             throw new BuildException("You must specify the propertyName attribute", $this->getLocation());
         }

@@ -37,9 +37,9 @@ abstract class ProjectComponent
     protected $project = null;
 
     private $location;
-    
+
     private $description;
-    
+
     /**
      * References the project to the current component.
      *
@@ -79,7 +79,7 @@ abstract class ProjectComponent
      * @param Location $location The file/location where this task was defined.
      *                 Should not be <code>null</code>
      */
-    public function setLocation(Location $location)
+    public function setInternalLocation(Location $location)
     {
         $this->location = $location;
     }
