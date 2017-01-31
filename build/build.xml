@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-    This build file builds the Phing release as a PEAR and PHAR package.
+    This build file builds the Phing release as a phar package.
 -->
 <project name="phing" basedir="." default="main">
 
@@ -10,14 +10,6 @@
         <param value="${buildfile.dir}/.."/>
     </php>
 
-    <condition property="pearpkg2.task.available">
-        <and>
-            <available file="${phingpkg.home}/classes/phing/tasks/ext/PearPackage2Task.php" />
-            <available resource="PEAR/PackageFileManager2.php" />
-        </and>
-    </condition>
-
-    <property name="build.pear.dir" value="${buildfile.dir}/pear"/>
     <property name="build.full.dir" value="${buildfile.dir}/full"/>
 
     <fileset dir="${phingpkg.home}" id="all">
@@ -51,7 +43,6 @@
     </fileset>
 
     <fileset dir="${phingpkg.home}" id="scripts">
-        <include name="bin/pear-*"/>
         <include name="bin/phing.php"/>
     </fileset>
 
@@ -69,7 +60,7 @@
         ==============================================
     -->
     <target name="main"
-        depends="clean,clean-external,create-api-docs,copy-files,create-package-xml,composer,package.pear,package.phar"
+        depends="clean,clean-external,create-api-docs,copy-files,composer,package.phar"
     />
 
     <!--
@@ -83,8 +74,6 @@
 
         <property name="pkgname" value="phing-${version}"/>
         <property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
-        <property name="build.src.dir" value="${build.pear.dir}/phing/${pkgname}"/>
-        <property name="build.docs.dir" value="${build.pear.dir}/phingdocs/${pkgname-docs}" override="true"/>
         <property name="build.full.dir" value="${buildfile.dir}/full/${pkgname}" override="true"/>
 
         <if>
@@ -108,7 +97,7 @@
             </else>
         </if>
 
-        <echo>Building Phing PEAR/full version ${version} (${state})</echo>
+        <echo>Building Phing version ${version} (${state})</echo>
         <echo>${notes}</echo>
 
     </target>
@@ -116,8 +105,6 @@
     <!--
         ==============================================
         Copy the desired files into the build/ dir
-        making sure to put them in the directory
-        structure that will be needed for PEAR install
         ==============================================
     -->
     <target name="copy-files"
@@ -128,7 +115,6 @@
         <echo>-----------------------------</echo>
 
         <mkdir dir="${build.full.dir}" />
-        <mkdir dir="${build.pear.dir}" />
 
         <copy todir="${build.full.dir}">
             <fileset refid="all"/>
@@ -140,18 +126,6 @@
             </filterchain>
         </copy>
 
-        <copy todir="${build.src.dir}">
-            <fileset refid="classes"/>
-            <fileset refid="etc"/>
-            <fileset refid="scripts"/>
-            <fileset refid="misc"/>
-        </copy>
-
-        <copy todir="${build.docs.dir}">
-            <fileset refid="docs"/>
-        </copy>
-
-        <chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
         <chmod file="${build.full.dir}/bin/phing" mode="755"/>
 
     </target>
@@ -179,112 +153,12 @@
 
     <!--
         ==============================================
-        Create a PEAR package.xml which will guide the
-        installation.
-        ==============================================
-    -->
-    <target name="create-package-xml"
-        if="version"
-        depends="setproperties">
-
-        <fail unless="pearpkg2.task.available"
-            message="PEAR_PackageFileManager2 is not installed" />
-
-        <taskdef
-            name="pear-package"
-            classname="BuildPhingPEARPackageTask" classpath="${buildfile.dir}"
-        />
-
-        <echo>-----------------------------</echo>
-        <echo>| Creating PEAR package.xml |</echo>
-        <echo>-----------------------------</echo>
-        <echo></echo>
-        <echo>... (This step may take some time) ...</echo>
-
-        <delete file="${build.pear.dir}/phing/package.xml"
-            failonerror="false"
-        />
-
-        <pear-package mode="source" dir="${build.src.dir}"
-            destFile="${build.pear.dir}/phing/package.xml"
-            version="${version}" state="${state}" notes="${notes}">
-
-            <fileset refid="classes"/>
-            <fileset refid="etc"/>
-            <fileset refid="misc"/>
-            <fileset refid="scripts"/>
-
-        </pear-package>
-
-        <pear-package mode="docs" dir="${build.docs.dir}"
-            destFile="${build.pear.dir}/phingdocs/package.xml"
-            version="${version}" state="${state}" notes="${notes}">
-
-            <fileset refid="docs"/>
-
-        </pear-package>
-
-    </target>
-
-    <!--
-        ==============================================
         Run composer
         ==============================================
     -->
     <target name="composer"
         depends="setproperties">
         <exec dir="${build.full.dir}" passthru="true" command="composer install -o --no-dev --prefer-dist"/>
-    </target>
-
-    <!--
-        ==============================================
-        Create a tar.gz of the files, which will be
-        installed by pear package manager.
-        ==============================================
-    -->
-    <target name="package.pear"
-        depends="setproperties">
-
-        <echo>-----------------------------</echo>
-        <echo>| Creating PEAR packages    |</echo>
-        <echo>-----------------------------</echo>
-
-        <property name="tgzfile" value="${build.pear.dir}/${pkgname}.tgz"/>
-        <delete file="${tgzfile}" failonerror="false"/>
-        <tar compression="gzip" destFile="${tgzfile}"
-            basedir="${build.pear.dir}/phing"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tgzfile}"/>
-        </phingcall>
-
-        <property name="tarfile" value="${build.pear.dir}/${pkgname}.tar"/>
-        <delete file="${tarfile}" failonerror="false"/>
-        <tar compression="none" destFile="${tarfile}"
-            basedir="${build.pear.dir}/phing"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tarfile}"/>
-        </phingcall>
-
-        <property name="tgzfile-docs" value="${build.pear.dir}/${pkgname-docs}.tgz"/>
-        <delete file="${tgzfile-docs}" failonerror="false"/>
-        <tar compression="gzip" destFile="${tgzfile-docs}"
-            basedir="${build.pear.dir}/phingdocs"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tgzfile-docs}"/>
-        </phingcall>
-
-        <property name="tarfile-docs" value="${build.pear.dir}/${pkgname-docs}.tar"/>
-        <delete file="${tarfile-docs}" failonerror="false"/>
-        <tar compression="none" destFile="${tarfile-docs}"
-            basedir="${build.pear.dir}/phingdocs"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tarfile-docs}"/>
-        </phingcall>
-
     </target>
 
     <!--
@@ -361,7 +235,6 @@
         <echo>| Deleting build directory  |</echo>
         <echo>-----------------------------</echo>
 
-        <delete dir="${buildfile.dir}/pear" failonerror="false"/>
         <delete dir="${buildfile.dir}/full" failonerror="false"/>
 
     </target>
@@ -385,11 +258,7 @@
         <filehash file="${filename}" algorithm="sha1" propertyname="phar.hash"/>
         <echo file="${filename}.sha1">${phar.hash} ${basefilename}</echo>
 
-        <exec command="gpg" checkreturn="true" logoutput="true">
-            <arg value="-u mrook@php.net --detach-sign --output" />
-            <arg path="${filename}.asc" />
-            <arg path="${filename}" />
-        </exec>
+        <exec command="gpg -u mrook@php.net --detach-sign --output ${filename}.asc ${filename}" checkreturn="true" logoutput="true"/>
     </target>
 
 </project>

@@ -18,6 +18,7 @@
         "issues": "https://github.com/phingofficial/phing/issues",
         "source": "https://github.com/phingofficial/phing/",
         "irc": "irc://irc.freenode.net/phing",
+        "slack": "https://www.phing.info/slack",
         "docs": "https://www.phing.info/docs/guide/stable/"
     },
     "require": {

@@ -270,7 +270,7 @@ class ExecTask extends Task
         if ($this->output === null && $this->error === null && $this->passthru === false) {
             $this->realCommand .= ' 2>&1';
         }
-
+        
         // we ignore the spawn boolean for windows
         if ($this->spawn) {
             $this->realCommand .= ' &';

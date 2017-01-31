@@ -1342,30 +1342,11 @@ class Phing
             }
         }
 
-        // If we are using this via PEAR then check for the file in the data dir
-        // This is a bit of a hack, but works better than previous solution of assuming
-        // data_dir is on the include_path.
-        $dataDir = '@DATA-DIR@';
-        if ($dataDir{0} != '@') { // if we're using PEAR then the @ DATA-DIR @ token will have been substituted.
-            if (!file_exists($dataDir)) {
-                self::log("The PEAR data_dir setting is incorrect: {$dataDir}.", Project::MSG_ERR);
-                self::log("Please edit using 'pear config-set data_dir ...' and re-install Phing.", Project::MSG_ERR);
-
-                return null;
-            }
-
-            $testPath = $dataDir . DIRECTORY_SEPARATOR . $path;
-            if (file_exists($testPath)) {
-                return $testPath;
-            }
-        } else {
-            // We're not using PEAR, so do one additional check based on path of
-            // current file (Phing.php)
-            $maybeHomeDir = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
-            $testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
-            if (file_exists($testPath)) {
-                return $testPath;
-            }
+        // Do one additional check based on path of current file (Phing.php)
+        $maybeHomeDir = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+        $testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
+        if (file_exists($testPath)) {
+            return $testPath;
         }
 
         return null;

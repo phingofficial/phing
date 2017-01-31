@@ -27,7 +27,6 @@ P     H     I     N     G
   * Rich set of provided tasks
   * Easily extendable via PHP classes
   * Platform-independent: works on UNIX, Windows, Mac OSX
-  * No required external dependencies
 
 The Latest Version
 ------------------
@@ -62,14 +61,6 @@ Installation
   The archive can then be executed by running:
 
          $ php phing-latest.phar
-
-  3. **PEAR**
-
-  You can install Phing by using the PEAR insatller:
-
-         $ pear channel-discover pear.phing.info
-         $ pear install [--alldeps] phing/phing
-
 
 Running the (unit) tests
 ------------------------

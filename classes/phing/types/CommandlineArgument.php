@@ -66,7 +66,7 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param a|PhingFile $value
+     * @param PhingFile $value
      * @internal param a $value single commandline argument.
      */
     public function setFile(PhingFile $value)
