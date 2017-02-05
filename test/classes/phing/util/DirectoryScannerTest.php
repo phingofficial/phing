@@ -49,6 +49,25 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("cleanup");
     }
 
+    /**
+     * @expectedException BuildException
+     * @expectedExceptionMessageRegExp /basedir (.*)THIS_DOES_NOT_EXIST does not exist\./
+     */
+    public function testErrorOnMissingDir()
+    {
+        $ds = new DirectoryScanner();
+        $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
+        $ds->setErrorOnMissingDir(true);
+        $ds->scan();
+    }
+
+    public function testNoErrorOnMissingDir()
+    {
+        $ds = new DirectoryScanner();
+        $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
+        $ds->scan();
+    }
+
     public function test1()
     {
         $ds = new DirectoryScanner();

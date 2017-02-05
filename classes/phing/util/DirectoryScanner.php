@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -208,9 +206,13 @@ class DirectoryScanner implements SelectorScanner
 
     /** Should the file system be treated as a case sensitive one? */
     protected $isCaseSensitive = true;
+    /**
+     * Whether a missing base directory is an error.
+     */
+    protected $errorOnMissingDir = false;
 
     /** @var FileSelector[] Selectors */
-    protected $selectors = null;
+    protected $selectorsList = null;
 
     protected $filesDeselected;
     protected $dirsDeselected;
@@ -280,8 +282,7 @@ class DirectoryScanner implements SelectorScanner
      */
     public function setBasedir($_basedir)
     {
-        $_basedir = str_replace('\\', DIRECTORY_SEPARATOR, $_basedir);
-        $_basedir = str_replace('/', DIRECTORY_SEPARATOR, $_basedir);
+        $_basedir = str_replace(['/','\\'], DIRECTORY_SEPARATOR, $_basedir);
         $this->basedir = $_basedir;
     }
 
@@ -304,6 +305,17 @@ class DirectoryScanner implements SelectorScanner
     public function setCaseSensitive($_isCaseSensitive)
     {
         $this->isCaseSensitive = ($_isCaseSensitive) ? true : false;
+    }
+
+    /**
+     * Sets whether or not a missing base directory is an error
+     *
+     * @param bool $errorOnMissingDir whether or not a missing base directory
+     *                        is an error
+     */
+    public function setErrorOnMissingDir($errorOnMissingDir)
+    {
+        $this->errorOnMissingDir = $errorOnMissingDir;
     }
 
     /**
@@ -375,8 +387,27 @@ class DirectoryScanner implements SelectorScanner
      */
     public function scan()
     {
-        if ((empty($this->basedir)) || (!@is_dir($this->basedir))) {
+        if (empty($this->basedir)) {
             return false;
+        } else {
+            $exception = null;
+
+            if (!@file_exists($this->basedir)) {
+                if ($this->errorOnMissingDir) {
+                    $exception = new BuildException(
+                        "basedir  $this->basedir does not exist."
+                    );
+                } else {
+                    return false;
+                }
+            } elseif (!@is_dir($this->basedir)) {
+                $exception = new BuildException(
+                    "basedir $this->basedir is not a directory."
+                );
+            }
+            if ($exception !== null) {
+                throw $exception;
+            }
         }
 
         if ($this->includes === null) {
@@ -491,7 +522,7 @@ class DirectoryScanner implements SelectorScanner
             return;
         }
 
-        $newfiles = self::listDir($_rootdir);
+        $newfiles = $this->listDir($_rootdir);
 
         for ($i = 0, $_i = count($newfiles); $i < $_i; $i++) {
             $file = $_rootdir . DIRECTORY_SEPARATOR . $newfiles[$i];
@@ -761,7 +792,7 @@ class DirectoryScanner implements SelectorScanner
      */
     public function setSelectors($selectors)
     {
-        $this->selectors = $selectors;
+        $this->selectorsList = $selectors;
     }
 
     /**
@@ -785,14 +816,14 @@ class DirectoryScanner implements SelectorScanner
      */
     protected function isSelected($name, $file)
     {
-        if ($this->selectors !== null) {
+        if ($this->selectorsList !== null) {
             $basedir = new PhingFile($this->basedir);
             $file = new PhingFile($file);
             if (!$file->canRead()) {
                 return false;
             }
 
-            foreach ($this->selectors as $selector) {
+            foreach ($this->selectorsList as $selector) {
                 if (!$selector->isSelected($basedir, $name, $file)) {
                     return false;
                 }

@@ -81,6 +81,14 @@ class DataType extends ProjectComponent
     }
 
     /**
+     * @param bool $checked
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
+    }
+
+    /**
      * Check to see whether any DataType we hold references to is
      * included in the Stack (which holds all DataType instances that
      * directly or indirectly reference this instance, including this

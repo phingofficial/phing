@@ -42,9 +42,9 @@ class FileSet extends AbstractFileSet
     public function __clone()
     {
         if ($this->isReference()) {
-            return new FileSet($this->getRef($this->getProject()));
+            new FileSet($this->getRef($this->getProject()));
         } else {
-            return new FileSet($this);
+            new FileSet($this);
         }
     }
 
