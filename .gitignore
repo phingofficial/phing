@@ -10,3 +10,5 @@ vendor
 bin/*
 !bin/pear*
 !bin/phing*
+/custom.tasks.properties
+/custom.types.properties
