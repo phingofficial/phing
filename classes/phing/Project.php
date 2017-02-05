@@ -24,6 +24,7 @@ include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
 include_once 'phing/input/DefaultInputHandler.php';
 include_once 'phing/types/PropertyValue.php';
+include_once 'phing/ComponentHelper.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
