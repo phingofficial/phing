@@ -206,7 +206,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function setFollowSymlinks($followSymlinks)
     {
-        $this->fileset->setFollowSymlinks($followSymlinks);
+        $this->fileset->setExpandSymbolicLinks($followSymlinks);
     }
 
     /**
