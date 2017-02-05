@@ -47,7 +47,7 @@ Installation
   The preferred method to install Phing is through [Composer](https://getcomposer.org/).
   Add [phing/phing](https://packagist.org/packages/phing/phing) to the
   require-dev or require section of your project's `composer.json`
-  configuration file, and running 'composer install':
+  configuration file, and run 'composer install':
 
          {
              "require-dev": {
