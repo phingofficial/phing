@@ -36,11 +36,35 @@ include_once 'phing/input/MultipleChoiceInputRequest.php';
  */
 class InputTask extends Task
 {
+    /**
+     * @var string
+     */
     private $validargs;
+
+    /**
+     * @var string
+     */
     private $message = ""; // required
+
+    /**
+     * @var string
+     */
     private $propertyName; // required
+
+    /**
+     * @var string
+     */
     private $defaultValue;
+
+    /**
+     * @var string
+     */
     private $promptChar;
+
+    /**
+     * @var bool
+     */
+    private $hidden = false;
 
     /**
      * Defines valid input parameters as comma separated strings. If set, input
@@ -76,7 +100,7 @@ class InputTask extends Task
 
     /**
      * Set a multiline message.
-     * @param $msg
+     * @param string $msg
      */
     public function addText($msg)
     {
@@ -99,6 +123,14 @@ class InputTask extends Task
     public function setPromptChar($c)
     {
         $this->promptChar = $c;
+    }
+
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
     }
 
     /**
@@ -140,8 +172,8 @@ class InputTask extends Task
 
         // default default is curr prop value
         $request->setDefaultValue($this->project->getProperty($this->propertyName));
-
         $request->setPromptChar($this->promptChar);
+        $request->setHidden($this->hidden);
 
         // unless overridden...
         if ($this->defaultValue !== null) {

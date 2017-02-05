@@ -18,6 +18,8 @@
  */
 
 use SebastianBergmann\Version;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 require_once 'phing/Diagnostics.php';
 require_once 'phing/Project.php';
@@ -829,7 +831,8 @@ class Phing
     private function addInputHandler(Project $project)
     {
         if ($this->inputHandlerClassname === null) {
-            $handler = new DefaultInputHandler();
+//            $handler = new DefaultInputHandler();
+            $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
         } else {
             try {
                 $clz = Phing::import($this->inputHandlerClassname);
