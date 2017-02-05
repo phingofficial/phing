@@ -39,6 +39,10 @@ class SelectorUtilsTest extends PHPUnit_Framework_TestCase
      */
     public function testIncludePathsInBase()
     {
-        $this->assertTrue($this->selectorUtils->matchPath("**/domain.ext/**", "domain.ext/foo"));
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $this->assertTrue($this->selectorUtils->matchPath('**\domain.ext\**', 'domain.ext\foo'));
+        } else {
+            $this->assertTrue($this->selectorUtils->matchPath("**/domain.ext/**", "domain.ext/foo"));
+        }
     }
 }
