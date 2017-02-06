@@ -9317,9 +9317,8 @@ description="Measures the size of the project and count it's tests">
                 xlink:href="http://ant.apache.org/manual/OptionalTasks/junit.html" role="extern"
                 >JUnit</link> task.</para>
         <para>
-            <emphasis role="bold">NB:</emphasis> if you have installed the
-            PHPUnit PHAR, make sure you set the
-            <literal>pharlocation</literal> attribute!</para>
+            <emphasis role="bold">NB:</emphasis> if you want to use the PHPUnit .phar file, please make sure you download the library version (<literal>phpunit-library.phar</literal>)
+            and you set the <literal>pharlocation</literal> attribute!</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
