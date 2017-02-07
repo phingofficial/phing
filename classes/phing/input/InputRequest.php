@@ -30,10 +30,30 @@
  */
 class InputRequest
 {
+    /**
+     * @var string
+     */
     protected $prompt;
+
+    /**
+     * @var string
+     */
     protected $input;
+
+    /**
+     * @var string
+     */
     protected $defaultValue;
+
+    /**
+     * @var string
+     */
     protected $promptChar;
+
+    /**
+     * @var bool
+     */
+    protected $hidden = false;
 
     /**
      * @param string $prompt The prompt to show to the user.  Must not be null.
@@ -114,5 +134,21 @@ class InputRequest
     public function getPromptChar()
     {
         return $this->promptChar;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
     }
 }

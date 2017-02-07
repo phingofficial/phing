@@ -2303,6 +2303,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>hidden</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to hide user input.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                     <!-- TODO : Add "os" as soon as it is supported -->
                 </tbody>
             </tgroup>

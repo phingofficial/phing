@@ -28,7 +28,7 @@ Phing 2.x Development
   - Andrei Serdeliuc <andrei@serdeliuc.ro>
   - Victor Farazdagi
   - Christian Weiske
-  - Matthias Pigulla
+  - Matthias Pigulla <mp@webfactory.de>
   - Lineke Kerckhoffs-Willems <lineke@phpassionate.com>
   - Utsav Handa <handautsav@hotmail.com>
   - Ken Guest <ken@linux.ie>
