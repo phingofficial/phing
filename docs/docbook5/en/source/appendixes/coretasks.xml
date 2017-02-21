@@ -1204,6 +1204,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>verbose</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>	Whether to print the list of the copied file. Defaults to false.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
