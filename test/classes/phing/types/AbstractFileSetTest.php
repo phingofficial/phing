@@ -52,7 +52,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $f = $this->getInstance();
         $f->setIncludes("**/*.php");
         try {
-            $f->setRefid(new Reference("dummyref"));
+            $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
                 . $f->getDataTypeName()
@@ -69,7 +69,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $f = $this->getInstance();
         $f->createPatternSet();
         try {
-            $f->setRefid(new Reference("dummyref"));
+            $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
                 . $f->getDataTypeName()
@@ -86,7 +86,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $f = $this->getInstance();
         $f->createInclude();
         try {
-            $f->setRefid(new Reference("dummyref"));
+            $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
                 . $f->getDataTypeName()
@@ -101,7 +101,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         }
 
         $f = $this->getInstance();
-        $f->setRefid(new Reference("dummyref"));
+        $f->setRefid(new Reference($this->getProject(), "dummyref"));
         try {
             $f->setIncludes("**/*.java");
             $this->fail(
