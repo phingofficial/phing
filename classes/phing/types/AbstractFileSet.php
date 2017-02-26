@@ -413,19 +413,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getRef(Project $p)
     {
-        if (!$this->checked) {
-            $stk = [];
-            array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
-        }
-
-        $o = $this->ref->getReferencedObject($p);
-        if (!($o instanceof FileSet)) {
-            $msg = $this->ref->getRefId() . " doesn't denote a fileset";
-            throw new BuildException($msg);
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
+        return $this->getCheckedRef(get_class(), $dataTypeName);
     }
 
     // SelectorContainer methods

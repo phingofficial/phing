@@ -285,18 +285,7 @@ class Mapper extends DataType
     /** Performs the check for circular references and returns the referenced Mapper. */
     private function getRef()
     {
-        if (!$this->checked) {
-            $stk = [];
-            $stk[] = $this;
-            $this->dieOnCircularReference($stk, $this->project);
-        }
-
-        $o = $this->ref->getReferencedObject($this->project);
-        if (!($o instanceof Mapper)) {
-            $msg = $this->ref->getRefId() . " doesn't denote a mapper";
-            throw new BuildException($msg);
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
+        return $this->getCheckedRef(get_class(), $dataTypeName);
     }
 }
