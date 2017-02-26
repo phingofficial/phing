@@ -25,6 +25,12 @@
         </foreach>
     </target>
 
+    <target name="testLogMessageWithDirset">
+        <foreach param="dirname" absparam="absdirname" target="main">
+            <dirset dir="." />
+        </foreach>
+    </target>
+
     <target name="testLogMessageWithList">
         <foreach list="${languages}" param="lang" target="main" />
     </target>

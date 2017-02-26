@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/BuildFileTest.php';
+
 /**
  * Unit test for ForeachTask.
  *
@@ -80,6 +82,17 @@ class ForeachTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
+    }
+
+    /**
+     * Test to get the right log message on fileset usage
+     *
+     * @return void
+     */
+    public function testLogMessageWithDirset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
     }
 
     /**
