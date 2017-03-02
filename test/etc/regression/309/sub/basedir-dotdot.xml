@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<project name="test" default="main" basedir="..">
+
+    <target name="main">
+        <echo>project.basedir: ${project.basedir}</echo>
+        <echo>application.startdir: ${application.startdir}</echo>
+    </target>
+
+</project>
