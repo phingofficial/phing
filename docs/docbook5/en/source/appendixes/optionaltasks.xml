@@ -8641,7 +8641,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/target></programlisting>
 <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
 <programlisting language="xml">&lt;target name="project-size-and-tests"
-description="Measures the size of the project and count it's tests">
+description="Measures the size of the project and counts the tests">
     &lt;phploc countTests="true">
     &lt;fileset dir=".">
         &lt;include name="**/*.php" />
@@ -8703,7 +8703,7 @@ description="Measures the size of the project and count it's tests">
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Path to write output file to.</entry>
                                     <entry>n/a</entry>
-                                    <entry>Yes</entry>
+                                    <entry>Yes, if <literal>usefile></literal> is <literal>true</literal></entry>
                                 </row>
                             </tbody>
                         </tgroup>
