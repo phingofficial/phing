@@ -236,7 +236,36 @@ class SymlinkTask extends Task
             }
 
             if ($this->isRelative()) {
-                $fromDir = $fs->getDir($this->getProject())->getPath();
+                $endPath = $fs->getDir($this->getProject())->getAbsolutePath();
+                $startPath = $this->getLink();
+                
+                // Normalize separators on Windows
+                if ('\\' === DIRECTORY_SEPARATOR) {
+                    $endPath = str_replace('\\', '/', $endPath);
+                    $startPath = str_replace('\\', '/', $startPath);
+                }
+                
+                // Split the paths into arrays
+                $startPathArr = explode('/', trim($startPath, '/'));
+                $endPathArr = explode('/', trim($endPath, '/'));
+                
+                // Find for which directory the common path stops
+                $index = 0;
+                while (isset($startPathArr[$index]) && isset($endPathArr[$index]) && $startPathArr[$index] === $endPathArr[$index]) {
+                    ++$index;
+                }
+                
+                // Determine how deep the start path is relative to the common path (ie, "web/bundles" = 2 levels)
+                $depth = count($startPathArr) - $index;
+                
+                // Repeated "../" for each level need to reach the common path
+                $traverser = str_repeat('../', $depth);
+                $endPathRemainder = implode('/', array_slice($endPathArr, $index));
+                
+                // Construct $endPath from traversing to the common path, then to the remaining $endPath
+                $relativePath = $traverser.('' !== $endPathRemainder ? $endPathRemainder.'/' : '');
+  
+                $fromDir = '' === $relativePath ? './' : $relativePath;
             } else {
                 $fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
             }
