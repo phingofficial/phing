@@ -53,6 +53,20 @@
 		</copy>
 		<delete dir="copies"/>
 	</target>
+
+	<target name="testCopyDirSet">
+		<mkdir dir="${tmp.dir}/Test1"/>
+		<mkdir dir="${tmp.dir}/Test2"/>
+		<touch file="${tmp.dir}/Test1/a"/>
+		<touch file="${tmp.dir}/Test2/b"/>
+		<mkdir dir="copies"/>
+		<copy todir="copies" verbose="true">
+			<dirset dir="${tmp.dir}">
+				<include name="Test*"/>
+			</dirset>
+		</copy>
+		<delete dir="copies"/>
+	</target>
 	
 	<target name="testOverwriteExistingSymlink">
 		<symlink target="${tmp.dir}/target-a" link="${tmp.dir}/link-a"/>

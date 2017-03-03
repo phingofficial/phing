@@ -71,7 +71,10 @@ class PhingTask extends Task
     /** The filesets that contain the files PhingTask is to be run on. */
     private $filesets = [];
 
-    /** the temporary project created to run the build file */
+    /**
+     * the temporary project created to run the build file
+     * @var Project $newProject
+     */
     private $newProject;
 
     /** Fail the build process when the called build fails? */
@@ -386,6 +389,16 @@ class PhingTask extends Task
             $p->main();
         }
         $this->project->copyInheritedProperties($this->newProject);
+    }
+
+    /**
+     * Add a Reference element identifying a data type to carry
+     * over to the new project.
+     * @param Reference $ref <code>Reference</code> to add.
+     */
+    public function addReference(Reference $ref)
+    {
+        $this->references[] = $ref;
     }
 
     /**
