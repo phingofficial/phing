@@ -92,11 +92,11 @@ class DocBlox_Parallel_WorkerPipe
         fwrite(
             $pipe,
             serialize(
-                array(
+                [
                     $this->worker->getResult(),
                     $this->worker->getError(),
                     $this->worker->getReturnCode()
-                )
+                ]
             )
         );
         fclose($pipe);
@@ -112,11 +112,11 @@ class DocBlox_Parallel_WorkerPipe
         $pipe = @fopen($this->path, 'r+');
 
         if (! $pipe) {
-            return array(
+            return [
                 '',
                 'Worker died unexpectedly',
                 255
-            );
+            ];
         }
 
         $result = unserialize(fread($pipe, filesize($this->path)));

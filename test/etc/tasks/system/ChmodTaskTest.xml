@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ChmodTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="testChangeModeFile">
+        <mkdir dir="${tmp.dir}"/>
+        <touch file="${tmp.dir}/chmodtest"/>
+        <chmod file="${tmp.dir}/chmodtest" mode="0400"/>
+    </target>
+
+    <target name="testChangeModeFileSet">
+        <mkdir dir="${tmp.dir}"/>
+        <touch file="${tmp.dir}/chmodtest"/>
+        <chmod mode="0400">
+            <fileset dir="${tmp.dir}">
+                <include name="chmodtest"/>
+            </fileset>
+        </chmod>
+    </target>
+</project>

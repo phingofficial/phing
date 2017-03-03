@@ -40,7 +40,7 @@ class TouchTask extends Task
     private $file;
     private $millis = -1;
     private $dateTime;
-    private $filesets = array();
+    private $filesets = [];
     private $fileUtils;
     private $mkdirs = false;
     private $verbose = true;
@@ -144,11 +144,10 @@ class TouchTask extends Task
             }
             $this->_touch();
         } catch (Exception $ex) {
-            throw new BuildException("Error touch()ing file", $ex, $this->location);
+            throw new BuildException("Error touch()ing file", $ex, $this->getLocation());
         }
 
         $this->millis = $savedMillis;
-
     }
 
     /**
@@ -163,7 +162,7 @@ class TouchTask extends Task
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
                     throw new BuildException("Error creating new file " . $this->file->__toString(
-                        ), $ioe, $this->location);
+                        ), $ioe, $this->getLocation());
                 }
             }
         }
@@ -180,7 +179,6 @@ class TouchTask extends Task
 
         // deal with the filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->getProject());
             $fromDir = $fs->getDir($this->getProject());
 
@@ -212,5 +210,4 @@ class TouchTask extends Task
         }
         $file->setLastModified($this->millis);
     }
-
 }

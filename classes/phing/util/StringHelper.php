@@ -31,30 +31,10 @@
 class StringHelper
 {
     /** @var array */
-    private static $TRUE_VALUES = array("on", "true", "t", "yes");
+    private static $TRUE_VALUES = ["on", "true", "t", "yes", "1"];
 
     /** @var array */
-    private static $FALSE_VALUES = array("off", "false", "f", "no");
-
-    /**
-     * Replaces identifier tokens with corresponding text values in passed string.
-     *
-     * @param  array  $strings      Array of strings to multiply. (If string is passed, will convert to array)
-     * @param  array  $tokens       The tokens to search for.
-     * @param  array  $replacements The values with which to replace found tokens.
-     *
-     * @return string
-     */
-    public static function multiply($strings, $tokens, $replacements)
-    {
-        $strings = (array) $strings;
-        $results = array();
-        foreach ($strings as $string) {
-            $results[] = str_replace($tokens, $replacements, $string);
-        }
-
-        return $results;
-    }
+    private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
 
     /**
      * Remove qualification to name.
@@ -77,47 +57,6 @@ class StringHelper
     }
 
     /**
-     * Converts a string to an indexed array of chars
-     * There's really no reason for this to be used in PHP, since strings
-     * are all accessible using the $string{0} notation.
-     *
-     * @param string $str
-     *
-     * @return array
-     *
-     * @deprecated
-     */
-    public static function toCharArray($str)
-    {
-        $ret = array();
-        $len = strlen($str);
-        for ($i = 0; $i < $len; $i++) {
-            $ret[] = $str{$i};
-        }
-
-        return $ret;
-    }
-
-    /**
-     * Get the qualifier part of a qualified name.
-     * E.g. eg.Cat -> eg
-     *
-     * @param $qualifiedName
-     * @param string $separator
-     *
-     * @return string
-     */
-    public static function qualifier($qualifiedName, $separator = '.')
-    {
-        $pos = strrchr($qualifiedName, $separator);
-        if ($pos === false) {
-            return '';
-        } else {
-            return substr($qualifiedName, 0, $pos);
-        }
-    }
-
-    /**
      * @param  array  $columns String[]
      * @param  string $prefix
      *
@@ -128,7 +67,7 @@ class StringHelper
         if ($prefix == null) {
             return $columns;
         }
-        $qualified = array();
+        $qualified = [];
         foreach ($columns as $key => $column) {
             $qualified[$key] = $prefix . $column;
         }
@@ -184,7 +123,6 @@ class StringHelper
      */
     public static function isBoolean($s)
     {
-
         if (is_bool($s)) {
             return true; // it already is boolean
         }

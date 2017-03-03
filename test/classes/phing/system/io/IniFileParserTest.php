@@ -34,13 +34,8 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        } else {
-            $this->parser = new IniFileParser();
-            // php 5.2 parser compatibility ...
-            $this->root = call_user_func('org\bovigo\vfs\vfsStream::setup');
-        }
+        $this->parser = new IniFileParser();
+        $this->root = \org\bovigo\vfs\vfsStream::setup();
     }
 
     /**
@@ -72,65 +67,65 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
      */
     public function provideIniFiles()
     {
-        return array(
-            array(
+        return [
+            [
                 'data'     => "property = test\nproperty2 = test2\nproperty3 = test3\n",
-                'expected' => array(
+                'expected' => [
                     'property'  => 'test',
                     'property2' => 'test2',
                     'property3' => 'test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = test\r\nproperty2 = test2\r\nproperty3 = test3\r\n",
-                'expected' => array(
+                'expected' => [
                     'property'  => 'test',
                     'property2' => 'test2',
                     'property3' => 'test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = test,\\\ntest2,\\\ntest3\n",
-                'expected' => array(
+                'expected' => [
                     'property' => 'test,test2,test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = test,\\\r\ntest2,\\\r\ntest3\r\n",
-                'expected' => array(
+                'expected' => [
                     'property' => 'test,test2,test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "# property = test",
-                'expected' => array(),
-            ),
-            array(
+                'expected' => [],
+            ],
+            [
                 'data'     => "   # property = test",
-                'expected' => array(),
-            ),
-            array(
+                'expected' => [],
+            ],
+            [
                 'data'     => "; property = test",
-                'expected' => array(),
-            ),
-            array(
+                'expected' => [],
+            ],
+            [
                 'data'     => "property=test",
-                'expected' => array(
+                'expected' => [
                     'property' => 'test',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = true",
-                'expected' => array(
+                'expected' => [
                     'property' => true,
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = false",
-                'expected' => array(
+                'expected' => [
                     'property' => false,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

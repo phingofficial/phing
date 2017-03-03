@@ -1,16 +1,12 @@
 <?php
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/hg/HgAddTask.php';
-require_once dirname(__FILE__) . '/HgTestsHelper.php';
+require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgAddTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.4') < 0) {
-            $this->markTestSkipped("Need PHP 5.4+ for this test");
-        }
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
             PHING_TEST_BASE
@@ -30,6 +26,5 @@ class HgAddTaskTest extends BuildFileTest
             'is not a directory',
             "does not exist"
         );
-
     }
 }

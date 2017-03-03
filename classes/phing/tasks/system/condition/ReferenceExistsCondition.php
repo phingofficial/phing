@@ -31,7 +31,6 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class ReferenceExistsCondition extends ProjectComponent implements Condition
 {
-
     private $refid;
 
     /**
@@ -56,5 +55,4 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
 
         return !($refs[$this->refid] instanceof UnknownElement) && isset($refs[$this->refid]);
     }
-
 }

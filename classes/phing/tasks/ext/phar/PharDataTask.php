@@ -50,7 +50,7 @@ class PharDataTask extends MatchingTask
     /**
      * @var IterableFileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @return FileSet
@@ -142,7 +142,7 @@ class PharDataTask extends MatchingTask
             if ($this->compression !== PHAR::NONE && $pharData->canCompress($this->compression)) {
                 try {
                     $pharData->compress($this->compression);
-                } catch(UnexpectedValueException $uve) {
+                } catch (UnexpectedValueException $uve) {
                     $pharData->compressFiles($this->compression);
                 }
 

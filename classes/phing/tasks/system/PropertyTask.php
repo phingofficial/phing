@@ -36,17 +36,39 @@ include_once 'phing/system/io/FileParserFactory.php';
 class PropertyTask extends Task
 {
 
-    /** name of the property */
+    /**
+     * @var string name of the property
+     */
     protected $name;
 
-    /** value of the property */
+    /**
+     * @var mixed value of the property
+     */
     protected $value;
 
+    /**
+     * @var Reference
+     */
     protected $reference;
-    protected $env; // Environment
+
+    /**
+     * @var string environment
+     */
+    protected $env;
+
+    /**
+     * @var PhingFile
+     */
     protected $file;
-    protected $ref;
+
+    /**
+     * @var string
+     */
     protected $prefix;
+
+    /**
+     * @var Project
+     */
     protected $fallback;
 
     /** Whether to force overwrite of existing property. */
@@ -56,9 +78,9 @@ class PropertyTask extends Task
     protected $userProperty = false;
 
     /**
-     * All filterchain objects assigned to this task
+     * @var FilterChain[] All filterchain objects assigned to this task
      */
-    protected $filterChains = array();
+    protected $filterChains = [];
 
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
@@ -93,7 +115,7 @@ class PropertyTask extends Task
 
     /**
      * Sets a the value of current property component.
-     * @param    mixed      Value of name, all scalars allowed
+     * @param  mixed $value Value of name, all scalars allowed
      */
     public function setValue($value)
     {
@@ -187,8 +209,7 @@ class PropertyTask extends Task
      * Note also that properties are case sensitive, even if the
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
-     * @param prefix $env
-     * @internal param prefix $env
+     * @param string $env
      */
     public function setEnvironment($env)
     {
@@ -361,7 +382,6 @@ class PropertyTask extends Task
      */
     protected function loadEnvironment($prefix)
     {
-
         $props = new Properties();
         if (substr($prefix, strlen($prefix) - 1) == '.') {
             $prefix .= ".";
@@ -454,7 +474,6 @@ class PropertyTask extends Task
      */
     protected function resolveAllProperties(Properties $props)
     {
-
         foreach ($props->keys() as $name) {
             // There may be a nice regex/callback way to handle this
             // replacement, but at the moment it is pretty complex, and
@@ -464,12 +483,11 @@ class PropertyTask extends Task
 
             $value = $props->getProperty($name);
             $resolved = false;
-            $resolveStack = array();
+            $resolveStack = [];
 
             while (!$resolved) {
-
-                $fragments = array();
-                $propertyRefs = array();
+                $fragments = [];
+                $propertyRefs = [];
 
                 // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
                 self::parsePropertyString($value, $fragments, $propertyRefs);
@@ -519,7 +537,6 @@ class PropertyTask extends Task
                 $value = $sb;
                 $props->setProperty($name, $value);
             } // while (!$resolved)
-
         } // while (count($keys)
     }
 
@@ -540,12 +557,10 @@ class PropertyTask extends Task
      */
     protected function parsePropertyString($value, &$fragments, &$propertyRefs)
     {
-
         $prev = 0;
         $pos = 0;
 
         while (($pos = strpos($value, '$', $prev)) !== false) {
-
             if ($pos > $prev) {
                 array_push($fragments, StringHelper::substring($value, $prev, $pos - 1));
             }

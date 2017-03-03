@@ -21,7 +21,7 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitTagTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
+require_once __DIR__ . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -30,7 +30,6 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  */
 class GitTagTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
@@ -203,5 +202,4 @@ class GitTagTaskTest extends BuildFileTest
             '"repository" is required parameter'
         );
     }
-
 }

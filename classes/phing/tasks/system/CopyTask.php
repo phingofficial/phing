@@ -36,23 +36,39 @@ include_once 'phing/mappers/FlattenMapper.php';
  */
 class CopyTask extends Task
 {
+    /** @var PhingFile */
     protected $file = null; // the source file (from xml attribute)
+
+    /** @var PhingFile */
     protected $destFile = null; // the destiantion file (from xml attribute)
+
+    /** @var PhingFile */
     protected $destDir = null; // the destination dir (from xml attribute)
+
     protected $overwrite = false; // overwrite destination (from xml attribute)
     protected $preserveLMT = false; // sync timestamps (from xml attribute)
     protected $preservePermissions = true; // sync permissions (from xml attribute)
     protected $includeEmpty = true; // include empty dirs? (from XML)
     protected $flatten = false; // apply the FlattenMapper right way (from XML)
+
+    /** @var Mapper */
     protected $mapperElement = null;
 
-    protected $fileCopyMap = array(); // asoc array containing mapped file names
-    protected $dirCopyMap = array(); // asoc array containing mapped file names
-    protected $completeDirMap = array(); // asoc array containing complete dir names
+    protected $fileCopyMap = []; // asoc array containing mapped file names
+    protected $dirCopyMap = []; // asoc array containing mapped file names
+    protected $completeDirMap = []; // asoc array containing complete dir names
+
+    /** @var FileUtils */
     protected $fileUtils = null; // a instance of fileutils
-    protected $filesets = array(); // all fileset objects assigned to this task
-    protected $filelists = array(); // all filelist objects assigned to this task
-    protected $filterChains = array(); // all filterchains objects assigned to this task
+
+    /** @var AbstractFileSet[] */
+    protected $filesets = []; // all fileset objects assigned to this task
+
+    /** @var FileList[] */
+    protected $filelists = []; // all filelist objects assigned to this task
+
+    /** @var FilterChain[] */
+    protected $filterChains = []; // all filterchains objects assigned to this task
 
     protected $verbosity = Project::MSG_VERBOSE;
 
@@ -280,7 +296,7 @@ class CopyTask extends Task
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->location);
+            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
         }
         $this->mapperElement = new Mapper($this->project);
 
@@ -295,7 +311,6 @@ class CopyTask extends Task
      */
     public function main()
     {
-
         $this->validateAttributes();
 
         if ($this->file !== null) {
@@ -306,7 +321,7 @@ class CopyTask extends Task
                 if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
                 } else {
-                    $this->log($this->file->getName() . " omitted, is up to date");
+                    $this->log($this->file->getName() . " omitted, " . $this->destFile->getName() . " is up to date");
                 }
             } else {
                 // terminate build
@@ -320,7 +335,7 @@ class CopyTask extends Task
         foreach ($this->filelists as $fl) {
             $fromDir = $fl->getDir($project);
             $srcFiles = $fl->getFiles($project);
-            $srcDirs = array($fl->getDir($project));
+            $srcDirs = [$fl->getDir($project)];
 
             if (!$this->flatten && $this->mapperElement === null) {
                 $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
@@ -369,7 +384,6 @@ class CopyTask extends Task
      */
     protected function validateAttributes()
     {
-
         if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException("CopyTask. Specify at least one source - a file, fileset or filelist.");
         }
@@ -438,7 +452,7 @@ class CopyTask extends Task
      * @param $fromDir
      * @param $toDir
      * @param $names
-     * @param $mapper
+     * @param FileNameMapper $mapper
      * @param $map
      *
      * @return void
@@ -447,7 +461,7 @@ class CopyTask extends Task
     {
         $toCopy = null;
         if ($this->overwrite) {
-            $v = array();
+            $v = [];
             foreach ($names as $name) {
                 $result = $mapper->main($name);
                 if ($result !== null) {
@@ -467,6 +481,8 @@ class CopyTask extends Task
                 $dest = new PhingFile($toDir, $mapped[0]);
                 $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
             } else {
+                $mappedFiles = [];
+
                 foreach ($mapped as $mappedFile) {
                     if ($mappedFile === null) {
                         continue;
@@ -553,6 +569,16 @@ class CopyTask extends Task
         }
     }
 
+    /**
+     * @param $from
+     * @param $to
+     * @param RegisterSlot $fromSlot
+     * @param RegisterSlot $fromBasenameSlot
+     * @param RegisterSlot $toSlot
+     * @param RegisterSlot $toBasenameSlot
+     * @param $count
+     * @param $total
+     */
     private function copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, &$count, &$total)
     {
         if ($from === $to) {
@@ -575,10 +601,10 @@ class CopyTask extends Task
             $this->fileUtils->copyFile(
                 $fromFile,
                 $toFile,
+                $this->getProject(),
                 $this->overwrite,
                 $this->preserveLMT,
                 $this->filterChains,
-                $this->getProject(),
                 $this->mode,
                 $this->preservePermissions
             );

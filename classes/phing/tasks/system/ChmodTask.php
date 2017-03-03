@@ -32,14 +32,12 @@ include_once 'phing/types/FileSet.php';
  */
 class ChmodTask extends Task
 {
-
     private $file;
 
     private $mode;
 
-    private $filesets = array();
-
-    private $filesystem;
+    /** @var AbstractFileSet[] */
+    private $filesets = [];
 
     private $quiet = false;
     private $failonerror = true;
@@ -125,7 +123,6 @@ class ChmodTask extends Task
      */
     private function checkParams()
     {
-
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("Specify at least one source - a file or a fileset.");
         }
@@ -138,7 +135,6 @@ class ChmodTask extends Task
         if (!preg_match('/^([0-7]){3,4}$/', $this->mode)) {
             throw new BuildException("You have specified an invalid mode.");
         }
-
     }
 
     /**
@@ -147,7 +143,6 @@ class ChmodTask extends Task
      */
     private function chmod()
     {
-
         if (strlen($this->mode) === 4) {
             $mode = octdec($this->mode);
         } else {
@@ -167,7 +162,6 @@ class ChmodTask extends Task
 
         // filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
@@ -188,10 +182,9 @@ class ChmodTask extends Task
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . vsprintf('%o', $mode) . ': ' . $total_files);
-            $this->log('Total directories changed to ' . vsprintf('%o', $mode) . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_files);
+            $this->log('Total directories changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_dirs);
         }
-
     }
 
     /**
@@ -210,7 +203,7 @@ class ChmodTask extends Task
         try {
             $file->setMode($mode);
             if ($this->verbose) {
-                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", $mode));
+                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
             }
         } catch (Exception $e) {
             if ($this->failonerror) {
@@ -220,5 +213,4 @@ class ChmodTask extends Task
             }
         }
     }
-
 }

@@ -28,7 +28,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class FileHashTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/filehash.xml");

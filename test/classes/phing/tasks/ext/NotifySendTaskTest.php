@@ -2,14 +2,12 @@
 require_once 'phing/BuildFileTest.php';
 class NotifySendTaskTest extends BuildFileTest
 {
-
     protected $object;
 
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/NotifySendTaskTest.xml");
         $this->object = new NotifySendTask();
-
     }
 
     public function testEmptyMessage()
@@ -25,7 +23,6 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals("Test", $this->object->getTitle());
         $this->object->setTitle("Test Again");
         $this->assertEquals("Test Again", $this->object->getTitle());
-
     }
     public function testSettingMsg()
     {

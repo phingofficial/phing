@@ -51,5 +51,4 @@ interface SelectorScanner
      * @param selectors list selector objects
      */
     public function getDeselectedFiles();
-
 }

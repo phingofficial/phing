@@ -43,7 +43,6 @@ include_once 'phing/mappers/ContainerMapper.php';
  */
 class Mapper extends DataType
 {
-
     protected $type;
     protected $classname;
     protected $from;
@@ -287,7 +286,7 @@ class Mapper extends DataType
     private function getRef()
     {
         if (!$this->checked) {
-            $stk = array();
+            $stk = [];
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->project);
         }

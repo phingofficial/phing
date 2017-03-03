@@ -29,7 +29,6 @@ include_once 'phing/types/selectors/BaseExtendSelector.php';
  */
 class FilenameSelector extends BaseExtendSelector
 {
-
     private $pattern = null;
     private $casesensitive = true;
     private $negated = false;

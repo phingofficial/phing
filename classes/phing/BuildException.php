@@ -56,7 +56,6 @@ class BuildException extends RuntimeException
      */
     public function __construct($p1 = "", $p2 = null, $p3 = null)
     {
-
         $cause = null;
         $loc = null;
         $msg = "";

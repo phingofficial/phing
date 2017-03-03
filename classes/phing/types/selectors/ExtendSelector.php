@@ -34,10 +34,9 @@ include_once 'phing/util/StringHelper.php';
  */
 class ExtendSelector extends BaseSelector
 {
-
     private $classname;
     private $dynselector;
-    private $parameters = array();
+    private $parameters = [];
 
     /**
      * Sets the classname of the custom selector.
@@ -119,12 +118,11 @@ class ExtendSelector extends BaseSelector
      * @param PhingFile $basedir
      * @param string $filename The filename
      * @param PhingFile $file
-     * @return \whether
+     * @return bool
      * @throws BuildException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         if (count($this->parameters) > 0 && $this->dynselector instanceof ExtendFileSelector) {
@@ -134,5 +132,4 @@ class ExtendSelector extends BaseSelector
 
         return $this->dynselector->isSelected($basedir, $filename, $file);
     }
-
 }

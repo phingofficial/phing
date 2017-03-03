@@ -40,6 +40,7 @@ include_once 'phing/IntrospectionHelper.php';
  */
 class ProjectConfigurator
 {
+    const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
     public $project;
     public $locator;
@@ -156,18 +157,18 @@ class ProjectConfigurator
      * Creates the ExpatParser, sets root handler and kick off parsing
      * process.
      *
-     * @throws BuildException if there is any kind of execption during
+     * @throws BuildException if there is any kind of exception during
      *                        the parsing process
      */
     protected function parse()
     {
         try {
             // get parse context
-            $ctx = $this->project->getReference("phing.parsing.context");
+            $ctx = $this->project->getReference(self::PARSING_CONTEXT_REFERENCE);
             if (null == $ctx) {
                 // make a new context and register it with project
                 $ctx = new PhingXMLContext($this->project);
-                $this->project->addReference("phing.parsing.context", $ctx);
+                $this->project->addReference(self::PARSING_CONTEXT_REFERENCE, $ctx);
             }
 
             //record this parse with context
@@ -180,7 +181,7 @@ class ProjectConfigurator
                 $newCurrent = new Target();
                 $newCurrent->setProject($this->project);
                 $newCurrent->setName('');
-                $ctx->setCurrentTargets(array());
+                $ctx->setCurrentTargets([]);
                 $ctx->setImplicitTarget($newCurrent);
 
                 // this is an imported file
@@ -192,11 +193,10 @@ class ProjectConfigurator
                 $ctx->setImplicitTarget($currentImplicit);
                 $ctx->setCurrentTargets($currentTargets);
             } else {
-                $ctx->setCurrentTargets(array());
+                $ctx->setCurrentTargets([]);
                 $this->_parse($ctx);
                 $ctx->getImplicitTarget()->main();
             }
-
         } catch (Exception $exc) {
             //throw new BuildException("Error reading project file", $exc);
             throw $exc;
@@ -250,7 +250,6 @@ class ProjectConfigurator
      */
     public static function configure($target, $attrs, Project $project)
     {
-
         if ($target instanceof TaskAdapter) {
             $target = $target->getProxy();
         }
@@ -323,8 +322,19 @@ class ProjectConfigurator
     // variables, since the replaceProperties() is called statically.
     // This is IMO better than using global variables in the callback.
 
+    /**
+     * @var Project
+     */
     private static $propReplaceProject;
+
+    /**
+     * @var array
+     */
     private static $propReplaceProperties;
+
+    /**
+     * @var int
+     */
     private static $propReplaceLogLevel = Project::MSG_VERBOSE;
 
     /**
@@ -341,7 +351,6 @@ class ProjectConfigurator
      */
     public static function replaceProperties(Project $project, $value, $keys, $logLevel = Project::MSG_VERBOSE)
     {
-
         if ($value === null) {
             return null;
         }
@@ -365,7 +374,7 @@ class ProjectConfigurator
         while (strpos($sb, '${') !== false) {
             $sb = preg_replace_callback(
                 '/\$\{([^\$}]+)\}/',
-                array('ProjectConfigurator', 'replacePropertyCallback'),
+                ['ProjectConfigurator', 'replacePropertyCallback'],
                 $sb
             );
 
@@ -388,7 +397,7 @@ class ProjectConfigurator
     private static function replacePropertyCallback($matches)
     {
         $propertyName = $matches[1];
-        if (!isset(self::$propReplaceProperties[$propertyName])) {
+        if (!array_key_exists($propertyName, self::$propReplaceProperties)) {
             self::$propReplaceProject->log(
                 'Property ${' . $propertyName . '} has not been set.',
                 self::$propReplaceLogLevel
@@ -419,8 +428,8 @@ class ProjectConfigurator
      * Scan Attributes for the id attribute and maybe add a reference to
      * project.
      *
-     * @param object the element's object
-     * @param array  the element's attributes
+     * @param object $target the element's object
+     * @param array  $attr the element's attributes
      */
     public function configureId($target, $attr)
     {

@@ -60,7 +60,7 @@ class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         return "crap4j-coverage";
     }
-	
+    
     /**
      * @param PHPUnit_Framework_TestResult $result
      */
@@ -68,7 +68,7 @@ class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         $this->result = $result;
     }
-	
+    
     public function endTestRun()
     {
         $coverage = $this->result->getCodeCoverage();

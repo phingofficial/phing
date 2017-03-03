@@ -32,7 +32,6 @@ include_once 'phing/tasks/system/condition/ContainsCondition.php';
  */
 class ContainsConditionTest extends PHPUnit_Framework_TestCase
 {
-
     public function testCaseSensitive()
     {
         $con = new ContainsCondition();
@@ -43,5 +42,4 @@ class ContainsConditionTest extends PHPUnit_Framework_TestCase
         $con->setCaseSensitive(false);
         $this->assertTrue($con->evaluate());
     }
-
 }

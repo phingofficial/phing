@@ -49,28 +49,28 @@ class rSTTask extends Task
      * @see $format
      * @see $targetExt
      */
-    protected static $supportedFormats = array(
+    protected static $supportedFormats = [
         'html',
         'latex',
         'man',
         'odt',
         's5',
         'xml'
-    );
+    ];
 
     /**
      * Maps formats to file extensions
      *
      * @var array
      */
-    protected static $targetExt = array(
+    protected static $targetExt = [
         'html' => 'html',
         'latex' => 'tex',
         'man' => '3',
         'odt' => 'odt',
         's5' => 'html',
         'xml' => 'xml',
-    );
+    ];
 
     /**
      * Input file in rST format.
@@ -102,7 +102,11 @@ class rSTTask extends Task
      */
     protected $destination = null;
 
-    protected $filesets = array(); // all fileset objects assigned to this task
+    /**
+     * @var AbstractFileSet[]
+     */
+    protected $filesets = []; // all fileset objects assigned to this task
+
     protected $mapperElement = null;
 
     /**
@@ -110,7 +114,7 @@ class rSTTask extends Task
      *
      * @var array
      */
-    protected $filterChains = array();
+    protected $filterChains = [];
 
     /**
      * mode to create directories with
@@ -126,6 +130,11 @@ class rSTTask extends Task
      * @var boolean
      */
     protected $uptodate = false;
+
+    /**
+     * @var FileUtils
+     */
+    private $fileUtils;
 
     /**
      * Sets up this object internal stuff. i.e. the default mode.
@@ -215,7 +224,8 @@ class rSTTask extends Task
     protected function render($tool, $source, $targetFile)
     {
         if (count($this->filterChains) == 0) {
-            return $this->renderFile($tool, $source, $targetFile);
+            $this->renderFile($tool, $source, $targetFile);
+            return;
         }
 
         $tmpTarget = tempnam(sys_get_temp_dir(), 'rST-');
@@ -224,10 +234,10 @@ class rSTTask extends Task
         $this->fileUtils->copyFile(
             new PhingFile($tmpTarget),
             new PhingFile($targetFile),
+            $this->getProject(),
             true,
             false,
             $this->filterChains,
-            $this->getProject(),
             $this->mode
         );
         unlink($tmpTarget);
@@ -454,7 +464,7 @@ class rSTTask extends Task
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
-                'Cannot define more than one mapper', $this->location
+                'Cannot define more than one mapper', $this->getLocation()
             );
         }
         $this->mapperElement = new Mapper($this->project);

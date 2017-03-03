@@ -154,10 +154,12 @@
                         </row>
                         <row>
                             <entry><literal>basedir</literal></entry>
-                            <entry>The base directory of the project, use &quot;.&quot; do denote
-                                the current directory. <emphasis role="bold">Note:</emphasis> if
-                                none is specified, the parent directory of the build file is
-                                used!</entry>
+                            <entry>The base directory of the project. This attribute controls the value of the
+                                <literal>${project.basedir}</literal> property which can be used to reference
+                                files with paths relative to the project root folder. Can be a path relative to
+                                the position of the buildfile itself. If omitted, &quot;.&quot; will be used,
+                                which means that the build file should be located in the project's root folder.
+                            </entry>
                             <entry>No</entry>
                         </row>
                         <row>
@@ -169,6 +171,11 @@
                         <row>
                             <entry><literal>description</literal></entry>
                             <entry>The description of the project.</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>strict</literal></entry>
+                            <entry>Enables the strict-mode for the project build process.</entry>
                             <entry>No</entry>
                         </row>
                     </tbody>

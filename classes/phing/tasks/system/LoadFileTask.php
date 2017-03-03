@@ -48,7 +48,7 @@ class LoadFileTask extends Task
      * Array of FilterChain objects
      * @var FilterChain[]
      */
-    private $filterChains = array();
+    private $filterChains = [];
 
     private $failOnError = true;
 

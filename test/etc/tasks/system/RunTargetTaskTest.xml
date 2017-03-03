@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RunTargetTaskTest" default="test">
+
+  <target name="testRunTargetTask">
+    <runtarget target="anotherTarget" />
+  </target>
+
+  <target name="anotherTarget">
+    <echo msg="THIS COMES FROM ANOTHER TARGET"/>
+  </target>
+
+</project>

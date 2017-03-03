@@ -318,5 +318,4 @@ class GitPushTask extends GitBaseTask
     {
         return $this->getQuiet();
     }
-
 }

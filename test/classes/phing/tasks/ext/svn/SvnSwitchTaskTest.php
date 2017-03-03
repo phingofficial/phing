@@ -20,7 +20,7 @@
  */
 
 require_once 'phing/BuildFileTest.php';
-require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
+require_once __DIR__ . '/../GitTasks/GitTestsHelper.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>

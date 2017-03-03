@@ -483,29 +483,29 @@ class ZendGuardLicenseTask extends Task
      */
     protected function generateLicenseTemplateContent()
     {
-        $contentArr = array();
+        $contentArr = [];
 
         // Product Name
-        $contentArr[] = array('Product-Name', $this->productName);
+        $contentArr[] = ['Product-Name', $this->productName];
         // Registered to
-        $contentArr[] = array('Registered-To', $this->registeredTo);
+        $contentArr[] = ['Registered-To', $this->registeredTo];
         // Hardware locked
-        $contentArr[] = array('Hardware-Locked', ($this->hardwareLocked ? 'Yes' : 'No'));
+        $contentArr[] = ['Hardware-Locked', ($this->hardwareLocked ? 'Yes' : 'No')];
 
         // Expires
-        $contentArr[] = array('Expires', $this->expires);
+        $contentArr[] = ['Expires', $this->expires];
 
         // IP-Range
         if (!empty($this->ipRange)) {
-            $contentArr[] = array('IP-Range', $this->ipRange);
+            $contentArr[] = ['IP-Range', $this->ipRange];
         }
         // Host-ID
         if (!empty($this->hostID)) {
             foreach (explode(';', $this->hostID) as $hostID) {
-                $contentArr[] = array('Host-ID', $hostID);
+                $contentArr[] = ['Host-ID', $hostID];
             }
         } else {
-            $contentArr[] = array('Host-ID', 'Not-Locked');
+            $contentArr[] = ['Host-ID', 'Not-Locked'];
         }
 
         // parse user defined fields
@@ -520,7 +520,6 @@ class ZendGuardLicenseTask extends Task
         // merge all the values
         $content = '';
         foreach ($contentArr as $valuePair) {
-
             list($key, $value) = $valuePair;
 
             $content .= $key . " = " . $value . "\n";
@@ -554,9 +553,8 @@ class ZendGuardLicenseTask extends Task
                 list($key, $value) = explode('=', $valuePair, 2);
 
                 // add pair into the valueArray
-                $valueArray[] = array($keyPrefix . $key, $value);
+                $valueArray[] = [$keyPrefix . $key, $value];
             }
         }
     }
-
 }

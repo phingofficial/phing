@@ -60,10 +60,10 @@ class AppendTask extends Task
     private $file;
 
     /** Any filesets of files that should be appended. */
-    private $filesets = array();
+    private $filesets = [];
 
     /** Any filters to be applied before append happens. */
-    private $filterChains = array();
+    private $filterChains = [];
 
     /** Text to append. (cannot be used in conjunction w/ files or filesets) */
     private $text;
@@ -84,7 +84,7 @@ class AppendTask extends Task
 
     private $eolString;
 
-    private $fileList = array();
+    private $fileList = [];
 
     /**
      * @param bool $filtering
@@ -100,24 +100,6 @@ class AppendTask extends Task
     public function setOverwrite($overwrite)
     {
         $this->overwrite = $overwrite;
-    }
-
-    /**
-     * Set target file to append to.
-     *
-     * @deprecated Will be removed with final release.
-     *
-     * @param PhingFile $f
-     *
-     * @return void
-     */
-    public function setTo(PhingFile $f)
-    {
-        $this->log(
-            "The 'to' attribute is deprecated in favor of 'destFile'; please update your code.",
-            Project::MSG_WARN
-        );
-        $this->to = $f;
     }
 
     /**
@@ -270,7 +252,6 @@ class AppendTask extends Task
         $this->validate();
 
         try {
-
             if ($this->to !== null) {
                 // create a file writer to append to "to" file.
                 $writer = new FileWriter($this->to, $this->append);

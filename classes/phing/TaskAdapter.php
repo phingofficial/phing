@@ -44,7 +44,6 @@ class TaskAdapter extends Task
      */
     public function main()
     {
-
         if (method_exists($this->proxy, "setProject")) {
             try { // try to set project
                 $this->proxy->setProject($this->project);
@@ -90,5 +89,4 @@ class TaskAdapter extends Task
     {
         return $this->proxy;
     }
-
 }

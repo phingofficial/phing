@@ -58,7 +58,7 @@ class ImportTask extends Task
     /**
      * @var array
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @var bool
@@ -115,8 +115,16 @@ class ImportTask extends Task
      */
     public function main()
     {
-        if ($this->getOwningTarget() == null || $this->getOwningTarget()->getName() != '') {
-            throw new BuildException("import only allowed as a top-level task");
+        if ($this->file === null && count($this->filesets) === 0) {
+            throw new BuildException(
+                'import requires file attribute or at least one nested fileset'
+            );
+        }
+        if ($this->getOwningTarget() === null || $this->getOwningTarget()->getName() !== '') {
+            throw new BuildException('import only allowed as a top-level task');
+        }
+        if ($this->getLocation() === null || $this->getLocation()->getFileName() === null) {
+            throw new BuildException("Unable to get location of import task");
         }
 
         // Single file.
@@ -170,14 +178,17 @@ class ImportTask extends Task
      */
     protected function importFile(PhingFile $file)
     {
-        $ctx = $this->project->getReference("phing.parsing.context");
+        $ctx = $this->project->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
         $cfg = $ctx->getConfigurator();
         // Import xml file into current project scope
         // Since this is delayed until after the importing file has been
         // processed, the properties and targets of this new file may not take
         // effect if they have alreday been defined in the outer scope.
-        $this->log("Importing file from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
+        $this->log(
+            "Importing file {$file->getAbsolutePath()} from "
+            . $this->getLocation()->getFileName(),
+            Project::MSG_VERBOSE
+        );
         ProjectConfigurator::configureProject($this->project, $file);
     } //end importFile
-
 } //end ImportTask

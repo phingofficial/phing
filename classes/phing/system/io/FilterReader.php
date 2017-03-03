@@ -54,7 +54,7 @@ class FilterReader extends Reader
      */
     public function skip($n)
     {
-        return $this->in->skip($n);
+        $this->in->skip($n);
     }
 
     /**
@@ -71,7 +71,7 @@ class FilterReader extends Reader
 
     public function reset()
     {
-        return $this->in->reset();
+        $this->in->reset();
     }
 
     public function close()

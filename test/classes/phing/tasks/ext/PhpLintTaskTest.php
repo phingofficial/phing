@@ -29,7 +29,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class PhpLintTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");

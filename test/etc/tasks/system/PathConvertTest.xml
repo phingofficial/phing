@@ -3,7 +3,7 @@
 
   <target name="testDirChar">
     <pathconvert property="def|ghi" dirsep="|">
-      <map from="${application.startdir}/abc/" to=''/>
+      <map from="${project.basedir}/abc/" to=''/>
       <path dir="abc/def/ghi"/>
     </pathconvert>
   </target>

@@ -30,10 +30,6 @@ class PHPMDTaskTest extends BuildFileTest
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
-
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
     }
 
     public function testReportText()
@@ -62,5 +58,4 @@ class PHPMDTaskTest extends BuildFileTest
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml');
     }
-
 }

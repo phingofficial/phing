@@ -7,6 +7,7 @@
 	</fileset>
 	
 	<target name="setup">
+		<mkdir dir="${tmp.dir}"/>
 	</target>
 	
 	<target name="clean">
@@ -42,6 +43,22 @@
 		<delete dir="${tmp.dir}/base"/>
 		<delete dir="${tmp.dir}/new"/>
 	</target>
+
+	<target name="testCopyFileList">
+		<touch file="${tmp.dir}/Test1"/>
+		<touch file="${tmp.dir}/Test2"/>
+		<mkdir dir="copies"/>
+		<copy todir="copies">
+			<filelist dir="${tmp.dir}" files="Test1,Test2"/>
+		</copy>
+		<delete dir="copies"/>
+	</target>
 	
+	<target name="testOverwriteExistingSymlink">
+		<symlink target="${tmp.dir}/target-a" link="${tmp.dir}/link-a"/>
+		<symlink target="${tmp.dir}/target-b" link="${tmp.dir}/link-b"/>
+		<copy file="${tmp.dir}/link-a" tofile="${tmp.dir}/link-b" overwrite="true"/>
+	</target>
+
 	<target name="main"/>
 </project>

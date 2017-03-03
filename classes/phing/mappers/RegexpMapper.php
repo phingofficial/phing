@@ -94,7 +94,7 @@ class RegexpMapper implements FileNameMapper
             return null;
         }
 
-        return array($this->replaceReferences($sourceFileName));
+        return [$this->replaceReferences($sourceFileName)];
     }
 
     /**
@@ -113,7 +113,7 @@ class RegexpMapper implements FileNameMapper
      */
     private function replaceReferences($source)
     {
-        return preg_replace_callback('/\\\([\d]+)/', array($this, 'replaceReferencesCallback'), $this->to);
+        return preg_replace_callback('/\\\([\d]+)/', [$this, 'replaceReferencesCallback'], $this->to);
     }
 
     /**

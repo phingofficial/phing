@@ -69,23 +69,12 @@ class FileParserFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function parserTypeProvider()
     {
-        if (phpversion() >= 5.3) {
-            return array(
-                array('properties', 'IniFileParser'),
-                array('ini', 'IniFileParser'),
-                array('foo', 'IniFileParser'),
-                array('yml', 'YamlFileParser'),
-                array('yaml', 'YamlFileParser'),
-            );
-        } else {
-            // For < PHP 5.3, yaml is not supported.
-            return array(
-                array('properties', 'IniFileParser'),
-                array('ini', 'IniFileParser'),
-                array('foo', 'IniFileParser'),
-                array('yml', 'IniFileParser'),
-                array('yaml', 'IniFileParser')
-            );
-        }
+        return [
+            ['properties', 'IniFileParser'],
+            ['ini', 'IniFileParser'],
+            ['foo', 'IniFileParser'],
+            ['yml', 'YamlFileParser'],
+            ['yaml', 'YamlFileParser'],
+        ];
     }
 }

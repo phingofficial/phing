@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-require_once dirname(dirname(__FILE__)) . '/S3.php';
+require_once dirname(__DIR__) . '/S3.php';
 
 /**
  * Downloads an object off S3

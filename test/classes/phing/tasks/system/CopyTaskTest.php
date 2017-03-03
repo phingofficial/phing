@@ -69,4 +69,25 @@ class CopyTaskTest extends BuildFileTest
         $this->assertInLogs("Copying 2 files to");
         $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
     }
+
+    /**
+     * Regression test for ticket {@link http://www.phing.info/trac/ticket/229}
+     * - CopyTask should accept filelist subelement
+     */
+    public function testCopyFileList()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Copying 2 files to");
+    }
+
+    /**
+     * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
+     * - Error overwriting symlinks on copy or move
+     */
+    public function testOverwriteExistingSymlink()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Copying 1 file to");
+        $this->assertEquals("tmp/target-a", readlink(PHING_TEST_BASE . "/etc/tasks/system/tmp/link-b"));
+    }
 }

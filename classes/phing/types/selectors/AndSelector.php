@@ -70,5 +70,4 @@ class AndSelector extends BaseSelectorContainer
 
         return true;
     }
-
 }

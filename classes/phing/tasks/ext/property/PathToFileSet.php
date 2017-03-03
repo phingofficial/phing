@@ -163,4 +163,4 @@ class PathToFileSet extends Task
 
         return rtrim(str_replace('\\', '/', substr($fileNormal, strlen($dirNormal))), '/') . '/';
     }
-} 
+}

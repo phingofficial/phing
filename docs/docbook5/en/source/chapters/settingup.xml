@@ -13,7 +13,7 @@
     <sect1>
         <title> System Requirements </title>
 
-        <para>To use Phing you must have installed PHP version 5.2 or above compiled
+        <para>To use Phing you must have installed PHP version 5.6 or above compiled
                 <literal>--with-libxml2</literal>, as well as <literal>--with-xsl</literal> if you
             want to make use of advanced functionality.</para>
 
@@ -55,7 +55,7 @@
                     </thead>
                     <tbody>
                         <row>
-                            <entry>PHP 5.2+</entry>
+                            <entry>PHP 5.6+</entry>
                             <entry>Execution</entry>
                             <entry><link xlink:href="http://www.php.net" role="external"
                                     >http://www.php.net</link>
@@ -73,13 +73,6 @@
                             <entry>Optional; enables additional task(s)</entry>
                             <entry><link xlink:href="http://www.xdebug.org" role="external"
                                     >http://www.xdebug.org</link>
-                            </entry>
-                        </row>
-                        <row>
-                            <entry>SimpleTest 1.0.1 beta+</entry>
-                            <entry>Optional; enables additional task(s)</entry>
-                            <entry><link xlink:href="http://simpletest.sourceforge.net"
-                                    role="external">http://simpletest.sourceforge.net</link>
                             </entry>
                         </row>
                         <row>
@@ -212,127 +205,29 @@
 
     </sect1>
     <sect1>
-        <title> PEAR Install </title>
-        <para>The easiest way to install Phing is using the PEAR installer. Provided that the
-            package you downloaded is a the PEAR-ready package, you can install Phing simply from
-            the command line (Unix or Windows):</para>
-        <screen>$&gt; pear channel-discover pear.phing.info
-$&gt; pear install phing/phing</screen>
-        <para>The pear installer will check any dependencies and place the phing script (phing or
-            phing.bat) into your PHP script directoy (i.e. where the "pear" script resides).</para>
-    </sect1>
     <sect1>
         <title> Composer Install </title>
-        <para>Install Phing by adding a dependency to <link xlink:href="https://packagist.org/packages/phing/phing">phing/phing</link>
-            to the <literal>require-dev</literal> or <literal>require</literal> section of your project's composer.json configuration file,
-            and running 'composer install':</para>
+        <para>The preferred method to install Phing is through <link xlink:href="https://getcomposer.org/">Composer</link>.
+            Add <link xlink:href="https://packagist.org/packages/phing/phing">phing/phing</link> to the
+            <literal>require-dev</literal> or <literal>require</literal> of your project's `composer.json`
+            configuration file, and run <literal>composer install</literal>:</para>
         <screen>
-            {
-                "require-dev": {
-                    "phing/phing": "2.*"
-                }
-            }
-        </screen>
+{
+    "require-dev": {
+        "phing/phing": "3.*"
+    }
+}
+</screen>
     </sect1>
     <sect1>
-        <title> Other Install methods </title>
+        <title>Phar package</title>
+        <para>Download the <link xlink:href="https://www.phing.info/get/phing-latest.phar">Phar archive</link>.
+            The archive can then be executed by running:</para>
 
-        <para> If you are not using the PEAR installer, you will need to setup your environment in
-            order to run Phing. The distribution of Phing consists of three directories: <filename
-                role="dir">bin</filename> , <filename role="dir">docs</filename> and <filename
-                role="dir">classes</filename>. Only the <filename role="dir">bin</filename>,
-                <filename role="dir">classes</filename> and <filename role="dir">etc</filename>
-            directories are required to run Phing. To install Phing, choose a directory and
-            uncompress the distribution file in that directory (you may already have done this in a
-            prior step). This directory will be known as <literal>PHING_HOME</literal> .</para>
-
-        <warning>
-            <para>On earlier Windows installations, the script used to launch Phing will have
-                problems if <literal>PHING_HOME</literal> is a long filepath. This is due to
-                limitations in the OS's handling of the "for" batch-file statement. It is
-                recommended, therefore, that Phing be installed in a short path, such as <filename
-                    role="dir">C:\opt\phing</filename>.</para>
-        </warning>
-
-        <para>Before you can run Phing there is some additional set up you will need to do
-            perform:</para>
-
-        <itemizedlist>
-            <listitem>
-                <para>Add the full path to the <filename role="dir">bin/</filename> directory to
-                    your path.</para>
-            </listitem>
-            <listitem>
-                <para>Set the <literal>PHING_HOME</literal> environment variable to the directory
-                    where you installed Phing. On some operating systems the Phing wrapper scripts
-                    can guess PHING_HOME (Unix dialects and Windows). However, it is better to not
-                    rely on this behavior.</para>
-            </listitem>
-            <listitem>
-                <para>Set the <literal>PHP_COMMAND</literal> environment variable to where your Php
-                    binary is located (including the binary i.e. PHP_COMMAND=/usr/bin/php).</para>
-            </listitem>
-            <listitem>
-                <para>Check your php.ini file to make sure that you have the following
-                    settings:</para>
-                <itemizedlist>
-                    <listitem>
-                        <para><code>max_execution_time = 0 // unlimited execution time</code></para>
-                    </listitem>
-                    <listitem>
-                        <para><code>memory_limit = 32M // you may need more memory depending on size
-                                of your build files</code></para>
-                    </listitem>
-                </itemizedlist>
-            </listitem>
-        </itemizedlist>
-
-        <sect2>
-            <title> Unix </title>
-
-            <para> Assuming you are running a Unix dialect operating system with the bash bourne
-                shell and Phing is installed in <filename role="dir">/opt/phing</filename> . The
-                following sets up the environment properly: </para>
-
-            <screen>export PHP_COMMAND=/usr/bin/php
-export PHING_HOME=/opt/phing
-export PATH=${PATH}:${PHING_HOME}/bin</screen>
-        </sect2>
-        <sect2>
-            <title> Windows </title>
-
-            <para>On the Windows platform, assuming Phing is installed in <filename role="dir"
-                    >c:\opt\phing</filename>. The following sets up your environment:</para>
-
-            <screen>set PHP_COMMAND=c:\opt\php\php.exe
-set PHING_HOME=c:\opt\phing
-set PATH=%PATH%;%PHING_HOME%\bin</screen>
-        </sect2>
-        <sect2>
-            <title>Advanced</title>
-
-            <para>There are lots of variants that can be used to run/prepare Phing. You need at
-                least the following:</para>
-            <itemizedlist>
-                <listitem>
-                    <para>If you want Phing to be able to use other packages / classes, you can add them to PHP's include_path.</para>
-                </listitem>
-                <listitem>
-                    <para>Some Tasks in <filename role="dir">phing/tasks/ext</filename> may require 3rd party
-                        libraries to be installed. Generally, tools with compatible license (and
-                        stable releases) are included in phing/lib so that outside dependencies can
-                        be avoided. PEAR libs will not, however, be bundled with Phing since they
-                        are generally bundled with PHP. If you are using a 3rd party task, see the
-                        Task documentation to be aware of any dependencies.</para>
-                </listitem>
-            </itemizedlist>
-
-            <para> You are now ready to use the <command>phing</command> command at your command
-                prompt, from everywhere in your directory tree.</para>
-        </sect2>
+        <screen>$ php phing-latest.phar</screen>
     </sect1>
     <sect1>
-        <title> Calling Phing </title>
+        <title> Running Phing </title>
 
         <para>Now you are prepared to execute Phing on the command line or via script files. The
             following section briefly describe how to properly execute phing.</para>
@@ -361,7 +256,7 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
         </sect2>
         <sect2>
             <title>Supported command line arguments</title>
-            <para>As of version 2.12.0 the following command line arguments are supported</para>
+            <para>The following command line arguments are supported</para>
             <programlisting>  -h -help               print this message
   -l -list               list available targets in this project
   -v -version            print the version information and exit
@@ -371,14 +266,18 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
   -debug                 print debugging information
   -emacs, -e             produce logging information without adornments
   -diagnostics           print diagnostics information
+  -strict                runs build in strict mode, considering a warning as error
+  -no-strict             runs build normally (overrides buildfile attribute)
   -longtargets           show target descriptions during build
   -logfile &lt;file>        use given file for log
   -logger &lt;classname>    the class which is to perform logging
+  -listener &lt;classname>  add an instance of class as a project listener
   -f -buildfile &lt;file>   use given buildfile
   -D&lt;property>=&lt;value>   use value for given property
   -keep-going, -k        execute all targets that do not depend
                          on failed target(s)
   -propertyfile &lt;file>   load all properties from file
+  -propertyfileoverride  values in property file override existing values
   -find &lt;file>           search for buildfile towards the root of the
                          filesystem and use it
   -inputhandler &lt;file>   the class to use to handle user input</programlisting>

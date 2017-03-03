@@ -20,10 +20,6 @@
  * <http://phing.info>.
  */
 
-if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-    define('E_DEPRECATED', 8192);
-}
-
 require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
 
@@ -47,7 +43,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * @var array Array of log BuildEvent objects.
      */
-    public $logBuffer = array();
+    public $logBuffer = [];
 
     private $outBuffer;
     private $errBuffer;
@@ -210,7 +206,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function configureProject($filename)
     {
-        $this->logBuffer = "";
+        $this->logBuffer = [];
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
@@ -228,14 +224,16 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function executeTarget($targetName)
     {
+        if (empty($this->project)) {
+            return;
+        }
 
         $this->outBuffer = "";
         $this->errBuffer = "";
-        $this->logBuffer = "";
+        $this->logBuffer = [];
         $this->fullLogBuffer = "";
         $this->buildException = null;
         $this->project->executeTarget($targetName);
-
     }
 
     /**
@@ -380,7 +378,6 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
         //assertNotNull("Could not find resource :" + resource, url);
         //return url;
     }
-
 }
 
 /**
@@ -388,7 +385,6 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
  */
 class PhingTestListener implements BuildListener
 {
-
     private $parent;
 
     public function __construct($parent)

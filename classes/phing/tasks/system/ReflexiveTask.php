@@ -55,14 +55,14 @@ class ReflexiveTask extends Task
      *
      * @var FileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * Any filters to be applied before append happens.
      *
      * @var FilterChain[]
      */
-    private $filterChains = array();
+    private $filterChains = [];
 
     /** Alias for setFrom()
      * @param PhingFile $f
@@ -98,7 +98,6 @@ class ReflexiveTask extends Task
     /** Append the file(s). */
     public function main()
     {
-
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("You must specify a file or fileset(s) for the <reflexive> task.");
         }
@@ -106,7 +105,7 @@ class ReflexiveTask extends Task
         // compile a list of all files to modify, both file attrib and fileset elements
         // can be used.
 
-        $files = array();
+        $files = [];
 
         if ($this->file !== null) {
             $files[] = $this->file;
@@ -167,7 +166,6 @@ class ReflexiveTask extends Task
                 }
                 $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
             }
-
         }
     }
 }

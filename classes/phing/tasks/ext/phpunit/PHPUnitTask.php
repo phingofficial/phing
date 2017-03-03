@@ -37,8 +37,8 @@ require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
  */
 class PHPUnitTask extends Task
 {
-    private $batchtests = array();
-    private $formatters = array();
+    private $batchtests = [];
+    private $formatters = [];
     private $bootstrap = "";
     private $haltonerror = false;
     private $haltonfailure = false;
@@ -52,11 +52,11 @@ class PHPUnitTask extends Task
     private $testfailed = false;
     private $testfailuremessage = "";
     private $codecoverage = null;
-    private $groups = array();
-    private $excludeGroups = array();
+    private $groups = [];
+    private $excludeGroups = [];
     private $processIsolation = false;
     private $usecustomerrorhandler = true;
-    private $listeners = array();
+    private $listeners = [];
 
     /**
      * @var string
@@ -256,7 +256,7 @@ class PHPUnitTask extends Task
     public function setGroups($groups)
     {
         $token = ' ,;';
-        $this->groups = array();
+        $this->groups = [];
         $tok = strtok($groups, $token);
         while ($tok !== false) {
             $this->groups[] = $tok;
@@ -270,7 +270,7 @@ class PHPUnitTask extends Task
     public function setExcludeGroups($excludeGroups)
     {
         $token = ' ,;';
-        $this->excludeGroups = array();
+        $this->excludeGroups = [];
         $tok = strtok($excludeGroups, $token);
         while ($tok !== false) {
             $this->excludeGroups[] = $tok;
@@ -454,13 +454,13 @@ class PHPUnitTask extends Task
         }
 
         $autoloadNew = spl_autoload_functions();
-        if(is_array($autoloadNew)) {
+        if (is_array($autoloadNew)) {
             foreach ($autoloadNew as $autoload) {
                 spl_autoload_unregister($autoload);
             }
         }
 
-        if(is_array($autoloadSave)) {
+        if (is_array($autoloadSave)) {
             foreach ($autoloadSave as $autoload) {
                 spl_autoload_register($autoload);
             }
@@ -478,7 +478,7 @@ class PHPUnitTask extends Task
             /**
              * Add some defaults to the PHPUnit filter
              */
-            $pwd = dirname(__FILE__);
+            $pwd = __DIR__;
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('PHP_CodeCoverage_Filter')) {

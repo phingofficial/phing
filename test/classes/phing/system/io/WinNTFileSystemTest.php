@@ -30,7 +30,6 @@ include_once 'phing/system/io/WinNTFileSystem.php';
  */
 class WinNTFileSystemTest extends AbstractWinFileSystemTestCase
 {
-
     protected function createFileSystem()
     {
         return new WinNTFileSystem();

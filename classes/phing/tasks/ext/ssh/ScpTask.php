@@ -33,7 +33,7 @@ require_once 'phing/Task.php';
 class ScpTask extends Task
 {
     protected $file = "";
-    protected $filesets = array(); // all fileset objects assigned to this task
+    protected $filesets = []; // all fileset objects assigned to this task
     protected $todir = "";
     protected $mode = null;
 
@@ -370,7 +370,7 @@ class ScpTask extends Task
             throw new BuildException("Attribute 'host' and 'username' must be set");
         }
 
-        $methods = !empty($this->methods) ? $this->methods->toArray($p) : array();
+        $methods = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");

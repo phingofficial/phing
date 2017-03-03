@@ -103,5 +103,4 @@ class ForeachTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 1 entry in list', Project::MSG_VERBOSE);
     }
-
 }

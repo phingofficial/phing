@@ -26,7 +26,6 @@ include_once 'phing/util/FileUtils.php';
  */
 class EscapeUnicodeTest extends BuildFileTest
 {
-
     protected $fu;
 
     public function setUp()

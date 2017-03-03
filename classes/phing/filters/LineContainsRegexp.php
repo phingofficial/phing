@@ -59,7 +59,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Regular expressions that are applied against lines.
      * @var array
      */
-    private $_regexps = array();
+    private $_regexps = [];
 
     /**
      * Returns all lines in a buffer that contain specified strings.
@@ -68,7 +68,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -81,7 +80,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
         }
 
         $lines = explode("\n", $buffer);
-        $matched = array();
+        $matched = [];
 
         $regexpsSize = count($this->_regexps);
         foreach ($lines as $line) {
@@ -120,7 +119,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * a line read from the original stream in order for it to match this
      * filter.
      *
-     * @param An $regexps
+     * @param array $regexps
      * @throws Exception
      * @internal param An $regexps array of regular expressions which must be contained
      *                within a line in order for it to match in this filter. Must not be

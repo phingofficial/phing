@@ -46,10 +46,6 @@ class PearPackageScannerTest extends BuildFileTest
 
     public function testLoadPackageInfo()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('console_getopt');
 
@@ -68,10 +64,6 @@ class PearPackageScannerTest extends BuildFileTest
      */
     public function testLoadPackageInfoNonexistingPackage()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('this_package_does_not_exist');
 
@@ -108,7 +100,6 @@ class PearPackageScannerTest extends BuildFileTest
                 'File does not exist: ' . $file . ' at ' . $fullpath
             );
         }
-
     }
 
     /**
@@ -165,9 +156,9 @@ class PearPackageScannerTest extends BuildFileTest
 
         $this->assertEquals(
             $arFiles,
-            array(
+            [
                 'Console' . DIRECTORY_SEPARATOR . 'Table.php'
-            )
+            ]
         );
     }
 
@@ -180,10 +171,6 @@ class PearPackageScannerTest extends BuildFileTest
      */
     public function testScanInstallAs()
     {
-        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-            return $this->markTestSkipped('Test works on PHP 5.3 only');
-        }
-
         $pkgInfoFile = __DIR__ . '/../../../etc/types/'
             . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
 
@@ -204,5 +191,4 @@ class PearPackageScannerTest extends BuildFileTest
             $arFiles
         );
     }
-
 }

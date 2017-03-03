@@ -62,5 +62,4 @@ class LiquibaseTask extends AbstractLiquibaseTask
         $this->checkParams();
         $this->execute($this->command, '');
     }
-
 }

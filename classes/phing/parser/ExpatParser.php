@@ -49,13 +49,12 @@ class ExpatParser extends AbstractSAXParser
     /** @var Reader */
     private $reader;
 
+    /**
+     * @var PhingFile
+     */
     private $file;
 
     private $buffer = 4096;
-
-    private $error_string = "";
-
-    private $line = 0;
 
     /** @var Location Current cursor pos in XML file. */
     private $location;
@@ -73,7 +72,6 @@ class ExpatParser extends AbstractSAXParser
      */
     public function __construct(Reader $reader, $filename = null)
     {
-
         $this->reader = $reader;
         if ($filename !== null) {
             $this->file = new PhingFile($filename);
@@ -82,8 +80,8 @@ class ExpatParser extends AbstractSAXParser
         $this->buffer = 4096;
         $this->location = new Location();
         xml_set_object($this->parser, $this);
-        xml_set_element_handler($this->parser, array($this, "startElement"), array($this, "endElement"));
-        xml_set_character_data_handler($this->parser, array($this, "characters"));
+        xml_set_element_handler($this->parser, [$this, "startElement"], [$this, "endElement"]);
+        xml_set_character_data_handler($this->parser, [$this, "characters"]);
     }
 
     /**
@@ -103,7 +101,7 @@ class ExpatParser extends AbstractSAXParser
      * Returns the location object of the current parsed element. It describes
      * the location of the element within the XML file (line, char)
      *
-     * @return object the location of the current parser
+     * @return Location the location of the current parser
      */
     public function getLocation()
     {
@@ -122,14 +120,12 @@ class ExpatParser extends AbstractSAXParser
     /**
      * Starts the parsing process.
      *
-     * @param  string  the option to set
      * @return int                 1 if the parsing succeeded
      * @throws ExpatParseException if something gone wrong during parsing
      * @throws IOException         if XML file can not be accessed
      */
     public function parse()
     {
-
         while (($data = $this->reader->read()) !== -1) {
             if (!xml_parse($this->parser, $data, $this->reader->eof())) {
                 $error = xml_error_string(xml_get_error_code($this->parser));

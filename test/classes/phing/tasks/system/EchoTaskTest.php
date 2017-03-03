@@ -11,7 +11,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class EchoTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

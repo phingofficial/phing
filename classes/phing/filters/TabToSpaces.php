@@ -67,7 +67,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * Returns stream after converting tabs to the specified number of spaces.
      *
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      * @exception IOException if the underlying stream throws an IOException
@@ -75,7 +75,6 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -119,7 +118,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * @param Reader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
-     * @return Reader A new filter based on this configuration, but filtering
+     * @return TabToSpaces A new filter based on this configuration, but filtering
      *                the specified reader
      */
     public function chain(Reader $reader)

@@ -49,7 +49,7 @@ class Diagnostics
     {
         $home = Phing::getProperty(Phing::PHING_HOME);
         if ($home == null) {
-            return null;
+            return [];
         }
         $currentWorkingDir = getcwd();
         chdir($home);
@@ -207,7 +207,6 @@ class Diagnostics
         if (!$tempDirectory->exists()) {
             $out->println("Warning, php.tmpdir directory does not exist: " . $tempdir);
             return;
-
         }
 
         $now = time();

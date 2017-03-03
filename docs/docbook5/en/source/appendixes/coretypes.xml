@@ -204,6 +204,15 @@
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>erroronmissingdir</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Specify what happens if the base directory does not exist.
+                            If true a build error will happen, if false, the fileset will be
+                            ignored/empty.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>includes</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma- or space-separated list of patterns of files that must be

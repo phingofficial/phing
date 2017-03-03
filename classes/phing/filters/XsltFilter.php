@@ -49,9 +49,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * XSLT Params.
-     * @var array
+     * @var XsltParam[]
      */
-    private $xsltParams = array();
+    private $xsltParams = [];
 
     /**
      * Whether to use loadHTML() to parse the input XML file.
@@ -80,11 +80,11 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Create new XSLT Param object, to handle the <param/> nested element.
-     * @return XSLTParam
+     * @return XsltParam
      */
     public function createParam()
     {
-        $num = array_push($this->xsltParams, new XSLTParam());
+        $num = array_push($this->xsltParams, new XsltParam());
 
         return $this->xsltParams[$num - 1];
     }
@@ -198,7 +198,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!class_exists('XSLTProcessor')) {
             throw new BuildException("Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.");
         }
@@ -231,8 +230,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
         // Read XSLT
         $_xsl = null;
-        $xslFr = new FileReader($this->xslFile);
-        $xslFr->readInto($_xsl);
+        $br = new BufferedReader(new FileReader($this->xslFile));
+        $_xsl = $br->read();
 
         $this->log(
             "Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(),
@@ -263,7 +262,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     protected function process($xml, $xsl)
     {
-
         $processor = new XSLTProcessor();
 
         // Create and setup document.
@@ -280,14 +278,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
             $xmlDom->loadXML($xml);
         }
 
-        $xslDom->loadxml($xsl);
+        $xslDom->loadXML($xsl);
 
         if (defined('XSL_SECPREF_WRITE_FILE')) {
-            if (version_compare(PHP_VERSION, '5.4', "<")) {
-                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            } else {
-                $processor->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            }
+            $processor->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
         }
         $processor->importStylesheet($xslDom);
 
@@ -300,7 +294,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
         $errorlevel = error_reporting();
         error_reporting($errorlevel & ~E_WARNING);
-        @$result = $processor->transformToXML($xmlDom);
+        @$result = $processor->transformToXml($xmlDom);
         error_reporting($errorlevel);
 
         if (false === $result) {
@@ -347,98 +341,12 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
                         $this->setStyle($params[$i]->getValue());
                     }
                 } elseif ($params[$i]->getType() == "param") {
-                    $xp = new XSLTParam();
+                    $xp = new XsltParam();
                     $xp->setName($params[$i]->getName());
                     $xp->setExpression($params[$i]->getValue());
                     $this->xsltParams[] = $xp;
                 }
             }
-        }
-    }
-}
-
-/**
- * Class that holds an XSLT parameter.
- *
- * @package   phing.filters
- */
-class XSLTParam
-{
-
-    private $name;
-
-    /** @var RegisterSlot */
-    private $expr;
-
-    /**
-     * Sets param name.
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get param name.
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets expression value (alias to the setExpression()) method.
-     *
-     * @param string $v
-     * @see setExpression()
-     */
-    public function setValue($v)
-    {
-        $this->setExpression($v);
-    }
-
-    /**
-     * Gets expression value (alias to the getExpression()) method.
-     *
-     * @return string
-     * @see getExpression()
-     */
-    public function getValue()
-    {
-        return $this->getExpression();
-    }
-
-    /**
-     * Sets expression value.
-     * @param string $expr
-     */
-    public function setExpression($expr)
-    {
-        $this->expr = $expr;
-    }
-
-    /**
-     * Sets expression to dynamic register slot.
-     * @param RegisterSlot $expr
-     */
-    public function setListeningExpression(RegisterSlot $expr)
-    {
-        $this->expr = $expr;
-    }
-
-    /**
-     * Returns expression value -- performs lookup if expr is registerslot.
-     *
-     * @return string
-     */
-    public function getExpression()
-    {
-        if ($this->expr instanceof RegisterSlot) {
-            return $this->expr->getValue();
-        } else {
-            return $this->expr;
         }
     }
 }
