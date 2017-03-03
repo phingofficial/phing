@@ -831,7 +831,6 @@ class Phing
     private function addInputHandler(Project $project)
     {
         if ($this->inputHandlerClassname === null) {
-//            $handler = new DefaultInputHandler();
             $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
         } else {
             try {

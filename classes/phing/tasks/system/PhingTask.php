@@ -71,7 +71,10 @@ class PhingTask extends Task
     /** The filesets that contain the files PhingTask is to be run on. */
     private $filesets = [];
 
-    /** the temporary project created to run the build file */
+    /**
+     * the temporary project created to run the build file
+     * @var Project
+     */
     private $newProject;
 
     /** Fail the build process when the called build fails? */
@@ -81,7 +84,7 @@ class PhingTask extends Task
      *  If true, abort the build process if there is a problem with or in the target build file.
      *  Defaults to false.
      *
-     * @param boolean new value
+     * @param boolean $hof new value
      */
     public function setHaltOnFailure($hof)
     {

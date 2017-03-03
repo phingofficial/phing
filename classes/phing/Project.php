@@ -17,12 +17,13 @@
  * <http://phing.info>.
  */
 
+use Symfony\Component\Console\Output\ConsoleOutput;
+
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/util/FileUtils.php';
 include_once 'phing/TaskAdapter.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
-include_once 'phing/input/DefaultInputHandler.php';
 include_once 'phing/types/PropertyValue.php';
 include_once 'phing/ComponentHelper.php';
 
@@ -79,7 +80,10 @@ class Project
     /** holds ref names and a reference to the referred object*/
     private $references = [];
 
-    /** The InputHandler being used by this project. */
+    /**
+     * The InputHandler being used by this project.
+     * @var InputHandler
+     */
     private $inputHandler;
 
     /* -- properties that come in via xml attributes -- */
@@ -124,14 +128,13 @@ class Project
     public function __construct()
     {
         $this->fileUtils = new FileUtils();
-        $this->inputHandler = new DefaultInputHandler();
     }
-
+    
     /**
      * Sets the input handler
      * @param InputHandler $handler
      */
-    public function setInputHandler(InputHandler $handler)
+    public function setInputHandler($handler)
     {
         $this->inputHandler = $handler;
     }
