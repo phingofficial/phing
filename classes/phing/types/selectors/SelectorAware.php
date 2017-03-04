@@ -210,6 +210,14 @@ trait SelectorAware
     }
 
     /**
+     * add a executable selector entry on the selector list
+     */
+    public function addExecutable(ExecutableSelector $selector)
+    {
+        $this->appendSelector($selector);
+    }
+
+    /**
      * add a readable selector entry on the selector list
      */
     public function addReadable(ReadableSelector $selector)
