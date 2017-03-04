@@ -427,6 +427,11 @@ abstract class MatchingTask extends Task implements SelectorContainer
         return $this->fileset->addContainsRegexp($selector);
     }
 
+    public function addSymlink(SymlinkSelector $selector)
+    {
+        return $this->fileset->addSymlink($selector);
+    }
+
     /**
      * Accessor for the implict fileset.
      *

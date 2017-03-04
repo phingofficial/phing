@@ -43,6 +43,9 @@
                 do or do not exist in some other location</para>
         </listitem>
         <listitem>
+            <para><xref xlink:href="#Symlink"/> - Select files if they are symlink.</para>
+        </listitem>
+        <listitem>
             <para><xref xlink:href="#Containsregexp"/>&lt;containsregexp> - Select files that
                 contain text matching a regular expression</para>
         </listitem>
@@ -773,6 +776,12 @@
             reused through references. It is the only selector which can be used outside of any
             target, as an element of the <literal><link linkend="Project">&lt;project></link></literal> tag. It can contain only
             one other selector, but of course that selector can be a container.</para>
+
+    </sect1>
+    <sect1 role="typedef" xml:id="Symlink" xreflabel="&lt;Symlink>">
+        <title>Symlink Selector </title>
+
+        <para>The <literal>&lt;symlink></literal> selector selects only files that are symbolic links.</para>
 
     </sect1>
 </appendix>

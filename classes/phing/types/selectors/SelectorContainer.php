@@ -180,5 +180,10 @@ interface SelectorContainer
      * @param WritableSelector $selector
      */
     public function addWritable(WritableSelector $selector);
-}
 
+    /**
+     * add a symlink selector entry on the selector list
+     * @param SymlinkSelector $selector
+     */
+    public function addSymlink(SymlinkSelector $selector);
+}
