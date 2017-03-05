@@ -66,7 +66,8 @@ class ExtendSelector extends BaseSelector
                 }
             } catch (Exception $e) {
                 $this->setError(
-                    "Selector " . $this->classname . " not initialized, could not create class: " . $e->getMessage()
+                    "Selector " . $this->classname . " not initialized, could not create class.",
+                    $e
                 );
             }
         } else {
