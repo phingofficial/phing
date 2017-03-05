@@ -14041,6 +14041,9 @@ a2.a3.a4=false</programlisting>
                 <listitem>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
+                <listitem>
+                    <para><literal>zipfileset</literal></para>
+                </listitem>
             </itemizedlist>
         </sect2>
     </sect1>
