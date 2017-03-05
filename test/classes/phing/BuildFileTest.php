@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -20,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
 
@@ -34,7 +35,7 @@ require_once 'phing/system/io/PhingFile.php';
  * @author Conor MacNeill
  * @author Victor Farazdagi <simple.square@gmail.com>
  */
-abstract class BuildFileTest extends PHPUnit_Framework_TestCase
+abstract class BuildFileTest extends TestCase
 {
 
     /** @var Project */

@@ -32,7 +32,7 @@ include_once 'phing/types/Reference.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
-class MapperTest extends PHPUnit_Framework_TestCase
+class MapperTest extends \PHPUnit\Framework\TestCase
 {
     private $project;
 

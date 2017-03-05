@@ -30,7 +30,7 @@ include_once 'phing/types/FileSet.php';
  * @version $Id$
  * @package phing.types
  */
-abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
+abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 {
     private $project;
 
