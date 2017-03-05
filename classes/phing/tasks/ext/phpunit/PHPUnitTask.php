@@ -38,6 +38,7 @@ require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 class PHPUnitTask extends Task
 {
     private $batchtests = [];
+    /** @var FormatterElement[] $formatters */
     private $formatters = [];
     private $bootstrap = "";
     private $haltonerror = false;
@@ -102,14 +103,9 @@ class PHPUnitTask extends Task
 
         $version = PHPUnit_Runner_Version::id();
 
-        if (version_compare($version, '3.6.0') < 0) {
-            throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.6.0", $this->getLocation());
+        if (version_compare($version, '5.4.0') < 0) {
+            throw new BuildException("PHPUnitTask requires PHPUnit version >= 5.4.0", $this->getLocation());
         }
-
-        /**
-         * Other dependencies that should only be loaded when class is actually used.
-         */
-        require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
 
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
@@ -281,7 +277,7 @@ class PHPUnitTask extends Task
     /**
      * Add a new formatter to all tests of this task.
      *
-     * @param FormatterElement formatter element
+     * @param FormatterElement $fe formatter element
      */
     public function addFormatter(FormatterElement $fe)
     {
@@ -321,7 +317,7 @@ class PHPUnitTask extends Task
      * @throws BuildException
      * @return array
      */
-    protected function handlePHPUnitConfiguration($configuration)
+    protected function handlePHPUnitConfiguration(PhingFile $configuration)
     {
         if (!$configuration->exists()) {
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
@@ -383,7 +379,7 @@ class PHPUnitTask extends Task
                                      );
                 }
 
-                if ($listener instanceof PHPUnit_Framework_TestListener) {
+                if ($listener instanceof \PHPUnit\Framework\TestListener) {
                     $this->addListener($listener);
                 }
             }
@@ -469,6 +465,7 @@ class PHPUnitTask extends Task
 
     /**
      * @param $suite
+     * @throws \BuildException
      */
     protected function execute($suite)
     {
@@ -481,22 +478,16 @@ class PHPUnitTask extends Task
             $pwd = __DIR__;
             $path = realpath($pwd . '/../../../');
 
-            if (class_exists('PHP_CodeCoverage_Filter')) {
-                $filter = new PHP_CodeCoverage_Filter();
-            } elseif (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
-                $filterClass = '\SebastianBergmann\CodeCoverage\Filter';
-                $filter = new $filterClass;
+            if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
+                $filter = new \SebastianBergmann\CodeCoverage\Filter;
+                if (method_exists($filter, 'addDirectoryToBlacklist')) {
+                    $filter->addDirectoryToBlacklist($path);
+                }
+                if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
+                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(null, $filter);
+                    $runner->setCodecoverage($codeCoverage);
+                }
             }
-            if (method_exists($filter, 'addDirectoryToBlacklist')) {
-                $filter->addDirectoryToBlacklist($path);
-            }
-            if (class_exists('PHP_CodeCoverage')) {
-                $codeCokverage = new PHP_CodeCoverage(null, $filter);
-            } elseif (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
-                $codeCokverageClass = '\SebastianBergmann\CodeCoverage\CodeCoverage';
-                $codeCokverage = new $codeCokverageClass(null, $filter);
-            }
-            $runner->setCodecoverage($codeCokverage);
         }
 
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
@@ -509,7 +500,11 @@ class PHPUnitTask extends Task
             $formatter = $fe->getFormatter();
 
             if ($fe->getUseFile()) {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                try {
+                    $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                } catch (Exception $e) {
+                    throw new BuildException('Unable to create destination.', $e);
+                }
 
                 $writer = new FileWriter($destFile->getAbsolutePath());
 
@@ -577,8 +572,9 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest                   $batchTest
+     * @param BatchTest $batchTest
      * @param PHPUnit_Framework_TestSuite $suite
+     * @throws \BuildException
      */
     protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
     {
@@ -587,7 +583,11 @@ class PHPUnitTask extends Task
             if (!($testClass instanceof PHPUnit_Framework_TestSuite)) {
                 $testClass = new ReflectionClass($element);
             }
-            $suite->addTestSuite($testClass);
+            try {
+                $suite->addTestSuite($testClass);
+            } catch (PHPUnit_Framework_Exception $e) {
+                throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
+            }
         }
     }
 
