@@ -237,7 +237,7 @@ class SymlinkTask extends Task
 
             if ($this->isRelative()) {
                 $endPath = $fs->getDir($this->getProject())->getAbsolutePath();
-                $startPath = $this->getLink();
+                $startPath = (new PhingFile($this->getLink()))->getAbsolutePath();;
                 
                 // Normalize separators on Windows
                 if ('\\' === DIRECTORY_SEPARATOR) {
