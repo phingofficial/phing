@@ -5257,6 +5257,44 @@ Note that you can omit both startpoint and track attributes in this case
         </sect2>
     </sect1>
 
+    <sect1 role="taskdef" xml:id="JsonValidateTask">
+        <title>JsonValidateTask</title>
+        <para>The <literal>JsonValidateTask</literal> checks
+        if a given file contains valid JSON data and fails if not.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the file to be checked.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;jsonvalidate file="config/default.json" /&gt;</programlisting>
+        </sect2>
+    </sect1>
+
 <sect1 role="taskdef" xml:id="LiquibaseTask">
     <title>LiquibaseTask</title>
     <para>The <literal>LiquibaseTask</literal> is a generic task for liquibase commands that don't require extra command parameters. You can run commands like <literal>updateSQL</literal>, <literal>validate</literal> or <literal>updateTestingRollback</literal> with this task but not <literal>rollbackToDateSQL</literal> since it requires a date parameter after the command.
