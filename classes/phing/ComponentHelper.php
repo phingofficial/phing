@@ -68,6 +68,10 @@ class ComponentHelper
         $this->initDefaultTasks();
 
         $this->initDefaultDataTypes();
+
+        $this->initCustomTasks();
+
+        $this->initCustomDataTypes();
     }
 
     /**
@@ -308,6 +312,50 @@ class ComponentHelper
             }
         } catch (IOException $ioe) {
             throw new BuildException("Can't load default datatype list");
+        }
+    }
+
+    private function initCustomTasks()
+    {
+        $taskdefs = Phing::getResourcePath("custom.tasks.properties");
+
+        try { // try to load typedefs
+            $props = new Properties();
+            $in = new PhingFile((string) $taskdefs);
+            if (!$in->exists()) {
+                return;
+            }
+            $props->load($in);
+
+            $enum = $props->propertyNames();
+            foreach ($enum as $key) {
+                $value = $props->getProperty($key);
+                $this->addTaskDefinition($key, $value);
+            }
+        } catch (IOException $ioe) {
+            throw new BuildException("Can't load custom task list");
+        }
+    }
+
+    private function initCustomDataTypes()
+    {
+        $typedefs = Phing::getResourcePath("custom.types.properties");
+
+        try { // try to load typedefs
+            $props = new Properties();
+            $in = new PhingFile((string) $typedefs);
+            if (!$in->exists()) {
+                return;
+            }
+            $props->load($in);
+
+            $enum = $props->propertyNames();
+            foreach ($enum as $key) {
+                $value = $props->getProperty($key);
+                $this->addDataTypeDefinition($key, $value);
+            }
+        } catch (IOException $ioe) {
+            throw new BuildException("Can't load custom type list");
         }
     }
 }
