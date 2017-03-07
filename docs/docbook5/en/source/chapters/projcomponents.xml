@@ -577,6 +577,16 @@
                             <entry>No</entry>
                         </row>
                         <row>
+                            <entry><literal>requestMethod</literal></entry>
+                            <entry>Sets the method to be used when issuing the HTTP request. - Default: GET</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>followRedirects</literal></entry>
+                            <entry>Whether redirects sent by the server should be followed. - Default: true</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
                             <entry><literal>quiet</literal></entry>
                             <entry>Set quiet mode, which suppresses warnings and errors. Default is false</entry>
                             <entry>No</entry>
