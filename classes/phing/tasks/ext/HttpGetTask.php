@@ -67,6 +67,8 @@ class HttpGetTask extends HttpTask
      */
     protected $proxy = null;
 
+    private $quiet = false;
+
     /**
      * @return HTTP_Request2
      * @throws BuildException
@@ -75,7 +77,7 @@ class HttpGetTask extends HttpTask
     protected function createRequest()
     {
         if (!isset($this->dir)) {
-            throw new BuildException("Required attribute 'dir' is missing");
+            throw new BuildException("Required attribute 'dir' is missing", $this->getLocation());
         }
 
         $config = [
@@ -108,7 +110,8 @@ class HttpGetTask extends HttpTask
         if ($response->getStatus() != 200) {
             throw new BuildException(
                 "Request unsuccessful. Response from server: " . $response->getStatus()
-                . " " . $response->getReasonPhrase()
+                . " " . $response->getReasonPhrase(),
+                $this->getLocation()
             );
         }
 
@@ -126,7 +129,7 @@ class HttpGetTask extends HttpTask
         }
 
         if (!is_writable($this->dir)) {
-            throw new BuildException("Cannot write to directory: " . $this->dir);
+            throw new BuildException("Cannot write to directory: " . $this->dir, $this->getLocation());
         }
 
         $filename = $this->dir . "/" . $filename;
@@ -183,5 +186,22 @@ class HttpGetTask extends HttpTask
     public function setProxy($proxy)
     {
         $this->proxy = $proxy;
+    }
+
+    /**
+     * If true, set default log level to Project.MSG_ERR.
+     *
+     * @param boolean $v if "true" then be quiet
+     */
+    public function setQuiet($v)
+    {
+        $this->quiet = $v;
+    }
+
+    public function log($msg, $msgLevel = Project::MSG_INFO)
+    {
+        if (!$this->quiet || $msgLevel <= Project::MSG_ERR) {
+            parent::log($msg, $msgLevel);
+        }
     }
 }
