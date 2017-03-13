@@ -29,7 +29,7 @@ include_once 'phing/types/Commandline.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
-class CommandlineTest extends PHPUnit_Framework_TestCase
+class CommandlineTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Commandline

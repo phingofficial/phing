@@ -1,6 +1,6 @@
 <?php
 
-class Foo_BarTest extends PHPUnit_Framework_TestCase
+class Foo_BarTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetString()
     {

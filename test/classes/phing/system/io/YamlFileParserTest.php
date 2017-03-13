@@ -27,7 +27,7 @@ include_once 'phing/system/io/FileParserInterface.php';
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class YamlFileParserTest extends PHPUnit_Framework_TestCase
+class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FileParserInterface

@@ -29,9 +29,8 @@ include_once 'phing/tasks/system/condition/OsCondition.php';
  * @version $Id$
  * @package phing
  */
-class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
+class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 {
-
     /** @var Project */
     private $p;
 

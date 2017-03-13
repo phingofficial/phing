@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class SelectorUtilsTest
  *
  * Test cases for SelectorUtils
  */
-class SelectorUtilsTest extends PHPUnit_Framework_TestCase
+class SelectorUtilsTest extends TestCase
 {
     /**
      * @var SelectorUtils

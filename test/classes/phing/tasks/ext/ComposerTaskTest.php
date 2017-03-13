@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/ComposerTask.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class ComposerTaskTest extends PHPUnit_Framework_TestCase
+class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ComposerTask
