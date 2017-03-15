@@ -18,6 +18,15 @@
                 string</para>
         </listitem>
         <listitem>
+            <para><xref xlink:href="#Readable"/> -  Select files if they are readable</para>
+        </listitem>
+        <listitem>
+            <para><xref xlink:href="#Writable"/> -  Select files if they are writable</para>
+        </listitem>
+        <listitem>
+            <para><xref xlink:href="#Executable"/> -  Select files if they are executable</para>
+        </listitem>
+        <listitem>
             <para><xref xlink:href="#Date"/> - Select files/directories that have been
                 modified either before or after a specific date/time</para>
         </listitem>
@@ -755,8 +764,8 @@
         <para>The <literal>&lt;readable></literal> selector selects only files that are readable.</para>
 
         <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
-            &lt;readable>
-            &lt;/fileset></programlisting>
+  &lt;readable>
+&lt;/fileset></programlisting>
 
     </sect1>
     <sect1 role="typedef" xml:id="Writable" xreflabel="&lt;Writable>">
@@ -765,8 +774,18 @@
         <para>The <literal>&lt;writable></literal> selector selects only files that are writable.</para>
 
         <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
-            &lt;writable>
-            &lt;/fileset></programlisting>
+  &lt;writable>
+&lt;/fileset></programlisting>
+
+    </sect1>
+    <sect1 role="typedef" xml:id="Executable" xreflabel="&lt;Executable>">
+        <title>Executable </title>
+
+        <para>The <literal>&lt;executable></literal> selector selects only files that are executable.</para>
+
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
+  &lt;executable>
+&lt;/fileset></programlisting>
 
     </sect1>
     <sect1 role="typedef" xml:id="Selector" xreflabel="&lt;Selector>">
