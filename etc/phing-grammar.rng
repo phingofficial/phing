@@ -165,6 +165,7 @@
                 <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
                 <ref name="propertyregex"/>
+                <ref name="propertyselector"/>
                 <ref name="replaceregexp_task"/>
                 <ref name="rst"/>
                 <ref name="s3put"/>
@@ -4745,6 +4746,30 @@
                     </attribute>
                     <attribute name="defaultValue">
                         <data type="integer"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="propertyselector">
+        <element name="propertyselector">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <attribute name="match"/>
+                <optional>
+                    <attribute name="select"/>
+                    <attribute name="casesensitive">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="delimiter"/>
+                    <attribute name="distinct">
+                        <data type="boolean"/>
                     </attribute>
                 </optional>
             </interleave>
