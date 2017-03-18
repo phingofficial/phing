@@ -28,7 +28,7 @@ require_once 'phing/system/util/Register.php';
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.util
  */
-class RegisterSlotTest extends PHPUnit_Framework_TestCase
+class RegisterSlotTest extends \PHPUnit\Framework\TestCase
 {
     private $slot = null;
 

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,20 +17,18 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/SocketCondition.php';
+include_once 'phing/types/selectors/FileSelector.php';
 
 /**
- * Tests for the <socket> condition
+ * A selector that selects symbolic links.
  *
- * @package phing.tasks.system.condition
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.types.selectors
  */
-class SocketConditionTest extends \PHPUnit\Framework\TestCase
+class SymlinkSelector implements FileSelector
 {
-    public function testShouldReturnFalseForNonExistingListener()
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-        $condition = new SocketCondition();
-        $condition->setServer('localhost');
-        $condition->setPort(1337);
-        $this->assertFalse($condition->evaluate());
+        return $file !== null && $file->isLink();
     }
 }

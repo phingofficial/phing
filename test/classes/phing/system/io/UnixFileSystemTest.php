@@ -28,7 +28,7 @@ include_once 'phing/system/io/UnixFileSystem.php';
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.io
  */
-class UnixFileSystemTest extends PHPUnit_Framework_TestCase
+class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

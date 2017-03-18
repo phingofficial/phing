@@ -27,7 +27,7 @@ include_once 'phing/system/io/FileParserFactory.php';
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class FileParserFactoryTest extends PHPUnit_Framework_TestCase
+class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FileParserInterface
