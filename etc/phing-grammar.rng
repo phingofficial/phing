@@ -164,6 +164,7 @@
                 <ref name="phpmd"/>
                 <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
+                <ref name="propertycopy"/>
                 <ref name="propertyregex"/>
                 <ref name="replaceregexp_task"/>
                 <ref name="rst"/>
@@ -4716,6 +4717,25 @@
                 <attribute name="todir"/>
                 <optional>
                     <attribute name="usesorttable">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="propertycopy">
+        <element name="propertycopy">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <attribute name="from"/>
+                <optional>
+                    <attribute name="silent" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>

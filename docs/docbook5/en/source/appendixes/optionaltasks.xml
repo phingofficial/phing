@@ -9787,6 +9787,70 @@ description="Measures the size of the project and counts the tests">
                 listed under the "default" package.</para>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PropertyCopy">
+        <title>PropertyCopy</title>
+        <para>Copies the value of a named property to another property. This is useful when you need to plug in the
+            value of another property in order to get a property name and then want to get the value of that property
+            name.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>override</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If the property is already set, should we change it's value.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>from</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property you wish to copy the value from.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>silent</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Do you want to suppress the error if the "from" property does not exist, and just
+                            not set the property "name".</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property name="org" value="MyOrg" />
+&lt;property name="org.MyOrg.DisplayName" value="My Organiziation" />
+&lt;propertycopy name="displayName" from="org.${org}.DisplayName" /></programlisting>
+            <para>Sets displayName to "My Organiziation".</para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="PropertyRegexTask">
         <title>PropertyRegexTask</title>
         <para> Performs regular expression operations on an subject string, and sets the results to a property.
