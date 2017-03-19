@@ -790,6 +790,16 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <choice>
+                    <text/>
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pathelement"/>
+                            <ref name="fileset"/>
+                            <ref name="dirset"/>
+                        </choice>
+                    </zeroOrMore>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -819,6 +829,16 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <choice>
+                    <text/>
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pathelement"/>
+                            <ref name="fileset"/>
+                            <ref name="dirset"/>
+                        </choice>
+                    </zeroOrMore>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -849,6 +869,7 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
+                            <ref name="dirlist"/>
                             <ref name="fileset"/>
                             <ref name="filelist"/>
                         </choice>
@@ -885,6 +906,11 @@
                 </optional>
                 <optional>
                     <attribute name="haltonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -929,6 +955,7 @@
                 </optional>
             </interleave>
             <zeroOrMore>
+                <ref name="dirset"/>
                 <ref name="fileset"/>
             </zeroOrMore>
         </element>
@@ -957,6 +984,7 @@
                     <attribute name="message"/>
                     <text/>
                     <ref name="fileset"/>
+                    <ref name="dirset"/>
                 </choice>
                 <optional>
                     <attribute name="file"/>
@@ -1125,6 +1153,7 @@
             </interleave>
             <interleave>
                 <zeroOrMore>
+                    <ref name="dirset"/>
                     <ref name="fileset"/>
                 </zeroOrMore>
                 <zeroOrMore>
@@ -1224,6 +1253,14 @@
         </element>
     </define>
 
+    <define name="jsonvalidate">
+        <element name="jsonvalidate">
+            <interleave>
+                <attribute name="prologfile"/>
+            </interleave>
+        </element>
+    </define>
+
     <define name="loadfile">
         <element name="loadfile">
             <interleave>
@@ -1264,6 +1301,7 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
+                            <ref name="dirset"/>
                             <ref name="fileset"/>
                             <ref name="filelist"/>
                         </choice>
@@ -3197,6 +3235,11 @@
                 <optional>
                     <attribute name="authschema"/>
                 </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
                 <zeroOrMore>
                     <ref name="config"/>
                 </zeroOrMore>
@@ -3457,6 +3500,9 @@
                     </attribute>
                     <attribute name="reporter"/>
                     <attribute name="checkstyleReportPath"/>
+                </optional>
+                <optional>
+                    <attribute name="config"/>
                 </optional>
             </interleave>
         </element>
@@ -6513,6 +6559,16 @@
                 <attribute name="url"/>
                 <optional>
                     <attribute name="errorsBeginAt"/>
+                </optional>
+                <optional>
+                    <attribute name="followredirects">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="requestmethod">
+                        <data type="string"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
