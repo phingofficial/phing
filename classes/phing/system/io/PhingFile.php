@@ -584,6 +584,25 @@ class PhingFile
     }
 
     /**
+     * Tests whether the file denoted by this abstract pathname is executable.
+     *
+     * @throws IOException
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname exists and is a symbolic link;
+     *                 false otherwise
+     */
+    public function isExecutable()
+    {
+        clearstatcache();
+        $fs = FileSystem::getFileSystem();
+        if ($fs->checkAccess($this) !== true) {
+            throw new IOException("No read access to " . $this->path);
+        }
+
+        return @is_executable($this->path);
+    }
+
+    /**
      * Returns the target of the symbolic link denoted by this abstract pathname
      *
      * @return string the target of the symbolic link denoted by this abstract pathname

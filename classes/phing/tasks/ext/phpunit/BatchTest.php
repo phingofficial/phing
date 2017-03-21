@@ -53,7 +53,7 @@ class BatchTest
     /**
      * Create a new batchtest instance
      *
-     * @param Project the project it depends on.
+     * @param Project $project the project it depends on.
      */
     public function __construct(Project $project)
     {
@@ -163,7 +163,7 @@ class BatchTest
      */
     private function isTestCase($input)
     {
-        return is_subclass_of($input, 'PHPUnit_Framework_TestCase') || is_subclass_of(
+        return is_subclass_of($input, '\PHPUnit\Framework\TestCase') || is_subclass_of(
             $input,
             'PHPUnit_Framework_TestSuite'
         );

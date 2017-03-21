@@ -341,7 +341,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         }
 
         if ($this->dir === null) {
-            throw new BuildException("No directory specified for fileset.");
+            throw new BuildException(sprintf("No directory specified for <%s>.", strtolower(get_class($this))));
         }
         if (!$this->dir->exists() && $this->errorOnMissingDir) {
             throw new BuildException("Directory " . $this->dir->getAbsolutePath() . " not found.");

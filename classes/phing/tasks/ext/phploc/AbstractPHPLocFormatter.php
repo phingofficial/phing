@@ -74,7 +74,7 @@ abstract class AbstractPHPLocFormatter
      */
     public function setToDir($toDir)
     {
-        if (!is_dir($toDir)) {
+        if (!is_dir($toDir) && !is_null($toDir)) {
             $toDir = new PhingFile($toDir);
             $toDir->mkdirs();
         }

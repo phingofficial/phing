@@ -4052,6 +4052,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>basic</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If true, set default log level to Project.MSG_ERR</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -5254,6 +5261,44 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>JavaScript files to be minified.</para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+
+    <sect1 role="taskdef" xml:id="JsonValidateTask">
+        <title>JsonValidateTask</title>
+        <para>The <literal>JsonValidateTask</literal> checks
+        if a given file contains valid JSON data and fails if not.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the file to be checked.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;jsonvalidate file="config/default.json" /&gt;</programlisting>
         </sect2>
     </sect1>
 
@@ -8641,7 +8686,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/target></programlisting>
 <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
 <programlisting language="xml">&lt;target name="project-size-and-tests"
-description="Measures the size of the project and count it's tests">
+description="Measures the size of the project and counts the tests">
     &lt;phploc countTests="true">
     &lt;fileset dir=".">
         &lt;include name="**/*.php" />
@@ -8703,7 +8748,7 @@ description="Measures the size of the project and count it's tests">
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Path to write output file to.</entry>
                                     <entry>n/a</entry>
-                                    <entry>Yes</entry>
+                                    <entry>Yes, if <literal>usefile></literal> is <literal>true</literal></entry>
                                 </row>
                             </tbody>
                         </tgroup>

@@ -1,6 +1,6 @@
 <?php
 
-class PhingFileTest extends PHPUnit_Framework_TestCase
+class PhingFileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var PhingFile

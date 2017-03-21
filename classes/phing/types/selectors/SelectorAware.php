@@ -210,6 +210,14 @@ trait SelectorAware
     }
 
     /**
+     * add a executable selector entry on the selector list
+     */
+    public function addExecutable(ExecutableSelector $selector)
+    {
+        $this->appendSelector($selector);
+    }
+
+    /**
      * add a readable selector entry on the selector list
      */
     public function addReadable(ReadableSelector $selector)
@@ -221,6 +229,14 @@ trait SelectorAware
      * add a writable selector entry on the selector list
      */
     public function addWritable(WritableSelector $selector)
+    {
+        $this->appendSelector($selector);
+    }
+
+    /**
+     * add a symlink selector entry on the selector list
+     */
+    public function addSymlink(SymlinkSelector $selector)
     {
         $this->appendSelector($selector);
     }

@@ -1,0 +1,50 @@
+# http://www.appveyor.com/docs/appveyor-yml
+build: false
+shallow_clone: false
+platform:
+  - x64
+clone_folder: C:\projects\phing
+
+environment:
+    matrix:
+        - php_ver_target: 5.6
+        - php_ver_target: 7.0
+
+cache:
+    - '%APPDATA%\Composer'
+    - C:\tools\php -> appveyor.yml
+
+init:
+    - SET PATH=C:\Program Files\OpenSSL;C:\tools\php;%PATH%
+    - SET COMPOSER_NO_INTERACTION=1
+    - SET PHP=1
+    - SET ANSICON=121x90 (121x90)
+
+branches:
+    except:
+        - gh-pages
+
+install:
+    - IF EXIST c:\tools\php (SET PHP=0)
+    - IF %PHP%==1 cinst -y OpenSSL.Light
+    - ps: appveyor-retry cinst -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $Env:php_ver_target | Select-Object -first 1) -replace '[php|]','')
+    - cd C:\tools\php
+    - IF %PHP%==1 copy php.ini-production php.ini
+    - IF %PHP%==1 echo date.timezone="UTC" >> php.ini
+    - IF %PHP%==1 echo memory_limit=1024M >> php.ini
+    - IF %PHP%==1 echo extension_dir=ext >> php.ini
+    - IF %PHP%==1 echo extension=php_curl.dll >> php.ini
+    - IF %PHP%==1 echo extension=php_openssl.dll >> php.ini
+    - IF %PHP%==1 echo extension=php_mbstring.dll >> php.ini
+    - IF %PHP%==1 echo extension=php_fileinfo.dll >> php.ini
+    - IF %PHP%==1 echo @php %%~dp0composer.phar %%* > composer.bat
+    - appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar
+    - cd c:\projects\phing
+    - appveyor-retry composer install --no-progress --profile --prefer-dist --no-interaction
+
+before_test:
+    - php --version
+
+test_script:
+    - cd C:\projects\phing\test
+    - ..\vendor\bin\phing
