@@ -127,7 +127,7 @@ class ComposerTask extends Task
     /**
      * Returns the path to Composer application.
      *
-     * If the filepath is non existant, try to find it on the system.
+     * If the filepath is non existent, try to find it on the system.
      *
      * @return string
      */
