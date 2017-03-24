@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Project.php";
 require_once "phing/Task.php";
 require_once "phing/types/Commandline.php";
 
@@ -134,16 +133,15 @@ class ComposerTask extends Task
      */
     public function getComposer()
     {
-        $project = new Project();
         $composerFile = new SplFileInfo($this->composer);
         if (false === $composerFile->isFile()) {
             $message = sprintf('Composer binary not found at "%s"', $composerFile);
-            $this->log($message, $project::MSG_WARN);
+            $this->project->log($message, Project::MSG_WARN);
             $find = $this->isWindows() ? 'where' : 'which';
             exec($find . ' composer', $composerLocation, $returnCode);
             if (!empty($composerLocation[0])) {
                 $message = sprintf('Composer binary found at "%s", updating location', $composerLocation[0]);
-                $this->log($message, $project::MSG_INFO);
+                $this->project->log($message, Project::MSG_INFO);
                 $this->setComposer($composerLocation[0]);
             }
         }
