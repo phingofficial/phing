@@ -162,7 +162,7 @@ class PatchTask extends Task
             throw new BuildException('strip has to be >= 0');
         }
 
-        $this->strip = $num;
+        $this->strip = (integer) $num;
     }
 
     /**
@@ -260,14 +260,14 @@ class PatchTask extends Task
         }
 
         // Define patch file
-        $this->cmdArgs [] = '-i ' . $this->patchFile;
+        $this->cmdArgs [] = '-i ' . escapeshellarg($this->patchFile);
         // Define strip factor
         if ($this->strip != null) {
             $this->cmdArgs [] = '--strip=' . $this->strip;
         }
         // Define original file if specified
         if ($this->originalFile != null) {
-            $this->cmdArgs [] = $this->originalFile;
+            $this->cmdArgs [] = escapeshellarg($this->originalFile);
         }
 
         $cmd = self::CMD . implode(' ', $this->cmdArgs);

@@ -10,3 +10,6 @@ vendor
 bin/*
 !bin/pear*
 !bin/phing*
+.vagrant
+**/*.log
+ansible/playbook.retry

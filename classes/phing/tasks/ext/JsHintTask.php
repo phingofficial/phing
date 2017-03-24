@@ -213,10 +213,11 @@ class JsHintTask extends Task
         $projectBasedir = $this->_getProjectBasedir();
         $errorsCount = 0;
         $warningsCount = 0;
+        $fileError = $this->xmlAttributes['fileError'];
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
             $fileName = (string) $fileAttributes['name'];
-            foreach ($file->error as $error) {
+            foreach ($file->$fileError as $error) {
                 $errAttr = (array) $error->attributes();
                 $attrs = current($errAttr);
 
