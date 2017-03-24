@@ -125,6 +125,16 @@ class ComposerTask extends Task
      */
     public function getComposer()
     {
+        $composerFile = new SplFileInfo($this->composer);
+        if (false === $composerFile->isFile()) {
+            $this->log(sprintf('Composer binary not found at "%s"', $composerFile), Project::MSG_WARN);
+            $find = $this->isWindows() ? 'where' : 'which';
+            exec($find . ' composer', $composerLocation, $returnCode);
+            if (!empty($composerLocation[0])) {
+                $this->log(sprintf('Composer binary found at "%s", updating location', $composerLocation[0]), Project::MSG_INFO);
+                $this->setComposer($composerLocation[0]);
+            }
+        }
         return $this->composer;
     }
 
@@ -170,32 +180,10 @@ class ComposerTask extends Task
     /**
      * Executes the Composer task.
      */
-    public function main() {
-        $composerFile = new SplFileInfo($this->getComposer());
-        // If no composer executable path is set try to find an installation.
-        if (FALSE === $composerFile->isFile()) {
-            if ($this->isWindows()) {
-                $message = 'Assuming a Windows system. Looking for Composer ...';
-                $command = 'where composer';
-            } else {
-                $message = 'Assuming a Linux or Mac system. Looking for Composer ...';
-                $command = 'which composer';
-            }
-
-            $this->log($message, Project::MSG_VERBOSE);
-            exec($command, $composerLocation, $returnCode);
-
-            if ($returnCode === 0) {
-                $this->setComposer($composerLocation[0]);
-            }
-            else {
-                throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
-            }
-        }
-
-        // Execute the composer command.
+    public function main()
+    {
         $commandLine = $this->prepareCommandLine();
-        $this->log("executing " . $commandLine);
+        $this->log("Executing " . $commandLine);
         passthru($commandLine, $returnCode);
 
         if ($returnCode > 0) {
