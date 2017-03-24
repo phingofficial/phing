@@ -920,7 +920,7 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
-                            <ref name="dirlist"/>
+                            <ref name="dirset"/>
                             <ref name="fileset"/>
                             <ref name="filelist"/>
                         </choice>
@@ -1217,6 +1217,9 @@
                 </zeroOrMore>
                 <zeroOrMore>
                     <ref name="fileset"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="filelist"/>
                 </zeroOrMore>
                 <zeroOrMore>
                     <ref name="mapper"/>
