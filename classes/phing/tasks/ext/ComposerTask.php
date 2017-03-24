@@ -35,29 +35,31 @@ require_once "phing/types/Commandline.php";
 class ComposerTask extends Task
 {
     /**
-     * @var string the path to php interpreter
+     * Path to php interpreter
+     * @var string
      */
     private $php = '';
 
     /**
-     *
-     * @var string the Composer command to execute
+     * Composer command to execute
+     * @var string
      */
     private $command = null;
 
     /**
-     *
+     * Commandline object
      * @var Commandline
      */
     private $commandLine = null;
+
     /**
-     *
-     * @var string path to Composer application
+     * Path to Composer application
+     * @var string
      */
     private $composer = 'composer.phar';
 
     /**
-     *
+     * Constructor.
      */
     public function __construct()
     {
@@ -65,7 +67,7 @@ class ComposerTask extends Task
     }
 
     /**
-     * Initialize the interpreter with the Phing property php.interpreter
+     * Initialize the interpreter with the Phing property php.interpreter.
      */
     public function init()
     {
@@ -83,7 +85,7 @@ class ComposerTask extends Task
     }
 
     /**
-     * gets the path to php executable.
+     * Gets the path to php executable.
      *
      * @return string
      */
@@ -93,7 +95,8 @@ class ComposerTask extends Task
     }
 
     /**
-     * sets the Composer command to execute
+     * Sets the Composer command to execute.
+     *
      * @param string $command
      */
     public function setCommand($command)
@@ -102,7 +105,8 @@ class ComposerTask extends Task
     }
 
     /**
-     * return the Composer command to execute
+     * Return the Composer command to execute.
+     *
      * @return String
      */
     public function getCommand()
@@ -111,7 +115,8 @@ class ComposerTask extends Task
     }
 
     /**
-     * sets the path to Composer application
+     * Sets the path to Composer application.
+     *
      * @param string $console
      */
     public function setComposer($console)
@@ -120,7 +125,10 @@ class ComposerTask extends Task
     }
 
     /**
-     * returns the path to Composer application
+     * Returns the path to Composer application.
+     *
+     * If the filepath is non existant, try to find it on the system.
+     *
      * @return string
      */
     public function getComposer()
@@ -139,7 +147,7 @@ class ComposerTask extends Task
     }
 
     /**
-     * creates a nested arg task
+     * Creates a nested arg task.
      *
      * @return Arg Argument object
      */
@@ -150,7 +158,19 @@ class ComposerTask extends Task
     }
 
     /**
-     * Prepares the command string to be executed
+     * Check is php is running on Windows.
+     *
+     * @return boolean
+     */
+    private function isWindows()
+    {
+        $operatingSystemName = php_uname('s');
+        return strtoupper(substr($operatingSystemName, 0, 3)) === 'WIN';
+    }
+
+    /**
+     * Prepares the command string to be executed.
+     *
      * @return string
      */
     private function prepareCommandLine()
@@ -165,17 +185,6 @@ class ComposerTask extends Task
 
         return $commandLine;
     }
-
-    /**
-     *
-     * @return boolean
-     */
-    private function isWindows()
-    {
-        $operatingSystemName = php_uname('s');
-        return strtoupper(substr($operatingSystemName, 0, 3)) === 'WIN';
-    }
-
 
     /**
      * Executes the Composer task.
