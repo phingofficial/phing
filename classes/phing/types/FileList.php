@@ -204,18 +204,8 @@ class FileList extends DataType
      */
     public function getRef(Project $p)
     {
-        if (!$this->checked) {
-            $stk = [];
-            array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
-        }
-
-        $o = $this->ref->getReferencedObject($p);
-        if (!($o instanceof FileList)) {
-            throw new BuildException($this->ref->getRefId() . " doesn't denote a filelist");
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
+        return $this->getCheckedRef(get_class(), $dataTypeName);
     }
 
     /**

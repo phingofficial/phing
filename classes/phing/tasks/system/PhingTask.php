@@ -72,7 +72,7 @@ class PhingTask extends Task
     private $filesets = [];
 
     /**
-     * the temporary project created to run the build file
+     * The temporary project created to run the build file
      * @var Project
      */
     private $newProject;
@@ -602,11 +602,10 @@ class PhingTask extends Task
      * Reference element identifying a data type to carry
      * over to the new project.
      *
+     * @param PhingReference $ref
      */
-    public function createReference()
+    public function addReference(PhingReference $ref)
     {
-        $num = array_push($this->references, new PhingReference());
-
-        return $this->references[$num - 1];
+        $this->references[] = $ref;
     }
 }
