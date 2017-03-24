@@ -23,7 +23,6 @@
 require_once "phing/Task.php";
 require_once "phing/types/Commandline.php";
 
-
 /**
  * Composer Task
  * Run composer straight from phing
