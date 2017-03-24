@@ -112,11 +112,12 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o->setPhp('php');
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
+        $composer = $o->getComposer();
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php composer.phar install --dry-run', strval($method->invoke($o)));
+        $this->assertEquals('php ' . $composer . ' install --dry-run', strval($method->invoke($o)));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php composer.phar update --dev', strval($method->invoke($o)));
+        $this->assertEquals('php ' . $composer . ' update --dev', strval($method->invoke($o)));
     }
 }
