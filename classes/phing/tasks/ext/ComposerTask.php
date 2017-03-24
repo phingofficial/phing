@@ -175,7 +175,7 @@ class ComposerTask extends Task
      *
      * @return string
      */
-    protected function prepareCommandLine()
+    public function prepareCommandLine()
     {
         $this->commandLine->setExecutable($this->getPhp());
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
