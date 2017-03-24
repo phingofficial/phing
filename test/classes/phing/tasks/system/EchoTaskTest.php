@@ -42,6 +42,14 @@ class EchoTaskTest extends BuildFileTest
         $this->assertInLogs('EchoTest.xml');
     }
 
+    public function testDirset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('ext');
+        $this->assertInLogs('imports');
+        $this->assertInLogs('system');
+    }
+
     public function testFilesetInline()
     {
         $this->executeTarget(__FUNCTION__);

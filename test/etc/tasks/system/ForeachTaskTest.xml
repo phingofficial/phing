@@ -27,6 +27,12 @@
         </foreach>
     </target>
 
+    <target name="testLogMessageWithDirset">
+        <foreach param="dirname" absparam="absdirname" target="main">
+            <dirset dir="." />
+        </foreach>
+    </target>
+    
     <target name="testLogMessageWithPath">
         <foreach param="dirname" absparam="absdirname" target="main">
             <path dir="." />

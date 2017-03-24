@@ -21,4 +21,14 @@
             </fileset>
         </chmod>
     </target>
+
+    <target name="testChangeModeDirSet">
+        <mkdir dir="${tmp.dir}/A"/>
+        <touch file="${tmp.dir}/A/chmodtest"/>
+        <chmod mode="0400">
+            <dirset dir="${tmp.dir}">
+                <include name="A"/>
+            </dirset>
+        </chmod>
+    </target>
 </project>
