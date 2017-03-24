@@ -136,12 +136,12 @@ class ComposerTask extends Task
         $composerFile = new SplFileInfo($this->composer);
         if (false === $composerFile->isFile()) {
             $message = sprintf('Composer binary not found at "%s"', $composerFile);
-            $this->project->log($message, Project::MSG_WARN);
+            $this->log($message, Project::MSG_WARN);
             $find = $this->isWindows() ? 'where' : 'which';
             exec($find . ' composer', $composerLocation, $returnCode);
             if (!empty($composerLocation[0])) {
                 $message = sprintf('Composer binary found at "%s", updating location', $composerLocation[0]);
-                $this->project->log($message, Project::MSG_INFO);
+                $this->log($message, Project::MSG_INFO);
                 $this->setComposer($composerLocation[0]);
             }
         }
@@ -179,8 +179,10 @@ class ComposerTask extends Task
     {
         $this->commandLine->setExecutable($this->getPhp());
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
-        $this->commandLine->createArgument(true)->setValue($this->getCommand());
-        $this->commandLine->createArgument(true)->setValue($this->getComposer());
+        $command = $this->getCommand();
+        $composer = $this->getComposer();
+        $this->commandLine->createArgument(true)->setValue($command);
+        $this->commandLine->createArgument(true)->setValue($composer);
         $commandLine = strval($this->commandLine);
         //Creating new Commandline instance. It allows to handle subsequent calls correctly
         $this->commandLine = new Commandline();
