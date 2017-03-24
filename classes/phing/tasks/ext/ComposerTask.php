@@ -133,8 +133,7 @@ class ComposerTask extends Task
      */
     public function getComposer()
     {
-        $composer = $this->composer;
-        $composerFile = new SplFileInfo($composer);
+        $composerFile = new SplFileInfo($this->composer);
         if (false === $composerFile->isFile()) {
             $message = sprintf('Composer binary not found at "%s"', $composerFile);
             $this->log($message, Project::MSG_WARN);
@@ -176,7 +175,7 @@ class ComposerTask extends Task
      *
      * @return string
      */
-    private function prepareCommandLine()
+    protected function prepareCommandLine()
     {
         $this->commandLine->setExecutable($this->getPhp());
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
