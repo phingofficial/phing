@@ -23,6 +23,7 @@
 require_once "phing/Task.php";
 require_once "phing/types/Commandline.php";
 
+
 /**
  * Composer Task
  * Run composer straight from phing
@@ -156,28 +157,50 @@ class ComposerTask extends Task
         return $commandLine;
     }
 
-  /**
-   * Executes the Composer task.
-   */
-  public function main() {
-    $composerFile = new SplFileInfo($this->getComposer());
-    if (FALSE === $composerFile->isFile()) {
-      exec('which composer', $composerLocation, $return);
-      if ($return === 0) {
-        $this->setComposer($composerLocation[0]);
-      }
-      else {
-        throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
-      }
+    /**
+     *
+     * @return boolean
+     */
+    private function isWindows()
+    {
+        $operatingSystemName = php_uname('s');
+        return strtoupper(substr($operatingSystemName, 0, 3)) === 'WIN';
     }
 
-    $commandLine = $this->prepareCommandLine();
-    $this->log("executing " . $commandLine);
 
-    passthru($commandLine, $return);
+    /**
+     * Executes the Composer task.
+     */
+    public function main() {
+        $composerFile = new SplFileInfo($this->getComposer());
+        // If no composer executable path is set try to find an installation.
+        if (FALSE === $composerFile->isFile()) {
+            if ($this->isWindows()) {
+                $message = 'Assuming a Windows system. Looking for Composer ...';
+                $command = 'where composer';
+            } else {
+                $message = 'Assuming a Linux or Mac system. Looking for Composer ...';
+                $command = 'which composer';
+            }
 
-    if ($return > 0) {
-      throw new BuildException("Composer execution failed");
+            $this->log($message, Project::MSG_VERBOSE);
+            exec($command, $composerLocation, $returnCode);
+
+            if ($returnCode === 0) {
+                $this->setComposer($composerLocation[0]);
+            }
+            else {
+                throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
+            }
+        }
+
+        // Execute the composer command.
+        $commandLine = $this->prepareCommandLine();
+        $this->log("executing " . $commandLine);
+        passthru($commandLine, $returnCode);
+
+        if ($returnCode > 0) {
+            throw new BuildException("Composer execution failed");
+        }
     }
-  }
 }
