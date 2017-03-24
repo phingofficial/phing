@@ -156,24 +156,28 @@ class ComposerTask extends Task
         return $commandLine;
     }
 
-    /**
-     * executes the Composer task
-     */
-    public function main()
-    {
-        $commandLine = $this->prepareCommandLine();
-        $this->log("executing " . $commandLine);
-
-        $composerFile = new SplFileInfo($this->getComposer());
-        if (false === $composerFile->isFile()) {
-            throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
-        }
-
-        $return = 0;
-        passthru($commandLine, $return);
-
-        if ($return > 0) {
-            throw new BuildException("Composer execution failed");
-        }
+  /**
+   * Executes the Composer task.
+   */
+  public function main() {
+    $composerFile = new SplFileInfo($this->getComposer());
+    if (FALSE === $composerFile->isFile()) {
+      exec('which composer', $composerLocation, $return);
+      if ($return === 0) {
+        $this->setComposer($composerLocation[0]);
+      }
+      else {
+        throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
+      }
     }
+
+    $commandLine = $this->prepareCommandLine();
+    $this->log("executing " . $commandLine);
+
+    passthru($commandLine, $return);
+
+    if ($return > 0) {
+      throw new BuildException("Composer execution failed");
+    }
+  }
 }
