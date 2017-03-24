@@ -133,7 +133,8 @@ class ComposerTask extends Task
      */
     public function getComposer()
     {
-        $composerFile = new SplFileInfo($this->composer);
+        $composer = $this->composer;
+        $composerFile = new SplFileInfo($composer);
         if (false === $composerFile->isFile()) {
             $message = sprintf('Composer binary not found at "%s"', $composerFile);
             $this->log($message, Project::MSG_WARN);
