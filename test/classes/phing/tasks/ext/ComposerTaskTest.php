@@ -60,18 +60,9 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetGetCommand()
     {
-        $composer = 'foo';
         $o = $this->object;
-        $o->setCommand($composer);
-        $composerFile = new SplFileInfo($composer);
-        if (false === $composerFile->isFile()) {
-            $find = $this->isWindows() ? 'where' : 'which';
-            exec($find . ' composer', $composerLocation);
-            if (!empty($composerLocation[0])) {
-                $composer = $composerLocation[0];
-            }
-        }
-        $this->assertEquals($composer, $o->getCommand());
+        $o->setCommand('foo');
+        $this->assertEquals('foo', $o->getCommand());
     }
 
     /**
@@ -91,9 +82,18 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetGetComposer()
     {
+        $composer = 'foo';
         $o = $this->object;
-        $o->setComposer('foo');
-        $this->assertEquals('foo', $o->getComposer());
+        $o->setComposer($composer);
+        $composerFile = new SplFileInfo($composer);
+        if (false === $composerFile->isFile()) {
+            $find = $o->isWindows() ? 'where' : 'which';
+            exec($find . ' composer', $composerLocation);
+            if (!empty($composerLocation[0])) {
+                $composer = $composerLocation[0];
+            }
+        }
+        $this->assertEquals($composer, $o->getComposer());
     }
 
     /**
