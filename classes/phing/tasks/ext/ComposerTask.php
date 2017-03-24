@@ -164,7 +164,7 @@ class ComposerTask extends Task
      *
      * @return boolean
      */
-    private function isWindows()
+    public function isWindows()
     {
         $operatingSystemName = php_uname('s');
         return strtoupper(substr($operatingSystemName, 0, 3)) === 'WIN';
@@ -175,14 +175,12 @@ class ComposerTask extends Task
      *
      * @return string
      */
-    public function prepareCommandLine()
+    private function prepareCommandLine()
     {
         $this->commandLine->setExecutable($this->getPhp());
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
-        $command = $this->getCommand();
-        $composer = $this->getComposer();
-        $this->commandLine->createArgument(true)->setValue($command);
-        $this->commandLine->createArgument(true)->setValue($composer);
+        $this->commandLine->createArgument(true)->setValue($this->getCommand());
+        $this->commandLine->createArgument(true)->setValue($this->getComposer());
         $commandLine = strval($this->commandLine);
         //Creating new Commandline instance. It allows to handle subsequent calls correctly
         $this->commandLine = new Commandline();

@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/Project.php';
 require_once 'phing/tasks/ext/ComposerTask.php';
 /**
  * Test class for the ComposerTask.
@@ -42,6 +43,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->object = new ComposerTask();
+        $this->object->setProject(new Project());
     }
 
     /**
