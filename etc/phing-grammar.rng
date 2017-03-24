@@ -388,7 +388,40 @@
                     </group>
                 </choice>
                 <optional>
-                <attribute name="includes"/>
+                    <attribute name="includes"/>
+                </optional>
+                <optional>
+                    <attribute name="excludes"/>
+                </optional>
+                <optional>
+                    <attribute name="includesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="excludesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="casesensitive" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="expandsymboliclinks" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="defaultexcludes" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -484,6 +517,16 @@
         <element name="dirset">
             <interleave>
                 <optional>
+                    <choice>
+                        <attribute name="id">
+                            <data type="ID"/>
+                        </attribute>
+                        <attribute name="refid">
+                            <data type="IDREF"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
                     <attribute name="includes"/>
                 </optional>
                 <optional>
@@ -512,7 +555,15 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="followsymlinks" a:defaultValue="yes">
+                    <attribute name="expandsymboliclinks" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="defaultexcludes" a:defaultValue="yes">
                         <choice>
                             <value>yes</value>
                             <value>no</value>
@@ -790,6 +841,16 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <choice>
+                    <text/>
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pathelement"/>
+                            <ref name="fileset"/>
+                            <ref name="dirset"/>
+                        </choice>
+                    </zeroOrMore>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -819,6 +880,16 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <choice>
+                    <text/>
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pathelement"/>
+                            <ref name="fileset"/>
+                            <ref name="dirset"/>
+                        </choice>
+                    </zeroOrMore>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -849,6 +920,7 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
+                            <ref name="dirset"/>
                             <ref name="fileset"/>
                             <ref name="filelist"/>
                         </choice>
@@ -885,6 +957,11 @@
                 </optional>
                 <optional>
                     <attribute name="haltonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -929,6 +1006,7 @@
                 </optional>
             </interleave>
             <zeroOrMore>
+                <ref name="dirset"/>
                 <ref name="fileset"/>
             </zeroOrMore>
         </element>
@@ -957,6 +1035,7 @@
                     <attribute name="message"/>
                     <text/>
                     <ref name="fileset"/>
+                    <ref name="dirset"/>
                 </choice>
                 <optional>
                     <attribute name="file"/>
@@ -1120,12 +1199,27 @@
                     <attribute name="list"/>
                 </optional>
                 <optional>
-                    <attribute name="delimiter"/>
+                    <attribute name="delimiter" a:defaultValue=","/>
+                </optional>
+                <optional>
+                    <attribute name="trim" a:defaultValue="false"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritall" a:defaultValue="false"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritrefs" a:defaultValue="false"/>
                 </optional>
             </interleave>
             <interleave>
                 <zeroOrMore>
+                    <ref name="dirset"/>
+                </zeroOrMore>
+                <zeroOrMore>
                     <ref name="fileset"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="filelist"/>
                 </zeroOrMore>
                 <zeroOrMore>
                     <ref name="mapper"/>
@@ -1224,6 +1318,14 @@
         </element>
     </define>
 
+    <define name="jsonvalidate">
+        <element name="jsonvalidate">
+            <interleave>
+                <attribute name="prologfile"/>
+            </interleave>
+        </element>
+    </define>
+
     <define name="loadfile">
         <element name="loadfile">
             <interleave>
@@ -1264,8 +1366,10 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
+                            <ref name="dirset"/>
                             <ref name="fileset"/>
-                            <ref name="filelist"/>
+                            <ref name="
+                            "/>
                         </choice>
                     </oneOrMore>
                 </choice>
@@ -1363,6 +1467,12 @@
     <define name="phingcall">
         <element name="phingcall">
             <attribute name="target"/>
+            <optional>
+                <attribute name="inheritall" a:defaultValue="true"/>
+            </optional>
+            <optional>
+                <attribute name="inheritrefs" a:defaultValue="true"/>
+            </optional>
             <zeroOrMore>
                 <choice>
                     <ref name="property"/>
@@ -3197,6 +3307,11 @@
                 <optional>
                     <attribute name="authschema"/>
                 </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
                 <zeroOrMore>
                     <ref name="config"/>
                 </zeroOrMore>
@@ -3457,6 +3572,9 @@
                     </attribute>
                     <attribute name="reporter"/>
                     <attribute name="checkstyleReportPath"/>
+                </optional>
+                <optional>
+                    <attribute name="config"/>
                 </optional>
             </interleave>
         </element>
@@ -6513,6 +6631,16 @@
                 <attribute name="url"/>
                 <optional>
                     <attribute name="errorsBeginAt"/>
+                </optional>
+                <optional>
+                    <attribute name="followredirects">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="requestmethod">
+                        <data type="string"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>

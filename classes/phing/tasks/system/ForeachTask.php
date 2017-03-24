@@ -23,6 +23,7 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/FileSystem.php';
 include_once 'phing/mappers/FileNameMapper.php';
 include_once 'phing/tasks/system/PhingTask.php';
+include_once 'phing/types/DirSetAware.php';
 
 /**
  * <foreach> task
@@ -50,6 +51,7 @@ include_once 'phing/tasks/system/PhingTask.php';
  */
 class ForeachTask extends Task
 {
+    use DirSetAware;
 
     /** Delimter-separated list of values to process. */
     private $list;
@@ -124,8 +126,8 @@ class ForeachTask extends Task
      */
     public function main()
     {
-        if ($this->list === null && $this->currPath === null &&  count($this->filesets) == 0 && count($this->filelists) == 0) {
-            throw new BuildException("Need either list, path, nested fileset, nested dirset or nested filelist to iterate through");
+        if ($this->list === null && $this->currPath === null && count($this->dirsets) === 0 && count($this->filesets) == 0 && count($this->filelists) == 0) {
+            throw new BuildException("Need either list, path, nested dirset, nested fileset or nested filelist to iterate through");
         }
         if ($this->param === null) {
             throw new BuildException("You must supply a property name to set on each iteration in param");
@@ -195,6 +197,13 @@ class ForeachTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $this->process($callee, $fs->getDir($this->project), $srcFiles, $srcDirs);
+        }
+
+        foreach ($this->dirsets as $dirset) {
+            $ds = $dirset->getDirectoryScanner($this->project);
+            $srcDirs = $ds->getIncludedDirectories();
+
+            $this->process($callee, $dirset->getDir($this->project), [], $srcDirs);
         }
 
         if ($this->list === null) {
