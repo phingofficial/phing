@@ -116,4 +116,15 @@ class ForeachTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 1 entry in list', Project::MSG_VERBOSE);
     }
+
+    /**
+     * Test to get the right log message on fileset usage
+     *
+     * @return void
+     */
+    public function testLogMessageWithPath()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
+    }
 }

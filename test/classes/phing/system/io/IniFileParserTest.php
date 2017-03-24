@@ -27,7 +27,7 @@ include_once 'phing/system/io/FileParserInterface.php';
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
  */
-class IniFileParserTest extends PHPUnit_Framework_TestCase
+class IniFileParserTest extends \PHPUnit\Framework\TestCase
 {
     private $parser;
     private $root;

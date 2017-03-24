@@ -29,7 +29,7 @@ require_once 'phing/system/util/Properties.php';
  * @package phing.system.util
  * @version $Id$
  */
-class PropertiesTest extends PHPUnit_Framework_TestCase
+class PropertiesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Properties

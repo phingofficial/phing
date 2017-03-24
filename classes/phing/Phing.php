@@ -831,7 +831,6 @@ class Phing
     private function addInputHandler(Project $project)
     {
         if ($this->inputHandlerClassname === null) {
-//            $handler = new DefaultInputHandler();
             $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
         } else {
             try {
@@ -1452,7 +1451,6 @@ class Phing
         }
         self::setProperty('application.startdir', getcwd());
         self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
-        self::setProperty('php.tmpdir', sys_get_temp_dir());
 
         // try to detect machine dependent information
         $sysInfo = [];

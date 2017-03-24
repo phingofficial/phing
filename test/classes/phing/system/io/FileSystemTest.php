@@ -27,7 +27,7 @@ include_once 'phing/system/io/FileSystem.php';
  *
  * @package phing.system.io
  */
-class FileSystemTest extends PHPUnit_Framework_TestCase
+class FileSystemTest extends \PHPUnit\Framework\TestCase
 {
     private $oldFsType = "";
 

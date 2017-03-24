@@ -30,7 +30,7 @@ require_once 'phing/system/util/Timer.php';
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit_Framework_TestListener
+class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements \PHPUnit\Framework\TestListener
 {
     private $hasErrors = false;
     private $hasFailures = false;
@@ -116,6 +116,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     /**
      * Run a test
      * @param PHPUnit_Framework_TestSuite $suite
+     * @throws \BuildException
      */
     public function run(PHPUnit_Framework_TestSuite $suite)
     {
@@ -158,7 +159,11 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         }
 
         if ($this->codecoverage) {
-            CoverageMerger::merge($this->project, $this->codecoverage->getData());
+            try {
+                CoverageMerger::merge($this->project, $this->codecoverage->getData());
+            } catch (IOException $e) {
+                throw new BuildException('Merging code coverage failed.', $e);
+            }
         }
 
         $this->checkResult($res);

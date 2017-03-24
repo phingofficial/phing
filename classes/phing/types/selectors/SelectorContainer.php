@@ -170,6 +170,12 @@ interface SelectorContainer
     public function addType(TypeSelector $selector);
 
     /**
+     * add a executable selector entry on the selector list
+     * @param ExecutableSelector $selector
+     */
+    public function addExecutable(ExecutableSelector $selector);
+
+    /**
      * add a readable selector entry on the selector list
      * @param ReadableSelector $selector
      */
@@ -180,5 +186,10 @@ interface SelectorContainer
      * @param WritableSelector $selector
      */
     public function addWritable(WritableSelector $selector);
-}
 
+    /**
+     * add a symlink selector entry on the selector list
+     * @param SymlinkSelector $selector
+     */
+    public function addSymlink(SymlinkSelector $selector);
+}

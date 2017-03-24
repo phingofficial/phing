@@ -29,7 +29,7 @@ require_once 'phing/util/regexp/PregEngine.php';
  *
  * Test cases for phing/util/regexp/PregEngine
  */
-class PregEngineTest extends PHPUnit_Framework_TestCase
+class PregEngineTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test the default ignore-case value.
