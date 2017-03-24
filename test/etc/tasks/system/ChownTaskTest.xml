@@ -16,4 +16,16 @@
             </fileset>
         </chown>
     </target>
+
+    <target name="testChangeGroupDirSet">
+        <mkdir dir="${tmp.dir}/A"/>
+        <mkdir dir="${tmp.dir}/B"/>
+        <touch file="${tmp.dir}/A/chowntest"/>
+        <touch file="${tmp.dir}/B/chowntest"/>
+        <chown user="${targetuser}">
+            <dirset dir="${tmp.dir}">
+                <include name="B"/>
+            </dirset>
+        </chown>
+    </target>
 </project>

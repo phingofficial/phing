@@ -91,6 +91,11 @@ class PropertyTask extends Task
     private $fileParserFactory;
 
     /**
+     * Whether a warning should be displayed when the property ismissing.
+     */
+    private $quiet = false;
+
+    /**
      * @param FileParserFactoryInterface $fileParserFactory
      */
     public function __construct(FileParserFactoryInterface $fileParserFactory = null)
@@ -307,6 +312,16 @@ class PropertyTask extends Task
     }
 
     /**
+     * Set quiet mode, which suppresses warnings if chmod() fails.
+     * @see setFailonerror()
+     * @param $bool
+     */
+    public function setQuiet($bool)
+    {
+        $this->quiet = $bool;
+    }
+
+    /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
      * here is where it is loaded
@@ -456,7 +471,7 @@ class PropertyTask extends Task
             } else {
                 $this->log(
                     "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
-                    Project::MSG_WARN
+                    $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN
                 );
             }
         } catch (IOException $ioe) {

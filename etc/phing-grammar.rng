@@ -388,7 +388,40 @@
                     </group>
                 </choice>
                 <optional>
-                <attribute name="includes"/>
+                    <attribute name="includes"/>
+                </optional>
+                <optional>
+                    <attribute name="excludes"/>
+                </optional>
+                <optional>
+                    <attribute name="includesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="excludesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="casesensitive" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="expandsymboliclinks" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="defaultexcludes" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -484,6 +517,16 @@
         <element name="dirset">
             <interleave>
                 <optional>
+                    <choice>
+                        <attribute name="id">
+                            <data type="ID"/>
+                        </attribute>
+                        <attribute name="refid">
+                            <data type="IDREF"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
                     <attribute name="includes"/>
                 </optional>
                 <optional>
@@ -512,7 +555,15 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="followsymlinks" a:defaultValue="yes">
+                    <attribute name="expandsymboliclinks" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="defaultexcludes" a:defaultValue="yes">
                         <choice>
                             <value>yes</value>
                             <value>no</value>
@@ -1148,12 +1199,23 @@
                     <attribute name="list"/>
                 </optional>
                 <optional>
-                    <attribute name="delimiter"/>
+                    <attribute name="delimiter" a:defaultValue=","/>
+                </optional>
+                <optional>
+                    <attribute name="trim" a:defaultValue="false"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritall" a:defaultValue="false"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritrefs" a:defaultValue="false"/>
                 </optional>
             </interleave>
             <interleave>
                 <zeroOrMore>
                     <ref name="dirset"/>
+                </zeroOrMore>
+                <zeroOrMore>
                     <ref name="fileset"/>
                 </zeroOrMore>
                 <zeroOrMore>
@@ -1303,7 +1365,8 @@
                         <choice>
                             <ref name="dirset"/>
                             <ref name="fileset"/>
-                            <ref name="filelist"/>
+                            <ref name="
+                            "/>
                         </choice>
                     </oneOrMore>
                 </choice>
@@ -1401,6 +1464,12 @@
     <define name="phingcall">
         <element name="phingcall">
             <attribute name="target"/>
+            <optional>
+                <attribute name="inheritall" a:defaultValue="true"/>
+            </optional>
+            <optional>
+                <attribute name="inheritrefs" a:defaultValue="true"/>
+            </optional>
             <zeroOrMore>
                 <choice>
                     <ref name="property"/>

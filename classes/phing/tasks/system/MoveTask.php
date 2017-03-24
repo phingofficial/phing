@@ -162,6 +162,17 @@ class MoveTask extends CopyTask
                 }
             }
         }
+
+        $dirsets = $this->getDirSets();
+        if (count($dirsets) > 0) {
+            // process dirsets
+            foreach ($dirsets as $ds) {
+                $dir = $ds->getDir($this->project);
+                if ($this->okToDelete($dir)) {
+                    $this->deleteDir($dir);
+                }
+            }
+        }
     }
 
     /**
