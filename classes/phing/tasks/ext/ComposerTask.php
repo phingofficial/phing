@@ -138,7 +138,7 @@ class ComposerTask extends Task
             $message = sprintf('Composer binary not found at "%s"', $composerFile);
             $this->log($message, Project::MSG_WARN);
             $find = $this->isWindows() ? 'where' : 'which';
-            exec($find . ' composer', $composerLocation, $returnCode);
+            exec($find . ' composer', $composerLocation);
             if (!empty($composerLocation[0])) {
                 $message = sprintf('Composer binary found at "%s", updating location', $composerLocation[0]);
                 $this->log($message, Project::MSG_INFO);
