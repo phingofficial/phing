@@ -23,6 +23,7 @@ include_once 'phing/util/FileUtils.php';
 include_once 'phing/util/SourceFileScanner.php';
 include_once 'phing/mappers/IdentityMapper.php';
 include_once 'phing/mappers/FlattenMapper.php';
+require_once 'phing/mappers/FilterMapper.php';
 
 /**
  * A phing copy task.  Copies a file or directory to a new file
@@ -101,7 +102,7 @@ class CopyTask extends Task
      */
     public function setOverwrite($bool)
     {
-        $this->overwrite = (boolean) $bool;
+        $this->overwrite = (boolean)$bool;
     }
 
     /**
@@ -136,7 +137,7 @@ class CopyTask extends Task
      */
     public function setPreserveLastModified($bool)
     {
-        $this->preserveLMT = (boolean) $bool;
+        $this->preserveLMT = (boolean)$bool;
     }
 
     /**
@@ -149,7 +150,7 @@ class CopyTask extends Task
      */
     public function setPreservepermissions($bool)
     {
-        $this->preservePermissions = (boolean) $bool;
+        $this->preservePermissions = (boolean)$bool;
     }
 
     /**
@@ -170,7 +171,7 @@ class CopyTask extends Task
      */
     public function setIncludeEmptyDirs($bool)
     {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = (boolean)$bool;
     }
 
     /**
@@ -211,7 +212,7 @@ class CopyTask extends Task
      */
     public function setMode($mode)
     {
-        $this->mode = (int) base_convert($mode, 8, 10);
+        $this->mode = (int)base_convert($mode, 8, 10);
     }
 
     /**
@@ -230,7 +231,7 @@ class CopyTask extends Task
 
     public function setEnableMultipleMappings($enableMultipleMappings)
     {
-        $this->enableMultipleMappings = (boolean) $enableMultipleMappings;
+        $this->enableMultipleMappings = (boolean)$enableMultipleMappings;
     }
 
     public function isEnabledMultipleMappings()
@@ -248,7 +249,7 @@ class CopyTask extends Task
      */
     public function setHaltonerror($haltonerror)
     {
-        $this->haltonerror = (boolean) $haltonerror;
+        $this->haltonerror = (boolean)$haltonerror;
     }
 
     /**
@@ -261,6 +262,18 @@ class CopyTask extends Task
     public function addFileSet(FileSet $fs)
     {
         $this->filesets[] = $fs;
+    }
+
+    /**
+     * Add a nested filenamemapper.
+     *
+     * @param FileNameMapper $fileNameMapper
+     *
+     * @throws \BuildException
+     */
+    public function add(FileNameMapper $fileNameMapper)
+    {
+        $this->createMapper()->add($fileNameMapper);
     }
 
     /**
@@ -304,6 +317,22 @@ class CopyTask extends Task
     }
 
     /**
+     * Nested creator, creates one Mapper for this task
+     *
+     * @return Mapper         The created Mapper type object
+     * @throws BuildException
+     */
+    public function createFilterMapper()
+    {
+        if ($this->mapperElement !== null) {
+            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+        }
+        $this->mapperElement = new FilterMapper($this->project);
+
+        return $this->mapperElement;
+    }
+
+    /**
      * The main entry point where everything gets in motion.
      *
      * @return true           on success
@@ -316,7 +345,7 @@ class CopyTask extends Task
         if ($this->file !== null) {
             if ($this->file->exists()) {
                 if ($this->destFile === null) {
-                    $this->destFile = new PhingFile($this->destDir, (string) $this->file->getName());
+                    $this->destFile = new PhingFile($this->destDir, (string)$this->file->getName());
                 }
                 if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
@@ -425,9 +454,9 @@ class CopyTask extends Task
         /* mappers should be generic, so we get the mappers here and
         pass them on to builMap. This method is not redundan like it seems */
         $mapper = $this->getMapper();
-        
+
         $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
-        
+
         if ($this->includeEmpty) {
             $this->buildMap($fromDir, $toDir, $dirs, $mapper, $this->dirCopyMap);
         }
@@ -436,7 +465,9 @@ class CopyTask extends Task
     private function getMapper()
     {
         $mapper = null;
-        if ($this->mapperElement !== null) {
+        if ($this->mapperElement instanceof FilterMapper) {
+            $mapper = $this->mapperElement;
+        } elseif ($this->mapperElement !== null) {
             $mapper = $this->mapperElement->getImplementation();
         } elseif ($this->flatten) {
             $mapper = new FlattenMapper();
@@ -518,8 +549,8 @@ class CopyTask extends Task
         if ($this->includeEmpty) {
             $count = 0;
             foreach ($this->dirCopyMap as $srcdir => $destdir) {
-                $s = new PhingFile((string) $srcdir);
-                $d = new PhingFile((string) $destdir);
+                $s = new PhingFile((string)$srcdir);
+                $d = new PhingFile((string)$destdir);
                 if (!$d->exists()) {
 
                     // Setting source directory permissions to target
@@ -542,8 +573,7 @@ class CopyTask extends Task
             }
             if ($count > 0) {
                 $this->log(
-                    "Created " . $count . " empty director" . ($count == 1 ? "y" : "ies") . " in " . $this->destDir->getAbsolutePath(
-                    )
+                    "Created " . $count . " empty director" . ($count == 1 ? "y" : "ies") . " in " . $this->destDir->getAbsolutePath()
                 );
             }
         }
@@ -553,8 +583,7 @@ class CopyTask extends Task
         }
 
         $this->log(
-            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath(
-            )
+            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath()
         );
         // walks the map and actually copies the files
         $count = 0;

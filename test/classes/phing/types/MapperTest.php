@@ -190,4 +190,12 @@ class TaskdefForCopyTest extends BuildFileTest
         $this->assertFileExists($outputDir . '/D');
         $this->assertFileExists($outputDir . '/c/E');
     }
+
+    public function testFilterMapper()
+    {
+        $this->executeTarget("testFilterMapper");
+        $outputDir = $this->getProject()->getProperty('output');
+        $this->assertFileExists($outputDir . '/a/b/c');
+        $this->assertFileNotExists($outputDir . '/a/b/d');
+    }
 }

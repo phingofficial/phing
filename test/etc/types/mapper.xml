@@ -65,6 +65,22 @@
     </copy>
   </target>
 
+  <target name="testFilterMapper">
+    <property name="input" value="copytest/testinput"/>
+    <property name="output" value="copytest/testoutput"/>
+    <mkdir dir="${input}/a/b"/>
+    <touch file="${input}/a/b/c"/>
+    <touch file="${input}/a/b/d"/>
+    <copy todir="${output}">
+      <filtermapper>
+        <linecontains>
+          <contains value="c"/>
+         </linecontains>
+      </filtermapper>
+      <fileset dir="${input}"/>
+    </copy>
+  </target>
+
   <target name="cleanup">
     <delete dir="copytest" />
   </target>
