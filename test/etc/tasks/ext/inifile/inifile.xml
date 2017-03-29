@@ -45,4 +45,10 @@
         <remove section="test"/>
         </inifile>
     </target>
+
+    <target name="existingSourceWithVerbose">
+        <inifile source="${tmp.dir}/source.ini" dest="${tmp.dir}/destination.ini" haltonerror="yes" verbose="yes">
+        <set section="test" property="foo" value="qux"/>
+        </inifile>
+    </target>
 </project>

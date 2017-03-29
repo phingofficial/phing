@@ -452,7 +452,11 @@ class ApplyTaskTest extends BuildFileTest
     public function testParallel()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals(1, substr_count(implode("\n", $this->logBuffer), 'Command execution :'));
+        $messages = [];
+        foreach($this->logBuffer as $log) {
+            $messages[] = $log['message'];
+        }
+        $this->assertEquals(1, substr_count(implode("\n", $messages), 'Command execution :'));
     }
 
     /**********************************************************************************/
