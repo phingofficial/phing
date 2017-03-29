@@ -3970,6 +3970,85 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;hgupdate repository="${repo.dir.resolved}" branch="dev"/> </programlisting>
         </sect2>
     </sect1>
+
+    <sect1 role="taskdef" xml:id="HipchatTask">
+        <title>HipchatTask</title>
+        <para>Send a simple HipChat notification.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>room</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>RoomID</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>authToken</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Authentication Token</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>color</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Valid colors at this time are: yellow, green, red, purple, gray, random</entry>
+                        <entry>yellow</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>notify</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether this message should trigger a user notification or just add a note to the room.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>html or text</entry>
+                        <entry>text</entry>
+                        <entry>No</entry>
+                    </row>			
+                    <row>
+                        <entry><literal>domain</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Domain name of your HipChat server.</entry>
+                        <entry>api.hipchat.com</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;hipchat room="3366876" authToken="**************"&gt;
+    Success
+&lt;/hipchat&gt;
+
+&lt;hipchat room="3366876" authToken="**************" color="red" notify="true" domain="hipchat.example.com"&gt;
+    Failure
+&lt;/hipchat&gt;</programlisting>
+        </sect2>
+    </sect1>
+
     <sect1 role="taskdef" xml:id="HttpGetTask">
         <title>HttpGetTask</title>
         <para>This task will download a file through HTTP GET and save it to a specified directory.
