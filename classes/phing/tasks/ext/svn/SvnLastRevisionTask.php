@@ -55,17 +55,6 @@ class SvnLastRevisionTask extends SvnBaseTask
     }
 
     /**
-     * Sets whether to force compatibility with older SVN versions (< 1.2)
-     *
-     * Retained for legacy reasons
-     * @deprecated
-     * @param $force
-     */
-    public function setForceCompatible($force)
-    {
-    }
-
-    /**
      * Sets whether to retrieve the last changed revision
      * @param $lastChanged
      */
@@ -84,7 +73,7 @@ class SvnLastRevisionTask extends SvnBaseTask
         $this->setup('info');
 
         if ($this->oldVersion) {
-            $output = $this->run(array('--xml'));
+            $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn info --xml'.");

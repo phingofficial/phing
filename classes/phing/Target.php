@@ -44,13 +44,13 @@ class Target implements TaskContainer
      * Dependencies
      * @var array
      */
-    private $dependencies = array();
+    private $dependencies = [];
 
     /**
      * Holds objects of children of this target
      * @var array
      */
-    private $children = array();
+    private $children = [];
 
     /**
      * The if condition from xml
@@ -233,7 +233,7 @@ class Target implements TaskContainer
      */
     public function getTasks()
     {
-        $tasks = array();
+        $tasks = [];
         for ($i = 0, $size = count($this->children); $i < $size; $i++) {
             $tsk = $this->children[$i];
             if ($tsk instanceof Task) {
@@ -320,6 +320,17 @@ class Target implements TaskContainer
      */
     public function toString()
     {
+        return (string) $this;
+    }
+
+    /**
+     * Returns a string representation of this target. In our case it
+     * simply returns the target name field
+     *
+     * @return string The string representation of this target
+     */
+    public function __toString()
+    {
         return (string) $this->name;
     }
 
@@ -334,7 +345,7 @@ class Target implements TaskContainer
                 if ($o instanceof Task) {
                     // child is a task
                     $o->perform();
-                } else {
+                } elseif ($o instanceof RuntimeConfigurable) {
                     // child is a RuntimeConfigurable
                     $o->maybeConfigure($this->project);
                 }
@@ -427,5 +438,4 @@ class Target implements TaskContainer
 
         return $result;
     }
-
 }

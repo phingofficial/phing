@@ -158,8 +158,7 @@
                 <ref name="phpcpd"/>
                 <ref name="phpdepend"/>
                 <ref name="phpdoc"/>
-                <ref name="phpdocumentor"/>
-                <ref name="phpdocumentorexternal"/>
+                <ref name="phpdoc2"/>
                 <ref name="phplint"/>
                 <ref name="phploc"/>
                 <ref name="phpmd"/>
@@ -173,7 +172,6 @@
                 <ref name="sass"/>
                 <ref name="scp"/>
                 <ref name="ssh"/>
-                <ref name="simpletest"/>
                 <ref name="smarty"/>
                 <ref name="sonar"/>
                 <ref name="stopwatch"/>
@@ -222,8 +220,6 @@
                 <ref name="chown"/>
                 <ref name="condition"/>
                 <ref name="copy"/>
-                <ref name="cvs"/>
-                <ref name="cvspass"/>
                 <ref name="delete"/>
                 <ref name="diagnostics"/>
                 <ref name="dirname"/>
@@ -245,7 +241,6 @@
                 <ref name="phingversion"/>
                 <ref name="php"/>
                 <ref name="property"/>
-                <ref name="propertyprompt"/>
                 <ref name="record"/>
                 <ref name="reflexive"/>
                 <ref name="resolvepath"/>
@@ -367,6 +362,22 @@
                                     <data type="IDREF"/>
                                 </attribute>
                             </choice>
+                            <optional>
+                                <attribute name="casesensitive" a:defaultValue="yes">
+                                    <choice>
+                                        <value>yes</value>
+                                        <value>no</value>
+                                    </choice>
+                                </attribute>
+                            </optional>
+                            <optional>
+                                <attribute name="erroronmissingdir" a:defaultValue="no">
+                                    <choice>
+                                        <value>yes</value>
+                                        <value>no</value>
+                                    </choice>
+                                </attribute>
+                            </optional>
                         </optional>
                         <zeroOrMore>
                             <choice>
@@ -377,7 +388,40 @@
                     </group>
                 </choice>
                 <optional>
-                <attribute name="includes"/>
+                    <attribute name="includes"/>
+                </optional>
+                <optional>
+                    <attribute name="excludes"/>
+                </optional>
+                <optional>
+                    <attribute name="includesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="excludesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="casesensitive" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="expandsymboliclinks" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="defaultexcludes" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -473,6 +517,16 @@
         <element name="dirset">
             <interleave>
                 <optional>
+                    <choice>
+                        <attribute name="id">
+                            <data type="ID"/>
+                        </attribute>
+                        <attribute name="refid">
+                            <data type="IDREF"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
                     <attribute name="includes"/>
                 </optional>
                 <optional>
@@ -493,7 +547,23 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="followsymlinks" a:defaultValue="yes">
+                    <attribute name="erroronmissingdir" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="expandsymboliclinks" a:defaultValue="no">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="defaultexcludes" a:defaultValue="yes">
                         <choice>
                             <value>yes</value>
                             <value>no</value>
@@ -771,6 +841,16 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <choice>
+                    <text/>
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pathelement"/>
+                            <ref name="fileset"/>
+                            <ref name="dirset"/>
+                        </choice>
+                    </zeroOrMore>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -800,6 +880,16 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <choice>
+                    <text/>
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pathelement"/>
+                            <ref name="fileset"/>
+                            <ref name="dirset"/>
+                        </choice>
+                    </zeroOrMore>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -830,6 +920,7 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
+                            <ref name="dirset"/>
                             <ref name="fileset"/>
                             <ref name="filelist"/>
                         </choice>
@@ -869,6 +960,11 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <choice>
@@ -876,81 +972,6 @@
                     <ref name="filterchain"/>
                 </choice>
             </zeroOrMore>
-        </element>
-    </define>
-
-    <define name="cvs">
-        <element name="cvs">
-            <interleave>
-                <attribute name="dest"/>
-                <attribute name="modules"/>
-                <optional>
-                    <attribute name="cvsRoot"/>
-                </optional>
-                <optional>
-                    <attribute name="cvsRsh"/>
-                </optional>
-                <optional>
-                    <attribute name="port">
-                        <data type="int"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="passfile"/>
-                </optional>
-                <optional>
-                    <attribute name="tag"/>
-                </optional>
-                <optional>
-                    <attribute name="date"/>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="noexec">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="setfailonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="compression">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="compressionlevel">
-                        <data type="unsignedByte"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="output"/>
-                </optional>
-                <optional>
-                    <attribute name="error"/>
-                </optional>
-                <optional>
-                    <attribute name="command"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="cvspass">
-        <element name="cvspass">
-            <interleave>
-                <attribute name="password"/>
-                <attribute name="cvsRoot"/>
-                <optional>
-                    <attribute name="passFile"/>
-                </optional>
-            </interleave>
         </element>
     </define>
 
@@ -985,6 +1006,7 @@
                 </optional>
             </interleave>
             <zeroOrMore>
+                <ref name="dirset"/>
                 <ref name="fileset"/>
             </zeroOrMore>
         </element>
@@ -1013,6 +1035,7 @@
                     <attribute name="message"/>
                     <text/>
                     <ref name="fileset"/>
+                    <ref name="dirset"/>
                 </choice>
                 <optional>
                     <attribute name="file"/>
@@ -1176,12 +1199,27 @@
                     <attribute name="list"/>
                 </optional>
                 <optional>
-                    <attribute name="delimiter"/>
+                    <attribute name="delimiter" a:defaultValue=","/>
+                </optional>
+                <optional>
+                    <attribute name="trim" a:defaultValue="false"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritall" a:defaultValue="false"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritrefs" a:defaultValue="false"/>
                 </optional>
             </interleave>
             <interleave>
                 <zeroOrMore>
+                    <ref name="dirset"/>
+                </zeroOrMore>
+                <zeroOrMore>
                     <ref name="fileset"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="filelist"/>
                 </zeroOrMore>
                 <zeroOrMore>
                     <ref name="mapper"/>
@@ -1280,6 +1318,14 @@
         </element>
     </define>
 
+    <define name="jsonvalidate">
+        <element name="jsonvalidate">
+            <interleave>
+                <attribute name="prologfile"/>
+            </interleave>
+        </element>
+    </define>
+
     <define name="loadfile">
         <element name="loadfile">
             <interleave>
@@ -1320,8 +1366,10 @@
                     <attribute name="file"/>
                     <oneOrMore>
                         <choice>
+                            <ref name="dirset"/>
                             <ref name="fileset"/>
-                            <ref name="filelist"/>
+                            <ref name="
+                            "/>
                         </choice>
                     </oneOrMore>
                 </choice>
@@ -1419,6 +1467,12 @@
     <define name="phingcall">
         <element name="phingcall">
             <attribute name="target"/>
+            <optional>
+                <attribute name="inheritall" a:defaultValue="true"/>
+            </optional>
+            <optional>
+                <attribute name="inheritrefs" a:defaultValue="true"/>
+            </optional>
             <zeroOrMore>
                 <choice>
                     <ref name="property"/>
@@ -1485,24 +1539,6 @@
                 </optional>
                 <optional>
                     <attribute name="fallback"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="propertyprompt">
-        <element name="propertyprompt">
-            <interleave>
-                <attribute name="propertyName"/>
-                <attribute name="promptText"/>
-                <optional>
-                    <attribute name="promptCharacter"/>
-                </optional>
-                <optional>
-                    <attribute name="defaultValue"/>
-                </optional>
-                <optional>
-                    <attribute name="useExistingValue"/>
                 </optional>
             </interleave>
         </element>
@@ -3271,6 +3307,11 @@
                 <optional>
                     <attribute name="authschema"/>
                 </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
                 <zeroOrMore>
                     <ref name="config"/>
                 </zeroOrMore>
@@ -3531,6 +3572,9 @@
                     </attribute>
                     <attribute name="reporter"/>
                     <attribute name="checkstyleReportPath"/>
+                </optional>
+                <optional>
+                    <attribute name="config"/>
                 </optional>
             </interleave>
         </element>
@@ -4388,82 +4432,6 @@
         </element>
     </define>
 
-
-    <!--
-        =========================================
-        PhpDocumentorTask
-        =========================================
-    -->
-    <define name="phpdocumentor">
-        <element name="phpdocumentor">
-            <interleave>
-                <optional>
-                    <attribute name="title"/>
-                </optional>
-                <choice>
-                    <attribute name="destdir"/>
-                    <attribute name="target"/>
-                </choice>
-                <optional>
-                    <attribute name="output"/>
-                </optional>
-                <optional>
-                    <attribute name="sourcecode">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="examplesdir"/>
-                </optional>
-                <optional>
-                    <attribute name="parseprivate">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="javadocdesc">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="packageoutput"/>
-                </optional>
-                <optional>
-                    <attribute name="ignoretags"/>
-                </optional>
-                <optional>
-                    <attribute name="defaultpackagename"/>
-                </optional>
-                <optional>
-                    <attribute name="defaultcategoryname"/>
-                </optional>
-                <optional>
-                    <attribute name="pear"/>
-                </optional>
-                <optional>
-                    <attribute name="templatebase"/>
-                </optional>
-                <optional>
-                    <attribute name="undocumentedelements"/>
-                </optional>
-                <optional>
-                    <attribute name="customtags"/>
-                </optional>
-            </interleave>
-            <zeroOrMore>
-                <choice>
-                    <ref name="fileset"/>
-                    <ref name="projdocfileset"/>
-                </choice>
-            </zeroOrMore>
-        </element>
-    </define>
-
     <!--
         =========================================
         PHPLocTask
@@ -4651,157 +4619,56 @@
                 <optional>
                     <attribute name="title"/>
                 </optional>
-                <choice>
+                <optional>
                     <attribute name="destdir"/>
-                    <attribute name="target"/>
-                </choice>
+                </optional>
                 <optional>
                     <attribute name="output"/>
                 </optional>
                 <optional>
-                    <attribute name="sourcecode">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="examplesdir"/>
-                </optional>
-                <optional>
-                    <attribute name="parseprivate">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="javadocdesc">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="packageoutput"/>
-                </optional>
-                <optional>
-                    <attribute name="ignoretags"/>
+                    <attribute name="template"/>
                 </optional>
                 <optional>
                     <attribute name="defaultpackagename"/>
                 </optional>
                 <optional>
-                    <attribute name="defaultcategoryname"/>
-                </optional>
-                <optional>
-                    <attribute name="pear">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="templatebase"/>
-                </optional>
-                <optional>
-                    <attribute name="undocumentedelements">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="customtags">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="ignore"/>
+                    <attribute name="pharLocation"/>
                 </optional>
                 <zeroOrMore>
                     <choice>
                         <ref name="fileset"/>
-                        <ref name="projdocfileset"/>
                     </choice>
                 </zeroOrMore>
             </interleave>
         </element>
     </define>
-
-
-    <!--
-        =========================================
-        PhpDocumentorExternalTask
-        =========================================
-    -->
-    <define name="phpdocumentorexternal">
-        <element name="phpdocumentorexternal">
+    
+    <define name="phpdoc2">
+        <element name="phpdoc2">
             <interleave>
                 <optional>
                     <attribute name="title"/>
                 </optional>
-                <choice>
+                <optional>
                     <attribute name="destdir"/>
-                    <attribute name="target"/>
-                </choice>
+                </optional>
                 <optional>
                     <attribute name="output"/>
                 </optional>
                 <optional>
-                    <attribute name="sourcecode">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="examplesdir"/>
-                </optional>
-                <optional>
-                    <attribute name="parseprivate">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="javadocdesc">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="packageoutput"/>
-                </optional>
-                <optional>
-                    <attribute name="ignoretags"/>
+                    <attribute name="template"/>
                 </optional>
                 <optional>
                     <attribute name="defaultpackagename"/>
                 </optional>
                 <optional>
-                    <attribute name="defaultcategoryname"/>
+                    <attribute name="pharLocation"/>
                 </optional>
-                <optional>
-                    <attribute name="pear"/>
-                </optional>
-                <optional>
-                    <attribute name="templatebase"/>
-                </optional>
-                <optional>
-                    <attribute name="undocumentedelements"/>
-                </optional>
-                <optional>
-                    <attribute name="customtags"/>
-                </optional>
-                <optional>
-                    <attribute name="programpath"/>
-                </optional>
-                <optional>
-                    <attribute name="ignore"/>
-                </optional>
-                <choice>
-                    <attribute name="sourcepath"/>
-                    <oneOrMore>
+                <zeroOrMore>
+                    <choice>
                         <ref name="fileset"/>
-                    </oneOrMore>
-                </choice>
+                    </choice>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>
@@ -5362,50 +5229,6 @@
         </element>
     </define>
 
-    <!--
-        =========================================
-        SimpleTestTask
-        =========================================
-    -->
-    <define name="simpletest">
-        <element name="simpletest">
-            <interleave>
-                <optional>
-                    <attribute name="printsummary">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="haltonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="haltonfailure">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="failureproperty"/>
-                </optional>
-                <optional>
-                    <attribute name="errorproperty"/>
-                </optional>
-                <optional>
-                    <attribute name="debug">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-            </interleave>
-            <optional>
-                <ref name="formatter"/>
-            </optional>
-            <oneOrMore>
-                <ref name="fileset"/>
-            </oneOrMore>
-        </element>
-    </define>
-
     <define name="smarty">
         <element name="smarty">
             <interleave>
@@ -5706,11 +5529,6 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
-                <optional>
-                    <attribute name="forcecompatible">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
             </interleave>
         </element>
     </define>
@@ -5733,11 +5551,6 @@
                 </optional>
                 <optional>
                     <attribute name="propertyname"/>
-                </optional>
-                <optional>
-                    <attribute name="forcecompatible">
-                        <data type="boolean"/>
-                    </attribute>
                 </optional>
                 <optional>
                     <attribute name="limit">
@@ -5770,11 +5583,6 @@
                 </optional>
                 <optional>
                     <attribute name="propertyname"/>
-                </optional>
-                <optional>
-                    <attribute name="forcecompatible">
-                        <data type="boolean"/>
-                    </attribute>
                 </optional>
                 <optional>
                     <attribute name="limit">
@@ -6823,6 +6631,16 @@
                 <attribute name="url"/>
                 <optional>
                     <attribute name="errorsBeginAt"/>
+                </optional>
+                <optional>
+                    <attribute name="followredirects">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="requestmethod">
+                        <data type="string"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>

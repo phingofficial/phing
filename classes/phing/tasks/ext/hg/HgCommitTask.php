@@ -65,7 +65,6 @@ class HgCommitTask extends HgBaseTask
      */
     public function main()
     {
-
         $message = $this->getMessage();
         if ($message === '') {
             throw new BuildException('"message" is a required parameter');
@@ -104,7 +103,7 @@ class HgCommitTask extends HgBaseTask
             if ($output !== '') {
                 $this->log($output);
             }
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             $msg = $ex->getMessage();
             $this->log("Exception: $msg", Project::MSG_INFO);
             $p = strpos($msg, 'hg returned:');
@@ -117,4 +116,3 @@ class HgCommitTask extends HgBaseTask
         chdir($cwd);
     }
 }
-

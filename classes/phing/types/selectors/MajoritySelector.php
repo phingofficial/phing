@@ -35,7 +35,6 @@
  */
 class MajoritySelector extends BaseSelectorContainer
 {
-
     private $allowtie = true;
 
     /**
@@ -70,11 +69,10 @@ class MajoritySelector extends BaseSelectorContainer
      * @param string $filename is the name of the file to check
      * @param PhingFile $file is a PhingFile object for the filename that the selector
      * can use
-     * @return whether the file should be selected or not
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $yesvotes = 0;

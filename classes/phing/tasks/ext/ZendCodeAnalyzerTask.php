@@ -66,10 +66,10 @@ class ZendCodeAnalyzerTask extends Task
 {
     protected $analyzerPath = ""; // Path to ZendCodeAnalyzer binary
     protected $file = ""; // the source file (from xml attribute)
-    protected $filesets = array(); // all fileset objects assigned to this task
+    protected $filesets = []; // all fileset objects assigned to this task
     protected $counter = 0;
-    protected $disable = array();
-    protected $enable = array();
+    protected $disable = [];
+    protected $enable = [];
 
     private $haltonwarning = false;
 

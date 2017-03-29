@@ -32,7 +32,6 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class ContainsCondition implements Condition
 {
-
     private $string;
     private $subString;
     private $caseSensitive = true;

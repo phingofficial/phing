@@ -58,14 +58,14 @@ class PhingXMLContext
     {
         $this->project = $project;
         $this->implicitTarget = new Target();
-        $this->implicitTarget->setName("");
+        $this->implicitTarget->setName('');
         $this->implicitTarget->setHidden(true);
     }
 
     /** The project to configure. */
     private $project;
 
-    private $configurators = array();
+    private $configurators = [];
 
     /**
      * @param $cfg
@@ -94,7 +94,7 @@ class PhingXMLContext
     }
 
     /** Impoerted files */
-    private $importStack = array();
+    private $importStack = [];
 
     /**
      * @param $file
@@ -168,5 +168,4 @@ class PhingXMLContext
     {
         $this->currentTargets = $currentTargets;
     }
-
 } //end PhingXMLContext

@@ -52,5 +52,4 @@ class Description extends DataType
             $this->project->setDescription($currentDescription . $text);
         }
     }
-
 }

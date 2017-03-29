@@ -6,7 +6,7 @@
  * @author Michiel Rook
  * @version $Id$
  */
-class ErroringTest extends PHPUnit_Framework_TestCase
+class ErroringTest extends \PHPUnit\Framework\TestCase
 {
     public function testError()
     {

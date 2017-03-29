@@ -46,7 +46,7 @@ class JsHintTask extends Task
      *
      * @var FileSet[]
      */
-    protected $filesets = array();
+    protected $filesets = [];
 
     /**
      * Should the build fail on JSHint errors
@@ -74,17 +74,17 @@ class JsHintTask extends Task
      *
      * @var array
      */
-    private $xmlAttributes = array(
-        'severity' => array(
+    private $xmlAttributes = [
+        'severity' => [
             'error' => 'error',
             'warning' => 'warning',
             'info' => 'info'
-        ),
+        ],
         'fileError' => 'error',
         'line' => 'line',
         'column' => 'column',
         'message' => 'message',
-    );
+    ];
 
     /**
      * Path where the the report in Checkstyle format should be saved
@@ -149,13 +149,13 @@ class JsHintTask extends Task
         $this->reporter = $reporter;
 
         if ($this->reporter === 'jslint') {
-            $this->xmlAttributes = array(
-                'severity' => array('error' => 'E', 'warning' => 'W', 'info' => 'I'),
+            $this->xmlAttributes = [
+                'severity' => ['error' => 'E', 'warning' => 'W', 'info' => 'I'],
                 'fileError' => 'issue',
                 'line' => 'line',
                 'column' => 'char',
                 'message' => 'reason',
-            );
+            ];
         }
     }
 
@@ -174,7 +174,7 @@ class JsHintTask extends Task
         }
 
         if (!isset($this->file)) {
-            $fileList = array();
+            $fileList = [];
             $project = $this->getProject();
             foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($project);
@@ -185,7 +185,7 @@ class JsHintTask extends Task
                 }
             }
         } else {
-            $fileList = array($this->file);
+            $fileList = [$this->file];
         }
 
         $this->_checkJsHintIsInstalled();
@@ -205,7 +205,7 @@ class JsHintTask extends Task
                 implode(' ', $fileList)
             );
         }
-        $output = array();
+        $output = [];
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
         $xml = simplexml_load_string($output);
@@ -213,10 +213,11 @@ class JsHintTask extends Task
         $projectBasedir = $this->_getProjectBasedir();
         $errorsCount = 0;
         $warningsCount = 0;
+        $fileError = $this->xmlAttributes['fileError'];
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
             $fileName = (string) $fileAttributes['name'];
-            foreach ($file->error as $error) {
+            foreach ($file->$fileError as $error) {
                 $errAttr = (array) $error->attributes();
                 $attrs = current($errAttr);
 

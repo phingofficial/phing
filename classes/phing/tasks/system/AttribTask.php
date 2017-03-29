@@ -70,7 +70,7 @@ class AttribTask extends ApplyTask
      */
     public function setVerbose($b)
     {
-        $this->logLevel = Project::MSG_VERBOSE;
+        $this->loglevel = Project::MSG_VERBOSE;
     }
 
     /**

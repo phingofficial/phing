@@ -43,12 +43,6 @@ abstract class Task extends ProjectComponent
     protected $target;
 
     /**
-     * Description of the task
-     * @var string
-     */
-    protected $description;
-
-    /**
      * Internal taskname (req)
      * @var string
      */
@@ -59,12 +53,6 @@ abstract class Task extends ProjectComponent
      * @var string
      */
     protected $taskName;
-
-    /**
-     * Stored buildfile location
-     * @var Location
-     */
-    protected $location;
 
     /**
      * Wrapper of the task
@@ -115,7 +103,6 @@ abstract class Task extends ProjectComponent
      * Sets the name of this task for log messages
      *
      * @param  string $name
-     * @return string A string representing the name of this task for log
      */
     public function setTaskName($name)
     {
@@ -136,7 +123,7 @@ abstract class Task extends ProjectComponent
     /**
      * Sets the type of the task. Usually this is the name of the XML tag
      *
-     * @param string The type of this task (XML Tag)
+     * @param string $name The type of this task (XML Tag)
      */
     public function setTaskType($name)
     {
@@ -167,26 +154,6 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Sets a textual description of the task
-     *
-     * @param string $desc The text describing the task
-     */
-    public function setDescription($desc)
-    {
-        $this->description = $desc;
-    }
-
-    /**
-     * Returns the textual description of the task
-     *
-     * @return string The text description of the task
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
      * Called by the parser to let the task initialize properly.
      * Should throw a BuildException if something goes wrong with the build
      *
@@ -209,30 +176,6 @@ abstract class Task extends ProjectComponent
      *  This is abstract here. Must be overloaded by real tasks.
      */
     abstract public function main();
-
-    /**
-     * Returns the location within the buildfile this task occurs. Used
-     * by {@link BuildException} to give detailed error messages.
-     *
-     * @return Location The location object describing the position of this
-     *                  task within the buildfile.
-     */
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    /**
-     * Sets the location within the buildfile this task occurs. Called by
-     * the parser to set location information.
-     *
-     * @param Location $location The location object describing the position of this
-     *                           task within the buildfile.
-     */
-    public function setLocation(Location $location)
-    {
-        $this->location = $location;
-    }
 
     /**
      * Returns the wrapper object for runtime configuration
@@ -276,7 +219,6 @@ abstract class Task extends ProjectComponent
      */
     public function perform()
     {
-
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();

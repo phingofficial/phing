@@ -32,8 +32,14 @@ include_once 'phing/parser/ExpatParseException.php';
  */
 abstract class AbstractHandler
 {
-
+    /**
+     * @var AbstractHandler
+     */
     public $parentHandler = null;
+
+    /**
+     * @var AbstractSAXParser
+     */
     public $parser = null;
 
     /**
@@ -41,10 +47,10 @@ abstract class AbstractHandler
      *
      * The constructor must be called by all derived classes.
      *
-     * @param   object  the parser object
-     * @param   object  the parent handler of this handler
+     * @param ExpatParser $parser the parser object
+     * @param AbstractHandler $parentHandler the parent handler of this handler
      */
-    protected function __construct($parser, $parentHandler)
+    protected function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler)
     {
         $this->parentHandler = $parentHandler;
         $this->parser = $parser;
@@ -57,11 +63,9 @@ abstract class AbstractHandler
      * Must be overloaded by the child class. Throws an ExpatParseException
      * if there is no handler registered for an element.
      *
-     * @param $name
-     * @param $attribs
+     * @param string $name name of the XML element
+     * @param array $attribs attributes of the XML element
      * @throws ExpatParseException
-     * @internal param the $string name of the XML element
-     * @internal param the $array attributes of the XML element
      */
     public function startElement($name, $attribs)
     {
@@ -70,7 +74,6 @@ abstract class AbstractHandler
 
     /**
      * Gets invoked when element closes method.
-     *
      */
     protected function finished()
     {
@@ -82,7 +85,7 @@ abstract class AbstractHandler
      * Can be overloaded by the child class. But should not. It hands
      * over control to the parentHandler of this.
      *
-     * @param  string  the name of the XML element
+     * @param string $name the name of the XML element
      */
     public function endElement($name)
     {
@@ -93,9 +96,9 @@ abstract class AbstractHandler
     /**
      * Invoked by occurrence of #PCDATA.
      *
-     * @param     string  the name of the XML element
+     * @param  string $data contents
      * @throws ExpatParseException
-     * @exception ExpatParserException if there is no CDATA but method
+     * @exception ExpatParseException if there is no CDATA but method
      *            was called
      */
     public function characters($data)

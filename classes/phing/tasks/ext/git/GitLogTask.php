@@ -339,5 +339,4 @@ class GitLogTask extends GitBaseTask
     {
         $this->outputProperty = $prop;
     }
-
 }

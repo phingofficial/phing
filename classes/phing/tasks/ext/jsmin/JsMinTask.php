@@ -39,7 +39,7 @@ class JsMinTask extends Task
      *
      * @var  FileSet
      */
-    protected $filesets = array();
+    protected $filesets = [];
     /**
      * Whether the build should fail, if
      * errors occurred
@@ -125,10 +125,6 @@ class JsMinTask extends Task
             );
         }
 
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            throw new BuildException('JsMinTask requires PHP 5.3+');
-        }
-
         if (empty($this->targetDir)) {
             throw new BuildException('Attribute "targetDir" is required');
         }
@@ -141,7 +137,7 @@ class JsMinTask extends Task
                 if ($this->failonerror) {
                     throw $be;
                 } else {
-                    $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+                    $this->log($be->getMessage(), Project::MSG_WARN);
                 }
             }
         }
@@ -169,8 +165,7 @@ class JsMinTask extends Task
 
                 $contents = file_get_contents($fullPath . '/' . $file);
 
-                // nasty hack to not trip PHP 5.2 parser
-                $minified = forward_static_call(array('\\JShrink\\Minifier', 'minify'), $contents);
+                $minified = \JShrink\Minifier::minify($contents);
 
                 file_put_contents($target, $minified);
             } catch (Exception $jsme) {

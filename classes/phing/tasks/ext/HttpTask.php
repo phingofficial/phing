@@ -52,14 +52,14 @@ abstract class HttpTask extends Task
      *
      * @var Parameter[]
      */
-    protected $headers = array();
+    protected $headers = [];
 
     /**
      * Holds additional config data for HTTP_Request2
      *
      * @var Parameter[]
      */
-    protected $configData = array();
+    protected $configData = [];
 
     /**
      * Holds the authentication user name
@@ -131,7 +131,6 @@ abstract class HttpTask extends Task
     {
         if (!$this->requestPrototype) {
             $request = new HTTP_Request2($this->url);
-
         } else {
             $request = clone $this->requestPrototype;
             $request->setUrl($this->url);

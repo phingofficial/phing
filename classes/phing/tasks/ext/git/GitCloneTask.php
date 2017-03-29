@@ -52,7 +52,7 @@ class GitCloneTask extends GitBaseTask
     
     /**
      * Branch to check out
-     * 
+     *
      * @var string
      */
     private $branch = "";

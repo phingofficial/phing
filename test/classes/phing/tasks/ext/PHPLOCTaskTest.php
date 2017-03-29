@@ -30,14 +30,9 @@ require_once 'phing/BuildFileTest.php';
  */
 class PHPLOCTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phploc/build.xml");
-
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
     }
 
     public function testReportText()

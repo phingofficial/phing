@@ -30,7 +30,7 @@ require_once 'phing/tasks/ext/SymfonyConsole/Arg.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
+class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var SymfonyConsoleTask

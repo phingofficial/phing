@@ -4131,6 +4131,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>basic</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If true, set default log level to Project.MSG_ERR</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -5333,6 +5340,44 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>JavaScript files to be minified.</para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+
+    <sect1 role="taskdef" xml:id="JsonValidateTask">
+        <title>JsonValidateTask</title>
+        <para>The <literal>JsonValidateTask</literal> checks
+        if a given file contains valid JSON data and fails if not.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the file to be checked.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;jsonvalidate file="config/default.json" /&gt;</programlisting>
         </sect2>
     </sect1>
 
@@ -8720,7 +8765,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/target></programlisting>
 <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
 <programlisting language="xml">&lt;target name="project-size-and-tests"
-description="Measures the size of the project and count it's tests">
+description="Measures the size of the project and counts the tests">
     &lt;phploc countTests="true">
     &lt;fileset dir=".">
         &lt;include name="**/*.php" />
@@ -8782,7 +8827,7 @@ description="Measures the size of the project and count it's tests">
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Path to write output file to.</entry>
                                     <entry>n/a</entry>
-                                    <entry>Yes</entry>
+                                    <entry>Yes, if <literal>usefile></literal> is <literal>true</literal></entry>
                                 </row>
                             </tbody>
                         </tgroup>
@@ -9194,200 +9239,6 @@ description="Measures the size of the project and count it's tests">
             </itemizedlist>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="PhpDocumentorTask">
-        <title>PhpDocumentorTask</title>
-        <para> <emphasis role="bold">This task is now deprecated in favor of the
-            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
-        <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
-                >phpDocumentor</link>, an auto-documentation tool for PHP similar to Javadoc.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>title</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Title for browser window / package index.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>destdir</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Destination directory for output files.</entry>
-                        <entry>n/a</entry>
-                        <entry morerows="1">Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>target</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Alias of <literal>destdir</literal> ("target" is config param used by
-                            PhpDocumentor)</entry>
-                        <entry>n/a</entry>
-                    </row>
-                    <row>
-                        <entry><literal>output</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Output format (such as <literal>HTML:Smarty:PHP</literal>).</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>sourcecode</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Generate syntax-highlighted sourcecode file for each file
-                            parsed?</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>examplesdir</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to directory in which to look for example documentation.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>parseprivate</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Parse @internal and elements marked private.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>javadocdesc</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>JavaDoc-compliant description parsing. Use on/off, default off (more
-                            flexibility)</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Suppress output to STDOUT.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>packageoutput</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Output documentation only for selected packages. Use a
-                            comma-delimited list</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>ignoretags</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Comma-separated list of tags to ignore (@package, @subpackage,
-                            @access and @ignore may not be ignored).</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>defaultpackagename</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>name to use for the default package. If not specified, uses
-                            'default'</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>defaultcategoryname</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>name to use for the default category. If not specified, uses
-                            'default'</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>pear</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Treat parse dirs as PEAR repository? (package is directory, _members
-                            are @access private)</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>templatebase</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Set base dirctory of all templates for this parse.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>undocumentedelements</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Control whether or not warnings will be shown for undocumented
-                            elements. Useful for identifying classes and methods that haven't yet
-                            been documented.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>customtags</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Custom tags, will be recognized and put in tags[] instead of
-                            unknowntags[].</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>ignore</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>List of files to ignore, separated by ','.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;phpdoc title="API Documentation"
-  destdir="apidocs"
-  sourcecode="false"
-  output="HTML:Smarty:PHP">
-   &lt;fileset dir="./classes">
-      &lt;include name="**/*.php" />
-   &lt;/fileset>
-   &lt;projdocfileset dir=".">
-      &lt;include name="README" />
-      &lt;include name="INSTALL" />
-      &lt;include name="CHANGELOG" />
-   &lt;/projdocfileset>
-&lt;/phpdoc></programlisting>
-        </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for
-                        parsing</para>
-                </listitem>
-                <listitem>
-                    <para><literal><link linkend="FileSet">projdocfileset</link></literal> - Files that should be treated as
-                        README/INSTALL/CHANGELOG files</para>
-                </listitem>
-            </itemizedlist>
-        </sect2>
-    </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentor2Task">
         <title>PhpDocumentor2Task</title>
         <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
@@ -9426,13 +9277,6 @@ description="Measures the size of the project and count it's tests">
                         <entry>Destination directory for output files.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>DEPRECATED</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>template</literal></entry>
@@ -9475,93 +9319,6 @@ description="Measures the size of the project and count it's tests">
                     <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for parsing</para>
                 </listitem>
             </itemizedlist>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="PhpDocumentorExternalTask">
-        <title>PhpDocumentorExternalTask</title>
-        <para> <emphasis role="bold">This task is now deprecated in favor of the
-            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
-        <para> This is the same as the <xref xlink:href="#PhpDocumentorTask"/> but uses the command
-            line application. Use this as a fallback in case you're running into troubles when using
-            the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when you're using
-            Smarty and have Smarty in your library path too.</para>
-        <para>This task supports everything the PhpDocumentorTask supports, differences are
-            documented below.</para>
-
-        <table>
-            <title>Parameters</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>programpath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to the phpdoc executable (relative or absolute).</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>sourcepath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>A directory to scan for parsable files. Supports multiple directories
-                            separated with a comma.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes, if no <literal>&lt;fileset></literal> is given</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <table>
-            <title>Unsupported Parameters</title>
-            <tgroup cols="2">
-                <colspec colname="c1" colnum="1" colwidth="1*"/>
-                <colspec colname="c2" colnum="2" colwidth="2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>configdir</literal></entry>
-                        <entry>Currently not supported. The attribute will be ignored and a warning
-                            messag will be generated. The build continues (to ease when changing an
-                            existing phpdoc task) however this may have unexpected side
-                            effects.</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;phpdocext title="API Documentation"
-  programpath="/usr/bin/phpdoc"
-  destdir="apidocs"
-  sourcecode="false"
-  output="HTML:Smarty:PHP">
-   &lt;fileset dir="./classes">
-      &lt;include name="**/*.php" />
-   &lt;/fileset>
-   &lt;projdocfileset dir=".">
-      &lt;include name="README" />
-      &lt;include name="INSTALL" />
-      &lt;include name="CHANGELOG" />
-   &lt;/projdocfileset>
-&lt;/phpdocext></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpLintTask">
@@ -9684,13 +9441,8 @@ description="Measures the size of the project and count it's tests">
                 xlink:href="http://ant.apache.org/manual/OptionalTasks/junit.html" role="extern"
                 >JUnit</link> task.</para>
         <para>
-            <emphasis role="bold">NB:</emphasis> if you have installed the
-            PHPUnit PHAR, make sure you set the
-            <literal>pharlocation</literal> attribute!</para>
-        <para>
-            <emphasis role="bold">NB:</emphasis> the identifiers <literal>phpunit2</literal>
-            (PHPUnit2Task) and <literal>phpunit3</literal> (PHPUnit3Task) have been deprecated! </para>
-
+            <emphasis role="bold">NB:</emphasis> if you want to use the PHPUnit .phar file, please make sure you download the library version (<literal>phpunit-library.phar</literal>)
+            and you set the <literal>pharlocation</literal> attribute!</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -10040,10 +9792,6 @@ description="Measures the size of the project and count it's tests">
     <sect1 role="taskdef" xml:id="PHPUnitReport">
         <title>PHPUnitReport</title>
         <para>This task transforms PHPUnit xml reports to HTML using XSLT.</para>
-        <para>
-            <emphasis role="bold">NB:</emphasis> the identifiers <literal>phpunit2report</literal>
-            (PHPUnit2Report) and <literal>phpunit3report</literal> (PHPUnit3Report)have been
-            deprecated! </para>
 
         <table>
             <title>Attributes</title>
@@ -11339,8 +11087,7 @@ host="webserver" todir="/www/htdocs/project/">
                 </tgroup>
         </table>
     </sect1>
-
-	<sect1 role="taskdef" xml:id="SonarTask">
+    <sect1 role="taskdef" xml:id="SonarTask">
         <title>SonarTask</title>
         <para>This task runs <link xlink:href="http://www.sonarqube.org/" role="extern">SonarQube Scanner</link>, a
             tool for code analysis and <emphasis>continuous inspection</emphasis>.</para>
@@ -11481,7 +11228,88 @@ sonar.sources        = src</programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
-
+    <sect1 role="taskdef" xml:id="SortList">
+        <title>SortList</title>
+        <para>Sort a delimited list of items in their natural string order.
+            Note that the <literal>value</literal> and <literal>refid</literal>
+            attributes are mutually exclusive, and the value attribute takes
+            precedence if both are specified.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>overwrite</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If the property is already set, should we change it's value.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>value</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The list of values to process, with the delimiter character,
+                            indicated by the "delimiter" attribute, separating each value.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes, unless "refid" is specified.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>refid</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The id of where the list of values to sort is stored.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes, unless "value" is specified.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>delimiter</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The delimiter string that separates the values in the
+                            "list" attribute.</entry>
+                        <entry>,</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>flags</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sort flags depending on the php version and one of:
+                            SORT_REGULAR, SORT_NUMERIC, SORT_STRING, SORT_LOCALE_STRING,
+                            SORT_NATURAL, SORT_FLAG_CASE</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;property id="test" name="my.list" value="z;y;X;w;v;U;t" />
+                &lt;sortlist property="my.sorted.list" refid="test"
+                delimiter=";"
+                flags="SORT_NATURAL|SORT_FLAG_CASE" /></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="SshTask">
         <title>SshTask</title>
         <para> The <literal>SshTask</literal> executes commands on a remote host using ssh. This
@@ -11671,183 +11499,6 @@ host="webserver" command="ls" /></programlisting>
 
         </sect2>
 
-    </sect1>
-    <sect1 role="taskdef" xml:id="SimpleTestTask">
-        <title>SimpleTestTask</title>
-        <para> This task runs testcases using the <link xlink:href="http://www.simpletest.org/"
-                role="extern">SimpleTest</link> framework.</para>
-        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>printsummary</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Print one-line statistics for each testcase.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>haltonerror</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Stop the build process if an error occurs during the test
-                            run.</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>haltonfailure</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Stop the build process if a test fails (errors are considered
-                            failures as well).</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>failureproperty</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Name of property to set (to true) on failure.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>errorproperty</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Name of property to set (to true) on error.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>debug</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Switch debugging on/off</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;simpletest>
-  &lt;formatter type="plain"/>
-  &lt;fileset dir="tests">
-    &lt;include name="**/*Test*.php"/>
-    &lt;exclude name="**/Abstract*.php"/>
-  &lt;/fileset>
-&lt;/simpletest></programlisting>
-
-            <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
-                plain text results to the console.</para>
-            <programlisting language="xml">&lt;simpletest haltonfailure="true" haltonerror="true">
-  &lt;formatter type="plain" usefile="false"/>
-  &lt;fileset dir="tests">
-    &lt;include name="**/*Test*.php"/>
-  &lt;/fileset>
-&lt;/simpletest></programlisting>
-            <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
-                plain text results to the console. The build process is aborted if a test fails.
-            </para>
-        </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para><literal>formatter</literal>
-                    </para>
-                    <para>The results of the tests can be printed in different formats. Output will
-                        always be sent to a file, unless you set the <literal>usefile</literal>
-                        attribute to <literal>false</literal>. The name of the file is predetermined
-                        by the formatter and can be changed by the <literal>outfile</literal>
-                        attribute.</para>
-                    <para>There are three predefined formatters - two print the test results in XML
-                        format, the other one prints plain text. Custom formatters that implement
-                        phing.tasks.ext.PHPUnitResultFormatter can be specified.</para>
-                    <para>If you use the XML formatter, it may not include the same output that your
-                        tests have written as some characters are illegal in XML documents and will
-                        be dropped.</para>
-
-                    <table>
-                        <title>Attributes</title>
-                        <tgroup cols="5">
-                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                            <thead>
-                                <row>
-                                    <entry>Name</entry>
-                                    <entry>Type</entry>
-                                    <entry>Description</entry>
-                                    <entry>Default</entry>
-                                    <entry>Required</entry>
-                                </row>
-                            </thead>
-                            <tbody>
-                                <row>
-                                    <entry><literal>type</literal></entry>
-                                    <entry><literal role="type">String</literal></entry>
-                                    <entry>Use a predefined formatter (either
-                                        <literal>xml</literal>, <literal>plain</literal>, or
-                                            <literal>summary</literal>).</entry>
-                                    <entry>n/a</entry>
-                                    <entry morerows="1">One of these is required.</entry>
-                                </row>
-                                <row>
-                                    <entry><literal>classname</literal></entry>
-                                    <entry><literal role="type">String</literal></entry>
-                                    <entry>Name of a custom formatter class.</entry>
-                                    <entry>n/a</entry>
-                                </row>
-                                <row>
-                                    <entry><literal>usefile</literal></entry>
-                                    <entry><literal role="type">Boolean</literal></entry>
-                                    <entry>Boolean that determines whether output should be sent to
-                                        a file.</entry>
-                                    <entry><literal>true</literal></entry>
-                                    <entry>No</entry>
-                                </row>
-                                <row>
-                                    <entry><literal>todir</literal></entry>
-                                    <entry><literal role="type">String</literal></entry>
-                                    <entry>Directory to write the file to.</entry>
-                                    <entry>n/a</entry>
-                                    <entry>No</entry>
-                                </row>
-                                <row>
-                                    <entry><literal>outfile</literal></entry>
-                                    <entry><literal role="type">String</literal></entry>
-                                    <entry>Filename of the result.</entry>
-                                    <entry>Depends on formatter</entry>
-                                    <entry>No</entry>
-                                </row>
-                            </tbody>
-                        </tgroup>
-                    </table>
-                </listitem>
-                <listitem>
-                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
-                </listitem>
-            </itemizedlist>
-
-        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnCheckoutTask">
         <title>SvnCheckoutTask</title>
@@ -12470,14 +12121,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
-                    <row>
-                        <entry><literal>forceCompatible</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
-                            1.2)</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12559,14 +12202,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of property to use</entry>
                         <entry>svn.list</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>forceCompatible</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
-                            1.2)</entry>
-                        <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -12666,14 +12301,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of property to use</entry>
                         <entry>svn.list</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>forceCompatible</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
-                            1.2)</entry>
-                        <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -13490,6 +13117,108 @@ host="webserver" command="ls" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Variable">
+        <title>Variable</title>
+        <para> DESCRIPTION OF TASK.
+            The Variable task provides a mutable property to Phing and works much
+            like variable assignment in PHP. This task is similar to the standard
+            Phing Property task, except that THESE PROPERTIES ARE MUTABLE.
+            While this goes against the standard Phing use of properties,
+            occasionally it is useful to be able to change a property value within
+            the build. In general, use of this task is DISCOURAGED, and the standard
+            Phing Property should be used if possible. Having said that, in real
+            life I use this a lot.</para>
+        <para>
+            Variables can be set individually or loaded from a standard properties
+            file. A 'feature' of variables is that they can override properties,
+            but properties cannot override variables.
+            So if an already established property exists, its value can be reassigned
+            by use of this task.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>None</entry>
+                        <entry>Yes, unless 'file' is used.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>value</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The value of the property.</entry>
+                        <entry>""</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>unset</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Removes the property from the project as if it had never been set.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of a standard properties file to load variables from.</entry>
+                        <entry>None</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;var name="x" value="6"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 -->
+
+&lt;var name="x" value="12"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 12 -->
+
+&lt;var name="x" value="6 + ${x}"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 + 12 -->
+
+&lt;var name="str" value="I "/>
+&lt;var name="str" value="${str} am "/>
+&lt;var name="str" value="${str} a "/>
+&lt;var name="str" value="${str} string."/>
+&lt;echo>${str}&lt;/echo>     &lt;!-- print: I am a string. -->
+
+&lt;var name="x" value="6"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 -->
+
+&lt;property name="x" value="12"/>
+&lt;echo>x = ${x}&lt;/echo>   &lt;!-- print: 6 (property can't override) -->
+
+&lt;var name="x" value="blue"/>
+&lt;tstamp>
+&lt;format property="x" pattern="%A"/>
+&lt;/tstamp>
+&lt;echo>Today is ${x}.&lt;/echo> &lt;!-- print: Today is blue. -->
+
+&lt;var name="x" value="" unset="true"/>
+&lt;tstamp>
+&lt;format property="x" pattern="%A"/>
+&lt;/tstamp>
+&lt;echo>Today is ${x}.&lt;/echo> &lt;!-- print: Today is Friday. --></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="VersionTask">
         <title>VersionTask</title>
         <para> The <literal>VersionTask</literal> increments a three-part version number from a
@@ -13526,15 +13255,29 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>file</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>File containing three-part version number to increment</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry><literal>build.version</literal></entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>property</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Property which contains the resulting version number</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry><literal>build.version</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>propFile</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Set to true, if version should be saved as property file.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>startingVersion</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Starting version string, if version file does not exist.</entry>
+                        <entry><literal>0.0.0</literal></entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>
@@ -13899,9 +13642,6 @@ a2.a3.a4=false</programlisting>
   &lt;/fileset>
 &lt;/zendcodeanalyzer></programlisting>
             <para>Analyze a set of PHP source files and disable a few warnings.</para>
-            <para>
-                <emphasis role="bold">NOTE:</emphasis> the <literal>analyze</literal> tag has been
-                deprecated as of Phing 2.4.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>

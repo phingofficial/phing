@@ -1,7 +1,6 @@
 <?php
 class HgTestsHelper
 {
-
     public static function rmdir($dir)
     {
         if (!file_exists($dir)) {
@@ -22,6 +21,3 @@ class HgTestsHelper
         return rmdir($dir);
     }
 }
-
-
-?>

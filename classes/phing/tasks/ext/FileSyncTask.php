@@ -226,7 +226,7 @@ class FileSyncTask extends Task
 
         $command = $this->getCommand();
 
-        $output = array();
+        $output = [];
         $return = null;
         exec($command, $output, $return);
 

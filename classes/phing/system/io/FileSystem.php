@@ -258,7 +258,6 @@ abstract class FileSystem
      */
     public function getLastModifiedTime(PhingFile $f)
     {
-
         if (!$f->exists()) {
             return 0;
         }
@@ -341,14 +340,14 @@ abstract class FileSystem
      *
      * @param  PhingFile $f
      * @param  boolean   $recursive
-     * @return void
+     * @throws IOException
      */
     public function delete(PhingFile $f, $recursive = false)
     {
         if ($f->isDirectory()) {
-            return $this->rmdir($f->getPath(), $recursive);
+            $this->rmdir($f->getPath(), $recursive);
         } else {
-            return $this->unlink($f->getPath());
+            $this->unlink($f->getPath());
         }
     }
 
@@ -380,7 +379,7 @@ abstract class FileSystem
         if (!$d) {
             return null;
         }
-        $list = array();
+        $list = [];
         while ($entry = $d->read()) {
             if ($entry != "." && $entry != "..") {
                 array_push($list, $entry);
@@ -469,6 +468,7 @@ abstract class FileSystem
     /**
      * List the available filesystem roots, return array of PhingFile objects
      * @throws IOException
+     * @return PhingFile[]
      */
     public function listRoots()
     {
@@ -483,6 +483,7 @@ abstract class FileSystem
      * @param PhingFile $f1
      * @param PhingFile $f2
      * @throws IOException
+     * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -505,7 +506,7 @@ abstract class FileSystem
 
         // Recursively copy a directory
         if ($src->isDirectory()) {
-            return $this->copyr($src->getAbsolutePath(), $dest->getAbsolutePath());
+            $this->copyr($src->getAbsolutePath(), $dest->getAbsolutePath());
         }
 
         $srcPath = $src->getAbsolutePath();
@@ -696,7 +697,6 @@ abstract class FileSystem
             $msg = "FileSystem::Symlink() FAILED. Cannot symlink '$target' to '$link'. $php_errormsg";
             throw new IOException($msg);
         }
-
     }
 
     /**
@@ -741,13 +741,11 @@ abstract class FileSystem
 
         // If children=FALSE only delete dir if empty.
         if (false === $children) {
-
             if (false === @rmdir($dir)) { // FAILED.
                 // Add error from php to end of log message. $php_errormsg.
                 $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $php_errormsg";
                 throw new Exception($msg);
             }
-
         } else { // delete contents and dir.
 
             $handle = @opendir($dir);
@@ -756,12 +754,10 @@ abstract class FileSystem
 
                 $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $php_errormsg";
                 throw new Exception($msg);
-
             } else { // Read from handle.
 
                 // Don't error on readdir().
                 while (false !== ($entry = @readdir($handle))) {
-
                     if ($entry != '.' && $entry != '..') {
 
                         // Only add / if it isn't already the last char.
@@ -787,7 +783,6 @@ abstract class FileSystem
                                     );
                                 throw new Exception($msg);
                             }
-
                         } else { // Is directory.
 
                             try {
@@ -797,7 +792,6 @@ abstract class FileSystem
                                     );
                                 throw new Exception($msg);
                             }
-
                         } // end is_dir else
                     } // end .. if
                 } // end while
@@ -811,9 +805,7 @@ abstract class FileSystem
                 $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $php_errormsg";
                 throw new Exception($msg);
             }
-
         }
-
     }
 
     /**
@@ -858,7 +850,6 @@ abstract class FileSystem
      */
     public function compareMTimes($file1, $file2)
     {
-
         $mtime1 = filemtime($file1);
         $mtime2 = filemtime($file2);
 
@@ -878,5 +869,16 @@ abstract class FileSystem
                 return ($mtime1 < $mtime2) ? -1 : 1;
             } // end compare
         }
+    }
+
+    /**
+     * returns the contents of a directory in an array
+     * @param PhingFile $f
+     * @throws Exception
+     * @return string[]
+     */
+    public function listContents(PhingFile $f)
+    {
+        throw new IOException("listContents() not implemented by local fs driver");
     }
 }

@@ -207,7 +207,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -236,12 +235,12 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         $buffer = preg_replace_callback(
             '/([^\w]|^)_\("((\\\"|[^"])*)"\)/',
-            array($this, 'xlateStringCallback'),
+            [$this, 'xlateStringCallback'],
             $buffer
         );
         $buffer = preg_replace_callback(
             '/([^\w]|^)gettext\("((\\\"|[^"])*)"\)/',
-            array($this, 'xlateStringCallback'),
+            [$this, 'xlateStringCallback'],
             $buffer
         );
 
@@ -249,7 +248,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         // Check to see if there are any unmatched gettext() calls -- and flag an error
 
-        $matches = array();
+        $matches = [];
         if (preg_match('/([^\w]|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
             $this->log("Unable to perform translation on: " . $matches[2], Project::MSG_WARN);
         }

@@ -31,7 +31,7 @@ class CompositeMapper extends ContainerMapper
     /** {@inheritDoc}. */
     public function main($sourceFileName)
     {
-        $results = array();
+        $results = [];
         foreach ($this->getMappers() as $mapper) {
             $result = $mapper->getImplementation()->main($sourceFileName);
             if ($result === null) {

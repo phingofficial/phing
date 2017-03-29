@@ -32,7 +32,6 @@ include_once 'phing/types/selectors/BaseExtendSelector.php';
  */
 class ContainsSelector extends BaseExtendSelector
 {
-
     private $contains = null;
     private $casesensitive = true;
     const CONTAINS_KEY = "text";
@@ -152,7 +151,6 @@ class ContainsSelector extends BaseExtendSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         if ($file->isDirectory()) {

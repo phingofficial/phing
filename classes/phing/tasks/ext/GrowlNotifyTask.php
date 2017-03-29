@@ -249,10 +249,9 @@ class GrowlNotifyTask extends Task
 
         // relative location
         if (strpos($icon, '..') === 0) {
-            $icon = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . $icon);
-
+            $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
         } elseif (strpos($icon, '.') === 0) {
-            $icon = dirname(__FILE__) . substr($icon, 1);
+            $icon = __DIR__ . substr($icon, 1);
         }
 
         $this->appicon = $icon;
@@ -327,22 +326,22 @@ class GrowlNotifyTask extends Task
         }
 
         switch ($priority) {
-            case 'low' :
+            case 'low':
                 $priority = Net_Growl::PRIORITY_LOW;
                 break;
-            case 'moderate' :
+            case 'moderate':
                 $priority = Net_Growl::PRIORITY_MODERATE;
                 break;
-            case 'normal' :
+            case 'normal':
                 $priority = Net_Growl::PRIORITY_NORMAL;
                 break;
-            case 'high' :
+            case 'high':
                 $priority = Net_Growl::PRIORITY_HIGH;
                 break;
-            case 'emergency' :
+            case 'emergency':
                 $priority = Net_Growl::PRIORITY_EMERGENCY;
                 break;
-            default :
+            default:
                 throw new BuildException(
                     '"priority" attribute is invalid.'
                 );
@@ -371,10 +370,10 @@ class GrowlNotifyTask extends Task
         }
 
         switch ($protocol) {
-            case 'udp' :
-            case 'gntp' :
+            case 'udp':
+            case 'gntp':
                 break;
-            default :
+            default:
                 throw new BuildException(
                     '"protocol" attribute is invalid.' .
                     ' Expect to be either udp or gntp.'
@@ -410,10 +409,9 @@ class GrowlNotifyTask extends Task
 
         // relative location
         if (strpos($icon, '..') === 0) {
-            $icon = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . $icon);
-
+            $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
         } elseif (strpos($icon, '.') === 0) {
-            $icon = dirname(__FILE__) . substr($icon, 1);
+            $icon = __DIR__ . substr($icon, 1);
         }
 
         $this->icon = $icon;
@@ -433,13 +431,13 @@ class GrowlNotifyTask extends Task
             );
         }
 
-        $notifications = array(
+        $notifications = [
             $this->notification
-        );
-        $options = array(
+        ];
+        $options = [
             'host' => $this->host,
             'protocol' => $this->protocol,
-        );
+        ];
         if (!empty($this->appicon)) {
             $options['AppIcon'] = $this->appicon;
         }
@@ -470,7 +468,7 @@ class GrowlNotifyTask extends Task
                 Project::MSG_VERBOSE
             );
 
-            $logRequest = array(
+            $logRequest = [
                 'Application-Name' => $this->name,
                 'Application-Icon' => $this->appicon,
                 'Notification-Name' => $this->notification,
@@ -479,17 +477,16 @@ class GrowlNotifyTask extends Task
                 'Notification-Priority' => $this->priority,
                 'Notification-Icon' => $this->icon,
                 'Notification-Sticky' => $this->sticky,
-            );
+            ];
             foreach ($logRequest as $key => $value) {
                 $this->log($key . ': ' . $value, Project::MSG_DEBUG);
-
             }
 
-            $options = array(
+            $options = [
                 'sticky' => $this->sticky,
                 'priority' => $this->priority,
                 'icon' => $this->icon,
-            );
+            ];
             $response = $growl->publish(
                 $this->notification,
                 $this->title,
@@ -506,12 +503,10 @@ class GrowlNotifyTask extends Task
                 }
             }
             $this->log('Notification was sent to remote host ' . $this->host);
-
         } catch (Net_Growl_Exception $e) {
             throw new BuildException(
                 'Growl Exception : ' . $e->getMessage()
             );
         }
     }
-
 }

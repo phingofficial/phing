@@ -17,13 +17,15 @@
  * <http://phing.info>.
  */
 
+use Symfony\Component\Console\Output\ConsoleOutput;
+
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/util/FileUtils.php';
 include_once 'phing/TaskAdapter.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
-include_once 'phing/input/DefaultInputHandler.php';
 include_once 'phing/types/PropertyValue.php';
+include_once 'phing/ComponentHelper.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -46,15 +48,18 @@ class Project
     const MSG_WARN = 1;
     const MSG_ERR = 0;
 
-    /** contains the targets */
-    private $targets = array();
+    /**
+     * contains the targets
+     * @var Target[]
+     */
+    private $targets = [];
     /** global filterset (future use) */
-    private $globalFilterSet = array();
+    private $globalFilterSet = [];
     /**  all globals filters (future use) */
-    private $globalFilters = array();
+    private $globalFilters = [];
 
     /** Project properties map (usually String to String). */
-    private $properties = array();
+    private $properties = [];
 
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -62,7 +67,7 @@ class Project
      * project properties, so only the project properties need to be queried.
      * Mapping is String to String.
      */
-    private $userProperties = array();
+    private $userProperties = [];
 
     /**
      * Map of inherited "user" properties - that are those "user"
@@ -70,18 +75,15 @@ class Project
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties = array();
-
-    /** task definitions for this project*/
-    private $taskdefs = array();
-
-    /** type definitions for this project */
-    private $typedefs = array();
+    private $inheritedProperties = [];
 
     /** holds ref names and a reference to the referred object*/
-    private $references = array();
+    private $references = [];
 
-    /** The InputHandler being used by this project. */
+    /**
+     * The InputHandler being used by this project.
+     * @var InputHandler
+     */
     private $inputHandler;
 
     /* -- properties that come in via xml attributes -- */
@@ -101,11 +103,14 @@ class Project
     /** require phing version */
     private $phingVersion;
 
+    /** project strict mode */
+    private $strictMode = false;
+
     /** a FileUtils object */
     private $fileUtils;
 
     /**  Build listeneers */
-    private $listeners = array();
+    private $listeners = [];
 
     /**
      * Keep going flag.
@@ -113,19 +118,23 @@ class Project
     private $keepGoingMode = false;
 
     /**
+     * @var string[]
+     */
+    private $executedTargetNames = [];
+
+    /**
      *  Constructor, sets any default vars.
      */
     public function __construct()
     {
         $this->fileUtils = new FileUtils();
-        $this->inputHandler = new DefaultInputHandler();
     }
-
+    
     /**
      * Sets the input handler
      * @param InputHandler $handler
      */
-    public function setInputHandler(InputHandler $handler)
+    public function setInputHandler($handler)
     {
         $this->inputHandler = $handler;
     }
@@ -145,46 +154,9 @@ class Project
         // set builtin properties
         $this->setSystemProperties();
 
-        // load default tasks
-        $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
+        $componentHelper = ComponentHelper::getComponentHelper($this);
 
-        try { // try to load taskdefs
-            $props = new Properties();
-            $in = new PhingFile((string) $taskdefs);
-
-            if ($in === null) {
-                throw new BuildException("Can't load default task list");
-            }
-            $props->load($in);
-
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
-                $this->addTaskDefinition($key, $value);
-            }
-        } catch (IOException $ioe) {
-            throw new BuildException("Can't load default task list");
-        }
-
-        // load default tasks
-        $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
-
-        try { // try to load typedefs
-            $props = new Properties();
-            $in = new PhingFile((string) $typedefs);
-            if ($in === null) {
-                throw new BuildException("Can't load default datatype list");
-            }
-            $props->load($in);
-
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
-                $this->addDataTypeDefinition($key, $value);
-            }
-        } catch (IOException $ioe) {
-            throw new BuildException("Can't load default datatype list");
-        }
+        $componentHelper->initDefaultDefinitions();
     }
 
     /** returns the global filterset (future use) */
@@ -516,6 +488,31 @@ class Project
     }
 
     /**
+     * Sets the strict-mode (status) for the current project
+     * (If strict mode is On, all the warnings would be converted to an error
+     * (and the build will be stopped/aborted)
+     *
+     * @param    string $mode Strict-mode information
+     * @return   void
+     * @access   public
+     * @author   Utsav Handa, handautsav@hotmail.com
+     */
+    public function setStrictMode($strictmode)
+    {
+        $this->strictMode = (bool) $strictmode;
+        $this->setProperty("phing.project.strictmode", $this->strictMode);
+    }
+
+    /**
+     * Get the strict-mode status for the project
+     * @return boolean
+     */
+    public function getStrictmode()
+    {
+        return $this->strictMode;
+    }
+
+    /**
      * Set basedir object from xm
      * @param PhingFile|string $dir
      * @throws BuildException
@@ -527,7 +524,7 @@ class Project
         }
 
         $dir = $this->fileUtils->normalize($dir);
-        $dir = FileSystem::getFilesystem()->canonicalize($dir);
+        $dir = FileSystem::getFileSystem()->canonicalize($dir);
 
         $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {
@@ -572,7 +569,7 @@ class Project
      * on failed target(s) will be executed.  If the keepGoing settor/getter
      * methods are used in conjunction with the <code>ant.executor.class</code>
      * property, they will have no effect.
-     * @param keepGoingMode &quot;keep-going&quot; mode
+     * @param bool $keepGoingMode &quot;keep-going&quot; mode
      */
     public function setKeepGoingMode($keepGoingMode)
     {
@@ -612,8 +609,6 @@ class Project
             }
             $this->setPropertyInternal('env.' . $name, $value);
         }
-
-        return true;
     }
 
     /**
@@ -624,15 +619,7 @@ class Project
      */
     public function addTaskDefinition($name, $class, $classpath = null)
     {
-        if ($class === "") {
-            $this->log("Task $name has no class defined.", Project::MSG_ERR);
-        } elseif (!isset($this->taskdefs[$name])) {
-            Phing::import($class, $classpath);
-            $this->taskdefs[$name] = $class;
-            $this->log("  +Task definition: $name ($class)", Project::MSG_DEBUG);
-        } else {
-            $this->log("Task $name ($class) already registered, skipping", Project::MSG_VERBOSE);
-        }
+        ComponentHelper::getComponentHelper($this)->addTaskDefinition($name, $class, $classpath);
     }
 
     /**
@@ -641,7 +628,7 @@ class Project
      */
     public function getTaskDefinitions()
     {
-        return $this->taskdefs;
+        return ComponentHelper::getComponentHelper($this)->getTaskDefinitions();
     }
 
     /**
@@ -652,13 +639,7 @@ class Project
      */
     public function addDataTypeDefinition($typeName, $typeClass, $classpath = null)
     {
-        if (!isset($this->typedefs[$typeName])) {
-            Phing::import($typeClass, $classpath);
-            $this->typedefs[$typeName] = $typeClass;
-            $this->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
-        } else {
-            $this->log("Type $typeName ($typeClass) already registered, skipping", Project::MSG_VERBOSE);
-        }
+        ComponentHelper::getComponentHelper($this)->addDataTypeDefinition($typeName, $typeClass, $classpath);
     }
 
     /**
@@ -667,7 +648,7 @@ class Project
      */
     public function getDataTypeDefinitions()
     {
-        return $this->typedefs;
+        return ComponentHelper::getComponentHelper($this)->getDataTypeDefinitions();
     }
 
     /**
@@ -695,14 +676,14 @@ class Project
         $target->setProject($this);
         $this->targets[$targetName] = $target;
 
-        $ctx = $this->getReference("phing.parsing.context");
+        $ctx = $this->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
         $current = $ctx->getCurrentTargets();
         $current[$targetName] = $target;
     }
 
     /**
      * Returns the available targets
-     * @return array
+     * @return Target[]
      */
     public function getTargets()
     {
@@ -710,65 +691,23 @@ class Project
     }
 
     /**
-     * Create a new task instance and return reference to it. This method is
-     * sorta factory like. A _local_ instance is created and a reference returned to
-     * that instance. Usually PHP destroys local variables when the function call
-     * ends. But not if you return a reference to that variable.
-     * This is kinda error prone, because if no reference exists to the variable
-     * it is destroyed just like leaving the local scope with primitive vars. There's no
-     * central place where the instance is stored as in other OOP like languages.
-     *
-     * [HL] Well, ZE2 is here now, and this is  still working. We'll leave this alone
-     * unless there's any good reason not to.
+     * @return string[]
+     */
+    public function getExecutedTargetNames()
+    {
+        return $this->executedTargetNames;
+    }
+
+    /**
+     * Create a new task instance and return reference to it.
      *
      * @param  string         $taskType Task name
      * @return Task           A task object
      * @throws BuildException
-     *                                 Exception
      */
     public function createTask($taskType)
     {
-        try {
-            $classname = "";
-            $tasklwr = strtolower($taskType);
-            foreach ($this->taskdefs as $name => $class) {
-                if (strtolower($name) === $tasklwr) {
-                    $classname = $class;
-                    break;
-                }
-            }
-
-            if ($classname === "") {
-                return null;
-            }
-
-            $cls = Phing::import($classname);
-
-            if (!class_exists($cls)) {
-                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
-            }
-
-            $o = new $cls();
-
-            if ($o instanceof Task) {
-                $task = $o;
-            } else {
-                $this->log("  (Using TaskAdapter for: $taskType)", Project::MSG_DEBUG);
-                // not a real task, try adapter
-                $taskA = new TaskAdapter();
-                $taskA->setProxy($o);
-                $task = $taskA;
-            }
-            $task->setProject($this);
-            $task->setTaskType($taskType);
-            // set default value, can be changed by the user
-            $task->setTaskName($taskType);
-            $this->log("  +Task: " . $taskType, Project::MSG_DEBUG);
-        } catch (Exception $t) {
-            throw new BuildException("Could not create task of type: " . $taskType, $t);
-        }
-        // everything fine return reference
-        return $task;
+        return ComponentHelper::getComponentHelper($this)->createTask($taskType);
     }
 
     /**
@@ -780,35 +719,7 @@ class Project
      */
     public function createCondition($conditionType)
     {
-        try {
-            $classname = "";
-            $tasklwr = strtolower($conditionType);
-            foreach ($this->typedefs as $name => $class) {
-                if (strtolower($name) === $tasklwr) {
-                    $classname = $class;
-                    break;
-                }
-            }
-
-            if ($classname === "") {
-                return null;
-            }
-
-            $cls = Phing::import($classname);
-
-            if (!class_exists($cls)) {
-                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
-            }
-
-            $o = new $cls();
-            if ($o instanceof Condition) {
-                return $o;
-            } else {
-                throw new BuildException("Not actually a condition");
-            }
-        } catch (Exception $e) {
-            throw new BuildException("Could not create condition of type: " . $conditionType, $e);
-        }
+        return ComponentHelper::getComponentHelper($this)->createCondition($conditionType);
     }
 
     /**
@@ -822,37 +733,7 @@ class Project
      */
     public function createDataType($typeName)
     {
-        try {
-            $cls = "";
-            $typelwr = strtolower($typeName);
-            foreach ($this->typedefs as $name => $class) {
-                if (strtolower($name) === $typelwr) {
-                    $cls = StringHelper::unqualify($class);
-                    break;
-                }
-            }
-
-            if ($cls === "") {
-                return null;
-            }
-
-            if (!class_exists($cls)) {
-                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
-            }
-
-            $type = new $cls();
-            $this->log("  +Type: $typeName", Project::MSG_DEBUG);
-            if (!($type instanceof DataType)) {
-                throw new Exception("$class is not an instance of phing.types.DataType");
-            }
-            if ($type instanceof ProjectComponent) {
-                $type->setProject($this);
-            }
-        } catch (Exception $t) {
-            throw new BuildException("Could not create type: $typeName", $t);
-        }
-        // everything fine return reference
-        return $type;
+        return ComponentHelper::getComponentHelper($this)->createDataType($typeName);
     }
 
     /**
@@ -864,6 +745,8 @@ class Project
      */
     public function executeTargets($targetNames)
     {
+        $this->executedTargetNames = $targetNames;
+
         foreach ($targetNames as $tname) {
             $this->executeTarget($tname);
         }
@@ -886,7 +769,7 @@ class Project
 
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
-        $sortedTargets = $this->_topoSort($targetName, $this->targets);
+        $sortedTargets = $this->topoSort($targetName);
 
         $curIndex = (int) 0;
         $curTarget = null;
@@ -949,22 +832,19 @@ class Project
 
     /**
      * Topologically sort a set of Targets.
-     * @param  string $root is the (String) name of the root Target. The sort is
+     * @param  string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @param  array $targets is a array representing a "name to Target" mapping
      * @throws BuildException
      * @throws Exception
-     * @return array of Strings with the names of the targets in
-     *               sorted order.
+     * @return Target[] targets in sorted order
      */
-    public function _topoSort($root, &$targets)
+    public function topoSort($rootTarget)
     {
-
-        $root = (string) $root;
-        $ret = array();
-        $state = array();
-        $visiting = array();
+        $rootTarget = (string) $rootTarget;
+        $ret = [];
+        $state = [];
+        $visiting = [];
 
         // We first run a DFS based sort using the root as the starting node.
         // This creates the minimum sequence of Targets to the root node.
@@ -974,15 +854,15 @@ class Project
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($root, $targets, $state, $visiting, $ret);
+        $this->_tsort($rootTarget, $state, $visiting, $ret);
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
             $retHuman .= $ret[$i]->toString() . " ";
         }
-        $this->log("Build sequence for target '$root' is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
-        $keys = array_keys($targets);
+        $keys = array_keys($this->targets);
         while ($keys) {
             $curTargetName = (string) array_shift($keys);
             if (!isset($state[$curTargetName])) {
@@ -992,7 +872,7 @@ class Project
             }
 
             if ($st === null) {
-                $this->_tsort($curTargetName, $targets, $state, $visiting, $ret);
+                $this->_tsort($curTargetName, $state, $visiting, $ret);
             } elseif ($st === "VISITING") {
                 throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
@@ -1026,22 +906,21 @@ class Project
 
     /**
      * @param $root
-     * @param $targets
      * @param $state
      * @param $visiting
      * @param $ret
      * @throws BuildException
      * @throws Exception
      */
-    public function _tsort($root, &$targets, &$state, &$visiting, &$ret)
+    public function _tsort($root, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
         $visiting[] = $root;
 
-        if (!isset($targets[$root]) || !($targets[$root] instanceof Target)) {
+        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $target = null;
         } else {
-            $target = $targets[$root];
+            $target = $this->targets[$root];
         }
 
         // make sure we exist
@@ -1066,7 +945,7 @@ class Project
             }
             if ($m === null) {
                 // not been visited
-                $this->_tsort($cur, $targets, $state, $visiting, $ret);
+                $this->_tsort($cur, $state, $visiting, $ret);
             } elseif ($m == "VISITING") {
                 // currently visiting this node, so have a cycle
                 throw $this->_makeCircularException($cur, $visiting);
@@ -1155,6 +1034,12 @@ class Project
     public function logObject($obj, $msg, $level)
     {
         $this->fireMessageLogged($obj, $msg, $level);
+
+        // Checking whether the strict-mode is On, then consider all the warnings
+        // as errors.
+        if (($this->strictMode) && (Project::MSG_WARN == $level)) {
+            throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
+        }
     }
 
     /**
@@ -1170,7 +1055,7 @@ class Project
      */
     public function removeBuildListener(BuildListener $listener)
     {
-        $newarray = array();
+        $newarray = [];
         for ($i = 0, $size = count($this->listeners); $i < $size; $i++) {
             if ($this->listeners[$i] !== $listener) {
                 $newarray[] = $this->listeners[$i];

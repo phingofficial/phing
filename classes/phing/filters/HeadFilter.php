@@ -69,7 +69,6 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -79,7 +78,6 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
         // $this->_lines this code will not work.
 
         if ($this->_linesRead < $this->_lines) {
-
             $buffer = $this->in->read($len);
 
             if ($buffer === -1) {
@@ -99,7 +97,6 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
             $this->_linesRead += $len;
 
             return $filtered_buffer;
-
         }
 
         return -1; // EOF, since the file is "finished" as far as subsequent filters are concerned.

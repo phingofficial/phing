@@ -39,7 +39,7 @@ class IoncubeLicenseTask extends Task
     private $allowedServer = "";
     private $expireOn = "";
     private $expireIn = "";
-    private $comments = array();
+    private $comments = [];
 
     /**
      * Sets the path to the ionCube encoder

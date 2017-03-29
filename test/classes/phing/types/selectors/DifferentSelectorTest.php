@@ -19,7 +19,7 @@ class DifferentSelectorTest extends BuildFileTest
 
     public function tearDown()
     {
-            $this->executeTarget('clean');
+        $this->executeTarget('clean');
     }
 
     public function testSameTime()

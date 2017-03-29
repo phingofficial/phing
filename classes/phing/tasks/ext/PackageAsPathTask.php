@@ -62,5 +62,4 @@ class PackageAsPathTask extends Task
     {
         $this->name = $name;
     }
-
 }

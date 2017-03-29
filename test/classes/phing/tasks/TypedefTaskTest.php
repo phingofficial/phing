@@ -29,7 +29,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class TypedefTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/typedef.xml");
@@ -82,5 +81,4 @@ class TypedefTaskTest extends BuildFileTest
         $this->assertNotNull("ref is not null", $ref);
         $this->assertEquals("TypedefTestType", get_class($ref));
     }
-
 }

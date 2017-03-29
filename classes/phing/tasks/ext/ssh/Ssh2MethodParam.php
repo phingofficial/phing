@@ -158,14 +158,14 @@ class Ssh2MethodParam extends DataType
         $client_to_server = $this->getClientToServer($p);
         $server_to_client = $this->getServerToClient($p);
 
-        $array = array(
+        $array = [
             'kex' => $this->getKex($p),
             'hostkey' => $this->getHostkey($p),
             'client_to_server' => !is_null($client_to_server) ? $client_to_server->toArray() : null,
             'server_to_client' => !is_null($server_to_client) ? $server_to_client->toArray() : null
-        );
+        ];
 
-        return array_filter($array, array($this, '_filterParam'));
+        return array_filter($array, [$this, '_filterParam']);
     }
 
     /**
@@ -189,17 +189,7 @@ class Ssh2MethodParam extends DataType
      */
     public function getRef(Project $p)
     {
-        if (!$this->checked) {
-            $stk = array();
-            array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
-        }
-        $o = $this->ref->getReferencedObject($p);
-        if (!($o instanceof Ssh2MethodParam)) {
-            throw new BuildException($this->ref->getRefId() . " doesn't denote a Ssh2MethodParam");
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
+        return $this->getCheckedRef(get_class(), $dataTypeName);
     }
-
 }

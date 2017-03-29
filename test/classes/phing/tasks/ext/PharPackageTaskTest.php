@@ -29,7 +29,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class PharPackageTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         if (defined('HHVM_VERSION')) {
@@ -41,7 +40,6 @@ class PharPackageTaskTest extends BuildFileTest
 
     /**
      * @requires extension openssl
-     * @requires PHP 5.3.10
      */
     public function testOpenSSLSignature()
     {
@@ -65,7 +63,6 @@ class PharPackageTaskTest extends BuildFileTest
         $phar = new Phar($dest);
         $signature = $phar->getSignature();
         $this->assertEquals('OpenSSL', $signature['hash_type']);
-
     }
 
     public function tearDown()

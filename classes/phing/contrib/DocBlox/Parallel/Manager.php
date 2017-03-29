@@ -41,7 +41,7 @@ class DocBlox_Parallel_Manager extends ArrayObject
      * @param string $iterator_class Iterator class for this array object.
      */
     public function __construct(
-        $input = array(),
+        $input = [],
         $flags = 0,
         $iterator_class = "ArrayIterator"
     ) {
@@ -213,7 +213,7 @@ class DocBlox_Parallel_Manager extends ArrayObject
             );
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -234,7 +234,9 @@ class DocBlox_Parallel_Manager extends ArrayObject
 
         /** @var DocBlox_Parallel_Worker $worker */
         foreach ($this as $worker) {
-            $worker->pipe->push();
+            if (isset($worker->pipe)) {
+                $worker->pipe->push();
+            }
         }
 
         $this->is_running = false;

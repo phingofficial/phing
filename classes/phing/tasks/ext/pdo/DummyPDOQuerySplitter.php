@@ -68,7 +68,6 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             if (StringHelper::endsWith($delimiter, $line)) {
                 break;
             }
-
         }
 
         return $sql;

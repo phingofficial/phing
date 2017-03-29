@@ -36,7 +36,6 @@ class Character
      */
     public static function isLetter($char)
     {
-
         if (strlen($char) !== 1) {
             $char = 0;
         }
@@ -53,5 +52,4 @@ class Character
 
         return false;
     }
-
 }

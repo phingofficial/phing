@@ -38,8 +38,7 @@ class NotifySendTask extends Task
      */
     public function setIcon($icon)
     {
-        switch ($icon)
-        {
+        switch ($icon) {
         case 'info':
         case 'error':
         case 'warning':

@@ -34,12 +34,12 @@ class PHPLocTask extends Task
     /**
      * @var array
      */
-    protected $suffixesToCheck = array('php');
+    protected $suffixesToCheck = ['php'];
 
     /**
      * @var array
      */
-    protected $acceptedReportTypes = array('cli', 'txt', 'xml', 'csv');
+    protected $acceptedReportTypes = ['cli', 'txt', 'xml', 'csv'];
 
     /**
      * @var null
@@ -69,17 +69,17 @@ class PHPLocTask extends Task
     /**
      * @var array
      */
-    protected $filesToCheck = array();
+    protected $filesToCheck = [];
 
     /**
      * @var FileSet[]
      */
-    protected $fileSets = array();
+    protected $fileSets = [];
 
     /**
      * @var PHPLocFormatterElement[]
      */
-    protected $formatterElements = array();
+    protected $formatterElements = [];
 
     /**
      * @var string
@@ -316,14 +316,14 @@ class Application
      */
     protected function getFilesToCheck()
     {
-        $files = array();
+        $files = [];
 
         if (count($this->filesToCheck) > 0) {
             foreach ($this->filesToCheck as $file) {
                 $files[] = new SplFileInfo($file);
             }
         } elseif ($this->fileToCheck !== null) {
-            $files = array(new SplFileInfo($this->fileToCheck));
+            $files = [new SplFileInfo($this->fileToCheck)];
         }
 
         return $files;

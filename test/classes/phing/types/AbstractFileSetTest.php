@@ -30,9 +30,8 @@ include_once 'phing/types/FileSet.php';
  * @version $Id$
  * @package phing.types
  */
-abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
+abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 {
-
     private $project;
 
     public function setUp()
@@ -53,7 +52,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $f = $this->getInstance();
         $f->setIncludes("**/*.php");
         try {
-            $f->setRefid(new Reference("dummyref"));
+            $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
                 . $f->getDataTypeName()
@@ -70,7 +69,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $f = $this->getInstance();
         $f->createPatternSet();
         try {
-            $f->setRefid(new Reference("dummyref"));
+            $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
                 . $f->getDataTypeName()
@@ -87,7 +86,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $f = $this->getInstance();
         $f->createInclude();
         try {
-            $f->setRefid(new Reference("dummyref"));
+            $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
                 . $f->getDataTypeName()
@@ -102,7 +101,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         }
 
         $f = $this->getInstance();
-        $f->setRefid(new Reference("dummyref"));
+        $f->setRefid(new Reference($this->getProject(), "dummyref"));
         try {
             $f->setIncludes("**/*.java");
             $this->fail(
@@ -250,7 +249,5 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
                 $be->getMessage()
             );
         }
-
     }
-
 }

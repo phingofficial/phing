@@ -10,7 +10,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class FilesMatchTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

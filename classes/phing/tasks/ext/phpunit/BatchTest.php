@@ -36,7 +36,7 @@ class BatchTest
      *
      * @var array $filesets
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /** the reference to the project */
     private $project = null;
@@ -45,7 +45,7 @@ class BatchTest
     private $classpath = null;
 
     /** names of classes to exclude */
-    private $excludeClasses = array();
+    private $excludeClasses = [];
 
     /** name of the batchtest/suite */
     protected $name = "Phing Batchtest";
@@ -53,7 +53,7 @@ class BatchTest
     /**
      * Create a new batchtest instance
      *
-     * @param Project the project it depends on.
+     * @param Project $project the project it depends on.
      */
     public function __construct(Project $project)
     {
@@ -138,7 +138,7 @@ class BatchTest
      */
     private function getFilenames()
     {
-        $filenames = array();
+        $filenames = [];
 
         foreach ($this->filesets as $fileset) {
             $ds = $fileset->getDirectoryScanner($this->project);
@@ -163,7 +163,7 @@ class BatchTest
      */
     private function isTestCase($input)
     {
-        return is_subclass_of($input, 'PHPUnit_Framework_TestCase') || is_subclass_of(
+        return is_subclass_of($input, '\PHPUnit\Framework\TestCase') || is_subclass_of(
             $input,
             'PHPUnit_Framework_TestSuite'
         );
@@ -194,7 +194,7 @@ class BatchTest
     {
         $filenames = $this->getFilenames();
 
-        $declaredClasses = array();
+        $declaredClasses = [];
 
         foreach ($filenames as $filename) {
             $definedClasses = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
@@ -206,7 +206,7 @@ class BatchTest
             $declaredClasses = array_merge($declaredClasses, $definedClasses);
         }
 
-        $elements = array_filter($declaredClasses, array($this, "filterTests"));
+        $elements = array_filter($declaredClasses, [$this, "filterTests"]);
 
         return $elements;
     }

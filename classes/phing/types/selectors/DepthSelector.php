@@ -148,7 +148,6 @@ class DepthSelector extends BaseExtendSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $depth = -1;

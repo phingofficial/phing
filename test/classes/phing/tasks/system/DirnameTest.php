@@ -10,7 +10,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class DirnameTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
