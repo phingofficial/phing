@@ -20,6 +20,14 @@
         </echo>
     </target>
 
+    <target name="testDirset">
+        <echo>
+            <dirset dir="./../">
+                <include name="**"/>
+            </dirset>
+        </echo>
+    </target>
+
     <target name="testFilesetMsg">
         <echo msg="foo">
             <fileset dir="./">

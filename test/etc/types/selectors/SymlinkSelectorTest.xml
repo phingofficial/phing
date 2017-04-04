@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" basedir="." default="main">
-    <resolvepath propertyName="output" path="${php.tmpdir}" />
+    <resolvepath propertyName="output" path="${php.tmpdir}/symlinkselectortest" />
     <property name="file" value="testfile"/>
     <property name="link" value="testlink"/>
 

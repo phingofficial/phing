@@ -81,6 +81,15 @@ class CopyTaskTest extends BuildFileTest
     }
 
     /**
+     * - CopyTask should accept dirset subelement
+     */
+    public function testCopyDirSet()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Copying 2 files to");
+    }
+
+    /**
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
      * - Error overwriting symlinks on copy or move
      */

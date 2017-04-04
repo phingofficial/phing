@@ -1945,6 +1945,28 @@ verbose="true" failonerror="false" /></programlisting>
                 </thead>
                 <tbody>
                     <row>
+                        <entry><literal>inheritall</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>true</literal>, pass all properties to the called target.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>inheritrefs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>true</literal>, pass all references to the the called target.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>trim</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>true</literal>, any leading or trailing whitespace will be removed from
+                            the list item before it is passed to the requested target.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>list</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The list of values to process, with the delimiter character,
@@ -2003,6 +2025,12 @@ verbose="true" failonerror="false" /></programlisting>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="Path">path</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="DirSet">dirset</link></literal></para>
+                </listitem>
                 <listitem>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
@@ -2754,25 +2782,23 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
-                    <!-- Not used yet. TODO: Document if it is
-    <row>
-<entry><literal>inheritAll</literal></entry>
-      <entry><literal role="type">Boolean</literal></entry>
-      <entry>
-        If true, all
-      </entry>
-      <entry><literal>true</literal></entry>
-      <entry>No</entry>
-    </row>
-    <row>
-<entry><literal>inheritRefs</literal></entry>
-      <entry><literal role="type">Boolean</literal></entry>
-      <entry>
-      </entry>
-      <entry><literal>false</literal></entry>
-      <entry>No</entry>
-    </row>
-    -->
+                    <row>
+                        <entry><literal>inheritAll</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>
+                          If true, all
+                        </entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>inheritRefs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>
+                        </entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -3046,6 +3072,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Whether to log returned output as MSG_INFO instead of
                             MSG_VERBOSE.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to display a warning if the property file does not exist.</entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>

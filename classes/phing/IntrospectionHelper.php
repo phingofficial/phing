@@ -325,7 +325,7 @@ class IntrospectionHelper
             $method = $this->attributeSetters[$as];
 
             if ($as == "setrefid") {
-                $value = new Reference($value);
+                $value = new Reference($project, $value);
             } else {
                 // value is a string representation of a boolean type,
                 // convert it to primitive
@@ -353,7 +353,7 @@ class IntrospectionHelper
                             $value = new Path($project, $value);
                             break;
                         case "reference":
-                            $value = new Reference($value);
+                            $value = new Reference($project, $value);
                             break;
                         // any other object params we want to support should go here ...
                     }
@@ -447,7 +447,7 @@ class IntrospectionHelper
 
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);
-                if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() === 1) {
+                if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() >= 1) {
                     $nestedElement = new $classname(Phing::getCurrentProject());
                 } else {
                     $nestedElement = new $classname();
