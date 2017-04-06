@@ -3373,6 +3373,9 @@
                     <attribute name="haltOnError"/>
                     <attribute name="source"/>
                 </optional>
+                <optional>
+                    <attribute name="verbose"/>
+                </optional>
                 <zeroOrMore>
                     <ref name="remove"/>
                 </zeroOrMore>
