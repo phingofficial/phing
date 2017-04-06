@@ -40,19 +40,6 @@ class DirSet extends AbstractFileSet
     }
 
     /**
-     * Return a DirSet that has the same basedir and same patternsets
-     * as this one.
-     */
-    public function __clone()
-    {
-        if ($this->isReference()) {
-            return new DirSet($this->getRef($this->getProject()));
-        } else {
-            return new DirSet($this);
-        }
-    }
-
-    /**
      * @return array
      */
     public function getIterator()
