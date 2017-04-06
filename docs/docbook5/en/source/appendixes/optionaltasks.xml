@@ -10156,6 +10156,130 @@ description="Measures the size of the project and counts the tests">
                 </listitem>
             </itemizedlist>
         </sect2>
+        <sect1 role="taskdef" xml:id="PropertySelector">
+            <title>PropertySelector</title>
+            <para> Selects property names that match a given regular expression and returns them in a delimited list
+            </para>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>property</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the property to set.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>override</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>If the property is already set, should we change it's value. Can be <literal>true</literal> or <literal>false</literal></entry>
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>match</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The regular expression which is used to select property names for inclusion in the list.
+                                This follows the standard regular expression syntax accepted by phing's regular expression tasks.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>select</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>A pattern which indicates what selection pattern you want in the returned list.
+                                This used the substitution pattern syntax to indicate where to insert groupings created
+                                as a result of the regular expression match.</entry>
+                            <entry>\0</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>casesensitive</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>Should the match be case sensitive.</entry>
+                            <entry>true</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>replace</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>A regular expression substitition pattern, which will be used to replace the given
+                                regular expression in the subject.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes (unless a match is specified)</entry>
+                        </row>
+                        <row>
+                            <entry><literal>casesensitive</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>Should the match be case sensitive</entry>
+                            <entry>true</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>delimiter</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The delimiter used to seperate entries in the resulting property</entry>
+                            <entry>,</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>distinct</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>Should the returned entries be a distinct set (no duplicate entries).</entry>
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <sect2>
+                <title>Select expressions</title>
+                <para>Expressions are matched in a the same syntax as a regular expression substitution pattern.</para>
+                <itemizedlist>
+                    <listitem>
+                        <para>$0 indicates the entire property name (default).</para>
+                    </listitem>
+                    <listitem>
+                        <para>$1 indicates the first grouping</para>
+                    </listitem>
+                    <listitem>
+                        <para>$2 indicates the second grouping</para>
+                    </listitem>
+                    <listitem>
+                        <para>etc...</para>
+                    </listitem>
+                </itemizedlist>
+            </sect2>
+            <sect2>
+                <title>Example</title>
+                <programlisting language="xml">&lt;property name="package.ABC.name" value="abc pack name" />
+                    &lt;property name="package.DEF.name" value="def pack name" />
+                    &lt;property name="package.GHI.name" value="ghi pack name" />
+                    &lt;property name="package.JKL.name" value="jkl pack name" />
+
+                    &lt;propertyselector property="pack.list"
+                                      delimiter=","
+                                      match="package\.([^\.]*)\.name"
+                                      select="\1"
+                                      casesensitive="false" /></programlisting>
+            </sect2>
+        </sect1>
     </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
         <title>rSTTask</title>
