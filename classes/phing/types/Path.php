@@ -453,19 +453,6 @@ class Path extends DataType
     }
 
     /**
-     * Return a Path that holds the same elements as this instance.
-     *
-     * @return Path
-     */
-    public function __clone()
-    {
-        $p = new Path($this->project);
-        $p->append($this);
-
-        return $p;
-    }
-
-    /**
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *

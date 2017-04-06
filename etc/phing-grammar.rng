@@ -164,7 +164,9 @@
                 <ref name="phpmd"/>
                 <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
+                <ref name="propertycopy"/>
                 <ref name="propertyregex"/>
+                <ref name="propertyselector"/>
                 <ref name="replaceregexp_task"/>
                 <ref name="rst"/>
                 <ref name="s3put"/>
@@ -4841,6 +4843,25 @@
         </element>
     </define>
 
+    <define name="propertycopy">
+        <element name="propertycopy">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <attribute name="from"/>
+                <optional>
+                    <attribute name="silent" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="propertyregex">
         <element name="propertyregex">
             <interleave>
@@ -4863,6 +4884,30 @@
                     </attribute>
                     <attribute name="defaultValue">
                         <data type="integer"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="propertyselector">
+        <element name="propertyselector">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <attribute name="match"/>
+                <optional>
+                    <attribute name="select"/>
+                    <attribute name="casesensitive">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="delimiter"/>
+                    <attribute name="distinct">
+                        <data type="boolean"/>
                     </attribute>
                 </optional>
             </interleave>
