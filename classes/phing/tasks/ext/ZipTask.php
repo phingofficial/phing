@@ -72,10 +72,10 @@ class ZipTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $fileset = new ZipFileSet();
-        $this->filesets[] = $fileset;
+        $this->fileset = new ZipFileSet();
+        $this->filesets[] = $this->fileset;
 
-        return $fileset;
+        return $this->fileset;
     }
 
     /**
