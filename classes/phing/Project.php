@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/util/FileUtils.php';
@@ -183,16 +182,16 @@ class Project
 
         // command line properties take precedence
         if (isset($this->userProperties[$name])) {
-            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
+            $this->log('Override ignored for user property ' . $name, Project::MSG_VERBOSE);
 
             return;
         }
 
         if (isset($this->properties[$name])) {
-            $this->log("Overriding previous definition of property " . $name, Project::MSG_VERBOSE);
+            $this->log('Overriding previous definition of property ' . $name, Project::MSG_VERBOSE);
         }
 
-        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log('Setting project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
     }
@@ -211,11 +210,11 @@ class Project
     public function setNewProperty($name, $value)
     {
         if (isset($this->properties[$name])) {
-            $this->log("Override ignored for property " . $name, Project::MSG_DEBUG);
+            $this->log('Override ignored for property ' . $name, Project::MSG_DEBUG);
 
             return;
         }
-        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log('Setting project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
     }
@@ -231,7 +230,7 @@ class Project
      */
     public function setUserProperty($name, $value)
     {
-        $this->log("Setting user project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log('Setting user project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
         $this->userProperties[$name] = $value;
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
@@ -266,7 +265,7 @@ class Project
     private function setPropertyInternal($name, $value)
     {
         if (isset($this->userProperties[$name])) {
-            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
+            $this->log('Override ignored for user property ' . $name, Project::MSG_VERBOSE);
 
             return;
         }
@@ -432,7 +431,7 @@ class Project
     public function setName($name)
     {
         $this->name = (string) trim($name);
-        $this->setProperty("phing.project.name", $this->name);
+        $this->setProperty('phing.project.name', $this->name);
     }
 
     /**
@@ -492,15 +491,14 @@ class Project
      * (If strict mode is On, all the warnings would be converted to an error
      * (and the build will be stopped/aborted)
      *
-     * @param    string $mode Strict-mode information
-     * @return   void
-     * @access   public
+     * @param string $strictmode Strict-mode information
+     *
      * @author   Utsav Handa, handautsav@hotmail.com
      */
     public function setStrictMode($strictmode)
     {
         $this->strictMode = (bool) $strictmode;
-        $this->setProperty("phing.project.strictmode", $this->strictMode);
+        $this->setProperty('phing.project.strictmode', $this->strictMode);
     }
 
     /**
@@ -528,14 +526,14 @@ class Project
 
         $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {
-            throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
+            throw new BuildException('Basedir ' . $dir->getAbsolutePath() . ' does not exist');
         }
         if (!$dir->isDirectory()) {
-            throw new BuildException("Basedir " . $dir->getAbsolutePath() . " is not a directory");
+            throw new BuildException('Basedir ' . $dir->getAbsolutePath() . ' is not a directory');
         }
         $this->basedir = $dir;
-        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
-        $this->log("Project base dir set to: " . $this->basedir->getPath(), Project::MSG_VERBOSE);
+        $this->setPropertyInternal('project.basedir', $this->basedir->getAbsolutePath());
+        $this->log('Project base dir set to: ' . $this->basedir->getPath(), Project::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
         chdir($dir->getAbsolutePath());
@@ -554,9 +552,9 @@ class Project
     {
         if ($this->basedir === null) {
             try { // try to set it
-                $this->setBasedir(".");
+                $this->setBasedir(new PhingFile('.'));
             } catch (BuildException $exc) {
-                throw new BuildException("Can not set default basedir. " . $exc->getMessage());
+                throw new BuildException('Can not set default basedir. ' . $exc->getMessage());
             }
         }
 
@@ -596,7 +594,7 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
+        $systemP = array_merge($this->getProperties(), Phing::getProperties());
         foreach ($systemP as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }
@@ -764,7 +762,7 @@ class Project
 
         // complain about executing void
         if ($targetName === null) {
-            throw new BuildException("No target specified");
+            throw new BuildException('No target specified');
         }
 
         // invoke topological sort of the target tree and run all targets
@@ -780,7 +778,7 @@ class Project
                 $curTarget = $sortedTargets[$curIndex++];
                 $curTarget->performTasks();
             } catch (BuildException $exc) {
-                if (!($this->keepGoingMode)) {
+                if (!$this->keepGoingMode) {
                     throw $exc;
                 }
                 $thrownException = $exc;
@@ -856,9 +854,9 @@ class Project
 
         $this->_tsort($rootTarget, $state, $visiting, $ret);
 
-        $retHuman = "";
+        $retHuman = '';
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
+            $retHuman .= $ret[$i]->toString() . ' ';
         }
         $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
@@ -873,14 +871,14 @@ class Project
 
             if ($st === null) {
                 $this->_tsort($curTargetName, $state, $visiting, $ret);
-            } elseif ($st === "VISITING") {
+            } elseif ($st === 'VISITING') {
                 throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
         }
 
-        $retHuman = "";
+        $retHuman = '';
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
+            $retHuman .= $ret[$i]->toString() . ' ';
         }
         $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
 
@@ -914,7 +912,7 @@ class Project
      */
     public function _tsort($root, &$state, &$visiting, &$ret)
     {
-        $state[$root] = "VISITING";
+        $state[$root] = 'VISITING';
         $visiting[] = $root;
 
         if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
@@ -946,7 +944,7 @@ class Project
             if ($m === null) {
                 // not been visited
                 $this->_tsort($cur, $state, $visiting, $ret);
-            } elseif ($m == "VISITING") {
+            } elseif ($m == 'VISITING') {
                 // currently visiting this node, so have a cycle
                 throw $this->_makeCircularException($cur, $visiting);
             }
@@ -957,7 +955,7 @@ class Project
             throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
 
-        $state[$root] = "VISITED";
+        $state[$root] = 'VISITED';
         $ret[] = $target;
     }
 
@@ -971,7 +969,7 @@ class Project
         $sb = "Circular dependency: $end";
         do {
             $c = (string) array_pop($stk);
-            $sb .= " <- " . $c;
+            $sb .= ' <- ' . $c;
         } while ($c != $end);
 
         return new BuildException($sb);
@@ -1037,7 +1035,7 @@ class Project
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
-        if (($this->strictMode) && (Project::MSG_WARN == $level)) {
+        if ($this->strictMode && (Project::MSG_WARN == $level)) {
             throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
         }
     }
@@ -1093,6 +1091,38 @@ class Project
     }
 
     /**
+     * Send a &quot;subbuild started&quot; event to the build listeners for
+     * this project.
+     */
+    public function fireSubBuildStarted()
+    {
+        $event = new BuildEvent($this);
+        foreach ($this->listeners as $listener) {
+            if ($listener instanceof SubBuildListener) {
+                $listener->subBuildStarted($event);
+            }
+        }
+    }
+
+    /**
+     * Send a &quot;subbuild finished&quot; event to the build listeners for
+     * this project.
+     * @param Exception $exception an exception indicating a reason for a build
+     *                  failure. May be <code>null</code>, indicating
+     *                  a successful build.
+     */
+    public function fireSubBuildFinished($exception)
+    {
+        $event = new BuildEvent($this);
+        $event->setException($exception);
+        foreach ($this->listeners as $listener) {
+            if ($listener instanceof SubBuildListener) {
+                $listener->subBuildFinished($event);
+            }
+        }
+    }
+
+    /**
      * @param $target
      */
     public function fireTargetStarted($target)
@@ -1141,9 +1171,9 @@ class Project
     }
 
     /**
-     * @param $event
-     * @param $message
-     * @param $priority
+     * @param BuildEvent $event
+     * @param string $message
+     * @param integer $priority
      */
     public function fireMessageLoggedEvent($event, $message, $priority)
     {

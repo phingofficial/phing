@@ -144,7 +144,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $this->startTime = Phing::currentTimeMillis();
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
             $this->printMessage(
-                "Buildfile: " . $event->getProject()->getProperty("phing.file"),
+                'Buildfile: ' . $event->getProject()->getProperty('phing.file'),
                 $this->out,
                 Project::MSG_INFO
             );
@@ -167,7 +167,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             $msg = PHP_EOL . $this->getBuildFailedMessage() . PHP_EOL;
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: " . self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
+        $msg .= PHP_EOL . 'Total time: ' . self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
 
         if ($error === null) {
             $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
@@ -205,7 +205,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     protected function getBuildFailedMessage()
     {
-        return "BUILD FAILED";
+        return 'BUILD FAILED';
     }
 
     /**
@@ -214,7 +214,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     protected function getBuildSuccessfulMessage()
     {
-        return "BUILD FINISHED";
+        return 'BUILD FINISHED';
     }
 
     /**
@@ -228,7 +228,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
         if (Project::MSG_INFO <= $this->msgOutputLevel
             && $event->getTarget()->getName() != ''
         ) {
-            $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
+            $showLongTargets = $event->getProject()->getProperty('phing.showlongtargets');
             $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName(
                 ) . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
@@ -278,11 +278,11 @@ class DefaultLogger implements StreamRequiredBuildLogger
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $msg = "";
+            $msg = '';
             if ($event->getTask() !== null && !$this->emacsMode) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
-                $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
+                $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, ' ', STR_PAD_LEFT);
             }
 
             $msg .= $event->getMessage();
@@ -298,7 +298,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Formats a time micro integer to human readable format.
      *
-     * @param  integer The time stamp
+     * @param  integer $micros The time stamp
      * @return string
      */
     public static function formatTime($micros)
@@ -307,15 +307,15 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $minutes = (int)floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
-                "%1.0f minute%s %0.2f second%s",
+                '%1.0f minute%s %0.2f second%s',
                 $minutes,
-                ($minutes === 1 ? " " : "s "),
+                ($minutes === 1 ? ' ' : 's '),
                 $seconds - floor($seconds / 60) * 60,
-                ($seconds % 60 === 1 ? "" : "s")
+                ($seconds % 60 === 1 ? '' : 's')
             );
-        } else {
-            return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
         }
+
+        return sprintf('%0.4f second%s', $seconds, ($seconds % 60 === 1 ? '' : 's'));
     }
 
     /**
@@ -332,5 +332,25 @@ class DefaultLogger implements StreamRequiredBuildLogger
     protected function printMessage($message, OutputStream $stream, $priority)
     {
         $stream->write($message . PHP_EOL);
+    }
+
+    /**
+     * Get the current time.
+     * @return string the current time as a formatted string.
+     */
+    protected function getTimestamp()
+    {
+        return date('n/d/Y h:m a');
+    }
+
+    /**
+     * Get the project name or null
+     * @param BuildEvent $event the event
+     * @return string the project that raised this event
+     */
+    protected function extractProjectName(BuildEvent $event)
+    {
+        $project = $event->getProject();
+        return ($project != null) ? $project->getName() : null;
     }
 }

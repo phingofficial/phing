@@ -31,7 +31,7 @@ require_once 'phing/listener/DefaultLogger.php';
  */
 class NoBannerLogger extends DefaultLogger
 {
-    private $targetName = null;
+    private $targetName;
 
     /**
      * @param BuildEvent $event
@@ -40,6 +40,16 @@ class NoBannerLogger extends DefaultLogger
     {
         $target = $event->getTarget();
         $this->targetName = $target->getName();
+    }
+
+    /**
+     * Override point, extract the target name
+     * @param BuildEvent $event the event to work on
+     * @return string the target name to print
+     */
+    protected function extractTargetName(BuildEvent $event)
+    {
+        return $event->getTarget()->getName();
     }
 
     /**
@@ -56,7 +66,7 @@ class NoBannerLogger extends DefaultLogger
     public function messageLogged(BuildEvent $event)
     {
         if ($event->getPriority() > $this->msgOutputLevel || null === $event->getMessage() || trim(
-                $event->getMessage() === ""
+                $event->getMessage() === ''
             )
         ) {
             return;
