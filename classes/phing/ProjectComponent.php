@@ -54,7 +54,7 @@ abstract class ProjectComponent
      *
      * @return void
      */
-    public function setProject(Project $project)
+    public function setProject(Project $project = null)
     {
         $this->project = $project;
     }

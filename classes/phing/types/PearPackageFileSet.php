@@ -117,7 +117,7 @@ class PearPackageFileSet extends FileSet
             $this->loadPearPackageScanner($p);
         }
 
-        return new PhingFile((string) $this->pps->getBaseDir());
+        return new PhingFile((string) $this->pps->getBasedir());
     }
 
     /**
