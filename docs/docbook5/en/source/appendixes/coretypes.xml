@@ -7,6 +7,18 @@
     <para> This appendix contains a reference of the system <literal>data types</literal> contained
         in Phing.</para>
 
+    <sect1 role="typedef" xml:id="Description">
+        <title>Description</title>
+        <para>Allows for a description of the project to be specified that will be included
+            in the output of the <literal>phing ‑projecthelp</literal> command.</para>
+        <sect2>
+            <title>Usage Examples</title>
+            <programlisting language="xml">&lt;description>
+This buildfile is used to build the Foo subproject within 
+the large, complex Bar project.
+&lt;/description></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="typedef" xml:id="Excludes">
         <title>Excludes</title>
         <para>Specifies a set of files, classes or methods to be excluded from processing.</para>
