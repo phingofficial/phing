@@ -427,6 +427,10 @@ class FileUtils
             return false;
         }
 
+        if ($file1->isDirectory() || $file2->isDirectory()) {
+            return false;
+        }
+
         $c1 = file_get_contents($file1->getAbsolutePath());
         $c2 = file_get_contents($file2->getAbsolutePath());
 
