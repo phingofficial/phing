@@ -324,11 +324,7 @@ class InifileTask extends Task
      */
     public function setHaltonerror($halt)
     {
-        $doHalt = false;
-        if (strtolower($halt) == 'yes' || $halt == 1) {
-            $doHalt = true;
-        }
-        $this->haltonerror = $doHalt;
+        $this->haltonerror = StringHelper::booleanValue($halt);
     }
 
     /**
@@ -340,11 +336,7 @@ class InifileTask extends Task
      */
     public function setVerbose($verbose)
     {
-        $pVerbose = false;
-        if (strtolower($verbose) == 'yes' || $verbose == 1) {
-            $pVerbose = true;
-        }
-        $this->verbose = $pVerbose;
+        $this->verbose = StringHelper::booleanValue($verbose);
     }
 
     /**

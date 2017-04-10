@@ -3370,11 +3370,11 @@
             <interleave>
                 <optional>
                     <attribute name="dest"/>
-                    <attribute name="haltOnError"/>
+                    <attribute name="haltOnError" a:defaultValue="false"/>
                     <attribute name="source"/>
                 </optional>
                 <optional>
-                    <attribute name="verbose"/>
+                    <attribute name="verbose" a:defaultValue="false"/>
                 </optional>
                 <zeroOrMore>
                     <ref name="remove"/>
