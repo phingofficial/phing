@@ -18,6 +18,15 @@
     	    </fileset>
     	</zip>
     </target>
+
+    <target name="testZipFileSet">
+        <echo file="${tmp.dir}/test.txt" message="TEST"/>
+        <zip destfile="${tmp.dir}/simple-test.zip">
+            <zipfileset dir="${tmp.dir}">
+                <include name="test.txt"/>
+            </zipfileset>
+        </zip>
+    </target>
     
     <target name="testUnzipSimpleZip" depends="testSimpleZipContainsOneFile">
     	<delete file="${tmp.dir}/test.txt"/>
