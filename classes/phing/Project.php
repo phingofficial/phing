@@ -182,16 +182,16 @@ class Project
 
         // command line properties take precedence
         if (isset($this->userProperties[$name])) {
-            $this->log('Override ignored for user property ' . $name, Project::MSG_VERBOSE);
+            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
 
             return;
         }
 
         if (isset($this->properties[$name])) {
-            $this->log('Overriding previous definition of property ' . $name, Project::MSG_VERBOSE);
+            $this->log("Overriding previous definition of property " . $name, Project::MSG_VERBOSE);
         }
 
-        $this->log('Setting project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
+        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
     }
@@ -210,11 +210,11 @@ class Project
     public function setNewProperty($name, $value)
     {
         if (isset($this->properties[$name])) {
-            $this->log('Override ignored for property ' . $name, Project::MSG_DEBUG);
+            $this->log("Override ignored for property " . $name, Project::MSG_DEBUG);
 
             return;
         }
-        $this->log('Setting project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
+        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
     }
@@ -230,7 +230,7 @@ class Project
      */
     public function setUserProperty($name, $value)
     {
-        $this->log('Setting user project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
+        $this->log("Setting user project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->userProperties[$name] = $value;
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
@@ -265,7 +265,7 @@ class Project
     private function setPropertyInternal($name, $value)
     {
         if (isset($this->userProperties[$name])) {
-            $this->log('Override ignored for user property ' . $name, Project::MSG_VERBOSE);
+            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
 
             return;
         }
@@ -431,7 +431,7 @@ class Project
     public function setName($name)
     {
         $this->name = (string) trim($name);
-        $this->setProperty('phing.project.name', $this->name);
+        $this->setProperty("phing.project.name", $this->name);
     }
 
     /**
@@ -498,7 +498,7 @@ class Project
     public function setStrictMode($strictmode)
     {
         $this->strictMode = (bool) $strictmode;
-        $this->setProperty('phing.project.strictmode', $this->strictMode);
+        $this->setProperty("phing.project.strictmode", $this->strictMode);
     }
 
     /**
@@ -526,14 +526,14 @@ class Project
 
         $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {
-            throw new BuildException('Basedir ' . $dir->getAbsolutePath() . ' does not exist');
+            throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
         }
         if (!$dir->isDirectory()) {
-            throw new BuildException('Basedir ' . $dir->getAbsolutePath() . ' is not a directory');
+            throw new BuildException("Basedir " . $dir->getAbsolutePath() . " is not a directory");
         }
         $this->basedir = $dir;
-        $this->setPropertyInternal('project.basedir', $this->basedir->getAbsolutePath());
-        $this->log('Project base dir set to: ' . $this->basedir->getPath(), Project::MSG_VERBOSE);
+        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
+        $this->log("Project base dir set to: " . $this->basedir->getPath(), Project::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
         chdir($dir->getAbsolutePath());
@@ -554,7 +554,7 @@ class Project
             try { // try to set it
                 $this->setBasedir(new PhingFile('.'));
             } catch (BuildException $exc) {
-                throw new BuildException('Can not set default basedir. ' . $exc->getMessage());
+                throw new BuildException("Can not set default basedir. " . $exc->getMessage());
             }
         }
 
@@ -762,7 +762,7 @@ class Project
 
         // complain about executing void
         if ($targetName === null) {
-            throw new BuildException('No target specified');
+            throw new BuildException("No target specified");
         }
 
         // invoke topological sort of the target tree and run all targets
@@ -854,9 +854,9 @@ class Project
 
         $this->_tsort($rootTarget, $state, $visiting, $ret);
 
-        $retHuman = '';
+        $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . ' ';
+            $retHuman .= $ret[$i]->toString() . " ";
         }
         $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
@@ -871,14 +871,14 @@ class Project
 
             if ($st === null) {
                 $this->_tsort($curTargetName, $state, $visiting, $ret);
-            } elseif ($st === 'VISITING') {
+            } elseif ($st === "VISITING") {
                 throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
         }
 
-        $retHuman = '';
+        $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . ' ';
+            $retHuman .= $ret[$i]->toString() . " ";
         }
         $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
 
@@ -912,7 +912,7 @@ class Project
      */
     public function _tsort($root, &$state, &$visiting, &$ret)
     {
-        $state[$root] = 'VISITING';
+        $state[$root] = "VISITING";
         $visiting[] = $root;
 
         if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
@@ -944,7 +944,7 @@ class Project
             if ($m === null) {
                 // not been visited
                 $this->_tsort($cur, $state, $visiting, $ret);
-            } elseif ($m == 'VISITING') {
+            } elseif ($m == "VISITING") {
                 // currently visiting this node, so have a cycle
                 throw $this->_makeCircularException($cur, $visiting);
             }
@@ -955,7 +955,7 @@ class Project
             throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
 
-        $state[$root] = 'VISITED';
+        $state[$root] = "VISITED";
         $ret[] = $target;
     }
 
@@ -969,7 +969,7 @@ class Project
         $sb = "Circular dependency: $end";
         do {
             $c = (string) array_pop($stk);
-            $sb .= ' <- ' . $c;
+            $sb .= " <- " . $c;
         } while ($c != $end);
 
         return new BuildException($sb);
