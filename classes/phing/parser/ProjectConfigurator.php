@@ -417,9 +417,9 @@ class ProjectConfigurator
 
         if (is_bool($propertyValue)) {
             if ($propertyValue === true) {
-                $propertyValue = 'true';
+                $propertyValue = "true";
             } else {
-                $propertyValue = 'false';
+                $propertyValue = "false";
             }
         }
 
