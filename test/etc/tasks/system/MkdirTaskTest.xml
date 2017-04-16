@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MkdirTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="testUmaskIsHonouredWhenNotUsingModeArgument">
+        <mkdir dir="${tmp.dir}/a" />
+    </target>
+
+    <target name="testUmaskIsIgnoredWhenUsingModeArgument">
+        <mkdir dir="${tmp.dir}/a" mode="0777" />
+    </target>
+
+    <target name="testParentDirectoriesHaveDefaultPermissions">
+        <mkdir dir="${tmp.dir}/a/b/c" mode="0777" />
+    </target>
+
+    <target name="testAclIsInheritedFromParentDirectoryDefaultAcl">
+        <mkdir dir="${tmp.dir}/a" />
+    </target>
+
+    <target name="testUmaskIsIgnoredWhenAclIsUsedAndTaskDoesNotHaveModeArgument">
+        <mkdir dir="${tmp.dir}/a" />
+    </target>
+
+    <target name="testUmaskIsIgnoredWhenAclIsUsedAndTaskHasModeArgument">
+        <mkdir dir="${tmp.dir}/a" mode="0777" />
+    </target>
+</project>
