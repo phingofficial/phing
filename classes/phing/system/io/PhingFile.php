@@ -746,13 +746,13 @@ class PhingFile
      * operation fails it may have succeeded in creating some of the necessary
      * parent directories.
      *
-     * @param  int $mode
+     * @param  int|null $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created,
      *                     along with all necessary parent directories; false
      *                     otherwise
      */
-    public function mkdirs($mode = 0755)
+    public function mkdirs($mode = null)
     {
         if ($this->exists()) {
             return false;
@@ -772,11 +772,11 @@ class PhingFile
     /**
      * Creates the directory named by this abstract pathname.
      *
-     * @param  int $mode
+     * @param  int|null $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created; false otherwise
      */
-    public function mkdir($mode = 0755)
+    public function mkdir($mode = null)
     {
         $fs = FileSystem::getFileSystem();
 
