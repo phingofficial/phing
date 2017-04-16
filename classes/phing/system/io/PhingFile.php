@@ -765,7 +765,7 @@ class PhingFile
         }
         $parentFile = $this->getParentFile();
 
-        return (($parentFile !== null) && ($parentFile->mkdirs($mode) && $this->mkdir($mode)));
+        return (($parentFile !== null) && ($parentFile->mkdirs() && $this->mkdir($mode)));
     }
 
     /**
