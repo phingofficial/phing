@@ -654,13 +654,12 @@ class PhingFile
      * filesystem activities that might affect the file.
      *
      * @param  bool $parents
-     * @param  int $mode
      * @throws IOException
      * @return boolean     true if the named file does not exist and was
      *                     successfully created; <code>false</code> if the named file
      *                     already exists
      */
-    public function createNewFile($parents = true, $mode = 0777)
+    public function createNewFile($parents = true)
     {
         /**
          * @var PhingFile $parent
