@@ -5,6 +5,7 @@ sudo: false
 addons:
   apt:
     packages:
+      - acl
       - python-docutils
 
 cache:
