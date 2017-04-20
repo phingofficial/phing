@@ -27,28 +27,17 @@ include_once 'phing/system/io/FileSystem.php';
  *
  * @package phing.system.io
  */
-class FileSystemTest extends PHPUnit_Framework_TestCase
+class FileSystemTest extends \PHPUnit\Framework\TestCase
 {
-
     private $oldFsType = "";
 
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped(
-                'Need at least PHP version 5.3.2 to run this unit test'
-            );
-        }
-
         $this->oldFsType = Phing::getProperty('host.fstype');
     }
 
     public function tearDown()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            return;
-        }
-
         Phing::setProperty('host.fstype', $this->oldFsType);
         $this->_resetFileSystem();
     }
@@ -88,10 +77,10 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
     public function fileSystemMappingsDataProvider()
     {
-        return array(
-            array('UnixFileSystem', 'UNIX'),
-            array('Win32FileSystem', 'WIN32'),
-            array('WinNTFileSystem', 'WINNT')
-        );
+        return [
+            ['UnixFileSystem', 'UNIX'],
+            ['Win32FileSystem', 'WIN32'],
+            ['WinNTFileSystem', 'WINNT']
+        ];
     }
 }

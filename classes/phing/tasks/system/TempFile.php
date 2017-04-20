@@ -92,7 +92,7 @@ class TempFile extends Task
     {
         if ($destDir instanceof PhingFile) {
             $this->destDir = $destDir;
-        } else  {
+        } else {
             $this->destDir = new PhingFile($destDir);
         }
     }

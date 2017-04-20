@@ -36,8 +36,7 @@ include_once 'phing/system/io/IniFileParser.php';
  */
 class Properties
 {
-
-    private $properties = array();
+    private $properties = [];
 
     /**
      * @var FileParserInterface
@@ -76,7 +75,7 @@ class Properties
     public function load(PhingFile $file)
     {
         if ($file->canRead()) {
-            $this->parse($file, false);
+            $this->parse($file);
 
             $this->file = $file;
         } else {
@@ -88,8 +87,6 @@ class Properties
      * Parses the file given.
      *
      * @param  PhingFile $file
-     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
-     * @return array   Properties loaded from file (no prop replacements done yet).
      */
     protected function parse(PhingFile $file)
     {
@@ -177,9 +174,8 @@ class Properties
         $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
         $bw->newLine();
         foreach ($this->getProperties() as $key => $value) {
-                $bw->write($key . "=" . $value);
-                $bw->newLine();
-
+            $bw->write($key . "=" . $value);
+            $bw->newLine();
         }
         $bw->flush();
     }

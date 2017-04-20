@@ -72,10 +72,10 @@ class TargetTest extends BuildFileTest
 
     public function setDependsValidDataProvider()
     {
-        return array(
-            array(array('target1'), 'target1'),
-            array(array('target1', 'target2'), 'target1,target2')
-        );
+        return [
+            [['target1'], 'target1'],
+            [['target1', 'target2'], 'target1,target2']
+        ];
     }
 
     /**
@@ -94,10 +94,10 @@ class TargetTest extends BuildFileTest
 
     public function setDependsInvalidDataProvider()
     {
-        return array(
-            array(''),
-            array('target1,')
-        );
+        return [
+            [''],
+            ['target1,']
+        ];
     }
 
     public function testGetTasksReturnsCorrectTasks()
@@ -109,7 +109,7 @@ class TargetTest extends BuildFileTest
 
         $tasks = $this->target->getTasks();
 
-        $this->assertEquals(array($task), $tasks);
+        $this->assertEquals([$task], $tasks);
     }
 
     public function testGetTasksClonesTasks()

@@ -53,7 +53,7 @@ class IniFileTaskTest extends BuildFileTest
 
     public function testExistingSource()
     {
-        $fill = array("[test]\n", "; a comment\n", "foo=bar\n");
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("existingSource");
 
@@ -64,7 +64,7 @@ class IniFileTaskTest extends BuildFileTest
 
     public function testRemoveKeyFromSectionInSourceFile()
     {
-        $fill = array("[test]\n", "; a comment\n", "foo=bar\n");
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("removeKeyFromSectionInSourceFile");
 
@@ -77,7 +77,7 @@ class IniFileTaskTest extends BuildFileTest
 
     public function testRemoveSectionFromSourceFile()
     {
-        $fill = array("[test]\n", "; a comment\n", "foo=bar\n");
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("removeSectionFromSourceFile");
 

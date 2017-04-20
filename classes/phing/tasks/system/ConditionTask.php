@@ -70,7 +70,7 @@ class ConditionTask extends ConditionBase
      * The value for the property to set, if condition evaluates to false.
      * If this attribute is not specified, the property will not be set.
      *
-     * @param string $v 
+     * @param string $v
      */
     public function setElse($v)
     {

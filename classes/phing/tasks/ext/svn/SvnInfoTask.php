@@ -110,7 +110,7 @@ class SvnInfoTask extends SvnBaseTask
         $this->setup('info');
 
         if ($this->oldVersion) {
-            $output = $this->run(array('--xml', '--incremental'));
+            $output = $this->run(['--xml', '--incremental']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn info --xml'.");

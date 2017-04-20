@@ -29,7 +29,6 @@ require_once '../classes/phing/tasks/ext/git/GitBaseTask.php';
  */
 class GitBaseTest extends BuildFileTest
 {
-
     protected $mock;
 
     public function setUp()
@@ -73,5 +72,4 @@ class GitBaseTest extends BuildFileTest
         $this->assertEquals('/tmp', $this->mock->getRepository());
         $this->mock->setRepository($repository);
     }
-
 }

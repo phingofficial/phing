@@ -45,7 +45,7 @@ class PHPCPDTask extends Task
      *
      * @var FileSet[]
      */
-    protected $filesets = array();
+    protected $filesets = [];
 
     /**
      * Minimum number of identical lines.
@@ -73,14 +73,14 @@ class PHPCPDTask extends Task
      *
      * @var array
      */
-    protected $allowedFileExtensions = array('php');
+    protected $allowedFileExtensions = ['php'];
 
     /**
      * List of exclude directory patterns.
      *
      * @var array
      */
-    protected $ignorePatterns = array('.git', '.svn', 'CVS', '.bzr', '.hg');
+    protected $ignorePatterns = ['.git', '.svn', 'CVS', '.bzr', '.hg'];
 
     /**
      * The format for the report
@@ -94,7 +94,7 @@ class PHPCPDTask extends Task
      *
      * @var PHPCPDFormatterElement[]
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * @var bool
@@ -163,7 +163,7 @@ class PHPCPDTask extends Task
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->allowedFileExtensions = array();
+        $this->allowedFileExtensions = [];
 
         $token = ' ,;';
         $ext = strtok($fileExtensions, $token);
@@ -181,7 +181,7 @@ class PHPCPDTask extends Task
      */
     public function setIgnorePatterns($ignorePatterns)
     {
-        $this->ignorePatterns = array();
+        $this->ignorePatterns = [];
 
         $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
@@ -255,10 +255,6 @@ class Application
             fclose($handler);
             @include_once 'SebastianBergmann/PHPCPD/autoload.php';
 
-            if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-                throw new BuildException('The PHPCPD task now requires PHP 5.3+');
-            }
-
             return;
         }
 
@@ -301,7 +297,7 @@ class Application
 
         $this->validateFormatters();
 
-        $filesToParse = array();
+        $filesToParse = [];
 
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->getPath();

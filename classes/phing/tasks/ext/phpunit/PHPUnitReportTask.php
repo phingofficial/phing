@@ -160,17 +160,13 @@ class PHPUnitReportTask extends Task
 
         $proc = new XSLTProcessor();
         if (defined('XSL_SECPREF_WRITE_FILE')) {
-            if (version_compare(PHP_VERSION, '5.4', "<")) {
-                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            } else {
-                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            }
+            $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
         }
-
+        $proc->registerPHPFunctions('nl2br');
         $proc->importStylesheet($xsl);
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
-        if ($this->format == "noframes") {
+        if ($this->format === "noframes") {
             $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
             $writer->write($proc->transformToXml($document));
             $writer->close();
@@ -180,7 +176,7 @@ class PHPUnitReportTask extends Task
             $toDir = (string) $this->toDir;
 
             // urlencode() the path if we're on Windows
-            if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+            if (FileSystem::getFileSystem()->getSeparator() === '\\') {
                 $toDir = urlencode($toDir);
             }
 
@@ -248,6 +244,7 @@ class PHPUnitReportTask extends Task
 
     /**
      * Initialize the task
+     * @throws \BuildException
      */
     public function init()
     {
@@ -268,6 +265,10 @@ class PHPUnitReportTask extends Task
 
         $this->fixDocument($testSuitesDoc);
 
-        $this->transform($testSuitesDoc);
+        try {
+            $this->transform($testSuitesDoc);
+        } catch (IOException $e) {
+            throw new BuildException('Transformation failed.', $e);
+        }
     }
 }

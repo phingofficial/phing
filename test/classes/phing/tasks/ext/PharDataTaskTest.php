@@ -53,63 +53,45 @@ class PharDataTaskTest extends BuildFileTest
         $this->expectBuildException(__FUNCTION__, 'basedir attribute must be set');
     }
 
-    /**
-     * @requires PHP 5.3.2
-     */
     public function testGenerateTar()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.tar");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar");
         $this->assertNotFalse($manifestFile);
     }
 
-    /**
-     * @requires PHP 5.3.2
-     */
     public function testGenerateTarGz()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.tar.gz");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar.gz");
         $this->assertNotFalse($manifestFile);
     }
 
-    /**
-     * @requires PHP 5.3.2
-     */
     public function testGenerateTarBz2()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.tar.bz2");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar.bz2");
         $this->assertNotFalse($manifestFile);
     }
 
-    /**
-     * @requires PHP 5.3.2
-     */
     public function testGenerateZip()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
     }
 
-    /**
-     * @requires PHP 5.3.2
-     */
     public function testGenerateZipGz()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
     }
 
-    /**
-     * @requires PHP 5.3.2
-     */
     public function testGenerateZipBz2()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
     }
 }

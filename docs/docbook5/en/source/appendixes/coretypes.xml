@@ -7,6 +7,18 @@
     <para> This appendix contains a reference of the system <literal>data types</literal> contained
         in Phing.</para>
 
+    <sect1 role="typedef" xml:id="Description">
+        <title>Description</title>
+        <para>Allows for a description of the project to be specified that will be included
+            in the output of the <literal>phing ‑projecthelp</literal> command.</para>
+        <sect2>
+            <title>Usage Examples</title>
+            <programlisting language="xml">&lt;description>
+This buildfile is used to build the Foo subproject within 
+the large, complex Bar project.
+&lt;/description></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="typedef" xml:id="Excludes">
         <title>Excludes</title>
         <para>Specifies a set of files, classes or methods to be excluded from processing.</para>
@@ -204,6 +216,15 @@
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>erroronmissingdir</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Specify what happens if the base directory does not exist.
+                            If true a build error will happen, if false, the fileset will be
+                            ignored/empty.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>includes</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma- or space-separated list of patterns of files that must be
@@ -225,6 +246,164 @@
                         <entry>comma- or space-separated list of patterns of files that must be
                             excluded; no files (except default excludes) are excluded when
                             omitted.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>excludesfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of a file; each line of this file is taken to be an exclude
+                            pattern.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2 xml:id="patterns">
+            <title>Using wildcards</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>test*.xml</literal> will include <literal>test_42.xml</literal>,
+                        but it will not include <literal>test/some.xml</literal>.</para>
+                </listitem>
+                <listitem>
+                    <para><literal>test**.xml</literal> fits to <literal>test_42.xml</literal> as
+                        well as to <literal>test/bla.xml</literal>, for example.</para>
+                </listitem>
+                <listitem>
+                    <para><literal>**/*.ent.xml</literal> fits to all files that end with
+                        <literal>ent.xml</literal> in all subdirectories of the directory
+                        specified with the <literal>dir</literal> attribute of the
+                        <literal>&lt;fileset></literal> tag. However, it will not include any
+                        files that are directly in the base directory of the file set.</para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+        <sect2>
+            <title>Usage Examples</title>
+            <programlisting language="xml">&lt;fileset dir="/etc" >
+                &lt;include name="httpd/**" />
+                &lt;include name="php.ini" />
+                &lt;/fileset>
+
+                &lt;fileset dir="/etc" >
+                &lt;patternset>
+                &lt;include name="**/*.php"/>
+                &lt;exclude name="**/*Test*"/>
+                &lt;/patternset>
+                &lt;/fileset></programlisting>
+            <para> This will include the apache configuration and PHP configuration file from
+                <literal>/etc</literal>.</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Nested tags</title>
+            <para> The tags that are supported by <literal>Fileset</literal> are:</para>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>include</literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal>exclude</literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="PatternSet">patternset</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para>any of the <link linkend="app.selectors">selectors</link></para>
+                </listitem>
+            </itemizedlist>
+            <para>The <literal>&lt;include></literal> and the <literal>&lt;exclude></literal> tags
+                must have a <literal>name</literal> attribute that contains the pattern to
+                include/exclude.</para>
+        </sect2>
+        <sect2 role="related">
+            <title>Related types</title>
+            <itemizedlist>
+                <listitem>
+                    <link linkend="PearPackageFileSet">pearpackagefileset</link>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="typedef" xml:id="DirSet">
+        <title>DirSet</title>
+
+        <para>A DirSet is a group of directories. These directories can be found in a directory tree starting in a base
+            directory and are matched by patterns taken from a number of <link linkend="PatternSet">PatternSets</link>
+            and <link linkend="app.selectors">Selectors</link>.</para>
+        <para><link linkend="PatternSet">PatternSets</link> can be specified as nested <literal>&lt;patternset></literal>
+            elements. In addition, DirSet holds an implicit <link linkend="PatternSet">PatternSet</link> and supports
+            the nested <literal>&lt;include></literal>, <literal>&lt;includesfile></literal>,
+            <literal>&lt;exclude></literal> and <literal>&lt;excludesfile></literal> elements of <literal>&lt;patternset></literal>
+            directly, as well as <literal>&lt;patternset></literal>'s attributes.</para>
+        <para><link linkend="app.selectors">Selectors</link> are available as nested elements within the DirSet.
+            If any of the selectors within the DirSet do not select the directory, it is not considered part of the DirSet.
+            This makes a DirSet equivalent to an &lt;and> selector container.</para>
+
+        <table>
+            <title> Attributes for the <literal>&lt;dirset></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>dir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The root of the directory tree of this DirSet.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>casesensitive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Specifies whether case-sensitivity should be applied
+                            (<literal>true|yes|on</literal> or <literal>false|no|off</literal>).</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>expandsymboliclinks</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to expand/dereference (follow) symbolic links - set to 'true'
+                            to emulate old Phing behavior.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>includes</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A comma- or space-separated list of patterns of directories that must be included;
+                            all directories are included when omitted.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>includesfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of a file; each line of this file is taken to be an include pattern.
+                            Note: if the file is empty and there are no other patterns defined for the fileset,
+                            all directories will be included.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>excludes</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A comma- or space-separated list of patterns of directories that must be excluded;
+                            no directories are excluded when omitted.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>

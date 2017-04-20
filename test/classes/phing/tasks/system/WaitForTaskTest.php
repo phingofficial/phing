@@ -30,7 +30,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class WaitForTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

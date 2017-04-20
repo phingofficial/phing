@@ -24,5 +24,4 @@ require_once 'phing/types/DataType.php';
 
 class TypedefTestType extends DataType
 {
-
 }

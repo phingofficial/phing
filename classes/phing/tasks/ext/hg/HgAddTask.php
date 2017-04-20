@@ -32,13 +32,13 @@ class HgAddTask extends HgBaseTask
      *
      * @var string
      */
-    protected $filesets = array();
+    protected $filesets = [];
     /**
      * Array of files to ignore
      *
      * @var string[]
      */
-    protected $ignoreFile = array();
+    protected $ignoreFile = [];
 
     /**
      * Adds a fileset of files to add to the repository.
@@ -119,7 +119,7 @@ class HgAddTask extends HgBaseTask
                 if ($output !== '') {
                     $this->log($output);
                 }
-            } catch(Exception $ex) {
+            } catch (Exception $ex) {
                 $msg = $ex->getMessage();
                 $this->log("Exception: $msg", Project::MSG_INFO);
                 $p = strpos($msg, 'hg returned:');
@@ -140,7 +140,7 @@ class HgAddTask extends HgBaseTask
      */
     public function loadIgnoreFile()
     {
-        $ignores = array();
+        $ignores = [];
         $lines = file('.hgignore');
         foreach ($lines as $line) {
             $nline =  trim($line);

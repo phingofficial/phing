@@ -56,5 +56,4 @@ class StripPhpCommentsTest extends BuildFileTest
 
         $this->assertEquals($expected, $result, "Files don't match!");
     }
-
 }

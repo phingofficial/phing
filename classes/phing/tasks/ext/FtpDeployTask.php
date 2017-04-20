@@ -71,8 +71,8 @@ class FtpDeployTask extends Task
      */
     public function __construct()
     {
-        $this->filesets = array();
-        $this->completeDirMap = array();
+        $this->filesets = [];
+        $this->completeDirMap = [];
     }
 
     /**
@@ -318,7 +318,7 @@ class FtpDeployTask extends Task
 
         foreach ($this->filesets as $fs) {
             // Array for holding directory content informations
-            $remoteFileInformations = array();
+            $remoteFileInformations = [];
 
             $ds = $fs->getDirectoryScanner($project);
             $fromDir = $fs->getDir($project);
@@ -364,7 +364,6 @@ class FtpDeployTask extends Task
                 }
 
                 if (!$this->depends || ($local_filemtime > $remoteFileModificationTime)) {
-
                     if ($this->skipOnSameSize === true && $file->length() === $ftp->size($filename)) {
                         $this->log('Skipped ' . $file->getCanonicalPath(), $this->logLevel);
                         continue;
@@ -436,14 +435,14 @@ class FtpDeployTask extends Task
     private function parseRawFtpContent($content, $directory = null)
     {
         if (!is_array($content)) {
-            return array();
+            return [];
         }
 
         $this->log('Start parsing FTP_RAW_DATA in ' . $directory);
-        $retval = array();
+        $retval = [];
         foreach ($content as $rawInfo) {
             $rawInfo = explode(' ', $rawInfo);
-            $rawInfo2 = array();
+            $rawInfo2 = [];
             foreach ($rawInfo as $part) {
                 $part = trim($part);
                 if (!empty($part)) {
@@ -464,7 +463,7 @@ class FtpDeployTask extends Task
                 $date['year']
             );
 
-            $retval[] = array(
+            $retval[] = [
                 'name' => $rawInfo2[8],
                 'rights' => substr($rawInfo2[0], 1),
                 'user' => $rawInfo2[2],
@@ -474,12 +473,11 @@ class FtpDeployTask extends Task
                 'is_dir' => strpos($rawInfo2[0], 'd') === 0,
                 'files_inside' => (int) $rawInfo2[1],
                 'size' => (int) $rawInfo2[4],
-            );
+            ];
         }
 
         $this->log('Finished parsing FTP_RAW_DATA in ' . $directory);
 
         return $retval;
     }
-
 }

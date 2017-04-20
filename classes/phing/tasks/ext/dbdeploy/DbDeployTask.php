@@ -113,7 +113,7 @@ class DbDeployTask extends Task
      *
      * @var array
      */
-    protected $appliedChangeNumbers = array();
+    protected $appliedChangeNumbers = [];
 
     /**
      * Checkall attribute
@@ -154,7 +154,6 @@ class DbDeployTask extends Task
             $this->log('Checkall: ' . ($this->checkall ? 'On' : 'Off'));
 
             $this->deploy();
-
         } catch (Exception $e) {
             throw new BuildException($e);
         }
@@ -170,7 +169,7 @@ class DbDeployTask extends Task
     {
         if (count($this->appliedChangeNumbers) == 0) {
             $this->log('Getting applied changed numbers from DB: ' . $this->url);
-            $appliedChangeNumbers = array();
+            $appliedChangeNumbers = [];
             $dbh = new PDO($this->url, $this->userid, $this->password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->dbmsSyntax->applyAttributes($dbh);
@@ -299,7 +298,7 @@ class DbDeployTask extends Task
      */
     protected function getDeltasFilesArray()
     {
-        $files = array();
+        $files = [];
 
         $baseDir = realpath($this->dir);
         $dh = opendir($baseDir);

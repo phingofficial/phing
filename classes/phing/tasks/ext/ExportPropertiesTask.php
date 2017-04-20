@@ -55,7 +55,7 @@ class ExportPropertiesTask extends Task
      *
      * @var array
      */
-    private $_disallowedPropertyPrefixes = array(
+    private $_disallowedPropertyPrefixes = [
         'host.',
         'phing.',
         'os.',
@@ -63,7 +63,7 @@ class ExportPropertiesTask extends Task
         'line.',
         'env.',
         'user.'
-    );
+    ];
 
     /**
      * setter for _targetFile

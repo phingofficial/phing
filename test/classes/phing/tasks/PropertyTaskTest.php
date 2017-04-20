@@ -30,7 +30,6 @@ require_once 'phing/tasks/system/PropertyTask.php';
  */
 class PropertyTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
@@ -81,11 +80,11 @@ class PropertyTaskTest extends BuildFileTest
 
     public function circularDefinitionTargets()
     {
-        return array(
-            array('test3'),
-            array('testCircularDefinition1'),
-            array('testCircularDefinition2'),
-        );
+        return [
+            ['test3'],
+            ['testCircularDefinition1'],
+            ['testCircularDefinition2'],
+        ];
     }
 
     /**
@@ -118,7 +117,6 @@ class PropertyTaskTest extends BuildFileTest
 
 class HangDetectorPropertyTask extends PropertyTask
 {
-
     protected function loadFile(PhingFile $file)
     {
         $props = new HangDetectorProperties();

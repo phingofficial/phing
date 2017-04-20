@@ -38,7 +38,7 @@ class CoverageMerger
      */
     private static function mergeCodeCoverage($left, $right)
     {
-        $coverageMerged = array();
+        $coverageMerged = [];
 
         reset($left);
         reset($right);
@@ -106,7 +106,7 @@ class CoverageMerger
      */
     public static function getWhiteList($project)
     {
-        $whitelist = array();
+        $whitelist = [];
         $props = self::_getDatabase($project);
 
         foreach ($props->getProperties() as $property) {
@@ -130,7 +130,7 @@ class CoverageMerger
         $coverageTotal = $codeCoverageInformation;
 
         foreach ($coverageTotal as $filename => $data) {
-            $lines = array();
+            $lines = [];
             $filename = strtolower($filename);
 
             if ($props->getProperty($filename) != null) {

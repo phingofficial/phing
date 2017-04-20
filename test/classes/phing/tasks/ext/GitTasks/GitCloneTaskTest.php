@@ -21,7 +21,7 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitCloneTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
+require_once __DIR__ . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -30,7 +30,6 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  */
 class GitCloneTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
@@ -109,5 +108,4 @@ class GitCloneTaskTest extends BuildFileTest
             '"targetPath" is required parameter'
         );
     }
-
 }

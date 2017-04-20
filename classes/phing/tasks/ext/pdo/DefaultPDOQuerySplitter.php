@@ -119,7 +119,6 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 
             // DELIM_ROW doesn't need this (as far as i can tell)
             if ($this->delimiterType == PDOSQLExecTask::DELIM_NORMAL) {
-
                 $reg = "#((?:\"(?:\\\\.|[^\"])*\"?)+|'(?:\\\\.|[^'])*'?|" . preg_quote($delimiter) . ")#";
 
                 $sqlParts = preg_split($reg, $sql, 0, PREG_SPLIT_DELIM_CAPTURE);

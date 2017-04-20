@@ -91,7 +91,6 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      */
     public function processRow($row)
     {
-
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
             foreach ($row as $fieldName => $ignore) {
@@ -112,7 +111,6 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
         $first = true;
         foreach ($row as $columnValue) {
-
             if ($columnValue != null) {
                 $columnValue = trim($columnValue);
             }
@@ -127,7 +125,6 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
         $this->out->write($line);
         $this->out->write($this->rowdelimiter);
-
     }
 
     /**
@@ -137,5 +134,4 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     {
         return new PhingFile('results.txt');
     }
-
 }

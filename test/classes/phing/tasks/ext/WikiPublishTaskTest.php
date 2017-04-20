@@ -49,30 +49,30 @@ class WikiPublishTaskTest extends BuildFileTest
             ->method('callApi')
             ->with(
                 'action=login',
-                array('lgname' => 'testUser', 'lgpassword' => 'testPassword')
+                ['lgname' => 'testUser', 'lgpassword' => 'testPassword']
             )
-            ->will($this->returnValue(array('login' => array('result' => 'NeedToken', 'token' => 'testLgToken'))));
+            ->will($this->returnValue(['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']]));
 
         $task->expects($this->at(1))
             ->method('callApi')
             ->with(
                 'action=login',
-                array('lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken')
+                ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']
             )
-            ->will($this->returnValue(array('login' => array('result' => 'Success'))));
+            ->will($this->returnValue(['login' => ['result' => 'Success']]));
 
         $task->expects($this->at(2))
             ->method('callApi')
             ->with('action=tokens&type=edit')
-            ->will($this->returnValue(array('tokens' => array('edittoken' => 'testEditToken+/'))));
+            ->will($this->returnValue(['tokens' => ['edittoken' => 'testEditToken+/']]));
 
         $task->expects($this->at(3))
             ->method('callApi')
             ->with(
                 'action=edit&token=testEditToken%2B%2F',
-                array('minor' => '', 'title' => 'some page', 'prependtext' => 'some content')
+                ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']
             )
-            ->will($this->returnValue(array('edit' => array('result' => 'Success'))));
+            ->will($this->returnValue(['edit' => ['result' => 'Success']]));
 
         $task->main();
     }
@@ -96,7 +96,6 @@ class WikiPublishTaskTest extends BuildFileTest
         } catch (BuildException $e) {
             $this->assertEquals('Wiki page id or title is required', $e->getMessage());
         }
-
     }
 
     /**
@@ -105,7 +104,7 @@ class WikiPublishTaskTest extends BuildFileTest
      */
     private function getWikiPublishMock()
     {
-        $result = $this->getMock('WikiPublishTask', array('callApi'));
+        $result = $this->getMock('WikiPublishTask', ['callApi']);
 
         return $result;
     }

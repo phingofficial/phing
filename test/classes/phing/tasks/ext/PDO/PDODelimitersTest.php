@@ -30,21 +30,21 @@ require_once 'phing/tasks/ext/pdo/PDOSQLExecTask.php';
  */
 class PDODelimitersTest extends BuildFileTest
 {
-    protected $queries = array();
+    protected $queries = [];
 
     protected $mockTask;
 
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
-        $this->queries = array();
+        $this->queries = [];
 
-        $this->mockTask = $this->getMock('PDOSQLExecTask', array('getConnection', 'execSQL'));
+        $this->mockTask = $this->getMock('PDOSQLExecTask', ['getConnection', 'execSQL']);
         $this->mockTask->setProject($this->project);
         // prevents calling beginTransaction() on obviously missing PDO instance
         $this->mockTask->setAutocommit(true);
         $this->mockTask->expects($this->atLeastOnce())->method('execSQL')
-            ->will($this->returnCallback(array($this, 'storeQuery')));
+            ->will($this->returnCallback([$this, 'storeQuery']));
 
         $targets = $this->project->getTargets();
         $targets['test']->addTask($this->mockTask);
@@ -55,14 +55,14 @@ class PDODelimitersTest extends BuildFileTest
     {
         $query = trim($query);
         if (strlen($query)) {
-            $this->queries[] = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
+            $this->queries[] = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
     }
 
     public function testDelimiterTypeNormal()
     {
         // for some reason default splitter mangles spaces on subsequent lines
-        $expected = array(
+        $expected = [
             <<<SQL
 insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
 SQL
@@ -88,10 +88,10 @@ SQL
             <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
 SQL
-        );
+        ];
         // and insists on "\n" linebreaks
         foreach ($expected as &$query) {
-            $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
+            $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
 
         $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-normal.sql"));
@@ -105,7 +105,7 @@ SQL
     public function testDelimiterTypeRow()
     {
         // for some reason default splitter mangles spaces on subsequent lines
-        $expected = array(
+        $expected = [
             <<<SQL
 insert into "duh" (foo) values ('duh')
 SQL
@@ -118,10 +118,10 @@ SQL
             <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
 SQL
-        );
+        ];
         // and insists on "\n" linebreaks
         foreach ($expected as &$query) {
-            $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
+            $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
 
         $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-row.sql"));
@@ -142,7 +142,7 @@ SQL
      */
     public function testRequest499()
     {
-        $expected = array(
+        $expected = [
             <<<SQL
 select 1
 # 2
@@ -205,9 +205,9 @@ SQL
             <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
 SQL
-        );
+        ];
         foreach ($expected as &$query) {
-            $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
+            $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
 
         $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-pgsql.sql"));

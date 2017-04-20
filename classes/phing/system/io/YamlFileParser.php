@@ -38,7 +38,6 @@ class YamlFileParser implements FileParserInterface
         }
 
         try {
-            
             if (!class_exists('\Symfony\Component\Yaml\Parser')) {
                 throw new BuildException(
                     get_class($this)
@@ -46,10 +45,8 @@ class YamlFileParser implements FileParserInterface
                     . 'being installed and on include_path.'
                 );
             }
-            // We load the Yaml class without the use of namespaces to prevent
-            // parse errors in PHP 5.2.
-            $parserClass = '\Symfony\Component\Yaml\Parser';
-            $parser = new $parserClass;
+
+            $parser = new \Symfony\Component\Yaml\Parser;
             // Cast properties to array in case parse() returns null.
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
         } catch (Exception $e) {
@@ -78,7 +75,7 @@ class YamlFileParser implements FileParserInterface
      */
     private function flattenArray(array $arrayToFlatten, $separator = '.', $flattenedKey = '')
     {
-        $flattenedArray = array();
+        $flattenedArray = [];
         foreach ($arrayToFlatten as $key => $value) {
             $tmpFlattendKey = (!empty($flattenedKey) ? $flattenedKey.$separator : '') . $key;
             // only append next value if is array and is an associative array

@@ -45,7 +45,7 @@ class PEAR_PackageFileManager_Fileset
      * FileSets to use.
      * @var array FileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * Set up the FileSet filelist generator
@@ -75,8 +75,7 @@ class PEAR_PackageFileManager_Fileset
      */
     public function getFileList()
     {
-
-        $allfiles = array();
+        $allfiles = [];
 
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($this->project);
@@ -92,10 +91,9 @@ class PEAR_PackageFileManager_Fileset
             }
         }
 
-        $struc = array();
+        $struc = [];
 
         foreach ($allfiles as $basedir => $files) {
-
             foreach ($files as $file) {
 
                 // paths are relative to $basedir above
@@ -113,23 +111,23 @@ class PEAR_PackageFileManager_Fileset
 
                 $f = new PhingFile($basedir, $file);
 
-                $struc[$path][] = array(
+                $struc[$path][] = [
                     'file' => basename($file),
                     'ext' => $ext,
                     'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
                     'fullpath' => $f->getAbsolutePath()
-                );
+                ];
             }
         }
 
         uksort($struc, 'strnatcasecmp');
         foreach ($struc as $key => $ind) {
-            usort($ind, array($this, 'sortfiles'));
+            usort($ind, [$this, 'sortfiles']);
             $struc[$key] = $ind;
         }
 
         $tempstruc = $struc;
-        $struc = array('/' => $tempstruc['/']);
+        $struc = ['/' => $tempstruc['/']];
         $bv = 0;
         foreach ($tempstruc as $key => $ind) {
             $save = $key;
@@ -137,7 +135,7 @@ class PEAR_PackageFileManager_Fileset
                 $struc['/'] = $this->setupDirs($struc['/'], explode('/', $key), $tempstruc[$key]);
             }
         }
-        uksort($struc['/'], array($this, 'mystrucsort'));
+        uksort($struc['/'], [$this, 'mystrucsort']);
 
         return $struc;
     }
@@ -158,7 +156,6 @@ class PEAR_PackageFileManager_Fileset
      */
     private function setupDirs($struc, $dir, $contents)
     {
-
         if (!count($dir)) {
             foreach ($contents as $dir => $files) {
                 if (is_string($dir)) {
@@ -169,9 +166,9 @@ class PEAR_PackageFileManager_Fileset
                         $b = explode('/', $dir);
                         $c = array_shift($b);
                         if (isset($contents[$c])) {
-                            $contents[$c] = $this->setDir($contents[$c], $this->setupDirs(array(), $b, $a));
+                            $contents[$c] = $this->setDir($contents[$c], $this->setupDirs([], $b, $a));
                         } else {
-                            $contents[$c] = $this->setupDirs(array(), $b, $a);
+                            $contents[$c] = $this->setupDirs([], $b, $a);
                         }
                     }
                 }
@@ -181,7 +178,7 @@ class PEAR_PackageFileManager_Fileset
         }
         $me = array_shift($dir);
         if (!isset($struc[$me])) {
-            $struc[$me] = array();
+            $struc[$me] = [];
         }
         $struc[$me] = $this->setupDirs($struc[$me], $dir, $contents);
 

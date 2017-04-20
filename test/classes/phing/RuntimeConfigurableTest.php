@@ -15,7 +15,7 @@ class Proxy
     }
 }
 
-class RuntimeConfigurableTest extends PHPUnit_Framework_TestCase
+class RuntimeConfigurableTest extends \PHPUnit\Framework\TestCase
 {
     public function testLiteral0ShouldBeKept()
     {

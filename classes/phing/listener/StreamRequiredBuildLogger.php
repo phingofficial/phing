@@ -36,5 +36,4 @@ require_once 'phing/BuildLogger.php';
  */
 interface StreamRequiredBuildLogger extends BuildLogger
 {
-
 }

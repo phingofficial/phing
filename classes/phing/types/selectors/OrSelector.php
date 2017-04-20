@@ -59,7 +59,6 @@ class OrSelector extends BaseSelectorContainer
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $selectors = $this->selectorElements();
@@ -75,5 +74,4 @@ class OrSelector extends BaseSelectorContainer
 
         return false;
     }
-
 }

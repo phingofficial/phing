@@ -21,6 +21,7 @@
 
 require_once 'phing/Task.php';
 include_once 'phing/types/FileSet.php';
+include_once 'phing/types/DirSetAware.php';
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -31,15 +32,15 @@ include_once 'phing/types/FileSet.php';
  */
 class ChownTask extends Task
 {
+    use DirSetAware;
 
     private $file;
 
     private $user;
     private $group;
 
-    private $filesets = array();
-
-    private $filesystem;
+    /** @var AbstractFileSet[] */
+    private $filesets = [];
 
     private $quiet = false;
     private $failonerror = true;
@@ -133,8 +134,7 @@ class ChownTask extends Task
      */
     private function checkParams()
     {
-
-        if ($this->file === null && empty($this->filesets)) {
+        if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
             throw new BuildException("Specify at least one source - a file or a fileset.");
         }
 
@@ -169,9 +169,10 @@ class ChownTask extends Task
             $this->chownFile($this->file, $user, $group);
         }
 
+        $this->filesets = array_merge($this->filesets, $this->dirsets);
+
         // filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
@@ -195,7 +196,6 @@ class ChownTask extends Task
             $this->log('Total files changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_files);
             $this->log('Total directories changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_dirs);
         }
-
     }
 
     /**
@@ -234,5 +234,4 @@ class ChownTask extends Task
             }
         }
     }
-
 }

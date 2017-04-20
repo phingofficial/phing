@@ -1,47 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CopyTaskTest" default="main">
 	<property name="tmp.dir" value="tmp"/>
-	
+
 	<fileset dir="vendor" id="vendor">
 		<include name="*"/>
 	</fileset>
-	
+
 	<target name="setup">
+		<mkdir dir="${tmp.dir}"/>
 	</target>
-	
+
 	<target name="clean">
 		<delete dir="${tmp.dir}"/>
 	</target>
-	
+
 	<target name="testCopyDanglingSymlink">
 		<mkdir dir="${tmp.dir}/base"/>
 		<symlink target="${tmp.dir}/base/all" link="${tmp.dir}/base/dangling_symlink"/>
-		
+
 		<copy todir="${tmp.dir}/new">
 			<fileset dir="${tmp.dir}/base">
-			    <include name="*"/>
+				<include name="*"/>
 			</fileset>
 		</copy>
 
 		<delete dir="${tmp.dir}/base"/>
 		<delete dir="${tmp.dir}/new"/>
 	</target>
-	
+
 	<target name="testCopySymlinkPreserveLastModifiedShouldCopyTarget">
 		<mkdir dir="${tmp.dir}/base"/>
 		<mkdir dir="${tmp.dir}/new"/>
 		<echo file="${tmp.dir}/base/x" message="Testmessage"/>
 		<symlink target="x" link="${tmp.dir}/base/y"/>
-		
+
 		<copy todir="${tmp.dir}/new" preserveLastModified="true">
-		    <filelist dir="${tmp.dir}/base" files="y,x"/>
+			<filelist dir="${tmp.dir}/base" files="y,x"/>
 		</copy>
-		
+
 		<filesize file="${tmp.dir}/new/x" propertyname="test.filesize"/>
-		
+
 		<delete dir="${tmp.dir}/base"/>
 		<delete dir="${tmp.dir}/new"/>
 	</target>
-	
+
+	<target name="testCopyFileList">
+		<touch file="${tmp.dir}/Test1"/>
+		<touch file="${tmp.dir}/Test2"/>
+		<mkdir dir="copies"/>
+		<copy todir="copies">
+			<filelist dir="${tmp.dir}" files="Test1,Test2"/>
+		</copy>
+		<delete dir="copies"/>
+	</target>
+
+	<target name="testCopyDirSet">
+		<mkdir dir="${tmp.dir}/Test1"/>
+		<mkdir dir="${tmp.dir}/Test2"/>
+		<touch file="${tmp.dir}/Test1/a"/>
+		<touch file="${tmp.dir}/Test2/b"/>
+		<mkdir dir="copies"/>
+		<copy todir="copies" verbose="true">
+			<dirset dir="${tmp.dir}">
+				<include name="Test*"/>
+			</dirset>
+		</copy>
+		<delete dir="copies"/>
+	</target>
+
+	<target name="testOverwriteExistingSymlink">
+		<symlink target="${tmp.dir}/target-a" link="${tmp.dir}/link-a"/>
+		<symlink target="${tmp.dir}/target-b" link="${tmp.dir}/link-b"/>
+		<copy file="${tmp.dir}/link-a" tofile="${tmp.dir}/link-b" overwrite="true"/>
+	</target>
+
 	<target name="main"/>
 </project>

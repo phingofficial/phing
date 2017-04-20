@@ -20,6 +20,7 @@
  */
 
 include_once 'phing/Task.php';
+include_once 'phing/types/DirSetAware.php';
 
 /**
  * Echos a message to the logging system or to a file
@@ -31,6 +32,7 @@ include_once 'phing/Task.php';
  */
 class EchoTask extends Task
 {
+    use DirSetAware;
 
     protected $msg = "";
 
@@ -40,7 +42,8 @@ class EchoTask extends Task
 
     protected $level = "info";
 
-    protected $filesets = array();
+    /** @var AbstractFileSet[] */
+    protected $filesets = [];
 
     public function main()
     {
@@ -51,16 +54,19 @@ class EchoTask extends Task
             case "warning":
                 $loglevel = Project::MSG_WARN;
                 break;
-            case "info":
-                $loglevel = Project::MSG_INFO;
-                break;
             case "verbose":
                 $loglevel = Project::MSG_VERBOSE;
                 break;
             case "debug":
                 $loglevel = Project::MSG_DEBUG;
                 break;
+            case "info":
+            default:
+                $loglevel = Project::MSG_INFO;
+                break;
         }
+
+        $this->filesets = array_merge($this->filesets, $this->dirsets);
 
         if (count($this->filesets)) {
             if (trim(substr($this->msg, -1)) != '') {

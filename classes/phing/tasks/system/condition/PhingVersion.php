@@ -125,7 +125,8 @@ class PhingVersion extends Task implements Condition
      * For example 1.7.0.
      * @param string $exactly the version to check against.
      */
-    public function setExactly($exactly) {
+    public function setExactly($exactly)
+    {
         $this->exactly = $exactly;
     }
 

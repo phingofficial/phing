@@ -9,7 +9,7 @@
     * @version $Id$
     * @package hello.world
     */
-    class HelloWorldTest extends PHPUnit_Framework_TestCase
+    class HelloWorldTest extends \PHPUnit\Framework\TestCase
     {
         public function testSayHello()
         {

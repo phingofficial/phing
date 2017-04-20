@@ -84,12 +84,12 @@ class XmlLogger implements BuildLogger
     /**
      * @var array DOMElement[] The parent of the element being processed.
      */
-    private $elementStack = array();
+    private $elementStack = [];
 
     /**
      * @var array int[] Array of millisecond times for the various elements being processed.
      */
-    private $timesStack = array();
+    private $timesStack = [];
 
     /**
      * @var int

@@ -78,10 +78,9 @@ class SourceFileScanner
             $now += 2000;
         }
 
-        $v = array();
+        $v = [];
 
         for ($i = 0, $size = count($files); $i < $size; $i++) {
-
             $targets = $mapper->main($files[$i]);
             if (empty($targets)) {
                 $this->task->log($files[$i] . " skipped - don't know how to handle it", Project::MSG_VERBOSE);
@@ -112,7 +111,6 @@ class SourceFileScanner
             $targetList = "";
 
             for ($j = 0, $_j = count($targets); (!$added && $j < $_j); $j++) {
-
                 $dest = null;
                 if ($destDir === null) {
                     $dest = new PhingFile($targets[$j]);
@@ -122,7 +120,7 @@ class SourceFileScanner
 
                 if (!$dest->exists()) {
                     $this->task->log(
-                        $files[$i] . " added as " . $dest->__toString() . " doesn't exist.",
+                        ($files[$i] ? $files[$i] : ".") . " added as " . $dest->__toString() . " doesn't exist.",
                         Project::MSG_VERBOSE
                     );
                     $v[] = $files[$i];
@@ -157,9 +155,8 @@ class SourceFileScanner
                     Project::MSG_VERBOSE
                 );
             }
-
         }
-        $result = array();
+        $result = [];
         $result = $v;
 
         return $result;
@@ -178,7 +175,7 @@ class SourceFileScanner
     public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)
     {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
-        $result = array();
+        $result = [];
         for ($i = 0; $i < count($res); $i++) {
             $result[$i] = new PhingFile($srcDir, $res[$i]);
         }

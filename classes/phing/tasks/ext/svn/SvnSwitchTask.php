@@ -56,11 +56,11 @@ class SvnSwitchTask extends SvnBaseTask
         );
 
         // revision
-        $switches = array(
+        $switches = [
             'r' => $this->getRevision(),
-        );
+        ];
 
-        $this->run(array($this->getToDir()), $switches);
+        $this->run([$this->getToDir()], $switches);
     }
 
     /**
