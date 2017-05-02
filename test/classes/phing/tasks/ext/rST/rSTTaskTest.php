@@ -79,7 +79,6 @@ class rSTTaskTest extends BuildFileTest
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
             $rt = new rSTTask();
-            $rt->init();
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);

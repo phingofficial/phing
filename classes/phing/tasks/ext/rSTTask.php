@@ -145,14 +145,6 @@ class rSTTask extends Task
     }
 
     /**
-     * Init method: requires the PEAR System class
-     */
-    public function init()
-    {
-        require_once 'System.php';
-    }
-
-    /**
      * The main entry point method.
      *
      * @throws BuildException
@@ -301,7 +293,8 @@ class rSTTask extends Task
         }
 
         $tool = 'rst2' . $format;
-        $path = System::which($tool);
+        $fs = FileSystem::getFileSystem();
+        $path = $fs->which($tool);
         if (!$path) {
             throw new BuildException(
                 sprintf('"%s" not found. Install python-docutils.', $tool)
@@ -413,7 +406,8 @@ class rSTTask extends Task
     public function setToolpath($path)
     {
         if (!file_exists($path)) {
-            $fullpath = System::which($path);
+            $fs = FileSystem::getFileSystem();
+            $fullpath = $fs->which($path);
             if ($fullpath === false) {
                 throw new BuildException(
                     'Tool does not exist. Path: ' . $path

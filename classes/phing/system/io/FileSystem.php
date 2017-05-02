@@ -881,4 +881,67 @@ abstract class FileSystem
     {
         throw new IOException("listContents() not implemented by local fs driver");
     }
+
+    /**
+     * PHP implementation of the 'which' command.
+     *
+     * Used to retrieve/determine the full path for a command.
+     *
+     * @param string $executable Executable file to search for
+     * @param mixed  $fallback   Default to fallback to.
+     *
+     * @return string Full path for the specified executable/command.
+     */
+    public function which($executable, $fallback = false)
+    {
+        if (is_string($executable)) {
+            if (trim($executable) === '') {
+                return $fallback;
+            }
+        } else {
+            return $fallback;
+        }
+        if (basename($executable) === $executable) {
+            $path = getenv("PATH");
+        } else {
+            $path = dirname($executable);
+        }
+        $dirSeparator = $this->getSeparator();
+        $pathSeparator = $this->getPathSeparator();
+        $elements = explode($pathSeparator, $path);
+        $amount = sizeof($elements);
+        $fstype = Phing::getProperty('host.fstype');
+        switch($fstype) {
+        case 'UNIX':
+            for ($count = 0; $count < $amount; ++$count) {
+                $file = $elements[$count] . $dirSeparator . $executable;
+                if (file_exists($file) && is_executable($file)) {
+                    return $file;
+                }
+            }
+            break;
+        case 'WIN32':
+        case 'WINNT':
+            $exts = getenv('PATHEXT');
+            if ($exts === false) {
+                $exts = ['.exe', '.bat', '.cmd', '.com'];
+            } else {
+                $exts = explode($pathSeparator, $exts);
+            }
+            for ($count = 0; $count < $amount; $count++) {
+                foreach ($exts as $ext) {
+                    $file = $elements[$count] . $dirSeparator . $executable . $ext ;
+                    if (file_exists($file) && is_executable($file)) {
+                        return $file;
+                    }
+                }
+            }
+            break;
+        }
+        if (file_exists($executable) && is_executable($executable)) {
+            return $executable;
+        }
+        return $fallback;
+    }
+
 }
