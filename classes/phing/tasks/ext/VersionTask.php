@@ -155,7 +155,7 @@ class VersionTask extends Task
             }
         } else {
             // write new Version to file
-            file_put_contents($this->file, $newVersion . $this->getProject()->getProperty('line.separator'));
+            file_put_contents($this->file, $newVersion);
         }
 
         //Finally set the property

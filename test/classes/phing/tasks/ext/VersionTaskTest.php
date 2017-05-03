@@ -64,6 +64,7 @@ class VersionTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.0');
         $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        $this->assertStringEqualsFile(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', '1.0.0', 'File contents not correct');
     }
 
     public function testPropFile()
