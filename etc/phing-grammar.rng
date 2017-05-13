@@ -1264,6 +1264,9 @@
             <ref name="optionaltasks"/>
             <ref name="coretypes"/>
         </interleave>
+        <optional>
+            <ref name="then"/>
+        </optional>
     </define>
 
     <define name="else">
