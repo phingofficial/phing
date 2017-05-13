@@ -155,6 +155,24 @@ class Path extends DataType
     }
 
     /**
+     * Adds a nested <code>&lt;filelist&gt;</code> element.
+     *
+     * @param FileList $fl
+     *
+     * @return void
+     *
+     * @throws BuildException
+     */
+    public function addFilelist(FileList $fl)
+    {
+        if ($this->isReference()) {
+            throw $this->noChildrenAllowed();
+        }
+        $this->elements[] = $fl;
+        $this->checked = false;
+    }
+
+    /**
      * Adds a nested <code>&lt;fileset&gt;</code> element.
      *
      * @param FileSet $fs
