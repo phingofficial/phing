@@ -59,30 +59,50 @@ class AvailableTaskTest extends BuildFileTest
 
     public function testFileSymlink()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("File symlinks don't work on Windows");
+        }
+
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testFileAbsoluteSymlink()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("FileAbsolute symlinks don't work on Windows");
+        }
+
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testDirectorySymlink()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("Directory symlinks don't work on Windows");
+        }
+
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testDirectoryAbsoluteSymlink()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("DirectoryAbsolute symlinks don't work on Windows");
+        }
+
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testDirectorySymlinkBC()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("Directory symlink BC don't work on Windows");
+        }
+
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }
