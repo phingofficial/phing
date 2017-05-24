@@ -814,7 +814,7 @@
                     </tbody>
                 </tgroup>
             </table>
-            <programlisting language="xml">&lt;ispropertytrue name=&quot;someproperty&quot;/&gt;</programlisting>
+            <programlisting language="xml">&lt;ispropertytrue property=&quot;someproperty&quot;/&gt;</programlisting>
 
         </sect2>
         <sect2 xml:id="conditions.ispropertyfalse">
@@ -843,7 +843,7 @@
                     </tbody>
                 </tgroup>
             </table>
-            <programlisting language="xml">&lt;ispropertyfalse name="someproperty"/></programlisting>
+            <programlisting language="xml">&lt;ispropertyfalse property="someproperty"/></programlisting>
 
         </sect2>
         <sect2 xml:id="conditions.referenceexists">
