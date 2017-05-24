@@ -161,8 +161,12 @@ class HttpRequestTask extends HttpTask
         if ($this->method == HTTP_Request2::METHOD_POST) {
             $request->setMethod(HTTP_Request2::METHOD_POST);
 
-            foreach ($this->postParameters as $postParameter) {
-                $request->addPostParameter($postParameter->getName(), $postParameter->getValue());
+            if ($this->isHeaderSet('content-type', 'application/json')) {
+                $request->setBody(json_encode(array_map(function ($postParameter) {return [$postParameter->getName() => $postParameter->getValue()];}, $this->postParameters)));
+            } else {
+                foreach ($this->postParameters as $postParameter) {
+                    $request->addPostParameter($postParameter->getName(), $postParameter->getValue());
+                }
             }
         }
 
@@ -176,6 +180,19 @@ class HttpRequestTask extends HttpTask
         }
 
         return $request;
+    }
+
+    private function isHeaderSet($headerName, $headerValue)
+    {
+        $isSet = false;
+
+        foreach ($this->headers as $header) {
+            if ($header->getName() === $headerName && $header->getValue() === $headerValue) {
+                $isSet = true;
+            }
+        }
+
+        return $isSet;
     }
 
     /**
