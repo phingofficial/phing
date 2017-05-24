@@ -567,6 +567,8 @@ class Phing
             // but -find then search for it
             if ($this->searchForThis !== null) {
                 $this->buildFile = $this->_findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
+            } else if (getenv("PHING_DIR")) {
+                $this->buildFile = new PhingFile(getenv("PHING_DIR"), self::DEFAULT_BUILD_FILENAME);
             } else {
                 $this->buildFile = new PhingFile(self::DEFAULT_BUILD_FILENAME);
             }
