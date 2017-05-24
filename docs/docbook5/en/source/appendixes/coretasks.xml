@@ -3055,7 +3055,7 @@ verbose="true" failonerror="false" /></programlisting>
                     <row>
                         <entry><literal>refid</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>A reference to a previously defined propeprty</entry>
+                        <entry>A reference to a previously defined property</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
