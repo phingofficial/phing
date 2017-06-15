@@ -30,7 +30,7 @@ class PHPLocCSVFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single';
+        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Csv';
         $printer = new $printerClass();
         $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
