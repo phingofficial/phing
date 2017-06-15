@@ -30,7 +30,7 @@ class PHPLocXMLFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\XML';
+        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Xml';
         $printer = new $printerClass();
         $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
