@@ -310,7 +310,7 @@ class DbDeployTask extends Task
         $fileChangeNumberPrefix = '';
         while (($file = readdir($dh)) !== false) {
             if (preg_match('[\d+]', $file, $fileChangeNumberPrefix)) {
-                $files[intval($fileChangeNumberPrefix[0])] = $file;
+                $files[(int)$fileChangeNumberPrefix[0]] = $file;
             }
         }
 

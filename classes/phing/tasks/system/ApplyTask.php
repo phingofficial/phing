@@ -829,10 +829,6 @@ class ApplyTask extends Task
      */
     public function getFilePath($filename, $basedir, $relative)
     {
-
-        // Var(s)
-        $files = [];
-
         // Validating the 'file' information
         $files = (is_array($filename)) ? $filename : [$filename];
 
