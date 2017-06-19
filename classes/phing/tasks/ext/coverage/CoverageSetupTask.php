@@ -113,7 +113,7 @@ class CoverageSetupTask extends Task
             try {
                 $list = $fl->getFiles($this->project);
                 foreach ($list as $file) {
-                    $fs = new PhingFile(strval($fl->getDir($this->project)), $file);
+                    $fs = new PhingFile((string)$fl->getDir($this->project), $file);
                     $files[] = ['key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath()];
                 }
             } catch (BuildException $be) {

@@ -88,7 +88,6 @@ class PropertySelector extends AbstractPropertySetterTask
                 for ($i = 0; $i < $sz; $i++) {
                     $s = $groups[$i];
 
-                    $result = null;
                     $result = new RegularExpression();
                     $result->setPattern("\\\\" . $i);
                     $sregex = $result->getRegexp($this->project);

@@ -333,7 +333,6 @@ class DirectoryScanner implements SelectorScanner
             $this->includes = null;
         } else {
             for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = null;
                 $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_includes[$i]);
                 $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
@@ -359,7 +358,6 @@ class DirectoryScanner implements SelectorScanner
             $this->excludes = null;
         } else {
             for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = null;
                 $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
                 $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {

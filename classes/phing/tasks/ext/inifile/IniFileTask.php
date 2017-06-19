@@ -26,7 +26,7 @@ require_once 'IniFileConfig.php';
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     InifileTask.php
  */
-class InifileTask extends Task
+class IniFileTask extends Task
 {
     /**
      * Source file

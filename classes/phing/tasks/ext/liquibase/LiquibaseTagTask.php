@@ -51,12 +51,7 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->tag) {
-            throw new BuildException(
-                sprintf(
-                    'Please specify the tag!',
-                    $this->tag
-                )
-            );
+            throw new BuildException('Please specify the tag!');
         }
     }
 
