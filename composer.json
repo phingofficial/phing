@@ -37,7 +37,7 @@
         "pear/versioncontrol_svn": "~0.5",
         "pdepend/pdepend": "2.x",
         "phpdocumentor/phpdocumentor": "2.x",
-        "phploc/phploc": "^3.0",
+        "phploc/phploc": "^4.0",
         "phpmd/phpmd": "~2.2",
         "phpunit/phpunit": ">=5.4",
         "siad007/versioncontrol_hg": "^1.0",
