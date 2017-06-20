@@ -6,9 +6,7 @@
 
     <dirname property="buildfile.dir" file="${phing.file}"/>
 
-    <php function="realpath" returnProperty="phingpkg.home">
-        <param value="${buildfile.dir}/.."/>
-    </php>
+    <resolvepath propertyName="phingpkg.home" path="${buildfile.dir}/.."/>
 
     <property name="build.full.dir" value="${buildfile.dir}/full"/>
 
@@ -158,7 +156,12 @@
     -->
     <target name="composer"
         depends="setproperties">
-        <exec dir="${build.full.dir}" passthru="true" command="composer install -o --no-dev --prefer-dist"/>
+		<composer command="install" composer="composer" php="">
+			<arg value="--working-dir=${build.full.dir}"/>
+			<arg value="-o"/>
+			<arg value="--no-dev"/>
+			<arg value="--prefer-dist"/>
+		</composer>
     </target>
 
     <!--
@@ -170,7 +173,9 @@
         if="version"
         depends="setproperties">
 
-        <php expression="date('Ymd')" returnProperty="builddate" />
+        <tstamp>
+            <format property="builddate" pattern="%Y%m%d" />
+        </tstamp>
         <pharpackage
             compression="none"
             destfile="${build.full.dir}.phar"

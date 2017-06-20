@@ -48,12 +48,7 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->rollbackTag) {
-            throw new BuildException(
-                sprintf(
-                    'Please specify the tag to rollback to!',
-                    $this->rollbackTag
-                )
-            );
+            throw new BuildException('Please specify the tag to rollback to!');
         }
     }
 

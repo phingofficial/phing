@@ -120,7 +120,7 @@ class SourceFileScanner
 
                 if (!$dest->exists()) {
                     $this->task->log(
-                        ($files[$i] ? $files[$i] : ".") . " added as " . $dest->__toString() . " doesn't exist.",
+                        ($files[$i] ?: ".") . " added as " . $dest->__toString() . " doesn't exist.",
                         Project::MSG_VERBOSE
                     );
                     $v[] = $files[$i];
@@ -156,10 +156,8 @@ class SourceFileScanner
                 );
             }
         }
-        $result = [];
-        $result = $v;
 
-        return $result;
+        return $v;
     }
 
     /**
