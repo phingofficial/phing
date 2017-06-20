@@ -58,14 +58,28 @@ abstract class BuildFileTest extends TestCase
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
+        $found = false;
         foreach ($this->logBuffer as $log) {
-            if (false !== stripos($log, $expected)) {
+            if (false !== stripos($log['message'], $expected)) {
                 $this->assertEquals(1, 1); // increase number of positive assertions
+                if ($priority === null) {
+                    return;
+                } elseif ($priority !== null) {
+                    if ($priority >= $log['priority']) {
+                        $found = true;
+                    }
+                }
 
+            }
+            if ($found) {
                 return;
             }
         }
-        $this->fail(sprintf($errormsg, $expected, var_export($this->logBuffer, true)));
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
 
     /**
@@ -80,8 +94,12 @@ abstract class BuildFileTest extends TestCase
         $errormsg = "Unexpected string '%s' found in logs: %s"
     ) {
         foreach ($this->logBuffer as $log) {
-            if (false !== stripos($log, $message)) {
-                $this->fail(sprintf($errormsg, $message, var_export($this->logBuffer, true)));
+            if (false !== stripos($log['message'], $message)) {
+                $representation = [];
+                foreach($this->logBuffer as $log) {
+                    $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+                }
+                $this->fail(sprintf($errormsg, $message, var_export($representation, true)));
             }
         }
 
@@ -460,6 +478,9 @@ class PhingTestListener implements BuildListener
      */
     public function messageLogged(BuildEvent $event)
     {
-        $this->parent->logBuffer[] = $event->getMessage();
+        $this->parent->logBuffer[] = [
+            'message' => $event->getMessage(),
+            'priority' => $event->getPriority()
+        ];
     }
 }

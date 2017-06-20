@@ -62,6 +62,17 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
     }
 
+    public function testExistingSourceWithVerbose()
+    {
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
+        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
+        $this->executeTarget("existingSourceWithVerbose");
+
+        $this->assertInLogs('Read from ./../../../../tmp/inifile/source.ini');
+        $this->assertInLogs('[test] foo set to qux', Project::MSG_INFO);
+        $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
+    }
+
     public function testRemoveKeyFromSectionInSourceFile()
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
