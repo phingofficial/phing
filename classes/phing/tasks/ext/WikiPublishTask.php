@@ -225,7 +225,7 @@ class WikiPublishTask extends Task
      */
     public function init()
     {
-        $this->cookiesFile = tempnam(sys_get_temp_dir(), 'WikiPublish.' . uniqid() . '.cookies');
+        $this->cookiesFile = tempnam(sys_get_temp_dir(), 'WikiPublish.' . uniqid('', true) . '.cookies');
 
         $this->curl = curl_init();
         if (false === is_resource($this->curl)) {

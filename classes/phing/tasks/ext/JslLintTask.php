@@ -271,7 +271,7 @@ class JslLintTask extends Task
                     throw new BuildException("Could not execute Javascript Lint executable '{$this->executable}'");
                 }
 
-                $summary = $messages[sizeof($messages) - 1];
+                $summary = $messages[count($messages) - 1];
 
                 preg_match('/(\d+)\serror/', $summary, $matches);
                 $errorCount = (count($matches) > 1 ? $matches[1] : 0);
