@@ -367,7 +367,7 @@ class ExecTaskTest extends BuildFileTest
     public function testEscapedArgWithoutWhitespace()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('echo "foo|bar" 2>&1');
-        $this->assertNotInLogs('echo " foo|bar " 2>&1');
+        $this->assertInLogs($this->windows ? 'echo "foo|bar" 2>&1' : 'echo \'foo|bar\' 2>&1');
+        $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');
     }
 }
