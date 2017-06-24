@@ -192,24 +192,16 @@ class Commandline
      */
     public static function quoteArgument($argument, $escape = false)
     {
-        if ($escape) {
-            return escapeshellarg($argument);
-        }
-
         if (strpos($argument, "\"") !== false && $argument !== '""') {
             if (strpos($argument, "'") !== false) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
             }
 
-            if ($escape) {
-                return escapeshellarg($argument);
-            }
             return $argument;
         }
 
-        if (strpos($argument, "'") !== false || strpos($argument, " ") !== false) {
+        if (strpos($argument, "'") !== false || strpos($argument, " ") !== false || $escape) {
             return escapeshellarg($argument);
-            //return '\"' . $argument . '\"';
         }
 
         return $argument;
