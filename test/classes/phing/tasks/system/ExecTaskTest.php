@@ -363,4 +363,11 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('outval', 'abc$b3!SB');
     }
+
+    public function testEscapedArgWithoutWhitespace()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('echo "foo|bar" 2>&1');
+        $this->assertNotInLogs('echo " foo|bar " 2>&1');
+    }
 }

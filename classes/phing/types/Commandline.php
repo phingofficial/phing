@@ -167,7 +167,13 @@ class Commandline
      */
     public function __toString()
     {
-        return self::toString($this->getCommandline());
+        try {
+            $cmd = self::toString($this->getCommandline());
+        } catch (BuildException $be) {
+            $cmd = '';
+        }
+
+        return $cmd;
     }
 
     /**
@@ -188,18 +194,25 @@ class Commandline
     {
         if ($escape) {
             return escapeshellarg($argument);
-        } elseif (strpos($argument, "\"") !== false && $argument != '""') {
+        }
+
+        if (strpos($argument, "\"") !== false && $argument !== '""') {
             if (strpos($argument, "'") !== false) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
-            } else {
+            }
+
+            if ($escape) {
                 return escapeshellarg($argument);
             }
-        } elseif (strpos($argument, "'") !== false || strpos($argument, " ") !== false) {
-            return escapeshellarg($argument);
-            //return '\"' . $argument . '\"';
-        } else {
             return $argument;
         }
+
+        if (strpos($argument, "'") !== false || strpos($argument, " ") !== false) {
+            return escapeshellarg($argument);
+            //return '\"' . $argument . '\"';
+        }
+
+        return $argument;
     }
 
     /**
@@ -257,7 +270,7 @@ class Commandline
         while (($nextTok = array_shift($tokens)) !== null) {
             switch ($state) {
                 case $inQuote:
-                    if ("'" == $nextTok) {
+                    if ("'" === $nextTok) {
                         $lastTokenHasBeenQuoted = true;
                         $state = $normal;
                     } else {
@@ -265,7 +278,7 @@ class Commandline
                     }
                     break;
                 case $inDoubleQuote:
-                    if ("\"" == $nextTok) {
+                    if ("\"" === $nextTok) {
                         $lastTokenHasBeenQuoted = true;
                         $state = $normal;
                     } else {
@@ -273,12 +286,12 @@ class Commandline
                     }
                     break;
                 default:
-                    if ("'" == $nextTok) {
+                    if ("'" === $nextTok) {
                         $state = $inQuote;
-                    } elseif ("\"" == $nextTok) {
+                    } elseif ("\"" === $nextTok) {
                         $state = $inDoubleQuote;
-                    } elseif (" " == $nextTok) {
-                        if ($lastTokenHasBeenQuoted || strlen($current) != 0) {
+                    } elseif (" " === $nextTok) {
+                        if ($lastTokenHasBeenQuoted || $current !== '') {
                             $args[] = $current;
                             $current = "";
                         }

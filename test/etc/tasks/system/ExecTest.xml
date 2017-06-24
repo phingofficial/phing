@@ -157,4 +157,10 @@
         </exec>
     </target>
 
+    <target name="testEscapedArgWithoutWhitespace">
+        <exec executable="echo">
+            <arg escape="true" value="foo|bar"/>
+        </exec>
+    </target>
+
 </project>

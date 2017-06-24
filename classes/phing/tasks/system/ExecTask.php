@@ -137,6 +137,7 @@ class ExecTask extends Task
     public function __construct()
     {
         $this->commandline = new Commandline();
+        parent::__construct();
     }
 
     /**
@@ -226,14 +227,14 @@ class ExecTask extends Task
             );
         } else {
             if ($this->command === null) {
-                $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
+                $this->realCommand = (string) $this->commandline;
             } else {
                 if ($this->commandline->getExecutable() === null) {
                     $this->realCommand = $this->command;
 
                     //we need to escape the command only if it's specified directly
                     // commandline takes care of "executable" already
-                    if ($this->escape == true) {
+                    if ($this->escape === true) {
                         $this->realCommand = escapeshellcmd($this->realCommand);
                     }
                 } else {
