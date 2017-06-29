@@ -83,4 +83,25 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
             ['WinNTFileSystem', 'WINNT']
         ];
     }
+
+    public function testWhichFailsNonStringExecutable()
+    {
+        $fs = FileSystem::getFileSystem();
+        $path = $fs->which(42);
+        $this->assertEquals($path, false);
+    }
+
+    public function testWhichFailsDueToUnusualExecutableName()
+    {
+        $fs = FileSystem::getFileSystem();
+        $path = $fs->which('tasword.bin');
+        $this->assertEquals($path, false);
+    }
+
+    public function testWhichHinkyExecutableNameWithSeparator()
+    {
+        $fs = FileSystem::getFileSystem();
+        $path = $fs->which('zx:\tasword.bin');
+        $this->assertEquals($path, false);
+    }
 }
