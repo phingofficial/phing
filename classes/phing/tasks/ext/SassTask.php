@@ -889,10 +889,6 @@ class SassTask extends Task
      */
     public function init()
     {
-        @include_once 'System.php';
-        if (!class_exists('System')) {
-            throw new BuildException("You must have installed PEAR in order to use SassTask.");
-        }
         @include_once 'vendor/autoload.php';
     }
 
@@ -922,7 +918,8 @@ class SassTask extends Task
         // If both are set to be used, prefer sass over scssphp.
         $lUseScssphp = false;
         if ($this->useSass && $this->useScssphp) {
-            if (System::which($this->executable) === false) {
+            $fs = FileSystem::getFileSystem();
+            if ($fs->which($this->executable) === false) {
                 if ($this->loadScssphp() === false) {
                     $msg = sprintf(
                         "%s not found. Install sass or leafo scssphp.",
@@ -946,7 +943,8 @@ class SassTask extends Task
             );
             return;
         } elseif ($this->useSass) {
-            if (System::which($this->executable) === false) {
+            $fs = FileSystem::getFileSystem();
+            if ($fs->which($this->executable) === false) {
                 $msg = sprintf(
                     "%s not found. Install sass.",
                     $this->executable
