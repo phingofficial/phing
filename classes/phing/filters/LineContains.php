@@ -91,7 +91,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         foreach ($lines as $line) {
             for ($i = 0; $i < $containsSize; $i++) {
                 $containsStr = $this->_contains[$i]->getValue();
-                if (strstr($line, $containsStr) === false) {
+                if (false === strpos($line, $containsStr)) {
                     $line = null;
                     break;
                 }

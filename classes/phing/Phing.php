@@ -1220,7 +1220,7 @@ class Phing
             $classname = $dotPath;
             $dotPath = '';
             $shortClassName = $classname;
-            if (($lastNsPos = strripos($shortClassName, '\\'))) {
+            if (($lastNsPos = strrpos($shortClassName, '\\'))) {
                 $namespace = substr($shortClassName, 0, $lastNsPos);
                 $shortClassName = substr($shortClassName, $lastNsPos + 1);
                 $dotPath = str_replace('\\', '.', $namespace) . '.';

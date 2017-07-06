@@ -131,7 +131,7 @@ class StringHelper
             return false; // not a valid string for testing
         }
 
-        $test = trim(strtolower($s));
+        $test = strtolower(trim($s));
 
         return (boolean) in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES));
     }
@@ -161,7 +161,7 @@ class StringHelper
         if ($check === "" || $check === $string) {
             return true;
         } else {
-            return (strpos($string, $check) === 0) ? true : false;
+            return strpos($string, $check) === 0;
         }
     }
 
@@ -178,7 +178,7 @@ class StringHelper
         if ($check === "" || $check === $string) {
             return true;
         } else {
-            return (strpos(strrev($string), strrev($check)) === 0) ? true : false;
+            return strpos(strrev($string), strrev($check)) === 0;
         }
     }
 

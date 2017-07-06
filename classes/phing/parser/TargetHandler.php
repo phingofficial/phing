@@ -123,7 +123,7 @@ class TargetHandler extends AbstractHandler
                     $id = (string) $value;
                     break;
                 case "hidden":
-                    $isHidden = ($value === 'true' || $value === '1') ? true : false;
+                    $isHidden = ($value === 'true' || $value === '1');
                     break;
                 case "description":
                     $description = (string) $value;

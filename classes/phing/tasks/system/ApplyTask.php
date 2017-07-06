@@ -549,7 +549,7 @@ class ApplyTask extends Task
         }
 
         // Validating the operating system information
-        $matched = (strpos(strtolower($this->os), strtolower($this->currentos)) !== false) ? true : false;
+        $matched = strpos(strtolower($this->os), strtolower($this->currentos)) !== false;
 
         // Log
         $this->log(

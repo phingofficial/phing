@@ -91,7 +91,7 @@ class PHPLocTask extends Task
      */
     public function setSuffixes($suffixListOrSingleSuffix)
     {
-        if (stripos($suffixListOrSingleSuffix, ',')) {
+        if (strpos($suffixListOrSingleSuffix, ',')) {
             $suffixes = explode(',', $suffixListOrSingleSuffix);
             $this->suffixesToCheck = array_map('trim', $suffixes);
         } else {

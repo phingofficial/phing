@@ -492,8 +492,7 @@ class PDOSQLExecTask extends PDOTask
         try {
             $this->totalSql++;
 
-            $this->statement = $this->conn->prepare($sql);
-            $this->statement->execute();
+            $this->statement = $this->conn->query($sql);
             $this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
 
             // only call processResults() for statements that return actual data (such as 'select')

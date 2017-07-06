@@ -68,7 +68,7 @@ class PhkPackageTask extends Task
      */
     public function setCrcCheck($crcCheck)
     {
-        $this->options['crc_check'] = ('true' == $crcCheck ? true : false);
+        $this->options['crc_check'] = 'true' == $crcCheck;
     }
 
     /**
@@ -108,7 +108,7 @@ class PhkPackageTask extends Task
      */
     public function setWebMainRedirect($webMainRedirect)
     {
-        $this->options['web_main_redirect'] = ('true' == $webMainRedirect ? true : false);
+        $this->options['web_main_redirect'] = 'true' == $webMainRedirect;
     }
 
     /**

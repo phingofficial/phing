@@ -411,7 +411,7 @@ class FtpDeployTask extends Task
             $content = $this->parseRawFtpContent($content, $directory);
         }
 
-        if (sizeof($content) == 0) {
+        if (count($content) == 0) {
             return false;
         } else {
             if (!empty($directory)) {
