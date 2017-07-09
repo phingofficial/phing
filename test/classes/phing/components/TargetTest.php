@@ -84,10 +84,8 @@ class TargetTest extends BuildFileTest
      */
     public function testSetDependsInvalid($depends)
     {
-        $this->setExpectedException(
-            'BuildException',
-            'Syntax Error: Depend attribute for target MyTarget is malformed.'
-        );
+        $this->expectException('BuildException');
+        $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
 
         $this->target->setDepends($depends);
     }
@@ -164,7 +162,7 @@ class TargetTest extends BuildFileTest
 
     public function testMainPerformsTasks()
     {
-        $task = $this->getMock('Task');
+        $task = $this->createMock('Task');
         $task->expects($this->once())->method('perform');
         $this->target->addTask($task);
 
@@ -176,7 +174,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
 
-        $task = $this->getMock('Task');
+        $task = $this->createMock('Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 
@@ -188,7 +186,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
 
-        $task = $this->getMock('Task');
+        $task = $this->createMock('Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 
