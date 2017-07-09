@@ -507,10 +507,10 @@ class PhpDependTask extends Task
 
         if ($this->debug) {
             // Enable debug logging
-            call_user_func('PDepend\\Util\\Log::setSeverity', 1);
+            PDepend\Util\Log::setSeverity(1);
         }
 
-        call_user_func('PDepend\\Util\\ConfigurationInstance::set', $configuration);
+        PDepend\Util\ConfigurationInstance::set($configuration);
 
         return $runner;
     }
