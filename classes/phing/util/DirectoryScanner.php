@@ -148,7 +148,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         "**/.bzrignore",
     ];
 
-    private static $defaultExcludeList = self::DEFAULTEXCLUDES;
+    private static $defaultExcludeList = [];
 
     /**
      * The base directory which should be scanned.
@@ -221,6 +221,12 @@ class DirectoryScanner implements FileScanner, SelectorScanner
 
     /** if there are no deselected files */
     protected $everythingIncluded = true;
+
+    public function __construct()
+    {
+        // Support for hhvm.
+        self::$defaultExcludeList = self::DEFAULTEXCLUDES;
+    }
 
     /**
      * Does the path match the start of this pattern up to the first "**".
