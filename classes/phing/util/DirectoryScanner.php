@@ -115,7 +115,7 @@ include_once 'phing/types/selectors/SelectorUtils.php';
 class DirectoryScanner implements FileScanner, SelectorScanner
 {
     /** default set of excludes */
-    const DEFAULTEXCLUDES = [
+    protected static $DEFAULTEXCLUDES = [
         "**/*~",
         "**/#*#",
         "**/.#*",
@@ -225,7 +225,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     public function __construct()
     {
         // Support for hhvm.
-        self::$defaultExcludeList = self::DEFAULTEXCLUDES;
+        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
     }
 
     /**
@@ -340,7 +340,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public static function resetDefaultExcludes()
     {
-        self::$defaultExcludeList = self::DEFAULTEXCLUDES;
+        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
     }
 
     /**
