@@ -21,6 +21,7 @@
 
 require_once 'phing/ProjectComponent.php';
 include_once 'phing/RuntimeConfigurable.php';
+include_once 'phing/dispatch/DispatchUtils.php';
 
 /**
  * The base class for all Tasks.
@@ -222,7 +223,7 @@ abstract class Task extends ProjectComponent
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
-            $this->main();
+            DispatchUtils::main($this);
             $this->project->fireTaskFinished($this, $null = null);
         } catch (Exception $exc) {
             if ($exc instanceof BuildException) {
