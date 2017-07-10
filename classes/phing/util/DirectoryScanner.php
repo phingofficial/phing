@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/FileScanner.php';
 require_once 'phing/types/selectors/SelectorScanner.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/types/selectors/SelectorUtils.php';
@@ -111,11 +112,10 @@ include_once 'phing/types/selectors/SelectorUtils.php';
  * @version   $Id$
  * @package   phing.util
  */
-class DirectoryScanner implements SelectorScanner
+class DirectoryScanner implements FileScanner, SelectorScanner
 {
-
     /** default set of excludes */
-    protected $DEFAULTEXCLUDES = [
+    const DEFAULTEXCLUDES = [
         "**/*~",
         "**/#*#",
         "**/.#*",
@@ -147,6 +147,8 @@ class DirectoryScanner implements SelectorScanner
         "**/.bzr/**",
         "**/.bzrignore",
     ];
+
+    private static $defaultExcludeList = self::DEFAULTEXCLUDES;
 
     /**
      * The base directory which should be scanned.
@@ -274,6 +276,68 @@ class DirectoryScanner implements SelectorScanner
     }
 
     /**
+     * Get the list of patterns that should be excluded by default.
+     *
+     * @return string[] An array of <code>String</code> based on the current
+     *         contents of the <code>defaultExcludes</code>
+     *         <code>Set</code>.
+     */
+    public static function getDefaultExcludes()
+    {
+        return self::$defaultExcludeList;
+    }
+
+    /**
+     * Add a pattern to the default excludes unless it is already a
+     * default exclude.
+     *
+     * @param string $s   A string to add as an exclude pattern.
+     * @return boolean   <code>true</code> if the string was added;
+     *                   <code>false</code> if it already existed.
+     */
+    public static function addDefaultExclude($s)
+    {
+        if (!in_array($s, self::$defaultExcludeList)) {
+            $return = true;
+            self::$defaultExcludeList[] = $s;
+        } else {
+            $return = false;
+        }
+
+        return $return;
+    }
+
+    /**
+     * Remove a string if it is a default exclude.
+     *
+     * @param string $s   The string to attempt to remove.
+     * @return boolean    <code>true</code> if <code>s</code> was a default
+     *                    exclude (and thus was removed);
+     *                    <code>false</code> if <code>s</code> was not
+     *                    in the default excludes list to begin with.
+     */
+    public static function removeDefaultExclude($s)
+    {
+        $key = array_search($s, self::$defaultExcludeList);
+
+        if ($key !== false) {
+            unset(self::$defaultExcludeList[$key]);
+            self::$defaultExcludeList = array_values(self::$defaultExcludeList);
+            return true;
+        }
+
+        return  false;
+    }
+
+    /**
+     * Go back to the hardwired default exclude patterns.
+     */
+    public static function resetDefaultExcludes()
+    {
+        self::$defaultExcludeList = self::DEFAULTEXCLUDES;
+    }
+
+    /**
      * Sets the basedir for scanning. This is the directory that is scanned
      * recursively. All '/' and '\' characters are replaced by
      * DIRECTORY_SEPARATOR
@@ -333,8 +397,7 @@ class DirectoryScanner implements SelectorScanner
             $this->includes = null;
         } else {
             for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_includes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -358,8 +421,7 @@ class DirectoryScanner implements SelectorScanner
             $this->excludes = null;
         } else {
             for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -775,12 +837,12 @@ class DirectoryScanner implements SelectorScanner
      */
     public function addDefaultExcludes()
     {
-        //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
-        foreach ($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-            $this->excludes[] = $pattern;
+        $defaultExcludesTemp = self::getDefaultExcludes();
+        $newExcludes = [];
+        foreach ($defaultExcludesTemp as $temp) {
+            $newExcludes[] = str_replace(['\\', '/'], PhingFile::$separator, $temp);
         }
+        $this->excludes = array_merge((array) $this->excludes, $newExcludes);
     }
 
     /**

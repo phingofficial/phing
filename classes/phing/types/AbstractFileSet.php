@@ -385,7 +385,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
 
         $p->log(
-            "FileSet: Setup file scanner in dir " . $this->dir->__toString() . " with " . $this->defaultPatterns->toString(),
+            "FileSet: Setup file scanner in dir " . (string) $this->dir . " with " . $this->defaultPatterns->toString(),
             Project::MSG_DEBUG
         );
 
@@ -443,13 +443,13 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return $this->getRef($this->getProject())->hasPatterns();
         }
 
-        if ($this->defaultPatterns->hasPatterns($this->getProject())) {
+        if ($this->defaultPatterns->hasPatterns()) {
             return true;
         }
 
         for ($i = 0, $size = count($this->additionalPatterns); $i < $size; $i++) {
             $ps = $this->additionalPatterns[$i];
-            if ($ps->hasPatterns($this->getProject())) {
+            if ($ps->hasPatterns()) {
                 return true;
             }
         }

@@ -223,6 +223,7 @@
                 <ref name="condition"/>
                 <ref name="copy"/>
                 <ref name="delete"/>
+                <ref name="defaultexcludes"/>
                 <ref name="diagnostics"/>
                 <ref name="dirname"/>
                 <ref name="echo"/>
@@ -1011,6 +1012,25 @@
                 <ref name="dirset"/>
                 <ref name="fileset"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="defaultexcludes">
+        <element name="defaultexcludes">
+            <oneOrMore>
+                <attribute name="default">
+                    <data type="boolean" a:defaultValue="false"/>
+                </attribute>
+                <attribute name="add">
+                    <data type="string"/>
+                </attribute>
+                <attribute name="remove">
+                    <data type="string"/>
+                </attribute>
+                <attribute name="echo">
+                    <data type="boolean" a:defaultValue="false"/>
+                </attribute>
+            </oneOrMore>
         </element>
     </define>
 
