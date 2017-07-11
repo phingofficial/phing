@@ -1,7 +1,6 @@
 <?php
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/hg/HgPushTask.php';
-require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgPushTaskTest extends BuildFileTest
 {
@@ -16,7 +15,7 @@ class HgPushTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        HgTestsHelper::rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
 
     public function testWrongRepositoryDirDoesntExist()
