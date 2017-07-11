@@ -190,5 +190,3 @@ class ExtendedFileStream
         return false;
     }
 }
-
-;

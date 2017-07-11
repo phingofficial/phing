@@ -549,7 +549,7 @@ class ApplyTask extends Task
         }
 
         // Validating the operating system information
-        $matched = strpos(strtolower($this->os), strtolower($this->currentos)) !== false;
+        $matched = stripos($this->os, $this->currentos) !== false;
 
         // Log
         $this->log(
@@ -725,7 +725,6 @@ class ApplyTask extends Task
                     0,
                     (($this->maxparallel > 0) ? $this->maxparallel : count($files))
                 );
-                ;
 
                 $absolutefilename = implode(' ', $this->getFilePath($slicedfiles, $basedir, $this->relative));
             }

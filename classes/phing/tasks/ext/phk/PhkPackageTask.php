@@ -245,10 +245,7 @@ class PhkPackageTask extends Task
             /*
              * Delete all '--- *' lines. Bluh!
              */
-            /*
-             * TODO Change preg_math to more faster alternative.
-             */
-            if (preg_match('/^---/', $line)) {
+            if (0 === strpos($line, '---')) {
                 continue;
             }
 

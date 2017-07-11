@@ -909,7 +909,7 @@ abstract class FileSystem
         $dirSeparator = $this->getSeparator();
         $pathSeparator = $this->getPathSeparator();
         $elements = explode($pathSeparator, $path);
-        $amount = sizeof($elements);
+        $amount = count($elements);
         $fstype = Phing::getProperty('host.fstype');
         switch($fstype) {
         case 'UNIX':
