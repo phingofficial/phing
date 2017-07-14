@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project name="git_test" default="invalid">
+
+    <property name="tmp.dir" value="./../../../../tmp/git" />
+    <property name="bundle.dir" value="phing-tests.git"/>
+    <property name="repo.dir" value="phing-tests.git"/>
+
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <resolvepath propertyName="bundle.dir.resolved" file="${bundle.dir}" />
+    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+
+    <if>
+        <os family="windows"/>
+        <then>
+            <property name="git-path" value="SET LC_ALL=C &amp;&amp; git"/>
+        </then>
+        <else>
+            <property name="git-path" value="LC_ALL=C &amp;&amp; git"/>
+        </else>
+    </if>
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+</project>

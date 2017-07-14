@@ -21,7 +21,6 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitLogTask.php';
-require_once __DIR__ . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -102,16 +101,10 @@ class GitLogTaskTest extends BuildFileTest
 
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
@@ -124,7 +117,7 @@ class GitLogTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testGitLogWithoutParams()
@@ -183,7 +176,7 @@ class GitLogTaskTest extends BuildFileTest
         $this->executeTarget('gitLogDateRelative');
         foreach ($this->testCommits as $commit) {
             $timestamp = strtotime($commit['date']);
-            $this->assertInLogs(GitTestsHelper::getRelativeDate($timestamp));
+            $this->assertInLogs($this->getRelativeDate($timestamp));
         }
     }
 
