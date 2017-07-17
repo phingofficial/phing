@@ -333,11 +333,11 @@ class ManifestTask extends Task
             $this->log("No salt provided. Specify one with the 'salt' attribute.", Project::MSG_WARN);
         }
 
-        if (is_null($this->file) && count($this->filesets) === 0) {
+        if (null === $this->file && count($this->filesets) === 0) {
             throw new BuildException("Specify at least sources and destination - a file or a fileset.");
         }
 
-        if (!is_null($this->file) && $this->file->exists() && $this->file->isDirectory()) {
+        if (null !== $this->file && $this->file->exists() && $this->file->isDirectory()) {
             throw new BuildException("Destination file cannot be a directory.");
         }
     }

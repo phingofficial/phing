@@ -291,7 +291,7 @@ class Path extends DataType
         if (!$this->checked) {
             // make sure we don't have a circular reference here
             $stk = [];
-            array_push($stk, $this);
+            $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->project);
         }
 
@@ -497,7 +497,7 @@ class Path extends DataType
                 if (in_array($o, $stk, true)) {
                     throw $this->circularReference();
                 } else {
-                    array_push($stk, $o);
+                    $stk[] = $o;
                     $o->dieOnCircularReference($stk, $p);
                     array_pop($stk);
                 }

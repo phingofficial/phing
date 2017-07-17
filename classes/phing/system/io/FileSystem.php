@@ -382,7 +382,7 @@ abstract class FileSystem
         $list = [];
         while ($entry = $d->read()) {
             if ($entry != "." && $entry != "..") {
-                array_push($list, $entry);
+                $list[] = $entry;
             }
         }
         $d->close();

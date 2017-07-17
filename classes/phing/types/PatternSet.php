@@ -367,7 +367,7 @@ class PatternSet extends DataType
         foreach ($list as $ne) {
             $pattern = (string) $ne->evalName($p);
             if ($pattern !== null && strlen($pattern) > 0) {
-                array_push($tmpNames, $pattern);
+                $tmpNames[] = $pattern;
             }
         }
 

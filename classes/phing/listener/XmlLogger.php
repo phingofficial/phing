@@ -130,8 +130,8 @@ class XmlLogger implements BuildLogger
     {
         $this->buildTimerStart = Phing::currentTimeMillis();
         $this->buildElement = $this->doc->createElement(XmlLogger::BUILD_TAG);
-        array_push($this->elementStack, $this->buildElement);
-        array_push($this->timesStack, $this->buildTimerStart);
+        $this->elementStack[] = $this->buildElement;
+        $this->timesStack[] = $this->buildTimerStart;
     }
 
     /**
@@ -212,8 +212,8 @@ class XmlLogger implements BuildLogger
         $targetElement = $this->doc->createElement(XmlLogger::TARGET_TAG);
         $targetElement->setAttribute(XmlLogger::NAME_ATTR, $target->getName());
 
-        array_push($this->timesStack, Phing::currentTimeMillis());
-        array_push($this->elementStack, $targetElement);
+        $this->timesStack[] = Phing::currentTimeMillis();
+        $this->elementStack[] = $targetElement;
     }
 
     /**
@@ -249,8 +249,8 @@ class XmlLogger implements BuildLogger
         $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
         $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, $task->getLocation()->toString());
 
-        array_push($this->timesStack, Phing::currentTimeMillis());
-        array_push($this->elementStack, $taskElement);
+        $this->timesStack[] = Phing::currentTimeMillis();
+        $this->elementStack[] = $taskElement;
     }
 
     /**

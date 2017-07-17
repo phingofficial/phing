@@ -333,7 +333,7 @@ class JslLintTask extends Task
                     foreach ($errors as $error) {
                         $message = 'line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'];
                         $this->log('- ' . $message, Project::MSG_ERR);
-                        array_push($this->badFiles[$file], $message);
+                        $this->badFiles[$file][] = $message;
                     }
                     $this->hasErrors = true;
                 } else {

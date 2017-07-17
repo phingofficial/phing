@@ -994,7 +994,7 @@ class SassTask extends Task
     public function processFile($useScssphp)
     {
         $this->log("Process file", Project::MSG_INFO);
-        if (is_null($this->output)) {
+        if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {
                 $info = pathinfo($this->file);

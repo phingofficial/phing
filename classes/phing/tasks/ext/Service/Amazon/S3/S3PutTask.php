@@ -318,7 +318,7 @@ class S3PutTask extends Service_Amazon_S3
     protected function getHttpHeaders()
     {
         $headers = [];
-        if (!is_null($this->_maxage)) {
+        if (null !== $this->_maxage) {
             $headers['Cache-Control'] = 'max-age=' . $this->_maxage;
         }
         if ($this->_gzipped) {

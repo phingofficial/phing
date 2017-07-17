@@ -350,7 +350,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                             $tok->setKey($name);
                             $tok->setValue($value);
 
-                            array_push($this->_tokens, $tok);
+                            $this->_tokens[] = $tok;
                         } else {
                             if ($type === "tokensource") {
                                 // Store data from nested tags in local array

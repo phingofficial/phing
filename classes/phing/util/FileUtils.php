@@ -328,7 +328,7 @@ class FileUtils
         }
 
         $s = [];
-        array_push($s, $root);
+        $s[] = $root;
         $tok = strtok($path, DIRECTORY_SEPARATOR);
         while ($tok !== false) {
             $thisToken = $tok;
@@ -343,7 +343,7 @@ class FileUtils
                     array_pop($s);
                 }
             } else { // plain component
-                array_push($s, $thisToken);
+                $s[] = $thisToken;
             }
             $tok = strtok(DIRECTORY_SEPARATOR);
         }

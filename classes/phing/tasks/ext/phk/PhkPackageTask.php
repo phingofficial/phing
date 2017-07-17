@@ -219,7 +219,7 @@ class PhkPackageTask extends Task
         /*
          * Add web_access to options, if present.
          */
-        if (!is_null($this->webAccess)) {
+        if (null !== $this->webAccess) {
             $webAccessPaths = $this->webAccess->getPaths();
             if (!empty($webAccessPaths)) {
                 $this->options['web_access'] = $webAccessPaths;

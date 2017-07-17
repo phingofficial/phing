@@ -558,7 +558,7 @@ class Phing
                 throw new ConfigurationException("Unknown argument: " . $arg);
             } else {
                 // if it's no other arg, it may be the target
-                array_push($this->targets, $arg);
+                $this->targets[] = $arg;
             }
         }
 
