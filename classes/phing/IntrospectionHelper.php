@@ -166,14 +166,7 @@ class IntrospectionHelper
                     }
 
                     $this->slotListeners[$name] = $method;
-                } elseif (strpos($name, "set") === 0) {
-
-                    // A standard attribute setter.
-
-                    if (count($method->getParameters()) !== 1) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() must take exactly one parameter.");
-                    }
+                } elseif (strpos($name, "set") === 0 && count($method->getParameters()) === 1) {
 
                     $this->attributeSetters[$name] = $method;
                 } elseif (strpos($name, "create") === 0) {

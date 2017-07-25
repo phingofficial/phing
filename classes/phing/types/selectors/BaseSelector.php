@@ -36,18 +36,21 @@ abstract class BaseSelector extends DataType implements FileSelector
     /** @var string $errmsg */
     private $errmsg = null;
 
+    /** @var Exception $cause */
+    private $cause;
+
     /**
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
      * @param string $msg The error message any BuildException should throw.
-     *
-     * @return void
+     * @param Exception $cause
      */
-    public function setError($msg)
+    public function setError($msg, Exception $cause = null)
     {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
+            $this->cause = $cause;
         }
     }
 
@@ -67,9 +70,14 @@ abstract class BaseSelector extends DataType implements FileSelector
      * be called automatically (unless they override validate()).</p>
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
+     *
+     * @throws \BuildException
      */
     public function verifySettings()
     {
+        if ($this->isReference()) {
+            $this->getCheckedRef(get_class(), StringHelper::unqualify(get_class()))->verifySettings();
+        }
     }
 
     /**
@@ -84,7 +92,7 @@ abstract class BaseSelector extends DataType implements FileSelector
             $this->verifySettings();
         }
         if ($this->getError() !== null) {
-            throw new BuildException($this->errmsg);
+            throw new BuildException($this->errmsg, $this->cause);
         }
     }
 }
