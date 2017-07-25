@@ -113,6 +113,6 @@ class Ssh2MethodConnectionParam
      */
     protected function _filterParam($var)
     {
-        return !is_null($var);
+        return null !== $var;
     }
 }

@@ -183,7 +183,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
                     $pattern = $params[$i]->getValue();
                     $regexp = new RegularExpression();
                     $regexp->setPattern($pattern);
-                    array_push($this->_regexps, $regexp);
+                    $this->_regexps[] = $regexp;
                 }
             }
         }

@@ -182,7 +182,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                 if (self::CONTAINS_KEY == $param->getType()) {
                     $cont = new Contains();
                     $cont->setValue($param->getValue());
-                    array_push($this->_contains, $cont);
+                    $this->_contains[] = $cont;
                     break; // because we only support a single contains
                 }
             }

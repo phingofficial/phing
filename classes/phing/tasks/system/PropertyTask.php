@@ -577,16 +577,16 @@ class PropertyTask extends Task
 
         while (($pos = strpos($value, '$', $prev)) !== false) {
             if ($pos > $prev) {
-                array_push($fragments, StringHelper::substring($value, $prev, $pos - 1));
+                $fragments[] = StringHelper::substring($value, $prev, $pos - 1);
             }
             if ($pos === (strlen($value) - 1)) {
-                array_push($fragments, '$');
+                $fragments[] = '$';
                 $prev = $pos + 1;
             } elseif ($value{$pos + 1} !== '{') {
 
                 // the string positions were changed to value-1 to correct
                 // a fatal error coming from function substring()
-                array_push($fragments, StringHelper::substring($value, $pos, $pos + 1));
+                $fragments[] = StringHelper::substring($value, $pos, $pos + 1);
                 $prev = $pos + 2;
             } else {
                 $endName = strpos($value, '}', $pos);
@@ -594,14 +594,14 @@ class PropertyTask extends Task
                     throw new BuildException("Syntax error in property: $value");
                 }
                 $propertyName = StringHelper::substring($value, $pos + 2, $endName - 1);
-                array_push($fragments, null);
-                array_push($propertyRefs, $propertyName);
+                $fragments[] = null;
+                $propertyRefs[] = $propertyName;
                 $prev = $endName + 1;
             }
         }
 
         if ($prev < strlen($value)) {
-            array_push($fragments, StringHelper::substring($value, $prev));
+            $fragments[] = StringHelper::substring($value, $prev);
         }
     }
 }

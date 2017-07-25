@@ -453,7 +453,7 @@ class ScpTask extends Task
                 ssh2_sftp_mkdir(
                     $this->sftp,
                     dirname($remoteEndpoint),
-                    (is_null($this->mode) ? 0777 : $this->mode),
+                    (null === $this->mode ? 0777 : $this->mode),
                     true
                 );
             }

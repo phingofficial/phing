@@ -285,7 +285,7 @@ class PhpLintTask extends Task
                     $this->badFiles[$file] = [];
                 }
 
-                array_push($this->badFiles[$file], $message);
+                $this->badFiles[$file][] = $message;
 
                 $this->hasErrors = true;
                 $errorCount++;

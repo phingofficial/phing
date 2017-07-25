@@ -47,11 +47,11 @@ class HipchatTask extends Task {
 
     public function main()
     {
-        if (is_null($this->getRoom())) {
+        if (null === $this->getRoom()) {
             throw new BuildException('(HipChat) room is not defined');
         }
 
-        if (is_null($this->getAuthToken())) {
+        if (null === $this->getAuthToken()) {
             throw new BuildException('(HipChat) authToken is not defined');
         }
 

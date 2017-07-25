@@ -245,7 +245,7 @@ class VersionTask extends Task
     private function checkReleasetype()
     {
         // check Releasetype
-        if (is_null($this->releasetype)) {
+        if (null === $this->releasetype) {
             throw new BuildException('releasetype attribute is required', $this->getLocation());
         }
         // known releasetypes

@@ -329,7 +329,7 @@ class DirectoryScanner implements SelectorScanner
      */
     public function setIncludes($_includes = [])
     {
-        if (empty($_includes) || is_null($_includes)) {
+        if (empty($_includes) || null === $_includes) {
             $this->includes = null;
         } else {
             for ($i = 0; $i < count($_includes); $i++) {
@@ -354,7 +354,7 @@ class DirectoryScanner implements SelectorScanner
      */
     public function setExcludes($_excludes = [])
     {
-        if (empty($_excludes) || is_null($_excludes)) {
+        if (empty($_excludes) || null === $_excludes) {
             $this->excludes = null;
         } else {
             for ($i = 0; $i < count($_excludes); $i++) {
@@ -412,7 +412,7 @@ class DirectoryScanner implements SelectorScanner
             // No includes supplied, so set it to 'matches all'
             $this->includes = ["**"];
         }
-        if (is_null($this->excludes)) {
+        if (null === $this->excludes) {
             $this->excludes = [];
         }
 

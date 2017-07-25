@@ -133,7 +133,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function setRefid(Reference $r)
     {
-        if ((isset($this->dir) && !is_null($this->dir)) || $this->defaultPatterns->hasPatterns()) {
+        if ((isset($this->dir) && null !== $this->dir) || $this->defaultPatterns->hasPatterns()) {
             throw $this->tooManyAttributes();
         }
         if (!empty($this->additionalPatterns)) {
