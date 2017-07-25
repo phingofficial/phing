@@ -831,6 +831,28 @@ class Project
     }
 
     /**
+     * Return the boolean equivalent of a string, which is considered
+     * <code>true</code> if either <code>"on"</code>, <code>"true"</code>,
+     * or <code>"yes"</code> is found, ignoring case.
+     *
+     * @param string $s The string to convert to a boolean value.
+     *
+     * @return <code>true</code> if the given string is <code>"on"</code>,
+     *         <code>"true"</code> or <code>"yes"</code>, or
+     *         <code>false</code> otherwise.
+     */
+    public static function toBoolean($s)
+    {
+        return (
+            strcasecmp($s, 'on') === 0
+            || strcasecmp($s, 'true') === 0
+            || strcasecmp($s, 'yes') === 0
+            // FIXME next condition should be removed if the boolean behavior for properties will be solved
+            || strcasecmp($s, 1) === 0
+        );
+    }
+
+    /**
      * Topologically sort a set of Targets.
      * @param  string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
