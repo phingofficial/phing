@@ -25,7 +25,6 @@ require_once 'phing/listener/statistics/ProjectTimer.php';
  */
 class ProjectTimerMap extends TimerMap
 {
-
     public function get($project)
     {
         return parent::get($project->getName());

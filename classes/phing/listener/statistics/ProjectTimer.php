@@ -58,5 +58,4 @@ class ProjectTimer extends StatsTimer
     {
         return $this->taskMap->toSeriesMap();
     }
-
 }

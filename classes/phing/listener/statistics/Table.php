@@ -40,8 +40,8 @@ class Table
 
     private function getHeaderLengths()
     {
-		return array_map('strlen', $this->header);
-	}
+        return array_map('strlen', $this->header);
+    }
 
     public function getMaxLengths()
     {
@@ -57,12 +57,12 @@ class Table
     private function max($column, $length)
     {
         $max = $length;
-		for ($i = 0; $i < count($this->output); $i++) {
+        for ($i = 0; $i < count($this->output); $i++) {
         $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
-			$max = max([$max, $valueLength]);
-		}
-		return $max;
-	}
+            $max = max([$max, $valueLength]);
+        }
+        return $max;
+    }
 
     public function get($x, $y)
     {

@@ -40,9 +40,9 @@ class SeriesTimer
     public function start()
     {
         $duration = new Duration();
-		$duration->setStartTime($this->clock->getCurrentTime());
-		$this->series->add($duration);
-	}
+        $duration->setStartTime($this->clock->getCurrentTime());
+        $this->series->add($duration);
+    }
 
     public function finish()
     {

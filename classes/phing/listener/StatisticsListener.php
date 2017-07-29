@@ -28,7 +28,6 @@ require_once 'phing/listener/statistics/ProjectTimerMap.php';
  */
 class StatisticsListener implements SubBuildListener
 {
-
     private static $BUILDEVENT_PROJECT_NAME_HAS_NULL_VALUE = true;
 
     /** @var ProjectTimerMap $projectTimerMap */
@@ -98,8 +97,8 @@ class StatisticsListener implements SubBuildListener
     public function subBuildFinished(BuildEvent $buildEvent)
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
-		$this->buildFinishedTimer($projectTimer);
-	}
+        $this->buildFinishedTimer($projectTimer);
+    }
 
     private function findProjectTimer(BuildEvent $buildEvent)
     {
@@ -131,10 +130,10 @@ class StatisticsListener implements SubBuildListener
     private function findTaskTimer(BuildEvent $buildEvent)
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
-		$task = $buildEvent->getTask();
-		$name = $task->getTaskName();
-		return $projectTimer->getTaskTimer($name);
-	}
+        $task = $buildEvent->getTask();
+        $name = $task->getTaskName();
+        return $projectTimer->getTaskTimer($name);
+    }
 
     private function buildFinishedTimer(ProjectTimer $projectTimer)
     {

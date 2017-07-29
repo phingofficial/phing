@@ -26,7 +26,6 @@ require_once 'phing/listener/statistics/Duration.php';
  */
 class StatsTimer
 {
-
     protected $name;
 
     protected $series;
@@ -43,9 +42,9 @@ class StatsTimer
     public function start()
     {
         $duration = new Duration();
-		$duration->setStartTime($this->clock->getCurrentTime());
-		$this->series->add($duration);
-	}
+        $duration->setStartTime($this->clock->getCurrentTime());
+        $this->series->add($duration);
+    }
 
     public function finish()
     {
