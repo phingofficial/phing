@@ -246,6 +246,7 @@
                 <ref name="record"/>
                 <ref name="reflexive"/>
                 <ref name="resolvepath"/>
+                <ref name="relentless"/>
                 <ref name="retry"/>
                 <ref name="sleep"/>
                 <ref name="switch"/>
@@ -1589,6 +1590,21 @@
                 <optional>
                     <attribute name="dir"/>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="relentless">
+        <element name="relentless">
+            <interleave>
+                <optional>
+                    <attribute name="description"/>
+                </optional>
+                <optional>
+                    <attribute name="terse" a:defaultValue="false"/>
+                </optional>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
             </interleave>
         </element>
     </define>
