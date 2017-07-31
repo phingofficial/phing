@@ -368,12 +368,20 @@ class MyEchoTask extends Task {
      * The message passed in the buildfile.
      */
     private $message = null;
+    /**
+     * Whether to reverse the message, for fun?
+     */
+    private $reverse = false;
 
     /**
      * The setter for the attribute "message"
      */
     public function setMessage($str) {
         $this->message = $str;
+    }
+
+    public function setReverse($str) {
+        $this->reverse = StringHelper::booleanValue($str);
     }
 
     /**
@@ -387,7 +395,11 @@ class MyEchoTask extends Task {
      * The main entry point method.
      */
     public function main() {
-        print($this->message);
+        if ($this->reverse) {
+            print(strrev($this->message));
+        } else {
+            print($this->message);
+        }
     }
 }
 
@@ -417,7 +429,7 @@ class MyEchoTask extends Task {
     &lt;taskdef name="myecho" classname="MyEchoTask" />
 
     &lt;target name="test.myecho">
-      &lt;myecho message="Hello World" />
+      &lt;myecho message="Hello World" reverse="yes"/>
     &lt;/target>
 &lt;/project></programlisting>
 
@@ -437,6 +449,9 @@ class MyEchoTask extends Task {
                     <literal>&lt;target></literal> context (line 8). You see that we pass the
                 message that our task should echo to the screen via an XML attribute called
                 "message".</para>
+            <para>And for fun, if the "reverse" attribute is set to a "truth-like" value, the message
+            will be reversed when displayed. So we get "dlroW olleH" displayed instead!
+            </para>
 
         </sect2>
         <sect2>
@@ -520,7 +535,7 @@ class MyEchoTask extends Task {
 
             <para>The next lines you are coding are class properties. Most of them are inherited
                 from the Task superclass, so there's not need to redeclare them. Nevertheless you
-                should <literal>declare</literal> the following ones by your own: </para>
+                should <literal>declare</literal> the following ones yourself: </para>
 
             <itemizedlist>
                 <listitem>
@@ -574,11 +589,15 @@ class MyEchoTask extends Task {
                 attributes and at least one of them should be set, you may want to check the
                 attribute values inside the init() or main() method.</para>
 
-            <para> In out example the setter is named <literal>setMessage</literal> , because the
+            <para> In our example the setter is named <literal>setMessage</literal> , because the
                 XML attribute the echo task accepts is "message". setMessage now takes the string
                 "Hello World" provided by the parser and sets the value of the internal class
                 property <literal>$strMessage</literal> to "Hello World". It is now available to the
                 task for further disposal.</para>
+
+            <para> There is also another setter named <literal>setReverse</literal>.This uses the 
+                StringHelper::toBoolean static function to convert truthy values to a true/false value. 
+                This helps keep our own code nice and simple.</para>
 
         </sect2>
         <sect2>
