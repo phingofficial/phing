@@ -1037,7 +1037,7 @@
                         <entry><literal>exclude</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Excluded file matching pattern. Use
-                        comma seperated values to exclude multiple
+                        comma separated values to exclude multiple
                         files/directories, e.g.: a,b</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
@@ -10234,7 +10234,7 @@ description="Measures the size of the project and counts the tests">
                         <row>
                             <entry><literal>delimiter</literal></entry>
                             <entry><literal role="type">String</literal></entry>
-                            <entry>The delimiter used to seperate entries in the resulting property</entry>
+                            <entry>The delimiter used to separate entries in the resulting property</entry>
                             <entry>,</entry>
                             <entry>No</entry>
                         </row>
