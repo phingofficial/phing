@@ -3423,7 +3423,7 @@ verbose="true" failonerror="false" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="Relentless">
         <title>Relentless</title>
-        <para> RetrThe &lt;relentless> task will execute all of the nested tasks, regardless of whether one or more of
+        <para> The &lt;relentless> task will execute all of the nested tasks, regardless of whether one or more of
             the nested tasks fails.</para>
         <para>When &lt;relentless> has completed executing the nested tasks, it will either
             <itemizedlist>
