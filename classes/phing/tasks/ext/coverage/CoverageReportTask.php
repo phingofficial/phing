@@ -100,6 +100,7 @@ class CoverageReportTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->doc = new DOMDocument();
         $this->doc->encoding = 'UTF-8';
         $this->doc->formatOutput = true;
