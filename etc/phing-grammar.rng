@@ -933,22 +933,32 @@
                     <attribute name="todir"/>
                 </choice>
                 <optional>
-                    <attribute name="overwrite">
+                    <attribute name="overwrite" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
                     <choice>
-                        <attribute name="tstamp">
+                        <attribute name="tstamp" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
-                        <attribute name="preservelastmodified">
+                        <attribute name="preservelastmodified" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
                     </choice>
                 </optional>
                 <optional>
-                    <attribute name="includeemptydirs">
+                    <choice>
+                        <attribute name="preservemode" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="preservepermissions" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -958,7 +968,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonerror">
+                    <attribute name="haltonerror" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="flatten" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
