@@ -418,7 +418,7 @@ the large, complex Bar project.
                 </tbody>
             </tgroup>
         </table>
-        <sect2 xml:id="patterns">
+        <sect2 xml:id="dirsetpatterns">
             <title>Using wildcards</title>
             <itemizedlist>
                 <listitem>
