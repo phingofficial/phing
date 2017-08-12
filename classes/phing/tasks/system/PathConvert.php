@@ -221,6 +221,10 @@ class PathConvert extends Task
                 $ds = $obj;
 
                 $this->path->addDirset($ds);
+            } elseif ($obj instanceof FileList) {
+                $fl = $obj;
+
+                $this->path->addFilelist($fl);
             } else {
                 throw new BuildException("'refid' does not refer to a "
                     . "path, fileset, dirset, or "
