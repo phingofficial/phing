@@ -223,6 +223,7 @@
                 <ref name="condition"/>
                 <ref name="copy"/>
                 <ref name="delete"/>
+                <ref name="dependset"/>
                 <ref name="diagnostics"/>
                 <ref name="dirname"/>
                 <ref name="echo"/>
@@ -344,6 +345,22 @@
                 </choice>
             </oneOrMore>
         </element>
+    </define>
+
+    <define name="srcfileset">
+        <ref name="fileset"/>
+    </define>
+
+    <define name="srcfilelist">
+        <ref name="filelist"/>
+    </define>
+
+    <define name="targetfileset">
+        <ref name="fileset"/>
+    </define>
+
+    <define name="targetfilelist">
+        <ref name="filelist"/>
     </define>
 
     <define name="fileset">
@@ -1011,6 +1028,19 @@
                 <ref name="dirset"/>
                 <ref name="fileset"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="dependset">
+        <element name="dependset">
+            <oneOrMore>
+                <ref name="srcfileset"/>
+                <ref name="srcfilelist"/>
+            </oneOrMore>
+            <oneOrMore>
+                <ref name="targetfileset"/>
+                <ref name="targetfilelist"/>
+            </oneOrMore>
         </element>
     </define>
 

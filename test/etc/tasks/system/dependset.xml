@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dependset-test" basedir="." default="test1">
+
+    <target name="test1">
+        <dependset/>
+    </target>
+
+    <target name="test2">
+        <dependset>
+            <srcfilelist dir="." includes="test2.tmp"/>
+        </dependset>
+    </target>
+
+    <target name="test3">
+        <dependset>
+            <targetfileset dir="." files="test3.tmp"/>
+        </dependset>
+    </target>
+
+    <target name="test4">
+        <touch file="test4.tmp"/>
+        <dependset>
+            <srcfilelist dir="." files="test4.tmp"/>
+            <targetfileset dir="." includes="i-do-not-exist"/>
+        </dependset>
+    </target>
+
+    <target name="test5">
+        <touch file="older.tmp"/>
+        <sleep seconds="3" />
+        <touch file="newer.tmp"/>
+        <dependset>
+            <srcfilelist dir="." files="newer.tmp"/>
+            <targetfilelist dir="." files="older.tmp"/>
+        </dependset>
+    </target>
+
+    <target name="cleanup">
+        <delete file="test4.tmp"/>
+        <delete file="older.tmp"/>
+        <delete file="newer.tmp"/>
+    </target>
+</project>
