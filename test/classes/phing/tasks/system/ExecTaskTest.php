@@ -212,14 +212,25 @@ class ExecTaskTest extends BuildFileTest
     public function testDoNotExecuteOnWrongOs()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Not found in unknownos');
+        $this->assertInLogs('not found in the specified list of valid OSes: unknownos');
         $this->assertNotContains(
             'this should not be executed',
             $this->getOutput()
         );
     }
 
+    public function testDoNotExecuteOnWrongOsFamily()
+    {
+        $this->expectBuildException(__FUNCTION__, "Don't know how to detect os family 'unknownos'");
+    }
+
     public function testExecuteOnCorrectOs()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('this should be executed');
+    }
+
+    public function testExecuteOnCorrectOsFamily()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('this should be executed');
