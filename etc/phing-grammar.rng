@@ -5785,6 +5785,7 @@
                         <choice>
                             <value>gzip</value>
                             <value>bzip2</value>
+                            <value>lzma2</value>
                             <value>none</value>
                         </choice>
                     </attribute>
