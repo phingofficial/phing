@@ -1183,7 +1183,7 @@ class Project
      * @param Exception $t
      * @throws \Exception
      */
-    public function fireMessageLogged($object, $message, $priority, Exception $t)
+    public function fireMessageLogged($object, $message, $priority, Exception $t = null)
     {
         $event = new BuildEvent($object);
         if ($t !== null) {
