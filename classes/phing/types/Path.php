@@ -74,6 +74,7 @@ class Path extends DataType
      */
     public function __construct($project = null, $path = null)
     {
+        parent::__construct();
         if ($project !== null) {
             $this->setProject($project);
         }

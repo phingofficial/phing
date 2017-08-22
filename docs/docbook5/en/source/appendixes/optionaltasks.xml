@@ -13086,7 +13086,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>compression</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Type of compression to use (gzip, bzip2, none)</entry>
+                        <entry>Type of compression to use (gzip, bzip2, lzma2, none)</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>

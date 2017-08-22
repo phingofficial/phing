@@ -45,6 +45,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
     public function __construct($taskName = 'component')
     {
+        parent::__construct();
         $this->taskName = $taskName;
     }
 
