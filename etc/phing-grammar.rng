@@ -1721,6 +1721,7 @@
                 <choice>
                     <attribute name="file"/>
                     <ref name="fileset"/>
+                    <ref name="filelist"/>
                 </choice>
                 <optional>
                     <attribute name="datetime"/>
@@ -1731,12 +1732,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="mkdirs">
+                    <attribute name="mkdirs" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="verbose">
+                    <attribute name="verbose" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
