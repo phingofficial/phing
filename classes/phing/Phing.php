@@ -1580,21 +1580,23 @@ class Phing
      * @param string $val
      * @return int
      */
-    private static function convertShorthand($val)
+    public static function convertShorthand($val)
     {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
 
-        $val = (int) $val;
+        if (!is_numeric($last)) {
+            $val = (int) substr($val, 0, strlen($val) - 1);
 
-        switch ($last) {
-            // The 'G' modifier is available since PHP 5.1.0
-            case 'g':
-                $val *= 1024;
-            case 'm':
-                $val *= 1024;
-            case 'k':
-                $val *= 1024;
+            switch ($last) {
+                // The 'G' modifier is available since PHP 5.1.0
+                case 'g':
+                    $val *= 1024;
+                case 'm':
+                    $val *= 1024;
+                case 'k':
+                    $val *= 1024;
+            }
         }
 
         return $val;
