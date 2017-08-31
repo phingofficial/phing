@@ -76,6 +76,7 @@
         "pear/versioncontrol_git": "A library that provides OO interface to handle Git repository",
         "pear/archive_tar": "Tar file management class",
         "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
-        "tedivm/jshrink": "Javascript Minifier built in PHP"
+        "tedivm/jshrink": "Javascript Minifier built in PHP",
+        "symfony/stopwatch": "Needed by the StopwatchTask"
     }
 }
