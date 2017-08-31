@@ -1049,13 +1049,14 @@ class Project
     }
 
     /**
-     * @param $obj
-     * @param $msg
-     * @param $level
+     * @param mixed $obj
+     * @param string $msg
+     * @param int $level
+     * @param Exception|null $t
      */
-    public function logObject($obj, $msg, $level)
+    public function logObject($obj, $msg, $level, Exception $t = null)
     {
-        $this->fireMessageLogged($obj, $msg, $level);
+        $this->fireMessageLogged($obj, $msg, $level, $t);
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
@@ -1176,12 +1177,18 @@ class Project
     }
 
     /**
-     * @param $object
-     * @param $message
-     * @param $priority
+     * @param mixed $object
+     * @param string $message
+     * @param int $priority
+     * @param Exception $t
+     * @throws \Exception
      */
-    public function fireMessageLogged($object, $message, $priority)
+    public function fireMessageLogged($object, $message, $priority, Exception $t = null)
     {
-        $this->fireMessageLoggedEvent(new BuildEvent($object), $message, $priority);
+        $event = new BuildEvent($object);
+        if ($t !== null) {
+            $event->setException($t);
+        }
+        $this->fireMessageLoggedEvent($event, $message, $priority);
     }
 }

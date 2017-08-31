@@ -144,13 +144,18 @@ abstract class Task extends ProjectComponent
      * Provides a project level log event to the task.
      *
      * @param string $msg The message to log
-     * @param integer $level The priority of the message
+     * @param int $level The priority of the message
+     * @param Exception|null $t
      * @see BuildEvent
      * @see BuildListener
      */
-    public function log($msg, $level = Project::MSG_INFO)
+    public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
     {
-        $this->project->logObject($this, $msg, $level);
+        if ($this->getProject() !== null) {
+            $this->getProject()->logObject($this, $msg, $level, $t);
+        } else {
+            parent::log($msg, $level);
+        }
     }
 
     /**
