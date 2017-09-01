@@ -180,13 +180,13 @@ class ChownTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
+            $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcFiles[$j]), $user, $group);
             }
 
             $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
+            $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user, $group);
             }

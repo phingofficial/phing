@@ -333,8 +333,7 @@ class DirectoryScanner implements SelectorScanner
             $this->includes = null;
         } else {
             for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_includes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                $pattern = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $_includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -358,8 +357,7 @@ class DirectoryScanner implements SelectorScanner
             $this->excludes = null;
         } else {
             for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                $pattern = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $_excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -777,8 +775,7 @@ class DirectoryScanner implements SelectorScanner
     {
         //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
         foreach ($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+            $pattern = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $pattern);
             $this->excludes[] = $pattern;
         }
     }

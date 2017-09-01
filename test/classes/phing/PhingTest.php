@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Vendor\Package\Sub_Package\Separated_FullSeparatedClass;
+
 require_once __DIR__ . '/../../../classes/phing/Phing.php';
 
 /**
