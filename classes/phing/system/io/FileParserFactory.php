@@ -46,7 +46,7 @@ class FileParserFactory implements FileParserFactoryInterface
      */
     public function createParser($fileExtension)
     {
-        if (phpversion() >= 5.3) {
+        if (PHP_VERSION >= 5.3) {
             switch ($fileExtension) {
                 case self::YAMLFILEEXTENSION:
                 case self::YAMLFILEEXTENSIONLONG:

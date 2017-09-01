@@ -131,7 +131,7 @@ class GlobMapper implements FileNameMapper
     private function extractVariablePart($name)
     {
         // ergh, i really hate php's string functions .... all but natural
-        $start = ($this->prefixLength === 0) ? 0 : $this->prefixLength;
+        $start = $this->prefixLength;
         $end = ($this->postfixLength === 0) ? strlen($name) : strlen($name) - $this->postfixLength;
         $len = $end - $start;
 
