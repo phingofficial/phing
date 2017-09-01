@@ -450,7 +450,6 @@ abstract class BuildFileTest extends TestCase
                             $returndate = ceil($timediff / 86400) . " days ago";
                         } else {
                             if ($timediff < 1209600) {
-                                $returndate = "1 week ago.";
                                 $returndate = ceil($timediff / 86400) . " days ago";
                             } else {
                                 if ($timediff < 2629744) {
