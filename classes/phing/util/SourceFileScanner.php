@@ -174,7 +174,7 @@ class SourceFileScanner
     {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = [];
-        for ($i = 0; $i < count($res); $i++) {
+        for ($i = 0, $resultsCount = count($res); $i < $resultsCount; $i++) {
             $result[$i] = new PhingFile($srcDir, $res[$i]);
         }
 

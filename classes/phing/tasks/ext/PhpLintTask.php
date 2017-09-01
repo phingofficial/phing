@@ -268,7 +268,7 @@ class PhpLintTask extends Task
 
         exec($command . '"' . $file . '" 2>&1', $messages);
 
-        for ($i = 0; $i < count($messages); $i++) {
+        for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; $i++) {
             $message = $messages[$i];
             if (trim($message) == '') {
                 continue;
