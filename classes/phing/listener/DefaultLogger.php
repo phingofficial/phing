@@ -298,7 +298,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Formats a time micro integer to human readable format.
      *
-     * @param  integer The time stamp
+     * @param  integer $micros The time stamp
      * @return string
      */
     public static function formatTime($micros)
@@ -313,9 +313,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
                 $seconds - floor($seconds / 60) * 60,
                 ($seconds % 60 === 1 ? "" : "s")
             );
-        } else {
-            return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
         }
+
+        return sprintf('%0.4f second%s', $seconds, ($seconds % 60 === 1 ? '' : 's'));
     }
 
     /**
@@ -332,5 +332,25 @@ class DefaultLogger implements StreamRequiredBuildLogger
     protected function printMessage($message, OutputStream $stream, $priority)
     {
         $stream->write($message . PHP_EOL);
+    }
+
+    /**
+     * Get the current time.
+     * @return string the current time as a formatted string.
+     */
+    protected function getTimestamp()
+    {
+        return date('n/d/Y h:m a');
+    }
+
+    /**
+     * Get the project name or null
+     * @param BuildEvent $event the event
+     * @return string the project that raised this event
+     */
+    protected function extractProjectName(BuildEvent $event)
+    {
+        $project = $event->getProject();
+        return ($project != null) ? $project->getName() : null;
     }
 }

@@ -250,7 +250,7 @@ class ProjectConfigurator
      */
     public static function configure($target, $attrs, Project $project)
     {
-        if ($target instanceof TaskAdapter) {
+        if ($target instanceof TypeAdapter) {
             $target = $target->getProxy();
         }
 
@@ -288,13 +288,14 @@ class ProjectConfigurator
     /**
      * Configures the #CDATA of an element.
      *
-     * @param  object  the project this element belongs to
-     * @param  object  the element to configure
-     * @param  string  the element's #CDATA
+     * @param  Project $project the project this element belongs to
+     * @param  Target $target the element to configure
+     * @param  string $text the element's #CDATA
+     * @throws \BuildException
      */
     public static function addText($project, $target, $text = null)
     {
-        if ($text === null || strlen(trim($text)) === 0) {
+        if ($text === null || trim($text) === '') {
             return;
         }
         $ih = IntrospectionHelper::getHelper(get_class($target));
@@ -305,10 +306,11 @@ class ProjectConfigurator
     /**
      * Stores a configured child element into its parent object
      *
-     * @param  object  the project this element belongs to
-     * @param  object  the parent element
-     * @param  object  the child element
-     * @param  string  the XML tagname
+     * @param  Project $project the project this element belongs to
+     * @param  object  $parent the parent element
+     * @param  object  $child the child element
+     * @param  string  $tag the XML tagname
+     * @throws \BuildException
      */
     public static function storeChild($project, $parent, $child, $tag)
     {
@@ -404,12 +406,12 @@ class ProjectConfigurator
             );
 
             return $matches[0];
-        } else {
-            self::$propReplaceProject->log(
-                'Property ${' . $propertyName . '} => ' . self::$propReplaceProperties[$propertyName],
-                self::$propReplaceLogLevel
-            );
         }
+
+        self::$propReplaceProject->log(
+            'Property ${' . $propertyName . '} => ' . self::$propReplaceProperties[$propertyName],
+            self::$propReplaceLogLevel
+        );
 
         $propertyValue = self::$propReplaceProperties[$propertyName];
 

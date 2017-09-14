@@ -34,7 +34,7 @@ abstract class ProjectComponent
      *
      * @var Project $project A reference to the current project instance
      */
-    protected $project = null;
+    protected $project;
 
     /** @var Location $location */
     private $location;
@@ -54,7 +54,7 @@ abstract class ProjectComponent
      *
      * @return void
      */
-    public function setProject($project)
+    public function setProject(Project $project = null)
     {
         $this->project = $project;
     }

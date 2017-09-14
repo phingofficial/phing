@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'phing/TypeAdapter.php';
 
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with
@@ -30,7 +31,7 @@ require_once 'phing/Task.php';
  * @version   $Id$
  * @package   phing
  */
-class TaskAdapter extends Task
+class TaskAdapter extends Task implements TypeAdapter
 {
 
     /** target object */

@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/util/FileUtils.php';
@@ -492,9 +491,8 @@ class Project
      * (If strict mode is On, all the warnings would be converted to an error
      * (and the build will be stopped/aborted)
      *
-     * @param    string $mode Strict-mode information
-     * @return   void
-     * @access   public
+     * @param string $strictmode Strict-mode information
+     *
      * @author   Utsav Handa, handautsav@hotmail.com
      */
     public function setStrictMode($strictmode)
@@ -554,7 +552,7 @@ class Project
     {
         if ($this->basedir === null) {
             try { // try to set it
-                $this->setBasedir(".");
+                $this->setBasedir(new PhingFile('.'));
             } catch (BuildException $exc) {
                 throw new BuildException("Can not set default basedir. " . $exc->getMessage());
             }
@@ -596,7 +594,7 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
+        $systemP = array_merge($this->getProperties(), Phing::getProperties());
         foreach ($systemP as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }
@@ -780,7 +778,7 @@ class Project
                 $curTarget = $sortedTargets[$curIndex++];
                 $curTarget->performTasks();
             } catch (BuildException $exc) {
-                if (!($this->keepGoingMode)) {
+                if (!$this->keepGoingMode) {
                     throw $exc;
                 }
                 $thrownException = $exc;
@@ -1060,7 +1058,7 @@ class Project
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
-        if (($this->strictMode) && (Project::MSG_WARN == $level)) {
+        if ($this->strictMode && (Project::MSG_WARN == $level)) {
             throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
         }
     }
@@ -1116,6 +1114,38 @@ class Project
     }
 
     /**
+     * Send a &quot;subbuild started&quot; event to the build listeners for
+     * this project.
+     */
+    public function fireSubBuildStarted()
+    {
+        $event = new BuildEvent($this);
+        foreach ($this->listeners as $listener) {
+            if ($listener instanceof SubBuildListener) {
+                $listener->subBuildStarted($event);
+            }
+        }
+    }
+
+    /**
+     * Send a &quot;subbuild finished&quot; event to the build listeners for
+     * this project.
+     * @param Exception $exception an exception indicating a reason for a build
+     *                  failure. May be <code>null</code>, indicating
+     *                  a successful build.
+     */
+    public function fireSubBuildFinished($exception)
+    {
+        $event = new BuildEvent($this);
+        $event->setException($exception);
+        foreach ($this->listeners as $listener) {
+            if ($listener instanceof SubBuildListener) {
+                $listener->subBuildFinished($event);
+            }
+        }
+    }
+
+    /**
      * @param $target
      */
     public function fireTargetStarted($target)
@@ -1164,9 +1194,9 @@ class Project
     }
 
     /**
-     * @param $event
-     * @param $message
-     * @param $priority
+     * @param BuildEvent $event
+     * @param string $message
+     * @param integer $priority
      */
     public function fireMessageLoggedEvent($event, $message, $priority)
     {
