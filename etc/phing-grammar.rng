@@ -6304,6 +6304,19 @@
     </define>
 
     <define name="linecontainsregexp">
+        <optional>
+            <attribute name="casesensitive" a:defaultValue="true">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="regexp"/>
+        </optional>
         <element name="linecontainsregexp">
             <ref name="regexp"/>
         </element>
