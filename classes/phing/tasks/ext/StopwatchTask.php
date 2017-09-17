@@ -124,6 +124,7 @@ class StopwatchTask extends Task
             $this->log('Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() . ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(), Project::MSG_INFO);
         }
 
+        $this->log('Name:       ' . $this->name, Project::MSG_INFO);
         $this->log('Category:   ' . $event->getCategory(), Project::MSG_INFO);
         $this->log('Origin:     ' . $event->getOrigin(), Project::MSG_INFO);
         $this->log('Start time: ' . $event->getStartTime(), Project::MSG_INFO);
