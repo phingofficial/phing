@@ -6290,6 +6290,11 @@
     </define>
 
     <define name="linecontains">
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
         <element name="linecontains">
             <oneOrMore>
                 <ref name="contains"/>

@@ -59,12 +59,16 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @var string
      */
     const CONTAINS_KEY = "contains";
+    const NEGATE_KEY = 'negate';
 
     /**
      * Array of Contains objects.
      * @var array
      */
     private $_contains = [];
+
+    /** @var bool $negate */
+    private $negate = false;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
@@ -102,7 +106,29 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         }
         $filtered_buffer = implode("\n", $matched);
 
+        if ($this->isNegated()) {
+            $filtered_buffer = implode("\n", array_diff($lines, $matched));
+        }
+
         return $filtered_buffer;
+    }
+
+    /**
+     * Set the negation mode.  Default false (no negation).
+     * @param boolean $b the boolean negation mode to set.
+     */
+    public function setNegate($b)
+    {
+        $this->negate = (bool) $b;
+    }
+
+    /**
+     * Find out whether we have been negated.
+     * @return boolean negation flag.
+     */
+    public function isNegated()
+    {
+        return $this->negate;
     }
 
     /**
@@ -165,6 +191,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     {
         $newFilter = new LineContains($reader);
         $newFilter->setContains($this->getContains());
+        $newFilter->setNegate($this->isNegated());
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
 
@@ -183,7 +210,8 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                     $cont = new Contains();
                     $cont->setValue($param->getValue());
                     $this->_contains[] = $cont;
-                    break; // because we only support a single contains
+                } elseif (self::NEGATE_KEY === $param->getType()) {
+                    $this->setNegate(Project::toBoolean($param->getValue()));
                 }
             }
         }
