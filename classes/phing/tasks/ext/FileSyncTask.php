@@ -564,6 +564,8 @@ class FileSyncTask extends Task
     }
     
     /**
+     * Sets the port of the remote computer.
+     *
      * @param int $remotePort
      */
     public function setRemotePort($remotePort)
