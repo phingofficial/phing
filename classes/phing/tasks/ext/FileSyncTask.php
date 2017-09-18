@@ -174,6 +174,12 @@ class FileSyncTask extends Task
      * @var string
      */
     protected $identityFile;
+    
+    /**
+     * Remote port for syncing via SSH.
+     * @var int
+     */
+    protected $remotePort = 22;
 
     /**
      * Phing's main method. Wraps the executeCommand() method.
@@ -275,7 +281,7 @@ class FileSyncTask extends Task
         }
 
         if ($this->identityFile !== null) {
-            $options .= ' -e "ssh -i ' . $this->identityFile . '"';
+            $options .= ' -e "ssh -i ' . $this->identityFile . ' -p' . $this->remotePort . '"';
         } else {
             if ($this->remoteShell !== null) {
                 $options .= ' -e "' . $this->remoteShell . '"';
@@ -555,6 +561,14 @@ class FileSyncTask extends Task
     public function setIdentityFile($identity)
     {
         $this->identityFile = $identity;
+    }
+    
+    /**
+     * @param int $remotePort
+     */
+    public function setRemotePort($remotePort)
+    {
+        $this->remotePort = $remotePort;
     }
 
     /**

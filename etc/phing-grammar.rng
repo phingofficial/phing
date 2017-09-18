@@ -2467,6 +2467,9 @@
                         <data type="boolean"/>
                     </attribute>
                     <attribute name="identityFile"/>
+                    <attribute name="port">
+                        <data type="int" />
+                    </attribute>
                 </optional>
             </interleave>
         </element>
