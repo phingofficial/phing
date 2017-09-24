@@ -64,9 +64,10 @@ require_once 'phing/Task.php';
  */
 class ZendCodeAnalyzerTask extends Task
 {
+    use FileSetAware;
+
     protected $analyzerPath = ""; // Path to ZendCodeAnalyzer binary
     protected $file = ""; // the source file (from xml attribute)
-    protected $filesets = []; // all fileset objects assigned to this task
     protected $counter = 0;
     protected $disable = [];
     protected $enable = [];
@@ -120,17 +121,6 @@ class ZendCodeAnalyzerTask extends Task
     public function setHaltonwarning($value)
     {
         $this->haltonwarning = $value;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

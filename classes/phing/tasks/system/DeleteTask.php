@@ -20,7 +20,7 @@
  */
 
 require_once 'phing/Task.php';
-include_once 'phing/types/DirSetAware.php';
+include_once 'phing/types/element/ResourceAware.php';
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
@@ -30,19 +30,15 @@ include_once 'phing/types/DirSetAware.php';
  */
 class DeleteTask extends Task
 {
-    use DirSetAware;
+    use ResourceAware;
 
     protected $file;
     protected $dir;
-    protected $filesets = [];
     protected $includeEmpty = false;
 
     protected $quiet = false;
     protected $failonerror = false;
     protected $verbosity = Project::MSG_VERBOSE;
-
-    /** Any filelists of files that should be deleted. */
-    private $filelists = [];
 
     /**
      * Set the name of a single file to be removed.
@@ -110,27 +106,6 @@ class DeleteTask extends Task
     public function setIncludeEmptyDirs($includeEmpty)
     {
         $this->includeEmpty = (boolean) $includeEmpty;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
     }
 
     /**

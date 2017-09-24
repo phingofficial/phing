@@ -32,11 +32,7 @@ require_once 'phing/Task.php';
  */
 class PhpDocumentor2Task extends Task
 {
-    /**
-     * List of filesets
-     * @var FileSet[]
-     */
-    private $filesets = [];
+    use FileSetAware;
 
     /**
      * Destination/target directory
@@ -78,17 +74,6 @@ class PhpDocumentor2Task extends Task
      * @var \phpDocumentor\Application
      */
     private $app = null;
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Sets destination/target directory

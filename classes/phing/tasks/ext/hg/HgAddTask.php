@@ -27,30 +27,14 @@ require_once 'phing/tasks/ext/hg/HgBaseTask.php';
  */
 class HgAddTask extends HgBaseTask
 {
-    /**
-     * Linked filesets
-     *
-     * @var string
-     */
-    protected $filesets = [];
+    use FileSetAware;
+
     /**
      * Array of files to ignore
      *
      * @var string[]
      */
     protected $ignoreFile = [];
-
-    /**
-     * Adds a fileset of files to add to the repository.
-     *
-     * @param FileSet $fileset Set of files to add to the repository.
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
 
     /**
      * The main entry point method.

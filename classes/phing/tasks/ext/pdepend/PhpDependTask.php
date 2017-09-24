@@ -34,19 +34,14 @@ require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
  */
 class PhpDependTask extends Task
 {
+    use FileSetAware;
+
     /**
      * A php source code filename or directory
      *
      * @var PhingFile
      */
     protected $file = null;
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = [];
 
     /**
      * List of allowed file extensions. Default file extensions are <b>php</b>
@@ -186,17 +181,6 @@ class PhpDependTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

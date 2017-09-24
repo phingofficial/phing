@@ -22,7 +22,7 @@ include_once 'phing/types/DirSet.php';
 trait DirSetAware
 {
     /** @var DirSet[] $dirsets */
-    private $dirsets = [];
+    protected $dirsets = [];
 
     public function addDirSet(DirSet $dirSet)
     {

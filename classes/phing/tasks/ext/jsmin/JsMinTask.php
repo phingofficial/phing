@@ -34,12 +34,8 @@ require_once 'phing/Task.php';
  */
 class JsMinTask extends Task
 {
-    /**
-     * the source files
-     *
-     * @var  FileSet
-     */
-    protected $filesets = [];
+    use FileSetAware;
+
     /**
      * Whether the build should fail, if
      * errors occurred
@@ -61,17 +57,6 @@ class JsMinTask extends Task
      * @var  string
      */
     protected $targetDir = "";
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Whether the build should fail, if an error occurred.
