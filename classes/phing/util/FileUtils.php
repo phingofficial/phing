@@ -431,6 +431,14 @@ class FileUtils
             return false;
         }
 
+        if ($file1->equals($file2)) {
+            return true;
+        }
+
+        if ($file1->length() !== $file2->length()) {
+            return false;
+        }
+
         $c1 = file_get_contents($file1->getAbsolutePath());
         $c2 = file_get_contents($file2->getAbsolutePath());
 
