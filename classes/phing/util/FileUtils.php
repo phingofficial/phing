@@ -431,12 +431,12 @@ class FileUtils
             return false;
         }
 
-        if ($file1->equals($file2)) {
-            return true;
-        }
-
         if ($file1->length() !== $file2->length()) {
             return false;
+        }
+
+        if ($file1->equals($file2)) {
+            return true;
         }
 
         $c1 = file_get_contents($file1->getAbsolutePath());
