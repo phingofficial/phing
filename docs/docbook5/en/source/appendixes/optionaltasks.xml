@@ -7009,6 +7009,14 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;transaction src="path/to/sqlfile.sql"/>
   &lt;formatter type="plain" outfile="path/to/output.txt"/>
   &lt;/pdosqlexec></programlisting>
+            <programlisting language="xml">&lt;property name="color" value="orange"/>
+&lt;pdosqlexec url="mysql:host=localhost;dbname=test"
+            userid="username" password="password">
+    &lt;transaction>
+        SELECT * FROM products WHERE color = '${color}';
+    &lt;/transaction>
+    &lt;formatter type="xml" outfile="path/to/output.xml"/>
+&lt;/pdosqlexec></programlisting>
             <note>
                 <para>Because of backwards compatibility, the PDOSQLExecTask can also be called using
                     the <literal>'pdo'</literal> statement.</para>
