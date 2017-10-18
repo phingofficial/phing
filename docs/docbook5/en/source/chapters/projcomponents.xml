@@ -880,6 +880,12 @@
                     >Available</link> task, all attributes and nested elements of that task are
                 supported, the property and value attributes are redundant and will be
                 ignored.</para>
+            <programlisting language="xml">&lt;if>
+    &lt;available file="README.md"/>
+    &lt;then>
+        &lt;echo message="Please read README.md"/>
+    &lt;/then>
+&lt;/if></programlisting>
         </sect2>
         <sect2 xml:id="conditions.filesmatch">
             <title><literal>filesmatch</literal></title>
