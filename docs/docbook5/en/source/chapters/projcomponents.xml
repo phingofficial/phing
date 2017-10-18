@@ -633,6 +633,14 @@
         <sect2 xml:id="conditions.hasfreespace">
             <title><literal>hasfreespace</literal></title>
             <para>Condition returns true if selected partition has the requested space, false otherwise.</para>
+            <para>Needed attribute can be specified using standard computing terms:</para>
+            <itemizedlist>
+                <listitem>K: Kilobytes (1024 bytes)</listitem>
+                <listitem>M: Megabytes (1024K)</listitem>
+                <listitem>G: Gigabytes (1024M)</listitem>
+                <listitem>T: Terabytes (1024G)</listitem>
+                <listitem>P: Petabytes (1024T)</listitem>
+            </itemizedlist>
             <table>
                 <title>hasfreespace Attributes</title>
                 <tgroup cols="3">
@@ -649,18 +657,21 @@
                     <tbody>
                         <row>
                             <entry><literal>partition</literal></entry>
-                            <entry>The partition/device to check.</entry>
+                            <entry>Absolute path to the partition/device to check.</entry>
                             <entry>Yes</entry>
                         </row>
                         <row>
                             <entry><literal>needed</literal></entry>
-                            <entry>The amount of free space required.</entry>
+                            <entry>The amount of free space required. Examples: <literal>250M</literal>,
+                                <literal>10G</literal>, <literal>1T</literal>.</entry>
                             <entry>Yes</entry>
                         </row>
                     </tbody>
                 </tgroup>
             </table>
-
+            <para>On Unix like platforms:</para>
+            <programlisting anguage="xml">&lt;hasfreespace partition="/" needed="250M" /&gt;</programlisting>
+            <para>On Windows:</para>
             <programlisting language="xml">&lt;hasfreespace partition="c:" needed="10M" /&gt;</programlisting>
             <para>This condition internally uses PHP disk_free_space().</para>
         </sect2>
@@ -880,6 +891,12 @@
                     >Available</link> task, all attributes and nested elements of that task are
                 supported, the property and value attributes are redundant and will be
                 ignored.</para>
+            <programlisting language="xml">&lt;if>
+    &lt;available file="README.md"/>
+    &lt;then>
+        &lt;echo message="Please read README.md"/>
+    &lt;/then>
+&lt;/if></programlisting>
         </sect2>
         <sect2 xml:id="conditions.filesmatch">
             <title><literal>filesmatch</literal></title>
