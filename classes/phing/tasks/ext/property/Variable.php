@@ -201,7 +201,7 @@ class Variable extends PropertyTask
     /**
      * resolve properties inside a properties hashtable
      *
-     * @param props               properties object to resolve
+     * @param Properties $props               properties object to resolve
      * @throws BuildException  Description of the Exception
      */
     protected function resolveAllProperties(Properties $props)
@@ -217,13 +217,15 @@ class Variable extends PropertyTask
             $resolved = false;
             $resolveStack = array();
 
+            $ih = PropertyHelper::getPropertyHelper($this->project);
+
             while (!$resolved) {
 
                 $fragments = array();
                 $propertyRefs = array();
 
                 // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
-                self::parsePropertyString($value, $fragments, $propertyRefs);
+                $ih->parsePropertyString($value, $fragments, $propertyRefs);
 
                 $resolved = true;
                 if (count($propertyRefs) == 0) {

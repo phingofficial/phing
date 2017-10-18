@@ -6,6 +6,8 @@
 # Target system: travis-ci
 #-----------------------------------------------------------
 
+    pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
+
     if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
         echo -e "\nAuto-discover pear channels and upgrade ..."
         pear config-set auto_discover 1
