@@ -89,6 +89,7 @@ class CopyTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->fileUtils = new FileUtils();
         $this->mode = 0777 - umask();
     }
