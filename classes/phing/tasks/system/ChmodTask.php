@@ -163,13 +163,13 @@ class ChmodTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
+            $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcFiles[$j]), $mode);
             }
 
             $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
+            $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcDirs[$j]), $mode);
             }

@@ -178,7 +178,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::REGEXP_KEY === $params[$i]->getType()) {
                     $pattern = $params[$i]->getValue();
                     $regexp = new RegularExpression();

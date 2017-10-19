@@ -546,8 +546,8 @@ abstract class FileSystem
         }
 
         // Make destination directory
-        if (!is_dir($dest)) {
-            mkdir($dest);
+        if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
+           return false;
         }
 
         // Loop through the folder
