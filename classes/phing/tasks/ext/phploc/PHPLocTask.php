@@ -31,6 +31,8 @@ require_once 'phing/tasks/ext/phploc/PHPLocFormatterFactory.php';
  */
 class PHPLocTask extends Task
 {
+    use FileSetAware;
+
     /**
      * @var array
      */
@@ -72,11 +74,6 @@ class PHPLocTask extends Task
     protected $filesToCheck = [];
 
     /**
-     * @var FileSet[]
-     */
-    protected $fileSets = [];
-
-    /**
      * @var PHPLocFormatterElement[]
      */
     protected $formatterElements = [];
@@ -113,17 +110,6 @@ class PHPLocTask extends Task
     public function setCountTests($countTests)
     {
         $this->countTests = StringHelper::booleanValue($countTests);
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->fileSets[] = $fs;
     }
 
     /**
@@ -200,8 +186,8 @@ class Application
 
         $this->validateProperties();
 
-        if (count($this->fileSets) > 0) {
-            foreach ($this->fileSets as $fileSet) {
+        if (count($this->filesets) > 0) {
+            foreach ($this->filesets as $fileSet) {
                 $directoryScanner = $fileSet->getDirectoryScanner($this->project);
                 $files = $directoryScanner->getIncludedFiles();
                 $directory = $fileSet->getDir($this->project)->getPath();
@@ -224,7 +210,7 @@ class Application
      */
     private function validateProperties()
     {
-        if ($this->fileToCheck === null && count($this->fileSets) === 0) {
+        if ($this->fileToCheck === null && count($this->filesets) === 0) {
             throw new BuildException('Missing either a nested fileset or the attribute "file" set.');
         }
 
@@ -237,7 +223,7 @@ class Application
                 throw new BuildException('Suffix of file to check is not defined in "suffixes" attribute.');
             }
 
-            if (count($this->fileSets) > 0) {
+            if (count($this->filesets) > 0) {
                 throw new BuildException('Either use a nested fileset or "file" attribute; not both.');
             }
         }

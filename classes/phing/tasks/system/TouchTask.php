@@ -36,17 +36,16 @@ include_once 'phing/system/io/IOException.php';
  */
 class TouchTask extends Task
 {
+    use FileListAware;
+    use FileSetAware;
+
     /** @var PhingFile $file */
     private $file;
     private $millis = -1;
     private $dateTime;
-    private $filesets = [];
     private $fileUtils;
     private $mkdirs = false;
     private $verbose = true;
-
-    /** @var FileList[] $filelists */
-    private $filelists = [];
 
     /**
      *
@@ -109,28 +108,6 @@ class TouchTask extends Task
     public function setVerbose($verbose)
     {
         $this->verbose = $verbose;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileList(FileList $fl)
-    {
-        $this->filelists[] = $fl;
     }
 
     /**
