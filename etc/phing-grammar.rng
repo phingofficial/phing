@@ -6419,6 +6419,11 @@
                     <data type="int"/>
                 </attribute>
             </optional>
+            <optional>
+                <attribute name="skip">
+                    <data type="int"/>
+                </attribute>
+            </optional>
             <empty/>
         </element>
     </define>
