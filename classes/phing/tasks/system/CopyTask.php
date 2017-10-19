@@ -101,6 +101,20 @@ class CopyTask extends Task
     }
 
     /**
+     * Set whether files copied from directory trees will be "flattened"
+     * into a single directory.  If there are multiple files with
+     * the same name in the source directory tree, only the first
+     * file will be copied into the "flattened" directory, unless
+     * the forceoverwrite attribute is true.
+     * @param bool $flatten if true flatten the destination directory. Default
+     *                is false.
+     */
+    public function setFlatten($flatten)
+    {
+        $this->flatten = $flatten;
+    }
+
+    /**
      * Used to force listing of all names of copied files.
      * @param boolean $verbosity
      */
@@ -127,7 +141,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean  Preserve the timestamp on the destination file
+     * @param  boolean $bool Preserve the timestamp on the destination file
      * @return void
      */
     public function setPreserveLastModified($bool)
