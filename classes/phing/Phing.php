@@ -70,6 +70,7 @@ class Phing
 
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
+    const DEFAULT_PROPERTIES_FILENAME = "build.properties";
     const PHING_HOME = 'phing.home';
     const PHP_VERSION = 'php.version';
     const PHP_INTERPRETER = 'php.interpreter';
@@ -381,6 +382,12 @@ class Phing
 
         if (in_array('-version', $args) || in_array('-v', $args)) {
             $this->printVersion();
+
+            return;
+        }
+
+        if (in_array('-init', $args) || in_array('-i', $args)) {
+            self::initFiles();
 
             return;
         }
@@ -1047,6 +1054,56 @@ class Phing
         self::$out->write(self::getPhingVersion() . PHP_EOL);
     }
 
+    /**
+     * Creates generic buildfile and property file.
+     */
+    public static function initFiles()
+    {
+        $homeDir = self::getProperty(self::PHING_HOME);
+        self::initBuildFile($homeDir);
+        self::initPropertyFile($homeDir);
+    }
+
+    /**
+     * Creates generic BuildFile
+     *
+     * @param string $dir
+     */
+    protected static function initBuildFile($dir)
+    {
+        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
+        $content .= '' . PHP_EOL;
+        $content .= '<project name="" description="" default="">' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '    <target name="" description="">' . PHP_EOL;
+        $content .= '        ' . PHP_EOL;
+        $content .= '    </target>' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '</project>' . PHP_EOL;
+
+        $buildFile = $dir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        if (!file_exists($buildFile)) {
+            file_put_contents($buildFile, $content);
+        }
+    }
+
+    /**
+     * Creates generic Property file
+     *
+     * @param string $dir
+     */
+    protected static function initPropertyFile($dir)
+    {
+        $content = '[section]' . PHP_EOL;
+        $content .= 'name=value' . PHP_EOL;
+
+        $propertyFile = $dir . DIRECTORY_SEPARATOR . self::DEFAULT_PROPERTIES_FILENAME;
+        if (!file_exists($propertyFile)) {
+            file_put_contents($propertyFile, $content);
+        }
+    }
+
+    
     /**
      * Gets the current Phing version based on VERSION.TXT file.
      *
