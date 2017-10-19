@@ -1697,6 +1697,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>osfamily</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>OS family as used in the &lt;os> condition.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>escape</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>By default, we escape shell metacharacters before executing. Setting
