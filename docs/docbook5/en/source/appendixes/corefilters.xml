@@ -781,6 +781,13 @@
                         <entry>10</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>skip</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Number of lines to be skipped (from the end).</entry>
+                        <entry>0</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
