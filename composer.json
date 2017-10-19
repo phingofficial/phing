@@ -96,6 +96,7 @@
         "pear/archive_tar": "Tar file management class",
         "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
         "tedivm/jshrink": "Javascript Minifier built in PHP",
-        "aws/aws-sdk-php": "AWS SDK used by "
+        "symfony/stopwatch": "Needed by the StopwatchTask",
+        "aws/aws-sdk-php": "AWS SDK used by S3*Tasks"
     }
 }
