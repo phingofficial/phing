@@ -30,6 +30,8 @@ require_once 'phing/tasks/system/MatchingTask.php';
  */
 abstract class ExtractBaseTask extends MatchingTask
 {
+    use FileSetAware;
+
     /**
      * @var PhingFile $file
      */
@@ -39,7 +41,6 @@ abstract class ExtractBaseTask extends MatchingTask
      */
     protected $todir;
     protected $removepath;
-    protected $filesets = []; // all fileset objects assigned to this task
 
     /**
      * Set to true to always extract (and possibly overwrite)
@@ -47,16 +48,6 @@ abstract class ExtractBaseTask extends MatchingTask
      * @var boolean
      */
     protected $forceExtract = false;
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Set the name of the zip file to extract.

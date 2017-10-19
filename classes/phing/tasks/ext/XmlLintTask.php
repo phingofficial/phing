@@ -30,9 +30,10 @@ require_once 'phing/Task.php';
  */
 class XmlLintTask extends Task
 {
+    use FileSetAware;
+
     protected $file; // the source file (from xml attribute)
     protected $schema; // the schema file (from xml attribute)
-    protected $filesets = []; // all fileset objects assigned to this task
     protected $useRNG = false;
 
     protected $haltonfailure = true;
@@ -65,18 +66,6 @@ class XmlLintTask extends Task
     public function setUseRNG($bool)
     {
         $this->useRNG = (boolean) $bool;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

@@ -23,7 +23,7 @@ include_once 'phing/util/FileUtils.php';
 include_once 'phing/util/SourceFileScanner.php';
 include_once 'phing/mappers/IdentityMapper.php';
 include_once 'phing/mappers/FlattenMapper.php';
-include_once 'phing/types/DirSetAware.php';
+include_once 'phing/types/element/ResourceAware.php';
 
 /**
  * A phing copy task.  Copies a file or directory to a new file
@@ -37,7 +37,8 @@ include_once 'phing/types/DirSetAware.php';
  */
 class CopyTask extends Task
 {
-    use DirSetAware;
+    use ResourceAware;
+    use FilterChainAware;
 
     /** @var PhingFile */
     protected $file = null; // the source file (from xml attribute)
@@ -63,15 +64,6 @@ class CopyTask extends Task
 
     /** @var FileUtils */
     protected $fileUtils = null; // a instance of fileutils
-
-    /** @var AbstractFileSet[] */
-    protected $filesets = []; // all fileset objects assigned to this task
-
-    /** @var FileList[] */
-    protected $filelists = []; // all filelist objects assigned to this task
-
-    /** @var FilterChain[] */
-    protected $filterChains = []; // all filterchains objects assigned to this task
 
     protected $verbosity = Project::MSG_VERBOSE;
 
@@ -253,42 +245,6 @@ class CopyTask extends Task
     public function setHaltonerror($haltonerror)
     {
         $this->haltonerror = (boolean) $haltonerror;
-    }
-
-    /**
-     * Nested creator, creates a FileSet for this task
-     *
-     * @param FileSet $fs Set of files to copy
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     *
-     * @return FileList The created filelist object
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**

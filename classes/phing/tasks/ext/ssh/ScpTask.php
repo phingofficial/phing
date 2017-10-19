@@ -32,8 +32,9 @@ require_once 'phing/Task.php';
 
 class ScpTask extends Task
 {
+    use FileSetAware;
+
     protected $file = "";
-    protected $filesets = []; // all fileset objects assigned to this task
     protected $todir = "";
     protected $mode = null;
 
@@ -301,17 +302,6 @@ class ScpTask extends Task
     public function getHeuristicDecision()
     {
         return $this->heuristicDecision;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
