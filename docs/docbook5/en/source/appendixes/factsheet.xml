@@ -143,6 +143,11 @@
                         <literal>true</literal>)</entry>
                     </row>
                     <row>
+                        <entry><literal>-i -init</literal></entry>
+                        <entry>Generates the build.xml buildfile at Phing's
+                        home directory</entry>
+                    </row>
+                    <row>
                         <entry><literal>-v -version</literal></entry>
                         <entry>Print version information and exit</entry>
                     </row>

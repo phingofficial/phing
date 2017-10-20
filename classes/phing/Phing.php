@@ -70,7 +70,6 @@ class Phing
 
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
-    const DEFAULT_PROPERTIES_FILENAME = "build.properties";
     const PHING_HOME = 'phing.home';
     const PHP_VERSION = 'php.version';
     const PHP_INTERPRETER = 'php.interpreter';
@@ -387,7 +386,7 @@ class Phing
         }
 
         if (in_array('-init', $args) || in_array('-i', $args)) {
-            self::initFiles();
+            self::init();
 
             return;
         }
@@ -1018,6 +1017,7 @@ class Phing
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
+        $msg .= "  -i -init               generates the build.xml buildfile" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
@@ -1055,13 +1055,12 @@ class Phing
     }
 
     /**
-     * Creates generic buildfile and property file.
+     * Creates generic buildfile
      */
-    public static function initFiles()
+    public static function init()
     {
         $homeDir = self::getProperty(self::PHING_HOME);
         self::initBuildFile($homeDir);
-        self::initPropertyFile($homeDir);
     }
 
     /**
@@ -1087,23 +1086,6 @@ class Phing
         }
     }
 
-    /**
-     * Creates generic Property file
-     *
-     * @param string $dir
-     */
-    protected static function initPropertyFile($dir)
-    {
-        $content = '[section]' . PHP_EOL;
-        $content .= 'name=value' . PHP_EOL;
-
-        $propertyFile = $dir . DIRECTORY_SEPARATOR . self::DEFAULT_PROPERTIES_FILENAME;
-        if (!file_exists($propertyFile)) {
-            file_put_contents($propertyFile, $content);
-        }
-    }
-
-    
     /**
      * Gets the current Phing version based on VERSION.TXT file.
      *
