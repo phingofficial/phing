@@ -45,24 +45,30 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     const LINES_KEY = "lines";
 
+    /** Parameter name for the number of lines to be skipped. */
+    const SKIP_KEY = 'skip';
+
     /**
      * Number of lines currently read in.
      *
      * @var integer
      */
-    private $_linesRead = 0;
+    private $linesRead = 0;
 
     /**
      * Number of lines to be returned in the filtered stream.
      *
      * @var integer
      */
-    private $_lines = 10;
+    private $lines = 10;
+
+    /** Number of lines to be skipped. */
+    private $skip = 0;
 
     /**
      * Returns first n lines of stream.
      *
-     * @param null $len
+     * @param int $len
      * @return string|int the resulting stream, or -1
      *                    if the end of the resulting stream has been reached
      *
@@ -70,14 +76,14 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
         // note, if buffer contains fewer lines than
         // $this->_lines this code will not work.
 
-        if ($this->_linesRead < $this->_lines) {
+        if ($this->linesRead < $this->lines) {
             $buffer = $this->in->read($len);
 
             if ($buffer === -1) {
@@ -92,9 +98,9 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
 
             // must account for possibility that the num lines requested could
             // involve more than one buffer read.
-            $len = ($linesCount > $this->_lines ? $this->_lines - $this->_linesRead : $linesCount);
-            $filtered_buffer = implode("\n", array_slice($lines, 0, $len));
-            $this->_linesRead += $len;
+            $len = ($linesCount > $this->lines ? $this->lines - $this->linesRead : $linesCount);
+            $filtered_buffer = implode("\n", array_slice($lines, $this->skip, $len));
+            $this->linesRead += $len;
 
             return $filtered_buffer;
         }
@@ -111,7 +117,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setLines($lines)
     {
-        $this->_lines = (int) $lines;
+        $this->lines = (int) $lines;
     }
 
     /**
@@ -121,7 +127,27 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function getLines()
     {
-        return $this->_lines;
+        return $this->lines;
+    }
+
+    /**
+     * Sets the number of lines to be skipped in the filtered stream.
+     *
+     * @param int $skip the number of lines to be skipped in the filtered stream
+     */
+    public function setSkip($skip)
+    {
+        $this->skip = (int) $skip;
+    }
+
+    /**
+     * Returns the number of lines to be skipped in the filtered stream.
+     *
+     * @return int the number of lines to be skipped in the filtered stream
+     */
+    private function getSkip()
+    {
+        return $this->skip;
     }
 
     /**
@@ -138,6 +164,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     {
         $newFilter = new HeadFilter($reader);
         $newFilter->setLines($this->getLines());
+        $newFilter->setSkip($this->getSkip());
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
 
@@ -150,14 +177,18 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return void
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0, $_i = count($params); $i < $_i; $i++) {
-                if (self::LINES_KEY == $params[$i]->getName()) {
-                    $this->_lines = (int) $params[$i]->getValue();
-                    break;
+            foreach ($params as $param) {
+                if (self::LINES_KEY === $param->getName()) {
+                    $this->lines = (int) $param->getValue();
+                    continue;
+                }
+                if (self::SKIP_KEY === $param->getName()) {
+                    $this->lines = (int) $param->getValue();
+                    continue;
                 }
             }
         }

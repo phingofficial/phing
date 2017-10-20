@@ -71,8 +71,7 @@ class FilenameSelector extends BaseExtendSelector
      */
     public function setName($pattern)
     {
-        $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-        $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+        $pattern = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $pattern);
 
         if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
             $pattern .= "**";

@@ -21,11 +21,26 @@
         "slack": "https://www.phing.info/slack",
         "docs": "https://www.phing.info/docs/guide/stable/"
     },
+    "repositories": [
+        {
+            "type":"package",
+            "package": {
+                "name": "phpDocumentor/Parallel",
+                "version":"master",
+                "source": {
+                    "url": "https://github.com/phpDocumentor/Parallel.git",
+                    "type": "git",
+                    "reference":"master"
+                }
+            }
+        }
+    ],
     "require": {
         "php": ">=5.6",
         "sebastian/version": "^2.0",
         "symfony/console": "^2.8|^3.0",
-        "symfony/yaml": "^2.8|^3.1"
+        "symfony/yaml": "^2.8|^3.1",
+        "phpDocumentor/Parallel": "master@dev"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
@@ -48,7 +63,10 @@
         "aws/aws-sdk-php": "^3.32"
     },
     "autoload": {
-        "classmap": ["classes/phing/"]
+        "classmap": [
+            "classes/phing/",
+            "vendor/phpDocumentor/Parallel"
+        ]
     },
     "include-path": ["classes"],
     "bin": [
@@ -78,6 +96,7 @@
         "pear/archive_tar": "Tar file management class",
         "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
         "tedivm/jshrink": "Javascript Minifier built in PHP",
-        "aws/aws-sdk-php": "AWS SDK used by "
+        "symfony/stopwatch": "Needed by the StopwatchTask",
+        "aws/aws-sdk-php": "AWS SDK used by S3*Tasks"
     }
 }

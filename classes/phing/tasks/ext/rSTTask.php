@@ -29,6 +29,9 @@ require_once 'phing/util/FileUtils.php';
  */
 class rSTTask extends Task
 {
+    use FileSetAware;
+    use FilterChainAware;
+
     /**
      * @var string Taskname for logger
      */
@@ -102,19 +105,7 @@ class rSTTask extends Task
      */
     protected $destination = null;
 
-    /**
-     * @var AbstractFileSet[]
-     */
-    protected $filesets = []; // all fileset objects assigned to this task
-
     protected $mapperElement = null;
-
-    /**
-     * all filterchains objects assigned to this task
-     *
-     * @var array
-     */
-    protected $filterChains = [];
 
     /**
      * mode to create directories with
@@ -437,18 +428,6 @@ class rSTTask extends Task
     }
 
     /**
-     * Add a set of files to be rendered.
-     *
-     * @param FileSet $fileset Set of rst files to render
-     *
-     * @return void
-     */
-    public function addFileset(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
-
-    /**
      * Nested creator, creates one Mapper for this task
      *
      * @return Mapper The created Mapper type object
@@ -465,17 +444,5 @@ class rSTTask extends Task
         $this->mapperElement = new Mapper($this->project);
 
         return $this->mapperElement;
-    }
-
-    /**
-     * Creates a filterchain, stores and returns it
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 }

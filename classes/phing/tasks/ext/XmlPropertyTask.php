@@ -215,7 +215,7 @@ class XmlPropertyTask extends PropertyTask
 
         $prop = new Properties();
 
-        $xml = simplexml_load_file($filePath);
+        $xml = simplexml_load_string(file_get_contents($filePath));
 
         if ($xml === false) {
             throw new IOException("Unable to parse XML file $filePath");

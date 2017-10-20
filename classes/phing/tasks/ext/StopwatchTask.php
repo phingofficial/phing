@@ -77,10 +77,11 @@ class StopwatchTask extends Task
     private function loadStopwatch()
     {
         @include_once 'Symfony/Component/Stopwatch/autoload.php';
+        @include_once 'Symfony/Component/Stopwatch/autoloader.php';
         @include_once 'vendor/autoload.php';
 
         if (!class_exists('\\Symfony\\Component\\Stopwatch\\Stopwatch')) {
-            throw new BuildException("StopwatchTask requires Stopwatch to be installed");
+            throw new BuildException("StopwatchTask requires symfony/stopwatch to be installed.");
         }
     }
 
@@ -124,6 +125,7 @@ class StopwatchTask extends Task
             $this->log('Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() . ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(), Project::MSG_INFO);
         }
 
+        $this->log('Name:       ' . $this->name, Project::MSG_INFO);
         $this->log('Category:   ' . $event->getCategory(), Project::MSG_INFO);
         $this->log('Origin:     ' . $event->getOrigin(), Project::MSG_INFO);
         $this->log('Start time: ' . $event->getStartTime(), Project::MSG_INFO);
