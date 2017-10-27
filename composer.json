@@ -31,6 +31,9 @@
                     "url": "https://github.com/phpDocumentor/Parallel.git",
                     "type": "git",
                     "reference":"master"
+                },
+                "autoload": {
+                    "classmap": ["."]
                 }
             }
         }
@@ -64,8 +67,7 @@
     },
     "autoload": {
         "classmap": [
-            "classes/phing/",
-            "vendor/phpDocumentor/Parallel"
+            "classes/phing/"
         ]
     },
     "include-path": ["classes"],
