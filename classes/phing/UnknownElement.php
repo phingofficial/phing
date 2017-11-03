@@ -221,4 +221,23 @@ class UnknownElement extends Task
             ? parent::getTaskName()
             : $this->realThing->getTaskName();
     }
+
+    /**
+     * Return the configured object
+     *
+     * @return object the real thing whatever it is
+     */
+    public function getRealThing()
+    {
+        return $this->realThing;
+    }
+
+    /**
+     * Set the configured object
+     * @param object $realThing the configured object
+     */
+    public function setRealThing($realThing)
+    {
+        $this->realThing = $realThing;
+    }
 }
