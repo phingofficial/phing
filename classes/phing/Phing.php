@@ -1017,7 +1017,7 @@ class Phing
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
-        $msg .= "  -i -init               generates the build.xml buildfile" . PHP_EOL;
+        $msg .= "  -i -init               generates an initial build.xml buildfile" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;

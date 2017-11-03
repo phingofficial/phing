@@ -259,7 +259,7 @@
             <para>The following command line arguments are supported</para>
             <programlisting>  -h -help               print this message
   -l -list               list available targets in this project
-  -i -init               generates the build.xml buildfile
+  -i -init               generates an initial build.xml buildfile
   -v -version            print the version information and exit
   -q -quiet              be extra quiet
   -S -silent             print nothing but task outputs and build failures
