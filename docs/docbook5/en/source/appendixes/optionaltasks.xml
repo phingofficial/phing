@@ -4026,7 +4026,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>html or text</entry>
                         <entry>text</entry>
                         <entry>No</entry>
-                    </row>			
+                    </row>
                     <row>
                         <entry><literal>domain</literal></entry>
                         <entry><literal role="type">String</literal></entry>
@@ -11696,6 +11696,107 @@ host="webserver" command="ls" /></programlisting>
         </sect2>
 
     </sect1>
+    <sect1 role="taskdef" xml:id="SupervisorTask">
+        <title>SupervisorTask</title>
+        <para>Start/Stop <link xlink:href="http://supervisord.org/" role="extern">Supervisor</link> processes via XML-RPC.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>url</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>XML-RPC API endpoint (http://user:pass@IP:PORT/RPC2).</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Will ignore errors if set to false (but still log them as warnings).</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;supervisor url="http://user:pass@127.0.0.1:1337/RPC2" failonerror="true"&gt;
+    &lt;process name="myProcessA" action="stop" failonerror="false"/&gt;
+    &lt;process name="myProcessB" action="restart" /&gt;
+    &lt;process name="myProcessGroup" action="restartGroup" /&gt;
+&lt;/supervisor&gt;</programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>process</literal>
+                    </para>
+                    <para>Action to perform for a supervisor process.</para>
+
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>name</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Name of the process.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>action</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Action to perform. Valid actions are start, stop, restart, startGroup, stopGroup, restartGroup.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>failonerror</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Will ignore errors if set to false (but still log them as warnings). Overrides parent setting if defined.</entry>
+                                    <entry>inherited from SupervisorTask</entry>
+                                    <entry>No</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+
     <sect1 role="taskdef" xml:id="SvnCheckoutTask">
         <title>SvnCheckoutTask</title>
         <para> The <literal>SvnCheckoutTask</literal> checks out a Subversion repository to a local
@@ -13760,6 +13861,119 @@ root-tag.a2.a3.a4=false</programlisting>
             <programlisting language="xml">inner-tag=Text
 inner-tag(someattr)=val
 a2.a3.a4=false</programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="XmlRpcTask">
+        <title>XmlRpcTask</title>
+        <para>This will make a  <link xlink:href="http://xmlrpc.scripting.com/" role="extern">XML-RPC</link> call.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>url</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>XML-RPC API endpoint.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>method</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>XML-RPC methodName.</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>resultProperty</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Property name which will be set the XML raw response.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Will ignore errors if set to false (but still log them as warnings).</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;xmlrpc url="http://user:pass@127.0.0.1:1337/RPC2" method="supervisor.stopProcess" resultProperty="xmlResult" resultProperty="myResult" failonerror="false">
+    &lt;param name="name" value="foobar" /&gt;
+&lt;/xmlrpc&gt;
+&lt;echo&gt;${myResult}&lt;/echo&gt;</programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>param</literal>
+                    </para>
+                    <para>Parameters for the method call.</para>
+
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>name</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Name of the parameter.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>value</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Value of the parameter.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>type</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Type of the parameter. As per XML-RPC specs valid types are i4, int, boolean, string, double, dateTime.iso8601, base64.</entry>
+                                    <entry>string</entry>
+                                    <entry>No</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ZendCodeAnalyzerTask">
