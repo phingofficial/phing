@@ -21,7 +21,6 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitTagTask.php';
-require_once __DIR__ . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -32,16 +31,10 @@ class GitTagTaskTest extends BuildFileTest
 {
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
@@ -54,7 +47,7 @@ class GitTagTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testGitTagCreate()
@@ -66,16 +59,16 @@ class GitTagTaskTest extends BuildFileTest
     public function testGitTagReplaceCreateDuplicate()
     {
         $this->executeTarget('gitTagReplaceCreateDuplicate');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -f \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -f \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
     public function testGitTagForceCreateDuplicate()
     {
         $this->executeTarget('gitTagForceCreateDuplicate');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -f \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -f \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
@@ -100,27 +93,27 @@ class GitTagTaskTest extends BuildFileTest
     public function testTagCreateAnnotated()
     {
         $this->executeTarget('gitTagCreateAnnotated');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -a -m\'Version 1.0 tag\' \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -a -m\'Version 1.0 tag\' \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
     public function testTagCreateAnnotatedImplicit()
     {
         $this->executeTarget('gitTagCreateAnnotatedImplicit');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -m\'Version 1.0 tag\' \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -m\'Version 1.0 tag\' \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
     public function testTagDelete()
     {
         $this->executeTarget('gitTagDelete');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver2.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -d \'ver2.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver2.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -d \'ver2.0\'');
         $this->assertInLogs('git-tag output: Deleted tag \'ver2.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');
         $this->assertInLogs(' ver1.0');
         $this->assertNotInLogs("\n" . 'ver2.0');
     }
@@ -128,20 +121,20 @@ class GitTagTaskTest extends BuildFileTest
     public function testTagListByPattern()
     {
         $this->executeTarget('gitTagListByPattern');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver2.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'marked\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l \'marked\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver2.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'marked\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l \'marked\'');
         $this->assertInLogs('git-tag output: marked');
     }
 
     public function testTagOutputPropertySet()
     {
         $this->executeTarget('gitTagOutpuPropertySet');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver2.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'marked\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l \'marked\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver2.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'marked\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l \'marked\'');
         $this->assertInLogs('git-tag output: marked');
         $this->assertPropertyEquals('gitLogOutput', 'marked' . "\n");
     }
@@ -150,7 +143,7 @@ class GitTagTaskTest extends BuildFileTest
     {
         $this->executeTarget('gitTagWithCommitSet');
         $this->assertInLogs(
-            'git-tag command: /usr/bin/git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\''
+            'git-tag command: LC_ALL=C && git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\''
         );
         $this->assertInLogs('c573116f395d36497a1ac1dba565ecd3d3944277');
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888');
@@ -163,7 +156,7 @@ class GitTagTaskTest extends BuildFileTest
     {
         $this->executeTarget('gitTagWithObjectSet');
         $this->assertInLogs(
-            'git-tag command: /usr/bin/git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\''
+            'git-tag command: LC_ALL=C && git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\''
         );
         $this->assertInLogs('c573116f395d36497a1ac1dba565ecd3d3944277');
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888');
@@ -176,8 +169,8 @@ class GitTagTaskTest extends BuildFileTest
     {
         $this->markTestSkipped('Involves configured GPG key');
         $this->executeTarget('gitTagCreateSignedDefaultKey');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -m\'Version 1.0 tag\' \'ver1.0\'');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag -l');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -m\'Version 1.0 tag\' \'ver1.0\'');
+        $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
@@ -189,7 +182,7 @@ class GitTagTaskTest extends BuildFileTest
         fclose($fp);
 
         $this->executeTarget('gitTagFileSet');
-        $this->assertInLogs("/usr/bin/git tag -F'{$msgFile}' 'ver1.0'");
+        $this->assertInLogs("LC_ALL=C && git tag -F'{$msgFile}' 'ver1.0'");
 
         unlink($msgFile);
     }

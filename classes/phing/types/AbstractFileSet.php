@@ -133,7 +133,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function setRefid(Reference $r)
     {
-        if ((isset($this->dir) && !is_null($this->dir)) || $this->defaultPatterns->hasPatterns()) {
+        if ((isset($this->dir) && null !== $this->dir) || $this->defaultPatterns->hasPatterns()) {
             throw $this->tooManyAttributes();
         }
         if (!empty($this->additionalPatterns)) {
@@ -412,8 +412,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     // SelectorContainer methods

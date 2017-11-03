@@ -45,6 +45,14 @@ class ConditionTask extends ConditionBase
 
     /** @var string $alternative */
     private $alternative;
+
+    /**
+     * Constructor, names this task "condition".
+     */
+    public function __construct()
+    {
+        parent::__construct('condition');
+    }
     
     /**
      * The name of the property to set. Required.

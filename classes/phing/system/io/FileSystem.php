@@ -382,7 +382,7 @@ abstract class FileSystem
         $list = [];
         while ($entry = $d->read()) {
             if ($entry != "." && $entry != "..") {
-                array_push($list, $entry);
+                $list[] = $entry;
             }
         }
         $d->close();
@@ -546,8 +546,8 @@ abstract class FileSystem
         }
 
         // Make destination directory
-        if (!is_dir($dest)) {
-            mkdir($dest);
+        if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
+           return false;
         }
 
         // Loop through the folder
@@ -909,7 +909,7 @@ abstract class FileSystem
         $dirSeparator = $this->getSeparator();
         $pathSeparator = $this->getPathSeparator();
         $elements = explode($pathSeparator, $path);
-        $amount = sizeof($elements);
+        $amount = count($elements);
         $fstype = Phing::getProperty('host.fstype');
         switch($fstype) {
         case 'UNIX':

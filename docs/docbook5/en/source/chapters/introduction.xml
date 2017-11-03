@@ -86,8 +86,7 @@
         <para>To get involved start by doing the following:</para>
         <itemizedlist>
             <listitem>
-                <para>Read this manual to understand<acronym>Phing</acronym>
-                    ;-)</para>
+                <para>Read this manual to understand <acronym>Phing</acronym> ;-)</para>
             </listitem>
               <listitem>
                 <para>Go to <link xlink:href="http://phing.tigris.org"
@@ -100,7 +99,7 @@
                     >website (http://www.phing.info/)</link> and look for open bugs / tickets</para>
             </listitem>
             <listitem>
-                <para>... and of course, start to actively participate in the development by forking
+                <para>...and of course, start to actively participate in the development by forking
                     the repository (see below) </para>
             </listitem>
         </itemizedlist>

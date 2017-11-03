@@ -58,7 +58,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileCouldntOpenFile()
     {
-        $phingFile = new PhingFile(uniqid());
+        $phingFile = new PhingFile(uniqid('', true));
         $this->parser->parseFile($phingFile);
     }
 

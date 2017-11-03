@@ -2,7 +2,6 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/hg/HgLogTask.php';
-require_once __DIR__ . '/HgTestsHelper.php';
 
 class HgLogTaskTest extends BuildFileTest
 {
@@ -17,7 +16,7 @@ class HgLogTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        HgTestsHelper::rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
 
     public function testMaxCountShouldBeAnInteger()

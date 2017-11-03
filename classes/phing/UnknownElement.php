@@ -47,6 +47,7 @@ class UnknownElement extends Task
      */
     public function __construct($elementName)
     {
+        parent::__construct();
         $this->elementName = (string) $elementName;
     }
 

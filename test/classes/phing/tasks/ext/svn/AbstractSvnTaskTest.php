@@ -20,7 +20,6 @@
  */
 
 require_once 'phing/BuildFileTest.php';
-require_once __DIR__ . '/../GitTasks/GitTestsHelper.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -38,7 +37,7 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
         }
 
         if ($createDirectory) {
@@ -58,6 +57,6 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
     public function tearDown()
     {
         error_reporting($this->savedErrorLevel);
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 }

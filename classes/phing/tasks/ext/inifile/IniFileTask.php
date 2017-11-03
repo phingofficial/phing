@@ -90,7 +90,7 @@ class IniFileTask extends Task
      */
     public function checkReadFile($readFile)
     {
-        if (is_null($readFile)) {
+        if (null === $readFile) {
             return false;
         }
         if (!file_exists($readFile)) {
@@ -145,17 +145,17 @@ class IniFileTask extends Task
         $readFile = null;
         $writeFile = null;
 
-        if (!is_null($this->source) && is_null($this->dest)) {
+        if (null !== $this->source && null === $this->dest) {
             $readFile = $this->source;
-        } elseif (!is_null($this->dest) && is_null($this->source)) {
+        } elseif (null !== $this->dest && null === $this->source) {
             $readFile = $this->dest;
         } else {
             $readFile = $this->source;
         }
 
-        if (!is_null($this->dest)) {
+        if (null !== $this->dest) {
             $writeFile = $this->dest;
-        } elseif (!is_null($this->source)) {
+        } elseif (null !== $this->source) {
             $writeFile = $this->source;
         } else {
             $writeFile = $this->dest;

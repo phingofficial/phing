@@ -408,7 +408,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements \PHPUni
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
         if ($test instanceof PHPUnit_Framework_TestCase) {
-            if (!$test->hasPerformedExpectationsOnOutput()) {
+            if (!$test->hasExpectationOnOutput()) {
                 echo $test->getActualOutput();
             }
         }

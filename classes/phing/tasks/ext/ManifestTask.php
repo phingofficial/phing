@@ -53,6 +53,8 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class ManifestTask extends Task
 {
+    use FileSetAware;
+
     public $taskname = 'manifest';
 
     /**
@@ -69,13 +71,6 @@ class ManifestTask extends Task
      * @var string "r" or "w"
      */
     private $action = 'w';
-
-    /**
-     * Holds filesets
-     *
-     * @var array An Array of objects
-     */
-    private $filesets = [];
 
     /**
      * Enable/Disable checksuming or/and select algorithm
@@ -152,18 +147,6 @@ class ManifestTask extends Task
     public function setSalt($string)
     {
         $this->salt = $string;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -333,11 +316,11 @@ class ManifestTask extends Task
             $this->log("No salt provided. Specify one with the 'salt' attribute.", Project::MSG_WARN);
         }
 
-        if (is_null($this->file) && count($this->filesets) === 0) {
+        if (null === $this->file && count($this->filesets) === 0) {
             throw new BuildException("Specify at least sources and destination - a file or a fileset.");
         }
 
-        if (!is_null($this->file) && $this->file->exists() && $this->file->isDirectory()) {
+        if (null !== $this->file && $this->file->exists() && $this->file->isDirectory()) {
             throw new BuildException("Destination file cannot be a directory.");
         }
     }

@@ -174,6 +174,9 @@ class TarTask extends MatchingTask
             case "bzip2":
                 $this->compression = "bz2";
                 break;
+            case "lzma2":
+                $this->compression = "lzma2";
+                break;
             case "none":
                 $this->compression = null;
                 break;
