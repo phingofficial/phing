@@ -307,6 +307,35 @@
   &lt;/linecontains>
 &lt;/filterchain></programlisting>
 
+        <table>
+            <title> Attributes for the <literal>&lt;linecontains> </literal>filter </title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>negate</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to select non-matching lines only.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
         <sect2>
             <title>Nested tags</title>
 
