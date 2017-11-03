@@ -144,7 +144,7 @@
                     </row>
                     <row>
                         <entry><literal>-i -init</literal></entry>
-                        <entry>generates an initial build.xml buildfile at Phing's
+                        <entry>Generates an initial build.xml buildfile at Phing's
                         home directory</entry>
                     </row>
                     <row>
