@@ -85,6 +85,10 @@
                         <entry>Phing installation directory, not set in PEAR installations.</entry>
                     </row>
                     <row>
+                        <entry><literal>phing.startTime</literal></entry>
+                        <entry>The time that Phing started to run.</entry>
+                    </row>
+                    <row>
                         <entry><literal>phing.version</literal></entry>
                         <entry>Current Phing version.</entry>
                     </row>
