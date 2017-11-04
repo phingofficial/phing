@@ -1317,8 +1317,7 @@ class Phing
             self::$importPaths = self::explodeIncludePath();
         }
 
-        $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
-        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
 
         foreach (self::$importPaths as $prefix) {
             $testPath = $prefix . DIRECTORY_SEPARATOR . $path;

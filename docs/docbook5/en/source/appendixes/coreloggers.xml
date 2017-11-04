@@ -170,6 +170,20 @@
         </para>
     </sect1>
 
+    <sect1 role="loggerdef" xml:id="StatisticsListener">
+        <title>StatisticsListener</title>
+        <para>A phing BuildListener which can be used to gather
+            statistics while a phing build is executed.  Statistics on the targets
+            and tasks executed are written to the console after the build completes.
+            Some of the statistics captured are:
+
+            - the number of times a target / task is called
+            - the average processing time spent on a target / task
+            - the total processing time spent on a target / task
+            - the total processing time spent on a target / task expressed as a percentage
+        </para>
+    </sect1>
+
     <sect1 role="loggerdef" xml:id="TimestampedLogger">
         <title>TimestampedLogger</title>
         <para>Acts like the default logger, except that the final

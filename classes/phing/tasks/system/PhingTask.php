@@ -46,6 +46,7 @@ include_once 'phing/tasks/system/PropertyTask.php';
  */
 class PhingTask extends Task
 {
+    use FileSetAware;
 
     /** the basedir where is executed the build file */
     private $dir;
@@ -67,9 +68,6 @@ class PhingTask extends Task
 
     /** the references to pass to the new project */
     private $references = [];
-
-    /** The filesets that contain the files PhingTask is to be run on. */
-    private $filesets = [];
 
     /**
      * The temporary project created to run the build file
@@ -570,17 +568,6 @@ class PhingTask extends Task
     public function setTarget($s)
     {
         $this->newTarget = $s;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
