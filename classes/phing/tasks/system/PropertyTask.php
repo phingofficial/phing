@@ -35,6 +35,7 @@ include_once 'phing/system/io/FileParserFactory.php';
  */
 class PropertyTask extends Task
 {
+    use FilterChainAware;
 
     /**
      * @var string name of the property
@@ -76,11 +77,6 @@ class PropertyTask extends Task
 
     /** Whether property should be treated as "user" property. */
     protected $userProperty = false;
-
-    /**
-     * @var FilterChain[] All filterchain objects assigned to this task
-     */
-    protected $filterChains = [];
 
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
@@ -281,18 +277,6 @@ class PropertyTask extends Task
     public function getFallback()
     {
         return $this->fallback;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return object The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**

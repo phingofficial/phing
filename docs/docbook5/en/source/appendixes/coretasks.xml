@@ -1205,6 +1205,15 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>flatten</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Ignore the directory structure of the source files, and copy all files into the directory
+                            specified by the todir attribute. Note that you can achieve the same effect by using a
+                            flatten mapper.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>verbose</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>	Whether to print the list of the copied file. Defaults to false.</entry>
@@ -1684,6 +1693,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Only execute if the <xref xlink:href="#app.factsheet"/> property
                             contains specified text.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>osfamily</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>OS family as used in the &lt;os> condition.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DispatchTaskTest" default="main">
+
+    <target name="testDispatch">
+        <adhoc-task name="dispatch"><![CDATA[
+            include_once 'phing/dispatch/DispatchTask.php';
+            include_once 'phing/BuildException.php';
+
+            class CustomDispatchTask extends DispatchTask
+            {
+                public function first()
+                {
+                    $this->log("first success!", Project::MSG_INFO);
+                }
+
+                public function second()
+                {
+                    $this->log("second success!", Project::MSG_INFO);
+                }
+
+                public function main()
+                {
+                }
+            }
+        ]]></adhoc-task>
+        <dispatch action="first"/>
+        <dispatch action="second"/>
+    </target>
+
+    <target name="main"/>
+</project>
