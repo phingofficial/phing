@@ -386,7 +386,14 @@ class Phing
         }
 
         if (in_array('-init', $args) || in_array('-i', $args)) {
-            self::init();
+            /**
+             * @todo /!\ Test this
+             * @todo Update documentation with this new feature
+             */
+            $key = array_search('-init', $args) ?: array_search('-i', $args);
+            $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
+
+            self::init($path);
 
             return;
         }
@@ -1056,19 +1063,62 @@ class Phing
 
     /**
      * Creates generic buildfile
+     *
+     * @param string $path
+     *
      */
-    public static function init()
+    public static function init($path)
     {
-        $homeDir = self::getProperty(self::PHING_HOME);
-        self::initBuildFile($homeDir);
+        $buildfilePath = self::initPath($path);
+
+        if ($buildfilePath) {
+            self::initWrite($buildfilePath);
+        }
     }
 
+
     /**
-     * Creates generic BuildFile
+     * Returns buildfile's path
      *
-     * @param string $dir
+     * @param $path
+     *
+     * @return null|string
+     * @throws ConfigurationException
      */
-    protected static function initBuildFile($dir)
+    protected static function initPath($path)
+    {
+        // Fallback
+        if (empty($path)) {
+            $defaultDir = self::getProperty('application.startdir');
+            $path = $defaultDir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Adding filename if necessary
+        if (is_dir($path)) {
+            $path .= DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Check if path is available
+        $dirname = dirname($path);
+        if (is_dir($dirname) && !is_file($path)) {
+            return $path;
+        }
+
+        // Path is valid, but buildfile already exists
+        if (is_file($path)) {
+            return null;
+        }
+
+        throw new ConfigurationException('Invalid path for sample buildfile.');
+    }
+
+
+    /**
+     * Writes sample buildfile on disk
+     *
+     * @param $buildfilePath
+     */
+    protected static function initWrite($buildfilePath)
     {
         $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
         $content .= '' . PHP_EOL;
@@ -1080,10 +1130,7 @@ class Phing
         $content .= '    ' . PHP_EOL;
         $content .= '</project>' . PHP_EOL;
 
-        $buildFile = $dir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
-        if (!file_exists($buildFile)) {
-            file_put_contents($buildFile, $content);
-        }
+        file_put_contents($buildfilePath, $content);
     }
 
     /**
