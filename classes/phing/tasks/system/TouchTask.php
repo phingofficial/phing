@@ -36,11 +36,13 @@ include_once 'phing/system/io/IOException.php';
  */
 class TouchTask extends Task
 {
+    use FileListAware;
+    use FileSetAware;
+
     /** @var PhingFile $file */
     private $file;
     private $millis = -1;
     private $dateTime;
-    private $filesets = [];
     private $fileUtils;
     private $mkdirs = false;
     private $verbose = true;
@@ -109,17 +111,6 @@ class TouchTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Execute the touch operation.
      * @throws BuildException
      */
@@ -127,8 +118,8 @@ class TouchTask extends Task
     {
         $savedMillis = $this->millis;
 
-        if ($this->file === null && count($this->filesets) === 0) {
-            throw new BuildException("Specify at least one source - a file or a fileset.");
+        if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
+            throw new BuildException("Specify at least one source - a file, a fileset or a filelist.");
         }
 
         if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
@@ -191,6 +182,17 @@ class TouchTask extends Task
 
             for ($j = 0, $_j = count($srcDirs); $j < $_j; $j++) {
                 $this->touchFile(new PhingFile($fromDir, (string) $srcDirs[$j]));
+            }
+        }
+
+        // deal with the filelists
+        foreach ($this->filelists as $fl) {
+            $fromDir = $fl->getDir($this->getProject());
+
+            $srcFiles = $fl->getFiles($this->getProject());
+
+            for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
+                $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
             }
         }
 

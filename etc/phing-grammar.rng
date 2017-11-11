@@ -934,22 +934,32 @@
                     <attribute name="todir"/>
                 </choice>
                 <optional>
-                    <attribute name="overwrite">
+                    <attribute name="overwrite" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
                     <choice>
-                        <attribute name="tstamp">
+                        <attribute name="tstamp" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
-                        <attribute name="preservelastmodified">
+                        <attribute name="preservelastmodified" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
                     </choice>
                 </optional>
                 <optional>
-                    <attribute name="includeemptydirs">
+                    <choice>
+                        <attribute name="preservemode" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="preservepermissions" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -959,7 +969,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonerror">
+                    <attribute name="haltonerror" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="flatten" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1082,12 +1097,12 @@
                     </choice>
                 </oneOrMore>
                 <optional>
-                    <attribute name="passthru">
+                    <attribute name="passthru" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="checkreturn">
+                    <attribute name="checkreturn" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1098,12 +1113,15 @@
                     <attribute name="os"/>
                 </optional>
                 <optional>
-                    <attribute name="escape">
+                    <attribute name="osfamily"/>
+                </optional>
+                <optional>
+                    <attribute name="escape" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="spawn">
+                    <attribute name="spawn" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1114,7 +1132,7 @@
                     <attribute name="outputProperty"/>
                 </optional>
                 <optional>
-                    <attribute name="logoutput"/>
+                    <attribute name="logoutput" a:defaultValue="false"/>
                 </optional>
                 <optional>
                     <attribute name="output"/>
@@ -1737,6 +1755,7 @@
                 <choice>
                     <attribute name="file"/>
                     <ref name="fileset"/>
+                    <ref name="filelist"/>
                 </choice>
                 <optional>
                     <attribute name="datetime"/>
@@ -1747,12 +1766,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="mkdirs">
+                    <attribute name="mkdirs" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="verbose">
+                    <attribute name="verbose" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -5801,6 +5820,7 @@
                         <choice>
                             <value>gzip</value>
                             <value>bzip2</value>
+                            <value>lzma2</value>
                             <value>none</value>
                         </choice>
                     </attribute>
@@ -6304,6 +6324,11 @@
     </define>
 
     <define name="linecontains">
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
         <element name="linecontains">
             <oneOrMore>
                 <ref name="contains"/>
@@ -6318,6 +6343,19 @@
     </define>
 
     <define name="linecontainsregexp">
+        <optional>
+            <attribute name="casesensitive" a:defaultValue="true">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="regexp"/>
+        </optional>
         <element name="linecontainsregexp">
             <ref name="regexp"/>
         </element>
@@ -6433,6 +6471,11 @@
                     <data type="int"/>
                 </attribute>
             </optional>
+            <optional>
+                <attribute name="skip">
+                    <data type="int"/>
+                </attribute>
+            </optional>
             <empty/>
         </element>
     </define>
@@ -6505,7 +6548,14 @@
             <ref name="available_cond"/>
             <ref name="http"/>
             <ref name="matches_cond"/>
+            <ref name="os_cond"/>
         </choice>
+    </define>
+
+    <define name="os_cond">
+        <element name="os">
+            <attribute name="family"/>
+        </element>
     </define>
 
     <define name="or">

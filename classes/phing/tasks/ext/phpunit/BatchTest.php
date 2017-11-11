@@ -31,12 +31,7 @@ require_once 'phing/types/FileSet.php';
  */
 class BatchTest
 {
-    /**
-     * The list of filesets containing the testcase filename rules.
-     *
-     * @var array $filesets
-     */
-    private $filesets = [];
+    use FileSetAware;
 
     /** the reference to the project */
     private $project = null;
@@ -117,18 +112,6 @@ class BatchTest
     public function getClasspath()
     {
         return $this->classpath;
-    }
-
-    /**
-     * Add a new fileset containing the XML results to aggregate.
-     *
-     * @param FileSet $fileset the new fileset containing XML results.
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
     }
 
     /**

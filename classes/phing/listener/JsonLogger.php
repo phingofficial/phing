@@ -105,13 +105,13 @@ class JsonLogger extends XmlLogger
                 if (!array_key_exists($childname, $jsnode)) {
                     $jsnode[$childname] = [];
                 }
-                array_push($jsnode[$childname], $this->xml2js($childxmlnode, false));
+                $jsnode[$childname][] = $this->xml2js($childxmlnode, false);
             }
             return $jsnode;
         } else {
             $nodename = $xmlnode->getName();
             $jsnode[$nodename] = [];
-            array_push($jsnode[$nodename], $this->xml2js($xmlnode, false));
+            $jsnode[$nodename][] = $this->xml2js($xmlnode, false);
             return json_encode($jsnode, JSON_PRETTY_PRINT);
         }
     }

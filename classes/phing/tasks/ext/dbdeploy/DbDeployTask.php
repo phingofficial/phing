@@ -35,6 +35,8 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
  */
 class DbDeployTask extends Task
 {
+    use FileSetAware;
+
     /**
      * The tablename to use from the database for storing all changes
      * This cannot be changed
@@ -260,28 +262,31 @@ class DbDeployTask extends Task
                     to avoid the delta failing.  You may need to manually undo part of this delta.\n\n'
                         . $contents, Project::MSG_WARN);
                 }
-                // allow construct with and without space added
-                $split = strpos($contents, '-- //@UNDO');
-                if ($split === false) {
-                    $split = strpos($contents, '--//@UNDO');
-                }
-                if ($split === false) {
-                    $split = strlen($contents);
+
+                // ignore tabs and spaces before @UNDO and any characters after in that line
+                $split = preg_split('/--[\t ]*\/\/@UNDO[^\r\n]*/', $contents);
+
+                if ($split === false){
+                    $split = array($contents);
                 }
 
+                $deploySql = $split[0];
+                $undoSql = isset($split[1]) ? $split[1] : '';
+
                 if ($undo) {
-                    $sql .= substr($contents, $split + 10) . "\n";
+                    $sql .= $undoSql;
+                    $sql .= PHP_EOL;
                     $sql .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . '
-	                         WHERE change_number = ' . $fileChangeNumber . '
-	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
+                             WHERE change_number = ' . $fileChangeNumber . '
+                             AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 } else {
-                    $sql .= substr($contents, 0, $split);
+                    $sql .= $deploySql;
                     // Ensuring there's a newline after the final -- //
                     $sql .= PHP_EOL;
                     $sql .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . '
-	                         SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . '
-	                         WHERE change_number = ' . $fileChangeNumber . '
-	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
+                             SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . '
+                             WHERE change_number = ' . $fileChangeNumber . '
+                             AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 }
 
                 $sql .= '-- Fragment ends: ' . $fileChangeNumber . ' --' . "\n";
@@ -458,16 +463,5 @@ class DbDeployTask extends Task
     public function setAppliedBy($appliedBy)
     {
         $this->appliedBy = $appliedBy;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

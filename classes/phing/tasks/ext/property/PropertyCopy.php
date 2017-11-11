@@ -38,6 +38,7 @@ class PropertyCopy extends AbstractPropertySetterTask
      */
     public function __construct()
     {
+        parent::__construct();
         $this->from = null;
         $this->silent = false;
     }

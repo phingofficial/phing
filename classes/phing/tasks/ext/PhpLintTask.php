@@ -33,8 +33,9 @@ require_once 'phing/system/io/FileWriter.php';
  */
 class PhpLintTask extends Task
 {
+    use FileSetAware;
+
     protected $file; // the source file (from xml attribute)
-    protected $filesets = []; // all fileset objects assigned to this task
 
     protected $errorProperty;
     protected $haltOnFailure = false;
@@ -118,17 +119,6 @@ class PhpLintTask extends Task
     public function setToFile(PhingFile $tofile)
     {
         $this->tofile = $tofile;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -268,7 +258,7 @@ class PhpLintTask extends Task
 
         exec($command . '"' . $file . '" 2>&1', $messages);
 
-        for ($i = 0; $i < count($messages); $i++) {
+        for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; $i++) {
             $message = $messages[$i];
             if (trim($message) == '') {
                 continue;
@@ -285,7 +275,7 @@ class PhpLintTask extends Task
                     $this->badFiles[$file] = [];
                 }
 
-                array_push($this->badFiles[$file], $message);
+                $this->badFiles[$file][] = $message;
 
                 $this->hasErrors = true;
                 $errorCount++;

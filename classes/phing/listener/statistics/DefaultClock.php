@@ -17,23 +17,19 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DirSet.php';
+include_once 'phing/listener/statistics/Clock.php';
 
-trait DirSetAware
+/**
+ * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package   phing.listener.statistics
+ */
+class DefaultClock implements Clock
 {
-    /** @var DirSet[] $dirsets */
-    private $dirsets = [];
-
-    public function addDirSet(DirSet $dirSet)
-    {
-        $this->dirsets[] = $dirSet;
-    }
-
     /**
-     * @return DirSet[]
+     * @return int
      */
-    public function getDirSets()
+    public function getCurrentTime()
     {
-        return $this->dirsets;
+        return microtime(true);
     }
 }

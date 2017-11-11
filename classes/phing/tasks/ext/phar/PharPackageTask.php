@@ -345,7 +345,7 @@ class PharPackageTask extends MatchingTask
             );
         }
 
-        if (is_null($this->destinationFile)) {
+        if (null === $this->destinationFile) {
             throw new BuildException("destfile attribute must be set!", $this->getLocation());
         }
 
@@ -356,7 +356,7 @@ class PharPackageTask extends MatchingTask
         if (!$this->destinationFile->canWrite()) {
             throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
         }
-        if (!is_null($this->baseDirectory)) {
+        if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
                 throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation(
                     ));
@@ -368,7 +368,7 @@ class PharPackageTask extends MatchingTask
                 ));
             }
 
-            if (is_null($this->key)) {
+            if (null === $this->key) {
                 throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
             }
 

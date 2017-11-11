@@ -91,7 +91,7 @@ class Commandline
         if ($insertAtStart) {
             array_unshift($this->arguments, $argument);
         } else {
-            array_push($this->arguments, $argument);
+            $this->arguments[] = $argument;
         }
 
         return $argument;

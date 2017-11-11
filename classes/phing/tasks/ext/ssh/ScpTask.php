@@ -32,8 +32,9 @@ require_once 'phing/Task.php';
 
 class ScpTask extends Task
 {
+    use FileSetAware;
+
     protected $file = "";
-    protected $filesets = []; // all fileset objects assigned to this task
     protected $todir = "";
     protected $mode = null;
 
@@ -304,17 +305,6 @@ class ScpTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
      * @return Ssh2MethodParam
      */
@@ -453,7 +443,7 @@ class ScpTask extends Task
                 ssh2_sftp_mkdir(
                     $this->sftp,
                     dirname($remoteEndpoint),
-                    (is_null($this->mode) ? 0777 : $this->mode),
+                    (null === $this->mode ? 0777 : $this->mode),
                     true
                 );
             }

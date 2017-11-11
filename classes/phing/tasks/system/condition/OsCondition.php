@@ -41,20 +41,40 @@ class OsCondition implements Condition
         $this->family = strtolower($f);
     }
 
-    /**
-     * @return bool
-     * @throws BuildException
-     */
     public function evaluate()
+    {
+        return self::isOS($this->family);
+    }
+
+    /**
+     * Determines if the OS on which Ant is executing matches the
+     * given OS family.
+     * @param string $family the family to check for
+     * @return true if the OS matches
+     */
+    public static function isFamily($family)
+    {
+        return self::isOS($family);
+    }
+
+    /**
+     * @param string $family
+     * @return bool
+     */
+    public static function isOS($family)
     {
         $osName = strtolower(Phing::getProperty("os.name"));
 
-        if ($this->family !== null) {
-            if ($this->family === "windows") {
+        if ($family !== null) {
+            if ($family === "windows") {
                 return StringHelper::startsWith("win", $osName);
-            } elseif ($this->family === "mac") {
+            }
+
+            if ($family === "mac") {
                 return (strpos($osName, "mac") !== false || strpos($osName, "darwin") !== false);
-            } elseif ($this->family === ("unix")) {
+            }
+
+            if ($family === ("unix")) {
                 return (
                     StringHelper::endsWith("ix", $osName) ||
                     StringHelper::endsWith("ux", $osName) ||
@@ -63,7 +83,7 @@ class OsCondition implements Condition
                     StringHelper::startsWith("darwin", $osName)
                 );
             }
-            throw new BuildException("Don't know how to detect os family '" . $this->family . "'");
+            throw new BuildException("Don't know how to detect os family '" . $family . "'");
         }
 
         return false;

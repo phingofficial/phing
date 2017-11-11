@@ -183,11 +183,11 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::COMMENTS_KEY === $params[$i]->getType()) {
                     $comment = new Comment();
                     $comment->setValue($params[$i]->getValue());
-                    array_push($this->_comments, $comment);
+                    $this->_comments[] = $comment;
                 }
             }
         }
