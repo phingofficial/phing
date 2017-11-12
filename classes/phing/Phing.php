@@ -386,10 +386,7 @@ class Phing
         }
 
         if (in_array('-init', $args) || in_array('-i', $args)) {
-            /**
-             * @todo /!\ Test this
-             * @todo Update documentation with this new feature
-             */
+
             $key = array_search('-init', $args) ?: array_search('-i', $args);
             $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
 
@@ -685,7 +682,7 @@ class Phing
 
         $this->addBuildListeners($project);
         $this->addInputHandler($project);
-        
+
         // set this right away, so that it can be used in logging.
         $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
         $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
@@ -726,7 +723,7 @@ class Phing
 
         // Set the project mode
         $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
-    
+
         // make sure that we have a target to execute
         if (count($this->targets) === 0) {
             $this->targets[] = $project->getDefaultTarget();
@@ -1024,7 +1021,7 @@ class Phing
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
-        $msg .= "  -i -init               generates an initial build.xml buildfile" . PHP_EOL;
+        $msg .= "  -i -init [file]        generates an initial buildfile" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
@@ -1069,9 +1066,7 @@ class Phing
      */
     public static function init($path)
     {
-        $buildfilePath = self::initPath($path);
-
-        if ($buildfilePath) {
+        if ($buildfilePath = self::initPath($path)) {
             self::initWrite($buildfilePath);
         }
     }
@@ -1114,12 +1109,21 @@ class Phing
 
 
     /**
-     * Writes sample buildfile on disk
+     * Writes sample buildfile
      *
-     * @param $buildfilePath
+     * If $buildfilePath does not exist, the buildfile is created. Otherwise, false is returned.
+     *
+     * @param $buildfilePath buildfile's location
+     *
+     * @return null
      */
     protected static function initWrite($buildfilePath)
     {
+        // Overwriting protection
+        if (file_exists($buildfilePath)) {
+            return null;
+        }
+
         $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
         $content .= '' . PHP_EOL;
         $content .= '<project name="" description="" default="">' . PHP_EOL;
