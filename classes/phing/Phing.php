@@ -682,7 +682,7 @@ class Phing
 
         $this->addBuildListeners($project);
         $this->addInputHandler($project);
-
+        
         // set this right away, so that it can be used in logging.
         $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
         $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
@@ -723,7 +723,7 @@ class Phing
 
         // Set the project mode
         $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
-
+    
         // make sure that we have a target to execute
         if (count($this->targets) === 0) {
             $this->targets[] = $project->getDefaultTarget();
@@ -1101,7 +1101,7 @@ class Phing
 
         // Path is valid, but buildfile already exists
         if (is_file($path)) {
-            return null;
+            throw new ConfigurationException('Buildfile already exists.');
         }
 
         throw new ConfigurationException('Invalid path for sample buildfile.');
@@ -1116,12 +1116,13 @@ class Phing
      * @param $buildfilePath buildfile's location
      *
      * @return null
+     * @throws ConfigurationException
      */
     protected static function initWrite($buildfilePath)
     {
         // Overwriting protection
         if (file_exists($buildfilePath)) {
-            return null;
+            throw new ConfigurationException('Cannot overwrite existing file.');
         }
 
         $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
