@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
+require_once 'phing/tasks/ext/phpunit/formatter5/PHPUnitResultFormatter5.php';
 
 /**
  * Prints short summary output of the test to Phing's logging system.
@@ -29,14 +29,13 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
  * @package phing.tasks.ext.formatter
  * @since 2.1.0
  */
-class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
+class SummaryPHPUnitResultFormatter5 extends PHPUnitResultFormatter5
 {
     public function endTestRun()
     {
         parent::endTestRun();
 
         $sb = "Total tests run: " . $this->getRunCount();
-        $sb .= ", Warnings: " . $this->getWarningCount();
         $sb .= ", Failures: " . $this->getFailureCount();
         $sb .= ", Errors: " . $this->getErrorCount();
         $sb .= ", Incomplete: " . $this->getIncompleteCount();

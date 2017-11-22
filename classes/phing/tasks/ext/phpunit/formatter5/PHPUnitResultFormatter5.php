@@ -24,14 +24,16 @@ require_once 'phing/system/io/Writer.php';
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
+ * @version $Id$
  * @package phing.tasks.ext.phpunit.formatter
+ * @since 2.1.0
  */
-abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
+abstract class PHPUnitResultFormatter5 implements PHPUnit_Framework_TestListener
 {
-    protected $out;
+    protected $out = null;
 
-    protected $project;
+    protected $project = null;
 
     /** @var bool|array */
     private $timers = false;
@@ -50,9 +52,6 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
 
     /** @var bool|array */
     private $skipCounts = false;
-
-    /** @var bool|array */
-    private $warningCounts = false;
 
     /**
      * Constructor
@@ -79,7 +78,7 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
      */
     public function getExtension()
     {
-        return '';
+        return "";
     }
 
     /**
@@ -87,13 +86,13 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
      */
     public function getPreferredOutfile()
     {
-        return '';
+        return "";
     }
 
     /**
-     * @param PHPUnit\Framework\TestResult $result
+     * @param PHPUnit_Framework_TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(PHPUnit_Framework_TestResult $result)
     {
     }
 
@@ -103,7 +102,6 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
         $this->runCounts = [0];
         $this->failureCounts = [0];
         $this->errorCounts = [0];
-        $this->warningCounts = [0];
         $this->incompleteCounts = [0];
         $this->skipCounts = [0];
     }
@@ -113,9 +111,9 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param PHPUnit_Framework_TestSuite $suite
      */
-    public function startTestSuite(PHPUnit\Framework\TestSuite $suite)
+    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         $this->timers[] = $this->getMicrotime();
         $this->runCounts[] = 0;
@@ -126,9 +124,9 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param PHPUnit_Framework_TestSuite $suite
      */
-    public function endTestSuite(PHPUnit\Framework\TestSuite $suite)
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         $lastRunCount = array_pop($this->runCounts);
         $this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
@@ -149,77 +147,67 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit_Framework_Test $test
      */
-    public function startTest(PHPUnit\Framework\Test $test)
+    public function startTest(PHPUnit_Framework_Test $test)
     {
         $this->runCounts[count($this->runCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit_Framework_Test $test
      * @param float $time
      */
-    public function endTest(PHPUnit\Framework\Test $test, $time)
+    public function endTest(PHPUnit_Framework_Test $test, $time)
     {
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit_Framework_Test $test
      * @param Exception $e
      * @param float $time
      */
-    public function addError(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->errorCounts[count($this->errorCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
+     * @param PHPUnit_Framework_Test $test
+     * @param PHPUnit_Framework_AssertionFailedError $e
      * @param float $time
      */
-    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, $time)
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         $this->failureCounts[count($this->failureCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param PHPUnit\Framework\Warning $e
-     * @param float $time
-     */
-    public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, $time)
-    {
-        $this->warningCounts[count($this->warningCounts) - 1]++;
-    }
-
-    /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit_Framework_Test $test
      * @param Exception $e
      * @param float $time
      */
-    public function addIncompleteTest(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->incompleteCounts[count($this->incompleteCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit_Framework_Test $test
      * @param Exception $e
      * @param float $time
      */
-    public function addSkippedTest(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->skipCounts[count($this->skipCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit_Framework_Test $test
      * @param Exception $e
      * @param float $time
      */
-    public function addRiskyTest(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
     }
 
@@ -237,14 +225,6 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
     public function getFailureCount()
     {
         return end($this->failureCounts);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWarningCount()
-    {
-        return end($this->warningCounts);
     }
 
     /**
@@ -278,9 +258,9 @@ abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
     {
         if (end($this->timers)) {
             return $this->getMicrotime() - end($this->timers);
+        } else {
+            return 0;
         }
-
-        return 0;
     }
 
     /**
