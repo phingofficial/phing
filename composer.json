@@ -20,7 +20,7 @@
     },
     "require": {
         "php": ">=5.2.0",
-        "symfony/yaml": "^3.1"
+        "symfony/yaml": "^3.1 || ^4.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
