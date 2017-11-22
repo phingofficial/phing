@@ -1077,7 +1077,7 @@ class Phing
      *
      * @param $path
      *
-     * @return null|string
+     * @return string
      * @throws ConfigurationException
      */
     protected static function initPath($path)
@@ -1111,7 +1111,7 @@ class Phing
     /**
      * Writes sample buildfile
      *
-     * If $buildfilePath does not exist, the buildfile is created. Otherwise, false is returned.
+     * If $buildfilePath does not exist, the buildfile is created.
      *
      * @param $buildfilePath buildfile's location
      *
