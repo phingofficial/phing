@@ -440,7 +440,12 @@
                         <entry>The name of files to select. The name parameter can contain the
                             standard Phing wildcard characters.</entry>
                         <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry morerows="1">Exactly one of the two</entry>
+                    </row>
+                    <row>
+                        <entry><literal>regex</literal></entry>
+                        <entry>The regular expression matching files to select.</entry>
+                        <entry>n/a</entry>
                     </row>
                     <row>
                         <entry><literal>casesensitive</literal></entry>
