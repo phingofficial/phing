@@ -385,6 +385,16 @@ class Phing
             return;
         }
 
+        if (in_array('-init', $args) || in_array('-i', $args)) {
+
+            $key = array_search('-init', $args) ?: array_search('-i', $args);
+            $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
+
+            self::init($path);
+
+            return;
+        }
+
         if (in_array('-diagnostics', $args)) {
             Diagnostics::doReport(new PrintStream(self::$out));
 
@@ -1011,6 +1021,7 @@ class Phing
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
+        $msg .= "  -i -init [file]        generates an initial buildfile" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
@@ -1045,6 +1056,86 @@ class Phing
     public static function printVersion()
     {
         self::$out->write(self::getPhingVersion() . PHP_EOL);
+    }
+
+    /**
+     * Creates generic buildfile
+     *
+     * @param string $path
+     *
+     */
+    public static function init($path)
+    {
+        if ($buildfilePath = self::initPath($path)) {
+            self::initWrite($buildfilePath);
+        }
+    }
+
+
+    /**
+     * Returns buildfile's path
+     *
+     * @param $path
+     *
+     * @return string
+     * @throws ConfigurationException
+     */
+    protected static function initPath($path)
+    {
+        // Fallback
+        if (empty($path)) {
+            $defaultDir = self::getProperty('application.startdir');
+            $path = $defaultDir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Adding filename if necessary
+        if (is_dir($path)) {
+            $path .= DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Check if path is available
+        $dirname = dirname($path);
+        if (is_dir($dirname) && !is_file($path)) {
+            return $path;
+        }
+
+        // Path is valid, but buildfile already exists
+        if (is_file($path)) {
+            throw new ConfigurationException('Buildfile already exists.');
+        }
+
+        throw new ConfigurationException('Invalid path for sample buildfile.');
+    }
+
+
+    /**
+     * Writes sample buildfile
+     *
+     * If $buildfilePath does not exist, the buildfile is created.
+     *
+     * @param $buildfilePath buildfile's location
+     *
+     * @return null
+     * @throws ConfigurationException
+     */
+    protected static function initWrite($buildfilePath)
+    {
+        // Overwriting protection
+        if (file_exists($buildfilePath)) {
+            throw new ConfigurationException('Cannot overwrite existing file.');
+        }
+
+        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
+        $content .= '' . PHP_EOL;
+        $content .= '<project name="" description="" default="">' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '    <target name="" description="">' . PHP_EOL;
+        $content .= '        ' . PHP_EOL;
+        $content .= '    </target>' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '</project>' . PHP_EOL;
+
+        file_put_contents($buildfilePath, $content);
     }
 
     /**

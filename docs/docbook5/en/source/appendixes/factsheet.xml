@@ -147,6 +147,12 @@
                         <literal>true</literal>)</entry>
                     </row>
                     <row>
+                        <entry><literal>-i -init [file]</literal></entry>
+                        <entry>Generates an initial buildfile at Phing's start
+                            directory. Optionally you can specify buildfile's
+                            location and name.</entry>
+                    </row>
+                    <row>
                         <entry><literal>-v -version</literal></entry>
                         <entry>Print version information and exit</entry>
                     </row>
