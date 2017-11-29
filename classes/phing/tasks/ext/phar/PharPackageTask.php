@@ -395,13 +395,13 @@ class PharPackageTask extends MatchingTask
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             if (!empty($this->cliStubFile)) {
-                $cliStubFile = $this->cliStubFile->getPathWithoutBase($this->baseDirectory);
+                $cliStubFile = str_replace('\\', '/', $this->cliStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $cliStubFile = null;
             }
 
             if (!empty($this->webStubFile)) {
-                $webStubFile = $this->webStubFile->getPathWithoutBase($this->baseDirectory);
+                $webStubFile = str_replace('\\', '/', $this->webStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $webStubFile = null;
             }
