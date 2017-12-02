@@ -21,6 +21,8 @@
 
 require_once 'phing/Task.php';
 include_once 'phing/types/FileSet.php';
+include_once 'phing/types/element/DirSetAware.php';
+include_once 'phing/types/element/FileSetAware.php';
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -31,15 +33,13 @@ include_once 'phing/types/FileSet.php';
  */
 class ChownTask extends Task
 {
+    use DirSetAware;
+    use FileSetAware;
 
     private $file;
 
     private $user;
     private $group;
-
-    private $filesets = array();
-
-    private $filesystem;
 
     private $quiet = false;
     private $failonerror = true;
@@ -107,15 +107,6 @@ class ChownTask extends Task
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @param FileSet $fs
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Execute the touch operation.
      * @return void
      */
@@ -133,8 +124,7 @@ class ChownTask extends Task
      */
     private function checkParams()
     {
-
-        if ($this->file === null && empty($this->filesets)) {
+        if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
             throw new BuildException("Specify at least one source - a file or a fileset.");
         }
 
@@ -169,9 +159,10 @@ class ChownTask extends Task
             $this->chownFile($this->file, $user, $group);
         }
 
+        $this->filesets = array_merge($this->filesets, $this->dirsets);
+
         // filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
@@ -179,13 +170,13 @@ class ChownTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
+            $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcFiles[$j]), $user, $group);
             }
 
             $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
+            $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user, $group);
             }
@@ -195,7 +186,6 @@ class ChownTask extends Task
             $this->log('Total files changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_files);
             $this->log('Total directories changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_dirs);
         }
-
     }
 
     /**
@@ -234,5 +224,4 @@ class ChownTask extends Task
             }
         }
     }
-
 }

@@ -59,5 +59,4 @@ class IsFalseCondition extends ProjectComponent implements Condition
 
         return !$this->value;
     }
-
 }

@@ -128,7 +128,7 @@ class PathToFileSet extends Task
         $dirNormal = rtrim($dirNormal, PhingFile::$separator) . PhingFile::$separator;
 
         $atLeastOne = false;
-        for ($i = 0; $i < count($sources); ++$i) {
+        for ($i = 0, $resourcesCount = count($sources); $i < $resourcesCount; ++$i) {
             $sourceFile = new PhingFile($sources[$i]);
             if (!$sourceFile->exists()) {
                 continue;
@@ -163,4 +163,4 @@ class PathToFileSet extends Task
 
         return rtrim(str_replace('\\', '/', substr($fileNormal, strlen($dirNormal))), '/') . '/';
     }
-} 
+}

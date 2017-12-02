@@ -40,5 +40,4 @@ class rSTTaskMultipleMappersTest extends BuildFileTest
 
         $this->executeTarget(__FUNCTION__);
     }
-
 }

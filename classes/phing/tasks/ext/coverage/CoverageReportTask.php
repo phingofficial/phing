@@ -38,9 +38,12 @@ class CoverageReportTask extends Task
 {
     private $outfile = "coverage.xml";
 
-    private $transformers = array();
+    private $transformers = [];
 
-    /** the classpath to use (optional) */
+    /**
+     * the classpath to use (optional)
+     * @var Path
+     */
     private $classpath = null;
 
     /** the path to the GeSHi library (optional) */
@@ -48,6 +51,11 @@ class CoverageReportTask extends Task
 
     /** the path to the GeSHi language files (optional) */
     private $geshilanguagespath = "";
+
+    /**
+     * @var DOMDocument
+     */
+    private $doc;
 
     /**
      * @param Path $classpath
@@ -92,6 +100,7 @@ class CoverageReportTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->doc = new DOMDocument();
         $this->doc->encoding = 'UTF-8';
         $this->doc->formatOutput = true;
@@ -273,7 +282,7 @@ class CoverageReportTask extends Task
 
             $lines = array_filter($lines);
 
-            $lines = array_map(array($this, 'stripDiv'), $lines);
+            $lines = array_map([$this, 'stripDiv'], $lines);
 
             return $lines;
         } else {

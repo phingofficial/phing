@@ -32,6 +32,8 @@ require_once 'phing/Task.php';
  */
 class LoadFileTask extends Task
 {
+    use FilterChainAware;
+
     /**
      * File to read
      * @var PhingFile file
@@ -43,12 +45,6 @@ class LoadFileTask extends Task
      * @var string $property
      */
     private $property;
-
-    /**
-     * Array of FilterChain objects
-     * @var FilterChain[]
-     */
-    private $filterChains = array();
 
     private $failOnError = true;
 
@@ -100,18 +96,6 @@ class LoadFileTask extends Task
     public function setProperty($property)
     {
         $this->property = $property;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return object The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**

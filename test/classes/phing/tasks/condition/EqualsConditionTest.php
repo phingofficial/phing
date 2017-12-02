@@ -30,9 +30,8 @@ include_once 'phing/tasks/system/condition/EqualsCondition.php';
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-class EqualsConditionTest extends PHPUnit_Framework_TestCase
+class EqualsConditionTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testTrim()
     {
         $eq = new EqualsCondition();
@@ -57,5 +56,4 @@ class EqualsConditionTest extends PHPUnit_Framework_TestCase
         $eq->setCasesensitive(false);
         $this->assertTrue($eq->evaluate());
     }
-
 }

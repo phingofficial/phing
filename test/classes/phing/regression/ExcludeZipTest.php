@@ -30,7 +30,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class ExcludeZipTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
@@ -41,11 +40,16 @@ class ExcludeZipTest extends BuildFileTest
         $this->executeTarget("main");
 
         $expected = "Adding ./.git to archive.";
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+
 
         foreach ($this->logBuffer as $log) {
-            if (stripos($log, $expected) !== false) {
+            if (stripos($log['message'], $expected) !== false) {
                 $this->fail(
-                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($this->logBuffer, true))
+                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true))
                 );
             }
         }

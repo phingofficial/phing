@@ -362,5 +362,4 @@ class GitFetchTask extends GitBaseTask
     {
         return $this->group;
     }
-
 }

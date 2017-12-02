@@ -11,7 +11,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class ElseIfTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -79,5 +78,4 @@ class ElseIfTaskTest extends BuildFileTest
 
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }
-
 }

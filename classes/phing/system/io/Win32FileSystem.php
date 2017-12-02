@@ -26,12 +26,11 @@ include_once 'phing/system/io/FileSystem.php';
  */
 class Win32FileSystem extends FileSystem
 {
-
     protected $slash;
     protected $altSlash;
     protected $semicolon;
 
-    private static $driveDirCache = array();
+    private static $driveDirCache = [];
 
     /**
      *
@@ -498,17 +497,14 @@ class Win32FileSystem extends FileSystem
             $drive = (string) $path{0};
             $dir = (string) $this->_getDriveDirectory($drive);
 
-            $np = (string) "";
             if ($dir !== null) {
                 /* When resolving a directory-relative path that refers to a
                 drive other than the current drive, insist that the caller
                 have read permission on the result */
                 $p = (string) $drive . (':' . $dir . $this->slashify(substr($path, 2)));
 
-                if (!$this->checkAccess($p, false)) {
-                    // FIXME
-                    // throw security error
-                    die("Can't resolve path $p");
+                if (!$this->checkAccess(new PhingFile($p), false)) {
+                    throw new IOException("Can't resolve path $p");
                 }
 
                 return $p;
@@ -571,7 +567,7 @@ class Win32FileSystem extends FileSystem
                 }
             }
         }
-        $fs = array();
+        $fs = [];
         $j = (int) 0;
 
         for ($i = 0; $i < 26; $i++) {
@@ -610,7 +606,7 @@ class Win32FileSystem extends FileSystem
         if (!$dir) {
             throw new Exception("Can't open directory " . $f->__toString());
         }
-        $vv = array();
+        $vv = [];
         while (($file = @readdir($dir)) !== false) {
             if ($file == "." || $file == "..") {
                 continue;
@@ -639,4 +635,19 @@ class Win32FileSystem extends FileSystem
         return $strPath;
     }
 
+    /**
+     * @param PhingFile $f
+     * @return array
+     * @throws Exception
+     */
+    public function listContents(PhingFile $f)
+    {
+        $iterator = new FilesystemIterator($f->getAbsolutePath());
+        $filelist = array();
+        foreach($iterator as $entry) {
+            $filelist[] = $entry->getFilename();
+        }
+
+        return $filelist;
+    }
 }

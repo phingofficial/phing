@@ -149,7 +149,7 @@ class ComposerTask extends Task
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
         $this->commandLine->createArgument(true)->setValue($this->getCommand());
         $this->commandLine->createArgument(true)->setValue($this->getComposer());
-        $commandLine = strval($this->commandLine);
+        $commandLine = (string)$this->commandLine;
         //Creating new Commandline instance. It allows to handle subsequent calls correctly
         $this->commandLine = new Commandline();
 

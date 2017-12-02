@@ -70,7 +70,7 @@ class AttribTask extends ApplyTask
      */
     public function setVerbose($b)
     {
-        $this->logLevel = Project::MSG_VERBOSE;
+        $this->loglevel = Project::MSG_VERBOSE;
     }
 
     /**
@@ -195,9 +195,7 @@ class AttribTask extends ApplyTask
 
     protected function validateOS()
     {
-        return $this->os === null && $this->osvariant === null
-            ? $this->os === null && $this->osvariant === null
-            : parent::validateOS();
+        return $this->os === null && $this->osvariant === null ?: parent::validateOS();
     }
 
     private static function getSignString($attr)

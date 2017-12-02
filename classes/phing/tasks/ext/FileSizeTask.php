@@ -78,12 +78,10 @@ class FileSizeTask extends Task
 
         if ($size === false) {
             throw new BuildException(sprintf('[FileSize] Cannot determine size of file: %s', $this->file));
-
         }
 
         // publish hash value
         $this->project->setProperty($this->propertyName, $size);
-
     }
 
     /**
@@ -106,7 +104,6 @@ class FileSizeTask extends Task
                 $this->file
             ));
         }
-
     }
 
     /**
@@ -116,7 +113,7 @@ class FileSizeTask extends Task
      */
     private function checkPropertyName()
     {
-        if (is_null($this->propertyName) ||
+        if (null === $this->propertyName ||
             strlen($this->propertyName) === 0
         ) {
             throw new BuildException('[FileSize] Property name for publishing file size is not set');

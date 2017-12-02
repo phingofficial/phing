@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -20,9 +19,7 @@
  * <http://phing.info>.
  */
 
-if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-    define('E_DEPRECATED', 8192);
-}
+use PHPUnit\Framework\TestCase;
 
 require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
@@ -38,7 +35,7 @@ require_once 'phing/system/io/PhingFile.php';
  * @author Conor MacNeill
  * @author Victor Farazdagi <simple.square@gmail.com>
  */
-abstract class BuildFileTest extends PHPUnit_Framework_TestCase
+abstract class BuildFileTest extends TestCase
 {
 
     /** @var Project */
@@ -47,7 +44,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * @var array Array of log BuildEvent objects.
      */
-    public $logBuffer = array();
+    public $logBuffer = [];
 
     private $outBuffer;
     private $errBuffer;
@@ -61,14 +58,28 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
+        $found = false;
         foreach ($this->logBuffer as $log) {
-            if (false !== stripos($log, $expected)) {
+            if (false !== stripos($log['message'], $expected)) {
                 $this->assertEquals(1, 1); // increase number of positive assertions
+                if ($priority === null) {
+                    return;
+                } elseif ($priority !== null) {
+                    if ($priority >= $log['priority']) {
+                        $found = true;
+                    }
+                }
 
+            }
+            if ($found) {
                 return;
             }
         }
-        $this->fail(sprintf($errormsg, $expected, var_export($this->logBuffer, true)));
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
 
     /**
@@ -83,8 +94,12 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
         $errormsg = "Unexpected string '%s' found in logs: %s"
     ) {
         foreach ($this->logBuffer as $log) {
-            if (false !== stripos($log, $message)) {
-                $this->fail(sprintf($errormsg, $message, var_export($this->logBuffer, true)));
+            if (false !== stripos($log['message'], $message)) {
+                $representation = [];
+                foreach($this->logBuffer as $log) {
+                    $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+                }
+                $this->fail(sprintf($errormsg, $message, var_export($representation, true)));
             }
         }
 
@@ -210,7 +225,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
      */
     protected function configureProject($filename)
     {
-        $this->logBuffer = array();
+        $this->logBuffer = [];
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
@@ -234,11 +249,10 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
 
         $this->outBuffer = "";
         $this->errBuffer = "";
-        $this->logBuffer = array();
+        $this->logBuffer = [];
         $this->fullLogBuffer = "";
         $this->buildException = null;
         $this->project->executeTarget($targetName);
-
     }
 
     /**
@@ -384,6 +398,82 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
         //return url;
     }
 
+    protected function rmdir($dir)
+    {
+        if (!file_exists($dir)) {
+            return true;
+        }
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+        foreach (scandir($dir) as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            if (!$this->rmdir($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+
+        return rmdir($dir);
+    }
+
+    /**
+     * Get relative date
+     *
+     * @param int $timestamp Timestamp to us as pin-point
+     * @param string $type Whether 'fulldate' or 'time'
+     * @return string
+     */
+    protected function getRelativeDate($timestamp, $type = 'fulldate')
+    {
+        // calculate the diffrence
+        $timediff = time() - $timestamp;
+
+        if ($timediff < 3600) {
+            if ($timediff < 120) {
+                $returndate = "1 minute ago";
+            } else {
+                $returndate = ceil($timediff / 60) . " minutes ago";
+            }
+        } else {
+            if ($timediff < 7200) {
+                $returndate = "1 hour ago.";
+            } else {
+                if ($timediff < 86400) {
+                    $returndate = ceil($timediff / 3600) . " hours ago";
+                } else {
+                    if ($timediff < 172800) {
+                        $returndate = "1 day ago.";
+                    } else {
+                        if ($timediff < 604800) {
+                            $returndate = ceil($timediff / 86400) . " days ago";
+                        } else {
+                            if ($timediff < 1209600) {
+                                $returndate = ceil($timediff / 86400) . " days ago";
+                            } else {
+                                if ($timediff < 2629744) {
+                                    $returndate = ceil($timediff / 86400) . " days ago";
+                                } else {
+                                    if ($timediff < 3024000) {
+                                        $returndate = ceil($timediff / 604900) . " weeks ago";
+                                    } else {
+                                        if ($timediff > 5259486) {
+                                            $returndate = ceil($timediff / 2629744) . " months ago";
+                                        } else {
+                                            $returndate = ceil($timediff / 604900) . " weeks ago";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $returndate;
+    }
 }
 
 /**
@@ -391,7 +481,6 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
  */
 class PhingTestListener implements BuildListener
 {
-
     private $parent;
 
     public function __construct($parent)
@@ -466,6 +555,9 @@ class PhingTestListener implements BuildListener
      */
     public function messageLogged(BuildEvent $event)
     {
-        $this->parent->logBuffer[] = $event->getMessage();
+        $this->parent->logBuffer[] = [
+            'message' => $event->getMessage(),
+            'priority' => $event->getPriority()
+        ];
     }
 }

@@ -1204,6 +1204,22 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>flatten</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Ignore the directory structure of the source files, and copy all files into the directory
+                            specified by the todir attribute. Note that you can achieve the same effect by using a
+                            flatten mapper.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>verbose</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>	Whether to print the list of the copied file. Defaults to false.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -1255,212 +1271,6 @@ verbose="true" failonerror="false" /></programlisting>
                     <para><literal><link linkend="app.coremappers">mapper</link></literal></para>
                 </listitem>
             </itemizedlist>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="CvsTask">
-        <title>CvsTask </title>
-        <para>Allows rudimentary interfacing with the CVS versioning system.</para>
-        <para>As you would expect, this lets you do pretty much anything with CVS. The CvsTask calls
-            ExecTask which actually does the command execution.</para>
-        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>cvsRoot</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The root directory on the CVS server</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>CvsRsh</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to the rsh to execute</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>port</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>Port ion the server to use</entry>
-                        <entry>0</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>passfile</literal></entry>
-                        <entry>String <literal>filename</literal></entry>
-                        <entry>Name of file with CVS passwords</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>dest</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The directory where checked out files should be placed</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>modules</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The package/module to operate upon</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>tag</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The tag of the package/module to operate upon</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>date</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Use the most recent revision no later than the given date</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Quiet run</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>noexec</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>If true, only report changes don't actually do anything</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>failonerror</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Stop the build process if the command returns any errors</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>compression</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>If true, turns on compression using default (3) compression
-                            level</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>compressionlevel</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>Specifies compression level 1-9</entry>
-                        <entry><literal>false</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>output</literal></entry>
-                        <entry>String <literal>filename</literal></entry>
-                        <entry>File to which output should be written</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>error</literal></entry>
-                        <entry>String <literal>filename</literal></entry>
-                        <entry>File to which error output should be written</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>command</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Optional command line to be given to the CVS task</entry>
-                        <entry>null</entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Examples</title>
-            <programlisting language="xml">&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
-       module="phing" dest="${ws.dir}"/></programlisting>
-            <para>or, using the optional command line arguments:</para>
-            <programlisting language="xml">&lt;cvs output="patch" command="-q diff -u -N" /></programlisting>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="CvsPassTask">
-        <title>CvsPassTask </title>
-        <para>This lets you create your own cvs password file -- i.e. this is necessary if you want
-            to provide a password in your build file.</para>
-        <para>If no password file is specified the default location <literal>.cvspass</literal> in
-            users home directory is used.</para>
-        <para><emphasis role="bold">NOTE:</emphasis> this task has been deprecated.</para>
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>cvsRoot</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The root directory on the CVS server</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>passFile</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Password file to add password to</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>password</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Password to add to file</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Examples</title>
-            <programlisting language="xml">&lt;!-- create a password file -->
-&lt;cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/>
-
-&lt;!-- use the just-created password file -->
-&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="DeleteTask">
@@ -1707,6 +1517,14 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;echo>And don't forget Propel.&lt;/echo>
 
 &lt;echo file="test.txt" append="false">This is a test message&lt;/echo></programlisting>
+            <para>Echo a previously defined fileset element.</para>
+            <programlisting language="xml">&lt;fileset dir="./tests" id="test.files"&gt;
+    &lt;include name="**/*Test.php"/&gt;
+&lt;/fileset&gt;
+
+&lt;echo&gt;
+    &lt;fileset refid="test.files"/&gt;
+&lt;/echo&gt;</programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -1875,6 +1693,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Only execute if the <xref xlink:href="#app.factsheet"/> property
                             contains specified text.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>osfamily</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>OS family as used in the &lt;os> condition.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -2144,6 +1969,28 @@ verbose="true" failonerror="false" /></programlisting>
                 </thead>
                 <tbody>
                     <row>
+                        <entry><literal>inheritall</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>true</literal>, pass all properties to the called target.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>inheritrefs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>true</literal>, pass all references to the the called target.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>trim</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>true</literal>, any leading or trailing whitespace will be removed from
+                            the list item before it is passed to the requested target.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>list</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The list of values to process, with the delimiter character,
@@ -2202,6 +2049,12 @@ verbose="true" failonerror="false" /></programlisting>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="Path">path</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="DirSet">dirset</link></literal></para>
+                </listitem>
                 <listitem>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
@@ -2506,6 +2359,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma-separated list of valid choices the user must supply. If used,
                             one of these options must be chosen.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>hidden</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to hide user input.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -2946,25 +2806,23 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
-                    <!-- Not used yet. TODO: Document if it is
-    <row>
-<entry><literal>inheritAll</literal></entry>
-      <entry><literal role="type">Boolean</literal></entry>
-      <entry>
-        If true, all
-      </entry>
-      <entry><literal>true</literal></entry>
-      <entry>No</entry>
-    </row>
-    <row>
-<entry><literal>inheritRefs</literal></entry>
-      <entry><literal role="type">Boolean</literal></entry>
-      <entry>
-      </entry>
-      <entry><literal>false</literal></entry>
-      <entry>No</entry>
-    </row>
-    -->
+                    <row>
+                        <entry><literal>inheritAll</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>
+                          If true, all
+                        </entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>inheritRefs</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>
+                        </entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -3221,7 +3079,7 @@ verbose="true" failonerror="false" /></programlisting>
                     <row>
                         <entry><literal>refid</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>A reference to a previously defined propeprty</entry>
+                        <entry>A reference to a previously defined property</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -3238,6 +3096,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Whether to log returned output as MSG_INFO instead of
                             MSG_VERBOSE.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to display a warning if the property file does not exist.</entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -3632,6 +3497,51 @@ verbose="true" failonerror="false" /></programlisting>
             <para>This example shows how to use <literal>&lt;retry></literal> to
                 wrap a task which must interact with an unreliable network resource.
             </para>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="RunTargetTask">
+        <title>RunTargetTask</title>
+        <para>Phing task that runs a target without creating a new project.</para>
+        <caution><title>Difference to <literal>&lt;phingcall&gt;</literal></title>
+            <para>
+                The main difference of <literal>&lt;runtarget&gt;</literal> and <literal>&lt;phingcall&gt;</literal>
+                is that <literal>&lt;phingcall&gt;</literal> will start the phing target in a new project and will
+                not affect the main project.<literal>&lt;runtarget&gt;</literal> calls a target in the same project,
+                which could be have an effect on any existing properties. Dependency management would only be given
+                by <literal>&lt;phingcall&gt;</literal>.
+            </para>
+        </caution>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>target</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the target to run.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;runtarget target="test" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="SleepTask">

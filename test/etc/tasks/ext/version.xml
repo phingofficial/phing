@@ -1,28 +1,47 @@
 <?xml version="1.0" ?>
 <project name="FileHash Test" default="build">
     <target name="testBugfix">
-    	<echo file="version.txt">1.0.0</echo>
-    	<version file="version.txt" property="versionprop"
-    	releasetype="bugfix"/>
-    	<delete file="version.txt"/>
-    	<echo>Bugfix: ${versionprop}</echo>
+        <echo file="version.txt">1.0.0</echo>
+        <version file="version.txt" property="versionprop"
+                 releasetype="bugfix"/>
+        <delete file="version.txt"/>
+        <echo>Bugfix: ${versionprop}</echo>
     </target>
 
     <target name="testMinor">
-    	<echo file="version.txt">1.0.0</echo>
-    	<version file="version.txt" property="versionprop"
-    	releasetype="minor"/>
-    	<delete file="version.txt"/>
-    	<echo>Minor: ${versionprop}</echo>
+        <echo file="version.txt">1.0.0</echo>
+        <version file="version.txt" property="versionprop"
+                 releasetype="minor"/>
+        <delete file="version.txt"/>
+        <echo>Minor: ${versionprop}</echo>
     </target>
 
     <target name="testMajor">
-    	<echo file="version.txt">1.0.0</echo>
-    	<version file="version.txt" property="versionprop"
-    	releasetype="major"/>
-    	<delete file="version.txt"/>
-    	<echo>Major: ${versionprop}</echo>
+        <echo file="version.txt">1.0.0</echo>
+        <version file="version.txt" property="versionprop"
+                 releasetype="major"/>
+        <delete file="version.txt"/>
+        <echo>Major: ${versionprop}</echo>
     </target>
-    
-    <target name="build" depends="testBugfix,testMinor,testMajor"/>
+
+    <target name="testDefault">
+        <version releasetype="major"/>
+    </target>
+
+    <target name="testPropFile">
+        <echo file="property.version">propfile.version=4.5.4</echo>
+        <version propFile="true" releasetype="bugfix" file="property.version"
+                 property="propfile.version"/>
+    </target>
+
+    <target name="testPropFileWithDefaultProperty">
+        <echo file="build.version">build.version=4.5.4</echo>
+        <version propFile="true" releasetype="bugfix"/>
+    </target>
+
+    <target name="testWithStartingVersion">
+        <version propFile="true" releasetype="bugfix" startingVersion="1.0.0"/>
+    </target>
+
+    <target name="build" depends="testBugfix,testMinor,testMajor,testPropFile,testPropFileWithDefaultProperty,testWithStartingVersion"/>
 </project>

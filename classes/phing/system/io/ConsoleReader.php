@@ -37,7 +37,6 @@ class ConsoleReader extends Reader
      */
     public function readLine()
     {
-
         $out = fgets(STDIN); // note: default maxlen is 1kb
         $out = rtrim($out);
 
@@ -51,7 +50,6 @@ class ConsoleReader extends Reader
      */
     public function read($len = null)
     {
-
         $out = fread(STDIN, $len);
 
         return $out;
@@ -59,7 +57,6 @@ class ConsoleReader extends Reader
         // read by chars doesn't work (yet?) with PHP stdin.  Maybe
         // this is just a language feature, maybe there's a way to get
         // ability to read chars w/o <enter> ?
-
     }
 
     public function close()

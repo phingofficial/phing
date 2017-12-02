@@ -37,7 +37,6 @@ include_once 'phing/util/regexp/Regexp.php';
  */
 class RegularExpression extends DataType
 {
-
     private $regexp = null;
     /**
      * @todo Probably both $ignoreCase and $multiline should be removed
@@ -175,17 +174,7 @@ class RegularExpression extends DataType
      */
     public function getRef(Project $p)
     {
-        if (!$this->checked) {
-            $stk = array();
-            array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
-        }
-
-        $o = $this->ref->getReferencedObject($p);
-        if (!($o instanceof RegularExpression)) {
-            throw new BuildException($this->ref->getRefId() . " doesn't denote a RegularExpression");
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }

@@ -56,19 +56,19 @@ class RecorderTask extends Task implements SubBuildListener
     /** Strip task banners if true.  */
     private $emacsMode = false;
 
-    private $logLevelChoices = array(
+    private $logLevelChoices = [
         'error'   => 0,
         'warn'    => 1,
         'info'    => 2,
         'verbose' => 3,
         'debug'   => 4
-    );
+    ];
 
     /**
      * The list of recorder entries.
      * @var RecorderEntry[]
      */
-    private static $recorderEntries = array();
+    private static $recorderEntries = [];
 
     /**
      * Overridden so we can add the task as build listener.
@@ -173,16 +173,16 @@ class RecorderTask extends Task implements SubBuildListener
      */
     protected function getRecorder($name, Project $proj)
     {
-            // create a recorder entry
+        // create a recorder entry
             $entry = isset(self::$recorderEntries[$name]) ? self::$recorderEntries[$name] : new RecorderEntry($name);
 
-            if ($this->append == null) {
-                $entry->openFile(false);
-            } else {
-                $entry->openFile(StringHelper::booleanValue($this->append));
-            }
-            $entry->setProject($proj);
-            self::$recorderEntries[$name] = $entry;
+        if ($this->append == null) {
+            $entry->openFile(false);
+        } else {
+            $entry->openFile(StringHelper::booleanValue($this->append));
+        }
+        $entry->setProject($proj);
+        self::$recorderEntries[$name] = $entry;
 
         return $entry;
     }

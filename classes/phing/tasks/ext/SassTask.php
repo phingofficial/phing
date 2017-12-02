@@ -158,7 +158,7 @@ class SassTask extends Task
      *
      * @var array
      */
-    protected $filesets = array();
+    protected $filesets = [];
 
     /**
      * Additional flags to pass to sass.
@@ -196,6 +196,21 @@ class SassTask extends Task
      * @var string
      */
     protected $outputpath = '';
+
+    /**
+     * @var bool
+     */
+    protected $force;
+
+    /**
+     * @var bool
+     */
+    protected $lineNumbers;
+
+    /**
+     * @var bool
+     */
+    protected $noCache;
 
     /**
      * Set input file (For example style.scss)
@@ -718,7 +733,7 @@ class SassTask extends Task
     public function setStyle($style)
     {
         $style = strtolower($style);
-        switch($style) {
+        switch ($style) {
         case 'nested':
         case 'compact':
         case 'compressed':
@@ -852,13 +867,6 @@ class SassTask extends Task
     public function setUseScssphp($value)
     {
         $this->useScssphp = StringHelper::booleanValue($value);
-        if (version_compare(PHP_VERSION, '5.2', '<=')) {
-            $this->useScssphp = false;
-            $this->log(
-                "SCSSPHP is incompatible with this version of PHP",
-                Project::MSG_INFO
-            );
-        }
     }
 
     /**
@@ -881,18 +889,7 @@ class SassTask extends Task
      */
     public function init()
     {
-        @include_once 'System.php';
-        if (!class_exists('System')) {
-            throw new BuildException("You must have installed PEAR in order to use SassTask.");
-        }
         @include_once 'vendor/autoload.php';
-        if (version_compare(PHP_VERSION, '5.2', '<=')) {
-            $this->useScssphp = false;
-            $this->log(
-                "SCSSPHP is incompatible with this version of PHP",
-                Project::MSG_INFO
-            );
-        }
     }
 
     /**
@@ -921,7 +918,8 @@ class SassTask extends Task
         // If both are set to be used, prefer sass over scssphp.
         $lUseScssphp = false;
         if ($this->useSass && $this->useScssphp) {
-            if (System::which($this->executable) === false) {
+            $fs = FileSystem::getFileSystem();
+            if ($fs->which($this->executable) === false) {
                 if ($this->loadScssphp() === false) {
                     $msg = sprintf(
                         "%s not found. Install sass or leafo scssphp.",
@@ -945,7 +943,8 @@ class SassTask extends Task
             );
             return;
         } elseif ($this->useSass) {
-            if (System::which($this->executable) === false) {
+            $fs = FileSystem::getFileSystem();
+            if ($fs->which($this->executable) === false) {
                 $msg = sprintf(
                     "%s not found. Install sass.",
                     $this->executable
@@ -995,7 +994,7 @@ class SassTask extends Task
     public function processFile($useScssphp)
     {
         $this->log("Process file", Project::MSG_INFO);
-        if (is_null($this->output)) {
+        if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {
                 $info = pathinfo($this->file);
@@ -1045,7 +1044,7 @@ class SassTask extends Task
                 $this->pathInfo = pathinfo($file);
 
                 $run = true;
-                switch(strtolower($this->pathInfo['extension'])) {
+                switch (strtolower($this->pathInfo['extension'])) {
                 case 'scss':
                 case 'sass':
                     break;
@@ -1179,7 +1178,7 @@ class SassTask extends Task
             throw new BuildException('Input file and output file are the same!');
         }
 
-        $output = array();
+        $output = [];
         $return = null;
 
         $fullCommand = $this->executable;
@@ -1193,7 +1192,7 @@ class SassTask extends Task
         $this->log("Executing: {$fullCommand}", Project::MSG_INFO);
         exec($fullCommand, $output, $return);
 
-        return array($return, $output);
+        return [$return, $output];
     }
 
     /**
@@ -1211,26 +1210,13 @@ class SassTask extends Task
     }
 
     /**
-     * Get ScssPhp Compiler.
-     *
-     * @return Leafo\ScssPhp\Compiler
-     */
-    public function getNewCompiler()
-    {
-        // Instantiate the class in a way that is compatible with
-        // PHP 5.2 up to 7.x.
-        $compiler = '\\Leafo\\ScssPhp\\Compiler';
-        return new $compiler;
-    }
-
-    /**
      * Initialise and return an instance of the ScssPhp Compiler.
      *
      * @return Leafo\ScssPhp\Compiler
      */
     public function initialiseScssphp()
     {
-        $scss = $this->getNewCompiler();
+        $scss = new \Leafo\ScssPhp\Compiler();
         if ($this->style) {
             $ucStyle = ucfirst(strtolower($this->style));
             $scss->setFormatter('Leafo\\ScssPhp\\Formatter\\' . $ucStyle);

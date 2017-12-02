@@ -37,7 +37,10 @@ class BaseFilterReader extends FilterReader
     /** Have the parameters passed been interpreted? */
     protected $initialized = false;
 
-    /** The Phing project this filter is part of. */
+    /**
+     * The Phing project this filter is part of.
+     * @var Project
+     */
     protected $project = null;
 
     /**

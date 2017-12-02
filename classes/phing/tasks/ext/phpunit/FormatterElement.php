@@ -31,7 +31,8 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class FormatterElement
 {
-    protected $formatter = null;
+    /** @var PHPUnitResultFormatter $fomatter */
+    protected $formatter;
 
     protected $type = "";
 
@@ -41,7 +42,7 @@ class FormatterElement
 
     protected $outfile = "";
 
-    protected $parent = null;
+    protected $parent;
 
     /**
      * Sets parent task
@@ -154,23 +155,34 @@ class FormatterElement
             return $this->formatter;
         }
 
-        if ($this->type == "summary") {
-            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
-            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type == "clover") {
-            require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
-            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type == "xml") {
-            require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
-            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type == "plain") {
-            require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
-            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type == "crap4j") {
-            require_once 'phing/tasks/ext/phpunit/formatter/Crap4jPHPUnitResultFormatter.php';
-            $this->formatter = new Crap4jPHPUnitResultFormatter($this->parent);
+        if (class_exists('PHPUnit_Runner_Version')) {
+            if ($this->type === "summary") {
+                $this->formatter = new SummaryPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "clover") {
+                $this->formatter = new CloverPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "xml") {
+                $this->formatter = new XMLPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "plain") {
+                $this->formatter = new PlainPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "crap4j") {
+                $this->formatter = new Crap4JPHPUnitResultFormatter5($this->parent);
+            } else {
+                throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            }
         } else {
-            throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            if ($this->type === "summary") {
+                $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "clover") {
+                $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "xml") {
+                $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "plain") {
+                $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "crap4j") {
+                $this->formatter = new Crap4JPHPUnitResultFormatter($this->parent);
+            } else {
+                throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            }
         }
 
         return $this->formatter;

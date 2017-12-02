@@ -179,5 +179,4 @@ class GitGcTask extends GitBaseTask
     {
         $this->prune = $date;
     }
-
 }

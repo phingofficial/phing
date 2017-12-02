@@ -25,7 +25,7 @@
 	<property name="test.class" value="${test}"/>
 	
 	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
-    <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
+	<resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
 	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
 	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>

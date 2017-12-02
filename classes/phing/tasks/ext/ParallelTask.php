@@ -56,9 +56,6 @@ class ParallelTask extends SequentialTask
 
     public function main()
     {
-        @include_once 'phing/contrib/DocBlox/Parallel/Manager.php';
-        @include_once 'phing/contrib/DocBlox/Parallel/Worker.php';
-        @include_once 'phing/contrib/DocBlox/Parallel/WorkerPipe.php';
         if (!class_exists('DocBlox_Parallel_Worker')) {
             throw new BuildException(
                 'ParallelTask depends on DocBlox being installed and on include_path.',
@@ -71,8 +68,8 @@ class ParallelTask extends SequentialTask
 
         foreach ($this->nestedTasks as $task) {
             $worker = new DocBlox_Parallel_Worker(
-                array($task, 'perform'),
-                array($task)
+                [$task, 'perform'],
+                [$task]
             );
 
             $mgr->addWorker($worker);

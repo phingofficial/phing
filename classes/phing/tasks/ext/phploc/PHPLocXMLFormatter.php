@@ -30,8 +30,13 @@ class PHPLocXMLFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\XML';
-        $printer = new $printerClass();
+        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\XML')) {
+            $printer = new SebastianBergmann\PHPLOC\Log\XML();
+        } elseif (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Xml')) {
+            $printer = new SebastianBergmann\PHPLOC\Log\Xml();
+        } else {
+            throw new BuildException('Not supported PHPLOC version used.');
+        }
         $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
 }

@@ -68,7 +68,6 @@ abstract class PDOResultFormatter
      */
     public function initialize()
     {
-
     }
 
     /**

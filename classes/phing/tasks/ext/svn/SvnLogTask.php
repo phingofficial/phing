@@ -56,15 +56,6 @@ class SvnLogTask extends SvnBaseTask
     }
 
     /**
-     * Sets whether to force compatibility with older SVN versions (< 1.2)
-     * @deprecated
-     * @param $force
-     */
-    public function setForceCompatible($force)
-    {
-    }
-
-    /**
      * Sets the max num of log entries to get from svn
      * @param $limit
      */
@@ -82,12 +73,12 @@ class SvnLogTask extends SvnBaseTask
     {
         $this->setup('log');
 
-        $switches = array();
+        $switches = [];
         if ($this->limit > 0) {
             $switches['limit'] = $this->limit;
         }
 
-        $output = $this->run(array(), $switches);
+        $output = $this->run([], $switches);
         $result = null;
 
         if ($this->oldVersion) {

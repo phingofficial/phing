@@ -60,7 +60,6 @@ class NoneSelector extends BaseSelectorContainer
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $selectors = $this->selectorElements();
@@ -74,5 +73,4 @@ class NoneSelector extends BaseSelectorContainer
 
         return true;
     }
-
 }

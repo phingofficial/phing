@@ -29,7 +29,6 @@ include_once 'phing/util/FileUtils.php';
  */
 class LineContainsTest extends BuildFileTest
 {
-
     protected $fu;
 
     public function setUp()
@@ -52,4 +51,12 @@ class LineContainsTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
+    public function testLineContainsNegate()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $expected = $this->getProject()->resolveFile("expected/linecontains-negate.test");
+        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+    }
 }

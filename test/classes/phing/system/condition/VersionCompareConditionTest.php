@@ -1,7 +1,8 @@
 <?php
 require_once "phing/tasks/system/condition/VersionCompareCondition.php";
 
-class VersionCompareConditionTest extends PHPUnit_Framework_TestCase {
+class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
+{
     protected $_condition;
     public function setUp()
     {

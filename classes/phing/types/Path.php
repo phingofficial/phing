@@ -65,8 +65,7 @@ include_once 'phing/types/FileSet.php';
  */
 class Path extends DataType
 {
-
-    private $elements = array();
+    private $elements = [];
 
     /**
      * Constructor for internally instantiated objects sets project.
@@ -75,6 +74,7 @@ class Path extends DataType
      */
     public function __construct($project = null, $path = null)
     {
+        parent::__construct();
         if ($project !== null) {
             $this->setProject($project);
         }
@@ -140,7 +140,7 @@ class Path extends DataType
     /**
      * Creates the nested <code>&lt;pathelement&gt;</code> element.
      *
-     * @return void
+     * @return PathElement
      *
      * @throws BuildException
      */
@@ -153,6 +153,24 @@ class Path extends DataType
         $this->elements[] = $pe;
 
         return $pe;
+    }
+
+    /**
+     * Adds a nested <code>&lt;filelist&gt;</code> element.
+     *
+     * @param FileList $fl
+     *
+     * @return void
+     *
+     * @throws BuildException
+     */
+    public function addFilelist(FileList $fl)
+    {
+        if ($this->isReference()) {
+            throw $this->noChildrenAllowed();
+        }
+        $this->elements[] = $fl;
+        $this->checked = false;
     }
 
     /**
@@ -273,12 +291,12 @@ class Path extends DataType
     {
         if (!$this->checked) {
             // make sure we don't have a circular reference here
-            $stk = array();
-            array_push($stk, $this);
+            $stk = [];
+            $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->project);
         }
 
-        $result = array();
+        $result = [];
         for ($i = 0, $elSize = count($this->elements); $i < $elSize; $i++) {
             $o = $this->elements[$i];
             if ($o instanceof Reference) {
@@ -352,7 +370,6 @@ class Path extends DataType
      */
     public function __toString()
     {
-
         $list = $this->listPaths();
 
         // empty path return empty string
@@ -373,7 +390,7 @@ class Path extends DataType
      */
     public static function translatePath(Project $project, $source)
     {
-        $result = array();
+        $result = [];
         if ($source == null) {
             return "";
         }
@@ -455,19 +472,6 @@ class Path extends DataType
     }
 
     /**
-     * Return a Path that holds the same elements as this instance.
-     *
-     * @return Path
-     */
-    public function __clone()
-    {
-        $p = new Path($this->project);
-        $p->append($this);
-
-        return $p;
-    }
-
-    /**
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *
@@ -480,14 +484,12 @@ class Path extends DataType
      */
     public function dieOnCircularReference(&$stk, Project $p)
     {
-
         if ($this->checked) {
             return;
         }
 
         // elements can contain strings, FileSets, Reference, etc.
         foreach ($this->elements as $o) {
-
             if ($o instanceof Reference) {
                 $o = $o->getReferencedObject($p);
             }
@@ -496,7 +498,7 @@ class Path extends DataType
                 if (in_array($o, $stk, true)) {
                     throw $this->circularReference();
                 } else {
-                    array_push($stk, $o);
+                    $stk[] = $o;
                     $o->dieOnCircularReference($stk, $p);
                     array_pop($stk);
                 }
@@ -525,55 +527,5 @@ class Path extends DataType
         }
 
         return $relativeName;
-    }
-}
-
-/**
- * Helper class, holds the nested <code>&lt;pathelement&gt;</code> values.
- *
- * @package phing.types
- */
-class PathElement
-{
-    /** @var array $parts */
-    private $parts = array();
-
-    /** @var Path $outer */
-    private $outer;
-
-    /**
-     * @param Path $outer
-     */
-    public function __construct(Path $outer)
-    {
-        $this->outer = $outer;
-    }
-
-    /**
-     * @param PhingFile $loc
-     *
-     * @return void
-     */
-    public function setDir(PhingFile $loc)
-    {
-        $this->parts = array(Path::translateFile($loc->getAbsolutePath()));
-    }
-
-    /**
-     * @param $path
-     *
-     * @return void
-     */
-    public function setPath($path)
-    {
-        $this->parts = Path::translatePath($this->outer->getProject(), $path);
-    }
-
-    /**
-     * @return array
-     */
-    public function getParts()
-    {
-        return $this->parts;
     }
 }

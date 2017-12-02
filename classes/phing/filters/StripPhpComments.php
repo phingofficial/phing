@@ -57,7 +57,6 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         $buffer = $this->in->read($len);
         if ($buffer === -1) {
             return -1;
@@ -84,63 +83,6 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
         }
 
         return $newStr;
-    }
-
-    /**
-     * Returns the next character in the filtered stream, not including
-     * Php comments.
-     *
-     * @return int the next character in the resulting stream, or -1
-     *             if the end of the resulting stream has been reached
-     *
-     * @throws IOException if the underlying stream throws an IOException
-     *                     during reading
-     * @deprecated
-     */
-    public function readChar()
-    {
-        $ch = -1;
-
-        if ($this->_readAheadCh !== -1) {
-            $ch = $this->_readAheadCh;
-            $this->_readAheadCh = -1;
-        } else {
-            $ch = $this->in->readChar();
-            if ($ch === "\"") {
-                $this->_inString = !$this->_inString;
-            } else {
-                if (!$this->_inString) {
-                    if ($ch === "/") {
-                        $ch = $this->in->readChar();
-                        if ($ch === "/") {
-                            while ($ch !== "\n" && $ch !== -1) {
-                                $ch = $this->in->readChar();
-                            }
-                        } else {
-                            if ($ch === "*") {
-                                while ($ch !== -1) {
-                                    $ch = $this->in->readChar();
-                                    while ($ch === "*" && $ch !== -1) {
-                                        $ch = $this->in->readChar();
-                                    }
-
-                                    if ($ch === "/") {
-                                        $ch = $this->readChar();
-                                        echo "$ch\n";
-                                        break;
-                                    }
-                                }
-                            } else {
-                                $this->_readAheadCh = $ch;
-                                $ch = "/";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return $ch;
     }
 
     /**

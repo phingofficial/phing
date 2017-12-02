@@ -63,5 +63,4 @@ class NotSelector extends NoneSelector
             );
         }
     }
-
 }

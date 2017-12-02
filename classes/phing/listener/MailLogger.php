@@ -116,7 +116,7 @@ class MailLogger extends DefaultLogger
             } else {
                 $defaultSubject = ($success) ? 'Build Success' : 'Build Failure';
             }
-            $hdrs = array();
+            $hdrs = [];
             $hdrs['From']     = $this->getValue($properties, 'from', $this->from);
             $hdrs['Reply-To'] = $this->getValue($properties, 'replyto', '');
             $hdrs['Cc']       = $this->getValue($properties, $prefix . '.cc', '');
@@ -151,11 +151,9 @@ class MailLogger extends DefaultLogger
         $value = $properties[$propertyName];
         if ($value === null) {
             $value = $defaultValue;
-
         }
         if ($value === null) {
             throw new BadMethodCallException('Missing required parameter: ' . $propertyName);
-
         }
         return $value;
     }

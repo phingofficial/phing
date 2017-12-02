@@ -103,12 +103,10 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      */
     public function processRow($row)
     {
-
         $rowNode = $this->doc->createElement('row');
         $this->rootNode->appendChild($rowNode);
 
         foreach ($row as $columnName => $columnValue) {
-
             $colNode = $this->doc->createElement('column');
             $colNode->setAttribute('name', $columnName);
 
@@ -118,7 +116,6 @@ class XMLPDOResultFormatter extends PDOResultFormatter
             }
             $rowNode->appendChild($colNode);
         }
-
     }
 
     /**

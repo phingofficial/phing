@@ -98,11 +98,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                 return false;
             }
             $project = $this->parent->getOwningTarget()->getProject();
-            $this->line = ProjectConfigurator::replaceProperties(
-                    $project,
-                    $line,
-                    $project->getProperties()
-                ) . "\n";
+            $this->line = $project->replaceProperties($line) . "\n";
             $this->inputIndex = 0;
         }
 
@@ -131,24 +127,20 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
         if ('$' == $ch) {
             // empty tag
             return '';
-
         } elseif (!ctype_alpha($ch) && '_' != $ch) {
             // not a delimiter
             $this->ungetc();
 
             return false;
-
         } else {
             $tag = $ch;
             while (false !== ($ch = $this->getc())) {
                 if ('$' == $ch) {
                     return $tag;
-
                 } elseif (ctype_alnum($ch) || '_' == $ch) {
                     $tag .= $ch;
-
                 } else {
-                    for ($i = 0; $i < strlen($tag); $i++) {
+                    for ($i = 0, $tagLength = strlen($tag); $i < $tagLength; $i++) {
                         $this->ungetc();
                     }
 
@@ -214,7 +206,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                                 break;
                             }
                             $hasQuery = true;
-                            for ($i = 1; $i < strlen($delimiter); $i++) {
+                            for ($i = 1, $delimiterLength = strlen($delimiter); $i < $delimiterLength; $i++) {
                                 if ($delimiter[$i] != $this->getc()) {
                                     $hasQuery = false;
                                 }

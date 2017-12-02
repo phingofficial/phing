@@ -29,7 +29,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class PharPackageTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         if (defined('HHVM_VERSION')) {
@@ -41,12 +40,11 @@ class PharPackageTaskTest extends BuildFileTest
 
     /**
      * @requires extension openssl
-     * @requires PHP 5.3.10
      */
     public function testOpenSSLSignature()
     {
         // Generate a private key on the fly.
-        $passphrase = uniqid();
+        $passphrase = uniqid('', true);
         $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
         file_put_contents($passfile, $passphrase);
         $pkey = openssl_pkey_new();
@@ -65,7 +63,6 @@ class PharPackageTaskTest extends BuildFileTest
         $phar = new Phar($dest);
         $signature = $phar->getSignature();
         $this->assertEquals('OpenSSL', $signature['hash_type']);
-
     }
 
     public function tearDown()

@@ -101,11 +101,11 @@ class Arg extends DataType
         $value = "";
         $quote = $this->getQuotes() ? '"' : '';
 
-        if (!is_null($this->getValue())) {
+        if (null !== $this->getValue()) {
             $value = $quote . $this->getValue() . $quote;
         }
 
-        if (!is_null($this->getName())) {
+        if (null !== $this->getName()) {
             $name = '--' . $this->getName();
         }
 
@@ -115,5 +115,4 @@ class Arg extends DataType
 
         return $name . $value;
     }
-
 }

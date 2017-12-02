@@ -25,7 +25,6 @@ require_once 'phing/BuildFileTest.php';
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
  * @package phing.tasks.system
- * @requires PHP 5.3.2
  */
 class ApplyTaskTest extends BuildFileTest
 {
@@ -40,12 +39,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped(
-                'Need at least PHP version 5.3.2 to run this unit test'
-            );
-        }
-
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
 
@@ -459,7 +452,11 @@ class ApplyTaskTest extends BuildFileTest
     public function testParallel()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals(1, substr_count(implode("\n", $this->logBuffer), 'Command execution :'));
+        $messages = [];
+        foreach($this->logBuffer as $log) {
+            $messages[] = $log['message'];
+        }
+        $this->assertEquals(1, substr_count(implode("\n", $messages), 'Command execution :'));
     }
 
     /**********************************************************************************/
@@ -473,7 +470,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function getTargetByName($name)
     {
-
         foreach ($this->project->getTargets() as $target) {
             if ($target->getName() == $name) {
                 return $target;
@@ -491,7 +487,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function getTaskFromTarget($target, $taskName, $pos = 0)
     {
-
         $rchildren = new ReflectionProperty(get_class($target), 'children');
         $rchildren->setAccessible(true);
         $n = -1;
@@ -529,7 +524,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
     {
-
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), 'ApplyTask');
 
         $propertyName = ($propertyName === null) ? $property : $propertyName;
@@ -537,5 +531,4 @@ class ApplyTaskTest extends BuildFileTest
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }
-
 }

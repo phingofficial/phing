@@ -71,7 +71,7 @@ class BuildEvent extends EventObject
     /**
      * The priority of the message
      *
-     * @var    string
+     * @var    int
      * @see    $message
      */
     protected $priority = Project::MSG_VERBOSE;

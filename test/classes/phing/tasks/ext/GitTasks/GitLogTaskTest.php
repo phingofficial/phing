@@ -21,7 +21,6 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitLogTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -30,9 +29,8 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  */
 class GitLogTaskTest extends BuildFileTest
 {
-
-    private $testCommits = array(
-        array(
+    private $testCommits = [
+        [
             'commit' => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date' => 'Sun Sep 26 21:14:44 2010 +0400',
@@ -42,8 +40,8 @@ class GitLogTaskTest extends BuildFileTest
             'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date' => 'Sun, 26 Sep 2010 21:14:44 +0400',
             'Subject' => '[PATCH] Inited',
-        ),
-        array(
+        ],
+        [
             'commit' => 'b8cddb3fa5f408560d0d00d6c8721fe333895888',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date' => 'Sun Jan 23 22:53:07 2011 +0300',
@@ -53,8 +51,8 @@ class GitLogTaskTest extends BuildFileTest
             'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date' => 'Sun, 23 Jan 2011 22:53:07 +0300',
             'Subject' => '[PATCH] Added file1 + file2',
-        ),
-        array(
+        ],
+        [
             'commit' => 'c573116f395d36497a1ac1dba565ecd3d3944277',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date' => 'Sun Jan 23 22:53:19 2011 +0300',
@@ -64,8 +62,8 @@ class GitLogTaskTest extends BuildFileTest
             'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date' => 'Sun, 23 Jan 2011 22:53:19 +0300',
             'Subject' => '[PATCH] Added file3',
-        ),
-        array(
+        ],
+        [
             'commit' => '2b4a5409bf60813b6a84d583bbdcbed25c7c3a00',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date' => 'Sun Jan 23 22:53:42 2011 +0300',
@@ -75,8 +73,8 @@ class GitLogTaskTest extends BuildFileTest
             'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date' => 'Sun, 23 Jan 2011 22:53:42 +0300',
             'Subject' => '[PATCH] Removed file3',
-        ),
-        array(
+        ],
+        [
             'commit' => 'ee07085160003ffd1100867deb6059bae0c45455',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date' => 'Sun Jan 23 23:38:34 2011 +0300',
@@ -86,8 +84,8 @@ class GitLogTaskTest extends BuildFileTest
             'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date' => 'Sun, 23 Jan 2011 23:38:34 +0300',
             'Subject' => '[PATCH] Title: file4 was added',
-        ),
-        array(
+        ],
+        [
             'commit' => '1b767b75bb5329f4e53345c516c0a9f4ed32d330',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date' => 'Mon Jan 24 09:58:33 2011 +0300',
@@ -97,22 +95,16 @@ class GitLogTaskTest extends BuildFileTest
             'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date' => 'Mon, 24 Jan 2011 09:58:33 +0300',
             'Subject' => '[PATCH] Added file5',
-        ),
+        ],
 
-    );
+    ];
 
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
@@ -125,7 +117,7 @@ class GitLogTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testGitLogWithoutParams()
@@ -184,7 +176,7 @@ class GitLogTaskTest extends BuildFileTest
         $this->executeTarget('gitLogDateRelative');
         foreach ($this->testCommits as $commit) {
             $timestamp = strtotime($commit['date']);
-            $this->assertInLogs(GitTestsHelper::getRelativeDate($timestamp));
+            $this->assertInLogs($this->getRelativeDate($timestamp));
         }
     }
 
@@ -309,5 +301,4 @@ class GitLogTaskTest extends BuildFileTest
             '"repository" is required parameter'
         );
     }
-
 }

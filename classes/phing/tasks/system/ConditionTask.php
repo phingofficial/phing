@@ -45,6 +45,14 @@ class ConditionTask extends ConditionBase
 
     /** @var string $alternative */
     private $alternative;
+
+    /**
+     * Constructor, names this task "condition".
+     */
+    public function __construct()
+    {
+        parent::__construct('condition');
+    }
     
     /**
      * The name of the property to set. Required.
@@ -70,7 +78,7 @@ class ConditionTask extends ConditionBase
      * The value for the property to set, if condition evaluates to false.
      * If this attribute is not specified, the property will not be set.
      *
-     * @param string $v 
+     * @param string $v
      */
     public function setElse($v)
     {

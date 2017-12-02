@@ -27,7 +27,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class TaskdefTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/taskdef.xml");

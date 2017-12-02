@@ -70,10 +70,10 @@ class Matches extends ProjectComponent implements Condition
     public function setPattern($pattern)
     {
         if ($this->regularExpression !== null) {
-             throw new BuildException('Only one regular expression is allowed.');
-         }
-         $this->regularExpression = new RegularExpression();
-         $this->regularExpression->setPattern($pattern);
+            throw new BuildException('Only one regular expression is allowed.');
+        }
+        $this->regularExpression = new RegularExpression();
+        $this->regularExpression->setPattern($pattern);
     }
 
     /**

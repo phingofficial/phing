@@ -40,11 +40,11 @@ abstract class zsdtBaseTask extends Task
     protected $schema;
 
     /** @var array $path */
-    private $path = array(
+    private $path = [
         'NIX' => '/usr/local/zend/bin/zdpack',
         'WIN' => 'C:\Program Files (x86)\Zend\ZendServer\bin\zdpack',
         'USR' => ''
-    );
+    ];
 
     /**
      * The package descriptor file.

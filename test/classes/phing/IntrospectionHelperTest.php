@@ -29,9 +29,8 @@ include_once 'phing/tasks/system/condition/OsCondition.php';
  * @version $Id$
  * @package phing
  */
-class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
+class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 {
-
     /** @var Project */
     private $p;
 
@@ -68,7 +67,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
     public function testElementCreators()
     {
-
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
             $this->fail("create cannot take param");
@@ -89,7 +87,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
-
     }
 
     /*
@@ -361,7 +358,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
 class IHProjectComponent
 {
-
     public function addText($text)
     {
     }
@@ -427,5 +423,4 @@ class IHFail5
     public function setBlah()
     {
     }
-
 }

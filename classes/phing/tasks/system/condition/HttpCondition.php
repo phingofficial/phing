@@ -32,14 +32,13 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class HttpCondition extends ProjectComponent implements Condition
 {
-    private $errorsBeginAt;
+    const DEFAULT_REQUEST_METHOD = 'GET';
+
+    private $errorsBeginAt = 400;
     private $url;
     private $quiet = false;
-
-    public function __construct()
-    {
-        $this->errorsBeginAt = 400;
-    }
+    private $requestMethod = self::DEFAULT_REQUEST_METHOD;
+    private $followRedirects = true;
 
     /**
      * Set the url attribute.
@@ -63,6 +62,28 @@ class HttpCondition extends ProjectComponent implements Condition
     public function setErrorsBeginAt($errorsBeginAt)
     {
         $this->errorsBeginAt = $errorsBeginAt;
+    }
+
+    /**
+     * Sets the method to be used when issuing the HTTP request.
+     *
+     * @param string $method The HTTP request method to use. Valid values are
+     *               "GET", "HEAD", "TRACE", etc. The default
+     *               if not specified is "GET".
+     */
+    public function setRequestMethod($method)
+    {
+        $this->requestMethod = $method === null ? self::DEFAULT_REQUEST_METHOD : strtoupper($method);
+    }
+
+    /**
+     * Whether redirects sent by the server should be followed,
+     * defaults to true.
+     * @param boolean $f
+     */
+    public function setFollowRedirects($f)
+    {
+        $this->followRedirects = $f;
     }
 
     /**
@@ -95,6 +116,8 @@ class HttpCondition extends ProjectComponent implements Condition
 
         $handle = curl_init($this->url);
         curl_setopt($handle, CURLOPT_NOBODY, true);
+        curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $this->requestMethod);
+        curl_setopt($handle, CURLOPT_FOLLOWLOCATION, $this->followRedirects);
 
         if (!curl_exec($handle)) {
             $this->log("No response received from URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);

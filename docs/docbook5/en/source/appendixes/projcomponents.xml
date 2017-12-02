@@ -89,6 +89,14 @@
                             <entry>n/a</entry>
                             <entry>No</entry>
                         </row>
+                        <row>
+                            <entry><literal>strict</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>Enables the strict-mode for the project build process. If enabled, a warning would be
+                                considered as an error, and the build will be aborted.</entry>                
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
                     </tbody>
                 </tgroup>
             </table>

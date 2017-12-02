@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="gitArchiveTest" default="invalid">
+
+    <import file="GitTestFunction.xml"/>
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="gitArchive" description="Test gitarchive">
+        <gitclone gitPath="${git-path}"
+                  singleBranch="true"
+                  repository="${repo.dir.resolved}"
+                  targetPath="${tmp.dir.resolved}/test" />
+        <gitarchive
+            gitPath="${git-path}"
+            repository="${tmp.dir.resolved}/test"
+            treeish="HEAD"
+            format="zip"
+            output="${tmp.dir.resolved}/output.zip"
+            />
+    </target>
+
+    <target name="wrongRepository" description="Path to repository not found">
+        <gitarchive
+                gitPath="${git-path}"
+                repository="this-is-plain-wrong"
+                treeish="HEAD" />
+    </target>
+
+    <target name="noRepository" description="No repo dir argument provided">
+        <gitarchive gitPath="${git-path}" treeish="HEAD" />
+    </target>
+
+    <target name="noTreeish" description="No treeish argument provided">
+        <gitarchive gitPath="${git-path}" remoterepo="${repo.dir.resolved}" />
+    </target>
+</project>

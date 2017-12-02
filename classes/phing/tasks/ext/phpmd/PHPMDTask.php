@@ -33,19 +33,14 @@ require_once 'phing/tasks/ext/phpmd/PHPMDFormatterElement.php';
  */
 class PHPMDTask extends Task
 {
+    use FileSetAware;
+
     /**
      * A php source code filename or directory
      *
      * @var PhingFile
      */
     protected $file = null;
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = array();
 
     /**
      * The rule-set filenames or identifier.
@@ -66,14 +61,14 @@ class PHPMDTask extends Task
      *
      * @var array
      */
-    protected $allowedFileExtensions = array('php');
+    protected $allowedFileExtensions = ['php'];
 
     /**
      * List of exclude directory patterns.
      *
      * @var array
      */
-    protected $ignorePatterns = array('.git', '.svn', 'CVS', '.bzr', '.hg');
+    protected $ignorePatterns = ['.git', '.svn', 'CVS', '.bzr', '.hg'];
 
     /**
      * The format for the report
@@ -87,7 +82,7 @@ class PHPMDTask extends Task
      *
      * @var PHPMDFormatterElement[]
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * @var bool
@@ -117,17 +112,6 @@ class PHPMDTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Sets the minimum rule priority.
      *
      * @param integer $minimumPriority Minimum rule priority.
@@ -154,7 +138,7 @@ class PHPMDTask extends Task
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->allowedFileExtensions = array();
+        $this->allowedFileExtensions = [];
 
         $token = ' ,;';
         $ext = strtok($fileExtensions, $token);
@@ -172,7 +156,7 @@ class PHPMDTask extends Task
      */
     public function setIgnorePatterns($ignorePatterns)
     {
-        $this->ignorePatterns = array();
+        $this->ignorePatterns = [];
 
         $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
@@ -249,8 +233,7 @@ class PHPMDTask extends Task
         }
 
         if ($this->newVersion) {
-            //weird syntax to allow 5.2 parser compatibility
-            $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
+            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
             require_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
         } else {
             require_once 'PHP/PMD/AbstractRule.php';
@@ -271,7 +254,7 @@ class PHPMDTask extends Task
      */
     protected function getFilesToParse()
     {
-        $filesToParse = array();
+        $filesToParse = [];
 
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->getPath();
@@ -319,7 +302,7 @@ class PHPMDTask extends Task
             $this->formatters[] = $fmt;
         }
 
-        $reportRenderers = array();
+        $reportRenderers = [];
 
         foreach ($this->formatters as $fe) {
             if ($fe->getType() == '') {
@@ -341,12 +324,10 @@ class PHPMDTask extends Task
 
         // Create a rule set factory
         if ($this->newVersion) {
-            $ruleSetClass = '\PHPMD\RuleSetFactory';
-            $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatibility
-
+            $ruleSetFactory = new \PHPMD\RuleSetFactory();
         } else {
             if (!class_exists("PHP_PMD_RuleSetFactory")) {
-                    @include 'PHP/PMD/RuleSetFactory.php';
+                @include 'PHP/PMD/RuleSetFactory.php';
             }
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
         }

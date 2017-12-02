@@ -53,7 +53,7 @@ class IniFileTaskTest extends BuildFileTest
 
     public function testExistingSource()
     {
-        $fill = array("[test]\n", "; a comment\n", "foo=bar\n");
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("existingSource");
 
@@ -62,9 +62,20 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
     }
 
+    public function testExistingSourceWithVerbose()
+    {
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
+        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
+        $this->executeTarget("existingSourceWithVerbose");
+
+        $this->assertInLogs('Read from ./../../../../tmp/inifile/source.ini');
+        $this->assertInLogs('[test] foo set to qux', Project::MSG_INFO);
+        $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
+    }
+
     public function testRemoveKeyFromSectionInSourceFile()
     {
-        $fill = array("[test]\n", "; a comment\n", "foo=bar\n");
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("removeKeyFromSectionInSourceFile");
 
@@ -77,7 +88,7 @@ class IniFileTaskTest extends BuildFileTest
 
     public function testRemoveSectionFromSourceFile()
     {
-        $fill = array("[test]\n", "; a comment\n", "foo=bar\n");
+        $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("removeSectionFromSourceFile");
 

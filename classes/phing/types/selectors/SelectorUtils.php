@@ -38,7 +38,6 @@ include_once 'phing/util/StringHelper.php';
  */
 class SelectorUtils
 {
-
     private static $instance;
 
     /**
@@ -141,14 +140,14 @@ class SelectorUtils
         $rePattern = preg_quote($pattern, '/');
         $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
         $trailingDirSep = '((' . $dirSep . ')?|(' . $dirSep . ').+)';
-        $patternReplacements = array(
+        $patternReplacements = [
             $dirSep . '\*\*' . $dirSep => $dirSep . '.*' . $trailingDirSep,
             $dirSep . '\*\*' => $trailingDirSep,
             '\*\*' . $dirSep => '(.*' . $dirSep . ')?',
             '\*\*' => '.*',
             '\*' => '[^' . $dirSep . ']*',
             '\?' => '[^' . $dirSep . ']'
-        );
+        ];
         $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
@@ -175,7 +174,7 @@ class SelectorUtils
     public static function match($pattern, $str, $isCaseSensitive = true)
     {
         $rePattern = preg_quote($pattern, '/');
-        $rePattern = str_replace(array("\*", "\?"), array('.*', '.'), $rePattern);
+        $rePattern = str_replace(["\*", "\?"], ['.*', '.'], $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
         return (bool) preg_match($rePattern, $str);

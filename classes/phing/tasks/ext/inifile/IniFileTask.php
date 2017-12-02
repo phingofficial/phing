@@ -26,7 +26,7 @@ require_once 'IniFileConfig.php';
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     InifileTask.php
  */
-class InifileTask extends Task
+class IniFileTask extends Task
 {
     /**
      * Source file
@@ -52,13 +52,13 @@ class InifileTask extends Task
      *
      * @var array
      */
-    protected $sets = array();
+    protected $sets = [];
     /**
      * Removals
      *
      * @var array
      */
-    protected $removals = array();
+    protected $removals = [];
 
     /**
      * IniFileConfig instance
@@ -69,20 +69,28 @@ class InifileTask extends Task
 
     /**
      * Taskname for logger
+     *
      * @var string
      */
     protected $taskName = 'IniFile';
+
+    /**
+     * Verbose
+     *
+     * @var bool
+     */
+    protected $verbose = false;
 
     /**
      * Check file to be read from
      *
      * @param string $readFile Filename
      *
-     * @return void
+     * @return bool
      */
     public function checkReadFile($readFile)
     {
-        if (is_null($readFile)) {
+        if (null === $readFile) {
             return false;
         }
         if (!file_exists($readFile)) {
@@ -111,7 +119,7 @@ class InifileTask extends Task
      *
      * @param string $writeFile Filename
      *
-     * @return void
+     * @return bool
      */
     public function checkWriteFile($writeFile)
     {
@@ -137,17 +145,17 @@ class InifileTask extends Task
         $readFile = null;
         $writeFile = null;
 
-        if (!is_null($this->source) && is_null($this->dest)) {
+        if (null !== $this->source && null === $this->dest) {
             $readFile = $this->source;
-        } elseif (!is_null($this->dest) && is_null($this->source)) {
+        } elseif (null !== $this->dest && null === $this->source) {
             $readFile = $this->dest;
         } else {
             $readFile = $this->source;
         }
 
-        if (!is_null($this->dest)) {
+        if (null !== $this->dest) {
             $writeFile = $this->dest;
-        } elseif (!is_null($this->source)) {
+        } elseif (null !== $this->source) {
             $writeFile = $this->source;
         } else {
             $writeFile = $this->dest;
@@ -199,16 +207,14 @@ class InifileTask extends Task
             if ($value !== null) {
                 try {
                     $this->ini->set($section, $key, $value);
-                    $this->log(
-                        "[$section] $key set to $value",
-                        Project::MSG_DEBUG
-                    );
+                    $this->logDebugOrMore("[$section] $key set to $value");
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
-                        "', key '" . $key ."'"
+                        "', key '" . $key ."'",
+                        MSG_ERR
                     );
-                    $this->log($ex->getMessage(), Project::MSG_DEBUG);
+                    $this->logDebugOrMore($ex->getMessage());
                 }
             } elseif ($operation !== null) {
                 $v = $this->ini->get($section, $key);
@@ -240,16 +246,13 @@ class InifileTask extends Task
                 }
                 try {
                     $this->ini->set($section, $key, $v);
-                    $this->log(
-                        "[$section] $key set to $v",
-                        Project::MSG_DEBUG
-                    );
+                    $this->logDebugOrMore("[$section] $key set to $v");
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key ."'"
                     );
-                    $this->log($ex->getMessage(), Project::MSG_DEBUG);
+                    $this->logDebugOrMore($ex->getMessage());
                 }
             } else {
                 $this->log(
@@ -279,12 +282,11 @@ class InifileTask extends Task
             }
             $this->ini->remove($section, $key);
             if (($section != '') && ($key != '')) {
-                $this->log(
-                    "$key in section [$section] has been removed.",
-                    Project::MSG_DEBUG
+                $this->logDebugOrMore(
+                    "$key in section [$section] has been removed."
                 );
             } elseif (($section != '') && ($key == '')) {
-                $this->log("[$section] has been removed.", Project::MSG_DEBUG);
+                $this->logDebugOrMore("[$section] has been removed.");
             }
         }
     }
@@ -322,11 +324,19 @@ class InifileTask extends Task
      */
     public function setHaltonerror($halt)
     {
-        $doHalt = false;
-        if (strtolower($halt) == 'yes' || $halt == 1) {
-            $doHalt = true;
-        }
-        $this->haltonerror = $doHalt;
+        $this->haltonerror = StringHelper::booleanValue($halt);
+    }
+
+    /**
+     * Set verbose attribute.
+     *
+     * @param string $verbose 'yes', or '1' parsed to true.
+     *
+     * @return void
+     */
+    public function setVerbose($verbose)
+    {
+        $this->verbose = StringHelper::booleanValue($verbose);
     }
 
     /**
@@ -351,5 +361,22 @@ class InifileTask extends Task
         $remove = new IniFileRemove();
         $this->removals[] = $remove;
         return $remove;
+    }
+
+    /**
+     * Log message at Debug level. If verbose prop is set, also log it at normal
+     *
+     * @param string $message Message to log
+     *
+     * @return bool False if message is only logged at debug level.
+     */
+    public function logDebugOrMore($message)
+    {
+        $this->log($message, Project::MSG_DEBUG);
+        if ($this->verbose) {
+            $this->log($message);
+            return true;
+        }
+        return false;
     }
 }

@@ -11,7 +11,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class EchoTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -41,6 +40,14 @@ class EchoTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('EchoTest.xml');
+    }
+
+    public function testDirset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('ext');
+        $this->assertInLogs('imports');
+        $this->assertInLogs('system');
     }
 
     public function testFilesetInline()

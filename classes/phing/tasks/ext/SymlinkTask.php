@@ -76,7 +76,7 @@ class SymlinkTask extends Task
      *
      * @var array
      */
-    private $_filesets = array();
+    private $_filesets = [];
 
     /**
      * Whether to override the symlink if it exists but points
@@ -223,7 +223,7 @@ class SymlinkTask extends Task
             return $this->getTarget();
         }
 
-        $targets = array();
+        $targets = [];
 
         foreach ($fileSets as $fs) {
             if (!($fs instanceof FileSet)) {
@@ -246,7 +246,7 @@ class SymlinkTask extends Task
                 continue;
             }
 
-            $fsTargets = array();
+            $fsTargets = [];
 
             $ds = $fs->getDirectoryScanner($this->getProject());
 

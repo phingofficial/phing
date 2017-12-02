@@ -58,5 +58,4 @@ class IsTrueCondition extends ProjectComponent implements Condition
 
         return $this->value;
     }
-
 }

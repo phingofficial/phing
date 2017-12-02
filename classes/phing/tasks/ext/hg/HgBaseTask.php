@@ -50,7 +50,7 @@ abstract class HgBaseTask extends Task
      */
     protected $user = '';
 
-    static $factory = null;
+    public static $factory = null;
     /**
      * Set repository attribute
      *
@@ -167,24 +167,13 @@ abstract class HgBaseTask extends Task
      */
     public function init()
     {
-        if (version_compare(PHP_VERSION, '5.4', "<")) {
-            throw new BuildException('This task requires PHP 5.4+');
-        } else {
-            /**
-            * Depending on composer for pulling in siad007's VersionControl_HG.
-            */
-            @include_once 'vendor/autoload.php';
-        }
+        @include_once 'vendor/autoload.php';
     }
 
-    public function getFactoryInstance($command, $options = array())
+    public function getFactoryInstance($command, $options = [])
     {
         $vchq = '\\Siad007\\VersionControl\\HG\\Factory';
-        self::$factory = call_user_func_array(
-            array($vchq, 'getInstance'),
-            array($command, $options)
-        );
+        self::$factory = $vchq::getInstance($command, $options);
         return self::$factory;
     }
-
 }
