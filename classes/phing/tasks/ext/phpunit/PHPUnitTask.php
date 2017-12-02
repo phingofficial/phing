@@ -482,7 +482,8 @@ class PHPUnitTask extends Task
             /**
              * Add some defaults to the PHPUnit filter
              */
-            $pwd = __DIR__;
+
+            $pwd = getcwd();
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
