@@ -37,7 +37,7 @@ class PathTokenizer
     /**
      * A array of tokens, created by preg_split().
      */
-    private $tokens = array();
+    private $tokens = [];
 
     /**
      * A string which stores any path components which have been read ahead
@@ -69,7 +69,6 @@ class PathTokenizer
         $this->tokens = preg_split("/[;:]/", $path, -1, PREG_SPLIT_NO_EMPTY);
 
         $this->dosStyleFilesystem = (PATH_SEPARATOR == ';');
-
     }
 
 
@@ -83,10 +82,8 @@ class PathTokenizer
      */
     public function hasMoreTokens()
     {
-
         if ($this->lookahead !== null) {
             return true;
-
         }
 
         return !empty($this->tokens);
@@ -102,15 +99,11 @@ class PathTokenizer
     public function nextToken()
     {
         if ($this->lookahead !== null) {
-
             $token = $this->lookahead;
 
             $this->lookahead = null;
-
         } else {
-
             $token = trim(array_shift($this->tokens));
-
         }
 
 
@@ -136,15 +129,12 @@ class PathTokenizer
                 // drive spec
 
                 $token .= ':' . $nextToken;
-
             } else {
 
                 // store the token just read for next time
 
                 $this->lookahead = $nextToken;
-
             }
-
         }
 
         return $token;

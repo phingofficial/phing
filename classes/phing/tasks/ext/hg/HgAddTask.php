@@ -27,30 +27,14 @@ require_once 'phing/tasks/ext/hg/HgBaseTask.php';
  */
 class HgAddTask extends HgBaseTask
 {
-    /**
-     * Linked filesets
-     *
-     * @var string
-     */
-    protected $filesets = array();
+    use FileSetAware;
+
     /**
      * Array of files to ignore
      *
      * @var string[]
      */
-    protected $ignoreFile = array();
-
-    /**
-     * Adds a fileset of files to add to the repository.
-     *
-     * @param FileSet $fileset Set of files to add to the repository.
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
+    protected $ignoreFile = [];
 
     /**
      * The main entry point method.
@@ -119,7 +103,7 @@ class HgAddTask extends HgBaseTask
                 if ($output !== '') {
                     $this->log($output);
                 }
-            } catch(Exception $ex) {
+            } catch (Exception $ex) {
                 $msg = $ex->getMessage();
                 $this->log("Exception: $msg", Project::MSG_INFO);
                 $p = strpos($msg, 'hg returned:');
@@ -140,7 +124,7 @@ class HgAddTask extends HgBaseTask
      */
     public function loadIgnoreFile()
     {
-        $ignores = array();
+        $ignores = [];
         $lines = file('.hgignore');
         foreach ($lines as $line) {
             $nline =  trim($line);

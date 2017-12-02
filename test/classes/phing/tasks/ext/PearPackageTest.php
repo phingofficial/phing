@@ -49,7 +49,7 @@ class PearPackageTest extends BuildFileTest
             $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
         }
 
-        $GLOBALS['_PEAR_Common_file_roles'] = array('php', 'ext', 'test', 'doc', 'data', 'src', 'script');
+        $GLOBALS['_PEAR_Common_file_roles'] = ['php', 'ext', 'test', 'doc', 'data', 'src', 'script'];
     }
 
     public function tearDown()

@@ -26,8 +26,7 @@ require_once 'phing/tasks/ext/phar/PharMetadata.php';
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  */
-class PharMetadataElement
-    extends PharMetadata
+class PharMetadataElement extends PharMetadata
 {
     /**
      * @var string

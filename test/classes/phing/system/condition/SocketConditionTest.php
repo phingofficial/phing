@@ -24,7 +24,7 @@ require_once 'phing/tasks/system/condition/SocketCondition.php';
  *
  * @package phing.tasks.system.condition
  */
-class SocketConditionTest extends PHPUnit_Framework_TestCase
+class SocketConditionTest extends \PHPUnit\Framework\TestCase
 {
     public function testShouldReturnFalseForNonExistingListener()
     {
@@ -34,4 +34,3 @@ class SocketConditionTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($condition->evaluate());
     }
 }
- 

@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once dirname(dirname(__FILE__)) . "/Amazon.php";
-
 /**
  * Abstract Service_Amazon_S3 class.
  *
@@ -38,30 +33,40 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      *
      * (default value: null)
      *
-     * @var Services_Amazon_S3
-     * @see Services_Amazon_S3
+     * @var Aws\S3\S3Client
      */
     protected $_client = null;
 
     /**
      * We only instantiate the client once per task call
      *
-     * @return Services_Amazon_S3
+     * @return Aws\S3\S3Client
+     *
+     * @throws \BuildException
      */
     public function getClient()
     {
-        require_once "Services/Amazon/S3.php";
-
         if ($this->_client === null) {
-            $this->_client = Services_Amazon_S3::getAccount($this->getKey(), $this->getSecret());
+            try {
+                $s3Client = new Aws\S3\S3Client(
+                    [
+                        'key' => $this->getKey(),
+                        'secret' => $this->getSecret(),
+                    ]
+                );
+            } catch (InvalidArgumentException $e) {
+                throw new BuildException($e);
+            }
+
+            $this->_client = $s3Client;
         }
 
         return $this->_client;
     }
 
     /**
-     * @param $bucket
-     * @throws BuildException
+     * @param string $bucket
+     * @throws BuildException if $bucket is a empty string
      */
     public function setBucket($bucket)
     {
@@ -73,7 +78,9 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     }
 
     /**
-     * @throws BuildException
+     * @return string
+     *
+     * @throws BuildException if bucket is not set
      */
     public function getBucket()
     {
@@ -87,12 +94,15 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Object
      *
-     * @param  mixed                              $object
-     * @return Services_Amazon_S3_Resource_Object
+     * @param  mixed $object
+     *
+     * @return Aws\Result
+     *
+     * @throws \BuildException
      */
     public function getObjectInstance($object)
     {
-        return $this->getBucketInstance()->getObject($object);
+        return $this->getClientInstance()->getObject($object);
     }
 
     /**
@@ -109,57 +119,36 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Bucket
      *
-     * @return Services_Amazon_S3_Resource_Bucket
+     * @return \Aws\S3\S3Client
      */
-    public function getBucketInstance()
+    public function getClientInstance()
     {
-        return $this->getClient()->getBucket($this->getBucket());
+        return $this->getClient();
     }
 
     /**
      * Check if the current bucket is available
      *
      * @return bool
+     *
+     * @throws \BuildException
      */
     public function isBucketAvailable()
     {
-        return (bool) $this->getBucketInstance($this->getBucket())->load();
-    }
-
-    /**
-     * Get the contents of an object (by it's name)
-     *
-     * @param  string $object
-     * @throws BuildException
-     * @return mixed
-     */
-    public function getObjectContents($object)
-    {
-        if (!$this->isBucketAvailable($this->getBucket())) {
-            throw new BuildException('Bucket doesn\'t exist or wrong permissions');
-        }
-
-        $bucket = $this->getClient()->getBucket($this->getBucket());
-        if (!$this->isObjectAvailable($object)) {
-            throw new BuildException('Object not available: ' . $object);
-        }
-
-        $object = $this->getObjectInstance($object);
-        $object->load();
-
-        return $object->data;
+        return $this->getClientInstance()->doesBucketExist($this->getBucket());
     }
 
     /**
      * Create a bucket
      *
      * @return bool
+     *
+     * @throws \BuildException
      */
     public function createBucket()
     {
-        $bucket = $this->getBucketInstance();
-        $bucket->name = $this->getBucket();
-        $bucket->save();
+        $client = $this->getClientInstance();
+        $client->createBucket(['Bucket' => $this->getBucket()]);
 
         return $this->isBucketAvailable();
     }

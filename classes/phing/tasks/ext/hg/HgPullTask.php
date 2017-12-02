@@ -75,7 +75,7 @@ class HgPullTask extends HgBaseTask
             if ($output !== '') {
                 $this->log($output);
             }
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             $msg = $ex->getMessage();
             $p = strpos($msg, 'hg returned:');
             if ($p !== false) {
@@ -87,4 +87,3 @@ class HgPullTask extends HgBaseTask
         chdir($cwd);
     }
 }
-

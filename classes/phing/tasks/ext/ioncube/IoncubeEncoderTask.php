@@ -34,13 +34,13 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  */
 class IoncubeEncoderTask extends Task
 {
-    private $ionSwitches = array();
+    private $ionSwitches = [];
 
-    private $ionOptions = array();
+    private $ionOptions = [];
 
-    private $ionOptionsXS = array();
+    private $ionOptionsXS = [];
 
-    private $comments = array();
+    private $comments = [];
 
     private $encoderName = 'ioncube_encoder';
 
@@ -578,7 +578,7 @@ class IoncubeEncoderTask extends Task
     {
         $arguments = $this->constructArguments();
 
-        if (in_array($this->phpVersion, array(5, 53, 54, 55, 56))) {
+        if (in_array($this->phpVersion, [5, 53, 54, 55, 56, 71])) {
             $encoderName = $this->encoderName . $this->phpVersion;
         } else {
             $encoderName = $this->encoderName;

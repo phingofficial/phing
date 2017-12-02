@@ -10,7 +10,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class FilesMatchTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -28,5 +27,11 @@ class FilesMatchTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');
+    }
+
+    public function testDirectoryMatches()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyUnset('directory');
     }
 }

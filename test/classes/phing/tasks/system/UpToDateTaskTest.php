@@ -28,7 +28,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class UpToDateTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -61,5 +60,4 @@ class UpToDateTaskTest extends BuildFileTest
         $this->assertInLogs('echo = value exists');
         $this->assertInLogs('echo = updated');
     }
-
 }

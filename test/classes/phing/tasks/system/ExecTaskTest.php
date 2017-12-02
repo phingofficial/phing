@@ -100,109 +100,65 @@ class ExecTaskTest extends BuildFileTest
 
     public function testPropertySetCommand()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('command', "echo 'foo'");
     }
 
     public function testPropertySetDir()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo(
             'dir',
             new PhingFile(
-                realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
+                realpath(__DIR__ . '/../../../../etc/tasks/system')
             )
         );
     }
 
     public function testPropertySetOs()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('os', "linux");
     }
 
     public function testPropertySetEscape()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('escape', true);
     }
 
     public function testPropertySetLogoutput()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('logoutput', true, 'logOutput');
     }
 
     public function testPropertySetPassthru()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('passthru', true);
     }
 
     public function testPropertySetSpawn()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('spawn', true);
     }
 
     public function testPropertySetReturnProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('returnProperty', 'retval');
     }
 
     public function testPropertySetOutputProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('outputProperty', 'outval');
     }
 
     public function testPropertySetCheckReturn()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('checkreturn', true);
     }
 
     public function testPropertySetOutput()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo(
             'output',
             new PhingFile(
-                realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
+                realpath(__DIR__ . '/../../../../etc/tasks/system')
                 . '/outputfilename'
             )
         );
@@ -210,14 +166,10 @@ class ExecTaskTest extends BuildFileTest
 
     public function testPropertySetError()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo(
             'error',
             new PhingFile(
-                realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
+                realpath(__DIR__ . '/../../../../etc/tasks/system')
                 . '/errorfilename'
             )
         );
@@ -225,46 +177,26 @@ class ExecTaskTest extends BuildFileTest
 
     public function testPropertySetLevelError()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelError', Project::MSG_ERR, 'logLevel');
     }
 
     public function testPropertySetLevelWarning()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelWarning', Project::MSG_WARN, 'logLevel');
     }
 
     public function testPropertySetLevelInfo()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelInfo', Project::MSG_INFO, 'logLevel');
     }
 
     public function testPropertySetLevelVerbose()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelVerbose', Project::MSG_VERBOSE, 'logLevel');
     }
 
     public function testPropertySetLevelDebug()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelDebug', Project::MSG_DEBUG, 'logLevel');
     }
 
@@ -274,24 +206,31 @@ class ExecTaskTest extends BuildFileTest
      */
     public function testPropertySetLevelUnknown()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->getConfiguredTask('testPropertySetLevelUnknown', 'ExecTask');
     }
 
     public function testDoNotExecuteOnWrongOs()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Not found in unknownos');
+        $this->assertInLogs('not found in the specified list of valid OSes: unknownos');
         $this->assertNotContains(
             'this should not be executed',
             $this->getOutput()
         );
     }
 
+    public function testDoNotExecuteOnWrongOsFamily()
+    {
+        $this->expectBuildException(__FUNCTION__, "Don't know how to detect os family 'unknownos'");
+    }
+
     public function testExecuteOnCorrectOs()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('this should be executed');
+    }
+
+    public function testExecuteOnCorrectOsFamily()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('this should be executed');

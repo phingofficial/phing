@@ -43,7 +43,8 @@ abstract class AbstractPropertySetterTask extends Task
         }
     }
 
-    protected function setPropertyValue($value) {
+    protected function setPropertyValue($value)
+    {
         if ($value !== null) {
             if ($this->override) {
                 if ($this->getProject()->getUserProperty($this->property) == null) {

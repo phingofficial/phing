@@ -36,12 +36,35 @@ include_once 'phing/input/MultipleChoiceInputRequest.php';
  */
 class InputTask extends Task
 {
-
+    /**
+     * @var string
+     */
     private $validargs;
+
+    /**
+     * @var string
+     */
     private $message = ""; // required
+
+    /**
+     * @var string
+     */
     private $propertyName; // required
+
+    /**
+     * @var string
+     */
     private $defaultValue;
+
+    /**
+     * @var string
+     */
     private $promptChar;
+
+    /**
+     * @var bool
+     */
+    private $hidden = false;
 
     /**
      * Defines valid input parameters as comma separated strings. If set, input
@@ -68,8 +91,7 @@ class InputTask extends Task
 
     /**
      * Sets the Message which gets displayed to the user during the build run.
-     * @param The $message
-     * @internal param The $message message to be displayed.
+     * @param string $message The message to be displayed.
      */
     public function setMessage($message)
     {
@@ -78,7 +100,7 @@ class InputTask extends Task
 
     /**
      * Set a multiline message.
-     * @param $msg
+     * @param string $msg
      */
     public function addText($msg)
     {
@@ -104,12 +126,19 @@ class InputTask extends Task
     }
 
     /**
+     * @param bool $hidden
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+    }
+
+    /**
      * Actual method executed by phing.
      * @throws BuildException
      */
     public function main()
     {
-
         if ($this->propertyName === null) {
             throw new BuildException("You must specify a value for propertyName attribute.");
         }
@@ -143,8 +172,8 @@ class InputTask extends Task
 
         // default default is curr prop value
         $request->setDefaultValue($this->project->getProperty($this->propertyName));
-
         $request->setPromptChar($this->promptChar);
+        $request->setHidden($this->hidden);
 
         // unless overridden...
         if ($this->defaultValue !== null) {
@@ -159,5 +188,4 @@ class InputTask extends Task
             $this->project->setUserProperty($this->propertyName, $value);
         }
     }
-
 }

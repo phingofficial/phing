@@ -131,6 +131,8 @@ class ExecTask extends Task
      */
     protected $checkreturn = false;
 
+    private $osFamily;
+
     /**
      *
      */
@@ -146,7 +148,7 @@ class ExecTask extends Task
      */
     public function main()
     {
-        if (!$this->isApplicable()) {
+        if (!$this->isValidOs()) {
             return;
         }
 
@@ -154,38 +156,6 @@ class ExecTask extends Task
         $this->buildCommand();
         list($return, $output) = $this->executeCommand();
         $this->cleanup($return, $output);
-    }
-
-    /**
-     * Checks whether the command shall be executed
-     *
-     * @return boolean False if the exec command shall not be run
-     */
-    protected function isApplicable()
-    {
-        if ($this->os === null) {
-            return true;
-        }
-
-        $myos = Phing::getProperty('os.name');
-        $this->log('Myos = ' . $myos, Project::MSG_VERBOSE);
-
-        if (strpos($this->os, $myos) !== false) {
-            // this command will be executed only on the specified OS
-            // OS matches
-            return true;
-        }
-
-        $this->log(
-            sprintf(
-                'Operating system %s not found in %s',
-                $myos,
-                $this->os
-            ),
-            Project::MSG_VERBOSE
-        );
-
-        return false;
     }
 
     /**
@@ -202,9 +172,15 @@ class ExecTask extends Task
         }
 
         // expand any symbolic links first
-        if (!$this->dir->getCanonicalFile()->isDirectory()) {
+        try {
+            if (!$this->dir->getCanonicalFile()->isDirectory()) {
+                throw new BuildException(
+                    "'" . (string) $this->dir . "' is not a valid directory"
+                );
+            }
+        } catch (IOException $e) {
             throw new BuildException(
-                "'" . (string) $this->dir . "' is not a valid directory"
+                "'" . (string) $this->dir . "' is not a readable directory"
             );
         }
         $this->currdir = getcwd();
@@ -270,7 +246,7 @@ class ExecTask extends Task
         if ($this->output === null && $this->error === null && $this->passthru === false) {
             $this->realCommand .= ' 2>&1';
         }
-
+        
         // we ignore the spawn boolean for windows
         if ($this->spawn) {
             $this->realCommand .= ' &';
@@ -286,7 +262,7 @@ class ExecTask extends Task
     {
         $this->log("Executing command: " . $this->realCommand, $this->logLevel);
 
-        $output = array();
+        $output = [];
         $return = null;
 
         if ($this->passthru) {
@@ -295,7 +271,7 @@ class ExecTask extends Task
             exec($this->realCommand, $output, $return);
         }
 
-        return array($return, $output);
+        return [$return, $output];
     }
 
     /**
@@ -421,6 +397,31 @@ class ExecTask extends Task
     }
 
     /**
+     * List of operating systems on which the command may be executed.
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
+
+    /**
+     * Restrict this execution to a single OS Family
+     * @param string $osFamily the family to restrict to.
+     */
+    public function setOsFamily($osFamily)
+    {
+        $this->osFamily = strtolower($osFamily);
+    }
+
+    /**
+     * Restrict this execution to a single OS Family
+     */
+    public function getOsFamily()
+    {
+        return $this->osFamily;
+    }
+
+    /**
      * File to which output should be written.
      *
      * @param PhingFile $f Output log file
@@ -453,7 +454,7 @@ class ExecTask extends Task
      */
     public function setPassthru($passthru)
     {
-        $this->passthru = (bool) $passthru;
+        $this->passthru = $passthru;
     }
 
     /**
@@ -465,7 +466,7 @@ class ExecTask extends Task
      */
     public function setLogoutput($logOutput)
     {
-        $this->logOutput = (bool) $logOutput;
+        $this->logOutput = $logOutput;
     }
 
     /**
@@ -477,7 +478,7 @@ class ExecTask extends Task
      */
     public function setSpawn($spawn)
     {
-        $this->spawn = (bool) $spawn;
+        $this->spawn = $spawn;
     }
 
     /**
@@ -489,7 +490,7 @@ class ExecTask extends Task
      */
     public function setCheckreturn($checkreturn)
     {
-        $this->checkreturn = (bool) $checkreturn;
+        $this->checkreturn = $checkreturn;
     }
 
     /**
@@ -557,5 +558,43 @@ class ExecTask extends Task
     public function createArg()
     {
         return $this->commandline->createArgument();
+    }
+
+    /**
+     * Is this the OS the user wanted?
+     * @return boolean.
+     * <ul>
+     * <li>
+     * <li><code>true</code> if the os and osfamily attributes are null.</li>
+     * <li><code>true</code> if osfamily is set, and the os family and must match
+     * that of the current OS, according to the logic of
+     * {@link Os#isOs(String, String, String, String)}, and the result of the
+     * <code>os</code> attribute must also evaluate true.
+     * </li>
+     * <li>
+     * <code>true</code> if os is set, and the system.property os.name
+     * is found in the os attribute,</li>
+     * <li><code>false</code> otherwise.</li>
+     * </ul>
+     */
+    protected function isValidOs()
+    {
+        //hand osfamily off to Os class, if set
+        if ($this->osFamily !== null && !OsCondition::isFamily($this->osFamily)) {
+            return false;
+        }
+        //the Exec OS check is different from Os.isOs(), which
+        //probes for a specific OS. Instead it searches the os field
+        //for the current os.name
+        $myos = Phing::getProperty("os.name");
+        $this->log("Current OS is " . $myos, Project::MSG_VERBOSE);
+        if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
+            // this command will be executed only on the specified OS
+            $this->log("This OS, " . $myos
+                . " was not found in the specified list of valid OSes: " . $this->os,
+                Project::MSG_VERBOSE);
+            return false;
+        }
+        return true;
     }
 }

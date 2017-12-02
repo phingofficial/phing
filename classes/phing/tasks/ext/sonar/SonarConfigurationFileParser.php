@@ -84,7 +84,7 @@ class SonarConfigurationFileParser
      */
     public function parse()
     {
-        $this->properties = array();
+        $this->properties = [];
 
         $contents = @file_get_contents($this->file);
 
@@ -163,7 +163,8 @@ class SonarConfigurationFileParser
      * @param string $line
      * @return boolean
      */
-    private function extractContinuedValue($line) {
+    private function extractContinuedValue($line)
+    {
         $isMultiLine = false;
 
         if ($this->isCommentLine($line)) {

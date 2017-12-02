@@ -39,13 +39,28 @@ include_once 'phing/mappers/MergeMapper.php';
  */
 class UpToDateTask extends Task implements Condition
 {
+    use FileListAware;
+    use FileSetAware;
 
+    /**
+     * @var string
+     */
     private $_property;
+
+    /**
+     * @var string
+     */
     private $_value;
+
+    /**
+     * @var PhingFile
+     */
     private $_sourceFile;
+
+    /**
+     * @var PhingFile
+     */
     private $_targetFile;
-    private $sourceFileSets = array();
-    private $_filelists = array();
 
     protected $mapperElement = null;
 
@@ -73,8 +88,7 @@ class UpToDateTask extends Task implements Condition
      * The value to set the named property to if the target file is more
      * up-to-date than (each of) the source file(s). Defaults to 'true'.
      *
-     * @param the $value
-     * @internal param the $value value to set the property to if Target is up-to-date
+     * @param mixed $value the value to set the property to if Target is up-to-date
      */
     public function setValue($value)
     {
@@ -93,8 +107,7 @@ class UpToDateTask extends Task implements Condition
      * The file which must be more up-to-date than (each of) the source file(s)
      * if the property is to be set.
      *
-     * @param the $file
-     * @internal param the $file file we are checking against.
+     * @param string|PhingFile $file the file we are checking against.
      */
     public function setTargetFile($file)
     {
@@ -108,8 +121,7 @@ class UpToDateTask extends Task implements Condition
      * The file that must be older than the target file
      * if the property is to be set.
      *
-     * @param the $file
-     * @internal param the $file file we are checking against the target file.
+     * @param string|PhingFile $file the file we are checking against the target file.
      */
     public function setSrcfile($file)
     {
@@ -120,46 +132,13 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * Nested <srcfiles> element.
-     *
-     * @deprecated Deprecated since Phing 2.4.0
-     */
-    public function createSrcfiles()
-    {
-        $fs = new FileSet();
-        $this->sourceFileSets[] = $fs;
-
-        return $fs;
-    }
-
-    /**
-     * Nested <fileset> element.
-     * @param FileSet $fs
-     */
-    public function addFileset(FileSet $fs)
-    {
-        $this->sourceFileSets[] = $fs;
-    }
-
-    /**
-     * Supports embedded <filelist> element.
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->_filelists, new FileList());
-
-        return $this->_filelists[$num - 1];
-    }
-
-    /**
      * Defines the FileNameMapper to use (nested mapper element).
      */
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
             throw new BuildException("Cannot define more than one mapper",
-                $this->location);
+                $this->getLocation());
         }
         $this->mapperElement = new Mapper($this->getProject());
 
@@ -174,12 +153,12 @@ class UpToDateTask extends Task implements Condition
      */
     public function evaluate()
     {
-        if (count($this->sourceFileSets) == 0 && count($this->_filelists) == 0 && $this->_sourceFile === null) {
+        if (count($this->filesets) == 0 && count($this->filelists) == 0 && $this->_sourceFile === null) {
             throw new BuildException("At least one srcfile or a nested "
                 . "<fileset> or <filelist> element must be set.");
         }
 
-        if ((count($this->sourceFileSets) > 0 || count($this->_filelists) > 0) && $this->_sourceFile !== null) {
+        if ((count($this->filesets) > 0 || count($this->filelists) > 0) && $this->_sourceFile !== null) {
             throw new BuildException("Cannot specify both the srcfile "
                 . "attribute and a nested <fileset> "
                 . "or <filelist> element.");
@@ -202,8 +181,8 @@ class UpToDateTask extends Task implements Condition
         }
 
         $upToDate = true;
-        for ($i = 0, $size = count($this->sourceFileSets); $i < $size && $upToDate; $i++) {
-            $fs = $this->sourceFileSets[$i];
+        for ($i = 0, $size = count($this->filesets); $i < $size && $upToDate; $i++) {
+            $fs = $this->filesets[$i];
             $ds = $fs->getDirectoryScanner($this->project);
             $upToDate = $upToDate && $this->scanDir(
                     $fs->getDir($this->project),
@@ -211,8 +190,8 @@ class UpToDateTask extends Task implements Condition
                 );
         }
 
-        for ($i = 0, $size = count($this->_filelists); $i < $size && $upToDate; $i++) {
-            $fl = $this->_filelists[$i];
+        for ($i = 0, $size = count($this->filelists); $i < $size && $upToDate; $i++) {
+            $fl = $this->filelists[$i];
             $srcFiles = $fl->getFiles($this->project);
             $upToDate = $upToDate && $this->scanDir(
                     $fl->getDir($this->project),
@@ -251,7 +230,7 @@ class UpToDateTask extends Task implements Condition
     {
         if ($this->_property === null) {
             throw new BuildException("property attribute is required.",
-                $this->location);
+                $this->getLocation());
         }
         $upToDate = $this->evaluate();
         if ($upToDate) {

@@ -74,13 +74,11 @@ class rSTTaskTest extends BuildFileTest
     /**
      * @expectedException BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathFail()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
             $rt = new rSTTask();
-            $rt->init();
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);
@@ -92,7 +90,6 @@ class rSTTaskTest extends BuildFileTest
 
     /**
      * Get the tool path previously set with setToolpath()
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathCustom()
     {

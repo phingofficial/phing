@@ -162,5 +162,4 @@ class ResolvePathTask extends Task
         $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), $this->logLevel);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());
     }
-
 }

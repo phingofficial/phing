@@ -18,6 +18,15 @@
                 string</para>
         </listitem>
         <listitem>
+            <para><xref xlink:href="#Readable"/> -  Select files if they are readable</para>
+        </listitem>
+        <listitem>
+            <para><xref xlink:href="#Writable"/> -  Select files if they are writable</para>
+        </listitem>
+        <listitem>
+            <para><xref xlink:href="#Executable"/> -  Select files if they are executable</para>
+        </listitem>
+        <listitem>
             <para><xref xlink:href="#Date"/> - Select files/directories that have been
                 modified either before or after a specific date/time</para>
         </listitem>
@@ -41,6 +50,9 @@
         <listitem>
             <para><xref xlink:href="#Present"/> - Select files/directories that either
                 do or do not exist in some other location</para>
+        </listitem>
+        <listitem>
+            <para><xref xlink:href="#Symlink"/> - Select files if they are symlink.</para>
         </listitem>
         <listitem>
             <para><xref xlink:href="#Containsregexp"/>&lt;containsregexp> - Select files that
@@ -428,7 +440,12 @@
                         <entry>The name of files to select. The name parameter can contain the
                             standard Phing wildcard characters.</entry>
                         <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry morerows="1">Exactly one of the two</entry>
+                    </row>
+                    <row>
+                        <entry><literal>regex</literal></entry>
+                        <entry>The regular expression matching files to select.</entry>
+                        <entry>n/a</entry>
                     </row>
                     <row>
                         <entry><literal>casesensitive</literal></entry>
@@ -542,6 +559,12 @@
                         <entry><literal>casesensitive</literal></entry>
                         <entry>Perform a case sensitive match.</entry>
                         <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>multiline</literal></entry>
+                        <entry>Perform a multi line match.</entry>
+                        <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -752,8 +775,8 @@
         <para>The <literal>&lt;readable></literal> selector selects only files that are readable.</para>
 
         <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
-            &lt;readable>
-            &lt;/fileset></programlisting>
+  &lt;readable>
+&lt;/fileset></programlisting>
 
     </sect1>
     <sect1 role="typedef" xml:id="Writable" xreflabel="&lt;Writable>">
@@ -762,8 +785,18 @@
         <para>The <literal>&lt;writable></literal> selector selects only files that are writable.</para>
 
         <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
-            &lt;writable>
-            &lt;/fileset></programlisting>
+  &lt;writable>
+&lt;/fileset></programlisting>
+
+    </sect1>
+    <sect1 role="typedef" xml:id="Executable" xreflabel="&lt;Executable>">
+        <title>Executable </title>
+
+        <para>The <literal>&lt;executable></literal> selector selects only files that are executable.</para>
+
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
+  &lt;executable>
+&lt;/fileset></programlisting>
 
     </sect1>
     <sect1 role="typedef" xml:id="Selector" xreflabel="&lt;Selector>">
@@ -773,6 +806,12 @@
             reused through references. It is the only selector which can be used outside of any
             target, as an element of the <literal><link linkend="Project">&lt;project></link></literal> tag. It can contain only
             one other selector, but of course that selector can be a container.</para>
+
+    </sect1>
+    <sect1 role="typedef" xml:id="Symlink" xreflabel="&lt;Symlink>">
+        <title>Symlink Selector </title>
+
+        <para>The <literal>&lt;symlink></literal> selector selects only files that are symbolic links.</para>
 
     </sect1>
 </appendix>

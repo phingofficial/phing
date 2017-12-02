@@ -6,9 +6,6 @@ class HgCloneTaskTest extends BuildFileTest
 {
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.4') < 0) {
-            $this->markTestSkipped("Need PHP 5.4+ for this test");
-        }
         $this->configureProject(
             PHING_TEST_BASE
             . '/etc/tasks/ext/hg/HgCloneTaskTest.xml'
@@ -42,4 +39,3 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 }
-

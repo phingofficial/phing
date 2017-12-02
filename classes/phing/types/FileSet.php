@@ -37,14 +37,11 @@ require_once 'phing/types/AbstractFileSet.php';
 class FileSet extends AbstractFileSet
 {
     /**
-     * Return a FileSet that has the same basedir and same patternsets as this one.
+     * @return array
      */
-    public function __clone()
+    public function getIterator()
     {
-        if ($this->isReference()) {
-            return new FileSet($this->getRef($this->getProject()));
-        } else {
-            return new FileSet($this);
-        }
+        $ds = $this->getDirectoryScanner($this->getProject());
+        return $ds->getIncludedFiles() + $ds->getIncludedDirectories();
     }
 }

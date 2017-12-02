@@ -38,5 +38,4 @@ class FileReader extends InputStreamReader
         $in = new FileInputStream($file);
         parent::__construct($in);
     }
-
 }

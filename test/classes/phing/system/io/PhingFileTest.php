@@ -1,6 +1,6 @@
 <?php
 
-class PhingFileTest extends PHPUnit_Framework_TestCase
+class PhingFileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var PhingFile
@@ -14,7 +14,7 @@ class PhingFileTest extends PHPUnit_Framework_TestCase
 
     public function testPathInsideBasedir()
     {
-        $this->assertEquals(basename(__FILE__), $this->file->getPathWithoutBase(dirname(__FILE__)));
+        $this->assertEquals(basename(__FILE__), $this->file->getPathWithoutBase(__DIR__));
     }
 
     public function testPathOutsideBasedir()

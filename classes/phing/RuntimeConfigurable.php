@@ -36,13 +36,13 @@ class RuntimeConfigurable
     private $elementTag = null;
 
     /** @var array $children */
-    private $children = array();
+    private $children = [];
 
     /** @var object|Task $wrappedObject */
     private $wrappedObject = null;
 
     /** @var array $attributes */
-    private $attributes = array();
+    private $attributes = [];
 
     /** @var string $characters */
     private $characters = "";

@@ -30,7 +30,7 @@ class PhkPackageWebAccess
     /**
      * @var array
      */
-    private $paths = array();
+    private $paths = [];
 
     /**
      * @return PhkPackageWebAccessPath
@@ -48,7 +48,7 @@ class PhkPackageWebAccess
         /*
          * Get real paths...
          */
-        $paths = array();
+        $paths = [];
 
         foreach ($this->paths as $path) {
             $paths[] = $path->getPath();

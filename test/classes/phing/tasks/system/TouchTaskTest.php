@@ -73,4 +73,22 @@ class TouchTaskTest extends BuildFileTest
             . "/etc/tasks/system/tmp/this/is/a/test/file"
         );
     }
+
+    public function testFilelist()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/tmp/simple-file"
+        );
+    }
+
+    public function testFileset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/tmp/simple-file"
+        );
+    }
 }

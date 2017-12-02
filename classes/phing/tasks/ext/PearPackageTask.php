@@ -78,6 +78,7 @@ include_once 'phing/types/FileSet.php';
  */
 class PearPackageTask extends MatchingTask
 {
+    use FileSetAware;
 
     /** */
     protected $package;
@@ -88,25 +89,22 @@ class PearPackageTask extends MatchingTask
     /** Package file */
     private $packageFile;
 
-    /** @var array FileSet[] */
-    private $filesets = array();
-
     /** @var PEAR_PackageFileManager */
     protected $pkg;
 
-    private $preparedOptions = array();
+    private $preparedOptions = [];
 
     /** @var array PearPkgOption[] */
-    protected $options = array();
+    protected $options = [];
 
     /** Nested <mapping> (complex options) types. */
-    protected $mappings = array();
+    protected $mappings = [];
 
     /**
      * Nested <role> elements
      * @var PearPkgRole[]
      */
-    protected $roles = array();
+    protected $roles = [];
 
     public function init()
     {
@@ -140,7 +138,7 @@ class PearPackageTask extends MatchingTask
                 throw new BuildException("You must use a <fileset> tag to specify the files to include in the package.xml");
             }
             $this->preparedOptions['filelistgenerator'] = 'Fileset';
-            $this->preparedOptions['usergeneratordir'] = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'pearpackage';
+            $this->preparedOptions['usergeneratordir'] = __DIR__ . DIRECTORY_SEPARATOR . 'pearpackage';
             // Some PHING-specific options needed by our Fileset reader
             $this->preparedOptions['phing_project'] = $this->project;
             $this->preparedOptions['phing_filesets'] = $this->filesets;
@@ -227,7 +225,6 @@ class PearPackageTask extends MatchingTask
      */
     public function main()
     {
-
         if ($this->dir === null) {
             throw new BuildException("You must specify the \"dir\" attribute for PEAR package task.");
         }
@@ -244,7 +241,6 @@ class PearPackageTask extends MatchingTask
         if (@PEAR::isError($e)) {
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
-
     }
 
     /**
@@ -259,19 +255,6 @@ class PearPackageTask extends MatchingTask
     // -------------------------------
     // Set properties from XML
     // -------------------------------
-
-    /**
-     * Nested creator, creates a FileSet for this task
-     *
-     * @param FileSet $fs
-     * @internal param FileSet $fileset Set of files to add to the package
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Set "package" property from XML.
@@ -345,237 +328,5 @@ class PearPackageTask extends MatchingTask
         $this->roles[] = $role;
 
         return $role;
-    }
-}
-
-/**
- * Generic option class is used for non-complex options.
- *
- * @package  phing.tasks.ext
- */
-class PearPkgOption
-{
-
-    private $name;
-    private $value;
-
-    /**
-     * @param $v
-     */
-    public function setName($v)
-    {
-        $this->name = $v;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param $v
-     */
-    public function setValue($v)
-    {
-        $this->value = $v;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param $txt
-     */
-    public function addText($txt)
-    {
-        $this->value = trim($txt);
-    }
-
-}
-
-/**
- * Handles complex options <mapping> elements which are hashes (assoc arrays).
- *
- * @package  phing.tasks.ext
- */
-class PearPkgMapping
-{
-
-    private $name;
-    private $elements = array();
-
-    /**
-     * @param $v
-     */
-    public function setName($v)
-    {
-        $this->name = $v;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return PearPkgMappingElement
-     */
-    public function createElement()
-    {
-        $e = new PearPkgMappingElement();
-        $this->elements[] = $e;
-
-        return $e;
-    }
-
-    /**
-     * @return array
-     */
-    public function getElements()
-    {
-        return $this->elements;
-    }
-
-    /**
-     * Returns the PHP hash or array of hashes (etc.) that this mapping represents.
-     * @return array
-     */
-    public function getValue()
-    {
-        $value = array();
-        foreach ($this->getElements() as $el) {
-            if ($el->getKey() !== null) {
-                $value[$el->getKey()] = $el->getValue();
-            } else {
-                $value[] = $el->getValue();
-            }
-        }
-
-        return $value;
-    }
-}
-
-/**
- * Sub-element of <mapping>.
- *
- * @package  phing.tasks.ext
- */
-class PearPkgMappingElement
-{
-
-    private $key;
-    private $value;
-    private $elements = array();
-
-    /**
-     * @param $v
-     */
-    public function setKey($v)
-    {
-        $this->key = $v;
-    }
-
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    /**
-     * @param $v
-     */
-    public function setValue($v)
-    {
-        $this->value = $v;
-    }
-
-    /**
-     * Returns either the simple value or
-     * the calculated value (array) of nested elements.
-     * @return mixed
-     */
-    public function getValue()
-    {
-        if (!empty($this->elements)) {
-            $value = array();
-            foreach ($this->elements as $el) {
-                if ($el->getKey() !== null) {
-                    $value[$el->getKey()] = $el->getValue();
-                } else {
-                    $value[] = $el->getValue();
-                }
-            }
-
-            return $value;
-        } else {
-            return $this->value;
-        }
-    }
-
-    /**
-     * Handles nested <element> tags.
-     */
-    public function createElement()
-    {
-        $e = new PearPkgMappingElement();
-        $this->elements[] = $e;
-
-        return $e;
-    }
-
-}
-
-/**
- * Encapsulates file roles
- *
- * @package phing.tasks.ext
- */
-class PearPkgRole
-{
-    /**
-     * @var string
-     */
-    private $extension;
-
-    /**
-     * @var string
-     */
-    private $role;
-
-    /**
-     * Sets the file extension
-     * @param string $extension
-     */
-    public function setExtension($extension)
-    {
-        $this->extension = $extension;
-    }
-
-    /**
-     * Retrieves the file extension
-     * @return string
-     */
-    public function getExtension()
-    {
-        return $this->extension;
-    }
-
-    /**
-     * Sets the role
-     * @param string $role
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * Retrieves the role
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
     }
 }

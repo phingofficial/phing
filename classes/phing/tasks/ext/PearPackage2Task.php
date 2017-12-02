@@ -90,7 +90,6 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  */
 class PearPackage2Task extends PearPackageTask
 {
-
     public function init()
     {
         include_once 'PEAR/PackageFileManager2.php';
@@ -105,7 +104,7 @@ class PearPackage2Task extends PearPackageTask
         $this->pkg->setDate(strftime('%Y-%m-%d'));
         $this->pkg->setTime(strftime('%H:%M:%S'));
 
-        $newopts = array();
+        $newopts = [];
         foreach ($this->options as $opt) {
             switch ($opt->getName()) {
                 case 'summary':
@@ -167,7 +166,7 @@ class PearPackage2Task extends PearPackageTask
         }
         $this->options = $newopts;
 
-        $newmaps = array();
+        $newmaps = [];
         foreach ($this->mappings as $map) {
             switch ($map->getName()) {
                 case 'deps':
@@ -196,7 +195,7 @@ class PearPackage2Task extends PearPackageTask
                                 $uri
                             );
                         }
-                    };
+                    }
                     break;
 
                 case 'extdeps':
@@ -214,7 +213,7 @@ class PearPackage2Task extends PearPackageTask
                             $max,
                             $rec
                         );
-                    };
+                    }
                     break;
 
                 case 'maintainers':
@@ -289,5 +288,4 @@ class PearPackage2Task extends PearPackageTask
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
     }
-
 }

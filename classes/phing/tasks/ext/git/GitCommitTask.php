@@ -31,6 +31,8 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  */
 class GitCommitTask extends GitBaseTask
 {
+    use FileSetAware;
+
     /**
      * @var boolean
      */
@@ -40,11 +42,6 @@ class GitCommitTask extends GitBaseTask
      * @var string
      */
     private $message;
-
-    /**
-     * @var FileSet[]
-     */
-    private $filesets = array();
 
     /**
      * The main entry point for the task
@@ -59,12 +56,12 @@ class GitCommitTask extends GitBaseTask
             throw new BuildException('"allFiles" cannot be false if no filesets are specified.');
         }
 
-        $options = array();
+        $options = [];
         if ($this->allFiles === true) {
             $options['all'] = true;
         }
 
-        $arguments = array();
+        $arguments = [];
         if ($this->allFiles !== true) {
             foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($this->project);
@@ -144,16 +141,5 @@ class GitCommitTask extends GitBaseTask
     public function setMessage($message)
     {
         $this->message = $message;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/ComposerTask.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class ComposerTaskTest extends PHPUnit_Framework_TestCase
+class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ComposerTask
@@ -97,18 +97,15 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
 
     public function testMultipleCalls()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped('At least PHP 5.3.2 is required');
-        }
         $o = $this->object;
         $o->setPhp('php');
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php composer.phar install --dry-run', strval($method->invoke($o)));
+        $this->assertEquals('php composer.phar install --dry-run', (string)$method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php composer.phar update --dev', strval($method->invoke($o)));
+        $this->assertEquals('php composer.phar update --dev', (string)$method->invoke($o));
     }
 }

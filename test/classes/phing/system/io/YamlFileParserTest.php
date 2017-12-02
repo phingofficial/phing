@@ -27,7 +27,7 @@ include_once 'phing/system/io/FileParserInterface.php';
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class YamlFileParserTest extends PHPUnit_Framework_TestCase
+class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FileParserInterface
@@ -49,8 +49,8 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        if (phpversion() < 5.3 || !class_exists('\Symfony\Component\Yaml\Parser')) {
-            $this->markTestSkipped('Yaml is not installed.');
+        if (!class_exists('\Symfony\Component\Yaml\Parser')) {
+            $this->markTestSkipped('Yaml parser is not installed.');
             exit;
         }
         $this->yamlFileStub = PHING_TEST_BASE .  "/etc/system/io/config.yml";

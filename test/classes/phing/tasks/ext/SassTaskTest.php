@@ -4,14 +4,12 @@ require_once '../classes/phing/tasks/ext/SassTask.php';
 
 class SassTaskTest extends BuildFileTest
 {
-
     protected $object;
 
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/SassTaskTest.xml");
         $this->object = new SassTask();
-
     }
 
     public function testCheckDefaults()
@@ -124,4 +122,3 @@ class SassTaskTest extends BuildFileTest
         );
     }
 }
-?>

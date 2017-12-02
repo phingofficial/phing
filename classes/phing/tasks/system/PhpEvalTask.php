@@ -36,12 +36,11 @@ require_once 'phing/Task.php';
  */
 class PhpEvalTask extends Task
 {
-
     protected $expression; // Expression to evaluate
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
     protected $returnProperty = null; // name of property to set to return value
-    protected $params = array(); // parameters for function calls
+    protected $params = []; // parameters for function calls
 
     protected $logLevel = Project::MSG_INFO;
 
@@ -73,17 +72,16 @@ class PhpEvalTask extends Task
     /** Main entry point. */
     public function main()
     {
-
         if ($this->function === null && $this->expression === null) {
-            throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->location);
+            throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->getLocation());
         }
 
         if ($this->function !== null && $this->expression !== null) {
-            throw new BuildException("You can specify function or expression, but not both.", $this->location);
+            throw new BuildException("You can specify function or expression, but not both.", $this->getLocation());
         }
 
         if ($this->expression !== null && !empty($this->params)) {
-            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->location);
+            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->getLocation());
         }
 
         if ($this->function !== null) {
@@ -99,12 +97,11 @@ class PhpEvalTask extends Task
      */
     protected function callFunction()
     {
-
         if ($this->class !== null) {
             // import the classname & unqualify it, if necessary
             $this->class = Phing::import($this->class);
 
-            $user_func = array($this->class, $this->function);
+            $user_func = [$this->class, $this->function];
             $h_func = $this->class . '::' . $this->function; // human-readable (for log)
         } else {
             $user_func = $this->function;
@@ -112,7 +109,7 @@ class PhpEvalTask extends Task
         }
 
         // put parameters into simple array
-        $params = array();
+        $params = [];
         foreach ($this->params as $p) {
             $params[] = $p->getValue();
         }
@@ -196,37 +193,5 @@ class PhpEvalTask extends Task
         $this->params[] = $p;
 
         return $p;
-    }
-}
-
-/**
- * Supports the <param> nested tag for PhpTask.
- *
- * @package  phing.tasks.system
- */
-class FunctionParam
-{
-
-    private $val;
-
-    /**
-     * @param $v
-     */
-    public function setValue($v)
-    {
-        $this->val = $v;
-    }
-
-    /**
-     * @param $v
-     */
-    public function addText($v)
-    {
-        $this->val = $v;
-    }
-
-    public function getValue()
-    {
-        return $this->val;
     }
 }

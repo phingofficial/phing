@@ -32,7 +32,7 @@ class SvnLastRevisionTaskTest extends AbstractSvnTaskTest
     public function setUp()
     {
         $this->initialize('SvnLastRevisionTest.xml');
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
     public function testGetLastRevision()

@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-require_once dirname(dirname(__FILE__)) . '/S3.php';
+require_once dirname(__DIR__) . '/S3.php';
 
 /**
  * Downloads an object off S3
@@ -117,6 +117,13 @@ class S3GetTask extends Service_Amazon_S3
             $target = rtrim($target, '/') . '/' . $this->getObject();
         }
 
-        file_put_contents($target, $this->getObjectContents($this->getObject()));
+        $client = $this->getClientInstance();
+        $client->getObject(
+            [
+                'Bucket' => $this->getBucket(),
+                'Key'    => $this->getObject(),
+                'SaveAs' => $target
+            ]
+        );
     }
 }

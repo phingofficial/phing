@@ -93,7 +93,6 @@ class AppendTaskTest extends BuildFileTest
         $newSize = $file2->length();
 
         $this->assertEquals($origSize, $newSize);
-
     }
 
     public function testAppend()
@@ -109,7 +108,6 @@ class AppendTaskTest extends BuildFileTest
         $newSize = $file2->length();
 
         $this->assertEquals($origSize * 2, $newSize);
-
     }
 
     public function testFilter()

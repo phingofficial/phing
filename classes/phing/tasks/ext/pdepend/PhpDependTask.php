@@ -34,6 +34,8 @@ require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
  */
 class PhpDependTask extends Task
 {
+    use FileSetAware;
+
     /**
      * A php source code filename or directory
      *
@@ -42,19 +44,12 @@ class PhpDependTask extends Task
     protected $file = null;
 
     /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = array();
-
-    /**
      * List of allowed file extensions. Default file extensions are <b>php</b>
      * and <p>php5</b>.
      *
      * @var array<string>
      */
-    protected $allowedFileExtensions = array('php', 'php5');
+    protected $allowedFileExtensions = ['php', 'php5'];
 
     /**
      * List of exclude directories. Default exclude dirs are <b>.git</b>,
@@ -62,14 +57,14 @@ class PhpDependTask extends Task
      *
      * @var array<string>
      */
-    protected $excludeDirectories = array('.git', '.svn', 'CVS');
+    protected $excludeDirectories = ['.git', '.svn', 'CVS'];
 
     /**
      * List of exclude packages
      *
      * @var array<string>
      */
-    protected $excludePackages = array();
+    protected $excludePackages = [];
 
     /**
      * Should the parse ignore doc comment annotations?
@@ -104,14 +99,14 @@ class PhpDependTask extends Task
      *
      * @var PhpDependLoggerElement[]
      */
-    protected $loggers = array();
+    protected $loggers = [];
 
     /**
      * Analyzer elements
      *
      * @var PhpDependAnalyzerElement[]
      */
-    protected $analyzers = array();
+    protected $analyzers = [];
 
     /**
      * Holds the PHP_Depend runner instance
@@ -189,24 +184,13 @@ class PhpDependTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Sets a list of filename extensions for valid php source code files
      *
      * @param string $fileExtensions List of valid file extensions
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->allowedFileExtensions = array();
+        $this->allowedFileExtensions = [];
 
         $token = ' ,;';
         $ext = strtok($fileExtensions, $token);
@@ -224,7 +208,7 @@ class PhpDependTask extends Task
      */
     public function setExcludeDirectories($excludeDirectories)
     {
-        $this->excludeDirectories = array();
+        $this->excludeDirectories = [];
 
         $token = ' ,;';
         $pattern = strtok($excludeDirectories, $token);
@@ -242,7 +226,7 @@ class PhpDependTask extends Task
      */
     public function setExcludePackages($excludePackages)
     {
-        $this->excludePackages = array();
+        $this->excludePackages = [];
 
         $token = ' ,;';
         $pattern = strtok($excludePackages, $token);
@@ -466,7 +450,7 @@ class PhpDependTask extends Task
      */
     private function getFilesToParse()
     {
-        $filesToParse = array();
+        $filesToParse = [];
 
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->__toString();
@@ -507,10 +491,10 @@ class PhpDependTask extends Task
 
         if ($this->debug) {
             // Enable debug logging
-            call_user_func('PDepend\\Util\\Log::setSeverity', 1);
+            PDepend\Util\Log::setSeverity(1);
         }
 
-        call_user_func('PDepend\\Util\\ConfigurationInstance::set', $configuration);
+        PDepend\Util\ConfigurationInstance::set($configuration);
 
         return $runner;
     }

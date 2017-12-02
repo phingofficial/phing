@@ -46,23 +46,11 @@ require_once 'phing/Task.php';
  */
 class ReflexiveTask extends Task
 {
+    use FileSetAware;
+    use FilterChainAware;
 
     /** Single file to process. */
     private $file;
-
-    /**
-     * Any filesets that should be processed.
-     *
-     * @var FileSet[]
-     */
-    private $filesets = array();
-
-    /**
-     * Any filters to be applied before append happens.
-     *
-     * @var FilterChain[]
-     */
-    private $filterChains = array();
 
     /** Alias for setFrom()
      * @param PhingFile $f
@@ -72,33 +60,9 @@ class ReflexiveTask extends Task
         $this->file = $f;
     }
 
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
-    }
-
     /** Append the file(s). */
     public function main()
     {
-
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("You must specify a file or fileset(s) for the <reflexive> task.");
         }
@@ -106,7 +70,7 @@ class ReflexiveTask extends Task
         // compile a list of all files to modify, both file attrib and fileset elements
         // can be used.
 
-        $files = array();
+        $files = [];
 
         if ($this->file !== null) {
             $files[] = $this->file;
@@ -167,7 +131,6 @@ class ReflexiveTask extends Task
                 }
                 $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
             }
-
         }
     }
 }

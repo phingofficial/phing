@@ -36,13 +36,6 @@ include_once 'phing/BuildException.php';
 class DataType extends ProjectComponent
 {
     /**
-     * The descriptin the user has set.
-     *
-     * @var string $description
-     */
-    public $description = null;
-
-    /**
      * Value to the refid attribute.
      *
      * @var Reference $ref
@@ -59,29 +52,6 @@ class DataType extends ProjectComponent
      * @var boolean
      */
     protected $checked = true;
-
-    /**
-     * Sets a description of the current data type. It will be useful
-     * in commenting what we are doing.
-     *
-     * @param string $desc
-     *
-     * @return void
-     */
-    public function setDescription($desc)
-    {
-        $this->description = (string) $desc;
-    }
-
-    /**
-     * Return the description for the current data type.
-     *
-     * @retujrn string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 
     /**
      * Has the refid attribute of this element been set?
@@ -108,6 +78,14 @@ class DataType extends ProjectComponent
     {
         $this->ref = $r;
         $this->checked = false;
+    }
+
+    /**
+     * @param bool $checked
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
     }
 
     /**
@@ -156,7 +134,7 @@ class DataType extends ProjectComponent
                 // throw build exception
                 throw $this->circularReference();
             } else {
-                array_push($stk, $o);
+                $stk[] = $o;
                 $o->dieOnCircularReference($stk, $p);
                 array_pop($stk);
             }
@@ -166,7 +144,7 @@ class DataType extends ProjectComponent
 
     public static function pushAndInvokeCircularReferenceCheck(DataType $dt, &$stk, Project $p)
     {
-        array_push($stk, $dt);
+        $stk[] = $dt;
         $dt->dieOnCircularReference($stk, $p);
         array_pop($stk);
     }
@@ -185,7 +163,7 @@ class DataType extends ProjectComponent
     {
         if (!$this->checked) {
             // should be in stack
-            $stk = array();
+            $stk = [];
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->getProject());
         }

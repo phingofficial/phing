@@ -72,7 +72,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * different sources available
      * @var array
      */
-    private $_tokensources = array();
+    private $_tokensources = [];
 
     /**
      * Character marking the beginning of a token.
@@ -234,7 +234,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     /**
      * Returns the "end token" character.
      *
-     * @return the character used to denote the beginning of a token
+     * @return string the character used to denote the beginning of a token
      */
     public function getEndToken()
     {
@@ -248,7 +248,6 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     private function replaceTokenCallback($matches)
     {
-
         $filetoken = $matches[1];
 
         // We look in all specified directories for the named file and use
@@ -313,7 +312,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         // filter buffer
         $buffer = preg_replace_callback(
             "$" . preg_quote($this->_beginToken) . "([\w\.\-:\/]+?)" . preg_quote($this->_endToken) . "$",
-            array($this, 'replaceTokenCallback'),
+            [$this, 'replaceTokenCallback'],
             $buffer
         );
 
@@ -361,10 +360,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
                 if ($params[$i] !== null) {
                     $name = $params[$i]->getName();
                     switch ($name) {
-                        case 'begintoken' :
+                        case 'begintoken':
                             $this->_beginToken = $params[$i]->getValue();
                             break;
-                        case 'endtoken' :
+                        case 'endtoken':
                             $this->_endToken = $params[$i]->getValue();
                             break;
                         case 'dir':

@@ -77,9 +77,9 @@ class GrowlNotifyTaskTest extends BuildFileTest
 
         $gntpMock = Net_Growl::singleton(
             $name,
-            array(),
+            [],
             '',
-            array('protocol' => 'gntpMock')
+            ['protocol' => 'gntpMock']
         );
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .

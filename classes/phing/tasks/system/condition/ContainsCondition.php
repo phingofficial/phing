@@ -32,7 +32,6 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class ContainsCondition implements Condition
 {
-
     private $string;
     private $subString;
     private $caseSensitive = true;
@@ -77,6 +76,6 @@ class ContainsCondition implements Condition
 
         return $this->caseSensitive
             ? strpos($this->string, $this->subString) !== false
-            : strpos(strtolower($this->string), strtolower($this->subString)) !== false;
+            : stripos($this->string, $this->subString) !== false;
     }
 }

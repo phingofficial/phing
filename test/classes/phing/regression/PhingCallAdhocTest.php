@@ -30,7 +30,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class PhingCallAdhocTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/299/build.xml");

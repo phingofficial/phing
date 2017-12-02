@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MoveTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="testMoveSingleFile">
+        <touch file="${tmp.dir}/fileA"/>
+        <move file="${tmp.dir}/fileA" tofile="${tmp.dir}/fileB"/>
+    </target>
+
+    <target name="testMoveFileSet">
+        <mkdir dir="${tmp.dir}/base"/>
+        <mkdir dir="${tmp.dir}/base/f"/>
+        <touch file="${tmp.dir}/base/fileA"/>
+        <move todir="${tmp.dir}/new">
+            <fileset dir="${tmp.dir}/base">
+                <include name="fileA"/>
+            </fileset>
+        </move>
+    </target>
+
+    <target name="testRenameDirectory">
+        <mkdir dir="${tmp.dir}/base"/>
+        <mkdir dir="${tmp.dir}/base/f"/>
+        <touch file="${tmp.dir}/base/fileA"/>
+        <move file="${tmp.dir}/base/" tofile="${tmp.dir}/new"/>
+    </target>
+
+    <target name="testIgnoreErrors">
+        <move file="no_such_file.txt" tofile="other_path.txt" overwrite="true" haltonerror="false" />
+    </target>
+
+    <target name="testReplaceRegexp">
+        <echo file="${tmp.dir}/sourcefile.txt">FOO</echo>
+        <move file="${tmp.dir}/sourcefile.txt" tofile="${tmp.dir}/anotherfile.bak" overwrite="true">
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="FOO" replace="BAR" ignoreCase="true"/>
+                </replaceregexp>
+            </filterchain>
+        </move>
+    </target>
+
+    <target name="main"/>
+</project>

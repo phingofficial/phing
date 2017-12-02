@@ -49,7 +49,7 @@ class ApiGenTask extends Task
      *
      * @var string
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * Sets the ApiGen executable name.
@@ -262,7 +262,7 @@ class ApiGenTask extends Task
      */
     public function setInternal($internal)
     {
-        if((bool) $internal) {
+        if ((bool) $internal) {
             $this->options['internal'] = null;
         }
     }
@@ -274,7 +274,7 @@ class ApiGenTask extends Task
      */
     public function setPhp($php)
     {
-        if((bool) $php) {
+        if ((bool) $php) {
             $this->options['php'] = null;
         }
     }
@@ -286,7 +286,7 @@ class ApiGenTask extends Task
      */
     public function setTree($tree)
     {
-        if((bool) $tree) {
+        if ((bool) $tree) {
             $this->options['tree'] = null;
         }
     }
@@ -298,7 +298,7 @@ class ApiGenTask extends Task
      */
     public function setDeprecated($deprecated)
     {
-        if((bool) $deprecated) {
+        if ((bool) $deprecated) {
             $this->options['deprecated'] = null;
         }
     }
@@ -310,7 +310,7 @@ class ApiGenTask extends Task
      */
     public function setTodo($todo)
     {
-        if((bool) $todo) {
+        if ((bool) $todo) {
             $this->options['todo'] = null;
         }
     }
@@ -322,7 +322,7 @@ class ApiGenTask extends Task
      */
     public function setSourceCode($noSourceCode)
     {
-        if(!((bool) $noSourceCode)) {
+        if (!((bool) $noSourceCode)) {
             $this->options['no-source-code'] = null;
         }
     }
@@ -330,7 +330,7 @@ class ApiGenTask extends Task
     /**
      * Sets if highlighted source code files should not be generated.
      *
-     * @deprecated 
+     * @deprecated
      * @param boolean $noSourceCode
      */
     public function setNoSourceCode($noSourceCode)
@@ -345,7 +345,7 @@ class ApiGenTask extends Task
      */
     public function setDownload($download)
     {
-        if((bool) $download) {
+        if ((bool) $download) {
             $this->options['download'] = null;
         }
     }
@@ -357,7 +357,7 @@ class ApiGenTask extends Task
      */
     public function setDebug($debug)
     {
-        if((bool) $debug) {
+        if ((bool) $debug) {
             $this->options['debug'] = null;
         }
     }
@@ -418,7 +418,7 @@ class ApiGenTask extends Task
      */
     protected function constructArguments()
     {
-        $args = array();
+        $args = [];
         foreach ($this->options as $option => $value) {
             if (is_bool($value)) {
                 $args[] = '--' . $option . '=' . ($value ? 'yes' : 'no');
