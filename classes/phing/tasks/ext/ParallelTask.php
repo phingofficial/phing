@@ -56,18 +56,18 @@ class ParallelTask extends SequentialTask
 
     public function main()
     {
-        if (!class_exists('DocBlox_Parallel_Worker')) {
+        if (!class_exists('MehrAlsNix\Parallel\Worker')) {
             throw new BuildException(
                 'ParallelTask depends on DocBlox being installed and on include_path.',
                 $this->getLocation()
             );
         }
 
-        $mgr = new DocBlox_Parallel_Manager();
+        $mgr = new MehrAlsNix\Parallel\Manager();
         $mgr->setProcessLimit($this->threadCount);
 
         foreach ($this->nestedTasks as $task) {
-            $worker = new DocBlox_Parallel_Worker(
+            $worker = new MehrAlsNix\Parallel\Worker(
                 [$task, 'perform'],
                 [$task]
             );
@@ -77,7 +77,7 @@ class ParallelTask extends SequentialTask
 
         $mgr->execute();
 
-        /** @var DocBlox_Parallel_Worker $nestedTask */
+        /** @var MehrAlsNix\Parallel\Worker $nestedTask */
         foreach ($mgr as $nestedTask) {
             if ($nestedTask->getError() === "") {
                 continue;
