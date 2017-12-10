@@ -18,38 +18,34 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
+require_once 'phing/tasks/ext/phpunit/formatter5/PHPUnitResultFormatter5.php';
 /**
  * Prints Clover XML output of the test
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author Daniel Kreckel <daniel@kreckel.koeln>
+ * @version $Id$
  * @package phing.tasks.ext.formatter
+ * @since 2.1.1
  */
-class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
+class Crap4jPHPUnitResultFormatter5 extends PHPUnitResultFormatter5
 {
     /**
-     * @var PHPUnit\Framework\TestResult
+     * @var PHPUnit_Framework_TestResult
      */
     private $result = null;
-
     /**
      * PHPUnit version
      * @var string
      */
     private $version = null;
-
     /**
      * @param PHPUnitTask $parentTask
      */
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
-
-        $this->version = PHPUnit\Runner\Version::id();
+        $this->version = PHPUnit_Runner_Version::id();
     }
-
     /**
      * @return string
      */
@@ -57,39 +53,38 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         return ".xml";
     }
-
     /**
      * @return string
      */
     public function getPreferredOutfile()
     {
-        return "clover-coverage";
+        return "crap4j-coverage";
     }
-
+    
     /**
-     * @param PHPUnit\Framework\TestResult $result
+     * @param PHPUnit_Framework_TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(PHPUnit_Framework_TestResult $result)
     {
         $this->result = $result;
     }
-
+    
     public function endTestRun()
     {
         $coverage = $this->result->getCodeCoverage();
-
         if (!empty($coverage)) {
-            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
-            $clover = new $cloverClass;
-
-            $contents = $clover->process($coverage);
-
+            if (class_exists('PHP_CodeCoverage_Report_Crap4j')) {
+                $crap = new PHP_CodeCoverage_Report_Crap4j();
+            } elseif (class_exists('\SebastianBergmann\CodeCoverage\Report\Crap4j')) {
+                $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
+                $crap = new $crapClass();
+            }
+            $contents = $crap->process($coverage);
             if ($this->out) {
                 $this->out->write($contents);
                 $this->out->close();
             }
         }
-
         parent::endTestRun();
     }
 }

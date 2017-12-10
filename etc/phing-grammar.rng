@@ -106,6 +106,7 @@
                 <ref name="filesize"/>
                 <ref name="filesync"/>
                 <ref name="ftpdeploy"/>
+                <ref name="gitarchive"/>
                 <ref name="gitbranch"/>
                 <ref name="gitcheckout"/>
                 <ref name="gitclone"/>
@@ -2485,6 +2486,9 @@
                         <data type="boolean"/>
                     </attribute>
                     <attribute name="identityFile"/>
+                    <attribute name="port">
+                        <data type="int" />
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -2577,6 +2581,29 @@
         git Manipulation tasks
         =========================================
     -->
+
+    <define name="gitarchive">
+        <element name="gitarchive">
+            <interleave>
+                <choice>
+                    <attribute name="repository"/>
+                    <attribute name="remoterepo"/>
+                </choice>
+                <optional>
+                    <attribute name="prefix"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
+                <optional>
+                    <attribute name="gitpath"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
 
     <define name="gitbranch">
         <element name="gitbranch">
