@@ -36,6 +36,7 @@ class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
         parent::endTestRun();
 
         $sb = "Total tests run: " . $this->getRunCount();
+        $sb .= ", Warnings: " . $this->getWarningCount();
         $sb .= ", Failures: " . $this->getFailureCount();
         $sb .= ", Errors: " . $this->getErrorCount();
         $sb .= ", Incomplete: " . $this->getIncompleteCount();

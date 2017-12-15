@@ -78,6 +78,7 @@ include_once 'phing/types/FileSet.php';
  */
 class PearPackageTask extends MatchingTask
 {
+    use FileSetAware;
 
     /** */
     protected $package;
@@ -87,9 +88,6 @@ class PearPackageTask extends MatchingTask
 
     /** Package file */
     private $packageFile;
-
-    /** @var array FileSet[] */
-    private $filesets = [];
 
     /** @var PEAR_PackageFileManager */
     protected $pkg;
@@ -257,19 +255,6 @@ class PearPackageTask extends MatchingTask
     // -------------------------------
     // Set properties from XML
     // -------------------------------
-
-    /**
-     * Nested creator, creates a FileSet for this task
-     *
-     * @param FileSet $fs
-     * @internal param FileSet $fileset Set of files to add to the package
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Set "package" property from XML.

@@ -329,7 +329,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if ($params[$i] !== null) {
                     $type = $params[$i]->getType();
                     if ($type === "tokenchar") {

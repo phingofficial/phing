@@ -47,6 +47,7 @@ class UnknownElement extends Task
      */
     public function __construct($elementName)
     {
+        parent::__construct();
         $this->elementName = (string) $elementName;
     }
 
@@ -219,5 +220,24 @@ class UnknownElement extends Task
         return $this->realThing === null || !$this->realThing instanceof Task
             ? parent::getTaskName()
             : $this->realThing->getTaskName();
+    }
+
+    /**
+     * Return the configured object
+     *
+     * @return object the real thing whatever it is
+     */
+    public function getRealThing()
+    {
+        return $this->realThing;
+    }
+
+    /**
+     * Set the configured object
+     * @param object $realThing the configured object
+     */
+    public function setRealThing($realThing)
+    {
+        $this->realThing = $realThing;
     }
 }
