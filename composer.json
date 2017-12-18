@@ -22,7 +22,7 @@
         "docs": "https://www.phing.info/docs/guide/stable/"
     },
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "sebastian/version": "^2.0",
         "symfony/console": "^2.8 || ^3.0 || ^4.0",
         "symfony/yaml": "^2.8 || ^3.1 || ^4.0",
@@ -58,10 +58,7 @@
         "bin/phing"
     ],
     "config": {
-        "bin-dir": "bin",
-        "platform": {
-            "php": "5.6"
-        }
+        "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {
