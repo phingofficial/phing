@@ -2,6 +2,11 @@ P     H     I     N     G
 =========================
 
 
+Dec. 22, 2017 - Phing 2.16.1
+----------------------------
+
+This release fixes a Symfony 4 compatibility issue.
+
 Dec. 22, 2016 - Phing 2.16.0
 ----------------------------
 
