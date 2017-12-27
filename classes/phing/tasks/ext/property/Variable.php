@@ -181,7 +181,7 @@ class Variable extends PropertyTask
                 );
             }
         } catch (IOException $ex) {
-            throw new BuildException($ex, $this->location);
+            throw new BuildException($ex, $this->getLocation());
         }
     }
 
