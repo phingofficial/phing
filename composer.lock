@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfe9418a31b0ef9b90995234dbd2cd28",
+    "content-hash": "8dbb9819fef66e190d2e42792856bff7",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -5383,12 +5383,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": ">=7.1"
     },
     "platform-dev": {
         "ext-pdo_sqlite": "*"
-    },
-    "platform-overrides": {
-        "php": "5.6"
     }
 }
