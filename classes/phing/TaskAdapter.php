@@ -45,15 +45,15 @@ class TaskAdapter extends Task
      */
     public function main()
     {
-        if (method_exists($this->proxy, "setLocation")) {
+        if (method_exists($this->proxy, 'setLocation')) {
             try { // try to set location
                 $this->proxy->setLocation($this->getLocation());
             } catch (Exception $ex) {
-                $this->log("Error setting location in " . get_class($this->proxy) . Project::MSG_ERR);
+                $this->log('Error setting location in ' . get_class($this->proxy) . Project::MSG_ERR);
                 throw new BuildException($ex);
             }
         } else {
-            throw new Exception("Error setting location in class " . get_class($this->proxy));
+            throw new Exception('Error setting location in class ' . get_class($this->proxy));
         }
 
         if (method_exists($this->proxy, "setProject")) {
