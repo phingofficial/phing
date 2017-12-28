@@ -576,10 +576,14 @@ class PhingTask extends Task
      * The target of the new Phing project to execute.
      * Defaults to the new project's default target.
      *
-     * @param $s
+     * @param string $s
      */
-    public function setTarget($s)
+    public function setTarget(string $s)
     {
+        if ('' === $s) {
+            throw new BuildException("target attribute must not be empty");
+        }
+
         $this->newTarget = $s;
     }
 
