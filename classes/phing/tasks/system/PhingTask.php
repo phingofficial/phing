@@ -115,7 +115,9 @@ class PhingTask extends Task
         $this->init();
         $count = count($this->properties);
         for ($i = 0; $i < $count; $i++) {
+            /** @var PropertyTask $p */
             $p = $this->properties[$i];
+            /** @var PropertyTask $newP */
             $newP = $this->newProject->createTask("property");
             $newP->setName($p->getName());
             if ($p->getValue() !== null) {
@@ -136,9 +138,10 @@ class PhingTask extends Task
             if ($p->getUserProperty() !== null) {
                 $newP->setUserProperty($p->getUserProperty());
             }
-            if ($p->getOverride() !== null) {
-                $newP->setOverride($p->getOverride());
-            }
+            $newP->setOverride($p->getOverride());
+            $newP->setLogoutput($p->getLogoutput());
+            $newP->setQuiet($p->getQuiet());
+
             $this->properties[$i] = $newP;
         }
     }
