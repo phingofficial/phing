@@ -306,6 +306,14 @@ class PropertyTask extends Task
     }
 
     /**
+     * @return bool
+     */
+    public function getQuiet(): bool
+    {
+        return $this->quiet;
+    }
+
+    /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
      * here is where it is loaded
