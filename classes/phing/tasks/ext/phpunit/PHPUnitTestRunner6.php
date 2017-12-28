@@ -441,14 +441,14 @@ class PHPUnitTestRunner6 extends \PHPUnit\Runner\BaseTestRunner implements \PHPU
 
         if (!empty($this->excludeGroups)) {
             $filterFactory->addFilter(
-                new ReflectionClass('PHPUnit\Runner\Filter\Group\Exclude'),
+                new ReflectionClass(\PHPUnit\Runner\Filter\ExcludeGroupFilterIterator::class),
                 $this->excludeGroups
             );
         }
 
         if (!empty($this->groups)) {
             $filterFactory->addFilter(
-                new ReflectionClass('PHPUnit\Runner\Filter\Group\Include'),
+                new ReflectionClass(\PHPUnit\Runner\Filter\IncludeGroupFilterIterator::class),
                 $this->groups
             );
         }

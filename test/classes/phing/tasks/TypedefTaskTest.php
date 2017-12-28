@@ -50,7 +50,7 @@ class TypedefTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit\Framework\Error\Error
      */
     public function testClassNotFound()
     {
