@@ -215,9 +215,7 @@ class PhingTask extends Task
         $savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
 
         try {
-            if ($this->newProject === null) {
-                $this->reinit();
-            }
+            $this->getNewProject();
 
             $this->initializeProject();
 
@@ -310,6 +308,18 @@ class PhingTask extends Task
         if ($this->haltOnFailure && $buildFailed) {
             throw new BuildException("Execution of the target buildfile failed. Aborting.");
         }
+    }
+
+    /**
+     * Get the (sub)-Project instance currently in use.
+     * @return Project
+     */
+    protected function getNewProject(): \Project
+    {
+        if ($this->newProject === null) {
+            $this->reinit();
+        }
+        return $this->newProject;
     }
 
     /**
@@ -578,7 +588,7 @@ class PhingTask extends Task
     public function createProperty()
     {
         $p = new PropertyTask();
-        $p->setFallback($this->newProject);
+        $p->setFallback($this->getNewProject());
         $p->setUserProperty(true);
         $this->properties[] = $p;
 
