@@ -400,11 +400,7 @@ class Target implements TaskContainer
 
         $result = true;
         foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
+            $test = $this->getProject()->replaceProperties($property);
             $result = $result && ($this->project->getProperty($test) !== null);
         }
 
@@ -428,11 +424,7 @@ class Target implements TaskContainer
 
         $result = true;
         foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
+            $test = $this->getProject()->replaceProperties($property);
             $result = $result && ($this->project->getProperty($test) === null);
         }
 

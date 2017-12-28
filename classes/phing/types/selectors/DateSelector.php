@@ -51,6 +51,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function __construct()
     {
+        parent::__construct();
         //if (Os.isFamily("dos")) {
         //    granularity = 2000;
         //}

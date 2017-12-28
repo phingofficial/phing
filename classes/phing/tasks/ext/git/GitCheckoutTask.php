@@ -125,7 +125,7 @@ class GitCheckoutTask extends GitBaseTask
             sprintf('git-checkout: checkout "%s" repository', $this->getRepository()),
             Project::MSG_INFO
         );
-        $this->log('git-checkout output: ' . trim($output), Project::MSG_INFO);
+        $this->log('git-checkout output: ' . str_replace('\'', '', trim($output)), Project::MSG_INFO);
     }
 
     /**

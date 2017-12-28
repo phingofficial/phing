@@ -1037,7 +1037,7 @@
                         <entry><literal>exclude</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Excluded file matching pattern. Use
-                        comma seperated values to exclude multiple
+                        comma separated values to exclude multiple
                         files/directories, e.g.: a,b</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
@@ -1105,6 +1105,13 @@
                         <entry><literal role="type">String</literal></entry>
                         <entry>Identity file for ssh authentication of a remote transfer.</entry>
                         <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>port</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Port for ssh authentication used by <literal>identityFile</literal>.</entry>
+                        <entry>22</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -1303,6 +1310,96 @@
                     <para>The files to deploy</para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="GitArchiveTask">
+        <title>GitArchiveTask</title>
+        <para>Create an archive of files from a named tree.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>gitPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git binary</entry>
+                        <entry>/usr/bin/git</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repository</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The repository.</entry>
+                        <entry>n/a</entry>
+                        <entry morerows="1">One of these attributes is required.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>remoterepo</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The remote repository.</entry>
+                        <entry>n/a</entry>
+                    </row>
+                    <row>
+                        <entry><literal>treeish</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The tree or commit to produce an archive for.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>output</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Write the archive to file.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>prefix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Prepend prefix to each filename in the archive.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Format of the resulting archive: tar or zip. If this option is not given, and the output
+                            file is specified, the format is inferred from the filename if possible (e.g. writing to
+                            "foo.zip" makes the output to be in the zip format). Otherwise the output format is tar</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;gitclone gitPath="${git-path}"
+          singleBranch="true"
+          repository="${repo.dir.resolved}"
+          targetPath="${tmp.dir.resolved}/test" />
+&lt;gitarchive
+        gitPath="${git-path}"
+        repository="${tmp.dir.resolved}/test"
+        treeish="HEAD"
+        format="zip"
+        output="${tmp.dir.resolved}/output.zip"
+/></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitBranchTask">
@@ -7009,6 +7106,14 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;transaction src="path/to/sqlfile.sql"/>
   &lt;formatter type="plain" outfile="path/to/output.txt"/>
   &lt;/pdosqlexec></programlisting>
+            <programlisting language="xml">&lt;property name="color" value="orange"/>
+&lt;pdosqlexec url="mysql:host=localhost;dbname=test"
+            userid="username" password="password">
+    &lt;transaction>
+        SELECT * FROM products WHERE color = '${color}';
+    &lt;/transaction>
+    &lt;formatter type="xml" outfile="path/to/output.xml"/>
+&lt;/pdosqlexec></programlisting>
             <note>
                 <para>Because of backwards compatibility, the PDOSQLExecTask can also be called using
                     the <literal>'pdo'</literal> statement.</para>
@@ -10234,7 +10339,7 @@ description="Measures the size of the project and counts the tests">
                         <row>
                             <entry><literal>delimiter</literal></entry>
                             <entry><literal role="type">String</literal></entry>
-                            <entry>The delimiter used to seperate entries in the resulting property</entry>
+                            <entry>The delimiter used to separate entries in the resulting property</entry>
                             <entry>,</entry>
                             <entry>No</entry>
                         </row>
@@ -13031,7 +13136,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>compression</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Type of compression to use (gzip, bzip2, none)</entry>
+                        <entry>Type of compression to use (gzip, bzip2, lzma2, none)</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>

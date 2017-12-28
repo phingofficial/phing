@@ -47,13 +47,14 @@ require_once 'phing/Task.php';
  */
 class FtpDeployTask extends Task
 {
+    use FileSetAware;
+
     private $host = null;
     private $port = 21;
     private $ssl = false;
     private $username = null;
     private $password = null;
     private $dir = null;
-    private $filesets;
     private $completeDirMap;
     private $mode = FTP_BINARY;
     private $clearFirst = false;
@@ -193,17 +194,6 @@ class FtpDeployTask extends Task
     public function setSkipOnSameSize($skipOnSameSize)
     {
         $this->skipOnSameSize = StringHelper::booleanValue($skipOnSameSize);
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

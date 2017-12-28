@@ -117,6 +117,7 @@
     <xi:include href="appendixes/coremappers.xml" parse="xml"/>
     <xi:include href="appendixes/selectors.xml" parse="xml"/>
     <xi:include href="appendixes/projcomponents.xml" parse="xml"/>
+    <xi:include href="appendixes/coreloggers.xml" parse="xml"/>
     <xi:include href="appendixes/fileformats.xml" parse="xml"/>
     <xi:include href="appendixes/bibliography.xml" parse="xml"/>
 

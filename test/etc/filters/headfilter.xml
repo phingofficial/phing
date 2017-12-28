@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="headfilter.test" default="cleanup">
+
+    <target name="init">
+        <mkdir dir="result" />
+    </target>
+    <target name="cleanup">
+        <delete dir="result"/>
+    </target>
+
+    <target name="testHeadFilter" depends="init">
+        <copy file="input/headfilter.test" todir="result">
+            <fileset dir="input"/>
+            <filterchain>
+                <headfilter lines="5" skip="2"/>
+            </filterchain>
+        </copy>
+    </target>
+</project>

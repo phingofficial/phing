@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+include_once 'phing/dispatch/DispatchUtils.php';
 
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with
@@ -54,6 +55,7 @@ class TaskAdapter extends Task
         } else {
             throw new Exception('Error setting location in class ' . get_class($this->proxy));
         }
+
         if (method_exists($this->proxy, "setProject")) {
             try { // try to set project
                 $this->proxy->setProject($this->project);
@@ -65,19 +67,13 @@ class TaskAdapter extends Task
             throw new Exception("Error setting project in class " . get_class($this->proxy));
         }
 
-        if (method_exists($this->proxy, "main")) {
-            try { //try to call main
-                $this->proxy->main($this->project);
-            } catch (BuildException $be) {
-                throw $be;
-            } catch (Exception $ex) {
-                $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
-                throw new BuildException("Error in " . get_class($this->proxy), $ex);
-            }
-        } else {
-            throw new BuildException("Your task-like class '" . get_class(
-                    $this->proxy
-                ) . "' does not have a main() method");
+        try { //try to call main
+            DispatchUtils::main($this->proxy);
+        } catch (BuildException $be) {
+            throw $be;
+        } catch (Exception $ex) {
+            $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
+            throw new BuildException("Error in " . get_class($this->proxy), $ex);
         }
     }
 

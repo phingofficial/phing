@@ -43,7 +43,7 @@ class PHPUnitTaskTest extends BuildFileTest
     public function testPlainFormatterDataProvider()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Tests run: 2, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
+        $this->assertInLogs("Tests run: 2, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
     }
 
     /**
