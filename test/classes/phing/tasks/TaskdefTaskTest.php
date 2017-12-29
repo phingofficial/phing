@@ -48,12 +48,16 @@ class TaskdefTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException \PHPUnit\Framework\Error\Error
+     * @expectedException BuildException
      */
     public function testClassNotFound()
     {
         try {
-            $this->expectBuildException("classNotFound", "classname specified doesn't exist");
+            $this->executeTarget("classNotFound");
+            $this->fail(
+                "Should throw ConfigurationException because: " .
+                "classname specified doesn't exist"
+            );
         } catch (ConfigurationException $e) {
             //ignored
         }

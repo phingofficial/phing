@@ -221,23 +221,35 @@ abstract class Task extends ProjectComponent
     /**
      * Perfrom this task
      *
+     * @return void
+     * 
      * @throws BuildException
+     * @throws Error
      */
-    public function perform()
+    public function perform(): void
     {
+        $reason = null;
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
             DispatchUtils::main($this);
-            $this->project->fireTaskFinished($this, $null = null);
-        } catch (Exception $exc) {
-            if ($exc instanceof BuildException) {
-                if ($this->getLocation() !== null) {
-                    $exc->setLocation($this->getLocation());
-                }
+        } catch (\BuildException $ex) {
+            $loc = $ex->getLocation();
+            if ($loc === null || (string) $loc === '') {
+                $ex->setLocation($this->getLocation());
             }
-            $this->project->fireTaskFinished($this, $exc);
-            throw $exc;
+            $reason = $ex;
+            throw $ex;
+        } catch (\Exception $ex) {
+            $reason = $ex;
+            $be = new \BuildException($ex);
+            $be->setLocation($this->getLocation());
+            throw $be;
+        } catch (\Error $ex) {
+            $reason = $ex;
+            throw $ex;
+        } finally {
+            $this->project->fireTaskFinished($this, $reason);
         }
     }
 }
