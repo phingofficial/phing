@@ -401,7 +401,7 @@ class ZendGuardEncodeTask extends MatchingTask
                 /* @var $fsBasedir PhingFile */
                 $fsBasedir = $fs->getDir($this->project)->getAbsolutePath();
 
-                $files = $fs->getFiles($this->project, false);
+                $files = $fs->getIterator(false);
 
                 foreach ($files as $file) {
                     $f = new PhingFile($fsBasedir, $file);
