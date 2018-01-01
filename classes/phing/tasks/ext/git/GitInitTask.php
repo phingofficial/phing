@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/BuildException.php';
-require_once 'phing/tasks/ext/git/GitBaseTask.php';
-
 /**
  * Repository initialization task
  *

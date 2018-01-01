@@ -20,9 +20,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
  *

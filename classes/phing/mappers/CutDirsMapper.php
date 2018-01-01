@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * A mapper that strips of the a configurable number of leading
  * directories from a file name.

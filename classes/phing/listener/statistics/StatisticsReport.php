@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/statistics/TimeFormatter.php';
-require_once 'phing/listener/statistics/StringFormatter.php';
-require_once 'phing/listener/statistics/SeriesMap.php';
-require_once 'phing/listener/statistics/Table.php';
-
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics

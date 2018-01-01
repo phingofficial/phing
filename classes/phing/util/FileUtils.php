@@ -17,13 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/lang/Character.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/filters/util/ChainReaderHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-
 /**
  * File utility class.
  * - handles os independent stuff etc

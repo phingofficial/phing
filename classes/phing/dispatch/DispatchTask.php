@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/dispatch/Dispatchable.php';
-
 /**
  * Tasks extending this class may contain multiple actions.
  * The method that is invoked for execution depends upon the

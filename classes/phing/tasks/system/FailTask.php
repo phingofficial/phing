@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/ExitStatusException.php';
-require_once 'phing/tasks/system/condition/NestedCondition.php';
-
 /**
  * Exits the active build, giving an additional message
  * if available.

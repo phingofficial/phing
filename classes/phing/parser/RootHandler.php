@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ExpatParseException.php';
-include_once 'phing/parser/ProjectHandler.php';
-
 /**
  * Root filter class for a phing buildfile.
  *

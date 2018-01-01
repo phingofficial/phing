@@ -20,10 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/ExtendFileSelector.php';
-require_once 'phing/types/selectors/BaseSelector.php';
-include_once 'phing/types/Parameter.php';
-
 /**
  * Convenience base class for all selectors accessed through ExtendSelector.
  * It provides support for gathering the parameters together as well as for

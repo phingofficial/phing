@@ -21,34 +21,6 @@ use SebastianBergmann\Version;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-require_once 'phing/Diagnostics.php';
-require_once 'phing/Project.php';
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/Target.php';
-require_once 'phing/Task.php';
-
-include_once 'phing/BuildException.php';
-include_once 'phing/ConfigurationException.php';
-include_once 'phing/BuildEvent.php';
-
-include_once 'phing/parser/Location.php';
-include_once 'phing/parser/ExpatParser.php';
-include_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ProjectConfigurator.php';
-include_once 'phing/parser/RootHandler.php';
-include_once 'phing/parser/ProjectHandler.php';
-include_once 'phing/parser/TargetHandler.php';
-
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/OutputStream.php';
-include_once 'phing/system/io/PrintStream.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/FileParserFactory.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/util/Register.php';
-
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
  * parsing & handling commandline arguments to assembling the project to shutting down

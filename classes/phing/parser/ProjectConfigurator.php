@@ -19,14 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/system/lang/FileNotFoundException.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/parser/PhingXMLContext.php';
-include_once 'phing/IntrospectionHelper.php';
-
 /**
  * The datatype handler class.
  *

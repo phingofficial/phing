@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/statistics/ProjectTimer.php';
-
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics

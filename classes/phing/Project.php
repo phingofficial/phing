@@ -19,15 +19,6 @@
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/TaskAdapter.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/BuildEvent.php';
-include_once 'phing/types/PropertyValue.php';
-include_once 'phing/ComponentHelper.php';
-include_once 'phing/PropertyHelper.php';
-
 /**
  *  The Phing project class. Represents a completely configured Phing project.
  *  The class defines the project and all tasks/targets. It also contains

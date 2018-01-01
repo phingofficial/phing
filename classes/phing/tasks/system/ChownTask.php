@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/element/DirSetAware.php';
-include_once 'phing/types/element/FileSetAware.php';
-
 /**
  * Task that changes the permissions on a file/directory.
  *

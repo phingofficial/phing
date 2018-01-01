@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/tasks/system/AppendTask/TextElement.php';
-
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
  *

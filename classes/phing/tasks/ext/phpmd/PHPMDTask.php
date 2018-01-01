@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/phpmd/PHPMDFormatterElement.php';
-
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems
  * based on rulesets.

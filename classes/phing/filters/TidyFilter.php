@@ -19,9 +19,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.
  *

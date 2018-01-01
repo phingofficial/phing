@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/types/element/DirSetAware.php';
-include_once 'phing/types/element/FileSetAware.php';
-
 /**
  * Echos a message to the logging system or to a file
  *

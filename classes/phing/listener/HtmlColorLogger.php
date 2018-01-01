@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
-
 /**
  * Uses CSS class that must be defined in the HTML page
  * where the Phing output is displayed.

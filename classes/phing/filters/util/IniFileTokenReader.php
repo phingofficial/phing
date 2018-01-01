@@ -19,10 +19,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/types/TokenReader.php';
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/filters/ReplaceTokens.php'; // For class Token
-
 /**
  * Class that allows reading tokens from INI files.
  *

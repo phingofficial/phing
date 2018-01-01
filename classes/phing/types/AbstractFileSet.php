@@ -19,37 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/PatternSet.php';
-include_once 'phing/types/selectors/BaseSelector.php';
-include_once 'phing/types/selectors/SelectorContainer.php';
-include_once 'phing/types/selectors/BaseSelectorContainer.php';
-
-// Load all of the selectors (not really necessary but
-// helps reveal parse errors right away)
-
-include_once 'phing/types/selectors/AndSelector.php';
-include_once 'phing/types/selectors/ContainsSelector.php';
-include_once 'phing/types/selectors/ContainsRegexpSelector.php';
-include_once 'phing/types/selectors/DateSelector.php';
-include_once 'phing/types/selectors/DependSelector.php';
-include_once 'phing/types/selectors/DepthSelector.php';
-include_once 'phing/types/selectors/DifferentSelector.php';
-include_once 'phing/types/selectors/ExtendSelector.php';
-include_once 'phing/types/selectors/FilenameSelector.php';
-include_once 'phing/types/selectors/MajoritySelector.php';
-include_once 'phing/types/selectors/NoneSelector.php';
-include_once 'phing/types/selectors/NotSelector.php';
-include_once 'phing/types/selectors/OrSelector.php';
-include_once 'phing/types/selectors/PresentSelector.php';
-include_once 'phing/types/selectors/SizeSelector.php';
-include_once 'phing/types/selectors/TypeSelector.php';
-include_once 'phing/types/selectors/ReadableSelector.php';
-include_once 'phing/types/selectors/WritableSelector.php';
-
-include_once 'phing/util/DirectoryScanner.php';
-
 /**
  * The FileSet class provides methods and properties for accessing
  * and managing filesets. It extends ProjectComponent and thus inherits

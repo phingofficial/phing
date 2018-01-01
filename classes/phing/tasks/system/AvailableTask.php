@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * <available> task.
  *

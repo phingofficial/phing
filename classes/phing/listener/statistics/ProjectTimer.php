@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/listener/statistics/StatsTimer.php';
-include_once 'phing/listener/statistics/TimerMap.php';
-
 /**
  * A logger which logs nothing but build failure and what task might output.
  *
