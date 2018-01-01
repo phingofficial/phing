@@ -1707,11 +1707,8 @@ class Phing
 
         set_time_limit(0);
 
-        self::$origIniSettings['magic_quotes_gpc'] = ini_set('magic_quotes_gpc', 'off');
         self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
-        self::$origIniSettings['register_globals'] = ini_set('register_globals', 'off');
-        self::$origIniSettings['allow_call_time_pass_reference'] = ini_set('allow_call_time_pass_reference', 'on');
         self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
         $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
