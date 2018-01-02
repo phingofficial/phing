@@ -20,8 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phploc/AbstractPHPLocFormatter.php';
-
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *

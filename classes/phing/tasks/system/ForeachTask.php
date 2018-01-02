@@ -19,12 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/FileSystem.php';
-include_once 'phing/mappers/FileNameMapper.php';
-include_once 'phing/tasks/system/PhingTask.php';
-include_once 'phing/types/element/ResourceAware.php';
-
 /**
  * <foreach> task
  *

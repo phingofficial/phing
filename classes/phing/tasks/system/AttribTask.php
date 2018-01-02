@@ -17,13 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/ApplyTask.php';
-include_once 'phing/Phing.php';
-include_once 'phing/Project.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Changes the attributes of a file or all files inside specified directories.
  * Right now it has effect only under Windows. Each of the 4 possible

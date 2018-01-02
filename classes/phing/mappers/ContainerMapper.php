@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * A <code>FileNameMapper</code> that contains
  * other <code>FileNameMapper</code>s.

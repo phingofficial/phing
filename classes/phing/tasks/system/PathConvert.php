@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/BuildException.php';
-
 /**
  * Converts path and classpath information to a specific target OS
  * format. The resulting formatted path is placed into the specified property.

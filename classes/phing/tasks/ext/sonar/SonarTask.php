@@ -17,12 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildException.php';
-require_once 'phing/Project.php';
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/sonar/SonarConfigurationFileParser.php';
-require_once 'phing/tasks/ext/sonar/SonarProperty.php';
-
 /**
  * Runs SonarQube Scanner.
  *

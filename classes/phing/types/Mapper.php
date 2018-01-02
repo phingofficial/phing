@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/mappers/CompositeMapper.php';
-include_once 'phing/mappers/ContainerMapper.php';
-
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
  *

@@ -20,9 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/system/io/FilterReader.php';
-include_once 'phing/system/io/StringReader.php';
-
 /**
  * Base class for core filter readers.
  *

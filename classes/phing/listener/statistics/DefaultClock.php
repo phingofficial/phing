@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/listener/statistics/Clock.php';
-
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics

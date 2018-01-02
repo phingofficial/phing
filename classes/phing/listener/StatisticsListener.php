@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/SubBuildListener.php';
-include_once 'phing/listener/statistics/StatisticsReport.php';
-require_once 'phing/listener/statistics/DefaultClock.php';
-require_once 'phing/listener/statistics/ProjectTimerMap.php';
-
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener

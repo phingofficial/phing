@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/types/IterableFileSet.php';
-require_once 'phing/tasks/ext/phar/PharMetadata.php';
-
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *

@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntax.php';
-
 /**
  * Factory for generating dbms-specific syntax-generating objects
  *

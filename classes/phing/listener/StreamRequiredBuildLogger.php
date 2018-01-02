@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
  *

@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/dispatch/Dispatchable.php';
-require_once 'phing/UnknownElement.php';
-
 /**
  * Determines and Executes the action method for the task.
  *

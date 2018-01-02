@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/dispatch/DispatchUtils.php';
-
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with
  * similar patterns).

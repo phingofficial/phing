@@ -20,11 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/Task.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/types/Reference.php';
-include_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * Task that invokes phing on another build file.
  *

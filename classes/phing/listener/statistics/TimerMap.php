@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/statistics/SeriesTimer.php';
-require_once 'phing/listener/statistics/SeriesMap.php';
-
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics

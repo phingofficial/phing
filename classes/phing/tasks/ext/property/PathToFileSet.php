@@ -17,12 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * Coverts a path to a fileset.
  * This is useful if you have a path but need to use a fileset as input in a phing task.

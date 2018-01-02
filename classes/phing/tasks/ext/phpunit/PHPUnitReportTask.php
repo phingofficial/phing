@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
-
 /**
  * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
@@ -32,7 +27,7 @@ require_once 'phing/util/ExtendedFileStream.php';
  * different packages or testcases since it is a Javadoc like report.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id: dc442784b469acd14ae80e43def1751bf4b957a8 $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */

@@ -20,9 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/Path.php';
-
 /**
  * Adds a normalized path to the PHP include_path.
  *

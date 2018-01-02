@@ -16,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * This is a Php comment and string stripper reader that filters

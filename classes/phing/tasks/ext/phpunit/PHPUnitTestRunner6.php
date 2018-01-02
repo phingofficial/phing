@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *

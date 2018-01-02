@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
-require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
-
 /**
  * Runs the PHP_Depend software analyzer and metric tool.
  * Performs static code analysis on a given source base.

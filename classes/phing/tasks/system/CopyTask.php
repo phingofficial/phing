@@ -17,14 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/IdentityMapper.php';
-include_once 'phing/mappers/FlattenMapper.php';
-include_once 'phing/types/element/ResourceAware.php';
-
 /**
  * A phing copy task.  Copies a file or directory to a new file
  * or directory.  Files are only copied if the source file is newer

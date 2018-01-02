@@ -20,11 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/FileParserFactory.php';
-
 /**
  * Task for setting properties in buildfiles.
  *

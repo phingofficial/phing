@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/lang/EventObject.php';
-
 /**
  * Encapsulates a build specific event.
  *

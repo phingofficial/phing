@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Uses PEAR Mail package to send the build log to one or
  * more recipients.

@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/RuntimeConfigurable.php';
-include_once 'phing/dispatch/DispatchUtils.php';
-
 /**
  * The base class for all Tasks.
  *

@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/SelectorScanner.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/types/selectors/SelectorUtils.php';
-
 /**
  * Class for scanning a directory for files/directories that match a certain
  * criteria.

@@ -18,11 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/DirSet.php';
-
 /**
  * Executes a command on the (filtered) file list/set.
  * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)

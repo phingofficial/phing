@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/util/DataStore.php';
-require_once 'phing/system/io/FileWriter.php';
-
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
  *
