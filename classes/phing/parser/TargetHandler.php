@@ -145,7 +145,7 @@ class TargetHandler extends AbstractHandler
         $project = $this->configurator->project;
 
         // check to see if this target is a dup within the same file
-        if (isset($this->context->getCurrentTargets[$name])) {
+        if (isset($this->context->getCurrentTargets()[$name])) {
             throw new BuildException("Duplicate target: $name",
                 $this->parser->getLocation());
         }
