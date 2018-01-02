@@ -106,6 +106,7 @@
                 <ref name="filesize"/>
                 <ref name="filesync"/>
                 <ref name="ftpdeploy"/>
+                <ref name="gitarchive"/>
                 <ref name="gitbranch"/>
                 <ref name="gitcheckout"/>
                 <ref name="gitclone"/>
@@ -224,6 +225,7 @@
                 <ref name="copy"/>
                 <ref name="delete"/>
                 <ref name="defaultexcludes"/>
+                <ref name="dependset"/>
                 <ref name="diagnostics"/>
                 <ref name="dirname"/>
                 <ref name="echo"/>
@@ -345,6 +347,22 @@
                 </choice>
             </oneOrMore>
         </element>
+    </define>
+
+    <define name="srcfileset">
+        <ref name="fileset"/>
+    </define>
+
+    <define name="srcfilelist">
+        <ref name="filelist"/>
+    </define>
+
+    <define name="targetfileset">
+        <ref name="fileset"/>
+    </define>
+
+    <define name="targetfilelist">
+        <ref name="filelist"/>
     </define>
 
     <define name="fileset">
@@ -934,22 +952,32 @@
                     <attribute name="todir"/>
                 </choice>
                 <optional>
-                    <attribute name="overwrite">
+                    <attribute name="overwrite" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
                     <choice>
-                        <attribute name="tstamp">
+                        <attribute name="tstamp" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
-                        <attribute name="preservelastmodified">
+                        <attribute name="preservelastmodified" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
                     </choice>
                 </optional>
                 <optional>
-                    <attribute name="includeemptydirs">
+                    <choice>
+                        <attribute name="preservemode" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="preservepermissions" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -959,7 +987,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonerror">
+                    <attribute name="haltonerror" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="flatten" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1034,6 +1067,19 @@
         </element>
     </define>
 
+    <define name="dependset">
+        <element name="dependset">
+            <oneOrMore>
+                <ref name="srcfileset"/>
+                <ref name="srcfilelist"/>
+            </oneOrMore>
+            <oneOrMore>
+                <ref name="targetfileset"/>
+                <ref name="targetfilelist"/>
+            </oneOrMore>
+        </element>
+    </define>
+
     <define name="diagnostics">
         <element name="diagnostics">
             <empty/>
@@ -1101,12 +1147,12 @@
                     </choice>
                 </oneOrMore>
                 <optional>
-                    <attribute name="passthru">
+                    <attribute name="passthru" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="checkreturn">
+                    <attribute name="checkreturn" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1117,12 +1163,15 @@
                     <attribute name="os"/>
                 </optional>
                 <optional>
-                    <attribute name="escape">
+                    <attribute name="osfamily"/>
+                </optional>
+                <optional>
+                    <attribute name="escape" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="spawn">
+                    <attribute name="spawn" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1133,7 +1182,7 @@
                     <attribute name="outputProperty"/>
                 </optional>
                 <optional>
-                    <attribute name="logoutput"/>
+                    <attribute name="logoutput" a:defaultValue="false"/>
                 </optional>
                 <optional>
                     <attribute name="output"/>
@@ -1393,8 +1442,7 @@
                         <choice>
                             <ref name="dirset"/>
                             <ref name="fileset"/>
-                            <ref name="
-                            "/>
+                            <ref name="filelist"/>
                         </choice>
                     </oneOrMore>
                 </choice>
@@ -1741,6 +1789,7 @@
                 <choice>
                     <attribute name="file"/>
                     <ref name="fileset"/>
+                    <ref name="filelist"/>
                 </choice>
                 <optional>
                     <attribute name="datetime"/>
@@ -1751,12 +1800,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="mkdirs">
+                    <attribute name="mkdirs" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="verbose">
+                    <attribute name="verbose" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -2486,6 +2535,9 @@
                         <data type="boolean"/>
                     </attribute>
                     <attribute name="identityFile"/>
+                    <attribute name="port">
+                        <data type="int" />
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -2578,6 +2630,29 @@
         git Manipulation tasks
         =========================================
     -->
+
+    <define name="gitarchive">
+        <element name="gitarchive">
+            <interleave>
+                <choice>
+                    <attribute name="repository"/>
+                    <attribute name="remoterepo"/>
+                </choice>
+                <optional>
+                    <attribute name="prefix"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
+                <optional>
+                    <attribute name="gitpath"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
 
     <define name="gitbranch">
         <element name="gitbranch">
@@ -5805,6 +5880,7 @@
                         <choice>
                             <value>gzip</value>
                             <value>bzip2</value>
+                            <value>lzma2</value>
                             <value>none</value>
                         </choice>
                     </attribute>
@@ -6308,6 +6384,11 @@
     </define>
 
     <define name="linecontains">
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
         <element name="linecontains">
             <oneOrMore>
                 <ref name="contains"/>
@@ -6322,6 +6403,19 @@
     </define>
 
     <define name="linecontainsregexp">
+        <optional>
+            <attribute name="casesensitive" a:defaultValue="true">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="regexp"/>
+        </optional>
         <element name="linecontainsregexp">
             <ref name="regexp"/>
         </element>
@@ -6437,6 +6531,11 @@
                     <data type="int"/>
                 </attribute>
             </optional>
+            <optional>
+                <attribute name="skip">
+                    <data type="int"/>
+                </attribute>
+            </optional>
             <empty/>
         </element>
     </define>
@@ -6509,7 +6608,14 @@
             <ref name="available_cond"/>
             <ref name="http"/>
             <ref name="matches_cond"/>
+            <ref name="os_cond"/>
         </choice>
+    </define>
+
+    <define name="os_cond">
+        <element name="os">
+            <attribute name="family"/>
+        </element>
     </define>
 
     <define name="or">

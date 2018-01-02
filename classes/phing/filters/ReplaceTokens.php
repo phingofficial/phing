@@ -20,10 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/types/TokenSource.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Replaces tokens in the original input with user-supplied values.
  *
@@ -329,7 +325,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if ($params[$i] !== null) {
                     $type = $params[$i]->getType();
                     if ($type === "tokenchar") {
@@ -350,7 +346,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                             $tok->setKey($name);
                             $tok->setValue($value);
 
-                            array_push($this->_tokens, $tok);
+                            $this->_tokens[] = $tok;
                         } else {
                             if ($type === "tokensource") {
                                 // Store data from nested tags in local array

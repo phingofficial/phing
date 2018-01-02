@@ -113,7 +113,7 @@ class FileSizeTask extends Task
      */
     private function checkPropertyName()
     {
-        if (is_null($this->propertyName) ||
+        if (null === $this->propertyName ||
             strlen($this->propertyName) === 0
         ) {
             throw new BuildException('[FileSize] Property name for publishing file size is not set');

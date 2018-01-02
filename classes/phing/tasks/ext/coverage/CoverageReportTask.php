@@ -19,13 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
-
 /**
  * Transforms information in a code coverage database to XML
  *
@@ -100,6 +93,7 @@ class CoverageReportTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->doc = new DOMDocument();
         $this->doc->encoding = 'UTF-8';
         $this->doc->formatOutput = true;

@@ -19,12 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-
 /**
  * Merges code coverage snippets into a code coverage database
  *
@@ -35,18 +29,7 @@ require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
  */
 class CoverageMergerTask extends Task
 {
-    /** the list of filesets containing the .php filename rules */
-    private $filesets = [];
-
-    /**
-     * Add a new fileset containing the .php files to process
-     *
-     * @param FileSet the new fileset containing .php files
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
+    use FileSetAware;
 
     /**
      * Iterate over all filesets and return all the filenames.

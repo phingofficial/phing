@@ -19,12 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/Project.php';
-include_once 'phing/tasks/system/AvailableTask.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/parser/CustomChildCreator.php';
-
 /**
  * Abstract baseclass for the <condition> task as well as several
  * conditions - ensures that the types of conditions inside the task
@@ -45,6 +39,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
     public function __construct($taskName = 'component')
     {
+        parent::__construct();
         $this->taskName = $taskName;
     }
 

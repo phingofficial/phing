@@ -54,7 +54,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         $this->_resetFileSystem();
 
-        $this->setExpectedException('IOException');
+        $this->expectException('IOException');
 
         Phing::setProperty('host.fstype', 'UNRECOGNISED');
 

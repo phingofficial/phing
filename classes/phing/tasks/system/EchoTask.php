@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/types/DirSetAware.php';
-
 /**
  * Echos a message to the logging system or to a file
  *
@@ -33,6 +30,7 @@ include_once 'phing/types/DirSetAware.php';
 class EchoTask extends Task
 {
     use DirSetAware;
+    use FileSetAware;
 
     protected $msg = "";
 
@@ -41,9 +39,6 @@ class EchoTask extends Task
     protected $append = false;
 
     protected $level = "info";
-
-    /** @var AbstractFileSet[] */
-    protected $filesets = [];
 
     public function main()
     {
@@ -165,17 +160,5 @@ class EchoTask extends Task
     public function addText($msg)
     {
         $this->msg = (string) $msg;
-    }
-
-    /**
-     * Adds a fileset to echo the files of
-     *
-     * @param FileSet $fs Set of files to echo
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

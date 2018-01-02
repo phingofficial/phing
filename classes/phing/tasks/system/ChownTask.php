@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/DirSetAware.php';
-
 /**
  * Task that changes the permissions on a file/directory.
  *
@@ -33,14 +29,12 @@ include_once 'phing/types/DirSetAware.php';
 class ChownTask extends Task
 {
     use DirSetAware;
+    use FileSetAware;
 
     private $file;
 
     private $user;
     private $group;
-
-    /** @var AbstractFileSet[] */
-    private $filesets = [];
 
     private $quiet = false;
     private $failonerror = true;
@@ -108,15 +102,6 @@ class ChownTask extends Task
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @param FileSet $fs
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Execute the touch operation.
      * @return void
      */
@@ -180,13 +165,13 @@ class ChownTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
+            $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcFiles[$j]), $user, $group);
             }
 
             $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
+            $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user, $group);
             }

@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/listener/DefaultLogger.php';
-
 /**
  * Like a normal logger, except with timed outputs.
  *

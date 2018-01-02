@@ -19,13 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/util/LogWriter.php';
-require_once 'phing/tasks/ext/phpunit/BatchTest.php';
-require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
-
 /**
  * Runs PHPUnit tests.
  *
@@ -95,16 +88,10 @@ class PHPUnitTask extends Task
             @include $this->pharLocation;
             ob_end_clean();
         }
+
         @include_once 'PHPUnit/Autoload.php';
-
-        if (!class_exists('PHPUnit_Runner_Version')) {
+        if (!class_exists('PHPUnit_Runner_Version') && !class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
-        }
-
-        $version = PHPUnit_Runner_Version::id();
-
-        if (version_compare($version, '5.4.0') < 0) {
-            throw new BuildException("PHPUnitTask requires PHPUnit version >= 5.4.0", $this->getLocation());
         }
 
         /**
@@ -323,7 +310,11 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
+        if (class_exists('PHPUnit_Util_Configuration')) {
+            $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
+        } else {
+            $config = \PHPUnit\Util\Configuration::getInstance($configuration->getAbsolutePath());
+        }
 
         if (empty($config)) {
             return;
@@ -411,7 +402,11 @@ class PHPUnitTask extends Task
 
         $this->loadPHPUnit();
 
-        $suite = new PHPUnit_Framework_TestSuite('AllTests');
+        if (class_exists('\PHPUnit_Framework_TestSuite')) {
+            $suite = new PHPUnit_Framework_TestSuite('AllTests');
+        } else {
+            $suite = new \PHPUnit\Framework\TestSuite('AllTests');
+        }
 
         $autoloadSave = spl_autoload_functions();
 
@@ -469,7 +464,12 @@ class PHPUnitTask extends Task
      */
     protected function execute($suite)
     {
-        $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+
+        if (class_exists('\PHPUnit_Runner_Version', false)) {
+            $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+        } else {
+            $runner = new PHPUnitTestRunner6($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+        }
 
         if ($this->codecoverage) {
             /**
@@ -573,19 +573,21 @@ class PHPUnitTask extends Task
      * Add the tests in this batchtest to a test suite
      *
      * @param BatchTest $batchTest
-     * @param PHPUnit_Framework_TestSuite $suite
+     * @param PHPUnit_Framework_TestSuite|PHPUnit\Framework\TestSuite $suite
      * @throws \BuildException
      */
-    protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
+    protected function appendBatchTestToTestSuite(BatchTest $batchTest, $suite)
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
-            if (!($testClass instanceof PHPUnit_Framework_TestSuite)) {
+            if (!($testClass instanceof PHPUnit_Framework_TestSuite) || !($testClass instanceof PHPUnit\Framework\TestSuite)) {
                 $testClass = new ReflectionClass($element);
             }
             try {
                 $suite->addTestSuite($testClass);
             } catch (PHPUnit_Framework_Exception $e) {
+                throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
+            } catch (\PHPUnit\Framework\Exception $e) {
                 throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
             }
         }

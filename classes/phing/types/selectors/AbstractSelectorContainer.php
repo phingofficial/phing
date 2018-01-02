@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/SelectorAware.php';
-require_once 'phing/types/selectors/SelectorContainer.php';
-require_once 'phing/types/DataType.php';
-
 /**
  * This is the base class for selectors that can contain other selectors.
  *
@@ -43,8 +39,8 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     /**
@@ -92,8 +88,8 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     public function validate()
     {
         if ($this->isReference()) {
-            $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-            $this->getCheckedRef(get_class(), $dataTypeName)->validate();
+            $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+            $this->getCheckedRef(__CLASS__, $dataTypeName)->validate();
         }
         $selectorElements = $this->selectorElements();
         $this->dieOnCircularReference($selectorElements, $this->getProject());

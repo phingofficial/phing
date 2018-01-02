@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
-
 /**
  * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
@@ -202,43 +197,66 @@ class PHPUnitReportTask extends Task
 
         $xp = new DOMXPath($document);
 
-        $nodes = $xp->query("/testsuites/testsuite");
+        $nodes = $xp->query("/testsuites/testsuite/testsuite/testsuite");
 
-        foreach ($nodes as $node) {
-            $children = $xp->query("./testsuite", $node);
+        if ($nodes->length === 0) {
+            $nodes = $xp->query("/testsuites/testsuite");
 
-            if ($children->length) {
-                /** @var $child DOMElement */
-                foreach ($children as $child) {
-                    $rootElement->appendChild($child);
+            foreach ($nodes as $node) {
+                $children = $xp->query("./testsuite", $node);
 
-                    if ($child->hasAttribute('package')) {
-                        continue;
-                    }
-
-                    if ($child->hasAttribute('namespace')) {
-                        $child->setAttribute('package', $child->getAttribute('namespace'));
-                        continue;
-                    }
-
-                    $package = 'default';
-                    $refClass = new ReflectionClass($child->getAttribute('name'));
-
-                    if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
-                        $package = end($matches);
-                    } elseif (method_exists($refClass, 'getNamespaceName')) {
-                        $namespace = $refClass->getNamespaceName();
-
-                        if ($namespace !== '') {
-                            $package = $namespace;
-                        }
-                    }
-
-                    $child->setAttribute('package', trim($package));
+                if ($children->length) {
+                    $this->handleChildren($rootElement, $children);
+                    $rootElement->removeChild($node);
                 }
-
-                $rootElement->removeChild($node);
             }
+        } else {
+            $nodes = $xp->query("/testsuites/testsuite/testsuite");
+
+            foreach ($nodes as $node) {
+                $children = $xp->query("./testsuite", $node);
+
+                if ($children->length) {
+                    $this->handleChildren($rootElement, $children);
+                    $rootElement->firstChild->removeChild($node);
+                }
+            }
+        }
+    }
+
+    private function handleChildren($rootElement, $children)
+    {
+        /** @var $child DOMElement */
+        foreach ($children as $child) {
+            $rootElement->appendChild($child);
+
+            if ($child->hasAttribute('package')) {
+                continue;
+            }
+
+            if ($child->hasAttribute('namespace')) {
+                $child->setAttribute('package', $child->getAttribute('namespace'));
+                continue;
+            }
+
+            $package = 'default';
+            try {
+                $refClass = new ReflectionClass($child->getAttribute('name'));
+
+                if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
+                    $package = end($matches);
+                } elseif (method_exists($refClass, 'getNamespaceName')) {
+                    $namespace = $refClass->getNamespaceName();
+
+                    if ($namespace !== '') {
+                        $package = $namespace;
+                    }
+                }
+            } catch (\ReflectionException $e) {
+                // do nothing
+            }
+
+            $child->setAttribute('package', trim($package));
         }
     }
 

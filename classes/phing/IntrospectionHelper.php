@@ -20,11 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Reference.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/parser/CustomChildCreator.php';
-
 /**
  * Helper class that collects the methods that a task or nested element
  * holds to set attributes, create nested elements or hold PCDATA
@@ -166,14 +161,7 @@ class IntrospectionHelper
                     }
 
                     $this->slotListeners[$name] = $method;
-                } elseif (strpos($name, "set") === 0) {
-
-                    // A standard attribute setter.
-
-                    if (count($method->getParameters()) !== 1) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() must take exactly one parameter.");
-                    }
+                } elseif (strpos($name, "set") === 0 && count($method->getParameters()) === 1) {
 
                     $this->attributeSetters[$name] = $method;
                 } elseif (strpos($name, "create") === 0) {

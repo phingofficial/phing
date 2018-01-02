@@ -204,8 +204,8 @@ class FileList extends DataType
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     /**

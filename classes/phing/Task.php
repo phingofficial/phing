@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/RuntimeConfigurable.php';
-
 /**
  * The base class for all Tasks.
  *
@@ -144,13 +141,18 @@ abstract class Task extends ProjectComponent
      * Provides a project level log event to the task.
      *
      * @param string $msg The message to log
-     * @param integer $level The priority of the message
+     * @param int $level The priority of the message
+     * @param Exception|null $t
      * @see BuildEvent
      * @see BuildListener
      */
-    public function log($msg, $level = Project::MSG_INFO)
+    public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
     {
-        $this->project->logObject($this, $msg, $level);
+        if ($this->getProject() !== null) {
+            $this->getProject()->logObject($this, $msg, $level, $t);
+        } else {
+            parent::log($msg, $level);
+        }
     }
 
     /**
@@ -215,23 +217,35 @@ abstract class Task extends ProjectComponent
     /**
      * Perfrom this task
      *
+     * @return void
+     * 
      * @throws BuildException
+     * @throws Error
      */
-    public function perform()
+    public function perform(): void
     {
+        $reason = null;
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
-            $this->main();
-            $this->project->fireTaskFinished($this, $null = null);
-        } catch (Exception $exc) {
-            if ($exc instanceof BuildException) {
-                if ($this->getLocation() !== null) {
-                    $exc->setLocation($this->getLocation());
-                }
+            DispatchUtils::main($this);
+        } catch (\BuildException $ex) {
+            $loc = $ex->getLocation();
+            if ($loc === null || (string) $loc === '') {
+                $ex->setLocation($this->getLocation());
             }
-            $this->project->fireTaskFinished($this, $exc);
-            throw $exc;
+            $reason = $ex;
+            throw $ex;
+        } catch (\Exception $ex) {
+            $reason = $ex;
+            $be = new \BuildException($ex);
+            $be->setLocation($this->getLocation());
+            throw $be;
+        } catch (\Error $ex) {
+            $reason = $ex;
+            throw $ex;
+        } finally {
+            $this->project->fireTaskFinished($this, $reason);
         }
     }
 }

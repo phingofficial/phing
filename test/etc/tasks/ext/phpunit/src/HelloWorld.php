@@ -21,6 +21,6 @@
         {
             return "Hello World!";
         }
-    };
+    }
 
 ?>

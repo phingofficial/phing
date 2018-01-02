@@ -147,7 +147,7 @@ class IniFileConfig
         if ($section == '') {
             throw new RuntimeException("Section not set.");
         }
-        if (is_null($key) || ($key == '')) {
+        if (null === $key || ($key == '')) {
             // remove entire section
             foreach ($this->lines as $linenum => $line) {
                 if ($line['section'] == $section) {

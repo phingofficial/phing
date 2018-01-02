@@ -33,12 +33,12 @@ include_once 'phing/Task.php';
  */
 class MailTask extends Task
 {
+    use FileSetAware;
+
     protected $tolist = null;
     protected $subject = null;
     protected $msg = null;
     protected $from = null;
-
-    protected $filesets = [];
 
     protected $backend = 'mail';
     protected $backendParams = [];
@@ -197,16 +197,5 @@ class MailTask extends Task
                 $this->backendParams[$key] = $value;
             }
         }
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

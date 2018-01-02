@@ -17,23 +17,41 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DirSet.php';
-
-trait DirSetAware
+/**
+ * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package   phing.listener.statistics
+ */
+class StringFormatter
 {
-    /** @var DirSet[] $dirsets */
-    private $dirsets = [];
-
-    public function addDirSet(DirSet $dirSet)
+    public function center($value, $fixedLength)
     {
-        $this->dirsets[] = $dirSet;
+        $spacesBeforeValue = $this->calculateSpaceBeforeValue($value, $fixedLength);
+        return $this->toSpaces($spacesBeforeValue) .  $value;
     }
 
-    /**
-     * @return DirSet[]
-     */
-    public function getDirSets()
+    public function left($value, $fixedLength)
     {
-        return $this->dirsets;
+        return $value . $this->toSpaces($fixedLength - strlen($value) + 4);
     }
+
+    private function calculateSpaceBeforeValue($value, $fixedLength)
+    {
+        return $fixedLength / 2 - strlen($value) / 2;
+    }
+
+    public function toSpaces($size)
+    {
+        return $this->toChars(' ', $size);
+    }
+
+    public function toChars($ch, $size)
+    {
+        $sb = '';
+        for ($i = 0; $i < $size; $i++) {
+            $sb .= $ch;
+        }
+        return $sb;
+
+    }
+
 }

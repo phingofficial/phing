@@ -20,9 +20,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-require_once 'phing/filters/ChainableReader.php';
-
 /**
  * Converts tabs to spaces.
  *
@@ -138,7 +135,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::TAB_LENGTH_KEY === $params[$i]->getName()) {
                     $this->tabLength = $params[$i]->getValue();
                     break;

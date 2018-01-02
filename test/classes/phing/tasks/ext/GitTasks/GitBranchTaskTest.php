@@ -21,7 +21,6 @@
 
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitBranchTask.php';
-require_once __DIR__ . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -32,16 +31,10 @@ class GitBranchTaskTest extends BuildFileTest
 {
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
@@ -54,7 +47,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testAllParamsSet()
@@ -106,7 +99,11 @@ class GitBranchTaskTest extends BuildFileTest
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
-        $this->executeTarget('setUpstreamParamSet');
+        if (version_compare(substr(trim(exec('git --version')), strlen('git version ')), '2.15.0', '<')) {
+            $this->executeTarget('setUpstreamParamSet');
+        } else {
+            $this->executeTarget('setUpstreamToParamSet');
+        }
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
         $this->assertInLogs('Branch set-upstream-param-set set up to track local branch master.'); // no output actually
     }

@@ -19,12 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-
 /**
  * Initializes a code coverage database
  *
@@ -35,38 +29,14 @@ require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
  */
 class CoverageSetupTask extends Task
 {
-    /** the list of filesets containing the .php filename rules */
-    private $filesets = [];
-
-    /** Any filelists of files containing the .php filenames */
-    private $filelists = [];
+    use FileListAware;
+    use FileSetAware;
 
     /** the filename of the coverage database */
     private $database = "coverage.db";
 
     /** the classpath to use (optional) */
     private $classpath = null;
-
-    /**
-     * Add a new fileset containing the .php files to process
-     *
-     * @param FileSet the new fileset containing .php files
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
-
-    /**
-     * Supports embedded <filelist> element.
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
-    }
 
     /**
      * Sets the filename of the coverage database to use

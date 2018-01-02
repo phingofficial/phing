@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/CopyTask.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/filters/XsltFilter.php';
-
 /**
  * Implements an XSLT processing filter while copying files.
  *
@@ -53,8 +48,9 @@ class XsltTask extends CopyTask
     public function init()
     {
         $xf = new XsltFilter();
-        $chain = $this->createFilterChain();
+        $chain = new FilterChain();
         $chain->addXsltFilter($xf);
+        $this->addFilterChain($chain);
         $this->xsltFilter = $xf;
     }
 

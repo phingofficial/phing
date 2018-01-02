@@ -51,6 +51,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function __construct()
     {
+        parent::__construct();
         //if (Os.isFamily("dos")) {
         //    granularity = 2000;
         //}
@@ -100,7 +101,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @param int $millis the time to compare file's last modified date to, expressed in milliseconds
      */
-    private function setMillis($millis)
+    public function setMillis($millis)
     {
         $this->setSeconds((int) $millis * 1000);
     }

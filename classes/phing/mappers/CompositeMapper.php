@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/ContainerMapper.php';
-
 /**
  * A <code>ContainerMapper</code> that unites the results of its constituent
  * <code>FileNameMapper</code>s into a single set of result filenames.

@@ -20,9 +20,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Expands Phing Properties, if any, in the data.
  * <p>
@@ -84,8 +81,9 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
             return -1;
         }
 
+        /** @var Project $project */
         $project = $this->getProject();
-        $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties(), $this->logLevel);
+        $buffer = $project->replaceProperties($buffer);
 
         return $buffer;
     }

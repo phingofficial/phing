@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PlainPDOResultFormatter.php';
-require_once 'phing/tasks/ext/pdo/XMLPDOResultFormatter.php';
-require_once 'phing/util/LogWriter.php';
-
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
  *

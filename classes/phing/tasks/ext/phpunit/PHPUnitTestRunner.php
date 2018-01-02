@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
@@ -408,7 +405,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements \PHPUni
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
         if ($test instanceof PHPUnit_Framework_TestCase) {
-            if (!$test->hasPerformedExpectationsOnOutput()) {
+            if (!$test->hasExpectationOnOutput()) {
                 echo $test->getActualOutput();
             }
         }

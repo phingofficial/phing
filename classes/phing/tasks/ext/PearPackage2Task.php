@@ -195,7 +195,7 @@ class PearPackage2Task extends PearPackageTask
                                 $uri
                             );
                         }
-                    };
+                    }
                     break;
 
                 case 'extdeps':
@@ -213,7 +213,7 @@ class PearPackage2Task extends PearPackageTask
                             $max,
                             $rec
                         );
-                    };
+                    }
                     break;
 
                 case 'maintainers':

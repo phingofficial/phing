@@ -33,6 +33,7 @@ require_once 'phing/Task.php';
  */
 class JsHintTask extends Task
 {
+    use FileSetAware;
 
     /**
      * The source file (from xml attribute)
@@ -40,13 +41,6 @@ class JsHintTask extends Task
      * @var string
      */
     protected $file;
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = [];
 
     /**
      * Should the build fail on JSHint errors
@@ -104,17 +98,6 @@ class JsHintTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

@@ -30,6 +30,7 @@ require_once 'phing/Task.php';
  */
 class PhpCodeSnifferTask extends Task
 {
+    use FileSetAware;
 
     /**
      * A php source code filename or directory
@@ -37,13 +38,6 @@ class PhpCodeSnifferTask extends Task
      * @var PhingFile
      */
     protected $file; // the source file (from xml attribute)
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = []; // all fileset objects assigned to this task
 
     // parameters for php code sniffer
     protected $standards = ['Generic'];
@@ -110,17 +104,6 @@ class PhpCodeSnifferTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

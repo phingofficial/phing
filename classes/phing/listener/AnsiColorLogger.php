@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
-
 /**
  * Uses ANSI Color Code Sequences to colorize messages
  * sent to the console.
