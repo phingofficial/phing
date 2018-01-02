@@ -13,13 +13,7 @@ php:
 matrix:
   fast_finish: true
   allow_failures:
-    - php: hhvm
-  include:
-    # test against the latest HHVM version by using trusty
-    - php: hhvm
-      sudo: true
-      dist: trusty
-      group: edge
+    - php: nightly
 
 cache:
   directories:
