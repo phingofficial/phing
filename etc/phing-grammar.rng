@@ -1392,8 +1392,7 @@
                         <choice>
                             <ref name="dirset"/>
                             <ref name="fileset"/>
-                            <ref name="
-                            "/>
+                            <ref name="filelist"/>
                         </choice>
                     </oneOrMore>
                 </choice>
