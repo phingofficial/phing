@@ -111,24 +111,6 @@ abstract class PDOTask extends Task
     }
 
     /**
-     * Sets the version string, execute task only if
-     * rdbms version match; optional.
-     * @param string $version The version to set
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getLoaderMap()
-    {
-        return self::$loaderMap;
-    }
-
-    /**
      * Creates a new Connection as using the driver, url, userid and password specified.
      * The calling method is responsible for closing the connection.
      * @return PDO     the newly created connection.
