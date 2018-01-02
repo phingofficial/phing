@@ -1375,6 +1375,64 @@ verbose="true" failonerror="false" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="DependSet">
+        <title> DependSet</title>
+        <para>The dependset task compares a set of sources with a set of target files.
+            If any of the sources has been modified more recently than any of the target files,
+            all of the target files are removed.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;dependset>
+    &lt;srcfilelist
+            dir   = "${dtd.dir}"
+            files = "paper.dtd,common.dtd"/>
+    &lt;srcfilelist
+            dir   = "${xsl.dir}"
+            files = "common.xsl"/>
+    &lt;srcfilelist
+            dir   = "${basedir}"
+            files = "build.xml"/>
+    &lt;targetfileset
+            dir      = "${output.dir}"
+            includes = "**/*.html"/>
+&lt;/dependset></programlisting>
+            <para> In this example derived HTML files in the ${output.dir} directory will be removed if any are
+                out-of-date with respect to:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>the DTD of their source XML files</para>
+                </listitem>
+                <listitem>
+                    <para>a common DTD (imported by the main DTD)</para>
+                </listitem>
+                <listitem>
+                        <para>a subordinate XSLT stylesheet (imported by the main stylesheet), or</para>
+                </listitem>
+                <listitem>
+                        <para>the buildfile</para>
+                </listitem>
+            </itemizedlist>
+            <para>If any of the sources in the above example does not exist, all target files will also be removed.
+                To ignore missing sources instead, use filesets instead of filelists for the sources.</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">srcfileset</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="FileSet">srcfilelist</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="FileSet">targetfileset</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="FileSet">targetfilelist</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="DiagnosticsTask">
         <title>Diagnostics</title>
         <para> Runs phing's -diagnostics code inside phing itself.
