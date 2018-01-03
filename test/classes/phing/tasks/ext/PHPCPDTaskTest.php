@@ -57,6 +57,6 @@ class PHPCPDTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("0.00% duplicated lines out of 4 total lines of code.", $output);
+        $this->assertContains("0.00% duplicated lines out of 5 total lines of code.", $output);
     }
 }
