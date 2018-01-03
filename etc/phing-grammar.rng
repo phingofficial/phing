@@ -63,6 +63,7 @@
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
                 <ref name="coretypes"/>
+                <ref name="selector"/>
             </interleave>
 
         </element>
@@ -297,7 +298,317 @@
                 <ref name="coretasks"/>
                 <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
+                <ref name="selector"/>
             </interleave>
+        </element>
+    </define>
+
+    <!--
+        ===========================================================================================================
+        Selectors
+        ===========================================================================================================
+    -->
+
+    <define name="selector">
+        <element name="selector">
+            <choice>
+                <attribute name="id">
+                    <data type="ID"/>
+                </attribute>
+                <attribute name="refid">
+                    <data type="IDREF"/>
+                </attribute>
+            </choice>
+            <ref name="selectors"/>
+        </element>
+    </define>
+
+    <define name="selectors">
+        <zeroOrMore>
+            <choice>
+                <ref name="contains_selector"/>
+                <ref name="containsregexp_selector"/>
+                <ref name="date_selector"/>
+                <ref name="depend_selector"/>
+                <ref name="depth_selector"/>
+                <ref name="different_selector"/>
+                <ref name="executable_selector"/>
+                <ref name="filename_selector"/>
+                <ref name="present_selector"/>
+                <ref name="readable_selector"/>
+                <ref name="size_selector"/>
+                <ref name="symlink_selector"/>
+                <ref name="type_selector"/>
+                <ref name="writable_selector"/>
+                <ref name="and_selector"/>
+                <ref name="majority_selector"/>
+                <ref name="none_selector"/>
+                <ref name="not_selector"/>
+                <ref name="or_selector"/>
+            </choice>
+        </zeroOrMore>
+    </define>
+
+    <define name="contains_selector" combine="interleave">
+        <element name="contains">
+            <interleave>
+                <attribute name="text"/>
+                <optional>
+                    <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignorewhitespace" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="containsregexp_selector" combine="interleave">
+        <element name="containsregexp">
+            <interleave>
+                <attribute name="expression"/>
+                <optional>
+                    <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="date_selector" combine="interleave">
+        <element name="date">
+            <interleave>
+                <choice>
+                    <attribute name="datetime"/>
+                    <attribute name="seconds"/>
+                </choice>
+                <optional>
+                    <attribute name="when">
+                        <choice>
+                            <value>equal</value>
+                            <value>before</value>
+                            <value>after</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="granularity" a:default-value="0">
+                        <data type="integer"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="checkdirs" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="depend_selector" combine="interleave">
+        <element name="depend">
+            <interleave>
+                <attribute name="targetdir"/>
+                <optional>
+                    <attribute name="granularity" a:default-value="0">
+                        <data type="integer"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="depth_selector" combine="interleave">
+        <element name="depth">
+            <choice>
+                <attribute name="min" a:default-value="0">
+                    <data type="integer"/>
+                </attribute>
+                <attribute name="max" a:default-value="0">
+                    <data type="integer"/>
+                </attribute>
+            </choice>
+        </element>
+    </define>
+
+    <define name="different_selector" combine="interleave">
+        <element name="different">
+            <interleave>
+                <attribute name="targetdir"/>
+                <optional>
+                    <attribute name="ignorefiletimes" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignorecontents" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="executable_selector" combine="interleave">
+        <element name="executable">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="filename_selector" combine="interleave">
+        <element name="filename">
+            <interleave>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="negate" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="present_selector" combine="interleave">
+        <element name="present">
+            <interleave>
+                <attribute name="targetdir"/>
+                <optional>
+                    <attribute name="present" a:default-value="both">
+                        <choice>
+                            <value>both</value>
+                            <value>srconly</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="readable_selector" combine="interleave">
+        <element name="readable">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="size_selector" combine="interleave">
+        <element name="size">
+            <interleave>
+                <attribute name="value"/>
+                <optional>
+                    <attribute name="units" a:default-value="b">
+                        <choice>
+                            <value>b</value>
+                            <value>k</value>
+                            <value>M</value>
+                            <value>G</value>
+                            <value>Bi</value>
+                            <value>Ki</value>
+                            <value>Mi</value>
+                            <value>Gi</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="when" a:default-value="equal">
+                        <choice>
+                            <value>equal</value>
+                            <value>less</value>
+                            <value>more</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="symlink_selector" combine="interleave">
+        <element name="containsregexp">
+            <interleave>
+                <attribute name="expression"/>
+                <optional>
+                    <attribute name="casesensitive">
+                        <data type="boolean" a:default-value="true"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="type_selector" combine="interleave">
+        <element name="type">
+            <interleave>
+                <attribute name="type">
+                    <choice>
+                        <value>file</value>
+                        <value>dir</value>
+                    </choice>
+                </attribute>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="writable_selector" combine="interleave">
+        <element name="writable">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="and_selector">
+        <element name="and">
+            <oneOrMore>
+                <oneOrMore>
+                    <ref name="selectors"/>
+                </oneOrMore>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="majority_selector">
+        <element name="majority">
+            <optional>
+                <attribute name="allowtie" a:default-value="true">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <oneOrMore>
+                <oneOrMore>
+                    <ref name="selectors"/>
+                </oneOrMore>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="none_selector">
+        <element name="none">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="not_selector">
+        <element name="not">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="or_selector">
+        <element name="or">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
         </element>
     </define>
 
@@ -444,6 +755,7 @@
                     </attribute>
                 </optional>
             </interleave>
+            <ref name="selector"/>
         </element>
     </define>
 
@@ -2535,7 +2847,7 @@
                     </attribute>
                     <attribute name="identityFile"/>
                     <attribute name="port">
-                        <data type="int" />
+                        <data type="int"/>
                     </attribute>
                 </optional>
             </interleave>
@@ -3717,7 +4029,7 @@
                     <attribute name="tofile"/>
                 </optional>
             </interleave>
-       </element>
+        </element>
     </define>
 
     <!--
@@ -4580,7 +4892,7 @@
                 <choice>
                     <attribute name="file"/>
                     <oneOrMore>
-                         <ref name="fileset"/>
+                        <ref name="fileset"/>
                     </oneOrMore>
                 </choice>
                 <optional>
@@ -4744,7 +5056,7 @@
             </interleave>
         </element>
     </define>
-    
+
     <define name="phpdoc2">
         <element name="phpdoc2">
             <interleave>
@@ -5413,7 +5725,7 @@
             </oneOrMore>
         </element>
     </define>
-    
+
     <define name="sonar-property">
         <element name="property">
             <interleave>
@@ -6221,7 +6533,6 @@
             </interleave>
         </element>
     </define>
-
 
 
     <!--
