@@ -1273,6 +1273,74 @@ verbose="true" failonerror="false" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="DefaultExcludes">
+        <title>DefaultExcludes</title>
+        <para> Alters the default excludes for all subsequent processing in the build, and prints out the current
+            default excludes if desired.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>echo</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>whether or not to print out the default excludes.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>attribute "true" required if no other attribute specified</entry>
+                    </row>
+                    <row>
+                        <entry><literal>default</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>go back to hard wired default excludes</entry>
+                        <entry>n/a</entry>
+                        <entry>attribute "true" required if no other attribute specified</entry>
+                    </row>
+                    <row>
+                        <entry><literal>add</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>the pattern to add to the default excludes</entry>
+                        <entry>n/a</entry>
+                        <entry>if no other attribute is specified</entry>
+                    </row>
+                    <row>
+                        <entry><literal>remove</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>remove the specified pattern from the default excludes</entry>
+                        <entry>n/a</entry>
+                        <entry>if no other attribute is specified</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <para>Print out the default excludes</para>
+            <programlisting language="xml">&lt;defaultexcludes echo="true"/></programlisting>
+            <para>Print out the default excludes and exclude all <literal>*.bak</literal> files in all further processing</para>
+            <programlisting language="xml">&lt;defaultexcludes echo="true" add="**/*.bak"/></programlisting>
+            <para>Silently allow several fileset based tasks to operate on emacs backup files and then restore normal behavior</para>
+            <programlisting language="xml">&lt;defaultexcludes remove="**/*~"/>
+
+                (do several fileset based tasks here)
+
+                &lt;defaultexcludes default="true"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="DeleteTask">
         <title> DeleteTask </title>
         <para>Deletes a file or directory, or set of files defined by a fileset. See <xref

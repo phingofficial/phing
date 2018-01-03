@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DefaultExcludesTest" default="do.nothing">
+
+    <target name="cleanup-excludes">
+        <defaultexcludes default="true"/>
+    </target>
+
+    <target name="test1">
+        <defaultexcludes echo="true"/>
+    </target>
+
+    <target name="test2">
+        <defaultexcludes default="true" add="foo" echo="true"/>
+    </target>
+
+    <target name="test3">
+        <defaultexcludes default="true" remove="**/CVS" echo="true"/>
+    </target>
+
+    <property name="input" value="defaultexcludestestinput" />
+    <property name="output" value="defaultexcludestest" />
+
+    <target name="setup">
+        <mkdir dir="${output}"/>
+        <touch mkdirs="true" file="${input}/.svn/entries"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${output}"/>
+    </target>
+
+    <target name="testCopyNoExplicitExcludes">
+        <copy todir="${output}">
+            <fileset dir="${input}"/>
+        </copy>
+    </target>
+
+    <target name="testCopyExplicitExcludes">
+        <copy todir="${output}">
+            <fileset dir="${input}" defaultexcludes="true"/>
+        </copy>
+    </target>
+
+    <target name="testCopyExplicitNoExcludes">
+        <copy todir="${output}">
+            <fileset dir="${input}" defaultexcludes="false"/>
+        </copy>
+    </target>
+
+    <target name="do.nothing" />
+</project>

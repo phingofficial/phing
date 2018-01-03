@@ -47,6 +47,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 
     final public function testEmptyElementIfIsReference()
     {
+        /** @var FileSet $f */
         $f = $this->getInstance();
         $f->setIncludes("**/*.php");
         try {
@@ -104,7 +105,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setIncludes("**/*.java");
             $this->fail(
                 "Can set includes in "
-                . $f . getDataTypeName()
+                . $f->getDataTypeName()
                 . " that is a reference."
             );
         } catch (BuildException $be) {
