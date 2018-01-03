@@ -20,7 +20,6 @@
 /**
  * Stores an object on S3
  *
- * @version $Id$
  * @package phing.tasks.ext
  * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
  */

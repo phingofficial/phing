@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +24,6 @@ include_once 'phing/types/element/ResourceAware.php';
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  *
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class DeleteTask extends Task

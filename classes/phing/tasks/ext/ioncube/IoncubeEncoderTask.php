@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +27,6 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  * @author Michiel Rook <mrook@php.net>
  * @author Andrew Eddie <andrew.eddie@jamboworks.com>
  * @author Domenico Sgarbossa <sbraaaa@yahoo.it>
- * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0
  */

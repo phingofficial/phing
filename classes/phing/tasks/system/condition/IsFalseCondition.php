@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +23,6 @@
  *
  * @author Hans Lellelid (Phing)
  * @author Steve Loughran (Ant)
- * @version $Id$
  * @package phing.tasks.system.condition
  */
 class IsFalseCondition extends ProjectComponent implements Condition

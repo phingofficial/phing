@@ -6,7 +6,6 @@ require_once 'phing/BuildFileTest.php';
  * Tests the If Task
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
- * @version $Id$
  * @package phing.tasks.system
  */
 class IfTaskTest extends BuildFileTest

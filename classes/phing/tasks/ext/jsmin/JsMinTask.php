@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +27,6 @@ require_once 'phing/Task.php';
  * can be installed using composer
  *
  * @author Frank Kleine <mikey@stubbles.net>
- * @version $Id$
  * @package phing.tasks.ext
  * @since 2.3.0
  */

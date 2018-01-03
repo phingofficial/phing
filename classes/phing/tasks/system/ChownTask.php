@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +22,6 @@
  * Task that changes the permissions on a file/directory.
  *
  * @author    Mehmet Emre Yilmaz <mehmety@gmail.com>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class ChownTask extends Task

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +25,6 @@
  * Uses PHP DOM XML support
  *
  * @author    Bill Karwin <bill@karwin.com>
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */

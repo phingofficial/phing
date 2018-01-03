@@ -28,7 +28,6 @@ require_once 'phing/Task.php';
  *
  * @author Martin Hujer <mhujer@gmail.com>
  * @package phing.tasks.ext
- * @version $Id$
  * @since 2.6.2
  */
 class JsHintTask extends Task

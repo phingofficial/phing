@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +26,6 @@ include_once 'phing/types/FileSet.php';
  * Unit tests for AbstractFileSet.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
  * @package phing.types
  */
 abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase

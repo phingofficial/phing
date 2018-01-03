@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,7 +31,6 @@
  * @author    Jon S. Stevens <jon@clearink.com> (Ant
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.tasks.system
  */
 abstract class MatchingTask extends Task implements SelectorContainer

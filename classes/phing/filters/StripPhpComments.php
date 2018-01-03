@@ -26,7 +26,6 @@
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -45,7 +44,6 @@
  * </filterreader></pre>
  *
  * @author    johan persson, johanp@aditus.nu
- * @version   $Id$
  * @see       ReplaceTokensWithFile
  * @package   phing.filters
  */

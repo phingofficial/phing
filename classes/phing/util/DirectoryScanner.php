@@ -104,7 +104,6 @@
  * @author   Magesh Umasankar, umagesh@rediffmail.com
  * @author   Andreas Aderhold, andi@binarycloud.com
  *
- * @version   $Id$
  * @package   phing.util
  */
 class DirectoryScanner implements SelectorScanner

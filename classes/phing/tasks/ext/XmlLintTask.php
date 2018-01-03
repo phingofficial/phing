@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +24,6 @@ require_once 'phing/Task.php';
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
  *
  * @author   Knut Urdalen <knut.urdalen@telio.no>
- * @version  $Id$
  * @package  phing.tasks.ext
  */
 class XmlLintTask extends Task

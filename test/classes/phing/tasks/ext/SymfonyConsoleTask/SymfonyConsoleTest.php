@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +26,6 @@ require_once 'phing/tasks/ext/SymfonyConsole/Arg.php';
  * Test class for the SymfonyConsoleTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase

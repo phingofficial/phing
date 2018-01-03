@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +22,6 @@
  * Class that allows reading tokens from INI files.
  *
  * @author    Manuel Holtgewe
- * @version   $Id$
  * @package   phing.filters.util
  */
 class IniFileTokenReader extends TokenReader

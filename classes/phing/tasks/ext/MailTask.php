@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +27,6 @@ include_once 'phing/Task.php';
  *
  * @author   Michiel Rook <mrook@php.net>
  * @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- * @version  $Id$
  * @package  phing.tasks.ext
  */
 class MailTask extends Task

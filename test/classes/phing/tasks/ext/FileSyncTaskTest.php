@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +25,6 @@ require_once '../classes/phing/tasks/ext/FileSyncTask.php';
  * Tests the FileSync Task
  *
  * @author  Anton <i.splinter@i.ua>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class FileSyncTaskTest extends BuildFileTest

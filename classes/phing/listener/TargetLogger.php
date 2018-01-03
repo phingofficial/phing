@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +23,6 @@
  *
  * @author    Patrick McAndrew <patrick@urg.name>
  * @copyright 2013. All rights reserved
- * @version   $Id$
  * @package   phing.listener
  */
 class TargetLogger extends AnsiColorLogger
