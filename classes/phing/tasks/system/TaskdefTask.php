@@ -48,6 +48,7 @@ include_once 'phing/system/io/PhingFile.php';
  */
 class TaskdefTask extends Task
 {
+    use ClasspathAware;
 
     /** Tag name for task that will be used in XML */
     private $name;
@@ -61,59 +62,10 @@ class TaskdefTask extends Task
     private $classname;
 
     /**
-     * Path to add to PHP include_path to aid in finding specified class.
-     * @var Path
-     */
-    private $classpath;
-
-    /**
-     * Refid to already defined classpath
-     */
-    private $classpathId;
-
-    /**
      * Name of file to load multiple definitions from.
      * @var string
      */
     private $typeFile;
-
-    /**
-     * Set the classpath to be used when searching for component being defined
-     *
-     * @param Path $classpath A Path object containing the classpath.
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * Create the classpath to be used when searching for component being defined
-     *
-     * @return Path
-     */
-    public function createClasspath()
-    {
-        if ($this->classpath === null) {
-            $this->classpath = new Path($this->project);
-        }
-
-        return $this->classpath->createPath();
-    }
-
-    /**
-     * Reference to a classpath to use when loading the files.
-     * @param Reference $r
-     */
-    public function setClasspathRef(Reference $r)
-    {
-        $this->classpathId = $r->getRefId();
-        $this->createClasspath()->setRefid($r);
-    }
 
     /**
      * Sets the name that will be used in XML buildfile.

@@ -36,15 +36,11 @@ require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
  */
 class CoverageReportTask extends Task
 {
+    use ClasspathAware;
+
     private $outfile = "coverage.xml";
 
     private $transformers = [];
-
-    /**
-     * the classpath to use (optional)
-     * @var Path
-     */
-    private $classpath = null;
 
     /** the path to the GeSHi library (optional) */
     private $geshipath = "";
@@ -56,28 +52,6 @@ class CoverageReportTask extends Task
      * @var DOMDocument
      */
     private $doc;
-
-    /**
-     * @param Path $classpath
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * @return null|Path
-     */
-    public function createClasspath()
-    {
-        $this->classpath = new Path();
-
-        return $this->classpath;
-    }
 
     /**
      * @param $path

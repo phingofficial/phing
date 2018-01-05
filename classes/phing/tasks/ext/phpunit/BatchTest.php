@@ -31,13 +31,11 @@ require_once 'phing/types/FileSet.php';
  */
 class BatchTest
 {
+    use ClasspathAware;
     use FileSetAware;
 
     /** the reference to the project */
     private $project = null;
-
-    /** the classpath to use with Phing::__import() calls */
-    private $classpath = null;
 
     /** names of classes to exclude */
     private $excludeClasses = [];
@@ -74,44 +72,6 @@ class BatchTest
     public function setExclude($exclude)
     {
         $this->excludeClasses = explode(" ", $exclude);
-    }
-
-    /**
-     * Sets the classpath.
-     *
-     * @param Path $classpath
-     *
-     * @return void
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * Creates a new Path object.
-     *
-     * @return Path
-     */
-    public function createClasspath()
-    {
-        $this->classpath = new Path();
-
-        return $this->classpath;
-    }
-
-    /**
-     * Returns the classpath.
-     *
-     * @return Path
-     */
-    public function getClasspath()
-    {
-        return $this->classpath;
     }
 
     /**

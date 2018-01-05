@@ -155,7 +155,7 @@ class PhingFilterReader extends DataType
         $o = $r->getReferencedObject($this->getProject());
         if ($o instanceof PhingFilterReader) {
             $this->setClassName($o->getClassName());
-            $this->setClasspath($o->getClassPath());
+            $this->setClasspath($o->getClasspath());
             foreach ($o->getParams() as $p) {
                 $this->addParam($p);
             }

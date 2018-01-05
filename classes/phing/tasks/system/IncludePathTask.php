@@ -39,6 +39,7 @@ include_once 'phing/types/Path.php';
  */
 class IncludePathTask extends Task
 {
+    use ClasspathAware;
 
     /**
      * Classname of task to register.
@@ -49,58 +50,10 @@ class IncludePathTask extends Task
     private $classname;
 
     /**
-     * Path to add to PHP include_path to aid in finding specified class.
-     * @var Path
-     */
-    private $classpath;
-
-    /**
-     * Refid to already defined classpath
-     */
-    private $classpathId;
-
-    /**
      * Whether to prepend, append or replace the include path
      * @var string
      */
     private $mode = "prepend";
-
-    /**
-     * Set the classpath to be used when searching for component being defined
-     *
-     * @param Path $classpath An Path object containing the classpath.
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * Create the classpath to be used when searching for component being defined
-     */
-    public function createClasspath()
-    {
-        if ($this->classpath === null) {
-            $this->classpath = new Path($this->project);
-        }
-
-        return $this->classpath->createPath();
-    }
-
-    /**
-     * Reference to a classpath to use when loading the files.
-     * @param Reference $r
-     * @throws BuildException
-     */
-    public function setClasspathRef(Reference $r)
-    {
-        $this->classpathId = $r->getRefId();
-        $this->createClasspath()->setRefid($r);
-    }
 
     /**
      * @param $mode

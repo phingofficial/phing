@@ -482,7 +482,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p)
+    public function dieOnCircularReference(&$stk, Project $p = null)
     {
         if ($this->checked) {
             return;

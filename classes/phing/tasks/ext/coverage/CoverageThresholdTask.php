@@ -34,12 +34,7 @@ require_once 'phing/types/Excludes.php';
  */
 class CoverageThresholdTask extends Task
 {
-    /**
-     * Holds an optional classpath
-     *
-     * @var Path
-     */
-    private $_classpath = null;
+    use ClasspathAware;
 
     /**
      * Holds the exclusions
@@ -112,20 +107,6 @@ class CoverageThresholdTask extends Task
     private $_verbose = false;
 
     /**
-     * Sets an optional classpath
-     *
-     * @param Path $classpath The classpath
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->_classpath === null) {
-            $this->_classpath = $classpath;
-        } else {
-            $this->_classpath->append($classpath);
-        }
-    }
-
-    /**
      * Sets the optional coverage database to use
      *
      * @param PhingFile The database file
@@ -133,18 +114,6 @@ class CoverageThresholdTask extends Task
     public function setDatabase(PhingFile $database)
     {
         $this->_database = $database;
-    }
-
-    /**
-     * Create classpath object
-     *
-     * @return Path
-     */
-    public function createClasspath()
-    {
-        $this->_classpath = new Path();
-
-        return $this->_classpath;
     }
 
     /**
@@ -219,7 +188,7 @@ class CoverageThresholdTask extends Task
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)
     {
-        $classes = PHPUnitUtil::getDefinedClasses($filename, $this->_classpath);
+        $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
         if (is_array($classes)) {
             foreach ($classes as $className) {
