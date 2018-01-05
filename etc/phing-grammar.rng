@@ -5654,6 +5654,87 @@
         </element>
     </define>
 
+
+    <!--
+        =========================================
+        SvnProplijstTask
+        =========================================
+    -->
+    <define name="svnproplist">
+        <element name="svnproplist">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="propertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="recursive"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+
+    <!--
+        =========================================
+        SvnPropgetTask
+        =========================================
+    -->
+    <define name="svnpropget">
+        <element name="svnpropget">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="propertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="svnproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="fromdir"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+
+    <!--
+        =========================================
+        SvnPropsetTask
+        =========================================
+    -->
+    <define name="svnpropset">
+        <element name="svnpropset">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="svnpropertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="svnpropertyvalue"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <!--
         =========================================
         SvnLastRevisionTask
