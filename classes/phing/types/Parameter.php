@@ -78,6 +78,14 @@ class Parameter extends DataType
         $this->value = (string) $value;
     }
 
+    /**
+     * @param $v
+     */
+    public function addText($v)
+    {
+        $this->val = $v;
+    }
+
     public function getName()
     {
         return $this->name;
