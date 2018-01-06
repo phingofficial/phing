@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Commandline.php';
-
 /**
  * Unit test for mappers.
  *

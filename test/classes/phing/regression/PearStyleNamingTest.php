@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/204
  * - PHPUnit task fails with formatter type 'xml'

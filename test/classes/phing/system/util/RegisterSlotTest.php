@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Register.php';
-
 /**
  * Unit test for RegisterSlot
  *

@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/FileSyncTask.php';
-
 /**
  * Tests the FileSync Task
  *

@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Properties.php';
-
 /**
  * Unit test for Properties class
  *

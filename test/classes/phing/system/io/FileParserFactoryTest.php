@@ -17,8 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/FileParserFactory.php';
 
 /**
  * Unit test for FileParserFactory

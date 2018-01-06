@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Regression test for tickets
  * http://www.phing.info/trac/ticket/524

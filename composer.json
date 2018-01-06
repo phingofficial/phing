@@ -53,6 +53,11 @@
             "classes/phing/"
         ]
     },
+    "autoload-dev": {
+        "classmap": [
+            "test/classes/"
+        ]
+    },
     "include-path": ["classes"],
     "bin": [
         "bin/phing"

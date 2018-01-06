@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.svn

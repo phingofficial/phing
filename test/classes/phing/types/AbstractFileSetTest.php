@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/types/FileSet.php';
-
 /**
  * Unit tests for AbstractFileSet.
  *

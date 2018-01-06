@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/WikiPublishTask.php';
-
 /**
  * WikiPublish task test
  * @author  Piotr Lewandowski <piotr@cassis.pl>

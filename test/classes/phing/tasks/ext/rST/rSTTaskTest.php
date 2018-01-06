@@ -12,8 +12,6 @@
  * @link       http://www.phing.info/
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Unit test for reStructuredText rendering task.
  *

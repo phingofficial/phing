@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once __DIR__ . '/BaseHttpTaskTest.php';
-
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext

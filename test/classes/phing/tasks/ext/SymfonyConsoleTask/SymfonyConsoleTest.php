@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/SymfonyConsole/SymfonyConsoleTask.php';
-require_once 'phing/tasks/ext/SymfonyConsole/Arg.php';
-
 /**
  * Test class for the SymfonyConsoleTask.
  *
