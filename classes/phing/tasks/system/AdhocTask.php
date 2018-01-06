@@ -18,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Abstract class for creating adhoc Phing components in buildfile.

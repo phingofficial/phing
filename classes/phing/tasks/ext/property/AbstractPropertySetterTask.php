@@ -18,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 abstract class AbstractPropertySetterTask extends Task
 {

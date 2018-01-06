@@ -18,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/phk/PhkPackageWebAccess.php';
 
 /**

@@ -18,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Base class for HTTP_Request2-backed tasks
