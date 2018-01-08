@@ -8,26 +8,17 @@
 
     pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
 
-    if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
-        echo -e "\nAuto-discover pear channels and upgrade ..."
-        pear config-set auto_discover 1
-        pear -qq channel-update pear.php.net
-        pear -qq channel-discover pear.phing.info
-        echo "... OK"
-    fi
+    echo -e "\nAuto-discover pear channels and upgrade ..."
+    pear config-set auto_discover 1
+    pear -qq channel-update pear.php.net
+    pear -qq channel-discover pear.phing.info
+    echo "... OK"
     
     echo -e "\nInstalling composer packages ... "
     composer selfupdate --quiet
     composer install -o --no-progress --prefer-dist
 
-    if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
-        phpenv config-add .travis.php.ini
-    else
-        echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
-        phpenv rehash
-        echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
-    fi
-    
+    phpenv config-add .travis.php.ini
     phpenv rehash
 
     echo "=== SETTING GIT IDENTITY ==="
