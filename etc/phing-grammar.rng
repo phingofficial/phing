@@ -4755,7 +4755,10 @@
                     <attribute name="destdir"/>
                 </optional>
                 <optional>
-                    <attribute name="output"/>
+                    <choice>
+                        <attribute name="destdir"/>
+                        <attribute name="output"/>
+                    </choice>
                 </optional>
                 <optional>
                     <attribute name="template"/>
