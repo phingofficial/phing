@@ -185,11 +185,8 @@ class PhpEvalTask extends Task
     }
 
     /** Add a nested <param> tag. */
-    public function createParam()
+    public function addParam(Parameter $param)
     {
-        $p = new FunctionParam();
-        $this->params[] = $p;
-
-        return $p;
+        $this->params[] = $param;
     }
 }
