@@ -12821,6 +12821,264 @@ host="webserver" command="ls" /></programlisting>
    todir="C:/projects/svnwc"/></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="SvnProplistTask">
+        <title>SvnProplistTask</title>
+        <para> The <literal>SvnProplistTask</literal> lists all properties on files, dirs, or revisions from the
+            working copy.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>svnpath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Subversion binary</entry>
+                        <entry>/usr/bin/svn</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>workingcopy</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Working copy directory</entry>
+                        <entry>none</entry>
+                        <entry>Yes, or <literal>repositoryurl</literal></entry>
+                    </row>
+                    <row>
+                        <entry><literal>repositoryurl</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>URL of remote repository</entry>
+                        <entry>none</entry>
+                        <entry>Yes, or <literal>workingcopy</literal></entry>
+                    </row>
+                    <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>propertyname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of property to use</entry>
+                        <entry>svn.proplist</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>recursive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Recursive proplist usage?</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;svnproplist
+                svnpath="/usr/bin/svn"
+                username="anony"
+                password="anony"
+                repositoryurl="http://svn.phing.info/tags/2.4.2"
+                todir="/home/user/svnwc"
+                recursive="true"
+                propertyname="proplist"/></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="SvnPropgetTask">
+        <title>SvnPropgetTask</title>
+        <para> The <literal>SvnPropgetTask</literal> gets a property on files, dirs, or revisions from the working copy.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>svnpath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Subversion binary</entry>
+                        <entry>/usr/bin/svn</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repositoryurl</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>URL of remote repository</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>todir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to the checked out project</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>propertyname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of property to use.</entry>
+                        <entry>svn.propget</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>svnpropertyname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The svn property to get.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>fromdir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Thr dir the properties are from.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;svnpropget
+                svnpath="/usr/bin/svn"
+                username="anony"
+                password="anony"
+                repositoryurl="http://svn.phing.info/tags/2.4.2"
+                fromdir="/home/user/svnwc"
+                svnpropertyname="propertyname"
+                propertyname="propget"/></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="SvnPropsetTask">
+        <title>SvnPropsetTask</title>
+        <para> The <literal>SvnSwitchTask</literal> sets a property on files, dirs, or revisions from the working copy.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>svnpath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Subversion binary</entry>
+                        <entry>/usr/bin/svn</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repositoryurl</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>URL of remote repository</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>todir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to the checked out project</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>svnpropertyname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The svn property to set</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;svnpropset
+                svnpath="/usr/bin/svn"
+                username="anony"
+                password="anony"
+                repositoryurl="http://svn.phing.info/tags/2.4.2"
+                todir="/home/user/svnwc"
+                svnpropset="propertyname"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="StopwatchTask">
         <title>StopwatchTask</title>
         <para>
