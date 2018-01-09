@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * @author Bryan Davis <bpd@keynetics.com>
  * @package phing.tasks.system

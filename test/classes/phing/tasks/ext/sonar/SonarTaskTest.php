@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/sonar/SonarTask.php';
-
 /**
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>

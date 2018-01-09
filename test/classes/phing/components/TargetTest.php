@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * UTs for Target component
  *

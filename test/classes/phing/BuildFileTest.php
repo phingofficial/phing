@@ -20,9 +20,6 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'phing/BuildListener.php';
-require_once 'phing/system/io/PhingFile.php';
-
 /**
  * A BuildFileTest is a TestCase which executes targets from a Phing buildfile
  * for testing.

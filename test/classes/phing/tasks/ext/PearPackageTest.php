@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Test cases for the pearpkg/pearpkg2 tasks
  *

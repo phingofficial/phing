@@ -1,6 +1,4 @@
 <?php
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/hg/HgArchiveTask.php';
 
 class HgArchiveTaskTest extends BuildFileTest
 {

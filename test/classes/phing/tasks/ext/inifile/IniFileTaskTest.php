@@ -1,5 +1,5 @@
 <?php
-require_once 'phing/BuildFileTest.php';
+
 
 class IniFileTaskTest extends BuildFileTest
 {

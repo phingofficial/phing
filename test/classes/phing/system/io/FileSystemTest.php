@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
-
 /**
  * Unit test for FileSystem
  *

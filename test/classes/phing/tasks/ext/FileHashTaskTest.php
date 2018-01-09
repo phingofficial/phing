@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext

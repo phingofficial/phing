@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.filters

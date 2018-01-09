@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once __DIR__ . '/../../../classes/phing/Phing.php';
-
 /**
  * Core Phing class test
  * Do not know why there was no test at all

@@ -18,10 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'HTTP/Request2.php';
-require_once __DIR__ . '/TraceHttpAdapter.php';
-
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext

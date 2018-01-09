@@ -20,7 +20,7 @@
  *
  * @package phing.util
  */
-require_once 'phing/BuildFileTest.php';
+
 
 /**
  * Testcases for phing.types.PearPackageFileSet

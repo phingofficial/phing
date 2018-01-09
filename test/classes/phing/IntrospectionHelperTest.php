@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/OsCondition.php';
-
 /**
  * testcases for phing.IntrospectionHelper.
  *
