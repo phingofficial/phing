@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +18,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/Project.php';
-include_once 'phing/util/regexp/Regexp.php';
-
 /**
  * A regular expression datatype.  Keeps an instance of the
  * compiled expression for speed purposes.  This compiled
@@ -31,7 +26,6 @@ include_once 'phing/util/regexp/Regexp.php';
  * regular expression type you are using.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Id$
  * @see       phing.util.regex.RegexMatcher
  * @package   phing.types
  */
@@ -174,7 +168,7 @@ class RegularExpression extends DataType
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }

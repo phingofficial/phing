@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.
@@ -29,7 +27,6 @@ require_once 'phing/Task.php';
  *        modify internal Phing classes unless you know what you are doing.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Id$
  * @package  phing.tasks.system
  *
  * @todo Add support for evaluating expressions
@@ -187,11 +184,8 @@ class PhpEvalTask extends Task
     }
 
     /** Add a nested <param> tag. */
-    public function createParam()
+    public function addParam(Parameter $param)
     {
-        $p = new FunctionParam();
-        $this->params[] = $p;
-
-        return $p;
+        $this->params[] = $param;
     }
 }

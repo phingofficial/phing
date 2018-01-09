@@ -20,4 +20,16 @@
     </copy>
   </target>
 
+  <target name="testLineContainsNegate" depends="init">
+    <copy todir="result">
+      <fileset dir="input"/>
+      <filterchain>
+        <filterreader classname="phing.filters.LineContains">
+          <param type="contains" value="beta"/>
+          <param type="negate" value="true"/>
+        </filterreader>
+      </filterchain>
+    </copy>
+  </target>
+
 </project>

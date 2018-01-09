@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,9 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/IniFileParser.php';
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/YamlFileParser.php';
 
 /**
  * The factory to create fileParsers based on extension name from
@@ -46,7 +42,7 @@ class FileParserFactory implements FileParserFactoryInterface
      */
     public function createParser($fileExtension)
     {
-        if (phpversion() >= 5.3) {
+        if (PHP_VERSION >= 5.3) {
             switch ($fileExtension) {
                 case self::YAMLFILEEXTENSION:
                 case self::YAMLFILEEXTENSIONLONG:

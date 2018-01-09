@@ -18,11 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/DirSet.php';
-
 /**
  * Executes a command on the (filtered) file list/set.
  * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)
@@ -34,6 +29,7 @@ include_once 'phing/types/DirSet.php';
  */
 class ApplyTask extends Task
 {
+    use ResourceAware;
 
     /**
      * Configuration(s)
@@ -41,13 +37,6 @@ class ApplyTask extends Task
      */
     //[TBA]const TARGETFILE_ID = '__TARGETFILE__';
     const SOURCEFILE_ID = '__SOURCEFILE__';
-
-    /**
-     * File Set/List of files.
-     * @var array
-     */
-    protected $filesets = [];
-    protected $filelists = [];
 
     /**
      * Commandline managing object
@@ -171,44 +160,6 @@ class ApplyTask extends Task
      */
     protected $maxparallel = 0;
 
-
-    /**
-     * Supports embedded <filelist> element.
-     *
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
-    }
-
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-
-    /**
-     * Nested adder, adds a set of dirs (nested dirset attribute).
-     *
-     * @param DirSet $dirSet
-     * @return void
-     */
-    public function addDirSet(DirSet $dirSet)
-    {
-        $this->filesets[] = $dirSet;
-    }
-
-
     /**
      * Sets the command executable information
      *
@@ -220,7 +171,6 @@ class ApplyTask extends Task
     {
         $this->commandline->setExecutable((string) $executable);
     }
-
 
     /**
      * Specify the working directory for the command execution.
@@ -234,7 +184,6 @@ class ApplyTask extends Task
         $this->dir = $dir;
     }
 
-
     /**
      * Escape command using 'escapeshellcmd' before execution
      *
@@ -247,7 +196,6 @@ class ApplyTask extends Task
         $this->escape = (bool) $escape;
     }
 
-
     /**
      * File to which output should be written
      *
@@ -259,7 +207,6 @@ class ApplyTask extends Task
     {
         $this->output = $outputfile;
     }
-
 
     /**
      * File to which output should be written
@@ -274,7 +221,6 @@ class ApplyTask extends Task
         $this->appendoutput = (bool) $append;
     }
 
-
     /**
      * Run the command only once, appending all files as arguments
      *
@@ -287,7 +233,6 @@ class ApplyTask extends Task
         $this->parallel = (bool) $parallel;
     }
 
-
     /**
      * To add the source filename at the end of command of automatically
      *
@@ -299,7 +244,6 @@ class ApplyTask extends Task
     {
         $this->addsourcefile = (bool) $addsourcefile;
     }
-
 
     /**
      * File to which error output should be written

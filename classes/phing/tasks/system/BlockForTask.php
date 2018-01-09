@@ -16,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/Task.php';
-require_once 'phing/BuildTimeoutException.php';
-require_once 'phing/tasks/system/WaitForTask.php';
 
 /**
  *  Based on Apache Ant Block For:

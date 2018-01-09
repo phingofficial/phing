@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +19,6 @@
  */
 
 use PHPUnit\Framework\TestCase;
-
-require_once 'phing/BuildListener.php';
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A BuildFileTest is a TestCase which executes targets from a Phing buildfile
@@ -450,7 +446,6 @@ abstract class BuildFileTest extends TestCase
                             $returndate = ceil($timediff / 86400) . " days ago";
                         } else {
                             if ($timediff < 1209600) {
-                                $returndate = "1 week ago.";
                                 $returndate = ceil($timediff / 86400) . " days ago";
                             } else {
                                 if ($timediff < 2629744) {

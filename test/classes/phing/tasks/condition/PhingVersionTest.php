@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildFileTest.php';
-
 /**
  * Testcase for the PhingVersion task/condition.
  *

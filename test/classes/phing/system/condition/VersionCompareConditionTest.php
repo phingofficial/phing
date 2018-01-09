@@ -1,5 +1,4 @@
 <?php
-require_once "phing/tasks/system/condition/VersionCompareCondition.php";
 
 class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
 {

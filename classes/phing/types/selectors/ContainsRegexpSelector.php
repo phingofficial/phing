@@ -1,7 +1,6 @@
 <?php
 
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +28,6 @@ include_once 'phing/types/RegularExpression.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.types.selectors
  */
 class ContainsRegexpSelector extends BaseExtendSelector
@@ -47,11 +45,15 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /** @var bool $casesensitive */
     private $casesensitive = true;
 
+    /** @var bool $casesensitive */
+    private $multiline = false;
+
     /** @var RegularExpression $myRegExp */
     private $myRegExp;
 
     const EXPRESSION_KEY = "expression";
     const CASE_KEY = "casesensitive";
+    const ML_KEY = 'multiline';
 
     /**
      * @return string
@@ -110,7 +112,10 @@ class ContainsRegexpSelector extends BaseExtendSelector
                         $this->setExpression($parameters[$i]->getValue());
                         break;
                     case self::CASE_KEY:
-                        $this->setCasesensitive($parameters[$i]->getValue());
+                        $this->setCasesensitive(Project::toBoolean($parameters[$i]->getValue()));
+                        break;
+                    case self::ML_KEY:
+                        $this->setMultiLine(Project::toBoolean($parameters[$i]->getValue()));
                         break;
                     default:
                         $this->setError("Invalid parameter " . $paramname);
@@ -154,9 +159,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
         if ($this->myRegExp === null) {
             $this->myRegExp = new RegularExpression();
             $this->myRegExp->setPattern($this->userProvidedExpression);
-            if (!$this->casesensitive) {
-                $this->myRegExp->setIgnoreCase(true);
-            }
             $this->myExpression = $this->myRegExp->getRegexp($this->getProject());
         }
 
@@ -165,6 +167,8 @@ class ContainsRegexpSelector extends BaseExtendSelector
             $in = new BufferedReader(new FileReader($file));
             $teststr = $in->readLine();
             while ($teststr !== null) {
+                $this->myExpression->setMultiline($this->multiline);
+                $this->myExpression->setIgnoreCase(!$this->casesensitive);
                 if ($this->myExpression->matches($teststr)) {
                     return true;
                 }

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,12 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitBranchTask.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class GitBranchTaskTest extends BuildFileTest
@@ -99,7 +94,11 @@ class GitBranchTaskTest extends BuildFileTest
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
-        $this->executeTarget('setUpstreamParamSet');
+        if (version_compare(substr(trim(exec('git --version')), strlen('git version ')), '2.15.0', '<')) {
+            $this->executeTarget('setUpstreamParamSet');
+        } else {
+            $this->executeTarget('setUpstreamToParamSet');
+        }
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
         $this->assertInLogs('Branch set-upstream-param-set set up to track local branch master.'); // no output actually
     }

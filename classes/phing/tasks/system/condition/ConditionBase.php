@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,12 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/Project.php';
-include_once 'phing/tasks/system/AvailableTask.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/parser/CustomChildCreator.php';
-
 /**
  * Abstract baseclass for the <condition> task as well as several
  * conditions - ensures that the types of conditions inside the task
@@ -33,7 +26,6 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator

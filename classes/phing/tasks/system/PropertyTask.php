@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,21 +19,16 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/FileParserFactory.php';
-
 /**
  * Task for setting properties in buildfiles.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class PropertyTask extends Task
 {
+    use FilterChainAware;
 
     /**
      * @var string name of the property
@@ -76,11 +70,6 @@ class PropertyTask extends Task
 
     /** Whether property should be treated as "user" property. */
     protected $userProperty = false;
-
-    /**
-     * @var FilterChain[] All filterchain objects assigned to this task
-     */
-    protected $filterChains = [];
 
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
@@ -284,18 +273,6 @@ class PropertyTask extends Task
     }
 
     /**
-     * Creates a filterchain
-     *
-     * @return object The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
-    }
-
-    /**
      * @param $logOutput
      */
     public function setLogoutput($logOutput)
@@ -319,6 +296,14 @@ class PropertyTask extends Task
     public function setQuiet($bool)
     {
         $this->quiet = $bool;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getQuiet(): bool
+    {
+        return $this->quiet;
     }
 
     /**
@@ -439,17 +424,18 @@ class PropertyTask extends Task
             $value = $in->read();
         }
 
+        $ph = PropertyHelper::getPropertyHelper($this->getProject());
         if ($this->userProperty) {
-            if ($this->project->getUserProperty($name) === null || $this->override) {
-                $this->project->setInheritedProperty($name, $value);
+            if ($ph->getUserProperty(null, $name) === null || $this->override) {
+                $ph->setInheritedProperty(null, $name, $value);
             } else {
-                $this->log("Override ignored for " . $name, Project::MSG_VERBOSE);
+                $this->log('Override ignored for ' . $name, Project::MSG_VERBOSE);
             }
         } else {
             if ($this->override) {
-                $this->project->setProperty($name, $value);
+                $ph->setProperty(null, $name, $value, true);
             } else {
-                $this->project->setNewProperty($name, $value);
+                $ph->setNewProperty(null, $name, $value);
             }
         }
     }
@@ -504,11 +490,10 @@ class PropertyTask extends Task
                 $fragments = [];
                 $propertyRefs = [];
 
-                // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
-                self::parsePropertyString($value, $fragments, $propertyRefs);
+                PropertyHelper::getPropertyHelper($this->project)->parsePropertyString($value, $fragments, $propertyRefs);
 
                 $resolved = true;
-                if (count($propertyRefs) == 0) {
+                if (count($propertyRefs) === 0) {
                     continue;
                 }
 
@@ -553,55 +538,5 @@ class PropertyTask extends Task
                 $props->setProperty($name, $value);
             } // while (!$resolved)
         } // while (count($keys)
-    }
-
-    /**
-     * This method will parse a string containing ${value} style
-     * property values into two lists. The first list is a collection
-     * of text fragments, while the other is a set of string property names
-     * null entries in the first list indicate a property reference from the
-     * second list.
-     *
-     * This is slower than regex, but useful for this class, which has to handle
-     * multiple parsing passes for properties.
-     *
-     * @param string $value The string to be scanned for property references
-     * @param array &$fragments The found fragments
-     * @param array &$propertyRefs The found refs
-     * @throws BuildException
-     */
-    protected function parsePropertyString($value, &$fragments, &$propertyRefs)
-    {
-        $prev = 0;
-        $pos = 0;
-
-        while (($pos = strpos($value, '$', $prev)) !== false) {
-            if ($pos > $prev) {
-                $fragments[] = StringHelper::substring($value, $prev, $pos - 1);
-            }
-            if ($pos === (strlen($value) - 1)) {
-                $fragments[] = '$';
-                $prev = $pos + 1;
-            } elseif ($value{$pos + 1} !== '{') {
-
-                // the string positions were changed to value-1 to correct
-                // a fatal error coming from function substring()
-                $fragments[] = StringHelper::substring($value, $pos, $pos + 1);
-                $prev = $pos + 2;
-            } else {
-                $endName = strpos($value, '}', $pos);
-                if ($endName === false) {
-                    throw new BuildException("Syntax error in property: $value");
-                }
-                $propertyName = StringHelper::substring($value, $pos + 2, $endName - 1);
-                $fragments[] = null;
-                $propertyRefs[] = $propertyName;
-                $prev = $endName + 1;
-            }
-        }
-
-        if ($prev < strlen($value)) {
-            $fragments[] = StringHelper::substring($value, $prev);
-        }
     }
 }

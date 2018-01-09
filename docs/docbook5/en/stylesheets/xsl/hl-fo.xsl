@@ -4,7 +4,6 @@
     * Customization layer for fo XSL Docbook5 used to produce PDF output with
     * source highlight
     *    
-    * Revision: $Id$
     * ==============================================================================    
 -->    
 <xsl:stylesheet xmlns:d="http://docbook.org/ns/docbook"

@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,11 +26,12 @@ require_once 'phing/Task.php';
  * Supports filterchains.
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class LoadFileTask extends Task
 {
+    use FilterChainAware;
+
     /**
      * File to read
      * @var PhingFile file
@@ -43,12 +43,6 @@ class LoadFileTask extends Task
      * @var string $property
      */
     private $property;
-
-    /**
-     * Array of FilterChain objects
-     * @var FilterChain[]
-     */
-    private $filterChains = [];
 
     private $failOnError = true;
 
@@ -100,18 +94,6 @@ class LoadFileTask extends Task
     public function setProperty($property)
     {
         $this->property = $property;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return object The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**

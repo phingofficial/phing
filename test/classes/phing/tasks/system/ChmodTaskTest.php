@@ -1,12 +1,9 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Chmod Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ChmodTaskTest extends BuildFileTest

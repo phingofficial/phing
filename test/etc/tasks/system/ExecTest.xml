@@ -76,9 +76,38 @@
         <exec command="echo 'this should not be executed'" os="unknownos"/>
     </target>
 
+    <target name="testDoNotExecuteOnWrongOsFamily">
+        <exec command="echo 'this should not be executed'" osfamily="unknownos"/>
+    </target>
+
     <target name="testExecuteOnCorrectOs">
         <exec command="echo 'this should be executed'"
               os="WINNT WIN32 Linux Darwin BSD" />
+    </target>
+
+    <target name="testExecuteOnCorrectOsFamily">
+
+            <if>
+                <os family="Unix"/>
+                <then>
+                    <property name="current" value="unix"/>
+                </then>
+                <elseif>
+                    <os family="windows"/>
+                    <then>
+                        <property name="current" value="windows"/>
+                    </then>
+                </elseif>
+                <elseif>
+                    <os family="mac"/>
+                    <then>
+                        <property name="current" value="mac"/>
+                    </then>
+                </elseif>
+            </if>
+
+        <exec command="echo 'this should be executed'"
+              osfamily="unix" />
     </target>
 
     <target name="testFailOnNonExistingDir">

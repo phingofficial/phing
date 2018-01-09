@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */

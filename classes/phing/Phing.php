@@ -21,34 +21,6 @@ use SebastianBergmann\Version;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-require_once 'phing/Diagnostics.php';
-require_once 'phing/Project.php';
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/Target.php';
-require_once 'phing/Task.php';
-
-include_once 'phing/BuildException.php';
-include_once 'phing/ConfigurationException.php';
-include_once 'phing/BuildEvent.php';
-
-include_once 'phing/parser/Location.php';
-include_once 'phing/parser/ExpatParser.php';
-include_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ProjectConfigurator.php';
-include_once 'phing/parser/RootHandler.php';
-include_once 'phing/parser/ProjectHandler.php';
-include_once 'phing/parser/TargetHandler.php';
-
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/OutputStream.php';
-include_once 'phing/system/io/PrintStream.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/FileParserFactory.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/util/Register.php';
-
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
  * parsing & handling commandline arguments to assembling the project to shutting down
@@ -381,6 +353,16 @@ class Phing
 
         if (in_array('-version', $args) || in_array('-v', $args)) {
             $this->printVersion();
+
+            return;
+        }
+
+        if (in_array('-init', $args) || in_array('-i', $args)) {
+
+            $key = array_search('-init', $args) ?: array_search('-i', $args);
+            $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
+
+            self::init($path);
 
             return;
         }
@@ -1011,6 +993,7 @@ class Phing
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
+        $msg .= "  -i -init [file]        generates an initial buildfile" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
@@ -1045,6 +1028,86 @@ class Phing
     public static function printVersion()
     {
         self::$out->write(self::getPhingVersion() . PHP_EOL);
+    }
+
+    /**
+     * Creates generic buildfile
+     *
+     * @param string $path
+     *
+     */
+    public static function init($path)
+    {
+        if ($buildfilePath = self::initPath($path)) {
+            self::initWrite($buildfilePath);
+        }
+    }
+
+
+    /**
+     * Returns buildfile's path
+     *
+     * @param $path
+     *
+     * @return string
+     * @throws ConfigurationException
+     */
+    protected static function initPath($path)
+    {
+        // Fallback
+        if (empty($path)) {
+            $defaultDir = self::getProperty('application.startdir');
+            $path = $defaultDir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Adding filename if necessary
+        if (is_dir($path)) {
+            $path .= DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Check if path is available
+        $dirname = dirname($path);
+        if (is_dir($dirname) && !is_file($path)) {
+            return $path;
+        }
+
+        // Path is valid, but buildfile already exists
+        if (is_file($path)) {
+            throw new ConfigurationException('Buildfile already exists.');
+        }
+
+        throw new ConfigurationException('Invalid path for sample buildfile.');
+    }
+
+
+    /**
+     * Writes sample buildfile
+     *
+     * If $buildfilePath does not exist, the buildfile is created.
+     *
+     * @param $buildfilePath buildfile's location
+     *
+     * @return null
+     * @throws ConfigurationException
+     */
+    protected static function initWrite($buildfilePath)
+    {
+        // Overwriting protection
+        if (file_exists($buildfilePath)) {
+            throw new ConfigurationException('Cannot overwrite existing file.');
+        }
+
+        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
+        $content .= '' . PHP_EOL;
+        $content .= '<project name="" description="" default="">' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '    <target name="" description="">' . PHP_EOL;
+        $content .= '        ' . PHP_EOL;
+        $content .= '    </target>' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '</project>' . PHP_EOL;
+
+        file_put_contents($buildfilePath, $content);
     }
 
     /**
@@ -1317,8 +1380,7 @@ class Phing
             self::$importPaths = self::explodeIncludePath();
         }
 
-        $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
-        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
 
         foreach (self::$importPaths as $prefix) {
             $testPath = $prefix . DIRECTORY_SEPARATOR . $path;
@@ -1580,21 +1642,23 @@ class Phing
      * @param string $val
      * @return int
      */
-    private static function convertShorthand($val)
+    public static function convertShorthand($val)
     {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
 
-        $val = (int) $val;
+        if (!is_numeric($last)) {
+            $val = (int) substr($val, 0, strlen($val) - 1);
 
-        switch ($last) {
-            // The 'G' modifier is available since PHP 5.1.0
-            case 'g':
-                $val *= 1024;
-            case 'm':
-                $val *= 1024;
-            case 'k':
-                $val *= 1024;
+            switch ($last) {
+                // The 'G' modifier is available since PHP 5.1.0
+                case 'g':
+                    $val *= 1024;
+                case 'm':
+                    $val *= 1024;
+                case 'k':
+                    $val *= 1024;
+            }
         }
 
         return $val;
@@ -1615,11 +1679,8 @@ class Phing
 
         set_time_limit(0);
 
-        self::$origIniSettings['magic_quotes_gpc'] = ini_set('magic_quotes_gpc', 'off');
         self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
-        self::$origIniSettings['register_globals'] = ini_set('register_globals', 'off');
-        self::$origIniSettings['allow_call_time_pass_reference'] = ini_set('allow_call_time_pass_reference', 'on');
         self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
         $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));

@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/tasks/system/ExecTask.php';
-
 /**
  * Condition to test a return-code for failure.
  *

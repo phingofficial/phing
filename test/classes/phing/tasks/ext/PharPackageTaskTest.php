@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests for PharPackageTask
  *
@@ -44,7 +42,7 @@ class PharPackageTaskTest extends BuildFileTest
     public function testOpenSSLSignature()
     {
         // Generate a private key on the fly.
-        $passphrase = uniqid();
+        $passphrase = uniqid('', true);
         $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
         file_put_contents($passfile, $passphrase);
         $pkey = openssl_pkey_new();

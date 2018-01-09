@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,12 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitMergeTask.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class GitMergeTaskTest extends BuildFileTest
@@ -55,7 +50,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up');
     }
 
     public function testNoCommitSet()
@@ -63,7 +58,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up');
     }
 
     public function testRemoteSet()
@@ -71,7 +66,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up');
     }
 
     public function testFastForwardCommitSet()

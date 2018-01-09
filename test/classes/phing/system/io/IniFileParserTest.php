@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/system/io/YamlFileParser.php';
-include_once 'phing/system/io/FileParserInterface.php';
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
@@ -58,7 +54,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileCouldntOpenFile()
     {
-        $phingFile = new PhingFile(uniqid());
+        $phingFile = new PhingFile(uniqid('', true));
         $this->parser->parseFile($phingFile);
     }
 

@@ -33,13 +33,11 @@
  *
  * @category   Tasks
  * @package    phing.tasks.ext
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Growl notification task for Phing, the PHP build tool.
@@ -48,7 +46,6 @@ require_once 'phing/Task.php';
  *
  * @category   Tasks
  * @package    phing.tasks.ext
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask

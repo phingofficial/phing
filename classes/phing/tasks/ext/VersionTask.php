@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +29,6 @@ require_once 'phing/Task.php';
  * Resulting version number is also published under supplied property.
  *
  * @author      Mike Wittje <mw@mike.wittje.de>
- * @version     $Id$ $Rev $Id$ $Author$
  * @package     phing.tasks.ext
  */
 class VersionTask extends Task
