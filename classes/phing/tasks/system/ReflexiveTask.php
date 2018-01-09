@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.

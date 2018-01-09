@@ -12,7 +12,6 @@
  * @link       http://www.phing.info/
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/util/FileUtils.php';
 
 /**

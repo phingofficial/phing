@@ -16,7 +16,6 @@
  * the License.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/system/ExecTask.php';
 
 /**
