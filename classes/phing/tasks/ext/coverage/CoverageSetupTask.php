@@ -27,14 +27,12 @@
  */
 class CoverageSetupTask extends Task
 {
+    use ClasspathAware;
     use FileListAware;
     use FileSetAware;
 
     /** the filename of the coverage database */
     private $database = "coverage.db";
-
-    /** the classpath to use (optional) */
-    private $classpath = null;
 
     /**
      * Sets the filename of the coverage database to use
@@ -44,28 +42,6 @@ class CoverageSetupTask extends Task
     public function setDatabase($database)
     {
         $this->database = $database;
-    }
-
-    /**
-     * @param Path $classpath
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * @return null|Path
-     */
-    public function createClasspath()
-    {
-        $this->classpath = new Path();
-
-        return $this->classpath;
     }
 
     /**
