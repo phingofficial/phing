@@ -3786,11 +3786,27 @@
                     <attribute name="verbose" a:defaultValue="false"/>
                 </optional>
                 <zeroOrMore>
+                    <ref name="get"/>
+                </zeroOrMore>
+                <zeroOrMore>
                     <ref name="remove"/>
                 </zeroOrMore>
                 <zeroOrMore>
                     <ref name="set"/>
                 </zeroOrMore>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="get">
+        <element name="get">
+            <interleave>
+                <attribute name="section"/>
+                <attribute name="outputproperty"/>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="default" a:defaultValue=""/>
+                </optional>
             </interleave>
         </element>
     </define>

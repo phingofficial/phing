@@ -4618,8 +4618,9 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="IniFileTask">
         <title>IniFileTask</title>
         <para>The <literal>IniFileTask</literal> is inspired by the <link
-        xlink:href="http://ant-contrib.sourceforge.net/tasks/tasks/inifile.html" role="extern">Ant-Contrib IniFile</link> and
-        can be used to build and edit .ini files.</para>
+        xlink:href="http://ant-contrib.sourceforge.net/tasks/tasks/inifile.html" role="extern">Ant-Contrib IniFile</link> 
+        and can be used to build and edit .ini files. Unlike the Ant equivalent, it can also read values from different
+        sections of an .ini file and set the retrieved values to specified properties.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4665,6 +4666,60 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
+                <listitem>
+                    <para><literal>get</literal>
+                    </para>
+                    <para>Use to read a value from a specific key and section of an .ini file</para>
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                        <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                        <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                        <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                        <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                        <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                        <thead>
+                            <row>
+                                <entry>Name</entry>
+                                <entry>Type</entry>
+                                <entry>Description</entry>
+                                <entry>Default</entry>
+                                <entry>Required</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry><literal>default</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>Value to return if section, property or value are not set</entry>
+                                <entry>n/a</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry><literal>section</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>Name of the section.</entry>
+                                <entry>n/a</entry>
+                                <entry>Yes</entry>
+                            </row>
+                            <row>
+                                <entry><literal>property</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>Name of the key, in the specified section, to read</entry>
+                                <entry>n/a</entry>
+                                <entry>Yes</entry>
+                            </row>
+                            <row>
+                                <entry><literal>outputproperty</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>Name of the property to set the value to</entry>
+                                <entry>n/a</entry>
+                                <entry>Yes</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
                 <listitem>
                     <para><literal>remove</literal>
                     </para>
