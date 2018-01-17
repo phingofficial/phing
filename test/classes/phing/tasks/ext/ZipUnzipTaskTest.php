@@ -78,6 +78,6 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $this->assertFileExists($filename);
-        $this->assertEquals('TEST', file_get_contents($filename));
+        $this->assertStringEqualsFile($filename, 'TEST');
     }
 }

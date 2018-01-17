@@ -106,7 +106,7 @@ class PharPackageTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new IterableFileSet();
+        $this->fileset = new FileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
