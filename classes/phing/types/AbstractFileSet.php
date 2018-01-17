@@ -498,5 +498,14 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $this->setChecked(false);
     }
 
-    abstract public function getIterator();
+    /**
+     * @param array ...$options
+     * @return ArrayIterator
+     */
+    public function getIterator(...$options): \ArrayIterator
+    {
+        return new ArrayIterator($this->getFiles($options));
+    }
+
+    abstract protected function getFiles(...$options);
 }
