@@ -143,6 +143,7 @@ class Phing
      * @var string
      */
     private $searchForThis;
+    private $propertyFiles = [];
 
     /**
      * Entry point allowing for more options from other front ends.
@@ -501,25 +502,9 @@ class Phing
                 } else {
                     $this->inputHandlerClassname = $args[++$i];
                 }
-            } elseif ($arg == "-propertyfile") {
-                if (!isset($args[$i + 1])) {
-                    $msg = "You must specify a filename when using the -propertyfile argument";
-                    throw new ConfigurationException($msg);
-                } else {
-                    $filename = $args[++$i];
-                    $fileParserFactory = new FileParserFactory();
-                    $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
-                    $p = new Properties(null, $fileParser);
-                    $p->load(new PhingFile($filename));
-                    foreach ($p->getProperties() as $prop => $value) {
-                        if ($this->propertyFileOverride) {
-                            self::$definedProps->setProperty($prop, $value);
-                        } else {
-                            $this->setProperty($prop, $value);
-                        }
-                    }
-                }
-            } elseif ($arg == "-keep-going" || $arg == "-k") {
+            } elseif ($arg === "-propertyfile") {
+                $i = $this->handleArgPropertyFile($args, $i);
+            } elseif ($arg === "-keep-going" || $arg === "-k") {
                 $this->keepGoingMode = true;
             } elseif ($arg == "-longtargets") {
                 self::$definedProps->setProperty('phing.showlongtargets', 1);
@@ -574,7 +559,51 @@ class Phing
             throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is not readable!");
         }
 
+        $this->loadPropertyFiles();
+
         $this->readyToRun = true;
+    }
+
+    /**
+     * Handle the -propertyfile argument.
+     *
+     * @param array $args
+     * @param int $pos
+     *
+     * @return int
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     */
+    private function handleArgPropertyFile(array $args, int $pos): int
+    {
+        if (!isset($args[$pos + 1])) {
+            throw new ConfigurationException('You must specify a filename when using the -propertyfile argument');
+        }
+
+        $this->propertyFiles[] = $args[++$pos];
+
+        return $pos;
+    }
+
+    /**
+     * @throws IOException
+     */
+    private function loadPropertyFiles()
+    {
+        foreach ($this->propertyFiles as $filename) {
+            $fileParserFactory = new FileParserFactory();
+            $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
+            $p = new Properties(null, $fileParser);
+            try {
+                $p->load(new PhingFile($filename));
+            } catch (IOException $e) {
+                self::$out->write('Could not load property file ' . $filename . ': ' . $e->getMessage());
+            }
+            foreach ($p->getProperties() as $prop => $value) {
+                self::$definedProps->setProperty($prop, $value);
+            }
+        }
     }
 
     /**
