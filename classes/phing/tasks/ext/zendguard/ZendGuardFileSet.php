@@ -20,10 +20,10 @@ class ZendGuardFileSet extends FileSet
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */
-    public function getFiles(Project $p, $includeEmpty = true)
+    public function getFiles(includeEmpty = true, ...$options)
     {
         if ($this->files === null) {
-            $ds = $this->getDirectoryScanner($p);
+            $ds = $this->getDirectoryScanner($this->getProject());
             $this->files = $ds->getIncludedFiles();
         } // if ($this->files===null)
 
