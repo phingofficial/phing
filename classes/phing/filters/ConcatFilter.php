@@ -87,7 +87,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      *                     during reading
      * @throws BuildException
      */
-    public function read($len = 0)
+    public function read($len = null)
     {
         // do the "singleton" initialization
         if (!$this->getInitialized()) {
