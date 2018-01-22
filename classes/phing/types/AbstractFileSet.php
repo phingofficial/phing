@@ -295,7 +295,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /** returns a reference to the dirscanner object belonging to this fileset
      * @param Project $p
      * @throws BuildException
-     * @throws Exception
      * @return \DirectoryScanner
      */
     public function getDirectoryScanner(Project $p)
@@ -330,7 +329,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @param DirectoryScanner $ds
      * @param Project $p
      * @throws BuildException
-     * @throws Exception
      */
     protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p)
     {
@@ -339,7 +337,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return;
         }
         if ($ds === null) {
-            throw new Exception("DirectoryScanner cannot be null");
+            throw new BuildException("DirectoryScanner cannot be null");
         }
         // FIXME - pass dir directly when dirscanner supports File
         $ds->setBasedir($this->dir->getPath());
