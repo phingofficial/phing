@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" basedir="." default="main">
 
-  <property name="output" value="${php.tmpdir}/testoutput"/>
+  <property name="tmp.dir" value="tmp/selector"/>
+  <property name="output" value="${tmp.dir}/testoutput"/>
 
   <property name="file" value="testfile"/>
 

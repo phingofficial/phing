@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test.containsregexpselector" basedir="." default="main">
+    <property name="tmp.dir" value="tmp/contains"/>
 
-    <resolvepath propertyName="output" dir="${php.tmpdir}" path="testoutput"/>
-    <resolvepath propertyName="result" dir="${php.tmpdir}" path="testresult"/>
+    <resolvepath propertyName="output" dir="${tmp.dir}" path="testoutput"/>
+    <resolvepath propertyName="result" dir="${tmp.dir}" path="testresult"/>
 
     <target name="setup">
         <mkdir dir="${output}"/>
