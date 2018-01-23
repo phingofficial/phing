@@ -32,7 +32,7 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/chmodtest');
 
-        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
     public function testChangeModeFileSet()
@@ -42,7 +42,7 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/chmodtest');
 
-        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
     public function testChangeModeDirSet()
@@ -52,6 +52,6 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/A');
 
-        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 }
