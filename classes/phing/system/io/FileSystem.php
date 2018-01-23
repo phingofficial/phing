@@ -327,7 +327,8 @@ abstract class FileSystem
         // Create new file
         $fp = @fopen($strPathname, "w");
         if ($fp === false) {
-            throw new IOException("The file \"$strPathname\" could not be created");
+            $error = error_get_last();
+            throw new IOException("The file \"$strPathname\" could not be created: " . $error['message']);
         }
         @fclose($fp);
 

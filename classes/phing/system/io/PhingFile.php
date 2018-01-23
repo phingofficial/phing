@@ -688,6 +688,7 @@ class PhingFile
         if ($parents && !$parent->exists()) {
             $parent->mkdirs();
         }
+
         $file = FileSystem::getFileSystem()->createNewFile($this->path);
 
         return $file;
