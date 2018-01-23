@@ -39,17 +39,6 @@ class DependSelector extends BaseSelector
     private $granularity = 0;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        // not yet supported:
-        //if (Os.isFamily("dos")) {
-        //    $this->granularity = 2000;
-        //}
-    }
-
-    /**
      * @return string
      */
     public function toString()

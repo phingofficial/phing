@@ -54,6 +54,7 @@ class Mapper extends DataType
      */
     public function __construct(Project $project)
     {
+        parent::__construct();
         $this->project = $project;
     }
 

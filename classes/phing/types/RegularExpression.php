@@ -46,6 +46,7 @@ class RegularExpression extends DataType
      */
     public function __construct()
     {
+        parent::__construct();
         $this->regexp = new Regexp();
     }
 

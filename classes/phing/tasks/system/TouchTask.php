@@ -43,6 +43,7 @@ class TouchTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->fileUtils = new FileUtils();
     }
 

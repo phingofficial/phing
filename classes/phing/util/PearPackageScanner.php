@@ -35,6 +35,8 @@ class PearPackageScanner extends DirectoryScanner
      */
     public function __construct()
     {
+        parent::__construct();
+
         @include_once 'PEAR/Config.php';
         @include_once 'PEAR/PackageFile.php';
 

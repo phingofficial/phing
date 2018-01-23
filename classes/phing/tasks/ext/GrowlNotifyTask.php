@@ -73,6 +73,7 @@ class GrowlNotifyTask extends Task
      */
     public function __construct(Net_Growl $growl = null)
     {
+        parent::__construct();
         $this->growl = $growl;
     }
 

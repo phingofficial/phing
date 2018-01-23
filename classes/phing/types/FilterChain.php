@@ -33,6 +33,8 @@ class FilterChain extends DataType
      */
     public function __construct($project = null)
     {
+        parent::__construct();
+
         if ($project) {
             $this->project = $project;
         }

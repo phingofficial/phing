@@ -47,6 +47,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function __construct()
     {
+        parent::__construct();
         $this->fileset = new FileSet();
     }
 

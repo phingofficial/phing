@@ -69,6 +69,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function __construct($fileset = null)
     {
+        parent::__construct();
+
         if ($fileset !== null && ($fileset instanceof FileSet)) {
             $this->dir = $fileset->dir;
             $this->additionalPatterns = $fileset->additionalPatterns;
@@ -78,6 +80,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             $this->expandSymbolicLinks = $fileset->expandSymbolicLinks;
             $this->errorOnMissingDir = $fileset->errorOnMissingDir;
         }
+
         $this->defaultPatterns = new PatternSet();
     }
 

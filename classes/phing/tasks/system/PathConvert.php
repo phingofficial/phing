@@ -79,6 +79,7 @@ class PathConvert extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->onWindows = strncasecmp(PHP_OS, 'WIN', 3) === 0;
     }
 

@@ -60,6 +60,7 @@ class Excludes extends DataType
      */
     public function __construct(Project $project)
     {
+        parent::__construct();
         $this->directoryScanner = new DirectoryScanner();
         $this->directoryScanner->setBasedir($project->getBasedir());
     }

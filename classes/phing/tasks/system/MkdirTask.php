@@ -46,6 +46,7 @@ class MkdirTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->mode = 0777 - umask();
     }
 

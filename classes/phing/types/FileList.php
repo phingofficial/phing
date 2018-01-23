@@ -62,6 +62,8 @@ class FileList extends DataType
      */
     public function __construct($filelist = null)
     {
+        parent::__construct();
+
         if ($filelist !== null) {
             $this->dir = $filelist->dir;
             $this->filenames = $filelist->filenames;

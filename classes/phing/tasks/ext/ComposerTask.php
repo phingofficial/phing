@@ -59,6 +59,7 @@ class ComposerTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->commandLine = new Commandline();
     }
 

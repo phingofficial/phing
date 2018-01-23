@@ -134,6 +134,7 @@ class ExecTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->commandline = new Commandline();
     }
 

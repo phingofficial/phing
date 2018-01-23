@@ -69,6 +69,7 @@ class FtpDeployTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->filesets = [];
         $this->completeDirMap = [];
     }
