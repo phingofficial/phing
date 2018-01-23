@@ -12,6 +12,12 @@
             <p><a class="xref" href="app.selectors.html#Contains" title="G.1 Contains">&lt;Contains&gt;</a> - Select files that contain a specific
                 string</p>
         </li><li class="listitem">
+            <p><a class="xref" href="Readable.html" title="G.16 Readable">&lt;Readable&gt;</a> -  Select files if they are readable</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Writable.html" title="G.17 Writable">&lt;Writable&gt;</a> -  Select files if they are writable</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Executable.html" title="G.18 Executable">&lt;Executable&gt;</a> -  Select files if they are executable</p>
+        </li><li class="listitem">
             <p><a class="xref" href="Date.html" title="G.2 Date">&lt;date&gt;</a> - Select files/directories that have been
                 modified either before or after a specific date/time</p>
         </li><li class="listitem">
@@ -30,6 +36,8 @@
         </li><li class="listitem">
             <p><a class="xref" href="Present.html" title="G.7 Present">&lt;Present&gt;</a> - Select files/directories that either
                 do or do not exist in some other location</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Symlink.html" title="G.20 Symlink Selector">&lt;Symlink&gt;</a> - Select files if they are symlink.</p>
         </li><li class="listitem">
             <p><a class="xref" href="Containsregexp.html" title="G.8 Containsregexp">&lt;Containsregexp&gt;</a>&lt;containsregexp&gt; - Select files that
                 contain text matching a regular expression</p>
@@ -63,7 +71,7 @@
             <p><a class="xref" href="Or.html" title="G.15 Or">&lt;Or&gt;</a>&lt;or&gt; - Select a file if any one of the contained
                 selectors selects it.</p>
         </li><li class="listitem">
-            <p><a class="xref" href="Selector.html" title="G.18 Selector">&lt;Selector&gt;</a>&lt;selector&gt; - Contains only one selector and
+            <p><a class="xref" href="Selector.html" title="G.19 Selector">&lt;Selector&gt;</a>&lt;selector&gt; - Contains only one selector and
                 forwards all requests to it without alteration. This is the selector to use if you
                 want to define a reference. It is usable as an element of
                     <code class="literal">&lt;project&gt;</code>.</p>
@@ -79,13 +87,15 @@
         <pre class="programlisting">&lt;fileset dir="${src}" includes="**/*.php"&gt;
   &lt;contains text="PHP"/&gt;
 &lt;/fileset&gt;</pre>
-        <div class="table"><a name="idp20047"></a><p class="formal-object-title"><span class="label">Table G.1: </span><span class="title"> Attributes for the <code class="literal">&lt;contains&gt;</code> selector </span></p><div class="table-contents">
+        <div class="table"><a name="idp21397"></a><p class="formal-object-title"><span class="label">Table G.1: </span><span class="title"> Attributes for the <code class="literal">&lt;contains&gt;</code> selector </span></p><div class="table-contents">
             
             <table summary=" Attributes for the &lt;contains&gt; selector " border="1"><colgroup><col class="name"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">text</code></td><td>Specifies the text that every file must contain</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Whether to pay attention to case when looking for the string in the
                             text attribute.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">ignorewhitespace</code></td><td>Whether to eliminate whitespace before checking
                             for the string in the text attribute.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
     </div>
+    
+    
     
     
     
