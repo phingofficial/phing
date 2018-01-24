@@ -25,7 +25,7 @@
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements \PHPUnit\Framework\TestListener
+class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
 {
     private $hasErrors = false;
     private $hasFailures = false;
