@@ -2,6 +2,13 @@ P     H     I     N     G
 =========================
 
 
+Jan. 25, 2018 - Phing 2.16.1
+----------------------------
+
+This patch release fixes the following issue:
+
+ * Allow Symfony 4 [\#807](https://github.com/phingofficial/phing/pull/807)
+
 Dec. 22, 2016 - Phing 2.16.0
 ----------------------------
 
