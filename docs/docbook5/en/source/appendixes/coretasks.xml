@@ -3634,6 +3634,38 @@ verbose="true" failonerror="false" /></programlisting>
             other tasks fails, then the nested task will stop at that point.</para>
         <sect2>
             <title>Example</title>
+            <para>A relentless task to print out the first five canonical variable names:</para>
+            <programlisting lang="xml">&lt;relentless description="The first five canonical variable names.">
+    &lt;echo>foo&lt;/echo>
+    &lt;echo>bar&lt;/echo>
+    &lt;echo>baz&lt;/echo>
+    &lt;echo>bat&lt;/echo>
+    &lt;echo>blah&lt;/echo>
+&lt;/relentless></programlisting>
+            <para>which should produce output looking more or less like</para>
+            <programlisting>[relentless] Relentlessly executing: The first five canonical variable names.
+[relentless] Executing: task 1
+[echo] foo
+[relentless] Executing: task 2
+[echo] bar
+[relentless] Executing: task 3
+[echo] baz
+[relentless] Executing: task 4
+[echo] bat
+[relentless] Executing: task 5
+[echo] blah
+[relentless] All tasks completed successfully.</programlisting>
+            <para>If you change the first line to set the <literal>terse</literal> parameter,</para>
+            <programlisting lang="xml">&lt;relentless terse="true" description="The first five canonical variable names."/></programlisting>
+            <para>the output will look more like this:</para>
+            <programlisting>[relentless] Relentlessly executing: The first five canonical variable names.
+[echo] foo
+[echo] bar
+[echo] baz
+[echo] bat
+[echo] blah
+[relentless] All tasks completed successfully.</programlisting>
+            <para>If we change the third task to deliberately fail</para>
             <programlisting language="xml">&lt;relentless terse="true" description="The first five canonical variable names.">
     &lt;echo>foo&lt;/echo>
     &lt;echo>bar&lt;/echo>
