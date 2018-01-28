@@ -2,6 +2,13 @@ P     H     I     N     G
 =========================
 
 
+Jan. 25, 2018 - Phing 2.16.1
+----------------------------
+
+This patch release fixes the following issue:
+
+ * Allow Symfony 4 [\#807](https://github.com/phingofficial/phing/pull/807)
+
 Dec. 22, 2016 - Phing 2.16.0
 ----------------------------
 
@@ -26,7 +33,7 @@ The following issues were closed in this release:
  * An issue with 'append' task when adding a list of files in a directory \(v2.15.1\) [\#597](https://github.com/phingofficial/phing/issues/597)
  * Git auto modified file with phing vendor [\#613](https://github.com/phingofficial/phing/issues/613)
  * phar file not working - \Symfony\Component\Yaml\Parser' not found [\#614](https://github.com/phingofficial/phing/issues/614)
- * JSHint — Support of specific config file path [\#615](https://github.com/phingofficial/phing/issues/615)
+ * JSHint - Support of specific config file path [\#615](https://github.com/phingofficial/phing/issues/615)
  * PHP notice on 7.1: A non well formed numeric value encountered [\#622](https://github.com/phingofficial/phing/issues/622)
  * Sass task fails when PEAR is not installed [\#624](https://github.com/phingofficial/phing/issues/624)
  * sha-512 hash for phing-latest.phar [\#629](https://github.com/phingofficial/phing/issues/629)

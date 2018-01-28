@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Replaces tokens in the original input with the contents of a file.
@@ -48,7 +44,6 @@ include_once 'phing/filters/ChainableReader.php';
  * </filterreader></pre>
  *
  * @author    johan persson, johanp@aditus.nu
- * @version   $Id$
  * @see       ReplaceTokensWithFile
  * @package   phing.filters
  */

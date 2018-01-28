@@ -1,7 +1,7 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.6 Writing Tasks</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s05.html" title="6.5 Build Lifecycle"><link rel="next" href="ch06s07.html" title="6.7 Writing Types"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.6  Writing Tasks </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s05.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s07.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp34"></a>6.6  Writing Tasks </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.6 Writing Tasks</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s05.html" title="6.5 Build Lifecycle"><link rel="next" href="ch06s07.html" title="6.7 Writing Types"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.6  Writing Tasks </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s05.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s07.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp33"></a>6.6  Writing Tasks </h2></div></div></div>
         
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2172"></a>6.6.1  Creating A Task </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2169"></a>6.6.1  Creating A Task </h3></div></div></div>
             
 
             <p>We will start creating a rather simple task which basically does nothing more than
@@ -19,12 +19,20 @@ class MyEchoTask extends Task {
      * The message passed in the buildfile.
      */
     private $message = null;
+    /**
+     * Whether to reverse the message, for fun?
+     */
+    private $reverse = false;
 
     /**
      * The setter for the attribute "message"
      */
     public function setMessage($str) {
         $this-&gt;message = $str;
+    }
+
+    public function setReverse($str) {
+        $this-&gt;reverse = StringHelper::booleanValue($str);
     }
 
     /**
@@ -38,7 +46,11 @@ class MyEchoTask extends Task {
      * The main entry point method.
      */
     public function main() {
-        print($this-&gt;message);
+        if ($this-&gt;reverse) {
+            print(strrev($this-&gt;message));
+        } else {
+            print($this-&gt;message);
+        }
     }
 }
 
@@ -52,7 +64,7 @@ class MyEchoTask extends Task {
                 task to Phing so that it can be executed during the build process.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2179"></a>6.6.2  Using the Task </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2176"></a>6.6.2  Using the Task </h3></div></div></div>
             
 
             <p>The task shown [above] must somehow get loaded and called by Phing. Therefore it must be made
@@ -68,17 +80,17 @@ class MyEchoTask extends Task {
     &lt;taskdef name="myecho" classname="MyEchoTask" /&gt;
 
     &lt;target name="test.myecho"&gt;
-      &lt;myecho message="Hello World" /&gt;
+      &lt;myecho message="Hello World" reverse="yes"/&gt;
     &lt;/target&gt;
 &lt;/project&gt;</pre>
 
             <p>To register the custom task with Phing, the
-            <code class="literal">taskdef</code> element (line 5) is used. See <a class="xref" href="TaskdefTask.html" title="B.40 TaskdefTask">Section B.40, “TaskdefTask ”</a> for
+            <code class="literal">taskdef</code> element (line 5) is used. See <a class="xref" href="TaskdefTask.html" title="B.43 TaskdefTask">Section B.43, “TaskdefTask ”</a> for
             a more detailed explanation.
             Optionally, before the <code class="literal">taskdef</code> element,
             the <code class="literal">includepath</code> element adds a path
             to PHP's include path. This is of course only required if the mentioned
-            path isn't already on the include path. See <a class="xref" href="IncludePathTask.html" title="B.22 IncludePathTask">Section B.22, “IncludePathTask ”</a> for
+            path isn't already on the include path. See <a class="xref" href="IncludePathTask.html" title="B.24 IncludePathTask">Section B.24, “IncludePathTask ”</a> for
             a more detailed explanation.</p>
 
             <p> Now, as we have registered the task by assigning a name and the worker class
@@ -86,16 +98,19 @@ class MyEchoTask extends Task {
                     <code class="literal">&lt;target&gt;</code> context (line 8). You see that we pass the
                 message that our task should echo to the screen via an XML attribute called
                 "message".</p>
+            <p>And for fun, if the "reverse" attribute is set to a "truth-like" value, the message
+            will be reversed when displayed. So we get "dlroW olleH" displayed instead!
+            </p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2191"></a>6.6.3 Source Discussion </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2189"></a>6.6.3 Source Discussion </h3></div></div></div>
             
 
             <p>Now that you've got the knowledge to execute the task in a buildfile it's time to
                 discuss how everything works.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2194"></a>6.6.4 Task Structure </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2192"></a>6.6.4 Task Structure </h3></div></div></div>
             
 
             <p>All files containing the definition of a task class follow a common well formed
@@ -121,7 +136,7 @@ class MyEchoTask extends Task {
                 </li></ul></div>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2219"></a>6.6.5 Includes </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2217"></a>6.6.5 Includes </h3></div></div></div>
             
 
             <p>Always include/require all the classes needed for this task in full written
@@ -130,7 +145,7 @@ class MyEchoTask extends Task {
                 proprietary classes.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2223"></a>6.6.6  Class Declaration </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2221"></a>6.6.6  Class Declaration </h3></div></div></div>
             
 
             <p>If you look at line 5 in [the source code of the task] you will find the
@@ -152,12 +167,12 @@ class MyEchoTask extends Task {
                 </li></ul></div>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2236"></a>6.6.7  Class Properties </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2234"></a>6.6.7  Class Properties </h3></div></div></div>
             
 
             <p>The next lines you are coding are class properties. Most of them are inherited
                 from the Task superclass, so there's not need to redeclare them. Nevertheless you
-                should <code class="literal">declare</code> the following ones by your own: </p>
+                should <code class="literal">declare</code> the following ones yourself: </p>
 
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p>Taskname. Always hard code the <code class="literal">taskname</code> property that
@@ -178,7 +193,7 @@ class MyEchoTask extends Task {
                     <code class="filename">docs/api/</code> directory.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2250"></a>6.6.8  The Constructor </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2248"></a>6.6.8  The Constructor </h3></div></div></div>
             
 
             <p> The next block that follows is the class's constructor. It must be present and
@@ -187,7 +202,7 @@ class MyEchoTask extends Task {
                 prior declared properties here.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2254"></a>6.6.9  Setter Methods </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2252"></a>6.6.9  Setter Methods </h3></div></div></div>
             
 
             <p> As you can see in the XML definition of our task ([see buildfile above] , line 9)
@@ -208,11 +223,15 @@ class MyEchoTask extends Task {
                 attributes and at least one of them should be set, you may want to check the
                 attribute values inside the init() or main() method.</p>
 
-            <p> In out example the setter is named <code class="literal">setMessage</code> , because the
+            <p> In our example the setter is named <code class="literal">setMessage</code> , because the
                 XML attribute the echo task accepts is "message". setMessage now takes the string
                 "Hello World" provided by the parser and sets the value of the internal class
                 property <code class="literal">$strMessage</code> to "Hello World". It is now available to the
                 task for further disposal.</p>
+
+            <p> There is also another setter named <code class="literal">setReverse</code>.This uses the 
+                StringHelper::toBoolean static function to convert truthy values to a true/false value. 
+                This helps keep our own code nice and simple.</p>
 
         </div>
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2264"></a>6.6.10  Creator Methods </h3></div></div></div>

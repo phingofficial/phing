@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitCloneTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -13,6 +9,7 @@
     
     <target name="gitClone" description="Clone read-only github repo">
         <gitclone
+                gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
@@ -20,6 +17,7 @@
 
     <target name="gitCloneBare" description="Clone bare github repo">
         <gitclone
+                gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}"
@@ -28,15 +26,16 @@
 
     <target name="wrongRepository" description="Path to repository not found">
         <gitclone
+                gitPath="${git-path}"
             repository="this-is-plain-wrong" 
             targetPath="${tmp.dir.resolved}" />
 	</target>
 
     <target name="noRepository" description="No repo dir argument provided">
-        <gitclone targetPath="${tmp.dir.resolved}" />
+        <gitclone gitPath="${git-path}" targetPath="${tmp.dir.resolved}" />
     </target>
 
     <target name="noTargetPath" description="No target path argument provided">
-        <gitclone repository="${repo.dir.resolved}" />
+        <gitclone gitPath="${git-path}" repository="${repo.dir.resolved}" />
     </target>
 </project>

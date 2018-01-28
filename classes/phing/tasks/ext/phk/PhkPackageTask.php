@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/phk/PhkPackageWebAccess.php';
 
 /**
@@ -219,7 +217,7 @@ class PhkPackageTask extends Task
         /*
          * Add web_access to options, if present.
          */
-        if (!is_null($this->webAccess)) {
+        if (null !== $this->webAccess) {
             $webAccessPaths = $this->webAccess->getPaths();
             if (!empty($webAccessPaths)) {
                 $this->options['web_access'] = $webAccessPaths;
@@ -245,10 +243,7 @@ class PhkPackageTask extends Task
             /*
              * Delete all '--- *' lines. Bluh!
              */
-            /*
-             * TODO Change preg_math to more faster alternative.
-             */
-            if (preg_match('/^---/', $line)) {
+            if (0 === strpos($line, '---')) {
                 continue;
             }
 

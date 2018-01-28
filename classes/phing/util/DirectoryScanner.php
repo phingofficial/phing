@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/SelectorScanner.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/types/selectors/SelectorUtils.php';
-
 /**
  * Class for scanning a directory for files/directories that match a certain
  * criteria.
@@ -108,14 +104,12 @@ include_once 'phing/types/selectors/SelectorUtils.php';
  * @author   Magesh Umasankar, umagesh@rediffmail.com
  * @author   Andreas Aderhold, andi@binarycloud.com
  *
- * @version   $Id$
  * @package   phing.util
  */
-class DirectoryScanner implements SelectorScanner
+class DirectoryScanner implements FileScanner, SelectorScanner
 {
-
     /** default set of excludes */
-    protected $DEFAULTEXCLUDES = [
+    protected static $DEFAULTEXCLUDES = [
         "**/*~",
         "**/#*#",
         "**/.#*",
@@ -147,6 +141,8 @@ class DirectoryScanner implements SelectorScanner
         "**/.bzr/**",
         "**/.bzrignore",
     ];
+
+    private static $defaultExcludeList = [];
 
     /**
      * The base directory which should be scanned.
@@ -220,6 +216,12 @@ class DirectoryScanner implements SelectorScanner
     /** if there are no deselected files */
     protected $everythingIncluded = true;
 
+    public function __construct()
+    {
+        // Support for hhvm.
+        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
+    }
+
     /**
      * Does the path match the start of this pattern up to the first "**".
      * This is a static mehtod and should always be called static
@@ -271,6 +273,68 @@ class DirectoryScanner implements SelectorScanner
     public function match($pattern, $str, $isCaseSensitive = true)
     {
         return SelectorUtils::match($pattern, $str, $isCaseSensitive);
+    }
+
+    /**
+     * Get the list of patterns that should be excluded by default.
+     *
+     * @return string[] An array of <code>String</code> based on the current
+     *         contents of the <code>defaultExcludes</code>
+     *         <code>Set</code>.
+     */
+    public static function getDefaultExcludes()
+    {
+        return self::$defaultExcludeList;
+    }
+
+    /**
+     * Add a pattern to the default excludes unless it is already a
+     * default exclude.
+     *
+     * @param string $s   A string to add as an exclude pattern.
+     * @return boolean   <code>true</code> if the string was added;
+     *                   <code>false</code> if it already existed.
+     */
+    public static function addDefaultExclude($s)
+    {
+        if (!in_array($s, self::$defaultExcludeList)) {
+            $return = true;
+            self::$defaultExcludeList[] = $s;
+        } else {
+            $return = false;
+        }
+
+        return $return;
+    }
+
+    /**
+     * Remove a string if it is a default exclude.
+     *
+     * @param string $s   The string to attempt to remove.
+     * @return boolean    <code>true</code> if <code>s</code> was a default
+     *                    exclude (and thus was removed);
+     *                    <code>false</code> if <code>s</code> was not
+     *                    in the default excludes list to begin with.
+     */
+    public static function removeDefaultExclude($s)
+    {
+        $key = array_search($s, self::$defaultExcludeList);
+
+        if ($key !== false) {
+            unset(self::$defaultExcludeList[$key]);
+            self::$defaultExcludeList = array_values(self::$defaultExcludeList);
+            return true;
+        }
+
+        return  false;
+    }
+
+    /**
+     * Go back to the hardwired default exclude patterns.
+     */
+    public static function resetDefaultExcludes()
+    {
+        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
     }
 
     /**
@@ -329,12 +393,11 @@ class DirectoryScanner implements SelectorScanner
      */
     public function setIncludes($_includes = [])
     {
-        if (empty($_includes) || is_null($_includes)) {
+        if (empty($_includes) || null === $_includes) {
             $this->includes = null;
         } else {
             for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_includes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -354,12 +417,11 @@ class DirectoryScanner implements SelectorScanner
      */
     public function setExcludes($_excludes = [])
     {
-        if (empty($_excludes) || is_null($_excludes)) {
+        if (empty($_excludes) || null === $_excludes) {
             $this->excludes = null;
         } else {
             for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
+                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -412,7 +474,7 @@ class DirectoryScanner implements SelectorScanner
             // No includes supplied, so set it to 'matches all'
             $this->includes = ["**"];
         }
-        if (is_null($this->excludes)) {
+        if (null === $this->excludes) {
             $this->excludes = [];
         }
 
@@ -625,7 +687,7 @@ class DirectoryScanner implements SelectorScanner
      */
     protected function couldHoldIncluded($_name)
     {
-        for ($i = 0; $i < count($this->includes); $i++) {
+        for ($i = 0, $includesCount = count($this->includes); $i < $includesCount; $i++) {
             if (DirectoryScanner::matchPatternStart($this->includes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
@@ -643,7 +705,7 @@ class DirectoryScanner implements SelectorScanner
      */
     protected function isExcluded($_name)
     {
-        for ($i = 0; $i < count($this->excludes); $i++) {
+        for ($i = 0, $excludesCount = count($this->excludes); $i < $excludesCount; $i++) {
             if (DirectoryScanner::matchPath($this->excludes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
@@ -775,12 +837,12 @@ class DirectoryScanner implements SelectorScanner
      */
     public function addDefaultExcludes()
     {
-        //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
-        foreach ($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-            $this->excludes[] = $pattern;
+        $defaultExcludesTemp = self::getDefaultExcludes();
+        $newExcludes = [];
+        foreach ($defaultExcludesTemp as $temp) {
+            $newExcludes[] = str_replace(['\\', '/'], PhingFile::$separator, $temp);
         }
+        $this->excludes = array_merge((array) $this->excludes, $newExcludes);
     }
 
     /**

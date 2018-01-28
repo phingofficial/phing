@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * A phing sleep task.
@@ -34,7 +33,6 @@ require_once 'phing/Task.php';
  * measuring how long a sleep actually took.</p>
  *
  * @author   Daniel Kutik, daniel@kutik.eu
- * @version  $Id$
  * @package  phing.tasks.system
  */
 class SleepTask extends Task

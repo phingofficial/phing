@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,54 +18,21 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-
 /**
  * Initializes a code coverage database
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
 class CoverageSetupTask extends Task
 {
-    /** the list of filesets containing the .php filename rules */
-    private $filesets = [];
-
-    /** Any filelists of files containing the .php filenames */
-    private $filelists = [];
+    use ClasspathAware;
+    use FileListAware;
+    use FileSetAware;
 
     /** the filename of the coverage database */
     private $database = "coverage.db";
-
-    /** the classpath to use (optional) */
-    private $classpath = null;
-
-    /**
-     * Add a new fileset containing the .php files to process
-     *
-     * @param FileSet the new fileset containing .php files
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
-
-    /**
-     * Supports embedded <filelist> element.
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
-    }
 
     /**
      * Sets the filename of the coverage database to use
@@ -76,28 +42,6 @@ class CoverageSetupTask extends Task
     public function setDatabase($database)
     {
         $this->database = $database;
-    }
-
-    /**
-     * @param Path $classpath
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * @return null|Path
-     */
-    public function createClasspath()
-    {
-        $this->classpath = new Path();
-
-        return $this->classpath;
     }
 
     /**

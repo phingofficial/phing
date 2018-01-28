@@ -1205,6 +1205,15 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>flatten</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Ignore the directory structure of the source files, and copy all files into the directory
+                            specified by the todir attribute. Note that you can achieve the same effect by using a
+                            flatten mapper.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>verbose</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>	Whether to print the list of the copied file. Defaults to false.</entry>
@@ -1262,6 +1271,74 @@ verbose="true" failonerror="false" /></programlisting>
                     <para><literal><link linkend="app.coremappers">mapper</link></literal></para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="DefaultExcludes">
+        <title>DefaultExcludes</title>
+        <para> Alters the default excludes for all subsequent processing in the build, and prints out the current
+            default excludes if desired.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>echo</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>whether or not to print out the default excludes.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>attribute "true" required if no other attribute specified</entry>
+                    </row>
+                    <row>
+                        <entry><literal>default</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>go back to hard wired default excludes</entry>
+                        <entry>n/a</entry>
+                        <entry>attribute "true" required if no other attribute specified</entry>
+                    </row>
+                    <row>
+                        <entry><literal>add</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>the pattern to add to the default excludes</entry>
+                        <entry>n/a</entry>
+                        <entry>if no other attribute is specified</entry>
+                    </row>
+                    <row>
+                        <entry><literal>remove</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>remove the specified pattern from the default excludes</entry>
+                        <entry>n/a</entry>
+                        <entry>if no other attribute is specified</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <para>Print out the default excludes</para>
+            <programlisting language="xml">&lt;defaultexcludes echo="true"/></programlisting>
+            <para>Print out the default excludes and exclude all <literal>*.bak</literal> files in all further processing</para>
+            <programlisting language="xml">&lt;defaultexcludes echo="true" add="**/*.bak"/></programlisting>
+            <para>Silently allow several fileset based tasks to operate on emacs backup files and then restore normal behavior</para>
+            <programlisting language="xml">&lt;defaultexcludes remove="**/*~"/>
+
+                (do several fileset based tasks here)
+
+                &lt;defaultexcludes default="true"/></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="DeleteTask">
@@ -1362,6 +1439,64 @@ verbose="true" failonerror="false" /></programlisting>
             <itemizedlist>
                 <listitem>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="DependSet">
+        <title> DependSet</title>
+        <para>The dependset task compares a set of sources with a set of target files.
+            If any of the sources has been modified more recently than any of the target files,
+            all of the target files are removed.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;dependset>
+    &lt;srcfilelist
+            dir   = "${dtd.dir}"
+            files = "paper.dtd,common.dtd"/>
+    &lt;srcfilelist
+            dir   = "${xsl.dir}"
+            files = "common.xsl"/>
+    &lt;srcfilelist
+            dir   = "${basedir}"
+            files = "build.xml"/>
+    &lt;targetfileset
+            dir      = "${output.dir}"
+            includes = "**/*.html"/>
+&lt;/dependset></programlisting>
+            <para> In this example derived HTML files in the ${output.dir} directory will be removed if any are
+                out-of-date with respect to:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>the DTD of their source XML files</para>
+                </listitem>
+                <listitem>
+                    <para>a common DTD (imported by the main DTD)</para>
+                </listitem>
+                <listitem>
+                        <para>a subordinate XSLT stylesheet (imported by the main stylesheet), or</para>
+                </listitem>
+                <listitem>
+                        <para>the buildfile</para>
+                </listitem>
+            </itemizedlist>
+            <para>If any of the sources in the above example does not exist, all target files will also be removed.
+                To ignore missing sources instead, use filesets instead of filelists for the sources.</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">srcfileset</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="FileSet">srcfilelist</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="FileSet">targetfileset</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="FileSet">targetfilelist</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -1508,6 +1643,14 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;echo>And don't forget Propel.&lt;/echo>
 
 &lt;echo file="test.txt" append="false">This is a test message&lt;/echo></programlisting>
+            <para>Echo a previously defined fileset element.</para>
+            <programlisting language="xml">&lt;fileset dir="./tests" id="test.files"&gt;
+    &lt;include name="**/*Test.php"/&gt;
+&lt;/fileset&gt;
+
+&lt;echo&gt;
+    &lt;fileset refid="test.files"/&gt;
+&lt;/echo&gt;</programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -1676,6 +1819,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Only execute if the <xref xlink:href="#app.factsheet"/> property
                             contains specified text.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>osfamily</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>OS family as used in the &lt;os> condition.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>

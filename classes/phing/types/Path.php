@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,10 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/DataType.php';
-include_once 'phing/util/PathTokenizer.php';
-include_once 'phing/types/FileSet.php';
 
 /**
  * This object represents a path as used by include_path or PATH
@@ -74,6 +69,7 @@ class Path extends DataType
      */
     public function __construct($project = null, $path = null)
     {
+        parent::__construct();
         if ($project !== null) {
             $this->setProject($project);
         }
@@ -291,7 +287,7 @@ class Path extends DataType
         if (!$this->checked) {
             // make sure we don't have a circular reference here
             $stk = [];
-            array_push($stk, $this);
+            $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->project);
         }
 
@@ -481,7 +477,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p)
+    public function dieOnCircularReference(&$stk, Project $p = null)
     {
         if ($this->checked) {
             return;
@@ -497,7 +493,7 @@ class Path extends DataType
                 if (in_array($o, $stk, true)) {
                     throw $this->circularReference();
                 } else {
-                    array_push($stk, $o);
+                    $stk[] = $o;
                     $o->dieOnCircularReference($stk, $p);
                     array_pop($stk);
                 }

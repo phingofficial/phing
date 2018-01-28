@@ -109,7 +109,7 @@ class DataType extends ProjectComponent
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p)
+    public function dieOnCircularReference(&$stk, Project $p = null)
     {
         if ($this->checked || !$this->isReference()) {
             return;
@@ -134,7 +134,7 @@ class DataType extends ProjectComponent
                 // throw build exception
                 throw $this->circularReference();
             } else {
-                array_push($stk, $o);
+                $stk[] = $o;
                 $o->dieOnCircularReference($stk, $p);
                 array_pop($stk);
             }
@@ -144,7 +144,7 @@ class DataType extends ProjectComponent
 
     public static function pushAndInvokeCircularReferenceCheck(DataType $dt, &$stk, Project $p)
     {
-        array_push($stk, $dt);
+        $stk[] = $dt;
         $dt->dieOnCircularReference($stk, $p);
         array_pop($stk);
     }

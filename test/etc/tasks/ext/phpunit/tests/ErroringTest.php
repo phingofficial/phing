@@ -4,7 +4,6 @@
  * Test class to demonstrate
  *
  * @author Michiel Rook
- * @version $Id$
  */
 class ErroringTest extends \PHPUnit\Framework\TestCase
 {

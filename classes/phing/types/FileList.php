@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -41,7 +40,6 @@ include_once 'phing/system/io/PhingFile.php';
  * (or a mixture of files="" and listfile="" can be used)
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
  * @package phing.types
  */
 class FileList extends DataType
@@ -64,6 +62,8 @@ class FileList extends DataType
      */
     public function __construct($filelist = null)
     {
+        parent::__construct();
+
         if ($filelist !== null) {
             $this->dir = $filelist->dir;
             $this->filenames = $filelist->filenames;
@@ -204,8 +204,8 @@ class FileList extends DataType
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     /**

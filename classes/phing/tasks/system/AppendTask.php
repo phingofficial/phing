@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,11 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/Task.php';
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/tasks/system/AppendTask/TextElement.php';
 
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
@@ -49,21 +43,18 @@ include_once 'phing/tasks/system/AppendTask/TextElement.php';
  * </append>
  * </code>
  * @package phing.tasks.system
- * @version $Id$
  */
 class AppendTask extends Task
 {
+    use FileListAware;
+    use FileSetAware;
+    use FilterChainAware;
+
     /** Append stuff to this file. */
     private $to;
 
     /** Explicit file to append. */
     private $file;
-
-    /** Any filesets of files that should be appended. */
-    private $filesets = [];
-
-    /** Any filters to be applied before append happens. */
-    private $filterChains = [];
 
     /** Text to append. (cannot be used in conjunction w/ files or filesets) */
     private $text;
@@ -83,8 +74,6 @@ class AppendTask extends Task
     private $overwrite = true;
 
     private $eolString;
-
-    private $fileList = [];
 
     /**
      * @param bool $filtering
@@ -156,45 +145,11 @@ class AppendTask extends Task
         $this->file = $f;
     }
 
-    /**
-     * Supports embedded <filelist> element.
-     *
-     * @return FileList
-     */
-    public function addFileList(FileList $fileList)
-    {
-        $this->fileList[] = $fileList;
-    }
-
     public function createPath()
     {
         $path = new Path($this->getProject());
         $this->filesets[] = $path;
         return $path;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**
@@ -310,8 +265,7 @@ class AppendTask extends Task
                     }
                 }
 
-                /** @var FileList $list */
-                foreach ($this->fileList as $list) {
+                foreach ($this->filelists as $list) {
                     $dir = $list->getDir($this->project);
                     $files = $list->getFiles($this->project);
                     foreach ($files as $file) {
@@ -361,7 +315,7 @@ class AppendTask extends Task
     {
         $this->sanitizeText();
 
-        if ($this->file === null && $this->text === null && count($this->filesets) === 0 && count($this->fileList) === 0) {
+        if ($this->file === null && $this->text === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException("You must specify a file, use a filelist/fileset, or specify a text value.");
         }
 

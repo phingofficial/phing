@@ -16,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * This is a Php comment and string stripper reader that filters
@@ -28,7 +26,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */

@@ -11,6 +11,33 @@
         listeners and loggers.
     </para>
 
+    <sect1 role="loggerdef" xml:id="Listeners">
+        <title>Listeners</title>
+        <para>A listener is alerted of the following events.</para>
+        <itemizedlist>
+            <listitem>build started</listitem>
+            <listitem>build finished</listitem>
+            <listitem>target started</listitem>
+            <listitem>target finished</listitem>
+            <listitem>task started</listitem>
+            <listitem>task finishned</listitem>
+            <listitem>message logged</listitem>
+        </itemizedlist>
+        <para>These are used internally for various recording and housekeeping operations, however new listeners may
+            registered on the command line through the <literal>-listener</literal> argument.</para>
+    </sect1>
+
+    <sect1 role="loggerdef" xml:id="Loggers">
+        <title>Loggers</title>
+        <para>Loggers extend the capabilities of listeners and add the following features:</para>
+        <itemizedlist>
+            <listitem>Receives a handle to the standard output and error print streams and therefore can log information
+                to the console or the -logfile specified file.</listitem>
+            <listitem>Logging level (-quiet, -verbose, -debug) aware</listitem>
+            <listitem>Emacs-mode aware</listitem>
+        </itemizedlist>
+    </sect1>
+
     <sect1 role="loggerdef" xml:id="DefaultLogger">
         <title>DefaultLogger</title>
         <para>Simply run Phing normally, or:
@@ -167,6 +194,20 @@
         and the whole build and prints these information.
         The output contains a timestamp when entering the build, target or task
         and a timestamp and the needed time when exiting.
+        </para>
+    </sect1>
+
+    <sect1 role="loggerdef" xml:id="StatisticsListener">
+        <title>StatisticsListener</title>
+        <para>A phing BuildListener which can be used to gather
+            statistics while a phing build is executed.  Statistics on the targets
+            and tasks executed are written to the console after the build completes.
+            Some of the statistics captured are:
+
+            - the number of times a target / task is called
+            - the average processing time spent on a target / task
+            - the total processing time spent on a target / task
+            - the total processing time spent on a target / task expressed as a percentage
         </para>
     </sect1>
 

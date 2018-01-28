@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 
 /**
@@ -28,7 +26,6 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  * @author Michiel Rook <mrook@php.net>
  * @author Andrew Eddie <andrew.eddie@jamboworks.com>
  * @author Domenico Sgarbossa <sbraaaa@yahoo.it>
- * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0
  */
@@ -578,7 +575,7 @@ class IoncubeEncoderTask extends Task
     {
         $arguments = $this->constructArguments();
 
-        if (in_array($this->phpVersion, [5, 53, 54, 55, 56])) {
+        if (in_array($this->phpVersion, [5, 53, 54, 55, 56, 71])) {
             $encoderName = $this->encoderName . $this->phpVersion;
         } else {
             $encoderName = $this->encoderName;

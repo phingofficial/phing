@@ -205,7 +205,6 @@
 
     </sect1>
     <sect1>
-    <sect1>
         <title> Composer Install </title>
         <para>The preferred method to install Phing is through <link xlink:href="https://getcomposer.org/">Composer</link>.
             Add <link xlink:href="https://packagist.org/packages/phing/phing">phing/phing</link> to the
@@ -259,6 +258,7 @@
             <para>The following command line arguments are supported</para>
             <programlisting>  -h -help               print this message
   -l -list               list available targets in this project
+  -i -init [file]        generates an initial buildfile
   -v -version            print the version information and exit
   -q -quiet              be extra quiet
   -S -silent             print nothing but task outputs and build failures

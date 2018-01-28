@@ -1,7 +1,6 @@
 <?php
 
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +29,6 @@ require_once 'phing/types/selectors/BaseSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.types.selectors
  */
 class DependSelector extends BaseSelector
@@ -39,17 +37,6 @@ class DependSelector extends BaseSelector
     private $mapperElement = null;
     private $map = null;
     private $granularity = 0;
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        // not yet supported:
-        //if (Os.isFamily("dos")) {
-        //    $this->granularity = 2000;
-        //}
-    }
 
     /**
      * @return string

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,7 +39,6 @@ require_once 'phing/Task.php';
  * @author   Paul Stuart <pstuart2@gmail.com>
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @version  Release: $Id$
  * @link     SassTask.php
  */
 class SassTask extends Task
@@ -994,7 +992,7 @@ class SassTask extends Task
     public function processFile($useScssphp)
     {
         $this->log("Process file", Project::MSG_INFO);
-        if (is_null($this->output)) {
+        if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {
                 $info = pathinfo($this->file);

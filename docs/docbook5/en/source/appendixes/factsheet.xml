@@ -85,6 +85,10 @@
                         <entry>Phing installation directory, not set in PEAR installations.</entry>
                     </row>
                     <row>
+                        <entry><literal>phing.startTime</literal></entry>
+                        <entry>The time that Phing started to run.</entry>
+                    </row>
+                    <row>
                         <entry><literal>phing.version</literal></entry>
                         <entry>Current Phing version.</entry>
                     </row>
@@ -141,6 +145,12 @@
                         (excluding targets that have their
                         <literal>hidden</literal> attribute set to
                         <literal>true</literal>)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-i -init [file]</literal></entry>
+                        <entry>Generates an initial buildfile at Phing's start
+                            directory. Optionally you can specify buildfile's
+                            location and name.</entry>
                     </row>
                     <row>
                         <entry><literal>-v -version</literal></entry>

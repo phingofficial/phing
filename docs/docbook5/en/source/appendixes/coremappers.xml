@@ -286,6 +286,42 @@
 &lt;/copy&gt;</programlisting>
         <para>This will change the extension of all files matching the pattern
                 <literal>*.php</literal> to <literal>.php.bak</literal>.</para>
+        <table>
+            <title> The globmapper mapper can take the following extra attributes.</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>handledirsep</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If this is specified, the mapper will ignore the difference between the normal directory
+                            separator characters - \ and /. This attribute is useful for cross-platform build files.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>casesensitive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If this is false, the mapper will ignore case when matching the glob pattern.</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
         <sect2>
             <title>Examples</title>
             <programlisting language="xml">&lt;mapper type=&quot;glob&quot; from=&quot;*txt&quot; to=&quot;*txt.bak&quot;/&gt;</programlisting>
@@ -377,6 +413,42 @@
         <para>The <literal>RegexpMapper</literal> changes filenames according to a pattern defined
             by a regular expression. This is the most powerful mapper and you should be able to use
             it for every possible application.</para>
+        <table>
+            <title> The regexp mapper can take the following extra attributes.</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>handledirsep</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If this is specified, the mapper will ignore the difference between the normal directory
+                            separator characters - \ and /. This attribute is useful for cross-platform build files.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>casesensitive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If this is false, the mapper will ignore case when matching the glob pattern.</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
         <sect2>
             <title>Examples</title>
             <programlisting language="xml">&lt;mapper type=&quot;regexp&quot; from=&quot;^(.*)\.conf\.xml&quot; to=&quot;\1.php&quot;/&gt;</programlisting>
