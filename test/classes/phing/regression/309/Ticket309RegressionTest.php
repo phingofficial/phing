@@ -35,7 +35,7 @@ class Ticket309RegressionTest extends BuildFileTest
      */
     public function testPhingCallTask()
     {
-        $testBasedir = PHING_TEST_BASE . "/etc/regression/309";
+        $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . "/etc/regression/309");
 
         foreach (array('basedir-dot.xml', 'basedir-default.xml', 'sub/basedir-dotdot.xml') as $buildfile) {
             $this->configureProject("$testBasedir/$buildfile");
