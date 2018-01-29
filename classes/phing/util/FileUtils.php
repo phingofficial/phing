@@ -412,11 +412,11 @@ class FileUtils
      */
     public function contentEquals(PhingFile $file1, PhingFile $file2)
     {
-        if (!($file1->exists() || $file2->exists())) {
+        if (!($file1->exists() && $file2->exists())) {
             return false;
         }
 
-        if (!($file1->canRead() || $file2->canRead())) {
+        if (!($file1->canRead() && $file2->canRead())) {
             return false;
         }
 
