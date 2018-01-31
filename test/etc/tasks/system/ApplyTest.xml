@@ -8,7 +8,7 @@
       <property name="binPrefix" value="/usr/bin"/>
     </then>
     <else>
-      <property name="binPrefix" value="/usr/bin"/>
+      <property name="binPrefix" value="/bin"/>
     </else>
   </if>
 
