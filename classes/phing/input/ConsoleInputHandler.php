@@ -50,6 +50,9 @@ class ConsoleInputHandler implements InputHandler
     public function handleInput(InputRequest $request)
     {
         $questionHelper = new QuestionHelper();
+        if (method_exists($questionHelper, 'setInputStream')) {
+            $questionHelper->setInputStream($this->inputStream);
+        }
         
         $question =  $this->getQuestion($request);
         
@@ -58,10 +61,12 @@ class ConsoleInputHandler implements InputHandler
         }
 
         $input = new StringInput('');
-        $input->setStream($this->inputStream);
+        if (method_exists($input, 'setStream')) {
+            $input->setStream($this->inputStream);
+        }
 
         $result = $questionHelper->ask($input, $this->output, $question);
-
+        
         $request->setInput($result);
     }
 
