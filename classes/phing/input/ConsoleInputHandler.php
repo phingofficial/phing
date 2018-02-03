@@ -50,16 +50,18 @@ class ConsoleInputHandler implements InputHandler
     public function handleInput(InputRequest $request)
     {
         $questionHelper = new QuestionHelper();
-        $questionHelper->setInputStream($this->inputStream);
         
         $question =  $this->getQuestion($request);
         
         if ($request->isHidden()) {
             $question->setHidden(true);
         }
-        
-        $result = $questionHelper->ask(new StringInput(''), $this->output, $question);
-        
+
+        $input = new StringInput('');
+        $input->setStream($this->inputStream);
+
+        $result = $questionHelper->ask($input, $this->output, $question);
+
         $request->setInput($result);
     }
 
