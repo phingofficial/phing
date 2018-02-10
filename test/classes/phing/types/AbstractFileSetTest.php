@@ -51,7 +51,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
-                . $f->getDataTypeName()
+                . $f
                 . " with elements from setIncludes"
             );
         } catch (BuildException $be) {
@@ -68,7 +68,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
-                . $f->getDataTypeName()
+                . $f
                 . " with nested patternset element."
             );
         } catch (BuildException $be) {
@@ -85,7 +85,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setRefid(new Reference($this->getProject(), "dummyref"));
             $this->fail(
                 "Can add reference to "
-                . $f->getDataTypeName()
+                . $f
                 . " with nested include element."
             );
         } catch (BuildException $be) {
@@ -102,7 +102,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setIncludes("**/*.java");
             $this->fail(
                 "Can set includes in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -117,7 +117,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setIncludesfile(new PhingFile("/a"));
             $this->fail(
                 "Can set includesfile in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -132,7 +132,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setExcludes("**/*.java");
             $this->fail(
                 "Can set excludes in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -147,7 +147,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setExcludesfile(new PhingFile("/a"));
             $this->fail(
                 "Can set excludesfile in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -162,7 +162,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setDir($this->project->resolveFile("."));
             $this->fail(
                 "Can set dir in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -177,7 +177,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->createInclude();
             $this->fail(
                 "Can add nested include in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -192,7 +192,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->createExclude();
             $this->fail(
                 "Can add nested exclude in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -207,7 +207,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->createIncludesFile();
             $this->fail(
                 "Can add nested includesfile in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -221,7 +221,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->createExcludesFile();
             $this->fail(
                 "Can add nested excludesfile in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {
@@ -235,7 +235,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->createPatternSet();
             $this->fail(
                 "Can add nested patternset in "
-                . $f->getDataTypeName()
+                . $f
                 . " that is a reference."
             );
         } catch (BuildException $be) {

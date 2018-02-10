@@ -220,4 +220,23 @@ class DataType extends ProjectComponent
     public function parsingComplete()
     {
     }
+
+    /**
+     * Gets as descriptive as possible a name used for this datatype instance.
+     * @return string name.
+     */
+    protected function getDataTypeName()
+    {
+        return ComponentHelper::getElementName($this->getProject(), $this, true);
+    }
+
+    /**
+     * Basic DataType toString().
+     * @return string this DataType formatted as a String.
+     */
+    public function  __toString()
+    {
+        $d = $this->getDescription();
+        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;
+    }
 }
