@@ -115,6 +115,29 @@ class ComponentHelper
         }
     }
 
+    public static function getElementName(Project $p = null, $o, $brief = false)
+    {
+        if ($p === null) {
+            // TODO Project::getProject($o)
+        }
+
+        return $p === null
+            ? self::getUnmappedElementName($o, $brief)
+            : self::getComponentHelper($p)->getElementName(null, $o, $brief);
+    }
+
+    private static function getUnmappedElementName($c, $brief)
+    {
+        $clazz = new ReflectionClass($c);
+        $name = $clazz->getName();
+
+        if ($brief) {
+            return $clazz->getShortName();
+        }
+
+        return $name;
+    }
+
     /**
      * Returns the data type definitions
      * @return array
