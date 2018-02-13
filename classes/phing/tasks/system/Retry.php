@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildException.php';
-require_once 'phing/Project.php';
-require_once 'phing/Task.php';
-require_once 'phing/TaskContainer.php';
-
 /**
  * Retries the nested task a set number of times.
  *

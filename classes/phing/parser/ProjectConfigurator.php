@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +18,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/system/lang/FileNotFoundException.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/parser/PhingXMLContext.php';
-include_once 'phing/IntrospectionHelper.php';
-
 /**
  * The datatype handler class.
  *
@@ -35,7 +26,6 @@ include_once 'phing/IntrospectionHelper.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class ProjectConfigurator
@@ -273,7 +263,7 @@ class ProjectConfigurator
                 continue;
                 // throw new BuildException("Id must be set Extermnally");
             }
-            $value = self::replaceProperties($project, $value, $project->getProperties());
+            $value = $project->replaceProperties($value);
             try { // try to set the attribute
                 $ih->setAttribute($project, $target, strtolower($key), $value);
             } catch (BuildException $be) {
@@ -288,9 +278,9 @@ class ProjectConfigurator
     /**
      * Configures the #CDATA of an element.
      *
-     * @param  object  the project this element belongs to
+     * @param  Project $project  the project this element belongs to
      * @param  object  the element to configure
-     * @param  string  the element's #CDATA
+     * @param  string $text the element's #CDATA
      */
     public static function addText($project, $target, $text = null)
     {
@@ -298,7 +288,7 @@ class ProjectConfigurator
             return;
         }
         $ih = IntrospectionHelper::getHelper(get_class($target));
-        $text = self::replaceProperties($project, $text, $project->getProperties());
+        $text = $project->replaceProperties($text);
         $ih->addText($project, $target, $text);
     }
 
@@ -314,114 +304,6 @@ class ProjectConfigurator
     {
         $ih = IntrospectionHelper::getHelper(get_class($parent));
         $ih->storeElement($project, $parent, $child, $tag);
-    }
-
-    // The following three properties are a sort of hack
-    // to enable a static function to serve as the callback
-    // for preg_replace_callback().  Clearly we cannot use object
-    // variables, since the replaceProperties() is called statically.
-    // This is IMO better than using global variables in the callback.
-
-    /**
-     * @var Project
-     */
-    private static $propReplaceProject;
-
-    /**
-     * @var array
-     */
-    private static $propReplaceProperties;
-
-    /**
-     * @var int
-     */
-    private static $propReplaceLogLevel = Project::MSG_VERBOSE;
-
-    /**
-     * Replace ${} style constructions in the given value with the
-     * string value of the corresponding data types. This method is
-     * static.
-     *
-     * @param object|Project $project the project that should be used for property look-ups
-     * @param  string $value the string to be scanned for property references
-     * @param  array $keys property keys
-     * @param int $logLevel the level of generated log messages
-     * @return string  the replaced string or <code>null</code> if the string
-     *                          itself was null
-     */
-    public static function replaceProperties(Project $project, $value, $keys, $logLevel = Project::MSG_VERBOSE)
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        // These are a "hack" to support static callback for preg_replace_callback()
-
-        // make sure these get initialized every time
-        self::$propReplaceProperties = $keys;
-        self::$propReplaceProject = $project;
-        self::$propReplaceLogLevel = $logLevel;
-
-        // Because we're not doing anything special (like multiple passes),
-        // regex is the simplest / fastest.  PropertyTask, though, uses
-        // the old parsePropertyString() method, since it has more stringent
-        // requirements.
-
-        $sb = $value;
-        $iteration = 0;
-
-        // loop to recursively replace tokens
-        while (strpos($sb, '${') !== false) {
-            $sb = preg_replace_callback(
-                '/\$\{([^\$}]+)\}/',
-                ['ProjectConfigurator', 'replacePropertyCallback'],
-                $sb
-            );
-
-            // keep track of iterations so we can break out of otherwise infinite loops.
-            $iteration++;
-            if ($iteration == 5) {
-                return $sb;
-            }
-        }
-
-        return $sb;
-    }
-
-    /**
-     * Private [static] function for use by preg_replace_callback to replace a single param.
-     * This method makes use of a static variable to hold the
-     * @param $matches
-     * @return string
-     */
-    private static function replacePropertyCallback($matches)
-    {
-        $propertyName = $matches[1];
-        if (!array_key_exists($propertyName, self::$propReplaceProperties)) {
-            self::$propReplaceProject->log(
-                'Property ${' . $propertyName . '} has not been set.',
-                self::$propReplaceLogLevel
-            );
-
-            return $matches[0];
-        } else {
-            self::$propReplaceProject->log(
-                'Property ${' . $propertyName . '} => ' . self::$propReplaceProperties[$propertyName],
-                self::$propReplaceLogLevel
-            );
-        }
-
-        $propertyValue = self::$propReplaceProperties[$propertyName];
-
-        if (is_bool($propertyValue)) {
-            if ($propertyValue === true) {
-                $propertyValue = "true";
-            } else {
-                $propertyValue = "false";
-            }
-        }
-
-        return $propertyValue;
     }
 
     /**

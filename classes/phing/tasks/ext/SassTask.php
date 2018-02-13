@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,7 +39,6 @@ require_once 'phing/Task.php';
  * @author   Paul Stuart <pstuart2@gmail.com>
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @version  Release: $Id$
  * @link     SassTask.php
  */
 class SassTask extends Task
@@ -889,10 +887,6 @@ class SassTask extends Task
      */
     public function init()
     {
-        @include_once 'System.php';
-        if (!class_exists('System')) {
-            throw new BuildException("You must have installed PEAR in order to use SassTask.");
-        }
         @include_once 'vendor/autoload.php';
     }
 
@@ -922,7 +916,8 @@ class SassTask extends Task
         // If both are set to be used, prefer sass over scssphp.
         $lUseScssphp = false;
         if ($this->useSass && $this->useScssphp) {
-            if (System::which($this->executable) === false) {
+            $fs = FileSystem::getFileSystem();
+            if ($fs->which($this->executable) === false) {
                 if ($this->loadScssphp() === false) {
                     $msg = sprintf(
                         "%s not found. Install sass or leafo scssphp.",
@@ -946,7 +941,8 @@ class SassTask extends Task
             );
             return;
         } elseif ($this->useSass) {
-            if (System::which($this->executable) === false) {
+            $fs = FileSystem::getFileSystem();
+            if ($fs->which($this->executable) === false) {
                 $msg = sprintf(
                     "%s not found. Install sass.",
                     $this->executable
@@ -996,7 +992,7 @@ class SassTask extends Task
     public function processFile($useScssphp)
     {
         $this->log("Process file", Project::MSG_INFO);
-        if (is_null($this->output)) {
+        if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {
                 $info = pathinfo($this->file);

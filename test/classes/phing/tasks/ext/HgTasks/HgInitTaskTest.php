@@ -1,9 +1,5 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/hg/HgInitTask.php';
-require_once __DIR__ . '/HgTestsHelper.php';
-
 class HgInitTaskTest extends BuildFileTest
 {
     public function setUp()
@@ -17,7 +13,7 @@ class HgInitTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        HgTestsHelper::rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
     public function testHgInit()
     {

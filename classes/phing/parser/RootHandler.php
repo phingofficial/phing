@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ExpatParseException.php';
-include_once 'phing/parser/ProjectHandler.php';
-
 /**
  * Root filter class for a phing buildfile.
  *
@@ -31,7 +26,6 @@ include_once 'phing/parser/ProjectHandler.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class RootHandler extends AbstractHandler

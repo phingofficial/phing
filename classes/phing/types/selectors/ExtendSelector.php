@@ -1,7 +1,6 @@
 <?php
 
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -66,7 +65,8 @@ class ExtendSelector extends BaseSelector
                 }
             } catch (Exception $e) {
                 $this->setError(
-                    "Selector " . $this->classname . " not initialized, could not create class: " . $e->getMessage()
+                    "Selector " . $this->classname . " not initialized, could not create class.",
+                    $e
                 );
             }
         } else {

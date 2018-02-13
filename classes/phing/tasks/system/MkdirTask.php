@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Task to create a directory.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id$
  * @package  phing.tasks.system
  */
 class MkdirTask extends Task
@@ -49,6 +46,7 @@ class MkdirTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->mode = 0777 - umask();
     }
 

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Task for resolving relative paths and setting absolute path in property value.
@@ -39,7 +37,6 @@ require_once 'phing/Task.php';
  *      - Possibly integrate this with PackageAsPath, for handling/resolving dot-path paths.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class ResolvePathTask extends Task

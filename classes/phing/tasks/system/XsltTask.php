@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,11 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/CopyTask.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/filters/XsltFilter.php';
-
 /**
  * Implements an XSLT processing filter while copying files.
  *
@@ -31,7 +25,6 @@ include_once 'phing/filters/XsltFilter.php';
  * in the <filterchains> section.
  *
  * @author    Andreas Aderhold, andi@binarycloud.com
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class XsltTask extends CopyTask
@@ -53,8 +46,9 @@ class XsltTask extends CopyTask
     public function init()
     {
         $xf = new XsltFilter();
-        $chain = $this->createFilterChain();
+        $chain = new FilterChain();
         $chain->addXsltFilter($xf);
+        $this->addFilterChain($chain);
         $this->xsltFilter = $xf;
     }
 

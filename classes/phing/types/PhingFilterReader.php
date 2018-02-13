@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +26,6 @@ include_once 'phing/types/Parameter.php';
  * and configuration of a Configurable FilterReader.
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.types
  */
@@ -155,7 +153,7 @@ class PhingFilterReader extends DataType
         $o = $r->getReferencedObject($this->getProject());
         if ($o instanceof PhingFilterReader) {
             $this->setClassName($o->getClassName());
-            $this->setClasspath($o->getClassPath());
+            $this->setClasspath($o->getClasspath());
             foreach ($o->getParams() as $p) {
                 $this->addParam($p);
             }

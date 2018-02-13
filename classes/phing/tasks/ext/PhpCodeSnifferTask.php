@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,17 +18,16 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
  * @author  Dirk Thomas <dirk.thomas@4wdmedia.de>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class PhpCodeSnifferTask extends Task
 {
+    use FileSetAware;
 
     /**
      * A php source code filename or directory
@@ -37,13 +35,6 @@ class PhpCodeSnifferTask extends Task
      * @var PhingFile
      */
     protected $file; // the source file (from xml attribute)
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = []; // all fileset objects assigned to this task
 
     // parameters for php code sniffer
     protected $standards = ['Generic'];
@@ -110,17 +101,6 @@ class PhpCodeSnifferTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

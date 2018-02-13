@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Creates a tar archive using PEAR Archive_Tar.
  *
@@ -174,6 +169,9 @@ class TarTask extends MatchingTask
             case "bzip2":
                 $this->compression = "bz2";
                 break;
+            case "lzma2":
+                $this->compression = "lzma2";
+                break;
             case "none":
                 $this->compression = null;
                 break;
@@ -248,12 +246,12 @@ class TarTask extends MatchingTask
             $tar = new Archive_Tar($this->tarFile->getAbsolutePath(), $this->compression);
             $pear = new PEAR();
 
-            if ($pear->isError($tar->error_object)) {
+            if ($pear::isError($tar->error_object)) {
                 throw new BuildException($tar->error_object->getMessage());
             }
 
             foreach ($this->filesets as $fs) {
-                $files = $fs->getFiles($this->project, $this->includeEmpty);
+                $files = $fs->getIterator($this->includeEmpty);
                 if (count($files) > 1 && strlen($fs->getFullpath()) > 0) {
                     throw new BuildException("fullpath attribute may only "
                         . "be specified for "
@@ -269,7 +267,7 @@ class TarTask extends MatchingTask
                 }
                 $tar->addModify($filesToTar, $this->prefix, $fsBasedir->getAbsolutePath());
 
-                if ($pear->isError($tar->error_object)) {
+                if ($pear::isError($tar->error_object)) {
                     throw new BuildException($tar->error_object->getMessage());
                 }
             }
@@ -283,7 +281,7 @@ class TarTask extends MatchingTask
     }
 
     /**
-     * @param  array     $files array of filenames
+     * @param  ArrayIterator $files array of filenames
      * @param  PhingFile $dir
      *
      * @return boolean
@@ -304,7 +302,7 @@ class TarTask extends MatchingTask
     private function isArchiveUpToDate()
     {
         foreach ($this->filesets as $fs) {
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
             if (!$this->areFilesUpToDate($files, $fs->getDir($this->project))) {
                 return false;
             }

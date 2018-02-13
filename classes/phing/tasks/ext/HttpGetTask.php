@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +27,6 @@ require_once 'phing/tasks/ext/HttpTask.php';
  *
  * @package phing.tasks.ext
  * @author  Ole Markus With <o.with@sportradar.com>
- * @version $Id$
  */
 class HttpGetTask extends HttpTask
 {
@@ -198,10 +196,10 @@ class HttpGetTask extends HttpTask
         $this->quiet = $v;
     }
 
-    public function log($msg, $msgLevel = Project::MSG_INFO)
+    public function log($msg, $msgLevel = Project::MSG_INFO, Exception $t = null)
     {
         if (!$this->quiet || $msgLevel <= Project::MSG_ERR) {
-            parent::log($msg, $msgLevel);
+            parent::log($msg, $msgLevel, $t);
         }
     }
 }

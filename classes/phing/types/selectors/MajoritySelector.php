@@ -1,7 +1,6 @@
 <?php
 
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -82,9 +81,9 @@ class MajoritySelector extends BaseSelectorContainer
         for ($i = 0, $size = count($selectors); $i < $size; $i++) {
             $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if ($result) {
-                $yesvotes = $yesvotes + 1;
+                ++$yesvotes;
             } else {
-                $novotes = $novotes + 1;
+                ++$novotes;
             }
         }
         if ($yesvotes > $novotes) {

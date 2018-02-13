@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,13 +26,11 @@ include_once 'phing/util/StringHelper.php';
  * Creates a zip archive using PHP ZipArchive extension/
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.1.0
  */
 class ZipTask extends MatchingTask
 {
-
     /**
      * @var PhingFile
      */
@@ -70,7 +66,8 @@ class ZipTask extends MatchingTask
 
     /**
      * Add a new fileset.
-     * @return FileSet
+     *
+     * @return ZipFileSet
      */
     public function createFileSet()
     {
@@ -78,6 +75,15 @@ class ZipTask extends MatchingTask
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
+    }
+
+    /**
+     * Add a new fileset.
+     * @param ZipFileSet $fileset
+     */
+    public function addZipFileSet(ZipFileSet $fileset)
+    {
+        $this->filesets[] = $fileset;
     }
 
     /**
@@ -172,7 +178,7 @@ class ZipTask extends MatchingTask
 
                 if (empty($this->filesets)) {
                     // add the main fileset to the list of filesets to process.
-                    $mainFileSet = new ZipFileSet($this->fileset);
+                    $mainFileSet = $this->fileset;
                     $mainFileSet->setDir($this->baseDir);
                     $this->filesets[] = $mainFileSet;
                 }
@@ -195,7 +201,7 @@ class ZipTask extends MatchingTask
             $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
 
             $zip = new ZipArchive();
-            $res = $zip->open($this->zipFile->getAbsolutePath(), ZIPARCHIVE::CREATE);
+            $res = $zip->open($this->zipFile->getAbsolutePath(), ZipArchive::CREATE);
 
             if ($res !== true) {
                 throw new Exception("ZipArchive::open() failed with code " . $res);
@@ -237,8 +243,9 @@ class ZipTask extends MatchingTask
      */
     public function areFilesetsUpToDate()
     {
+        /** @var FileSet $fs */
         foreach ($this->filesets as $fs) {
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
             if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
                 return false;
             }
@@ -260,10 +267,10 @@ class ZipTask extends MatchingTask
             $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
                 $fs->getDir($this->project);
 
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
 
-            for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                $f = new PhingFile($fsBasedir, $files[$i]);
+            foreach ($files as $file) {
+                $f = new PhingFile($fsBasedir, $file);
 
                 $pathInZip = $this->prefix
                     . $f->getPathWithoutBase($fsBasedir);

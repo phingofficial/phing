@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +24,6 @@
  *
  * @author Hans Lellelid <hans@velum.net>
  * @package phing.util.regexp
- * @version $Id$
  */
 interface RegexpEngine
 {

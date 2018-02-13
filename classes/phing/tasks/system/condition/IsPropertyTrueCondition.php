@@ -51,9 +51,10 @@ class IsPropertyTrueCondition extends ConditionBase implements Condition
     public function evaluate()
     {
         if ($this->property === null) {
-            throw new BuildException("Property name must be set.");
+            throw new BuildException('Property name must be set.');
         }
+        $value = $this->getProject()->getProperty($this->property);
 
-        return (bool) $this->getProject()->getProperty($this->property);
+        return $value !== null && Project::toBoolean($value);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,17 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/parser/ElementHandler.php';
-
 /**
  * Handler class for the <project> XML element This class handles all elements
  * under the <project> element.
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright (c) 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class ProjectHandler extends AbstractHandler

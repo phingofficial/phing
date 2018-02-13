@@ -17,10 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/types/Parameterizable.php';
-include_once 'phing/types/Parameter.php';
-
 /**
  * Base class for core filter readers.
  *

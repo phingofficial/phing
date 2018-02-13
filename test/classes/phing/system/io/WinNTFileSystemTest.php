@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/AbstractWinFileSystemTestCase.php';
-include_once 'phing/system/io/WinNTFileSystem.php';
-
 /**
  * Unit test for WinNTFileSystem
  *

@@ -1,6 +1,5 @@
 <?php
 /**
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
-
 /**
  * Runs PHP Copy & Paste Detector. Checking PHP files for duplicated code.
  * Refactored original PhpCpdTask provided by
@@ -29,23 +25,17 @@ require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
  *
  * @package phing.tasks.ext.phpcpd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  */
 class PHPCPDTask extends Task
 {
+    use FileSetAware;
+
     /**
      * A php source code filename or directory
      *
      * @var PhingFile
      */
     protected $file = null;
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = [];
 
     /**
      * Minimum number of identical lines.
@@ -114,16 +104,6 @@ class PHPCPDTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs List of files to scan
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/util/FileUtils.php';
 
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
@@ -47,6 +43,15 @@ class LineContainsTest extends BuildFileTest
         $this->executeTarget("testLineContains");
 
         $expected = $this->getProject()->resolveFile("expected/linecontains.test");
+        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+    }
+
+    public function testLineContainsNegate()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $expected = $this->getProject()->resolveFile("expected/linecontains-negate.test");
         $result = $this->getProject()->resolveFile("result/linecontains.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }

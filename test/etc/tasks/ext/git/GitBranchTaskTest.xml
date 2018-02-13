@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitBranchTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -13,10 +9,12 @@
 
     <target name="allParamsSet" description="all parameters present">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="all-params-set"
             startpoint="origin/master"
@@ -25,30 +23,34 @@
     </target>
 
     <target name="noRepository" description="Required param checking">
-        <gitbranch />
+        <gitbranch gitPath="${git-path}" />
     </target>
     
     <target name="noBranchname" description="Required param checking">
-        <gitbranch repository="${tmp.dir.resolved}"/>
+        <gitbranch gitPath="${git-path}" repository="${tmp.dir.resolved}"/>
     </target>
 
     <target name="trackParamSet" description="git-branch --track">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
-            repository="${tmp.dir.resolved}" 
+        <gitbranch
+            gitPath="${git-path}"
+            repository="${tmp.dir.resolved}"
             branchname="track-param-set"
             track="true" />
     </target>
 
     <target name="noTrackParamSet" description="git-branch --no-track">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="no-track-param-set"
             notrack="true" />
@@ -56,25 +58,48 @@
 
     <target name="setUpstreamParamSet" description="git-branch --set-upstream">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="set-upstream-param-set"
             setupstream="true" />
     </target>
 
+    <target name="setUpstreamToParamSet" description="git-branch --set-upstream-to">
+        <gitclone
+                gitPath="${git-path}"
+                singleBranch="true"
+                repository="${repo.dir.resolved}"
+                targetPath="${tmp.dir.resolved}" />
+        <gitcheckout
+                gitPath="${git-path}"
+                repository="${tmp.dir.resolved}"
+                branchname="set-upstream-param-set"
+                create="true" />
+        <gitbranch
+                gitPath="${git-path}"
+                repository="${tmp.dir.resolved}"
+                branchname="set-upstream-param-set"
+                setupstreamto="master" />
+    </target>
+
     <target name="forceParamSet" description="git-branch --force">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="force-param-set" />
         <!-- try to create already created branck -->
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="force-param-set" 
             force="true"
@@ -83,20 +108,25 @@
 
     <target name="deleteBranch" description="git-branch -d|-D">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="delete-branch-1" track="true" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="delete-branch-2" track="true" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="delete-branch-1" 
             delete="true" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="delete-branch-2" 
             forcedelete="true" />
@@ -104,18 +134,22 @@
 
     <target name="moveBranch" description="git-branch -m">
         <gitclone
+            gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" track="true" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" 
             newbranch="move-branch-2"
             move="true" />
-        <gitbranch 
+        <gitbranch
+            gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-2" 
             delete="true" />
@@ -123,18 +157,22 @@
 
     <target name="forceMoveBranch" description="git-branch -M">
         <gitclone
+                gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" track="true" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" 
             newbranch="move-branch-2"
             forcemove="true" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-2" 
             delete="true" />
@@ -142,13 +180,16 @@
 
     <target name="moveBranchNoNewbranch" description="git-branch -m">
         <gitclone
+                gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" track="true" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" 
             move="true" />
@@ -156,13 +197,16 @@
 
     <target name="forceMoveBranchNoNewbranch" description="git-branch -M">
         <gitclone
+                gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" track="true" />
-        <gitbranch 
+        <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="move-branch-1" 
             forcemove="true" />

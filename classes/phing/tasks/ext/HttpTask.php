@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Base class for HTTP_Request2-backed tasks
@@ -29,7 +27,6 @@ require_once 'phing/Task.php';
  *
  * @package phing.tasks.ext
  * @author  Alexey Borzov <avb@php.net>
- * @version $Id$
  */
 abstract class HttpTask extends Task
 {

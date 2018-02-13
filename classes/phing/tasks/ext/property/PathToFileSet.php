@@ -17,12 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * Coverts a path to a fileset.
  * This is useful if you have a path but need to use a fileset as input in a phing task.
@@ -128,7 +122,7 @@ class PathToFileSet extends Task
         $dirNormal = rtrim($dirNormal, PhingFile::$separator) . PhingFile::$separator;
 
         $atLeastOne = false;
-        for ($i = 0; $i < count($sources); ++$i) {
+        for ($i = 0, $resourcesCount = count($sources); $i < $resourcesCount; ++$i) {
             $sourceFile = new PhingFile($sources[$i]);
             if (!$sourceFile->exists()) {
                 continue;

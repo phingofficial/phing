@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +22,6 @@
  * A factory class for regex functions.
  * @author Hans Lellelid <hans@xmpl.org>
  * @package  phing.util.regexp
- * @version $Id$
  */
 class Regexp
 {

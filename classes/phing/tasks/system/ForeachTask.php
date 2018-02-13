@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,12 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/Task.php';
-require_once 'phing/system/io/FileSystem.php';
-include_once 'phing/mappers/FileNameMapper.php';
-include_once 'phing/tasks/system/PhingTask.php';
-include_once 'phing/types/DirSetAware.php';
 
 /**
  * <foreach> task
@@ -46,12 +39,11 @@ include_once 'phing/types/DirSetAware.php';
  *
  * @author    Jason Hines <jason@greenhell.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class ForeachTask extends Task
 {
-    use DirSetAware;
+    use ResourceAware;
 
     /** Delimter-separated list of values to process. */
     private $list;
@@ -74,17 +66,8 @@ class ForeachTask extends Task
      */
     private $callee;
 
-    /** @var FileSet[] $fileset */
-    private $filesets = [];
-
     /** Instance of mapper */
     private $mapperElement;
-
-    /**
-     * Array of filelists
-     * @var array
-     */
-    private $filelists = [];
 
     /**
      * Target to execute.
@@ -364,17 +347,6 @@ class ForeachTask extends Task
         $this->delimiter = (string) $delimiter;
     }
 
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
     public function createPath()
     {
         if ($this->currPath === null) {
@@ -422,17 +394,6 @@ class ForeachTask extends Task
     public function setParam($param)
     {
         $this->param = $param;
-    }
-
-    /**
-     * Supports embedded <filelist> element.
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
     }
 
     /**

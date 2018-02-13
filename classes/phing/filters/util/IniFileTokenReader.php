@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,15 +18,10 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/types/TokenReader.php';
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/filters/ReplaceTokens.php'; // For class Token
-
 /**
  * Class that allows reading tokens from INI files.
  *
  * @author    Manuel Holtgewe
- * @version   $Id$
  * @package   phing.filters.util
  */
 class IniFileTokenReader extends TokenReader

@@ -24,7 +24,6 @@ require_once 'phing/tasks/ext/ExtractBaseTask.php';
  * Extracts one or several tar archives using PEAR Archive_Tar
  *
  * @author    Joakim Bodin <joakim.bodin+phing@gmail.com>
- * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.2.0
  */
@@ -106,7 +105,7 @@ class UntarTask extends ExtractBaseTask
             'bz2' => ['.bz2',],
         ];
         foreach ($compressions as $algo => $ext) {
-            if (array_search($mode, $ext) !== false) {
+            if (in_array($mode, $ext)) {
                 $compression = $algo;
                 break;
             }
