@@ -16,7 +16,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/BuildFileTest.php';
+
 
 /**
  * Tests the Truncate Task

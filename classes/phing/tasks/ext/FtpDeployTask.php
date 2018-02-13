@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * FtpDeployTask
@@ -41,19 +39,19 @@ require_once 'phing/Task.php';
  *
  * @author Jorrit Schippers <jorrit at ncode dot nl>
  * @contributor Steffen Sørensen <steffen@sublife.dk>
- * @version $Id$
  * @since 2.3.1
  * @package  phing.tasks.ext
  */
 class FtpDeployTask extends Task
 {
+    use FileSetAware;
+
     private $host = null;
     private $port = 21;
     private $ssl = false;
     private $username = null;
     private $password = null;
     private $dir = null;
-    private $filesets;
     private $completeDirMap;
     private $mode = FTP_BINARY;
     private $clearFirst = false;
@@ -71,6 +69,7 @@ class FtpDeployTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->filesets = [];
         $this->completeDirMap = [];
     }
@@ -193,17 +192,6 @@ class FtpDeployTask extends Task
     public function setSkipOnSameSize($skipOnSameSize)
     {
         $this->skipOnSameSize = StringHelper::booleanValue($skipOnSameSize);
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -411,7 +399,7 @@ class FtpDeployTask extends Task
             $content = $this->parseRawFtpContent($content, $directory);
         }
 
-        if (sizeof($content) == 0) {
+        if (count($content) == 0) {
             return false;
         } else {
             if (!empty($directory)) {

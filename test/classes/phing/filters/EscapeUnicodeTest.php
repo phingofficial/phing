@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters

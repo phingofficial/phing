@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,37 +18,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/PatternSet.php';
-include_once 'phing/types/selectors/BaseSelector.php';
-include_once 'phing/types/selectors/SelectorContainer.php';
-include_once 'phing/types/selectors/BaseSelectorContainer.php';
-
-// Load all of the selectors (not really necessary but
-// helps reveal parse errors right away)
-
-include_once 'phing/types/selectors/AndSelector.php';
-include_once 'phing/types/selectors/ContainsSelector.php';
-include_once 'phing/types/selectors/ContainsRegexpSelector.php';
-include_once 'phing/types/selectors/DateSelector.php';
-include_once 'phing/types/selectors/DependSelector.php';
-include_once 'phing/types/selectors/DepthSelector.php';
-include_once 'phing/types/selectors/DifferentSelector.php';
-include_once 'phing/types/selectors/ExtendSelector.php';
-include_once 'phing/types/selectors/FilenameSelector.php';
-include_once 'phing/types/selectors/MajoritySelector.php';
-include_once 'phing/types/selectors/NoneSelector.php';
-include_once 'phing/types/selectors/NotSelector.php';
-include_once 'phing/types/selectors/OrSelector.php';
-include_once 'phing/types/selectors/PresentSelector.php';
-include_once 'phing/types/selectors/SizeSelector.php';
-include_once 'phing/types/selectors/TypeSelector.php';
-include_once 'phing/types/selectors/ReadableSelector.php';
-include_once 'phing/types/selectors/WritableSelector.php';
-
-include_once 'phing/util/DirectoryScanner.php';
-
 /**
  * The FileSet class provides methods and properties for accessing
  * and managing filesets. It extends ProjectComponent and thus inherits
@@ -65,7 +33,6 @@ include_once 'phing/util/DirectoryScanner.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version    $Id$
  * @see        ProjectComponent
  * @package    phing.types
  */
@@ -102,6 +69,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function __construct($fileset = null)
     {
+        parent::__construct();
+
         if ($fileset !== null && ($fileset instanceof FileSet)) {
             $this->dir = $fileset->dir;
             $this->additionalPatterns = $fileset->additionalPatterns;
@@ -111,6 +80,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             $this->expandSymbolicLinks = $fileset->expandSymbolicLinks;
             $this->errorOnMissingDir = $fileset->errorOnMissingDir;
         }
+
         $this->defaultPatterns = new PatternSet();
     }
 
@@ -133,7 +103,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function setRefid(Reference $r)
     {
-        if ((isset($this->dir) && !is_null($this->dir)) || $this->defaultPatterns->hasPatterns()) {
+        if ((isset($this->dir) && null !== $this->dir) || $this->defaultPatterns->hasPatterns()) {
             throw $this->tooManyAttributes();
         }
         if (!empty($this->additionalPatterns)) {
@@ -328,7 +298,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /** returns a reference to the dirscanner object belonging to this fileset
      * @param Project $p
      * @throws BuildException
-     * @throws Exception
      * @return \DirectoryScanner
      */
     public function getDirectoryScanner(Project $p)
@@ -363,7 +332,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @param DirectoryScanner $ds
      * @param Project $p
      * @throws BuildException
-     * @throws Exception
      */
     protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p)
     {
@@ -372,7 +340,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return;
         }
         if ($ds === null) {
-            throw new Exception("DirectoryScanner cannot be null");
+            throw new BuildException("DirectoryScanner cannot be null");
         }
         // FIXME - pass dir directly when dirscanner supports File
         $ds->setBasedir($this->dir->getPath());
@@ -385,7 +353,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
 
         $p->log(
-            "FileSet: Setup file scanner in dir " . $this->dir->__toString() . " with " . $this->defaultPatterns->toString(),
+            "FileSet: Setup file scanner in dir " . (string) $this->dir . " with " . $this->defaultPatterns->toString(),
             Project::MSG_DEBUG
         );
 
@@ -412,8 +380,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     // SelectorContainer methods
@@ -443,13 +411,13 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return $this->getRef($this->getProject())->hasPatterns();
         }
 
-        if ($this->defaultPatterns->hasPatterns($this->getProject())) {
+        if ($this->defaultPatterns->hasPatterns()) {
             return true;
         }
 
         for ($i = 0, $size = count($this->additionalPatterns); $i < $size; $i++) {
             $ps = $this->additionalPatterns[$i];
-            if ($ps->hasPatterns($this->getProject())) {
+            if ($ps->hasPatterns()) {
                 return true;
             }
         }
@@ -531,5 +499,14 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $this->setChecked(false);
     }
 
-    abstract public function getIterator();
+    /**
+     * @param array ...$options
+     * @return ArrayIterator
+     */
+    public function getIterator(...$options): \ArrayIterator
+    {
+        return new ArrayIterator($this->getFiles($options));
+    }
+
+    abstract protected function getFiles(...$options);
 }

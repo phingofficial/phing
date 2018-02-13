@@ -51,4 +51,11 @@
         <set section="test" property="foo" value="qux"/>
         </inifile>
     </target>
+
+    <target name="defaultValueInSecondSection">
+        <inifile source="${tmp.dir}/source.ini" verbose="yes">
+        <get section="test" property="foo" outputproperty="qux"/>
+        <get section="test2" property="foo" outputproperty="qux" default="notSet"/>
+        </inifile>
+    </target>
 </project>

@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/tasks/system/PropertyTask.php';
-include_once 'phing/util/DirectoryScanner.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-
 /**
  * Sets the given property if the specified target has a timestamp
  * greater than all of the source files.
@@ -34,11 +26,13 @@ include_once 'phing/mappers/MergeMapper.php';
  * @author    William Ferguson <williamf@mincom.com> (Ant)
  * @author    Hiroaki Nakamura <hnakamur@mc.neweb.ne.jp> (Ant)
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class UpToDateTask extends Task implements Condition
 {
+    use FileListAware;
+    use FileSetAware;
+
     /**
      * @var string
      */
@@ -58,16 +52,6 @@ class UpToDateTask extends Task implements Condition
      * @var PhingFile
      */
     private $_targetFile;
-
-    /**
-     * @var FileSet[]
-     */
-    private $sourceFileSets = [];
-
-    /**
-     * @var FileList[]
-     */
-    private $_filelists = [];
 
     protected $mapperElement = null;
 
@@ -139,26 +123,6 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * Nested <fileset> element.
-     * @param FileSet $fs
-     */
-    public function addFileset(FileSet $fs)
-    {
-        $this->sourceFileSets[] = $fs;
-    }
-
-    /**
-     * Supports embedded <filelist> element.
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->_filelists, new FileList());
-
-        return $this->_filelists[$num - 1];
-    }
-
-    /**
      * Defines the FileNameMapper to use (nested mapper element).
      */
     public function createMapper()
@@ -180,12 +144,12 @@ class UpToDateTask extends Task implements Condition
      */
     public function evaluate()
     {
-        if (count($this->sourceFileSets) == 0 && count($this->_filelists) == 0 && $this->_sourceFile === null) {
+        if (count($this->filesets) == 0 && count($this->filelists) == 0 && $this->_sourceFile === null) {
             throw new BuildException("At least one srcfile or a nested "
                 . "<fileset> or <filelist> element must be set.");
         }
 
-        if ((count($this->sourceFileSets) > 0 || count($this->_filelists) > 0) && $this->_sourceFile !== null) {
+        if ((count($this->filesets) > 0 || count($this->filelists) > 0) && $this->_sourceFile !== null) {
             throw new BuildException("Cannot specify both the srcfile "
                 . "attribute and a nested <fileset> "
                 . "or <filelist> element.");
@@ -208,8 +172,8 @@ class UpToDateTask extends Task implements Condition
         }
 
         $upToDate = true;
-        for ($i = 0, $size = count($this->sourceFileSets); $i < $size && $upToDate; $i++) {
-            $fs = $this->sourceFileSets[$i];
+        for ($i = 0, $size = count($this->filesets); $i < $size && $upToDate; $i++) {
+            $fs = $this->filesets[$i];
             $ds = $fs->getDirectoryScanner($this->project);
             $upToDate = $upToDate && $this->scanDir(
                     $fs->getDir($this->project),
@@ -217,8 +181,8 @@ class UpToDateTask extends Task implements Condition
                 );
         }
 
-        for ($i = 0, $size = count($this->_filelists); $i < $size && $upToDate; $i++) {
-            $fl = $this->_filelists[$i];
+        for ($i = 0, $size = count($this->filelists); $i < $size && $upToDate; $i++) {
+            $fl = $this->filelists[$i];
             $srcFiles = $fl->getFiles($this->project);
             $upToDate = $upToDate && $this->scanDir(
                     $fl->getDir($this->project),

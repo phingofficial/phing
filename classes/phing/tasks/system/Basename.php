@@ -1,6 +1,5 @@
 <?php
 /**
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,11 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Task that changes the permissions on a file/directory.

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Touch Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class TouchTaskTest extends BuildFileTest
@@ -71,6 +67,24 @@ class TouchTaskTest extends BuildFileTest
         $this->assertFileNotExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"
+        );
+    }
+
+    public function testFilelist()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/tmp/simple-file"
+        );
+    }
+
+    public function testFileset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/tmp/simple-file"
         );
     }
 }

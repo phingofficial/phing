@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -91,7 +90,7 @@ class Commandline
         if ($insertAtStart) {
             array_unshift($this->arguments, $argument);
         } else {
-            array_push($this->arguments, $argument);
+            $this->arguments[] = $argument;
         }
 
         return $argument;

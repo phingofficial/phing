@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +25,6 @@
  * license properties or it can use a template.
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */
@@ -452,7 +450,7 @@ class ZendGuardLicenseTask extends Task
         // Check for exit value 1. Zendenc_sign command for some reason
         // returns 0 in case of failure and 1 in case of success...
         if ($return_var !== 1) {
-            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . join("\n", $output) . "\n\n");
+            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . implode("\n", $output) . "\n\n");
         }
     }
 

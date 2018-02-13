@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 include_once 'phing/types/Reference.php';
 
 /**
@@ -31,7 +29,6 @@ include_once 'phing/types/Reference.php';
  * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @version   $Id$
  * @package   phing.tasks.system
  */
 abstract class PDOTask extends Task
@@ -108,24 +105,6 @@ abstract class PDOTask extends Task
     public function setAutocommit($autocommit)
     {
         $this->autocommit = $autocommit;
-    }
-
-    /**
-     * Sets the version string, execute task only if
-     * rdbms version match; optional.
-     * @param string $version The version to set
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getLoaderMap()
-    {
-        return self::$loaderMap;
     }
 
     /**

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Zip and Unzip tasks
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class ZipUnzipTaskTest extends BuildFileTest
@@ -82,6 +78,6 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $this->assertFileExists($filename);
-        $this->assertEquals('TEST', file_get_contents($filename));
+        $this->assertStringEqualsFile($filename, 'TEST');
     }
 }

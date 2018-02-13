@@ -14,16 +14,15 @@ class ZendGuardFileSet extends FileSet
 
     /**
      *  Get a list of files and directories specified in the fileset.
-     * @param Project $p
-     * @param bool $includeEmpty
-     * @throws BuildException
+     * @param array $options
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
+     * @throws BuildException
      */
-    public function getFiles(Project $p, $includeEmpty = true)
+    public function getFiles(...$options)
     {
         if ($this->files === null) {
-            $ds = $this->getDirectoryScanner($p);
+            $ds = $this->getDirectoryScanner($this->getProject());
             $this->files = $ds->getIncludedFiles();
         } // if ($this->files===null)
 

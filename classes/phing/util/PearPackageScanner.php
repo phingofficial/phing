@@ -8,7 +8,6 @@
  * @package  phing.util
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @version  SVN: $Id$
  * @link     http://www.phing.info/
  */
 require_once 'phing/util/DirectoryScanner.php';
@@ -36,6 +35,8 @@ class PearPackageScanner extends DirectoryScanner
      */
     public function __construct()
     {
+        parent::__construct();
+
         @include_once 'PEAR/Config.php';
         @include_once 'PEAR/PackageFile.php';
 

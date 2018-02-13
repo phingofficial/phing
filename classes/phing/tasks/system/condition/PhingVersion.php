@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * An phing version condition/task.
  *

@@ -19,14 +19,6 @@
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/TaskAdapter.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/BuildEvent.php';
-include_once 'phing/types/PropertyValue.php';
-include_once 'phing/ComponentHelper.php';
-
 /**
  *  The Phing project class. Represents a completely configured Phing project.
  *  The class defines the project and all tasks/targets. It also contains
@@ -57,25 +49,6 @@ class Project
     private $globalFilterSet = [];
     /**  all globals filters (future use) */
     private $globalFilters = [];
-
-    /** Project properties map (usually String to String). */
-    private $properties = [];
-
-    /**
-     * Map of "user" properties (as created in the Ant task, for example).
-     * Note that these key/value pairs are also always put into the
-     * project properties, so only the project properties need to be queried.
-     * Mapping is String to String.
-     */
-    private $userProperties = [];
-
-    /**
-     * Map of inherited "user" properties - that are those "user"
-     * properties that have been created by tasks and not been set
-     * from the command line or a GUI tool.
-     * Mapping is String to String.
-     */
-    private $inheritedProperties = [];
 
     /** holds ref names and a reference to the referred object*/
     private $references = [];
@@ -176,25 +149,10 @@ class Project
      *                       Must not be <code>null</code>.
      * @param  string $value The new value of the property.
      *                       Must not be <code>null</code>.
-     * @return void
      */
     public function setProperty($name, $value)
     {
-
-        // command line properties take precedence
-        if (isset($this->userProperties[$name])) {
-            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
-
-            return;
-        }
-
-        if (isset($this->properties[$name])) {
-            $this->log("Overriding previous definition of property " . $name, Project::MSG_VERBOSE);
-        }
-
-        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
-        $this->properties[$name] = $value;
-        $this->addReference($name, new PropertyValue($value));
+        PropertyHelper::getPropertyHelper($this)->setProperty(null, $name, $value, true);
     }
 
     /**
@@ -210,14 +168,7 @@ class Project
      */
     public function setNewProperty($name, $value)
     {
-        if (isset($this->properties[$name])) {
-            $this->log("Override ignored for property " . $name, Project::MSG_DEBUG);
-
-            return;
-        }
-        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
-        $this->properties[$name] = $value;
-        $this->addReference($name, new PropertyValue($value));
+        PropertyHelper::getPropertyHelper($this)->setNewProperty(null, $name, $value);
     }
 
     /**
@@ -227,14 +178,11 @@ class Project
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
-     * @see #setProperty()
+     * @see setProperty()
      */
     public function setUserProperty($name, $value)
     {
-        $this->log("Setting user project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
-        $this->userProperties[$name] = $value;
-        $this->properties[$name] = $value;
-        $this->addReference($name, new PropertyValue($value));
+        PropertyHelper::getPropertyHelper($this)->setUserProperty(null, $name, $value);
     }
 
     /**
@@ -247,12 +195,11 @@ class Project
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
-     * @see #setProperty()
+     * @see setProperty()
      */
     public function setInheritedProperty($name, $value)
     {
-        $this->inheritedProperties[$name] = $value;
-        $this->setUserProperty($name, $value);
+        PropertyHelper::getPropertyHelper($this)->setInheritedProperty(null, $name, $value);
     }
 
     /**
@@ -265,13 +212,7 @@ class Project
      */
     private function setPropertyInternal($name, $value)
     {
-        if (isset($this->userProperties[$name])) {
-            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
-
-            return;
-        }
-        $this->properties[$name] = $value;
-        $this->addReference($name, new PropertyValue($value));
+        PropertyHelper::getPropertyHelper($this)->setProperty(null, $name, $value, false);
     }
 
     /**
@@ -285,19 +226,7 @@ class Project
      */
     public function getProperty($name)
     {
-        if (!isset($this->properties[$name])) {
-            return null;
-        }
-        $found = $this->properties[$name];
-        // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
-            // attempt to resolve properties
-            $found = $this->replaceProperties($found);
-            // save resolved value
-            $this->properties[$name] = $found;
-        }
-
-        return $found;
+        return PropertyHelper::getPropertyHelper($this)->getProperty(null, $name);
     }
 
     /**
@@ -316,7 +245,7 @@ class Project
      */
     public function replaceProperties($value)
     {
-        return ProjectConfigurator::replaceProperties($this, $value, $this->properties);
+        return PropertyHelper::getPropertyHelper($this)->replaceProperties(null, $value, $this->getProperties());
     }
 
     /**
@@ -330,11 +259,7 @@ class Project
      */
     public function getUserProperty($name)
     {
-        if (!isset($this->userProperties[$name])) {
-            return null;
-        }
-
-        return $this->userProperties[$name];
+        return PropertyHelper::getPropertyHelper($this)->getUserProperty(null, $name);
     }
 
     /**
@@ -344,7 +269,7 @@ class Project
      */
     public function getProperties()
     {
-        return $this->properties;
+        return PropertyHelper::getPropertyHelper($this)->getProperties();
     }
 
     /**
@@ -353,7 +278,7 @@ class Project
      */
     public function getUserProperties()
     {
-        return $this->userProperties;
+        return PropertyHelper::getPropertyHelper($this)->getUserProperties();
     }
 
     /**
@@ -370,12 +295,7 @@ class Project
      */
     public function copyUserProperties(Project $other)
     {
-        foreach ($this->userProperties as $arg => $value) {
-            if (isset($this->inheritedProperties[$arg])) {
-                continue;
-            }
-            $other->setUserProperty($arg, $value);
-        }
+        PropertyHelper::getPropertyHelper($this)->copyUserProperties($other);
     }
 
     /**
@@ -392,12 +312,7 @@ class Project
      */
     public function copyInheritedProperties(Project $other)
     {
-        foreach ($this->userProperties as $arg => $value) {
-            if ($other->getUserProperty($arg) !== null) {
-                continue;
-            }
-            $other->setInheritedProperty($arg, $value);
-        }
+        PropertyHelper::getPropertyHelper($this)->copyUserProperties($other);
     }
 
     // ---------------------------------------------------------
@@ -432,7 +347,7 @@ class Project
     public function setName($name)
     {
         $this->name = (string) trim($name);
-        $this->setProperty("phing.project.name", $this->name);
+        $this->setUserProperty("phing.project.name", $this->name);
     }
 
     /**
@@ -831,6 +746,28 @@ class Project
     }
 
     /**
+     * Return the boolean equivalent of a string, which is considered
+     * <code>true</code> if either <code>"on"</code>, <code>"true"</code>,
+     * or <code>"yes"</code> is found, ignoring case.
+     *
+     * @param string $s The string to convert to a boolean value.
+     *
+     * @return <code>true</code> if the given string is <code>"on"</code>,
+     *         <code>"true"</code> or <code>"yes"</code>, or
+     *         <code>false</code> otherwise.
+     */
+    public static function toBoolean($s)
+    {
+        return (
+            strcasecmp($s, 'on') === 0
+            || strcasecmp($s, 'true') === 0
+            || strcasecmp($s, 'yes') === 0
+            // FIXME next condition should be removed if the boolean behavior for properties will be solved
+            || strcasecmp($s, 1) === 0
+        );
+    }
+
+    /**
      * Topologically sort a set of Targets.
      * @param  string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
@@ -1027,13 +964,14 @@ class Project
     }
 
     /**
-     * @param $obj
-     * @param $msg
-     * @param $level
+     * @param mixed $obj
+     * @param string $msg
+     * @param int $level
+     * @param Exception|null $t
      */
-    public function logObject($obj, $msg, $level)
+    public function logObject($obj, $msg, $level, Exception $t = null)
     {
-        $this->fireMessageLogged($obj, $msg, $level);
+        $this->fireMessageLogged($obj, $msg, $level, $t);
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
@@ -1154,12 +1092,18 @@ class Project
     }
 
     /**
-     * @param $object
-     * @param $message
-     * @param $priority
+     * @param mixed $object
+     * @param string $message
+     * @param int $priority
+     * @param Exception $t
+     * @throws \Exception
      */
-    public function fireMessageLogged($object, $message, $priority)
+    public function fireMessageLogged($object, $message, $priority, Exception $t = null)
     {
-        $this->fireMessageLoggedEvent(new BuildEvent($object), $message, $priority);
+        $event = new BuildEvent($object);
+        if ($t !== null) {
+            $event->setException($t);
+        }
+        $this->fireMessageLoggedEvent($event, $message, $priority);
     }
 }

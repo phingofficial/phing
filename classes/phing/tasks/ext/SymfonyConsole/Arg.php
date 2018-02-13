@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +26,6 @@ require_once "phing/types/DataType.php";
  *
  * @author nuno costa <nuno@francodacosta.com>
  * @license GPL
- * @version $Id$
  * @package phing.tasks.ext.symfony
  */
 class Arg extends DataType
@@ -101,11 +99,11 @@ class Arg extends DataType
         $value = "";
         $quote = $this->getQuotes() ? '"' : '';
 
-        if (!is_null($this->getValue())) {
+        if (null !== $this->getValue()) {
             $value = $quote . $this->getValue() . $quote;
         }
 
-        if (!is_null($this->getName())) {
+        if (null !== $this->getName()) {
             $name = '--' . $this->getName();
         }
 

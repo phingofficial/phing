@@ -17,12 +17,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @version SVN: $Id$
  * @package phing.tasks.ext
  */
-
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/pdo/PDOSQLExecTask.php';
 
 /**
  * @author Alexey Borzov <avb@php.net>
@@ -39,7 +35,9 @@ class PDODelimitersTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
         $this->queries = [];
 
-        $this->mockTask = $this->getMock('PDOSQLExecTask', ['getConnection', 'execSQL']);
+        $this->mockTask = $this->getMockBuilder('PDOSQLExecTask')
+            ->setMethods(['getConnection', 'execSQL'])
+            ->getMock();
         $this->mockTask->setProject($this->project);
         // prevents calling beginTransaction() on obviously missing PDO instance
         $this->mockTask->setAutocommit(true);

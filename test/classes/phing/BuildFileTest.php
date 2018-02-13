@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +19,6 @@
  */
 
 use PHPUnit\Framework\TestCase;
-
-require_once 'phing/BuildListener.php';
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A BuildFileTest is a TestCase which executes targets from a Phing buildfile
@@ -82,6 +78,37 @@ abstract class BuildFileTest extends TestCase
         $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
 
+    /**
+     * Asserts that the log buffer contains specified message at specified priority.
+     * @param string $expected Message subsctring
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
+     */
+    protected function assertLogLineContaining($expected, $priority = null, $errormsg = "Expected to find a log line that starts with '%s': %s")
+    {
+        $found = false;
+        foreach ($this->logBuffer as $log) {
+            if (false !== strpos($log['message'], $expected)) {
+                $this->assertEquals(1, 1); // increase number of positive assertions
+                if ($priority === null) {
+                    return;
+                } elseif ($priority !== null) {
+                    if ($priority >= $log['priority']) {
+                        $found = true;
+                    }
+                }
+
+            }
+            if ($found) {
+                return;
+            }
+        }
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
+    }
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
      * @param string $expected Message subsctring
@@ -396,6 +423,83 @@ abstract class BuildFileTest extends TestCase
         //$url = ggetClass().getResource(resource);
         //assertNotNull("Could not find resource :" + resource, url);
         //return url;
+    }
+
+    protected function rmdir($dir)
+    {
+        if (!file_exists($dir)) {
+            return true;
+        }
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+        foreach (scandir($dir) as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            if (!$this->rmdir($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+
+        return rmdir($dir);
+    }
+
+    /**
+     * Get relative date
+     *
+     * @param int $timestamp Timestamp to us as pin-point
+     * @param string $type Whether 'fulldate' or 'time'
+     * @return string
+     */
+    protected function getRelativeDate($timestamp, $type = 'fulldate')
+    {
+        // calculate the diffrence
+        $timediff = time() - $timestamp;
+
+        if ($timediff < 3600) {
+            if ($timediff < 120) {
+                $returndate = "1 minute ago";
+            } else {
+                $returndate = ceil($timediff / 60) . " minutes ago";
+            }
+        } else {
+            if ($timediff < 7200) {
+                $returndate = "1 hour ago.";
+            } else {
+                if ($timediff < 86400) {
+                    $returndate = ceil($timediff / 3600) . " hours ago";
+                } else {
+                    if ($timediff < 172800) {
+                        $returndate = "1 day ago.";
+                    } else {
+                        if ($timediff < 604800) {
+                            $returndate = ceil($timediff / 86400) . " days ago";
+                        } else {
+                            if ($timediff < 1209600) {
+                                $returndate = ceil($timediff / 86400) . " days ago";
+                            } else {
+                                if ($timediff < 2629744) {
+                                    $returndate = ceil($timediff / 86400) . " days ago";
+                                } else {
+                                    if ($timediff < 3024000) {
+                                        $returndate = ceil($timediff / 604900) . " weeks ago";
+                                    } else {
+                                        if ($timediff > 5259486) {
+                                            $returndate = ceil($timediff / 2629744) . " months ago";
+                                        } else {
+                                            $returndate = ceil($timediff / 604900) . " weeks ago";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $returndate;
     }
 }
 

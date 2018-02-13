@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Unit tests for PHPUnit task
@@ -43,7 +40,7 @@ class PHPUnitTaskTest extends BuildFileTest
     public function testPlainFormatterDataProvider()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Tests run: 2, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
+        $this->assertInLogs("Tests run: 2, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
     }
 
     /**

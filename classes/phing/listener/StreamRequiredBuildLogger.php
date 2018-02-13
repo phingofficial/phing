@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
  *
@@ -29,7 +26,6 @@ require_once 'phing/BuildLogger.php';
  * -listener.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @see       BuildEvent
  * @see       Project::addBuildListener()
  * @package   phing

@@ -1,7 +1,6 @@
 <?php
 
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +28,6 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.types.selectors
  */
 class DateSelector extends BaseExtendSelector
@@ -51,6 +49,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function __construct()
     {
+        parent::__construct();
         //if (Os.isFamily("dos")) {
         //    granularity = 2000;
         //}
@@ -100,7 +99,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @param int $millis the time to compare file's last modified date to, expressed in milliseconds
      */
-    private function setMillis($millis)
+    public function setMillis($millis)
     {
         $this->setSeconds((int) $millis * 1000);
     }

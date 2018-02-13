@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +22,6 @@
  * Track the current state of the Xml parse operation.
  *
  * @author    Bryan Davis <bpd@keynetics.com>
- * @version   $Id$
  * @package   phing.parser
  */
 class PhingXMLContext
