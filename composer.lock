@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "08375f35f9151893ebe866bbdc714372",
+    "content-hash": "8543c52882639542209601afff777612",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -1044,8 +1044,7 @@
                 {
                     "name": "Kevin Herrera",
                     "email": "kevin@herrera.io",
-                    "homepage": "http://kevin.herrera.io/",
-                    "role": "Developer"
+                    "homepage": "http://kevin.herrera.io"
                 }
             ],
             "description": "A library for simplifying JSON linting and validation.",
@@ -1389,8 +1388,7 @@
             "authors": [
                 {
                     "name": "Kevin Herrera",
-                    "email": "me@kevingh.com",
-                    "homepage": "http://www.kevingh.com/"
+                    "email": "me@kevingh.com"
                 }
             ],
             "description": "A parsing and comparison library for semantic versioning.",
@@ -1997,20 +1995,20 @@
         },
         {
             "name": "pear/pear-core-minimal",
-            "version": "v1.10.1",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/pear-core-minimal.git",
-                "reference": "cae0f1ce0cb5bddb611b0a652d322905a65a5896"
+                "reference": "070f0b600b2caca2501e2c9b7e553016e4b0d115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/cae0f1ce0cb5bddb611b0a652d322905a65a5896",
-                "reference": "cae0f1ce0cb5bddb611b0a652d322905a65a5896",
+                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/070f0b600b2caca2501e2c9b7e553016e4b0d115",
+                "reference": "070f0b600b2caca2501e2c9b7e553016e4b0d115",
                 "shasum": ""
             },
             "require": {
-                "pear/console_getopt": "~1.3",
+                "pear/console_getopt": "~1.4",
                 "pear/pear_exception": "~1.0"
             },
             "replace": {
@@ -2037,7 +2035,7 @@
                 }
             ],
             "description": "Minimal set of PEAR core files to be used as composer dependency",
-            "time": "2015-10-17T11:41:19+00:00"
+            "time": "2017-02-28T16:46:11+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -3268,9 +3266,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
