@@ -29,6 +29,6 @@ class Win32FileSystemTest extends AbstractWinFileSystemTestCase
 {
     protected function createFileSystem()
     {
-        return new Win32FileSystem();
+        return new WindowsFileSystem();
     }
 }

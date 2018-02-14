@@ -23,7 +23,7 @@ include_once 'phing/system/io/FileSystem.php';
 /**
  * @package   phing.system.io
  */
-class Win32FileSystem extends FileSystem
+class WindowsFileSystem extends FileSystem
 {
     protected $slash;
     protected $altSlash;
@@ -526,7 +526,7 @@ class Win32FileSystem extends FileSystem
     public function setReadOnly($f)
     {
         // dunno how to do this on win
-        throw new Exception("WIN32FileSystem doesn't support read-only yet.");
+        throw new Exception(__CLASS__ . " doesn't support read-only yet.");
     }
 
     /* -- Filesystem interface -- */
@@ -539,7 +539,7 @@ class Win32FileSystem extends FileSystem
     protected function _access($path)
     {
         if (!$this->checkAccess($path, false)) {
-            throw new Exception("Can't resolve path $p");
+            throw new Exception("Can't resolve path $path");
         }
 
         return true;

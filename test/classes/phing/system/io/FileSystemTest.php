@@ -76,8 +76,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         return [
             ['UnixFileSystem', 'UNIX'],
-            ['Win32FileSystem', 'WIN32'],
-            ['WinNTFileSystem', 'WINNT']
+            ['WindowsFileSystem', 'WINDOWS'],
         ];
     }
 

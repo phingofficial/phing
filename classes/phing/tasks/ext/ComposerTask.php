@@ -136,12 +136,11 @@ class ComposerTask extends Task
         if (false === $composerFile->isFile()) {
             $message = sprintf('Composer binary not found at "%s"', $composerFile);
             $this->log($message, Project::MSG_WARN);
-            $find = $this->isWindows() ? 'where' : 'which';
-            exec($find . ' composer', $composerLocation);
-            if (!empty($composerLocation[0])) {
+            $composerLocation = FileSystem::getFileSystem()->which('composer');
+            if (!empty($composerLocation)) {
                 $message = sprintf('Composer binary found at "%s", updating location', $composerLocation[0]);
                 $this->log($message, Project::MSG_INFO);
-                $this->setComposer($composerLocation[0]);
+                $this->setComposer($composerLocation);
             }
         }
         return $this->composer;
@@ -156,17 +155,6 @@ class ComposerTask extends Task
     public function createArg()
     {
         return $this->commandLine->createArgument();
-    }
-
-    /**
-     * Check is php is running on Windows.
-     *
-     * @return boolean
-     */
-    public function isWindows()
-    {
-        $operatingSystemName = php_uname('s');
-        return strtoupper(substr($operatingSystemName, 0, 3)) === 'WIN';
     }
 
     /**

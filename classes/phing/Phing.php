@@ -1517,10 +1517,8 @@ class Phing
 
         switch (strtoupper(PHP_OS)) {
             case 'WINNT':
-                self::setProperty('host.fstype', 'WINNT');
-                break;
             case 'WIN32':
-                self::setProperty('host.fstype', 'WIN32');
+                self::setProperty('host.fstype', 'WINDOWS');
                 break;
             default:
                 self::setProperty('host.fstype', 'UNIX');

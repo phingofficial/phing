@@ -557,9 +557,9 @@ class ApplyTask extends Task
         $this->log('Operating System identified : ' . $this->currentos, $this->loglevel);
 
         // Getting the O.S. type identifier
-        // Validating the 'filesystem' for determining the OS type [UNIX, WINNT and WIN32]
+        // Validating the 'filesystem' for determining the OS type [UNIX, WINDOWS]
         // (Another usage could be with 'os.name' for determination)
-        if ('WIN' == strtoupper(substr(Phing::getProperty('host.fstype'), 0, 3))) {
+        if ('WINDOWS' == Phing::getProperty('host.fstype')) {
             $this->osvariant = 'WIN'; // Probable Windows flavour
         } else {
             $this->osvariant = 'LIN'; // Probable GNU/Linux flavour

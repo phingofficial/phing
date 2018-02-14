@@ -38,7 +38,7 @@
                     </row>
                     <row>
                         <entry><literal>host.fstype</literal></entry>
-                        <entry>The type of the files ystem. Possible values are UNIX, WINNT and WIN32
+                        <entry>The type of the files ystem. Possible values are UNIX and WINDOWS.
                         </entry>
                     </row>
                     <row>
