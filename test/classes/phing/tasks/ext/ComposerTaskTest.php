@@ -83,11 +83,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o->setComposer($composer);
         $composerFile = new SplFileInfo($composer);
         if (false === $composerFile->isFile()) {
-            $find = $o->isWindows() ? 'where' : 'which';
-            exec($find . ' composer', $composerLocation);
-            if (!empty($composerLocation[0])) {
-                $composer = $composerLocation[0];
-            }
+            $composer = FileSystem::getFileSystem()->which('composer');
         }
         $this->assertEquals($composer, $o->getComposer());
     }
