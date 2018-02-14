@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,15 +22,19 @@ require_once 'phing/tasks/ext/phploc/AbstractPHPLocFormatter.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 class PHPLocCSVFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single';
-        $printer = new $printerClass();
+        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single')) {
+            $printer = new SebastianBergmann\PHPLOC\Log\CSV\Single();
+        } elseif (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Csv')) {
+            $printer = new \SebastianBergmann\PHPLOC\Log\Csv();
+        } else {
+        throw new BuildException('Not supported PHPLOC version used.');
+    }
         $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
 }

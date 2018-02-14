@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/Condition.php';
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/types/RegularExpression.php';
-require_once 'phing/BuildException.php';
-
 
 /**
  * Simple regular expression condition.

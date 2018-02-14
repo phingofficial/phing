@@ -10,10 +10,7 @@
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
- * @version    SVN: $Id$
  */
-
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -79,7 +76,6 @@ class rSTTaskTest extends BuildFileTest
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
             $rt = new rSTTask();
-            $rt->init();
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);

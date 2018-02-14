@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,8 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once __DIR__ . '/../../../classes/phing/Phing.php';
 
 /**
  * Core Phing class test
@@ -65,6 +62,25 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $className = Phing::import(self::DOTED_CLASS, self::getClassPath());
         self::assertEquals(self::DOTED_CLASS_SHORTNAME, $className);
         self::assertTrue(class_exists(self::DOTED_CLASS_SHORTNAME));
+    }
+
+    /**
+     * Test the convertShorthand function 
+     */
+    public function testConvertShorthand()
+    {
+        self::assertEquals(0, Phing::convertShorthand('0'));
+        self::assertEquals(-1, Phing::convertShorthand('-1'));
+        self::assertEquals(100, Phing::convertShorthand('100'));
+        self::assertEquals(1024, Phing::convertShorthand('1k'));
+        self::assertEquals(1024, Phing::convertShorthand('1K'));
+        self::assertEquals(2048, Phing::convertShorthand('2K'));
+        self::assertEquals(1048576, Phing::convertShorthand('1M'));
+        self::assertEquals(1048576, Phing::convertShorthand('1m'));
+        self::assertEquals(1073741824, Phing::convertShorthand('1G'));
+        self::assertEquals(1073741824, Phing::convertShorthand('1g'));
+
+        self::assertEquals(200, Phing::convertShorthand('200j'));
     }
 
     /**

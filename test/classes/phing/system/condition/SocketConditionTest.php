@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/SocketCondition.php';
-
 /**
  * Tests for the <socket> condition
  *

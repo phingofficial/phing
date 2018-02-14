@@ -17,14 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/IdentityMapper.php';
-include_once 'phing/mappers/FlattenMapper.php';
-include_once 'phing/types/DirSetAware.php';
-
 /**
  * A phing copy task.  Copies a file or directory to a new file
  * or directory.  Files are only copied if the source file is newer
@@ -37,7 +29,8 @@ include_once 'phing/types/DirSetAware.php';
  */
 class CopyTask extends Task
 {
-    use DirSetAware;
+    use ResourceAware;
+    use FilterChainAware;
 
     /** @var PhingFile */
     protected $file = null; // the source file (from xml attribute)
@@ -64,15 +57,6 @@ class CopyTask extends Task
     /** @var FileUtils */
     protected $fileUtils = null; // a instance of fileutils
 
-    /** @var AbstractFileSet[] */
-    protected $filesets = []; // all fileset objects assigned to this task
-
-    /** @var FileList[] */
-    protected $filelists = []; // all filelist objects assigned to this task
-
-    /** @var FilterChain[] */
-    protected $filterChains = []; // all filterchains objects assigned to this task
-
     protected $verbosity = Project::MSG_VERBOSE;
 
     /** @var int $mode */
@@ -89,6 +73,7 @@ class CopyTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->fileUtils = new FileUtils();
         $this->mode = 0777 - umask();
     }
@@ -105,6 +90,20 @@ class CopyTask extends Task
     public function setOverwrite($bool)
     {
         $this->overwrite = (boolean) $bool;
+    }
+
+    /**
+     * Set whether files copied from directory trees will be "flattened"
+     * into a single directory.  If there are multiple files with
+     * the same name in the source directory tree, only the first
+     * file will be copied into the "flattened" directory, unless
+     * the forceoverwrite attribute is true.
+     * @param bool $flatten if true flatten the destination directory. Default
+     *                is false.
+     */
+    public function setFlatten($flatten)
+    {
+        $this->flatten = $flatten;
     }
 
     /**
@@ -134,7 +133,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean  Preserve the timestamp on the destination file
+     * @param  boolean $bool Preserve the timestamp on the destination file
      * @return void
      */
     public function setPreserveLastModified($bool)
@@ -252,42 +251,6 @@ class CopyTask extends Task
     public function setHaltonerror($haltonerror)
     {
         $this->haltonerror = (boolean) $haltonerror;
-    }
-
-    /**
-     * Nested creator, creates a FileSet for this task
-     *
-     * @param FileSet $fs Set of files to copy
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     *
-     * @return FileList The created filelist object
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**

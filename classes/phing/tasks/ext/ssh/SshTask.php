@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'Ssh2MethodParam.php';
 
 /**
  * Execute commands on a remote host using ssh.
  *
  * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @version   $Id$
  * @package   phing.tasks.ext
  */
 class SshTask extends Task

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<project name="fileutils-test" default="none">
+
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="dummy" />
+</project>

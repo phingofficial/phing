@@ -1,7 +1,6 @@
 <?php
 
 /**
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,8 +20,6 @@
  *
  * @package phing.util
  */
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/types/PearPackageFileSet.php';
 
 /**
  * Testcases for phing.types.PearPackageFileSet

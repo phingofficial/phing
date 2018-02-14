@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/StreamRequiredBuildLogger.php';
-include_once 'phing/BuildEvent.php';
-
 /**
  * Writes a build event to the console.
  *
@@ -30,7 +26,6 @@ include_once 'phing/BuildEvent.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @see       BuildEvent
  * @package   phing.listener
  */

@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 abstract class AbstractPropertySetterTask extends Task
 {

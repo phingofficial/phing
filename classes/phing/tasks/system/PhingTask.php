@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,11 +19,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/Task.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/types/Reference.php';
-include_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * Task that invokes phing on another build file.
  *
@@ -41,11 +35,11 @@ include_once 'phing/tasks/system/PropertyTask.php';
  * </pre>
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class PhingTask extends Task
 {
+    use FileSetAware;
 
     /** the basedir where is executed the build file */
     private $dir;
@@ -67,9 +61,6 @@ class PhingTask extends Task
 
     /** the references to pass to the new project */
     private $references = [];
-
-    /** The filesets that contain the files PhingTask is to be run on. */
-    private $filesets = [];
 
     /**
      * The temporary project created to run the build file
@@ -117,7 +108,9 @@ class PhingTask extends Task
         $this->init();
         $count = count($this->properties);
         for ($i = 0; $i < $count; $i++) {
+            /** @var PropertyTask $p */
             $p = $this->properties[$i];
+            /** @var PropertyTask $newP */
             $newP = $this->newProject->createTask("property");
             $newP->setName($p->getName());
             if ($p->getValue() !== null) {
@@ -138,9 +131,10 @@ class PhingTask extends Task
             if ($p->getUserProperty() !== null) {
                 $newP->setUserProperty($p->getUserProperty());
             }
-            if ($p->getOverride() !== null) {
-                $newP->setOverride($p->getOverride());
-            }
+            $newP->setOverride($p->getOverride());
+            $newP->setLogoutput($p->getLogoutput());
+            $newP->setQuiet($p->getQuiet());
+
             $this->properties[$i] = $newP;
         }
     }
@@ -217,9 +211,7 @@ class PhingTask extends Task
         $savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
 
         try {
-            if ($this->newProject === null) {
-                $this->reinit();
-            }
+            $this->getNewProject();
 
             $this->initializeProject();
 
@@ -312,6 +304,18 @@ class PhingTask extends Task
         if ($this->haltOnFailure && $buildFailed) {
             throw new BuildException("Execution of the target buildfile failed. Aborting.");
         }
+    }
+
+    /**
+     * Get the (sub)-Project instance currently in use.
+     * @return Project
+     */
+    protected function getNewProject(): \Project
+    {
+        if ($this->newProject === null) {
+            $this->reinit();
+        }
+        return $this->newProject;
     }
 
     /**
@@ -565,22 +569,15 @@ class PhingTask extends Task
      * The target of the new Phing project to execute.
      * Defaults to the new project's default target.
      *
-     * @param $s
+     * @param string $s
      */
-    public function setTarget($s)
+    public function setTarget(string $s)
     {
-        $this->newTarget = $s;
-    }
+        if ('' === $s) {
+            throw new BuildException("target attribute must not be empty");
+        }
 
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
+        $this->newTarget = $s;
     }
 
     /**
@@ -591,7 +588,7 @@ class PhingTask extends Task
     public function createProperty()
     {
         $p = new PropertyTask();
-        $p->setFallback($this->newProject);
+        $p->setFallback($this->getNewProject());
         $p->setUserProperty(true);
         $this->properties[] = $p;
 

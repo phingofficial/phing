@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,13 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Project.php';
-require_once 'phing/tasks/ext/ComposerTask.php';
 /**
  * Test class for the ComposerTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class ComposerTaskTest extends \PHPUnit\Framework\TestCase
@@ -115,9 +111,9 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $composer = $o->getComposer();
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php ' . $composer . ' install --dry-run', strval($method->invoke($o)));
+        $this->assertEquals('php ' . $composer . ' install --dry-run', (string)$method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php ' . $composer . ' update --dev', strval($method->invoke($o)));
+        $this->assertEquals('php ' . $composer . ' update --dev', (string)$method->invoke($o));
     }
 }

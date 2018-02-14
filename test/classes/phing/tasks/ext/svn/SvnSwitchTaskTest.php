@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,12 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once __DIR__ . '/../GitTasks/GitTestsHelper.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class SvnSwitchTaskTest extends BuildFileTest
@@ -34,7 +29,7 @@ class SvnSwitchTaskTest extends BuildFileTest
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/svn');
@@ -47,7 +42,7 @@ class SvnSwitchTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
     public function testSwitchSimple()

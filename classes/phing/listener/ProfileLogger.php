@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/BuildEvent.php';
-
 /**
  * This is a special logger that is designed to profile builds.
  *

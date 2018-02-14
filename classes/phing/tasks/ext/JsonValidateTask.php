@@ -36,7 +36,7 @@ class JsonValidateTask extends Task
     public function main()
     {
 
-        if (is_null($this->getFile())) {
+        if (null === $this->getFile()) {
             $msg = "JsonValidate: file is not defined.";
             $this->log($msg, Project::MSG_ERR);
             throw new \BuildException($msg);
@@ -49,7 +49,7 @@ class JsonValidateTask extends Task
         }
 
         $decoded = json_decode(file_get_contents($this->getFile()));
-        if (is_null($decoded)) {
+        if (null === $decoded) {
             $msg = "JsonValidate: decoding " . $this->getFile() . " failed.";
             $this->log($msg, Project::MSG_ERR);
             throw new \BuildException($msg);

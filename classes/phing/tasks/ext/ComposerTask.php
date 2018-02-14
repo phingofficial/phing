@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +28,6 @@ require_once "phing/types/Commandline.php";
  *
  * @author nuno costa <nuno@francodacosta.com>
  * @license MIT
- * @version $Id$
  * @package phing.tasks.ext
  */
 class ComposerTask extends Task
@@ -63,6 +61,7 @@ class ComposerTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->commandLine = new Commandline();
     }
 
@@ -181,7 +180,7 @@ class ComposerTask extends Task
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
         $this->commandLine->createArgument(true)->setValue($this->getCommand());
         $this->commandLine->createArgument(true)->setValue($this->getComposer());
-        $commandLine = strval($this->commandLine);
+        $commandLine = (string)$this->commandLine;
         //Creating new Commandline instance. It allows to handle subsequent calls correctly
         $this->commandLine = new Commandline();
 

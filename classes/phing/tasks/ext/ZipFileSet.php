@@ -1,4 +1,21 @@
 <?php
+/**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
+ */
 
 /**
  * This is a FileSet with the to specify permissions.
@@ -14,16 +31,19 @@ class ZipFileSet extends FileSet
 
     /**
      *  Get a list of files and directories specified in the fileset.
-     * @param Project $p
+     *
      * @param bool $includeEmpty
-     * @throws BuildException
+     * @param array ...$options
+     *
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
+     *
+     * @throws Exception
      */
-    public function getFiles(Project $p, $includeEmpty = true)
+    protected function getFiles($includeEmpty = true, ...$options)
     {
         if ($this->files === null) {
-            $ds = $this->getDirectoryScanner($p);
+            $ds = $this->getDirectoryScanner($this->getProject());
             $this->files = $ds->getIncludedFiles();
 
             // build a list of directories implicitly added by any of the files
@@ -54,7 +74,7 @@ class ZipFileSet extends FileSet
                 // to the files array.
 
                 foreach ($incDirs as $dir) { // we cannot simply use array_diff() since we want to disregard empty/. dirs
-                    if ($dir != "" && $dir != "." && !in_array($dir, $implicitDirs)) {
+                    if ($dir != "" && $dir !== "." && !in_array($dir, $implicitDirs)) {
                         // it's an empty dir, so we'll add it.
                         $emptyDirectories[] = $dir;
                     }

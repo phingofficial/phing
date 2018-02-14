@@ -18,12 +18,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Phing.php';
-include_once 'phing/Project.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/PrintStream.php';
-
 /**
  * A little diagnostic helper that output some information that may help
  * in support. It should quickly give correct information about the

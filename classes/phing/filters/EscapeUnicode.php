@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/filters/BaseFilterReader.php';
-require_once 'phing/filters/ChainableReader.php';
-
 /**
  * UTF-8 to Unicode Code Points
  *

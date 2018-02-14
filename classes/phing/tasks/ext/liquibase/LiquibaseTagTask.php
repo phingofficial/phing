@@ -24,7 +24,6 @@ require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
  * other!
  *
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @version $Id$
  * @since 2.4.10
  * @package phing.tasks.ext.liquibase
  */
@@ -51,12 +50,7 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->tag) {
-            throw new BuildException(
-                sprintf(
-                    'Please specify the tag!',
-                    $this->tag
-                )
-            );
+            throw new BuildException('Please specify the tag!');
         }
     }
 

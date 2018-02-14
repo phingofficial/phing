@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="FilesMatchTest" default="testFilesMatches">
     <target name="testFileMatches">
-    	<condition property="matches">
-    	    <filesmatch file1="${phing.home}/README.md" file2="${phing.home}/README.md"/>
-    	</condition>
+        <condition property="matches">
+            <filesmatch file1="${phing.home}/README.md" file2="${phing.home}/README.md"/>
+        </condition>
     </target>
     <target name="testNoFileMatches">
         <condition property="unset">
             <filesmatch file1="${phing.home}/README.md" file2="${phing.home}/LICENSE"/>
+        </condition>
+    </target>
+    <target name="testDirectoryMatches">
+        <condition property="directory">
+            <filesmatch file1="${phing.home}/test" file2="${phing.home}/test"/>
         </condition>
     </target>
 </project>

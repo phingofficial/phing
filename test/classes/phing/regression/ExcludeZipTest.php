@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/137
@@ -40,11 +37,16 @@ class ExcludeZipTest extends BuildFileTest
         $this->executeTarget("main");
 
         $expected = "Adding ./.git to archive.";
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+
 
         foreach ($this->logBuffer as $log) {
-            if (stripos($log, $expected) !== false) {
+            if (stripos($log['message'], $expected) !== false) {
                 $this->fail(
-                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($this->logBuffer, true))
+                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true))
                 );
             }
         }

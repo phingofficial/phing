@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,10 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/types/IterableFileSet.php';
-require_once 'phing/tasks/ext/phar/PharMetadata.php';
 
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
@@ -111,7 +106,7 @@ class PharPackageTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new IterableFileSet();
+        $this->fileset = new FileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -345,7 +340,7 @@ class PharPackageTask extends MatchingTask
             );
         }
 
-        if (is_null($this->destinationFile)) {
+        if (null === $this->destinationFile) {
             throw new BuildException("destfile attribute must be set!", $this->getLocation());
         }
 
@@ -356,7 +351,7 @@ class PharPackageTask extends MatchingTask
         if (!$this->destinationFile->canWrite()) {
             throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
         }
-        if (!is_null($this->baseDirectory)) {
+        if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
                 throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation(
                     ));
@@ -368,7 +363,7 @@ class PharPackageTask extends MatchingTask
                 ));
             }
 
-            if (is_null($this->key)) {
+            if (null === $this->key) {
                 throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
             }
 
@@ -395,13 +390,13 @@ class PharPackageTask extends MatchingTask
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             if (!empty($this->cliStubFile)) {
-                $cliStubFile = $this->cliStubFile->getPathWithoutBase($this->baseDirectory);
+                $cliStubFile = str_replace('\\', '/', $this->cliStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $cliStubFile = null;
             }
 
             if (!empty($this->webStubFile)) {
-                $webStubFile = $this->webStubFile->getPathWithoutBase($this->baseDirectory);
+                $webStubFile = str_replace('\\', '/', $this->webStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $webStubFile = null;
             }

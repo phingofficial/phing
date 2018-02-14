@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ApplyTaskTest" default="test">
 
+  <if>
+    <os family="mac">
+    </os>
+    <then>
+      <property name="binPrefix" value="/usr/bin"/>
+    </then>
+    <else>
+      <property name="binPrefix" value="/bin"/>
+    </else>
+  </if>
+
   <target name="testPropertySetOs">
     <apply executable="echo" os="linux" />
   </target>
@@ -101,15 +112,15 @@
   </target>
 
   <target name="testCheckreturnTrue">
-    <apply executable="/bin/true" checkreturn="true" addsourcefile="false" >
+    <apply executable="${binPrefix}/true" checkreturn="true" addsourcefile="false" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
     </apply>
   </target>
   
-    <target name="testCheckreturnFalse">
-    <apply executable="/bin/false" checkreturn="true" addsourcefile="false" >
+  <target name="testCheckreturnFalse">
+    <apply executable="${binPrefix}/false" checkreturn="true" addsourcefile="false" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
@@ -127,7 +138,7 @@
   </target>
 
   <target name="testReturnProperty">
-    <apply executable="/bin/false" returnProperty="execReturnProp"  addsourcefile="false" parallel="true">
+    <apply executable="${binPrefix}/false" returnProperty="execReturnProp"  addsourcefile="false" parallel="true">
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
@@ -146,7 +157,7 @@
   </target>
 
   <target name="testPassThru">
-    <apply executable="/bin/true" passthru="true" addsourcefile="false" parallel="true">
+    <apply executable="${binPrefix}/true" passthru="true" addsourcefile="false" parallel="true">
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>

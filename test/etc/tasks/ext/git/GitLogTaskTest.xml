@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitLogTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -14,18 +10,19 @@
     <target name="gitLogWithoutParams" description="Run git-log w/o any params">
         <!-- obtain test repo -->
         <gitclone
+                gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitlog repository="${tmp.dir.resolved}" />
+        <gitlog gitPath="${git-path}" repository="${tmp.dir.resolved}" />
     </target>
     <target name="gitLogWithMostParams" description="Run git-log w/ most params set">
         <!-- obtain test repo -->
-        <gitclone
+        <gitclone gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitlog 
+        <gitlog  gitPath="${git-path}"
             format="oneline"
             maxCount="2"
             stat="true"
@@ -37,11 +34,11 @@
 
     <target name="gitLogOutputPropertySet" description="Run git-log w/ dumping output into property">
         <!-- obtain test repo -->
-        <gitclone
+        <gitclone gitPath="${git-path}"
             singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitlog 
+        <gitlog  gitPath="${git-path}"
             format="oneline"
             outputProperty="gitLogOutput"
             since="Sun Jan 23 23:55:42 2011 +0300"

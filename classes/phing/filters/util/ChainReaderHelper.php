@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,15 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/Project.php';
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/types/PhingFilterReader.php';
-include_once 'phing/types/FilterChain.php';
-include_once 'phing/types/Parameter.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Process a FilterReader chain.
@@ -61,7 +51,6 @@ include_once 'phing/filters/ChainableReader.php';
  * TODO: Implement the classPath feature.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Id$
  * @package   phing.filters.util
  */
 class ChainReaderHelper

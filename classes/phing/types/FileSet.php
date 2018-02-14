@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,23 +36,19 @@ require_once 'phing/types/AbstractFileSet.php';
 class FileSet extends AbstractFileSet
 {
     /**
-     * Return a FileSet that has the same basedir and same patternsets as this one.
-     */
-    public function __clone()
-    {
-        if ($this->isReference()) {
-            new FileSet($this->getRef($this->getProject()));
-        } else {
-            new FileSet($this);
-        }
-    }
-
-    /**
      * @return array
+     * @throws Exception
      */
-    public function getIterator()
+    protected function getFiles(...$options)
     {
-        $ds = $this->getDirectoryScanner($this->getProject());
-        return $ds->getIncludedFiles() + $ds->getIncludedDirectories();
+        $directoryScanner = $this->getDirectoryScanner($this->getProject());
+        $files = $directoryScanner->getIncludedFiles();
+
+        $baseDirectory = $directoryScanner->getBasedir();
+        foreach ($files as $index => $file) {
+            $files[$index] = realpath($baseDirectory . '/' . $file);
+        }
+
+        return $files;
     }
 }
