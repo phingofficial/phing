@@ -129,6 +129,7 @@ class ComposerTask extends Task
      * If the filepath is non existent, try to find it on the system.
      *
      * @return string
+     * @throws IOException
      */
     public function getComposer()
     {
@@ -149,7 +150,7 @@ class ComposerTask extends Task
     /**
      * Creates a nested arg task.
      *
-     * @return Arg Argument object
+     * @return CommandlineArgument
      */
 
     public function createArg()
@@ -161,6 +162,7 @@ class ComposerTask extends Task
      * Prepares the command string to be executed.
      *
      * @return string
+     * @throws IOException
      */
     private function prepareCommandLine()
     {
@@ -177,6 +179,7 @@ class ComposerTask extends Task
 
     /**
      * Executes the Composer task.
+     * @throws IOException
      */
     public function main()
     {
