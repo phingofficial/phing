@@ -79,13 +79,9 @@ abstract class FileSystem
                     include_once 'phing/system/io/UnixFileSystem.php';
                     self::$fs = new UnixFileSystem();
                     break;
-                case 'WIN32':
-                    include_once 'phing/system/io/Win32FileSystem.php';
-                    self::$fs = new Win32FileSystem();
-                    break;
-                case 'WINNT':
-                    include_once 'phing/system/io/WinNTFileSystem.php';
-                    self::$fs = new WinNTFileSystem();
+                case 'WINDOWS':
+                    include_once 'phing/system/io/WindowsFileSystem.php';
+                    self::$fs = new WindowsFileSystem();
                     break;
                 default:
                     throw new IOException("Host uses unsupported filesystem, unable to proceed");
@@ -327,7 +323,8 @@ abstract class FileSystem
         // Create new file
         $fp = @fopen($strPathname, "w");
         if ($fp === false) {
-            throw new IOException("The file \"$strPathname\" could not be created");
+            $error = error_get_last();
+            throw new IOException("The file \"$strPathname\" could not be created: " . $error['message']);
         }
         @fclose($fp);
 
@@ -382,7 +379,7 @@ abstract class FileSystem
         $list = [];
         while ($entry = $d->read()) {
             if ($entry != "." && $entry != "..") {
-                array_push($list, $entry);
+                $list[] = $entry;
             }
         }
         $d->close();
@@ -546,8 +543,8 @@ abstract class FileSystem
         }
 
         // Make destination directory
-        if (!is_dir($dest)) {
-            mkdir($dest);
+        if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
+           return false;
         }
 
         // Loop through the folder
@@ -881,4 +878,66 @@ abstract class FileSystem
     {
         throw new IOException("listContents() not implemented by local fs driver");
     }
+
+    /**
+     * PHP implementation of the 'which' command.
+     *
+     * Used to retrieve/determine the full path for a command.
+     *
+     * @param string $executable Executable file to search for
+     * @param mixed  $fallback   Default to fallback to.
+     *
+     * @return string Full path for the specified executable/command.
+     */
+    public function which($executable, $fallback = false)
+    {
+        if (is_string($executable)) {
+            if (trim($executable) === '') {
+                return $fallback;
+            }
+        } else {
+            return $fallback;
+        }
+        if (basename($executable) === $executable) {
+            $path = getenv("PATH");
+        } else {
+            $path = dirname($executable);
+        }
+        $dirSeparator = $this->getSeparator();
+        $pathSeparator = $this->getPathSeparator();
+        $elements = explode($pathSeparator, $path);
+        $amount = count($elements);
+        $fstype = Phing::getProperty('host.fstype');
+        switch($fstype) {
+        case 'UNIX':
+            for ($count = 0; $count < $amount; ++$count) {
+                $file = $elements[$count] . $dirSeparator . $executable;
+                if (file_exists($file) && is_executable($file)) {
+                    return $file;
+                }
+            }
+            break;
+        case 'WINDOWS':
+            $exts = getenv('PATHEXT');
+            if ($exts === false) {
+                $exts = ['.exe', '.bat', '.cmd', '.com'];
+            } else {
+                $exts = explode($pathSeparator, $exts);
+            }
+            for ($count = 0; $count < $amount; $count++) {
+                foreach ($exts as $ext) {
+                    $file = $elements[$count] . $dirSeparator . $executable . $ext ;
+                    if (file_exists($file) && is_executable($file)) {
+                        return $file;
+                    }
+                }
+            }
+            break;
+        }
+        if (file_exists($executable) && is_executable($executable)) {
+            return $executable;
+        }
+        return $fallback;
+    }
+
 }

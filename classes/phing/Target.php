@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,15 +18,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/TaskContainer.php';
-
 /**
  * The Target component. Carries all required target data. Implements the
  * abstract class {@link TaskContainer}
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @see       TaskContainer
  * @package   phing
  */
@@ -400,11 +396,7 @@ class Target implements TaskContainer
 
         $result = true;
         foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
+            $test = $this->getProject()->replaceProperties($property);
             $result = $result && ($this->project->getProperty($test) !== null);
         }
 
@@ -428,11 +420,7 @@ class Target implements TaskContainer
 
         $result = true;
         foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
+            $test = $this->getProject()->replaceProperties($property);
             $result = $result && ($this->project->getProperty($test) === null);
         }
 

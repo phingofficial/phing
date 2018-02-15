@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -174,7 +173,8 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     public function testResolveFileUnknownFile()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Unresolvable path: file.txt');
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Unresolvable path: file.txt');
 
         $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue('file.txt'));

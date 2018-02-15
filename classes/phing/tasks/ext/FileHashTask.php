@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +26,6 @@ require_once 'phing/Task.php';
  * value in a property
  *
  * @author      Johan Persson <johan162@gmail.com>
- * @version     $Id$
  * @package     phing.tasks.ext
  */
 class FileHashTask extends Task
@@ -162,7 +160,7 @@ class FileHashTask extends Task
      */
     private function checkPropertyName()
     {
-        if (is_null($this->propertyName) ||
+        if (null === $this->propertyName ||
             strlen($this->propertyName) === 0
         ) {
             throw new BuildException('Property name for publishing hashvalue is not set');

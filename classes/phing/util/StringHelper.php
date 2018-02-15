@@ -57,48 +57,6 @@ class StringHelper
     }
 
     /**
-     * @param  array  $columns String[]
-     * @param  string $prefix
-     *
-     * @return array  String[]
-     */
-    public static function prefix($columns, $prefix)
-    {
-        if ($prefix == null) {
-            return $columns;
-        }
-        $qualified = [];
-        foreach ($columns as $key => $column) {
-            $qualified[$key] = $prefix . $column;
-        }
-
-        return $qualified;
-    }
-
-    /**
-     * @param $qualifiedName
-     * @param string $separator
-     *
-     * @return string
-     */
-    public static function root($qualifiedName, $separator = '.')
-    {
-        $loc = strpos($qualifiedName, $separator);
-
-        return ($loc === false) ? $qualifiedName : substr($qualifiedName, 0, $loc);
-    }
-
-    /**
-     * @param $string
-     *
-     * @return int
-     */
-    public static function hashCode($string)
-    {
-        return crc32($string);
-    }
-
-    /**
      * @param bool|string $s
      *
      * @return boolean
@@ -131,21 +89,9 @@ class StringHelper
             return false; // not a valid string for testing
         }
 
-        $test = trim(strtolower($s));
+        $test = strtolower(trim($s));
 
         return (boolean) in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES));
-    }
-
-    /**
-     * Creates a key based on any number of passed params.
-     *
-     * @return string
-     */
-    public static function key()
-    {
-        $args = func_get_args();
-
-        return serialize($args);
     }
 
     /**
@@ -161,7 +107,7 @@ class StringHelper
         if ($check === "" || $check === $string) {
             return true;
         } else {
-            return (strpos($string, $check) === 0) ? true : false;
+            return strpos($string, $check) === 0;
         }
     }
 
@@ -178,7 +124,7 @@ class StringHelper
         if ($check === "" || $check === $string) {
             return true;
         } else {
-            return (strpos(strrev($string), strrev($check)) === 0) ? true : false;
+            return strpos(strrev($string), strrev($check)) === 0;
         }
     }
 

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,16 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Encodes files using Zeng Guard Encoder
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */
@@ -408,7 +401,7 @@ class ZendGuardEncodeTask extends MatchingTask
                 /* @var $fsBasedir PhingFile */
                 $fsBasedir = $fs->getDir($this->project)->getAbsolutePath();
 
-                $files = $fs->getFiles($this->project, false);
+                $files = $fs->getIterator(false);
 
                 foreach ($files as $file) {
                     $f = new PhingFile($fsBasedir, $file);

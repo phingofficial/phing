@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
@@ -59,14 +57,14 @@ require_once 'phing/Task.php';
  * <b>expr-unused</b> - Expression result is never used
  *
  * @author   Knut Urdalen <knut.urdalen@gmail.com>
- * @version  $Id$
  * @package  phing.tasks.ext
  */
 class ZendCodeAnalyzerTask extends Task
 {
+    use FileSetAware;
+
     protected $analyzerPath = ""; // Path to ZendCodeAnalyzer binary
     protected $file = ""; // the source file (from xml attribute)
-    protected $filesets = []; // all fileset objects assigned to this task
     protected $counter = 0;
     protected $disable = [];
     protected $enable = [];
@@ -120,17 +118,6 @@ class ZendCodeAnalyzerTask extends Task
     public function setHaltonwarning($value)
     {
         $this->haltonwarning = $value;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

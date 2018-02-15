@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="AttribTaskTest" default="main">
-    <property name="input" value="${php.tmpdir}/attrib"/>
+    <property name="tmp.dir" value="tmp/attrib"/>
+    <property name="input" value="${tmp.dir}/attrib"/>
 	
 	<target name="setup">
         <mkdir dir="${input}"/>

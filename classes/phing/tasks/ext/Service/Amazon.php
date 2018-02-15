@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,8 +46,8 @@ abstract class Service_Amazon extends Task
     protected $_options = [];
 
     /**
-     * @param $var
-     * @param $val
+     * @param string $var
+     * @param mixed $val
      */
     public function __set($var, $val)
     {
@@ -80,7 +79,7 @@ abstract class Service_Amazon extends Task
     }
 
     /**
-     * @param $var
+     * @param string $var
      * @return bool
      */
     public function __isset($var)
@@ -89,8 +88,8 @@ abstract class Service_Amazon extends Task
     }
 
     /**
-     * @param $key
-     * @throws BuildException
+     * @param string $key
+     * @throws BuildException if $key is an empty string
      */
     public function setKey($key)
     {
@@ -101,6 +100,11 @@ abstract class Service_Amazon extends Task
         $this->key = $key;
     }
 
+    /**
+     * @return string
+     *
+     * @throws BuildException if key is not set
+     */
     public function getKey()
     {
         if (!($key = $this->key)) {
@@ -111,8 +115,8 @@ abstract class Service_Amazon extends Task
     }
 
     /**
-     * @param $secret
-     * @throws BuildException
+     * @param string $secret
+     * @throws BuildException if $secret is a empty string
      */
     public function setSecret($secret)
     {
@@ -123,6 +127,11 @@ abstract class Service_Amazon extends Task
         $this->secret = $secret;
     }
 
+    /**
+     * @return string
+     *
+     * @throws BuildException if secret is not set
+     */
     public function getSecret()
     {
         if (!($secret = $this->secret)) {

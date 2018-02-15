@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +18,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
- * @version $Id$
  * @package phing.tasks.system
  */
 class TaskdefTaskTest extends BuildFileTest
@@ -48,12 +44,16 @@ class TaskdefTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException BuildException
      */
     public function testClassNotFound()
     {
         try {
-            $this->expectBuildException("classNotFound", "classname specified doesn't exist");
+            $this->executeTarget("classNotFound");
+            $this->fail(
+                "Should throw ConfigurationException because: " .
+                "classname specified doesn't exist"
+            );
         } catch (ConfigurationException $e) {
             //ignored
         }

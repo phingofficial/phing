@@ -1,7 +1,5 @@
 <?php
-
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,19 +28,11 @@ include_once 'phing/types/AbstractFileSet.php';
  */
 class DirSet extends AbstractFileSet
 {
-
-    /**
-     * @param null $dirset
-     */
-    public function __construct($dirset = null)
-    {
-        parent::__construct($dirset);
-    }
-
     /**
      * @return array
+     * @throws Exception
      */
-    public function getIterator()
+    protected function getFiles(...$options)
     {
         return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
     }

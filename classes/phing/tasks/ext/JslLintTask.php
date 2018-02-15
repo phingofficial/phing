@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/util/DataStore.php';
 
 /**
@@ -31,11 +30,10 @@ require_once 'phing/util/DataStore.php';
  */
 class JslLintTask extends Task
 {
+    use FileSetAware;
+
     /** @var PhingFile */
     protected $file; // the source file (from xml attribute)
-
-    /** @var array */
-    protected $filesets = []; // all fileset objects assigned to this task
 
     /** @var bool $showWarnings */
     protected $showWarnings = true;
@@ -156,18 +154,6 @@ class JslLintTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * File to save error messages to
      *
      * @param PhingFile $tofile
@@ -271,7 +257,7 @@ class JslLintTask extends Task
                     throw new BuildException("Could not execute Javascript Lint executable '{$this->executable}'");
                 }
 
-                $summary = $messages[sizeof($messages) - 1];
+                $summary = $messages[count($messages) - 1];
 
                 preg_match('/(\d+)\serror/', $summary, $matches);
                 $errorCount = (count($matches) > 1 ? $matches[1] : 0);
@@ -333,7 +319,7 @@ class JslLintTask extends Task
                     foreach ($errors as $error) {
                         $message = 'line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'];
                         $this->log('- ' . $message, Project::MSG_ERR);
-                        array_push($this->badFiles[$file], $message);
+                        $this->badFiles[$file][] = $message;
                     }
                     $this->hasErrors = true;
                 } else {

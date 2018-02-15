@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 class Ticket309RegressionTest extends BuildFileTest
 {
     /**
@@ -38,7 +35,7 @@ class Ticket309RegressionTest extends BuildFileTest
      */
     public function testPhingCallTask()
     {
-        $testBasedir = PHING_TEST_BASE . "/etc/regression/309";
+        $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . "/etc/regression/309");
 
         foreach (array('basedir-dot.xml', 'basedir-default.xml', 'sub/basedir-dotdot.xml') as $buildfile) {
             $this->configureProject("$testBasedir/$buildfile");

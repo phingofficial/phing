@@ -22,5 +22,17 @@
         <touch file="${tmp.dir}/this/is/a/test/file"/>
     </target>
 
+    <target name="testFilelist">
+        <touch millis="662256000000" >
+            <filelist dir="${tmp.dir}" files="simple-file"/>
+        </touch>
+    </target>
+
+    <target name="testFileset" depends="testSimpleTouch">
+        <touch millis="946080000000" >
+            <fileset dir="${tmp.dir}" includes="simple-file"/>
+        </touch>
+    </target>
+
     <target name="main"/>
 </project>

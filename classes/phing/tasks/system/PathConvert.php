@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/BuildException.php';
-
 /**
  * Converts path and classpath information to a specific target OS
  * format. The resulting formatted path is placed into the specified property.
@@ -83,6 +79,7 @@ class PathConvert extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->onWindows = strncasecmp(PHP_OS, 'WIN', 3) === 0;
     }
 
@@ -221,6 +218,10 @@ class PathConvert extends Task
                 $ds = $obj;
 
                 $this->path->addDirset($ds);
+            } elseif ($obj instanceof FileList) {
+                $fl = $obj;
+
+                $this->path->addFilelist($fl);
             } else {
                 throw new BuildException("'refid' does not refer to a "
                     . "path, fileset, dirset, or "
