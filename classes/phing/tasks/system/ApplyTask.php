@@ -586,7 +586,7 @@ class ApplyTask extends Task
         $this->log('Command building started ', $this->loglevel);
 
         // Building the executable
-        $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
+        $this->realCommand = (string) $this->commandline;
 
         // Adding the source filename at the end of command, validating the existing
         // sourcefile position explicit mentioning
