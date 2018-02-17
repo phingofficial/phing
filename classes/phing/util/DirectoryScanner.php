@@ -715,14 +715,36 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     }
 
     /**
+     * Return the count of included files.
+     *
+     * @return int
+     *
+     * @throws UnexpectedValueException
+     */
+    public function getIncludedFilesCount(): int
+    {
+        if ($this->filesIncluded === null) {
+            throw new UnexpectedValueException('Must call scan() first');
+        }
+        return count($this->filesIncluded);
+    }
+
+    /**
      * Get the names of the files that matched at least one of the include
      * patterns, and matched none of the exclude patterns.
      * The names are relative to the basedir.
      *
      * @return array names of the files
+     * @throws \UnexpectedValueException
      */
-    public function getIncludedFiles()
+    public function getIncludedFiles(): array
     {
+        if ($this->filesIncluded === null) {
+            throw new UnexpectedValueException('Must call scan() first');
+        }
+
+        sort($this->filesIncluded);
+
         return $this->filesIncluded;
     }
 
@@ -778,11 +800,33 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * The names are relative to the basedir.
      *
      * @return array the names of the directories
+     * @throws \UnexpectedValueException
      */
 
     public function getIncludedDirectories()
     {
+        if ($this->dirsIncluded === null) {
+            throw new UnexpectedValueException('Must call scan() first');
+        }
+
+        sort($this->dirsIncluded);
+
         return $this->dirsIncluded;
+    }
+
+    /**
+     * Return the count of included directories.
+     *
+     * @return int
+     *
+     * @throws UnexpectedValueException
+     */
+    public function getIncludedDirectoriesCount(): int
+    {
+        if ($this->dirsIncluded === null) {
+            throw new UnexpectedValueException('Must call scan() first');
+        }
+        return count($this->dirsIncluded);
     }
 
     /**
@@ -869,10 +913,13 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Tests whether a name should be selected.
      *
-     * @param  string  $name The filename to check for selecting.
-     * @param  string  $file The full file path.
+     * @param  string $name The filename to check for selecting.
+     * @param  string $file The full file path.
      * @return boolean False when the selectors says that the file
      *                      should not be selected, True otherwise.
+     * @throws \BuildException
+     * @throws \IOException
+     * @throws NullPointerException
      */
     protected function isSelected($name, $file)
     {

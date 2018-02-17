@@ -683,6 +683,30 @@ class ApplyTask extends ExecTask
     }
 
     /**
+     * Executes the command and returns return code and output.
+     *
+     * @return array array(return code, array with output)
+     * @throws \BuildException
+     */
+    protected function executeCommand()
+    {
+        $cmdl = $this->realCommand;
+
+        $this->log('Executing command: ' . $cmdl, $this->logLevel);
+
+        $output = [];
+        $return = null;
+
+        if ($this->passthru) {
+            passthru($cmdl, $return);
+        } else {
+            exec($cmdl, $output, $return);
+        }
+
+        return [$return, $output];
+    }
+
+    /**
      * Runs cleanup tasks post execution
      * - Restore working directory
      *
