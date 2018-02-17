@@ -125,6 +125,7 @@ class ExecTask extends Task
     private $executable;
     private $resolveExecutable = false;
     private $searchPath = false;
+    private $env;
 
     /**
      * @throws \BuildException
@@ -133,6 +134,7 @@ class ExecTask extends Task
     {
         parent::__construct();
         $this->commandline = new Commandline();
+        $this->env = new Environment();
     }
 
     /**
@@ -251,7 +253,7 @@ class ExecTask extends Task
      */
     protected function executeCommand()
     {
-        $cmdl = (string) $this->commandline . $this->realCommand;
+        $cmdl = (string) $this->commandline; // . $this->realCommand;
 
         $this->log('Executing command: ' . $cmdl, $this->logLevel);
 
@@ -560,6 +562,16 @@ class ExecTask extends Task
     }
 
     /**
+     * Add an environment variable to the launched process.
+     *
+     * @param EnvVariable $var new environment variable.
+     */
+    public function addEnv(EnvVariable $var)
+    {
+        $this->env->addVariable($var);
+    }
+
+    /**
      * Creates a nested <arg> tag.
      *
      * @return CommandlineArgument Argument object
@@ -674,7 +686,16 @@ class ExecTask extends Task
         // couldn't find it - must be on path
         if ($mustSearchPath) {
             $p = null;
-            if (getenv('path')) {
+            $environment = $this->env->getVariables();
+            if ($environment !== null) {
+                foreach ($environment as $env) {
+                    if ($this->isPath($env)) {
+                        $p = new Path($this->getProject(), $this->getPath($env));
+                        break;
+                    }
+                }
+            }
+            if ($p === null) {
                 $p = new Path($this->getProject(), getenv('path'));
             }
             if ($p !== null) {
@@ -689,5 +710,24 @@ class ExecTask extends Task
         }
 
         return $exec;
+    }
+
+    private function isPath($line)
+    {
+        return StringHelper::startsWith('PATH=', $line) || StringHelper::startsWith('Path=', $line);
+    }
+
+    private function getPath($value)
+    {
+        if (is_string($value)) {
+            return StringHelper::substring($value, strlen("PATH="));
+        }
+
+        if (is_array($value)) {
+            $p = $value['PATH'];
+            return $p ?? $value['Path'];
+        }
+
+        throw new InvalidArgumentException('$value should be of type array or string.');
     }
 }
