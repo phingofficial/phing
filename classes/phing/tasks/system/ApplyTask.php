@@ -541,6 +541,8 @@ class ApplyTask extends ExecTask
             }
         }
 
+        $this->realCommand = rtrim($this->realCommand);
+
         // Log
         $this->log('Command built : ' . $this->realCommand, $this->loglevel);
 
