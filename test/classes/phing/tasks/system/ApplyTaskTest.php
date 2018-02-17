@@ -421,7 +421,7 @@ class ApplyTaskTest extends BuildFileTest
 
         $this->executeTarget(__FUNCTION__);
         // As the addsourcefilename is 'off', only the executable should be processed in the execution
-        $this->assertInLogs(': ls :');
+        $this->assertInLogs('Executing command: ls');
     }
 
     /**
