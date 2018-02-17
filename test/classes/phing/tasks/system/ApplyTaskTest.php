@@ -391,7 +391,7 @@ class ApplyTaskTest extends BuildFileTest
     public function testEscapedArg()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('outval', $this->windows ? '"abc$b3 SB"' : 'abc$b3!SB');
+        $this->assertPropertyEquals('outval', $this->windows ? 'abc$b3 SB' : 'abc$b3!SB');
     }
 
     /**
@@ -440,7 +440,7 @@ class ApplyTaskTest extends BuildFileTest
         // Validating the output
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
-        $this->assertEquals("Append OK\nAppend OK", rtrim($output));
+        $this->assertEquals($this->windows ? "\"Append OK\" \r\n\"Append OK\"" : "Append OK\nAppend OK", rtrim($output));
     }
 
     /**

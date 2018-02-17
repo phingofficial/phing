@@ -236,9 +236,7 @@ class Commandline implements Countable
             return '';
         }
 
-        $cmd = array_shift($lines);
-
-        return $cmd . ' ' . implode(' ', array_map(function ($arg) {return self::quoteArgument($arg, $this->escape);}, $lines));
+        return implode(' ', array_map(function ($arg) {return self::quoteArgument($arg, $this->escape);}, $lines));
     }
 
     /**
