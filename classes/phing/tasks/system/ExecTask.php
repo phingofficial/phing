@@ -253,7 +253,7 @@ class ExecTask extends Task
      */
     protected function executeCommand()
     {
-        $cmdl = (string) $this->commandline; // . $this->realCommand;
+        $cmdl = (string) $this->commandline . $this->realCommand;
 
         $this->log('Executing command: ' . $cmdl, $this->logLevel);
 
