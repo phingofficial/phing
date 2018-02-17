@@ -363,7 +363,7 @@ class ExecTaskTest extends BuildFileTest
     {
         $arg = 'foo|bar';
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs($this->windows ? '"echo" "foo|bar" 2>&1' : 'echo \'foo|bar\' 2>&1');
+        $this->assertInLogs($this->windows ? '"echo" "foo|bar" 2>&1' : '\'echo\' \'foo|bar\' 2>&1');
         $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');
     }
 }
