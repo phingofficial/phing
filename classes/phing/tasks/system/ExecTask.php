@@ -243,6 +243,8 @@ class ExecTask extends Task
         if ($this->spawn) {
             $this->realCommand .= ' &';
         }
+
+        $this->realCommand = (string) $this->commandline . $this->realCommand;
     }
 
     /**
@@ -253,7 +255,7 @@ class ExecTask extends Task
      */
     protected function executeCommand()
     {
-        $cmdl = (string) $this->commandline . $this->realCommand;
+        $cmdl = $this->realCommand;
 
         $this->log('Executing command: ' . $cmdl, $this->logLevel);
 
@@ -625,7 +627,7 @@ class ExecTask extends Task
      * @param bool $resolveExecutable if true, attempt to resolve the
      * path of the executable.
      */
-    public function setResolveExecutable(boolean $resolveExecutable): void
+    public function setResolveExecutable($resolveExecutable): void
     {
         $this->resolveExecutable = $resolveExecutable;
     }
@@ -636,7 +638,7 @@ class ExecTask extends Task
      *
      * @param bool $searchPath if true, search PATHs.
      */
-    public function setSearchPath(boolean $searchPath): void
+    public function setSearchPath($searchPath): void
     {
         $this->searchPath = $searchPath;
     }

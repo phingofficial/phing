@@ -440,7 +440,7 @@ class ApplyTaskTest extends BuildFileTest
         // Validating the output
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
-        $this->assertEquals($this->windows ? "\"Append OK\" \r\n\"Append OK\"" : "Append OK\nAppend OK", rtrim($output));
+        $this->assertEquals($this->windows ? "Append OK \r\nAppend OK" : "Append OK\nAppend OK", rtrim($output));
     }
 
     /**

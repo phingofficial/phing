@@ -101,6 +101,7 @@ class ApplyTask extends ExecTask
 
     /** @var Mapper $mapperElement */
     private $mapperElement;
+    private $additionalCmds;
 
     /**
      * Set whether empty filesets will be skipped.  If true and
@@ -510,6 +511,8 @@ class ApplyTask extends ExecTask
         // Building the executable
         $this->realCommand = (string) $this->commandline;
 
+        $this->additionalCmds = '';
+
         // Adding the source filename at the end of command, validating the existing
         // sourcefile position explicit mentioning
         if ($this->addsourcefile === true) {
@@ -518,16 +521,16 @@ class ApplyTask extends ExecTask
 
         // Setting command output redirection with content appending
         if ($this->output !== null) {
-            $this->realCommand .= sprintf(' 1>%s %s', $this->appendoutput ? '>' : '', escapeshellarg($this->output->getPath()));
+            $this->additionalCmds .= sprintf(' 1>%s %s', $this->appendoutput ? '>' : '', escapeshellarg($this->output->getPath()));
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
-            $this->realCommand .= sprintf(' %s', 'WIN' === $this->osvariant ? '> NUL' : '1>/dev/null');
+            $this->additionalCmds .= sprintf(' %s', 'WIN' === $this->osvariant ? '> NUL' : '1>/dev/null');
 
             $this->log("For process spawning, setting Output nullification ", $this->loglevel);
         }
 
         // Setting command error redirection with content appending
         if ($this->error !== null) {
-            $this->realCommand .= sprintf(' 2>%s %s', $this->appendoutput ? '>' : '', escapeshellarg($this->error->getPath()));
+            $this->additionalCmds .= sprintf(' 2>%s %s', $this->appendoutput ? '>' : '', escapeshellarg($this->error->getPath()));
         }
 
         // Setting the execution as a background process
@@ -535,16 +538,16 @@ class ApplyTask extends ExecTask
 
             // Validating the O.S. variant
             if ('WIN' === $this->osvariant) {
-                $this->realCommand = 'start /b ' . $this->realCommand; // MS Windows background process forking
+                $this->additionalCmds = 'start /b ' . $this->additionalCmds; // MS Windows background process forking
             } else {
-                $this->realCommand .= ' &'; // GNU/Linux background process forking
+                $this->additionalCmds .= ' &'; // GNU/Linux background process forking
             }
         }
 
-        $this->realCommand = rtrim($this->realCommand);
+        $this->additionalCmds = rtrim($this->additionalCmds);
 
         // Log
-        $this->log('Command built : ' . $this->realCommand, $this->loglevel);
+        $this->log('Command built : ' . $this->realCommand . $this->additionalCmds, $this->loglevel);
 
         // Log
         $this->log('Command building completed ', $this->loglevel);
@@ -612,10 +615,9 @@ class ApplyTask extends ExecTask
                 // srcIndex --> targetIndex
                 $result += array_slice($orig, $srcIndex + count($srcFiles), $targetIndex - $srcIndex, true);
 
-                $this->insertTargetFiles($targetFiles, $result,
-                    $targetIndex + count($srcFiles),
-                    $this->targetFilePos->getPrefix(),
-                    $this->targetFilePos->getSuffix());
+                $result[] = $orig;
+                $result[] = $targetFiles;
+                $result = array_merge(... $result);
 
                 // targetIndex --> end
                 $result = array_merge(array_slice($orig, $targetIndex + count($srcFiles) + count($targetFiles),
@@ -662,6 +664,8 @@ class ApplyTask extends ExecTask
         }
 
         $this->commandline = new Commandline(implode(' ', $result));
+        $this->commandline->setEscape($this->escape);
+        $this->realCommand = (string) $this->commandline . $this->additionalCmds;
 
         [$returncode, $output] = $this->executeCommand();
 
@@ -680,30 +684,6 @@ class ApplyTask extends ExecTask
         if ($this->checkreturn && ($returncode !== 0)) {
             $this->throwBuildException("Task exited with code ($returncode)");
         }
-    }
-
-    /**
-     * Executes the command and returns return code and output.
-     *
-     * @return array array(return code, array with output)
-     * @throws \BuildException
-     */
-    protected function executeCommand()
-    {
-        $cmdl = $this->realCommand;
-
-        $this->log('Executing command: ' . $cmdl, $this->logLevel);
-
-        $output = [];
-        $return = null;
-
-        if ($this->passthru) {
-            passthru($cmdl, $return);
-        } else {
-            exec($cmdl, $output, $return);
-        }
-
-        return [$return, $output];
     }
 
     /**
