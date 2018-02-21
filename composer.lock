@@ -368,16 +368,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.52.10",
+            "version": "3.52.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2b0a537e6b772f090138a7c0ddbb384f08f8b4a5"
+                "reference": "6d2f46b55a9620e41e2fc71eb9993d43ebb352c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2b0a537e6b772f090138a7c0ddbb384f08f8b4a5",
-                "reference": "2b0a537e6b772f090138a7c0ddbb384f08f8b4a5",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6d2f46b55a9620e41e2fc71eb9993d43ebb352c7",
+                "reference": "6d2f46b55a9620e41e2fc71eb9993d43ebb352c7",
                 "shasum": ""
             },
             "require": {
@@ -444,7 +444,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-02-15T20:17:27+00:00"
+            "time": "2018-02-20T20:46:59+00:00"
         },
         {
             "name": "cilex/cilex",
