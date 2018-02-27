@@ -331,6 +331,14 @@ class ForeachTask extends Task
     }
 
     /**
+     * @param $delta
+     */
+    public function setDelta($delta)
+    {
+      $this->delta = (string) $delta;
+    }
+
+  /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @param FileSet $fs
