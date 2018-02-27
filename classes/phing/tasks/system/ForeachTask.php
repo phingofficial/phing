@@ -63,6 +63,9 @@ class ForeachTask extends Task
     /** Delimiter that separates items in $list */
     private $delimiter = ',';
 
+    /** Delimiter that separates items in $list */
+    private $delta = 'delta';
+
     /**
      * PhingCallTask that will be invoked w/ calleeTarget.
      * @var PhingCallTask
@@ -139,7 +142,7 @@ class ForeachTask extends Task
             $arr = explode($this->delimiter, $this->list);
             $total_entries = 0;
 
-            foreach ($arr as $value) {
+            foreach ($arr as $delta => $value) {
                 $value = trim($value);
                 $premapped = '';
                 if ($mapper !== null) {
@@ -158,6 +161,10 @@ class ForeachTask extends Task
                 $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->delta);
+                $prop->setValue($delta);
                 $callee->main();
                 $total_entries++;
             }
