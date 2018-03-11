@@ -370,4 +370,10 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('outval', 'abc$b3!SB');
     }
+
+    public function testNestedEnv()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));
+    }
 }

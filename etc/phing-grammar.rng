@@ -942,6 +942,17 @@
         </element>
     </define>
 
+    <define name="env">
+        <element name="env">
+            <attribute name="key"/>
+            <choice>
+                <attribute name="value"/>
+                <attribute name="file"/>
+                <attribute name="path"/>
+            </choice>
+        </element>
+    </define>
+
 
     <!--
         ===========================================================================================================
@@ -1513,9 +1524,22 @@
                         </choice>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="resolveexecutable" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="searchpath" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="arg"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="env"/>
             </zeroOrMore>
         </element>
     </define>
