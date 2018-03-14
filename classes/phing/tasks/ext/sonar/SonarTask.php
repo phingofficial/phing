@@ -17,12 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildException.php';
-require_once 'phing/Project.php';
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/sonar/SonarConfigurationFileParser.php';
-require_once 'phing/tasks/ext/sonar/SonarProperty.php';
-
 /**
  * Runs SonarQube Scanner.
  *
@@ -273,7 +267,7 @@ class SonarTask extends Task
 
         $isOk = false;
         foreach ($output as $line) {
-            if (preg_match('/SonarQube Scanner [0-9]+\\.[0-9]+/', $line) === 1) {
+            if (preg_match('/SonarQube Scanner \d+\\.\d+/', $line) === 1) {
                 $isOk = true;
                 break;
             }
@@ -417,7 +411,6 @@ class SonarTask extends Task
      */
     private function isWindows()
     {
-        $operatingSystemName = php_uname('s');
-        return strtoupper(substr($operatingSystemName, 0, 3)) === 'WIN';
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 }

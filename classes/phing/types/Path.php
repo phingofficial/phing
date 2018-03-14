@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,10 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/DataType.php';
-include_once 'phing/util/PathTokenizer.php';
-include_once 'phing/types/FileSet.php';
 
 /**
  * This object represents a path as used by include_path or PATH
@@ -482,7 +477,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p)
+    public function dieOnCircularReference(&$stk, Project $p = null)
     {
         if ($this->checked) {
             return;

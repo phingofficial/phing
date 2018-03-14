@@ -1,7 +1,5 @@
 <?php
-
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,8 +30,9 @@ class DirSet extends AbstractFileSet
 {
     /**
      * @return array
+     * @throws Exception
      */
-    public function getIterator()
+    protected function getFiles(...$options)
     {
         return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
     }

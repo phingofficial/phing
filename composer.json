@@ -3,7 +3,7 @@
     "description": "PHing Is Not GNU make; it's a PHP project build system or build tool based on Apache Ant.",
     "keywords": ["build", "tool", "task", "phing"],
     "homepage": "https://www.phing.info/",
-    "license": "LGPL-3.0",
+    "license": "LGPL-3.0-only",
     "authors": [
         {
             "name": "Michiel Rook",
@@ -22,42 +22,47 @@
         "docs": "https://www.phing.info/docs/guide/stable/"
     },
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "sebastian/version": "^2.0",
-        "symfony/console": "^2.8|^3.0",
-        "symfony/yaml": "^2.8|^3.1"
+        "symfony/console": "^2.8 || ^3.0 || ^4.0",
+        "symfony/yaml": "^2.8 || ^3.1 || ^4.0",
+        "mehr-als-nix/parallel": "^v1.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
         "pear/archive_tar": "1.4.x",
         "pear/http_request2": "dev-trunk",
         "pear/net_growl": "dev-trunk",
-        "pear/pear-core-minimal": "1.10.1",
+        "pear/pear-core-minimal": "1.10.3",
         "pear/versioncontrol_git": "@dev",
         "pear/versioncontrol_svn": "~0.5",
         "pdepend/pdepend": "2.x",
         "phpdocumentor/phpdocumentor": "2.x",
         "phploc/phploc": "^4.0",
         "phpmd/phpmd": "~2.2",
-        "phpunit/phpunit": ">=5.4",
+        "phpunit/phpunit": "^6.5",
         "siad007/versioncontrol_hg": "^1.0",
-        "sebastian/phpcpd": "^2.0",
-        "sebastian/git": "^2.1",
+        "sebastian/phpcpd": "^3.0",
         "squizlabs/php_codesniffer": "~2.2",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsStream": "^1.6",
+        "aws/aws-sdk-php": "^3.32"
     },
     "autoload": {
-        "classmap": ["classes/phing/"]
+        "classmap": [
+            "classes/phing/"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "test/classes/"
+        ]
     },
     "include-path": ["classes"],
     "bin": [
         "bin/phing"
     ],
     "config": {
-        "bin-dir": "bin",
-        "platform": {
-            "php": "5.6"
-        }
+        "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {
@@ -76,6 +81,8 @@
         "pear/versioncontrol_git": "A library that provides OO interface to handle Git repository",
         "pear/archive_tar": "Tar file management class",
         "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
-        "tedivm/jshrink": "Javascript Minifier built in PHP"
+        "tedivm/jshrink": "Javascript Minifier built in PHP",
+        "symfony/stopwatch": "Needed by the StopwatchTask",
+        "aws/aws-sdk-php": "AWS SDK used by S3*Tasks"
     }
 }

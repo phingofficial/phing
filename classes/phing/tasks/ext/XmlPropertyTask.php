@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +25,6 @@ include_once 'phing/tasks/system/PropertyTask.php';
  * Task for setting properties from an XML file in buildfiles.
  *
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
- * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.4.0
  * @link      http://ant.apache.org/manual/CoreTasks/xmlproperty.html
@@ -215,7 +213,7 @@ class XmlPropertyTask extends PropertyTask
 
         $prop = new Properties();
 
-        $xml = simplexml_load_file($filePath);
+        $xml = simplexml_load_string(file_get_contents($filePath));
 
         if ($xml === false) {
             throw new IOException("Unable to parse XML file $filePath");

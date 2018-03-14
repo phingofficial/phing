@@ -16,14 +16,12 @@
  * the License.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/system/ExecTask.php';
 
 /**
  * Abstract Liquibase task. Base class for all Liquibase Phing tasks.
  *
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @version $Id$
  * @since 2.4.10
  * @package phing.tasks.ext.liquibase
  */

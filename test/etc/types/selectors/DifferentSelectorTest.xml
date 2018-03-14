@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" basedir="." default="main">
 
-    <resolvepath propertyName="output" dir="${php.tmpdir}" path="testoutput"/>
-    <resolvepath propertyName="result" dir="${php.tmpdir}" path="testresult"/>
+    <property name="tmp.dir" value="tmp/selector"/>
+    <resolvepath propertyName="output" dir="${tmp.dir}" path="testoutput"/>
+    <resolvepath propertyName="result" dir="${tmp.dir}" path="testresult"/>
     <resolvepath propertyName="a" dir="${output}" path="a"/>
     <resolvepath propertyName="b" dir="${output}" path="b"/>
 
@@ -14,6 +15,7 @@
     </target>
     <target name="clean">
         <delete dir="${output}"/>
+        <delete dir="${result}"/>
     </target>
 
     <target name="testSameTime">

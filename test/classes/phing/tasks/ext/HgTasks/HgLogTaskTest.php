@@ -1,8 +1,5 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/hg/HgLogTask.php';
-
 class HgLogTaskTest extends BuildFileTest
 {
     public function setUp()

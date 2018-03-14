@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -53,6 +52,8 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class ManifestTask extends Task
 {
+    use FileSetAware;
+
     public $taskname = 'manifest';
 
     /**
@@ -69,13 +70,6 @@ class ManifestTask extends Task
      * @var string "r" or "w"
      */
     private $action = 'w';
-
-    /**
-     * Holds filesets
-     *
-     * @var array An Array of objects
-     */
-    private $filesets = [];
 
     /**
      * Enable/Disable checksuming or/and select algorithm
@@ -152,18 +146,6 @@ class ManifestTask extends Task
     public function setSalt($string)
     {
         $this->salt = $string;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

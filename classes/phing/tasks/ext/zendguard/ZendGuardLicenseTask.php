@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +25,6 @@
  * license properties or it can use a template.
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */

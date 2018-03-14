@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    -File         $Id$
     -License      GNU LGPL (http://www.gnu.org/copyleft/lgpl.html)
     -Author       Johan Persson, johanp@aditus.nu
 -->
@@ -64,6 +63,7 @@
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
                 <ref name="coretypes"/>
+                <ref name="selector"/>
             </interleave>
 
         </element>
@@ -106,6 +106,7 @@
                 <ref name="filesize"/>
                 <ref name="filesync"/>
                 <ref name="ftpdeploy"/>
+                <ref name="gitarchive"/>
                 <ref name="gitbranch"/>
                 <ref name="gitcheckout"/>
                 <ref name="gitclone"/>
@@ -223,6 +224,8 @@
                 <ref name="condition"/>
                 <ref name="copy"/>
                 <ref name="delete"/>
+                <ref name="defaultexcludes"/>
+                <ref name="dependset"/>
                 <ref name="diagnostics"/>
                 <ref name="dirname"/>
                 <ref name="echo"/>
@@ -246,6 +249,7 @@
                 <ref name="record"/>
                 <ref name="reflexive"/>
                 <ref name="resolvepath"/>
+                <ref name="relentless"/>
                 <ref name="retry"/>
                 <ref name="sleep"/>
                 <ref name="switch"/>
@@ -295,7 +299,317 @@
                 <ref name="coretasks"/>
                 <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
+                <ref name="selector"/>
             </interleave>
+        </element>
+    </define>
+
+    <!--
+        ===========================================================================================================
+        Selectors
+        ===========================================================================================================
+    -->
+
+    <define name="selector">
+        <element name="selector">
+            <choice>
+                <attribute name="id">
+                    <data type="ID"/>
+                </attribute>
+                <attribute name="refid">
+                    <data type="IDREF"/>
+                </attribute>
+            </choice>
+            <ref name="selectors"/>
+        </element>
+    </define>
+
+    <define name="selectors">
+        <zeroOrMore>
+            <choice>
+                <ref name="contains_selector"/>
+                <ref name="containsregexp_selector"/>
+                <ref name="date_selector"/>
+                <ref name="depend_selector"/>
+                <ref name="depth_selector"/>
+                <ref name="different_selector"/>
+                <ref name="executable_selector"/>
+                <ref name="filename_selector"/>
+                <ref name="present_selector"/>
+                <ref name="readable_selector"/>
+                <ref name="size_selector"/>
+                <ref name="symlink_selector"/>
+                <ref name="type_selector"/>
+                <ref name="writable_selector"/>
+                <ref name="and_selector"/>
+                <ref name="majority_selector"/>
+                <ref name="none_selector"/>
+                <ref name="not_selector"/>
+                <ref name="or_selector"/>
+            </choice>
+        </zeroOrMore>
+    </define>
+
+    <define name="contains_selector" combine="interleave">
+        <element name="contains">
+            <interleave>
+                <attribute name="text"/>
+                <optional>
+                    <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignorewhitespace" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="containsregexp_selector" combine="interleave">
+        <element name="containsregexp">
+            <interleave>
+                <attribute name="expression"/>
+                <optional>
+                    <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="date_selector" combine="interleave">
+        <element name="date">
+            <interleave>
+                <choice>
+                    <attribute name="datetime"/>
+                    <attribute name="seconds"/>
+                </choice>
+                <optional>
+                    <attribute name="when">
+                        <choice>
+                            <value>equal</value>
+                            <value>before</value>
+                            <value>after</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="granularity" a:default-value="0">
+                        <data type="integer"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="checkdirs" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="depend_selector" combine="interleave">
+        <element name="depend">
+            <interleave>
+                <attribute name="targetdir"/>
+                <optional>
+                    <attribute name="granularity" a:default-value="0">
+                        <data type="integer"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="depth_selector" combine="interleave">
+        <element name="depth">
+            <choice>
+                <attribute name="min" a:default-value="0">
+                    <data type="integer"/>
+                </attribute>
+                <attribute name="max" a:default-value="0">
+                    <data type="integer"/>
+                </attribute>
+            </choice>
+        </element>
+    </define>
+
+    <define name="different_selector" combine="interleave">
+        <element name="different">
+            <interleave>
+                <attribute name="targetdir"/>
+                <optional>
+                    <attribute name="ignorefiletimes" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignorecontents" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="executable_selector" combine="interleave">
+        <element name="executable">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="filename_selector" combine="interleave">
+        <element name="filename">
+            <interleave>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="negate" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="present_selector" combine="interleave">
+        <element name="present">
+            <interleave>
+                <attribute name="targetdir"/>
+                <optional>
+                    <attribute name="present" a:default-value="both">
+                        <choice>
+                            <value>both</value>
+                            <value>srconly</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="readable_selector" combine="interleave">
+        <element name="readable">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="size_selector" combine="interleave">
+        <element name="size">
+            <interleave>
+                <attribute name="value"/>
+                <optional>
+                    <attribute name="units" a:default-value="b">
+                        <choice>
+                            <value>b</value>
+                            <value>k</value>
+                            <value>M</value>
+                            <value>G</value>
+                            <value>Bi</value>
+                            <value>Ki</value>
+                            <value>Mi</value>
+                            <value>Gi</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="when" a:default-value="equal">
+                        <choice>
+                            <value>equal</value>
+                            <value>less</value>
+                            <value>more</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="symlink_selector" combine="interleave">
+        <element name="containsregexp">
+            <interleave>
+                <attribute name="expression"/>
+                <optional>
+                    <attribute name="casesensitive">
+                        <data type="boolean" a:default-value="true"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="type_selector" combine="interleave">
+        <element name="type">
+            <interleave>
+                <attribute name="type">
+                    <choice>
+                        <value>file</value>
+                        <value>dir</value>
+                    </choice>
+                </attribute>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="writable_selector" combine="interleave">
+        <element name="writable">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="and_selector">
+        <element name="and">
+            <oneOrMore>
+                <oneOrMore>
+                    <ref name="selectors"/>
+                </oneOrMore>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="majority_selector">
+        <element name="majority">
+            <optional>
+                <attribute name="allowtie" a:default-value="true">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <oneOrMore>
+                <oneOrMore>
+                    <ref name="selectors"/>
+                </oneOrMore>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="none_selector">
+        <element name="none">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="not_selector">
+        <element name="not">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="or_selector">
+        <element name="or">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
         </element>
     </define>
 
@@ -344,6 +658,22 @@
                 </choice>
             </oneOrMore>
         </element>
+    </define>
+
+    <define name="srcfileset">
+        <ref name="fileset"/>
+    </define>
+
+    <define name="srcfilelist">
+        <ref name="filelist"/>
+    </define>
+
+    <define name="targetfileset">
+        <ref name="fileset"/>
+    </define>
+
+    <define name="targetfilelist">
+        <ref name="filelist"/>
     </define>
 
     <define name="fileset">
@@ -426,6 +756,7 @@
                     </attribute>
                 </optional>
             </interleave>
+            <ref name="selector"/>
         </element>
     </define>
 
@@ -933,22 +1264,32 @@
                     <attribute name="todir"/>
                 </choice>
                 <optional>
-                    <attribute name="overwrite">
+                    <attribute name="overwrite" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
                     <choice>
-                        <attribute name="tstamp">
+                        <attribute name="tstamp" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
-                        <attribute name="preservelastmodified">
+                        <attribute name="preservelastmodified" a:defaultValue="false">
                             <data type="boolean"/>
                         </attribute>
                     </choice>
                 </optional>
                 <optional>
-                    <attribute name="includeemptydirs">
+                    <choice>
+                        <attribute name="preservemode" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="preservepermissions" a:defaultValue="true">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -958,7 +1299,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonerror">
+                    <attribute name="haltonerror" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="flatten" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1011,6 +1357,38 @@
                 <ref name="dirset"/>
                 <ref name="fileset"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="defaultexcludes">
+        <element name="defaultexcludes">
+            <oneOrMore>
+                <attribute name="default">
+                    <data type="boolean" a:defaultValue="false"/>
+                </attribute>
+                <attribute name="add">
+                    <data type="string"/>
+                </attribute>
+                <attribute name="remove">
+                    <data type="string"/>
+                </attribute>
+                <attribute name="echo">
+                    <data type="boolean" a:defaultValue="false"/>
+                </attribute>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="dependset">
+        <element name="dependset">
+            <oneOrMore>
+                <ref name="srcfileset"/>
+                <ref name="srcfilelist"/>
+            </oneOrMore>
+            <oneOrMore>
+                <ref name="targetfileset"/>
+                <ref name="targetfilelist"/>
+            </oneOrMore>
         </element>
     </define>
 
@@ -1081,12 +1459,12 @@
                     </choice>
                 </oneOrMore>
                 <optional>
-                    <attribute name="passthru">
+                    <attribute name="passthru" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="checkreturn">
+                    <attribute name="checkreturn" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1097,12 +1475,15 @@
                     <attribute name="os"/>
                 </optional>
                 <optional>
-                    <attribute name="escape">
+                    <attribute name="osfamily"/>
+                </optional>
+                <optional>
+                    <attribute name="escape" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="spawn">
+                    <attribute name="spawn" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -1113,7 +1494,7 @@
                     <attribute name="outputProperty"/>
                 </optional>
                 <optional>
-                    <attribute name="logoutput"/>
+                    <attribute name="logoutput" a:defaultValue="false"/>
                 </optional>
                 <optional>
                     <attribute name="output"/>
@@ -1373,8 +1754,7 @@
                         <choice>
                             <ref name="dirset"/>
                             <ref name="fileset"/>
-                            <ref name="
-                            "/>
+                            <ref name="filelist"/>
                         </choice>
                     </oneOrMore>
                 </choice>
@@ -1593,6 +1973,21 @@
         </element>
     </define>
 
+    <define name="relentless">
+        <element name="relentless">
+            <interleave>
+                <optional>
+                    <attribute name="description"/>
+                </optional>
+                <optional>
+                    <attribute name="terse" a:defaultValue="false"/>
+                </optional>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+            </interleave>
+        </element>
+    </define>
+
     <define name="retry">
         <element name="retry">
             <interleave>
@@ -1721,6 +2116,7 @@
                 <choice>
                     <attribute name="file"/>
                     <ref name="fileset"/>
+                    <ref name="filelist"/>
                 </choice>
                 <optional>
                     <attribute name="datetime"/>
@@ -1731,12 +2127,12 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="mkdirs">
+                    <attribute name="mkdirs" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="verbose">
+                    <attribute name="verbose" a:defaultValue="true">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -2466,6 +2862,9 @@
                         <data type="boolean"/>
                     </attribute>
                     <attribute name="identityFile"/>
+                    <attribute name="port">
+                        <data type="int"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -2558,6 +2957,29 @@
         git Manipulation tasks
         =========================================
     -->
+
+    <define name="gitarchive">
+        <element name="gitarchive">
+            <interleave>
+                <choice>
+                    <attribute name="repository"/>
+                    <attribute name="remoterepo"/>
+                </choice>
+                <optional>
+                    <attribute name="prefix"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
+                <optional>
+                    <attribute name="gitpath"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
 
     <define name="gitbranch">
         <element name="gitbranch">
@@ -3639,7 +4061,7 @@
                     <attribute name="tofile"/>
                 </optional>
             </interleave>
-       </element>
+        </element>
     </define>
 
     <!--
@@ -4502,7 +4924,7 @@
                 <choice>
                     <attribute name="file"/>
                     <oneOrMore>
-                         <ref name="fileset"/>
+                        <ref name="fileset"/>
                     </oneOrMore>
                 </choice>
                 <optional>
@@ -4666,7 +5088,7 @@
             </interleave>
         </element>
     </define>
-    
+
     <define name="phpdoc2">
         <element name="phpdoc2">
             <interleave>
@@ -4677,7 +5099,10 @@
                     <attribute name="destdir"/>
                 </optional>
                 <optional>
-                    <attribute name="output"/>
+                    <choice>
+                        <attribute name="destdir"/>
+                        <attribute name="output"/>
+                    </choice>
                 </optional>
                 <optional>
                     <attribute name="template"/>
@@ -5335,7 +5760,7 @@
             </oneOrMore>
         </element>
     </define>
-    
+
     <define name="sonar-property">
         <element name="property">
             <interleave>
@@ -5571,6 +5996,87 @@
                 </optional>
                 <optional>
                     <attribute name="subelement"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+
+    <!--
+        =========================================
+        SvnProplijstTask
+        =========================================
+    -->
+    <define name="svnproplist">
+        <element name="svnproplist">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="propertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="recursive"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+
+    <!--
+        =========================================
+        SvnPropgetTask
+        =========================================
+    -->
+    <define name="svnpropget">
+        <element name="svnpropget">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="propertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="svnproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="fromdir"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+
+    <!--
+        =========================================
+        SvnPropsetTask
+        =========================================
+    -->
+    <define name="svnpropset">
+        <element name="svnpropset">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="svnpropertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="svnpropertyvalue"/>
                 </optional>
             </interleave>
         </element>
@@ -6145,7 +6651,6 @@
     </define>
 
 
-
     <!--
         =========================================
         ZipTask
@@ -6305,6 +6810,11 @@
     </define>
 
     <define name="linecontains">
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
         <element name="linecontains">
             <oneOrMore>
                 <ref name="contains"/>
@@ -6319,6 +6829,19 @@
     </define>
 
     <define name="linecontainsregexp">
+        <optional>
+            <attribute name="casesensitive" a:defaultValue="true">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="regexp"/>
+        </optional>
         <element name="linecontainsregexp">
             <ref name="regexp"/>
         </element>
@@ -6434,6 +6957,11 @@
                     <data type="int"/>
                 </attribute>
             </optional>
+            <optional>
+                <attribute name="skip">
+                    <data type="int"/>
+                </attribute>
+            </optional>
             <empty/>
         </element>
     </define>
@@ -6506,7 +7034,14 @@
             <ref name="available_cond"/>
             <ref name="http"/>
             <ref name="matches_cond"/>
+            <ref name="os_cond"/>
         </choice>
+    </define>
+
+    <define name="os_cond">
+        <element name="os">
+            <attribute name="family"/>
+        </element>
     </define>
 
     <define name="or">

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 include_once 'phing/BuildException.php';
 include_once 'phing/util/StringHelper.php';
 
@@ -37,7 +35,6 @@ include_once 'phing/util/StringHelper.php';
  * @author    Hans Lellelid <hans@xmpl.org> (SmartyTask)
  * @author    Jason van Zyl <jvanzyl@apache.org> (TexenTask)
  * @author    Robert Burrell Donkin <robertdonkin@mac.com>
- * @version   $Id$
  * @package   phing.tasks.ext
  */
 class SmartyTask extends Task

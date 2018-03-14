@@ -17,16 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildEvent.php';
-include_once 'phing/BuildLogger.php';
-include_once 'phing/Phing.php';
-include_once 'phing/Project.php';
-include_once 'phing/SubBuildListener.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/BuildException.php';
-
 /**
  * This is a class that represents a recorder. This is the listener to the
  * build process.

@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,19 +17,19 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
 require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
+
 /**
  * Prints Clover XML output of the test
  *
  * @author Daniel Kreckel <daniel@kreckel.koeln>
- * @version $Id$
  * @package phing.tasks.ext.formatter
- * @since 2.1.1
  */
 class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
-     * @var PHPUnit_Framework_TestResult
+     * @var PHPUnit\Framework\TestResult
      */
     private $result = null;
     /**
@@ -44,27 +43,27 @@ class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
-        $this->version = PHPUnit_Runner_Version::id();
+        $this->version = PHPUnit\Runner\Version::id();
     }
     /**
      * @return string
      */
     public function getExtension()
     {
-        return ".xml";
+        return '.xml';
     }
     /**
      * @return string
      */
     public function getPreferredOutfile()
     {
-        return "crap4j-coverage";
+        return 'crap4j-coverage';
     }
     
     /**
-     * @param PHPUnit_Framework_TestResult $result
+     * @param PHPUnit\Framework\TestResult $result
      */
-    public function processResult(PHPUnit_Framework_TestResult $result)
+    public function processResult(PHPUnit\Framework\TestResult $result)
     {
         $this->result = $result;
     }
@@ -73,12 +72,8 @@ class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         $coverage = $this->result->getCodeCoverage();
         if (!empty($coverage)) {
-            if (class_exists('PHP_CodeCoverage_Report_Crap4j')) {
-                $crap = new PHP_CodeCoverage_Report_Crap4j();
-            } elseif (class_exists('\SebastianBergmann\CodeCoverage\Report\Crap4j')) {
-                $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
-                $crap = new $crapClass();
-            }
+            $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
+            $crap = new $crapClass();
             $contents = $crap->process($coverage);
             if ($this->out) {
                 $this->out->write($contents);

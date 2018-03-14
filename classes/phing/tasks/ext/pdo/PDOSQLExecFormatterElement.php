@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,11 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PlainPDOResultFormatter.php';
-require_once 'phing/tasks/ext/pdo/XMLPDOResultFormatter.php';
-require_once 'phing/util/LogWriter.php';
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.

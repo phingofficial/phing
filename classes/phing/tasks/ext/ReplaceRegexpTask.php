@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a
@@ -39,15 +38,10 @@ require_once 'phing/Task.php';
  */
 class ReplaceRegexpTask extends Task
 {
+    use FileSetAware;
+
     /** Single file to process. */
     private $file;
-
-    /**
-     * Any filesets that should be processed.
-     *
-     * @var array $filesets
-     */
-    private $filesets = [];
 
     /**
      * Regular expression
@@ -127,18 +121,6 @@ class ReplaceRegexpTask extends Task
     public function setByline($yesNo)
     {
         // TODO... $this->_regexp->
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

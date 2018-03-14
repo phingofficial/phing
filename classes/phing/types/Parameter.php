@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -76,6 +75,14 @@ class Parameter extends DataType
     public function setValue($value)
     {
         $this->value = (string) $value;
+    }
+
+    /**
+     * @param $v
+     */
+    public function addText($v)
+    {
+        $this->val = $v;
     }
 
     public function getName()

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,11 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/FileSystem.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/parser/ProjectConfigurator.php';
-
 /**
  * Imports another build file into the current project.
  *
@@ -39,7 +33,6 @@ require_once 'phing/parser/ProjectConfigurator.php';
  * dependencies or via the <phing> or <phingcall> task mechanisms.
  *
  * @author Bryan Davis <bpd@keynetics.com>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ImportTask extends Task
@@ -156,13 +149,13 @@ class ImportTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
+            $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->importFile(new PhingFile($fromDir, $srcFiles[$j]));
             }
 
             $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
+            $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->importFile(new PhingFile($fromDir, $srcDirs[$j]));
             }

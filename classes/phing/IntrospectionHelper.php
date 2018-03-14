@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,11 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Reference.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/parser/CustomChildCreator.php';
-
 /**
  * Helper class that collects the methods that a task or nested element
  * holds to set attributes, create nested elements or hold PCDATA
@@ -38,7 +32,6 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing
  */
 class IntrospectionHelper

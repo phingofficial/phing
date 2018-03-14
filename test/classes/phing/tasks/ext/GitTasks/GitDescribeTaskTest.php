@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitDescribeTask.php';
-
 /**
  * @package phing.tasks.ext
  */

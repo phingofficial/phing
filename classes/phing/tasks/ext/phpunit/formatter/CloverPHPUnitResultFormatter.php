@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,15 +23,13 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 /**
  * Prints Clover XML output of the test
  *
- * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.formatter
- * @since 2.4.0
  */
 class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
-     * @var PHPUnit_Framework_TestResult
+     * @var PHPUnit\Framework\TestResult
      */
     private $result = null;
 
@@ -49,7 +46,7 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         parent::__construct($parentTask);
 
-        $this->version = PHPUnit_Runner_Version::id();
+        $this->version = PHPUnit\Runner\Version::id();
     }
 
     /**
@@ -69,9 +66,9 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
     }
 
     /**
-     * @param PHPUnit_Framework_TestResult $result
+     * @param PHPUnit\Framework\TestResult $result
      */
-    public function processResult(PHPUnit_Framework_TestResult $result)
+    public function processResult(PHPUnit\Framework\TestResult $result)
     {
         $this->result = $result;
     }
@@ -81,12 +78,8 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
         $coverage = $this->result->getCodeCoverage();
 
         if (!empty($coverage)) {
-            if (class_exists('PHP_CodeCoverage_Report_Clover')) {
-                $clover = new PHP_CodeCoverage_Report_Clover();
-            } elseif (class_exists('\SebastianBergmann\CodeCoverage\Report\Clover')) {
-                $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
-                $clover = new $cloverClass;
-            }
+            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
+            $clover = new $cloverClass;
 
             $contents = $clover->process($coverage);
 

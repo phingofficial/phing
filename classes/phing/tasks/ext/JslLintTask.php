@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/util/DataStore.php';
 
 /**
@@ -31,11 +30,10 @@ require_once 'phing/util/DataStore.php';
  */
 class JslLintTask extends Task
 {
+    use FileSetAware;
+
     /** @var PhingFile */
     protected $file; // the source file (from xml attribute)
-
-    /** @var array */
-    protected $filesets = []; // all fileset objects assigned to this task
 
     /** @var bool $showWarnings */
     protected $showWarnings = true;
@@ -153,18 +151,6 @@ class JslLintTask extends Task
     public function getExecutable()
     {
         return $this->executable;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**

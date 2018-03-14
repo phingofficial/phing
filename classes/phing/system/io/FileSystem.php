@@ -79,13 +79,9 @@ abstract class FileSystem
                     include_once 'phing/system/io/UnixFileSystem.php';
                     self::$fs = new UnixFileSystem();
                     break;
-                case 'WIN32':
-                    include_once 'phing/system/io/Win32FileSystem.php';
-                    self::$fs = new Win32FileSystem();
-                    break;
-                case 'WINNT':
-                    include_once 'phing/system/io/WinNTFileSystem.php';
-                    self::$fs = new WinNTFileSystem();
+                case 'WINDOWS':
+                    include_once 'phing/system/io/WindowsFileSystem.php';
+                    self::$fs = new WindowsFileSystem();
                     break;
                 default:
                     throw new IOException("Host uses unsupported filesystem, unable to proceed");
@@ -327,7 +323,8 @@ abstract class FileSystem
         // Create new file
         $fp = @fopen($strPathname, "w");
         if ($fp === false) {
-            throw new IOException("The file \"$strPathname\" could not be created");
+            $error = error_get_last();
+            throw new IOException("The file \"$strPathname\" could not be created: " . $error['message']);
         }
         @fclose($fp);
 
@@ -546,8 +543,8 @@ abstract class FileSystem
         }
 
         // Make destination directory
-        if (!is_dir($dest)) {
-            mkdir($dest);
+        if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
+           return false;
         }
 
         // Loop through the folder
@@ -920,8 +917,7 @@ abstract class FileSystem
                 }
             }
             break;
-        case 'WIN32':
-        case 'WINNT':
+        case 'WINDOWS':
             $exts = getenv('PATHEXT');
             if ($exts === false) {
                 $exts = ['.exe', '.bat', '.cmd', '.com'];

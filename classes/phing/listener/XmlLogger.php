@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-require_once 'phing/listener/DefaultLogger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Generates a file in the current directory with
  * an XML description of what happened during a build.
@@ -30,7 +25,6 @@ require_once 'phing/system/util/Timer.php';
  * with the property <code>XmlLogger.file</code>.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.listener
  */
 class XmlLogger implements BuildLogger

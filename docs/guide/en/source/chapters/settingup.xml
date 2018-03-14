@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.settingup">
+    <title>Setting-up Phing</title>
+
+
+    <para>The goal of this chapter is to help you obtain and correctly setup and execute Phing on
+        your operating system. Once you setup Phing properly you shouldn't need to revisit this
+        chapter, unless you're re-installing or moving your installation to another platform.</para>
+
+    <sect1>
+        <title> System Requirements </title>
+
+        <para>To use Phing you must have installed PHP version 5.6 or above compiled
+                <literal>--with-libxml2</literal>, as well as <literal>--with-xsl</literal> if you
+            want to make use of advanced functionality.</para>
+
+        <para>For more information on PHP and the required modules see the PHP <link
+                xlink:href="Bibliography.html#php">[php]</link> website. For a brief list of
+            software dependencies see below.</para>
+
+        <sect2>
+            <title> Operating Systems </title>
+
+            <para>Designed for portability from the get go, Phing runs on all platforms that run PHP. However
+                some advanced functionality may not work properly or is simply ignored on some
+                platforms (i.e. <literal>chmod</literal> on the Windows platform).</para>
+
+            <para>To get the most out of Phing, a Unix style platform is recommended. Namely: Linux,
+                FreeBSD, OpenBSD, etc.</para>
+        </sect2>
+        <sect2>
+            <title> Software Dependencies </title>
+
+            <para>For a detailed list of required and/or optional software and libraries, refer to the
+                following table of Software Dependencies.</para>
+
+            <para>NB: This list is not exhaustive, please refer to individual Phing tasks to find
+                out additional software requirements.</para>
+
+            <table>
+                <title>Software Dependencies</title>
+                <tgroup cols="3">
+                    <colspec colname="c1" colnum="1" colwidth="1*"/>
+                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                    <colspec colname="c3" colnum="3" colwidth="2*"/>
+                    <thead>
+                        <row>
+                            <entry>Software</entry>
+                            <entry>Required for</entry>
+                            <entry>Source</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>PHP 5.6+</entry>
+                            <entry>Execution</entry>
+                            <entry><link xlink:href="http://www.php.net" role="external"
+                                    >http://www.php.net</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>PHPUnit 3.6.0+</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://www.phpunit.de" role="external"
+                                    >http://www.phpunit.de</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Xdebug 2.0.5+</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://www.xdebug.org" role="external"
+                                    >http://www.xdebug.org</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>phpDocumentor 2.0.0b7+ (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.phpdoc.org"
+                                    role="external">http://pear.phpdoc.org</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>VersionControl_SVN (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/VersionControl_SVN"
+                                    role="external"
+                                    >http://pear.php.net/package/VersionControl_SVN</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>VersionControl_Git (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/VersionControl_Git"
+                                    role="external"
+                                    >http://pear.php.net/package/VersionControl_Git</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>PHP_CodeSniffer (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/PHP_CodeSniffer"
+                                    role="external"
+                                    >http://pear.php.net/package/PHP_CodeSniffer</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Archive_Tar (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/Archive_Tar"
+                                    role="external">http://pear.php.net/package/Archive_Tar</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Services_Amazon_S3 (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/Services_Amazon_S3"
+                                    role="external"
+                                    >http://pear.php.net/package/Services_Amazon_S3</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>HTTP_Request2 (PEAR package)</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/HTTP_Request2"
+                                    role="external">http://pear.php.net/package/HTTP_Request2</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>Net_FTP (PEAR package)</entry>
+                            <entry>Optional; enables SSL connection in FtpDeployTask</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/Net_FTP"
+                                    role="external">http://pear.php.net/package/Net_FTP</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>PHP Depend</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://www.pdepend.org" role="external"
+                                    >http://www.pdepend.org</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>PHP Mess Detector</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://www.phpmd.org" role="external"
+                                    >http://www.phpmd.org</link>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>PHP Copy/Paste Detector</entry>
+                            <entry>Optional; enables additional task(s)</entry>
+                            <entry><link xlink:href="http://pear.phpunit.de" role="external"
+                                    >http://pear.phpunit.de</link>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <warning>
+                <para>Phing does not work with safe mode enabled in PHP!</para>
+            </warning>
+        </sect2>
+    </sect1>
+
+    <sect1>
+        <title> Obtaining Phing </title>
+
+        <para>Phing is free software distributed under the terms of the LGPL.</para>
+
+        <sect2>
+            <title> Distribution Files </title>
+
+            <para>There are several ways to get a Phing distribution package. If you do not want to
+                participate in developing Phing itself it is recommended that you get the latest
+                snapshot or stable packaged distribution. If you are interested in helping with
+                Phing development, register an account at GitHub as described below.</para>
+
+            <para>The easiest way to obtain the distribution package is to visit the Phing website <link
+                    xlink:href="Bibliography.html#phing">[phing] </link>and download the current
+                distribution package in the format you desire.</para>
+            <para>As of version 2.0, you have the option of downloading a PEAR-installable package
+                or the full phing distribution. If you wish to modify phing we suggestion
+                downloading the full version so that you can (e.g.) create your own PEAR package. If
+                you simply wish to use Phing for your own project or need it to build another
+                package, download &amp; install the PEAR package.</para>
+        </sect2>
+        <sect2>
+            <title>Getting the latest source from Phing Git repository</title>
+            <para>The latest snapshot can always be downloaded directly the official Phing Git
+                repository. However, be warned that there is not guarantee that the momentous state
+                of the repository represents a completely stable application without any
+                problems.</para>
+            <para>You can download a snapshot as a zip-tarball from:</para>
+            <itemizedlist>
+                <listitem>
+                    <para><link xlink:href="https://github.com/phingofficial/phing"
+                            >https://github.com/phingofficial/phing</link></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+
+    </sect1>
+    <sect1>
+        <title> Composer Install </title>
+        <para>The preferred method to install Phing is through <link xlink:href="https://getcomposer.org/">Composer</link>.
+            Add <link xlink:href="https://packagist.org/packages/phing/phing">phing/phing</link> to the
+            <literal>require-dev</literal> or <literal>require</literal> of your project's `composer.json`
+            configuration file, and run <literal>composer install</literal>:</para>
+        <screen>
+{
+    "require-dev": {
+        "phing/phing": "3.*"
+    }
+}
+</screen>
+    </sect1>
+    <sect1>
+        <title>Phar package</title>
+        <para>Download the <link xlink:href="https://www.phing.info/get/phing-latest.phar">Phar archive</link>.
+            The archive can then be executed by running:</para>
+
+        <screen>$ php phing-latest.phar</screen>
+    </sect1>
+    <sect1>
+        <title> Running Phing </title>
+
+        <para>Now you are prepared to execute Phing on the command line or via script files. The
+            following section briefly describe how to properly execute phing.</para>
+
+        <sect2>
+            <title> Command Line </title>
+
+            <para>Phing execution on the command line is simple. Just change to the directory where
+                your buildfile resides and type</para>
+
+            <screen>$ phing [target [target2 [target3] ...]]</screen>
+
+            <para> at the command line (where [target...] are the target(s)
+                you want to be executed). If no target is specified Phing
+                will try to execute the default target, as specified in the
+                <literal>project</literal> tag. When calling multipe targets, Phing
+                will invoke each target independently of the other targets.
+                Optionally, you may specify command line arguments as listed in <link
+                    xlink:href="appendixes/AppendixA-FactSheet.html#CommandLineArguments">Appendix
+                    A</link>.</para>
+
+            <para> For example, the following command line calls the default buildscript
+                    <filename>build.xml</filename> using the default target with the property
+                    <literal>ftp.upload</literal> set to true.</para>
+            <screen>$ phing -Dftp.upload=true</screen>
+        </sect2>
+        <sect2>
+            <title>Supported command line arguments</title>
+            <para>The following command line arguments are supported</para>
+            <programlisting>  -h -help               print this message
+  -l -list               list available targets in this project
+  -i -init [file]        generates an initial buildfile
+  -v -version            print the version information and exit
+  -q -quiet              be extra quiet
+  -S -silent             print nothing but task outputs and build failures
+  -verbose               be extra verbose
+  -debug                 print debugging information
+  -emacs, -e             produce logging information without adornments
+  -diagnostics           print diagnostics information
+  -strict                runs build in strict mode, considering a warning as error
+  -no-strict             runs build normally (overrides buildfile attribute)
+  -longtargets           show target descriptions during build
+  -logfile &lt;file>        use given file for log
+  -logger &lt;classname>    the class which is to perform logging
+  -listener &lt;classname>  add an instance of class as a project listener
+  -f -buildfile &lt;file>   use given buildfile
+  -D&lt;property>=&lt;value>   use value for given property
+  -keep-going, -k        execute all targets that do not depend
+                         on failed target(s)
+  -propertyfile &lt;file>   load all properties from file
+  -propertyfileoverride  values in property file override existing values
+  -find &lt;file>           search for buildfile towards the root of the
+                         filesystem and use it
+  -inputhandler &lt;file>   the class to use to handle user input</programlisting>
+        </sect2>
+    </sect1>
+
+</chapter>

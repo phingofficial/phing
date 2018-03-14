@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,7 +39,6 @@ require_once 'phing/Task.php';
  * @author   Paul Stuart <pstuart2@gmail.com>
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @version  Release: $Id$
  * @link     SassTask.php
  */
 class SassTask extends Task
