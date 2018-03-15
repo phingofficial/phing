@@ -82,9 +82,9 @@
             </then>
 
             <elseif>
-                <contains string="${version}" substring="snapshot"/>
+                <contains string="${version}" substring="alpha"/>
                 <then>
-                    <property name="notes" value="This is a snapshot release that might not be functional." />
+                    <property name="notes" value="This is the latest alpha release of Phing." />
                     <property name="state" value="alpha"/>
                 </then>
             </elseif>
