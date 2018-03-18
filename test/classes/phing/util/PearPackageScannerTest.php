@@ -97,7 +97,7 @@ class PearPackageScannerTest extends BuildFileTest
         foreach ($arFiles as $file) {
             $fullpath = $basedir . $file;
             $this->assertTrue(
-                file_exists($fullpath),
+                file_exists($fullpath) || file_exists($fullpath . '.gz'),
                 'File does not exist: ' . $file . ' at ' . $fullpath
             );
         }
