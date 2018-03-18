@@ -2,7 +2,7 @@
 
 class HgRevertTaskTest extends BuildFileTest
 {
-    use HgTaskTestSkipper;
+    use HgTaskTestSkip;
 
     public function setUp()
     {

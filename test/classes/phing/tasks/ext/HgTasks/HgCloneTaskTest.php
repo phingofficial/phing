@@ -2,7 +2,7 @@
 
 class HgCloneTaskTest extends BuildFileTest
 {
-    use HgTaskTestSkipper;
+    use HgTaskTestSkip;
 
     public function setUp()
     {

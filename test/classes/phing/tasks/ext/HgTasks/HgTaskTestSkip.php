@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-trait HgTaskTestSkipper
+trait HgTaskTestSkip
 {
 
     public function markTestAsSkippedWhenHgNotInstalled(): void
