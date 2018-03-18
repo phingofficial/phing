@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/OutputStream.php';
-require_once 'phing/system/io/PhingFile.php';
-
 /**
  * Output stream subclass for file streams.
  *

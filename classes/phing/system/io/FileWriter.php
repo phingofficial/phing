@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/OutputStreamWriter.php';
-require_once 'phing/system/io/FileOutputStream.php';
-
 /**
  * Convenience class for performing file write operations.
  *

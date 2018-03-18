@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ExtractBaseTask.php';
-
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar
  *

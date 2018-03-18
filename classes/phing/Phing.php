@@ -868,7 +868,6 @@ class Phing
     private function createLogger()
     {
         if ($this->silent) {
-            require_once 'phing/listener/SilentLogger.php';
             $logger = new SilentLogger();
             self::$msgOutputLevel = Project::MSG_WARN;
         } elseif ($this->loggerClassname !== null) {
@@ -880,7 +879,6 @@ class Phing
                 throw new BuildException($classname . ' does not implement the BuildLogger interface.');
             }
         } else {
-            require_once 'phing/listener/DefaultLogger.php';
             $logger = new DefaultLogger();
         }
         $logger->setMessageOutputLevel(self::$msgOutputLevel);

@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ExtractBaseTask.php';
-require_once 'phing/system/io/FileSystem.php';
-
 /**
  * Extracts one or several zip archives using ZipArchive class.
  *

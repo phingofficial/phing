@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
-
 /**
  * This selector has a collection of other selectors. All of those selectors
  * must refuse to select a file before the file is considered selected by
