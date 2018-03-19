@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/InputStreamReader.php';
-require_once 'phing/system/io/FileInputStream.php';
-
 /**
  * Convenience class for reading files.
  * @package   phing.system.io

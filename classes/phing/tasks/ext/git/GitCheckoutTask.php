@@ -18,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
  * Wrapper around git-checkout
  *

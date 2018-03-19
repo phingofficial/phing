@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/DataType.php';
-require_once 'Ssh2MethodConnectionParam.php';
-
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the optional $methods parameter

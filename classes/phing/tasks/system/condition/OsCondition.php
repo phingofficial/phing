@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-
 /**
  * Condition that tests the OS type.
  *

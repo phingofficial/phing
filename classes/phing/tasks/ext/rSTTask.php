@@ -1,5 +1,4 @@
 <?php
-
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
  *
@@ -11,8 +10,6 @@
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
  */
-
-require_once 'phing/util/FileUtils.php';
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.

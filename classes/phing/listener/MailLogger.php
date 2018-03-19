@@ -40,8 +40,6 @@ class MailLogger extends DefaultLogger
     {
         parent::__construct();
 
-        @require_once 'Mail.php';
-
         if (!class_exists('Mail')) {
             throw new BuildException('Need the PEAR Mail package to send logs');
         }

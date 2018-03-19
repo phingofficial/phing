@@ -25,11 +25,6 @@
  */
 
 /**
- * Pull in Task class.
- */
-require_once 'phing/Task.php';
-
-/**
  * Executes Sass for a particular fileset.
  *
  * If the sass executable is not available, but scssphp is, then use that instead.

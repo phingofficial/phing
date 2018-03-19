@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildException.php';
-require_once 'phing/Project.php';
-require_once 'phing/Task.php';
-require_once 'phing/TaskContainer.php';
-
 /**
  * Relentless is an Ant task that will relentlessly execute other tasks,
  * ignoring any failures until all tasks have completed. If any of the executed

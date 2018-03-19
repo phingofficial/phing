@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/git/GitBaseTask.php';
-
 /**
  * Wrapper aroung git-log
  *
