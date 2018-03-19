@@ -2,6 +2,8 @@
 
 class HgCloneTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
         $this->configureProject(
@@ -12,6 +14,8 @@ class HgCloneTaskTest extends BuildFileTest
 
     public function testWrongRepository()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         $this->expectBuildExceptionContaining(
             'wrongRepository',
             'wrong repository',
