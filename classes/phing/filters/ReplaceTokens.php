@@ -246,7 +246,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     {
         // type check, error must never occur, bad code of it does
         if (!is_array($tokens)) {
-            throw new Exception("Excpected 'array', got something else");
+            throw new Exception("Expected 'array', got something else");
         }
 
         $this->_tokens = $tokens;
