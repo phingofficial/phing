@@ -171,7 +171,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     {
         // type check, error must never occur, bad code of it does
         if (!is_array($regexps)) {
-            throw new Exception("Excpected an 'array', got something else");
+            throw new Exception("Expected an 'array', got something else");
         }
         $this->_regexps = $regexps;
     }
