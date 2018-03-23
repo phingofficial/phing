@@ -11,7 +11,7 @@ class SassTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/SassTaskTest.xml");
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/sass/SassTaskTest.xml");
         $this->object = new SassTask();
         $this->sassTaskAssert = new SassTaskAssert();
     }
