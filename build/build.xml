@@ -200,14 +200,18 @@
                 </element>
             </metadata>
         </pharpackage>
-        <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
         <phingcall target="generate-hash">
             <param name="filename" value="${build.full.dir}.phar"/>
         </phingcall>
-        <phingcall target="generate-hash">
-            <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
-        </phingcall>
-
+        <if>
+            <equals arg1="${state}" arg2="stable"/>
+            <then>
+                <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
+                <phingcall target="generate-hash">
+                    <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
+                </phingcall>
+            </then>
+        </if>
     </target>
 
     <!--
