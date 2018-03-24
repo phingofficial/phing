@@ -3,6 +3,11 @@
 class SassTaskTest extends BuildFileTest
 {
 
+    private const SASS_TEST_BASE = PHING_TEST_BASE . "/etc/tasks/ext/sass/";
+
+    /** @var FileSystem */
+    private $fs;
+
     /** @var SassTask */
     private $object;
 
@@ -11,9 +16,24 @@ class SassTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/sass/SassTaskTest.xml");
+        $this->configureProject(self::SASS_TEST_BASE . "SassTaskTest.xml");
         $this->object = new SassTask();
         $this->sassTaskAssert = new SassTaskAssert();
+        $this->fs = FileSystem::getFileSystem();
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+        if (file_exists(self::SASS_TEST_BASE . "test.css")) {
+            $this->fs->unlink(self::SASS_TEST_BASE . "test.css");
+        }
+        if (file_exists(self::SASS_TEST_BASE . "test.css.map")) {
+            $this->fs->unlink(self::SASS_TEST_BASE . "test.css.map");
+        }
+        if (is_dir(self::SASS_TEST_BASE . ".sass-cache")) {
+            $this->fs->rmdir(self::SASS_TEST_BASE . ".sass-cache", true);
+        }
     }
 
     public function testCheckDefaults(): void
@@ -75,5 +95,23 @@ class SassTaskTest extends BuildFileTest
             'testNoFilesetAndNoFileSet',
             "Missing either a nested fileset or attribute 'file'"
         );
+    }
+
+    public function testItCompilesWithSass(): void
+    {
+        if (!$this->fs->which('sass')) {
+            $this->markTestSkipped('Sass not found');
+        }
+        $this->executeTarget("testItCompilesWithSass");
+        $this->assertTrue(file_exists(self::SASS_TEST_BASE . "test.css"));
+    }
+
+    public function testItCompilesWithScssPhp(): void
+    {
+        if (!class_exists('\Leafo\ScssPhp\Compiler')) {
+            $this->markTestSkipped('ScssPhp not found');
+        }
+        $this->executeTarget("testItCompilesWithScssPhp");
+        $this->assertTrue(file_exists(self::SASS_TEST_BASE . "test.css"));
     }
 }
