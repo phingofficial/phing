@@ -3,6 +3,8 @@
 class SassTaskTest extends BuildFileTest
 {
 
+    use SassCleaner;
+
     private const SASS_TEST_BASE = PHING_TEST_BASE . "/etc/tasks/ext/sass/";
 
     /** @var FileSystem */
@@ -25,15 +27,7 @@ class SassTaskTest extends BuildFileTest
     public function tearDown(): void
     {
         parent::tearDown();
-        if (file_exists(self::SASS_TEST_BASE . "test.css")) {
-            $this->fs->unlink(self::SASS_TEST_BASE . "test.css");
-        }
-        if (file_exists(self::SASS_TEST_BASE . "test.css.map")) {
-            $this->fs->unlink(self::SASS_TEST_BASE . "test.css.map");
-        }
-        if (is_dir(self::SASS_TEST_BASE . ".sass-cache")) {
-            $this->fs->rmdir(self::SASS_TEST_BASE . ".sass-cache", true);
-        }
+        $this->sassCleanUp(self::SASS_TEST_BASE, 'test.css');
     }
 
     public function testCheckDefaults(): void
