@@ -1,6 +1,6 @@
 <?php
 
-class SassTaskTest extends BuildFileTest
+class SassTaskIntegrationTest extends BuildFileTest
 {
 
     use SassCleaner;
@@ -10,17 +10,9 @@ class SassTaskTest extends BuildFileTest
     /** @var FileSystem */
     private $fs;
 
-    /** @var SassTask */
-    private $object;
-
-    /** @var SassTaskAssert */
-    private $sassTaskAssert;
-
     public function setUp(): void
     {
         $this->configureProject(self::SASS_TEST_BASE . "SassTaskTest.xml");
-        $this->object = new SassTask();
-        $this->sassTaskAssert = new SassTaskAssert();
         $this->fs = FileSystem::getFileSystem();
     }
 
@@ -28,39 +20,6 @@ class SassTaskTest extends BuildFileTest
     {
         parent::tearDown();
         $this->sassCleanUp(self::SASS_TEST_BASE, 'test.css');
-    }
-
-    public function testCheckDefaults(): void
-    {
-        $this->sassTaskAssert->assertDefaults($this->object);
-    }
-
-    public function testSetStyleCompactViaSetStyle(): void
-    {
-        $this->object->setStyle('crunched');
-        $this->object->setStyle('compact');
-        $this->sassTaskAssert->assertCompactStyle($this->object);
-    }
-
-    public function testSetStyleCompactViaOwnMethod(): void
-    {
-        $this->object->setStyle('crunched');
-        $this->object->setCompact('yes');
-        $this->sassTaskAssert->assertCompactStyle($this->object);
-    }
-
-    public function testSetStyleCompressedViaSetStyle(): void
-    {
-        $this->object->setStyle('crunched');
-        $this->object->setStyle('compressed');
-        $this->sassTaskAssert->assertCompressedStyle($this->object);
-    }
-
-    public function testSetStyleCompressedViaOwnMethod(): void
-    {
-        $this->object->setStyle('crunched');
-        $this->object->setCompressed('yes');
-        $this->sassTaskAssert->assertCompressedStyle($this->object);
     }
 
     public function testNothing(): void
