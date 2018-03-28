@@ -191,7 +191,7 @@ class SassTask extends Task
     /**
      * @var bool
      */
-    protected $lineNumbers;
+    protected $lineNumbers = false;
 
     /**
      * @var bool
@@ -876,7 +876,7 @@ class SassTask extends Task
         if ($this->useSass && $this->useScssphp) {
             $fs = FileSystem::getFileSystem();
             if ($fs->which($this->executable) === false) {
-                if ($this->loadScssphp() === false) {
+                if (!$this->isScssPhpLoaded()) {
                     $msg = sprintf(
                         "%s not found. Install sass or leafo scssphp.",
                         $this->executable
@@ -912,7 +912,7 @@ class SassTask extends Task
                 }
             }
         } elseif ($this->useScssphp) {
-            if ($this->loadScssphp() === false) {
+            if (!$this->isScssPhpLoaded()) {
                 $msg = sprintf(
                     "Install leafo scssphp."
                 );
@@ -1068,19 +1068,8 @@ class SassTask extends Task
         return $outputFile;
     }
 
-
-
-    /**
-     * Pull in scssphp package, return true if successful.
-     *
-     * @return bool
-     */
-    public function loadScssphp()
+    private function isScssPhpLoaded(): bool
     {
-        $success = @include_once "vendor/leafo/scssphp/scss.inc.php";
-        if ($success === false) {
-            $success = @include_once "scssphp/scss.inc.php";
-        }
-        return $success;
+        return class_exists('\Leafo\ScssPhp\Compiler');
     }
 }
