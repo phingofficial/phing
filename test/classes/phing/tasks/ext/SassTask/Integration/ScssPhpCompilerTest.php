@@ -14,6 +14,10 @@ class ScssPhpCompilerTest extends TestCase
 
     public function setUp()
     {
+        if (!class_exists('\Leafo\ScssPhp\Compiler')) {
+            $this->markTestSkipped('ScssPhp not found');
+        }
+
         $this->compiler = new ScssPhpCompiler('compressed', 'UTF-8', false , '');
     }
 
