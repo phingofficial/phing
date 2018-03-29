@@ -812,6 +812,11 @@ class SassTask extends Task
         $this->useSass = StringHelper::booleanValue($value);
     }
 
+    public function getUseSass(): bool
+    {
+        return $this->useSass;
+    }
+
     /**
      * Whether to use the scssphp compiler.
      *
@@ -823,6 +828,11 @@ class SassTask extends Task
     public function setUseScssphp($value)
     {
         $this->useScssphp = StringHelper::booleanValue($value);
+    }
+
+    public function getUseScssPhp(): bool
+    {
+        return $this->useScssphp;
     }
 
     /**
@@ -871,66 +881,20 @@ class SassTask extends Task
             );
         }
 
-        // If both are set to be used, prefer sass over scssphp.
-        $lUseScssphp = false;
-        if ($this->useSass && $this->useScssphp) {
-            $fs = FileSystem::getFileSystem();
-            if ($fs->which($this->executable) === false) {
-                if (!$this->isScssPhpLoaded()) {
-                    $msg = sprintf(
-                        "%s not found. Install sass or leafo scssphp.",
-                        $this->executable
-                    );
-                    if ($this->failonerror) {
-                        throw new BuildException($msg);
-                    } else {
-                        $this->log($msg, Project::MSG_ERR);
-                        return;
-                    }
-                } else {
-                    $lUseScssphp = true;
-                }
+        try {
+            $compiler = (new SassTaskCompilerFactory(FileSystem::getFileSystem()))->prepareCompiler($this);
+        } catch (BuildException $exception) {
+            if ($this->failonerror) {
+                throw $exception;
             }
-        } elseif (!$this->useSass && !$this->useScssphp) {
-            $this->log(
-                "Neither sass nor scssphp are to be used.",
-                Project::MSG_ERR
-            );
+            $this->log($exception->getMessage());
             return;
-        } elseif ($this->useSass) {
-            $fs = FileSystem::getFileSystem();
-            if ($fs->which($this->executable) === false) {
-                $msg = sprintf(
-                    "%s not found. Install sass.",
-                    $this->executable
-                );
-                if ($this->failonerror) {
-                    throw new BuildException($msg);
-                } else {
-                    $this->log($msg, Project::MSG_ERR);
-                    return;
-                }
-            }
-        } elseif ($this->useScssphp) {
-            if (!$this->isScssPhpLoaded()) {
-                $msg = sprintf(
-                    "Install leafo scssphp."
-                );
-                if ($this->failonerror) {
-                    throw new BuildException($msg);
-                } else {
-                    $this->log($msg, Project::MSG_ERR);
-                    return;
-                }
-            } else {
-                $lUseScssphp = true;
-            }
         }
 
         if (count($this->filesets) > 0) {
-            $this->processFilesets($lUseScssphp);
+            $this->processFilesets($compiler);
         } elseif ($this->file !== null) {
-            $this->processFile($lUseScssphp);
+            $this->processFile($compiler);
         }
     }
 
@@ -945,7 +909,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function processFile($useScssphp)
+    public function processFile(SassTaskCompiler $compiler)
     {
         $this->log("Process file", Project::MSG_INFO);
         if (null === $this->output) {
@@ -970,7 +934,7 @@ class SassTask extends Task
             $output = $this->output;
         }
 
-        $this->compile($this->file, $output, $useScssphp);
+        $compiler->compile($this->file, $output, $this->failonerror);
     }
 
     /**
@@ -980,7 +944,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function processFilesets($useScssphp)
+    public function processFilesets(SassTaskCompiler $compiler): void
     {
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($this->project);
@@ -1012,30 +976,10 @@ class SassTask extends Task
                     || $this->extfilter === $this->pathInfo['extension'])
                 ) {
                     $outputFile = $this->buildOutputFilePath();
-                    $this->compile($fullFilePath, $outputFile, $useScssphp);
+                    $compiler->compile($fullFilePath, $outputFile, $this->failonerror);
                 }
             }
         }
-    }
-
-    /**
-     * Compile
-     *
-     * @param string  $fullFilePath Fully qualified filename to compile.
-     * @param string  $outputFile   Filename for generated css.
-     * @param boolean $lUseScssphp  Whether to use scssphp compiler.
-     *
-     * @return void
-     */
-    public function compile($fullFilePath, $outputFile, $lUseScssphp)
-    {
-        if (!$lUseScssphp) {
-            $compiler = new SassCompiler($this->executable, $this->flags);
-        } else {
-            $compiler = new ScssPhpCompiler($this->style, $this->encoding, $this->lineNumbers, $this->loadPath);
-        }
-
-        $compiler->compile($fullFilePath, $outputFile, $this->failonerror);
     }
 
     /**
@@ -1066,10 +1010,5 @@ class SassTask extends Task
         }
 
         return $outputFile;
-    }
-
-    private function isScssPhpLoaded(): bool
-    {
-        return class_exists('\Leafo\ScssPhp\Compiler');
     }
 }

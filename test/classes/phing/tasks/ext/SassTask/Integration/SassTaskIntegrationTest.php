@@ -22,23 +22,23 @@ class SassTaskIntegrationTest extends BuildFileTest
         $this->sassCleanUp(self::SASS_TEST_BASE, 'test.css');
     }
 
+    /**
+     * @expectedException BuildException
+     * @expectedExceptionMessage Neither sass nor scssphp are to be used.
+     */
     public function testNothing(): void
     {
         $this->executeTarget("nothing");
-        $this->assertInLogs(
-            "Neither sass nor scssphp are to be used.",
-            Project::MSG_ERR
-        );
     }
 
+    /**
+     * @expectedException BuildException
+     * @expectedExceptionMessage Neither sass nor scssphp are to be used.
+     */
     public function testSetStyleToUnrecognised(): void
     {
         $this->executeTarget("testSettingUnrecognisedStyle");
         $this->assertInLogs('Style compacted ignored', Project::MSG_INFO);
-        $this->assertInLogs(
-            "Neither sass nor scssphp are to be used.",
-            Project::MSG_ERR
-        );
     }
 
     public function testNoFilesetAndNoFileSet(): void
