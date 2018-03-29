@@ -1,6 +1,6 @@
 <?php
 
-class SassTaskIntegrationTest extends BuildFileTest
+class SassTaskAcceptanceTest extends BuildFileTest
 {
 
     use SassCleaner;
