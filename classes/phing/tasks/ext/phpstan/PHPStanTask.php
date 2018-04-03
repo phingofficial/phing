@@ -156,4 +156,9 @@ class PHPStanTask
     {
         return $this->namespace;
     }
+
+    public function setCommand(string $command): void
+    {
+        $this->command = $command;
+    }
 }
