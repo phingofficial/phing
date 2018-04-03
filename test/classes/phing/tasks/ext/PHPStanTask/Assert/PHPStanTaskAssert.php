@@ -26,7 +26,7 @@ class PHPStanTaskAssert extends Assert
         $this->assertNull($task->isANSI());
         $this->assertNull($task->isNoANSI());
         $this->assertNull($task->isNoInteraction());
-        $this->assertNull($task->getVerbose());
+        $this->assertNull($task->isVerbose());
     }
 
     private function assertAnalyseDefaults(PHPStanTask $task): void
@@ -38,12 +38,14 @@ class PHPStanTaskAssert extends Assert
         $this->assertNull($task->getAutoloadFile());
         $this->assertNull($task->getErrorFormat());
         $this->assertNull($task->getMemoryLimit());
+        $this->assertNull($task->getPaths());
     }
 
     private function assertHelpDefaults(PHPStanTask $task): void
     {
         $this->assertNull($task->getFormat());
         $this->assertNull($task->isRaw());
+        $this->assertNull($task->getCommandName());
     }
 
     private function assertListDefaults(PHPStanTask $task): void

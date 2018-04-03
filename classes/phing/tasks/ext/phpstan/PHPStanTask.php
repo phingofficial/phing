@@ -29,7 +29,7 @@ class PHPStanTask
     /** @var bool */
     private $noInteraction;
 
-    /** @var string */
+    /** @var bool */
     private $verbose;
 
     /** @var string */
@@ -61,6 +61,12 @@ class PHPStanTask
 
     /** @var string */
     private $namespace;
+
+    /** @var string Analyse command paths */
+    private $paths;
+
+    /** @var string Help command command name*/
+    private $commandName;
 
     public function getExecutable(): string
     {
@@ -102,7 +108,7 @@ class PHPStanTask
         return $this->noInteraction;
     }
 
-    public function getVerbose(): ?string
+    public function isVerbose(): ?bool
     {
         return $this->verbose;
     }
@@ -157,8 +163,118 @@ class PHPStanTask
         return $this->namespace;
     }
 
+    public function getPaths(): ?string
+    {
+        return $this->paths;
+    }
+
+    public function getCommandName(): ?string
+    {
+        return $this->commandName;
+    }
+
+    public function setExecutable(string $executable): void
+    {
+        $this->executable = $executable;
+    }
+
     public function setCommand(string $command): void
     {
         $this->command = $command;
+    }
+
+    public function setHelp(bool $help): void
+    {
+        $this->help = $help;
+    }
+
+    public function setQuiet(bool $quiet): void
+    {
+        $this->quiet = $quiet;
+    }
+
+    public function setVersion(bool $version): void
+    {
+        $this->version = $version;
+    }
+
+    public function setAnsi(bool $ansi): void
+    {
+        $this->ansi = $ansi;
+    }
+
+    public function setNoAnsi(bool $noAnsi): void
+    {
+        $this->noAnsi = $noAnsi;
+    }
+
+    public function setNoInteraction(bool $noInteraction): void
+    {
+        $this->noInteraction = $noInteraction;
+    }
+
+    public function setVerbose(bool $verbose): void
+    {
+        $this->verbose = $verbose;
+    }
+
+    public function setConfiguration(string $configuration): void
+    {
+        $this->configuration = $configuration;
+    }
+
+    public function setLevel(string $level): void
+    {
+        $this->level = $level;
+    }
+
+    public function setNoProgress(bool $noProgress): void
+    {
+        $this->noProgress = $noProgress;
+    }
+
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
+    }
+
+    public function setAutoloadFile(string $autoloadFile): void
+    {
+        $this->autoloadFile = $autoloadFile;
+    }
+
+    public function setErrorFormat(string $errorFormat): void
+    {
+        $this->errorFormat = $errorFormat;
+    }
+
+    public function setMemoryLimit(string $memoryLimit): void
+    {
+        $this->memoryLimit = $memoryLimit;
+    }
+
+    public function setFormat(string $format): void
+    {
+        $this->format = $format;
+    }
+
+    public function setRaw(bool $raw): void
+    {
+        $this->raw = $raw;
+    }
+
+    public function setNamespace(string $namespace): void
+    {
+        $this->namespace = $namespace;
+    }
+
+    public function setPaths(string $paths): void
+    {
+        $this->paths = $paths;
+    }
+
+    public function setCommandName(string $commandName): void
+    {
+        $this->commandName = $commandName;
     }
 }
