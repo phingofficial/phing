@@ -259,7 +259,7 @@ class XmlPropertyTask extends PropertyTask
         foreach ($node as $tag => $value) {
             $prefix = implode('.', $path);
 
-            if (!empty($prefix) > 0) {
+            if (!empty($prefix)) {
                 $prefix .= '.';
             }
 
