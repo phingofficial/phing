@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class PHPStanTask
+class PHPStanTask extends Task
 {
 
     /** @var string */
@@ -276,5 +276,19 @@ class PHPStanTask
     public function setCommandName(string $commandName): void
     {
         $this->commandName = $commandName;
+    }
+
+    public function main()
+    {
+        $commandBuilder = (new PHPStanCommandBuilderFactory())->createBuilder($this);
+        $command = $commandBuilder->build($this);
+
+        $this->log('Executing: ' . $command, Project::MSG_INFO);
+
+        $output = [];
+        $return = null;
+        exec($command, $output, $return);
+
+        return [$return, $output];
     }
 }
