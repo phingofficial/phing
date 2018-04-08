@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * The Xor condition type to exclusive or operations. This does not shortcut stuff.
  *

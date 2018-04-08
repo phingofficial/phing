@@ -24,8 +24,11 @@
  */
 class SvnListTaskTest extends AbstractSvnTaskTest
 {
+    use SvnTaskTestSkip;
+
     public function setUp()
     {
+        $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnListTest.xml');
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }

@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/HttpTask.php';
-
 /**
  * A HTTP request task.
  * Making an HTTP request and try to match the response against an provided

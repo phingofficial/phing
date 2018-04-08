@@ -29,6 +29,9 @@ class ExcludeZipTest extends BuildFileTest
 {
     public function setUp()
     {
+        if (!extension_loaded('zip')) {
+            $this->markTestSkipped("Zip extension is required");
+        }
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
     }
 

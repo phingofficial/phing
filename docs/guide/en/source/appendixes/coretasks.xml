@@ -3210,14 +3210,6 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>fallback</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>If a reference cannot be found within the current project scope this
-                            attribute specifies a fallback project scope.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
                         <entry><literal>logoutput</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Whether to log returned output as MSG_INFO instead of

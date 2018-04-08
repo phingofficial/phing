@@ -24,8 +24,11 @@
  */
 class SvnExportTaskTest extends AbstractSvnTaskTest
 {
+    use SvnTaskTestSkip;
+
     public function setUp()
     {
+        $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnExportTest.xml', false);
     }
 

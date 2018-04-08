@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildException.php';
-
 /**
  * This class throws errors for Expat, the XML processor.
  *

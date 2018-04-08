@@ -33,6 +33,10 @@ class PearPackageScannerTest extends BuildFileTest
 
     public function setUp()
     {
+        if (!class_exists('PEAR_Config')) {
+            $this->markTestSkipped("This test requires PEAR to be installed");
+        }
+
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped("PEAR tests do not run on HHVM");
         }
@@ -93,7 +97,7 @@ class PearPackageScannerTest extends BuildFileTest
         foreach ($arFiles as $file) {
             $fullpath = $basedir . $file;
             $this->assertTrue(
-                file_exists($fullpath),
+                file_exists($fullpath) || file_exists($fullpath . '.gz'),
                 'File does not exist: ' . $file . ' at ' . $fullpath
             );
         }

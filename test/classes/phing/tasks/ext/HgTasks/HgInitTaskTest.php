@@ -2,6 +2,8 @@
 
 class HgInitTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -15,8 +17,11 @@ class HgInitTaskTest extends BuildFileTest
     {
         $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
+
     public function testHgInit()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         $repository = PHING_TEST_BASE . '/tmp/hgtest';
         $HGdir = $repository . '/.hg';
         $this->executeTarget('hgInit');

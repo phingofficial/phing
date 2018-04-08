@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/BuildException.php';
-
 /**
  * Base class for those classes that can appear inside the build file
  * as stand alone data types.

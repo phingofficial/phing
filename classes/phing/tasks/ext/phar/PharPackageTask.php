@@ -334,6 +334,12 @@ class PharPackageTask extends MatchingTask
      */
     private function checkPreconditions()
     {
+        if (ini_get('phar.readonly') == "1") {
+            throw new BuildException(
+                "PharPackageTask require phar.readonly php.ini setting to be disabled"
+            );
+        }
+
         if (!extension_loaded('phar')) {
             throw new BuildException(
                 "PharPackageTask require either PHP 5.3 or better or the PECL's Phar extension"

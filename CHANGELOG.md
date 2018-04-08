@@ -2,11 +2,13 @@ P     H     I     N     G
 =========================
 
 
-Feb., 2018 - Phing 3.0.0 RC1
-----------------------------
+Mar. 23, 2018 - Phing 3.0.0 alpha 1
+-----------------------------------
 
 The following issues were closed in this release:
 
+ * fixed typos in error messages [\#888](https://api.github.com/repos/phingofficial/phing/issues/888)
+ * Refactor SassTask tests [\#882](https://api.github.com/repos/phingofficial/phing/issues/882)
  * The is_executable check in the Which method when run on Windows is unnecessary. [\#880](https://api.github.com/repos/phingofficial/phing/issues/880)
  * Fixed #712 [\#879](https://api.github.com/repos/phingofficial/phing/issues/879)
  * Added missing method DataType::getDataTypeName() [\#864](https://api.github.com/repos/phingofficial/phing/issues/864)
@@ -115,6 +117,8 @@ The following issues were closed in this release:
 
 The following pull requests were merged in this release:
 
+ * fixed typos in error messages [\#888](https://api.github.com/repos/phingofficial/phing/pulls/888)
+ * Refactor SassTask tests [\#882](https://api.github.com/repos/phingofficial/phing/pulls/882)
  * The is_executable check in the Which method when run on Windows is unnecessary. [\#880](https://api.github.com/repos/phingofficial/phing/pulls/880)
  * Fixed #712 [\#879](https://api.github.com/repos/phingofficial/phing/pulls/879)
  * Added missing method DataType::getDataTypeName() [\#864](https://api.github.com/repos/phingofficial/phing/pulls/864)

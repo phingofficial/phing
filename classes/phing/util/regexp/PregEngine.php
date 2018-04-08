@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/util/regexp/RegexpEngine.php';
-
 /**
  * PREG Regexp Engine.
  * Implements a regexp engine using PHP's preg_match(), preg_match_all(), and preg_replace() functions.

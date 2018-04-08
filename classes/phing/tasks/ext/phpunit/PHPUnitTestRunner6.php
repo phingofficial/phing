@@ -31,10 +31,13 @@ class PHPUnitTestRunner6 implements \PHPUnit\Framework\TestListener
     private $hasWarnings = false;
     private $hasIncomplete = false;
     private $hasSkipped = false;
+    private $hasRisky = false;
     private $lastErrorMessage = '';
     private $lastFailureMessage = '';
+    private $lastWarningMessage = '';
     private $lastIncompleteMessage = '';
     private $lastSkippedMessage = '';
+    private $lastRiskyMessage = '';
     private $formatters = [];
     private $listeners = [];
 
@@ -159,7 +162,10 @@ class PHPUnitTestRunner6 implements \PHPUnit\Framework\TestListener
         $this->checkResult($res);
     }
 
-    private function checkResult($res)
+    /**
+     * @param \PHPUnit\Framework\TestResult $res
+     */
+    private function checkResult(\PHPUnit\Framework\TestResult $res): void
     {
         if ($res->skippedCount() > 0) {
             $this->hasSkipped = true;
@@ -179,6 +185,10 @@ class PHPUnitTestRunner6 implements \PHPUnit\Framework\TestListener
 
         if ($res->errorCount() > 0) {
             $this->hasErrors = true;
+        }
+
+        if ($res->riskyCount() > 0) {
+            $this->hasRisky = true;
         }
     }
 
@@ -223,6 +233,14 @@ class PHPUnitTestRunner6 implements \PHPUnit\Framework\TestListener
     }
 
     /**
+     * @return boolean
+     */
+    public function hasRisky(): bool
+    {
+        return $this->hasRisky;
+    }
+
+    /**
      * @return string
      */
     public function getLastErrorMessage()
@@ -252,6 +270,22 @@ class PHPUnitTestRunner6 implements \PHPUnit\Framework\TestListener
     public function getLastSkippedMessage()
     {
         return $this->lastSkippedMessage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastWarningMessage()
+    {
+        return $this->lastWarningMessage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastRiskyMessage()
+    {
+        return $this->lastRiskyMessage;
     }
 
     /**
@@ -341,6 +375,7 @@ class PHPUnitTestRunner6 implements \PHPUnit\Framework\TestListener
      */
     public function addRiskyTest(PHPUnit\Framework\Test $test, Exception $e, $time)
     {
+        $this->lastRiskyMessage = $this->composeMessage('RISKY', $test, $e);
     }
 
     /**

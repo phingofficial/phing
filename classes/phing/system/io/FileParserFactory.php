@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -43,20 +42,16 @@ class FileParserFactory implements FileParserFactoryInterface
      */
     public function createParser($fileExtension)
     {
-        if (PHP_VERSION >= 5.3) {
-            switch ($fileExtension) {
-                case self::XML_FILE_EXTENSION:
-                    $fileParser = new XmlFileParser();
-                    break;
-                case self::YAML_FILE_EXTENSION:
-                case self::YAML_FILE_EXTENSION_LONG:
-                    $fileParser = new YamlFileParser();
-                    break;
-                default:
-                    $fileParser = new IniFileParser();
-            }
-        } else {
-            $fileParser = new IniFileParser();
+        switch ($fileExtension) {
+            case self::XML_FILE_EXTENSION:
+                $fileParser = new XmlFileParser();
+                break;
+            case self::YAMLFILEEXTENSION:
+            case self::YAMLFILEEXTENSIONLONG:
+                $fileParser = new YamlFileParser();
+                break;
+            default:
+                $fileParser = new IniFileParser();
         }
 
         return $fileParser;

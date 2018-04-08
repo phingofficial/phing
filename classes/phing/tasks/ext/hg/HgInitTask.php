@@ -12,11 +12,6 @@
  */
 
 /**
- * Pull in Base class.
- */
-require_once 'phing/tasks/ext/hg/HgBaseTask.php';
-
-/**
  * Integration/Wrapper for hg init
  *
  * @category Tasks
