@@ -168,24 +168,17 @@ class IntrospectionHelper
                             ) . "() may not take any parameters.");
                     }
 
-                    // Because PHP doesn't support return types, we are going to do
-                    // two things here to guess return type:
-                    //     1) parse comments for an explicit value
-                    //     2) if that fails, assume that the part of the method after "create"
-                    //    is the name of the return type (in many cases it is not)
-
-                    // This isn't super important -- i.e. we're not instantaiting classes
-                    // based on this information.  It's more just so that IntrospectionHelper
-                    // can keep track of all the nested types -- and provide more helpful
-                    // exception messages, etc.
-
-                    preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
-                    if (!empty($matches[1]) && class_exists($matches[1], false)) {
-                        $this->nestedTypes[$name] = $matches[1];
-                    } else {
-                        // assume that method createEquals() creates object of type "Equals"
-                        // (that example would be false, of course)
-                        $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                    if ($method->hasReturnType()) {
+                        $this->nestedTypes[$name] = $method->getReturnType();
+                    } else  {
+                        preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
+                        if (!empty($matches[1]) && class_exists($matches[1], false)) {
+                            $this->nestedTypes[$name] = $matches[1];
+                        } else {
+                            // assume that method createEquals() creates object of type "Equals"
+                            // (that example would be false, of course)
+                            $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                        }
                     }
 
                     $this->nestedCreators[$name] = $method;
