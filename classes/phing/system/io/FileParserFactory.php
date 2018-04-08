@@ -46,8 +46,8 @@ class FileParserFactory implements FileParserFactoryInterface
             case self::XML_FILE_EXTENSION:
                 $fileParser = new XmlFileParser();
                 break;
-            case self::YAMLFILEEXTENSION:
-            case self::YAMLFILEEXTENSIONLONG:
+            case self::YAML_FILE_EXTENSION:
+            case self::YAML_FILE_EXTENSION_LONG:
                 $fileParser = new YamlFileParser();
                 break;
             default:
