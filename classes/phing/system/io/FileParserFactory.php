@@ -26,15 +26,16 @@
  */
 class FileParserFactory implements FileParserFactoryInterface
 {
+    private const XML_FILE_EXTENSION = 'xml';
     /**
      * @const string
      */
-    const YAMLFILEEXTENSION = 'yml';
+    private const YAML_FILE_EXTENSION = 'yml';
 
     /**
    * @const string
    */
-    const YAMLFILEEXTENSIONLONG = 'yaml';
+    private const YAML_FILE_EXTENSION_LONG = 'yaml';
 
     /**
      * {@inheritDoc}
@@ -42,8 +43,11 @@ class FileParserFactory implements FileParserFactoryInterface
     public function createParser($fileExtension)
     {
         switch ($fileExtension) {
-            case self::YAMLFILEEXTENSION:
-            case self::YAMLFILEEXTENSIONLONG:
+            case self::XML_FILE_EXTENSION:
+                $fileParser = new XmlFileParser();
+                break;
+            case self::YAML_FILE_EXTENSION:
+            case self::YAML_FILE_EXTENSION_LONG:
                 $fileParser = new YamlFileParser();
                 break;
             default:
