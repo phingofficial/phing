@@ -136,8 +136,11 @@ class IntrospectionHelper
 
                 // There are a few "reserved" names that might look like attribute setters
                 // but should actually just be skipped.  (Note: this means you can't ever
-                // have an attribute named "location" or "tasktype" or a nested element named "task".)
-                if ($name === "setlocation" || $name === "settasktype" || $name === "addtask") {
+                // have an attribute named "location" or "tasktype" or a nested element container
+                // named "task" [TaskContainer::addTask(Task)].)
+                if ($name === "setlocation" || $name === "settasktype"
+                    || ('addtask' === $name && $this->isContainer() && count($method->getParameters()) === 1
+                    && Task::class === $method->getParameters()[0])) {
                     continue;
                 }
 
@@ -250,6 +253,15 @@ class IntrospectionHelper
                 }
             } // if $method->isPublic()
         } // foreach
+    }
+
+    /**
+     * Indicates whether the introspected class is a task container, supporting arbitrary nested tasks/types.
+     * @return bool true if the introspected class is a container; false otherwise.
+     */
+    public function isContainer()
+    {
+        return $this->bean->implementsInterface(TaskContainer::class);
     }
 
     /**
