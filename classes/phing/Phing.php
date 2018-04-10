@@ -18,7 +18,6 @@
  */
 
 use SebastianBergmann\Version;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
@@ -38,13 +37,13 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class Phing
 {
     /** Alias for phar file */
-    const PHAR_ALIAS = 'phing.phar';
+    public const PHAR_ALIAS = 'phing.phar';
 
     /** The default build file name */
-    const DEFAULT_BUILD_FILENAME = "build.xml";
-    const PHING_HOME = 'phing.home';
-    const PHP_VERSION = 'php.version';
-    const PHP_INTERPRETER = 'php.interpreter';
+    public const DEFAULT_BUILD_FILENAME = "build.xml";
+    public const PHING_HOME = 'phing.home';
+    public const PHP_VERSION = 'php.version';
+    public const PHP_INTERPRETER = 'php.interpreter';
 
     /** Our current message output status. Follows Project::MSG_XXX */
     private static $msgOutputLevel = Project::MSG_INFO;
@@ -172,7 +171,7 @@ class Phing
 
         if ($additionalUserProperties !== null) {
             foreach ($additionalUserProperties as $key => $value) {
-                $m->setDefinedProperty($key, $value);
+                $m::setDefinedProperty($key, $value);
             }
         }
 
@@ -347,13 +346,13 @@ class Phing
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
         if (in_array('-help', $args) || in_array('-h', $args)) {
-            $this->printUsage();
+            static::printUsage();
 
             return;
         }
 
         if (in_array('-version', $args) || in_array('-v', $args)) {
-            $this->printVersion();
+            static::printVersion();
 
             return;
         }
@@ -776,7 +775,7 @@ class Phing
     /**
      * @param string $version
      *
-     * @return int|void
+     * @return int
      *
      * @throws BuildException
      * @throws ConfigurationException
@@ -1161,7 +1160,7 @@ class Phing
             throw new ConfigurationException("Can't read version information file");
         }
 
-        $basePath = dirname(dirname(__DIR__));
+        $basePath = dirname(__DIR__, 2);
 
         $version = new Version($phingVersion, $basePath);
 
@@ -1190,7 +1189,6 @@ class Phing
         // find the target with the longest name
         $maxLength = 0;
         $targets = $project->getTargets();
-        $targetNames = array_keys($targets);
         $targetName = null;
         $targetDescription = null;
         $currentTarget = null;
@@ -1524,12 +1522,12 @@ class Phing
         }
 
         if (defined('PHP_BINARY')) {
-            self::setProperty('php.interpreter', PHP_BINARY);
+            self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
         } else {
-            self::setProperty('php.interpreter', getenv('PHP_COMMAND'));
+            self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
         }
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('php.version', PHP_VERSION);
+        self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
             self::setProperty('user.home', getenv('HOME'));
@@ -1745,7 +1743,6 @@ class Phing
     public static function getTimer()
     {
         if (self::$timer === null) {
-            include_once 'phing/system/util/Timer.php';
             self::$timer = new Timer();
         }
 
