@@ -294,6 +294,9 @@
                 <optional>
                     <attribute name="description"/>
                 </optional>
+                <optional>
+                    <attribute name="logskipped"/>
+                </optional>
             </interleave>
             <interleave>
                 <ref name="coretasks"/>
