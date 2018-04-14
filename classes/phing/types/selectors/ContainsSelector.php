@@ -152,8 +152,16 @@ class ContainsSelector extends BaseExtendSelector
     {
         $this->validate();
 
-        if ($file->isDirectory()) {
-            return true;
+        try {
+            if ($file->isDirectory() || $file->isLink()) {
+                return true;
+            }
+        } catch (IOException $ioe) {
+            if (OsCondition::isOS('windows')) {
+                return true;
+            }
+
+            throw new BuildException($ioe);
         }
 
         $userstr = $this->contains;
