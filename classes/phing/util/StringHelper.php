@@ -91,7 +91,7 @@ class StringHelper
 
         $test = strtolower(trim($s));
 
-        return (boolean) in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES));
+        return in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES), true);
     }
 
     /**

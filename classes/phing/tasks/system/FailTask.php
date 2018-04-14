@@ -219,7 +219,7 @@ class FailTask extends Task
     {
         $result = $this->nestedConditionPresent();
 
-        if ($result && $this->ifCondition !== null || $this->unlessCondition !== null) {
+        if ($result && ($this->ifCondition !== null || $this->unlessCondition !== null)) {
             throw new BuildException("Nested conditions not permitted in conjunction with if/unless attributes");
         }
 
