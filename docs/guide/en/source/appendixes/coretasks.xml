@@ -1892,6 +1892,24 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal>verbose</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>resolveexecutable</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>When this attribute is true, the name of the executable is resolved firstly against the
+                            project basedir and if that does not exist, against the execution directory if specified.
+                            On Unix systems, if you only want to allow execution of commands in the user's path,
+                            set this to false.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>searchpath</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>When this attribute is true, then system path environment variables will be searched when
+                            resolving the location of the executable.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -1967,6 +1985,59 @@ verbose="true" failonerror="false" /></programlisting>
                                         <entry><literal role="type">Boolean</literal></entry>
                                         <entry>Force escape for this attribute.</entry>
                                         <entry><literal>false</literal></entry>
+                                    </row>
+                                </tbody>
+                            </tgroup>
+                        </table>
+                    </para>
+                    <para><literal>env</literal>
+                        <para>It is possible to specify environment variables to pass to the system command via nested
+                            <literal>&lt;env></literal> elements.</para>
+                        <table>
+                            <title>Attributes</title>
+                            <tgroup cols="5">
+                                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                                <thead>
+                                    <row>
+                                        <entry>Name</entry>
+                                        <entry>Type</entry>
+                                        <entry>Description</entry>
+                                        <entry>Default</entry>
+                                        <entry>Required</entry>
+                                    </row>
+                                </thead>
+                                <tbody>
+                                    <row>
+                                        <entry><literal>key</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>The name of the environment variable.</entry>
+                                        <entry>n/a</entry>
+                                        <entry>Yes</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>value</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>The literal value for the environment variable.</entry>
+                                        <entry>n/a</entry>
+                                        <entry morerows="2">One of these</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>file</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>The value for the environment variable. Will be replaced by the absolute
+                                            filename of the file by Phing.</entry>
+                                        <entry>n/a</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>path</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>The value for a PATH like environment variable. You can use ; or : as
+                                            path separators and Phing will convert it to the platform's local conventions.</entry>
+                                        <entry>n/a</entry>
                                     </row>
                                 </tbody>
                             </tgroup>
