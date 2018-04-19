@@ -54,6 +54,9 @@
                 <optional>
                     <attribute name="phingVersion"/>
                 </optional>
+                <optional>
+                    <attribute name="strict"/>
+                </optional>
             </interleave>
 
             <interleave>
