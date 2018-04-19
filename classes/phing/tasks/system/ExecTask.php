@@ -128,20 +128,26 @@ class ExecTask extends Task
     protected $checkreturn = false;
 
     private $osFamily;
+    private $executable;
+    private $resolveExecutable = false;
+    private $searchPath = false;
+    private $env;
 
     /**
-     *
+     * @throws \BuildException
      */
     public function __construct()
     {
         parent::__construct();
         $this->commandline = new Commandline();
+        $this->env = new Environment();
     }
 
     /**
      * Main method: wraps execute() command.
      *
      * @return void
+     * @throws \BuildException
      */
     public function main()
     {
@@ -149,9 +155,15 @@ class ExecTask extends Task
             return;
         }
 
+        try {
+            $this->commandline->setExecutable($this->resolveExecutable($this->executable, $this->searchPath));
+        } catch (IOException | NullPointerException $e) {
+            throw new BuildException($e);
+        }
+
         $this->prepare();
         $this->buildCommand();
-        list($return, $output) = $this->executeCommand();
+        [$return, $output] = $this->executeCommand();
         $this->cleanup($return, $output);
     }
 
@@ -165,7 +177,7 @@ class ExecTask extends Task
     protected function prepare()
     {
         if ($this->dir === null) {
-            return;
+            $this->dir = $this->getProject()->getBasedir();
         }
 
         // expand any symbolic links first
@@ -354,6 +366,7 @@ class ExecTask extends Task
      */
     public function setExecutable($executable)
     {
+        $this->executable = $executable;
         $this->commandline->setExecutable((string) $executable);
     }
 
@@ -548,6 +561,16 @@ class ExecTask extends Task
     }
 
     /**
+     * Add an environment variable to the launched process.
+     *
+     * @param EnvVariable $var new environment variable.
+     */
+    public function addEnv(EnvVariable $var)
+    {
+        $this->env->addVariable($var);
+    }
+
+    /**
      * Creates a nested <arg> tag.
      *
      * @return CommandlineArgument Argument object
@@ -593,5 +616,117 @@ class ExecTask extends Task
             return false;
         }
         return true;
+    }
+
+    /**
+     * Set whether to attempt to resolve the executable to a file.
+     *
+     * @param bool $resolveExecutable if true, attempt to resolve the
+     * path of the executable.
+     */
+    public function setResolveExecutable($resolveExecutable): void
+    {
+        $this->resolveExecutable = $resolveExecutable;
+    }
+
+    /**
+     * Set whether to search nested, then
+     * system PATH environment variables for the executable.
+     *
+     * @param bool $searchPath if true, search PATHs.
+     */
+    public function setSearchPath($searchPath): void
+    {
+        $this->searchPath = $searchPath;
+    }
+
+    /**
+     * Indicates whether to attempt to resolve the executable to a
+     * file.
+     * @return bool the resolveExecutable flag
+     *
+     */
+    public function getResolveExecutable(): bool
+    {
+        return $this->resolveExecutable;
+    }
+
+    /**
+     * The method attempts to figure out where the executable is so that we can feed
+     * the full path. We first try basedir, then the exec dir, and then
+     * fallback to the straight executable name (i.e. on the path).
+     *
+     * @param string $exec the name of the executable.
+     * @param bool $mustSearchPath if true, the executable will be looked up in
+     * the PATH environment and the absolute path is returned.
+     *
+     * @return string the executable as a full path if it can be determined.
+     * @throws \BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function resolveExecutable($exec, $mustSearchPath): ?string
+    {
+        if (!$this->resolveExecutable) {
+            return $exec;
+        }
+        // try to find the executable
+        $executableFile = $this->getProject()->resolveFile($exec);
+        if ($executableFile->exists()) {
+            return $executableFile->getAbsolutePath();
+        }
+        // now try to resolve against the dir if given
+        if ($this->dir !== null) {
+            $executableFile = (new FileUtils())->resolveFile($this->dir, $exec);
+            if ($executableFile->exists()) {
+                return $executableFile->getAbsolutePath();
+            }
+        }
+        // couldn't find it - must be on path
+        if ($mustSearchPath) {
+            $p = null;
+            $environment = $this->env->getVariables();
+            if ($environment !== null) {
+                foreach ($environment as $env) {
+                    if ($this->isPath($env)) {
+                        $p = new Path($this->getProject(), $this->getPath($env));
+                        break;
+                    }
+                }
+            }
+            if ($p === null) {
+                $p = new Path($this->getProject(), getenv('path'));
+            }
+            if ($p !== null) {
+                $dirs = $p->listPaths();
+                foreach ($dirs as $dir) {
+                    $executableFile = (new FileUtils())->resolveFile(new PhingFile($dir), $exec);
+                    if ($executableFile->exists()) {
+                        return $executableFile->getAbsolutePath();
+                    }
+                }
+            }
+        }
+
+        return $exec;
+    }
+
+    private function isPath($line)
+    {
+        return StringHelper::startsWith('PATH=', $line) || StringHelper::startsWith('Path=', $line);
+    }
+
+    private function getPath($value)
+    {
+        if (is_string($value)) {
+            return StringHelper::substring($value, strlen("PATH="));
+        }
+
+        if (is_array($value)) {
+            $p = $value['PATH'];
+            return $p ?? $value['Path'];
+        }
+
+        throw new InvalidArgumentException('$value should be of type array or string.');
     }
 }
