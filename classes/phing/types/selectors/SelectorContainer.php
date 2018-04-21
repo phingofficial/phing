@@ -38,7 +38,7 @@ interface SelectorContainer
      *
      * @return int the number of selectors in this container
      */
-    public function selectorCount();
+    public function count();
 
     /**
      * Returns a *copy* of the set of selectors as an array.

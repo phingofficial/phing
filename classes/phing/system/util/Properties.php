@@ -111,7 +111,7 @@ class Properties
      *
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         foreach ($this->properties as $key => $item) {
@@ -147,7 +147,7 @@ class Properties
             if ($header !== null) {
                 $fw->write("# " . $header . PHP_EOL);
             }
-            $fw->write($this->toString());
+            $fw->write((string) $this);
             $fw->close();
         } catch (IOException $e) {
             throw new IOException("Error writing property file: " . $e->getMessage());

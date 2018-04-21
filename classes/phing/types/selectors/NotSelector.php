@@ -34,12 +34,12 @@ class NotSelector extends NoneSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{notselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 
@@ -52,7 +52,7 @@ class NotSelector extends NoneSelector
      */
     public function verifySettings()
     {
-        if ($this->selectorCount() != 1) {
+        if ($this->count() !== 1) {
             $this->setError(
                 "One and only one selector is allowed within the " .
                 "<not> tag"
