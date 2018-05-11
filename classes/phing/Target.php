@@ -314,17 +314,6 @@ class Target implements TaskContainer
      *
      * @return string The string representation of this target
      */
-    public function toString()
-    {
-        return (string) $this;
-    }
-
-    /**
-     * Returns a string representation of this target. In our case it
-     * simply returns the target name field
-     *
-     * @return string The string representation of this target
-     */
     public function __toString()
     {
         return (string) $this->name;

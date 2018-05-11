@@ -795,7 +795,7 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
+            $retHuman .= (string) $ret[$i] . " ";
         }
         $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
@@ -817,7 +817,7 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
+            $retHuman .= (string) $ret[$i] . " ";
         }
         $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
 
@@ -1083,7 +1083,7 @@ class Project
      * @param $message
      * @param $priority
      */
-    public function fireMessageLoggedEvent($event, $message, $priority)
+    public function fireMessageLoggedEvent(BuildEvent $event, $message, $priority)
     {
         $event->setMessage($message, $priority);
         foreach ($this->listeners as $listener) {

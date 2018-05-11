@@ -90,7 +90,7 @@ class SizeSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{sizeselector value: ";
         $buf .= $this->sizelimit;

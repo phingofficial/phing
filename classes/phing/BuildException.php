@@ -121,6 +121,6 @@ class BuildException extends RuntimeException
     public function setLocation(Location $loc)
     {
         $this->location = $loc;
-        $this->message = $loc->toString() . ': ' . $this->message;
+        $this->message = (string) $loc . ': ' . $this->message;
     }
 }
