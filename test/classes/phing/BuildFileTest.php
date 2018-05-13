@@ -344,14 +344,22 @@ abstract class BuildFileTest extends TestCase
             $this->executeTarget($target);
         } catch (BuildException $ex) {
             $this->buildException = $ex;
-            if ((null != $contains) && (false === strpos($ex->getMessage(), $contains))) {
+            $found = false;
+            while ($ex) {
+                if (false !== strpos($ex->getMessage(), $contains)) {
+                    $found = true;
+                }
+                $ex = $ex->getPrevious();
+            };
+
+            if (!$found) {
                 $this->fail(
                     "Should throw BuildException because '" . $cause . "' with message containing '" . $contains . "' (actual message '" . $ex->getMessage(
                     ) . "' instead)"
                 );
             }
-            $this->assertEquals(1, 1); // increase number of positive assertions
 
+            $this->assertEquals(1, 1); // increase number of positive assertions
             return;
         }
         $this->fail("Should throw BuildException because: " . $cause);

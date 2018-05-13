@@ -359,7 +359,7 @@ class IntrospectionHelper
             );
             $method->invoke($element, $value);
         } catch (Exception $exc) {
-            throw new BuildException($exc);
+            throw new BuildException($exc->getMessage(), $exc);
         }
     }
 
@@ -381,7 +381,7 @@ class IntrospectionHelper
             $method = $this->methodAddText;
             $method->invoke($element, $text);
         } catch (Exception $exc) {
-            throw new BuildException($exc);
+            throw new BuildException($exc->getMessage(), $exc);
         }
     }
 
@@ -413,7 +413,7 @@ class IntrospectionHelper
                 );
                 $nestedElement = $method->invoke($element);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif (isset($this->nestedCreators[$addMethod])) {
             $method = $this->nestedCreators[$addMethod];
@@ -450,7 +450,7 @@ class IntrospectionHelper
 
                 $method->invoke($element, $nestedElement);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif ($this->bean->implementsInterface("CustomChildCreator")) {
             $method = $this->bean->getMethod('customChildCreator');
@@ -458,7 +458,7 @@ class IntrospectionHelper
             try {
                 $nestedElement = $method->invoke($element, strtolower($elementName), $project);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } else {
             //try the add method for the element's parent class
@@ -479,7 +479,7 @@ class IntrospectionHelper
                         $nestedElement = new $elementClass();
                         $method->invoke($element, $nestedElement);
                     } catch (Exception $exc) {
-                        throw new BuildException($exc);
+                        throw new BuildException($exc->getMessage(), $exc);
                     }
                 }
             }
@@ -524,7 +524,7 @@ class IntrospectionHelper
                 );
                 $method->invoke($element, $child);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         }
     }
