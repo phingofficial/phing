@@ -103,6 +103,6 @@ class BuildException extends RuntimeException
 
     public function __toString()
     {
-        return $this->location->toString() . ' ' . $this->getMessage();
+        return (string) $this->location . ' ' . $this->getMessage();
     }
 }

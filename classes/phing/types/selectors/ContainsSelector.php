@@ -41,7 +41,7 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{containsselector text: ";
         $buf .= $this->contains;

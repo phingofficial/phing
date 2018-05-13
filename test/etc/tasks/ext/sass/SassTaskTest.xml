@@ -18,8 +18,10 @@
   </target>
 
   <target name="testItCompilesWithScssPhp">
-    <sass outputpath="." style="compacted" useScssphp="yes">
-      <fileset dir="."/>
+    <sass outputpath="." style="compacted" useScssphp="yes" useSass="no">
+      <fileset dir=".">
+        <include name="*.scss"/>
+      </fileset>
     </sass>
   </target>
 

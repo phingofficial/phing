@@ -58,11 +58,7 @@ class DispatchUtils
                     $c = new ReflectionClass($dispatchable);
                     $actionM = $c->getMethod($mName);
                     $o = $actionM->invoke($dispatchable);
-                    if (method_exists($o, 'toString')) {
-                        $methodName = trim($o->toString());
-                    } else {
-                        $methodName = trim((string) $o);
-                    }
+                    $methodName = trim((string) $o);
                     if (empty($methodName)) {
                         throw new ReflectionException();
                     }

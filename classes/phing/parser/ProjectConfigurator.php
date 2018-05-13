@@ -32,6 +32,7 @@ class ProjectConfigurator
 {
     const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
+    /** @var Project $project */
     public $project;
     public $locator;
 
@@ -56,13 +57,16 @@ class ProjectConfigurator
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
      *
-     * @param  Project $project  the Project instance this configurator should use
-     * @param  PhingFile $buildFile  the buildfile object the parser should use
+     * @param  Project $project the Project instance this configurator should use
+     * @param  PhingFile $buildFile the buildfile object the parser should use
+     *
+     * @throws \IOException
+     * @throws \BuildException
+     * @throws NullPointerException
      */
-    public static function configureProject(Project $project, PhingFile $buildFile)
+    public static function configureProject(Project $project, PhingFile $buildFile): void
     {
-        $pc = new ProjectConfigurator($project, $buildFile);
-        $pc->parse();
+        (new self($project, $buildFile))->parse();
     }
 
     /**
@@ -70,10 +74,12 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param  Project $project     the Project instance this configurator should use
+     * @param  Project $project the Project instance this configurator should use
      * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function __construct(Project $project, PhingFile $buildFile)
+    private function __construct(Project $project, PhingFile $buildFile)
     {
         $this->project = $project;
         $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
