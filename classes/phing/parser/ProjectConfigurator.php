@@ -325,4 +325,30 @@ class ProjectConfigurator
             $this->project->addReference($attr['id'], $target);
         }
     }
+
+    /**
+     * Add location to build exception.
+     * @param BuildException $ex the build exception, if the build exception
+     *           does not include
+     * @param Location $newLocation the location of the calling task (may be null)
+     * @return BuildException a new build exception based in the build exception with
+     *         location set to newLocation. If the original exception
+     *         did not have a location, just return the build exception
+     */
+    public static function addLocationToBuildException(BuildException $ex, Location $newLocation)
+    {
+        if ($ex->getLocation() === null || $ex->getMessage() === null) {
+            return $ex;
+        }
+        $errorMessage = sprintf("The following error occurred while executing this line:%s%s %s%s", PHP_EOL, $ex->getLocation(), $ex->getMessage(), PHP_EOL);
+        if ($ex instanceof ExitStatusException) {
+            $exitStatus = $ex->getCode();
+            if ($newLocation === null) {
+                return new ExitStatusException($errorMessage, $exitStatus);
+            }
+            return new ExitStatusException($errorMessage, $exitStatus, $newLocation);
+        }
+
+        return new BuildException($errorMessage, $ex, $newLocation);
+    }
 }
