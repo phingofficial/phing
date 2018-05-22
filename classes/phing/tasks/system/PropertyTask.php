@@ -255,7 +255,7 @@ class PropertyTask extends Task
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         return (string) $this->value;
     }
@@ -351,8 +351,6 @@ class PropertyTask extends Task
 
                 if ($referencedObject instanceof Exception) {
                     $reference = $referencedObject->getMessage();
-                } elseif (method_exists($referencedObject, 'toString')) {
-                    $reference = $referencedObject->toString();
                 } else {
                     $reference = (string) $referencedObject;
                 }
@@ -364,8 +362,6 @@ class PropertyTask extends Task
 
                     if ($referencedObject instanceof Exception) {
                         $reference = $referencedObject->getMessage();
-                    } elseif (method_exists($referencedObject, 'toString')) {
-                        $reference = $referencedObject->toString();
                     } else {
                         $reference = (string) $referencedObject;
                     }

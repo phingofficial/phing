@@ -32,12 +32,12 @@ class OrSelector extends BaseSelectorContainer
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{orselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 

@@ -183,20 +183,18 @@ class Phing
                 $exitCode = 0;
             } catch (ExitStatusException $ese) {
                 $exitCode = $ese->getCode();
-                if ($exitCode != 0) {
+                if ($exitCode !== 0) {
                     self::handleLogfile();
                     throw $ese;
                 }
             }
         } catch (BuildException $exc) {
             // avoid printing output twice: self::printMessage($exc);
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+        } catch (Throwable $exc) {
             self::printMessage($exc);
+        } finally {
+            self::handleLogfile();
         }
-
-        // everything fine, shutdown
-        self::handleLogfile();
         self::statusExit($exitCode);
     }
 
@@ -221,7 +219,7 @@ class Phing
             self::initializeOutputStreams();
         }
         if (self::getMsgOutputLevel() >= Project::MSG_VERBOSE) {
-            self::$err->write($t->__toString() . PHP_EOL);
+            self::$err->write((string) $t . PHP_EOL);
         } else {
             self::$err->write($t->getMessage() . PHP_EOL);
         }
