@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,6 +26,20 @@
  */
 class OsCondition implements Condition
 {
+    public const FAMILY_WINDOWS = 'windows';
+    public const FAMILY_9X = 'win9x';
+    public const FAMILY_NT = 'winnt';
+    public const FAMILY_OS2 = 'os/2';
+    public const FAMILY_NETWARE = 'netware';
+    public const FAMILY_DOS = 'dos';
+    public const FAMILY_MAC = 'mac';
+    public const FAMILY_TANDEM = 'tandem';
+    public const FAMILY_UNIX = 'unix';
+    public const FAMILY_ZOS = 'z/os';
+    public const FAMILY_OS400 = 'os/400';
+
+    private const DARWIN = 'darwin';
+
     private $family;
 
     /**
@@ -56,27 +69,36 @@ class OsCondition implements Condition
     /**
      * @param string $family
      * @return bool
+     * @throws \BuildException
      */
     public static function isOS($family)
     {
-        $osName = strtolower(Phing::getProperty("os.name"));
+        $osName = strtolower(Phing::getProperty('os.name'));
 
         if ($family !== null) {
-            if ($family === "windows") {
-                return StringHelper::startsWith("win", $osName);
+            if ($family === self::FAMILY_WINDOWS) {
+                return StringHelper::startsWith('win', $osName);
             }
 
-            if ($family === "mac") {
-                return (strpos($osName, "mac") !== false || strpos($osName, "darwin") !== false);
+            if ($family === self::FAMILY_MAC) {
+                return (strpos($osName, self::FAMILY_MAC) !== false || strpos($osName, self::DARWIN) !== false);
             }
 
-            if ($family === ("unix")) {
+            if ($family === self::FAMILY_NETWARE) {
+                return (strpos($osName, self::FAMILY_NETWARE) !== false);
+            }
+
+            if ($family === self::FAMILY_DOS) {
+                return PATH_SEPARATOR === ';' && self::isFamily(self::FAMILY_NETWARE);
+            }
+
+            if ($family === 'unix') {
                 return (
-                    StringHelper::endsWith("ix", $osName) ||
-                    StringHelper::endsWith("ux", $osName) ||
-                    StringHelper::endsWith("bsd", $osName) ||
-                    StringHelper::startsWith("sunos", $osName) ||
-                    StringHelper::startsWith("darwin", $osName)
+                    StringHelper::endsWith('ix', $osName) ||
+                    StringHelper::endsWith('ux', $osName) ||
+                    StringHelper::endsWith('bsd', $osName) ||
+                    StringHelper::startsWith('sunos', $osName) ||
+                    StringHelper::startsWith(self::DARWIN, $osName)
                 );
             }
             throw new BuildException("Don't know how to detect os family '" . $family . "'");
