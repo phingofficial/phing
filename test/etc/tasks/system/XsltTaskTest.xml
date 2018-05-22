@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XsltTaskTest" default="tearDown" basedir=".">
+
+    <target name="tearDown">
+        <delete file="xslt-task-test.xml"/>
+        <delete file="xslt-task-test.xsl"/>
+        <delete file="xslt-task-test-result.html"/>
+    </target>
+
+    <target name="setUp">
+        <echo file="xslt-task-test.xml"><![CDATA[
+<html>
+    <body>
+        <h1>Foo Bar</h1>
+        <br>
+    </body>
+</html>]]>
+        </echo>
+        <echo file="xslt-task-test.xsl"><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:template match="node() | @*">
+            <xsl:copy>
+                <xsl:apply-templates select="node() | @*"/>
+            </xsl:copy>
+        </xsl:template>
+        <xsl:template match="h1">
+        <xsl:copy>
+            <xsl:apply-templates select="@*"/>
+            <xsl:attribute name="id">
+                <xsl:value-of select="text()"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </xsl:copy>
+    </xsl:template>
+</xsl:stylesheet>]]>
+        </echo>
+    </target>
+
+    <target name="testHtmlButNotValidXml" depends="setUp">
+        <xslt file="xslt-task-test.xml"
+              tofile="xslt-task-test-result.html"
+              style="xslt-task-test.xsl"
+              html="true"
+        />
+    </target>
+
+    <target name="testNotValidXmlFails" depends="setUp">
+        <xslt file="xslt-task-test.xml"
+              tofile="xslt-task-test-result.html"
+              style="xslt-task-test.xsl"
+        />
+    </target>
+
+</project>
