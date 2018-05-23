@@ -222,6 +222,7 @@
                 <ref name="attrib"/>
                 <ref name="available"/>
                 <ref name="basename"/>
+                <ref name="blockfor"/>
                 <ref name="chmod"/>
                 <ref name="chown"/>
                 <ref name="condition"/>
@@ -1163,6 +1164,56 @@
                     <attribute name="suffix"/>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="blockfor">
+        <element name="blockfor">
+            <interleave>
+                <attribute name="maxwait">
+                    <data type="int"/>
+                </attribute>
+                <optional>
+                    <attribute name="maxwaitunit" a:defaultValue="millisecond">
+                        <choice>
+                            <value>week</value>
+                            <value>day</value>
+                            <value>hour</value>
+                            <value>minute</value>
+                            <value>second</value>
+                            <value>millisecond</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <attribute name="checkevery">
+                    <data type="int"/>
+                </attribute>
+                <optional>
+                    <attribute name="checkeveryunit" a:defaultValue="millisecond">
+                        <choice>
+                            <value>week</value>
+                            <value>day</value>
+                            <value>hour</value>
+                            <value>minute</value>
+                            <value>second</value>
+                            <value>millisecond</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="timeoutproperty"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="not"/>
+                <ref name="equals"/>
+                <ref name="or"/>
+                <ref name="and"/>
+                <ref name="isfalse"/>
+                <ref name="istrue"/>
+                <ref name="isset"/>
+                <ref name="contains_cond"/>
+            </zeroOrMore>
         </element>
     </define>
 
