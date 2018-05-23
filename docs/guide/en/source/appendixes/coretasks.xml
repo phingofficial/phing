@@ -4832,6 +4832,13 @@ Includes the Type named "CustomProject" and makes it available by
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>html</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to work on HTML or XML.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>

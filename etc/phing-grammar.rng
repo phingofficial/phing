@@ -2374,6 +2374,11 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="html" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <choice>
                         <attribute name="tstamp">
                             <data type="boolean"/>
