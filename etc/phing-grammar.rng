@@ -684,7 +684,10 @@
                         <data type="IDREF"/>
                     </attribute>
                     <group>
-                        <attribute name="dir"/>
+                        <choice>
+                            <attribute name="dir"/>
+                            <attribute name="file"/>
+                        </choice>
                         <optional>
                             <choice>
                                 <attribute name="id">
