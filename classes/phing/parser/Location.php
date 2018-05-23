@@ -83,7 +83,7 @@ class Location
      *
      * @return string the string representation of this Location object
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->fileName !== null) {
@@ -95,13 +95,5 @@ class Location
         }
 
         return (string) $buf;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toString();
     }
 }

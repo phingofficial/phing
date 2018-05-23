@@ -54,7 +54,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{containsregexpselector expression: ";
         $buf .= $this->userProvidedExpression;

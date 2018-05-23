@@ -37,7 +37,7 @@ class DataType extends ProjectComponent
      *
      * @var Reference $ref
      */
-    public $ref = null;
+    private $ref;
 
     /**
      * Are we sure we don't hold circular references?

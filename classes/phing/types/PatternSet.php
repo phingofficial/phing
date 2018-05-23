@@ -413,7 +413,7 @@ class PatternSet extends DataType
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
 
         // We can't compile includeList into array because, toString() does
@@ -427,7 +427,7 @@ class PatternSet extends DataType
         } else {
             $includes = "";
             foreach ($this->includeList as $ne) {
-                $includes .= $ne->toString() . ",";
+                $includes .= (string) $ne . ",";
             }
             $includes = rtrim($includes, ",");
         }
@@ -437,7 +437,7 @@ class PatternSet extends DataType
         } else {
             $excludes = "";
             foreach ($this->excludeList as $ne) {
-                $excludes .= $ne->toString() . ",";
+                $excludes .= (string) $ne . ",";
             }
             $excludes = rtrim($excludes, ",");
         }

@@ -38,7 +38,7 @@ class TypeSelector extends BaseExtendSelector
     /**
      * @return string A string describing this object
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{typeselector type: " . $this->type . "}";
 

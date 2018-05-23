@@ -59,7 +59,7 @@ class PropertyValue
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         return $this->getValue();
     }

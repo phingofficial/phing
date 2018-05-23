@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PHPStanTaskTest" default="testRun">
+
+    <target name="testRun">
+        <phpstan/>
+    </target>
+
+    <target name="testExecutableChange">
+        <phpstan executable="/non/existing/path/to/phpstan"/>
+    </target>
+
+    <target name="testInvalidCommand">
+        <phpstan command="anyInvalid"/>
+    </target>
+
+    <target name="testAnalyseOptions">
+        <phpstan
+            command="analyse"
+            configuration="anyConfiguration"
+            level="anyLevel"
+            noProgress="true"
+            debug="true"
+            autoloadFile="anyAutoloadFile"
+            errorFormat="anyErrorFormat"
+            memoryLimit="anyMemoryLimit"
+            paths="path1 path2"
+        />
+    </target>
+
+    <target name="testListOptions">
+        <phpstan
+            command="list"
+            format="anyFormat"
+            raw="true"
+            namespace="anyNamespace"
+        />
+    </target>
+
+    <target name="testHelpOptions">
+        <phpstan
+            command="help"
+            format="anyFormat"
+            raw="true"
+            commandName="anyCommand"
+        />
+    </target>
+
+    <target name="testCommonOptions">
+        <phpstan
+            help="true"
+            quiet="true"
+            version="true"
+            ansi="true"
+            noAnsi="true"
+            noInteraction="true"
+            verbose="true"
+        />
+    </target>
+
+</project>

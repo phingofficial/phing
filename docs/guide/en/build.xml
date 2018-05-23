@@ -55,8 +55,7 @@
     <property name="xmllint" value="/usr/bin/xmllint"/>
     <property name="fop" value="/usr/bin/fop"/>
     <!-- DocBook script to help produce ePub output format -->
-    <property name="dbtoepub"
-        value="/usr/share/xml/docbook/stylesheet/nwalsh5/current/epub/bin/dbtoepub"/>
+    <property name="dbtoepub" value="/usr/bin/dbtoepub"/>
 
     <!-- 
         Run the "tidy" program to clean up the produced html.

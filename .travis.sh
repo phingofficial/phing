@@ -13,7 +13,7 @@
     pear -qq channel-update pear.php.net
     pear -qq channel-discover pear.phing.info
     echo "... OK"
-    
+
     echo -e "\nInstalling composer packages ... "
     composer selfupdate --quiet
     composer install -o --no-progress --prefer-dist
@@ -27,7 +27,10 @@
 
     echo "=== TESTING PHING ==="
     cd test
-    ../bin/phing
+    ../bin/phing -Dtests.codecoverage=true
 
+    if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      bash <(curl -s https://codecov.io/bash)
+    fi
 
 #------------------------------------------------------- eof

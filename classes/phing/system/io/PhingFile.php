@@ -1101,16 +1101,6 @@ class PhingFile
     }
 
     /**
-     * Backwards compatibility - @see __toString()
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->__toString();
-    }
-
-    /**
      * Return string representation of the object
      *
      * @return string

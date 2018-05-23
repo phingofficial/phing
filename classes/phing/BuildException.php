@@ -34,12 +34,6 @@ class BuildException extends RuntimeException
     protected $location;
 
     /**
-     * The nested "cause" exception.
-     * @var Exception
-     */
-    protected $cause;
-
-    /**
      * Construct a BuildException.
      * Supported signatures:
      *         throw new BuildException($causeExc);
@@ -63,44 +57,28 @@ class BuildException extends RuntimeException
             $loc = $p3;
             $msg = $p1;
         } elseif ($p2 !== null) {
-            if ($p2 instanceof Exception) {
+            if ($p2 instanceof Throwable) {
                 $cause = $p2;
                 $msg = $p1;
             } elseif ($p2 instanceof Location) {
                 $loc = $p2;
-                if ($p1 instanceof Exception) {
+                if ($p1 instanceof Throwable) {
                     $cause = $p1;
                 } else {
                     $msg = $p1;
                 }
             }
-        } elseif ($p1 instanceof Exception) {
+        } elseif ($p1 instanceof Throwable) {
             $cause = $p1;
         } else {
             $msg = $p1;
         }
 
-        parent::__construct($msg);
-
-        if ($cause !== null) {
-            $this->cause = $cause;
-            $this->message .= "\n" . $this->getTraceAsString();
-            $this->message .= "\n\nPrevious " . (string) $cause;
-        }
-
         if ($loc !== null) {
             $this->setLocation($loc);
         }
-    }
 
-    /**
-     * Gets the cause exception.
-     *
-     * @return Exception
-     */
-    public function getCause()
-    {
-        return $this->cause;
+        parent::__construct($msg, 0, $cause);
     }
 
     /**
@@ -121,6 +99,10 @@ class BuildException extends RuntimeException
     public function setLocation(Location $loc)
     {
         $this->location = $loc;
-        $this->message = $loc->toString() . ': ' . $this->message;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->location . ' ' . $this->getMessage();
     }
 }

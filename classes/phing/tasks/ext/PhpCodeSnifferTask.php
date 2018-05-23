@@ -527,7 +527,7 @@ class PhpCodeSnifferTask extends Task
             require_once 'phing/tasks/ext/phpcs/Reports_PhingRemoveFromCache.php';
             PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache($this->cache);
             // add a fake report to remove from cache
-            $_SERVER['argv'][] = '--report-phingRemoveFromCache=';
+            $_SERVER['argv'][] = '--report-phingRemoveFromCache';
             $_SERVER['argc']++;
         }
 
