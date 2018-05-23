@@ -245,6 +245,7 @@
                 <ref name="phingcall"/>
                 <ref name="phingversion"/>
                 <ref name="php"/>
+                <ref name="pathconvert"/>
                 <ref name="property"/>
                 <ref name="record"/>
                 <ref name="reflexive"/>
@@ -1895,6 +1896,44 @@
             <zeroOrMore>
                 <ref name="param"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="pathconvert">
+        <element name="pathconvert">
+            <interleave>
+                <optional>
+                    <attribute name="targetos"/>
+                </optional>
+                <optional>
+                    <attribute name="dirsep"/>
+                </optional>
+                <optional>
+                    <attribute name="pathsep"/>
+                </optional>
+                <optional>
+                    <attribute name="property"/>
+                </optional>
+                <optional>
+                    <attribute name="refid"/>
+                </optional>
+                <optional>
+                    <attribute name="setonempty"/>
+                </optional>
+            </interleave>
+            <interleave>
+                <optional>
+                    <element name="map">
+                        <interleave>
+                            <attribute name="from"/>
+                            <attribute name="to"/>
+                        </interleave>
+                    </element>
+                </optional>
+                <optional>
+                    <ref name="mapper"/>
+                </optional>
+            </interleave>
         </element>
     </define>
 
