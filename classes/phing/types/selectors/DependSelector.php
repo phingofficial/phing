@@ -38,7 +38,7 @@ class DependSelector extends BaseSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{dependselector targetdir: ";
         if ($this->targetdir === null) {
@@ -50,10 +50,10 @@ class DependSelector extends BaseSelector
         $buf .= $this->granularity;
         if ($this->map !== null) {
             $buf .= " mapper: ";
-            $buf .= $this->map->toString();
+            $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
             $buf .= " mapper: ";
-            $buf .= $this->mapperElement->toString();
+            $buf .= (string) $this->mapperElement;
         }
         $buf .= "}";
 

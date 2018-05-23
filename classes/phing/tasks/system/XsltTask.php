@@ -46,7 +46,7 @@ class XsltTask extends CopyTask
     public function init()
     {
         $xf = new XsltFilter();
-        $chain = new FilterChain();
+        $chain = new FilterChain($this->getProject());
         $chain->addXsltFilter($xf);
         $this->addFilterChain($chain);
         $this->xsltFilter = $xf;
@@ -61,6 +61,14 @@ class XsltTask extends CopyTask
         $this->log("Doing XSLT transformation using stylesheet " . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
         $this->xsltFilter->setParams($this->parameters);
         parent::main();
+    }
+
+    /**
+     * @param bool $isHtml
+     */
+    public function setHtml(bool $isHtml)
+    {
+        $this->xsltFilter->setHtml($isHtml);
     }
 
     /**

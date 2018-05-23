@@ -55,7 +55,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{dateselector date: ";
         $buf .= $this->dateTime;
