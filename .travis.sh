@@ -29,6 +29,12 @@
     echo "=== TESTING PHING ==="
     cd test
     ../bin/phing -Dtests.codecoverage=true
+    cd ..
+    
+    echo "=== BUILDING PHING ==="
+    cd build
+    ../bin/phing
+    cd ..
 
     if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       bash <(curl -s https://codecov.io/bash)
