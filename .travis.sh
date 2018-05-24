@@ -5,6 +5,7 @@
 #
 # Target system: travis-ci
 #-----------------------------------------------------------
+    set -e
 
     pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
 
