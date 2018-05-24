@@ -15,8 +15,13 @@ php:
   - 7.0
   - 7.1
   - hhvm
- 
+
 matrix:
+  include:
+    - php: 5.2
+      dist: precise
+    - php: 5.3
+      dist: precise
   allow_failures:
     - php: 5.2
   fast_finish: true
@@ -29,4 +34,3 @@ script: ./.travis.sh
 
 notifications:
   slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH
-  
