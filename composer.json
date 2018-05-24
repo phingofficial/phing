@@ -19,8 +19,7 @@
         "irc": "irc://irc.freenode.net/phing"
     },
     "require": {
-        "php": ">=5.2.0",
-        "symfony/yaml": "^3.1 || ^4.0"
+        "php": ">=5.2.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
@@ -40,7 +39,8 @@
         "sebastian/git": "~1.0",
         "squizlabs/php_codesniffer": "~2.2",
         "mikey179/vfsStream": "^1.6",
-        "simpletest/simpletest": "^1.1"
+        "simpletest/simpletest": "^1.1",
+        "symfony/yaml": "^2.8 || ^3.1 || ^4.0"
     },
     "autoload": {
         "classmap": ["classes/phing/"]
