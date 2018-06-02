@@ -45,6 +45,33 @@
         </para>
     </sect1>
 
+    <sect1 role="loggerdef" xml:id="AnsiColorLogger">
+        <title>AnsiColorLogger</title>
+        <para>The AnsiColorLogger adds color to the standard Phing output by prefixing and suffixing ANSI color code
+            escape sequences to it. It is just an extension of DefaultLogger and hence provides all features that
+            DefaultLogger does.</para>
+        <para>AnsiColorLogger differentiates the output by assigning different colors depending upon the type of the
+            message.</para>
+        <para>If used with the -logfile option, the output file will contain all the necessary escape codes to display
+            the text in colorized mode when displayed in the console using applications like cat, more, etc.</para>
+        <para>This is designed to work on terminals that support ANSI color codes.</para>
+        <para>If the user wishes to override the default colors with custom ones, a file containing zero or more of the
+            custom color key-value pairs must be created. The recognized keys and their default values are shown below:</para>
+        <programlisting>AnsiColorLogger.ERROR_COLOR=01;31
+AnsiColorLogger.WARNING_COLOR=01;35
+AnsiColorLogger.INFO_COLOR=00;36
+AnsiColorLogger.VERBOSE_COLOR=00;32
+AnsiColorLogger.DEBUG_COLOR=01;34</programlisting>
+        <para>Each key takes as value a color combination defined as "Attribute;Foreground;Background".
+            In the above example, background value has not been used.</para>
+        <para>This file must be specified as the value of a system variable named phing.logger.defaults and passed
+            as an argument using the -D option to the php command that invokes the Phing application.
+            An easy way to achieve this is to add -Dphing.logger.defaults=/path/to/your/file</para>
+        <para>
+            <literal>phing -logger "phing.listener.AnsiColorLogger"</literal>
+        </para>
+    </sect1>
+
     <sect1 role="loggerdef" xml:id="MailLogger">
         <title>MailLogger</title>
         <para>The MailLogger captures all output logged through DefaultLogger
@@ -217,6 +244,11 @@
             success/failure message also includes the time that the build
             completed.
         </para>
+    </sect1>
+
+    <sect1 role="loggerdef" xml:id="SilentLogger">
+        <title>SilentLogger</title>
+        <para>A logger which logs nothing but build failure and what task might output.</para>
     </sect1>
 
 </appendix>
