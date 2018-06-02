@@ -1,8 +1,0 @@
-<!--  Core build file to run ant with the supplied build script from the webhelp distribution -->
-<project>
-  <property name="input-xml" value="source/master.xml"/>
-  <property name="input-images-dirs" value=""/>
-  <property name="output-dir" value="output/webhelp"/>
-  <import file="/usr/share/xml/docbook/stylesheet/nwalsh5/current/webhelp/build.xml"/>
-</project>
-

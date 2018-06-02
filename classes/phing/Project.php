@@ -19,15 +19,6 @@
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/TaskAdapter.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/BuildEvent.php';
-include_once 'phing/types/PropertyValue.php';
-include_once 'phing/ComponentHelper.php';
-include_once 'phing/PropertyHelper.php';
-
 /**
  *  The Phing project class. Represents a completely configured Phing project.
  *  The class defines the project and all tasks/targets. It also contains
@@ -804,7 +795,7 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
+            $retHuman .= (string) $ret[$i] . " ";
         }
         $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
@@ -826,7 +817,7 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
+            $retHuman .= (string) $ret[$i] . " ";
         }
         $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
 
@@ -1092,7 +1083,7 @@ class Project
      * @param $message
      * @param $priority
      */
-    public function fireMessageLoggedEvent($event, $message, $priority)
+    public function fireMessageLoggedEvent(BuildEvent $event, $message, $priority)
     {
         $event->setMessage($message, $priority);
         foreach ($this->listeners as $listener) {

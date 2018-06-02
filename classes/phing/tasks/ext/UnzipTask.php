@@ -18,15 +18,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ExtractBaseTask.php';
-require_once 'phing/system/io/FileSystem.php';
-
 /**
  * Extracts one or several zip archives using ZipArchive class.
  *
  * @author  Joakim Bodin <joakim.bodin+phing@gmail.com>
  * @author  George Miroshnikov <laggy.luke@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class UnzipTask extends ExtractBaseTask

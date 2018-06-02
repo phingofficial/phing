@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,24 +18,18 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
  * Based on the DocBlox Task
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Id$
  * @since     2.4.10
  * @package   phing.tasks.ext.phpdoc
  */
 class PhpDocumentor2Task extends Task
 {
-    /**
-     * List of filesets
-     * @var FileSet[]
-     */
-    private $filesets = [];
+    use FileSetAware;
 
     /**
      * Destination/target directory
@@ -78,17 +71,6 @@ class PhpDocumentor2Task extends Task
      * @var \phpDocumentor\Application
      */
     private $app = null;
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Sets destination/target directory

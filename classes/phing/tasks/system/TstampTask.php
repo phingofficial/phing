@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Sets properties to the current time, or offsets from the current time.
@@ -28,7 +26,6 @@ require_once 'phing/Task.php';
  * Based on Ant's Tstamp task.
  *
  * @author   Michiel Rook <mrook@php.net>
- * @version  $Id$
  * @package  phing.tasks.system
  * @since    2.2.0
  */

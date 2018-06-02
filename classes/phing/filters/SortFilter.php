@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * <p>
  * Sort a file before and/or after the file.

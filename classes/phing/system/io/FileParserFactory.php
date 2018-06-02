@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/IniFileParser.php';
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/YamlFileParser.php';
 
 /**
  * The factory to create fileParsers based on extension name from
@@ -31,32 +26,32 @@ include_once 'phing/system/io/YamlFileParser.php';
  */
 class FileParserFactory implements FileParserFactoryInterface
 {
+    private const XML_FILE_EXTENSION = 'xml';
     /**
      * @const string
      */
-    const YAMLFILEEXTENSION = 'yml';
+    private const YAML_FILE_EXTENSION = 'yml';
 
     /**
    * @const string
    */
-    const YAMLFILEEXTENSIONLONG = 'yaml';
+    private const YAML_FILE_EXTENSION_LONG = 'yaml';
 
     /**
      * {@inheritDoc}
      */
     public function createParser($fileExtension)
     {
-        if (phpversion() >= 5.3) {
-            switch ($fileExtension) {
-                case self::YAMLFILEEXTENSION:
-                case self::YAMLFILEEXTENSIONLONG:
-                    $fileParser = new YamlFileParser();
-                    break;
-                default:
-                    $fileParser = new IniFileParser();
-            }
-        } else {
-            $fileParser = new IniFileParser();
+        switch ($fileExtension) {
+            case self::XML_FILE_EXTENSION:
+                $fileParser = new XmlFileParser();
+                break;
+            case self::YAML_FILE_EXTENSION:
+            case self::YAML_FILE_EXTENSION_LONG:
+                $fileParser = new YamlFileParser();
+                break;
+            default:
+                $fileParser = new IniFileParser();
         }
 
         return $fileParser;

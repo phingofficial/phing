@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +24,6 @@ require_once 'phing/system/io/PhingFile.php';
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
@@ -155,18 +153,34 @@ class FormatterElement
             return $this->formatter;
         }
 
-        if ($this->type === "summary") {
-            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type === "clover") {
-            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type === "xml") {
-            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type === "plain") {
-            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
-        } elseif ($this->type === "crap4j") {
-            $this->formatter = new Crap4jPHPUnitResultFormatter($this->parent);
+        if (class_exists('PHPUnit_Runner_Version')) {
+            if ($this->type === "summary") {
+                $this->formatter = new SummaryPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "clover") {
+                $this->formatter = new CloverPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "xml") {
+                $this->formatter = new XMLPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "plain") {
+                $this->formatter = new PlainPHPUnitResultFormatter5($this->parent);
+            } elseif ($this->type === "crap4j") {
+                $this->formatter = new Crap4JPHPUnitResultFormatter5($this->parent);
+            } else {
+                throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            }
         } else {
-            throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            if ($this->type === "summary") {
+                $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "clover") {
+                $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "xml") {
+                $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "plain") {
+                $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
+            } elseif ($this->type === "crap4j") {
+                $this->formatter = new Crap4JPHPUnitResultFormatter($this->parent);
+            } else {
+                throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            }
         }
 
         return $this->formatter;

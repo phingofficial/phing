@@ -55,26 +55,36 @@ class Reference
         return $this->refid;
     }
 
+    public function setProject(Project $project)
+    {
+        $this->project = $project;
+    }
+
+    /**
+     * Get the associated project, if any; may be null.
+     * @return Project the associated project
+     */
+    public function getProject(): \Project
+    {
+        return $this->project;
+    }
+    
     /**
      * returns reference to object in references container of project
      *
-     * @param Project $project
+     * @param Project|null $fallback
      *
-     * @throws BuildException
-     *
-     * @return Reference
+     * @return object
      */
-    public function getReferencedObject(Project $project = null)
+    public function getReferencedObject(Project $fallback = null)
     {
-        if ($project !== null) {
-            $this->project = $project;
-        }
+        $project = $fallback ?? $this->project;
+
         if ($this->refid === null) {
             throw new BuildException("No reference specified");
         }
-        $refs = $project->getReferences();
-        $o = @$refs[$this->refid];
-        if (!is_object($o)) {
+        $o = $project->getReference($this->refid);
+        if ($o === null) {
             throw new BuildException("Reference {$this->refid} not found.");
         }
 
@@ -84,10 +94,5 @@ class Reference
     public function __toString()
     {
         return $this->refid;
-    }
-
-    private function setProject($project)
-    {
-        $this->project = $project;
     }
 }

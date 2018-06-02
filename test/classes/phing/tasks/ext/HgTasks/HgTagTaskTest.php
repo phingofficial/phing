@@ -1,9 +1,9 @@
 <?php
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/hg/HgTagTask.php';
 
 class HgTagTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -41,6 +41,8 @@ class HgTagTaskTest extends BuildFileTest
 
     public function testRevision()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         $this->expectBuildExceptionContaining(
             "testRevision",
             "testRevision",

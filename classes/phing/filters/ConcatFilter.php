@@ -17,12 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/FileReader.php';
-
 /**
  * Concats a file before and/or after the file.
  *
@@ -93,7 +87,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      *                     during reading
      * @throws BuildException
      */
-    public function read($len = 0)
+    public function read($len = null)
     {
         // do the "singleton" initialization
         if (!$this->getInitialized()) {

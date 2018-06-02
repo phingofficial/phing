@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
-
 /**
  * This selector has a collection of other selectors, all of which have to
  * select a file in order for this selector to select it.
@@ -35,12 +32,12 @@ class AndSelector extends BaseSelectorContainer
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{andselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 

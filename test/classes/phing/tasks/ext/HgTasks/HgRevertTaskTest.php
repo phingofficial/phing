@@ -1,11 +1,13 @@
 <?php
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/hg/HgRevertTask.php';
 
 class HgRevertTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
             PHING_TEST_BASE

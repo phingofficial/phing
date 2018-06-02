@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,11 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/system/io/FileParserInterface.php';
-include_once 'phing/system/io/IniFileParser.php';
-
 /**
  * Convenience class for reading and writing property files.
  *
@@ -32,7 +26,6 @@ include_once 'phing/system/io/IniFileParser.php';
  *        - Add support for arrays (separated by ',')
  *
  * @package    phing.system.util
- * @version $Id$
  */
 class Properties
 {
@@ -118,7 +111,7 @@ class Properties
      *
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         foreach ($this->properties as $key => $item) {
@@ -154,7 +147,7 @@ class Properties
             if ($header !== null) {
                 $fw->write("# " . $header . PHP_EOL);
             }
-            $fw->write($this->toString());
+            $fw->write((string) $this);
             $fw->close();
         } catch (IOException $e) {
             throw new IOException("Error writing property file: " . $e->getMessage());

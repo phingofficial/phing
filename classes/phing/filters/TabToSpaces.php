@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +19,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-require_once 'phing/filters/ChainableReader.php';
-
 /**
  * Converts tabs to spaces.
  *
@@ -38,7 +34,6 @@ require_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
@@ -138,7 +133,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::TAB_LENGTH_KEY === $params[$i]->getName()) {
                     $this->tabLength = $params[$i]->getValue();
                     break;

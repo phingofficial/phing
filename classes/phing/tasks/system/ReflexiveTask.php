@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.
@@ -46,23 +45,11 @@ require_once 'phing/Task.php';
  */
 class ReflexiveTask extends Task
 {
+    use FileSetAware;
+    use FilterChainAware;
 
     /** Single file to process. */
     private $file;
-
-    /**
-     * Any filesets that should be processed.
-     *
-     * @var FileSet[]
-     */
-    private $filesets = [];
-
-    /**
-     * Any filters to be applied before append happens.
-     *
-     * @var FilterChain[]
-     */
-    private $filterChains = [];
 
     /** Alias for setFrom()
      * @param PhingFile $f
@@ -70,29 +57,6 @@ class ReflexiveTask extends Task
     public function setFile(PhingFile $f)
     {
         $this->file = $f;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /** Append the file(s). */

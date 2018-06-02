@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-
 /**
  * The target handler class.
  *
@@ -29,7 +26,6 @@ require_once 'phing/parser/AbstractHandler.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright  2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class TargetHandler extends AbstractHandler
@@ -145,7 +141,7 @@ class TargetHandler extends AbstractHandler
         $project = $this->configurator->project;
 
         // check to see if this target is a dup within the same file
-        if (isset($this->context->getCurrentTargets[$name])) {
+        if (isset($this->context->getCurrentTargets()[$name])) {
             throw new BuildException("Duplicate target: $name",
                 $this->parser->getLocation());
         }

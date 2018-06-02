@@ -82,9 +82,9 @@
             </then>
 
             <elseif>
-                <contains string="${version}" substring="snapshot"/>
+                <contains string="${version}" substring="alpha"/>
                 <then>
-                    <property name="notes" value="This is a snapshot release that might not be functional." />
+                    <property name="notes" value="This is the latest alpha release of Phing." />
                     <property name="state" value="alpha"/>
                 </then>
             </elseif>
@@ -156,10 +156,10 @@
     -->
     <target name="composer"
         depends="setproperties">
+        <mkdir dir="${build.full.dir}/test/classes"/>
 		<composer command="install" composer="composer" php="">
 			<arg value="--working-dir=${build.full.dir}"/>
 			<arg value="-o"/>
-			<arg value="--no-dev"/>
 			<arg value="--prefer-dist"/>
 		</composer>
     </target>
@@ -200,14 +200,18 @@
                 </element>
             </metadata>
         </pharpackage>
-        <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
         <phingcall target="generate-hash">
             <param name="filename" value="${build.full.dir}.phar"/>
         </phingcall>
-        <phingcall target="generate-hash">
-            <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
-        </phingcall>
-
+        <if>
+            <equals arg1="${state}" arg2="stable"/>
+            <then>
+                <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
+                <phingcall target="generate-hash">
+                    <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
+                </phingcall>
+            </then>
+        </if>
     </target>
 
     <!--

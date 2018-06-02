@@ -1,7 +1,5 @@
 <?php
-
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,15 +18,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-
 /**
  * An abstract representation of file and directory pathnames.
  *
  * @package phing.util
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  */
 class DataStore
 {

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,21 +19,16 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/FileParserFactory.php';
-
 /**
  * Task for setting properties in buildfiles.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class PropertyTask extends Task
 {
+    use FilterChainAware;
 
     /**
      * @var string name of the property
@@ -77,11 +71,6 @@ class PropertyTask extends Task
     /** Whether property should be treated as "user" property. */
     protected $userProperty = false;
 
-    /**
-     * @var FilterChain[] All filterchain objects assigned to this task
-     */
-    protected $filterChains = [];
-
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
 
@@ -100,6 +89,7 @@ class PropertyTask extends Task
      */
     public function __construct(FileParserFactoryInterface $fileParserFactory = null)
     {
+        parent::__construct();
         $this->fileParserFactory = $fileParserFactory != null ? $fileParserFactory : new FileParserFactory();
     }
 
@@ -265,7 +255,7 @@ class PropertyTask extends Task
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         return (string) $this->value;
     }
@@ -281,18 +271,6 @@ class PropertyTask extends Task
     public function getFallback()
     {
         return $this->fallback;
-    }
-
-    /**
-     * Creates a filterchain
-     *
-     * @return object The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 
     /**
@@ -319,6 +297,14 @@ class PropertyTask extends Task
     public function setQuiet($bool)
     {
         $this->quiet = $bool;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getQuiet(): bool
+    {
+        return $this->quiet;
     }
 
     /**
@@ -365,8 +351,6 @@ class PropertyTask extends Task
 
                 if ($referencedObject instanceof Exception) {
                     $reference = $referencedObject->getMessage();
-                } elseif (method_exists($referencedObject, 'toString')) {
-                    $reference = $referencedObject->toString();
                 } else {
                     $reference = (string) $referencedObject;
                 }
@@ -378,8 +362,6 @@ class PropertyTask extends Task
 
                     if ($referencedObject instanceof Exception) {
                         $reference = $referencedObject->getMessage();
-                    } elseif (method_exists($referencedObject, 'toString')) {
-                        $reference = $referencedObject->toString();
                     } else {
                         $reference = (string) $referencedObject;
                     }

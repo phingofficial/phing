@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,7 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/Task.php';
 
 /**
  * fileHash
@@ -27,7 +25,6 @@ require_once 'phing/Task.php';
  * value in a property
  *
  * @author      Johan Persson <johan162@gmail.com>
- * @version     $Id$
  * @package     phing.tasks.ext
  */
 class FileSizeTask extends Task

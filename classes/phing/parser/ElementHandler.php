@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-require_once 'phing/UnknownElement.php';
-
 /**
  * The generic element handler class.
  *
@@ -31,7 +27,6 @@ require_once 'phing/UnknownElement.php';
  *
  * @author    Michiel Rook <mrook@php.net>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class ElementHandler extends AbstractHandler

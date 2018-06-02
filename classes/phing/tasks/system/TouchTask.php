@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,40 +18,32 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/util/DirectoryScanner.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/IOException.php';
-
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.
  *
  * If the file to touch doesn't exist, an empty one is created.
  *
- * @version $Id$
  * @package phing.tasks.system
  */
 class TouchTask extends Task
 {
+    use FileListAware;
+    use FileSetAware;
+
     /** @var PhingFile $file */
     private $file;
     private $millis = -1;
     private $dateTime;
-    private $filesets = [];
     private $fileUtils;
     private $mkdirs = false;
     private $verbose = true;
-
-    /** @var FileList[] $filelists */
-    private $filelists = [];
 
     /**
      *
      */
     public function __construct()
     {
+        parent::__construct();
         $this->fileUtils = new FileUtils();
     }
 
@@ -112,30 +103,9 @@ class TouchTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileList(FileList $fl)
-    {
-        $this->filelists[] = $fl;
-    }
-
-    /**
      * Execute the touch operation.
      * @throws BuildException
+     * @throws IOException
      */
     public function main()
     {
@@ -175,8 +145,8 @@ class TouchTask extends Task
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
-                    throw new BuildException("Error creating new file " . $this->file->__toString(
-                        ), $ioe, $this->getLocation());
+                    throw new BuildException("Error creating new file " . $this->file->__toString(),
+                        $ioe, $this->getLocation());
                 }
             }
         }

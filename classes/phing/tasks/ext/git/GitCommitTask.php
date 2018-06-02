@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
  * Wrapper around git-commit
  *
@@ -31,6 +28,8 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  */
 class GitCommitTask extends GitBaseTask
 {
+    use FileSetAware;
+
     /**
      * @var boolean
      */
@@ -40,11 +39,6 @@ class GitCommitTask extends GitBaseTask
      * @var string
      */
     private $message;
-
-    /**
-     * @var FileSet[]
-     */
-    private $filesets = [];
 
     /**
      * The main entry point for the task
@@ -144,16 +138,5 @@ class GitCommitTask extends GitBaseTask
     public function setMessage($message)
     {
         $this->message = $message;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

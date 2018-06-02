@@ -17,16 +17,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Creates a zip archive using PHP ZipArchive extension/
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.1.0
  */
@@ -246,7 +240,7 @@ class ZipTask extends MatchingTask
     {
         /** @var FileSet $fs */
         foreach ($this->filesets as $fs) {
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
             if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
                 return false;
             }
@@ -268,10 +262,10 @@ class ZipTask extends MatchingTask
             $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
                 $fs->getDir($this->project);
 
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
 
-            for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                $f = new PhingFile($fsBasedir, $files[$i]);
+            foreach ($files as $file) {
+                $f = new PhingFile($fsBasedir, $file);
 
                 $pathInZip = $this->prefix
                     . $f->getPathWithoutBase($fsBasedir);

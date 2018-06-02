@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests for PharPackageTask
  *
@@ -31,6 +29,10 @@ class PharPackageTaskTest extends BuildFileTest
 {
     public function setUp()
     {
+        if (ini_get('phar.readonly') == "1") {
+            $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
+        }
+
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped("PHAR tests do not run on HHVM");
         }
@@ -44,7 +46,7 @@ class PharPackageTaskTest extends BuildFileTest
     public function testOpenSSLSignature()
     {
         // Generate a private key on the fly.
-        $passphrase = uniqid();
+        $passphrase = uniqid('', true);
         $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
         file_put_contents($passfile, $passphrase);
         $pkey = openssl_pkey_new();

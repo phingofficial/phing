@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/BuildException.php';
-
 /**
  * This task sets a property to the name of a temporary file.
  * Unlike {@link PhingFile::createTempFile()}, this task does not (by default) actually create the
@@ -177,6 +173,6 @@ class TempFile extends Task
             $this->deleteOnExit,
             $this->createFile
         );
-        $this->getProject()->setNewProperty($this->property, $tmpFile->toString());
+        $this->getProject()->setNewProperty($this->property, (string) $tmpFile);
     }
 }

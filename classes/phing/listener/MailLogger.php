@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,17 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Uses PEAR Mail package to send the build log to one or
  * more recipients.
  *
  * @author     Michiel Rook <mrook@php.net>
  * @package    phing.listener
- * @version    $Id$
  */
 class MailLogger extends DefaultLogger
 {
@@ -45,8 +39,6 @@ class MailLogger extends DefaultLogger
     public function __construct()
     {
         parent::__construct();
-
-        @require_once 'Mail.php';
 
         if (!class_exists('Mail')) {
             throw new BuildException('Need the PEAR Mail package to send logs');

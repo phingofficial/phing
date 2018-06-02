@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,10 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/types/IterableFileSet.php';
-require_once 'phing/tasks/ext/phar/PharMetadata.php';
 
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
@@ -111,7 +106,7 @@ class PharPackageTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new IterableFileSet();
+        $this->fileset = new FileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -339,6 +334,12 @@ class PharPackageTask extends MatchingTask
      */
     private function checkPreconditions()
     {
+        if (ini_get('phar.readonly') == "1") {
+            throw new BuildException(
+                "PharPackageTask require phar.readonly php.ini setting to be disabled"
+            );
+        }
+
         if (!extension_loaded('phar')) {
             throw new BuildException(
                 "PharPackageTask require either PHP 5.3 or better or the PECL's Phar extension"
@@ -395,13 +396,13 @@ class PharPackageTask extends MatchingTask
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             if (!empty($this->cliStubFile)) {
-                $cliStubFile = $this->cliStubFile->getPathWithoutBase($this->baseDirectory);
+                $cliStubFile = str_replace('\\', '/', $this->cliStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $cliStubFile = null;
             }
 
             if (!empty($this->webStubFile)) {
-                $webStubFile = $this->webStubFile->getPathWithoutBase($this->baseDirectory);
+                $webStubFile = str_replace('\\', '/', $this->webStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $webStubFile = null;
             }

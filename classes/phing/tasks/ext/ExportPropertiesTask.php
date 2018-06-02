@@ -1,7 +1,5 @@
 <?php
-
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,14 +18,11 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-
 /**
  * Saves currently defined properties into a specified file
  *
  * @author Andrei Serdeliuc
  * @extends Task
- * @version   $Id$
  * @package   phing.tasks.ext
  */
 class ExportPropertiesTask extends Task

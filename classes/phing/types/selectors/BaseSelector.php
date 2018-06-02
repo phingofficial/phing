@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/FileSelector.php';
-
 /**
  * A convenience base class that you can subclass Selectors from. It
  * provides some helpful common behaviour. Note that there is no need
@@ -76,7 +74,7 @@ abstract class BaseSelector extends DataType implements FileSelector
     public function verifySettings()
     {
         if ($this->isReference()) {
-            $this->getCheckedRef(get_class(), StringHelper::unqualify(get_class()))->verifySettings();
+            $this->getCheckedRef(__CLASS__, StringHelper::unqualify(__CLASS__))->verifySettings();
         }
     }
 

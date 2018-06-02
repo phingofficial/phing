@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Exec Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ExecTaskTest extends BuildFileTest
@@ -212,14 +208,25 @@ class ExecTaskTest extends BuildFileTest
     public function testDoNotExecuteOnWrongOs()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Not found in unknownos');
+        $this->assertInLogs('not found in the specified list of valid OSes: unknownos');
         $this->assertNotContains(
             'this should not be executed',
             $this->getOutput()
         );
     }
 
+    public function testDoNotExecuteOnWrongOsFamily()
+    {
+        $this->expectBuildException(__FUNCTION__, "Don't know how to detect os family 'unknownos'");
+    }
+
     public function testExecuteOnCorrectOs()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('this should be executed');
+    }
+
+    public function testExecuteOnCorrectOsFamily()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('this should be executed');
@@ -362,5 +369,11 @@ class ExecTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('outval', 'abc$b3!SB');
+    }
+
+    public function testNestedEnv()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));
     }
 }

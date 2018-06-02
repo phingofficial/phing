@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,12 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitCheckoutTask.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class GitCheckoutTaskTest extends BuildFileTest
@@ -55,7 +50,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutExistingBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: Branch co-branch set up to track remote branch master from origin.');
+        $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track remote branch master from origin');
         // @todo - actually make sure that Ebihara updates code to return (not
         // echo output from $command->execute()
         //$this->assertInLogs("Switched to branch 'test'");
@@ -94,7 +89,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutMerge');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: Branch co-branch set up to track remote branch master from origin.');
+        $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track remote branch master from origin');
         $this->assertInLogs('git-branch output: Deleted branch master');
     }
 
@@ -103,8 +98,8 @@ class GitCheckoutTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutCreateBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
-        $this->assertInLogs(
-            'git-checkout output: Branch co-create-branch set up to track remote branch master from origin.'
+        $this->assertLogLineContaining(
+            'git-checkout output: Branch co-create-branch set up to track remote branch master from origin'
         );
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');
     }

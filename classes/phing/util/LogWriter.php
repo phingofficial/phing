@@ -1,7 +1,5 @@
 <?php
-
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,14 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/Task.php';
-
 /**
  * Extends the Writer class to output messages to Phing's log
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.util
  */
 class LogWriter extends Writer

@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/HttpTask.php';
-
 /**
  * A HTTP request task.
  * Making an HTTP request and try to match the response against an provided
@@ -28,7 +25,6 @@ require_once 'phing/tasks/ext/HttpTask.php';
  *
  * @package phing.tasks.ext
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  * @since   2.4.1
  */
 class HttpRequestTask extends HttpTask

@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,32 +18,20 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
-
 /**
  * Transforms information in a code coverage database to XML
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
 class CoverageReportTask extends Task
 {
+    use ClasspathAware;
+
     private $outfile = "coverage.xml";
 
     private $transformers = [];
-
-    /**
-     * the classpath to use (optional)
-     * @var Path
-     */
-    private $classpath = null;
 
     /** the path to the GeSHi library (optional) */
     private $geshipath = "";
@@ -56,28 +43,6 @@ class CoverageReportTask extends Task
      * @var DOMDocument
      */
     private $doc;
-
-    /**
-     * @param Path $classpath
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * @return null|Path
-     */
-    public function createClasspath()
-    {
-        $this->classpath = new Path();
-
-        return $this->classpath;
-    }
 
     /**
      * @param $path

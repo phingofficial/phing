@@ -3,7 +3,6 @@
 
 /**
  * Shell wrapper for Phing
- * $Id: 81628c7f07d7d9326534273f3fdae511e5c1f9d6 $
  */
 
 // turn off html errors

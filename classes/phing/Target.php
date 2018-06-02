@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,15 +18,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/TaskContainer.php';
-
 /**
  * The Target component. Carries all required target data. Implements the
  * abstract class {@link TaskContainer}
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @see       TaskContainer
  * @package   phing
  */
@@ -310,17 +306,6 @@ class Target implements TaskContainer
         }
 
         return $this->logSkipped;
-    }
-
-    /**
-     * Returns a string representation of this target. In our case it
-     * simply returns the target name field
-     *
-     * @return string The string representation of this target
-     */
-    public function toString()
-    {
-        return (string) $this;
     }
 
     /**

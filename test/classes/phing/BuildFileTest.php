@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +19,6 @@
  */
 
 use PHPUnit\Framework\TestCase;
-
-require_once 'phing/BuildListener.php';
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A BuildFileTest is a TestCase which executes targets from a Phing buildfile
@@ -82,6 +78,37 @@ abstract class BuildFileTest extends TestCase
         $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
 
+    /**
+     * Asserts that the log buffer contains specified message at specified priority.
+     * @param string $expected Message subsctring
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
+     */
+    protected function assertLogLineContaining($expected, $priority = null, $errormsg = "Expected to find a log line that starts with '%s': %s")
+    {
+        $found = false;
+        foreach ($this->logBuffer as $log) {
+            if (false !== strpos($log['message'], $expected)) {
+                $this->assertEquals(1, 1); // increase number of positive assertions
+                if ($priority === null) {
+                    return;
+                } elseif ($priority !== null) {
+                    if ($priority >= $log['priority']) {
+                        $found = true;
+                    }
+                }
+
+            }
+            if ($found) {
+                return;
+            }
+        }
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
+    }
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
      * @param string $expected Message subsctring
@@ -317,14 +344,22 @@ abstract class BuildFileTest extends TestCase
             $this->executeTarget($target);
         } catch (BuildException $ex) {
             $this->buildException = $ex;
-            if ((null != $contains) && (false === strpos($ex->getMessage(), $contains))) {
+            $found = false;
+            while ($ex) {
+                if (false !== strpos($ex->getMessage(), $contains)) {
+                    $found = true;
+                }
+                $ex = $ex->getPrevious();
+            };
+
+            if (!$found) {
                 $this->fail(
                     "Should throw BuildException because '" . $cause . "' with message containing '" . $contains . "' (actual message '" . $ex->getMessage(
                     ) . "' instead)"
                 );
             }
-            $this->assertEquals(1, 1); // increase number of positive assertions
 
+            $this->assertEquals(1, 1); // increase number of positive assertions
             return;
         }
         $this->fail("Should throw BuildException because: " . $cause);
@@ -450,7 +485,6 @@ abstract class BuildFileTest extends TestCase
                             $returndate = ceil($timediff / 86400) . " days ago";
                         } else {
                             if ($timediff < 1209600) {
-                                $returndate = "1 week ago.";
                                 $returndate = ceil($timediff / 86400) . " days ago";
                             } else {
                                 if ($timediff < 2629744) {

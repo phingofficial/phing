@@ -1,9 +1,9 @@
 <?php
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/hg/HgUpdateTask.php';
 
 class HgUpdateTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -29,6 +29,8 @@ class HgUpdateTaskTest extends BuildFileTest
 
     public function testWrongRepository()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         $this->expectBuildExceptionContaining(
             'wrongRepository',
             'wrong repository',

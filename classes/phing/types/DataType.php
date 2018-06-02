@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/BuildException.php';
-
 /**
  * Base class for those classes that can appear inside the build file
  * as stand alone data types.
@@ -40,7 +37,7 @@ class DataType extends ProjectComponent
      *
      * @var Reference $ref
      */
-    public $ref = null;
+    private $ref;
 
     /**
      * Are we sure we don't hold circular references?
@@ -109,7 +106,7 @@ class DataType extends ProjectComponent
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p)
+    public function dieOnCircularReference(&$stk, Project $p = null)
     {
         if ($this->checked || !$this->isReference()) {
             return;
@@ -219,5 +216,24 @@ class DataType extends ProjectComponent
      */
     public function parsingComplete()
     {
+    }
+
+    /**
+     * Gets as descriptive as possible a name used for this datatype instance.
+     * @return string name.
+     */
+    protected function getDataTypeName()
+    {
+        return ComponentHelper::getElementName($this->getProject(), $this, true);
+    }
+
+    /**
+     * Basic DataType toString().
+     * @return string this DataType formatted as a String.
+     */
+    public function  __toString()
+    {
+        $d = $this->getDescription();
+        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;
     }
 }

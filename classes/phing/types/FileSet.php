@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/AbstractFileSet.php';
-
 /**
  * Moved out of MatchingTask to make it a standalone object that could
  * be referenced (by scripts for example).
@@ -38,10 +35,18 @@ class FileSet extends AbstractFileSet
 {
     /**
      * @return array
+     * @throws Exception
      */
-    public function getIterator()
+    protected function getFiles(...$options)
     {
-        $ds = $this->getDirectoryScanner($this->getProject());
-        return $ds->getIncludedFiles() + $ds->getIncludedDirectories();
+        $directoryScanner = $this->getDirectoryScanner($this->getProject());
+        $files = $directoryScanner->getIncludedFiles();
+
+        $baseDirectory = $directoryScanner->getBasedir();
+        foreach ($files as $index => $file) {
+            $files[$index] = realpath($baseDirectory . '/' . $file);
+        }
+
+        return $files;
     }
 }

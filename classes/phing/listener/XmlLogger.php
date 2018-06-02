@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-require_once 'phing/listener/DefaultLogger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Generates a file in the current directory with
  * an XML description of what happened during a build.
@@ -30,7 +25,6 @@ require_once 'phing/system/util/Timer.php';
  * with the property <code>XmlLogger.file</code>.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.listener
  */
 class XmlLogger implements BuildLogger
@@ -247,7 +241,7 @@ class XmlLogger implements BuildLogger
 
         $taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
         $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
-        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, $task->getLocation()->toString());
+        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string) $task->getLocation());
 
         $this->timesStack[] = Phing::currentTimeMillis();
         $this->elementStack[] = $taskElement;

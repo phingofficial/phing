@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
-
 /**
  * Generate SQL script for db using dbdeploy schema version table
  * and delta scripts
@@ -30,11 +26,12 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
  *     userid="dbdeploy" password="dbdeploy" dir="db" outputfile="">
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbDeployTask extends Task
 {
+    use FileSetAware;
+
     /**
      * The tablename to use from the database for storing all changes
      * This cannot be changed
@@ -461,16 +458,5 @@ class DbDeployTask extends Task
     public function setAppliedBy($appliedBy)
     {
         $this->appliedBy = $appliedBy;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

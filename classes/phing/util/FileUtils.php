@@ -17,13 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/lang/Character.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/filters/util/ChainReaderHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-
 /**
  * File utility class.
  * - handles os independent stuff etc
@@ -214,7 +207,7 @@ class FileUtils
         // as soon as ZE2 is ready
         $fs = FileSystem::getFileSystem();
 
-        $filename = str_replace('/', $fs->getSeparator(), str_replace('\\', $fs->getSeparator(), $filename));
+        $filename = str_replace(array('\\', '/'), $fs->getSeparator(), $filename);
 
         // deal with absolute files
         if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
@@ -273,7 +266,7 @@ class FileUtils
         $path = (string) $path;
         $orig = $path;
 
-        $path = str_replace('/', DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $path));
+        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
 
         // make sure we are dealing with an absolute path
         if (!StringHelper::startsWith(DIRECTORY_SEPARATOR, $path)
@@ -419,11 +412,11 @@ class FileUtils
      */
     public function contentEquals(PhingFile $file1, PhingFile $file2)
     {
-        if (!($file1->exists() || $file2->exists())) {
+        if (!($file1->exists() && $file2->exists())) {
             return false;
         }
 
-        if (!($file1->canRead() || $file2->canRead())) {
+        if (!($file1->canRead() && $file2->canRead())) {
             return false;
         }
 

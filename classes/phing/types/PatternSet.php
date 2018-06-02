@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +26,6 @@ include_once 'phing/types/DataType.php';
  * for the patternset stuff.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id$
  * @package  phing.types
  */
 class PatternSet extends DataType
@@ -345,8 +343,8 @@ class PatternSet extends DataType
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(get_class(), strrpos(get_class(), '\\') + 1);
-        return $this->getCheckedRef(get_class(), $dataTypeName);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     /**
@@ -415,7 +413,7 @@ class PatternSet extends DataType
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
 
         // We can't compile includeList into array because, toString() does
@@ -429,7 +427,7 @@ class PatternSet extends DataType
         } else {
             $includes = "";
             foreach ($this->includeList as $ne) {
-                $includes .= $ne->toString() . ",";
+                $includes .= (string) $ne . ",";
             }
             $includes = rtrim($includes, ",");
         }
@@ -439,7 +437,7 @@ class PatternSet extends DataType
         } else {
             $excludes = "";
             foreach ($this->excludeList as $ne) {
-                $excludes .= $ne->toString() . ",";
+                $excludes .= (string) $ne . ",";
             }
             $excludes = rtrim($excludes, ",");
         }

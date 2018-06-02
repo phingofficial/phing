@@ -1,12 +1,9 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Chmod Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ChmodTaskTest extends BuildFileTest
@@ -35,7 +32,7 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/chmodtest');
 
-        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
     public function testChangeModeFileSet()
@@ -45,7 +42,7 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/chmodtest');
 
-        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
     public function testChangeModeDirSet()
@@ -55,6 +52,6 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/A');
 
-        $this->assertEquals(octdec('0400'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 }

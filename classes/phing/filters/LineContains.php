@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -47,7 +42,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@velum.net>
- * @version   $Id$
  * @see       PhingFilterReader
  * @package   phing.filters
  */
@@ -59,12 +53,16 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @var string
      */
     const CONTAINS_KEY = "contains";
+    const NEGATE_KEY = 'negate';
 
     /**
      * Array of Contains objects.
      * @var array
      */
     private $_contains = [];
+
+    /** @var bool $negate */
+    private $negate = false;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
@@ -102,7 +100,29 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         }
         $filtered_buffer = implode("\n", $matched);
 
+        if ($this->isNegated()) {
+            $filtered_buffer = implode("\n", array_diff($lines, $matched));
+        }
+
         return $filtered_buffer;
+    }
+
+    /**
+     * Set the negation mode.  Default false (no negation).
+     * @param boolean $b the boolean negation mode to set.
+     */
+    public function setNegate($b)
+    {
+        $this->negate = (bool) $b;
+    }
+
+    /**
+     * Find out whether we have been negated.
+     * @return boolean negation flag.
+     */
+    public function isNegated()
+    {
+        return $this->negate;
     }
 
     /**
@@ -131,7 +151,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     {
         // type check, error must never occur, bad code of it does
         if (!is_array($contains)) {
-            throw new Exception("Excpected array got something else");
+            throw new Exception("Expected array got something else");
         }
 
         $this->_contains = $contains;
@@ -165,6 +185,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     {
         $newFilter = new LineContains($reader);
         $newFilter->setContains($this->getContains());
+        $newFilter->setNegate($this->isNegated());
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
 
@@ -183,7 +204,8 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                     $cont = new Contains();
                     $cont->setValue($param->getValue());
                     $this->_contains[] = $cont;
-                    break; // because we only support a single contains
+                } elseif (self::NEGATE_KEY === $param->getType()) {
+                    $this->setNegate(Project::toBoolean($param->getValue()));
                 }
             }
         }

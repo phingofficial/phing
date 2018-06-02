@@ -1,7 +1,5 @@
 <?php
-
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
-
 /**
  * Selector that chooses files based on their last modified date. Ant uses
  * millisecond precision (thanks to Java); PHP is forced to use only seconds
@@ -29,7 +25,6 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.types.selectors
  */
 class DateSelector extends BaseExtendSelector
@@ -60,7 +55,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{dateselector date: ";
         $buf .= $this->dateTime;
@@ -101,7 +96,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @param int $millis the time to compare file's last modified date to, expressed in milliseconds
      */
-    private function setMillis($millis)
+    public function setMillis($millis)
     {
         $this->setSeconds((int) $millis * 1000);
     }

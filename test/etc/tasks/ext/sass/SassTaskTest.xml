@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SassTaskTest" default="nothing">
+  <target name="nothing">
+    <sass useSass="no" useScssphp="no"><fileset dir="."/></sass>
+  </target>
+  <target name="testSettingUnrecognisedStyle">
+    <sass style="compacted" useSass="no" useScssphp="no"><fileset dir="."/></sass>
+  </target>
+
+  <target name="testNoFilesetAndNoFileSet">
+    <sass useSass="no" useScssphp="no"/>
+  </target>
+
+  <target name="testItCompilesWithSass">
+    <sass outputpath="." style="compacted" useSass="yes">
+      <fileset dir="."/>
+    </sass>
+  </target>
+
+  <target name="testItCompilesWithScssPhp">
+    <sass outputpath="." style="compacted" useScssphp="yes" useSass="no">
+      <fileset dir=".">
+        <include name="*.scss"/>
+      </fileset>
+    </sass>
+  </target>
+
+</project>

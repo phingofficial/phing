@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,19 +18,20 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Manifest Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class PharDataTaskTest extends BuildFileTest
 {
     public function setUp()
     {
+        if (!extension_loaded('phar')) {
+                $this->markTestSkipped("PharDataTask require either PHP 5.3 or better or the PECL's Phar extension");
+        }
+
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped("PHAR tests do not run on HHVM");
         }
@@ -62,6 +62,8 @@ class PharDataTaskTest extends BuildFileTest
 
     public function testGenerateTarGz()
     {
+        $this->skipIfCompressionNotSupported(Phar::GZ);
+
         $this->executeTarget(__FUNCTION__);
         $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar.gz");
         $this->assertNotFalse($manifestFile);
@@ -69,6 +71,8 @@ class PharDataTaskTest extends BuildFileTest
 
     public function testGenerateTarBz2()
     {
+        $this->skipIfCompressionNotSupported(Phar::BZ2);
+
         $this->executeTarget(__FUNCTION__);
         $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar.bz2");
         $this->assertNotFalse($manifestFile);
@@ -83,6 +87,8 @@ class PharDataTaskTest extends BuildFileTest
 
     public function testGenerateZipGz()
     {
+        $this->skipIfCompressionNotSupported(Phar::GZ);
+
         $this->executeTarget(__FUNCTION__);
         $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
@@ -90,8 +96,17 @@ class PharDataTaskTest extends BuildFileTest
 
     public function testGenerateZipBz2()
     {
+        $this->skipIfCompressionNotSupported(Phar::BZ2);
+
         $this->executeTarget(__FUNCTION__);
         $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
+    }
+
+    private function skipIfCompressionNotSupported(int $compression): void
+    {
+        if (!Phar::canCompress($compression)) {
+            $this->markTestSkipped('This test require Phar to support ' . $compression . ' compression');
+        }
     }
 }

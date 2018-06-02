@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -50,7 +49,7 @@ class SourceFileScanner
      * Restrict the given set of files to those that are newer than
      * their corresponding target files.
      *
-     * @param array $files   the original set of files
+     * @param iterable $files   the original set of files
      * @param PhingFile $srcDir  all files are relative to this directory
      * @param PhingFile $destDir target files live here. if null file names
      *                returned by the mapper are assumed to be absolute.
@@ -174,7 +173,7 @@ class SourceFileScanner
     {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = [];
-        for ($i = 0; $i < count($res); $i++) {
+        for ($i = 0, $resultsCount = count($res); $i < $resultsCount; $i++) {
             $result[$i] = new PhingFile($srcDir, $res[$i]);
         }
 

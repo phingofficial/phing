@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +18,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/system/lang/FileNotFoundException.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/parser/PhingXMLContext.php';
-include_once 'phing/IntrospectionHelper.php';
-
 /**
  * The datatype handler class.
  *
@@ -35,13 +26,13 @@ include_once 'phing/IntrospectionHelper.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class ProjectConfigurator
 {
     const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
+    /** @var Project $project */
     public $project;
     public $locator;
 
@@ -66,13 +57,16 @@ class ProjectConfigurator
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
      *
-     * @param  Project $project  the Project instance this configurator should use
-     * @param  PhingFile $buildFile  the buildfile object the parser should use
+     * @param  Project $project the Project instance this configurator should use
+     * @param  PhingFile $buildFile the buildfile object the parser should use
+     *
+     * @throws \IOException
+     * @throws \BuildException
+     * @throws NullPointerException
      */
-    public static function configureProject(Project $project, PhingFile $buildFile)
+    public static function configureProject(Project $project, PhingFile $buildFile): void
     {
-        $pc = new ProjectConfigurator($project, $buildFile);
-        $pc->parse();
+        (new self($project, $buildFile))->parse();
     }
 
     /**
@@ -80,10 +74,12 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param  Project $project     the Project instance this configurator should use
+     * @param  Project $project the Project instance this configurator should use
      * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function __construct(Project $project, PhingFile $buildFile)
+    private function __construct(Project $project, PhingFile $buildFile)
     {
         $this->project = $project;
         $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
@@ -328,5 +324,31 @@ class ProjectConfigurator
         if (isset($attr['id']) && $attr['id'] !== null) {
             $this->project->addReference($attr['id'], $target);
         }
+    }
+
+    /**
+     * Add location to build exception.
+     * @param BuildException $ex the build exception, if the build exception
+     *           does not include
+     * @param Location $newLocation the location of the calling task (may be null)
+     * @return BuildException a new build exception based in the build exception with
+     *         location set to newLocation. If the original exception
+     *         did not have a location, just return the build exception
+     */
+    public static function addLocationToBuildException(BuildException $ex, Location $newLocation)
+    {
+        if ($ex->getLocation() === null || $ex->getMessage() === null) {
+            return $ex;
+        }
+        $errorMessage = sprintf("The following error occurred while executing this line:%s%s %s%s", PHP_EOL, $ex->getLocation(), $ex->getMessage(), PHP_EOL);
+        if ($ex instanceof ExitStatusException) {
+            $exitStatus = $ex->getCode();
+            if ($newLocation === null) {
+                return new ExitStatusException($errorMessage, $exitStatus);
+            }
+            return new ExitStatusException($errorMessage, $exitStatus, $newLocation);
+        }
+
+        return new BuildException($errorMessage, $ex, $newLocation);
     }
 }

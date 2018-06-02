@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/ExitStatusException.php';
-require_once 'phing/tasks/system/condition/NestedCondition.php';
-
 /**
  * Exits the active build, giving an additional message
  * if available.
@@ -223,7 +219,7 @@ class FailTask extends Task
     {
         $result = $this->nestedConditionPresent();
 
-        if ($result && $this->ifCondition !== null || $this->unlessCondition !== null) {
+        if ($result && ($this->ifCondition !== null || $this->unlessCondition !== null)) {
             throw new BuildException("Nested conditions not permitted in conjunction with if/unless attributes");
         }
 
