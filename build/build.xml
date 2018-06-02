@@ -177,7 +177,7 @@
             <format property="builddate" pattern="%Y%m%d" />
         </tstamp>
         <pharpackage
-            compression="none"
+            compression="gzip"
             destfile="${build.full.dir}.phar"
             stub="${buildfile.dir}/phing-stub.php"
             alias="phing.phar"

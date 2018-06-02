@@ -18,44 +18,33 @@
  */
 
 /**
- * Tests the Apply Task
+ * Tests the Xslt Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
-class PathConvertTest extends BuildFileTest
+class XsltTaskTest extends BuildFileTest
 {
-    /**
-     * Setup the test
-     */
     public function setUp()
     {
-        // Tests definitions
-        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PathConvertTest.xml');
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/XsltTaskTest.xml');
+    }
+
+    public function tearDown()
+    {
+        $this->executeTarget('tearDown');
+    }
+
+    public function testHtmlButNotValidXml(): void
+    {
+        $this->executeTarget(__FUNCTION__);
     }
 
     /**
-     * Tests the OS execution for the unspecified OS
+     * @expectedException BuildException
      */
-    public function testDirChar()
+    public function testNotValidXmlFails(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('def|ghi', 'def|ghi');
-    }
-
-    public function testMap()
-    {
-        $this->assertTarget('testmap');
-    }
-
-    public function testMapper()
-    {
-        $this->assertTarget('testmapper');
-    }
-
-    private function assertTarget(string $target)
-    {
-        $this->executeTarget($target);
-        $this->assertEquals("test#" . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));
     }
 }

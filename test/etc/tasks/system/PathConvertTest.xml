@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="PathConvertTest" default="test" basedir=".">
 
+  <path id="testpath">
+    <pathelement path="${phing.file}" />
+  </path>
+
   <target name="testDirChar">
     <pathconvert property="def|ghi" dirsep="|">
       <map from="${project.basedir}/abc/" to=''/>
       <path dir="abc/def/ghi"/>
+    </pathconvert>
+  </target>
+
+  <target name="testmap">
+    <pathconvert property="result" dirsep="#">
+      <path refid="testpath" />
+      <map from="${project.basedir}" to="test" />
+    </pathconvert>
+  </target>
+
+  <target name="testmapper">
+    <pathconvert property="result" dirsep="#">
+      <path refid="testpath" />
+      <mapper type="glob" from="${project.basedir}*" to="test*" />
     </pathconvert>
   </target>
 
