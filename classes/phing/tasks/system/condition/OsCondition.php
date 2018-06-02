@@ -27,16 +27,8 @@
 class OsCondition implements Condition
 {
     public const FAMILY_WINDOWS = 'windows';
-    public const FAMILY_9X = 'win9x';
-    public const FAMILY_NT = 'winnt';
-    public const FAMILY_OS2 = 'os/2';
-    public const FAMILY_NETWARE = 'netware';
-    public const FAMILY_DOS = 'dos';
     public const FAMILY_MAC = 'mac';
-    public const FAMILY_TANDEM = 'tandem';
     public const FAMILY_UNIX = 'unix';
-    public const FAMILY_ZOS = 'z/os';
-    public const FAMILY_OS400 = 'os/400';
 
     private const DARWIN = 'darwin';
 
@@ -84,15 +76,7 @@ class OsCondition implements Condition
                 return (strpos($osName, self::FAMILY_MAC) !== false || strpos($osName, self::DARWIN) !== false);
             }
 
-            if ($family === self::FAMILY_NETWARE) {
-                return (strpos($osName, self::FAMILY_NETWARE) !== false);
-            }
-
-            if ($family === self::FAMILY_DOS) {
-                return PATH_SEPARATOR === ';' && self::isFamily(self::FAMILY_NETWARE);
-            }
-
-            if ($family === 'unix') {
+            if ($family === self::FAMILY_UNIX) {
                 return (
                     StringHelper::endsWith('ix', $osName) ||
                     StringHelper::endsWith('ux', $osName) ||
