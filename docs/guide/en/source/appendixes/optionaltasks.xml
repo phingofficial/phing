@@ -4392,6 +4392,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>responseCodeRegex</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The regular expression for matching the response code</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>authUser</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The authentication user name</entry>
