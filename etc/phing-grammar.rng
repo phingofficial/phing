@@ -222,6 +222,7 @@
                 <ref name="attrib"/>
                 <ref name="available"/>
                 <ref name="basename"/>
+                <ref name="blockfor"/>
                 <ref name="chmod"/>
                 <ref name="chown"/>
                 <ref name="condition"/>
@@ -248,6 +249,7 @@
                 <ref name="phingcall"/>
                 <ref name="phingversion"/>
                 <ref name="php"/>
+                <ref name="pathconvert"/>
                 <ref name="property"/>
                 <ref name="record"/>
                 <ref name="reflexive"/>
@@ -690,7 +692,10 @@
                         <data type="IDREF"/>
                     </attribute>
                     <group>
-                        <attribute name="dir"/>
+                        <choice>
+                            <attribute name="dir"/>
+                            <attribute name="file"/>
+                        </choice>
                         <optional>
                             <choice>
                                 <attribute name="id">
@@ -1163,6 +1168,56 @@
                     <attribute name="suffix"/>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="blockfor">
+        <element name="blockfor">
+            <interleave>
+                <attribute name="maxwait">
+                    <data type="int"/>
+                </attribute>
+                <optional>
+                    <attribute name="maxwaitunit" a:defaultValue="millisecond">
+                        <choice>
+                            <value>week</value>
+                            <value>day</value>
+                            <value>hour</value>
+                            <value>minute</value>
+                            <value>second</value>
+                            <value>millisecond</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <attribute name="checkevery">
+                    <data type="int"/>
+                </attribute>
+                <optional>
+                    <attribute name="checkeveryunit" a:defaultValue="millisecond">
+                        <choice>
+                            <value>week</value>
+                            <value>day</value>
+                            <value>hour</value>
+                            <value>minute</value>
+                            <value>second</value>
+                            <value>millisecond</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="timeoutproperty"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="not"/>
+                <ref name="equals"/>
+                <ref name="or"/>
+                <ref name="and"/>
+                <ref name="isfalse"/>
+                <ref name="istrue"/>
+                <ref name="isset"/>
+                <ref name="contains_cond"/>
+            </zeroOrMore>
         </element>
     </define>
 
@@ -1928,6 +1983,44 @@
         </element>
     </define>
 
+    <define name="pathconvert">
+        <element name="pathconvert">
+            <interleave>
+                <optional>
+                    <attribute name="targetos"/>
+                </optional>
+                <optional>
+                    <attribute name="dirsep"/>
+                </optional>
+                <optional>
+                    <attribute name="pathsep"/>
+                </optional>
+                <optional>
+                    <attribute name="property"/>
+                </optional>
+                <optional>
+                    <attribute name="refid"/>
+                </optional>
+                <optional>
+                    <attribute name="setonempty"/>
+                </optional>
+            </interleave>
+            <interleave>
+                <optional>
+                    <element name="map">
+                        <interleave>
+                            <attribute name="from"/>
+                            <attribute name="to"/>
+                        </interleave>
+                    </element>
+                </optional>
+                <optional>
+                    <ref name="mapper"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="property">
         <element name="property">
             <interleave>
@@ -2319,6 +2412,11 @@
                 </choice>
                 <optional>
                     <attribute name="overwrite">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="html" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>

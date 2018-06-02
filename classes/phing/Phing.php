@@ -213,7 +213,7 @@ class Phing
      * Prints the message of the Exception if it's not null.
      * @param Exception $t
      */
-    public static function printMessage(Exception $t)
+    public static function printMessage(Throwable $t)
     {
         if (self::$err === null) { // Make sure our error output is initialized
             self::initializeOutputStreams();

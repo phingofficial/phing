@@ -73,6 +73,7 @@ class PathConvert extends Task
 
     public $from = null;
     public $to = null;
+    private $mapper;
 
     /**
      * constructor
@@ -109,7 +110,6 @@ class PathConvert extends Task
 
         return $entry;
     }
-
 
     /**
      * Set targetos to a platform to one of
@@ -201,85 +201,93 @@ class PathConvert extends Task
         $savedPathSep = $this->pathSep;// may be altered in validateSetup
         $savedDirSep = $this->dirSep;// may be altered in validateSetup
 
-        // If we are a reference, create a Path from the reference
-        if ($this->isReference()) {
-            $this->path = new Path($this->getProject());
-            $this->path = $this->path->createPath();
+        try {
 
-            $obj = $this->refid->getReferencedObject($this->getProject());
+            // If we are a reference, create a Path from the reference
+            if ($this->isReference()) {
+                $this->path = new Path($this->getProject());
+                $this->path = $this->path->createPath();
 
-            if ($obj instanceof Path) {
-                $this->path->setRefid($this->refid);
-            } elseif ($obj instanceof FileSet) {
-                $fs = $obj;
+                $obj = $this->refid->getReferencedObject($this->getProject());
 
-                $this->path->addFileset($fs);
-            } elseif ($obj instanceof DirSet) {
-                $ds = $obj;
+                if ($obj instanceof Path) {
+                    $this->path->setRefid($this->refid);
+                } elseif ($obj instanceof FileSet) {
+                    $fs = $obj;
 
-                $this->path->addDirset($ds);
-            } elseif ($obj instanceof FileList) {
-                $fl = $obj;
+                    $this->path->addFileset($fs);
+                } elseif ($obj instanceof DirSet) {
+                    $ds = $obj;
 
-                $this->path->addFilelist($fl);
-            } else {
-                throw new BuildException("'refid' does not refer to a "
-                    . "path, fileset, dirset, or "
-                    . "filelist.");
-            }
-        }
+                    $this->path->addDirset($ds);
+                } elseif ($obj instanceof FileList) {
+                    $fl = $obj;
 
-        $this->validateSetup();// validate our setup
-
-        // Currently, we deal with only two path formats: Unix and Windows
-        // And Unix is everything that is not Windows
-        // (with the exception for NetWare and OS/2 below)
-
-        // for NetWare and OS/2, piggy-back on Windows, since here and
-        // in the apply code, the same assumptions can be made as with
-        // windows - that \\ is an OK separator, and do comparisons
-        // case-insensitive.
-        $fromDirSep = $this->onWindows ? "\\" : "/";
-
-        $rslt = '';
-
-        // Get the list of path components in canonical form
-        $elems = $this->path->listPaths();
-
-        foreach ($elems as $key => $elem) {
-            if (is_string($elem)) {
-                $elem = new Path($this->project, $elem);
-            }
-            $elem = $this->mapElement($elem);// Apply the path prefix map
-
-            // Now convert the path and file separator characters from the
-            // current os to the target os.
-
-            if ($key !== 0) {
-                $rslt .= $this->pathSep;
+                    $this->path->addFilelist($fl);
+                } else {
+                    throw new BuildException("'refid' does not refer to a "
+                        . "path, fileset, dirset, or "
+                        . "filelist.");
+                }
             }
 
-            $rslt .= str_replace($fromDirSep, $this->dirSep, $elem);
-        }
+            $this->validateSetup();// validate our setup
 
-        // Place the result into the specified property,
-        // unless setonempty == false
-        $value = $rslt;
-        if ($this->setonempty) {
-            $this->log("Set property " . $this->property . " = " . $value,
-                Project::MSG_VERBOSE);
-            $this->getProject()->setNewProperty($this->property, $value);
-        } else {
-            if ($rslt !== '') {
+            // Currently, we deal with only two path formats: Unix and Windows
+            // And Unix is everything that is not Windows
+            // (with the exception for NetWare and OS/2 below)
+
+            // for NetWare and OS/2, piggy-back on Windows, since here and
+            // in the apply code, the same assumptions can be made as with
+            // windows - that \\ is an OK separator, and do comparisons
+            // case-insensitive.
+            $fromDirSep = $this->onWindows ? "\\" : "/";
+
+            $rslt = '';
+
+            // Get the list of path components in canonical form
+            $elems = $this->path->listPaths();
+
+            $mapperImpl = $this->mapper === null ? new IdentityMapper() : $this->mapper->getImplementation();
+            foreach ($elems as &$elem) {
+                $mapped = $mapperImpl->main($elem);
+                for ($m = 0; $mapped !== null && $m < count($mapped); ++$m) {
+                    $elem = $mapped[$m];
+                }
+            }
+            unset($elem);
+            foreach ($elems as $key => $elem) {
+                $elem = $this->mapElement($elem);// Apply the path prefix map
+
+                // Now convert the path and file separator characters from the
+                // current os to the target os.
+
+                if ($key !== 0) {
+                    $rslt .= $this->pathSep;
+                }
+
+                $rslt .= str_replace($fromDirSep, $this->dirSep, $elem);
+            }
+
+            // Place the result into the specified property,
+            // unless setonempty == false
+            $value = $rslt;
+            if ($this->setonempty) {
                 $this->log("Set property " . $this->property . " = " . $value,
                     Project::MSG_VERBOSE);
                 $this->getProject()->setNewProperty($this->property, $value);
+            } else {
+                if ($rslt !== '') {
+                    $this->log("Set property " . $this->property . " = " . $value,
+                        Project::MSG_VERBOSE);
+                    $this->getProject()->setNewProperty($this->property, $value);
+                }
             }
+        } finally {
+            $this->path = $savedPath;
+            $this->dirSep = $savedDirSep;
+            $this->pathSep = $savedPathSep;
         }
-
-        $this->path = $savedPath;
-        $this->dirSep = $savedDirSep;
-        $this->pathSep = $savedPathSep;
     }
 
     /**
@@ -290,7 +298,7 @@ class PathConvert extends Task
      * @param string $elem The path element to apply the map to
      * @return String Updated element
      */
-    private function mapElement(Path $elem)
+    private function mapElement($elem)
     {
         $size = count($this->prefixMap);
 
@@ -313,6 +321,20 @@ class PathConvert extends Task
         }
 
         return $elem;
+    }
+
+    /**
+     * @throws BuildException
+     * @throws IOException
+     */
+    public function createMapper()
+    {
+        if ($this->mapper !== null) {
+            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+        }
+        $this->mapper = new Mapper($this->project);
+
+        return $this->mapper;
     }
 
     /**
