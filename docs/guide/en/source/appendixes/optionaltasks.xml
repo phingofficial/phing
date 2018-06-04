@@ -6705,6 +6705,7 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="NotifySendTask">
         <title>NotifySendTask</title>
         <para>This is a wrapper for <em>notify-send</em>, a Linux program that sends desktop notifications to a notification daemon.</para>
+        <para>On Windows machines, <link xlink:href="http://vaskovsky.net/notify-send/">this port</link> may help.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
