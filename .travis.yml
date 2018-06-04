@@ -9,12 +9,16 @@ language: php
 php:
   - 7.1
   - 7.2
-  - nightly
+  - 7.1snapshot
+  - 7.2snapshot
+  - master
 
 matrix:
   fast_finish: true
   allow_failures:
-    - php: nightly
+    - php: 7.1snapshot
+    - php: 7.2snapshot
+    - php: master
 
 cache:
   directories:
