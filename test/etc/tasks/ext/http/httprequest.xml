@@ -8,11 +8,15 @@
     </target>
 
     <target name="matchesRegexp">
-        <http-request url="http://example.com/" responseRegex="/foo/" />
+        <http-request url="http://example.com/" responseRegex="foo" />
+    </target>
+
+    <target name="matchesCodeRegexp">
+        <http-request url="http://example.com/" responseCodeRegex="200" />
     </target>
 
     <target name="doesNotMatchRegexp">
-        <http-request url="http://example.com/" responseRegex="/bar/" />
+        <http-request url="http://example.com/" responseRegex="bar" />
     </target>
 
     <target name="post">
