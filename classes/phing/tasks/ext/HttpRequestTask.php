@@ -37,6 +37,13 @@ class HttpRequestTask extends HttpTask
     protected $responseRegex = '';
 
     /**
+     * Holds the regular expression that should match the response code
+     *
+     * @var string
+     */
+    protected $responseCodeRegex = '';
+
+    /**
      * Whether to enable detailed logging
      *
      * @var boolean
@@ -79,6 +86,16 @@ class HttpRequestTask extends HttpTask
     public function setResponseRegex($regex)
     {
         $this->responseRegex = $regex;
+    }
+
+    /**
+     * Sets the response code regex
+     *
+     * @param string $regex
+     */
+    public function setResponseCodeRegex($regex)
+    {
+        $this->responseCodeRegex = $regex;
     }
 
     /**
@@ -192,7 +209,7 @@ class HttpRequestTask extends HttpTask
     }
 
     /**
-     * Checks whether response body matches the given regexp
+     * Checks whether response body or status-code matches the given regexp
      *
      * @param  HTTP_Request2_Response $response
      * @return void
@@ -208,6 +225,17 @@ class HttpRequestTask extends HttpTask
                 throw new BuildException('The received response body did not match the given regular expression');
             } else {
                 $this->log('The response body matched the provided regex.');
+            }
+        }
+
+        if ($this->responseCodeRegex !== '') {
+            $matches = [];
+            preg_match($this->responseCodeRegex, $response->getStatus(), $matches);
+
+            if (count($matches) === 0) {
+                throw new BuildException('The received response status-code did not match the given regular expression');
+            } else {
+                $this->log('The response status-code matched the provided regex.');
             }
         }
     }
