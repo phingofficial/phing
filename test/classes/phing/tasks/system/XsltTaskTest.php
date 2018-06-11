@@ -39,12 +39,4 @@ class XsltTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
-
-    /**
-     * @expectedException BuildException
-     */
-    public function testNotValidXmlFails(): void
-    {
-        $this->executeTarget(__FUNCTION__);
-    }
 }
