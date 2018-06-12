@@ -153,8 +153,11 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         $this->inner .= $test->getName() . " " . $type . "\n";
 
         if ($e !== null) {
-            $this->inner .= $e->getMessage() . "\n";
-            // $this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e, true) . "\n";
+            if ($e instanceof PHPUnit\Framework\ExceptionWrapper) {
+                $this->inner .= $e->getPreviousWrapped()->getMessage() . "\n";
+            } else {
+                $this->inner .= $e->getMessage() . "\n";
+            }
         }
     }
 
