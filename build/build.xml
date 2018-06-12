@@ -253,7 +253,7 @@
         Generate SHA512 file hashes
         ==============================================
     -->
-    <target name="generate-hash">
+    <target name="generate-hash" unless="${env.TRAVIS}">
         <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
         <basename property="basefilename" file="${filename}"/>
         <echo file="${filename}.sha512">${phar.hash} ${basefilename}</echo>
