@@ -270,9 +270,13 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         $xslDom->resolveExternals = $this->resolveStylesheetExternals;
 
         if ($this->html) {
-            $xmlDom->loadHTML($xml);
+            $result = @$xmlDom->loadHTML($xml);
         } else {
-            $xmlDom->loadXML($xml);
+            $result = @$xmlDom->loadXML($xml);
+        }
+        
+        if ($result === false) {
+            throw new BuildException('Invalid syntax detected.');
         }
 
         $xslDom->loadXML($xsl);
