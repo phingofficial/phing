@@ -146,6 +146,12 @@ class PropertyHelper
             }
         }
 
+        if (self::$project !== null && StringHelper::startsWith('toString:', $name)) {
+            $name = StringHelper::substring($name, strlen('toString:'));
+            $v = self::$project->getReference($name);
+            return ($v === null) ? null : (string) $v;
+        }
+
         return null;
     }
 
@@ -194,7 +200,17 @@ class PropertyHelper
                 '/\$\{([^\$}]+)\}/',
                 function ($matches) use ($keys) {
                     $propertyName = $matches[1];
-                    if (!array_key_exists($propertyName, $keys)) {
+
+                    $replacement = null;
+                    if (array_key_exists($propertyName, $keys)) {
+                        $replacement = $keys[$propertyName];
+                    }
+
+                    if ($replacement === null) {
+                        $replacement = $this->getProperty(null, $propertyName);
+                    }
+
+                    if ($replacement === null) {
                         self::$project->log(
                             'Property ${' . $propertyName . '} has not been set.',
                             Project::MSG_VERBOSE
@@ -204,21 +220,11 @@ class PropertyHelper
                     }
 
                     self::$project->log(
-                        'Property ${' . $propertyName . '} => ' . $keys[$propertyName],
+                        'Property ${' . $propertyName . '} => ' . (string) $replacement,
                         Project::MSG_VERBOSE
                     );
 
-                    $propertyValue = $keys[$propertyName];
-
-                    if (is_bool($propertyValue)) {
-                        if ($propertyValue === true) {
-                            $propertyValue = "true";
-                        } else {
-                            $propertyValue = "false";
-                        }
-                    }
-
-                    return $propertyValue;
+                    return $replacement;
                 },
                 $sb
             );
@@ -377,10 +383,15 @@ class PropertyHelper
      */
     public function getProperty($ns, $name)
     {
-        if (!isset($this->properties[$name])) {
+        if ($name === null) {
             return null;
         }
-        $found = $this->properties[$name];
+        $o = $this->getPropertyHook($ns, $name, false);
+        if ($o !== null) {
+            return $o;
+        }
+
+        $found = $this->properties[$name] ?? null;
         // check to see if there are unresolved property references
         if (false !== strpos($found, '${')) {
             // attempt to resolve properties
@@ -389,18 +400,13 @@ class PropertyHelper
             $this->properties[$name] = $found;
         }
 
-        $o = $this->getPropertyHook($ns, $found, false);
-        if ($o !== null) {
-            return $o;
-        }
-
         return $found;
     }
 
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param string $ns   The namespace for the property (currently not used).
+     * @param string $ns The namespace for the property (currently not used).
      * @param string $name The name of the property.
      *             May be <code>null</code>, in which case
      *             the return value is also <code>null</code>.
@@ -409,14 +415,14 @@ class PropertyHelper
      */
     public function getUserProperty($ns, $name)
     {
-        if ($name === null || !isset($this->userProperties[$name])) {
+        if ($name === null) {
             return null;
         }
         $o = $this->getPropertyHook($ns, $name, true);
         if ($o !== null) {
             return $o;
         }
-        return $this->userProperties[$name];
+        return $this->userProperties[$name] ?? null;
     }
 
 

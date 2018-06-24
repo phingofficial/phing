@@ -53,4 +53,9 @@
   <target name="testUsingPropertyTwiceInPropertyValueShouldNotThrowException">
       <property file="property_notcircular.properties"/>
   </target>
+
+  <target name="testToString">
+    <fileset id="sourcefiles" dir="././ext/" includes="**/*.bin"/>
+    <echo> sourcefiles = ${toString:sourcefiles} </echo>
+  </target>
 </project>
