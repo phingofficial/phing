@@ -1,5 +1,6 @@
 <?php
-/**
+/*
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,25 +19,8 @@
  */
 
 /**
- * Tests the Xslt Task
- *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
+ * @package  phing.util.regexp
  */
-class XsltTaskTest extends BuildFileTest
+class RegexpException extends \Exception
 {
-    public function setUp()
-    {
-        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/XsltTaskTest.xml');
-    }
-
-    public function tearDown()
-    {
-        $this->executeTarget('tearDown');
-    }
-
-    public function testHtmlButNotValidXml(): void
-    {
-        $this->executeTarget(__FUNCTION__);
-    }
 }

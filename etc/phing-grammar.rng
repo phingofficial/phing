@@ -3886,6 +3886,9 @@
                     <attribute name="responseregex"/>
                 </optional>
                 <optional>
+                    <attribute name="responsecoderegex"/>
+                </optional>
+                <optional>
                     <attribute name="authuser"/>
                 </optional>
                 <optional>

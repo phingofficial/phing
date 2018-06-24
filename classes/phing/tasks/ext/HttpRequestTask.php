@@ -37,6 +37,13 @@ class HttpRequestTask extends HttpTask
     protected $responseRegex = '';
 
     /**
+     * Holds the regular expression that should match the response code
+     *
+     * @var string
+     */
+    protected $responseCodeRegex = '';
+
+    /**
      * Whether to enable detailed logging
      *
      * @var boolean
@@ -72,6 +79,11 @@ class HttpRequestTask extends HttpTask
     protected $postParameters = [];
 
     /**
+     * @var Regexp
+     */
+    private $regexp;
+
+    /**
      * Sets the response regex
      *
      * @param string $regex
@@ -79,6 +91,16 @@ class HttpRequestTask extends HttpTask
     public function setResponseRegex($regex)
     {
         $this->responseRegex = $regex;
+    }
+
+    /**
+     * Sets the response code regex
+     *
+     * @param string $regex
+     */
+    public function setResponseCodeRegex($regex)
+    {
+        $this->responseCodeRegex = $regex;
     }
 
     /**
@@ -139,6 +161,8 @@ class HttpRequestTask extends HttpTask
     {
         parent::init();
 
+        $this->regexp = new Regexp();
+
         $this->authScheme = HTTP_Request2::AUTH_BASIC;
 
         // Other dependencies that should only be loaded when class is actually used
@@ -149,6 +173,8 @@ class HttpRequestTask extends HttpTask
      * Creates and configures an instance of HTTP_Request2
      *
      * @return HTTP_Request2
+     * @throws HTTP_Request2_Exception
+     * @throws HTTP_Request2_LogicException
      */
     protected function createRequest()
     {
@@ -158,7 +184,9 @@ class HttpRequestTask extends HttpTask
             $request->setMethod(HTTP_Request2::METHOD_POST);
 
             if ($this->isHeaderSet('content-type', 'application/json')) {
-                $request->setBody(json_encode(array_map(function ($postParameter) {return [$postParameter->getName() => $postParameter->getValue()];}, $this->postParameters)));
+                $request->setBody(json_encode(array_map(function (Parameter $postParameter) {
+                    return [$postParameter->getName() => $postParameter->getValue()];
+                }, $this->postParameters)));
             } else {
                 foreach ($this->postParameters as $postParameter) {
                     $request->addPostParameter($postParameter->getName(), $postParameter->getValue());
@@ -192,22 +220,33 @@ class HttpRequestTask extends HttpTask
     }
 
     /**
-     * Checks whether response body matches the given regexp
+     * Checks whether response body or status-code matches the given regexp
      *
      * @param  HTTP_Request2_Response $response
      * @return void
      * @throws BuildException
+     * @throws HTTP_Request2_Exception
+     * @throws RegexpException
      */
     protected function processResponse(HTTP_Request2_Response $response)
     {
         if ($this->responseRegex !== '') {
-            $matches = [];
-            preg_match($this->responseRegex, $response->getBody(), $matches);
+            $this->regexp->setPattern($this->responseRegex);
 
-            if (count($matches) === 0) {
+            if (!$this->regexp->matches($response->getBody())) {
                 throw new BuildException('The received response body did not match the given regular expression');
             } else {
                 $this->log('The response body matched the provided regex.');
+            }
+        }
+
+        if ($this->responseCodeRegex !== '') {
+            $this->regexp->setPattern($this->responseCodeRegex);
+
+            if (!$this->regexp->matches($response->getStatus())) {
+                throw new BuildException('The received response status-code did not match the given regular expression');
+            } else {
+                $this->log('The response status-code matched the provided regex.');
             }
         }
     }

@@ -108,12 +108,25 @@ class PhpEvalTask extends Task
         // put parameters into simple array
         $params = [];
         foreach ($this->params as $p) {
-            $params[] = $p->getValue();
+            if ($p instanceof Parameter) {
+                $value = $p->getParams();
+                array_walk_recursive($value, function (&$item) {
+                    if ($item instanceof Parameter) {
+                        $item =  $item->getValue();
+                    }
+                });
+                if ($value === null) {
+                    continue;
+                }
+                $params[] = $value;
+            } else {
+                $params[] = $p->getValue();
+            }
         }
 
         $this->log("Calling PHP function: " . $h_func . "()", $this->logLevel);
         foreach ($params as $p) {
-            $this->log("  param: " . $p, Project::MSG_VERBOSE);
+            $this->log("  param: " . print_r($p, true), Project::MSG_VERBOSE);
         }
 
         $return = call_user_func_array($user_func, $params);
@@ -121,6 +134,21 @@ class PhpEvalTask extends Task
         if ($this->returnProperty !== null) {
             $this->project->setProperty($this->returnProperty, $return);
         }
+    }
+
+    private function resolveParams(&$iterator)
+    {
+        foreach ($iterator as &$value) {
+            if (is_string($value)) {
+                continue;
+            }
+            if (is_array($value->getValue())) {
+                $this->resolveParams($value->getValue());
+            }
+            $value = is_string($value) ? $value :  $value->getValue();
+        }
+
+        return $iterator;
     }
 
     /**
@@ -184,8 +212,8 @@ class PhpEvalTask extends Task
     }
 
     /** Add a nested <param> tag. */
-    public function addParam(Parameter $param)
+    public function addParam(Parameter $p)
     {
-        $this->params[] = $param;
+        $this->params[] = $p;
     }
 }

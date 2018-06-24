@@ -3191,6 +3191,11 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;/php></programlisting>
             <programlisting language="xml">&lt;php expression="3 + 4" returnProperty="sum"/></programlisting>
             <programlisting language="xml">&lt;php expression="echo 'test';"></programlisting>
+            <programlisting language="xml">&lt;php class="phing.Phing" function="start">
+    &lt;param value="-projecthelp"/>
+    &lt;param value="-buildfile"/>
+    &lt;param value="${phing.file}"/>
+&lt;/php></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
