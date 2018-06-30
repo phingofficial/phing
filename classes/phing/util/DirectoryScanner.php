@@ -216,12 +216,6 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /** if there are no deselected files */
     protected $everythingIncluded = true;
 
-    public function __construct()
-    {
-        // Support for hhvm.
-        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
-    }
-
     /**
      * Does the path match the start of this pattern up to the first "**".
      * This is a static mehtod and should always be called static
