@@ -216,6 +216,13 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /** if there are no deselected files */
     protected $everythingIncluded = true;
 
+    public function __construct()
+    {
+        if (empty(self::$defaultExcludeList)) {
+            self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
+        }
+    }
+
     /**
      * Does the path match the start of this pattern up to the first "**".
      * This is a static mehtod and should always be called static
@@ -278,10 +285,6 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public static function getDefaultExcludes()
     {
-        if (empty(self::$defaultExcludeList)) {
-            self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
-        }
-
         return self::$defaultExcludeList;
     }
 
