@@ -218,8 +218,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
 
     public function __construct()
     {
-        // Support for hhvm.
-        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
+        if (empty(self::$defaultExcludeList)) {
+            self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
+        }
     }
 
     /**
