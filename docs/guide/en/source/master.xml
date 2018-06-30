@@ -58,9 +58,10 @@
         </authorgroup>
         <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
         <copyright>
-            <year>2002-2016</year>
+            <year>2002-2018</year>
             <holder>The Phing Project</holder>
         </copyright>
+        <releaseinfo>Phing 3.x</releaseinfo>
     </info>
     <preface>
         <title>Preface</title>

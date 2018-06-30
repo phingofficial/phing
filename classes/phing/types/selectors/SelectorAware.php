@@ -35,7 +35,7 @@ trait SelectorAware
     /**
      * Gives the count of the number of selectors in this container
      */
-    public function selectorCount()
+    public function count()
     {
         return count($this->selectorsList);
     }

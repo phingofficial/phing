@@ -128,7 +128,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     public function setComments($lineBreaks)
     {
         if (!is_array($lineBreaks)) {
-            throw new Exception("Excpected 'array', got something else");
+            throw new Exception("Expected 'array', got something else");
         }
         $this->_comments = $lineBreaks;
     }

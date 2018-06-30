@@ -2,8 +2,12 @@
 
 class HgRevertTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
             PHING_TEST_BASE

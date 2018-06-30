@@ -4392,6 +4392,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>responseCodeRegex</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The regular expression for matching the response code</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>authUser</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The authentication user name</entry>
@@ -6704,7 +6711,8 @@ Note that you can omit both startpoint and track attributes in this case
 
     <sect1 role="taskdef" xml:id="NotifySendTask">
         <title>NotifySendTask</title>
-        <para>This is a wrapper for notify-send, for displaying desktop notifications locally.</para>
+        <para>This is a wrapper for <em>notify-send</em>, a Linux program that sends desktop notifications to a notification daemon.</para>
+        <para>On Windows machines, <link xlink:href="http://vaskovsky.net/notify-send/">this port</link> may help.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -14871,4 +14879,299 @@ a2.a3.a4=false</programlisting>
             <programlisting language="xml">&lt;zsdtvalidate schema="/path/to/schema.xsl" descriptor="/path/to/descriptor.xml" /></programlisting>
         </sect2>
     </sect1>
+
+    <sect1 role="taskdef" xml:id="PHPStanTask">
+        <title>PHPStanTask</title>
+
+        <para>The <literal>PHPStanTask</literal> executes PHPStan - a PHP static analysis tool - with given configuration.</para>
+
+        <table>
+            <title>Base attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>command</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>PHPStan command name</entry>
+                        <entry>analyse</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>executable</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to PHPStan executable</entry>
+                        <entry>phpstan</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+        <table>
+            <title>Analyse command attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>configuration</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to configuration</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>level</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Analyse level</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>noProgress</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>NO progress flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>debug</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Debug flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>autoloadFile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to autoload file</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>errorFormat</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Error format</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>memoryLimit</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Memory limit</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>paths</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Paths (space separated)</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+        <table>
+            <title>List command attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Help format</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>raw</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Raw flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>namespace</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Namespace</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+        <table>
+            <title>Help command attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Help format</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>raw</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Raw flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>commandName</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Command name</entry>
+                        <entry/>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+        <table>
+            <title>Common attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>help</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Help flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Quiet flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>version</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Version flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>ansi</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>ANSI flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>noAnsi</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>No ANSI flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>noInteraction</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>No interaction flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>verbose</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Verbose flag</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">
+                &lt;phpstan
+                command="analyse"
+                configuration="anyConfiguration"
+                level="anyLevel"
+                noProgress="true"
+                debug="true"
+                autoloadFile="anyAutoloadFile"
+                errorFormat="anyErrorFormat"
+                memoryLimit="anyMemoryLimit"
+                paths="path1 path2"
+                />
+            </programlisting>
+        </sect2>
+    </sect1>
+
 </appendix>

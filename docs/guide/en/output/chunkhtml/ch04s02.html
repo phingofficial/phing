@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4.2 Writing A Simple Buildfile</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.gettingstarted.html" title="Chapter 4 Getting started"><link rel="prev" href="ch.gettingstarted.html" title="Chapter 4 Getting started"><link rel="next" href="ch04s03.html" title="4.3 More Complex Buildfile"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.2  Writing A Simple Buildfile </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch.gettingstarted.html">Prev</a> </td><th width="60%" align="center">Chapter 4 Getting started</th><td width="20%" align="right"> <a accesskey="n" href="ch04s03.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp17"></a>4.2  Writing A Simple Buildfile </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4.2 Writing A Simple Buildfile</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.gettingstarted.html" title="Chapter 4 Getting started"><link rel="prev" href="ch.gettingstarted.html" title="Chapter 4 Getting started"><link rel="next" href="ch04s03.html" title="4.3 More Complex Buildfile"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.2  Writing A Simple Buildfile </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch.gettingstarted.html">Prev</a> </td><th width="60%" align="center">Chapter 4 Getting started</th><td width="20%" align="right"> <a accesskey="n" href="ch04s03.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp17"></a>4.2  Writing A Simple Buildfile </h2></div></div></div>
         
 
         <p>The <code class="literal">Foobar</code> project installs some PHP files from a source location
@@ -68,16 +68,16 @@
             described in <a class="xref" href="app.factsheet.html" title="Appendix A. Fact Sheet">Appendix A, <i>Fact Sheet</i></a>
         </p>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1079"></a>4.2.1  Project Element </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1082"></a>4.2.1  Project Element </h3></div></div></div>
             
 
             <p>The first element after the document prolog is the root element named
                     <code class="literal">&lt;project&gt;</code> on line 3. This element is a container for all
                 other elements and can/must have the following attributes: </p>
 
-            <div class="table"><a name="idp1083"></a><p class="formal-object-title"><span class="label">Table 4.1: </span><span class="title">&lt;project&gt; Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1086"></a><p class="formal-object-title"><span class="label">Table 4.1: </span><span class="title">&lt;project&gt; Attributes</span></p><div class="table-contents">
                 
-                <table summary="&lt;project&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td>The name of the project</td><td>No</td></tr><tr><td><code class="literal">basedir</code></td><td>The base directory of the project. This attribute controls the value of the
+                <table class="table" summary="&lt;project&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td>The name of the project</td><td>No</td></tr><tr><td><code class="literal">basedir</code></td><td>The base directory of the project. This attribute controls the value of the
                                 <code class="literal">${project.basedir}</code> property which can be used to reference
                                 files with paths relative to the project root folder. Can be a path relative to
                                 the position of the buildfile itself. If omitted, "." will be used,
@@ -89,7 +89,7 @@
                 See <a class="xref" href="app.projcomponents.html#Project" title="H.1 Phing Projects">Section H.1, “Phing Projects”</a> for a complete reference.
             </p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1123"></a>4.2.2  Target Element </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1126"></a>4.2.2  Target Element </h3></div></div></div>
             
 
             <p>A target can <code class="literal">depend</code> on other targets. You might have a target
@@ -128,15 +128,15 @@
                 of this target, which is printed by the <code class="literal">-projecthelp</code> command-line
                 option.</p>
 
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1146"></a>Target attributes</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1149"></a>Target attributes</h4></div></div></div>
                 
 
                 <p>You can specify one or more of the following attributes within the target
                     element.</p>
 
-                <div class="table"><a name="idp1149"></a><p class="formal-object-title"><span class="label">Table 4.2: </span><span class="title">&lt;target&gt; Attributes</span></p><div class="table-contents">
+                <div class="table"><a name="idp1152"></a><p class="formal-object-title"><span class="label">Table 4.2: </span><span class="title">&lt;target&gt; Attributes</span></p><div class="table-contents">
                     
-                    <table summary="&lt;target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-separated list of targets this target 
+                    <table class="table" summary="&lt;target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-separated list of targets this target 
                                     depends on.</td><td>No</td></tr><tr><td>if</td><td>The name of the <code class="literal">Property</code> that has to be
                                     set in order for this target to be executed</td><td>No</td></tr><tr><td>unless</td><td>The name of the <code class="literal">Property</code> that must
                                         <code class="literal">not</code> be set in order for this target to be
@@ -148,7 +148,7 @@
             </p>
         </div>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1182"></a>4.2.3  Task Elements </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1185"></a>4.2.3  Task Elements </h3></div></div></div>
             
 
             <p> A <code class="literal">task</code> is a piece of PHP code that can be executed. This code
@@ -177,7 +177,7 @@
 
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1200"></a>4.2.4  Property Element </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1203"></a>4.2.4  Property Element </h3></div></div></div>
             
 
             <p><code class="literal">Properties</code> are essentially variables that can be used in the
@@ -192,7 +192,7 @@
                     <code class="literal">${BC_BUILD_DIR}/en</code> . This is resolved to
                     <code class="literal">build/en</code>.</p>
 
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1210"></a>Built-in Properties</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1213"></a>Built-in Properties</h4></div></div></div>
                 
 
                 <p>Phing provides access to system properties as if they had been defined using a

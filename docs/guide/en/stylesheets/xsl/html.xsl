@@ -10,7 +10,7 @@
 -->
 <xsl:stylesheet xmlns:d="http://docbook.org/ns/docbook"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-  <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh5/current/html/onechunk.xsl"/>
+  <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/html/onechunk.xsl"/>
   <xsl:import href="common.xsl"/>
   <xsl:import href="html-common.xsl"/>
 

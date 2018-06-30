@@ -14,7 +14,7 @@
           
      ******************************************************************** 
   -->
-  <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh5/current/highlighting/common.xsl"/>
+  <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/highlighting/common.xsl"/>
   
   <xsl:template match="xslthl:keyword" mode="xslthl">
     <span class="hl-keyword">

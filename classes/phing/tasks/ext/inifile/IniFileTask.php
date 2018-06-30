@@ -280,7 +280,7 @@ class IniFileTask extends Task
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key ."'",
-                        MSG_ERR
+                        Project::MSG_ERR
                     );
                     $this->logDebugOrMore($ex->getMessage());
                 }

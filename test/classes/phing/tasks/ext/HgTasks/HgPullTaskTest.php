@@ -2,6 +2,8 @@
 
 class HgPullTaskTest extends BuildFileTest
 {
+    use HgTaskTestSkip;
+
     public function setUp()
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
@@ -27,6 +29,8 @@ class HgPullTaskTest extends BuildFileTest
 
     public function testWrongRepository()
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         $this->expectBuildExceptionContaining(
             'wrongRepository',
             'wrong repository',

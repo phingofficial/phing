@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * This mapper does nothing ;)
  *

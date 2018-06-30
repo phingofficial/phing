@@ -136,8 +136,11 @@ class IntrospectionHelper
 
                 // There are a few "reserved" names that might look like attribute setters
                 // but should actually just be skipped.  (Note: this means you can't ever
-                // have an attribute named "location" or "tasktype" or a nested element named "task".)
-                if ($name === "setlocation" || $name === "settasktype" || $name === "addtask") {
+                // have an attribute named "location" or "tasktype" or a nested element container
+                // named "task" [TaskContainer::addTask(Task)].)
+                if ($name === "setlocation" || $name === "settasktype"
+                    || ('addtask' === $name && $this->isContainer() && count($method->getParameters()) === 1
+                    && Task::class === $method->getParameters()[0])) {
                     continue;
                 }
 
@@ -168,24 +171,17 @@ class IntrospectionHelper
                             ) . "() may not take any parameters.");
                     }
 
-                    // Because PHP doesn't support return types, we are going to do
-                    // two things here to guess return type:
-                    //     1) parse comments for an explicit value
-                    //     2) if that fails, assume that the part of the method after "create"
-                    //    is the name of the return type (in many cases it is not)
-
-                    // This isn't super important -- i.e. we're not instantaiting classes
-                    // based on this information.  It's more just so that IntrospectionHelper
-                    // can keep track of all the nested types -- and provide more helpful
-                    // exception messages, etc.
-
-                    preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
-                    if (!empty($matches[1]) && class_exists($matches[1], false)) {
-                        $this->nestedTypes[$name] = $matches[1];
-                    } else {
-                        // assume that method createEquals() creates object of type "Equals"
-                        // (that example would be false, of course)
-                        $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                    if ($method->hasReturnType()) {
+                        $this->nestedTypes[$name] = $method->getReturnType();
+                    } else  {
+                        preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
+                        if (!empty($matches[1]) && class_exists($matches[1], false)) {
+                            $this->nestedTypes[$name] = $matches[1];
+                        } else {
+                            // assume that method createEquals() creates object of type "Equals"
+                            // (that example would be false, of course)
+                            $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                        }
                     }
 
                     $this->nestedCreators[$name] = $method;
@@ -257,6 +253,15 @@ class IntrospectionHelper
                 }
             } // if $method->isPublic()
         } // foreach
+    }
+
+    /**
+     * Indicates whether the introspected class is a task container, supporting arbitrary nested tasks/types.
+     * @return bool true if the introspected class is a container; false otherwise.
+     */
+    public function isContainer()
+    {
+        return $this->bean->implementsInterface(TaskContainer::class);
     }
 
     /**
@@ -354,7 +359,7 @@ class IntrospectionHelper
             );
             $method->invoke($element, $value);
         } catch (Exception $exc) {
-            throw new BuildException($exc);
+            throw new BuildException($exc->getMessage(), $exc);
         }
     }
 
@@ -376,7 +381,7 @@ class IntrospectionHelper
             $method = $this->methodAddText;
             $method->invoke($element, $text);
         } catch (Exception $exc) {
-            throw new BuildException($exc);
+            throw new BuildException($exc->getMessage(), $exc);
         }
     }
 
@@ -408,7 +413,7 @@ class IntrospectionHelper
                 );
                 $nestedElement = $method->invoke($element);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif (isset($this->nestedCreators[$addMethod])) {
             $method = $this->nestedCreators[$addMethod];
@@ -434,7 +439,7 @@ class IntrospectionHelper
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);
                 if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() >= 1) {
-                    $nestedElement = new $classname(Phing::getCurrentProject());
+                    $nestedElement = new $classname(Phing::getCurrentProject() ?? $project);
                 } else {
                     $nestedElement = new $classname();
                 }
@@ -445,7 +450,7 @@ class IntrospectionHelper
 
                 $method->invoke($element, $nestedElement);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif ($this->bean->implementsInterface("CustomChildCreator")) {
             $method = $this->bean->getMethod('customChildCreator');
@@ -453,7 +458,7 @@ class IntrospectionHelper
             try {
                 $nestedElement = $method->invoke($element, strtolower($elementName), $project);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } else {
             //try the add method for the element's parent class
@@ -474,7 +479,7 @@ class IntrospectionHelper
                         $nestedElement = new $elementClass();
                         $method->invoke($element, $nestedElement);
                     } catch (Exception $exc) {
-                        throw new BuildException($exc);
+                        throw new BuildException($exc->getMessage(), $exc);
                     }
                 }
             }
@@ -519,7 +524,7 @@ class IntrospectionHelper
                 );
                 $method->invoke($element, $child);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         }
     }

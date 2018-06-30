@@ -1,13 +1,13 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.11 CopyTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="ConditionTask.html" title="B.10 ConditionTask"><link rel="next" href="DefaultExcludes.html" title="B.12 DefaultExcludes"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.11 CopyTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ConditionTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="DefaultExcludes.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="CopyTask"></a>B.11 CopyTask </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.11 CopyTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="ConditionTask.html" title="B.10 ConditionTask"><link rel="next" href="DefaultExcludes.html" title="B.12 DefaultExcludes"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.11 CopyTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ConditionTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="DefaultExcludes.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="CopyTask"></a>B.11 CopyTask </h2></div></div></div>
         
         <p>Copies files or directories. Files are only copied if the source file is newer than
             the destination file, or when the destination file does not exist. It is possible to
             explicitly overwrite existing files.</p>
         <p><code class="literal">CopyTask</code> does not allow self copying, i.e. copying a file to the
             same name for security reasons.</p>
-        <div class="table"><a name="idp3544"></a><p class="formal-object-title"><span class="label">Table B.13: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp3547"></a><p class="formal-object-title"><span class="label">Table B.13: </span><span class="title">Attributes</span></p><div class="table-contents">
             
-            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The source file.</td><td>Yes</td><td class="auto-generated"> </td></tr><tr><td><code class="literal">tofile</code></td><td><code class="literal">String</code></td><td>
+            <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The source file.</td><td>Yes</td><td class="auto-generated"> </td></tr><tr><td><code class="literal">tofile</code></td><td><code class="literal">String</code></td><td>
                             <p>The destination the file is to be written to.
                                     <code class="literal">tofile</code> specifies a <code class="literal">full</code>
                                 filename. If you only want to specify a directory to copy to, use
@@ -31,7 +31,7 @@
                     <code class="literal">expandsymboliclinks</code> to <code class="literal">true</code> in the
                     <code class="literal">&lt;fileset&gt;</code> tag.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3673"></a>B.11.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3676"></a>B.11.1 Examples</h3></div></div></div>
             
             <p>On the one hand, CopyTask can be used to copy file by file:</p>
             <pre class="programlisting">&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/&gt;</pre>
@@ -54,7 +54,7 @@
   &lt;/fileset&gt;
 &lt;/copy&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3686"></a>B.11.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3689"></a>B.11.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>

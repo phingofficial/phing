@@ -58,7 +58,6 @@ class Regexp
     public function __construct($engineType = 'preg')
     {
         if ($engineType == 'preg') {
-            include_once 'phing/util/regexp/PregEngine.php';
             $this->engine = new PregEngine();
         } else {
             throw new BuildException("Invalid engine type for Regexp: " . $engineType);
@@ -106,13 +105,13 @@ class Regexp
     /**
      * Performs match of specified pattern against $subject.
      * @param  string $subject The subject, on which to perform matches.
-     * @throws Exception
+     * @throws RegexpException
      * @return boolean Whether or not pattern matches subject string passed.
      */
     public function matches($subject)
     {
         if ($this->pattern === null) {
-            throw new Exception("No pattern specified for regexp match().");
+            throw new RegexpException("No pattern specified for regexp match().");
         }
 
         return $this->engine->match($this->pattern, $subject, $this->groups);
@@ -121,13 +120,13 @@ class Regexp
     /**
      * Performs replacement of specified pattern and replacement strings.
      * @param  string $subject Text on which to perform replacement.
-     * @throws Exception
+     * @throws RegexpException
      * @return string subject after replacement has been performed.
      */
     public function replace($subject)
     {
         if ($this->pattern === null || $this->replace === null) {
-            throw new Exception("Missing pattern or replacement string regexp replace().");
+            throw new RegexpException("Missing pattern or replacement string regexp replace().");
         }
 
         return $this->engine->replace($this->pattern, $this->replace, $subject);

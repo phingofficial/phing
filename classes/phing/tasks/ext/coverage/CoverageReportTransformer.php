@@ -18,10 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
-
 /**
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.

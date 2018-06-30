@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,9 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/selectors/BaseExtendSelector.php';
-include_once 'phing/types/RegularExpression.php';
 
 /**
  * Selector that filters files based on whether they contain a
@@ -58,7 +54,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{containsregexpselector expression: ";
         $buf .= $this->userProvidedExpression;
@@ -152,8 +148,16 @@ class ContainsRegexpSelector extends BaseExtendSelector
     {
         $this->validate();
 
-        if ($file->isDirectory()) {
-            return true;
+        try {
+            if ($file->isDirectory() || $file->isLink()) {
+                return true;
+            }
+        } catch (IOException $ioe) {
+            if (OsCondition::isOS('windows')) {
+                return true;
+            }
+
+            throw new BuildException($ioe);
         }
 
         if ($this->myRegExp === null) {

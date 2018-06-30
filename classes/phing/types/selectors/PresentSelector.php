@@ -39,7 +39,7 @@ class PresentSelector extends BaseSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{presentselector targetdir: ";
         if ($this->targetdir === null) {
@@ -54,9 +54,9 @@ class PresentSelector extends BaseSelector
             $buf .= "srconly";
         }
         if ($this->map !== null) {
-            $buf .= $this->map->toString();
+            $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
-            $buf .= $this->mapperElement->toString();
+            $buf .= (string) $this->mapperElement;
         }
         $buf .= "}";
 

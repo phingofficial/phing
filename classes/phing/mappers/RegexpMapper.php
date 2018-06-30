@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/util/regexp/Regexp.php';
-
 /**
  * Uses regular expressions to perform filename transformations.
  *

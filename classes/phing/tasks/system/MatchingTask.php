@@ -217,9 +217,9 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @return int The number of selectors in this container
      */
-    public function selectorCount()
+    public function count()
     {
-        return $this->fileset->selectorCount();
+        return $this->fileset->count();
     }
 
     /**

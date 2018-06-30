@@ -46,7 +46,7 @@ class EventObject
     }
 
     /** Returns a String representation of this EventObject.*/
-    public function toString()
+    public function __toString()
     {
         if (method_exists($this->source, "toString")) {
             return get_class($this) . "[source=" . $this->source->toString() . "]";

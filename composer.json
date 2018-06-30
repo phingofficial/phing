@@ -83,6 +83,7 @@
         "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
         "tedivm/jshrink": "Javascript Minifier built in PHP",
         "symfony/stopwatch": "Needed by the StopwatchTask",
-        "aws/aws-sdk-php": "AWS SDK used by S3*Tasks"
+        "aws/aws-sdk-php": "AWS SDK used by S3*Tasks",
+        "leafo/scssphp": "A compiler for SCSS written in PHP, used by SassTask"
     }
 }

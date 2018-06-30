@@ -104,7 +104,7 @@ class PathToFileSet extends Task
         }
         if (!$this->dir->isDirectory()) {
             throw new BuildException(
-                $this->dir->toString() . " is not a directory");
+                (string) $this->dir . " is not a directory");
         }
         $path = $this->getProject()->getReference($this->pathRefId);
         if ($path == null) {

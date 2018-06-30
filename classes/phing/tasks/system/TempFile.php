@@ -173,6 +173,6 @@ class TempFile extends Task
             $this->deleteOnExit,
             $this->createFile
         );
-        $this->getProject()->setNewProperty($this->property, $tmpFile->toString());
+        $this->getProject()->setNewProperty($this->property, (string) $tmpFile);
     }
 }

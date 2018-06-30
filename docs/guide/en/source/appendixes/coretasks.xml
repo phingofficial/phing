@@ -2778,6 +2778,9 @@ verbose="true" failonerror="false" /></programlisting>
         <para>Nested <literal>map</literal> elements can be specified to map Windows
             drive letters to Unix paths, and vice-versa.
         </para>
+        <para>A single nested <literal>mapper</literal> element can be specified to perform any of various filename
+            transformations.
+        </para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3217,6 +3220,11 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;/php></programlisting>
             <programlisting language="xml">&lt;php expression="3 + 4" returnProperty="sum"/></programlisting>
             <programlisting language="xml">&lt;php expression="echo 'test';"></programlisting>
+            <programlisting language="xml">&lt;php class="phing.Phing" function="start">
+    &lt;param value="-projecthelp"/>
+    &lt;param value="-buildfile"/>
+    &lt;param value="${phing.file}"/>
+&lt;/php></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -3306,14 +3314,6 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal>refid</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>A reference to a previously defined property</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>fallback</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>If a reference cannot be found within the current project scope this
-                            attribute specifies a fallback project scope.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -4866,6 +4866,13 @@ Includes the Type named "CustomProject" and makes it available by
                         <entry><literal>resolvestylesheetexternals</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Whether to resolve entities in the stylesheet.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>html</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to work on HTML or XML.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>

@@ -8,7 +8,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:d="http://docbook.org/ns/docbook"
     version="1.0">
-    <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh5/current/fo/docbook.xsl"/>
+    <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/fo/docbook.xsl"/>
 
     <xsl:param name="paper.type" select="'A4'"/>
     <xsl:param name="shade.verbatim" select="1"/>

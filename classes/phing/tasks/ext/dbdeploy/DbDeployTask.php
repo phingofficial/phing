@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
-
 /**
  * Generate SQL script for db using dbdeploy schema version table
  * and delta scripts

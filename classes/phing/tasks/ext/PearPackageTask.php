@@ -18,9 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/types/FileSet.php';
-
 /**
  * A task to create PEAR package.xml file.
  *

@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-
 /**
  * Base class for extracting tasks such as Unzip and Untar.
  *

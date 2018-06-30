@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,8 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that chooses files based on their last modified date. Ant uses
@@ -58,7 +55,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{dateselector date: ";
         $buf .= $this->dateTime;

@@ -105,7 +105,7 @@ class PatternSetNameEntry
      * Gets a string representation of this pattern.
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = $this->name;
         if (($this->ifCond !== null) || ($this->unlessCond !== null)) {

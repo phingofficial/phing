@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Checks the value of a specified property.
  *

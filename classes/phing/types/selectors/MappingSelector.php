@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelector.php';
-
 /**
  * A mapping selector is an abstract class adding mapping support to the
  * base selector

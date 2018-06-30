@@ -150,5 +150,22 @@ myapp:
 text:
   width: "${myapp.window.hsize}"
 </programlisting>
+
+Property files may also be formatted in XML format:
+        <programlisting>
+&lt;myapp>
+    &lt;window>
+        &lt;hsize>300&lt;/hsize>
+        &lt;vsize>200&lt;/hsize>
+        &lt;xpos>10&lt;/hsize>
+        &lt;ypos>100&lt;/hsize>
+    &lt;/window>
+&lt;/myapp>
+
+myapp.window.hsize=300
+myapp.window.vsize=200
+myapp.window.xpos=10
+myapp.window.ypos=100
+</programlisting>
     </sect1>
 </appendix>

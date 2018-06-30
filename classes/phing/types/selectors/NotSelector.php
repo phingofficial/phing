@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/NoneSelector.php';
-
 /**
  * This selector has one other selectors whose meaning it inverts. It
  * actually relies on NoneSelector for its implementation of the
@@ -37,12 +34,12 @@ class NotSelector extends NoneSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{notselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 
@@ -55,7 +52,7 @@ class NotSelector extends NoneSelector
      */
     public function verifySettings()
     {
-        if ($this->selectorCount() != 1) {
+        if ($this->count() !== 1) {
             $this->setError(
                 "One and only one selector is allowed within the " .
                 "<not> tag"

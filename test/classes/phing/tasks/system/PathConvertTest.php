@@ -42,4 +42,20 @@ class PathConvertTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('def|ghi', 'def|ghi');
     }
+
+    public function testMap()
+    {
+        $this->assertTarget('testmap');
+    }
+
+    public function testMapper()
+    {
+        $this->assertTarget('testmapper');
+    }
+
+    private function assertTarget(string $target)
+    {
+        $this->executeTarget($target);
+        $this->assertEquals("test#" . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));
+    }
 }

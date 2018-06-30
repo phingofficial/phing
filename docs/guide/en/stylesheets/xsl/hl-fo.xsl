@@ -9,7 +9,7 @@
 <xsl:stylesheet xmlns:d="http://docbook.org/ns/docbook"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     version="1.0">
-    <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh5/current/fo/docbook.xsl"/>
+    <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/fo/docbook.xsl"/>
     <xsl:import href="common.xsl"/>
     <xsl:import href="fo-common.xsl"/>
     <xsl:import href="fo-highlight.xsl"/>

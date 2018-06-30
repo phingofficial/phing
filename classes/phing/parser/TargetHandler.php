@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-
 /**
  * The target handler class.
  *
@@ -149,6 +147,7 @@ class TargetHandler extends AbstractHandler
         }
 
         $this->target = new Target();
+        $this->target->setProject($project);
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);

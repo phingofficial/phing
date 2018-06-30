@@ -23,7 +23,7 @@
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
  * @package phing.types.selectors
  */
-abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer
+abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer, Countable
 {
     use SelectorAware;
 
@@ -34,12 +34,12 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      *
      * @return string comma separated list of Selectors contained in this one
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         $arr = $this->selectorElements();
         for ($i = 0, $size = count($arr); $i < $size; $i++) {
-            $buf .= $arr[$i]->toString() . (isset($arr[$i + 1]) ? ', ' : '');
+            $buf .= (string) $arr[$i] . (isset($arr[$i + 1]) ? ', ' : '');
         }
 
         return $buf;

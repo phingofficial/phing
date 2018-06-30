@@ -73,7 +73,7 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
     {
         $this->props->put('a', 'b');
 
-        $this->assertEquals("a=b" . PHP_EOL, $this->props->toString());
+        $this->assertEquals("a=b" . PHP_EOL, (string) $this->props);
     }
 
     public function testStore()

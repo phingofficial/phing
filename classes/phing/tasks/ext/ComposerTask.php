@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,9 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once "phing/Task.php";
-require_once "phing/types/Commandline.php";
 
 /**
  * Composer Task

@@ -10,4 +10,19 @@
   <target name="testNoFilesetAndNoFileSet">
     <sass useSass="no" useScssphp="no"/>
   </target>
+
+  <target name="testItCompilesWithSass">
+    <sass outputpath="." style="compacted" useSass="yes">
+      <fileset dir="."/>
+    </sass>
+  </target>
+
+  <target name="testItCompilesWithScssPhp">
+    <sass outputpath="." style="compacted" useScssphp="yes" useSass="no">
+      <fileset dir=".">
+        <include name="*.scss"/>
+      </fileset>
+    </sass>
+  </target>
+
 </project>

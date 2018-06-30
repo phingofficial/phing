@@ -174,24 +174,22 @@ class DefaultLogger implements StreamRequiredBuildLogger
     public static function throwableMessage(&$msg, $error, $verbose)
     {
         while ($error instanceof BuildException) {
-            $cause = $error->getCause();
+            $cause = $error->getPrevious();
             if ($cause === null) {
                 break;
             }
-            $msg1 = (string) $error;
-            $msg2 = (string) $cause;
+            $msg1 = trim($error);
+            $msg2 = trim($cause);
             if (StringHelper::endsWith($msg2, $msg1)) {
-                $msg .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2));
+                $msg .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2) - 1);
                 $error = $cause;
             } else {
                 break;
             }
         }
-        if ($verbose || !($error instanceof BuildException)) {
-            $msg .= (string) $error;
-        } else {
-            $msg .= $error->getMessage() . PHP_EOL;
-        }
+        $msg .= $verbose || !$error instanceof BuildException
+            ? $error->getTraceAsString()
+            : $error->getLocation() . ' ' . $error->getMessage() . PHP_EOL;
     }
 
     /**

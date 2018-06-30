@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Condition to wait for a HTTP request to succeed.
  *

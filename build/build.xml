@@ -82,9 +82,9 @@
             </then>
 
             <elseif>
-                <contains string="${version}" substring="snapshot"/>
+                <contains string="${version}" substring="alpha"/>
                 <then>
-                    <property name="notes" value="This is a snapshot release that might not be functional." />
+                    <property name="notes" value="This is the latest alpha release of Phing." />
                     <property name="state" value="alpha"/>
                 </then>
             </elseif>
@@ -177,7 +177,7 @@
             <format property="builddate" pattern="%Y%m%d" />
         </tstamp>
         <pharpackage
-            compression="none"
+            compression="gzip"
             destfile="${build.full.dir}.phar"
             stub="${buildfile.dir}/phing-stub.php"
             alias="phing.phar"
@@ -200,14 +200,18 @@
                 </element>
             </metadata>
         </pharpackage>
-        <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
         <phingcall target="generate-hash">
             <param name="filename" value="${build.full.dir}.phar"/>
         </phingcall>
-        <phingcall target="generate-hash">
-            <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
-        </phingcall>
-
+        <if>
+            <equals arg1="${state}" arg2="stable"/>
+            <then>
+                <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
+                <phingcall target="generate-hash">
+                    <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
+                </phingcall>
+            </then>
+        </if>
     </target>
 
     <!--
@@ -249,7 +253,7 @@
         Generate SHA512 file hashes
         ==============================================
     -->
-    <target name="generate-hash">
+    <target name="generate-hash" unless="${env.TRAVIS}">
         <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
         <basename property="basefilename" file="${filename}"/>
         <echo file="${filename}.sha512">${phar.hash} ${basefilename}</echo>

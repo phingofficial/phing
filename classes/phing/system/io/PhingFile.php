@@ -223,7 +223,7 @@ class PhingFile
      * last.  If the name sequence is empty then the pathname does not name
      * a parent directory.
      *
-     * @return PhingFile The abstract pathname of the parent directory named by this
+     * @return PhingFile|null The abstract pathname of the parent directory named by this
      *             abstract pathname, or null if this pathname
      *             does not name a parent
      */
@@ -685,7 +685,7 @@ class PhingFile
     {
         /** @var PhingFile $parent */
         $parent = $this->getParentFile();
-        if ($parents && !$parent->exists()) {
+        if ($parents && $parent !== null && !$parent->exists()) {
             $parent->mkdirs();
         }
 
@@ -1098,16 +1098,6 @@ class PhingFile
         }
 
         return false;
-    }
-
-    /**
-     * Backwards compatibility - @see __toString()
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->__toString();
     }
 
     /**

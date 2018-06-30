@@ -241,7 +241,7 @@ class XmlLogger implements BuildLogger
 
         $taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
         $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
-        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, $task->getLocation()->toString());
+        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string) $task->getLocation());
 
         $this->timesStack[] = Phing::currentTimeMillis();
         $this->elementStack[] = $taskElement;

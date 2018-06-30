@@ -44,7 +44,7 @@ class FilenameSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{filenameselector name: ";
         if ($this->pattern !== null) {

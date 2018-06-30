@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.8 Writing Mappers</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s07.html" title="6.7 Writing Types"><link rel="next" href="app.factsheet.html" title="Appendix A. Fact Sheet"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.8  Writing Mappers </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s07.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="app.factsheet.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp35"></a>6.8  Writing Mappers </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.8 Writing Mappers</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s07.html" title="6.7 Writing Types"><link rel="next" href="app.factsheet.html" title="Appendix A. Fact Sheet"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.8  Writing Mappers </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s07.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="app.factsheet.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp35"></a>6.8  Writing Mappers </h2></div></div></div>
         
         <p>Writing your own filename mapper classes will allow you to control how names are
             transformed in tasks like <code class="literal">CopyTask</code>, <code class="literal">MoveTask</code>,
@@ -7,7 +7,7 @@
             you may simply want to create a very specific name transformation that isn't easily
             accomplished with other mappers like <code class="literal">GlobMapper</code> or
                 <code class="literal">RegexpMapper</code>.</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2328"></a>6.8.1  Creating a Mapper </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2331"></a>6.8.1  Creating a Mapper </h3></div></div></div>
             
             <p>Writing filename mappers is simplified by interface support in PHP5. Essentially,
                 your custom filename mapper must implement
@@ -69,7 +69,7 @@ class DOSMapper implements FileNameMapper {
 
 }</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2335"></a>6.8.2  Using the Mapper </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2338"></a>6.8.2  Using the Mapper </h3></div></div></div>
             
             <p>Assuming that this mapper is saved to <code class="literal">myapp/mappers/DOSMapper.php
                 </code>(relative to a path on PHP's <code class="literal">include_path</code>,

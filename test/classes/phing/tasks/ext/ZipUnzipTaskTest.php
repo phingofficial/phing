@@ -28,6 +28,9 @@ class ZipUnzipTaskTest extends BuildFileTest
 {
     public function setUp()
     {
+        if (!extension_loaded('zip')) {
+            $this->markTestSkipped("Zip extension is required");
+        }
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/ext/ZipUnzipTaskTest.xml"

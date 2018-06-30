@@ -110,7 +110,15 @@ the large, complex Bar project.
                         <entry>The directory, to which the paths given in <literal>files
                             </literal>or <literal>listfile</literal> are relative.</entry>
                         <entry>n/a</entry>
-                        <entry>Yes</entry>
+                        <entry>Yes (or file)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory, to which the paths given in <literal>files
+                        </literal>or <literal>listfile</literal> are relative.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes (or dir)</entry>
                     </row>
                     <row>
                         <entry><literal>files</literal></entry>

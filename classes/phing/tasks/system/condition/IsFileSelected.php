@@ -51,7 +51,7 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
      */
     public function validate()
     {
-        if ($this->selectorCount() != 1) {
+        if ($this->count() != 1) {
             throw new BuildException("Only one selector allowed");
         }
         parent::validate();

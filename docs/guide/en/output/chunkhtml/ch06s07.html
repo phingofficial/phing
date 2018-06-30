@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.7 Writing Types</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s06.html" title="6.6 Writing Tasks"><link rel="next" href="ch06s08.html" title="6.8 Writing Mappers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.7  Writing Types </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s06.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s08.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp34"></a>6.7  Writing Types </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.7 Writing Types</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s06.html" title="6.6 Writing Tasks"><link rel="next" href="ch06s08.html" title="6.8 Writing Mappers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.7  Writing Types </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s06.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s08.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp34"></a>6.7  Writing Types </h2></div></div></div>
         
 
         <p>You should only create a standalone Type if the Type needs to be shared by more than
@@ -9,7 +9,7 @@
                 <code class="literal">XSLTParam</code> class that is not used anywhere else.) </p>
         <p>For cases where you do need a more generic Type defined, you can create your own Type
             class -- similar to the way a Task is created.</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2294"></a>6.7.1 Creating a DataType</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2297"></a>6.7.1 Creating a DataType</h3></div></div></div>
             
             <p>Type classes need to extend the abstract DataType class. Besides providing a means
                 of categorizing types, the DataType class provides the methods necessary to support
@@ -129,7 +129,7 @@ class DSN extends DataType {
 
 }</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2300"></a>6.7.2  Using the DataType </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2303"></a>6.7.2  Using the DataType </h3></div></div></div>
             
             <p>The <code class="literal">TypedefTask</code> provides a way to "declare" your type so that
                 you can use it in your build file. Here is how you would use this type in order to
@@ -165,9 +165,9 @@ class DSN extends DataType {
 &lt;/project&gt;</pre>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2305"></a>6.7.3  Source Discussion </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2308"></a>6.7.3  Source Discussion </h3></div></div></div>
             
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2307"></a>Getters &amp; Setters</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2310"></a>Getters &amp; Setters</h4></div></div></div>
                 
                 <p>You must provide a setter method for every attribute you want to set from the
                     XML build file. It is good practice to also provide a getter method, but in
@@ -184,7 +184,7 @@ class DSN extends DataType {
                     reason, the getter methods need to be called with the current project, because
                     References are stored relative to a project.</p>
             </div>
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2316"></a>The getRef() Method</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2319"></a>The getRef() Method</h4></div></div></div>
                 
                 <p>The <code class="literal">getRef()</code> task needs to be implemented in your Type.
                     This method is responsible for returning a referenced object; it needs to check

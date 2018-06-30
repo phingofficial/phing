@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/MappingSelector.php';
-
 /**
  * This selector selects files against a mapped set of target files, selecting
  * all those files which are different.

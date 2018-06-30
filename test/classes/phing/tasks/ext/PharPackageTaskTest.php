@@ -29,6 +29,10 @@ class PharPackageTaskTest extends BuildFileTest
 {
     public function setUp()
     {
+        if (ini_get('phar.readonly') == "1") {
+            $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
+        }
+
         if (defined('HHVM_VERSION')) {
             $this->markTestSkipped("PHAR tests do not run on HHVM");
         }

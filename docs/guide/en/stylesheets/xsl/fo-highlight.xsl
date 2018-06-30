@@ -15,7 +15,7 @@ and other information.
 
 ******************************************************************** -->
 
-  <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh5/current/highlighting/common.xsl"/>
+  <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh/highlighting/common.xsl"/>
 
   <xsl:template match='xslthl:keyword' mode="xslthl">
     <fo:inline font-weight="bold"><xsl:apply-templates mode="xslthl"/></fo:inline>

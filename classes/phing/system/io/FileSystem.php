@@ -927,7 +927,9 @@ abstract class FileSystem
             for ($count = 0; $count < $amount; $count++) {
                 foreach ($exts as $ext) {
                     $file = $elements[$count] . $dirSeparator . $executable . $ext ;
-                    if (file_exists($file) && is_executable($file)) {
+                    // Not all of the extensions above need to be set executable on Windows for them to be executed.
+                    // I'm sure there's a joke here somewhere.
+                    if (file_exists($file)) {
                         return $file;
                     }
                 }

@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/AbstractFileSet.php';
-
 /**
  * Moved out of MatchingTask to make it a standalone object that could
  * be referenced (by scripts for example).

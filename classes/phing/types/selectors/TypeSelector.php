@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,8 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that selects a certain kind of file: directory or regular file.
@@ -41,7 +38,7 @@ class TypeSelector extends BaseExtendSelector
     /**
      * @return string A string describing this object
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{typeselector type: " . $this->type . "}";
 

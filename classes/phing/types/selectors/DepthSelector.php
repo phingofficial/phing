@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
-
 /**
  * Selector that filters files based on the how deep in the directory
  * tree they are.
@@ -42,7 +40,7 @@ class DepthSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{depthselector min: ";
         $buf .= $this->min;

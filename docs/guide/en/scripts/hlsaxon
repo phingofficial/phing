@@ -9,6 +9,6 @@ BASE_JARS="/usr/share/java/saxon6.jar:/usr/share/java/xslthl.jar"
 # NO CHANGES needed below this line
 
 MAIN_CLASS=com.icl.saxon.StyleSheet
-BASE_FLAGS="-Dxslthl.config=file:///usr/share/xml/docbook/stylesheet/nwalsh5/current/highlighting/xslthl-config.xml"
+BASE_FLAGS="-Dxslthl.config=file:///usr/share/xml/docbook/stylesheet/nwalsh/highlighting/xslthl-config.xml"
 
 java -cp $BASE_JARS $BASE_FLAGS $MAIN_CLASS "$@"

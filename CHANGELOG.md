@@ -2,11 +2,20 @@ P     H     I     N     G
 =========================
 
 
-Feb., 2018 - Phing 3.0.0 RC1
-----------------------------
+Mar. 23, 2018 - Phing 3.0.0 alpha 1
+-----------------------------------
 
 The following issues were closed in this release:
 
+ * fixed typos in error messages [\#888](https://api.github.com/repos/phingofficial/phing/issues/888)
+ * Refactor SassTask tests [\#882](https://api.github.com/repos/phingofficial/phing/issues/882)
+ * The is_executable check in the Which method when run on Windows is unnecessary. [\#880](https://api.github.com/repos/phingofficial/phing/issues/880)
+ * Fixed #712 [\#879](https://api.github.com/repos/phingofficial/phing/issues/879)
+ * Added missing method DataType::getDataTypeName() [\#864](https://api.github.com/repos/phingofficial/phing/issues/864)
+ * Removed unused methods in StringHelper [\#863](https://api.github.com/repos/phingofficial/phing/issues/863)
+ * Fixed ConsoleInputHandler for symfony 4 [\#862](https://api.github.com/repos/phingofficial/phing/issues/862)
+ * Fixed regression test 309 for win [\#860](https://api.github.com/repos/phingofficial/phing/issues/860)
+ * Fixed FileUtils::contentEquals [\#859](https://api.github.com/repos/phingofficial/phing/issues/859)
  * ConsoleInputHandler isn't Symfony 4 compatible [\#858](https://api.github.com/repos/phingofficial/phing/issues/858)
  * Added multiple property file inclusion. [\#856](https://api.github.com/repos/phingofficial/phing/issues/856)
  * Fixed wrong init value [\#855](https://api.github.com/repos/phingofficial/phing/issues/855)
@@ -76,7 +85,9 @@ The following issues were closed in this release:
  * HttpRequestTask doesn't support POST application/json [\#715](https://api.github.com/repos/phingofficial/phing/issues/715)
  * SassTask: Consider removing/embeding the dependency on Pear::System [\#710](https://api.github.com/repos/phingofficial/phing/issues/710)
  * Parallel Task: Call to a member function push() on null in ... Manager.php:237 [\#706](https://api.github.com/repos/phingofficial/phing/issues/706)
+ * Dynamic path for composer task [\#701](https://api.github.com/repos/phingofficial/phing/issues/701)
  * patchTask not shell escaping file paths [\#693](https://api.github.com/repos/phingofficial/phing/issues/693)
+ * Relative Symlinks [\#684](https://api.github.com/repos/phingofficial/phing/issues/684)
  * NullPointerException when phploc is used without a formatter [\#683](https://api.github.com/repos/phingofficial/phing/issues/683)
  * Always interpret basedir as relative to project's root [\#668](https://api.github.com/repos/phingofficial/phing/issues/668)
  * phpunit task is not compatible with PHPUnit 6.0 [\#659](https://api.github.com/repos/phingofficial/phing/issues/659)
@@ -91,6 +102,7 @@ The following issues were closed in this release:
  * add task for git archive or git checkout-index (Trac #1182) [\#573](https://api.github.com/repos/phingofficial/phing/issues/573)
  * Error overwriting symlinks on copy or move (Trac #1096) [\#562](https://api.github.com/repos/phingofficial/phing/issues/562)
  * Support <dirset> in chmod, chown, delete, echo, copy, foreach and move tasks (Trac #1026) [\#559](https://api.github.com/repos/phingofficial/phing/issues/559)
+ * ComposerTask when composer is installed in the system (Trac #1008) [\#558](https://api.github.com/repos/phingofficial/phing/issues/558)
  * phing should get a strict mode (Trac #918) [\#554](https://api.github.com/repos/phingofficial/phing/issues/554)
  * Add 'hide input' attribute to InputTask (Trac #885) [\#553](https://api.github.com/repos/phingofficial/phing/issues/553)
  * Find build.xml file in parent directory tree (Trac #864) [\#551](https://api.github.com/repos/phingofficial/phing/issues/551)
@@ -105,6 +117,15 @@ The following issues were closed in this release:
 
 The following pull requests were merged in this release:
 
+ * fixed typos in error messages [\#888](https://api.github.com/repos/phingofficial/phing/pulls/888)
+ * Refactor SassTask tests [\#882](https://api.github.com/repos/phingofficial/phing/pulls/882)
+ * The is_executable check in the Which method when run on Windows is unnecessary. [\#880](https://api.github.com/repos/phingofficial/phing/pulls/880)
+ * Fixed #712 [\#879](https://api.github.com/repos/phingofficial/phing/pulls/879)
+ * Added missing method DataType::getDataTypeName() [\#864](https://api.github.com/repos/phingofficial/phing/pulls/864)
+ * Removed unused methods in StringHelper [\#863](https://api.github.com/repos/phingofficial/phing/pulls/863)
+ * Fixed ConsoleInputHandler for symfony 4 [\#862](https://api.github.com/repos/phingofficial/phing/pulls/862)
+ * Fixed regression test 309 for win [\#860](https://api.github.com/repos/phingofficial/phing/pulls/860)
+ * Fixed FileUtils::contentEquals [\#859](https://api.github.com/repos/phingofficial/phing/pulls/859)
  * Added multiple property file inclusion. [\#856](https://api.github.com/repos/phingofficial/phing/pulls/856)
  * Fixed wrong init value [\#855](https://api.github.com/repos/phingofficial/phing/pulls/855)
  * Fixed FatalError in ZendGuardFileSet [\#854](https://api.github.com/repos/phingofficial/phing/pulls/854)
@@ -159,6 +180,7 @@ The following pull requests were merged in this release:
  * Fixed deprecated function calls. [\#737](https://api.github.com/repos/phingofficial/phing/pulls/737)
  * SCA with Php Inspections (EA Extended) [\#731](https://api.github.com/repos/phingofficial/phing/pulls/731)
  * Added PHPLoc ^4 support. [\#729](https://api.github.com/repos/phingofficial/phing/pulls/729)
+ * Dynamic path for composer task [\#701](https://api.github.com/repos/phingofficial/phing/pulls/701)
  * Phing Strict Build Mode [\#626](https://api.github.com/repos/phingofficial/phing/pulls/626)
  * Adding 0 and 1 strings as true and false values in StringHelper. [\#590](https://api.github.com/repos/phingofficial/phing/pulls/590)
  * Document that in a FileSet include/exclude "foo/" means "foo/**" [\#367](https://api.github.com/repos/phingofficial/phing/pulls/367)

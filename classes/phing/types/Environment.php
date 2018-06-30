@@ -20,11 +20,11 @@
 /**
  * Wrapper for environment variables.
  *
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.types
  */
 class Environment
 {
-    // CheckStyle:VisibilityModifier OFF - bc
-
     /**
      * a vector of type Environment.Variable
      * @see Variable
@@ -68,7 +68,7 @@ class Environment
      * @return ArrayObject a potentially empty (but never null) vector of elements of type
      * Variable
      */
-    public function getVariablesObject()
+    public function getVariablesObject(): \ArrayObject
     {
         return $this->variables;
     }

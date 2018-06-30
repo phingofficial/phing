@@ -42,9 +42,9 @@ TROUBLESHOOTING
 ==================================
 If you get an error while running the ant script along the lines of
 
-[xslt] : Warning! file:/usr/share/xml/docbook/stylesheet/nwalsh5/current/xhtml/autoidx.xsl: line 552: Attribute 'href' outside of element.
+[xslt] : Warning! file:/usr/share/xml/docbook/stylesheet/nwalsh/xhtml/autoidx.xsl: line 552: Attribute 'href' outside of element.
 ...
-[xslt] : Error! file:/usr/share/xml/docbook/stylesheet/nwalsh5/current/webhelp/xsl/webhelp.xsl: line 8: Circular variable/parameter reference in '[variable(chunk.hierarchy)]'.
+[xslt] : Error! file:/usr/share/xml/docbook/stylesheet/nwalsh/webhelp/xsl/webhelp.xsl: line 8: Circular variable/parameter reference in '[variable(chunk.hierarchy)]'.
 ....
 
 This most likely means that the saxon6 jar has not been loaded. Review you paths in the webhelp "build.properties"

@@ -339,9 +339,11 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             $this->getRef($p)->setupDirectoryScanner($ds, $p);
             return;
         }
-        if ($ds === null) {
-            throw new BuildException("DirectoryScanner cannot be null");
-        }
+
+        $stk[] = $this;
+        $this->dieOnCircularReference($stk, $p);
+        array_pop($stk);
+
         // FIXME - pass dir directly when dirscanner supports File
         $ds->setBasedir($this->dir->getPath());
 
@@ -353,12 +355,16 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
 
         $p->log(
-            "FileSet: Setup file scanner in dir " . (string) $this->dir . " with " . $this->defaultPatterns->toString(),
+            $this->getDataTypeName() . ": Setup file scanner in dir " . (string) $this->dir . " with " . (string) $this->defaultPatterns,
             Project::MSG_DEBUG
         );
 
         if ($ds instanceof SelectorScanner) {
-            $ds->setSelectors($this->getSelectors($p));
+            $selectors = $this->getSelectors($p);
+            foreach ($selectors as $selector) {
+                $p->log((string) $selector . PHP_EOL, Project::MSG_DEBUG);
+            }
+            $ds->setSelectors($selectors);
         }
 
         if ($this->useDefaultExcludes) {
@@ -367,6 +373,25 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setCaseSensitive($this->isCaseSensitive);
     }
 
+    public function dieOnCircularReference(&$stk, Project $p = null)
+    {
+        if ($this->checked) {
+            return;
+        }
+        if ($this->isReference()) {
+            parent::dieOnCircularReference($stk, $p);
+        } else {
+            foreach ($this->selectorsList as $fileSelector) {
+                if ($fileSelector instanceof DataType) {
+                    static::pushAndInvokeCircularReferenceCheck($fileSelector, $stk, $p);
+                }
+            }
+            foreach  ($this->additionalPatterns as $ps) {
+                static::pushAndInvokeCircularReferenceCheck($ps, $stk, $p);
+            }
+            $this->setChecked(true);
+        }
+    }
 
     /**
      * Performs the check for circular references and returns the
@@ -431,11 +456,11 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @throws Exception
      * @return int The number of selectors in this container
      */
-    public function selectorCount()
+    public function count()
     {
         if ($this->isReference() && $this->getProject() !== null) {
             try {
-                return $this->getRef($this->getProject())->selectorCount();
+                return $this->getRef($this->getProject())->count();
             } catch (Exception $e) {
                 throw $e;
             }
@@ -509,4 +534,22 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     abstract protected function getFiles(...$options);
+
+    public function __toString()
+    {
+        try {
+            if ($this->isReference()) {
+                return (string) $this->getRef($this->getProject());
+            }
+            $stk[] = $this;
+            $this->dieOnCircularReference($stk, $this->getProject());
+            $ds = $this->getDirectoryScanner($this->getProject());
+            $files = $ds->getIncludedFiles();
+            $result = implode(';', $files);
+        } catch (BuildException $e) {
+            $result = '';
+        }
+
+        return $result;
+    }
 }

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.3 System Initialization</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s02.html" title="6.2 Source Layout"><link rel="next" href="ch06s04.html" title="6.4 System Services"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.3  System Initialization </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s02.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s04.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp30"></a>6.3  System Initialization </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.3 System Initialization</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s02.html" title="6.2 Source Layout"><link rel="next" href="ch06s04.html" title="6.4 System Services"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.3  System Initialization </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s02.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch06s04.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp30"></a>6.3  System Initialization </h2></div></div></div>
         
 
         <p>PHP installations are typically quite customized -- e.g. different memory_limit,
@@ -20,7 +20,7 @@
             build so that other frontends (e.g. PHP-GTK) could be used in place of the command
             line.</p>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2098"></a>6.3.1  Wrapper Scripts </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2101"></a>6.3.1  Wrapper Scripts </h3></div></div></div>
             
 
             <p>This scripts are technical not required but provided for the ease of use. Imagine
@@ -41,7 +41,7 @@
             <pre class="screen">phing -v2 all distro</pre>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2107"></a>6.3.2  The Main Application (phing.php) </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2110"></a>6.3.2  The Main Application (phing.php) </h3></div></div></div>
             
 
             <p>This is basically a wrapper for the Phing class that actually does all the logic
@@ -50,7 +50,7 @@
                 entry point for Phing.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2110"></a>6.3.3  The Phing Class </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2113"></a>6.3.3  The Phing Class </h3></div></div></div>
             
 
             <p>Given that all the prior initialization steps passed successfully the Phing is

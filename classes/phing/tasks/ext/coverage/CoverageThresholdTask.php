@@ -18,10 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/types/Excludes.php';
-
 /**
  * Stops the build if any of the specified coverage threshold was not reached
  *

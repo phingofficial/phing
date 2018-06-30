@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/AndSelector.php';
-
 /**
  * This selector just holds one other selector and forwards all
  * requests to it. It exists so that there is a single selector
@@ -39,16 +36,9 @@ class SelectSelector extends AndSelector
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
-        $buf = "";
-        if ($this->hasSelectors()) {
-            $buf .= "{select: ";
-            $buf .= parent::toString();
-            $buf .= "}";
-        }
-
-        return $buf;
+        return $this->hasSelectors() ? sprintf('{select: %s}', parent::__toString()) : '';
     }
 
     /**
@@ -57,9 +47,7 @@ class SelectSelector extends AndSelector
      */
     private function getRef()
     {
-        $o = $this->getCheckedRef(get_class($this), "SelectSelector");
-
-        return $o;
+        return $this->getCheckedRef(get_class($this), "SelectSelector");
     }
 
     /**
@@ -67,23 +55,19 @@ class SelectSelector extends AndSelector
      */
     public function hasSelectors()
     {
-        if ($this->isReference()) {
-            return $this->getRef()->hasSelectors();
-        }
-
-        return parent::hasSelectors();
+        return $this->isReference() ? $this->getRef()->hasSelectors() : parent::hasSelectors();
     }
 
     /**
      * Gives the count of the number of selectors in this container
      */
-    public function selectorCount()
+    public function count()
     {
         if ($this->isReference()) {
-            return $this->getRef()->selectorCount();
+            return count($this->getRef());
         }
 
-        return parent::selectorCount();
+        return parent::count();
     }
 
     /**
@@ -93,11 +77,7 @@ class SelectSelector extends AndSelector
      */
     public function getSelectors(Project $p)
     {
-        if ($this->isReference()) {
-            return $this->getRef()->getSelectors($p);
-        }
-
-        return parent::getSelectors($p);
+        return $this->isReference() ? $this->getRef()->getSelectors($p) : parent::getSelectors($p);
     }
 
     /**
@@ -105,11 +85,7 @@ class SelectSelector extends AndSelector
      */
     public function selectorElements()
     {
-        if ($this->isReference()) {
-            return $this->getRef()->selectorElements();
-        }
-
-        return parent::selectorElements();
+        return $this->isReference() ? $this->getRef()->selectorElements() : parent::selectorElements();
     }
 
     /**
@@ -133,7 +109,7 @@ class SelectSelector extends AndSelector
      */
     public function verifySettings()
     {
-        if ($this->selectorCount() != 1) {
+        if ($this->count() != 1) {
             $this->setError(
                 "One and only one selector is allowed within the "
                 . "<selector> tag"

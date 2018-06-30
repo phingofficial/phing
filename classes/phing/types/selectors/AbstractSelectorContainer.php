@@ -106,11 +106,11 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * @throws Exception
      * @return int The number of selectors in this container
      */
-    public function selectorCount()
+    public function count()
     {
         if ($this->isReference() && $this->getProject() !== null) {
             try {
-                return $this->getRef($this->getProject())->selectorCount();
+                return $this->getRef($this->getProject())->count();
             } catch (Exception $e) {
                 throw $e;
             }
