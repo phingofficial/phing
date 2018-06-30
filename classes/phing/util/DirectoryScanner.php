@@ -278,6 +278,10 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public static function getDefaultExcludes()
     {
+        if (empty(self::$defaultExcludeList)) {
+            self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
+        }
+
         return self::$defaultExcludeList;
     }
 
