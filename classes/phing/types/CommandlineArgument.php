@@ -41,13 +41,14 @@ class CommandlineArgument
      * Line to split into several commandline arguments.
      *
      * @param string $line line to split into several commandline arguments
+     * @throws \BuildException
      */
     public function setLine($line)
     {
         if ($line === null) {
             return;
         }
-        $this->parts = $this->outer->translateCommandline($line);
+        $this->parts = $this->outer::translateCommandline($line);
     }
 
     /**
@@ -55,11 +56,11 @@ class CommandlineArgument
      * PATH - ensures the right separator for the local platform
      * is used.
      *
-     * @param string $value a single commandline argument
+     * @param Path $value a single commandline argument
      */
-    public function setPath($value)
+    public function setPath(Path $value): void
     {
-        $this->parts = [(string)$value];
+        $this->parts = [(string) $value];
     }
 
     /**
@@ -69,7 +70,7 @@ class CommandlineArgument
      * @param PhingFile $value
      * @internal param a $value single commandline argument.
      */
-    public function setFile(PhingFile $value)
+    public function setFile(PhingFile $value): void
     {
         $this->parts = [$value->getAbsolutePath()];
     }
@@ -78,7 +79,7 @@ class CommandlineArgument
      * Returns the parts this Argument consists of.
      * @return array string[]
      */
-    public function getParts()
+    public function getParts(): array
     {
         return $this->parts;
     }
