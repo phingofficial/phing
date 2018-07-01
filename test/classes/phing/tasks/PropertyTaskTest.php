@@ -101,6 +101,11 @@ class PropertyTaskTest extends BuildFileTest
         $this->fail("Did not throw exception on circular exception");
     }
 
+    public function testToString()
+    {
+        $this->expectLog(__FUNCTION__, 'sourcefiles = filehash.bin');
+    }
+
     /**
      * Inspired by @link http://www.phing.info/trac/ticket/1118
      * This test should not throw exceptions
