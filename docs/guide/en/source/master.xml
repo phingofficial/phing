@@ -55,6 +55,13 @@
                 </personname>
                 <email>ken@linux.ie</email>
             </author>
+            <author>
+                <personname>
+                    <firstname>Siad</firstname>
+                    <surname>Ardroumli</surname>
+                </personname>
+                <email>siad.ardroumli@gmail.com</email>
+            </author>
         </authorgroup>
         <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
         <copyright>
