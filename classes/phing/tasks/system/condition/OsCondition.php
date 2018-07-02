@@ -68,8 +68,18 @@ class OsCondition implements Condition
         $osName = strtolower(Phing::getProperty('os.name'));
 
         if ($family !== null) {
-            if ($family === self::FAMILY_WINDOWS) {
-                return StringHelper::startsWith('win', $osName);
+            $isWindows = StringHelper::startsWith('win', $osName);
+
+            if ($family === 'windows') {
+                return $isWindows;
+            }
+
+            if ($family === 'win32') {
+                return $isWindows && $osName === 'win32';
+            }
+
+            if ($family === 'winnt') {
+                return $isWindows && $osName === 'winnt';
             }
 
             if ($family === self::FAMILY_MAC) {

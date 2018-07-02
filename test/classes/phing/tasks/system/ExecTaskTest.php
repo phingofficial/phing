@@ -94,9 +94,9 @@ class ExecTaskTest extends BuildFileTest
         $this->assertEquals($value, $rprop->getValue($task));
     }
 
-    public function testPropertySetCommand()
+    public function testPropertySetCommandline()
     {
-        $this->assertAttributeIsSetTo('command', "echo 'foo'");
+        $this->assertAttributeIsSetTo('commandline', new Commandline("echo 'foo'"));
     }
 
     public function testPropertySetDir()
@@ -239,7 +239,7 @@ class ExecTaskTest extends BuildFileTest
             $this->fail('Expected BuildException was not thrown');
         } catch (BuildException $e) {
             $this->assertContains(
-                str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' is not a valid directory"),
+                str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"),
                 $e->getMessage()
             );
         }
@@ -256,8 +256,8 @@ class ExecTaskTest extends BuildFileTest
 
     public function testCheckreturnTrue()
     {
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/true'");
+        if (FileSystem::getFileSystem()->which('true') === false) {
+            $this->markTestSkipped("'true' not found.");
         }
         $this->executeTarget(__FUNCTION__);
         $this->assertTrue(true);
@@ -265,12 +265,12 @@ class ExecTaskTest extends BuildFileTest
 
     /**
      * @expectedException BuildException
-     * @expectedExceptionMessage Task exited with code 1
+     * @expectedExceptionMessage exec returned: 1
      */
     public function testCheckreturnFalse()
     {
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/false'");
+        if (FileSystem::getFileSystem()->which('false') === false) {
+            $this->markTestSkipped("'false' not found.");
         }
         $this->executeTarget(__FUNCTION__);
     }
@@ -290,7 +290,7 @@ class ExecTaskTest extends BuildFileTest
     public function testEscape()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs($this->windows ? 'foo  |  cat' : 'foo | cat');
+        $this->assertInLogs($this->windows ? '"foo" "|" "cat"' : 'foo | cat');
     }
 
     public function testPassthru()
@@ -315,9 +315,6 @@ class ExecTaskTest extends BuildFileTest
 
     public function testError()
     {
-        if ($this->windows) {
-            $this->markTestSkipped("The script is unlikely to run on Windows");
-        }
         $file = tempnam(sys_get_temp_dir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
@@ -346,16 +343,7 @@ class ExecTaskTest extends BuildFileTest
 
     /**
      * @expectedException BuildException
-     * @expectedExceptionMessage ExecTask: Either use "command" OR "executable"
-     */
-    public function testExecutableAndCommand()
-    {
-        $this->executeTarget(__FUNCTION__);
-    }
-
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage ExecTask: Please provide "command" OR "executable"
+     * @expectedExceptionMessage ExecTask: Please provide "executable"
      */
     public function testMissingExecutableAndCommand()
     {
@@ -368,7 +356,15 @@ class ExecTaskTest extends BuildFileTest
     public function testEscapedArg()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('outval', 'abc$b3!SB');
+        $this->assertPropertyEquals('outval', $this->windows ? 'abc$b3 SB' : 'abc$b3!SB');
+    }
+
+    public function testEscapedArgWithoutWhitespace()
+    {
+        $arg = 'foo|bar';
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs($this->windows ? '"echo" "foo|bar" 2>&1' : '\'echo\' \'foo|bar\' 2>&1');
+        $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');
     }
 
     public function testNestedEnv()
