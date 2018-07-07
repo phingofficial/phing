@@ -1524,7 +1524,9 @@ class Phing
         } else {
             self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
         }
+        self::setProperty('file.separator', PhingFile::$separator);
         self::setProperty('line.separator', PHP_EOL);
+        self::setProperty('path.separator', PhingFile::$pathSeparator);
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
