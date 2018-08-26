@@ -121,7 +121,6 @@ class VersionTask extends Task
     public function main()
     {
         // check supplied attributes
-        $this->checkStartingVersion();
         $this->checkReleasetype();
         $this->checkFile();
         $this->checkProperty();
@@ -159,13 +158,6 @@ class VersionTask extends Task
         $this->getProject()->setNewProperty($this->property, $newVersion);
     }
 
-    private function checkStartingVersion()
-    {
-        if (version_compare($this->startingVersion, '0.0.0', '<')) {
-            $this->startingVersion = '0.0.0';
-        }
-    }
-
     /**
      * Utility method to load properties from file.
      *
@@ -191,47 +183,34 @@ class VersionTask extends Task
      */
     private function getVersion($filecontent)
     {
-        // init
-        $newVersion = '';
-
         if (empty($filecontent)) {
             $filecontent = $this->startingVersion;
         }
 
-        // Extract version
-        list($major, $minor, $bugfix) = explode(".", $filecontent);
+        preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $filecontent, $version);
 
-        // Return new version number
+        // Setting values if not captured
+        $version['PREFIX']                 = $version['PREFIX'] ?? '';
+        $version[self::RELEASETYPE_MAJOR]  = $version[self::RELEASETYPE_MAJOR] ?? '0';
+        $version[self::RELEASETYPE_MINOR]  = $version[self::RELEASETYPE_MINOR] ?? '0';
+        $version[self::RELEASETYPE_BUGFIX] = $version[self::RELEASETYPE_BUGFIX] ?? '0';
+
+        // Resetting Minor and/or Bugfix number according to release type
         switch ($this->releasetype) {
             case self::RELEASETYPE_MAJOR:
-                $newVersion = sprintf(
-                    "%d.%d.%d",
-                    ++$major,
-                    0,
-                    0
-                );
-                break;
-
+                $version[self::RELEASETYPE_MINOR] = '0';
             case self::RELEASETYPE_MINOR:
-                $newVersion = sprintf(
-                    "%d.%d.%d",
-                    $major,
-                    ++$minor,
-                    0
-                );
+                $version[self::RELEASETYPE_BUGFIX] = '0';
                 break;
+         }
 
-            case self::RELEASETYPE_BUGFIX:
-                $newVersion = sprintf(
-                    "%d.%d.%d",
-                    $major,
-                    $minor,
-                    ++$bugfix
-                );
-                break;
-        }
+        $version[$this->releasetype]++;
 
-        return $newVersion;
+        return sprintf('%s%u.%u.%u',
+                       $version['PREFIX'],
+                       $version[self::RELEASETYPE_MAJOR],
+                       $version[self::RELEASETYPE_MINOR],
+                       $version[self::RELEASETYPE_BUGFIX]);
     }
 
     /**
