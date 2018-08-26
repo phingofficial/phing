@@ -13839,7 +13839,7 @@ host="webserver" command="ls" /></programlisting>
             given file and writes it back to the file. The resulting version number is also
             published under supplied property.</para>
         <para>The version number in the text file is expected in the format of Major.Minor.Bugfix
-            (e.g. 1.3.2).</para>
+            (e.g. 1.3.2). Alternatively you can use 'v' as prefix (e.g. v1.3.2).</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -13882,7 +13882,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>propFile</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Set to true, if version should be saved as property file.</entry>
+                        <entry>If <literal>true</literal>, version will be saved using <emphasis>property file</emphasis> format (i.e. key=value).</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -13899,6 +13899,7 @@ host="webserver" command="ls" /></programlisting>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
+            <programlisting language="xml">&lt;version releasetype="Minor" startingVersion="v5.7" propFile="true"/></programlisting>
         </sect2>
 
     </sect1>
