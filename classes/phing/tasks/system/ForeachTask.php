@@ -103,6 +103,11 @@ class ForeachTask extends Task
     private $references = [];
 
     /**
+     * @var string $delta
+     */
+    private $delta = 'delta';
+
+    /**
      * This method does the work.
      * @throws BuildException
      * @return void
@@ -130,7 +135,7 @@ class ForeachTask extends Task
             $arr = explode($this->delimiter, $this->list);
             $total_entries = 0;
 
-            foreach ($arr as $value) {
+            foreach ($arr as $delta => $value) {
                 if ($this->trim) {
                     $value = trim($value);
                 }
@@ -151,6 +156,10 @@ class ForeachTask extends Task
                 $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->delta);
+                $prop->setValue($delta);
                 $callee->main();
                 $total_entries++;
             }
@@ -345,6 +354,11 @@ class ForeachTask extends Task
     public function setDelimiter($delimiter)
     {
         $this->delimiter = (string) $delimiter;
+    }
+
+    public function setDelta($delta)
+    {
+        $this->delta = $delta;
     }
 
     public function createPath()
