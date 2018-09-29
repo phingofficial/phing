@@ -165,7 +165,7 @@ class FormatterElement
             } else {
                 throw new BuildException("Formatter '" . $this->type . "' not implemented");
             }
-        } elseif (false) {
+        } elseif (\version_compare('7.3', \PHPUnit\Runner\Version::id(), '>=')) {
             if ($this->type === "summary") {
                 $this->formatter = new SummaryPHPUnitResultFormatter6($this->parent);
             } elseif ($this->type === "clover") {
