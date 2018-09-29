@@ -74,7 +74,7 @@ class TaskdefTaskTest extends BuildFileTest
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
         $this->assertNotNull("ref is not null", (string) $ref);
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        $this->assertInstanceOf("TaskdefTestSimpleTask", get_class($ref));
     }
 
     public function tesFile()
