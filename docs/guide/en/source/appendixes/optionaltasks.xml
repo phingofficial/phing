@@ -13245,6 +13245,14 @@ host="webserver" command="ls" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry>silent</entry>
+                        <entry>Boolean</entry>
+                        <entry>Disable task output except errors.
+                            Use in conjunction with additional output helper like Symfonys ProgressBar</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry>propertyName</entry>
                         <entry>String</entry>
                         <entry>The name of the property to store the application output in</entry>

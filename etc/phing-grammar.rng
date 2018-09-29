@@ -6398,6 +6398,9 @@
                     <attribute name="debug">
                         <data type="boolean"/>
                     </attribute>
+                    <attribute name="silent" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
                 <zeroOrMore>
                     <ref name="arg"/>
