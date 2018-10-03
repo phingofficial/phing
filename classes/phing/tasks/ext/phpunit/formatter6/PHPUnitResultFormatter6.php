@@ -26,7 +26,7 @@ require_once 'phing/system/io/Writer.php';
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
+abstract class PHPUnitResultFormatter6 implements PHPUnit\Framework\TestListener
 {
     protected $out;
 
