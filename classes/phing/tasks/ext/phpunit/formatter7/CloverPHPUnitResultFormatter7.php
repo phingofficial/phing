@@ -18,15 +18,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints Clover XML output of the test
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.formatter
  */
-class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
+class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     /**
      * @var PHPUnit\Framework\TestResult
