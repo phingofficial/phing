@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints short summary output of the test to Phing's logging system.
  *
@@ -27,7 +24,7 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
  * @package phing.tasks.ext.formatter
  * @since 2.1.0
  */
-class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
+class SummaryPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     public function endTestRun()
     {

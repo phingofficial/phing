@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,41 +19,37 @@
  */
 
 /**
- * Tests for PHPCPDTask
+ * Prints short summary output of the test to Phing's logging system.
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext
+ * @package phing.tasks.ext.formatter
+ * @since 2.1.0
  */
-class PHPCPDTaskTest extends BuildFileTest
+class SummaryPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
 {
-    public function setUp()
+    public function endTestRun()
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
+        parent::endTestRun();
+
+        $sb = "Total tests run: " . $this->getRunCount();
+        $sb .= ", Warnings: " . $this->getWarningCount();
+        $sb .= ", Failures: " . $this->getFailureCount();
+        $sb .= ", Errors: " . $this->getErrorCount();
+        $sb .= ", Incomplete: " . $this->getIncompleteCount();
+        $sb .= ", Skipped: " . $this->getSkippedCount();
+        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+
+        if ($this->out != null) {
+            $this->out->write($sb);
+            $this->out->close();
+        }
     }
 
-    public function testFormatterOutfile()
+    /**
+     * @return null
+     */
+    public function getExtension()
     {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
-    }
-
-    public function testFormatterPMD()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
-    }
-
-    public function testFormatterNoFile()
-    {
-        ob_start();
-        $this->executeTarget(__FUNCTION__);
-        $output = ob_get_clean();
-        $this->assertContains("No clones found.\n\n", $output);
+        return null;
     }
 }
