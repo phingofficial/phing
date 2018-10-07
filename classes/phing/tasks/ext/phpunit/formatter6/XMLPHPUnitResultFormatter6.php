@@ -18,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints XML output of the test to a specified Writer
  *
@@ -27,7 +25,7 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
  * @package phing.tasks.ext.formatter
  * @since 2.1.0
  */
-class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
+class XMLPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
 {
     /**
      * @var PHPUnit_Util_Log_JUnit

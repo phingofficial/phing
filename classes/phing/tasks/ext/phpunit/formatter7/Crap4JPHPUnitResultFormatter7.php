@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,15 +17,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints Clover XML output of the test
  *
  * @author Daniel Kreckel <daniel@kreckel.koeln>
  * @package phing.tasks.ext.formatter
  */
-class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
+class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     /**
      * @var PHPUnit\Framework\TestResult
