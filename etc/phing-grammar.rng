@@ -2004,6 +2004,11 @@
                 <optional>
                     <attribute name="setonempty"/>
                 </optional>
+                <optional>
+                    <attribute name="preserveduplicates" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
             <interleave>
                 <optional>
