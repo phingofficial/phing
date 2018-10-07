@@ -346,6 +346,7 @@ abstract class BuildFileTest extends TestCase
             $this->buildException = $ex;
             $found = false;
             while ($ex) {
+                $msg = $ex->getMessage();
                 if (false !== strpos($ex->getMessage(), $contains)) {
                     $found = true;
                 }
@@ -354,8 +355,8 @@ abstract class BuildFileTest extends TestCase
 
             if (!$found) {
                 $this->fail(
-                    "Should throw BuildException because '" . $cause . "' with message containing '" . $contains . "' (actual message '" . $ex->getMessage(
-                    ) . "' instead)"
+                    "Should throw BuildException because '" . $cause . "' with message containing '" . $contains
+                    . "' (actual message '" . $msg . "' instead)"
                 );
             }
 

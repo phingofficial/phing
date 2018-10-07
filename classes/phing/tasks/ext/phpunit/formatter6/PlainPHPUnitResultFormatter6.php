@@ -18,15 +18,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints plain text output of the test to a specified Writer.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
+class PlainPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
 {
     private $inner = "";
 
