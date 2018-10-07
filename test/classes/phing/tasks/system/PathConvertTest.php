@@ -66,7 +66,7 @@ class PathConvertTest extends BuildFileTest
         $l = $p->listPaths();
         $this->assertCount(1, $l, "1 after append");
         $l = $p->listPaths(true);
-        $this->assertCount(2, $l, "6 after preserved duplicates");
+        $this->assertCount(6, $l, "6 after preserved duplicates");
     }
 
     private function assertTarget(string $target)
