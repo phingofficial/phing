@@ -2849,6 +2849,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>true</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>preserveduplicates</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to preserve duplicate resources.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
