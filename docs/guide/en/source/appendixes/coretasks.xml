@@ -2257,10 +2257,10 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>delta</literal></entry>
+                        <entry><literal>index</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The name of the property containing the iteration count.</entry>
-                        <entry>delta</entry>
+                        <entry>index</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

@@ -103,9 +103,9 @@ class ForeachTask extends Task
     private $references = [];
 
     /**
-     * @var string $delta
+     * @var string $index
      */
-    private $delta = 'delta';
+    private $index = 'index';
 
     /**
      * This method does the work.
@@ -135,7 +135,7 @@ class ForeachTask extends Task
             $arr = explode($this->delimiter, $this->list);
             $total_entries = 0;
 
-            foreach ($arr as $delta => $value) {
+            foreach ($arr as $index => $value) {
                 if ($this->trim) {
                     $value = trim($value);
                 }
@@ -158,8 +158,8 @@ class ForeachTask extends Task
                 $prop->setValue($value);
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
-                $prop->setName($this->delta);
-                $prop->setValue($delta);
+                $prop->setName($this->index);
+                $prop->setValue($index);
                 $callee->main();
                 $total_entries++;
             }
@@ -356,9 +356,9 @@ class ForeachTask extends Task
         $this->delimiter = (string) $delimiter;
     }
 
-    public function setDelta($delta)
+    public function setIndex($index)
     {
-        $this->delta = $delta;
+        $this->index = $index;
     }
 
     public function createPath()
