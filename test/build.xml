@@ -68,7 +68,9 @@
                         <include name="**/*.php"/>
                         <!-- exclude these to prevent fatals when running on phpunit 6 (the default) -->
                         <exclude name="**/phpunit/PHPUnitTestRunner.php"/>
+						<exclude name="**/phpunit/PHPUnitTestRunner6.php"/>
                         <exclude name="**/phpunit/formatter5/*.php"/>
+						<exclude name="**/phpunit/formatter6/*.php"/>
                     </fileset>
         		</coverage-setup>
 	    	</then>
