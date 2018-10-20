@@ -47,12 +47,12 @@
         <foreach list="fr" param="lang" target="main" />
     </target>
 
-    <target name="delta">
-        <echo>${delta} - ${lang}</echo>
+    <target name="index">
+        <echo>${index} - ${lang}</echo>
     </target>
 
-    <target name="testDelta">
-        <foreach list="${languages}" param="lang" target="delta"/>
+    <target name="testIndex">
+        <foreach list="${languages}" param="lang" target="index"/>
     </target>
 
 </project>

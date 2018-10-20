@@ -125,7 +125,7 @@ class ForeachTaskTest extends BuildFileTest
         $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
     }
 
-    public function testDelta()
+    public function testIndex()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('2 - de');
