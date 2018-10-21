@@ -12,7 +12,7 @@
         </else>
     </if>
 
-    <target name="testPropertySetCommand">
+    <target name="testPropertySetCommandline">
         <exec command="echo 'foo'"/>
     </target>
 
@@ -119,7 +119,7 @@
             </if>
 
         <exec command="echo 'this should be executed'"
-              osfamily="unix" />
+              osfamily="${current}" />
     </target>
 
     <target name="testFailOnNonExistingDir">
@@ -134,11 +134,11 @@
     </target>
 
     <target name="testCheckreturnTrue">
-        <exec command="${binPrefix}/true" checkreturn="true"/>
+        <exec executable="true" checkreturn="true"/>
     </target>
 
     <target name="testCheckreturnFalse">
-        <exec command="${binPrefix}/false" checkreturn="true"/>
+        <exec executable="false" checkreturn="true"/>
     </target>
 
     <target name="testOutputProperty">
@@ -147,7 +147,7 @@
     </target>
 
     <target name="testReturnProperty">
-        <exec command="${binPrefix}/false" returnProperty="execReturnProp"/>
+        <exec executable="false" returnProperty="execReturnProp"/>
         <echo>The return property's value is: "${execReturnProp}"</echo>
     </target>
 
@@ -166,7 +166,7 @@
     </target>
 
     <target name="testError">
-        <exec command="./ExecTest-stderr.php errfoo" error="${execTmpFile}"/>
+        <exec command="php ./ExecTest-stderr.php errfoo" error="${execTmpFile}"/>
     </target>
 
     <target name="testSpawn">
@@ -181,12 +181,6 @@
         </exec>
     </target>
 
-    <target name="testExecutableAndCommand">
-        <exec executable="echo" command="echo nested-arg">
-            <arg value="nested-arg"/>
-        </exec>
-    </target>
-
     <target name="testMissingExecutableAndCommand">
         <exec>
         </exec>
@@ -195,6 +189,12 @@
     <target name="testEscapedArg">
         <exec executable="echo" escape="true" outputProperty="outval">
             <arg value="abc$b3!SB"/>
+        </exec>
+    </target>
+
+    <target name="testEscapedArgWithoutWhitespace">
+        <exec executable="echo" escape="true">
+            <arg value="foo|bar"/>
         </exec>
     </target>
 

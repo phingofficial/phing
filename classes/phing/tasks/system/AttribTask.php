@@ -133,7 +133,7 @@ class AttribTask extends ApplyTask
      * @param mixed $e
      * @throws BuildException
      */
-    public function setExecutable($e)
+    public function setExecutable($e): void
     {
         throw new BuildException(
             $this->getTaskType() . ' doesn\'t support the executable attribute',

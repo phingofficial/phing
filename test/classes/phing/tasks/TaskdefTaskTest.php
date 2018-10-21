@@ -64,7 +64,7 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testGlobal", "simpletask: testGlobal echo");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
-        $this->assertNotNull("ref is not null", $ref);
+        $this->assertNotNull("ref is not null");
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 
@@ -73,8 +73,8 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testLocal", "Task local will be handled by class example.tasks.TaskdefTestSimpleTask");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
-        $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        $this->assertNotNull("ref is not null");
+        $this->assertInstanceOf('TaskdefTestSimpleTask', $ref);
     }
 
     public function tesFile()
@@ -82,10 +82,10 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testFile", "simpletask: testTdfile echo");
         $refs = $this->project->getReferences();
         $ref = $refs["tdfile"];
-        $this->assertNotNull("ref is not null", $ref);
+        $this->assertNotNull("ref is not null");
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
         $ref = $refs["tdfile2"];
-        $this->assertNotNull("ref is not null", $ref);
+        $this->assertNotNull("ref is not null");
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 }

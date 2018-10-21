@@ -322,6 +322,16 @@
                 with the value 'build', then this could be used in an attribute like this:
                     <literal>${BC_BUILD_DIR}/en</literal> . This is resolved to
                     <literal>build/en</literal>.</para>
+            <para>Getting the value of a Reference with <literal>${toString:}</literal>
+                Any Phing type item which has been declared with a reference can also its string value extracted by using
+                the ${toString:} operation, with the name of the reference listed after the toString: text.
+                The __toString() method of the php class instance that is referenced is invoked
+                all built in types strive to produce useful and relevant output in such an instance.</para>
+            <para>For example, here is how to get a listing of the files in a fileset:
+                <programlisting language="xml">&lt;fileset id="sourcefiles" dir="src" includes="**/*.php"/>
+&lt;echo> sourcefiles = ${toString:sourcefiles} &lt;/echo></programlisting>
+            </para>
+            <para>There is no guarantee that external types provide meaningful information in such a situation</para>
 
             <sect3>
                 <title>Built-in Properties</title>

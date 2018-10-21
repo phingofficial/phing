@@ -496,8 +496,34 @@
                         <entry>No</entry>
                         <entry></entry>
                     </row>
-
-
+                    <row>
+                        <entry><literal>skipemptyfilesets</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Don't run the command, if no source files have been found or are newer than their
+                            corresponding target files. Despite its name, this attribute applies to filelists as well.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                        <entry></entry>
+                    </row>
+                    <row>
+                        <entry><literal>type</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>One of file, dir or both. If set to file, only the names of plain files will be sent to
+                            the command. If set to dir, only the names of directories are considered.
+                            Note: The type attribute does not apply to nested dirsets - dirsets always implicitly assume
+                            type to be dir.</entry>
+                        <entry><literal>file</literal></entry>
+                        <entry>No</entry>
+                        <entry></entry>
+                    </row>
+                    <row>
+                        <entry><literal>force</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to bypass timestamp comparisons for target files.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                        <entry></entry>
+                    </row>
             </tbody>
             </tgroup>
         </table>
@@ -585,7 +611,9 @@
                 <listitem><para><literal><link linkend="FileSet">fileset</link></literal></para></listitem>
                 <listitem><para><literal><link linkend="FileList">filelist</link></literal></para></listitem>
                 <listitem><para><literal>dirset</literal></para></listitem>
+                <listitem><para><literal>mapper</literal></para></listitem>
                 <listitem><para><literal>srcfile</literal></para></listitem>
+                <listitem><para><literal>targetfile</literal></para></listitem>
             </itemizedlist>
         </sect2>
     </sect1>
@@ -1782,7 +1810,8 @@ verbose="true" failonerror="false" /></programlisting>
                     <row>
                         <entry><literal>command</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The command that is to be executed.</entry>
+                        <entry>NOTE: This attribute is deprecated. Please use executable with nested args.
+                            The command that is to be executed.</entry>
                         <entry>n/a</entry>
                         <entry morerows="1">One of the two</entry>
                     </row>
@@ -2818,6 +2847,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>Should the property be set, even if the result is
                             the empty string?</entry>
                         <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>preserveduplicates</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to preserve duplicate resources.</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

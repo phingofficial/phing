@@ -225,6 +225,7 @@ class TarTask extends MatchingTask
                     // create a default, all-inclusive fileset using the specified basedir.
                     $mainFileSet = new TarFileSet($this->fileset);
                     $mainFileSet->setDir($this->baseDir);
+                    $mainFileSet->setProject($this->project);
                     $this->filesets[] = $mainFileSet;
                 }
             }

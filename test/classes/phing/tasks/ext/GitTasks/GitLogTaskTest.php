@@ -149,7 +149,7 @@ class GitLogTaskTest extends BuildFileTest
     public function testGitOutputPropertySet()
     {
         $this->executeTarget('gitLogOutputPropertySet');
-        $this->assertPropertyEquals('gitLogOutput', '1b767b75bb5329f4e53345c516c0a9f4ed32d330 Added file5' . "\n");
+        $this->assertPropertyEquals('gitLogOutput', '1b767b75bb5329f4e53345c516c0a9f4ed32d330 Added file5');
     }
 
     public function testGitLogNameStatus()
