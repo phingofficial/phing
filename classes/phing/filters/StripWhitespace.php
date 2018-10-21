@@ -25,7 +25,6 @@
  * @author    Hans Lellelid, hans@velum.net
  * @see       FilterReader
  * @package   phing.filters
- * @todo -c use new PHP functions to perform this instead of regex.
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {
