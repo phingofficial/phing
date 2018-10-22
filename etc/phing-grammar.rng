@@ -1670,6 +1670,9 @@
                     <attribute name="delimiter" a:defaultValue=","/>
                 </optional>
                 <optional>
+                    <attribute name="delta" a:defaultValue="delta"/>
+                </optional>
+                <optional>
                     <attribute name="trim" a:defaultValue="false"/>
                 </optional>
                 <optional>
