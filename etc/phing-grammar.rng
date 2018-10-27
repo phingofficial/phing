@@ -166,6 +166,7 @@
                 <ref name="phplint"/>
                 <ref name="phploc"/>
                 <ref name="phpmd"/>
+                <ref name="phpstan"/>
                 <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
                 <ref name="propertycopy"/>
@@ -5310,6 +5311,92 @@
             <zeroOrMore>
                 <ref name="fileset"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <!--
+        =========================================
+        PHPStanTask
+        =========================================
+    -->
+    <define name="phpstan">
+        <element name="phpstan">
+            <interleave>
+                <optional>
+                    <attribute name="command"/>
+                </optional>
+                <optional>
+                    <attribute name="executable"/>
+                </optional>
+                <optional>
+                    <attribute name="checkReturn">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configuration"/>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+                <optional>
+                    <attribute name="noProgress"/>
+                </optional>
+                <optional>
+                    <attribute name="debug"/>
+                </optional>
+                <optional>
+                    <attribute name="autoloadFile"/>
+                </optional>
+                <optional>
+                    <attribute name="errorFormat"/>
+                </optional>
+                <optional>
+                    <attribute name="memoryLimit"/>
+                </optional>
+                <optional>
+                    <attribute name="paths"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="raw"/>
+                </optional>
+                <optional>
+                    <attribute name="namespace"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="raw"/>
+                </optional>
+                <optional>
+                    <attribute name="commandName"/>
+                </optional>
+                <optional>
+                    <attribute name="help"/>
+                </optional>
+                <optional>
+                    <attribute name="quiet"/>
+                </optional>
+                <optional>
+                    <attribute name="version"/>
+                </optional>
+                <optional>
+                    <attribute name="ansi"/>
+                </optional>
+                <optional>
+                    <attribute name="noAnsi"/>
+                </optional>
+                <optional>
+                    <attribute name="noInteraction"/>
+                </optional>
+                <optional>
+                    <attribute name="verbose"/>
+                </optional>
+            </interleave>
         </element>
     </define>
 
