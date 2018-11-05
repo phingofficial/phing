@@ -241,6 +241,10 @@ class SassTask extends Task
      *
      * The default assumes sass is in your path. If not you can provide the full
      * path to sass.
+     *
+     * @param string $executable Name of executable, optionally including full path
+     *
+     * @return void
      */
     public function setExecutable(string $executable): void
     {
@@ -286,6 +290,10 @@ class SassTask extends Task
      *
      * Command will be:
      * sass {$flags} {$inputfile} {$outputfile}
+     *
+     * @param string $flags Flags to pass
+     *
+     * @return void
      */
     public function setFlags(string $flags): void
     {
@@ -673,6 +681,10 @@ class SassTask extends Task
 
     /**
      * Specify SASS import path
+     *
+     * @param string $path Import path
+     *
+     * @return void
      */
     public function setPath(string $path): void
     {
@@ -690,22 +702,26 @@ class SassTask extends Task
 
     /**
      * Set output style.
+     *
+     * @param string $style nested|compact|compressed|expanded|crunched
+     *
+     * @return void
      */
     public function setStyle(string $style): void
     {
         $style = strtolower($style);
         switch ($style) {
-        case 'nested':
-        case 'compact':
-        case 'compressed':
-        case 'expanded':
-        case 'crunched':
-            $this->flags = str_replace(" --style $this->style", '', $this->flags);
-            $this->style = $style;
-            $this->flags .= " --style $style";
-            break;
-        default:
-            $this->log("Style $style ignored", Project::MSG_INFO);
+            case 'nested':
+            case 'compact':
+            case 'compressed':
+            case 'expanded':
+            case 'crunched':
+                $this->flags = str_replace(" --style $this->style", '', $this->flags);
+                $this->style = $style;
+                $this->flags .= " --style $style";
+                break;
+            default:
+                $this->log("Style $style ignored", Project::MSG_INFO);
         }
     }
 
@@ -811,6 +827,11 @@ class SassTask extends Task
         $this->useSass = StringHelper::booleanValue($value);
     }
 
+    /**
+     * Get useSass property value
+     *
+     * @return bool
+     */
     public function getUseSass(): bool
     {
         return $this->useSass;
@@ -829,6 +850,11 @@ class SassTask extends Task
         $this->useScssphp = StringHelper::booleanValue($value);
     }
 
+    /**
+     * Whether to use the Scss php library
+     *
+     * @return bool
+     */
     public function getUseScssPhp(): bool
     {
         return $this->useScssphp;
@@ -904,7 +930,7 @@ class SassTask extends Task
      * that directory. If neither is specified, place .css file in the
      * directory that the input file is in.
      *
-     * @param boolean $useScssphp Whether to use the scssphp compiler.
+     * @param SassTaskCompiler $compiler Compiler to use for processing fileset
      *
      * @return void
      */
@@ -939,7 +965,7 @@ class SassTask extends Task
     /**
      * Process filesets - compiling/generating css files as required.
      *
-     * @param boolean $useScssphp Whether to use the scssphp compiler.
+     * @param SassTaskCompiler $compiler Compiler to use for processing fileset
      *
      * @return void
      */
@@ -962,12 +988,12 @@ class SassTask extends Task
 
                 $run = true;
                 switch (strtolower($this->pathInfo['extension'])) {
-                case 'scss':
-                case 'sass':
-                    break;
-                default:
-                    $this->log('Ignoring ' . $file, Project::MSG_DEBUG);
-                    $run = false;
+                    case 'scss':
+                    case 'sass':
+                        break;
+                    default:
+                        $this->log('Ignoring ' . $file, Project::MSG_DEBUG);
+                        $run = false;
                 }
 
                 if ($run
@@ -990,7 +1016,7 @@ class SassTask extends Task
      */
     protected function buildOutputFilePath()
     {
-        $outputFile = $this->outputpath.DIRECTORY_SEPARATOR;
+        $outputFile = $this->outputpath . DIRECTORY_SEPARATOR;
 
         $subpath = trim($this->pathInfo['dirname'], ' .');
 
