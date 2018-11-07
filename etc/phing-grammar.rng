@@ -197,6 +197,7 @@
                 <ref name="throw"/>
                 <ref name="untar"/>
                 <ref name="unzip"/>
+                <ref name="urlencode"/>
                 <ref name="version"/>
                 <ref name="wikipublish"/>
                 <ref name="xmllint"/>
@@ -5496,6 +5497,23 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="urlencode">
+        <element name="urlencode">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <choice>
+                    <attribute name="value"/>
+                    <attribute name="refid"/>
+                </choice>
             </interleave>
         </element>
     </define>
