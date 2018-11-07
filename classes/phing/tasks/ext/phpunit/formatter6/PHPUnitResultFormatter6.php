@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +25,7 @@ require_once 'phing/system/io/Writer.php';
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
+abstract class PHPUnitResultFormatter6 implements PHPUnit\Framework\TestListener
 {
     protected $out;
 

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,48 +17,51 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints Clover XML output of the test
  *
- * @author Daniel Kreckel <daniel@kreckel.koeln>
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.formatter
  */
-class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
+class CloverPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
 {
     /**
      * @var PHPUnit\Framework\TestResult
      */
     private $result = null;
+
     /**
      * PHPUnit version
      * @var string
      */
     private $version = null;
+
     /**
      * @param PHPUnitTask $parentTask
      */
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
+
         $this->version = PHPUnit\Runner\Version::id();
     }
+
     /**
      * @return string
      */
     public function getExtension()
     {
-        return '.xml';
+        return ".xml";
     }
+
     /**
      * @return string
      */
     public function getPreferredOutfile()
     {
-        return 'crap4j-coverage';
+        return "clover-coverage";
     }
-    
+
     /**
      * @param PHPUnit\Framework\TestResult $result
      */
@@ -67,19 +69,23 @@ class Crap4jPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         $this->result = $result;
     }
-    
+
     public function endTestRun()
     {
         $coverage = $this->result->getCodeCoverage();
+
         if (!empty($coverage)) {
-            $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
-            $crap = new $crapClass();
-            $contents = $crap->process($coverage);
+            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
+            $clover = new $cloverClass;
+
+            $contents = $clover->process($coverage);
+
             if ($this->out) {
                 $this->out->write($contents);
                 $this->out->close();
             }
         }
+
         parent::endTestRun();
     }
 }

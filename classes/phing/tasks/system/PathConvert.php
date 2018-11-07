@@ -74,6 +74,7 @@ class PathConvert extends Task
     public $from = null;
     public $to = null;
     private $mapper;
+    private $preserveDuplicates = false;
 
     /**
      * constructor
@@ -246,7 +247,7 @@ class PathConvert extends Task
             $rslt = '';
 
             // Get the list of path components in canonical form
-            $elems = $this->path->listPaths();
+            $elems = $this->path->listPaths($this->isPreserveDuplicates());
 
             $mapperImpl = $this->mapper === null ? new IdentityMapper() : $this->mapper->getImplementation();
             foreach ($elems as &$elem) {
@@ -390,5 +391,22 @@ class PathConvert extends Task
     {
         return new BuildException("You must not specify nested <path> "
             . "elements when using the refid attribute.");
+    }
+
+    /**
+     * Get the preserveDuplicates.
+     * @return boolean
+     */
+    public function isPreserveDuplicates(): bool
+    {
+        return $this->preserveDuplicates;
+    }
+
+    /**
+     * @param bool $preserveDuplicates
+     */
+    public function setPreserveDuplicates(bool $preserveDuplicates): void
+    {
+        $this->preserveDuplicates = $preserveDuplicates;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,15 +17,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
-
 /**
  * Prints plain text output of the test to a specified Writer.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
+class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     private $inner = "";
 
@@ -49,7 +46,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     /**
      * @param PHPUnit\Framework\TestSuite $suite
      */
-    public function startTestSuite(PHPUnit\Framework\TestSuite $suite)
+    public function startTestSuite(PHPUnit\Framework\TestSuite $suite): void
     {
         parent::startTestSuite($suite);
 
@@ -59,10 +56,10 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     /**
      * @param PHPUnit\Framework\TestSuite $suite
      */
-    public function endTestSuite(PHPUnit\Framework\TestSuite $suite)
+    public function endTestSuite(PHPUnit\Framework\TestSuite $suite): void
     {
         if ($suite->getName() === 'AllTests') {
-            return false;
+            return;
         }
 
         $sb = "Testsuite: " . $suite->getName() . "\n";
@@ -87,7 +84,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
      * @param Exception $e
      * @param float $time
      */
-    public function addError(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
         parent::addError($test, $e, $time);
 
@@ -99,7 +96,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
      * @param PHPUnit\Framework\AssertionFailedError $e
      * @param float $time
      */
-    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, $time)
+    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, float $time): void
     {
         parent::addFailure($test, $e, $time);
         $this->formatError("FAILED", $test, $e);
@@ -110,7 +107,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
      * @param PHPUnit\Framework\AssertionFailedError $e
      * @param float $time
      */
-    public function addWarning(PHPUnit\Framework\Test $test, PHPUnit\Framework\Warning $e, $time)
+    public function addWarning(PHPUnit\Framework\Test $test, PHPUnit\Framework\Warning $e, float $time): void
     {
         parent::addWarning($test, $e, $time);
         $this->formatError("WARNING", $test, $e);
@@ -121,7 +118,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
      * @param Exception $e
      * @param float $time
      */
-    public function addIncompleteTest(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
         parent::addIncompleteTest($test, $e, $time);
 
@@ -133,7 +130,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
      * @param Exception $e
      * @param float $time
      */
-    public function addSkippedTest(PHPUnit\Framework\Test $test, Exception $e, $time)
+    public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
         parent::addSkippedTest($test, $e, $time);
         $this->formatError("SKIPPED", $test);
@@ -154,7 +151,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 
         if ($e !== null) {
             if ($e instanceof PHPUnit\Framework\ExceptionWrapper) {
-                $this->inner .= $e->getPreviousWrapped()->getMessage() . "\n";
+                $this->inner .= $e->getPreviousWrapped() ? $e->getPreviousWrapped()->getMessage() : $e->getMessage() . "\n";
             } else {
                 $this->inner .= $e->getMessage() . "\n";
             }

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -278,11 +277,12 @@ class Path extends DataType
     /**
      * Returns all path elements defined by this and nested path objects.
      *
-     * @throws BuildException
-     *
+     * @param bool $preserveDuplicates
      * @return array List of path elements.
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function listPaths()
+    public function listPaths($preserveDuplicates = false)
     {
         if (!$this->checked) {
             // make sure we don't have a circular reference here
@@ -353,7 +353,7 @@ class Path extends DataType
             }
         }
 
-        return array_unique($result);
+        return $preserveDuplicates ? $result : array_unique($result);
     }
 
 

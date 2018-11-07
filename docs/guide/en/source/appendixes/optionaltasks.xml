@@ -10448,6 +10448,66 @@ description="Measures the size of the project and counts the tests">
                                       casesensitive="false" /></programlisting>
             </sect2>
         </sect1>
+        <sect1 role="taskdef" xml:id="URLEncodeTask">
+            <title>URLEncodeTask</title>
+            <para> The URLEncode task will encode a given property for use within a a URL string. This value which is
+                actually set will be encoded via the urlencode() function. Typically, you must do this
+                for all parameter values within a URL.
+            </para>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>property</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the property to set.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>override</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>If the property is already set, should we change it's value. Can be <literal>true</literal> or <literal>false</literal></entry>
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>value</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The value of the property.</entry>
+                            <entry>n/a</entry>
+                            <entry>No, if refid is specified</entry>
+                        </row>
+                        <row>
+                            <entry><literal>refid</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The id of a saved reference whose value will be the value of the property.</entry>
+                            <entry>n/a</entry>
+                            <entry>No, if value is specified</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <sect2>
+                <title>Example</title>
+                <programlisting language="xml">&lt;urlencode name="file.location" value="C:\\wwwhome\\my reports\\report.xml" /></programlisting>
+            </sect2>
+        </sect1>
     </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
         <title>rSTTask</title>
@@ -13847,7 +13907,7 @@ host="webserver" command="ls" /></programlisting>
             given file and writes it back to the file. The resulting version number is also
             published under supplied property.</para>
         <para>The version number in the text file is expected in the format of Major.Minor.Bugfix
-            (e.g. 1.3.2).</para>
+            (e.g. 1.3.2). Alternatively you can use 'v' as prefix (e.g. v1.3.2).</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -13890,7 +13950,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>propFile</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Set to true, if version should be saved as property file.</entry>
+                        <entry>If <literal>true</literal>, version will be saved using <emphasis>property file</emphasis> format (i.e. key=value).</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -13907,6 +13967,7 @@ host="webserver" command="ls" /></programlisting>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
+            <programlisting language="xml">&lt;version releasetype="Minor" startingVersion="v5.7" propFile="true"/></programlisting>
         </sect2>
 
     </sect1>

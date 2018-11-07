@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -121,12 +120,11 @@ class VersionTask extends Task
     public function main()
     {
         // check supplied attributes
-        $this->checkStartingVersion();
         $this->checkReleasetype();
         $this->checkFile();
         $this->checkProperty();
 
-        // read file
+        // read file (or use fallback value if file is empty)
         try {
             if ($this->propFile) {
                 $properties = $this->loadProperties();
@@ -134,12 +132,17 @@ class VersionTask extends Task
             } else {
                 $content = trim($this->file->contents());
             }
+            if (empty($content)) {
+                $content = $this->startingVersion;
+            }
         } catch (Exception $e) {
             throw new BuildException($e);
         }
 
         // get new version
+        $this->log("Old version: $content", Project::MSG_INFO);
         $newVersion = $this->getVersion($content);
+        $this->log("New version: $newVersion", Project::MSG_INFO);
 
         if ($this->propFile) {
             $properties->put($this->property, $newVersion);
@@ -157,13 +160,6 @@ class VersionTask extends Task
 
         //Finally set the property
         $this->getProject()->setNewProperty($this->property, $newVersion);
-    }
-
-    private function checkStartingVersion()
-    {
-        if (version_compare($this->startingVersion, '0.0.0', '<')) {
-            $this->startingVersion = '0.0.0';
-        }
     }
 
     /**
@@ -186,52 +182,35 @@ class VersionTask extends Task
     /**
      * Returns new version number corresponding to Release type
      *
-     * @param  string $filecontent
+     * @param  string $oldVersion
      * @return string
      */
-    private function getVersion($filecontent)
+    private function getVersion($oldVersion)
     {
-        // init
-        $newVersion = '';
+        preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion, $version);
 
-        if (empty($filecontent)) {
-            $filecontent = $this->startingVersion;
-        }
+        // Setting values if not captured
+        $version['PREFIX']                 = $version['PREFIX'] ?? '';
+        $version[self::RELEASETYPE_MAJOR]  = $version[self::RELEASETYPE_MAJOR] ?? '0';
+        $version[self::RELEASETYPE_MINOR]  = $version[self::RELEASETYPE_MINOR] ?? '0';
+        $version[self::RELEASETYPE_BUGFIX] = $version[self::RELEASETYPE_BUGFIX] ?? '0';
 
-        // Extract version
-        list($major, $minor, $bugfix) = explode(".", $filecontent);
-
-        // Return new version number
+        // Resetting Minor and/or Bugfix number according to release type
         switch ($this->releasetype) {
             case self::RELEASETYPE_MAJOR:
-                $newVersion = sprintf(
-                    "%d.%d.%d",
-                    ++$major,
-                    0,
-                    0
-                );
-                break;
-
+                $version[self::RELEASETYPE_MINOR] = '0';
             case self::RELEASETYPE_MINOR:
-                $newVersion = sprintf(
-                    "%d.%d.%d",
-                    $major,
-                    ++$minor,
-                    0
-                );
+                $version[self::RELEASETYPE_BUGFIX] = '0';
                 break;
+         }
 
-            case self::RELEASETYPE_BUGFIX:
-                $newVersion = sprintf(
-                    "%d.%d.%d",
-                    $major,
-                    $minor,
-                    ++$bugfix
-                );
-                break;
-        }
+        $version[$this->releasetype]++;
 
-        return $newVersion;
+        return sprintf('%s%u.%u.%u',
+                       $version['PREFIX'],
+                       $version[self::RELEASETYPE_MAJOR],
+                       $version[self::RELEASETYPE_MINOR],
+                       $version[self::RELEASETYPE_BUGFIX]);
     }
 
     /**
@@ -275,6 +254,7 @@ class VersionTask extends Task
             }
             if (!$this->file->exists()) {
                 $this->file->createNewFile();
+                $this->log('Creating file "'.$this->file->getName() . '" since it was not present', Project::MSG_INFO);
             }
         } catch (IOException $ioe) {
             $message = $this->file . " doesn't exist and new file can't be created.";

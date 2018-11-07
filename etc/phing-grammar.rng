@@ -197,6 +197,7 @@
                 <ref name="throw"/>
                 <ref name="untar"/>
                 <ref name="unzip"/>
+                <ref name="urlencode"/>
                 <ref name="version"/>
                 <ref name="wikipublish"/>
                 <ref name="xmllint"/>
@@ -1670,6 +1671,9 @@
                     <attribute name="delimiter" a:defaultValue=","/>
                 </optional>
                 <optional>
+                    <attribute name="delta" a:defaultValue="delta"/>
+                </optional>
+                <optional>
                     <attribute name="trim" a:defaultValue="false"/>
                 </optional>
                 <optional>
@@ -2003,6 +2007,11 @@
                 </optional>
                 <optional>
                     <attribute name="setonempty"/>
+                </optional>
+                <optional>
+                    <attribute name="preserveduplicates" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
             </interleave>
             <interleave>
@@ -5488,6 +5497,23 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="urlencode">
+        <element name="urlencode">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <choice>
+                    <attribute name="value"/>
+                    <attribute name="refid"/>
+                </choice>
             </interleave>
         </element>
     </define>
