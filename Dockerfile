@@ -1,19 +1,19 @@
-FROM php:7.1-cli
+FROM composer:1.7 AS composer
+
+ADD composer.* ./
+ADD classes/ classes
+RUN mkdir -p test/classes
+
+RUN composer global require hirak/prestissimo --no-plugins --no-scripts
+RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction
+
+FROM php:7.2-cli-alpine AS phing
 MAINTAINER Phing <info@phing.info>
-
-RUN apt-get update -qq -y && \
-    apt-get install -y --no-install-recommends git unzip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN curl -o composer.phar https://getcomposer.org/composer.phar
 
 ADD bin/phing* bin/
 ADD classes/ classes
-ADD composer.* ./
+ADD etc/ etc
 
-RUN mkdir -p test/classes
-
-RUN php composer.phar install -o && rm -rf ~/.composer
+COPY --from=composer /app/vendor/ ./vendor
 
 ENTRYPOINT ["phing"]
