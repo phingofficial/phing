@@ -26,7 +26,7 @@
                 <para>Johan Persson, johan162@gmail.com</para>
             </listitem>
             <listitem>
-                <para>Ken Guest, ken@linux.ie</para>
+                <para>Ken Guest, kguest@php.net</para>
             </listitem>
             <listitem>
                 <para>Siad Ardroumli, siad.ardroumli@gmail.com</para>
@@ -84,7 +84,7 @@ any later version published by the Free Software Foundation;</programlisting>
             </listitem>
         </itemizedlist>
         <para>The sources for the documentation are included under the
-                <literal>docs/docbook5</literal> directory. The DocBook sources are split into
+                <literal>docs/</literal> directory. The DocBook sources are split into
             several files in order to make it more maintainable using the XML standard
                 <literal>XInclude</literal> (see <link xlink:href="http://www.w3.org/TR/xinclude/"
                 >XML Inclusions (XInclude) Version 1.0</link>).</para>
@@ -297,7 +297,7 @@ any later version published by the Free Software Foundation;</programlisting>
                                         <row>
                                             <entry><literal>version</literal></entry>
                                             <entry><literal>5.0</literal></entry>
-                                            <entry>Versions of DocBook. Always needed</entry>
+                                            <entry>Versions of DocBook. Always needed.</entry>
                                         </row>
                                         <row>
                                             <entry><literal>xml:id</literal></entry>
@@ -325,7 +325,7 @@ any later version published by the Free Software Foundation;</programlisting>
                                     <tbody>
                                         <row>
                                             <entry><literal>&lt;title></literal></entry>
-                                            <entry>The title of the chapter/appendix</entry>
+                                            <entry>The title of the chapter/appendix.</entry>
                                         </row>
                                     </tbody>
                                 </tgroup>
@@ -516,7 +516,7 @@ any later version published by the Free Software Foundation;</programlisting>
                                         <row>
                                             <entry>role</entry>
                                             <entry>dir</entry>
-                                            <entry>Used when the filename is a directory</entry>
+                                            <entry>Used when the filename is a directory.</entry>
                                         </row>
                                     </tbody>
                                 </tgroup>
@@ -547,7 +547,7 @@ any later version published by the Free Software Foundation;</programlisting>
                                         <row>
                                             <entry><literal>xlink:href</literal></entry>
                                             <entry>URL Link</entry>
-                                            <entry>The link to an external reference</entry>
+                                            <entry>The link to an external reference.</entry>
                                         </row>
                                     </tbody>
                                 </tgroup>
@@ -631,19 +631,19 @@ any later version published by the Free Software Foundation;</programlisting>
                                         </row>
                                         <row>
                                             <entry>tgroup</entry>
-                                            <entry>Groups a set of columns together</entry>
+                                            <entry>Groups a set of columns together.</entry>
                                         </row>
                                         <row>
                                             <entry>colspec</entry>
-                                            <entry>Defines the sizing of the table</entry>
+                                            <entry>Defines the sizing of the table.</entry>
                                         </row>
                                         <row>
                                             <entry>thead</entry>
-                                            <entry>Header row for table</entry>
+                                            <entry>Header row for table.</entry>
                                         </row>
                                         <row>
                                             <entry>tbody</entry>
-                                            <entry>Body of table</entry>
+                                            <entry>Body of table.</entry>
                                         </row>
                                     </tbody>
                                 </tgroup>
