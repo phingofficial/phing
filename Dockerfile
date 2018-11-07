@@ -10,10 +10,13 @@ RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-inte
 FROM php:7.2-cli-alpine AS phing
 MAINTAINER Phing <info@phing.info>
 
+RUN mkdir /app
+WORKDIR /app
+
 ADD bin/phing* bin/
 ADD classes/ classes
 ADD etc/ etc
 
 COPY --from=composer /app/vendor/ ./vendor
 
-ENTRYPOINT ["phing"]
+ENTRYPOINT ["bin/phing"]
