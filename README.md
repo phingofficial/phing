@@ -50,6 +50,14 @@
 
          $ php phing-latest.phar
 
+  3. **Docker** (experimental)
+
+  The official Phing Docker image can be found on [Docker Hub](https://hub.docker.com/r/phing/phing/).
+
+  To execute Phing inside a container and execute `build.xml` located in `/home/user`, run the following:
+
+         $ docker run --rm phing/phing:3.0 -v /home/foo:/opt -f /opt/build.xml
+
 ## Running the (unit) tests
 
   To successfully run all Phing tests, the following conditions have to be met:
