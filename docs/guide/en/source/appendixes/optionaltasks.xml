@@ -14978,6 +14978,13 @@ a2.a3.a4=false</programlisting>
                         <entry>phpstan</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>checkReturn</literal></entry>
+                        <entry>Boolean</entry>
+                        <entry>Whether to check the return code.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
