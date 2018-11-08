@@ -58,20 +58,6 @@
 
          $ docker run --rm phing/phing:3.0 -v /home/foo:/opt -f /opt/build.xml
 
-## Running the (unit) tests
-
-  To successfully run all Phing tests, the following conditions have to be met:
-
-  * PEAR installed, channel "pear.phing.info" discovered
-  * Packages "python-docutils" and "subversion" installed
-  * php.ini setting "phar.readonly" set to "Off"
-
-  Then, perform the following steps (on a clone/fork of Phing):
-
-         $ composer install
-         $ cd test
-         $ ../bin/phing
-
 ## Documentation
 
   Documentation is available in various formats in the *docs/docbook5/en/output*
@@ -119,6 +105,20 @@ The best way to submit code to Phing is to [make a Pull Request on GitHub](https
 Please help us merge your contribution quickly and keep your pull requests clean and concise: squash commits and don't introduce unnecessary (whitespace) changes.
 
 Phing's source code is formatted according to the PSR-2 standard.
+
+### Running the (unit) tests
+
+If you'd like to contribute code to Phing, please make sure you run the tests before submitting your pull request. To successfully run all Phing tests, the following conditions have to be met:
+
+  * PEAR installed, channel "pear.phing.info" discovered
+  * Packages "python-docutils" and "subversion" installed
+  * php.ini setting "phar.readonly" set to "Off"
+
+Then, perform the following steps (on a clone/fork of Phing):
+
+         $ composer install
+         $ cd test
+         $ ../bin/phing
 
 ## Licensing
 
