@@ -27,6 +27,7 @@ class PHPStanTaskAssert extends Assert
         $this->assertNull($task->isNoANSI());
         $this->assertNull($task->isNoInteraction());
         $this->assertNull($task->isVerbose());
+        $this->assertNull($task->isCheckreturn());
     }
 
     private function assertAnalyseDefaults(PHPStanTask $task): void

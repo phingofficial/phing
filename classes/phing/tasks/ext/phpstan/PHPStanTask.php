@@ -42,6 +42,9 @@ class PHPStanTask extends Task
     private $noProgress;
 
     /** @var bool */
+    private $checkreturn;
+
+    /** @var bool */
     private $debug;
 
     /** @var string */
@@ -126,6 +129,11 @@ class PHPStanTask extends Task
     public function isNoProgress(): ?bool
     {
         return $this->noProgress;
+    }
+
+    public function isCheckreturn(): ?bool
+    {
+        return $this->checkreturn;
     }
 
     public function isDebug(): ?bool
@@ -233,6 +241,11 @@ class PHPStanTask extends Task
         $this->noProgress = $noProgress;
     }
 
+    public function setCheckreturn(bool $checkreturn)
+    {
+        $this->checkreturn = $checkreturn;
+    }
+
     public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
@@ -283,12 +296,17 @@ class PHPStanTask extends Task
         $commandBuilder = (new PHPStanCommandBuilderFactory())->createBuilder($this);
         $command = $commandBuilder->build($this);
 
-        $this->log('Executing: ' . $command, Project::MSG_INFO);
+        $this->log('Executing: ' . $command);
 
         $output = [];
         $return = null;
         exec($command, $output, $return);
 
-        return [$return, $output];
+        $level = Project::MSG_INFO;
+        if (0 != $return && $this->checkreturn) {
+            $level = Project::MSG_ERR;
+        }
+
+        $this->log(implode("\n", $output), $level);
     }
 }
