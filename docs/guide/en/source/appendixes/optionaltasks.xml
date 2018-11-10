@@ -12595,11 +12595,9 @@ host="webserver" command="ls" /></programlisting>
         </sect2>
 
     </sect1>
-    <sect1 role="taskdef" xml:id="SvnLogTask">
-        <title>SvnLogTask</title>
-        <para>The <literal>SvnLogTask</literal> stores the output of a svn log command on a
-            workingcopy or repositoryurl in a property. The result will be stored in an array,
-            one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</para>
+    <sect1 role="taskdef" xml:id="SvnRevertTask">
+        <title>SvnRevertTask</title>
+        <para>The <literal>SvnRevertTask</literal> reverts a svn repository.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -12619,13 +12617,6 @@ host="webserver" command="ls" /></programlisting>
                 </thead>
                 <tbody>
                     <row>
-                        <entry><literal>svnpath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Subversion binary</entry>
-                        <entry>/usr/bin/svn</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
                         <entry><literal>workingcopy</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Working copy directory</entry>
@@ -12639,50 +12630,104 @@ host="webserver" command="ls" /></programlisting>
                         <entry>none</entry>
                     </row>
                     <row>
-                        <entry><literal>username</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>A username used to connect to the SVN server</entry>
+                        <entry><literal>recursive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Flag for recursive revert.</entry>
                         <entry>none</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>password</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>A password used to connect to the SVN server</entry>
-                        <entry>none</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>propertyname</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Name of property to use</entry>
-                        <entry>svn.list</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>limit</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>Limits the number of items to get back from the command</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>Yes</entry>
                     </row>
                 </tbody>
             </tgroup>
         </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
-            workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
-            repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
-            <para>The latter example could produce a history of the latest revisions in the
-                trunk:</para>
-            <programlisting language="xml">4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
-4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
-4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
-...</programlisting>
-        </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="SvnLogTask">
+    <title>SvnLogTask</title>
+    <para>The <literal>SvnLogTask</literal> stores the output of a svn log command on a
+        workingcopy or repositoryurl in a property. The result will be stored in an array,
+        one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>svnpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Subversion binary</entry>
+                    <entry>/usr/bin/svn</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>workingcopy</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Working copy directory</entry>
+                    <entry>none</entry>
+                    <entry morerows="1">One of the two</entry>
+                </row>
+                <row>
+                    <entry><literal>repositoryurl</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>URL of remote repository</entry>
+                    <entry>none</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>A username used to connect to the SVN server</entry>
+                    <entry>none</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>A password used to connect to the SVN server</entry>
+                    <entry>none</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>propertyname</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of property to use</entry>
+                    <entry>svn.list</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>limit</literal></entry>
+                    <entry><literal role="type">Integer</literal></entry>
+                    <entry>Limits the number of items to get back from the command</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
+            workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
+        <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
+            repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
+        <para>The latter example could produce a history of the latest revisions in the
+            trunk:</para>
+        <programlisting language="xml">4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
+            4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
+            4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
+            ...</programlisting>
+    </sect2>
+</sect1>
     <sect1 role="taskdef" xml:id="SvnUpdateTask">
         <title>SvnUpdateTask</title>
         <para> The <literal>SvnUpdateTask</literal> updates a local directory.</para>
