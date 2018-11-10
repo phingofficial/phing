@@ -153,7 +153,7 @@
                             <literal>name</literal> and <literal>extension</literal> .</para>
                 </listitem>
                 <listitem>
-                    <para>Choose short descriptive filenames (must be less than 31 chars)</para>
+                    <para>Choose short descriptive filenames, which must be less than 31 chars.</para>
                 </listitem>
                 <listitem>
                     <para>Names must not contain dots.</para>
@@ -571,7 +571,7 @@ class MyEchoTask extends Task {
         <sect2>
             <title> Setter Methods </title>
 
-            <para> As you can see in the XML definition of our task ([see buildfile above] , line 9)
+            <para>As you can see in the XML definition of our task ([see buildfile above] , line 9)
                 there is an attribute defined with the task itself, namely "message" with a value of
                 the text string that our task should echo. The task must somehow become aware of
                 the attribute name and the value. Therefore the <literal>setter methods</literal>
@@ -583,19 +583,19 @@ class MyEchoTask extends Task {
                 can set the a class internal property to the value that is passed via the setter
                 method.</para>
 
-            <para> In the setter method you should also perform any casting operations and/or check
+            <para>In the setter method you should also perform any casting operations and/or check
                 if the attribute value is a valid value. If this is not the case, throw a
                     <literal>BuildException</literal>. In some cases, such as when you have three
                 attributes and at least one of them should be set, you may want to check the
                 attribute values inside the init() or main() method.</para>
 
-            <para> In our example the setter is named <literal>setMessage</literal> , because the
+            <para>In our example the setter is named <literal>setMessage</literal> , because the
                 XML attribute the echo task accepts is "message". setMessage now takes the string
                 "Hello World" provided by the parser and sets the value of the internal class
                 property <literal>$strMessage</literal> to "Hello World". It is now available to the
                 task for further disposal.</para>
 
-            <para> There is also another setter named <literal>setReverse</literal>.This uses the 
+            <para>There is also another setter named <literal>setReverse</literal>.This uses the 
                 StringHelper::toBoolean static function to convert truthy values to a true/false value. 
                 This helps keep our own code nice and simple.</para>
 
@@ -666,7 +666,7 @@ class TagColor
             <title>
                 <literal>main()</literal> Method </title>
 
-            <para> There is exactly one entry point to execute the task. It is called after
+            <para>There is exactly one entry point to execute the task. It is called after
                 the complete buildfile has been parsed and all targets and tasks have been scheduled
                 for execution. From this point forward the very implementation of the tasks action
                 starts. In case of our example a message (imported by the proper setter method) is

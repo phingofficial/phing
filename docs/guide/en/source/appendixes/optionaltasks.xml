@@ -10448,6 +10448,66 @@ description="Measures the size of the project and counts the tests">
                                       casesensitive="false" /></programlisting>
             </sect2>
         </sect1>
+        <sect1 role="taskdef" xml:id="URLEncodeTask">
+            <title>URLEncodeTask</title>
+            <para> The URLEncode task will encode a given property for use within a a URL string. This value which is
+                actually set will be encoded via the urlencode() function. Typically, you must do this
+                for all parameter values within a URL.
+            </para>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>property</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the property to set.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>override</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>If the property is already set, should we change it's value. Can be <literal>true</literal> or <literal>false</literal></entry>
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>value</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The value of the property.</entry>
+                            <entry>n/a</entry>
+                            <entry>No, if refid is specified</entry>
+                        </row>
+                        <row>
+                            <entry><literal>refid</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The id of a saved reference whose value will be the value of the property.</entry>
+                            <entry>n/a</entry>
+                            <entry>No, if value is specified</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <sect2>
+                <title>Example</title>
+                <programlisting language="xml">&lt;urlencode name="file.location" value="C:\\wwwhome\\my reports\\report.xml" /></programlisting>
+            </sect2>
+        </sect1>
     </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
         <title>rSTTask</title>
@@ -13290,6 +13350,14 @@ host="webserver" command="ls" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry>silent</entry>
+                        <entry>Boolean</entry>
+                        <entry>Disable task output except errors.
+                            Use in conjunction with additional output helper like Symfonys ProgressBar</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry>propertyName</entry>
                         <entry>String</entry>
                         <entry>The name of the property to store the application output in</entry>
@@ -14961,6 +15029,13 @@ a2.a3.a4=false</programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to PHPStan executable</entry>
                         <entry>phpstan</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checkReturn</literal></entry>
+                        <entry>Boolean</entry>
+                        <entry>Whether to check the return code.</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,7 +23,6 @@
  * @author    Hans Lellelid, hans@velum.net
  * @see       FilterReader
  * @package   phing.filters
- * @todo -c use new PHP functions to perform this instead of regex.
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {

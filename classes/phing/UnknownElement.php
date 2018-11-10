@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -117,7 +116,7 @@ class UnknownElement extends Task
             $parent = $parent->getProxy();
         }
 
-        $parentClass = get_class($parent);
+        $parentClass = $parent === null ? get_class() : get_class($parent);
         $ih = IntrospectionHelper::getHelper($parentClass);
 
         for ($i = 0, $childrenCount = count($this->children); $i < $childrenCount; $i++) {

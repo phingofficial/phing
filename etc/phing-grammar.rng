@@ -166,6 +166,7 @@
                 <ref name="phplint"/>
                 <ref name="phploc"/>
                 <ref name="phpmd"/>
+                <ref name="phpstan"/>
                 <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
                 <ref name="propertycopy"/>
@@ -198,6 +199,7 @@
                 <ref name="throw"/>
                 <ref name="untar"/>
                 <ref name="unzip"/>
+                <ref name="urlencode"/>
                 <ref name="version"/>
                 <ref name="wikipublish"/>
                 <ref name="xmllint"/>
@@ -1669,6 +1671,9 @@
                 </optional>
                 <optional>
                     <attribute name="delimiter" a:defaultValue=","/>
+                </optional>
+                <optional>
+                    <attribute name="delta" a:defaultValue="delta"/>
                 </optional>
                 <optional>
                     <attribute name="trim" a:defaultValue="false"/>
@@ -5313,6 +5318,92 @@
 
     <!--
         =========================================
+        PHPStanTask
+        =========================================
+    -->
+    <define name="phpstan">
+        <element name="phpstan">
+            <interleave>
+                <optional>
+                    <attribute name="command"/>
+                </optional>
+                <optional>
+                    <attribute name="executable"/>
+                </optional>
+                <optional>
+                    <attribute name="checkReturn">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configuration"/>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+                <optional>
+                    <attribute name="noProgress"/>
+                </optional>
+                <optional>
+                    <attribute name="debug"/>
+                </optional>
+                <optional>
+                    <attribute name="autoloadFile"/>
+                </optional>
+                <optional>
+                    <attribute name="errorFormat"/>
+                </optional>
+                <optional>
+                    <attribute name="memoryLimit"/>
+                </optional>
+                <optional>
+                    <attribute name="paths"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="raw"/>
+                </optional>
+                <optional>
+                    <attribute name="namespace"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="raw"/>
+                </optional>
+                <optional>
+                    <attribute name="commandName"/>
+                </optional>
+                <optional>
+                    <attribute name="help"/>
+                </optional>
+                <optional>
+                    <attribute name="quiet"/>
+                </optional>
+                <optional>
+                    <attribute name="version"/>
+                </optional>
+                <optional>
+                    <attribute name="ansi"/>
+                </optional>
+                <optional>
+                    <attribute name="noAnsi"/>
+                </optional>
+                <optional>
+                    <attribute name="noInteraction"/>
+                </optional>
+                <optional>
+                    <attribute name="verbose"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <!--
+        =========================================
         PHPUnitTask
         =========================================
     -->
@@ -5494,6 +5585,23 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="urlencode">
+        <element name="urlencode">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <choice>
+                    <attribute name="value"/>
+                    <attribute name="refid"/>
+                </choice>
             </interleave>
         </element>
     </define>
@@ -6416,6 +6524,9 @@
                 <optional>
                     <attribute name="console"/>
                     <attribute name="debug">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="silent" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>

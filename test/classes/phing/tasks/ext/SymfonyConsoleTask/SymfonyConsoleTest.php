@@ -83,6 +83,17 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers SymfonyConsoleTask::setSilent
+     * @covers SymfonyConsoleTask::getSilent
+     */
+    public function testSetGetSilent()
+    {
+        $o = $this->object;
+        $o->setSilent(true);
+        $this->assertTrue($o->getSilent());
+    }
+
+    /**
      * @covers SymfonyConsoleTask::createArg
      */
     public function testCreateArg()

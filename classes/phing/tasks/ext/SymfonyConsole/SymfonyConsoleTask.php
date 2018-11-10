@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -66,7 +64,12 @@ class SymfonyConsoleTask extends Task
      * @var boolean
      */
     private $debug = true;
-    
+
+    /**
+     * @var bool $silent
+     */
+    private $silent = false;
+
     /**
      * sets the symfony console command to execute
      * @param string $command
@@ -124,7 +127,6 @@ class SymfonyConsoleTask extends Task
     {
         $this->checkreturn = (bool) $checkreturn;
     }
-
     
     /**
      * Whether to set the symfony cli debug mode
@@ -145,6 +147,16 @@ class SymfonyConsoleTask extends Task
     public function getDebug()
     {
         return $this->debug;
+    }
+
+    public function setSilent(bool $flag)
+    {
+        $this->silent = $flag;
+    }
+
+    public function getSilent()
+    {
+        return $this->silent;
     }
 
     /**
@@ -211,14 +223,14 @@ class SymfonyConsoleTask extends Task
     {
         $cmd = $this->getCmdString();
 
-        $this->log("executing $cmd");
+        $this->silent ?: $this->log("executing $cmd");
         $return = null;
         $output = [];
         exec($cmd, $output, $return);
 
         $lines = implode("\r\n", $output);
 
-        $this->log($lines, Project::MSG_INFO);
+        $this->silent ?: $this->log($lines, Project::MSG_INFO);
 
         if ($this->propertyName != null) {
             $this->project->setProperty($this->propertyName, $lines);
