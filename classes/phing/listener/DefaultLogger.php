@@ -187,7 +187,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             }
         }
         $msg .= $verbose || !$error instanceof BuildException
-            ? $error->getTraceAsString()
+            ? $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL
             : $error->getLocation() . ' ' . $error->getMessage() . PHP_EOL;
     }
 
