@@ -43,7 +43,7 @@
         "phpunit/phpunit": "^7.3",
         "siad007/versioncontrol_hg": "^1.0",
         "sebastian/phpcpd": "^4.1",
-        "squizlabs/php_codesniffer": "~2.2",
+        "squizlabs/php_codesniffer": "~3.3",
         "mikey179/vfsStream": "^1.6",
         "aws/aws-sdk-php": "^3.32"
     },
