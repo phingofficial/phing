@@ -58,8 +58,6 @@ class PearPackageTest extends BuildFileTest
     {
         $this->executeTarget("main");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
-        $this->assertTrue(
-            strpos($content, '<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>') !== false
-        );
+        $this->assertContains('<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>', $content);
     }
 }
