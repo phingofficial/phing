@@ -53,7 +53,7 @@ install:
   - IF NOT EXIST php-installed.txt echo zend_extension=php_xdebug-%XDEBUG_VERSION%-vc14.dll >> php.ini
   - IF NOT EXIST php-installed.txt type nul >> php-installed.txt
   - cd C:\projects\phing
-  - composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable %DEPENDENCIES%
+  - composer install --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable %DEPENDENCIES%
 
 test_script:
   - cd C:\projects\phing\test
