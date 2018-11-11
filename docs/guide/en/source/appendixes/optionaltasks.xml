@@ -10101,7 +10101,7 @@ description="Measures the size of the project and counts the tests">
             <title>Example</title>
             <programlisting language="xml">&lt;property name="org" value="MyOrg" />
 &lt;property name="org.MyOrg.DisplayName" value="My Organiziation" />
-&lt;propertycopy name="displayName" from="org.${org}.DisplayName" /></programlisting>
+&lt;propertycopy property="displayName" from="org.${org}.DisplayName" /></programlisting>
             <para>Sets displayName to "My Organiziation".</para>
         </sect2>
     </sect1>
