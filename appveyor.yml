@@ -11,7 +11,7 @@ environment:
   COMPOSER_ROOT_VERSION: '7.0-dev'
 
   matrix:
-    - PHP_VERSION: '7.1.24'
+    - PHP_VERSION: '7.1.23'
       XDEBUG_VERSION: '2.5.5-7.1'
 
 matrix:
