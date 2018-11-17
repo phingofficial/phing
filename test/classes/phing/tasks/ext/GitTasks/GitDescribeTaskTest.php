@@ -19,6 +19,7 @@
 
 /**
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitDescribeTaskTest extends BuildFileTest
 {
