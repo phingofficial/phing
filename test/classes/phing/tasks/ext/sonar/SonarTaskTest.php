@@ -62,10 +62,6 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    /**
-     * the return code of the exec command is always 0 under windows
-     * @requires OS ^(?:(?!Win).)*$
-     */
     public function test_executablePathDoesNotExist_throwsException()
     {
         $this->expectBuildExceptionContaining(
@@ -74,7 +70,11 @@ class SonarTaskTest extends BuildFileTest
             'Cannot find SonarQube Scanner'
         );
     }
-
+    
+    /**
+     * the return code of the exec command is always 0 under windows
+     * @requires OS ^(?:(?!Win).)*$
+     */
     public function test_executableFileIsNotExecutable_throwsException()
     {
         $this->expectBuildExceptionContaining(
