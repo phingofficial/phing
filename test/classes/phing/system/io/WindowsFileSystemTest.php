@@ -20,15 +20,15 @@
  */
 
 /**
- * Unit test for WinNTFileSystem
+ * Unit test for Win32FileSystem
  *
  * @author Daniel Holmes
  * @package phing.system.io
  */
-class WinNTFileSystemTest extends AbstractWinFileSystemTestCase
+class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {
     protected function createFileSystem()
     {
-        return new WinNTFileSystem();
+        return new WindowsFileSystem();
     }
 }
