@@ -69,7 +69,7 @@ class TstampTask extends Task
         $d = $this->getNow();
 
         foreach ($this->customFormats as $cf) {
-            $cf->execute($this, $d, $this->getLocation());
+            $cf->execute($this);
         }
 
         $dstamp = strftime('%Y%m%d', $d);
