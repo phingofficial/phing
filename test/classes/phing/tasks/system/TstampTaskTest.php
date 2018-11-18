@@ -56,6 +56,12 @@ class TstampTaskTest extends BuildFileTest
         $this->assertPropertyEquals('DSTAMP', 19720417);
     }
 
+    public function testMagicPropertyIsoCustomFormat()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('tstamp.test', '1972-04-17');
+    }
+
     public function testPrefix()
     {
         $this->tstamp->setPrefix('prefix');
