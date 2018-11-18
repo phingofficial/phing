@@ -11,12 +11,8 @@ environment:
   COMPOSER_ROOT_VERSION: '7.0-dev'
 
   matrix:
-    - PHP_VERSION: '7.1.11'
+    - PHP_VERSION: '7.1.23'
       XDEBUG_VERSION: '2.5.5-7.1'
-      DEPENDENCIES: '--prefer-lowest'
-    - PHP_VERSION: '7.1.11'
-      XDEBUG_VERSION: '2.5.5-7.1'
-      DEPENDENCIES: ''
 
 matrix:
   fast_finish: true
@@ -45,6 +41,8 @@ install:
   - IF NOT EXIST php-installed.txt echo extension=php_fileinfo.dll >> php.ini
   - IF NOT EXIST php-installed.txt echo extension=php_mysqli.dll >> php.ini
   - IF NOT EXIST php-installed.txt echo extension=php_pdo_sqlite.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_sockets.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_xsl.dll >> php.ini
   - IF NOT EXIST php-installed.txt echo zend.assertions=1 >> php.ini
   - IF NOT EXIST php-installed.txt echo assert.exception=On >> php.ini
   - IF NOT EXIST php-installed.txt curl -fsS -o composer.phar https://getcomposer.org/composer.phar
@@ -53,7 +51,7 @@ install:
   - IF NOT EXIST php-installed.txt echo zend_extension=php_xdebug-%XDEBUG_VERSION%-vc14.dll >> php.ini
   - IF NOT EXIST php-installed.txt type nul >> php-installed.txt
   - cd C:\projects\phing
-  - composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable %DEPENDENCIES%
+  - composer install --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader
 
 test_script:
   - cd C:\projects\phing\test
