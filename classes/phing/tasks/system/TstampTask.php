@@ -66,17 +66,19 @@ class TstampTask extends Task
      */
     public function main()
     {
+        $d = $this->getNow();
+
         foreach ($this->customFormats as $cf) {
-            $cf->execute($this);
+            $cf->execute($this, $d, $this->getLocation());
         }
 
-        $dstamp = strftime('%Y%m%d');
+        $dstamp = strftime('%Y%m%d', $d);
         $this->prefixProperty('DSTAMP', $dstamp);
 
-        $tstamp = strftime('%H%M');
+        $tstamp = strftime('%H%M', $d);
         $this->prefixProperty('TSTAMP', $tstamp);
 
-        $today = strftime('%B %d %Y');
+        $today = strftime('%B %d %Y', $d);
         $this->prefixProperty('TODAY', $today);
     }
 
@@ -89,5 +91,36 @@ class TstampTask extends Task
     public function prefixProperty($name, $value)
     {
         $this->getProject()->setNewProperty($this->prefix . $name, $value);
+    }
+
+    protected function getNow(): int
+    {
+        $property = $this->getProject()->getProperty('phing.tstamp.now.iso');
+
+        if ($property !== null && $property !== '') {
+            try {
+                $dateTime = new DateTime($property);
+            } catch (Exception $e) {
+                $this->log('magic property phing.tstamp.now.iso ignored as ' . $property . ' is not a valid number');
+                $dateTime = new DateTime();
+            }
+
+            return $dateTime->getTimestamp();
+        }
+
+        $property = $this->getProject()->getProperty('phing.tstamp.now');
+
+        $dateTime = (new DateTime())->getTimestamp();
+
+        if ($property !== null && $property !== '') {
+            $dateTime = DateTime::createFromFormat('U', $property);
+            if ($dateTime === false) {
+                $this->log('magic property phing.tstamp.now ignored as ' . $property . ' is not a valid number');
+            } else {
+                $dateTime = $dateTime->getTimestamp();
+            }
+        }
+
+        return $dateTime;
     }
 }
