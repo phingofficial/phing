@@ -57,8 +57,8 @@ class GitInitTaskTest extends BuildFileTest
         $this->executeTarget('gitInit');
 
         $this->assertInLogs('git-init: initializing "' . $repository . '" repository');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($gitFilesDir));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($gitFilesDir);
     }
 
     public function testGitInitBare()
@@ -67,11 +67,11 @@ class GitInitTaskTest extends BuildFileTest
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($repository . '/branches'));
-        $this->assertTrue(is_dir($repository . '/info'));
-        $this->assertTrue(is_dir($repository . '/hooks'));
-        $this->assertTrue(is_dir($repository . '/refs'));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($repository . '/branches');
+        $this->assertDirectoryExists($repository . '/info');
+        $this->assertDirectoryExists($repository . '/hooks');
+        $this->assertDirectoryExists($repository . '/refs');
     }
 
     public function testNoRepositorySpecified()

@@ -56,7 +56,7 @@ class SassTaskAcceptanceTest extends BuildFileTest
             $this->markTestSkipped('Sass not found');
         }
         $this->executeTarget("testItCompilesWithSass");
-        $this->assertTrue(file_exists(self::SASS_TEST_BASE . "test.css"));
+        $this->assertFileExists(self::SASS_TEST_BASE . "test.css");
     }
 
     public function testItCompilesWithScssPhp(): void
@@ -65,6 +65,6 @@ class SassTaskAcceptanceTest extends BuildFileTest
             $this->markTestSkipped('ScssPhp not found');
         }
         $this->executeTarget("testItCompilesWithScssPhp");
-        $this->assertTrue(file_exists(self::SASS_TEST_BASE . "test.css"));
+        $this->assertFileExists(self::SASS_TEST_BASE . "test.css");
     }
 }

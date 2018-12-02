@@ -56,7 +56,7 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     public function testSupportsCharacters()
     {
         $ih = IntrospectionHelper::getHelper('Exception');
-        $this->assertTrue(!$ih->supportsCharacters(), "String doesn\'t support addText");
+        $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
     }
