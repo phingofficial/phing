@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,7 +27,6 @@ require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
  * That will result in --foo='bar' on the command line.
  *
  * @author Joakim Israelsson <joakim.israelsson.86@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext.liquibase
  */
 class LiquibaseTask extends AbstractLiquibaseTask
@@ -62,5 +59,4 @@ class LiquibaseTask extends AbstractLiquibaseTask
         $this->checkParams();
         $this->execute($this->command, '');
     }
-
 }

@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Checks the value of a specified property.
  *
@@ -30,17 +27,17 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class IsPropertyTrueCondition extends ConditionBase implements Condition
 {
-    /** @var string|null $name */
-    private $name = null;
+    /** @var string|null $property */
+    private $property = null;
 
     /**
-     * @param $name
+     * @param $property
      *
      * @return void
      */
-    public function  setProperty($name)
+    public function setProperty($property)
     {
-        $this->name = $name;
+        $this->property = $property;
     }
 
     /**
@@ -50,10 +47,11 @@ class IsPropertyTrueCondition extends ConditionBase implements Condition
      */
     public function evaluate()
     {
-        if ($this->name === null) {
-            throw new BuildException("Property name must be set.");
+        if ($this->property === null) {
+            throw new BuildException('Property name must be set.');
         }
+        $value = $this->getProject()->getProperty($this->property);
 
-        return (bool) $this->getProject()->getProperty($this->name);
+        return $value !== null && Project::toBoolean($value);
     }
 }

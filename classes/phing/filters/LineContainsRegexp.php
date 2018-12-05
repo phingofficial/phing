@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,10 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/types/RegularExpression.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter which includes only those lines that contain the user-specified
@@ -42,7 +36,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */
@@ -54,12 +47,20 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * @var string
      */
     const REGEXP_KEY = "regexp";
+    const NEGATE_KEY = 'negate';
+    const CS_KEY = 'casesensitive';
 
     /**
      * Regular expressions that are applied against lines.
-     * @var array
+     * @var RegularExpression[]
      */
-    private $_regexps = array();
+    private $_regexps = [];
+
+    /** @var bool $negate */
+    private $negate = false;
+
+    /** @var bool $casesensitive */
+    private $casesensitive = true;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
@@ -68,7 +69,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -81,13 +81,14 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
         }
 
         $lines = explode("\n", $buffer);
-        $matched = array();
+        $matched = [];
 
         $regexpsSize = count($this->_regexps);
         foreach ($lines as $line) {
             for ($i = 0; $i < $regexpsSize; $i++) {
                 $regexp = $this->_regexps[$i];
                 $re = $regexp->getRegexp($this->getProject());
+                $re->setIgnoreCase(!$this->casesensitive);
                 $matches = $re->matches($line);
                 if (!$matches) {
                     $line = null;
@@ -100,7 +101,46 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
         }
         $filtered_buffer = implode("\n", $matched);
 
+        if ($this->isNegated()) {
+            $filtered_buffer = implode("\n", array_diff($lines, $matched));
+        }
+
         return $filtered_buffer;
+    }
+
+    /**
+     * Whether to match casesensitevly.
+     */
+    public function setCaseSensitive($b)
+    {
+        $this->casesensitive = (bool) $b;
+    }
+
+    /**
+     * Find out whether we match casesensitevly.
+     * @return boolean negation flag.
+     */
+    public function isCaseSensitive()
+    {
+        return $this->casesensitive;
+    }
+
+    /**
+     * Set the negation mode.  Default false (no negation).
+     * @param boolean $b the boolean negation mode to set.
+     */
+    public function setNegate($b)
+    {
+        $this->negate = (bool) $b;
+    }
+
+    /**
+     * Find out whether we have been negated.
+     * @return boolean negation flag.
+     */
+    public function isNegated()
+    {
+        return $this->negate;
     }
 
     /**
@@ -120,7 +160,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * a line read from the original stream in order for it to match this
      * filter.
      *
-     * @param An $regexps
+     * @param array $regexps
      * @throws Exception
      * @internal param An $regexps array of regular expressions which must be contained
      *                within a line in order for it to match in this filter. Must not be
@@ -130,7 +170,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     {
         // type check, error must never occur, bad code of it does
         if (!is_array($regexps)) {
-            throw new Exception("Excpected an 'array', got something else");
+            throw new Exception("Expected an 'array', got something else");
         }
         $this->_regexps = $regexps;
     }
@@ -151,6 +191,16 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     }
 
     /**
+     * Set the regular expression as an attribute.
+     */
+    public function setRegexp($pattern)
+    {
+        $regexp = new RegularExpression();
+        $regexp->setPattern($pattern);
+        $this->_regexps[] = $regexp;
+    }
+
+    /**
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
@@ -166,6 +216,8 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     {
         $newFilter = new LineContainsRegExp($reader);
         $newFilter->setRegexps($this->getRegexps());
+        $newFilter->setNegate($this->isNegated());
+        $newFilter->setCaseSensitive($this->isCaseSensitive());
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
 
@@ -179,12 +231,16 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::REGEXP_KEY === $params[$i]->getType()) {
                     $pattern = $params[$i]->getValue();
                     $regexp = new RegularExpression();
                     $regexp->setPattern($pattern);
-                    array_push($this->_regexps, $regexp);
+                    $this->_regexps[] = $regexp;
+                } elseif (self::NEGATE_KEY === $params[$i]->getType()) {
+                    $this->setNegate(Project::toBoolean($params[$i]->getValue()));
+                } elseif (self::CS_KEY === $params[$i]->getType()) {
+                    $this->setCaseSensitive(Project::toBoolean($params[$i]->getValue()));
                 }
             }
         }

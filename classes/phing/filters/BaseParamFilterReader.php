@@ -17,10 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/types/Parameterizable.php';
-include_once 'phing/types/Parameter.php';
-
 /**
  * Base class for core filter readers.
  *
@@ -37,7 +33,7 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      *
      * @var array $_parameters
      */
-    protected $_parameters = array();
+    protected $_parameters = [];
 
     /**
      * Sets the parameters used by this filter, and sets

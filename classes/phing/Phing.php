@@ -17,33 +17,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Diagnostics.php';
-require_once 'phing/Project.php';
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/Target.php';
-require_once 'phing/Task.php';
-
-include_once 'phing/BuildException.php';
-include_once 'phing/ConfigurationException.php';
-include_once 'phing/BuildEvent.php';
-
-include_once 'phing/parser/Location.php';
-include_once 'phing/parser/ExpatParser.php';
-include_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ProjectConfigurator.php';
-include_once 'phing/parser/RootHandler.php';
-include_once 'phing/parser/ProjectHandler.php';
-include_once 'phing/parser/TargetHandler.php';
-include_once 'phing/parser/DataTypeHandler.php';
-
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/OutputStream.php';
-include_once 'phing/system/io/PrintStream.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/util/Register.php';
+use SebastianBergmann\Version;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -62,13 +37,13 @@ include_once 'phing/system/util/Register.php';
 class Phing
 {
     /** Alias for phar file */
-    const PHAR_ALIAS = 'phing.phar';
+    public const PHAR_ALIAS = 'phing.phar';
 
     /** The default build file name */
-    const DEFAULT_BUILD_FILENAME = "build.xml";
-    const PHING_HOME = 'phing.home';
-    const PHP_VERSION = 'php.version';
-    const PHP_INTERPRETER = 'php.interpreter';
+    public const DEFAULT_BUILD_FILENAME = "build.xml";
+    public const PHING_HOME = 'phing.home';
+    public const PHP_VERSION = 'php.version';
+    public const PHP_INTERPRETER = 'php.interpreter';
 
     /** Our current message output status. Follows Project::MSG_XXX */
     private static $msgOutputLevel = Project::MSG_INFO;
@@ -77,7 +52,7 @@ class Phing
     private $buildFile = null;
 
     /** The build targets */
-    private $targets = array();
+    private $targets = [];
 
     /**
      * Set of properties that are passed in from commandline or invoking code.
@@ -86,7 +61,7 @@ class Phing
     private static $definedProps;
 
     /** Names of classes to add as listeners to project */
-    private $listeners = array();
+    private $listeners = [];
 
     /**
      * keep going mode
@@ -106,6 +81,9 @@ class Phing
      */
     private $silent = false;
 
+    /** Indicates whether phing should run in strict mode */
+    private $strictMode = false;
+
     /** Indicates if this phing should be run */
     private $readyToRun = false;
 
@@ -116,7 +94,7 @@ class Phing
     private static $importPaths;
 
     /** System-wide static properties (moved from System) */
-    private static $properties = array();
+    private static $properties = [];
 
     /** Static system timer. */
     private static $timer;
@@ -127,8 +105,11 @@ class Phing
     /** Whether to capture PHP errors to buffer. */
     private static $phpErrorCapture = false;
 
+    /** Whether to values in a property file should override existing values. */
+    private $propertyFileOverride = false;
+
     /** Array of captured PHP errors */
-    private static $capturedPhpErrors = array();
+    private static $capturedPhpErrors = [];
 
     /**
      * @var OUtputStream Stream for standard output.
@@ -152,10 +133,16 @@ class Phing
      * @var array Struct of array(setting-name => setting-value)
      * @see restoreIni()
      */
-    private static $origIniSettings = array();
+    private static $origIniSettings = [];
 
     /** Whether or not output to the log is to be unadorned. */
     private $emacsMode = false;
+
+    /**
+     * @var string
+     */
+    private $searchForThis;
+    private $propertyFiles = [];
 
     /**
      * Entry point allowing for more options from other front ends.
@@ -172,7 +159,6 @@ class Phing
      */
     public static function start($args, array $additionalUserProperties = null)
     {
-
         try {
             $m = new Phing();
             $m->execute($args);
@@ -185,7 +171,7 @@ class Phing
 
         if ($additionalUserProperties !== null) {
             foreach ($additionalUserProperties as $key => $value) {
-                $m->setDefinedProperty($key, $value);
+                $m::setDefinedProperty($key, $value);
             }
         }
 
@@ -197,20 +183,18 @@ class Phing
                 $exitCode = 0;
             } catch (ExitStatusException $ese) {
                 $exitCode = $ese->getCode();
-                if ($exitCode != 0) {
+                if ($exitCode !== 0) {
                     self::handleLogfile();
                     throw $ese;
                 }
             }
         } catch (BuildException $exc) {
             // avoid printing output twice: self::printMessage($exc);
-        } catch (Exception $exc) {
-             echo $exc->getTraceAsString();
-             self::printMessage($exc);
-         }
-
-        // everything fine, shutdown
-        self::handleLogfile();
+        } catch (Throwable $exc) {
+            self::printMessage($exc);
+        } finally {
+            self::handleLogfile();
+        }
         self::statusExit($exitCode);
     }
 
@@ -229,13 +213,13 @@ class Phing
      * Prints the message of the Exception if it's not null.
      * @param Exception $t
      */
-    public static function printMessage(Exception $t)
+    public static function printMessage(Throwable $t)
     {
         if (self::$err === null) { // Make sure our error output is initialized
             self::initializeOutputStreams();
         }
         if (self::getMsgOutputLevel() >= Project::MSG_VERBOSE) {
-            self::$err->write($t->__toString() . PHP_EOL);
+            self::$err->write((string) $t . PHP_EOL);
         } else {
             self::$err->write($t->getMessage() . PHP_EOL);
         }
@@ -353,7 +337,6 @@ class Phing
      */
     public function execute($args)
     {
-
         self::$definedProps = new Properties();
         $this->searchForThis = null;
 
@@ -361,13 +344,23 @@ class Phing
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
         if (in_array('-help', $args) || in_array('-h', $args)) {
-            $this->printUsage();
+            static::printUsage();
 
             return;
         }
 
         if (in_array('-version', $args) || in_array('-v', $args)) {
-            $this->printVersion();
+            static::printVersion();
+
+            return;
+        }
+
+        if (in_array('-init', $args) || in_array('-i', $args)) {
+
+            $key = array_search('-init', $args) ?: array_search('-i', $args);
+            $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
+
+            self::init($path);
 
             return;
         }
@@ -419,12 +412,16 @@ class Phing
             unset($args[$key]);
         }
 
+        if (false !== ($key = array_search('-propertyfileoverride', $args, true))) {
+            $this->propertyFileOverride = true;
+            unset($args[$key]);
+        }
+
         // 3) Finally, cycle through to parse remaining args
         //
         $keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
         $max = $keys ? max($keys) : -1;
         for ($i = 0; $i <= $max; $i++) {
-
             if (!array_key_exists($i, $args)) {
                 // skip this argument, since it must have been removed above.
                 continue;
@@ -488,6 +485,10 @@ class Phing
                 } else {
                     $this->loggerClassname = $args[++$i];
                 }
+            } elseif ($arg == "-no-strict") {
+                $this->strictMode = false;
+            } elseif ($arg == "-strict") {
+                $this->strictMode = true;
             } elseif ($arg == "-inputhandler") {
                 if ($this->inputHandlerClassname !== null) {
                     throw new ConfigurationException("Only one input handler class may be specified.");
@@ -498,18 +499,9 @@ class Phing
                 } else {
                     $this->inputHandlerClassname = $args[++$i];
                 }
-            } elseif ($arg == "-propertyfile") {
-                if (!isset($args[$i + 1])) {
-                    $msg = "You must specify a filename when using the -propertyfile argument";
-                    throw new ConfigurationException($msg);
-                } else {
-                    $p = new Properties();
-                    $p->load(new PhingFile($args[++$i]));
-                    foreach ($p->getProperties() as $prop => $value) {
-                        $this->setProperty($prop, $value);
-                    }
-                }
-            } elseif ($arg == "-keep-going" || $arg == "-k") {
+            } elseif ($arg === "-propertyfile") {
+                $i = $this->handleArgPropertyFile($args, $i);
+            } elseif ($arg === "-keep-going" || $arg === "-k") {
                 $this->keepGoingMode = true;
             } elseif ($arg == "-longtargets") {
                 self::$definedProps->setProperty('phing.showlongtargets', 1);
@@ -530,7 +522,7 @@ class Phing
                 throw new ConfigurationException("Unknown argument: " . $arg);
             } else {
                 // if it's no other arg, it may be the target
-                array_push($this->targets, $arg);
+                $this->targets[] = $arg;
             }
         }
 
@@ -564,7 +556,51 @@ class Phing
             throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is not readable!");
         }
 
+        $this->loadPropertyFiles();
+
         $this->readyToRun = true;
+    }
+
+    /**
+     * Handle the -propertyfile argument.
+     *
+     * @param array $args
+     * @param int $pos
+     *
+     * @return int
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     */
+    private function handleArgPropertyFile(array $args, int $pos): int
+    {
+        if (!isset($args[$pos + 1])) {
+            throw new ConfigurationException('You must specify a filename when using the -propertyfile argument');
+        }
+
+        $this->propertyFiles[] = $args[++$pos];
+
+        return $pos;
+    }
+
+    /**
+     * @throws IOException
+     */
+    private function loadPropertyFiles()
+    {
+        foreach ($this->propertyFiles as $filename) {
+            $fileParserFactory = new FileParserFactory();
+            $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
+            $p = new Properties(null, $fileParser);
+            try {
+                $p->load(new PhingFile($filename));
+            } catch (IOException $e) {
+                self::$out->write('Could not load property file ' . $filename . ': ' . $e->getMessage());
+            }
+            foreach ($p->getProperties() as $prop => $value) {
+                self::$definedProps->setProperty($prop, $value);
+            }
+        }
     }
 
     /**
@@ -631,7 +667,6 @@ class Phing
      */
     public function runBuild()
     {
-
         if (!$this->readyToRun) {
             return;
         }
@@ -639,13 +674,13 @@ class Phing
         $project = new Project();
 
         self::setCurrentProject($project);
-        set_error_handler(array('Phing', 'handlePhpError'));
+        set_error_handler(['Phing', 'handlePhpError']);
 
         $error = null;
 
         $this->addBuildListeners($project);
         $this->addInputHandler($project);
-
+        
         // set this right away, so that it can be used in logging.
         $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
         $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
@@ -660,7 +695,7 @@ class Phing
 
         $project->setKeepGoingMode($this->keepGoingMode);
 
-        $project->setUserProperty("phing.version", $this->getPhingVersion());
+        $project->setUserProperty("phing.version", static::getPhingVersion());
 
         $e = self::$definedProps->keys();
         while (count($e)) {
@@ -684,6 +719,9 @@ class Phing
             throw $exc;
         }
 
+        // Set the project mode
+        $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
+    
         // make sure that we have a target to execute
         if (count($this->targets) === 0) {
             $this->targets[] = $project->getDefaultTarget();
@@ -701,7 +739,6 @@ class Phing
 
         // execute targets if help param was not given
         if (!$this->projectHelp) {
-
             try {
                 $project->executeTargets($this->targets);
             } catch (Exception $exc) {
@@ -736,7 +773,7 @@ class Phing
     /**
      * @param string $version
      *
-     * @return int|void
+     * @return int
      *
      * @throws BuildException
      * @throws ConfigurationException
@@ -802,7 +839,7 @@ class Phing
     private function addInputHandler(Project $project)
     {
         if ($this->inputHandlerClassname === null) {
-            $handler = new DefaultInputHandler();
+            $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
         } else {
             try {
                 $clz = Phing::import($this->inputHandlerClassname);
@@ -828,7 +865,6 @@ class Phing
     private function createLogger()
     {
         if ($this->silent) {
-            require_once 'phing/listener/SilentLogger.php';
             $logger = new SilentLogger();
             self::$msgOutputLevel = Project::MSG_WARN;
         } elseif ($this->loggerClassname !== null) {
@@ -840,7 +876,6 @@ class Phing
                 throw new BuildException($classname . ' does not implement the BuildLogger interface.');
             }
         } else {
-            require_once 'phing/listener/DefaultLogger.php';
             $logger = new DefaultLogger();
         }
         $logger->setMessageOutputLevel(self::$msgOutputLevel);
@@ -905,24 +940,20 @@ class Phing
 
         // don't want to print suppressed errors
         if (error_reporting() > 0) {
-
             if (self::$phpErrorCapture) {
-
-                self::$capturedPhpErrors[] = array(
+                self::$capturedPhpErrors[] = [
                     'message' => $message,
                     'level' => $level,
                     'line' => $line,
                     'file' => $file
-                );
-
+                ];
             } else {
-
                 $message = '[PHP Error] ' . $message;
                 $message .= ' [line ' . $line . ' of ' . $file . ']';
 
                 switch ($level) {
-                    case 16384: // E_USER_DEPRECATED
-                    case 8192: // E_DEPRECATED
+                    case E_USER_DEPRECATED:
+                    case E_DEPRECATED:
                     case E_STRICT:
                     case E_NOTICE:
                     case E_USER_NOTICE:
@@ -938,11 +969,8 @@ class Phing
                         self::log($message, Project::MSG_ERR);
 
                 } // switch
-
             } // if phpErrorCapture
-
         } // if not @
-
     }
 
     /**
@@ -952,7 +980,7 @@ class Phing
     public static function startPhpErrorCapture()
     {
         self::$phpErrorCapture = true;
-        self::$capturedPhpErrors = array();
+        self::$capturedPhpErrors = [];
     }
 
     /**
@@ -969,7 +997,7 @@ class Phing
      */
     public static function clearCapturedPhpErrors()
     {
-        self::$capturedPhpErrors = array();
+        self::$capturedPhpErrors = [];
     }
 
     /**
@@ -984,12 +1012,12 @@ class Phing
     /**  Prints the usage of how to use this class */
     public static function printUsage()
     {
-
         $msg = "";
         $msg .= "phing [options] [target [target2 [target3] ...]]" . PHP_EOL;
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
+        $msg .= "  -i -init [file]        generates an initial buildfile" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
@@ -997,6 +1025,8 @@ class Phing
         $msg .= "  -debug                 print debugging information" . PHP_EOL;
         $msg .= "  -emacs, -e             produce logging information without adornments" . PHP_EOL;
         $msg .= "  -diagnostics           print diagnostics information" . PHP_EOL;
+        $msg .= "  -strict                runs build in strict mode, considering a warning as error" . PHP_EOL;
+        $msg .= "  -no-strict             runs build normally (overrides buildfile attribute)" . PHP_EOL;
         $msg .= "  -longtargets           show target descriptions during build" . PHP_EOL;
         $msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
         $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
@@ -1006,6 +1036,7 @@ class Phing
         $msg .= "  -keep-going, -k        execute all targets that do not depend" . PHP_EOL;
         $msg .= "                         on failed target(s)" . PHP_EOL;
         $msg .= "  -propertyfile <file>   load all properties from file" . PHP_EOL;
+        $msg .= "  -propertyfileoverride  values in property file override existing values" . PHP_EOL;
         $msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
         $msg .= "                         filesystem and use it" . PHP_EOL;
         $msg .= "  -inputhandler <file>   the class to use to handle user input" . PHP_EOL;
@@ -1024,23 +1055,83 @@ class Phing
     }
 
     /**
-     * Copied from https://github.com/sebastianbergmann/version/blob/master/src/Version.php
+     * Creates generic buildfile
+     *
      * @param string $path
-     * @return bool|string
+     *
      */
-    private static function getGitInformation($path)
+    public static function init($path)
     {
-        if (!is_dir($path . DIRECTORY_SEPARATOR . '.git')) {
-            return false;
+        if ($buildfilePath = self::initPath($path)) {
+            self::initWrite($buildfilePath);
         }
-        $dir = getcwd();
-        chdir($path);
-        $result = @exec('git describe --tags 2>&1', $output, $returnCode);
-        chdir($dir);
-        if ($returnCode !== 0) {
-            return false;
+    }
+
+
+    /**
+     * Returns buildfile's path
+     *
+     * @param $path
+     *
+     * @return string
+     * @throws ConfigurationException
+     */
+    protected static function initPath($path)
+    {
+        // Fallback
+        if (empty($path)) {
+            $defaultDir = self::getProperty('application.startdir');
+            $path = $defaultDir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
         }
-        return $result;
+
+        // Adding filename if necessary
+        if (is_dir($path)) {
+            $path .= DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Check if path is available
+        $dirname = dirname($path);
+        if (is_dir($dirname) && !is_file($path)) {
+            return $path;
+        }
+
+        // Path is valid, but buildfile already exists
+        if (is_file($path)) {
+            throw new ConfigurationException('Buildfile already exists.');
+        }
+
+        throw new ConfigurationException('Invalid path for sample buildfile.');
+    }
+
+
+    /**
+     * Writes sample buildfile
+     *
+     * If $buildfilePath does not exist, the buildfile is created.
+     *
+     * @param $buildfilePath buildfile's location
+     *
+     * @return null
+     * @throws ConfigurationException
+     */
+    protected static function initWrite($buildfilePath)
+    {
+        // Overwriting protection
+        if (file_exists($buildfilePath)) {
+            throw new ConfigurationException('Cannot overwrite existing file.');
+        }
+
+        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
+        $content .= '' . PHP_EOL;
+        $content .= '<project name="" description="" default="">' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '    <target name="" description="">' . PHP_EOL;
+        $content .= '        ' . PHP_EOL;
+        $content .= '    </target>' . PHP_EOL;
+        $content .= '    ' . PHP_EOL;
+        $content .= '</project>' . PHP_EOL;
+
+        file_put_contents($buildfilePath, $content);
     }
 
     /**
@@ -1052,14 +1143,6 @@ class Phing
      */
     public static function getPhingVersion()
     {
-        $path = dirname(dirname(dirname(__FILE__)));
-
-        $gitInformation = self::getGitInformation($path);
-
-        if ($gitInformation) {
-            return "Phing " . $gitInformation;
-        }
-
         $versionPath = self::getResourcePath("phing/etc/VERSION.TXT");
         if ($versionPath === null) {
             $versionPath = self::getResourcePath("etc/VERSION.TXT");
@@ -1075,7 +1158,11 @@ class Phing
             throw new ConfigurationException("Can't read version information file");
         }
 
-        return "Phing " . $phingVersion;
+        $basePath = dirname(__DIR__, 2);
+
+        $version = new Version($phingVersion, $basePath);
+
+        return "Phing " . $version->getVersion();
     }
 
     /**
@@ -1085,7 +1172,7 @@ class Phing
      *
      * @throws IOException
      */
-    public static function printDescription(Project $project)
+    public function printDescription(Project $project)
     {
         if ($project->getDescription() !== null) {
             self::$out->write($project->getDescription() . PHP_EOL);
@@ -1100,7 +1187,6 @@ class Phing
         // find the target with the longest name
         $maxLength = 0;
         $targets = $project->getTargets();
-        $targetNames = array_keys($targets);
         $targetName = null;
         $targetDescription = null;
         $currentTarget = null;
@@ -1108,8 +1194,8 @@ class Phing
         // split the targets in top-level and sub-targets depending
         // on the presence of a description
 
-        $subNames = array();
-        $topNameDescMap = array();
+        $subNames = [];
+        $topNameDescMap = [];
 
         foreach ($targets as $currentTarget) {
             $targetName = $currentTarget->getName();
@@ -1141,18 +1227,17 @@ class Phing
         $defaultTarget = $project->getDefaultTarget();
 
         if ($defaultTarget !== null && $defaultTarget !== "") {
-            $defaultName = array();
-            $defaultDesc = array();
+            $defaultName = [];
+            $defaultDesc = [];
             $defaultName[] = $defaultTarget;
 
             $indexOfDefDesc = array_search($defaultTarget, $topNames, true);
             if ($indexOfDefDesc !== false && $indexOfDefDesc >= 0) {
-                $defaultDesc = array();
+                $defaultDesc = [];
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
             $this->_printTargets($defaultName, $defaultDesc, "Default target:", $maxLength);
-
         }
         $this->_printTargets($topNames, $topDescriptions, "Main targets:", $maxLength);
         $this->_printTargets($subNames, null, "Subtargets:", 0);
@@ -1177,7 +1262,6 @@ class Phing
      */
     private function _printTargets($names, $descriptions, $heading, $maxlen)
     {
-
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
             $spaces .= $spaces;
@@ -1216,14 +1300,13 @@ class Phing
      */
     public static function import($dotPath, $classpath = null)
     {
-
         if (strpos($dotPath, '.') !== false) {
             $classname = StringHelper::unqualify($dotPath);
         } else {
             $classname = $dotPath;
             $dotPath = '';
             $shortClassName = $classname;
-            if (($lastNsPos = strripos($shortClassName, '\\'))) {
+            if (($lastNsPos = strrpos($shortClassName, '\\'))) {
                 $namespace = substr($shortClassName, 0, $lastNsPos);
                 $shortClassName = substr($shortClassName, $lastNsPos + 1);
                 $dotPath = str_replace('\\', '.', $namespace) . '.';
@@ -1266,7 +1349,6 @@ class Phing
      */
     public static function __import($path, $classpath = null)
     {
-
         if ($classpath) {
 
             // Apparently casting to (string) no longer invokes __toString() automatically.
@@ -1317,13 +1399,11 @@ class Phing
      */
     public static function getResourcePath($path)
     {
-
         if (self::$importPaths === null) {
             self::$importPaths = self::explodeIncludePath();
         }
 
-        $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
-        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
 
         foreach (self::$importPaths as $prefix) {
             $testPath = $prefix . DIRECTORY_SEPARATOR . $path;
@@ -1349,30 +1429,11 @@ class Phing
             }
         }
 
-        // If we are using this via PEAR then check for the file in the data dir
-        // This is a bit of a hack, but works better than previous solution of assuming
-        // data_dir is on the include_path.
-        $dataDir = '@DATA-DIR@';
-        if ($dataDir{0} != '@') { // if we're using PEAR then the @ DATA-DIR @ token will have been substituted.
-            if (!file_exists($dataDir)) {
-                self::log("The PEAR data_dir setting is incorrect: {$dataDir}.", Project::MSG_ERR);
-                self::log("Please edit using 'pear config-set data_dir ...' and re-install Phing.", Project::MSG_ERR);
-
-                return null;
-            }
-
-            $testPath = $dataDir . DIRECTORY_SEPARATOR . $path;
-            if (file_exists($testPath)) {
-                return $testPath;
-            }
-        } else {
-            // We're not using PEAR, so do one additional check based on path of
-            // current file (Phing.php)
-            $maybeHomeDir = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
-            $testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
-            if (file_exists($testPath)) {
-                return $testPath;
-            }
+        // Do one additional check based on path of current file (Phing.php)
+        $maybeHomeDir = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+        $testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
+        if (file_exists($testPath)) {
+            return $testPath;
         }
 
         return null;
@@ -1450,10 +1511,8 @@ class Phing
 
         switch (strtoupper(PHP_OS)) {
             case 'WINNT':
-                self::setProperty('host.fstype', 'WINNT');
-                break;
             case 'WIN32':
-                self::setProperty('host.fstype', 'WIN32');
+                self::setProperty('host.fstype', 'WINDOWS');
                 break;
             default:
                 self::setProperty('host.fstype', 'UNIX');
@@ -1461,12 +1520,15 @@ class Phing
         }
 
         if (defined('PHP_BINARY')) {
-            self::setProperty('php.interpreter', PHP_BINARY);
+            self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
         } else {
-            self::setProperty('php.interpreter', getenv('PHP_COMMAND'));
+            self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
         }
+        $file = new PhingFile('.');
+        self::setProperty('file.separator', $file::$separator);
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('php.version', PHP_VERSION);
+        self::setProperty('path.separator', $file::$pathSeparator);
+        self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
             self::setProperty('user.home', getenv('HOME'));
@@ -1475,10 +1537,9 @@ class Phing
         }
         self::setProperty('application.startdir', getcwd());
         self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
-        self::setProperty('php.tmpdir', sys_get_temp_dir());
 
         // try to detect machine dependent information
-        $sysInfo = array();
+        $sysInfo = [];
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && function_exists("posix_uname")) {
             $sysInfo = posix_uname();
         } else {
@@ -1603,21 +1664,25 @@ class Phing
      * Converts shorthand notation values as returned by ini_get()
      * @see http://www.php.net/ini_get
      * @param string $val
-     * @return int|string
+     * @return int
      */
-    private static function convertShorthand($val)
+    public static function convertShorthand($val)
     {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
 
-        switch ($last) {
-            // The 'G' modifier is available since PHP 5.1.0
-            case 'g':
-                $val *= 1024;
-            case 'm':
-                $val *= 1024;
-            case 'k':
-                $val *= 1024;
+        if (!is_numeric($last)) {
+            $val = (int) substr($val, 0, strlen($val) - 1);
+
+            switch ($last) {
+                // The 'G' modifier is available since PHP 5.1.0
+                case 'g':
+                    $val *= 1024;
+                case 'm':
+                    $val *= 1024;
+                case 'k':
+                    $val *= 1024;
+            }
         }
 
         return $val;
@@ -1629,7 +1694,6 @@ class Phing
      */
     private static function setIni()
     {
-
         self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
 
         // We won't bother storing original max_execution_time, since 1) the value in
@@ -1639,11 +1703,8 @@ class Phing
 
         set_time_limit(0);
 
-        self::$origIniSettings['magic_quotes_gpc'] = ini_set('magic_quotes_gpc', 'off');
         self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
-        self::$origIniSettings['register_globals'] = ini_set('register_globals', 'off');
-        self::$origIniSettings['allow_call_time_pass_reference'] = ini_set('allow_call_time_pass_reference', 'on');
         self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
         $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
@@ -1683,7 +1744,6 @@ class Phing
     public static function getTimer()
     {
         if (self::$timer === null) {
-            include_once 'phing/system/util/Timer.php';
             self::$timer = new Timer();
         }
 
@@ -1708,17 +1768,6 @@ class Phing
         self::setSystemConstants();
         self::setIncludePaths();
         self::setIni();
-    }
-
-    /**
-     * Halts the system.
-     * @deprecated This method is deprecated and is no longer called by Phing internally.  Any
-     *              normal shutdown routines are handled by the shutdown() method.
-     * @see shutdown()
-     */
-    public static function halt()
-    {
-        self::shutdown();
     }
 
     /**

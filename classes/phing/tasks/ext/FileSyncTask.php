@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once "phing/Task.php";
 
 /**
  * The FileSyncTask class copies files either to or from a remote host, or locally
@@ -93,6 +89,7 @@ class FileSyncTask extends Task
 
     /**
      * Exclude file matching pattern.
+     * Use comma seperated values to exclude multiple files/directories, e.g.: a,b
      * @var string
      */
     protected $exclude;
@@ -173,6 +170,12 @@ class FileSyncTask extends Task
      * @var string
      */
     protected $identityFile;
+    
+    /**
+     * Remote port for syncing via SSH.
+     * @var int
+     */
+    protected $remotePort = 22;
 
     /**
      * Phing's main method. Wraps the executeCommand() method.
@@ -225,7 +228,7 @@ class FileSyncTask extends Task
 
         $command = $this->getCommand();
 
-        $output = array();
+        $output = [];
         $return = null;
         exec($command, $output, $return);
 
@@ -274,7 +277,7 @@ class FileSyncTask extends Task
         }
 
         if ($this->identityFile !== null) {
-            $options .= ' -e "ssh -i ' . $this->identityFile . '"';
+            $options .= ' -e "ssh -i ' . $this->identityFile . ' -p' . $this->remotePort . '"';
         } else {
             if ($this->remoteShell !== null) {
                 $options .= ' -e "' . $this->remoteShell . '"';
@@ -297,7 +300,9 @@ class FileSyncTask extends Task
         }
 
         if ($this->exclude !== null) {
-            $options .= ' --exclude="' . $this->exclude . '"';
+            //remove trailing comma if any
+            $this->exclude = trim($this->exclude, ',');
+            $options .= ' --exclude="' . str_replace(',', '" --exclude="', $this->exclude) . '"';
         }
 
         if ($this->excludeFile !== null) {
@@ -552,6 +557,16 @@ class FileSyncTask extends Task
     public function setIdentityFile($identity)
     {
         $this->identityFile = $identity;
+    }
+    
+    /**
+     * Sets the port of the remote computer.
+     *
+     * @param int $remotePort
+     */
+    public function setRemotePort($remotePort)
+    {
+        $this->remotePort = $remotePort;
     }
 
     /**

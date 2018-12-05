@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/HttpTask.php';
-
 /**
  * A HTTP download task.
  *
@@ -28,7 +24,6 @@ require_once 'phing/tasks/ext/HttpTask.php';
  *
  * @package phing.tasks.ext
  * @author  Ole Markus With <o.with@sportradar.com>
- * @version $Id$
  */
 class HttpGetTask extends HttpTask
 {
@@ -67,6 +62,8 @@ class HttpGetTask extends HttpTask
      */
     protected $proxy = null;
 
+    private $quiet = false;
+
     /**
      * @return HTTP_Request2
      * @throws BuildException
@@ -75,12 +72,12 @@ class HttpGetTask extends HttpTask
     protected function createRequest()
     {
         if (!isset($this->dir)) {
-            throw new BuildException("Required attribute 'dir' is missing");
+            throw new BuildException("Required attribute 'dir' is missing", $this->getLocation());
         }
 
-        $config = array(
+        $config = [
             'ssl_verify_peer' => $this->sslVerifyPeer
-        );
+        ];
         if (isset($this->proxy)) {
             $config['proxy'] = $this->proxy;
         }
@@ -108,7 +105,8 @@ class HttpGetTask extends HttpTask
         if ($response->getStatus() != 200) {
             throw new BuildException(
                 "Request unsuccessful. Response from server: " . $response->getStatus()
-                . " " . $response->getReasonPhrase()
+                . " " . $response->getReasonPhrase(),
+                $this->getLocation()
             );
         }
 
@@ -117,18 +115,16 @@ class HttpGetTask extends HttpTask
 
         if ($this->filename) {
             $filename = $this->filename;
-
         } elseif ($disposition && 0 == strpos($disposition, 'attachment')
             && preg_match('/filename="([^"]+)"/', $disposition, $m)
         ) {
             $filename = basename($m[1]);
-
         } else {
             $filename = basename(parse_url($this->url, PHP_URL_PATH));
         }
 
         if (!is_writable($this->dir)) {
-            throw new BuildException("Cannot write to directory: " . $this->dir);
+            throw new BuildException("Cannot write to directory: " . $this->dir, $this->getLocation());
         }
 
         $filename = $this->dir . "/" . $filename;
@@ -185,5 +181,22 @@ class HttpGetTask extends HttpTask
     public function setProxy($proxy)
     {
         $this->proxy = $proxy;
+    }
+
+    /**
+     * If true, set default log level to Project.MSG_ERR.
+     *
+     * @param boolean $v if "true" then be quiet
+     */
+    public function setQuiet($v)
+    {
+        $this->quiet = $v;
+    }
+
+    public function log($msg, $msgLevel = Project::MSG_INFO, Exception $t = null)
+    {
+        if (!$this->quiet || $msgLevel <= Project::MSG_ERR) {
+            parent::log($msg, $msgLevel, $t);
+        }
     }
 }

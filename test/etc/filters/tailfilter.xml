@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="tailfilter.test" default="cleanup">
+
+    <target name="setup">
+        <mkdir dir="result" />
+    </target>
+    <target name="cleanup">
+        <delete dir="result"/>
+    </target>
+
+    <target name="testTailFilter" depends="setup">
+        <copy file="input/tailfilter.test" todir="result">
+            <fileset dir="input"/>
+            <filterchain>
+                <tailfilter lines="6" skip="2"/>
+            </filterchain>
+        </copy>
+    </target>
+
+    <target name="testTailHeadFilter" depends="setup">
+        <copy file="input/tailfilter.test" todir="result">
+            <fileset dir="input"/>
+            <filterchain>
+                <headfilter lines="5"/>
+                <tailfilter lines="2"/>
+            </filterchain>
+        </copy>
+    </target>
+</project>

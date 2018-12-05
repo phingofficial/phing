@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,15 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/Project.php';
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/types/PhingFilterReader.php';
-include_once 'phing/types/FilterChain.php';
-include_once 'phing/types/Parameter.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Process a FilterReader chain.
@@ -61,7 +50,6 @@ include_once 'phing/filters/ChainableReader.php';
  * TODO: Implement the classPath feature.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Id$
  * @package   phing.filters.util
  */
 class ChainReaderHelper
@@ -74,7 +62,7 @@ class ChainReaderHelper
     private $bufferSize = 8192;
 
     /** Chain of filters */
-    private $filterChains = array();
+    private $filterChains = [];
 
     /** The Phing project */
     private $project;
@@ -141,10 +129,9 @@ class ChainReaderHelper
      */
     public function getAssembledReader()
     {
-
         $instream = $this->primaryReader;
         $filterReadersCount = count($this->filterChains);
-        $finalFilters = array();
+        $finalFilters = [];
 
         // Collect all filter readers of all filter chains used ...
         for ($i = 0; $i < $filterReadersCount; $i++) {
@@ -186,7 +173,6 @@ class ChainReaderHelper
                     }
 
                     $instream = $impl; // now that it's been chained
-
                 } elseif (($filter instanceof ChainableReader) && ($filter instanceof Reader)) {
                     if ($this->getProject() !== null && ($filter instanceof BaseFilterReader)) {
                         $filter->setProject($this->getProject());
@@ -200,5 +186,4 @@ class ChainReaderHelper
 
         return $instream;
     }
-
 }

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntax.php';
-
 /**
  * Factory for generating dbms-specific syntax-generating objects
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxFactory
@@ -44,7 +38,7 @@ class DbmsSyntaxFactory
     public function getDbmsSyntax()
     {
         switch ($this->dbms) {
-            case('sqlite') :
+            case('sqlite'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
 
                 return new DbmsSyntaxSQLite();

@@ -1,12 +1,9 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Chown Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ChownTaskTest extends BuildFileTest
@@ -35,7 +32,7 @@ class ChownTaskTest extends BuildFileTest
         //we may change the group only if we belong to it
         //so find a group that we are in
         $group = null;
-        foreach (array('users', 'www-data', 'cdrom') as $groupname) {
+        foreach (['users', 'www-data', 'cdrom'] as $groupname) {
             $grpinfo = posix_getgrnam($groupname);
             if ($grpinfo['gid'] == $userinfo['gid']) {
                 //current group id, the file has that group anyway
@@ -72,5 +69,4 @@ class ChownTaskTest extends BuildFileTest
             'chowntestB group should have changed'
         );
     }
-
 }

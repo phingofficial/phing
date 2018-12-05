@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * ApiGen task (http://apigen.org).
@@ -49,7 +48,7 @@ class ApiGenTask extends Task
      *
      * @var string
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * Sets the ApiGen executable name.
@@ -262,7 +261,7 @@ class ApiGenTask extends Task
      */
     public function setInternal($internal)
     {
-        if((bool) $internal) {
+        if ((bool) $internal) {
             $this->options['internal'] = null;
         }
     }
@@ -274,7 +273,7 @@ class ApiGenTask extends Task
      */
     public function setPhp($php)
     {
-        if((bool) $php) {
+        if ((bool) $php) {
             $this->options['php'] = null;
         }
     }
@@ -286,7 +285,7 @@ class ApiGenTask extends Task
      */
     public function setTree($tree)
     {
-        if((bool) $tree) {
+        if ((bool) $tree) {
             $this->options['tree'] = null;
         }
     }
@@ -298,7 +297,7 @@ class ApiGenTask extends Task
      */
     public function setDeprecated($deprecated)
     {
-        if((bool) $deprecated) {
+        if ((bool) $deprecated) {
             $this->options['deprecated'] = null;
         }
     }
@@ -310,7 +309,7 @@ class ApiGenTask extends Task
      */
     public function setTodo($todo)
     {
-        if((bool) $todo) {
+        if ((bool) $todo) {
             $this->options['todo'] = null;
         }
     }
@@ -320,11 +319,22 @@ class ApiGenTask extends Task
      *
      * @param boolean $noSourceCode
      */
-    public function setNoSourceCode($noSourceCode)
+    public function setSourceCode($noSourceCode)
     {
-        if((bool) $noSourceCode) {
+        if (!((bool) $noSourceCode)) {
             $this->options['no-source-code'] = null;
         }
+    }
+
+    /**
+     * Sets if highlighted source code files should not be generated.
+     *
+     * @deprecated
+     * @param boolean $noSourceCode
+     */
+    public function setNoSourceCode($noSourceCode)
+    {
+        $this->setSourceCode(!$noSourceCode);
     }
 
     /**
@@ -334,7 +344,7 @@ class ApiGenTask extends Task
      */
     public function setDownload($download)
     {
-        if((bool) $download) {
+        if ((bool) $download) {
             $this->options['download'] = null;
         }
     }
@@ -346,7 +356,7 @@ class ApiGenTask extends Task
      */
     public function setDebug($debug)
     {
-        if((bool) $debug) {
+        if ((bool) $debug) {
             $this->options['debug'] = null;
         }
     }
@@ -407,7 +417,7 @@ class ApiGenTask extends Task
      */
     protected function constructArguments()
     {
-        $args = array();
+        $args = [];
         foreach ($this->options as $option => $value) {
             if (is_bool($value)) {
                 $args[] = '--' . $option . '=' . ($value ? 'yes' : 'no');

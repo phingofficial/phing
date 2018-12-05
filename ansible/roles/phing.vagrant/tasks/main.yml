@@ -1,0 +1,22 @@
+---
+- name: Set up the MOTD
+  template: dest=/etc/motd src=motd.j2 owner=root group=root mode=0644
+  become: yes
+
+- name: Adding existing user 'vagrant' to groups www-data,users
+  user: name=vagrant
+        groups=www-data,users
+        append=yes
+
+- name: Update our apt cache
+  apt: update_cache=yes
+  become: yes
+
+- name: Install Vim
+  apt: name={{ item }} state=latest
+  with_items:
+    - vim
+  become: yes
+
+- name: Have SSH user go to /vagrant by default
+  lineinfile: dest=/home/vagrant/.profile insertafter=EOF line="cd /vagrant"

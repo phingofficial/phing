@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,17 +18,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id$
  * @package phing.tasks.system
  */
 class TypedefTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/typedef.xml");
@@ -51,7 +46,7 @@ class TypedefTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException BuildException
      */
     public function testClassNotFound()
     {
@@ -82,5 +77,4 @@ class TypedefTaskTest extends BuildFileTest
         $this->assertNotNull("ref is not null", $ref);
         $this->assertEquals("TypedefTestType", get_class($ref));
     }
-
 }

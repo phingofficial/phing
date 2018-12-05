@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once "phing/Task.php";
 
 /**
  * Generates symlinks based on a target / link combination.
@@ -76,7 +71,7 @@ class SymlinkTask extends Task
      *
      * @var array
      */
-    private $_filesets = array();
+    private $_filesets = [];
 
     /**
      * Whether to override the symlink if it exists but points
@@ -87,6 +82,13 @@ class SymlinkTask extends Task
      * @var boolean
      */
     private $_overwrite = false;
+
+    /**
+     * Whether to create relative symlinks
+     *
+     * @var boolean
+     */
+    private $relative = false;
 
     /**
      * setter for _target
@@ -131,6 +133,14 @@ class SymlinkTask extends Task
     public function setOverwrite($overwrite)
     {
         $this->_overwrite = $overwrite;
+    }
+
+    /**
+     * @param boolean $relative
+     */
+    public function setRelative($relative)
+    {
+        $this->relative = $relative;
     }
 
     /**
@@ -184,6 +194,54 @@ class SymlinkTask extends Task
     }
 
     /**
+     * @return boolean
+     */
+    public function isRelative()
+    {
+        return $this->relative;
+    }
+
+    /**
+     * Given an existing path, convert it to a path relative to a given starting path.
+     *
+     * @param string $endPath   Absolute path of target
+     * @param string $startPath Absolute path where traversal begins
+     *
+     * @return string Path of target relative to starting path
+     */
+    public function makePathRelative($endPath, $startPath)
+    {
+        // Normalize separators on Windows
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            $endPath = str_replace('\\', '/', $endPath);
+            $startPath = str_replace('\\', '/', $startPath);
+        }
+
+        // Split the paths into arrays
+        $startPathArr = explode('/', trim($startPath, '/'));
+        $endPathArr = explode('/', trim($endPath, '/'));
+
+        // Find for which directory the common path stops
+        $index = 0;
+        while (isset($startPathArr[$index]) && isset($endPathArr[$index]) && $startPathArr[$index] === $endPathArr[$index]) {
+            ++$index;
+        }
+
+        // Determine how deep the start path is relative to the common path (ie, "web/bundles" = 2 levels)
+        $depth = count($startPathArr) - $index;
+
+        // Repeated "../" for each level need to reach the common path
+        $traverser = str_repeat('../', $depth);
+
+        $endPathRemainder = implode('/', array_slice($endPathArr, $index));
+
+        // Construct $endPath from traversing to the common path, then to the remaining $endPath
+        $relativePath = $traverser.('' !== $endPathRemainder ? $endPathRemainder.'/' : '');
+
+        return '' === $relativePath ? './' : $relativePath;
+    }
+
+    /**
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
      *
@@ -200,7 +258,7 @@ class SymlinkTask extends Task
             return $this->getTarget();
         }
 
-        $targets = array();
+        $targets = [];
 
         foreach ($fileSets as $fs) {
             if (!($fs instanceof FileSet)) {
@@ -219,7 +277,7 @@ class SymlinkTask extends Task
                 continue;
             }
 
-            $fsTargets = array();
+            $fsTargets = [];
 
             $ds = $fs->getDirectoryScanner($this->getProject());
 
@@ -272,6 +330,11 @@ class SymlinkTask extends Task
     protected function symlink($target, $link)
     {
         $fs = FileSystem::getFileSystem();
+
+        if ($this->isRelative()) {
+           $link =(new PhingFile($link))->getAbsolutePath();
+           $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
+        }
 
         if (is_link($link) && @readlink($link) == $target) {
             $this->log('Link exists: ' . $link, Project::MSG_INFO);

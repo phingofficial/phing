@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Task to create a directory.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id$
  * @package  phing.tasks.system
  */
 class MkdirTask extends Task
@@ -49,6 +45,7 @@ class MkdirTask extends Task
      */
     public function __construct()
     {
+        parent::__construct();
         $this->mode = 0777 - umask();
     }
 
@@ -60,7 +57,7 @@ class MkdirTask extends Task
     public function main()
     {
         if ($this->dir === null) {
-            throw new BuildException("dir attribute is required", $this->location);
+            throw new BuildException("dir attribute is required", $this->getLocation());
         }
         if ($this->dir->isFile()) {
             throw new BuildException("Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath(
@@ -76,7 +73,7 @@ class MkdirTask extends Task
                 }
                 $msg = "Directory " . $this->dir->getAbsolutePath(
                     ) . " creation was not successful for an unknown reason";
-                throw new BuildException($msg, $this->location);
+                throw new BuildException($msg, $this->getLocation());
             }
             $this->log("Created dir: " . $this->dir->getAbsolutePath());
         }

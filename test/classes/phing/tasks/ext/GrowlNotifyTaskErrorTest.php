@@ -33,7 +33,6 @@
  *
  * @category   Tasks
  * @package    phing.tasks.ext
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
@@ -44,7 +43,6 @@
  *
  * @category   Tasks
  * @package    phing.tasks.ext
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
@@ -77,9 +75,9 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
 
         $gntpMock = Net_Growl::singleton(
             $name,
-            array(),
+            [],
             '',
-            array('protocol' => 'gntpMock')
+            ['protocol' => 'gntpMock']
         );
 
         /*
@@ -205,5 +203,4 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
             );
         }
     }
-
 }

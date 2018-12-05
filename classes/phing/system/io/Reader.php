@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +22,6 @@
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Yannick Lecaillez <yl@seasonfive.com>
- * @version $Id$
  * @package phing.system.io
  */
 abstract class Reader
@@ -95,5 +92,4 @@ abstract class Reader
     {
         return true;
     }
-
 }

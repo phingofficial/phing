@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="sonar-test" default="invalid">
+    <target name="invalid">
+        <fail>This file should only be run via a testcase.</fail>
+    </target>
+</project>

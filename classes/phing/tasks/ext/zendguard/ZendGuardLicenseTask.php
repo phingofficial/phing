@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +23,6 @@
  * license properties or it can use a template.
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */
@@ -452,7 +448,7 @@ class ZendGuardLicenseTask extends Task
         // Check for exit value 1. Zendenc_sign command for some reason
         // returns 0 in case of failure and 1 in case of success...
         if ($return_var !== 1) {
-            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . join("\n", $output) . "\n\n");
+            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . implode("\n", $output) . "\n\n");
         }
     }
 
@@ -483,29 +479,29 @@ class ZendGuardLicenseTask extends Task
      */
     protected function generateLicenseTemplateContent()
     {
-        $contentArr = array();
+        $contentArr = [];
 
         // Product Name
-        $contentArr[] = array('Product-Name', $this->productName);
+        $contentArr[] = ['Product-Name', $this->productName];
         // Registered to
-        $contentArr[] = array('Registered-To', $this->registeredTo);
+        $contentArr[] = ['Registered-To', $this->registeredTo];
         // Hardware locked
-        $contentArr[] = array('Hardware-Locked', ($this->hardwareLocked ? 'Yes' : 'No'));
+        $contentArr[] = ['Hardware-Locked', ($this->hardwareLocked ? 'Yes' : 'No')];
 
         // Expires
-        $contentArr[] = array('Expires', $this->expires);
+        $contentArr[] = ['Expires', $this->expires];
 
         // IP-Range
         if (!empty($this->ipRange)) {
-            $contentArr[] = array('IP-Range', $this->ipRange);
+            $contentArr[] = ['IP-Range', $this->ipRange];
         }
         // Host-ID
         if (!empty($this->hostID)) {
             foreach (explode(';', $this->hostID) as $hostID) {
-                $contentArr[] = array('Host-ID', $hostID);
+                $contentArr[] = ['Host-ID', $hostID];
             }
         } else {
-            $contentArr[] = array('Host-ID', 'Not-Locked');
+            $contentArr[] = ['Host-ID', 'Not-Locked'];
         }
 
         // parse user defined fields
@@ -520,7 +516,6 @@ class ZendGuardLicenseTask extends Task
         // merge all the values
         $content = '';
         foreach ($contentArr as $valuePair) {
-
             list($key, $value) = $valuePair;
 
             $content .= $key . " = " . $value . "\n";
@@ -554,9 +549,8 @@ class ZendGuardLicenseTask extends Task
                 list($key, $value) = explode('=', $valuePair, 2);
 
                 // add pair into the valueArray
-                $valueArray[] = array($keyPrefix . $key, $value);
+                $valueArray[] = [$keyPrefix . $key, $value];
             }
         }
     }
-
 }

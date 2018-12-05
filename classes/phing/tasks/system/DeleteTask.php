@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,28 +17,24 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+include_once 'phing/types/element/ResourceAware.php';
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  *
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class DeleteTask extends Task
 {
+    use ResourceAware;
 
     protected $file;
     protected $dir;
-    protected $filesets = array();
     protected $includeEmpty = false;
 
     protected $quiet = false;
     protected $failonerror = false;
     protected $verbosity = Project::MSG_VERBOSE;
-
-    /** Any filelists of files that should be deleted. */
-    private $filelists = array();
 
     /**
      * Set the name of a single file to be removed.
@@ -111,41 +105,21 @@ class DeleteTask extends Task
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @return FileList
-     */
-    public function createFileList()
-    {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
-    }
-
-    /**
      * Delete the file(s).
      * @throws BuildException
      */
     public function main()
     {
-        if ($this->file === null && $this->dir === null && count($this->filesets) === 0 && count(
-                $this->filelists
-            ) === 0
+        if ($this->file === null && $this->dir === null && count($this->dirsets) === 0
+            && count($this->filesets) === 0 && count($this->filelists) === 0
         ) {
-            throw new BuildException("At least one of the file or dir attributes, or a fileset element, or a filelist element must be set.");
+            throw new BuildException(
+                "At least one of the file or dir attributes, or a fileset, filelist or dirset element must be set."
+            );
         }
 
         if ($this->quiet && $this->failonerror) {
-            throw new BuildException("quiet and failonerror cannot both be set to true", $this->location);
+            throw new BuildException("quiet and failonerror cannot both be set to true", $this->getLocation());
         }
 
         // delete a single file
@@ -180,20 +154,34 @@ class DeleteTask extends Task
             }
         }
 
-        // delete the directory
         if ($this->dir !== null) {
-            if ($this->dir->exists() && $this->dir->isDirectory()) {
-                if ($this->verbosity === Project::MSG_VERBOSE) {
-                    $this->log("Deleting directory " . $this->dir->__toString());
-                }
-                $this->removeDir($this->dir);
+            $this->dirsets[] = $this->dir;
+        }
+        foreach ($this->dirsets as $dirset) {
+            if (!$dirset instanceof PhingFile) {
+                $ds = $dirset->getDirectoryScanner($this->getProject());
+                $dirs = $ds->getIncludedDirectories();
+                $baseDir = $ds->getBasedir();
             } else {
-                $message = "Directory " . $this->dir->getAbsolutePath() . " does not exist or is not a directory.";
-
-                if ($this->failonerror) {
-                    throw new BuildException($message);
+                $dirs[0] = $dirset;
+            }
+            foreach ($dirs as $dir) {
+                if (!$dir instanceof PhingFile) {
+                    $dir = new PhingFile($baseDir, $dir);
+                }
+                if ($dir->exists() && $dir->isDirectory()) {
+                    if ($this->verbosity === Project::MSG_VERBOSE) {
+                        $this->log("Deleting directory " . $dir->__toString());
+                    }
+                    $this->removeDir($dir);
                 } else {
-                    $this->log($message, ($this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN));
+                    $message = "Directory " . $dir->getAbsolutePath() . " does not exist or is not a directory.";
+
+                    if ($this->failonerror) {
+                        throw new BuildException($message);
+                    } else {
+                        $this->log($message, ($this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN));
+                    }
                 }
             }
         }
@@ -202,7 +190,7 @@ class DeleteTask extends Task
         foreach ($this->filelists as $fl) {
             try {
                 $files = $fl->getFiles($this->project);
-                $this->removeFiles($fl->getDir($this->project), $files, $empty = array());
+                $this->removeFiles($fl->getDir($this->project), $files, $empty = []);
             } catch (BuildException $be) {
                 // directory doesn't exist or is not readable
                 if ($this->failonerror) {
@@ -240,7 +228,7 @@ class DeleteTask extends Task
     {
         $list = $d->listDir();
         if ($list === null) {
-            $list = array();
+            $list = [];
         }
 
         foreach ($list as $s) {
@@ -299,7 +287,6 @@ class DeleteTask extends Task
                         $this->log($message, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
                     }
                 }
-
             }
         }
 

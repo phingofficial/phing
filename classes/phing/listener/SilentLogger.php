@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/listener/DefaultLogger.php';
-
 /**
  * A logger which logs nothing but build failure and what task might output.
  *

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,20 +26,19 @@ include_once 'phing/Task.php';
  *
  * @author   Michiel Rook <mrook@php.net>
  * @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- * @version  $Id$
  * @package  phing.tasks.ext
  */
 class MailTask extends Task
 {
+    use FileSetAware;
+
     protected $tolist = null;
     protected $subject = null;
     protected $msg = null;
     protected $from = null;
 
-    protected $filesets = array();
-
     protected $backend = 'mail';
-    protected $backendParams = array();
+    protected $backendParams = [];
 
     public function main()
     {
@@ -69,11 +66,11 @@ class MailTask extends Task
             throw new BuildException('Need the PEAR Mail_mime package to send attachments');
         }
 
-        $mime = new Mail_mime(array('text_charset' => 'UTF-8'));
-        $hdrs = array(
+        $mime = new Mail_mime(['text_charset' => 'UTF-8']);
+        $hdrs = [
             'From' => $this->from,
             'Subject' => $this->subject
-        );
+        ];
         $mime->setTXTBody($this->msg);
 
         foreach ($this->filesets as $fs) {
@@ -197,16 +194,5 @@ class MailTask extends Task
                 $this->backendParams[$key] = $value;
             }
         }
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

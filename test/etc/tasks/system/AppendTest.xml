@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AppendTaskTest" default="test1">
+
+  <property name="tmp.file" value="concat.tmp" />
+  <property name="tmp.file.2" value="concat.tmp.2" />
+
+  <property name="world" value="World" />
+
+  <target name="cleanup">
+    <delete file="TESTDEST"/>
+    <delete file="${tmp.file}"/>
+    <delete file="${tmp.file.2}"/>
+    <delete file="concat.line4"/>
+    <delete file="concat.noeol"/>
+    <delete file="concat.linecr"/>
+    <delete file="concat.utf8"/>
+    <delete file="concat.urls"/>
+  </target>
+
+  <target name="test1">
+    <concat>
+    </concat>
+  </target>
+
+  <target name="test2">
+    <concat destfile="">Hello, ${world}!</concat>
+  </target>
+
+  <target name="test3">
+    <concat destfile="${tmp.file}">Hello, ${world}!</concat>
+  </target>
+
+  <target name="test4">
+    <concat>Hello, ${world}!</concat>
+  </target>
+
+  <target name="testConcatNoNewline">
+    <concat>
+      <fileset dir="concat-input"/>
+    </concat>
+  </target>
+
+  <target name="testPath">
+    <concat destfile="${tmp.file.2}">
+      <path path="${tmp.file}"/>
+    </concat>
+  </target>
+
+  <target name="testAppend">
+    <concat destfile="${tmp.file.2}">
+      <path path="${tmp.file}"/>
+    </concat>
+    <concat destfile="${tmp.file.2}" append="true">
+      <path path="${tmp.file}"/>
+    </concat>
+  </target>
+
+  <target name="testfilter">
+    <concat destfile="${tmp.file}">@REPLACEME@</concat>
+    <concat>
+      <path path="${tmp.file}"/>
+      <filterchain>
+        <replacetokens>
+          <token key="REPLACEME" value="REPLACED"/>
+        </replacetokens>
+      </filterchain>
+    </concat>
+  </target>
+
+  <target name="testnooverwrite">
+    <touch file="${tmp.file.2}"/>
+    <concat destfile="${tmp.file.2}" overwrite="false">
+      <path path="concat.xml"/>
+    </concat>
+  </target>
+
+  <target name="testheaderfooter">
+    <concat>
+      <header filtering="false" trim="yes">
+        header
+      </header>
+      <path path="${tmp.file}"/>
+      <footer filtering="no">footer</footer>
+    </concat>
+  </target>
+
+  <target name="testfileheader">
+    <concat>
+      <header file="${tmp.file}"/>
+      <path path="${tmp.file}"/>
+    </concat>
+  </target>
+
+  <target name="samefile">
+    <touch file="${tmp.file}"/>
+    <concat destfile="${tmp.file}">
+      <path path="${tmp.file}"/>
+    </concat>
+  </target>
+
+  <target name="testfilterinline">
+    <concat>
+      @REPLACEME@
+      <filterchain>
+        <replacetokens>
+          <token key="REPLACEME" value="REPLACED"/>
+        </replacetokens>
+      </filterchain>
+    </concat>
+  </target>
+
+  <target name="create-noel">
+    <concat destfile="concat.noeol">This has no end of line</concat>
+  </target>
+
+  <target name="testfixlastline" depends="create-noel">
+    <concat destfile="concat.line4" fixlastline="yes">
+      <path path="concat.noeol"/>
+      <path path="concat.noeol"/>
+      <path path="concat.noeol"/>
+      <path path="concat.noeol"/>
+    </concat>
+  </target>
+
+  <target name="testfixlastlineeol" depends="create-noel">
+    <concat destfile="concat.linecr" fixlastline="yes" eol="mac">
+      <path path="concat.noeol"/>
+      <path path="concat.noeol"/>
+    </concat>
+  </target>
+
+</project>

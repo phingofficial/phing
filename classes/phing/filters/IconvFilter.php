@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,9 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Encode data from <code>in</code> encoding to <code>out</code> encoding.
  *
@@ -39,14 +33,10 @@ include_once 'phing/filters/ChainableReader.php';
  * </pre>
  *
  * @author    Alexey Shockov, <alexey@shockov.com>
- * @version   $Id$
  * @package   phing.filters
  */
-class IconvFilter
-    extends BaseParamFilterReader
-    implements ChainableReader
+class IconvFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     private $_inputEncoding;
 
     private $_outputEncoding;
@@ -54,7 +44,7 @@ class IconvFilter
     /**
      * Returns first n lines of stream.
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      * @exception IOException if the underlying stream throws an IOException
@@ -126,7 +116,7 @@ class IconvFilter
      * @param Reader $reader
      * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering the specified reader.
+     * @return self A new filter based on this configuration, but filtering the specified reader.
      */
     public function chain(Reader $reader)
     {

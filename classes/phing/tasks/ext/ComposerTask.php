@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,52 +17,51 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-require_once "phing/types/Commandline.php";
-
 /**
  * Composer Task
  * Run composer straight from phing
  *
  * @author nuno costa <nuno@francodacosta.com>
  * @license MIT
- * @version $Id$
  * @package phing.tasks.ext
  */
 class ComposerTask extends Task
 {
     /**
-     * @var string the path to php interpreter
+     * Path to php interpreter
+     * @var string
      */
     private $php = '';
 
     /**
-     *
-     * @var string the Composer command to execute
+     * Composer command to execute
+     * @var string
      */
     private $command = null;
 
     /**
-     *
+     * Commandline object
      * @var Commandline
      */
     private $commandLine = null;
+
     /**
-     *
-     * @var string path to Composer application
+     * Path to Composer application
+     * @var string
      */
     private $composer = 'composer.phar';
 
     /**
-     *
+     * Constructor.
      */
     public function __construct()
     {
+        parent::__construct();
         $this->commandLine = new Commandline();
     }
 
     /**
-     * Initialize the interpreter with the Phing property php.interpreter
+     * Initialize the interpreter with the Phing property php.interpreter.
      */
     public function init()
     {
@@ -83,7 +79,7 @@ class ComposerTask extends Task
     }
 
     /**
-     * gets the path to php executable.
+     * Gets the path to php executable.
      *
      * @return string
      */
@@ -93,7 +89,8 @@ class ComposerTask extends Task
     }
 
     /**
-     * sets the Composer command to execute
+     * Sets the Composer command to execute.
+     *
      * @param string $command
      */
     public function setCommand($command)
@@ -102,7 +99,8 @@ class ComposerTask extends Task
     }
 
     /**
-     * return the Composer command to execute
+     * Return the Composer command to execute.
+     *
      * @return String
      */
     public function getCommand()
@@ -111,7 +109,8 @@ class ComposerTask extends Task
     }
 
     /**
-     * sets the path to Composer application
+     * Sets the path to Composer application.
+     *
      * @param string $console
      */
     public function setComposer($console)
@@ -120,18 +119,33 @@ class ComposerTask extends Task
     }
 
     /**
-     * returns the path to Composer application
+     * Returns the path to Composer application.
+     *
+     * If the filepath is non existent, try to find it on the system.
+     *
      * @return string
+     * @throws IOException
      */
     public function getComposer()
     {
+        $composerFile = new SplFileInfo($this->composer);
+        if (false === $composerFile->isFile()) {
+            $message = sprintf('Composer binary not found at "%s"', $composerFile);
+            $this->log($message, Project::MSG_WARN);
+            $composerLocation = FileSystem::getFileSystem()->which('composer');
+            if (!empty($composerLocation)) {
+                $message = sprintf('Composer binary found at "%s", updating location', $composerLocation[0]);
+                $this->log($message, Project::MSG_INFO);
+                $this->setComposer($composerLocation);
+            }
+        }
         return $this->composer;
     }
 
     /**
-     * creates a nested arg task
+     * Creates a nested arg task.
      *
-     * @return Arg Argument object
+     * @return CommandlineArgument
      */
 
     public function createArg()
@@ -140,8 +154,10 @@ class ComposerTask extends Task
     }
 
     /**
-     * Prepares the command string to be executed
+     * Prepares the command string to be executed.
+     *
      * @return string
+     * @throws IOException
      */
     private function prepareCommandLine()
     {
@@ -149,7 +165,7 @@ class ComposerTask extends Task
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
         $this->commandLine->createArgument(true)->setValue($this->getCommand());
         $this->commandLine->createArgument(true)->setValue($this->getComposer());
-        $commandLine = strval($this->commandLine);
+        $commandLine = (string)$this->commandLine;
         //Creating new Commandline instance. It allows to handle subsequent calls correctly
         $this->commandLine = new Commandline();
 
@@ -157,22 +173,16 @@ class ComposerTask extends Task
     }
 
     /**
-     * executes the Composer task
+     * Executes the Composer task.
+     * @throws IOException
      */
     public function main()
     {
         $commandLine = $this->prepareCommandLine();
-        $this->log("executing " . $commandLine);
+        $this->log("Executing " . $commandLine);
+        passthru($commandLine, $returnCode);
 
-        $composerFile = new SplFileInfo($this->getComposer());
-        if (false === $composerFile->isFile()) {
-            throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
-        }
-
-        $return = 0;
-        passthru($commandLine, $return);
-
-        if ($return > 0) {
+        if ($returnCode > 0) {
             throw new BuildException("Composer execution failed");
         }
     }

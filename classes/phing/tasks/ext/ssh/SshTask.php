@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,29 +17,69 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'Ssh2MethodParam.php';
 
 /**
  * Execute commands on a remote host using ssh.
  *
  * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @version   $Id$
  * @package   phing.tasks.ext
  */
 class SshTask extends Task
 {
-
+    /**
+     * @var string
+     */
     private $host = "";
+
+    /**
+     * @var int
+     */
     private $port = 22;
+
+    /**
+     * @var Ssh2MethodParam
+     */
     private $methods = null;
+
+    /**
+     * @var string
+     */
     private $username = "";
+
+    /**
+     * @var string
+     */
     private $password = "";
+
+    /**
+     * @var string
+     */
     private $command = "";
+
+    /**
+     * @var string
+     */
     private $pubkeyfile = '';
+
+    /**
+     * @var string
+     */
     private $privkeyfile = '';
+
+    /**
+     * @var string
+     */
     private $privkeyfilepassphrase = '';
+
+    /**
+     * @var string
+     */
     private $pty = '';
+
+    /**
+     * @var bool
+     */
     private $failonerror = false;
 
     /**
@@ -55,6 +93,11 @@ class SshTask extends Task
      * @var boolean
      */
     private $display = true;
+
+    /**
+     * @var resource
+     */
+    private $connection;
 
     /**
      * @param $host
@@ -260,7 +303,7 @@ class SshTask extends Task
             throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
 
-        $methods = !empty($this->methods) ? $this->methods->toArray($p) : array();
+        $methods = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
@@ -336,5 +379,4 @@ class SshTask extends Task
             throw new BuildException("SSH Task failed: " . $result_error);
         }
     }
-
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test.containsregexpselector" basedir="." default="main">
+    <property name="tmp.dir" value="tmp/contains"/>
+
+    <resolvepath propertyName="output" dir="${tmp.dir}" path="testoutput"/>
+    <resolvepath propertyName="result" dir="${tmp.dir}" path="testresult"/>
+
+    <target name="setup">
+        <mkdir dir="${output}"/>
+        <mkdir dir="${result}"/>
+    </target>
+    <target name="clean">
+        <delete dir="${output}"/>
+        <delete dir="${result}"/>
+    </target>
+
+    <target name="testContainsRegexpSelector">
+        <!-- Make two test files, shouldcopy.txt will get selected if everything works
+             shouldnotcopy.txt will not get selected for copy.  The test looks to see
+             that only one file is copied
+        -->
+        <echo message="Some testregexp text 2.0" file="${output}/shouldcopy.txt" />
+        <echo message="Some testregexp text 20" file="${output}/shouldnotcopy.txt" />
+        <copy todir="${result}">
+            <fileset dir="${output}">
+                <include name="*.txt" />
+                <containsregexp expression="[0-9]\.[0,1,2]" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="main">
+        <echo msg="This test build file is not executable."/>
+    </target>
+</project>

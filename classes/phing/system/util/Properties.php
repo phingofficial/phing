@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,11 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/system/io/FileParserInterface.php';
-include_once 'phing/system/io/IniFileParser.php';
-
 /**
  * Convenience class for reading and writing property files.
  *
@@ -32,12 +24,10 @@ include_once 'phing/system/io/IniFileParser.php';
  *        - Add support for arrays (separated by ',')
  *
  * @package    phing.system.util
- * @version $Id$
  */
 class Properties
 {
-
-    private $properties = array();
+    private $properties = [];
 
     /**
      * @var FileParserInterface
@@ -76,7 +66,7 @@ class Properties
     public function load(PhingFile $file)
     {
         if ($file->canRead()) {
-            $this->parse($file, false);
+            $this->parse($file);
 
             $this->file = $file;
         } else {
@@ -88,8 +78,6 @@ class Properties
      * Parses the file given.
      *
      * @param  PhingFile $file
-     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
-     * @return array   Properties loaded from file (no prop replacements done yet).
      */
     protected function parse(PhingFile $file)
     {
@@ -121,7 +109,7 @@ class Properties
      *
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         foreach ($this->properties as $key => $item) {
@@ -157,7 +145,7 @@ class Properties
             if ($header !== null) {
                 $fw->write("# " . $header . PHP_EOL);
             }
-            $fw->write($this->toString());
+            $fw->write((string) $this);
             $fw->close();
         } catch (IOException $e) {
             throw new IOException("Error writing property file: " . $e->getMessage());
@@ -177,9 +165,8 @@ class Properties
         $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
         $bw->newLine();
         foreach ($this->getProperties() as $key => $value) {
-                $bw->write($key . "=" . $value);
-                $bw->newLine();
-
+            $bw->write($key . "=" . $value);
+            $bw->newLine();
         }
         $bw->flush();
     }

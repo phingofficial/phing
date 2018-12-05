@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Condition to wait for a HTTP request to succeed.
  *
@@ -32,13 +29,13 @@ require_once 'phing/tasks/system/condition/Condition.php';
  */
 class HttpCondition extends ProjectComponent implements Condition
 {
-    private $errorsBeginAt;
-    private $url;
+    const DEFAULT_REQUEST_METHOD = 'GET';
 
-    public function __construct()
-    {
-        $this->errorsBeginAt = 400;
-    }
+    private $errorsBeginAt = 400;
+    private $url;
+    private $quiet = false;
+    private $requestMethod = self::DEFAULT_REQUEST_METHOD;
+    private $followRedirects = true;
 
     /**
      * Set the url attribute.
@@ -65,6 +62,37 @@ class HttpCondition extends ProjectComponent implements Condition
     }
 
     /**
+     * Sets the method to be used when issuing the HTTP request.
+     *
+     * @param string $method The HTTP request method to use. Valid values are
+     *               "GET", "HEAD", "TRACE", etc. The default
+     *               if not specified is "GET".
+     */
+    public function setRequestMethod($method)
+    {
+        $this->requestMethod = $method === null ? self::DEFAULT_REQUEST_METHOD : strtoupper($method);
+    }
+
+    /**
+     * Whether redirects sent by the server should be followed,
+     * defaults to true.
+     * @param boolean $f
+     */
+    public function setFollowRedirects($f)
+    {
+        $this->followRedirects = $f;
+    }
+
+    /**
+     * Set quiet mode, which suppresses warnings if curl_exec() fails.
+     * @param $bool
+     */
+    public function setQuiet($bool)
+    {
+        $this->quiet = $bool;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @return true if the HTTP request succeeds
@@ -78,16 +106,18 @@ class HttpCondition extends ProjectComponent implements Condition
         }
 
         if (!filter_var($this->url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-            $this->log("Possible malformed URL: " . $this->url, Project::MSG_WARN);
+            $this->log("Possible malformed URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
         }
 
         $this->log("Checking for " . $this->url, Project::MSG_VERBOSE);
 
         $handle = curl_init($this->url);
         curl_setopt($handle, CURLOPT_NOBODY, true);
+        curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $this->requestMethod);
+        curl_setopt($handle, CURLOPT_FOLLOWLOCATION, $this->followRedirects);
 
         if (!curl_exec($handle)) {
-            $this->log("Possible malformed URL: " . $this->url, Project::MSG_ERR);
+            $this->log("No response received from URL: " . $this->url, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
 
             return false;
         }

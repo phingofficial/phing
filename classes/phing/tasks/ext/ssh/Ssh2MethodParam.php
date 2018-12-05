@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/DataType.php';
-require_once 'Ssh2MethodConnectionParam.php';
 
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
@@ -158,14 +153,14 @@ class Ssh2MethodParam extends DataType
         $client_to_server = $this->getClientToServer($p);
         $server_to_client = $this->getServerToClient($p);
 
-        $array = array(
+        $array = [
             'kex' => $this->getKex($p),
             'hostkey' => $this->getHostkey($p),
-            'client_to_server' => !is_null($client_to_server) ? $client_to_server->toArray() : null,
-            'server_to_client' => !is_null($server_to_client) ? $server_to_client->toArray() : null
-        );
+            'client_to_server' => null !== $client_to_server ? $client_to_server->toArray() : null,
+            'server_to_client' => null !== $server_to_client ? $server_to_client->toArray() : null
+        ];
 
-        return array_filter($array, array($this, '_filterParam'));
+        return array_filter($array, [$this, '_filterParam']);
     }
 
     /**
@@ -178,7 +173,7 @@ class Ssh2MethodParam extends DataType
             return !empty($var);
         }
 
-        return !is_null($var);
+        return null !== $var;
     }
 
     /**
@@ -189,17 +184,7 @@ class Ssh2MethodParam extends DataType
      */
     public function getRef(Project $p)
     {
-        if (!$this->checked) {
-            $stk = array();
-            array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
-        }
-        $o = $this->ref->getReferencedObject($p);
-        if (!($o instanceof Ssh2MethodParam)) {
-            throw new BuildException($this->ref->getRefId() . " doesn't denote a Ssh2MethodParam");
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
-
 }

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,7 +26,6 @@
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing
  */
 class RuntimeConfigurable
@@ -36,13 +33,13 @@ class RuntimeConfigurable
     private $elementTag = null;
 
     /** @var array $children */
-    private $children = array();
+    private $children = [];
 
     /** @var object|Task $wrappedObject */
     private $wrappedObject = null;
 
     /** @var array $attributes */
-    private $attributes = array();
+    private $attributes = [];
 
     /** @var string $characters */
     private $characters = "";

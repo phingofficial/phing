@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * FtpDeployTask
@@ -41,19 +38,19 @@ require_once 'phing/Task.php';
  *
  * @author Jorrit Schippers <jorrit at ncode dot nl>
  * @contributor Steffen Sørensen <steffen@sublife.dk>
- * @version $Id$
  * @since 2.3.1
  * @package  phing.tasks.ext
  */
 class FtpDeployTask extends Task
 {
+    use FileSetAware;
+
     private $host = null;
     private $port = 21;
     private $ssl = false;
     private $username = null;
     private $password = null;
     private $dir = null;
-    private $filesets;
     private $completeDirMap;
     private $mode = FTP_BINARY;
     private $clearFirst = false;
@@ -71,8 +68,9 @@ class FtpDeployTask extends Task
      */
     public function __construct()
     {
-        $this->filesets = array();
-        $this->completeDirMap = array();
+        parent::__construct();
+        $this->filesets = [];
+        $this->completeDirMap = [];
     }
 
     /**
@@ -196,17 +194,6 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Set level of log messages generated (default = info)
      * @param string $level
      */
@@ -236,8 +223,6 @@ class FtpDeployTask extends Task
      */
     public function init()
     {
-        require_once 'PEAR.php';
-
         $paths = Phing::explodeIncludePath();
         foreach ($paths as $path) {
             if (file_exists($path . DIRECTORY_SEPARATOR . 'Net' . DIRECTORY_SEPARATOR . 'FTP.php')) {
@@ -254,6 +239,7 @@ class FtpDeployTask extends Task
     {
         $project = $this->getProject();
 
+        require_once 'PEAR.php';
         require_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
         if ($this->ssl) {
@@ -319,7 +305,7 @@ class FtpDeployTask extends Task
 
         foreach ($this->filesets as $fs) {
             // Array for holding directory content informations
-            $remoteFileInformations = array();
+            $remoteFileInformations = [];
 
             $ds = $fs->getDirectoryScanner($project);
             $fromDir = $fs->getDir($project);
@@ -365,7 +351,6 @@ class FtpDeployTask extends Task
                 }
 
                 if (!$this->depends || ($local_filemtime > $remoteFileModificationTime)) {
-
                     if ($this->skipOnSameSize === true && $file->length() === $ftp->size($filename)) {
                         $this->log('Skipped ' . $file->getCanonicalPath(), $this->logLevel);
                         continue;
@@ -413,7 +398,7 @@ class FtpDeployTask extends Task
             $content = $this->parseRawFtpContent($content, $directory);
         }
 
-        if (sizeof($content) == 0) {
+        if (count($content) == 0) {
             return false;
         } else {
             if (!empty($directory)) {
@@ -437,14 +422,14 @@ class FtpDeployTask extends Task
     private function parseRawFtpContent($content, $directory = null)
     {
         if (!is_array($content)) {
-            return array();
+            return [];
         }
 
         $this->log('Start parsing FTP_RAW_DATA in ' . $directory);
-        $retval = array();
+        $retval = [];
         foreach ($content as $rawInfo) {
             $rawInfo = explode(' ', $rawInfo);
-            $rawInfo2 = array();
+            $rawInfo2 = [];
             foreach ($rawInfo as $part) {
                 $part = trim($part);
                 if (!empty($part)) {
@@ -465,7 +450,7 @@ class FtpDeployTask extends Task
                 $date['year']
             );
 
-            $retval[] = array(
+            $retval[] = [
                 'name' => $rawInfo2[8],
                 'rights' => substr($rawInfo2[0], 1),
                 'user' => $rawInfo2[2],
@@ -475,12 +460,11 @@ class FtpDeployTask extends Task
                 'is_dir' => strpos($rawInfo2[0], 'd') === 0,
                 'files_inside' => (int) $rawInfo2[1],
                 'size' => (int) $rawInfo2[4],
-            );
+            ];
         }
 
         $this->log('Finished parsing FTP_RAW_DATA in ' . $directory);
 
         return $retval;
     }
-
 }

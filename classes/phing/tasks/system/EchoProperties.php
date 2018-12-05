@@ -206,7 +206,7 @@ class EchoProperties extends Task
         }
 
         //copy the properties file
-        $allProps = array();
+        $allProps = [];
 
         /* load properties from file if specified, otherwise use Phing's properties */
         if ($this->inFile == null) {

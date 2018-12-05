@@ -1,7 +1,5 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the EchoProperties Task
  *
@@ -10,7 +8,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class EchoPropertiesTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

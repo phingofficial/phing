@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/CopyTask.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/filters/XsltFilter.php';
-
 /**
  * Implements an XSLT processing filter while copying files.
  *
@@ -31,17 +24,20 @@ include_once 'phing/filters/XsltFilter.php';
  * in the <filterchains> section.
  *
  * @author    Andreas Aderhold, andi@binarycloud.com
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class XsltTask extends CopyTask
 {
 
-    /** XSLTFilter object that we use to handle transformation. */
+    /**
+     * @var XsltFilter object that we use to handle transformation.
+     */
     private $xsltFilter;
 
-    /** Parameters to pass to XSLT procesor. */
-    private $parameters = array();
+    /**
+     * @var XsltParam[] parameters to pass to XSLT processor.
+     */
+    private $parameters = [];
 
     /**
      * Setup the filterchains w/ XSLTFilter that we will use while copying the files.
@@ -49,8 +45,9 @@ class XsltTask extends CopyTask
     public function init()
     {
         $xf = new XsltFilter();
-        $chain = $this->createFilterChain($this->getProject());
+        $chain = new FilterChain($this->getProject());
         $chain->addXsltFilter($xf);
+        $this->addFilterChain($chain);
         $this->xsltFilter = $xf;
     }
 
@@ -63,6 +60,14 @@ class XsltTask extends CopyTask
         $this->log("Doing XSLT transformation using stylesheet " . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
         $this->xsltFilter->setParams($this->parameters);
         parent::main();
+    }
+
+    /**
+     * @param bool $isHtml
+     */
+    public function setHtml(bool $isHtml)
+    {
+        $this->xsltFilter->setHtml($isHtml);
     }
 
     /**
@@ -100,11 +105,11 @@ class XsltTask extends CopyTask
 
     /**
      * Support nested <param> tags using XSLTParam class.
-     * @return XSLTParam
+     * @return XsltParam
      */
     public function createParam()
     {
-        $num = array_push($this->parameters, new XSLTParam());
+        $num = array_push($this->parameters, new XsltParam());
 
         return $this->parameters[$num - 1];
     }

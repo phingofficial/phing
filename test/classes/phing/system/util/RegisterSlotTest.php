@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,15 +19,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Register.php';
-
 /**
  * Unit test for RegisterSlot
  *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.util
  */
-class RegisterSlotTest extends PHPUnit_Framework_TestCase
+class RegisterSlotTest extends \PHPUnit\Framework\TestCase
 {
     private $slot = null;
 
@@ -51,14 +48,14 @@ class RegisterSlotTest extends PHPUnit_Framework_TestCase
 
     public function testArrayToString()
     {
-        $this->slot->setValue(array('test1', 'test2', 'test3'));
+        $this->slot->setValue(['test1', 'test2', 'test3']);
 
         $this->assertEquals((string) $this->slot, '{test1,test2,test3}');
     }
 
     public function testMultiArrayToString()
     {
-        $this->slot->setValue(array('test1', 'test2', array('test4', 'test5', array('test6', 'test7')), 'test3'));
+        $this->slot->setValue(['test1', 'test2', ['test4', 'test5', ['test6', 'test7']], 'test3']);
 
         $this->assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
     }

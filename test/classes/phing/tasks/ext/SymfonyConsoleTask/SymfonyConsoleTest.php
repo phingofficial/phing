@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,17 +19,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/SymfonyConsole/SymfonyConsoleTask.php';
-require_once 'phing/tasks/ext/SymfonyConsole/Arg.php';
-
 /**
  * Test class for the SymfonyConsoleTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
-class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
+class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var SymfonyConsoleTask
@@ -88,6 +83,17 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers SymfonyConsoleTask::setSilent
+     * @covers SymfonyConsoleTask::getSilent
+     */
+    public function testSetGetSilent()
+    {
+        $o = $this->object;
+        $o->setSilent(true);
+        $this->assertTrue($o->getSilent());
+    }
+
+    /**
      * @covers SymfonyConsoleTask::createArg
      */
     public function testCreateArg()
@@ -106,7 +112,7 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
         $arg = $o->createArg();
         $arg = $o->createArg();
         $arg = $o->createArg();
-        $this->assertTrue(count($o->getArgs()) == 3);
+        $this->assertCount(3, $o->getArgs());
     }
 
     /**

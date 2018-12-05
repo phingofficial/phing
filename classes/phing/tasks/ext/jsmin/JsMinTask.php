@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Task to minify javascript files.
@@ -28,18 +25,13 @@ require_once 'phing/Task.php';
  * can be installed using composer
  *
  * @author Frank Kleine <mikey@stubbles.net>
- * @version $Id$
  * @package phing.tasks.ext
  * @since 2.3.0
  */
 class JsMinTask extends Task
 {
-    /**
-     * the source files
-     *
-     * @var  FileSet
-     */
-    protected $filesets = array();
+    use FileSetAware;
+
     /**
      * Whether the build should fail, if
      * errors occurred
@@ -61,17 +53,6 @@ class JsMinTask extends Task
      * @var  string
      */
     protected $targetDir = "";
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
 
     /**
      * Whether the build should fail, if an error occurred.
@@ -125,10 +106,6 @@ class JsMinTask extends Task
             );
         }
 
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            throw new BuildException('JsMinTask requires PHP 5.3+');
-        }
-
         if (empty($this->targetDir)) {
             throw new BuildException('Attribute "targetDir" is required');
         }
@@ -141,7 +118,7 @@ class JsMinTask extends Task
                 if ($this->failonerror) {
                     throw $be;
                 } else {
-                    $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+                    $this->log($be->getMessage(), Project::MSG_WARN);
                 }
             }
         }
@@ -169,8 +146,7 @@ class JsMinTask extends Task
 
                 $contents = file_get_contents($fullPath . '/' . $file);
 
-                // nasty hack to not trip PHP 5.2 parser
-                $minified = forward_static_call(array('\\JShrink\\Minifier', 'minify'), $contents);
+                $minified = \JShrink\Minifier::minify($contents);
 
                 file_put_contents($target, $minified);
             } catch (Exception $jsme) {

@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a
@@ -39,15 +38,10 @@ require_once 'phing/Task.php';
  */
 class ReplaceRegexpTask extends Task
 {
+    use FileSetAware;
+
     /** Single file to process. */
     private $file;
-
-    /**
-     * Any filesets that should be processed.
-     *
-     * @var array $filesets
-     */
-    private $filesets = array();
 
     /**
      * Regular expression
@@ -130,18 +124,6 @@ class ReplaceRegexpTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * {@inheritdoc}
      *
      * @return void
@@ -166,14 +148,14 @@ class ReplaceRegexpTask extends Task
 
         // compile a list of all files to modify, both file attrib and fileset elements
         // can be used.
-        $files = array();
+        $files = [];
 
         if ($this->file !== null) {
             $files[] = $this->file;
         }
 
         if (!empty($this->filesets)) {
-            $filenames = array();
+            $filenames = [];
             foreach ($this->filesets as $fs) {
                 try {
                     $ds = $fs->getDirectoryScanner($this->project);
@@ -197,10 +179,10 @@ class ReplaceRegexpTask extends Task
         $filter = new FilterChain($this->project);
 
         $r = new ReplaceRegexp();
-        $r->setRegexps(array($this->_regexp));
+        $r->setRegexps([$this->_regexp]);
 
         $filter->addReplaceRegexp($r);
-        $filters = array($filter);
+        $filters = [$filter];
 
         foreach ($files as $file) {
             // set the register slots
@@ -236,8 +218,6 @@ class ReplaceRegexpTask extends Task
                 }
                 $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
             }
-
         }
-
     }
 }

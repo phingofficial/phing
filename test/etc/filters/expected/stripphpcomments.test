@@ -2,8 +2,6 @@
     echo '/* this is not a comment */';
     echo '# this is not a comment either';
     echo '// nor is this';
-    echo 'This is a test'; 
-    
+    echo 'This is a test';     
     echo 'This is yet another test';
     echo 'One Final Test'; 
-?>

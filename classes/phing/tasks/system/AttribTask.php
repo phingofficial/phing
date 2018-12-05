@@ -17,13 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/ApplyTask.php';
-include_once 'phing/Phing.php';
-include_once 'phing/Project.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Changes the attributes of a file or all files inside specified directories.
  * Right now it has effect only under Windows. Each of the 4 possible
@@ -70,7 +63,7 @@ class AttribTask extends ApplyTask
      */
     public function setVerbose($b)
     {
-        $this->logLevel = Project::MSG_VERBOSE;
+        $this->loglevel = Project::MSG_VERBOSE;
     }
 
     /**
@@ -140,7 +133,7 @@ class AttribTask extends ApplyTask
      * @param mixed $e
      * @throws BuildException
      */
-    public function setExecutable($e)
+    public function setExecutable($e): void
     {
         throw new BuildException(
             $this->getTaskType() . ' doesn\'t support the executable attribute',
@@ -195,9 +188,7 @@ class AttribTask extends ApplyTask
 
     protected function validateOS()
     {
-        return $this->os === null && $this->osvariant === null
-            ? $this->os === null && $this->osvariant === null
-            : parent::validateOS();
+        return $this->os === null && $this->osvariant === null ?: parent::validateOS();
     }
 
     private static function getSignString($attr)

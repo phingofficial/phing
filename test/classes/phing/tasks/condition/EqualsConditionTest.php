@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,25 +19,21 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/EqualsCondition.php';
-
 /**
  * Testcase for the &lt;equals&gt; condition.
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id$
  * @package phing.tasks.system.condition
  */
-class EqualsConditionTest extends PHPUnit_Framework_TestCase
+class EqualsConditionTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testTrim()
     {
         $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2(" a");
-        $this->assertTrue(!$eq->evaluate());
+        $this->assertFalse($eq->evaluate());
 
         $eq->setTrim(true);
         $this->assertTrue($eq->evaluate());
@@ -52,10 +47,9 @@ class EqualsConditionTest extends PHPUnit_Framework_TestCase
         $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2("A");
-        $this->assertTrue(!$eq->evaluate());
+        $this->assertFalse($eq->evaluate());
 
         $eq->setCasesensitive(false);
         $this->assertTrue($eq->evaluate());
     }
-
 }

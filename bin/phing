@@ -3,12 +3,11 @@
 
 /**
  * Shell wrapper for Phing
- * $Id$
  */
 
 // turn off html errors
 ini_set('html_errors', 'off');
 
-putenv("PHING_HOME=" . realpath(dirname(__FILE__) . '/../'));
+putenv("PHING_HOME=" . realpath(__DIR__ . '/../'));
 
-require_once dirname(__FILE__) . '/phing.php';
+require_once __DIR__ . '/phing.php';

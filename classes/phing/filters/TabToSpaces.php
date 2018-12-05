@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,9 +17,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-require_once 'phing/filters/ChainableReader.php';
-
 /**
  * Converts tabs to spaces.
  *
@@ -38,7 +32,6 @@ require_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
@@ -67,7 +60,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * Returns stream after converting tabs to the specified number of spaces.
      *
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      * @exception IOException if the underlying stream throws an IOException
@@ -75,7 +68,6 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -119,7 +111,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * @param Reader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
-     * @return Reader A new filter based on this configuration, but filtering
+     * @return TabToSpaces A new filter based on this configuration, but filtering
      *                the specified reader
      */
     public function chain(Reader $reader)
@@ -139,7 +131,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::TAB_LENGTH_KEY === $params[$i]->getName()) {
                     $this->tabLength = $params[$i]->getValue();
                     break;

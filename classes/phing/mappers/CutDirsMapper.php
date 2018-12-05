@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/BuildException.php';
-include_once 'phing/mappers/FileNameMapper.php';
 
 /**
  * A mapper that strips of the a configurable number of leading
@@ -57,7 +52,7 @@ class CutDirsMapper implements FileNameMapper
             throw new BuildException('dirs must be set to a positive number');
         }
         $fileSep = PhingFile::$separator;
-        $fileSepCorrected = str_replace(array('/', '\\'), $fileSep, $sourceFileName);
+        $fileSepCorrected = str_replace(['/', '\\'], $fileSep, $sourceFileName);
         $nthMatch = strpos($fileSepCorrected, $fileSep);
 
         for ($n = 1; $nthMatch > -1 && $n < $this->dirs; $n++) {
@@ -68,6 +63,6 @@ class CutDirsMapper implements FileNameMapper
             return null;
         }
 
-        return array(substr($sourceFileName, $nthMatch + 1));
+        return [substr($sourceFileName, $nthMatch + 1)];
     }
 }

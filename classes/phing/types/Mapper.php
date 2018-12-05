@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,11 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/mappers/CompositeMapper.php';
-include_once 'phing/mappers/ContainerMapper.php';
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
@@ -43,7 +36,6 @@ include_once 'phing/mappers/ContainerMapper.php';
  */
 class Mapper extends DataType
 {
-
     protected $type;
     protected $classname;
     protected $from;
@@ -61,6 +53,7 @@ class Mapper extends DataType
      */
     public function __construct(Project $project)
     {
+        parent::__construct();
         $this->project = $project;
     }
 
@@ -286,18 +279,7 @@ class Mapper extends DataType
     /** Performs the check for circular references and returns the referenced Mapper. */
     private function getRef()
     {
-        if (!$this->checked) {
-            $stk = array();
-            $stk[] = $this;
-            $this->dieOnCircularReference($stk, $this->project);
-        }
-
-        $o = $this->ref->getReferencedObject($this->project);
-        if (!($o instanceof Mapper)) {
-            $msg = $this->ref->getRefId() . " doesn't denote a mapper";
-            throw new BuildException($msg);
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }

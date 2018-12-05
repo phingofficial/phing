@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<project name="hgLogTest" default="invalid">
+    <target name="maxCountShouldBeAnInteger" description="MaxCount/Limit should be an integer">
+        <hglog maxcount="one"/>
+	</target>
+    <target name="maxCountShouldBeAnInteger2" description="MaxCount/Limit should be an integer">
+        <hglog maxcount="-2"/>
+	</target>
+</project>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<project name="hgCloneTest" default="invalid">
+
+    <property name="tmp.dir" value="./../../../../tmp/hgtest" />
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="wrongRepository" description="Wrong repository directory">
+        <hgclone repository="inconcievable-buttercup" targetPath="${tmp.dir.resolved}"/>
+	</target>
+
+    <target name="noRepository" description="No repository specified">
+        <hgclone targetPath="${tmp.dir.resolved}"/>
+	</target>
+
+    <target name="noTargetPath" description="No target path specified">
+        <hgclone repository="."/>
+	</target>
+
+</project>

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Retry Task
  *
@@ -10,7 +8,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class RetryTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

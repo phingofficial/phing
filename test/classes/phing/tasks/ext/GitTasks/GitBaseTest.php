@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,27 +18,17 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitBaseTask.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitBaseTest extends BuildFileTest
 {
-
     protected $mock;
 
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/ext/git/GitBaseTest.xml"
@@ -73,5 +62,4 @@ class GitBaseTest extends BuildFileTest
         $this->assertEquals('/tmp', $this->mock->getRepository());
         $this->mock->setRepository($repository);
     }
-
 }

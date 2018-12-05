@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PropertySelectorTest" default="testPropertySelector">
+    <target name="testPropertySelector">
+        <property name="package.ABC.name" value="abc pack name" />
+        <property name="package.DEF.name" value="def pack name" />
+        <property name="package.GHI.name" value="ghi pack name" />
+        <property name="package.JKL.name" value="jkl pack name" />
+
+        <propertyselector property="pack.list"
+                          delimiter=","
+                          match="package\.([^\.]*)\.name"
+                          select="\1"
+                          casesensitive="false" />
+    </target>
+</project>

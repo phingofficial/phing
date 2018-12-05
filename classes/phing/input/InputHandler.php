@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +21,6 @@
  * Plugin to Phing to handle requests for user input.
  *
  * @author Stefan Bodewig <stefan.bodewig@epost.de>
- * @version $Id$
  * @package phing.input
  */
 interface InputHandler
@@ -42,5 +38,4 @@ interface InputHandler
      * @return void
      */
     public function handleInput(InputRequest $request);
-
 }

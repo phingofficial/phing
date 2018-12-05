@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
-
 /**
  * This selector has a collection of other selectors, any of which have to
  * select a file in order for this selector to select it.
@@ -35,12 +31,12 @@ class OrSelector extends BaseSelectorContainer
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{orselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 
@@ -59,7 +55,6 @@ class OrSelector extends BaseSelectorContainer
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $selectors = $this->selectorElements();
@@ -75,5 +70,4 @@ class OrSelector extends BaseSelectorContainer
 
         return false;
     }
-
 }

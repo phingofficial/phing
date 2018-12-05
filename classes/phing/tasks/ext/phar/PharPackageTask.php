@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/types/IterableFileSet.php';
-require_once 'phing/tasks/ext/phar/PharMetadata.php';
-
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *
@@ -30,8 +24,7 @@ require_once 'phing/tasks/ext/phar/PharMetadata.php';
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  */
-class PharPackageTask
-    extends MatchingTask
+class PharPackageTask extends MatchingTask
 {
     /**
      * @var PhingFile
@@ -87,7 +80,7 @@ class PharPackageTask
     /**
      * @var array
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @var PharMetadata
@@ -112,7 +105,7 @@ class PharPackageTask
      */
     public function createFileSet()
     {
-        $this->fileset = new IterableFileSet();
+        $this->fileset = new FileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -323,7 +316,6 @@ class PharPackageTask
                 // alongside the phar.
                 $details = openssl_pkey_get_details($private);
                 file_put_contents($this->destinationFile . '.pubkey', $details['key']);
-
             } else {
                 $phar->setSignatureAlgorithm($this->signatureAlgorithm);
             }
@@ -341,13 +333,19 @@ class PharPackageTask
      */
     private function checkPreconditions()
     {
+        if (ini_get('phar.readonly') == "1") {
+            throw new BuildException(
+                "PharPackageTask require phar.readonly php.ini setting to be disabled"
+            );
+        }
+
         if (!extension_loaded('phar')) {
             throw new BuildException(
                 "PharPackageTask require either PHP 5.3 or better or the PECL's Phar extension"
             );
         }
 
-        if (is_null($this->destinationFile)) {
+        if (null === $this->destinationFile) {
             throw new BuildException("destfile attribute must be set!", $this->getLocation());
         }
 
@@ -358,20 +356,19 @@ class PharPackageTask
         if (!$this->destinationFile->canWrite()) {
             throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
         }
-        if (!is_null($this->baseDirectory)) {
+        if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
                 throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation(
                     ));
             }
         }
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
-
             if (!extension_loaded('openssl')) {
                 throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation(
                 ));
             }
 
-            if (is_null($this->key)) {
+            if (null === $this->key) {
                 throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
             }
 
@@ -398,13 +395,13 @@ class PharPackageTask
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             if (!empty($this->cliStubFile)) {
-                $cliStubFile = $this->cliStubFile->getPathWithoutBase($this->baseDirectory);
+                $cliStubFile = str_replace('\\', '/', $this->cliStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $cliStubFile = null;
             }
 
             if (!empty($this->webStubFile)) {
-                $webStubFile = $this->webStubFile->getPathWithoutBase($this->baseDirectory);
+                $webStubFile = str_replace('\\', '/', $this->webStubFile->getPathWithoutBase($this->baseDirectory));
             } else {
                 $webStubFile = null;
             }

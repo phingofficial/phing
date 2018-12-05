@@ -1,17 +1,13 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Condition Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ConditionTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -46,6 +42,12 @@ class ConditionTaskTest extends BuildFileTest
     public function testSocketCondition()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('socket  ');
+        $this->assertPropertyUnset('socket');
+    }
+
+    public function testMatches()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('matches', 'true');
     }
 }

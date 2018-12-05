@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,15 +17,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/TaskContainer.php';
-
 /**
  * The Target component. Carries all required target data. Implements the
  * abstract class {@link TaskContainer}
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @see       TaskContainer
  * @package   phing
  */
@@ -44,13 +39,13 @@ class Target implements TaskContainer
      * Dependencies
      * @var array
      */
-    private $dependencies = array();
+    private $dependencies = [];
 
     /**
      * Holds objects of children of this target
      * @var array
      */
-    private $children = array();
+    private $children = [];
 
     /**
      * The if condition from xml
@@ -233,7 +228,7 @@ class Target implements TaskContainer
      */
     public function getTasks()
     {
-        $tasks = array();
+        $tasks = [];
         for ($i = 0, $size = count($this->children); $i < $size; $i++) {
             $tsk = $this->children[$i];
             if ($tsk instanceof Task) {
@@ -318,7 +313,7 @@ class Target implements TaskContainer
      *
      * @return string The string representation of this target
      */
-    public function toString()
+    public function __toString()
     {
         return (string) $this->name;
     }
@@ -334,7 +329,7 @@ class Target implements TaskContainer
                 if ($o instanceof Task) {
                     // child is a task
                     $o->perform();
-                } else {
+                } elseif ($o instanceof RuntimeConfigurable) {
                     // child is a RuntimeConfigurable
                     $o->maybeConfigure($this->project);
                 }
@@ -389,11 +384,7 @@ class Target implements TaskContainer
 
         $result = true;
         foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
+            $test = $this->getProject()->replaceProperties($property);
             $result = $result && ($this->project->getProperty($test) !== null);
         }
 
@@ -417,15 +408,10 @@ class Target implements TaskContainer
 
         $result = true;
         foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
+            $test = $this->getProject()->replaceProperties($property);
             $result = $result && ($this->project->getProperty($test) === null);
         }
 
         return $result;
     }
-
 }

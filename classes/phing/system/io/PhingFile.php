@@ -57,7 +57,6 @@ class PhingFile
      */
     public function __construct($arg1 = null, $arg2 = null)
     {
-
         if (self::$separator === null || self::$pathSeparator === null) {
             $fs = FileSystem::getFileSystem();
             self::$separator = $fs->getSeparator();
@@ -113,8 +112,8 @@ class PhingFile
     /**
      *
      * Enter description here ...
-     * @param unknown_type $parent
-     * @param unknown_type $child
+     * @param string $parent
+     * @param string $child
      * @throws NullPointerException
      */
     protected function _constructStringParentStringChild($parent, $child = null)
@@ -140,8 +139,8 @@ class PhingFile
     /**
      *
      * Enter description here ...
-     * @param unknown_type $parent
-     * @param unknown_type $child
+     * @param PhingFile $parent
+     * @param string $child
      * @throws NullPointerException
      */
     protected function _constructFileParentStringChild($parent, $child = null)
@@ -224,7 +223,7 @@ class PhingFile
      * last.  If the name sequence is empty then the pathname does not name
      * a parent directory.
      *
-     * @return The abstract pathname of the parent directory named by this
+     * @return PhingFile|null The abstract pathname of the parent directory named by this
      *             abstract pathname, or null if this pathname
      *             does not name a parent
      */
@@ -265,7 +264,7 @@ class PhingFile
             $basedir .= self::$separator;
         }
         $path = $this->getPath();
-        if (!substr($path, 0, strlen($basedir)) == $basedir) {
+        if (substr($path, 0, strlen($basedir)) != $basedir) {
             //path does not begin with basedir, we don't modify it
             return $path;
         }
@@ -441,7 +440,7 @@ class PhingFile
         }
 
         if (!StringHelper::endsWith('/', $p) && $isDirectory) {
-            $p = $p . '/';
+            $p .= '/';
         }
 
         return $p;
@@ -585,6 +584,25 @@ class PhingFile
     }
 
     /**
+     * Tests whether the file denoted by this abstract pathname is executable.
+     *
+     * @throws IOException
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname exists and is a symbolic link;
+     *                 false otherwise
+     */
+    public function isExecutable()
+    {
+        clearstatcache();
+        $fs = FileSystem::getFileSystem();
+        if ($fs->checkAccess($this) !== true) {
+            throw new IOException("No read access to " . $this->path);
+        }
+
+        return @is_executable($this->path);
+    }
+
+    /**
      * Returns the target of the symbolic link denoted by this abstract pathname
      *
      * @return string the target of the symbolic link denoted by this abstract pathname
@@ -665,6 +683,12 @@ class PhingFile
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
+        /** @var PhingFile $parent */
+        $parent = $this->getParentFile();
+        if ($parents && $parent !== null && !$parent->exists()) {
+            $parent->mkdirs();
+        }
+
         $file = FileSystem::getFileSystem()->createNewFile($this->path);
 
         return $file;
@@ -677,8 +701,6 @@ class PhingFile
      *
      * @param bool $recursive
      * @throws IOException
-     * @return boolean true if and only if the file or directory is
-     *                 successfully deleted; false otherwise
      */
     public function delete($recursive = false)
     {
@@ -687,7 +709,7 @@ class PhingFile
             throw new IOException("Cannot delete " . $this->path . "\n");
         }
 
-        return $fs->delete($this, $recursive);
+        $fs->delete($this, $recursive);
     }
 
     /**
@@ -721,38 +743,17 @@ class PhingFile
      * will appear in any specific order; they are not, in particular,
      * guaranteed to appear in alphabetical order.
      *
-     * @param string $filter
      * @return array An array of strings naming the files and directories in the
      *               directory denoted by this abstract pathname.  The array will be
      *               empty if the directory is empty.  Returns null if
      *               this abstract pathname does not denote a directory, or if an
      *               I/O error occurs.
      */
-    public function listDir($filter = null)
+    public function listDir()
     {
         $fs = FileSystem::getFileSystem();
 
-        return $fs->lister($this, $filter);
-    }
-
-    /**
-     * @param string $filter
-     *
-     * @return array
-     */
-    public function listFiles($filter = null)
-    {
-        $ss = $this->listDir($filter);
-        if ($ss === null) {
-            return null;
-        }
-        $n = count($ss);
-        $fs = array();
-        for ($i = 0; $i < $n; $i++) {
-            $fs[$i] = new PhingFile((string) $this->path, (string) $ss[$i]);
-        }
-
-        return $fs;
+        return $fs->listContents($this);
     }
 
     /**
@@ -807,7 +808,6 @@ class PhingFile
      *
      * @param  PhingFile $destFile The new abstract pathname for the named file
      * @throws IOException
-     * @return boolean   true if and only if the renaming succeeded; false otherwise
      */
     public function renameTo(PhingFile $destFile)
     {
@@ -816,7 +816,7 @@ class PhingFile
             throw new IOException("No write access to " . $this->getPath());
         }
 
-        return $fs->rename($this, $destFile);
+        $fs->rename($this, $destFile);
     }
 
     /**
@@ -825,7 +825,6 @@ class PhingFile
      *
      * @param  PhingFile $destFile The new abstract pathname for the named file
      * @throws IOException
-     * @return boolean   true if and only if the renaming succeeded; false otherwise
      */
     public function copyTo(PhingFile $destFile)
     {
@@ -839,7 +838,7 @@ class PhingFile
             throw new IOException("File::copyTo() No write access to " . $destFile->getPath());
         }
 
-        return $fs->copy($this, $destFile);
+        $fs->copy($this, $destFile);
     }
 
     /**
@@ -856,7 +855,6 @@ class PhingFile
      * @param  int $time The new last-modified time, measured in milliseconds since
      *                       the epoch (00:00:00 GMT, January 1, 1970)
      * @throws Exception
-     * @return boolean true if and only if the operation succeeded; false otherwise
      */
     public function setLastModified($time)
     {
@@ -867,7 +865,7 @@ class PhingFile
 
         $fs = FileSystem::getFileSystem();
 
-        return $fs->setLastModifiedTime($this, $time);
+        $fs->setLastModifiedTime($this, $time);
     }
 
     /**
@@ -878,7 +876,6 @@ class PhingFile
      * directory may be deleted depends upon the underlying system.
      *
      * @throws IOException
-     * @return boolean true if and only if the operation succeeded; false otherwise
      */
     public function setReadOnly()
     {
@@ -888,7 +885,7 @@ class PhingFile
             throw new IOException("No write access to " . $this->getPath());
         }
 
-        return $fs->setReadOnly($this);
+        $fs->setReadOnly($this);
     }
 
     /**
@@ -902,7 +899,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
 
-        return $fs->chown($this->getPath(), $user);
+        $fs->chown($this->getPath(), $user);
     }
 
     /**
@@ -926,7 +923,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
 
-        return $fs->chgrp($this->getPath(), $group);
+        $fs->chgrp($this->getPath(), $group);
     }
 
     /**
@@ -942,13 +939,14 @@ class PhingFile
     /**
      * Sets the mode of the file
      *
-     * @param int $mode Ocatal mode.
+     * @param int $mode Octal mode.
+     * @throws IOException
      */
     public function setMode($mode)
     {
         $fs = FileSystem::getFileSystem();
 
-        return $fs->chmod($this->getPath(), $mode);
+        $fs->chmod($this->getPath(), $mode);
     }
 
     /**
@@ -1100,16 +1098,6 @@ class PhingFile
         }
 
         return false;
-    }
-
-    /**
-     * Backwards compatibility - @see __toString()
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->__toString();
     }
 
     /**

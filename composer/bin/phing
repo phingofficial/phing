@@ -3,7 +3,6 @@
 
 /**
  * Shell wrapper for Phing
- * $Id: 81628c7f07d7d9326534273f3fdae511e5c1f9d6 $
  */
 
 // turn off html errors
@@ -15,10 +14,10 @@ if (!in_array('-logger', $argv)) {
     $argv[] = 'phing.listener.AnsiColorLogger';
 }
 
-$files = array(
+$files = [
   __DIR__ . '/../../vendor/autoload.php',
   __DIR__ . '/../../../../autoload.php'
-);
+];
 
 foreach ($files as $file) {
     if (file_exists($file)) {

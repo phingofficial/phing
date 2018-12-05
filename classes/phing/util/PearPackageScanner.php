@@ -8,10 +8,8 @@
  * @package  phing.util
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @version  SVN: $Id$
  * @link     http://www.phing.info/
  */
-require_once 'phing/util/DirectoryScanner.php';
 
 /**
  * Scans for files in a PEAR package.
@@ -36,6 +34,8 @@ class PearPackageScanner extends DirectoryScanner
      */
     public function __construct()
     {
+        parent::__construct();
+
         @include_once 'PEAR/Config.php';
         @include_once 'PEAR/PackageFile.php';
 
@@ -187,7 +187,7 @@ class PearPackageScanner extends DirectoryScanner
             $pkg = new PEAR_PackageFile($config);
             $packageInfo = $pkg->fromPackageFile($this->packageFile, PEAR_VALIDATE_NORMAL);
             PEAR::staticPopErrorHandling();
-            if (PEAR::isError($packageInfo)) {
+            if (@PEAR::isError($packageInfo)) {
                 throw new BuildException("Errors in package file: " . $packageInfo->getMessage());
             }
         }
@@ -217,21 +217,21 @@ class PearPackageScanner extends DirectoryScanner
 
         if ($this->includes === null) {
             // No includes supplied, so set it to 'matches all'
-            $this->includes = array("**");
+            $this->includes = ["**"];
         }
         if ($this->excludes === null) {
-            $this->excludes = array();
+            $this->excludes = [];
         }
 
-        $this->filesIncluded = array();
-        $this->filesNotIncluded = array();
-        $this->filesExcluded = array();
-        $this->filesDeselected = array();
+        $this->filesIncluded = [];
+        $this->filesNotIncluded = [];
+        $this->filesExcluded = [];
+        $this->filesDeselected = [];
 
-        $this->dirsIncluded = array();
-        $this->dirsNotIncluded = array();
-        $this->dirsExcluded = array();
-        $this->dirsDeselected = array();
+        $this->dirsIncluded = [];
+        $this->dirsNotIncluded = [];
+        $this->dirsExcluded = [];
+        $this->dirsDeselected = [];
         $origFirstFile = null;
 
         foreach ($list as $file => $att) {
@@ -249,7 +249,6 @@ class PearPackageScanner extends DirectoryScanner
             $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 
             if ($this->isIncluded($file)) {
-
                 if ($this->isExcluded($file)) {
                     $this->everythingIncluded = false;
                     if (@is_dir($file)) {
@@ -288,10 +287,9 @@ class PearPackageScanner extends DirectoryScanner
             } else {
                 $base_dir = dirname($this->packageFile);
             }
-            $this->setBaseDir($base_dir);
+            $this->setBasedir($base_dir);
         }
 
         return true;
     }
-
 }

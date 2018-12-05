@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,7 +18,6 @@
  */
 
 require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/types/IterableFileSet.php';
 
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
@@ -48,16 +45,16 @@ class PharDataTask extends MatchingTask
     private $baseDirectory;
 
     /**
-     * @var IterableFileSet[]
+     * @var FileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * @return FileSet
      */
     public function createFileSet()
     {
-        $this->fileset = new IterableFileSet();
+        $this->fileset = new FileSet();
         $this->filesets[] = $this->fileset;
         return $this->fileset;
     }
@@ -142,7 +139,7 @@ class PharDataTask extends MatchingTask
             if ($this->compression !== PHAR::NONE && $pharData->canCompress($this->compression)) {
                 try {
                     $pharData->compress($this->compression);
-                } catch(UnexpectedValueException $uve) {
+                } catch (UnexpectedValueException $uve) {
                     $pharData->compressFiles($this->compression);
                 }
 
@@ -168,7 +165,7 @@ class PharDataTask extends MatchingTask
             );
         }
 
-        if (is_null($this->destinationFile)) {
+        if (null === $this->destinationFile) {
             throw new BuildException("destfile attribute must be set!", $this->getLocation());
         }
 
@@ -180,7 +177,7 @@ class PharDataTask extends MatchingTask
             throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
         }
 
-        if (is_null($this->baseDirectory)) {
+        if (null === $this->baseDirectory) {
             throw new BuildException("basedir cattribute must be set", $this->getLocation());
         }
 

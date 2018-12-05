@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,26 +18,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitInitTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitInitTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
@@ -50,7 +38,7 @@ class GitInitTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testWrongRepository()
@@ -69,8 +57,8 @@ class GitInitTaskTest extends BuildFileTest
         $this->executeTarget('gitInit');
 
         $this->assertInLogs('git-init: initializing "' . $repository . '" repository');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($gitFilesDir));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($gitFilesDir);
     }
 
     public function testGitInitBare()
@@ -79,11 +67,11 @@ class GitInitTaskTest extends BuildFileTest
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($repository . '/branches'));
-        $this->assertTrue(is_dir($repository . '/info'));
-        $this->assertTrue(is_dir($repository . '/hooks'));
-        $this->assertTrue(is_dir($repository . '/refs'));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($repository . '/branches');
+        $this->assertDirectoryExists($repository . '/info');
+        $this->assertDirectoryExists($repository . '/hooks');
+        $this->assertDirectoryExists($repository . '/refs');
     }
 
     public function testNoRepositorySpecified()
@@ -94,5 +82,4 @@ class GitInitTaskTest extends BuildFileTest
             '"repository" is required parameter'
         );
     }
-
 }

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,19 +18,15 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/OsCondition.php';
-
 /**
  * testcases for phing.IntrospectionHelper.
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id$
  * @package phing
  */
-class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
+class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 {
-
     /** @var Project */
     private $p;
 
@@ -61,14 +56,13 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
     public function testSupportsCharacters()
     {
         $ih = IntrospectionHelper::getHelper('Exception');
-        $this->assertTrue(!$ih->supportsCharacters(), "String doesn\'t support addText");
+        $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
     }
 
     public function testElementCreators()
     {
-
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
             $this->fail("create cannot take param");
@@ -89,7 +83,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
-
     }
 
     /*
@@ -361,7 +354,6 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
 
 class IHProjectComponent
 {
-
     public function addText($text)
     {
     }
@@ -427,5 +419,4 @@ class IHFail5
     public function setBlah()
     {
     }
-
 }

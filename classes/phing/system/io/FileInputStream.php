@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/system/io/InputStream.php';
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Input stream subclass for file streams.
@@ -40,11 +35,10 @@ class FileInputStream extends InputStream
      * Construct a new FileInputStream.
      *
      * @param  PhingFile|string $file   Path to the file
-     * @param  boolean          $append Whether to append (ignored)
      * @throws Exception        - if invalid argument specified.
      * @throws IOException      - if unable to open file.
      */
-    public function __construct($file, $append = false)
+    public function __construct($file)
     {
         if ($file instanceof PhingFile) {
             $this->file = $file;
@@ -54,9 +48,15 @@ class FileInputStream extends InputStream
             throw new Exception("Invalid argument type for \$file.");
         }
 
+        if (!$this->file->exists()) {
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File does not exists.");
+        }
+        if (!$this->file->canRead()) {
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File not readable.");
+        }
         $stream = @fopen($this->file->getAbsolutePath(), "rb");
         if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . $php_errormsg);
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(error_get_last(), true));
         }
 
         parent::__construct($stream);

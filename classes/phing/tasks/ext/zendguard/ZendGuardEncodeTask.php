@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,22 +17,16 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Encodes files using Zeng Guard Encoder
  *
  * @author    Petr Rybak <petr@rynawe.net>
- * @version   $Id$
  * @package   phing.tasks.ext.zendguard
  * @since     2.4.3
  */
 class ZendGuardEncodeTask extends MatchingTask
 {
-    protected $filesets = array();
+    protected $filesets = [];
     protected $encodeCommand;
 
     /**
@@ -408,7 +399,7 @@ class ZendGuardEncodeTask extends MatchingTask
                 /* @var $fsBasedir PhingFile */
                 $fsBasedir = $fs->getDir($this->project)->getAbsolutePath();
 
-                $files = $fs->getFiles($this->project, false);
+                $files = $fs->getIterator(false);
 
                 foreach ($files as $file) {
                     $f = new PhingFile($fsBasedir, $file);
@@ -506,7 +497,6 @@ class ZendGuardEncodeTask extends MatchingTask
         $command .= " ";
 
         $this->encodeCommand = $command;
-
     }
 
     /**
@@ -529,39 +519,4 @@ class ZendGuardEncodeTask extends MatchingTask
 
         return true;
     }
-
-}
-
-/**
- * This is a FileSet with the to specify permissions.
- *
- * Permissions are currently not implemented by PEAR Archive_Tar,
- * but hopefully they will be in the future.
- *
- * @package phing.tasks.ext.zendguard
- */
-class ZendGuardFileSet extends FileSet
-{
-    private $files = null;
-
-    /**
-     *  Get a list of files and directories specified in the fileset.
-     * @param Project $p
-     * @param bool $includeEmpty
-     * @throws BuildException
-     * @return array a list of file and directory names, relative to
-     *               the baseDir for the project.
-     */
-    public function getFiles(Project $p, $includeEmpty = true)
-    {
-
-        if ($this->files === null) {
-
-            $ds = $this->getDirectoryScanner($p);
-            $this->files = $ds->getIncludedFiles();
-        } // if ($this->files===null)
-
-        return $this->files;
-    }
-
 }

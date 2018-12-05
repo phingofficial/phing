@@ -36,6 +36,17 @@ abstract class ProjectComponent
      */
     protected $project = null;
 
+    /** @var Location $location */
+    private $location;
+
+    /** @var string $description */
+    private $description;
+
+    public function __construct()
+    {
+        $this->location = new Location();
+    }
+
     /**
      * References the project to the current component.
      *
@@ -59,9 +70,56 @@ abstract class ProjectComponent
     }
 
     /**
+     * Returns the file/location where this task was defined.
+     *
+     * @return Location the file/location where this task was defined.
+     *         Should not return <code>null</code>.
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Sets the file/location where this task was defined.
+     *
+     * @param Location $location The file/location where this task was defined.
+     *                 Should not be <code>null</code>
+     */
+    public function setLocation(Location $location)
+    {
+        $this->location = $location;
+    }
+
+    /**
+     * Sets a description of the current action. This may be used for logging
+     * purposes.
+     *
+     * @param string $desc Description of the current action.
+     *             May be <code>null</code>, indicating that no description is
+     *             available.
+     *
+     */
+    public function setDescription($desc)
+    {
+        $this->description = $desc;
+    }
+
+    /**
+     * Returns the description of the current action.
+     *
+     * @return string the description of the current action, or <code>null</code> if
+     *         no description is available.
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
      * Logs a message with the given priority.
      *
-     * @param string  $msg   The message to be logged.
+     * @param string $msg The message to be logged.
      * @param integer $level The message's priority at this message should have
      *
      * @return void

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
@@ -30,7 +26,6 @@ require_once 'phing/tasks/system/PropertyTask.php';
  */
 class PropertyTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
@@ -63,10 +58,7 @@ class PropertyTaskTest extends BuildFileTest
         try {
             $this->executeTarget("prefix.fail");
         } catch (BuildException $e) {
-            $this->assertTrue(
-                strpos($e->getMessage(), "Prefix is only valid") !== false,
-                "Prefix allowed on non-resource/file load - "
-            );
+            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
 
             return;
         }
@@ -81,11 +73,11 @@ class PropertyTaskTest extends BuildFileTest
 
     public function circularDefinitionTargets()
     {
-        return array(
-            array('test3'),
-            array('testCircularDefinition1'),
-            array('testCircularDefinition2'),
-        );
+        return [
+            ['test3'],
+            ['testCircularDefinition1'],
+            ['testCircularDefinition2'],
+        ];
     }
 
     /**
@@ -96,14 +88,16 @@ class PropertyTaskTest extends BuildFileTest
         try {
             $this->executeTarget($target);
         } catch (BuildException $e) {
-            $this->assertTrue(
-                strpos($e->getMessage(), "was circularly defined") !== false,
-                "Circular definition not detected - "
-            );
+            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
 
             return;
         }
         $this->fail("Did not throw exception on circular exception");
+    }
+
+    public function testToString()
+    {
+        $this->expectLog(__FUNCTION__, 'sourcefiles = filehash.bin');
     }
 
     /**
@@ -118,7 +112,6 @@ class PropertyTaskTest extends BuildFileTest
 
 class HangDetectorPropertyTask extends PropertyTask
 {
-
     protected function loadFile(PhingFile $file)
     {
         $props = new HangDetectorProperties();

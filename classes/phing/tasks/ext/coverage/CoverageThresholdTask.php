@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,27 +17,16 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/types/Excludes.php';
-
 /**
  * Stops the build if any of the specified coverage threshold was not reached
  *
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since   2.4.1
  */
 class CoverageThresholdTask extends Task
 {
-    /**
-     * Holds an optional classpath
-     *
-     * @var Path
-     */
-    private $_classpath = null;
+    use ClasspathAware;
 
     /**
      * Holds the exclusions
@@ -112,20 +99,6 @@ class CoverageThresholdTask extends Task
     private $_verbose = false;
 
     /**
-     * Sets an optional classpath
-     *
-     * @param Path $classpath The classpath
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->_classpath === null) {
-            $this->_classpath = $classpath;
-        } else {
-            $this->_classpath->append($classpath);
-        }
-    }
-
-    /**
      * Sets the optional coverage database to use
      *
      * @param PhingFile The database file
@@ -133,18 +106,6 @@ class CoverageThresholdTask extends Task
     public function setDatabase(PhingFile $database)
     {
         $this->_database = $database;
-    }
-
-    /**
-     * Create classpath object
-     *
-     * @return Path
-     */
-    public function createClasspath()
-    {
-        $this->_classpath = new Path();
-
-        return $this->_classpath;
     }
 
     /**
@@ -219,7 +180,7 @@ class CoverageThresholdTask extends Task
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)
     {
-        $classes = PHPUnitUtil::getDefinedClasses($filename, $this->_classpath);
+        $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
         if (is_array($classes)) {
             foreach ($classes as $className) {
@@ -347,7 +308,7 @@ class CoverageThresholdTask extends Task
                 $classStatementsCovered = count(
                     array_filter(
                         $coverageInformation,
-                        array($this, 'filterCovered')
+                        [$this, 'filterCovered']
                     )
                 );
 

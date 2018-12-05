@@ -1,57 +1,52 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../etc/phing-grammar.rng"
+        type="application/xml"
+        schematypens="http://relaxng.org/ns/structure/1.0"?>
 
 <project name="Phing API Docs" default="build" basedir="."
     description="This buildfile constructs the Phing API Documentation">
 
-    <php function="dirname" returnProperty="buildfile.dir">
-        <param value="${phing.file}"/>
-    </php>
+    <description>
 
-    <php function="realpath" returnProperty="phingpkg.home">
-        <param value="${buildfile.dir}/../.."/>
-    </php>
+PhpDocumentor API Generator for the Phing sourcecode
+____________________________________________________
 
-    <condition property="phpdoc2.task.available">
-        <and>
-            <available file="${phingpkg.home}/classes/phing/tasks/ext/phpdoc/PhpDocumentor2Task.php" />
-            <available resource="phpDocumentor/src/phpDocumentor/Bootstrap.php" />
-        </and>
-    </condition>
+By default the API documentation is build with the default template: responsive
 
-    <target name="prepare">
-        <mkdir dir="${buildfile.dir}/docs"/>
+You can choose another template by setting the template user property.
+
+Example:
+
+phing -Dtemplate=clean build
+
+    </description>
+
+    <property name="template" value="responsive" userProperty="true"/>
+
+    <resolvepath propertyName="src.home" file="${phing.dir}/../../classes"/>
+    <resolvepath propertyName="docs.home" file="${phing.dir}/docs"/>
+
+    <fileset id="api.sources" dir="${src.home}" includes="**/*.php"/>
+    <fileset id="api.cache" dir="${docs.home}" includes="phpdoc-cache*/**"/>
+    <fileset id="api.logs" dir="." includes="*.log"/>
+
+    <target name="build" depends="prepare,docs,clean" description="Build the Phing API Documentation."/>
+
+    <target name="prepare" hidden="true">
+        <delete dir="${docs.home}"/>
+        <mkdir dir="${docs.home}"/>
     </target>
 
-    <target name="docs">
-        <phpdoc2 title="Phing API Documentation"
-	    output="${buildfile.dir}/docs"
-	    defaultPackageName="phing">
-            <fileset dir="${phingpkg.home}/classes">
-                <include name="**/*.php"/>
-            </fileset>
+    <target name="docs" hidden="true">
+        <phpdoc2 title="Phing API Documentation" destdir="${docs.home}" defaultPackageName="phing" template="${template}">
+            <fileset refid="api.sources"/>
         </phpdoc2>
-        <delete includeemptydirs="true">
-            <fileset dir="${buildfile.dir}/docs">
-                <include name="phpdoc-cache*/**"/>
-            </fileset>
-        </delete>
-        <delete>
-            <fileset dir=".">
-                <include name="*.log"/>
-            </fileset>
-        </delete>
      </target>
 
-    <target name="build">
-        <fail unless="phpdoc2.task.available"
-            message="PhpDocumentor 2 is not installed" />
-
-        <phingcall target="clean" />
-        <phingcall target="prepare" />
-        <phingcall target="docs" />
-    </target>
-
-    <target name="clean">
-        <delete dir="${buildfile.dir}/docs"/>
+    <target name="clean" hidden="true">
+        <delete includeemptydirs="true">
+            <fileset refid="api.cache"/>
+            <fileset refid="api.logs"/>
+        </delete>
     </target>
 </project>

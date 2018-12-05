@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
-
 /**
  * Runs PHP Copy & Paste Detector. Checking PHP files for duplicated code.
  * Refactored original PhpCpdTask provided by
@@ -29,23 +24,17 @@ require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
  *
  * @package phing.tasks.ext.phpcpd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  */
 class PHPCPDTask extends Task
 {
+    use FileSetAware;
+
     /**
      * A php source code filename or directory
      *
      * @var PhingFile
      */
     protected $file = null;
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = array();
 
     /**
      * Minimum number of identical lines.
@@ -73,14 +62,14 @@ class PHPCPDTask extends Task
      *
      * @var array
      */
-    protected $allowedFileExtensions = array('php');
+    protected $allowedFileExtensions = ['php'];
 
     /**
      * List of exclude directory patterns.
      *
      * @var array
      */
-    protected $ignorePatterns = array('.git', '.svn', 'CVS', '.bzr', '.hg');
+    protected $ignorePatterns = ['.git', '.svn', 'CVS', '.bzr', '.hg'];
 
     /**
      * The format for the report
@@ -94,7 +83,7 @@ class PHPCPDTask extends Task
      *
      * @var PHPCPDFormatterElement[]
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * @var bool
@@ -114,16 +103,6 @@ class PHPCPDTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs List of files to scan
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -163,7 +142,7 @@ class PHPCPDTask extends Task
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->allowedFileExtensions = array();
+        $this->allowedFileExtensions = [];
 
         $token = ' ,;';
         $ext = strtok($fileExtensions, $token);
@@ -181,7 +160,7 @@ class PHPCPDTask extends Task
      */
     public function setIgnorePatterns($ignorePatterns)
     {
-        $this->ignorePatterns = array();
+        $this->ignorePatterns = [];
 
         $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
@@ -255,10 +234,6 @@ class Application
             fclose($handler);
             @include_once 'SebastianBergmann/PHPCPD/autoload.php';
 
-            if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-                throw new BuildException('The PHPCPD task now requires PHP 5.3+');
-            }
-
             return;
         }
 
@@ -301,7 +276,7 @@ class Application
 
         $this->validateFormatters();
 
-        $filesToParse = array();
+        $filesToParse = [];
 
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->getPath();

@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  *  Based on Apache Ant Wait For:
@@ -40,7 +38,6 @@ require_once 'phing/Task.php';
  *  limitations under the License.
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class WaitForTask extends ConditionBase
@@ -62,6 +59,11 @@ class WaitForTask extends ConditionBase
     protected $checkEveryMultiplier = self::ONE_MILLISECOND;
 
     protected $timeoutProperty = null;
+
+    public function __construct($taskName = 'waitfor')
+    {
+        parent::__construct($taskName);
+    }
 
     /**
      * Set the maximum length of time to wait.
@@ -182,15 +184,24 @@ class WaitForTask extends ConditionBase
 
         while (microtime(true) * 1000 < $end) {
             if ($condition->evaluate()) {
-                $this->log("waitfor: condition was met", Project::MSG_VERBOSE);
-
+                $this->processSuccess();
                 return;
             }
 
             usleep($checkEveryMillis * 1000);
         }
 
-        $this->log("waitfor: timeout", Project::MSG_VERBOSE);
+        $this->processTimeout();
+    }
+
+    protected function processSuccess()
+    {
+        $this->log($this->getTaskName() . ": condition was met", Project::MSG_VERBOSE);
+    }
+
+    protected function processTimeout()
+    {
+        $this->log($this->getTaskName() . ": timeout", Project::MSG_VERBOSE);
 
         if ($this->timeoutProperty != null) {
             $this->project->setNewProperty($this->timeoutProperty, "true");

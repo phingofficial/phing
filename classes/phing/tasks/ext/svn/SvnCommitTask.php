@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Commits changes in a local working copy to the repository
  *
  * @author Johan Persson <johanp@aditus.nu>
- * @version $Id$
  * @package phing.tasks.ext.svn
  * @since 2.4.0
  */
@@ -91,10 +87,10 @@ class SvnCommitTask extends SvnBaseTask
         $this->setup('commit');
 
         $this->log(
-            "Committing SVN working copy at '" . $this->getWorkingCopy() . "' with message '" . $this->GetMessage() . "'"
+            "Committing SVN working copy at '" . $this->getWorkingCopy() . "' with message '" . $this->getMessage() . "'"
         );
 
-        $output = $this->run(array(), array('message' => $this->GetMessage()));
+        $output = $this->run([], ['message' => $this->getMessage()]);
 
         if (preg_match('/[\s]*Committed revision[\s]+([\d]+)/', $output, $matches)) {
             $this->project->setProperty($this->getPropertyName(), $matches[1]);
@@ -107,6 +103,5 @@ class SvnCommitTask extends SvnBaseTask
              */
             $this->project->setProperty($this->getPropertyName(), '');
         }
-
     }
 }

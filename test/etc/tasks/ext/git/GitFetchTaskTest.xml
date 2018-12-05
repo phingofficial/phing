@@ -1,51 +1,57 @@
 <?xml version="1.0"?>
 <project name="gitFetchTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
     </target>
 
     <target name="fetchAllRemotes" description="Fetch from all remotes">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" all="true" />
     </target>
 
     <target name="allParamsSet" description="all parameters present">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             source="origin" tags="true" keep="true" force="true" />
     </target>
 
     <target name="noRepository" description="Required param checking">
-        <gitfetch />
+        <gitfetch gitPath="${git-path}" />
     </target>
 
     <target name="noTarget" description="Required param checking">
-        <gitfetch repository="${tmp.dir.resolved}" source="" />
+        <gitfetch gitPath="${git-path}" repository="${tmp.dir.resolved}" source="" />
     </target>
 
     <target name="refspecSet" description="git-fetch --track">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitfetch 
+        <gitfetch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             source="origin"
             refspec="master:refspec-branch" 
             quiet="true" />
         <gitbranch
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             branchname="refspec-branch" 
             delete="true" />

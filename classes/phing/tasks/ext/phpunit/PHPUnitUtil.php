@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,13 +21,12 @@
  * Various utility functions
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
 class PHPUnitUtil
 {
-    protected static $definedClasses = array();
+    protected static $definedClasses = [];
 
     /**
      * Returns the package of a class as defined in the docblock of the class using @package
@@ -136,7 +133,7 @@ class PHPUnitUtil
         if (isset(self::$definedClasses[$filename])) {
             return self::$definedClasses[$filename];
         } else {
-            return array();
+            return [];
         }
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,17 +19,18 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
 class DbDeployTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
+        if (!extension_loaded('sqlite')) {
+            $this->markTestSkipped('This test require sqlite extension to be loaded');
+        }
+
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
         $this->executeTarget("prepare");
     }

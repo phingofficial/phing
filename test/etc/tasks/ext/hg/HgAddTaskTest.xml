@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<project name="hgAddTest" default="invalid">
+
+    <target name="wrongRepository" description="Wrong repository directory">
+        <hgadd repository="inconcievable-buttercup"/>
+	</target>
+</project>

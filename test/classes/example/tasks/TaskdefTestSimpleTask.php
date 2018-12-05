@@ -1,7 +1,6 @@
 <?php
 
 /*
- * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +23,6 @@ require_once 'phing/Task.php';
 
 class TaskdefTestSimpleTask extends Task
 {
-
     private $echo;
 
     /**
@@ -41,7 +39,6 @@ class TaskdefTestSimpleTask extends Task
     {
         $this->log("simpletask: " . $this->echo->message, Project::MSG_INFO);
     }
-
 }
 
 class TestEcho

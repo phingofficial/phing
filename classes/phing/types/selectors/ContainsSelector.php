@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -32,21 +29,28 @@ include_once 'phing/types/selectors/BaseExtendSelector.php';
  */
 class ContainsSelector extends BaseExtendSelector
 {
-
     private $contains = null;
     private $casesensitive = true;
     const CONTAINS_KEY = "text";
     const CASE_KEY = "casesensitive";
+    const WHITESPACE_KEY = "ignorewhitespace";
+    private $ignorewhitespace = false;
 
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{containsselector text: ";
         $buf .= $this->contains;
         $buf .= " casesensitive: ";
         if ($this->casesensitive) {
+            $buf .= "true";
+        } else {
+            $buf .= "false";
+        }
+        $buf .= " ignorewhitespace: ";
+        if ($this->ignorewhitespace) {
             $buf .= "true";
         } else {
             $buf .= "false";
@@ -77,6 +81,14 @@ class ContainsSelector extends BaseExtendSelector
     }
 
     /**
+     * @param boolean $ignoreWhitespace
+     */
+    public function setIgnoreWhitespace($ignoreWhitespace)
+    {
+        $this->ignorewhitespace = $ignoreWhitespace;
+    }
+
+    /**
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
@@ -95,6 +107,9 @@ class ContainsSelector extends BaseExtendSelector
                         break;
                     case self::CASE_KEY:
                         $this->setCasesensitive($parameters[$i]->getValue());
+                        break;
+                    case self::WHITESPACE_KEY:
+                        $this->setIgnoreWhitespace($parameters[$i]->getValue());
                         break;
                     default:
                         $this->setError("Invalid parameter " . $paramname);
@@ -133,16 +148,26 @@ class ContainsSelector extends BaseExtendSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
-        if ($file->isDirectory()) {
-            return true;
+        try {
+            if ($file->isDirectory() || $file->isLink()) {
+                return true;
+            }
+        } catch (IOException $ioe) {
+            if (OsCondition::isOS('windows')) {
+                return true;
+            }
+
+            throw new BuildException($ioe);
         }
 
         $userstr = $this->contains;
         if (!$this->casesensitive) {
             $userstr = strtolower($this->contains);
+        }
+        if ($this->ignorewhitespace) {
+            $userstr = SelectorUtils::removeWhitespace($userstr);
         }
 
         $in = null;
@@ -152,6 +177,9 @@ class ContainsSelector extends BaseExtendSelector
             while ($teststr !== null) {
                 if (!$this->casesensitive) {
                     $teststr = strtolower($teststr);
+                }
+                if ($this->ignorewhitespace) {
+                    $teststr = SelectorUtils::removeWhitespace($teststr);
                 }
                 if (strpos($teststr, $userstr) !== false) {
                     return true;

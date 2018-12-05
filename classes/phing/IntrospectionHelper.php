@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,11 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Reference.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/parser/CustomChildCreator.php';
-
 /**
  * Helper class that collects the methods that a task or nested element
  * holds to set attributes, create nested elements or hold PCDATA
@@ -38,7 +30,6 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing
  */
 class IntrospectionHelper
@@ -49,26 +40,26 @@ class IntrospectionHelper
      *
      * @var array string[]
      */
-    private $attributeSetters = array();
+    private $attributeSetters = [];
 
     /**
      * Holds methods to create nested elements.
      *
      * @var array string[]
      */
-    private $nestedCreators = array();
+    private $nestedCreators = [];
 
     /**
      * Holds methods to store configured nested elements.
      *
      * @var array string[]
      */
-    private $nestedStorers = array();
+    private $nestedStorers = [];
 
     /**
      * Map from attribute names to nested types.
      */
-    private $nestedTypes = array();
+    private $nestedTypes = [];
 
     /**
      * New idea in phing: any class can register certain
@@ -80,7 +71,7 @@ class IntrospectionHelper
      *         function setListeningReplace($slot) {}
      * @var array string[]
      */
-    private $slotListeners = array();
+    private $slotListeners = [];
 
     /**
      * The method to add PCDATA stuff.
@@ -100,12 +91,13 @@ class IntrospectionHelper
      * The cache of IntrospectionHelper classes instantiated by getHelper().
      * @var array IntrospectionHelpers[]
      */
-    private static $helpers = array();
+    private static $helpers = [];
 
     /**
      * Factory method for helper objects.
      *
      * @param string $class The class to create a Helper for
+     * @return IntrospectionHelper
      */
     public static function getHelper($class)
     {
@@ -129,12 +121,10 @@ class IntrospectionHelper
      */
     public function __construct($class)
     {
-
         $this->bean = new ReflectionClass($class);
 
         //$methods = get_class_methods($bean);
         foreach ($this->bean->getMethods() as $method) {
-
             if ($method->isPublic()) {
 
                 // We're going to keep case-insensitive method names
@@ -144,15 +134,16 @@ class IntrospectionHelper
 
                 // There are a few "reserved" names that might look like attribute setters
                 // but should actually just be skipped.  (Note: this means you can't ever
-                // have an attribute named "location" or "tasktype" or a nested element named "task".)
-                if ($name === "setlocation" || $name === "settasktype" || $name === "addtask") {
+                // have an attribute named "location" or "tasktype" or a nested element container
+                // named "task" [TaskContainer::addTask(Task)].)
+                if ($name === "setlocation" || $name === "settasktype"
+                    || ('addtask' === $name && $this->isContainer() && count($method->getParameters()) === 1
+                    && Task::class === $method->getParameters()[0])) {
                     continue;
                 }
 
                 if ($name === "addtext") {
-
                     $this->methodAddText = $method;
-
                 } elseif (strpos($name, "setlistening") === 0) {
 
                     // Phing supports something unique called "RegisterSlots"
@@ -169,47 +160,29 @@ class IntrospectionHelper
                     }
 
                     $this->slotListeners[$name] = $method;
-
-                } elseif (strpos($name, "set") === 0) {
-
-                    // A standard attribute setter.
-
-                    if (count($method->getParameters()) !== 1) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() must take exactly one parameter.");
-                    }
+                } elseif (strpos($name, "set") === 0 && count($method->getParameters()) === 1) {
 
                     $this->attributeSetters[$name] = $method;
-
                 } elseif (strpos($name, "create") === 0) {
-
                     if ($method->getNumberOfRequiredParameters() > 0) {
                         throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
                             ) . "() may not take any parameters.");
                     }
 
-                    // Because PHP doesn't support return types, we are going to do
-                    // two things here to guess return type:
-                    //     1) parse comments for an explicit value
-                    //     2) if that fails, assume that the part of the method after "create"
-                    //    is the name of the return type (in many cases it is not)
-
-                    // This isn't super important -- i.e. we're not instantaiting classes
-                    // based on this information.  It's more just so that IntrospectionHelper
-                    // can keep track of all the nested types -- and provide more helpful
-                    // exception messages, etc.
-
-                    preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
-                    if (!empty($matches[1]) && class_exists($matches[1], false)) {
-                        $this->nestedTypes[$name] = $matches[1];
-                    } else {
-                        // assume that method createEquals() creates object of type "Equals"
-                        // (that example would be false, of course)
-                        $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                    if ($method->hasReturnType()) {
+                        $this->nestedTypes[$name] = $method->getReturnType();
+                    } else  {
+                        preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
+                        if (!empty($matches[1]) && class_exists($matches[1], false)) {
+                            $this->nestedTypes[$name] = $matches[1];
+                        } else {
+                            // assume that method createEquals() creates object of type "Equals"
+                            // (that example would be false, of course)
+                            $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                        }
                     }
 
                     $this->nestedCreators[$name] = $method;
-
                 } elseif (strpos($name, "addconfigured") === 0) {
 
                     // *must* use class hints if using addConfigured ...
@@ -243,7 +216,6 @@ class IntrospectionHelper
                     $this->nestedTypes[$name] = $classname;
 
                     $this->nestedStorers[$name] = $method;
-
                 } elseif (strpos($name, "add") === 0) {
 
                     // *must* use class hints if using add ...
@@ -282,9 +254,18 @@ class IntrospectionHelper
     }
 
     /**
+     * Indicates whether the introspected class is a task container, supporting arbitrary nested tasks/types.
+     * @return bool true if the introspected class is a container; false otherwise.
+     */
+    public function isContainer()
+    {
+        return $this->bean->implementsInterface(TaskContainer::class);
+    }
+
+    /**
      * Sets the named attribute.
      * @param Project $project
-     * @param string $element
+     * @param object $element
      * @param string $attributeName
      * @param mixed $value
      * @throws BuildException
@@ -303,7 +284,6 @@ class IntrospectionHelper
         // typing.
 
         if (StringHelper::isSlotVar($value)) {
-
             $as = "setlistening" . strtolower($attributeName);
 
             if (!isset($this->slotListeners[$as])) {
@@ -320,7 +300,6 @@ class IntrospectionHelper
             $value = Register::getSlot(
                 $key
             ); // returns a RegisterSlot object which will hold current value of that register (accessible using getValue())
-
         } else {
 
             // Traditional value options
@@ -335,12 +314,11 @@ class IntrospectionHelper
             $method = $this->attributeSetters[$as];
 
             if ($as == "setrefid") {
-                $value = new Reference($value);
+                $value = new Reference($project, $value);
             } else {
                 // value is a string representation of a boolean type,
                 // convert it to primitive
                 if (StringHelper::isBoolean($value)) {
-
                     $value = StringHelper::booleanValue($value);
                 }
 
@@ -364,15 +342,12 @@ class IntrospectionHelper
                             $value = new Path($project, $value);
                             break;
                         case "reference":
-                            $value = new Reference($value);
+                            $value = new Reference($project, $value);
                             break;
                         // any other object params we want to support should go here ...
                     }
-
                 } // if hint !== null
-
             } // if not setrefid
-
         } // if is slot-listener
 
         try {
@@ -382,9 +357,8 @@ class IntrospectionHelper
             );
             $method->invoke($element, $value);
         } catch (Exception $exc) {
-            throw new BuildException($exc);
+            throw new BuildException($exc->getMessage(), $exc);
         }
-
     }
 
     /**
@@ -405,7 +379,7 @@ class IntrospectionHelper
             $method = $this->methodAddText;
             $method->invoke($element, $text);
         } catch (Exception $exc) {
-            throw new BuildException($exc);
+            throw new BuildException($exc->getMessage(), $exc);
         }
     }
 
@@ -423,13 +397,11 @@ class IntrospectionHelper
      */
     public function createElement(Project $project, $element, $elementName)
     {
-
         $addMethod = "add" . strtolower($elementName);
         $createMethod = "create" . strtolower($elementName);
         $nestedElement = null;
 
         if (isset($this->nestedCreators[$createMethod])) {
-
             $method = $this->nestedCreators[$createMethod];
             try { // try to invoke the creator method on object
                 $project->log(
@@ -439,11 +411,9 @@ class IntrospectionHelper
                 );
                 $nestedElement = $method->invoke($element);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
-
         } elseif (isset($this->nestedCreators[$addMethod])) {
-
             $method = $this->nestedCreators[$addMethod];
 
             // project components must use class hints to support the add methods
@@ -466,16 +436,19 @@ class IntrospectionHelper
 
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);
-                if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() === 1) {
-                    $nestedElement = new $classname(Phing::getCurrentProject());
+                if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() >= 1) {
+                    $nestedElement = new $classname(Phing::getCurrentProject() ?? $project);
                 } else {
                     $nestedElement = new $classname();
                 }
 
-                $method->invoke($element, $nestedElement);
+                if ($nestedElement instanceof Task && $element instanceof Task) {
+                    $nestedElement->setOwningTarget($element->getOwningTarget());
+                }
 
+                $method->invoke($element, $nestedElement);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif ($this->bean->implementsInterface("CustomChildCreator")) {
             $method = $this->bean->getMethod('customChildCreator');
@@ -483,7 +456,7 @@ class IntrospectionHelper
             try {
                 $nestedElement = $method->invoke($element, strtolower($elementName), $project);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         } else {
             //try the add method for the element's parent class
@@ -504,7 +477,7 @@ class IntrospectionHelper
                         $nestedElement = new $elementClass();
                         $method->invoke($element, $nestedElement);
                     } catch (Exception $exc) {
-                        throw new BuildException($exc);
+                        throw new BuildException($exc->getMessage(), $exc);
                     }
                 }
             }
@@ -533,7 +506,6 @@ class IntrospectionHelper
      */
     public function storeElement($project, $element, $child, $elementName = null)
     {
-
         if ($elementName === null) {
             return;
         }
@@ -541,7 +513,6 @@ class IntrospectionHelper
         $storer = "addconfigured" . strtolower($elementName);
 
         if (isset($this->nestedStorers[$storer])) {
-
             $method = $this->nestedStorers[$storer];
 
             try {
@@ -551,10 +522,9 @@ class IntrospectionHelper
                 );
                 $method->invoke($element, $child);
             } catch (Exception $exc) {
-                throw new BuildException($exc);
+                throw new BuildException($exc->getMessage(), $exc);
             }
         }
-
     }
 
     /**
@@ -572,7 +542,7 @@ class IntrospectionHelper
      */
     public function getAttributes()
     {
-        $attribs = array();
+        $attribs = [];
         foreach (array_keys($this->attributeSetters) as $setter) {
             $attribs[] = $this->getPropertyName($setter, "set");
         }
@@ -601,7 +571,6 @@ class IntrospectionHelper
      */
     public function getElementName(Project $project, $element)
     {
-
         $taskdefs = $project->getTaskDefinitions();
         $typedefs = $project->getDataTypeDefinitions();
 
@@ -656,5 +625,4 @@ class IntrospectionHelper
             print("[IntrospectionHelper] " . $msg . "\n");
         }
     }
-
 }

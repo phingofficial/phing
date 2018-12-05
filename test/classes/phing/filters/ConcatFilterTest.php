@@ -1,6 +1,5 @@
 <?php
 /**
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,16 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class ConcatFilterTest extends BuildFileTest
 {
-
     protected $fu;
 
     public function setUp()
@@ -50,5 +45,4 @@ class ConcatFilterTest extends BuildFileTest
         $result = $this->getProject()->resolveFile("result/concatfilter.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
-
 }

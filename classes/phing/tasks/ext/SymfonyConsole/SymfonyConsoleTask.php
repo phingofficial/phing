@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,13 +18,12 @@
  */
 
 require_once "phing/Task.php";
-require_once dirname(__FILE__) . "/Arg.php";
+require_once __DIR__ . "/Arg.php";
 
 /**
  * Symfony Console Task
  * @author nuno costa <nuno@francodacosta.com>
  * @license GPL
- * @version $Id$
  * @package phing.tasks.ext.symfony
  */
 class SymfonyConsoleTask extends Task
@@ -37,7 +33,7 @@ class SymfonyConsoleTask extends Task
      *
      * @var Arg[] a collection of Arg objects
      */
-    private $args = array();
+    private $args = [];
 
     /**
      *
@@ -68,7 +64,12 @@ class SymfonyConsoleTask extends Task
      * @var boolean
      */
     private $debug = true;
-    
+
+    /**
+     * @var bool $silent
+     */
+    private $silent = false;
+
     /**
      * sets the symfony console command to execute
      * @param string $command
@@ -126,7 +127,6 @@ class SymfonyConsoleTask extends Task
     {
         $this->checkreturn = (bool) $checkreturn;
     }
-
     
     /**
      * Whether to set the symfony cli debug mode
@@ -147,6 +147,16 @@ class SymfonyConsoleTask extends Task
     public function getDebug()
     {
         return $this->debug;
+    }
+
+    public function setSilent(bool $flag)
+    {
+        $this->silent = $flag;
+    }
+
+    public function getSilent()
+    {
+        return $this->silent;
     }
 
     /**
@@ -177,7 +187,7 @@ class SymfonyConsoleTask extends Task
      */
     private function isNoDebugArgPresent()
     {
-        foreach($this->args as $arg) {
+        foreach ($this->args as $arg) {
             if ($arg->getName() == "no-debug") {
                 return true;
             }
@@ -196,11 +206,11 @@ class SymfonyConsoleTask extends Task
         if (!$this->debug && !$this->isNoDebugArgPresent()) {
             $this->createArg()->setName("no-debug");
         }
-        $cmd = array(
+        $cmd = [
             Commandline::quoteArgument($this->console),
             $this->command,
             implode(' ', $this->args)
-        );
+        ];
         $cmd = implode(' ', $cmd);
 
         return $cmd;
@@ -213,14 +223,14 @@ class SymfonyConsoleTask extends Task
     {
         $cmd = $this->getCmdString();
 
-        $this->log("executing $cmd");
+        $this->silent ?: $this->log("executing $cmd");
         $return = null;
-        $output = array();
+        $output = [];
         exec($cmd, $output, $return);
 
         $lines = implode("\r\n", $output);
 
-        $this->log($lines, Project::MSG_INFO);
+        $this->silent ?: $this->log($lines, Project::MSG_INFO);
 
         if ($this->propertyName != null) {
             $this->project->setProperty($this->propertyName, $lines);

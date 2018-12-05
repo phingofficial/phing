@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,9 +17,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
  *
@@ -39,7 +33,6 @@ include_once 'phing/filters/ChainableReader.php';
  * </pre>
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @see       BaseFilterReader
  * @package   phing.filters
  */
@@ -207,7 +200,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -235,13 +227,13 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
         // also match gettext() -- same as above
 
         $buffer = preg_replace_callback(
-            '/([^\w]|^)_\("((\\\"|[^"])*)"\)/',
-            array($this, 'xlateStringCallback'),
+            '/(\W|^)_\("((\\\"|[^"])*)"\)/',
+            [$this, 'xlateStringCallback'],
             $buffer
         );
         $buffer = preg_replace_callback(
-            '/([^\w]|^)gettext\("((\\\"|[^"])*)"\)/',
-            array($this, 'xlateStringCallback'),
+            '/(\W|^)gettext\("((\\\"|[^"])*)"\)/',
+            [$this, 'xlateStringCallback'],
             $buffer
         );
 
@@ -249,8 +241,8 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         // Check to see if there are any unmatched gettext() calls -- and flag an error
 
-        $matches = array();
-        if (preg_match('/([^\w]|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
+        $matches = [];
+        if (preg_match('/(\W|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
             $this->log("Unable to perform translation on: " . $matches[2], Project::MSG_WARN);
         }
 

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ExecTaskTest" default="test">
-    <target name="testPropertySetCommand">
+
+    <if>
+        <os family="mac">
+        </os>
+        <then>
+            <property name="binPrefix" value="/usr/bin"/>
+        </then>
+        <else>
+            <property name="binPrefix" value="/bin"/>
+        </else>
+    </if>
+
+    <target name="testPropertySetCommandline">
         <exec command="echo 'foo'"/>
     </target>
 
@@ -76,9 +88,38 @@
         <exec command="echo 'this should not be executed'" os="unknownos"/>
     </target>
 
+    <target name="testDoNotExecuteOnWrongOsFamily">
+        <exec command="echo 'this should not be executed'" osfamily="unknownos"/>
+    </target>
+
     <target name="testExecuteOnCorrectOs">
         <exec command="echo 'this should be executed'"
               os="WINNT WIN32 Linux Darwin BSD" />
+    </target>
+
+    <target name="testExecuteOnCorrectOsFamily">
+
+            <if>
+                <os family="Unix"/>
+                <then>
+                    <property name="current" value="unix"/>
+                </then>
+                <elseif>
+                    <os family="windows"/>
+                    <then>
+                        <property name="current" value="windows"/>
+                    </then>
+                </elseif>
+                <elseif>
+                    <os family="mac"/>
+                    <then>
+                        <property name="current" value="mac"/>
+                    </then>
+                </elseif>
+            </if>
+
+        <exec command="echo 'this should be executed'"
+              osfamily="${current}" />
     </target>
 
     <target name="testFailOnNonExistingDir">
@@ -93,11 +134,11 @@
     </target>
 
     <target name="testCheckreturnTrue">
-        <exec command="/bin/true" checkreturn="true"/>
+        <exec executable="true" checkreturn="true"/>
     </target>
 
     <target name="testCheckreturnFalse">
-        <exec command="/bin/false" checkreturn="true"/>
+        <exec executable="false" checkreturn="true"/>
     </target>
 
     <target name="testOutputProperty">
@@ -106,7 +147,7 @@
     </target>
 
     <target name="testReturnProperty">
-        <exec command="/bin/false" returnProperty="execReturnProp"/>
+        <exec executable="false" returnProperty="execReturnProp"/>
         <echo>The return property's value is: "${execReturnProp}"</echo>
     </target>
 
@@ -125,7 +166,7 @@
     </target>
 
     <target name="testError">
-        <exec command="./ExecTest-stderr.php errfoo" error="${execTmpFile}"/>
+        <exec command="php ./ExecTest-stderr.php errfoo" error="${execTmpFile}"/>
     </target>
 
     <target name="testSpawn">
@@ -140,12 +181,6 @@
         </exec>
     </target>
 
-    <target name="testExecutableAndCommand">
-        <exec executable="echo" command="echo nested-arg">
-            <arg value="nested-arg"/>
-        </exec>
-    </target>
-
     <target name="testMissingExecutableAndCommand">
         <exec>
         </exec>
@@ -154,6 +189,20 @@
     <target name="testEscapedArg">
         <exec executable="echo" escape="true" outputProperty="outval">
             <arg value="abc$b3!SB"/>
+        </exec>
+    </target>
+
+    <target name="testEscapedArgWithoutWhitespace">
+        <exec executable="echo" escape="true">
+            <arg value="foo|bar"/>
+        </exec>
+    </target>
+
+    <target name="testNestedEnv">
+        <property environment="env"/>
+        <exec executable="phploc" outputProperty="envtest" resolveexecutable="true" searchpath="true">
+            <env key="Path" path="${env.Path};${project.basedir}\..\..\..\..\bin"/>
+            <arg value="-V"/>
         </exec>
     </target>
 

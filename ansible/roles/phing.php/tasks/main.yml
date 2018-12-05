@@ -1,0 +1,34 @@
+---
+- name: Install PHP
+  apt: name=php state=latest
+  become: yes
+
+- name: Install PHP Modules
+  apt: name={{ item }} state=latest
+  with_items:
+    - php-bz2
+    - php-xdebug
+    - php-xsl
+    - php-zip
+  become: yes
+
+- name: Install sqlite extension
+  apt: pkg={{ item }} state=installed
+  become: yes
+  with_items:
+   - php7.0-sqlite3
+   - php7.0-mbstring
+   - sqlite3
+   - libsqlite3-dev
+
+- name: "Configure Phar extension."
+  become: yes
+  ini_file:
+    dest: /etc/php/7.0/cli/php.ini
+    section: Phar
+    option: phar.readonly
+    value: Off
+
+- name: Install composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer
+  become: yes

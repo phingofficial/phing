@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,13 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Wrapper to disable PHPCS's destructor
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class PhpCodeSnifferTask_Wrapper extends PHP_CodeSniffer

@@ -1,8 +1,5 @@
 <?php
-
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +21,6 @@ require_once 'phing/system/io/PhingFile.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phploc
  */
 abstract class AbstractPHPLocFormatter
@@ -74,7 +70,7 @@ abstract class AbstractPHPLocFormatter
      */
     public function setToDir($toDir)
     {
-        if (!is_dir($toDir)) {
+        if (!is_dir($toDir) && null !== $toDir) {
             $toDir = new PhingFile($toDir);
             $toDir->mkdirs();
         }
@@ -108,5 +104,4 @@ abstract class AbstractPHPLocFormatter
     {
         return $this->outfile;
     }
-
 }

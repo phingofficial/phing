@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitDescribeTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -13,10 +9,12 @@
 
     <target name="gitDescribeTask">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
-        <gitdescribe repository="${tmp.dir.resolved}" tags="true"/>
+        <gittag gitPath="${git-path}" repository="${tmp.dir.resolved}" name="ver1.0" />
+        <gitdescribe gitPath="${git-path}" repository="${tmp.dir.resolved}" tags="true"/>
     </target>
 </project>

@@ -1,0 +1,71 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.3 AppendTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="AdhocTypedefTask.html" title="B.2 AdhocTypedefTask"><link rel="next" href="ApplyTask.html" title="B.4 ApplyTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.3 AppendTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="AdhocTypedefTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="ApplyTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="AppendTask"></a>B.3 AppendTask </h2></div></div></div>
+        
+        <p>The Append Task appends text or contents of files to a specified file.</p>
+        <p>In the example above, AppendTask is reading a filename from
+            <code class="literal">book/PhingGuide.book</code>, processing the file contents with XSLT, and
+            then appending the result to the file located at
+            <code class="literal">${process.outputfile}</code>. This is a real example from the build file
+            used to generate this book!</p>
+
+        <div class="table"><a name="idp2650"></a><p class="formal-object-title"><span class="label">Table B.3: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">destFile</code></td><td><code class="literal">File</code></td><td>Path of file to which text should be appended.
+                            If not specified the console will be used instead.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">append</code></td><td><code class="literal">String</code></td><td>Specifies whether or not the file specified by 'destfile'
+                            should be appended. Defaults to "yes".</td><td>yes</td><td>No</td></tr><tr><td><code class="literal">overwrite</code></td><td><code class="literal">Boolean</code></td><td>Specifies whether or not the file specified by 'destfile' should
+                            be written to even if it is newer than all source files.</td><td>yes</td><td>No</td></tr><tr><td><code class="literal">fixlastline</code></td><td><code class="literal">Boolean</code></td><td>Specifies whether or not to check if each file concatenated
+                            is terminated by a new line.
+                            If this attribute is "yes" a new line will be appended to
+                            the stream if the file did not end in a new line.
+                            This attribute does not apply to embedded text.</td><td>no</td><td>No</td></tr><tr><td><code class="literal">eol</code></td><td><code class="literal">String</code></td><td>Specifies what the end of line character are for use by the fixlastline attribute.
+                            Valid values for this property are:
+                            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                                    <p><code class="literal">cr: a single CR</code></p>
+                                </li><li class="listitem">
+                                    <p><code class="literal">lf: a single LF</code></p>
+                                </li><li class="listitem">
+                                    <p><code class="literal">crlf: the pair CRLF</code></p>
+                                </li><li class="listitem">
+                                    <p><code class="literal">mac: a single CR</code></p>
+                                </li><li class="listitem">
+                                    <p><code class="literal">unix: a single LF</code></p>
+                                </li><li class="listitem">
+                                    <p><code class="literal">dos: the pair CRLF</code></p>
+                                </li></ul></div>
+                            The default is platform dependent. For Unix platforms, the default is "lf".
+                            For DOS based systems (including Windows), the default is "crlf".
+                            For Mac OS, the default is "cr".</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">File</code></td><td>Path to file that should be appended to destFile.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">text</code></td><td><code class="literal">String</code></td><td>Some literal text to append to file.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2741"></a>B.3.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;append destFile="${process.outputfile}"&gt;
+                &lt;filterchain&gt;
+                &lt;xsltfilter style="${process.stylesheet}"&gt;
+                &lt;param name="mode" expression="${process.xslt.mode}"/&gt;
+                &lt;/xsltfilter&gt;
+                &lt;/filterchain&gt;
+                &lt;filelist dir="book/" listfile="book/PhingGuide.book"/&gt;
+                &lt;/append&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2744"></a>B.3.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileList.html" title="D.3 FileList">filelist</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="app.corefilters.html" title="Appendix E. Core filters">filterchain</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">path</code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">header, footer</code>
+                        Used to prepend or postpend text into the concatenated stream.
+                        The text may be in-line or be in a file.
+                        </p><div class="table"><a name="idp2765"></a><p class="formal-object-title"><span class="label">Table B.4: </span><span class="title">Attributes</span></p><div class="table-contents">
+                            
+                            <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">filtering</code></td><td><code class="literal">Boolean</code></td><td>Whether to filter the text provided by this sub element.</td><td>yes</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>A file to place at the head or tail of the concatenated text.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td><code class="literal">Boolean</code></td><td>Whether to trim the value.</td><td>no</td><td>No</td></tr><tr><td><code class="literal">trimleading</code></td><td><code class="literal">Boolean</code></td><td>Whether to trim leading white space on each line.</td><td>no</td><td>No</td></tr></tbody></table>
+                        </div></div><p><br class="table-break">
+                    </p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="AdhocTypedefTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ApplyTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.2 AdhocTypedefTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.4 ApplyTask </td></tr></table></div></body></html>

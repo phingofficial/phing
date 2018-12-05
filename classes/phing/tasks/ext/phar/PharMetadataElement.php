@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,8 +24,7 @@ require_once 'phing/tasks/ext/phar/PharMetadata.php';
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  */
-class PharMetadataElement
-    extends PharMetadata
+class PharMetadataElement extends PharMetadata
 {
     /**
      * @var string

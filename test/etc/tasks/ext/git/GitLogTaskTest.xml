@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitLogTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -13,17 +9,20 @@
 
     <target name="gitLogWithoutParams" description="Run git-log w/o any params">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitlog repository="${tmp.dir.resolved}" />
+        <gitlog gitPath="${git-path}" repository="${tmp.dir.resolved}" />
     </target>
     <target name="gitLogWithMostParams" description="Run git-log w/ most params set">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitlog 
+        <gitlog  gitPath="${git-path}"
             format="oneline"
             maxCount="2"
             stat="true"
@@ -35,10 +34,11 @@
 
     <target name="gitLogOutputPropertySet" description="Run git-log w/ dumping output into property">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitlog 
+        <gitlog  gitPath="${git-path}"
             format="oneline"
             outputProperty="gitLogOutput"
             since="Sun Jan 23 23:55:42 2011 +0300"
@@ -49,7 +49,8 @@
 
     <target name="gitLogNameStatusSet" description="Run git-log w/ --name-status">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -60,7 +61,8 @@
 
     <target name="gitLogDateRelative" description="Run git-log w/ --date=relative">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -71,7 +73,8 @@
 
     <target name="gitLogSinceUntilSet" description="Run git-log w/ --since + --until">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -83,7 +86,8 @@
 
     <target name="gitLogBeforeAfterSet" description="Run git-log w/ --before + --after">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -95,7 +99,8 @@
 
     <target name="gitLogFormatOneLine" description="Run git-log w/ --format=oneline">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -105,7 +110,8 @@
 
     <target name="gitLogFormatShort" description="Run git-log w/ --format=short">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -115,7 +121,8 @@
 
     <target name="gitLogFormatMedium" description="Run git-log w/ --format=medium">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -125,7 +132,8 @@
 
     <target name="gitLogFormatFull" description="Run git-log w/ --format=full">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -135,7 +143,8 @@
 
     <target name="gitLogFormatFuller" description="Run git-log w/ --format=fuller">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -145,7 +154,8 @@
 
     <target name="gitLogFormatEmail" description="Run git-log w/ --format=email">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
@@ -155,7 +165,8 @@
 
     <target name="gitLogFormatCustom" description="Run git-log w/ --format=string">
         <!-- obtain test repo -->
-        <gitclone 
+        <gitclone
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitlog 

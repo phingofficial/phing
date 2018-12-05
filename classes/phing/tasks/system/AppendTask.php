@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,10 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/Task.php';
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
 
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
@@ -48,10 +42,12 @@ include_once 'phing/types/FileSet.php';
  * </append>
  * </code>
  * @package phing.tasks.system
- * @version $Id$
  */
 class AppendTask extends Task
 {
+    use FileListAware;
+    use FileSetAware;
+    use FilterChainAware;
 
     /** Append stuff to this file. */
     private $to;
@@ -59,42 +55,39 @@ class AppendTask extends Task
     /** Explicit file to append. */
     private $file;
 
-    /** Any filesets of files that should be appended. */
-    private $filesets = array();
-
-    /** Any filelists of files that should be appended. */
-    private $filelists = array();
-
-    /** Any filters to be applied before append happens. */
-    private $filterChains = array();
-
     /** Text to append. (cannot be used in conjunction w/ files or filesets) */
     private $text;
 
-    /** Sets specific file to append.
-     * @param PhingFile $f
+    private $filtering = true;
+
+    /** @var TextElement $header */
+    private $header;
+
+    /** @var TextElement $footer */
+    private $footer;
+
+    private $append = true;
+
+    private $fixLastLine = false;
+
+    private $overwrite = true;
+
+    private $eolString;
+
+    /**
+     * @param bool $filtering
      */
-    public function setFile(PhingFile $f)
+    public function setFiltering($filtering)
     {
-        $this->file = $f;
+        $this->filtering = (bool)$filtering;
     }
 
     /**
-     * Set target file to append to.
-     *
-     * @deprecated Will be removed with final release.
-     *
-     * @param PhingFile $f
-     *
-     * @return void
+     * @param bool $overwrite
      */
-    public function setTo(PhingFile $f)
+    public function setOverwrite($overwrite)
     {
-        $this->log(
-            "The 'to' attribute is deprecated in favor of 'destFile'; please update your code.",
-            Project::MSG_WARN
-        );
-        $this->to = $f;
+        $this->overwrite = $overwrite;
     }
 
     /**
@@ -110,39 +103,52 @@ class AppendTask extends Task
     }
 
     /**
-     * Supports embedded <filelist> element.
-     *
-     * @return FileList
+     * Sets the behavior when the destination exists. If set to
+     * <code>true</code> the task will append the stream data an
+     * {@link Appendable} resource; otherwise existing content will be
+     * overwritten. Defaults to <code>false</code>.
+     * @param bool $append if true append output.
      */
-    public function createFileList()
+    public function setAppend($append)
     {
-        $num = array_push($this->filelists, new FileList());
-
-        return $this->filelists[$num - 1];
+        $this->append = $append;
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
+     * Specify the end of line to find and to add if
+     * not present at end of each input file. This attribute
+     * is used in conjunction with fixlastline.
+     * @param string $crlf the type of new line to add -
+     *              cr, mac, lf, unix, crlf, or dos
      */
-    public function addFileSet(FileSet $fs)
+    public function setEol($crlf)
     {
-        $this->filesets[] = $fs;
+        $s = $crlf;
+        if ($s === "cr" || $s === "mac") {
+            $this->eolString = "\r";
+        } elseif ($s === "lf" || $s === "unix") {
+            $this->eolString = "\n";
+        } elseif ($s === "crlf" || $s === "dos") {
+            $this->eolString = "\r\n";
+        } else {
+            $this->eolString = $this->getProject()->getProperty('line.separator');
+        }
     }
 
     /**
-     * Creates a filterchain
-     *
-     * @return FilterChain The created filterchain object
+     * Sets specific file to append.
+     * @param PhingFile $f
      */
-    public function createFilterChain()
+    public function setFile(PhingFile $f)
     {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
+        $this->file = $f;
+    }
 
-        return $this->filterChains[$num - 1];
+    public function createPath()
+    {
+        $path = new Path($this->getProject());
+        $this->filesets[] = $path;
+        return $path;
     }
 
     /**
@@ -154,7 +160,7 @@ class AppendTask extends Task
      */
     public function setText($txt)
     {
-        $this->text = (string) $txt;
+        $this->text = (string)$txt;
     }
 
     /**
@@ -166,7 +172,28 @@ class AppendTask extends Task
      */
     public function addText($txt)
     {
-        $this->text = (string) $txt;
+        $this->text .= (string)$txt;
+    }
+
+    public function addHeader(TextElement $headerToAdd)
+    {
+        $this->header = $headerToAdd;
+    }
+
+    public function addFooter(TextElement $footerToAdd)
+    {
+        $this->footer = $footerToAdd;
+    }
+
+    /**
+     * Append line.separator to files that do not end
+     * with a line.separator, default false.
+     * @param bool $fixLastLine if true make sure each input file has
+     *                          new line on the concatenated stream
+     */
+    public function setFixLastLine($fixLastLine)
+    {
+        $this->fixLastLine = $fixLastLine;
     }
 
     /**
@@ -176,85 +203,153 @@ class AppendTask extends Task
      */
     public function main()
     {
-        if ($this->to === null) {
-            throw new BuildException("You must specify the 'destFile' attribute");
-        }
+        $this->validate();
 
-        if ($this->file === null && empty($this->filelists) && empty($this->filesets) && $this->text === null) {
-            throw new BuildException("You must specify a file, use a filelist, or specify a text value.");
-        }
-
-        if ($this->text !== null && ($this->file !== null || !empty($this->filelists))) {
-            throw new BuildException("Cannot use text attribute in conjunction with file or filelists.");
-        }
-
-        // create a filwriter to append to "to" file.
-        $writer = new FileWriter($this->to, $append = true);
-
-        if ($this->text !== null) {
-
-            // simply append the text
-            $this->log("Appending string to " . $this->to->getPath());
-
-            // for debugging primarily, maybe comment
-            // out for better performance(?)
-            $lines = explode("\n", $this->text);
-            foreach ($lines as $line) {
-                $this->log($line, Project::MSG_VERBOSE);
+        try {
+            if ($this->to !== null) {
+                // create a file writer to append to "to" file.
+                $writer = new FileWriter($this->to, $this->append);
+            } else {
+                $writer = new LogWriter($this);
             }
 
-            $writer->write($this->text);
+            if ($this->text !== null) {
 
-        } else {
+                // simply append the text
+                if ($this->to instanceof PhingFile) {
+                    $this->log("Appending string to " . $this->to->getPath());
+                }
 
-            // append explicitly-specified file
-            if ($this->file !== null) {
-                try {
-                    $this->appendFile($writer, $this->file);
-                } catch (Exception $ioe) {
-                    $this->log(
-                        "Unable to append contents of file " . $this->file->getAbsolutePath() . ": " . $ioe->getMessage(
-                        ),
-                        Project::MSG_WARN
-                    );
+                $text = $this->text;
+                if ($this->filtering) {
+                    $fr = $this->getFilteredReader(new StringReader($text));
+                    $text = $fr->read();
+                }
+
+                $text = $this->appendHeader($text);
+                $text = $this->appendFooter($text);
+                $writer->write($text);
+            } else {
+
+                // append explicitly-specified file
+                if ($this->file !== null) {
+                    try {
+                        $this->appendFile($writer, $this->file);
+                    } catch (Exception $ioe) {
+                        $this->log(
+                            "Unable to append contents of file " . $this->file->getAbsolutePath() . ": " . $ioe->getMessage(),
+                            Project::MSG_WARN
+                        );
+                    }
+                }
+
+                // append any files in filesets
+                foreach ($this->filesets as $fs) {
+                    try {
+                        if ($fs instanceof Path) {
+                            $files = $fs->listPaths();
+                            $this->appendFiles($writer, $files);
+                        } elseif ($fs instanceof FileSet) {
+                            $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+                            $this->appendFiles($writer, $files, $fs->getDir($this->project));
+                        }
+                    } catch (BuildException $be) {
+                        if (strpos($be->getMessage(), 'is the same as the output file') === false) {
+                            $this->log($be->getMessage(), Project::MSG_WARN);
+                        } else {
+                            throw new BuildException($be->getMessage());
+                        }
+                    } catch (IOException $ioe) {
+                        throw new BuildException($ioe);
+                    }
+                }
+
+                foreach ($this->filelists as $list) {
+                    $dir = $list->getDir($this->project);
+                    $files = $list->getFiles($this->project);
+                    foreach ($files as $file) {
+                        $this->appendFile($writer, new PhingFile($dir, $file));
+                    }
                 }
             }
-
-            // append the files in the filelists
-            foreach ($this->filelists as $fl) {
-                try {
-                    $files = $fl->getFiles($this->project);
-                    $this->appendFiles($writer, $files, $fl->getDir($this->project));
-                } catch (BuildException $be) {
-                    $this->log($be->getMessage(), Project::MSG_WARN);
-                }
-            }
-
-            // append any files in filesets
-            foreach ($this->filesets as $fs) {
-                try {
-                    $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-                    $this->appendFiles($writer, $files, $fs->getDir($this->project));
-                } catch (BuildException $be) {
-                    $this->log($be->getMessage(), Project::MSG_WARN);
-                }
-            }
-
-        } // if ($text) {} else {}
+        } catch (Exception $e) {
+            throw new BuildException($e);
+        }
 
         $writer->close();
+    }
+
+    private function appendHeader($string)
+    {
+        $result = $string;
+        if ($this->header !== null) {
+            $header = $this->header->getValue();
+            if ($this->header->filtering) {
+                $fr = $this->getFilteredReader(new StringReader($header));
+                $header = $fr->read();
+            }
+
+            $result = $header . $string;
+        }
+
+        return $result;
+    }
+
+    private function appendFooter($string)
+    {
+        $result = $string;
+        if ($this->footer !== null) {
+            $footer = $this->footer->getValue();
+            if ($this->footer->filtering) {
+                $fr = $this->getFilteredReader(new StringReader($footer));
+                $footer = $fr->read();
+            }
+
+            $result = $string . $footer;
+        }
+        return $result;
+    }
+
+    private function validate()
+    {
+        $this->sanitizeText();
+
+        if ($this->file === null && $this->text === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
+            throw new BuildException("You must specify a file, use a filelist/fileset, or specify a text value.");
+        }
+
+        if ($this->text !== null && ($this->file !== null || count($this->filesets) > 0)) {
+            throw new BuildException("Cannot use text attribute in conjunction with file or fileset");
+        }
+
+        if (!$this->eolString) {
+            $this->eolString = $this->getProject()->getProperty('line.separator');
+        }
+    }
+
+    private function sanitizeText()
+    {
+        if ($this->text !== null && "" === trim($this->text)) {
+            $this->text = null;
+        }
+    }
+
+    private function getFilteredReader(Reader $r)
+    {
+        $helper = FileUtils::getChainedReader($r, $this->filterChains, $this->getProject());
+        return $helper;
     }
 
     /**
      * Append an array of files in a directory.
      *
-     * @param FileWriter $writer The FileWriter that is appending to target file.
-     * @param array      $files  array of files to delete; can be of zero length
-     * @param PhingFile  $dir    directory to work from
+     * @param Writer $writer The FileWriter that is appending to target file.
+     * @param array $files array of files to delete; can be of zero length
+     * @param PhingFile $dir directory to work from
      *
      * @return void
      */
-    private function appendFiles(FileWriter $writer, $files, PhingFile $dir)
+    private function appendFiles(Writer $writer, $files, PhingFile $dir = null)
     {
         if (!empty($files)) {
             $this->log(
@@ -264,20 +359,63 @@ class AppendTask extends Task
             );
             $basenameSlot = Register::getSlot("task.append.current_file");
             $pathSlot = Register::getSlot("task.append.current_file.path");
-            foreach ($files as $filename) {
+            foreach ($files as $file) {
                 try {
-                    $f = new PhingFile($dir, $filename);
-                    $basenameSlot->setValue($filename);
-                    $pathSlot->setValue($f->getPath());
-                    $this->appendFile($writer, $f);
-                } catch (Exception $ioe) {
+                    if (!$this->checkFilename($file, $dir)) {
+                        continue;
+                    }
+
+                    if ($dir !== null) {
+                        $file = is_string($file) ? new PhingFile($dir->getPath(), $file) : $file;
+                    } else {
+                        $file = is_string($file) ? new PhingFile($file) : $file;
+                    }
+                    $basenameSlot->setValue($file);
+                    $pathSlot->setValue($file->getPath());
+                    $this->appendFile($writer, $file);
+                } catch (IOException $ioe) {
                     $this->log(
-                        "Unable to append contents of file " . $f->getAbsolutePath() . ": " . $ioe->getMessage(),
+                        "Unable to append contents of file " . $file . ": " . $ioe->getMessage(),
+                        Project::MSG_WARN
+                    );
+                } catch (NullPointerException $npe) {
+                    $this->log(
+                        "Unable to append contents of file " . $file . ": " . $npe->getMessage(),
                         Project::MSG_WARN
                     );
                 }
             }
-        } // if !empty
+        }
+    }
+
+    private function checkFilename($filename, $dir = null)
+    {
+        if ($dir !== null) {
+            $f = new PhingFile($dir, $filename);
+        } else {
+            $f = new PhingFile($filename);
+        }
+
+        if (!$f->exists()) {
+            $this->log("File " . (string)$f . " does not exist.", Project::MSG_ERR);
+            return false;
+        }
+        if ($this->to !== null && $f->equals($this->to)) {
+            throw new BuildException("Input file \""
+                . $f . "\" "
+                . "is the same as the output file.");
+        }
+
+        if ($this->to !== null
+            && !$this->overwrite
+            && $this->to->exists()
+            && $f->lastModified() > $this->to->lastModified()
+        ) {
+            $this->log((string)$this->to . " is up-to-date.", Project::MSG_VERBOSE);
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -286,12 +424,23 @@ class AppendTask extends Task
      *
      * @return void
      */
-    private function appendFile(FileWriter $writer, PhingFile $f)
+    private function appendFile(Writer $writer, PhingFile $f)
     {
-        $in = FileUtils::getChainedReader(new FileReader($f), $this->filterChains, $this->project);
+        $in = $this->getFilteredReader(new FileReader($f));
+
+        $text = '';
         while (-1 !== ($buffer = $in->read())) { // -1 indicates EOF
-            $writer->write($buffer);
+            $text .= $buffer;
         }
-        $this->log("Appending contents of " . $f->getPath() . " to " . $this->to->getPath());
+        if ($this->fixLastLine && ($text[strlen($text) - 1] !== "\n" || $text[strlen($text) - 1] !== "\r")) {
+            $text .= $this->eolString;
+        }
+
+        $text = $this->appendHeader($text);
+        $text = $this->appendFooter($text);
+        $writer->write($text);
+        if ($f instanceof PhingFile && $this->to instanceof PhingFile) {
+            $this->log("Appending contents of " . $f->getPath() . " to " . $this->to->getPath());
+        }
     }
 }

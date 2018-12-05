@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,19 +17,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/AnsiColorLogger.php';
-
 /**
  * Extends AnsiColorLogger to display times for each target
  *
  * @author    Patrick McAndrew <patrick@urg.name>
  * @copyright 2013. All rights reserved
- * @version   $Id$
  * @package   phing.listener
  */
 class TargetLogger extends AnsiColorLogger
 {
-
     private $targetName = null;
     private $targetStartTime;
 
@@ -57,6 +51,5 @@ class TargetLogger extends AnsiColorLogger
         $event->setMessage($msg, Project::MSG_INFO);
         $this->messageLogged($event);
         $this->targetName = null;
-
     }
 }

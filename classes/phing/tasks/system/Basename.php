@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,11 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -45,13 +38,9 @@ class Basename extends Task
      * file or directory to get base name from
      * @param PhingFile $file file or directory to get base name from
      */
-    public function setFile($file)
+    public function setFile(PhingFile $file)
     {
-        if (is_string($file)) {
-            $this->file = new PhingFile($file);
-        } else {
-            $this->file = $file;
-        }
+        $this->file = $file;
     }
 
     /**
@@ -83,22 +72,22 @@ class Basename extends Task
             throw new BuildException("property attribute required", $this->getLocation());
         }
 
-        if ($this->file == null) {
+        if ($this->file === null) {
             throw new BuildException("file attribute required", $this->getLocation());
         }
 
-        $value = $this->file->getName();
-        if ($this->suffix != null && StringHelper::endsWith($this->suffix, $value)) {
-            // if the suffix does not starts with a '.' and the
-            // char preceding the suffix is a '.', we assume the user
-            // wants to remove the '.' as well
-            $pos = strlen($value) - strlen($this->suffix) - 1;
-            if ($pos > 0 && $this->suffix{0} !== '.' && $value{$pos} === '.') {
-                $pos--;
-            }
-            $value = StringHelper::substring($value, 0, $pos);
+        $this->getProject()->setNewProperty(
+            $this->property,
+            $this->removeExtension($this->file->getName(), $this->suffix)
+        );
+    }
 
+    private function removeExtension(?string $s, ?string $ext)
+    {
+        if ($ext === null || !StringHelper::endsWith($ext, $s)) {
+            return $s;
         }
-        $this->getProject()->setNewProperty($this->property, $value);
+
+        return rtrim(substr($s, 0, - strlen($ext)), '.');
     }
 }

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Delete Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class DeleteTaskTest extends BuildFileTest
@@ -62,5 +58,18 @@ class DeleteTaskTest extends BuildFileTest
     public function testDeleteNonExistingFile()
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Could not find file');
+    }
+
+    public function testDirset()
+    {
+        $tmpDir = $this->getProject()->getProperty('tmp.dir');
+        $dir1 = $tmpDir . '/test-one';
+        $dir2 = $tmpDir . '/test-two';
+        $dir3 = $tmpDir . '/test-three';
+
+        $this->executeTarget(__FUNCTION__);
+        $this->assertDirectoryNotExists($dir1);
+        $this->assertDirectoryNotExists($dir2);
+        $this->assertDirectoryNotExists($dir3);
     }
 }

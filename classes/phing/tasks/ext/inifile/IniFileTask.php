@@ -13,6 +13,7 @@
  * @link     http://www.phing.info/
  */
 
+require_once 'IniFileGet.php';
 require_once 'IniFileSet.php';
 require_once 'IniFileRemove.php';
 require_once 'IniFileConfig.php';
@@ -26,7 +27,7 @@ require_once 'IniFileConfig.php';
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     InifileTask.php
  */
-class InifileTask extends Task
+class IniFileTask extends Task
 {
     /**
      * Source file
@@ -34,6 +35,7 @@ class InifileTask extends Task
      * @var string|null
      */
     protected $source = null;
+
     /**
      * Dest file
      *
@@ -47,18 +49,27 @@ class InifileTask extends Task
      * @var bool
      */
     protected $haltonerror = false;
+
+    /**
+     * Gets
+     *
+     * @var array
+     */
+    protected $gets = [];
+
     /**
      * Sets
      *
      * @var array
      */
-    protected $sets = array();
+    protected $sets = [];
+
     /**
      * Removals
      *
      * @var array
      */
-    protected $removals = array();
+    protected $removals = [];
 
     /**
      * IniFileConfig instance
@@ -69,20 +80,28 @@ class InifileTask extends Task
 
     /**
      * Taskname for logger
+     *
      * @var string
      */
     protected $taskName = 'IniFile';
+
+    /**
+     * Verbose
+     *
+     * @var bool
+     */
+    protected $verbose = false;
 
     /**
      * Check file to be read from
      *
      * @param string $readFile Filename
      *
-     * @return void
+     * @return bool
      */
     public function checkReadFile($readFile)
     {
-        if (is_null($readFile)) {
+        if (null === $readFile) {
             return false;
         }
         if (!file_exists($readFile)) {
@@ -111,7 +130,7 @@ class InifileTask extends Task
      *
      * @param string $writeFile Filename
      *
-     * @return void
+     * @return bool
      */
     public function checkWriteFile($writeFile)
     {
@@ -137,17 +156,17 @@ class InifileTask extends Task
         $readFile = null;
         $writeFile = null;
 
-        if (!is_null($this->source) && is_null($this->dest)) {
+        if (null !== $this->source && null === $this->dest) {
             $readFile = $this->source;
-        } elseif (!is_null($this->dest) && is_null($this->source)) {
+        } elseif (null !== $this->dest && null === $this->source) {
             $readFile = $this->dest;
         } else {
             $readFile = $this->source;
         }
 
-        if (!is_null($this->dest)) {
+        if (null !== $this->dest) {
             $writeFile = $this->dest;
-        } elseif (!is_null($this->source)) {
+        } elseif (null !== $this->source) {
             $writeFile = $this->source;
         } else {
             $writeFile = $this->dest;
@@ -170,17 +189,74 @@ class InifileTask extends Task
             return;
         }
 
+        $this->enumerateGets();
         $this->enumerateSets();
         $this->enumerateRemoves();
-        try {
-            $this->ini->write($writeFile);
-            $this->log("Wrote to $writeFile");
-        } catch (Exception $ex) {
-            $msg = $ex->getMessage();
-            if ($this->haltonerror) {
-                throw new BuildException($msg);
+
+        if (count($this->sets) || count($this->removals)) {
+            try {
+                $this->ini->write($writeFile);
+                $this->log("Wrote to $writeFile");
+            } catch (Exception $ex) {
+                $msg = $ex->getMessage();
+                if ($this->haltonerror) {
+                    throw new BuildException($msg);
+                }
+                $this->log($msg, Project::MSG_ERR);
             }
-            $this->log($msg, Project::MSG_ERR);
+        }
+    }
+
+    /**
+     * Work through all Get commands.
+     *
+     * @return void
+     */
+    public function enumerateGets()
+    {
+        foreach ($this->gets as $get) {
+            $outProperty = $get->getOutputProperty();
+            $property = $get->getProperty();
+            $section = $get->getSection();
+            $value = '';
+
+            if ($property === null) {
+                throw new BuildException("property must be set");
+            }
+            if ($outProperty === null) {
+                throw new BuildException("outputproperty must be set");
+            }
+            if ($section === null) {
+                throw new BuildException("section must be set");
+            }
+            try {
+                $value = $this->ini->get($section, $property);
+            } catch (RuntimeException $ex) {
+                $this->logDebugOrMore(
+                    sprintf(
+                        '%s: section = %s; key = %s',
+                        $ex->getMessage(),
+                        $section,
+                        $property
+                    )
+                );
+            } finally {
+                if ($value === '') {
+                    $value = $get->getDefault();
+                }
+            }
+
+            $project = $this->getProject();
+            $project->setProperty($outProperty, $value);
+            $this->logDebugOrMore(
+                sprintf(
+                    'Set property %s to value \'%s\' read from key %s in section %s',
+                    $outProperty,
+                    $value,
+                    $property,
+                    $section
+                )
+            );
         }
     }
 
@@ -199,16 +275,14 @@ class InifileTask extends Task
             if ($value !== null) {
                 try {
                     $this->ini->set($section, $key, $value);
-                    $this->log(
-                        "[$section] $key set to $value",
-                        Project::MSG_DEBUG
-                    );
+                    $this->logDebugOrMore("[$section] $key set to $value");
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
-                        "', key '" . $key ."'"
+                        "', key '" . $key ."'",
+                        Project::MSG_ERR
                     );
-                    $this->log($ex->getMessage(), Project::MSG_DEBUG);
+                    $this->logDebugOrMore($ex->getMessage());
                 }
             } elseif ($operation !== null) {
                 $v = $this->ini->get($section, $key);
@@ -240,16 +314,13 @@ class InifileTask extends Task
                 }
                 try {
                     $this->ini->set($section, $key, $v);
-                    $this->log(
-                        "[$section] $key set to $v",
-                        Project::MSG_DEBUG
-                    );
+                    $this->logDebugOrMore("[$section] $key set to $v");
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key ."'"
                     );
-                    $this->log($ex->getMessage(), Project::MSG_DEBUG);
+                    $this->logDebugOrMore($ex->getMessage());
                 }
             } else {
                 $this->log(
@@ -279,12 +350,11 @@ class InifileTask extends Task
             }
             $this->ini->remove($section, $key);
             if (($section != '') && ($key != '')) {
-                $this->log(
-                    "$key in section [$section] has been removed.",
-                    Project::MSG_DEBUG
+                $this->logDebugOrMore(
+                    "$key in section [$section] has been removed."
                 );
             } elseif (($section != '') && ($key == '')) {
-                $this->log("[$section] has been removed.", Project::MSG_DEBUG);
+                $this->logDebugOrMore("[$section] has been removed.");
             }
         }
     }
@@ -322,11 +392,33 @@ class InifileTask extends Task
      */
     public function setHaltonerror($halt)
     {
-        $doHalt = false;
-        if (strtolower($halt) == 'yes' || $halt == 1) {
-            $doHalt = true;
-        }
-        $this->haltonerror = $doHalt;
+        $this->haltonerror = StringHelper::booleanValue($halt);
+    }
+
+    /**
+     * Set verbose attribute.
+     *
+     * Screech like a Camaar fishwife...
+     *
+     * @param boolean $verbose Verbose?
+     *
+     * @return void
+     */
+    public function setVerbose($verbose)
+    {
+        $this->verbose = StringHelper::booleanValue($verbose);
+    }
+
+    /**
+     * Create a Get method
+     *
+     * @return IniFileGet
+     */
+    public function createGet()
+    {
+        $get = new IniFileGet();
+        $this->gets[] = $get;
+        return $get;
     }
 
     /**
@@ -351,5 +443,22 @@ class InifileTask extends Task
         $remove = new IniFileRemove();
         $this->removals[] = $remove;
         return $remove;
+    }
+
+    /**
+     * Log message at Debug level. If verbose prop is set, also log it at normal
+     *
+     * @param string $message Message to log
+     *
+     * @return bool False if message is only logged at debug level.
+     */
+    public function logDebugOrMore($message)
+    {
+        $this->log($message, Project::MSG_DEBUG);
+        if ($this->verbose) {
+            $this->log($message);
+            return true;
+        }
+        return false;
     }
 }

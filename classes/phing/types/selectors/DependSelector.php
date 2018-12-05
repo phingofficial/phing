@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelector.php';
-
 /**
  * Selector that filters files based on whether they are newer than
  * a matching file in another directory tree. It can contain a mapper
@@ -30,32 +25,19 @@ require_once 'phing/types/selectors/BaseSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.types.selectors
  */
 class DependSelector extends BaseSelector
 {
-
     private $targetdir = null;
     private $mapperElement = null;
     private $map = null;
     private $granularity = 0;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        // not yet supported:
-        //if (Os.isFamily("dos")) {
-        //    $this->granularity = 2000;
-        //}
-    }
-
-    /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{dependselector targetdir: ";
         if ($this->targetdir === null) {
@@ -67,10 +49,10 @@ class DependSelector extends BaseSelector
         $buf .= $this->granularity;
         if ($this->map !== null) {
             $buf .= " mapper: ";
-            $buf .= $this->map->toString();
+            $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
             $buf .= " mapper: ";
-            $buf .= $this->mapperElement->toString();
+            $buf .= (string) $this->mapperElement;
         }
         $buf .= "}";
 

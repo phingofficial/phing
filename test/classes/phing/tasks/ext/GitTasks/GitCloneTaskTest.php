@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,26 +18,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitCloneTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitCloneTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
@@ -50,7 +38,7 @@ class GitCloneTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testWrongRepository()
@@ -70,10 +58,10 @@ class GitCloneTaskTest extends BuildFileTest
         $this->executeTarget('gitClone');
 
         $this->assertInLogs('git-clone: cloning "' . $bundle . '" repository to "' . $repository . '" directory');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($gitFilesDir));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($gitFilesDir);
         // test that file is actully cloned
-        $this->assertTrue(is_readable($repository . '/README'));
+        $this->assertIsReadable($repository . '/README');
     }
 
     public function testGitCloneBare()
@@ -85,11 +73,11 @@ class GitCloneTaskTest extends BuildFileTest
         $this->assertInLogs(
             'git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory'
         );
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($repository . '/branches'));
-        $this->assertTrue(is_dir($repository . '/info'));
-        $this->assertTrue(is_dir($repository . '/hooks'));
-        $this->assertTrue(is_dir($repository . '/refs'));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($repository . '/branches');
+        $this->assertDirectoryExists($repository . '/info');
+        $this->assertDirectoryExists($repository . '/hooks');
+        $this->assertDirectoryExists($repository . '/refs');
     }
 
     public function testNoRepositorySpecified()
@@ -109,5 +97,4 @@ class GitCloneTaskTest extends BuildFileTest
             '"targetPath" is required parameter'
         );
     }
-
 }

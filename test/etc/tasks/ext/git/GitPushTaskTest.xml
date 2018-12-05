@@ -4,13 +4,25 @@
     <property name="tmp.dir" value="./../../../../tmp/git" />
     <property name="bundle.dir" value="phing-tests.git"/>
     <property name="repo.dir" value="./../../../../tmp/repo" />
-    
+
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
     <resolvepath propertyName="bundle.dir.resolved" file="${bundle.dir}" />
     <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
-    
+
     <delete dir="${repo.dir.resolved}" />
-    <gitclone
+
+    <if>
+        <os family="windows"/>
+        <then>
+            <property name="git-path" value="SET LC_ALL=C &amp;&amp; git"/>
+        </then>
+        <else>
+            <property name="git-path" value="LC_ALL=C &amp;&amp; git"/>
+        </else>
+    </if>
+
+    <gitclone gitPath="${git-path}"
+        singleBranch="true"
     	repository="${bundle.dir.resolved}"
     	targetPath="${repo.dir.resolved}" />
 
@@ -19,70 +31,77 @@
     </target>
 
     <target name="allParamsSet" description="all parameters present">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             destination="origin" refspec="master:foobranch" 
             force="true" quiet="true" />
     </target>
 
     <target name="wrongRepo" description="all parameters present">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="plain-wrong" 
             destination="origin" refspec="master:foobranch" 
             force="true" quiet="true" />
     </target>
 
     <target name="noRepository" description="Required param checking">
-        <gitpush />
+        <gitpush gitPath="${git-path}" />
     </target>
 
     <target name="noDestination" description="Required param checking">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" destination="" />
     </target>
 
     <target name="allReposSet" description="git-push --all">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" all="true" />
     </target>
 
     <target name="tagsSet" description="git-push --tags">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             refspec="master:foobranch" tags="true" />
     </target>
 
     <target name="mirrorSet" description="git-push --tags">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             mirror="true" quiet="true" />
     </target>
     <target name="deleteSet" description="git-push --tags">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             refspec="master:newbranch" quiet="true" />
-        <gitpush
+        <gitpush gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             delete="true"
             refspec="newbranch" quiet="true" />

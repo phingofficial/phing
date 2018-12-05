@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,30 +18,19 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitBranchTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitBranchTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
@@ -55,15 +43,15 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testAllParamsSet()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
-        $this->assertInLogs(
-            'git-branch output: Branch all-params-set set up to track remote branch master from origin.'
+        $this->assertLogLineContaining(
+            'git-branch output: Branch all-params-set set up to track remote branch master from origin'
         );
     }
 
@@ -91,7 +79,7 @@ class GitBranchTaskTest extends BuildFileTest
 
         $this->executeTarget('trackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: Branch track-param-set set up to track local branch master.');
+        $this->assertLogLineContaining('git-branch output: Branch track-param-set set up to track local branch master');
     }
 
     public function testNoTrackParameter()
@@ -107,9 +95,13 @@ class GitBranchTaskTest extends BuildFileTest
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
-        $this->executeTarget('setUpstreamParamSet');
+        if (version_compare(substr(trim(exec('git --version')), strlen('git version ')), '2.15.0', '<')) {
+            $this->executeTarget('setUpstreamParamSet');
+        } else {
+            $this->executeTarget('setUpstreamToParamSet');
+        }
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('Branch set-upstream-param-set set up to track local branch master.'); // no output actually
+        $this->assertLogLineContaining('Branch set-upstream-param-set set up to track local branch master'); // no output actually
     }
 
     public function testForceParameter()
@@ -127,8 +119,8 @@ class GitBranchTaskTest extends BuildFileTest
 
         $this->executeTarget('deleteBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('Branch delete-branch-1 set up to track local branch master.');
-        $this->assertInLogs('Branch delete-branch-2 set up to track local branch master.');
+        $this->assertLogLineContaining('Branch delete-branch-1 set up to track local branch master');
+        $this->assertLogLineContaining('Branch delete-branch-2 set up to track local branch master');
         $this->assertInLogs('Deleted branch delete-branch-1');
         $this->assertInLogs('Deleted branch delete-branch-2');
     }
@@ -174,5 +166,4 @@ class GitBranchTaskTest extends BuildFileTest
             '"newbranch" is required parameter'
         );
     }
-
 }

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,22 +18,22 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class SvnSwitchTaskTest extends BuildFileTest
 {
+    use SvnTaskTestSkip;
+
     public function setUp()
     {
+        $this->markTestAsSkippedWhenSvnNotInstalled();
+
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/svn');
@@ -47,7 +46,7 @@ class SvnSwitchTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
     public function testSwitchSimple()
@@ -56,7 +55,7 @@ class SvnSwitchTaskTest extends BuildFileTest
         $this->executeTarget('switchSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
         $this->assertInLogs(
-            "Switching SVN repository at '$repository' to 'https://github.com/phingofficial/phing/tags/2.4.12/etc'"
+            "Switching SVN repository at '$repository' to 'https://github.com/phingofficial/phing/tags/2.10.0/etc'"
         );
     }
 }

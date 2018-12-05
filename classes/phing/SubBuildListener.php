@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildListener.php';
-
 /**
  * Instances of classes that implement this interface can register
  * to be also notified when things happened during a subbuild.

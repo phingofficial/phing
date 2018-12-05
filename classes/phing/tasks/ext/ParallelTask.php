@@ -1,8 +1,5 @@
 <?php
-
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,7 +25,6 @@
  * WARNING: this task is highly experimental!
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  * @see https://github.com/phpdocumentor/Parallel
  * @since 2.4.10
@@ -56,23 +52,20 @@ class ParallelTask extends SequentialTask
 
     public function main()
     {
-        @include_once 'phing/contrib/DocBlox/Parallel/Manager.php';
-        @include_once 'phing/contrib/DocBlox/Parallel/Worker.php';
-        @include_once 'phing/contrib/DocBlox/Parallel/WorkerPipe.php';
-        if (!class_exists('DocBlox_Parallel_Worker')) {
+        if (!class_exists('MehrAlsNix\Parallel\Worker')) {
             throw new BuildException(
                 'ParallelTask depends on DocBlox being installed and on include_path.',
                 $this->getLocation()
             );
         }
 
-        $mgr = new DocBlox_Parallel_Manager();
+        $mgr = new MehrAlsNix\Parallel\Manager();
         $mgr->setProcessLimit($this->threadCount);
 
         foreach ($this->nestedTasks as $task) {
-            $worker = new DocBlox_Parallel_Worker(
-                array($task, 'perform'),
-                array($task)
+            $worker = new MehrAlsNix\Parallel\Worker(
+                [$task, 'perform'],
+                [$task]
             );
 
             $mgr->addWorker($worker);
@@ -80,7 +73,7 @@ class ParallelTask extends SequentialTask
 
         $mgr->execute();
 
-        /** @var DocBlox_Parallel_Worker $nestedTask */
+        /** @var MehrAlsNix\Parallel\Worker $nestedTask */
         foreach ($mgr as $nestedTask) {
             if ($nestedTask->getError() === "") {
                 continue;

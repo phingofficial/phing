@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests for PhpCodeSnifferTask
  *
@@ -30,7 +27,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class PhpCodeSnifferTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         if (defined('HHVM_VERSION')) {
@@ -72,7 +68,7 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
-        $output = ob_get_clean();        
+        $output = ob_get_clean();
         $this->assertPropertyEquals(
             "PhpCodeSnifferTaskTest.testPropertyOutput",
             "- Generic_Sniffs_PHP_DisallowShortOpenTagSniff" . PHP_EOL

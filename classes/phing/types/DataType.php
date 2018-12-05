@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/BuildException.php';
-
 /**
  * Base class for those classes that can appear inside the build file
  * as stand alone data types.
@@ -36,18 +33,11 @@ include_once 'phing/BuildException.php';
 class DataType extends ProjectComponent
 {
     /**
-     * The descriptin the user has set.
-     *
-     * @var string $description
-     */
-    public $description = null;
-
-    /**
      * Value to the refid attribute.
      *
      * @var Reference $ref
      */
-    public $ref = null;
+    private $ref;
 
     /**
      * Are we sure we don't hold circular references?
@@ -59,29 +49,6 @@ class DataType extends ProjectComponent
      * @var boolean
      */
     protected $checked = true;
-
-    /**
-     * Sets a description of the current data type. It will be useful
-     * in commenting what we are doing.
-     *
-     * @param string $desc
-     *
-     * @return void
-     */
-    public function setDescription($desc)
-    {
-        $this->description = (string) $desc;
-    }
-
-    /**
-     * Return the description for the current data type.
-     *
-     * @retujrn string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 
     /**
      * Has the refid attribute of this element been set?
@@ -111,6 +78,14 @@ class DataType extends ProjectComponent
     }
 
     /**
+     * @param bool $checked
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
+    }
+
+    /**
      * Check to see whether any DataType we hold references to is
      * included in the Stack (which holds all DataType instances that
      * directly or indirectly reference this instance, including this
@@ -131,7 +106,7 @@ class DataType extends ProjectComponent
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p)
+    public function dieOnCircularReference(&$stk, Project $p = null)
     {
         if ($this->checked || !$this->isReference()) {
             return;
@@ -156,12 +131,19 @@ class DataType extends ProjectComponent
                 // throw build exception
                 throw $this->circularReference();
             } else {
-                array_push($stk, $o);
+                $stk[] = $o;
                 $o->dieOnCircularReference($stk, $p);
                 array_pop($stk);
             }
         }
         $this->checked = true;
+    }
+
+    public static function pushAndInvokeCircularReferenceCheck(DataType $dt, &$stk, Project $p)
+    {
+        $stk[] = $dt;
+        $dt->dieOnCircularReference($stk, $p);
+        array_pop($stk);
     }
 
     /**
@@ -178,7 +160,7 @@ class DataType extends ProjectComponent
     {
         if (!$this->checked) {
             // should be in stack
-            $stk = array();
+            $stk = [];
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->getProject());
         }
@@ -234,5 +216,24 @@ class DataType extends ProjectComponent
      */
     public function parsingComplete()
     {
+    }
+
+    /**
+     * Gets as descriptive as possible a name used for this datatype instance.
+     * @return string name.
+     */
+    protected function getDataTypeName()
+    {
+        return ComponentHelper::getElementName($this->getProject(), $this, true);
+    }
+
+    /**
+     * Basic DataType toString().
+     * @return string this DataType formatted as a String.
+     */
+    public function  __toString()
+    {
+        $d = $this->getDescription();
+        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;
     }
 }

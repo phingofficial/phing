@@ -17,13 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Copies a repository from the repository url to another
  *
- * @version $Id$
  * @package phing.tasks.ext.svn
  * @since 2.3.0
  */
@@ -59,12 +57,12 @@ class SvnCopyTask extends SvnBaseTask
 
         $this->log("Copying SVN repository from '" . $this->getRepositoryUrl() . "' to '" . $this->getToDir() . "'");
 
-        $options = array();
+        $options = [];
 
         if (strlen($this->getMessage()) > 0) {
             $options['message'] = $this->getMessage();
         }
 
-        $this->run(array($this->getToDir()), $options);
+        $this->run([$this->getToDir()], $options);
     }
 }

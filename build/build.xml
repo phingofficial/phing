@@ -1,26 +1,13 @@
 <?xml version="1.0"?>
 <!--
-    This build file packages the phing files, builds a package.xml (version 2) for installation
-    using PEAR and creates the TAR and TGZ files.
+    This build file builds the Phing release as a phar package.
 -->
 <project name="phing" basedir="." default="main">
 
-    <php function="dirname" returnProperty="buildfile.dir">
-        <param value="${phing.file}"/>
-    </php>
+    <dirname property="buildfile.dir" file="${phing.file}"/>
 
-    <php function="realpath" returnProperty="phingpkg.home">
-        <param value="${buildfile.dir}/.."/>
-    </php>
+    <resolvepath propertyName="phingpkg.home" path="${buildfile.dir}/.."/>
 
-    <condition property="pearpkg2.task.available">
-        <and>
-            <available file="${phingpkg.home}/classes/phing/tasks/ext/PearPackage2Task.php" />
-            <available resource="PEAR/PackageFileManager2.php" />
-        </and>
-    </condition>
-
-    <property name="build.pear.dir" value="${buildfile.dir}/pear"/>
     <property name="build.full.dir" value="${buildfile.dir}/full"/>
 
     <fileset dir="${phingpkg.home}" id="all">
@@ -36,6 +23,7 @@
         <include name="CREDITS.md"/>
         <include name="LICENSE"/>
         <include name="README.md"/>
+        <include name="composer.*"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}/classes/phing" id="classes">
@@ -53,7 +41,6 @@
     </fileset>
 
     <fileset dir="${phingpkg.home}" id="scripts">
-        <include name="bin/pear-*"/>
         <include name="bin/phing.php"/>
     </fileset>
 
@@ -71,7 +58,7 @@
         ==============================================
     -->
     <target name="main"
-        depends="clean,clean-external,create-api-docs,copy-files,create-package-xml,tar,phar"
+        depends="clean,clean-external,create-api-docs,copy-files,composer,package.phar"
     />
 
     <!--
@@ -80,13 +67,11 @@
         ==============================================
     -->
     <target name="setproperties">
-        
+
         <loadfile property="version" file="${phingpkg.home}/etc/VERSION.TXT"/>
 
         <property name="pkgname" value="phing-${version}"/>
         <property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
-        <property name="build.src.dir" value="${build.pear.dir}/phing/${pkgname}"/>
-        <property name="build.docs.dir" value="${build.pear.dir}/phingdocs/${pkgname-docs}" override="true"/>
         <property name="build.full.dir" value="${buildfile.dir}/full/${pkgname}" override="true"/>
 
         <if>
@@ -97,9 +82,9 @@
             </then>
 
             <elseif>
-                <contains string="${version}" substring="snapshot"/>
+                <contains string="${version}" substring="alpha"/>
                 <then>
-                    <property name="notes" value="This is a snapshot release that might not be functional." />
+                    <property name="notes" value="This is the latest alpha release of Phing." />
                     <property name="state" value="alpha"/>
                 </then>
             </elseif>
@@ -110,7 +95,7 @@
             </else>
         </if>
 
-        <echo>Building Phing PEAR/full version ${version} (${state})</echo>
+        <echo>Building Phing version ${version} (${state})</echo>
         <echo>${notes}</echo>
 
     </target>
@@ -118,8 +103,6 @@
     <!--
         ==============================================
         Copy the desired files into the build/ dir
-        making sure to put them in the directory
-        structure that will be needed for PEAR install
         ==============================================
     -->
     <target name="copy-files"
@@ -130,24 +113,17 @@
         <echo>-----------------------------</echo>
 
         <mkdir dir="${build.full.dir}" />
-        <mkdir dir="${build.pear.dir}" />
 
         <copy todir="${build.full.dir}">
             <fileset refid="all"/>
         </copy>
 
-        <copy todir="${build.src.dir}">
-            <fileset refid="classes"/>
-            <fileset refid="etc"/>
-            <fileset refid="scripts"/>
-            <fileset refid="misc"/>
+        <copy file="${buildfile.dir}/manifest.xml" tofile="${build.full.dir}/manifest.xml">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
         </copy>
 
-        <copy todir="${build.docs.dir}">
-            <fileset refid="docs"/>
-        </copy>
-
-        <chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
         <chmod file="${build.full.dir}/bin/phing" mode="755"/>
 
     </target>
@@ -164,7 +140,7 @@
         <phing phingfile="build.xml" dir="${phingpkg.home}/docs/api"
             target="build"
         />
-        
+
         <delete>
             <fileset dir=".">
                 <include name="*.log"/>
@@ -175,120 +151,17 @@
 
     <!--
         ==============================================
-        Create a PEAR package.xml which will guide the
-        installation.
+        Run composer
         ==============================================
     -->
-    <target name="create-package-xml"
-        if="version"
+    <target name="composer"
         depends="setproperties">
-
-        <fail unless="pearpkg2.task.available"
-            message="PEAR_PackageFileManager2 is not installed" />
-
-        <taskdef
-            name="pear-package"
-            classname="BuildPhingPEARPackageTask" classpath="${buildfile.dir}"
-        />
-
-        <echo>-----------------------------</echo>
-        <echo>| Creating PEAR package.xml |</echo>
-        <echo>-----------------------------</echo>
-        <echo></echo>
-        <echo>... (This step may take some time) ...</echo>
-
-        <delete file="${build.pear.dir}/phing/package.xml"
-            failonerror="false"
-        />
-
-        <pear-package mode="source" dir="${build.src.dir}"
-            destFile="${build.pear.dir}/phing/package.xml"
-            version="${version}" state="${state}" notes="${notes}">
-
-            <fileset refid="classes"/>
-            <fileset refid="etc"/>
-            <fileset refid="misc"/>
-            <fileset refid="scripts"/>
-
-        </pear-package>
-
-        <pear-package mode="docs" dir="${build.docs.dir}"
-            destFile="${build.pear.dir}/phingdocs/package.xml"
-            version="${version}" state="${state}" notes="${notes}">
-
-            <fileset refid="docs"/>
-
-        </pear-package>
-
-    </target>
-
-    <!--
-        ==============================================
-        Create a tar.gz of the files, which will be
-        installed by pear package manager.
-        ==============================================
-    -->
-    <target name="tar"
-        depends="setproperties">
-
-        <echo>-----------------------------</echo>
-        <echo>| Creating PEAR packages    |</echo>
-        <echo>-----------------------------</echo>
-
-        <property name="tgzfile" value="${build.pear.dir}/${pkgname}.tgz"/>
-        <delete file="${tgzfile}" failonerror="false"/>
-        <tar compression="gzip" destFile="${tgzfile}"
-            basedir="${build.pear.dir}/phing"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tgzfile}"/>
-        </phingcall>
-
-        <property name="tarfile" value="${build.pear.dir}/${pkgname}.tar"/>
-        <delete file="${tarfile}" failonerror="false"/>
-        <tar compression="none" destFile="${tarfile}"
-            basedir="${build.pear.dir}/phing"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tarfile}"/>
-        </phingcall>
-
-        <property name="tgzfile-docs" value="${build.pear.dir}/${pkgname-docs}.tgz"/>
-        <delete file="${tgzfile-docs}" failonerror="false"/>
-        <tar compression="gzip" destFile="${tgzfile-docs}"
-            basedir="${build.pear.dir}/phingdocs"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tgzfile-docs}"/>
-        </phingcall>
-
-        <property name="tarfile-docs" value="${build.pear.dir}/${pkgname-docs}.tar"/>
-        <delete file="${tarfile-docs}" failonerror="false"/>
-        <tar compression="none" destFile="${tarfile-docs}"
-            basedir="${build.pear.dir}/phingdocs"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tarfile-docs}"/>
-        </phingcall>
-
-        <property name="tgzfile-full" value="${build.full.dir}/../${pkgname}.tgz"/>
-        <delete file="${tgzfile-full}" failonerror="false"/>
-        <tar compression="gzip" destFile="${tgzfile-full}"
-            basedir="${build.full.dir}"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${tgzfile-full}"/>
-        </phingcall>
-
-        <property name="zipfile-full" value="${build.full.dir}/../${pkgname}.zip"/>
-        <delete file="${zipfile-full}" failonerror="false"/>
-        <zip destFile="${zipfile-full}"
-            basedir="${build.full.dir}"
-        />
-        <phingcall target="generate-hash">
-            <param name="filename" value="${zipfile-full}"/>
-        </phingcall>
-
+        <mkdir dir="${build.full.dir}/test/classes"/>
+		<composer command="install" composer="composer" php="">
+			<arg value="--working-dir=${build.full.dir}"/>
+			<arg value="-o"/>
+			<arg value="--prefer-dist"/>
+		</composer>
     </target>
 
     <!--
@@ -296,13 +169,15 @@
         Create a phar package of the files.
         ==============================================
     -->
-    <target name="phar"
+    <target name="package.phar"
         if="version"
         depends="setproperties">
 
-        <php expression="date('Ymd')" returnProperty="builddate" />
+        <tstamp>
+            <format property="builddate" pattern="%Y%m%d" />
+        </tstamp>
         <pharpackage
-            compression="none"
+            compression="gzip"
             destfile="${build.full.dir}.phar"
             stub="${buildfile.dir}/phing-stub.php"
             alias="phing.phar"
@@ -311,6 +186,8 @@
                 <include name="bin/**" />
                 <include name="classes/**" />
                 <include name="etc/**" />
+                <include name="vendor/**" />
+                <include name="manifest.xml" />
             </fileset>
             <metadata>
                 <element name="version" value="${version}" />
@@ -326,7 +203,15 @@
         <phingcall target="generate-hash">
             <param name="filename" value="${build.full.dir}.phar"/>
         </phingcall>
-
+        <if>
+            <equals arg1="${state}" arg2="stable"/>
+            <then>
+                <copy file="${build.full.dir}.phar" tofile="${buildfile.dir}/full/phing-latest.phar"/>
+                <phingcall target="generate-hash">
+                    <param name="filename" value="${buildfile.dir}/full/phing-latest.phar"/>
+                </phingcall>
+            </then>
+        </if>
     </target>
 
     <!--
@@ -359,7 +244,6 @@
         <echo>| Deleting build directory  |</echo>
         <echo>-----------------------------</echo>
 
-        <delete dir="${buildfile.dir}/pear" failonerror="false"/>
         <delete dir="${buildfile.dir}/full" failonerror="false"/>
 
     </target>
@@ -369,10 +253,21 @@
         Generate SHA512 file hashes
         ==============================================
     -->
-    <target name="generate-hash">
+    <target name="generate-hash" unless="${env.TRAVIS}">
         <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
-        <echo file="${filename}.sha512">${phar.hash} ${filename}</echo>
+        <basename property="basefilename" file="${filename}"/>
+        <echo file="${filename}.sha512">${phar.hash} ${basefilename}</echo>
 
+        <filehash file="${filename}" algorithm="sha384" propertyname="phar.hash"/>
+        <echo file="${filename}.sha384">${phar.hash} ${basefilename}</echo>
+
+        <filehash file="${filename}" algorithm="sha256" propertyname="phar.hash"/>
+        <echo file="${filename}.sha256">${phar.hash} ${basefilename}</echo>
+
+        <filehash file="${filename}" algorithm="sha1" propertyname="phar.hash"/>
+        <echo file="${filename}.sha1">${phar.hash} ${basefilename}</echo>
+
+        <exec command="gpg -u mrook@php.net --detach-sign --output ${filename}.asc ${filename}" checkreturn="true" logoutput="true"/>
     </target>
 
 </project>

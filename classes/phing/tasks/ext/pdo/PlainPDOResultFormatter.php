@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -91,7 +89,6 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      */
     public function processRow($row)
     {
-
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
             foreach ($row as $fieldName => $ignore) {
@@ -112,7 +109,6 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
         $first = true;
         foreach ($row as $columnValue) {
-
             if ($columnValue != null) {
                 $columnValue = trim($columnValue);
             }
@@ -127,7 +123,6 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
         $this->out->write($line);
         $this->out->write($this->rowdelimiter);
-
     }
 
     /**
@@ -137,5 +132,4 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     {
         return new PhingFile('results.txt');
     }
-
 }

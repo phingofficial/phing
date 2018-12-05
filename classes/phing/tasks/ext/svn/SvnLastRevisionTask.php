@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Stores the number of the last revision of a workingcopy in a property
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN
  * @since 2.1.0
@@ -55,17 +51,6 @@ class SvnLastRevisionTask extends SvnBaseTask
     }
 
     /**
-     * Sets whether to force compatibility with older SVN versions (< 1.2)
-     *
-     * Retained for legacy reasons
-     * @deprecated
-     * @param $force
-     */
-    public function setForceCompatible($force)
-    {
-    }
-
-    /**
      * Sets whether to retrieve the last changed revision
      * @param $lastChanged
      */
@@ -84,7 +69,7 @@ class SvnLastRevisionTask extends SvnBaseTask
         $this->setup('info');
 
         if ($this->oldVersion) {
-            $output = $this->run(array('--xml'));
+            $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn info --xml'.");

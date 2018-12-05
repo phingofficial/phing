@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * Condition that tests whether a given string evals to true.
@@ -43,7 +38,7 @@ class IsTrueCondition extends ProjectComponent implements Condition
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = (bool) $value;
     }
 
     /**
@@ -58,5 +53,4 @@ class IsTrueCondition extends ProjectComponent implements Condition
 
         return $this->value;
     }
-
 }

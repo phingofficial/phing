@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,14 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-
 /**
  * Saves currently defined properties into a specified file
  *
  * @author Andrei Serdeliuc
  * @extends Task
- * @version   $Id$
  * @package   phing.tasks.ext
  */
 class ExportPropertiesTask extends Task
@@ -55,7 +49,7 @@ class ExportPropertiesTask extends Task
      *
      * @var array
      */
-    private $_disallowedPropertyPrefixes = array(
+    private $_disallowedPropertyPrefixes = [
         'host.',
         'phing.',
         'os.',
@@ -63,7 +57,7 @@ class ExportPropertiesTask extends Task
         'line.',
         'env.',
         'user.'
-    );
+    ];
 
     /**
      * setter for _targetFile
@@ -128,12 +122,6 @@ class ExportPropertiesTask extends Task
      */
     protected function isDisallowedPropery($propertyName)
     {
-        foreach ($this->_disallowedPropertyPrefixes as $property) {
-            if (substr($propertyName, 0, strlen($property)) == $property) {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array(substr($propertyName, 0, strlen($property)), $this->_disallowedPropertyPrefixes);
     }
 }

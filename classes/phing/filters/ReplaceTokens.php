@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,10 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/types/TokenSource.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Replaces tokens in the original input with user-supplied values.
@@ -43,7 +36,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Id$
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
@@ -63,23 +55,17 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     const DEFAULT_END_TOKEN = "@";
 
     /**
-     * [Deprecated] Data that must be read from, if not null.
-     * @var string
-     */
-    private $_queuedData = null;
-
-    /**
      * Array to hold the replacee-replacer pairs (String to String).
      * @var array
      */
-    private $_tokens = array();
+    private $_tokens = [];
 
     /**
      * Array to hold the token sources that make tokens from
      * different sources available
      * @var array
      */
-    private $_tokensources = array();
+    private $_tokensources = [];
 
     /**
      * Array holding all tokens given directly to the Filter and
@@ -107,7 +93,6 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      */
     private function replaceTokenCallback($matches)
     {
-
         $key = $matches[1];
 
         /* Get tokens from tokensource and merge them with the
@@ -115,7 +100,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
          * done a bit more elegantly
          */
         if ($this->_alltokens === null) {
-            $this->_alltokens = array();
+            $this->_alltokens = [];
 
             $count = count($this->_tokensources);
             for ($i = 0; $i < $count; $i++) {
@@ -174,7 +159,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
         // filter buffer
         $buffer = preg_replace_callback(
             "/" . preg_quote($this->_beginToken, '/') . "([\w\.\-:]+?)" . preg_quote($this->_endToken, '/') . "/",
-            array($this, 'replaceTokenCallback'),
+            [$this, 'replaceTokenCallback'],
             $buffer
         );
 
@@ -214,7 +199,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the "end token" character.
      *
-     * @return the character used to denote the beginning of a token
+     * @return string the character used to denote the beginning of a token
      */
     public function getEndToken()
     {
@@ -259,7 +244,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     {
         // type check, error must never occur, bad code of it does
         if (!is_array($tokens)) {
-            throw new Exception("Excpected 'array', got something else");
+            throw new Exception("Expected 'array', got something else");
         }
 
         $this->_tokens = $tokens;
@@ -336,7 +321,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if ($params[$i] !== null) {
                     $type = $params[$i]->getType();
                     if ($type === "tokenchar") {
@@ -357,11 +342,11 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                             $tok->setKey($name);
                             $tok->setValue($value);
 
-                            array_push($this->_tokens, $tok);
+                            $this->_tokens[] = $tok;
                         } else {
                             if ($type === "tokensource") {
                                 // Store data from nested tags in local array
-                                $arr = array();
+                                $arr = [];
 
                                 $subparams = $params[$i]->getParams();
                                 foreach ($subparams as $subparam) {
@@ -391,85 +376,5 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                 }
             }
         }
-    }
-}
-
-/**
- * Holds a token.
- *
- * @package   phing.filters
- */
-class Token
-{
-
-    /**
-     * Token key.
-     * @var string
-     */
-    private $_key;
-
-    /**
-     * Token value.
-     * @var string
-     */
-    private $_value;
-
-    /**
-     * Sets the token key.
-     *
-     * @param string $key The key for this token. Must not be <code>null</code>.
-     */
-    public function setKey($key)
-    {
-        $this->_key = (string) $key;
-    }
-
-    /**
-     * Sets the token value.
-     *
-     * @param string $value The value for this token. Must not be <code>null</code>.
-     */
-    public function setValue($value)
-    {
-        // special case for boolean values
-        if (is_bool($value)) {
-            if ($value) {
-                $this->_value = "true";
-            } else {
-                $this->_value = "false";
-            }
-        } else {
-            $this->_value = (string) $value;
-        }
-    }
-
-    /**
-     * Returns the key for this token.
-     *
-     * @return string The key for this token.
-     */
-    public function getKey()
-    {
-        return $this->_key;
-    }
-
-    /**
-     * Returns the value for this token.
-     *
-     * @return string The value for this token.
-     */
-    public function getValue()
-    {
-        return $this->_value;
-    }
-
-    /**
-     * Sets the token value from text.
-     *
-     * @param string $value The value for this token. Must not be <code>null</code>.
-     */
-    public function addText($value)
-    {
-        $this->setValue($value);
     }
 }

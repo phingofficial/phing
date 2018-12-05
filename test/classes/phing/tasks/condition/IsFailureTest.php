@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildFileTest.php';
-
 /**
  * Testcase for the IsFailure condition.
  *
@@ -45,5 +43,4 @@ class IsFailureTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Command failed with return code 0');
     }
-
 }

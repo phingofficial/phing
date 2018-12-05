@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/util/regexp/Regexp.php';
-
 /**
  * Uses regular expressions to perform filename transformations.
  *
@@ -43,12 +39,46 @@ class RegexpMapper implements FileNameMapper
      */
     private $reg;
 
+    private $handleDirSep = false;
+    private $caseSensitive = true;
+
     /**
      * Instantiage regexp matcher here.
      */
     public function __construct()
     {
         $this->reg = new Regexp();
+        $this->reg->setIgnoreCase(!$this->caseSensitive);
+    }
+
+    /**
+     * Attribute specifying whether to ignore the difference
+     * between / and \ (the two common directory characters).
+     * @param boolean $handleDirSep a boolean, default is false.
+     */
+    public function setHandleDirSep($handleDirSep)
+    {
+        $this->handleDirSep = $handleDirSep;
+    }
+
+    /**
+     * Attribute specifying whether to ignore the difference
+     * between / and \ (the two common directory characters).
+     */
+    public function getHandleDirSep()
+    {
+        return $this->handleDirSep;
+    }
+
+    /**
+     * Attribute specifying whether to ignore the case difference
+     * in the names.
+     *
+     * @param boolean $caseSensitive a boolean, default is false.
+     */
+    public function setCaseSensitive($caseSensitive)
+    {
+        $this->caseSensitive = $caseSensitive;
     }
 
     /**
@@ -61,6 +91,10 @@ class RegexpMapper implements FileNameMapper
      */
     public function setFrom($from)
     {
+        if ($from === null) {
+            throw new BuildException("this mapper requires a 'from' attribute");
+        }
+
         $this->reg->setPattern($from);
     }
 
@@ -78,6 +112,10 @@ class RegexpMapper implements FileNameMapper
      */
     public function setTo($to)
     {
+        if ($to === null) {
+            throw new BuildException("this mapper requires a 'to' attribute");
+        }
+
         $this->to = $to;
     }
 
@@ -90,11 +128,16 @@ class RegexpMapper implements FileNameMapper
      */
     public function main($sourceFileName)
     {
+        if ($this->handleDirSep) {
+            if (strpos('\\', $sourceFileName) !== false) {
+                $sourceFileName = str_replace('\\', '/', $sourceFileName);
+            }
+        }
         if ($this->reg === null || $this->to === null || !$this->reg->matches((string) $sourceFileName)) {
             return null;
         }
 
-        return array($this->replaceReferences($sourceFileName));
+        return [$this->replaceReferences($sourceFileName)];
     }
 
     /**
@@ -113,7 +156,7 @@ class RegexpMapper implements FileNameMapper
      */
     private function replaceReferences($source)
     {
-        return preg_replace_callback('/\\\([\d]+)/', array($this, 'replaceReferencesCallback'), $this->to);
+        return preg_replace_callback('/\\\([\d]+)/', [$this, 'replaceReferencesCallback'], $this->to);
     }
 
     /**

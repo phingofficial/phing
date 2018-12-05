@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Replaces tokens in the original input with the contents of a file.
@@ -48,7 +42,6 @@ include_once 'phing/filters/ChainableReader.php';
  * </filterreader></pre>
  *
  * @author    johan persson, johanp@aditus.nu
- * @version   $Id$
  * @see       ReplaceTokensWithFile
  * @package   phing.filters
  */
@@ -72,7 +65,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * different sources available
      * @var array
      */
-    private $_tokensources = array();
+    private $_tokensources = [];
 
     /**
      * Character marking the beginning of a token.
@@ -234,7 +227,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     /**
      * Returns the "end token" character.
      *
-     * @return the character used to denote the beginning of a token
+     * @return string the character used to denote the beginning of a token
      */
     public function getEndToken()
     {
@@ -248,7 +241,6 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     private function replaceTokenCallback($matches)
     {
-
         $filetoken = $matches[1];
 
         // We look in all specified directories for the named file and use
@@ -313,7 +305,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         // filter buffer
         $buffer = preg_replace_callback(
             "$" . preg_quote($this->_beginToken) . "([\w\.\-:\/]+?)" . preg_quote($this->_endToken) . "$",
-            array($this, 'replaceTokenCallback'),
+            [$this, 'replaceTokenCallback'],
             $buffer
         );
 
@@ -361,10 +353,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
                 if ($params[$i] !== null) {
                     $name = $params[$i]->getName();
                     switch ($name) {
-                        case 'begintoken' :
+                        case 'begintoken':
                             $this->_beginToken = $params[$i]->getValue();
                             break;
-                        case 'endtoken' :
+                        case 'endtoken':
                             $this->_endToken = $params[$i]->getValue();
                             break;
                         case 'dir':

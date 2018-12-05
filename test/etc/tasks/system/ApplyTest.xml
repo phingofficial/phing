@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ApplyTaskTest" default="test">
 
+  <if>
+    <os family="mac">
+    </os>
+    <then>
+      <property name="binPrefix" value="/usr/bin"/>
+    </then>
+    <else>
+      <property name="binPrefix" value="/bin"/>
+    </else>
+  </if>
+
   <target name="testPropertySetOs">
     <apply executable="echo" os="linux" />
   </target>
 
   <target name="testPropertySetDir">
-    <apply executable="echo" dir="/tmp/" />
+    <apply executable="echo" dir="${php.tmpdir}" />
   </target>
-  
+
   <target name="testPropertySetEscape">
     <apply executable="echo" escape="true" />
   </target>
-  
+
   <target name="testPropertySetPassthru">
     <apply executable="echo" passthru="true" />
   </target>
-  
+
   <target name="testPropertySetSpawn">
     <apply executable="echo" spawn="true" />
   </target>
-  
+
   <target name="testPropertySetReturnProperty">
     <apply executable="echo" returnProperty="retval" />
   </target>
-  
+
   <target name="testPropertySetOutputProperty">
     <apply executable="echo" outputProperty="outval" />
   </target>
-  
+
   <target name="testPropertySetCheckreturn">
-    <apply executable="echo" checkreturn="true" />
+    <apply executable="echo" failonerror="true" />
   </target>
-  
+
   <target name="testPropertySetOutput">
-    <apply executable="echo" output="/tmp/outputfilename" />
+    <apply executable="echo" output="${php.tmpdir}/outputfilename" />
   </target>
-  
+
   <target name="testPropertySetError">
-    <apply executable="echo" error="/tmp/errorfilename" />
+    <apply executable="echo" error="${php.tmpdir}/errorfilename" />
   </target>
 
   <target name="testPropertySetAppend">
@@ -65,7 +76,7 @@
     <apply executable="echo" parallel="true" maxparallel="10" />
   </target>
 
-  
+
   <target name="testDoNotExecuteOnWrongOs">
     <apply executable="echo" os="unknownos" addsourcefile="false" >
       <arg value="'this should not be executed'" />
@@ -74,7 +85,7 @@
       </fileset>
     </apply>
   </target>
-  
+
   <target name="testExecuteOnCorrectOs">
     <apply executable="echo" os="WINNT WIN32 Linux Darwin BSD" addsourcefile="false" >
       <arg value="this should be executed" />
@@ -83,9 +94,9 @@
       </fileset>
     </apply>
   </target>
-  
+
   <target name="testFailOnNonExistingDir">
-    <apply executable="/bin/echo" dir="/tmp/non/existent/dir" >
+    <apply executable="echo" dir="${php.tmpdir}/non/existent/dir" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
@@ -93,7 +104,7 @@
   </target>
 
   <target name="testChangeToDir">
-    <apply executable="/bin/ls" dir="/tmp/" addsourcefile="false" >
+    <apply executable="ls" dir="${php.tmpdir}/" addsourcefile="false" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
@@ -101,23 +112,23 @@
   </target>
 
   <target name="testCheckreturnTrue">
-    <apply executable="/bin/true" checkreturn="true" addsourcefile="false" >
+    <apply executable="${binPrefix}/true" checkreturn="true" addsourcefile="false" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
     </apply>
   </target>
-  
-    <target name="testCheckreturnFalse">
-    <apply executable="/bin/false" checkreturn="true" addsourcefile="false" >
+
+  <target name="testCheckreturnFalse">
+    <apply executable="${binPrefix}/false" checkreturn="true" addsourcefile="false" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
     </apply>
   </target>
-  
+
   <target name="testOutputProperty">
-    <apply executable="/bin/echo" outputProperty="execOutputProp"  addsourcefile="false" parallel="true" >
+    <apply executable="echo" outputProperty="execOutputProp"  addsourcefile="false" parallel="true" >
       <arg value="foo" />
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
@@ -127,14 +138,14 @@
   </target>
 
   <target name="testReturnProperty">
-    <apply executable="/bin/false" returnProperty="execReturnProp"  addsourcefile="false" parallel="true">
+    <apply executable="${binPrefix}/false" returnProperty="execReturnProp"  addsourcefile="false" parallel="true">
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
     </apply>
     <echo>The return property's value is: "${execReturnProp}"</echo>
   </target>
-  
+
   <target name="testEscape">
     <!-- 'Echo' combines multiple spaces, but not on MS Windows -->
     <apply executable="echo" escape="true" addsourcefile="false" parallel="true">
@@ -146,15 +157,15 @@
   </target>
 
   <target name="testPassThru">
-    <apply executable="/bin/true" passthru="true" addsourcefile="false" parallel="true">
+    <apply executable="${binPrefix}/true" passthru="true" addsourcefile="false" parallel="true">
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
     </apply>
   </target>
-  
+
   <target name="testOutput">
-    <apply executable="/bin/echo" output="${execTmpFile}" addsourcefile="false" parallel="true">
+    <apply executable="echo" output="${execTmpFile}" addsourcefile="false" parallel="true">
       <arg value="outfoo" />
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
@@ -169,9 +180,9 @@
       </fileset>
     </apply>
   </target>
-  
+
   <target name="testSpawn">
-    <apply executable="/bin/sleep" spawn="true" addsourcefile="false" parallel="true" >
+    <apply executable="sleep" spawn="true" addsourcefile="false" parallel="true" >
       <arg value="5" />
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
@@ -180,7 +191,7 @@
   </target>
 
   <target name="testNestedArgs">
-    <apply executable="/bin/echo" addsourcefile="false" parallel="true" >
+    <apply executable="echo" addsourcefile="false" parallel="true" >
       <arg value="Hello" />
       <arg line="World" />
       <fileset dir="${phing.home}/etc" >
@@ -188,13 +199,13 @@
       </fileset>
     </apply>
   </target>
-  
+
   <target name="testMissingExecutable">
     <apply></apply>
   </target>
 
   <target name="testEscapedArg">
-    <apply executable="/bin/echo" escape="true" outputProperty="outval" addsourcefile="false" parallel="true">
+    <apply executable="echo" escape="true" outputProperty="outval" addsourcefile="false" parallel="true">
       <arg value="abc$b3!SB" />
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
@@ -219,7 +230,7 @@
   </target>
 
   <target name="testOutputAppend">
-    <apply executable="/bin/echo" parallel="true" output="${execTmpFile}" append="true" addsourcefile="false" >
+    <apply executable="echo" parallel="true" output="${execTmpFile}" append="true" addsourcefile="false" >
       <arg value="Append OK" />
       <fileset dir="${phing.home}/etc" ><include name="*.xsl" /></fileset>
       <fileset dir="${phing.home}/etc" ><include name="*.rng" /></fileset>
@@ -227,11 +238,21 @@
   </target>
 
   <target name="testParallel">
-    <apply executable="/bin/echo" parallel="true" addsourcefile="false" >
+    <apply executable="echo" parallel="true" addsourcefile="false" >
       <arg value="Hello" />
       <fileset dir="${phing.home}/etc" ><include name="*.xsl" /></fileset>
     </apply>
   </target>
-  
+
+  <target name="testMapperSupport">
+    <apply executable="echo" dest="." output="${execTmpFile}" append="true" addsourcefile="false" >
+      <arg value="-c"/>
+      <arg value="-o"/>
+      <targetfile/>
+      <srcfile/>
+      <fileset dir="${phing.home}/etc" includes="*.xsl"/>
+      <mapper type="glob" from="*.xsl" to="*.xml"/>
+    </apply>
+  </target>
 
 </project>

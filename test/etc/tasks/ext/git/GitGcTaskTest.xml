@@ -1,21 +1,20 @@
 <?xml version="1.0"?>
 <project name="gitGcTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
     </target>
 
     <target name="allParamsSet" description="Gc with all parameters present">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitgc 
+        <gitgc
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             aggressive="true"
             auto="true"
@@ -27,34 +26,46 @@
     </target>
 
     <target name="autoParamSet" description="Gc --auto">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitgc 
+        <gitgc
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" auto="true" />
     </target>
 
     <target name="nopruneParamSet" description="Gc --noprune">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitgc 
+        <gitgc
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" noprune="true" />
     </target>
 
     <target name="aggressiveParamSet" description="Gc --aggressive">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitgc 
+        <gitgc
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" aggressive="true" />
     </target>
 
     <target name="pruneParamSet" description="Gc --prune=date">
-        <gitclone 
+        <gitclone
+                gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitgc 
+        <gitgc
+                gitPath="${git-path}"
             repository="${tmp.dir.resolved}" prune="1.week.ago" />
     </target>
 </project>

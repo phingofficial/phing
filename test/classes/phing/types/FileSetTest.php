@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,22 +19,16 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/AbstractFileSetTest.php';
-include_once 'phing/types/FileSet.php';
-
 /**
  * Unit tests for FileSet -- including Selectors.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
  * @package phing.types
  */
 class FileSetTest extends AbstractFileSetTest
 {
-
     protected function getInstance()
     {
         return new FileSet();
     }
-
 }

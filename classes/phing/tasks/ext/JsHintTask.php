@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,7 +18,6 @@
 * <http://phing.info>.
 */
 
-require_once 'phing/Task.php';
 
 /**
  * JsHintTask
@@ -28,11 +27,11 @@ require_once 'phing/Task.php';
  *
  * @author Martin Hujer <mhujer@gmail.com>
  * @package phing.tasks.ext
- * @version $Id$
  * @since 2.6.2
  */
 class JsHintTask extends Task
 {
+    use FileSetAware;
 
     /**
      * The source file (from xml attribute)
@@ -40,13 +39,6 @@ class JsHintTask extends Task
      * @var string
      */
     protected $file;
-
-    /**
-     * All fileset objects assigned to this task
-     *
-     * @var FileSet[]
-     */
-    protected $filesets = array();
 
     /**
      * Should the build fail on JSHint errors
@@ -74,7 +66,17 @@ class JsHintTask extends Task
      *
      * @var array
      */
-    private $xmlAttributes;
+    private $xmlAttributes = [
+        'severity' => [
+            'error' => 'error',
+            'warning' => 'warning',
+            'info' => 'info'
+        ],
+        'fileError' => 'error',
+        'line' => 'line',
+        'column' => 'column',
+        'message' => 'message',
+    ];
 
     /**
      * Path where the the report in Checkstyle format should be saved
@@ -82,6 +84,9 @@ class JsHintTask extends Task
      * @var string
      */
     private $checkstyleReportPath;
+    
+    /** @var string $config */
+    private $config;
 
     /**
      * File to be performed syntax check on
@@ -91,17 +96,6 @@ class JsHintTask extends Task
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -129,34 +123,31 @@ class JsHintTask extends Task
     }
 
     /**
-     * @param $reporter
+     * @param string $reporter
      */
     public function setReporter($reporter)
     {
         $this->reporter = $reporter;
 
-        switch ($this->reporter) {
-            case 'jslint':
-                $this->xmlAttributes = array(
-                    'severity' => array('error' => 'E', 'warning' => 'W', 'info' => 'I'),
-                    'fileError' => 'issue',
-                    'line' => 'line',
-                    'column' => 'char',
-                    'message' => 'reason',
-                );
-                break;
-            default:
-                $this->xmlAttributes = array(
-                    'severity' => array('error' => 'error', 'warning' => 'warning', 'info' => 'info'),
-                    'fileError' => 'error',
-                    'line' => 'line',
-                    'column' => 'column',
-                    'message' => 'message',
-                );
-                break;
+        if ($this->reporter === 'jslint') {
+            $this->xmlAttributes = [
+                'severity' => ['error' => 'E', 'warning' => 'W', 'info' => 'I'],
+                'fileError' => 'issue',
+                'line' => 'line',
+                'column' => 'char',
+                'message' => 'reason',
+            ];
         }
     }
 
+    /**
+     * @param string $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+    
     public function main()
     {
         if (!isset($this->file) && count($this->filesets) === 0) {
@@ -164,7 +155,7 @@ class JsHintTask extends Task
         }
 
         if (!isset($this->file)) {
-            $fileList = array();
+            $fileList = [];
             $project = $this->getProject();
             foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($project);
@@ -175,14 +166,27 @@ class JsHintTask extends Task
                 }
             }
         } else {
-            $fileList = array($this->file);
+            $fileList = [$this->file];
         }
 
         $this->_checkJsHintIsInstalled();
 
         $fileList = array_map('escapeshellarg', $fileList);
-        $command = sprintf('jshint --reporter=%s %s', $this->reporter, implode(' ', $fileList));
-        $output = array();
+        if ($this->config) {
+            $command = sprintf(
+                'jshint --config=%s --reporter=%s %s',
+                $this->config,
+                $this->reporter,
+                implode(' ', $fileList)
+            );
+        } else {
+            $command = sprintf(
+                'jshint --reporter=%s %s',
+                $this->reporter,
+                implode(' ', $fileList)
+            );
+        }
+        $output = [];
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
         $xml = simplexml_load_string($output);
@@ -190,10 +194,11 @@ class JsHintTask extends Task
         $projectBasedir = $this->_getProjectBasedir();
         $errorsCount = 0;
         $warningsCount = 0;
+        $fileError = $this->xmlAttributes['fileError'];
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
             $fileName = (string) $fileAttributes['name'];
-            foreach ($file->error as $error) {
+            foreach ($file->$fileError as $error) {
                 $errAttr = (array) $error->attributes();
                 $attrs = current($errAttr);
 
@@ -237,15 +242,17 @@ class JsHintTask extends Task
     }
 
     /**
-     * @return Path to the project basedir
+     * @return string Path to the project basedir
+     * @throws \BuildException
      */
     private function _getProjectBasedir()
     {
-        return $this->getProject()->getBaseDir()->getAbsolutePath() . DIRECTORY_SEPARATOR;
+        return $this->getProject()->getBasedir()->getAbsolutePath() . DIRECTORY_SEPARATOR;
     }
 
     /**
      * Checks, wheter the JSHint can be executed
+     * @throws \BuildException
      */
     private function _checkJsHintIsInstalled()
     {

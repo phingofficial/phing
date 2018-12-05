@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@ require_once 'phing/system/io/PhingFile.php';
  *
  * @package phing.tasks.ext.pdepend
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  * @since   2.4.1
  */
 class PhpDependLoggerElement

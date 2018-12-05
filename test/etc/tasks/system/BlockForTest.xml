@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BlockForTaskTest" default="test">
+    <target name="testConditionMet">
+    	<touch file="_block_for.log"/>
+    	<blockfor maxwait="1" maxwaitunit="second">
+    	    <available file="_block_for.log"/>
+    	</blockfor>
+    	<delete file="_block_for.log"/>
+    </target>
+
+    <target name="testTimeout">
+    	<blockfor maxwait="1" maxwaitunit="second"
+    	timeoutproperty="blockfor.timeout">
+    	    <available file="_block_for.log"/>
+    	</blockfor>
+    </target>
+</project>

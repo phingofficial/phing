@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,12 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 abstract class AbstractSvnTaskTest extends BuildFileTest
@@ -33,12 +28,12 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
 
     protected $savedErrorLevel = 0;
 
-    public function setUp($buildFilename, $createDirectory = true)
+    protected function initialize($buildFilename, $createDirectory = true)
     {
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
         }
 
         if ($createDirectory) {
@@ -58,6 +53,6 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
     public function tearDown()
     {
         error_reporting($this->savedErrorLevel);
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 }

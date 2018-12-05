@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +23,7 @@
  * @author Daniel Holmes
  * @package phing.system.io
  */
-abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -34,7 +33,6 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
             $this->markTestSkipped(
                 'Testing not on a windows os.'
@@ -69,17 +67,17 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 
     public function normaliseDataProvider()
     {
-        return array(
-            'alreadyNormal' => array('C:\\My Files\\file.txt', 'C:\\My Files\\file.txt'),
-            'incorrectSlashes' => array('C:\\My Files\\file.txt', 'C:/My Files/file.txt'),
-            'empty' => array('', ''),
-            'relative' => array('My Files\\file.txt', 'My Files/file.txt'),
-            'directoryRelative' => array('c:My Files\\file.txt', 'c:My Files\\file.txt'),
-            'driveRelative' => array('\\My Files\\file.txt', '\\My Files/file.txt')
+        return [
+            'alreadyNormal' => ['C:\\My Files\\file.txt', 'C:\\My Files\\file.txt'],
+            'incorrectSlashes' => ['C:\\My Files\\file.txt', 'C:/My Files/file.txt'],
+            'empty' => ['', ''],
+            'relative' => ['My Files\\file.txt', 'My Files/file.txt'],
+            'directoryRelative' => ['c:My Files\\file.txt', 'c:My Files\\file.txt'],
+            'driveRelative' => ['\\My Files\\file.txt', '\\My Files/file.txt']
             // Error shown in version of phpunit using (3.6.10) when serialising this argument set.
             // Not sure if an issue in phpunit
             //'unc' => array('\\\\server\\My Files\\file.txt', '\\\\server\\My Files\\file.txt')
-        );
+        ];
     }
 
     /**
@@ -96,16 +94,16 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 
     public function prefixLengthDataProvider()
     {
-        return array(
-            'absoluteLocal' => array(3, 'D:\\My Files\\file.txt'),
+        return [
+            'absoluteLocal' => [3, 'D:\\My Files\\file.txt'],
             // Error shown in version of phpunit using (3.6.10) when serialising this argument set.
             // Not sure if an issue in phpunit
             //'unc' => array(2, '\\\\My Files\file.txt')
-            'empty' => array(0, ''),
-            'driveRelative' => array(1, '\\My Files\\file.txt'),
-            'directoryRelative' => array(2, 'c:My Files\\file.txt'),
-            'relative' => array(0, 'My Files\\file.txt')
-        );
+            'empty' => [0, ''],
+            'driveRelative' => [1, '\\My Files\\file.txt'],
+            'directoryRelative' => [2, 'c:My Files\\file.txt'],
+            'relative' => [0, 'My Files\\file.txt']
+        ];
     }
 
     /**
@@ -123,14 +121,14 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 
     public function resolveDataProvider()
     {
-        return array(
-            'emptyParent' => array('My Files\\file.txt', '', 'My Files\\file.txt'),
-            'emptyChild' => array('C:\\My Files', 'C:\\My Files', ''),
+        return [
+            'emptyParent' => ['My Files\\file.txt', '', 'My Files\\file.txt'],
+            'emptyChild' => ['C:\\My Files', 'C:\\My Files', ''],
             // Not working properly on my version of phpunit (3.6.10)
             //'uncChild' => array('C:\\My Files\\files\\file.txt', 'C:\\My Files', '\\\\files\\file.txt')
-            'driveRelativeChild' => array('C:\\My Files\\file.txt', 'C:\\My Files', '\\file.txt'),
-            'endSlashParent' => array('C:\\My Files\\file.txt', 'C:\\My Files\\', '\\file.txt')
-        );
+            'driveRelativeChild' => ['C:\\My Files\\file.txt', 'C:\\My Files', '\\file.txt'],
+            'endSlashParent' => ['C:\\My Files\\file.txt', 'C:\\My Files\\', '\\file.txt']
+        ];
     }
 
     /**
@@ -163,19 +161,20 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
             $cwd = str_replace('/', '\\', $cwd);
         }
 
-        return array(
-            'absoluteLocal' => array('C:\\My Files\\file.txt', 'C:\\My Files\\file.txt', 3),
+        return [
+            'absoluteLocal' => ['C:\\My Files\\file.txt', 'C:\\My Files\\file.txt', 3],
             // Error shown in version of phpunit using (3.6.10) when serialising this argument set.
             // Not sure if an issue in phpunit
             //'unc' => array('\\\\files\\file.txt', '\\\\files\\file.txt', 2)
-            'relative' => array($cwd . '\\files\file.txt', 'files\\file.txt', 0),
-            'driveRelative' => array($driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1)
-        );
+            'relative' => [$cwd . '\\files\file.txt', 'files\\file.txt', 0],
+            'driveRelative' => [$driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1]
+        ];
     }
 
     public function testResolveFileUnknownFile()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Unresolvable path: file.txt');
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Unresolvable path: file.txt');
 
         $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue('file.txt'));
@@ -205,14 +204,14 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 
     public function fromURIPathDataProvider()
     {
-        return array(
-            'singleLetter' => array('f', 'f'),
-            'slashStart' => array('/foo', '/foo/'),
-            'driveLetter' => array('c:/foo', '/c:/foo'),
-            'driveLetter' => array('c:/foo', '/c:/foo'),
-            'slashPath' => array('c:/foo', 'c:/foo/'),
-            'slashPathRootDrive' => array('c:/', '/c:/')
-        );
+        return [
+            'singleLetter' => ['f', 'f'],
+            'slashStart' => ['/foo', '/foo/'],
+            'driveLetter' => ['c:/foo', '/c:/foo'],
+            'driveLetter' => ['c:/foo', '/c:/foo'],
+            'slashPath' => ['c:/foo', 'c:/foo/'],
+            'slashPathRootDrive' => ['c:/', '/c:/']
+        ];
     }
 
     /**
@@ -234,12 +233,12 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 
     public function isAbsoluteDataProvider()
     {
-        return array(
+        return [
             // Doesn't work for my current version of phpunit
             //'unc' => array(true, '\\\\file.txt', 2)
-            'absoluteLocal' => array(true, 'C:\\file.txt', 3),
-            'driveRelative' => array(true, '\\file.txt', 1),
-            'relative' => array(false, 'file.txt', 0)
-        );
+            'absoluteLocal' => [true, 'C:\\file.txt', 3],
+            'driveRelative' => [true, '\\file.txt', 1],
+            'relative' => [false, 'file.txt', 0]
+        ];
     }
 }

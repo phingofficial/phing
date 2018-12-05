@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/DataType.php';
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * FileList represents an explicitly named list of files. FileLists
@@ -41,7 +36,6 @@ include_once 'phing/system/io/PhingFile.php';
  * (or a mixture of files="" and listfile="" can be used)
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
  * @package phing.types
  */
 class FileList extends DataType
@@ -50,7 +44,7 @@ class FileList extends DataType
     // public for "cloning" purposes
 
     /** Array containing all filenames. */
-    public $filenames = array();
+    public $filenames = [];
 
     /** Base directory for this file list. */
     public $dir;
@@ -64,6 +58,8 @@ class FileList extends DataType
      */
     public function __construct($filelist = null)
     {
+        parent::__construct();
+
         if ($filelist !== null) {
             $this->dir = $filelist->dir;
             $this->filenames = $filelist->filenames;
@@ -179,7 +175,6 @@ class FileList extends DataType
      */
     public function getFiles(Project $p)
     {
-
         if ($this->isReference()) {
             $ret = $this->getRef($p);
             $ret = $ret->getFiles($p);
@@ -205,18 +200,8 @@ class FileList extends DataType
      */
     public function getRef(Project $p)
     {
-        if (!$this->checked) {
-            $stk = array();
-            array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);
-        }
-
-        $o = $this->ref->getReferencedObject($p);
-        if (!($o instanceof FileList)) {
-            throw new BuildException($this->ref->getRefId() . " doesn't denote a filelist");
-        } else {
-            return $o;
-        }
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
     /**

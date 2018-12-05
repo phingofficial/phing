@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,22 +17,17 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Applies Xinclude parsing to incoming text.
  *
  * Uses PHP DOM XML support
  *
  * @author    Bill Karwin <bill@karwin.com>
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     private $basedir = null;
 
     /**
@@ -98,7 +90,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!class_exists('DomDocument')) {
             throw new BuildException("Could not find the DomDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
         }
@@ -147,7 +138,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      */
     protected function process($xml)
     {
-
         if ($this->basedir) {
             $cwd = getcwd();
             chdir($this->basedir);
@@ -186,5 +176,4 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 
         return $newFilter;
     }
-
 }

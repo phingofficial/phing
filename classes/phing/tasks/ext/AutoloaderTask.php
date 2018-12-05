@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,15 +17,12 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext
  */
 class AutoloaderTask extends Task
 {
-
     const DEFAULT_AUTOLOAD_PATH = 'vendor/autoload.php';
 
     private $autoloaderPath = self::DEFAULT_AUTOLOAD_PATH;
@@ -70,5 +64,4 @@ class AutoloaderTask extends Task
         $this->log('Loading autoloader from ' . $this->autoloaderPath);
         require_once $this->autoloaderPath;
     }
-
 }

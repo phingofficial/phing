@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Call another target in the same project.
@@ -41,7 +38,6 @@ require_once 'phing/Task.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class PhingCallTask extends Task
@@ -131,6 +127,19 @@ class PhingCallTask extends Task
     }
 
     /**
+     * Reference element identifying a data type to carry
+     * over to the invoked target.
+     * @param PhingReference $r the specified `PhingReference`.
+     */
+    public function addReference(PhingReference $r)
+    {
+        if ($this->callee === null) {
+            $this->init();
+        }
+        $this->callee->addReference($r);
+    }
+
+    /**
      *  init this task by creating new instance of the phing task and
      *  configuring it's by calling its own init method.
      */
@@ -151,6 +160,10 @@ class PhingCallTask extends Task
      */
     public function main()
     {
+        if ($this->getOwningTarget()->getName() === "") {
+            $this->log("Cowardly refusing to call target '{$this->subTarget}' from the root", Project::MSG_WARN);
+            return;
+        }
 
         $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
         if ($this->callee === null) {
@@ -161,11 +174,10 @@ class PhingCallTask extends Task
             throw new BuildException("Attribute target is required.", $this->getLocation());
         }
 
-        $this->callee->setPhingfile($this->project->getProperty("phing.file"));
+        $this->callee->setPhingFile($this->project->getProperty("phing.file"));
         $this->callee->setTarget($this->subTarget);
         $this->callee->setInheritAll($this->inheritAll);
         $this->callee->setInheritRefs($this->inheritRefs);
         $this->callee->main();
     }
-
 }

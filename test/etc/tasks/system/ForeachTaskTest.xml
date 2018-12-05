@@ -18,10 +18,24 @@
     </target>
 
     <target name="testLogMessageWithFileset">
+        <property id="test.property" name="foreach.test" value="TEST"/>
         <foreach param="filename" absparam="absfilename" target="main">
+            <reference refid="test.property"/>
             <fileset dir=".">
                 <exclude name="**" />
             </fileset>
+        </foreach>
+    </target>
+
+    <target name="testLogMessageWithDirset">
+        <foreach param="dirname" absparam="absdirname" target="main">
+            <dirset dir="." />
+        </foreach>
+    </target>
+    
+    <target name="testLogMessageWithPath">
+        <foreach param="dirname" absparam="absdirname" target="main">
+            <path dir="." />
         </foreach>
     </target>
 
@@ -31,6 +45,14 @@
 
     <target name="testLogMessageWithListUniqueEntry">
         <foreach list="fr" param="lang" target="main" />
+    </target>
+
+    <target name="index">
+        <echo>${index} - ${lang}</echo>
+    </target>
+
+    <target name="testIndex">
+        <foreach list="${languages}" param="lang" target="index"/>
     </target>
 
 </project>

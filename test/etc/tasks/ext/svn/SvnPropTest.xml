@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<project name="SvnPropTest" default="invalid">
+
+    <property name="tmp.dir" value="./../../../../tmp/svn" />
+    <property name="repo.url" value="https://github.com/phingofficial/phing/tags/2.4.12/etc"/>
+
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="testProperties" description="svn proplist test">
+        <svnpropset
+            repositoryurl="${repo.url}"
+            svnpropertyname="newprop"
+            svnpropertyvalue="test" />
+        <svnpropget
+            repositoryurl="${repo.url}"
+            svnpropertyname="newprop"/>
+    </target>
+
+</project>

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -43,7 +41,7 @@ class Parameter extends DataType
     protected $value;
 
     /** Nested parameters */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * @param $name
@@ -76,6 +74,14 @@ class Parameter extends DataType
     public function setValue($value)
     {
         $this->value = (string) $value;
+    }
+
+    /**
+     * @param $v
+     */
+    public function addText($v)
+    {
+        $this->val = $v;
     }
 
     public function getName()

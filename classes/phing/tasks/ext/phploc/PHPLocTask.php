@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/BuildException.php';
-require_once 'phing/tasks/ext/phploc/PHPLocFormatterElement.php';
-require_once 'phing/tasks/ext/phploc/PHPLocFormatterFactory.php';
-
 /**
  * Runs phploc a tool for quickly measuring the size of PHP projects.
  *
@@ -31,15 +25,17 @@ require_once 'phing/tasks/ext/phploc/PHPLocFormatterFactory.php';
  */
 class PHPLocTask extends Task
 {
-    /**
-     * @var array
-     */
-    protected $suffixesToCheck = array('php');
+    use FileSetAware;
 
     /**
      * @var array
      */
-    protected $acceptedReportTypes = array('cli', 'txt', 'xml', 'csv');
+    protected $suffixesToCheck = ['php'];
+
+    /**
+     * @var array
+     */
+    protected $acceptedReportTypes = ['cli', 'txt', 'xml', 'csv'];
 
     /**
      * @var null
@@ -69,17 +65,12 @@ class PHPLocTask extends Task
     /**
      * @var array
      */
-    protected $filesToCheck = array();
-
-    /**
-     * @var FileSet[]
-     */
-    protected $fileSets = array();
+    protected $filesToCheck = [];
 
     /**
      * @var PHPLocFormatterElement[]
      */
-    protected $formatterElements = array();
+    protected $formatterElements = [];
 
     /**
      * @var string
@@ -91,7 +82,7 @@ class PHPLocTask extends Task
      */
     public function setSuffixes($suffixListOrSingleSuffix)
     {
-        if (stripos($suffixListOrSingleSuffix, ',')) {
+        if (strpos($suffixListOrSingleSuffix, ',')) {
             $suffixes = explode(',', $suffixListOrSingleSuffix);
             $this->suffixesToCheck = array_map('trim', $suffixes);
         } else {
@@ -113,17 +104,6 @@ class PHPLocTask extends Task
     public function setCountTests($countTests)
     {
         $this->countTests = StringHelper::booleanValue($countTests);
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->fileSets[] = $fs;
     }
 
     /**
@@ -200,8 +180,8 @@ class Application
 
         $this->validateProperties();
 
-        if (count($this->fileSets) > 0) {
-            foreach ($this->fileSets as $fileSet) {
+        if (count($this->filesets) > 0) {
+            foreach ($this->filesets as $fileSet) {
                 $directoryScanner = $fileSet->getDirectoryScanner($this->project);
                 $files = $directoryScanner->getIncludedFiles();
                 $directory = $fileSet->getDir($this->project)->getPath();
@@ -224,7 +204,7 @@ class Application
      */
     private function validateProperties()
     {
-        if ($this->fileToCheck === null && count($this->fileSets) === 0) {
+        if ($this->fileToCheck === null && count($this->filesets) === 0) {
             throw new BuildException('Missing either a nested fileset or the attribute "file" set.');
         }
 
@@ -237,7 +217,7 @@ class Application
                 throw new BuildException('Suffix of file to check is not defined in "suffixes" attribute.');
             }
 
-            if (count($this->fileSets) > 0) {
+            if (count($this->filesets) > 0) {
                 throw new BuildException('Either use a nested fileset or "file" attribute; not both.');
             }
         }
@@ -316,14 +296,14 @@ class Application
      */
     protected function getFilesToCheck()
     {
-        $files = array();
+        $files = [];
 
         if (count($this->filesToCheck) > 0) {
             foreach ($this->filesToCheck as $file) {
                 $files[] = new SplFileInfo($file);
             }
         } elseif ($this->fileToCheck !== null) {
-            $files = array(new SplFileInfo($this->fileToCheck));
+            $files = [new SplFileInfo($this->fileToCheck)];
         }
 
         return $files;

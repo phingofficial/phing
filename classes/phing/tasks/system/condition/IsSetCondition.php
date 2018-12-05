@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,20 +17,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Condition that tests whether a given property has been set.
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id$
  * @package phing.tasks.system.condition
  */
 class IsSetCondition extends ProjectComponent implements Condition
 {
-
     private $property;
 
     /**
@@ -56,5 +49,4 @@ class IsSetCondition extends ProjectComponent implements Condition
 
         return $this->project->getProperty($this->property) !== null;
     }
-
 }

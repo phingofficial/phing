@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-require_once 'phing/listener/DefaultLogger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Generates a file in the current directory with
  * an XML description of what happened during a build.
@@ -30,7 +24,6 @@ require_once 'phing/system/util/Timer.php';
  * with the property <code>XmlLogger.file</code>.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.listener
  */
 class XmlLogger implements BuildLogger
@@ -84,12 +77,12 @@ class XmlLogger implements BuildLogger
     /**
      * @var array DOMElement[] The parent of the element being processed.
      */
-    private $elementStack = array();
+    private $elementStack = [];
 
     /**
      * @var array int[] Array of millisecond times for the various elements being processed.
      */
-    private $timesStack = array();
+    private $timesStack = [];
 
     /**
      * @var int
@@ -130,8 +123,8 @@ class XmlLogger implements BuildLogger
     {
         $this->buildTimerStart = Phing::currentTimeMillis();
         $this->buildElement = $this->doc->createElement(XmlLogger::BUILD_TAG);
-        array_push($this->elementStack, $this->buildElement);
-        array_push($this->timesStack, $this->buildTimerStart);
+        $this->elementStack[] = $this->buildElement;
+        $this->timesStack[] = $this->buildTimerStart;
     }
 
     /**
@@ -144,6 +137,15 @@ class XmlLogger implements BuildLogger
      */
     public function buildFinished(BuildEvent $event)
     {
+        $xslUri = $event->getProject()->getProperty("phing.XmlLogger.stylesheet.uri");
+        if ($xslUri === null) {
+            $xslUri = "";
+        }
+
+        if ($xslUri !== '') {
+            $xslt = $this->doc->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="' . $xslUri . '"');
+            $this->doc->appendChild($xslt);
+        }
 
         $elapsedTime = Phing::currentTimeMillis() - $this->buildTimerStart;
 
@@ -203,8 +205,8 @@ class XmlLogger implements BuildLogger
         $targetElement = $this->doc->createElement(XmlLogger::TARGET_TAG);
         $targetElement->setAttribute(XmlLogger::NAME_ATTR, $target->getName());
 
-        array_push($this->timesStack, Phing::currentTimeMillis());
-        array_push($this->elementStack, $targetElement);
+        $this->timesStack[] = Phing::currentTimeMillis();
+        $this->elementStack[] = $targetElement;
     }
 
     /**
@@ -238,10 +240,10 @@ class XmlLogger implements BuildLogger
 
         $taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
         $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
-        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, $task->getLocation()->toString());
+        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string) $task->getLocation());
 
-        array_push($this->timesStack, Phing::currentTimeMillis());
-        array_push($this->elementStack, $taskElement);
+        $this->timesStack[] = Phing::currentTimeMillis();
+        $this->elementStack[] = $taskElement;
     }
 
     /**

@@ -25,7 +25,7 @@
 	<property name="test.class" value="${test}"/>
 	
 	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
-    <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
+	<resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
 	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
 	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
@@ -52,6 +52,7 @@
 			
 		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
 			<include name="**/*${test.class}.php"/>
+			<exclude name="**/Svn*TaskTest.php"/>
 		</fileset>
 	</target>
 
@@ -65,6 +66,11 @@
         		<coverage-setup database="reports/coverage.db">
                     <fileset dir="${phing.classes.dir.resolved}">
                         <include name="**/*.php"/>
+                        <!-- exclude these to prevent fatals when running on phpunit 6 (the default) -->
+                        <exclude name="**/phpunit/PHPUnitTestRunner.php"/>
+						<exclude name="**/phpunit/PHPUnitTestRunner6.php"/>
+                        <exclude name="**/phpunit/formatter5/*.php"/>
+						<exclude name="**/phpunit/formatter6/*.php"/>
                     </fileset>
         		</coverage-setup>
 	    	</then>
@@ -79,12 +85,12 @@
 				<fileset refid="relevant-tests"/>
 			</batchtest>
 		</phpunit>
-		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
-			infile="${tests.reports.dir.resolved}/test-results.xml"
-			styledir="${phing.etc.dir.resolved}"/>
         <if>
             <equals arg1="${tests.codecoverage}" arg2="true"/>
         	<then>
+		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
+			infile="${tests.reports.dir.resolved}/test-results.xml"
+			styledir="${phing.etc.dir.resolved}"/>
                 <coverage-report outfile="reports/coverage.xml">
                     <report todir="reports/coverage" styledir="${phing.etc.dir.resolved}" title="Phing"
                         usesorttable="true"/>

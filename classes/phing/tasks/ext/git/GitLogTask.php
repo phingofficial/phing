@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,15 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/git/GitBaseTask.php';
-
 /**
  * Wrapper aroung git-log
  *
  * @author Evan Kaufman <evan@digitalflophouse.com>
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.5
@@ -74,13 +68,13 @@ class GitLogTask extends GitBaseTask
      * <since> argument to git-log
      * @var string
      */
-    private $sinceCommit;
+    private $since;
 
     /**
      * <until> argument to git-log
      * @var string
      */
-    private $untilCommit = 'HEAD';
+    private $until;
 
     /**
      * <path> arguments to git-log
@@ -123,7 +117,10 @@ class GitLogTask extends GitBaseTask
         if (null !== $this->getSince()) {
             $command->setOption('since', $this->getSince());
         }
-        $command->setOption('until', $this->getUntil());
+        
+        if (null !== $this->getUntil()) {
+            $command->setOption('until', $this->getUntil());
+        }
 
         $command->addDoubleDash(true);
         if (null !== $this->getPaths()) {
@@ -143,7 +140,7 @@ class GitLogTask extends GitBaseTask
         }
 
         if (null !== $this->outputProperty) {
-            $this->project->setProperty($this->outputProperty, $output);
+            $this->project->setProperty($this->outputProperty, trim($output));
         }
 
         $this->log(
@@ -270,7 +267,7 @@ class GitLogTask extends GitBaseTask
      */
     public function setSince($since)
     {
-        $this->sinceCommit = $since;
+        $this->since = $since;
     }
 
     /**
@@ -278,7 +275,7 @@ class GitLogTask extends GitBaseTask
      */
     public function getSince()
     {
-        return $this->sinceCommit;
+        return $this->since;
     }
 
     /**
@@ -294,7 +291,7 @@ class GitLogTask extends GitBaseTask
      */
     public function setUntil($until)
     {
-        $this->untilCommit = $until;
+        $this->until = $until;
     }
 
     /**
@@ -302,7 +299,7 @@ class GitLogTask extends GitBaseTask
      */
     public function getUntil()
     {
-        return $this->untilCommit;
+        return $this->until;
     }
 
     /**
@@ -336,5 +333,4 @@ class GitLogTask extends GitBaseTask
     {
         $this->outputProperty = $prop;
     }
-
 }

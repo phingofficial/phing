@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,17 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
-
 /**
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
@@ -121,14 +113,11 @@ class CoverageReportTransformer
 
         $proc = new XSLTProcessor();
         if (defined('XSL_SECPREF_WRITE_FILE')) {
-            if (version_compare(PHP_VERSION, '5.4', "<")) {
-                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            } else {
-                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            }
+            $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
         }
 
-        $proc->importStyleSheet($xsl);
+        $proc->registerPHPFunctions('nl2br');
+        $proc->importStylesheet($xsl);
 
         ExtendedFileStream::registerStream();
 

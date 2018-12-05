@@ -1,21 +1,18 @@
 <?xml version="1.0"?>
 <project name="gitPullTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
-
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    <import file="GitTestFunction.xml"/>
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
     </target>
 
     <target name="allParamsSet" description="all parameters present">
-        <gitclone 
+        <gitclone  gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             source="origin" refspec="foobranch" 
             strategy="recursive" keep="true"
@@ -23,10 +20,11 @@
     </target>
 
     <target name="allParamsSetRebase" description="all parameters present">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             source="origin" refspec="foobranch" 
             strategy="recursive" keep="true"
@@ -34,22 +32,24 @@
     </target>
 
     <target name="noRepository" description="Required param checking">
-        <gitpull />
+        <gitpull gitPath="${git-path}" />
     </target>
 
     <target name="noSource" description="Required param checking">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" source="" />
     </target>
 
     <target name="wrongStrategySet" description="git-pull  --strategy">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             source="origin" refspec="foobranch" 
             strategy="plain-wrong"
@@ -57,36 +57,40 @@
     </target>
 
     <target name="allReposSet" description="git-pull --all">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" all="true" />
     </target>
 
     <target name="appendSet" description="git-pull --append">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" all="true" quiet="false" append="true" />
     </target>
 
     <target name="tagsSet" description="git-pull --tags">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             refspec="foobranch" 
             keep="true" tags="true" />
     </target>
 
     <target name="noTagsSet" description="git-pull --no-tags">
-        <gitclone 
+        <gitclone gitPath="${git-path}"
+            singleBranch="true"
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
-        <gitpull
+        <gitpull gitPath="${git-path}"
             repository="${tmp.dir.resolved}" 
             refspec="foobranch" 
             keep="true" notags="true" />

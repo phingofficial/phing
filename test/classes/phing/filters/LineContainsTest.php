@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,16 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @package phing.filters
  */
 class LineContainsTest extends BuildFileTest
 {
-
     protected $fu;
 
     public function setUp()
@@ -52,4 +47,12 @@ class LineContainsTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
+    public function testLineContainsNegate()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $expected = $this->getProject()->resolveFile("expected/linecontains-negate.test");
+        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+    }
 }

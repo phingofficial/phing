@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -30,7 +28,7 @@ class PhkPackageWebAccess
     /**
      * @var array
      */
-    private $paths = array();
+    private $paths = [];
 
     /**
      * @return PhkPackageWebAccessPath
@@ -48,7 +46,7 @@ class PhkPackageWebAccess
         /*
          * Get real paths...
          */
-        $paths = array();
+        $paths = [];
 
         foreach ($this->paths as $path) {
             $paths[] = $path->getPath();

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,18 +17,17 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-
 /**
  * Echos a message to the logging system or to a file
  *
  * @author   Michiel Rook <mrook@php.net>
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id$
  * @package  phing.tasks.system
  */
 class EchoTask extends Task
 {
+    use DirSetAware;
+    use FileSetAware;
 
     protected $msg = "";
 
@@ -39,8 +36,6 @@ class EchoTask extends Task
     protected $append = false;
 
     protected $level = "info";
-
-    protected $filesets = array();
 
     public function main()
     {
@@ -51,16 +46,19 @@ class EchoTask extends Task
             case "warning":
                 $loglevel = Project::MSG_WARN;
                 break;
-            case "info":
-                $loglevel = Project::MSG_INFO;
-                break;
             case "verbose":
                 $loglevel = Project::MSG_VERBOSE;
                 break;
             case "debug":
                 $loglevel = Project::MSG_DEBUG;
                 break;
+            case "info":
+            default:
+                $loglevel = Project::MSG_INFO;
+                break;
         }
+
+        $this->filesets = array_merge($this->filesets, $this->dirsets);
 
         if (count($this->filesets)) {
             if (trim(substr($this->msg, -1)) != '') {
@@ -159,17 +157,5 @@ class EchoTask extends Task
     public function addText($msg)
     {
         $this->msg = (string) $msg;
-    }
-
-    /**
-     * Adds a fileset to echo the files of
-     *
-     * @param FileSet $fs Set of files to echo
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

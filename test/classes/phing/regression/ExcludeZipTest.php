@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/137
  * - Excluded files may be included in Zip/Tar tasks
@@ -30,9 +27,11 @@ require_once 'phing/BuildFileTest.php';
  */
 class ExcludeZipTest extends BuildFileTest
 {
-
     public function setUp()
     {
+        if (!extension_loaded('zip')) {
+            $this->markTestSkipped("Zip extension is required");
+        }
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
     }
 
@@ -41,11 +40,16 @@ class ExcludeZipTest extends BuildFileTest
         $this->executeTarget("main");
 
         $expected = "Adding ./.git to archive.";
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+
 
         foreach ($this->logBuffer as $log) {
-            if (stripos($log, $expected) !== false) {
+            if (stripos($log['message'], $expected) !== false) {
                 $this->fail(
-                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($this->logBuffer, true))
+                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true))
                 );
             }
         }

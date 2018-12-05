@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,15 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Condition that tests whether a given string evals to false.
  *
  * @author Hans Lellelid (Phing)
  * @author Steve Loughran (Ant)
- * @version $Id$
  * @package phing.tasks.system.condition
  */
 class IsFalseCondition extends ProjectComponent implements Condition
@@ -59,5 +53,4 @@ class IsFalseCondition extends ProjectComponent implements Condition
 
         return !$this->value;
     }
-
 }

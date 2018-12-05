@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,9 +17,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Expands Phing Properties, if any, in the data.
  * <p>
@@ -33,7 +27,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @see       BaseFilterReader
  * @package   phing.filters
  */
@@ -78,15 +71,15 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         $buffer = $this->in->read($len);
 
         if ($buffer === -1) {
             return -1;
         }
 
+        /** @var Project $project */
         $project = $this->getProject();
-        $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties(), $this->logLevel);
+        $buffer = $project->replaceProperties($buffer);
 
         return $buffer;
     }

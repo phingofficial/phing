@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/lang/EventObject.php';
-
 /**
  * Encapsulates a build specific event.
  *
@@ -37,7 +33,6 @@ require_once 'phing/system/lang/EventObject.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing
  */
 class BuildEvent extends EventObject
@@ -71,13 +66,13 @@ class BuildEvent extends EventObject
     /**
      * The priority of the message
      *
-     * @var    string
+     * @var    int
      * @see    $message
      */
     protected $priority = Project::MSG_VERBOSE;
 
     /**
-     * The execption that caused the event, if any
+     * The exception that caused the event, if any
      *
      * @var    object
      */

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,12 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/Project.php';
-include_once 'phing/tasks/system/AvailableTask.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/parser/CustomChildCreator.php';
-
 /**
  * Abstract baseclass for the <condition> task as well as several
  * conditions - ensures that the types of conditions inside the task
@@ -33,14 +25,41 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent
-    implements IteratorAggregate, CustomChildCreator
+abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator
 {
+    public $conditions = []; // needs to be public for "inner" class access
 
-    public $conditions = array(); // needs to be public for "inner" class access
+    /** @var string $taskName */
+    private $taskName = 'condition';
+
+    public function __construct($taskName = 'component')
+    {
+        parent::__construct();
+        $this->taskName = $taskName;
+    }
+
+    /**
+     * Sets the name to use in logging messages.
+     *
+     * @param string $name The name to use in logging messages.
+     *                     Should not be <code>null</code>.
+     */
+    public function setTaskName($name)
+    {
+        $this->taskName = $name;
+    }
+
+    /**
+     * Returns the name to use in logging messages.
+     *
+     * @return string the name to use in logging messages.
+     */
+    public function getTaskName()
+    {
+        return $this->taskName;
+    }
 
     /**
      * @return int
@@ -274,6 +293,22 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createIsFileSelected()
+    {
+        include_once 'phing/tasks/system/condition/IsFileSelected.php';
+        $num = array_push($this->conditions, new IsFileSelected());
+
+        return $this->conditions[$num - 1];
+    }
+
+    public function createMatches()
+    {
+        include_once 'phing/tasks/system/condition/Matches.php';
+        $num = array_push($this->conditions, new Matches());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project
@@ -286,66 +321,5 @@ abstract class ConditionBase extends ProjectComponent
         $num = array_push($this->conditions, $condition);
 
         return $this->conditions[$num - 1];
-    }
-
-}
-
-/**
- * "Inner" class for handling enumerations.
- * Uses build-in PHP5 iterator support.
- *
- * @package   phing.tasks.system.condition
- */
-class ConditionEnumeration implements Iterator
-{
-
-    /** Current element number */
-    private $num = 0;
-
-    /** "Outer" ConditionBase class. */
-    private $outer;
-
-    /**
-     * @param ConditionBase $outer
-     */
-    public function __construct(ConditionBase $outer)
-    {
-        $this->outer = $outer;
-    }
-
-    /**
-     * @return bool
-     */
-    public function valid()
-    {
-        return $this->outer->countConditions() > $this->num;
-    }
-
-    public function current()
-    {
-        $o = $this->outer->conditions[$this->num];
-        if ($o instanceof ProjectComponent) {
-            $o->setProject($this->outer->getProject());
-        }
-
-        return $o;
-    }
-
-    public function next()
-    {
-        $this->num++;
-    }
-
-    /**
-     * @return int
-     */
-    public function key()
-    {
-        return $this->num;
-    }
-
-    public function rewind()
-    {
-        $this->num = 0;
     }
 }

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,12 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/types/selectors/SelectorContainer.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/PatternSet.php';
-include_once 'phing/util/DirectoryScanner.php';
-
 /**
  * This is an abstract task that should be used by all those tasks that
  * require to include or exclude files based on pattern matching.
@@ -38,7 +30,6 @@ include_once 'phing/util/DirectoryScanner.php';
  * @author    Jon S. Stevens <jon@clearink.com> (Ant
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
  * @package   phing.tasks.system
  */
 abstract class MatchingTask extends Task implements SelectorContainer
@@ -55,6 +46,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function __construct()
     {
+        parent::__construct();
         $this->fileset = new FileSet();
     }
 
@@ -206,7 +198,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function setFollowSymlinks($followSymlinks)
     {
-        $this->fileset->setFollowSymlinks($followSymlinks);
+        $this->fileset->setExpandSymbolicLinks($followSymlinks);
     }
 
     /**
@@ -224,9 +216,9 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @return int The number of selectors in this container
      */
-    public function selectorCount()
+    public function count()
     {
-        return $this->fileset->selectorCount();
+        return $this->fileset->count();
     }
 
     /**
@@ -243,7 +235,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns an enumerator for accessing the set of selectors.
      *
-     * @return an enumerator that goes through each of the selectors
+     * @return array an enumerator that goes through each of the selectors
      */
     public function selectorElements()
     {
@@ -267,144 +259,177 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * add a "Select" selector entry on the selector list
      * @return SelectSelector
      */
-    public function createSelector()
+    public function addSelector(SelectSelector $selector)
     {
-        return $this->fileset->createSelector();
+        return $this->fileset->addSelector($selector);
     }
 
     /**
      * add an "And" selector entry on the selector list
      * @return AndSelector
      */
-    public function createAnd()
+    public function addAnd(AndSelector $selector)
     {
-        return $this->fileset->createAnd();
+        return $this->fileset->addAnd($selector);
     }
 
     /**
      * add an "Or" selector entry on the selector list
      * @return OrSelector
      */
-    public function createOr()
+    public function addOr(OrSelector $selector)
     {
-        return $this->fileset->createOr();
+        return $this->fileset->addOr($selector);
     }
 
     /**
      * add a "Not" selector entry on the selector list
      * @return NotSelector
      */
-    public function createNot()
+    public function addNot(NotSelector $selector)
     {
-        return $this->fileset->createNot();
+        return $this->fileset->addNot($selector);
     }
 
     /**
      * add a "None" selector entry on the selector list
      * @return NoneSelector
      */
-    public function createNone()
+    public function addNone(NoneSelector $selector)
     {
-        return $this->fileset->createNone();
+        return $this->fileset->addNone($selector);
     }
 
     /**
      * add a majority selector entry on the selector list
      * @return MajoritySelector
      */
-    public function createMajority()
+    public function addMajority(MajoritySelector $selector)
     {
-        return $this->fileset->createMajority();
+        return $this->fileset->addMajority($selector);
     }
 
     /**
      * add a selector date entry on the selector list
      * @return DateSelector
      */
-    public function createDate()
+    public function addDate(DateSelector $selector)
     {
-        return $this->fileset->createDate();
+        return $this->fileset->addDate($selector);
     }
 
     /**
      * add a selector size entry on the selector list
      * @return SizeSelector
      */
-    public function createSize()
+    public function addSize(SizeSelector $selector)
     {
-        return $this->fileset->createSize();
+        return $this->fileset->addSize($selector);
     }
 
     /**
      * add a selector filename entry on the selector list
      * @return FilenameSelector
      */
-    public function createFilename()
+    public function addFilename(FilenameSelector $selector)
     {
-        return $this->fileset->createFilename();
+        return $this->fileset->addFilename($selector);
     }
 
     /**
      * add an extended selector entry on the selector list
      * @return ExtendSelector
      */
-    public function createCustom()
+    public function addCustom(ExtendSelector $selector)
     {
-        return $this->fileset->createCustom();
+        return $this->fileset->addCustom($selector);
     }
 
     /**
      * add a contains selector entry on the selector list
-     * @return ContainsSelector
      */
-    public function createContains()
+    public function addContains(ContainsSelector $selector)
     {
-        return $this->fileset->createContains();
+        return $this->fileset->addContains($selector);
     }
 
     /**
      * add a present selector entry on the selector list
-     * @return PresentSelector
      */
-    public function createPresent()
+    public function addPresent(PresentSelector $selector)
     {
-        return $this->fileset->createPresent();
+        return $this->fileset->addPresent($selector);
     }
 
     /**
      * add a depth selector entry on the selector list
-     * @return DepthSelector
      */
-    public function createDepth()
+    public function addDepth(DepthSelector $selector)
     {
-        return $this->fileset->createDepth();
+        return $this->fileset->addDepth($selector);
     }
 
     /**
      * add a depends selector entry on the selector list
-     * @return DependSelector
      */
-    public function createDepend()
+    public function addDepend(DependSelector $selector)
     {
-        return $this->fileset->createDepend();
+        return $this->fileset->addDepend($selector);
+    }
+
+    /**
+     * add a executable selector entry on the selector list
+     */
+    public function addExecutable(ExecutableSelector $selector)
+    {
+        return $this->fileset->addExecutable($selector);
     }
 
     /**
      * add a readable selector entry on the selector list
-     * @return ReadableSelector
      */
-    public function createReadable()
+    public function addReadable(ReadableSelector $selector)
     {
-        return $this->fileset->createReadable();
+        return $this->fileset->addReadable($selector);
     }
 
     /**
      * add a writable selector entry on the selector list
-     * @return WritableSelector
      */
-    public function createWritable()
+    public function addWritable(WritableSelector $selector)
     {
-        return $this->fileset->createWritable();
+        return $this->fileset->addWritable($selector);
+    }
+
+    /**
+     * add a different selector entry on the selector list
+     */
+    public function addDifferent(DifferentSelector $selector)
+    {
+        return $this->fileset->addDifferent($selector);
+    }
+
+    /**
+     * add a type selector entry on the selector list
+     * @param TypeSelector $selector
+     */
+    public function addType(TypeSelector $selector)
+    {
+        return $this->fileset->addType($selector);
+    }
+
+    /**
+     * add a contains selector entry on the selector list
+     * @param ContainsRegexpSelector $selector
+     */
+    public function addContainsRegexp(ContainsRegexpSelector $selector)
+    {
+        return $this->fileset->addContainsRegexp($selector);
+    }
+
+    public function addSymlink(SymlinkSelector $selector)
+    {
+        return $this->fileset->addSymlink($selector);
     }
 
     /**

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,16 +17,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Stopwatch.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext.stopwatch
  */
-class StopwatchTask extends Task
+class StopwatchTask extends DispatchTask
 {
     /**
      * Name of the timer.
@@ -45,13 +42,6 @@ class StopwatchTask extends Task
     private $category = '';
 
     /**
-     * Timer  action.
-     *
-     * @var string $action
-     */
-    private $action = 'start';
-
-    /**
      * Holds an instance of Stopwatch.
      *
      * @var Stopwatch $timer
@@ -65,39 +55,22 @@ class StopwatchTask extends Task
      */
     public function init()
     {
-    }
-
-    /**
-     * Load stopwatch.
-     *
-     * @return void
-     *
-     * @throws BuildException
-     */
-    private function loadStopwatch()
-    {
-        if (version_compare(PHP_VERSION, '5.3.3', '<')) {
-            throw new BuildException("StopwatchTask requires at least PHP 5.3.3 installed.");
-        }
-
-        @include_once 'Symfony/Component/Stopwatch/autoload.php';
-        @include_once 'vendor/autoload.php';
-
         if (!class_exists('\\Symfony\\Component\\Stopwatch\\Stopwatch')) {
-            throw new BuildException("StopwatchTask requires Stopwatch to be installed");
+            throw new BuildException("StopwatchTask requires symfony/stopwatch to be installed.");
         }
+
+        $this->setAction('start');
     }
 
     /**
      * Get the stopwatch instance.
      *
-     * @return \Symfony\Component\Stopwatch\Stopwatch
+     * @return Stopwatch
      */
     private function getStopwatchInstance()
     {
         if (self::$timer === null) {
-            $stopwatch = '\\Symfony\\Component\\Stopwatch\\Stopwatch';
-            self::$timer = new $stopwatch;
+            self::$timer = new Stopwatch();
         }
 
         return self::$timer;
@@ -128,6 +101,7 @@ class StopwatchTask extends Task
             $this->log('Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() . ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(), Project::MSG_INFO);
         }
 
+        $this->log('Name:       ' . $this->name, Project::MSG_INFO);
         $this->log('Category:   ' . $event->getCategory(), Project::MSG_INFO);
         $this->log('Origin:     ' . $event->getOrigin(), Project::MSG_INFO);
         $this->log('Start time: ' . $event->getStartTime(), Project::MSG_INFO);
@@ -172,22 +146,6 @@ class StopwatchTask extends Task
     }
 
     /**
-     * Set the action.
-     * Action could be one of
-     * - start
-     * - lap
-     * - stop
-     *
-     * @param string $action
-     *
-     * @return void
-     */
-    public function setAction($action)
-    {
-        $this->action = $action;
-    }
-
-    /**
      * The main entry point
      *
      * @return void
@@ -196,9 +154,7 @@ class StopwatchTask extends Task
      */
     public function main()
     {
-        $this->loadStopwatch();
-
-        switch ($this->action) {
+        switch ($this->getAction()) {
             case "start":
                 $this->start();
                 break;

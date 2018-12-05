@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +18,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Test cases for the pearpkg/pearpkg2 tasks
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class PearPackageTest extends BuildFileTest
@@ -49,7 +45,7 @@ class PearPackageTest extends BuildFileTest
             $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
         }
 
-        $GLOBALS['_PEAR_Common_file_roles'] = array('php', 'ext', 'test', 'doc', 'data', 'src', 'script');
+        $GLOBALS['_PEAR_Common_file_roles'] = ['php', 'ext', 'test', 'doc', 'data', 'src', 'script'];
     }
 
     public function tearDown()
@@ -62,8 +58,6 @@ class PearPackageTest extends BuildFileTest
     {
         $this->executeTarget("main");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
-        $this->assertTrue(
-            strpos($content, '<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>') !== false
-        );
+        $this->assertContains('<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>', $content);
     }
 }

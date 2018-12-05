@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * This mapper does nothing ;)
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.mappers
  */
 class IdentityMapper implements FileNameMapper
@@ -39,7 +34,7 @@ class IdentityMapper implements FileNameMapper
      */
     public function main($sourceFileName)
     {
-        return array($sourceFileName);
+        return [$sourceFileName];
     }
 
     /**

@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/XmlLogger.php';
-
 /**
  * Generates a file in the current directory with
  * an JSON description of what happened during a build.
@@ -85,30 +83,33 @@ class JsonLogger extends XmlLogger
 
     private function xml2js(SimpleXMLElement $xmlnode, $isRoot = true)
     {
-        $jsnode = array();
+        $jsnode = [];
 
         if (!$isRoot) {
-            if (count($xmlnode->attributes()) > 0){
-                $jsnode["@attribute"] = array();
-                foreach($xmlnode->attributes() as $key => $value)
+            if (count($xmlnode->attributes()) > 0) {
+                $jsnode["@attribute"] = [];
+                foreach ($xmlnode->attributes() as $key => $value) {
                     $jsnode["@attribute"][$key] = (string)$value;
+                }
             }
 
             $textcontent = trim((string) $xmlnode);
-            if (count($textcontent) > 0)
+            if (count($textcontent) > 0) {
                 $jsnode['_'] = $textcontent;
+            }
 
             foreach ($xmlnode->children() as $childxmlnode) {
                 $childname = $childxmlnode->getName();
-                if (!array_key_exists($childname, $jsnode))
-                    $jsnode[$childname] = array();
-                array_push($jsnode[$childname], $this->xml2js($childxmlnode, false));
+                if (!array_key_exists($childname, $jsnode)) {
+                    $jsnode[$childname] = [];
+                }
+                $jsnode[$childname][] = $this->xml2js($childxmlnode, false);
             }
             return $jsnode;
         } else {
             $nodename = $xmlnode->getName();
-            $jsnode[$nodename] = array();
-            array_push($jsnode[$nodename], $this->xml2js($xmlnode, false));
+            $jsnode[$nodename] = [];
+            $jsnode[$nodename][] = $this->xml2js($xmlnode, false);
             return json_encode($jsnode, JSON_PRETTY_PRINT);
         }
     }

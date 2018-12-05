@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,19 +17,14 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Condition that tests whether a given reference exists.
  *
  * @author Matthias Pigulla <mp@webfactory.de> (Phing)
- * @version $Id$
  * @package phing.tasks.system.condition
  */
 class ReferenceExistsCondition extends ProjectComponent implements Condition
 {
-
     private $refid;
 
     /**
@@ -56,5 +49,4 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
 
         return !($refs[$this->refid] instanceof UnknownElement) && isset($refs[$this->refid]);
     }
-
 }

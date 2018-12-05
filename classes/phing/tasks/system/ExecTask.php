@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,15 +17,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-
 /**
  * Executes a command on the shell.
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Christian Weiske <cweiske@cweiske.de>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ExecTask extends Task
@@ -41,12 +36,6 @@ class ExecTask extends Task
      * @var string
      */
     protected $realCommand;
-
-    /**
-     * Given command
-     * @var string
-     */
-    protected $command;
 
     /**
      * Commandline managing object
@@ -131,61 +120,44 @@ class ExecTask extends Task
      */
     protected $checkreturn = false;
 
+    private $osFamily;
+    private $executable;
+    private $resolveExecutable = false;
+    private $searchPath = false;
+    private $env;
+
     /**
-     *
+     * @throws \BuildException
      */
     public function __construct()
     {
+        parent::__construct();
         $this->commandline = new Commandline();
+        $this->env = new Environment();
     }
 
     /**
      * Main method: wraps execute() command.
      *
      * @return void
+     * @throws \BuildException
      */
     public function main()
     {
-        if (!$this->isApplicable()) {
+        if (!$this->isValidOs()) {
             return;
+        }
+
+        try {
+            $this->commandline->setExecutable($this->resolveExecutable($this->executable, $this->searchPath));
+        } catch (IOException | NullPointerException $e) {
+            throw new BuildException($e);
         }
 
         $this->prepare();
         $this->buildCommand();
-        list($return, $output) = $this->executeCommand();
+        [$return, $output] = $this->executeCommand();
         $this->cleanup($return, $output);
-    }
-
-    /**
-     * Checks whether the command shall be executed
-     *
-     * @return boolean False if the exec command shall not be run
-     */
-    protected function isApplicable()
-    {
-        if ($this->os === null) {
-            return true;
-        }
-
-        $myos = Phing::getProperty('os.name');
-        $this->log('Myos = ' . $myos, Project::MSG_VERBOSE);
-
-        if (strpos($this->os, $myos) !== false) {
-            // this command will be executed only on the specified OS
-            // OS matches
-            return true;
-        }
-
-        $this->log(
-            sprintf(
-                'Operating system %s not found in %s',
-                $myos,
-                $this->os
-            ),
-            Project::MSG_VERBOSE
-        );
-
-        return false;
     }
 
     /**
@@ -198,17 +170,36 @@ class ExecTask extends Task
     protected function prepare()
     {
         if ($this->dir === null) {
-            return;
+            $this->dir = $this->getProject()->getBasedir();
+        }
+
+        if ($this->commandline->getExecutable() === null) {
+            throw new BuildException(
+                'ExecTask: Please provide "executable"'
+            );
         }
 
         // expand any symbolic links first
-        if (!$this->dir->getCanonicalFile()->isDirectory()) {
+        try {
+            if (!$this->dir->getCanonicalFile()->exists()) {
+                throw new BuildException(
+                    "The directory '" . (string) $this->dir . "' does not exist"
+                );
+            }
+            if (!$this->dir->getCanonicalFile()->isDirectory()) {
+                throw new BuildException(
+                    "'" . (string) $this->dir . "' is not a directory"
+                );
+            }
+        } catch (IOException $e) {
             throw new BuildException(
-                "'" . (string) $this->dir . "' is not a valid directory"
+                "'" . (string) $this->dir . "' is not a readable directory"
             );
         }
         $this->currdir = getcwd();
         @chdir($this->dir->getPath());
+
+        $this->commandline->setEscape($this->escape);
     }
 
     /**
@@ -220,34 +211,10 @@ class ExecTask extends Task
      */
     protected function buildCommand()
     {
-        if ($this->command === null && $this->commandline->getExecutable() === null) {
-            throw new BuildException(
-                'ExecTask: Please provide "command" OR "executable"'
-            );
-        } else {
-            if ($this->command === null) {
-                $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
-            } else {
-                if ($this->commandline->getExecutable() === null) {
-                    $this->realCommand = $this->command;
-
-                    //we need to escape the command only if it's specified directly
-                    // commandline takes care of "executable" already
-                    if ($this->escape == true) {
-                        $this->realCommand = escapeshellcmd($this->realCommand);
-                    }
-                } else {
-                    throw new BuildException(
-                        'ExecTask: Either use "command" OR "executable"'
-                    );
-                }
-            }
-        }
-
         if ($this->error !== null) {
             $this->realCommand .= ' 2> ' . escapeshellarg($this->error->getPath());
             $this->log(
-                "Writing error output to: " . $this->error->getPath(),
+                'Writing error output to: ' . $this->error->getPath(),
                 $this->logLevel
             );
         }
@@ -255,12 +222,12 @@ class ExecTask extends Task
         if ($this->output !== null) {
             $this->realCommand .= ' 1> ' . escapeshellarg($this->output->getPath());
             $this->log(
-                "Writing standard output to: " . $this->output->getPath(),
+                'Writing standard output to: ' . $this->output->getPath(),
                 $this->logLevel
             );
         } elseif ($this->spawn) {
             $this->realCommand .= ' 1>/dev/null';
-            $this->log("Sending output to /dev/null", $this->logLevel);
+            $this->log('Sending output to /dev/null', $this->logLevel);
         }
 
         // If neither output nor error are being written to file
@@ -270,32 +237,37 @@ class ExecTask extends Task
         if ($this->output === null && $this->error === null && $this->passthru === false) {
             $this->realCommand .= ' 2>&1';
         }
-
+        
         // we ignore the spawn boolean for windows
         if ($this->spawn) {
             $this->realCommand .= ' &';
         }
+
+        $this->realCommand = (string) $this->commandline . $this->realCommand;
     }
 
     /**
      * Executes the command and returns return code and output.
      *
      * @return array array(return code, array with output)
+     * @throws \BuildException
      */
     protected function executeCommand()
     {
-        $this->log("Executing command: " . $this->realCommand, $this->logLevel);
+        $cmdl = $this->realCommand;
 
-        $output = array();
+        $this->log('Executing command: ' . $cmdl, $this->logLevel);
+
+        $output = [];
         $return = null;
 
         if ($this->passthru) {
-            passthru($this->realCommand, $return);
+            passthru($cmdl, $return);
         } else {
-            exec($this->realCommand, $output, $return);
+            exec($cmdl, $output, $return);
         }
 
-        return array($return, $output);
+        return [$return, $output];
     }
 
     /**
@@ -310,7 +282,7 @@ class ExecTask extends Task
      * @throws BuildException
      * @return void
      */
-    protected function cleanup($return, $output)
+    protected function cleanup($return, $output): void
     {
         if ($this->dir !== null) {
             @chdir($this->currdir);
@@ -321,9 +293,7 @@ class ExecTask extends Task
             $this->log($line, $outloglevel);
         }
 
-        if ($this->returnProperty) {
-            $this->project->setProperty($this->returnProperty, $return);
-        }
+        $this->maybeSetReturnPropertyValue($return);
 
         if ($this->outputProperty) {
             $this->project->setProperty(
@@ -334,8 +304,11 @@ class ExecTask extends Task
 
         $this->setExitValue($return);
 
-        if ($return != 0 && $this->checkreturn) {
-            throw new BuildException("Task exited with code $return");
+        if ($return !== 0) {
+            if ($this->checkreturn) {
+                throw new BuildException($this->getTaskType() . ' returned: ' . $return, $this->getLocation());
+            }
+            $this->log('Result: ' . $return, Project::MSG_ERR);
         }
     }
 
@@ -344,7 +317,7 @@ class ExecTask extends Task
      *
      * @param int $value exit value of the process.
      */
-    protected function setExitValue($value)
+    protected function setExitValue($value): void
     {
         $this->exitValue = $value;
     }
@@ -355,7 +328,7 @@ class ExecTask extends Task
      * @return int the exit value or self::INVALID if no exit value has
      *             been received.
      */
-    public function getExitValue()
+    public function getExitValue(): int
     {
         return $this->exitValue;
     }
@@ -363,25 +336,33 @@ class ExecTask extends Task
     /**
      * The command to use.
      *
-     * @param mixed $command String or string-compatible (e.g. w/ __toString()).
+     * @param string $command String or string-compatible (e.g. w/ __toString()).
      *
      * @return void
+     * @throws \BuildException
      */
-    public function setCommand($command)
+    public function setCommand($command): void
     {
-        $this->command = "" . $command;
+        $this->log("The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
+            Project::MSG_WARN);
+        $this->commandline = new Commandline($command);
+        $this->executable = $this->commandline->getExecutable();
     }
 
     /**
      * The executable to use.
      *
-     * @param mixed $executable String or string-compatible (e.g. w/ __toString()).
+     * @param string|bool $value String or string-compatible (e.g. w/ __toString()).
      *
      * @return void
      */
-    public function setExecutable($executable)
+    public function setExecutable($value): void
     {
-        $this->commandline->setExecutable((string) $executable);
+        if (is_bool($value)) {
+            $value = $value === true ? 'true' : 'false';
+        }
+        $this->executable = $value;
+        $this->commandline->setExecutable($value);
     }
 
     /**
@@ -391,7 +372,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setEscape($escape)
+    public function setEscape($escape): void
     {
         $this->escape = (bool) $escape;
     }
@@ -403,7 +384,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(PhingFile $dir): void
     {
         $this->dir = $dir;
     }
@@ -415,9 +396,34 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setOs($os)
+    public function setOs($os): void
     {
         $this->os = (string) $os;
+    }
+
+    /**
+     * List of operating systems on which the command may be executed.
+     */
+    public function getOs(): string
+    {
+        return $this->os;
+    }
+
+    /**
+     * Restrict this execution to a single OS Family
+     * @param string $osFamily the family to restrict to.
+     */
+    public function setOsFamily($osFamily): void
+    {
+        $this->osFamily = strtolower($osFamily);
+    }
+
+    /**
+     * Restrict this execution to a single OS Family
+     */
+    public function getOsFamily()
+    {
+        return $this->osFamily;
     }
 
     /**
@@ -427,7 +433,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setOutput(PhingFile $f)
+    public function setOutput(PhingFile $f): void
     {
         $this->output = $f;
     }
@@ -439,7 +445,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setError(PhingFile $f)
+    public function setError(PhingFile $f): void
     {
         $this->error = $f;
     }
@@ -451,9 +457,9 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setPassthru($passthru)
+    public function setPassthru($passthru): void
     {
-        $this->passthru = (bool) $passthru;
+        $this->passthru = $passthru;
     }
 
     /**
@@ -463,9 +469,9 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setLogoutput($logOutput)
+    public function setLogoutput($logOutput): void
     {
-        $this->logOutput = (bool) $logOutput;
+        $this->logOutput = $logOutput;
     }
 
     /**
@@ -475,9 +481,9 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setSpawn($spawn)
+    public function setSpawn($spawn): void
     {
-        $this->spawn = (bool) $spawn;
+        $this->spawn = $spawn;
     }
 
     /**
@@ -487,9 +493,9 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setCheckreturn($checkreturn)
+    public function setCheckreturn($checkreturn): void
     {
-        $this->checkreturn = (bool) $checkreturn;
+        $this->checkreturn = $checkreturn;
     }
 
     /**
@@ -499,9 +505,16 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setReturnProperty($prop)
+    public function setReturnProperty($prop): void
     {
         $this->returnProperty = $prop;
+    }
+
+    protected function maybeSetReturnPropertyValue(int $return)
+    {
+        if ($this->returnProperty) {
+            $this->getProject()->setNewProperty($this->returnProperty, $return);
+        }
     }
 
     /**
@@ -511,7 +524,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setOutputProperty($prop)
+    public function setOutputProperty($prop): void
     {
         $this->outputProperty = $prop;
     }
@@ -524,7 +537,7 @@ class ExecTask extends Task
      * @throws BuildException
      * @return void
      */
-    public function setLevel($level)
+    public function setLevel($level): void
     {
         switch ($level) {
             case 'error':
@@ -550,6 +563,16 @@ class ExecTask extends Task
     }
 
     /**
+     * Add an environment variable to the launched process.
+     *
+     * @param EnvVariable $var new environment variable.
+     */
+    public function addEnv(EnvVariable $var)
+    {
+        $this->env->addVariable($var);
+    }
+
+    /**
      * Creates a nested <arg> tag.
      *
      * @return CommandlineArgument Argument object
@@ -557,5 +580,155 @@ class ExecTask extends Task
     public function createArg()
     {
         return $this->commandline->createArgument();
+    }
+
+    /**
+     * Is this the OS the user wanted?
+     * @return boolean.
+     * <ul>
+     * <li>
+     * <li><code>true</code> if the os and osfamily attributes are null.</li>
+     * <li><code>true</code> if osfamily is set, and the os family and must match
+     * that of the current OS, according to the logic of
+     * {@link Os#isOs(String, String, String, String)}, and the result of the
+     * <code>os</code> attribute must also evaluate true.
+     * </li>
+     * <li>
+     * <code>true</code> if os is set, and the system.property os.name
+     * is found in the os attribute,</li>
+     * <li><code>false</code> otherwise.</li>
+     * </ul>
+     */
+    protected function isValidOs(): bool
+    {
+        //hand osfamily off to OsCondition class, if set
+        if ($this->osFamily !== null && !OsCondition::isFamily($this->osFamily)) {
+            return false;
+        }
+        //the Exec OS check is different from Os.isOs(), which
+        //probes for a specific OS. Instead it searches the os field
+        //for the current os.name
+        $myos = Phing::getProperty("os.name");
+        $this->log("Current OS is " . $myos, Project::MSG_VERBOSE);
+        if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
+            // this command will be executed only on the specified OS
+            $this->log("This OS, " . $myos
+                . " was not found in the specified list of valid OSes: " . $this->os,
+                Project::MSG_VERBOSE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Set whether to attempt to resolve the executable to a file.
+     *
+     * @param bool $resolveExecutable if true, attempt to resolve the
+     * path of the executable.
+     */
+    public function setResolveExecutable($resolveExecutable): void
+    {
+        $this->resolveExecutable = $resolveExecutable;
+    }
+
+    /**
+     * Set whether to search nested, then
+     * system PATH environment variables for the executable.
+     *
+     * @param bool $searchPath if true, search PATHs.
+     */
+    public function setSearchPath($searchPath): void
+    {
+        $this->searchPath = $searchPath;
+    }
+
+    /**
+     * Indicates whether to attempt to resolve the executable to a
+     * file.
+     * @return bool the resolveExecutable flag
+     *
+     */
+    public function getResolveExecutable(): bool
+    {
+        return $this->resolveExecutable;
+    }
+
+    /**
+     * The method attempts to figure out where the executable is so that we can feed
+     * the full path. We first try basedir, then the exec dir, and then
+     * fallback to the straight executable name (i.e. on the path).
+     *
+     * @param string $exec the name of the executable.
+     * @param bool $mustSearchPath if true, the executable will be looked up in
+     * the PATH environment and the absolute path is returned.
+     *
+     * @return string the executable as a full path if it can be determined.
+     * @throws \BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function resolveExecutable($exec, $mustSearchPath): ?string
+    {
+        if (!$this->resolveExecutable) {
+            return $exec;
+        }
+        // try to find the executable
+        $executableFile = $this->getProject()->resolveFile($exec);
+        if ($executableFile->exists()) {
+            return $executableFile->getAbsolutePath();
+        }
+        // now try to resolve against the dir if given
+        if ($this->dir !== null) {
+            $executableFile = (new FileUtils())->resolveFile($this->dir, $exec);
+            if ($executableFile->exists()) {
+                return $executableFile->getAbsolutePath();
+            }
+        }
+        // couldn't find it - must be on path
+        if ($mustSearchPath) {
+            $p = null;
+            $environment = $this->env->getVariables();
+            if ($environment !== null) {
+                foreach ($environment as $env) {
+                    if ($this->isPath($env)) {
+                        $p = new Path($this->getProject(), $this->getPath($env));
+                        break;
+                    }
+                }
+            }
+            if ($p === null) {
+                $p = new Path($this->getProject(), getenv('path'));
+            }
+            if ($p !== null) {
+                $dirs = $p->listPaths();
+                foreach ($dirs as $dir) {
+                    $executableFile = (new FileUtils())->resolveFile(new PhingFile($dir), $exec);
+                    if ($executableFile->exists()) {
+                        return $executableFile->getAbsolutePath();
+                    }
+                }
+            }
+        }
+
+        return $exec;
+    }
+
+    private function isPath($line)
+    {
+        return StringHelper::startsWith('PATH=', $line) || StringHelper::startsWith('Path=', $line);
+    }
+
+    private function getPath($value)
+    {
+        if (is_string($value)) {
+            return StringHelper::substring($value, strlen("PATH="));
+        }
+
+        if (is_array($value)) {
+            $p = $value['PATH'];
+            return $p ?? $value['Path'];
+        }
+
+        throw new InvalidArgumentException('$value should be of type array or string.');
     }
 }

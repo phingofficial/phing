@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,28 +19,23 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/ContainsCondition.php';
-
 /**
  * Testcase for the &lt;contains&gt; condition.
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id$
  * @package phing.tasks.system.condition
  */
-class ContainsConditionTest extends PHPUnit_Framework_TestCase
+class ContainsConditionTest extends \PHPUnit\Framework\TestCase
 {
-
     public function testCaseSensitive()
     {
         $con = new ContainsCondition();
         $con->setString("abc");
         $con->setSubstring("A");
-        $this->assertTrue(!$con->evaluate());
+        $this->assertFalse($con->evaluate());
 
         $con->setCaseSensitive(false);
         $this->assertTrue($con->evaluate());
     }
-
 }

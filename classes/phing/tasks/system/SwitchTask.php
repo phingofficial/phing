@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -81,7 +79,7 @@ class SwitchTask extends Task
     private $value = null;
 
     /** @var array $cases */
-    private $cases = array();
+    private $cases = [];
 
     /** @var SequentialTask $defaultCase */
     private $defaultCase = null;
@@ -171,45 +169,5 @@ class SwitchTask extends Task
         }
 
         $selectedCase->perform();
-    }
-}
-
-/**
- * "Inner" class for SwitchTask.
- *
- * @package phing.tasks.system
- */
-class CaseTask extends SequentialTask
-{
-    /** @var mixed $value */
-    private $value = null;
-
-    /**
-     * @param $value
-     *
-     * @return void
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function main()
-    {
-        /** @var Task $task */
-        foreach ($this->nestedTasks as $task) {
-            $task->perform();
-        }
     }
 }

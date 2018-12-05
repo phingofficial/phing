@@ -17,7 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @version $Id$
  * @package phing.tasks.ext.pdo
  */
 
@@ -29,7 +28,6 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.pdo
- * @version $Id$
  */
 class DummyPDOQuerySplitter extends PDOQuerySplitter
 {
@@ -45,11 +43,7 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project = $this->parent->getOwningTarget()->getProject();
-            $line = ProjectConfigurator::replaceProperties(
-                $project,
-                trim($line),
-                $project->getProperties()
-            );
+            $line = $project->replaceProperties(trim($line));
 
             if (($line != $delimiter) && (
                     StringHelper::startsWith("//", $line) ||
@@ -68,7 +62,6 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             if (StringHelper::endsWith($delimiter, $line)) {
                 break;
             }
-
         }
 
         return $sql;

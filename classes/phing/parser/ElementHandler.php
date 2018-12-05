@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-require_once 'phing/UnknownElement.php';
-
 /**
  * The generic element handler class.
  *
@@ -31,7 +26,6 @@ require_once 'phing/UnknownElement.php';
  *
  * @author    Michiel Rook <mrook@php.net>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class ElementHandler extends AbstractHandler
@@ -47,45 +41,50 @@ class ElementHandler extends AbstractHandler
     /**
      * Reference to the child object that represents the child tag
      * of this nested element
-     * @var object
+     * @var UnknownElement
      */
     private $child;
 
     /**
      *  Reference to the parent wrapper object
-     * @var object
+     * @var RuntimeConfigurable
      */
     private $parentWrapper;
 
     /**
      *  Reference to the child wrapper object
-     * @var object
+     * @var RuntimeConfigurable
      */
     private $childWrapper;
 
     /**
      *  Reference to the related target object
-     * @var object the target instance
+     * @var Target the target instance
      */
     private $target;
 
     /**
+     * @var ProjectConfigurator
+     */
+    private $configurator;
+
+    /**
      *  Constructs a new NestedElement handler and sets up everything.
      *
-     * @param  object  the ExpatParser object
-     * @param  object  the parent handler that invoked this handler
-     * @param  object  the ProjectConfigurator object
-     * @param  object  the parent object this element is contained in
-     * @param  object  the parent wrapper object
-     * @param  object  the target object this task is contained in
+     * @param AbstractSAXParser $parser the ExpatParser object
+     * @param AbstractHandler $parentHandler the parent handler that invoked this handler
+     * @param ProjectConfigurator $configurator the ProjectConfigurator object
+     * @param UnknownElement $parent the parent object this element is contained in
+     * @param RuntimeConfigurable $parentWrapper the parent wrapper object
+     * @param Target $target the target object this task is contained in
      */
     public function __construct(
-        $parser,
-        $parentHandler,
-        $configurator,
-        $parent = null,
-        $parentWrapper = null,
-        $target = null
+        AbstractSAXParser $parser,
+        AbstractHandler $parentHandler,
+        ProjectConfigurator $configurator,
+        UnknownElement $parent = null,
+        RuntimeConfigurable $parentWrapper = null,
+        Target $target = null
     ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
@@ -110,19 +109,19 @@ class ElementHandler extends AbstractHandler
      * <li>adding a reference to the element (if id attribute is given)</li>
      * </ul>
      *
-     * @param  string  the tag that comes in
-     * @param  array   attributes the tag carries
+     * @param  string $tag the tag that comes in
+     * @param  array  $attrs attributes the tag carries
      * @throws ExpatParseException if the setup process fails
      */
-    public function init($propType, $attrs)
+    public function init($tag, $attrs)
     {
         $configurator = $this->configurator;
         $project = $this->configurator->project;
 
         try {
-            $this->child = new UnknownElement(strtolower($propType));
-            $this->child->setTaskName($propType);
-            $this->child->setTaskType($propType);
+            $this->child = new UnknownElement(strtolower($tag));
+            $this->child->setTaskName($tag);
+            $this->child->setTaskType($tag);
             $this->child->setProject($project);
             $this->child->setLocation($this->parser->getLocation());
 
@@ -138,14 +137,14 @@ class ElementHandler extends AbstractHandler
 
             $configurator->configureId($this->child, $attrs);
 
-            $this->childWrapper = new RuntimeConfigurable($this->child, $propType);
+            $this->childWrapper = new RuntimeConfigurable($this->child, $tag);
             $this->childWrapper->setAttributes($attrs);
 
             if ($this->parentWrapper !== null) {
                 $this->parentWrapper->addChild($this->childWrapper);
             }
         } catch (BuildException $exc) {
-            throw new ExpatParseException("Error initializing nested element <$propType>", $exc, $this->parser->getLocation(
+            throw new ExpatParseException("Error initializing nested element <$tag>", $exc, $this->parser->getLocation(
             ));
         }
     }
@@ -153,14 +152,11 @@ class ElementHandler extends AbstractHandler
     /**
      * Handles character data.
      *
-     * @param  string  the CDATA that comes in
+     * @param string $data  the CDATA that comes in
      * @throws ExpatParseException if the CDATA could not be set-up properly
      */
     public function characters($data)
     {
-        $configurator = $this->configurator;
-        $project = $this->configurator->project;
-
         $this->childWrapper->addText($data);
     }
 
@@ -168,8 +164,8 @@ class ElementHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param  string  the tag that comes in
-     * @param  array   attributes the tag carries
+     * @param string $name  the tag that comes in
+     * @param array  $attrs attributes the tag carries
      */
     public function startElement($name, $attrs)
     {

@@ -1,6 +1,6 @@
 <?php
 
-class provider_failTest extends PHPUnit_Framework_TestCase {
+class provider_failTest extends \PHPUnit\Framework\TestCase {
  public function test_simplefail() {
   $this->assertFalse(true);
  }
@@ -12,8 +12,8 @@ class provider_failTest extends PHPUnit_Framework_TestCase {
  }
 
  public function provider() {
-  return array(
-   array(true,true)
-  );
+  return [
+   [true,true]
+  ];
  }
 }

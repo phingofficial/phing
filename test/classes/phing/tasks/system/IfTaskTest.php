@@ -1,17 +1,13 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the If Task
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
- * @version $Id$
  * @package phing.tasks.system
  */
 class IfTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -45,7 +41,6 @@ class IfTaskTest extends BuildFileTest
 
         // check the output for the expected value
         $this->assertInLogs("The value of property foo is 'foo'");
-
     }
 
     /**
@@ -105,6 +100,5 @@ class IfTaskTest extends BuildFileTest
         $cause = 'you cannot have more than 1 condition in your if-statement';
         $msg = 'You must not nest more than one condition into <if>';
         $this->expectBuildExceptionContaining($target, $cause, $msg);
-
     }
 }

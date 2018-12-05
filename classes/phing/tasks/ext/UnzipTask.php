@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,15 +17,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ExtractBaseTask.php';
-require_once 'phing/system/io/FileSystem.php';
-
 /**
  * Extracts one or several zip archives using ZipArchive class.
  *
  * @author  Joakim Bodin <joakim.bodin+phing@gmail.com>
  * @author  George Miroshnikov <laggy.luke@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class UnzipTask extends ExtractBaseTask
@@ -72,11 +67,11 @@ class UnzipTask extends ExtractBaseTask
         $zip = new ZipArchive();
         $zip->open($zipfile->getAbsolutePath());
 
-        $content = array();
+        $content = [];
         for ($i = 0; $i < $zip->numFiles; $i++) {
-            $content[] = array(
+            $content[] = [
                 'filename' => $zip->getNameIndex($i)
-            );
+            ];
         }
 
         return $content;

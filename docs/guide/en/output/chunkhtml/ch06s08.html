@@ -1,0 +1,79 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.8 Writing Mappers</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.extending.html" title="Chapter 6 Extending Phing"><link rel="prev" href="ch06s07.html" title="6.7 Writing Types"><link rel="next" href="app.factsheet.html" title="Appendix A. Fact Sheet"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.8  Writing Mappers </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s07.html">Prev</a> </td><th width="60%" align="center">Chapter 6 Extending Phing</th><td width="20%" align="right"> <a accesskey="n" href="app.factsheet.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp35"></a>6.8  Writing Mappers </h2></div></div></div>
+        
+        <p>Writing your own filename mapper classes will allow you to control how names are
+            transformed in tasks like <code class="literal">CopyTask</code>, <code class="literal">MoveTask</code>,
+                <code class="literal">XSLTTask</code>, etc. In some cases you may want to extend existing
+            mappers (e.g. creating a GlobMapper that also transforms to uppercase); in other cases,
+            you may simply want to create a very specific name transformation that isn't easily
+            accomplished with other mappers like <code class="literal">GlobMapper</code> or
+                <code class="literal">RegexpMapper</code>.</p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2331"></a>6.8.1  Creating a Mapper </h3></div></div></div>
+            
+            <p>Writing filename mappers is simplified by interface support in PHP5. Essentially,
+                your custom filename mapper must implement
+                    <code class="literal">phing.mappers.FileNameMapper</code>. Here's an example of a filename
+                mapper that creates DOS-style file names. For this example, the "to" and "from"
+                attributes are not needed because all files will be transformed. To see the "to" and
+                "from" attributes in action, look at <code class="literal">phing.mappers.GlobMapper</code> or
+                    <code class="literal">phing.mappers.RegexpMapper</code>.</p>
+            <pre class="programlisting">require_once "phing/mappers/FileNameMapper.php";
+
+/**
+ * A mapper that makes those ugly DOS filenames.
+ */
+class DOSMapper implements FileNameMapper {
+
+  /**
+   * The main() method actually performs the mapping.
+   *
+   * In this case we transform the $sourceFilename into
+   * a DOS-compatible name.  E.g.
+   * ExtendingPhing.html -&gt; EXTENDI~.DOC
+   *
+   * @param string $sourceFilename The name to be converted.
+   * @return array The matched filenames.
+   */
+  public function main($sourceFilename) {
+
+    $info = pathinfo($sourceFilename);
+    $ext = $info['extension'];
+    // get basename w/o extension
+    $bname = preg_replace('/\.\w+\$/', '', $info['basename']);
+
+    if (strlen($bname) &gt; 8) {
+      $bname = substr($bname,0,7) . '~';
+    }
+
+    if (strlen($ext) &gt; 3) {
+      $ext = substr($bname,0,3);
+    }
+
+    if (!empty($ext)) {
+      $res = $bname . '.' . $ext;
+    } else {
+      $res = $bname;
+    }
+
+    return (array) strtoupper($res);
+  }
+
+  /**
+   * The "from" attribute is not needed here, but method must exist.
+   */
+  public function setFrom($from) {}
+
+     /**
+   * The "from" attribute is not needed here, but method must exist.
+   */
+  public function setTo($to) {}
+
+}</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2338"></a>6.8.2  Using the Mapper </h3></div></div></div>
+            
+            <p>Assuming that this mapper is saved to <code class="literal">myapp/mappers/DOSMapper.php
+                </code>(relative to a path on PHP's <code class="literal">include_path</code>,
+                    then you would refer to it like this in your build file: </p>
+            <pre class="programlisting">&lt;mapper classname="myapp.mappers.DOSMapper"/&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s07.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch.extending.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="app.factsheet.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.7  Writing Types  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix A. Fact Sheet</td></tr></table></div></body></html>

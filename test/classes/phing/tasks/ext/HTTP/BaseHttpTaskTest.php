@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,10 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/BuildFileTest.php';
-require_once 'HTTP/Request2.php';
-require_once dirname(__FILE__) . '/TraceHttpAdapter.php';
 
 /**
  * @author Alexey Borzov <avb@php.net>

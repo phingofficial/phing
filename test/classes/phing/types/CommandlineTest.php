@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Commandline.php';
-
 /**
  * Unit test for mappers.
  *
@@ -29,7 +26,7 @@ include_once 'phing/types/Commandline.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
-class CommandlineTest extends PHPUnit_Framework_TestCase
+class CommandlineTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Commandline
@@ -76,7 +73,7 @@ class CommandlineTest extends PHPUnit_Framework_TestCase
 
     public function testCreateMarkerWithArgument()
     {
-        $this->cmd->addArguments(array('foo'));
+        $this->cmd->addArguments(['foo']);
         $marker = $this->cmd->createMarker();
         self::assertInstanceOf('CommandlineMarker', $marker);
         self::assertEquals(1, $marker->getPosition());
@@ -88,5 +85,4 @@ class CommandlineTest extends PHPUnit_Framework_TestCase
         self::assertInstanceOf('CommandlineMarker', $marker);
         self::assertEquals(0, $marker->getPosition());
     }
-
 }

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,11 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildFileTest.php';
-include_once 'phing/types/Mapper.php';
-include_once 'phing/Project.php';
-include_once 'phing/types/Reference.php';
-
 /**
  * Unit test for mappers.
  *
@@ -32,15 +26,14 @@ include_once 'phing/types/Reference.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
-class MapperTest extends PHPUnit_Framework_TestCase
+class MapperTest extends \PHPUnit\Framework\TestCase
 {
-
     private $project;
 
     public function setUp()
     {
         $this->project = new Project();
-        $this->project->setBasedir(dirname(__FILE__));
+        $this->project->setBasedir(__DIR__);
     }
 
     public function testEmptyElementIfIsReference()
@@ -48,14 +41,14 @@ class MapperTest extends PHPUnit_Framework_TestCase
         $m = new Mapper($this->project);
         $m->setFrom("*.java");
         try {
-            $m->setRefid(new Reference("dummyref"));
+            $m->setRefid(new Reference($this->project, "dummyref"));
             $this->fail("Can add reference to Mapper with from attribute set");
         } catch (BuildException $be) {
             $this->assertEquals("You must not specify more than one attribute when using refid", $be->getMessage());
         }
 
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference("dummyref"));
+        $m->setRefid(new Reference($this->project, "dummyref"));
         try {
             $m->setFrom("*.java");
             $this->fail("Can set from in Mapper that is a reference.");
@@ -64,7 +57,7 @@ class MapperTest extends PHPUnit_Framework_TestCase
         }
 
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference("dummyref"));
+        $m->setRefid(new Reference($this->project, "dummyref"));
         try {
             $m->setTo("*.java");
             $this->fail("Can set to in Mapper that is a reference.");
@@ -73,7 +66,7 @@ class MapperTest extends PHPUnit_Framework_TestCase
         }
         try {
             $m = new Mapper($this->project);
-            $m->setRefid(new Reference("dummyref"));
+            $m->setRefid(new Reference($this->project, "dummyref"));
             $m->setType("glob");
             $this->fail("Can set type in Mapper that is a reference.");
         } catch (BuildException $be) {
@@ -85,7 +78,7 @@ class MapperTest extends PHPUnit_Framework_TestCase
     {
         $m = new Mapper($this->project);
         $this->project->addReference("dummy", $m);
-        $m->setRefid(new Reference("dummy"));
+        $m->setRefid(new Reference($this->project, "dummy"));
         try {
             $m->getImplementation();
             $this->fail("Can make Mapper a Reference to itself.");
@@ -96,13 +89,13 @@ class MapperTest extends PHPUnit_Framework_TestCase
         // dummy1 --> dummy2 --> dummy3 --> dummy1
         $m1 = new Mapper($this->project);
         $this->project->addReference("dummy1", $m1);
-        $m1->setRefid(new Reference("dummy2"));
+        $m1->setRefid(new Reference($this->project, "dummy2"));
         $m2 = new Mapper($this->project);
         $this->project->addReference("dummy2", $m2);
-        $m2->setRefid(new Reference("dummy3"));
+        $m2->setRefid(new Reference($this->project, "dummy3"));
         $m3 = new Mapper($this->project);
         $this->project->addReference("dummy3", $m3);
-        $m3->setRefid(new Reference("dummy1"));
+        $m3->setRefid(new Reference($this->project, "dummy1"));
         try {
             $m1->getImplementation();
             $this->fail("Can make circular reference.");
@@ -114,10 +107,10 @@ class MapperTest extends PHPUnit_Framework_TestCase
         // (which holds a glob mapper from "*.java" to "*.class"
         $m1 = new Mapper($this->project);
         $this->project->addReference("dummy1", $m1);
-        $m1->setRefid(new Reference("dummy2"));
+        $m1->setRefid(new Reference($this->project, "dummy2"));
         $m2 = new Mapper($this->project);
         $this->project->addReference("dummy2", $m2);
-        $m2->setRefid(new Reference("dummy3"));
+        $m2->setRefid(new Reference($this->project, "dummy3"));
         $m3 = new Mapper($this->project);
         $this->project->addReference("dummy3", $m3);
 
@@ -144,7 +137,6 @@ class MapperTest extends PHPUnit_Framework_TestCase
             throw $e;
         }
     }
-
 }
 
 /**
@@ -152,7 +144,6 @@ class MapperTest extends PHPUnit_Framework_TestCase
  */
 class TaskdefForCopyTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/types/mapper.xml");
@@ -167,7 +158,7 @@ class TaskdefForCopyTest extends BuildFileTest
     {
         $this->executeTarget("test1");
     }
-    
+
     public function test2()
     {
         $this->executeTarget("test2");

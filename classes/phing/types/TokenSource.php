@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-require_once 'phing/types/DataType.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * A parameter is composed of a name, type and value.
@@ -59,7 +54,7 @@ class TokenSource extends DataType
      * Array holding parameters for the wrapped TokenReader.
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * Reference to the TokenReader used by this TokenSource
@@ -70,7 +65,7 @@ class TokenSource extends DataType
     /**
      * Array with key/value pairs of tokens
      */
-    protected $tokens = array();
+    protected $tokens = [];
 
     /**
      * This method is called to load the sources from the reader
@@ -109,7 +104,7 @@ class TokenSource extends DataType
     public function getTokens()
     {
         if (count($this->tokens) == 0) {
-            $this->Load();
+            $this->load();
         }
 
         return $this->tokens;

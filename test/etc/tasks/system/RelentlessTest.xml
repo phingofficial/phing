@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RetryTest" default="testRelentless">
+    <target name="testRelentless">
+        <relentless description="The first five canonical variable names.">
+            <echo>foo</echo>
+            <echo>bar</echo>
+            <echo>baz</echo>
+            <echo>bat</echo>
+            <echo>blah</echo>
+        </relentless>
+    </target>
+    <target name="testTerse">
+        <relentless terse="true" description="The first five canonical variable names.">
+            <echo>foo</echo>
+            <echo>bar</echo>
+            <echo>baz</echo>
+            <echo>bat</echo>
+            <echo>blah</echo>
+        </relentless>
+    </target>
+    <target name="testFailure">
+        <relentless terse="true" description="The first five canonical variable names.">
+            <echo>foo</echo>
+            <echo>bar</echo>
+            <fail>baz</fail>
+            <echo>bat</echo>
+            <echo>blah</echo>
+        </relentless>
+    </target>
+</project>

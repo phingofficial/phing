@@ -31,21 +31,14 @@ require_once 'phing/types/FileSet.php';
  */
 class BatchTest
 {
-    /**
-     * The list of filesets containing the testcase filename rules.
-     *
-     * @var array $filesets
-     */
-    private $filesets = array();
+    use ClasspathAware;
+    use FileSetAware;
 
     /** the reference to the project */
     private $project = null;
 
-    /** the classpath to use with Phing::__import() calls */
-    private $classpath = null;
-
     /** names of classes to exclude */
-    private $excludeClasses = array();
+    private $excludeClasses = [];
 
     /** name of the batchtest/suite */
     protected $name = "Phing Batchtest";
@@ -53,7 +46,7 @@ class BatchTest
     /**
      * Create a new batchtest instance
      *
-     * @param Project the project it depends on.
+     * @param Project $project the project it depends on.
      */
     public function __construct(Project $project)
     {
@@ -82,63 +75,13 @@ class BatchTest
     }
 
     /**
-     * Sets the classpath.
-     *
-     * @param Path $classpath
-     *
-     * @return void
-     */
-    public function setClasspath(Path $classpath)
-    {
-        if ($this->classpath === null) {
-            $this->classpath = $classpath;
-        } else {
-            $this->classpath->append($classpath);
-        }
-    }
-
-    /**
-     * Creates a new Path object.
-     *
-     * @return Path
-     */
-    public function createClasspath()
-    {
-        $this->classpath = new Path();
-
-        return $this->classpath;
-    }
-
-    /**
-     * Returns the classpath.
-     *
-     * @return Path
-     */
-    public function getClasspath()
-    {
-        return $this->classpath;
-    }
-
-    /**
-     * Add a new fileset containing the XML results to aggregate.
-     *
-     * @param FileSet $fileset the new fileset containing XML results.
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
-
-    /**
      * Iterate over all filesets and return the filename of all files.
      *
      * @return array an array of filenames
      */
     private function getFilenames()
     {
-        $filenames = array();
+        $filenames = [];
 
         foreach ($this->filesets as $fileset) {
             $ds = $fileset->getDirectoryScanner($this->project);
@@ -163,7 +106,7 @@ class BatchTest
      */
     private function isTestCase($input)
     {
-        return is_subclass_of($input, 'PHPUnit_Framework_TestCase') || is_subclass_of(
+        return is_subclass_of($input, '\PHPUnit\Framework\TestCase') || is_subclass_of(
             $input,
             'PHPUnit_Framework_TestSuite'
         );
@@ -194,7 +137,7 @@ class BatchTest
     {
         $filenames = $this->getFilenames();
 
-        $declaredClasses = array();
+        $declaredClasses = [];
 
         foreach ($filenames as $filename) {
             $definedClasses = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
@@ -206,7 +149,7 @@ class BatchTest
             $declaredClasses = array_merge($declaredClasses, $definedClasses);
         }
 
-        $elements = array_filter($declaredClasses, array($this, "filterTests"));
+        $elements = array_filter($declaredClasses, [$this, "filterTests"]);
 
         return $elements;
     }

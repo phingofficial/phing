@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,16 +19,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/YamlFileParser.php';
-include_once 'phing/system/io/FileParserInterface.php';
-
-use org\bovigo\vfs\vfsStream;
-
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
+ * @requires OS ^(?:(?!Win).)*$
  */
-class IniFileParserTest extends PHPUnit_Framework_TestCase
+class IniFileParserTest extends \PHPUnit\Framework\TestCase
 {
     private $parser;
     private $root;
@@ -37,7 +32,7 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->parser = new IniFileParser();
-        $this->root = vfsStream::setup();
+        $this->root = \org\bovigo\vfs\vfsStream::setup();
     }
 
     /**
@@ -60,7 +55,7 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
      */
     public function testParseFileCouldntOpenFile()
     {
-        $phingFile = new PhingFile(uniqid());
+        $phingFile = new PhingFile(uniqid('', true));
         $this->parser->parseFile($phingFile);
     }
 
@@ -69,65 +64,65 @@ class IniFileParserTest extends PHPUnit_Framework_TestCase
      */
     public function provideIniFiles()
     {
-        return array(
-            array(
+        return [
+            [
                 'data'     => "property = test\nproperty2 = test2\nproperty3 = test3\n",
-                'expected' => array(
+                'expected' => [
                     'property'  => 'test',
                     'property2' => 'test2',
                     'property3' => 'test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = test\r\nproperty2 = test2\r\nproperty3 = test3\r\n",
-                'expected' => array(
+                'expected' => [
                     'property'  => 'test',
                     'property2' => 'test2',
                     'property3' => 'test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = test,\\\ntest2,\\\ntest3\n",
-                'expected' => array(
+                'expected' => [
                     'property' => 'test,test2,test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = test,\\\r\ntest2,\\\r\ntest3\r\n",
-                'expected' => array(
+                'expected' => [
                     'property' => 'test,test2,test3',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "# property = test",
-                'expected' => array(),
-            ),
-            array(
+                'expected' => [],
+            ],
+            [
                 'data'     => "   # property = test",
-                'expected' => array(),
-            ),
-            array(
+                'expected' => [],
+            ],
+            [
                 'data'     => "; property = test",
-                'expected' => array(),
-            ),
-            array(
+                'expected' => [],
+            ],
+            [
                 'data'     => "property=test",
-                'expected' => array(
+                'expected' => [
                     'property' => 'test',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = true",
-                'expected' => array(
+                'expected' => [
                     'property' => true,
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'data'     => "property = false",
-                'expected' => array(
+                'expected' => [
                     'property' => false,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

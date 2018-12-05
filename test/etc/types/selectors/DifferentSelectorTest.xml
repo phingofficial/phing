@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" basedir="." default="main">
+
+    <property name="tmp.dir" value="tmp/selector"/>
+    <resolvepath propertyName="output" dir="${tmp.dir}" path="testoutput"/>
+    <resolvepath propertyName="result" dir="${tmp.dir}" path="testresult"/>
+    <resolvepath propertyName="a" dir="${output}" path="a"/>
+    <resolvepath propertyName="b" dir="${output}" path="b"/>
+
+    <target name="setup">
+        <mkdir dir="${output}"/>
+        <mkdir dir="${result}"/>
+        <mkdir dir="${a}"/>
+        <mkdir dir="${b}"/>
+    </target>
+    <target name="clean">
+        <delete dir="${output}"/>
+        <delete dir="${result}"/>
+    </target>
+
+    <target name="testSameTime">
+        <touch file="${a}/a.txt" millis="102134111"/>
+        <touch file="${b}/a.txt" millis="102134111"/>
+        <copy todir="${result}">
+            <fileset dir="${b}">
+                <different targetdir="${a}" ignoreContents="true" ignoreFileTimes="false"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testDifferentTime">
+        <touch file="${a}/b.txt" millis="102134111"/>
+        <touch file="${b}/b.txt" millis="102134200"/>
+        <copy todir="${result}">
+            <fileset dir="${b}">
+                <different targetdir="${a}" ignoreContents="true" ignoreFileTimes="false" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="main">
+        <echo msg="This test build file is not executable."/>
+    </target>
+</project>

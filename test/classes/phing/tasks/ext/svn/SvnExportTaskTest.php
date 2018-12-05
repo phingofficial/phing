@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,19 +18,18 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.svn
  */
 class SvnExportTaskTest extends AbstractSvnTaskTest
 {
+    use SvnTaskTestSkip;
+
     public function setUp()
     {
-        parent::setUp('SvnExportTest.xml', false);
+        $this->markTestAsSkippedWhenSvnNotInstalled();
+        $this->initialize('SvnExportTest.xml', false);
     }
 
     public function testExportSimple()

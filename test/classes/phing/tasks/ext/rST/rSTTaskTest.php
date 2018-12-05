@@ -10,10 +10,7 @@
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
- * @version    SVN: $Id$
  */
-
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -74,13 +71,11 @@ class rSTTaskTest extends BuildFileTest
     /**
      * @expectedException BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathFail()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
             $rt = new rSTTask();
-            $rt->init();
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);
@@ -92,7 +87,6 @@ class rSTTaskTest extends BuildFileTest
 
     /**
      * Get the tool path previously set with setToolpath()
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathCustom()
     {

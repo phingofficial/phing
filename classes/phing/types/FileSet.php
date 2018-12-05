@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/AbstractFileSet.php';
-
 /**
  * Moved out of MatchingTask to make it a standalone object that could
  * be referenced (by scripts for example).
@@ -37,14 +33,19 @@ require_once 'phing/types/AbstractFileSet.php';
 class FileSet extends AbstractFileSet
 {
     /**
-     * Return a FileSet that has the same basedir and same patternsets as this one.
+     * @return array
+     * @throws Exception
      */
-    public function __clone()
+    protected function getFiles(...$options)
     {
-        if ($this->isReference()) {
-            return new FileSet($this->getRef($this->getProject()));
-        } else {
-            return new FileSet($this);
+        $directoryScanner = $this->getDirectoryScanner($this->getProject());
+        $files = $directoryScanner->getIncludedFiles();
+
+        $baseDirectory = $directoryScanner->getBasedir();
+        foreach ($files as $index => $file) {
+            $files[$index] = realpath($baseDirectory . '/' . $file);
         }
+
+        return $files;
     }
 }

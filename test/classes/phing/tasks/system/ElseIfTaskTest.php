@@ -1,17 +1,13 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the ElseIf Task
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ElseIfTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -79,5 +75,4 @@ class ElseIfTaskTest extends BuildFileTest
 
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }
-
 }

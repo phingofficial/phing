@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" basedir="." default="main">
+
+    <property name="tmp.dir" value="tmp/selector"/>
+    <resolvepath propertyName="output" path="${tmp.dir}/symlinkselectortest" />
+    <property name="file" value="testfile"/>
+    <property name="link" value="testlink"/>
+
+    <condition property="unix">
+        <os family="unix"/>
+    </condition>
+
+    <target name="createTestdir">
+        <mkdir dir="${output}"/>
+        <touch file="${output}/${file}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${output}" />
+    </target>
+
+    <target name="makeSymlink"
+            depends="createTestdir,makeSymlink-Unix,makeSymlink-Windows"/>
+    <target name="makeSymlink-Unix" if="unix">
+        <symlink link="${output}/${link}" target="${output}/${file}"/>
+    </target>
+    <target name="makeSymlink-Windows" unless="unix">
+        <symlink link="${output}/${link}" target="${output}/${file}"/>
+    </target>
+
+    <target name="testAsFalseConditions" depends="createTestdir">
+        <condition property="unset">
+            <isfileselected file="${output}/${link}">
+                <symlink />
+            </isfileselected>
+        </condition>
+    </target>
+
+    <target name="testAsTrueConditions" depends="makeSymlink" if="unix">
+        <condition property="selected">
+            <isfileselected file="${output}/${link}">
+                <symlink/>
+            </isfileselected>
+        </condition>
+    </target>
+
+    <target name="main">
+        <echo msg="This test build file is not executable."/>
+    </target>
+</project>

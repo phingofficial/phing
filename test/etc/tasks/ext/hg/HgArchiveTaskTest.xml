@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<project name="hgArchiveTest" default="invalid">
+    <target name="destinationNotSpecified" description="Destination not specified">
+        <hgarchive revision="deadbeef0a0b"/>
+	</target>
+</project>

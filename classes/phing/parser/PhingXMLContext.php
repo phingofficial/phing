@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,7 +21,6 @@
  * Track the current state of the Xml parse operation.
  *
  * @author    Bryan Davis <bpd@keynetics.com>
- * @version   $Id$
  * @package   phing.parser
  */
 class PhingXMLContext
@@ -58,14 +55,14 @@ class PhingXMLContext
     {
         $this->project = $project;
         $this->implicitTarget = new Target();
-        $this->implicitTarget->setName("");
+        $this->implicitTarget->setName('');
         $this->implicitTarget->setHidden(true);
     }
 
     /** The project to configure. */
     private $project;
 
-    private $configurators = array();
+    private $configurators = [];
 
     /**
      * @param $cfg
@@ -94,7 +91,7 @@ class PhingXMLContext
     }
 
     /** Impoerted files */
-    private $importStack = array();
+    private $importStack = [];
 
     /**
      * @param $file
@@ -168,5 +165,4 @@ class PhingXMLContext
     {
         $this->currentTargets = $currentTargets;
     }
-
 } //end PhingXMLContext

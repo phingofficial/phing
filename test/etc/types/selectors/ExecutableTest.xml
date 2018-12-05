@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" basedir="." default="main">
+
+  <property name="tmp.dir" value="tmp/selector"/>
+  <property name="output" value="${tmp.dir}/testoutput"/>
+
+  <property name="winfile" value="testfile"/>
+
+  <condition property="unix">
+    <os family="unix"/>
+  </condition>
+
+  <condition property="windows">
+    <os family="windows"/>
+  </condition>
+
+  <target name="setup">
+    <mkdir dir="${output}"/>
+  </target>
+
+  <target name="unix-clean" unless="windows">
+    <chmod file="${output}/${file}" mode="777"/>
+    <delete file="${output}"/>
+  </target>
+
+  <target name="win-clean" unless="unix">
+    <delete file="${output}"/>
+  </target>
+
+  <target name="clean" depends="unix-clean,win-clean"/>
+
+  <target name="createTestdir">
+    <touch file="${output}/${file}" mkdirs="true"/>
+    <chmod file="${output}/${file}" mode="755"/>
+  </target>
+
+  <target name="testExecutable" depends="createTestdir">
+    <condition property="selected">
+      <isfileselected file="${output}/${file}">
+        <executable/>
+      </isfileselected>
+    </condition>
+  </target>
+
+  <target name="makeFileUnexecutable"
+          depends="createTestdir,makeFileUnexecutable-Unix,makeFileUnexecutable-Windows"/>
+
+  <target name="makeFileUnexecutable-Unix" unless="windows">
+    <chmod file="${output}/${file}" mode="444"/>
+  </target>
+
+  <target name="makeFileUnexecutable-Windows" unless="unix">
+    <attrib file="${output}/${file}" hidden="true"/>
+  </target>
+
+  <target name="testUnexecutable" depends="makeFileUnexecutable">
+    <condition property="unset">
+      <isfileselected file="${output}/${file}">
+        <executable/>
+      </isfileselected>
+    </condition>
+  </target>
+
+  <target name="main">
+    <echo msg="This test build file is not executable."/>
+  </target>
+</project>

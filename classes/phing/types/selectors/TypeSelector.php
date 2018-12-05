@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,31 +17,27 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
-
 /**
  * Selector that selects a certain kind of file: directory or regular file.
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Jeff Turner <jefft@apache.org> (Ant)
- * @version   $Id$
  * @package   phing.types.selectors
  */
 class TypeSelector extends BaseExtendSelector
 {
-
     private $type;
 
     /** Key to used for parameterized custom selector */
     const TYPE_KEY = "type";
 
     /** Valid types */
-    private static $types = array('file', 'dir', 'link');
+    private static $types = ['file', 'dir', 'link'];
 
     /**
      * @return string A string describing this object
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{typeselector type: " . $this->type . "}";
 
@@ -128,5 +121,4 @@ class TypeSelector extends BaseExtendSelector
             return $this->type === 'file';
         }
     }
-
 }

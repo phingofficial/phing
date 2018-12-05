@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@ include_once 'phing/system/io/Reader.php';
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Matthew Hershberger <matthewh@lightsp.com>
- * @version $Id$
  * @package phing.system.io
  */
 class ConsoleReader extends Reader
@@ -37,7 +34,6 @@ class ConsoleReader extends Reader
      */
     public function readLine()
     {
-
         $out = fgets(STDIN); // note: default maxlen is 1kb
         $out = rtrim($out);
 
@@ -51,7 +47,6 @@ class ConsoleReader extends Reader
      */
     public function read($len = null)
     {
-
         $out = fread(STDIN, $len);
 
         return $out;
@@ -59,7 +54,6 @@ class ConsoleReader extends Reader
         // read by chars doesn't work (yet?) with PHP stdin.  Maybe
         // this is just a language feature, maybe there's a way to get
         // ability to read chars w/o <enter> ?
-
     }
 
     public function close()

@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
-
 /**
  * This selector has a collection of other selectors. All of those selectors
  * must refuse to select a file before the file is considered selected by
@@ -36,12 +32,12 @@ class NoneSelector extends BaseSelectorContainer
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{noneselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 
@@ -60,7 +56,6 @@ class NoneSelector extends BaseSelectorContainer
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $selectors = $this->selectorElements();
@@ -74,5 +69,4 @@ class NoneSelector extends BaseSelectorContainer
 
         return true;
     }
-
 }

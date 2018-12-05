@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/ExitStatusException.php';
-require_once 'phing/tasks/system/condition/NestedCondition.php';
-
 /**
  * Exits the active build, giving an additional message
  * if available.
@@ -32,11 +28,29 @@ require_once 'phing/tasks/system/condition/NestedCondition.php';
  */
 class FailTask extends Task
 {
-    /** @var string $message */
+    /**
+     * @var string $message
+     */
     protected $message;
+
+    /**
+     * @var string
+     */
     protected $ifCondition;
+
+    /**
+     * @var string
+     */
     protected $unlessCondition;
+
+    /**
+     * @var NestedCondition
+     */
     protected $nestedCondition;
+
+    /**
+     * @var integer
+     */
     protected $status;
 
     /**
@@ -66,7 +80,7 @@ class FailTask extends Task
     /**
      * Only fail if a property of the given name exists in the current project.
      *
-     * @param $c property name
+     * @param string $c property name
      *
      * @return void
      */
@@ -79,7 +93,7 @@ class FailTask extends Task
      * Only fail if a property of the given name does not
      * exist in the current project.
      *
-     * @param $c property name
+     * @param string $c property name
      *
      * @return void
      */
@@ -106,7 +120,10 @@ class FailTask extends Task
      */
     public function main()
     {
-        if ($this->testIfCondition() && $this->testUnlessCondition()) {
+        $fail =  $this->nestedConditionPresent() ? $this->testNestedCondition() :
+            $this->testIfCondition() && $this->testUnlessCondition();
+
+        if ($fail) {
             $text = null;
             if ($this->message !== null && strlen(trim($this->message)) > 0) {
                 $text = trim($this->message);
@@ -142,7 +159,7 @@ class FailTask extends Task
 
     /**
      * Add a condition element.
-     * @return ConditionBase
+     * @return NestedCondition
      * @throws BuildException
      */
     public function createCondition()
@@ -202,7 +219,7 @@ class FailTask extends Task
     {
         $result = $this->nestedConditionPresent();
 
-        if ($result && $this->ifCondition !== null || $this->unlessCondition !== null) {
+        if ($result && ($this->ifCondition !== null || $this->unlessCondition !== null)) {
             throw new BuildException("Nested conditions not permitted in conjunction with if/unless attributes");
         }
 

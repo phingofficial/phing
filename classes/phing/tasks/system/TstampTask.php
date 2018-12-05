@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Sets properties to the current time, or offsets from the current time.
@@ -28,13 +25,12 @@ require_once 'phing/Task.php';
  * Based on Ant's Tstamp task.
  *
  * @author   Michiel Rook <mrook@php.net>
- * @version  $Id$
  * @package  phing.tasks.system
  * @since    2.2.0
  */
 class TstampTask extends Task
 {
-    private $customFormats = array();
+    private $customFormats = [];
 
     private $prefix = "";
 
@@ -70,17 +66,19 @@ class TstampTask extends Task
      */
     public function main()
     {
+        $d = $this->getNow();
+
         foreach ($this->customFormats as $cf) {
-            $cf->execute($this);
+            $cf->execute($this, $d, $this->getLocation());
         }
 
-        $dstamp = strftime('%Y%m%d');
+        $dstamp = strftime('%Y%m%d', $d);
         $this->prefixProperty('DSTAMP', $dstamp);
 
-        $tstamp = strftime('%H%M');
+        $tstamp = strftime('%H%M', $d);
         $this->prefixProperty('TSTAMP', $tstamp);
 
-        $today = strftime('%B %d %Y');
+        $today = strftime('%B %d %Y', $d);
         $this->prefixProperty('TODAY', $today);
     }
 
@@ -94,74 +92,35 @@ class TstampTask extends Task
     {
         $this->getProject()->setNewProperty($this->prefix . $name, $value);
     }
-}
 
-/**
- * @package  phing.tasks.system
- */
-class TstampCustomFormat
-{
-    private $propertyName = "";
-    private $pattern = "";
-    private $locale = "";
-
-    /**
-     * The property to receive the date/time string in the given pattern
-     *
-     * @param string $propertyName the name of the property.
-     */
-    public function setProperty($propertyName)
+    protected function getNow(): int
     {
-        $this->propertyName = $propertyName;
-    }
+        $property = $this->getProject()->getProperty('phing.tstamp.now.iso');
 
-    /**
-     * The date/time pattern to be used. The values are as
-     * defined by the PHP strftime() function.
-     *
-     * @param pattern
-     */
-    public function setPattern($pattern)
-    {
-        $this->pattern = $pattern;
-    }
+        if ($property !== null && $property !== '') {
+            try {
+                $dateTime = new DateTime($property);
+            } catch (Exception $e) {
+                $this->log('magic property phing.tstamp.now.iso ignored as ' . $property . ' is not a valid number');
+                $dateTime = new DateTime();
+            }
 
-    /**
-     * The locale used to create date/time string.
-     *
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * validate parameter and execute the format.
-     *
-     * @param TstampTask $tstamp reference to task
-     * @throws BuildException
-     */
-    public function execute(TstampTask $tstamp)
-    {
-        if (empty($this->propertyName)) {
-            throw new BuildException("property attribute must be provided");
+            return $dateTime->getTimestamp();
         }
 
-        if (empty($this->pattern)) {
-            throw new BuildException("pattern attribute must be provided");
+        $property = $this->getProject()->getProperty('phing.tstamp.now');
+
+        $dateTime = (new DateTime())->getTimestamp();
+
+        if ($property !== null && $property !== '') {
+            $dateTime = DateTime::createFromFormat('U', $property);
+            if ($dateTime === false) {
+                $this->log('magic property phing.tstamp.now ignored as ' . $property . ' is not a valid number');
+            } else {
+                $dateTime = $dateTime->getTimestamp();
+            }
         }
 
-        if (!empty($this->locale)) {
-            setlocale(LC_ALL, $this->locale);
-        }
-
-        $value = strftime($this->pattern);
-        $tstamp->prefixProperty($this->propertyName, $value);
-
-        if (!empty($this->locale)) {
-            // reset locale
-            setlocale(LC_ALL, null);
-        }
+        return $dateTime;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,15 +18,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
- * @version $Id$
  * @package phing.tasks.system
  */
 class TaskdefTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/taskdef.xml");
@@ -49,12 +44,16 @@ class TaskdefTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException BuildException
      */
     public function testClassNotFound()
     {
         try {
-            $this->expectBuildException("classNotFound", "classname specified doesn't exist");
+            $this->executeTarget("classNotFound");
+            $this->fail(
+                "Should throw ConfigurationException because: " .
+                "classname specified doesn't exist"
+            );
         } catch (ConfigurationException $e) {
             //ignored
         }
@@ -65,7 +64,7 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testGlobal", "simpletask: testGlobal echo");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
-        $this->assertNotNull("ref is not null", $ref);
+        $this->assertNotNull("ref is not null");
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 
@@ -74,8 +73,8 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testLocal", "Task local will be handled by class example.tasks.TaskdefTestSimpleTask");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
-        $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        $this->assertNotNull("ref is not null");
+        $this->assertInstanceOf('TaskdefTestSimpleTask', $ref);
     }
 
     public function tesFile()
@@ -83,10 +82,10 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testFile", "simpletask: testTdfile echo");
         $refs = $this->project->getReferences();
         $ref = $refs["tdfile"];
-        $this->assertNotNull("ref is not null", $ref);
+        $this->assertNotNull("ref is not null");
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
         $ref = $refs["tdfile2"];
-        $this->assertNotNull("ref is not null", $ref);
+        $this->assertNotNull("ref is not null");
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 }

@@ -4,14 +4,13 @@
  * This is the Phing command line launcher. It starts up the system evironment
  * tests for all important paths and properties and kicks of the main command-
  * line entry point of phing located in phing.Phing
- * @version $Id$
  */
 
 // Use composers autoload.php if available
-if (file_exists(dirname(__FILE__) . '/../vendor/autoload.php')) {
-    require_once dirname(__FILE__) . '/../vendor/autoload.php';
-} elseif (file_exists(dirname(__FILE__) . '/../../../autoload.php')) {
-    require_once dirname(__FILE__) . '/../../../autoload.php';
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
+    require_once __DIR__ . '/../../../autoload.php';
 }
 
 // Set any INI options for PHP
@@ -19,7 +18,7 @@ if (file_exists(dirname(__FILE__) . '/../vendor/autoload.php')) {
 
 /* set include paths */
 set_include_path(
-            dirname(__FILE__) . '/../classes' .
+            __DIR__ . '/../classes' .
             PATH_SEPARATOR .
             get_include_path()
         );
@@ -32,14 +31,17 @@ require_once 'phing/Phing.php';
 function hasColorSupport()
 {
     if (DIRECTORY_SEPARATOR == '\\') {
-        return false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI');
+        return 0 >= version_compare('10.0.10586', PHP_WINDOWS_VERSION_MAJOR.'.'.PHP_WINDOWS_VERSION_MINOR.'.'.PHP_WINDOWS_VERSION_BUILD)
+        || false !== getenv('ANSICON')
+        || 'ON' === getenv('ConEmuANSI')
+        || 'xterm' === getenv('TERM');
     }
     return function_exists('posix_isatty') && @posix_isatty(STDOUT);
 }
 
 // default logger
 if (!in_array('-logger', $argv) && hasColorSupport()) {
-    array_splice($argv, 1, 0, array('-logger', 'phing.listener.AnsiColorLogger'));
+    array_splice($argv, 1, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
 }
 
 try {
@@ -59,17 +61,13 @@ try {
 
     // Invoke any shutdown routines.
     Phing::shutdown();
-
 } catch (ConfigurationException $x) {
-
     Phing::printMessage($x);
     exit(-1); // This was convention previously for configuration errors.
-
 } catch (Exception $x) {
 
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 
     exit(1);
-
 }

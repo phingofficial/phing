@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/phk/PhkPackageWebAccess.php';
 
 /**
@@ -49,11 +46,11 @@ class PhkPackageTask extends Task
     /**
      * @var array
      */
-    private $modifiers = array();
+    private $modifiers = [];
     /**
      * @var array
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * @return PhkPackageWebAccess
@@ -68,7 +65,7 @@ class PhkPackageTask extends Task
      */
     public function setCrcCheck($crcCheck)
     {
-        $this->options['crc_check'] = ('true' == $crcCheck ? true : false);
+        $this->options['crc_check'] = 'true' == $crcCheck;
     }
 
     /**
@@ -108,7 +105,7 @@ class PhkPackageTask extends Task
      */
     public function setWebMainRedirect($webMainRedirect)
     {
-        $this->options['web_main_redirect'] = ('true' == $webMainRedirect ? true : false);
+        $this->options['web_main_redirect'] = 'true' == $webMainRedirect;
     }
 
     /**
@@ -164,7 +161,7 @@ class PhkPackageTask extends Task
     /**
      * True or false.
      *
-     * @param srting $strip
+     * @param string $strip
      */
     public function setStrip($strip)
     {
@@ -174,7 +171,7 @@ class PhkPackageTask extends Task
     /**
      * Path to PHK_Creator.phk file.
      *
-     * @param srting $path
+     * @param string $path
      */
     public function setPhkCreatorPath($path)
     {
@@ -186,7 +183,6 @@ class PhkPackageTask extends Task
      */
     public function init()
     {
-
     }
 
     /**
@@ -220,7 +216,7 @@ class PhkPackageTask extends Task
         /*
          * Add web_access to options, if present.
          */
-        if (!is_null($this->webAccess)) {
+        if (null !== $this->webAccess) {
             $webAccessPaths = $this->webAccess->getPaths();
             if (!empty($webAccessPaths)) {
                 $this->options['web_access'] = $webAccessPaths;
@@ -246,10 +242,7 @@ class PhkPackageTask extends Task
             /*
              * Delete all '--- *' lines. Bluh!
              */
-            /*
-             * TODO Change preg_math to more faster alternative.
-             */
-            if (preg_match('/^---/', $line)) {
+            if (0 === strpos($line, '---')) {
                 continue;
             }
 

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests for PHPCPDTask
  *
@@ -30,14 +27,9 @@ require_once 'phing/BuildFileTest.php';
  */
 class PHPCPDTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
-
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
     }
 
     public function testFormatterOutfile()
@@ -63,6 +55,6 @@ class PHPCPDTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("0.00% duplicated lines out of 4 total lines of code.", $output);
+        $this->assertContains("No clones found.\n\n", $output);
     }
 }

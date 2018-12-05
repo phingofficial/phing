@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
-include_once 'phing/util/regexp/Regexp.php';
 
 /**
  * Regular Expression Task for properties.
@@ -171,7 +166,6 @@ class RegexTask extends AbstractPropertySetterTask
      */
     public function setCaseSensitive($caseSensitive)
     {
-
         $this->log("Set case-sensitive to $caseSensitive", Project::MSG_DEBUG);
 
         $this->caseSensitive = $caseSensitive;

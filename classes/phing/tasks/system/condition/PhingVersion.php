@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * An phing version condition/task.
  *
@@ -125,7 +121,8 @@ class PhingVersion extends Task implements Condition
      * For example 1.7.0.
      * @param string $exactly the version to check against.
      */
-    public function setExactly($exactly) {
+    public function setExactly($exactly)
+    {
         $this->exactly = $exactly;
     }
 

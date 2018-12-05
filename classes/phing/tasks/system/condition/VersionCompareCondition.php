@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once "phing/tasks/system/condition/Condition.php";
 
 /**
  * Condition that compare versions
@@ -75,9 +71,8 @@ class VersionCompareCondition implements Condition
      */
     public function setOperator($operator)
     {
-        $allowed = array('<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne');
+        $allowed = ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne'];
         if (!in_array($operator, $allowed)) { // allowed operators for php's version_comapare()
-            require_once 'phing/BuildException.php';
             throw new BuildException(sprintf(
                 'Operator "%s" is not supported. Supported operators: %s',
                 $operator,
@@ -102,7 +97,6 @@ class VersionCompareCondition implements Condition
     public function evaluate()
     {
         if ($this->version === null || $this->desiredVersion === null) {
-            require_once 'phing/BuildException.php';
             throw new BuildException("Missing one version parameter for version compare");
         }
         $isValid = version_compare($this->version, $this->desiredVersion, $this->operator);

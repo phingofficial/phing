@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -83,6 +82,17 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
+     * Test to get the right log message on fileset usage
+     *
+     * @return void
+     */
+    public function testLogMessageWithDirset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
+    }
+
+    /**
      * Test to get the right log message on list usage with multiple entries
      *
      * @return void
@@ -104,4 +114,20 @@ class ForeachTaskTest extends BuildFileTest
         $this->assertInLogs('Processed 1 entry in list', Project::MSG_VERBOSE);
     }
 
+    /**
+     * Test to get the right log message on fileset usage
+     *
+     * @return void
+     */
+    public function testLogMessageWithPath()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
+    }
+
+    public function testIndex()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('2 - de');
+    }
 }

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@ include_once 'phing/mappers/FileNameMapper.php';
  * was set for "to".
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @version   $Id$
  * @package   phing.mappers
  */
 class MergeMapper implements FileNameMapper
@@ -49,7 +46,7 @@ class MergeMapper implements FileNameMapper
             throw new BuildException("MergeMapper error, to attribute not set");
         }
 
-        return array($this->mergedFile);
+        return [$this->mergedFile];
     }
 
     /**
@@ -71,5 +68,4 @@ class MergeMapper implements FileNameMapper
     public function setFrom($from)
     {
     }
-
 }

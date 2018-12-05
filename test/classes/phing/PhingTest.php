@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__FILE__) . '/../../../classes/phing/Phing.php';
-
 /**
  * Core Phing class test
  * Do not know why there was no test at all
@@ -31,9 +28,8 @@ require_once dirname(__FILE__) . '/../../../classes/phing/Phing.php';
  * @version $Revision: $
  * @package phing
  */
-class PhingTest extends PHPUnit_Framework_TestCase
+class PhingTest extends \PHPUnit\Framework\TestCase
 {
-
     const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
     const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
     const DOTED_CLASS = 'Vendor.Package.DotedClass';
@@ -47,14 +43,12 @@ class PhingTest extends PHPUnit_Framework_TestCase
      */
     public function testImportPSR0()
     {
-        // Test the namespace support only if PHP >= 5.3
-        if (version_compare(PHP_VERSION, '5.3', '>=')) {
-            $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
-            self::assertEquals(self::NAMESPACED_CLASS, $className);
-            self::assertTrue(class_exists(self::NAMESPACED_CLASS));
-        }
+        // Test the namespace support
+        $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
+        self::assertEquals(self::NAMESPACED_CLASS, $className);
+        self::assertTrue(class_exists(self::NAMESPACED_CLASS));
 
-        // Test PEAR stadard
+        // Test PEAR standard
         $className = Phing::import(self::SEPARATED_CLASS, self::getClassPath());
         self::assertEquals(self::SEPARATED_CLASS, $className);
         self::assertTrue(class_exists(self::SEPARATED_CLASS));
@@ -71,12 +65,31 @@ class PhingTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test the convertShorthand function 
+     */
+    public function testConvertShorthand()
+    {
+        self::assertEquals(0, Phing::convertShorthand('0'));
+        self::assertEquals(-1, Phing::convertShorthand('-1'));
+        self::assertEquals(100, Phing::convertShorthand('100'));
+        self::assertEquals(1024, Phing::convertShorthand('1k'));
+        self::assertEquals(1024, Phing::convertShorthand('1K'));
+        self::assertEquals(2048, Phing::convertShorthand('2K'));
+        self::assertEquals(1048576, Phing::convertShorthand('1M'));
+        self::assertEquals(1048576, Phing::convertShorthand('1m'));
+        self::assertEquals(1073741824, Phing::convertShorthand('1G'));
+        self::assertEquals(1073741824, Phing::convertShorthand('1g'));
+
+        self::assertEquals(200, Phing::convertShorthand('200j'));
+    }
+
+    /**
      * Get fixtures classpath
      *
      * @return string Classpath
      */
     protected static function getClassPath()
     {
-        return dirname(__FILE__) . '/../../etc/importclasses';
+        return __DIR__ . '/../../etc/importclasses';
     }
 }

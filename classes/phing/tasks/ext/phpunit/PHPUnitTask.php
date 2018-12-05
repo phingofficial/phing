@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,26 +17,19 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/util/LogWriter.php';
-require_once 'phing/tasks/ext/phpunit/BatchTest.php';
-require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
-
 /**
  * Runs PHPUnit tests.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @see BatchTest
  * @since 2.1.0
  */
 class PHPUnitTask extends Task
 {
-    private $batchtests = array();
-    private $formatters = array();
+    private $batchtests = [];
+    /** @var FormatterElement[] $formatters */
+    private $formatters = [];
     private $bootstrap = "";
     private $haltonerror = false;
     private $haltonfailure = false;
@@ -52,11 +43,11 @@ class PHPUnitTask extends Task
     private $testfailed = false;
     private $testfailuremessage = "";
     private $codecoverage = null;
-    private $groups = array();
-    private $excludeGroups = array();
+    private $groups = [];
+    private $excludeGroups = [];
     private $processIsolation = false;
     private $usecustomerrorhandler = true;
-    private $listeners = array();
+    private $listeners = [];
 
     /**
      * @var string
@@ -94,22 +85,11 @@ class PHPUnitTask extends Task
             @include $this->pharLocation;
             ob_end_clean();
         }
-        @include_once 'PHPUnit/Autoload.php';
 
-        if (!class_exists('PHPUnit_Runner_Version')) {
+        @include_once 'PHPUnit/Autoload.php';
+        if (!class_exists('PHPUnit_Runner_Version') && !class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
-
-        $version = PHPUnit_Runner_Version::id();
-
-        if (version_compare($version, '3.6.0') < 0) {
-            throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.6.0", $this->getLocation());
-        }
-
-        /**
-         * Other dependencies that should only be loaded when class is actually used.
-         */
-        require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
 
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
@@ -256,7 +236,7 @@ class PHPUnitTask extends Task
     public function setGroups($groups)
     {
         $token = ' ,;';
-        $this->groups = array();
+        $this->groups = [];
         $tok = strtok($groups, $token);
         while ($tok !== false) {
             $this->groups[] = $tok;
@@ -270,7 +250,7 @@ class PHPUnitTask extends Task
     public function setExcludeGroups($excludeGroups)
     {
         $token = ' ,;';
-        $this->excludeGroups = array();
+        $this->excludeGroups = [];
         $tok = strtok($excludeGroups, $token);
         while ($tok !== false) {
             $this->excludeGroups[] = $tok;
@@ -281,7 +261,7 @@ class PHPUnitTask extends Task
     /**
      * Add a new formatter to all tests of this task.
      *
-     * @param FormatterElement formatter element
+     * @param FormatterElement $fe formatter element
      */
     public function addFormatter(FormatterElement $fe)
     {
@@ -321,13 +301,17 @@ class PHPUnitTask extends Task
      * @throws BuildException
      * @return array
      */
-    protected function handlePHPUnitConfiguration($configuration)
+    protected function handlePHPUnitConfiguration(PhingFile $configuration)
     {
         if (!$configuration->exists()) {
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
+        if (class_exists('PHPUnit_Util_Configuration')) {
+            $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
+        } else {
+            $config = \PHPUnit\Util\Configuration::getInstance($configuration->getAbsolutePath());
+        }
 
         if (empty($config)) {
             return;
@@ -383,7 +367,7 @@ class PHPUnitTask extends Task
                                      );
                 }
 
-                if ($listener instanceof PHPUnit_Framework_TestListener) {
+                if ($listener instanceof \PHPUnit\Framework\TestListener) {
                     $this->addListener($listener);
                 }
             }
@@ -415,7 +399,17 @@ class PHPUnitTask extends Task
 
         $this->loadPHPUnit();
 
-        $suite = new PHPUnit_Framework_TestSuite('AllTests');
+        if (class_exists('\PHPUnit_Framework_TestSuite')) {
+            $suite = new PHPUnit_Framework_TestSuite('AllTests');
+        } else {
+            $suite = new \PHPUnit\Framework\TestSuite('AllTests');
+        }
+
+        $autoloadSave = spl_autoload_functions();
+
+        if ($this->bootstrap) {
+            require $this->bootstrap;
+        }
 
         if ($this->configuration) {
             $arguments = $this->handlePHPUnitConfiguration($this->configuration);
@@ -437,12 +431,6 @@ class PHPUnitTask extends Task
             $this->formatters[] = $fe;
         }
 
-        $autoloadSave = spl_autoload_functions();
-
-        if ($this->bootstrap) {
-            require $this->bootstrap;
-        }
-
         foreach ($this->batchtests as $batchTest) {
             $this->appendBatchTestToTestSuite($batchTest, $suite);
         }
@@ -454,13 +442,13 @@ class PHPUnitTask extends Task
         }
 
         $autoloadNew = spl_autoload_functions();
-        if(is_array($autoloadNew)) {
+        if (is_array($autoloadNew)) {
             foreach ($autoloadNew as $autoload) {
                 spl_autoload_unregister($autoload);
             }
         }
 
-        if(is_array($autoloadSave)) {
+        if (is_array($autoloadSave)) {
             foreach ($autoloadSave as $autoload) {
                 spl_autoload_register($autoload);
             }
@@ -469,23 +457,35 @@ class PHPUnitTask extends Task
 
     /**
      * @param $suite
+     * @throws \BuildException
      */
     protected function execute($suite)
     {
-        $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+        if (class_exists('\PHPUnit_Runner_Version', false)) {
+            $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(\PHPUnit\Runner\Version::id(), '7.0.0', '<')) {
+            $runner = new PHPUnitTestRunner6($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+        } else {
+            $runner = new PHPUnitTestRunner7($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+        }
 
         if ($this->codecoverage) {
             /**
              * Add some defaults to the PHPUnit filter
              */
-            $pwd = dirname(__FILE__);
+            $pwd = __DIR__;
             $path = realpath($pwd . '/../../../');
 
-            $filter = new PHP_CodeCoverage_Filter();
-            if (method_exists($filter, 'addDirectoryToBlacklist')) {
-                $filter->addDirectoryToBlacklist($path);
+            if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
+                $filter = new \SebastianBergmann\CodeCoverage\Filter;
+                if (method_exists($filter, 'addDirectoryToBlacklist')) {
+                    $filter->addDirectoryToBlacklist($path);
+                }
+                if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
+                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(null, $filter);
+                    $runner->setCodecoverage($codeCoverage);
+                }
             }
-            $runner->setCodecoverage(new PHP_CodeCoverage(null, $filter));
         }
 
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
@@ -498,7 +498,11 @@ class PHPUnitTask extends Task
             $formatter = $fe->getFormatter();
 
             if ($fe->getUseFile()) {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                try {
+                    $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                } catch (Exception $e) {
+                    throw new BuildException('Unable to create destination.', $e);
+                }
 
                 $writer = new FileWriter($destFile->getAbsolutePath());
 
@@ -566,17 +570,24 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest                   $batchTest
-     * @param PHPUnit_Framework_TestSuite $suite
+     * @param BatchTest $batchTest
+     * @param PHPUnit_Framework_TestSuite|PHPUnit\Framework\TestSuite $suite
+     * @throws \BuildException
      */
-    protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
+    protected function appendBatchTestToTestSuite(BatchTest $batchTest, $suite)
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
-            if (!($testClass instanceof PHPUnit_Framework_TestSuite)) {
+            if (!($testClass instanceof PHPUnit_Framework_TestSuite) || !($testClass instanceof PHPUnit\Framework\TestSuite)) {
                 $testClass = new ReflectionClass($element);
             }
-            $suite->addTestSuite($testClass);
+            try {
+                $suite->addTestSuite($testClass);
+            } catch (PHPUnit_Framework_Exception $e) {
+                throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
+            } catch (\PHPUnit\Framework\Exception $e) {
+                throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
+            }
         }
     }
 

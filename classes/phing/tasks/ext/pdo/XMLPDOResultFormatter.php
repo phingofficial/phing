@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -103,12 +101,10 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      */
     public function processRow($row)
     {
-
         $rowNode = $this->doc->createElement('row');
         $this->rootNode->appendChild($rowNode);
 
         foreach ($row as $columnName => $columnValue) {
-
             $colNode = $this->doc->createElement('column');
             $colNode->setAttribute('name', $columnName);
 
@@ -118,7 +114,6 @@ class XMLPDOResultFormatter extends PDOResultFormatter
             }
             $rowNode->appendChild($colNode);
         }
-
     }
 
     /**

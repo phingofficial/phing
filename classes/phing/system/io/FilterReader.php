@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/system/io/Reader.php';
 
 /**
  * Wrapper class for readers, which can be used to apply filters.
@@ -54,7 +50,7 @@ class FilterReader extends Reader
      */
     public function skip($n)
     {
-        return $this->in->skip($n);
+        $this->in->skip($n);
     }
 
     /**
@@ -71,7 +67,7 @@ class FilterReader extends Reader
 
     public function reset()
     {
-        return $this->in->reset();
+        $this->in->reset();
     }
 
     public function close()

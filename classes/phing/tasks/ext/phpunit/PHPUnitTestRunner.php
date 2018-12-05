@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,18 +17,14 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-require_once 'phing/system/util/Timer.php';
-
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit_Framework_TestListener
+class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
 {
     private $hasErrors = false;
     private $hasFailures = false;
@@ -40,15 +34,15 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     private $lastFailureMessage = '';
     private $lastIncompleteMessage = '';
     private $lastSkippedMessage = '';
-    private $formatters = array();
-    private $listeners = array();
+    private $formatters = [];
+    private $listeners = [];
 
     private $codecoverage = null;
 
     private $project = null;
 
-    private $groups = array();
-    private $excludeGroups = array();
+    private $groups = [];
+    private $excludeGroups = [];
 
     private $processIsolation = false;
 
@@ -62,8 +56,8 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function __construct(
         Project $project,
-        $groups = array(),
-        $excludeGroups = array(),
+        $groups = [],
+        $excludeGroups = [],
         $processIsolation = false
     ) {
         $this->project = $project;
@@ -116,6 +110,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     /**
      * Run a test
      * @param PHPUnit_Framework_TestSuite $suite
+     * @throws \BuildException
      */
     public function run(PHPUnit_Framework_TestSuite $suite)
     {
@@ -137,7 +132,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
 
         /* Set PHPUnit error handler */
         if ($this->useCustomErrorHandler) {
-            $oldErrorHandler = set_error_handler(array($this, 'handleError'), E_ALL | E_STRICT);
+            $oldErrorHandler = set_error_handler([$this, 'handleError'], E_ALL | E_STRICT);
         }
 
         $version = PHPUnit_Runner_Version::id();
@@ -158,7 +153,11 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         }
 
         if ($this->codecoverage) {
-            CoverageMerger::merge($this->project, $this->codecoverage->getData());
+            try {
+                CoverageMerger::merge($this->project, $this->codecoverage->getData());
+            } catch (IOException $e) {
+                throw new BuildException('Merging code coverage failed.', $e);
+            }
         }
 
         $this->checkResult($res);
@@ -403,7 +402,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
         if ($test instanceof PHPUnit_Framework_TestCase) {
-            if (!$test->hasPerformedExpectationsOnOutput()) {
+            if (!$test->hasExpectationOnOutput()) {
                 echo $test->getActualOutput();
             }
         }

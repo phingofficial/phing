@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,16 +17,11 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/FileSet.php';
-require_once 'phing/types/ExcludesNameEntry.php';
-
 /**
  * Datatype which handles excluded files, classes and methods.
  *
  * @package phing.types
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  * @since   2.4.6
  */
 class Excludes extends DataType
@@ -45,27 +38,28 @@ class Excludes extends DataType
      *
      * @var ExcludesNameEntry[]
      */
-    private $files = array();
+    private $files = [];
 
     /**
      * Holds the excluded classes
      *
      * @var ExcludesNameEntry[]
      */
-    private $classes = array();
+    private $classes = [];
 
     /**
      * Holds the excluded methods
      *
      * @var ExcludesNameEntry[]
      */
-    private $methods = array();
+    private $methods = [];
 
     /**
      * @param Project $project
      */
     public function __construct(Project $project)
     {
+        parent::__construct();
         $this->directoryScanner = new DirectoryScanner();
         $this->directoryScanner->setBasedir($project->getBasedir());
     }
@@ -121,7 +115,7 @@ class Excludes extends DataType
      */
     public function getExcludedFiles()
     {
-        $includes = array();
+        $includes = [];
 
         foreach ($this->files as $file) {
             $includes[] = $file->getName();
@@ -132,7 +126,7 @@ class Excludes extends DataType
 
         $files = $this->directoryScanner->getIncludedFiles();
         $dir = $this->directoryScanner->getBasedir();
-        $fileList = array();
+        $fileList = [];
 
         foreach ($files as $file) {
             $fileList[] = $dir . DIRECTORY_SEPARATOR . $file;
@@ -148,7 +142,7 @@ class Excludes extends DataType
      */
     public function getExcludedClasses()
     {
-        $excludedClasses = array();
+        $excludedClasses = [];
 
         foreach ($this->classes as $excludedClass) {
             $excludedClasses[] = $excludedClass->getName();
@@ -164,7 +158,7 @@ class Excludes extends DataType
      */
     public function getExcludedMethods()
     {
-        $excludedMethods = array();
+        $excludedMethods = [];
 
         foreach ($this->methods as $excludedMethod) {
             $classAndMethod = explode('::', $excludedMethod->getName());

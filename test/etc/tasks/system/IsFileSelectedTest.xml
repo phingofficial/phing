@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IsFileSelectedTest" default="testIsFileSelected">
+    <target name="testIsFileSelected">
+        <condition property="selected">
+            <isfileselected file="${phing.home}/test/build.xml">
+                <date datetime="06/28/2000 2:02 pm" when="after"/>
+            </isfileselected>
+        </condition>
+    </target>
+    <target name="testNonFileSelected">
+        <condition property="unset">
+            <isfileselected file="${phing.home}/test/build.xml">
+                <date datetime="06/28/2000 2:02 pm" when="before"/>
+            </isfileselected>
+        </condition>
+    </target>
+</project>

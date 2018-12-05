@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,22 +17,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
-
 /**
  * Creates a zip archive using PHP ZipArchive extension/
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.1.0
  */
 class ZipTask extends MatchingTask
 {
-
     /**
      * @var PhingFile
      */
@@ -50,7 +41,7 @@ class ZipTask extends MatchingTask
      */
     private $includeEmpty = true;
 
-    private $filesets = array();
+    private $filesets = [];
     
     private $ignoreLinks = false;
 
@@ -70,7 +61,8 @@ class ZipTask extends MatchingTask
 
     /**
      * Add a new fileset.
-     * @return FileSet
+     *
+     * @return ZipFileSet
      */
     public function createFileSet()
     {
@@ -78,6 +70,15 @@ class ZipTask extends MatchingTask
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
+    }
+
+    /**
+     * Add a new fileset.
+     * @param ZipFileSet $fileset
+     */
+    public function addZipFileSet(ZipFileSet $fileset)
+    {
+        $this->filesets[] = $fileset;
     }
 
     /**
@@ -172,7 +173,7 @@ class ZipTask extends MatchingTask
 
                 if (empty($this->filesets)) {
                     // add the main fileset to the list of filesets to process.
-                    $mainFileSet = new ZipFileSet($this->fileset);
+                    $mainFileSet = $this->fileset;
                     $mainFileSet->setDir($this->baseDir);
                     $this->filesets[] = $mainFileSet;
                 }
@@ -195,7 +196,7 @@ class ZipTask extends MatchingTask
             $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
 
             $zip = new ZipArchive();
-            $res = $zip->open($this->zipFile->getAbsolutePath(), ZIPARCHIVE::CREATE);
+            $res = $zip->open($this->zipFile->getAbsolutePath(), ZipArchive::CREATE);
 
             if ($res !== true) {
                 throw new Exception("ZipArchive::open() failed with code " . $res);
@@ -237,8 +238,9 @@ class ZipTask extends MatchingTask
      */
     public function areFilesetsUpToDate()
     {
+        /** @var FileSet $fs */
         foreach ($this->filesets as $fs) {
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
             if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
                 return false;
             }
@@ -260,10 +262,10 @@ class ZipTask extends MatchingTask
             $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
                 $fs->getDir($this->project);
 
-            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            $files = $fs->getIterator($this->includeEmpty);
 
-            for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                $f = new PhingFile($fsBasedir, $files[$i]);
+            foreach ($files as $file) {
+                $f = new PhingFile($fsBasedir, $file);
 
                 $pathInZip = $this->prefix
                     . $f->getPathWithoutBase($fsBasedir);
@@ -282,78 +284,5 @@ class ZipTask extends MatchingTask
                 $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
             }
         }
-    }
-
-}
-
-/**
- * This is a FileSet with the to specify permissions.
- *
- * Permissions are currently not implemented by PEAR Archive_Tar,
- * but hopefully they will be in the future.
- *
- * @package phing.tasks.ext
- */
-class ZipFileSet extends FileSet
-{
-
-    private $files = null;
-
-    /**
-     *  Get a list of files and directories specified in the fileset.
-     * @param Project $p
-     * @param bool $includeEmpty
-     * @throws BuildException
-     * @return array a list of file and directory names, relative to
-     *               the baseDir for the project.
-     */
-    public function getFiles(Project $p, $includeEmpty = true)
-    {
-
-        if ($this->files === null) {
-
-            $ds = $this->getDirectoryScanner($p);
-            $this->files = $ds->getIncludedFiles();
-
-            // build a list of directories implicitly added by any of the files
-            $implicitDirs = array();
-            foreach ($this->files as $file) {
-                $implicitDirs[] = dirname($file);
-            }
-
-            $incDirs = $ds->getIncludedDirectories();
-
-            // we'll need to add to that list of implicit dirs any directories
-            // that contain other *directories* (and not files), since otherwise
-            // we get duplicate directories in the resulting tar
-            foreach ($incDirs as $dir) {
-                foreach ($incDirs as $dircheck) {
-                    if (!empty($dir) && $dir == dirname($dircheck)) {
-                        $implicitDirs[] = $dir;
-                    }
-                }
-            }
-
-            $implicitDirs = array_unique($implicitDirs);
-
-            $emptyDirectories = array();
-
-            if ($includeEmpty) {
-                // Now add any empty dirs (dirs not covered by the implicit dirs)
-                // to the files array.
-
-                foreach ($incDirs as $dir) { // we cannot simply use array_diff() since we want to disregard empty/. dirs
-                    if ($dir != "" && $dir != "." && !in_array($dir, $implicitDirs)) {
-                        // it's an empty dir, so we'll add it.
-                        $emptyDirectories[] = $dir;
-                    }
-                }
-            } // if $includeEmpty
-
-            $this->files = array_merge($implicitDirs, $emptyDirectories, $this->files);
-            sort($this->files);
-        } // if ($this->files===null)
-
-        return $this->files;
     }
 }

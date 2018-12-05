@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Updates a repository in local directory
  *
  * @author Andrew Eddie <andrew.eddie@jamboworks.com>
- * @version $Id$
  * @package phing.tasks.ext.svn
  * @since 2.3.0
  */
@@ -56,11 +52,11 @@ class SvnUpdateTask extends SvnBaseTask
         );
 
         // revision
-        $switches = array(
+        $switches = [
             'r' => $this->revision,
-        );
+        ];
 
-        $this->run(array($this->getToDir()), $switches);
+        $this->run([$this->getToDir()], $switches);
     }
 
     /**

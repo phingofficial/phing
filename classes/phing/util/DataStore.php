@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,19 +17,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-
 /**
  * An abstract representation of file and directory pathnames.
  *
  * @package phing.util
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  */
 class DataStore
 {
-    private $data = array();
+    private $data = [];
     private $file = null;
 
     /**
@@ -81,7 +74,7 @@ class DataStore
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      *
-     * @return none
+     * @return void
      */
     public function put($key, $value, $autocommit = false)
     {
@@ -111,7 +104,7 @@ class DataStore
     /**
      * Commits data store to disk
      *
-     * @return none
+     * @return void
      */
     public function commit()
     {
@@ -122,7 +115,7 @@ class DataStore
      * Internal function to read data store from file
      *
      * @throws BuildException
-     * @return none
+     * @return void
      */
     private function read()
     {
@@ -140,7 +133,7 @@ class DataStore
      * Internal function to write data store to file
      *
      * @throws BuildException
-     * @return none
+     * @return void
      */
     private function write()
     {
@@ -156,5 +149,3 @@ class DataStore
         }
     }
 }
-
-;

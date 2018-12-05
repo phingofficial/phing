@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/ContainerMapper.php';
-
 /**
  * A <code>ContainerMapper</code> that chains the results of the first
  * nested <code>FileNameMapper</code>s into sourcefiles for the second,
@@ -36,7 +34,7 @@ class ChainedMapper extends ContainerMapper
         foreach ($this->getMappers() as $mapper) {
             if ($mapper !== null) {
                 $inputs = $results;
-                $results = array();
+                $results = [];
 
                 foreach ($inputs as $input) {
                     $mapped = $mapper->getImplementation()->main($input);

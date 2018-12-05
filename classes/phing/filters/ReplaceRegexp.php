@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,10 +17,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-include_once 'phing/types/RegularExpression.php';
-
 /**
  * Performs a regexp find/replace on stream.
  * <p>
@@ -36,7 +29,6 @@ include_once 'phing/types/RegularExpression.php';
  * </pre>
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.filters
  */
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader
@@ -45,7 +37,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
     /**
      * @var array RegularExpression[]
      */
-    private $regexps = array();
+    private $regexps = [];
 
     /**
      * Creator method handles nested <regexp> tags.
@@ -91,7 +83,6 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         $buffer = $this->in->read($len);
 
         if ($buffer === -1) {
@@ -135,5 +126,4 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 
         return $newFilter;
     }
-
 }

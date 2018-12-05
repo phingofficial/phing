@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-require_once 'phing/tasks/system/SequentialTask.php';
 
 /**
  * Perform some tasks based on whether a given condition holds true or
@@ -109,9 +103,8 @@ require_once 'phing/tasks/system/SequentialTask.php';
  */
 class IfTask extends ConditionBase
 {
-
     private $thenTasks = null;
-    private $elseIfTasks = array();
+    private $elseIfTasks = [];
     private $elseTasks = null;
 
     /***
@@ -157,7 +150,6 @@ class IfTask extends ConditionBase
 
     public function main()
     {
-
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <if>");
         }
@@ -185,60 +177,6 @@ class IfTask extends ConditionBase
             if (!$done && $this->elseTasks != null) {
                 $this->elseTasks->main();
             }
-        }
-    }
-}
-
-/**
- * "Inner" class for IfTask.
- * This class has same basic structure as the IfTask, although of course it doesn't support <else> tags.
- *
- * @package phing.tasks.system
- */
-class ElseIfTask extends ConditionBase
-{
-
-    private $thenTasks = null;
-
-    /**
-     * @param SequentialTask $t
-     * @throws BuildException
-     */
-    public function addThen(SequentialTask $t)
-    {
-        if ($this->thenTasks != null) {
-            throw new BuildException("You must not nest more than one <then> into <elseif>");
-        }
-        $this->thenTasks = $t;
-    }
-
-    /**
-     * @throws BuildException
-     * @return boolean
-     */
-    public function evaluate()
-    {
-
-        if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <elseif>");
-        }
-        if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <elseif>");
-        }
-
-        $conditions = $this->getConditions();
-        $c = $conditions[0];
-
-        return $c->evaluate();
-    }
-
-    /**
-     *
-     */
-    public function main()
-    {
-        if ($this->thenTasks != null) {
-            $this->thenTasks->main();
         }
     }
 }

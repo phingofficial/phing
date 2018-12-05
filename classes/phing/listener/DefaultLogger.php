@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/StreamRequiredBuildLogger.php';
-include_once 'phing/BuildEvent.php';
-
 /**
  * Writes a build event to the console.
  *
@@ -30,7 +25,6 @@ include_once 'phing/BuildEvent.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @see       BuildEvent
  * @package   phing.listener
  */
@@ -73,7 +67,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -139,7 +132,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  the build-time.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -158,7 +150,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  occurred during the build. Also outputs the total build-time.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
@@ -168,11 +159,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         } else {
             $msg = PHP_EOL . $this->getBuildFailedMessage() . PHP_EOL;
-            if (Project::MSG_VERBOSE <= $this->msgOutputLevel || !($error instanceof BuildException)) {
-                $msg .= $error->__toString() . PHP_EOL;
-            } else {
-                $msg .= $error->getMessage();
-            }
+            self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
         $msg .= PHP_EOL . "Total time: " . self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
 
@@ -181,6 +168,27 @@ class DefaultLogger implements StreamRequiredBuildLogger
         } else {
             $this->printMessage($msg, $this->err, Project::MSG_ERR);
         }
+    }
+
+    public static function throwableMessage(&$msg, $error, $verbose)
+    {
+        while ($error instanceof BuildException) {
+            $cause = $error->getPrevious();
+            if ($cause === null) {
+                break;
+            }
+            $msg1 = trim($error);
+            $msg2 = trim($cause);
+            if (StringHelper::endsWith($msg2, $msg1)) {
+                $msg .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2) - 1);
+                $error = $cause;
+            } else {
+                break;
+            }
+        }
+        $msg .= $verbose || !$error instanceof BuildException
+            ? $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL
+            : $error->getLocation() . ' ' . $error->getMessage() . PHP_EOL;
     }
 
     /**
@@ -205,7 +213,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Prints the current target name
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
@@ -225,7 +232,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
@@ -237,7 +243,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
@@ -291,8 +296,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
     public static function formatTime($micros)
     {
         $seconds = $micros;
-        $minutes = $seconds / 60;
-        if ($minutes > 1) {
+        $minutes = (int)floor($seconds / 60);
+        if ($minutes >= 1) {
             return sprintf(
                 "%1.0f minute%s %0.2f second%s",
                 $minutes,

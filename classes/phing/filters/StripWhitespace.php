@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,34 +17,27 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
  *
  * @author    Hans Lellelid, hans@velum.net
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
- * @todo -c use new PHP functions to perform this instead of regex.
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {
-
     private $processed = false;
 
     /**
      * Returns the  stream without Php comments and whitespace.
      *
      * @param null $len
-     * @return the resulting stream, or -1
+     * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
      */
     public function read($len = null)
     {
-
         if ($this->processed === true) {
             return -1; // EOF
         }
@@ -88,7 +78,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return a new filter based on this configuration, but filtering
+     * @return StripWhitespace a new filter based on this configuration, but filtering
      *           the specified reader
      */
     public function chain(Reader $reader)

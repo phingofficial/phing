@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Publish Wiki document using Wiki API.
@@ -75,11 +72,11 @@ class WikiPublishTask extends Task
      * Publish modes map
      * @var array
      */
-    private $modeMap = array(
+    private $modeMap = [
         'overwrite' => 'text',
         'append' => 'appendtext',
         'prepend' => 'prependtext',
-    );
+    ];
     /**
      * Curl handler
      *
@@ -225,7 +222,7 @@ class WikiPublishTask extends Task
      */
     public function init()
     {
-        $this->cookiesFile = tempnam(sys_get_temp_dir(), 'WikiPublish.' . uniqid() . '.cookies');
+        $this->cookiesFile = tempnam(sys_get_temp_dir(), 'WikiPublish.' . uniqid('', true) . '.cookies');
 
         $this->curl = curl_init();
         if (false === is_resource($this->curl)) {
@@ -267,7 +264,6 @@ class WikiPublishTask extends Task
      */
     private function validateAttributes()
     {
-
         if (null === $this->apiUrl) {
             throw new BuildException('Wiki apiUrl is required');
         }
@@ -275,7 +271,6 @@ class WikiPublishTask extends Task
         if (null === $this->id && null === $this->title) {
             throw new BuildException('Wiki page id or title is required');
         }
-
     }
 
     /**
@@ -287,7 +282,7 @@ class WikiPublishTask extends Task
      */
     private function callApiLogin($token = null)
     {
-        $postData = array('lgname' => $this->apiUser, 'lgpassword' => $this->apiPassword);
+        $postData = ['lgname' => $this->apiUser, 'lgpassword' => $this->apiPassword];
         if (null !== $token) {
             $postData['lgtoken'] = $token;
         }
@@ -326,9 +321,9 @@ class WikiPublishTask extends Task
      */
     private function getApiEditData()
     {
-        $result = array(
+        $result = [
             'minor' => '',
-        );
+        ];
         if (null !== $this->title) {
             $result['title'] = $this->title;
         }

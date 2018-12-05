@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,16 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class UpToDateTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(
@@ -61,5 +56,4 @@ class UpToDateTaskTest extends BuildFileTest
         $this->assertInLogs('echo = value exists');
         $this->assertInLogs('echo = updated');
     }
-
 }

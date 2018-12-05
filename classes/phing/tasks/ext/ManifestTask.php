@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once "phing/Task.php";
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * ManifestTask
@@ -53,6 +48,8 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class ManifestTask extends Task
 {
+    use FileSetAware;
+
     public $taskname = 'manifest';
 
     /**
@@ -69,18 +66,6 @@ class ManifestTask extends Task
      * @var string "r" or "w"
      */
     private $action = 'w';
-
-    /**
-     * The target file passed in the buildfile.
-     */
-    private $destFile = null;
-
-    /**
-     * Holds filesets
-     *
-     * @var array An Array of objects
-     */
-    private $filesets = array();
 
     /**
      * Enable/Disable checksuming or/and select algorithm
@@ -105,7 +90,12 @@ class ManifestTask extends Task
      *
      * @var array
      */
-    private $meta = array('totalFileCount' => 0, 'totalFileSize' => 0);
+    private $meta = ['totalFileCount' => 0, 'totalFileSize' => 0];
+
+    /**
+     * @var PhingFile The target file passed in the buildfile.
+     */
+    private $file;
 
     /**
      * The setter for the attribute "file".
@@ -130,16 +120,15 @@ class ManifestTask extends Task
     public function setChecksum($mixed)
     {
         if (is_string($mixed)) {
-            $data = array(strtolower($mixed));
+            $data = [strtolower($mixed)];
 
             if (strpos($data[0], ',')) {
                 $data = explode(',', $mixed);
             }
 
             $this->checksum = $data;
-
         } elseif ($mixed === true) {
-            $this->checksum = array('md5');
+            $this->checksum = ['md5'];
         }
     }
 
@@ -153,18 +142,6 @@ class ManifestTask extends Task
     public function setSalt($string)
     {
         $this->salt = $string;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     *
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -189,10 +166,8 @@ class ManifestTask extends Task
 
         if ($this->action == 'w') {
             $this->write();
-
         } elseif ($this->action == 'r') {
             $this->read();
-
         }
     }
 
@@ -217,7 +192,6 @@ class ManifestTask extends Task
         }
 
         foreach ($this->filesets as $fs) {
-
             $dir = $fs->getDir($this->project)->getPath();
 
             $ds = $fs->getDirectoryScanner($project);
@@ -242,7 +216,6 @@ class ManifestTask extends Task
                 $this->meta['totalFileCount']++;
                 $this->meta['totalFileSize'] += filesize($dir . '/' . $file_path);
             }
-
         }
 
         file_put_contents($this->file, $manifest);
@@ -282,7 +255,6 @@ class ManifestTask extends Task
             if (in_array($algo, hash_algos())) {
                 return hash($algo, $this->salt . $msg);
             }
-
         }
 
         if (extension_loaded('mhash')) {
@@ -290,7 +262,6 @@ class ManifestTask extends Task
 
             if (defined('MHASH_' . $algo)) {
                 return mhash('MHASH_' . $algo, $this->salt . $msg);
-
             }
         }
 
@@ -340,11 +311,11 @@ class ManifestTask extends Task
             $this->log("No salt provided. Specify one with the 'salt' attribute.", Project::MSG_WARN);
         }
 
-        if (is_null($this->file) && count($this->filesets) === 0) {
+        if (null === $this->file && count($this->filesets) === 0) {
             throw new BuildException("Specify at least sources and destination - a file or a fileset.");
         }
 
-        if (!is_null($this->file) && $this->file->exists() && $this->file->isDirectory()) {
+        if (null !== $this->file && $this->file->exists() && $this->file->isDirectory()) {
             throw new BuildException("Destination file cannot be a directory.");
         }
     }

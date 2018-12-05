@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,17 +18,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Available Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.
+ * @requires OS ^(?:(?!Win).)*$
  */
 class AvailableTaskTest extends BuildFileTest
 {
@@ -49,10 +46,6 @@ class AvailableTaskTest extends BuildFileTest
 
     public function testDanglingSymlink()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Dangling symlinks don't work on Windows");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }

@@ -4,7 +4,6 @@
     xmlns:str="http://exslt.org/strings"
     xmlns:date="http://exslt.org/dates-and-times"
     extension-element-prefixes="exsl str date">
-<xsl:include href="str.replace.function.xsl"/>
 <xsl:output method="html" indent="yes" encoding="US-ASCII"/>
 <xsl:decimal-format decimal-separator="." grouping-separator=","/>
 <!--
@@ -670,30 +669,10 @@ a:hover {
     <!-- display the stacktrace -->
     <br/><br/>
     <code>
-        <xsl:call-template name="br-replace">
-            <xsl:with-param name="word" select="."/>
-        </xsl:call-template>
+        <xsl:value-of
+                select="php:function('nl2br',string(.))"
+                disable-output-escaping="yes"/>
     </code>
-</xsl:template>
-
-<!--
-    template that will convert a carriage return into a br tag
-    @param word the text from which to convert CR to BR tag
--->
-<xsl:template name="br-replace">
-    <xsl:param name="word"/>
-    <xsl:choose>
-         <xsl:when test="contains($word,'&#x0A;')">
-             <xsl:value-of select="substring-before($word,'&#x0A;')"/>
-             <br />
-             <xsl:call-template name="br-replace">
-                 <xsl:with-param name="word" select="substring-after($word,'&#x0A;')"/>
-             </xsl:call-template>
-         </xsl:when>
-         <xsl:otherwise>
-             <xsl:value-of select="$word"/>
-         </xsl:otherwise>
-    </xsl:choose>
 </xsl:template>
 
 <xsl:template name="display-time">

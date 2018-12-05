@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,10 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/tasks/ext/pdo/PDOTask.php';
-include_once 'phing/system/io/StringReader.php';
-include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
 
 /**
  * Executes a series of SQL statements on a database using PDO.
@@ -50,7 +44,6 @@ include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
  * @package   phing.tasks.ext.pdo
- * @version   $Id$
  */
 class PDOSQLExecTask extends PDOTask
 {
@@ -79,21 +72,21 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Files to load
-     * @var array FileSet[]
+     * @var FileSet[]
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * Files to load
-     * @var array FileList[]
+     * @var FileList[]
      */
-    private $filelists = array();
+    private $filelists = [];
 
     /**
      * Formatter elements.
-     * @var array PDOSQLExecFormatterElement[]
+     * @var PDOSQLExecFormatterElement[]
      */
-    private $formatters = array();
+    private $formatters = [];
 
     /**
      * SQL statement
@@ -116,7 +109,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * SQL transactions to perform
      */
-    private $transactions = array();
+    private $transactions = [];
 
     /**
      * SQL Statement delimiter (for parsing files)
@@ -210,8 +203,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the file encoding to use on the SQL files read in
      *
-     * @param the $encoding
-     * @internal param the $encoding encoding to use on the files
+     * @param string $encoding the encoding to use on the files
      */
     public function setEncoding($encoding)
     {
@@ -311,10 +303,10 @@ class PDOSQLExecTask extends PDOTask
         // Initialize the formatters here.  This ensures that any parameters passed to the formatter
         // element get passed along to the actual formatter object
         foreach ($this->formatters as $fe) {
-            $fe->prepare();
+            $fe->prepare($this->getLocation());
         }
 
-        $savedTransaction = array();
+        $savedTransaction = [];
         for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
             $savedTransaction[] = clone $this->transactions[$i];
         }
@@ -330,11 +322,11 @@ class PDOSQLExecTask extends PDOTask
             ) {
                 throw new BuildException("Source file or fileset/filelist, "
                     . "transactions or sql statement "
-                    . "must be set!", $this->location);
+                    . "must be set!", $this->getLocation());
             }
 
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
-                throw new BuildException("Source file does not exist!", $this->location);
+                throw new BuildException("Source file does not exist!", $this->getLocation());
             }
 
             // deal with the filesets
@@ -369,7 +361,6 @@ class PDOSQLExecTask extends PDOTask
             $this->conn = $this->getConnection();
 
             try {
-
                 $this->statement = null;
 
                 // Initialize the formatters.
@@ -401,7 +392,7 @@ class PDOSQLExecTask extends PDOTask
                     }
                 }
                 $this->closeConnection();
-                throw new BuildException($e->getMessage(), $this->location);
+                throw new BuildException($e->getMessage(), $this->getLocation());
             } catch (PDOException $e) {
                 if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
                     try {
@@ -410,7 +401,7 @@ class PDOSQLExecTask extends PDOTask
                     }
                 }
                 $this->closeConnection();
-                throw new BuildException($e->getMessage(), $this->location);
+                throw new BuildException($e->getMessage(), $this->getLocation());
             }
 
             // Close the formatters.
@@ -420,7 +411,6 @@ class PDOSQLExecTask extends PDOTask
                 $this->goodSql . " of " . $this->totalSql .
                 " SQL statements executed successfully"
             );
-
         } catch (Exception $e) {
             $this->transactions = $savedTransaction;
             $this->sqlCommand = $savedSqlCommand;
@@ -440,7 +430,6 @@ class PDOSQLExecTask extends PDOTask
      */
     public function runStatements(Reader $reader)
     {
-
         if (self::DELIM_NONE == $this->delimiterType) {
             require_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
@@ -457,7 +446,6 @@ class PDOSQLExecTask extends PDOTask
                 $this->log("SQL: " . $query, Project::MSG_VERBOSE);
                 $this->execSQL($query);
             }
-
         } catch (PDOException $e) {
             throw $e;
         }
@@ -497,8 +485,7 @@ class PDOSQLExecTask extends PDOTask
         try {
             $this->totalSql++;
 
-            $this->statement = $this->conn->prepare($sql);
-            $this->statement->execute();
+            $this->statement = $this->conn->query($sql);
             $this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
 
             // only call processResults() for statements that return actual data (such as 'select')
@@ -510,7 +497,6 @@ class PDOSQLExecTask extends PDOTask
             $this->statement = null;
 
             $this->goodSql++;
-
         } catch (PDOException $e) {
             $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
             if ($this->onError != "continue") {
@@ -528,7 +514,7 @@ class PDOSQLExecTask extends PDOTask
      */
     protected function getConfiguredFormatters()
     {
-        $formatters = array();
+        $formatters = [];
         foreach ($this->formatters as $fe) {
             $formatters[] = $fe->getFormatter();
         }
@@ -545,7 +531,6 @@ class PDOSQLExecTask extends PDOTask
         foreach ($formatters as $formatter) {
             $formatter->initialize();
         }
-
     }
 
     /**
@@ -566,9 +551,7 @@ class PDOSQLExecTask extends PDOTask
      */
     protected function processResults()
     {
-
         try {
-
             $this->log("Processing new result set.", Project::MSG_VERBOSE);
 
             $formatters = $this->getConfiguredFormatters();
@@ -578,7 +561,6 @@ class PDOSQLExecTask extends PDOTask
                     $formatter->processRow($row);
                 }
             }
-
         } catch (Exception $x) {
             $this->log("Error processing reults: " . $x->getMessage(), Project::MSG_ERR);
             foreach ($formatters as $formatter) {
@@ -586,7 +568,6 @@ class PDOSQLExecTask extends PDOTask
             }
             throw $x;
         }
-
     }
 
     /**
@@ -597,68 +578,6 @@ class PDOSQLExecTask extends PDOTask
         if ($this->conn) {
             unset($this->conn);
             $this->conn = null;
-        }
-    }
-}
-
-/**
- * "Inner" class that contains the definition of a new transaction element.
- * Transactions allow several files or blocks of statements
- * to be executed using the same JDBC connection and commit
- * operation in between.
- *
- * @package   phing.tasks.ext.pdo
- */
-class PDOSQLExecTransaction
-{
-
-    private $tSrcFile = null;
-    private $tSqlCommand = "";
-    private $parent;
-
-    /**
-     * @param $parent
-     */
-    public function __construct($parent)
-    {
-        // Parent is required so that we can log things ...
-        $this->parent = $parent;
-    }
-
-    /**
-     * @param PhingFile $src
-     */
-    public function setSrc(PhingFile $src)
-    {
-        $this->tSrcFile = $src;
-    }
-
-    /**
-     * @param $sql
-     */
-    public function addText($sql)
-    {
-        $this->tSqlCommand .= $sql;
-    }
-
-    /**
-     * @throws IOException, PDOException
-     */
-    public function runTransaction()
-    {
-        if (!empty($this->tSqlCommand)) {
-            $this->parent->log("Executing commands", Project::MSG_INFO);
-            $this->parent->runStatements(new StringReader($this->tSqlCommand));
-        }
-
-        if ($this->tSrcFile !== null) {
-            $this->parent->log(
-                "Executing file: " . $this->tSrcFile->getAbsolutePath(),
-                Project::MSG_INFO
-            );
-            $reader = new FileReader($this->tSrcFile);
-            $this->parent->runStatements($reader);
-            $reader->close();
         }
     }
 }

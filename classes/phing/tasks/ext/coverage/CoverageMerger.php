@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,13 +17,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Properties.php';
-
 /**
  * Saves coverage output of the test to a specified database
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
@@ -38,7 +33,7 @@ class CoverageMerger
      */
     private static function mergeCodeCoverage($left, $right)
     {
-        $coverageMerged = array();
+        $coverageMerged = [];
 
         reset($left);
         reset($right);
@@ -106,7 +101,7 @@ class CoverageMerger
      */
     public static function getWhiteList($project)
     {
-        $whitelist = array();
+        $whitelist = [];
         $props = self::_getDatabase($project);
 
         foreach ($props->getProperties() as $property) {
@@ -130,7 +125,7 @@ class CoverageMerger
         $coverageTotal = $codeCoverageInformation;
 
         foreach ($coverageTotal as $filename => $data) {
-            $lines = array();
+            $lines = [];
             $filename = strtolower($filename);
 
             if ($props->getProperty($filename) != null) {

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/BuildFileTest.php';
 
 /**
  * UTs for Target component
@@ -72,10 +69,10 @@ class TargetTest extends BuildFileTest
 
     public function setDependsValidDataProvider()
     {
-        return array(
-            array(array('target1'), 'target1'),
-            array(array('target1', 'target2'), 'target1,target2')
-        );
+        return [
+            [['target1'], 'target1'],
+            [['target1', 'target2'], 'target1,target2']
+        ];
     }
 
     /**
@@ -84,20 +81,18 @@ class TargetTest extends BuildFileTest
      */
     public function testSetDependsInvalid($depends)
     {
-        $this->setExpectedException(
-            'BuildException',
-            'Syntax Error: Depend attribute for target MyTarget is malformed.'
-        );
+        $this->expectException('BuildException');
+        $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
 
         $this->target->setDepends($depends);
     }
 
     public function setDependsInvalidDataProvider()
     {
-        return array(
-            array(''),
-            array('target1,')
-        );
+        return [
+            [''],
+            ['target1,']
+        ];
     }
 
     public function testGetTasksReturnsCorrectTasks()
@@ -109,7 +104,7 @@ class TargetTest extends BuildFileTest
 
         $tasks = $this->target->getTasks();
 
-        $this->assertEquals(array($task), $tasks);
+        $this->assertEquals([$task], $tasks);
     }
 
     public function testGetTasksClonesTasks()
@@ -164,7 +159,7 @@ class TargetTest extends BuildFileTest
 
     public function testMainPerformsTasks()
     {
-        $task = $this->getMock('Task');
+        $task = $this->createMock('Task');
         $task->expects($this->once())->method('perform');
         $this->target->addTask($task);
 
@@ -176,7 +171,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
 
-        $task = $this->getMock('Task');
+        $task = $this->createMock('Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 
@@ -188,7 +183,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
 
-        $task = $this->getMock('Task');
+        $task = $this->createMock('Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 

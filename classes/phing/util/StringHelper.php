@@ -31,30 +31,10 @@
 class StringHelper
 {
     /** @var array */
-    private static $TRUE_VALUES = array("on", "true", "t", "yes");
+    private static $TRUE_VALUES = ["on", "true", "t", "yes", "1"];
 
     /** @var array */
-    private static $FALSE_VALUES = array("off", "false", "f", "no");
-
-    /**
-     * Replaces identifier tokens with corresponding text values in passed string.
-     *
-     * @param  array  $strings      Array of strings to multiply. (If string is passed, will convert to array)
-     * @param  array  $tokens       The tokens to search for.
-     * @param  array  $replacements The values with which to replace found tokens.
-     *
-     * @return string
-     */
-    public static function multiply($strings, $tokens, $replacements)
-    {
-        $strings = (array) $strings;
-        $results = array();
-        foreach ($strings as $string) {
-            $results[] = str_replace($tokens, $replacements, $string);
-        }
-
-        return $results;
-    }
+    private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
 
     /**
      * Remove qualification to name.
@@ -74,89 +54,6 @@ class StringHelper
         } else {
             return substr($qualifiedName, $pos + 1); // start just after '.'
         }
-    }
-
-    /**
-     * Converts a string to an indexed array of chars
-     * There's really no reason for this to be used in PHP, since strings
-     * are all accessible using the $string{0} notation.
-     *
-     * @param string $str
-     *
-     * @return array
-     *
-     * @deprecated
-     */
-    public static function toCharArray($str)
-    {
-        $ret = array();
-        $len = strlen($str);
-        for ($i = 0; $i < $len; $i++) {
-            $ret[] = $str{$i};
-        }
-
-        return $ret;
-    }
-
-    /**
-     * Get the qualifier part of a qualified name.
-     * E.g. eg.Cat -> eg
-     *
-     * @param $qualifiedName
-     * @param string $separator
-     *
-     * @return string
-     */
-    public static function qualifier($qualifiedName, $separator = '.')
-    {
-        $pos = strrchr($qualifiedName, $separator);
-        if ($pos === false) {
-            return '';
-        } else {
-            return substr($qualifiedName, 0, $pos);
-        }
-    }
-
-    /**
-     * @param  array  $columns String[]
-     * @param  string $prefix
-     *
-     * @return array  String[]
-     */
-    public static function prefix($columns, $prefix)
-    {
-        if ($prefix == null) {
-            return $columns;
-        }
-        $qualified = array();
-        foreach ($columns as $key => $column) {
-            $qualified[$key] = $prefix . $column;
-        }
-
-        return $qualified;
-    }
-
-    /**
-     * @param $qualifiedName
-     * @param string $separator
-     *
-     * @return string
-     */
-    public static function root($qualifiedName, $separator = '.')
-    {
-        $loc = strpos($qualifiedName, $separator);
-
-        return ($loc === false) ? $qualifiedName : substr($qualifiedName, 0, $loc);
-    }
-
-    /**
-     * @param $string
-     *
-     * @return int
-     */
-    public static function hashCode($string)
-    {
-        return crc32($string);
     }
 
     /**
@@ -184,7 +81,6 @@ class StringHelper
      */
     public static function isBoolean($s)
     {
-
         if (is_bool($s)) {
             return true; // it already is boolean
         }
@@ -193,21 +89,9 @@ class StringHelper
             return false; // not a valid string for testing
         }
 
-        $test = trim(strtolower($s));
+        $test = strtolower(trim($s));
 
-        return (boolean) in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES));
-    }
-
-    /**
-     * Creates a key based on any number of passed params.
-     *
-     * @return string
-     */
-    public static function key()
-    {
-        $args = func_get_args();
-
-        return serialize($args);
+        return in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES), true);
     }
 
     /**
@@ -223,7 +107,7 @@ class StringHelper
         if ($check === "" || $check === $string) {
             return true;
         } else {
-            return (strpos($string, $check) === 0) ? true : false;
+            return strpos($string, $check) === 0;
         }
     }
 
@@ -240,7 +124,7 @@ class StringHelper
         if ($check === "" || $check === $string) {
             return true;
         } else {
-            return (strpos(strrev($string), strrev($check)) === 0) ? true : false;
+            return strpos(strrev($string), strrev($check)) === 0;
         }
     }
 

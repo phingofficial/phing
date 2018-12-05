@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/util/regexp/RegexpEngine.php';
 
 /**
  * PREG Regexp Engine.
@@ -187,7 +183,7 @@ class PregEngine implements RegexpEngine
      */
     public function match($pattern, $source, &$matches)
     {
-        return preg_match($this->preparePattern($pattern), $source, $matches);
+        return preg_match($this->preparePattern($pattern), $source, $matches) > 0;
     }
 
     /**
@@ -199,7 +195,7 @@ class PregEngine implements RegexpEngine
      */
     public function matchAll($pattern, $source, &$matches)
     {
-        return preg_match_all($this->preparePattern($pattern), $source, $matches);
+        return preg_match_all($this->preparePattern($pattern), $source, $matches) > 0;
     }
 
     /**
@@ -219,5 +215,4 @@ class PregEngine implements RegexpEngine
 
         return preg_replace($this->preparePattern($pattern), $replace, $source, $this->limit);
     }
-
 }

@@ -17,7 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @version SVN: $Id$
  * @package phing.tasks.ext.pdo
  */
 
@@ -31,7 +30,6 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
- * @version $Id$
  */
 class DefaultPDOQuerySplitter extends PDOQuerySplitter
 {
@@ -77,11 +75,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project = $this->parent->getOwningTarget()->getProject();
-            $line = ProjectConfigurator::replaceProperties(
-                $project,
-                trim($line),
-                $project->getProperties()
-            );
+            $line = $project->replaceProperties(trim($line));
 
             if (($line != $delimiter) && (
                     StringHelper::startsWith("//", $line) ||
@@ -119,7 +113,6 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 
             // DELIM_ROW doesn't need this (as far as i can tell)
             if ($this->delimiterType == PDOSQLExecTask::DELIM_NORMAL) {
-
                 $reg = "#((?:\"(?:\\\\.|[^\"])*\"?)+|'(?:\\\\.|[^'])*'?|" . preg_quote($delimiter) . ")#";
 
                 $sqlParts = preg_split($reg, $sql, 0, PREG_SPLIT_DELIM_CAPTURE);

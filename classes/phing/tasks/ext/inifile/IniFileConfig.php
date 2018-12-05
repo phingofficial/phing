@@ -33,7 +33,7 @@ class IniFileConfig
      *
      * @var array
      */
-    protected $lines = array();
+    protected $lines = [];
 
     /**
      * Read ini file
@@ -44,35 +44,35 @@ class IniFileConfig
      */
     public function read($file)
     {
-        $this->lines = array();
+        $this->lines = [];
 
         $section = '';
 
         foreach (file($file) as $line) {
             if (preg_match('/^\s*(;.*)?$/', $line)) {
                 // comment or whitespace
-                $this->lines[] = array(
+                $this->lines[] = [
                     'type' => 'comment',
                     'data' => $line,
                     'section' => $section
-                );
+                ];
             } elseif (preg_match('/^\s?\[(.*)\]/', $line, $match)) {
                 // section
                 $section = $match[1];
-                $this->lines[] = array(
+                $this->lines[] = [
                     'type' => 'section',
                     'data' => $line,
                     'section' => $section
-                );
+                ];
             } elseif (preg_match('/^\s*(.*?)\s*=\s*(.*?)\s*$/', $line, $match)) {
                 // entry
-                $this->lines[] = array(
+                $this->lines[] = [
                     'type' => 'entry',
                     'data' => $line,
                     'section' => $section,
                     'key' => $match[1],
                     'value' => $match[2]
-                );
+                ];
             }
         }
     }
@@ -147,7 +147,7 @@ class IniFileConfig
         if ($section == '') {
             throw new RuntimeException("Section not set.");
         }
-        if (is_null($key) || ($key == '')) {
+        if (null === $key || ($key == '')) {
             // remove entire section
             foreach ($this->lines as $linenum => $line) {
                 if ($line['section'] == $section) {

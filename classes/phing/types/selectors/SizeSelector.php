@@ -44,10 +44,10 @@ class SizeSelector extends BaseExtendSelector
     const WHEN_KEY = "when";
 
     /** @var array $sizeComparisons */
-    private static $sizeComparisons = array("less", "more", "equal");
+    private static $sizeComparisons = ["less", "more", "equal"];
 
     /** @var array $byteUnits */
-    private static $byteUnits = array(
+    private static $byteUnits = [
         "K",
         "k",
         "kilo",
@@ -85,12 +85,12 @@ class SizeSelector extends BaseExtendSelector
         "ti",
         "tebi",
         "TEBI"
-    );
+    ];
 
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{sizeselector value: ";
         $buf .= $this->sizelimit;

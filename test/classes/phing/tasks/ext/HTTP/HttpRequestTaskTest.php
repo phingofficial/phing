@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__FILE__) . '/BaseHttpTaskTest.php';
-
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
@@ -36,12 +33,12 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
     {
         return $this->createRequest(
             $this->createMockAdapter(
-                array(
+                [
                     "HTTP/1.1 200 OK\r\n" .
                     "Content-Type: text/plain; charset=iso-8859-1\r\n" .
                     "\r\n" .
                     "The response containing a 'foo' string"
-                )
+                ]
             )
         );
     }
@@ -51,6 +48,13 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->copyTasksAddingCustomRequest('matchesRegexp', 'recipient', $this->createRequestWithMockAdapter());
 
         $this->expectLog('recipient', 'The response body matched the provided regex.');
+    }
+
+    public function testMatchesCodeRegexp()
+    {
+        $this->copyTasksAddingCustomRequest('matchesCodeRegexp', 'recipient', $this->createRequestWithMockAdapter());
+
+        $this->expectLog('recipient', 'The response status-code matched the provided regex.');
     }
 
     /**
@@ -83,7 +87,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->executeTarget('recipient');
 
         $this->assertEquals(
-            array('user' => 'luser', 'password' => 'secret', 'scheme' => 'digest'),
+            ['user' => 'luser', 'password' => 'secret', 'scheme' => 'digest'],
             $trace->requests[0]['auth']
         );
     }
@@ -106,10 +110,11 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->copyTasksAddingCustomRequest('config-properties', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $request = new HTTP_Request2(null, 'GET', array(
+        $request = new HTTP_Request2(null, 'GET', [
             'proxy' => 'http://localhost:8080/',
             'max_redirects' => 9
-        ));
+        ]
+        );
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }

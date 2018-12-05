@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PropertyCopyTest" default="testPropertyCopy">
+    <target name="testPropertyCopy">
+        <property name="org" value="MyOrg" />
+        <property name="org.MyOrg.DisplayName" value="My Organiziation" />
+        <propertycopy property="displayName" from="org.${org}.DisplayName" />
+    </target>
+</project>

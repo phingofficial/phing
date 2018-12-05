@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,27 +17,24 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 include_once 'phing/types/FileSet.php';
+include_once 'phing/types/element/DirSetAware.php';
 
 /**
  * Task that changes the permissions on a file/directory.
  *
  * @author    Manuel Holtgrewe <grin@gmx.net>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class ChmodTask extends Task
 {
+    use DirSetAware;
+    use FileSetAware;
 
     private $file;
 
     private $mode;
-
-    private $filesets = array();
-
-    private $filesystem;
 
     private $quiet = false;
     private $failonerror = true;
@@ -97,17 +92,6 @@ class ChmodTask extends Task
     }
 
     /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
-    }
-
-    /**
      * Execute the touch operation.
      * @return void
      */
@@ -125,9 +109,10 @@ class ChmodTask extends Task
      */
     private function checkParams()
     {
-
-        if ($this->file === null && empty($this->filesets)) {
-            throw new BuildException("Specify at least one source - a file or a fileset.");
+        if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
+            throw new BuildException(
+                "Specify at least one source - a file, dirset or a fileset."
+            );
         }
 
         if ($this->mode === null) {
@@ -138,7 +123,6 @@ class ChmodTask extends Task
         if (!preg_match('/^([0-7]){3,4}$/', $this->mode)) {
             throw new BuildException("You have specified an invalid mode.");
         }
-
     }
 
     /**
@@ -147,7 +131,6 @@ class ChmodTask extends Task
      */
     private function chmod()
     {
-
         if (strlen($this->mode) === 4) {
             $mode = octdec($this->mode);
         } else {
@@ -165,9 +148,10 @@ class ChmodTask extends Task
             $this->chmodFile($this->file, $mode);
         }
 
+        $this->filesets = array_merge($this->filesets, $this->dirsets);
+
         // filesets
         foreach ($this->filesets as $fs) {
-
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
@@ -175,23 +159,22 @@ class ChmodTask extends Task
             $srcDirs = $ds->getIncludedDirectories();
 
             $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
+            $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcFiles[$j]), $mode);
             }
 
             $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
+            $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcDirs[$j]), $mode);
             }
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . vsprintf('%o', $mode) . ': ' . $total_files);
-            $this->log('Total directories changed to ' . vsprintf('%o', $mode) . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_files);
+            $this->log('Total directories changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_dirs);
         }
-
     }
 
     /**
@@ -210,7 +193,7 @@ class ChmodTask extends Task
         try {
             $file->setMode($mode);
             if ($this->verbose) {
-                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", $mode));
+                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
             }
         } catch (Exception $e) {
             if ($this->failonerror) {
@@ -220,5 +203,4 @@ class ChmodTask extends Task
             }
         }
     }
-
 }

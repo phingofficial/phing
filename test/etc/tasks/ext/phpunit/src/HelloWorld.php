@@ -4,7 +4,6 @@
      * The Hello World class!
      *
      * @author Michiel Rook
-     * @version $Id$
      * @package hello.world
      */
     class HelloWorld
@@ -21,6 +20,6 @@
         {
             return "Hello World!";
         }
-    };
+    }
 
 ?>

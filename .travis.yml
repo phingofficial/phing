@@ -7,19 +7,22 @@ addons:
 
 language: php
 php:
-  - 5.2
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
- 
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.1snapshot
+  - 7.2snapshot
+  - 7.3snapshot
+  - master
+
 matrix:
-  allow_failures:
-    - php: 5.2
-    - php: 7.0
   fast_finish: true
+  allow_failures:
+    - php: 7.1snapshot
+    - php: 7.2snapshot
+    - php: 7.3
+    - php: 7.3snapshot
+    - php: master
 
 cache:
   directories:
@@ -28,4 +31,4 @@ cache:
 script: ./.travis.sh
 
 notifications:
-  irc: "chat.freenode.net#phing"
+  slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH

@@ -1,17 +1,13 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Echo Task
  *
  * @author  Christian Weiske <cweiske@cweiske.de>
- * @version $Id$
  * @package phing.tasks.system
  */
 class TryCatchTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(

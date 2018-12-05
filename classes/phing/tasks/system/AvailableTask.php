@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,10 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * <available> task.
  *
@@ -30,7 +24,6 @@ include_once 'phing/tasks/system/condition/Condition.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.tasks.system
  */
 class AvailableTask extends Task implements Condition
@@ -143,7 +136,7 @@ class AvailableTask extends Task implements Condition
     public function main()
     {
         if ($this->property === null) {
-            throw new BuildException("property attribute is required", $this->location);
+            throw new BuildException("property attribute is required", $this->getLocation());
         }
         if ($this->evaluate()) {
             $this->project->setProperty($this->property, $this->value);
@@ -157,11 +150,11 @@ class AvailableTask extends Task implements Condition
     public function evaluate()
     {
         if ($this->file === null && $this->resource === null && $this->extension === null) {
-            throw new BuildException("At least one of (file|resource|extension) is required", $this->location);
+            throw new BuildException("At least one of (file|resource|extension) is required", $this->getLocation());
         }
 
         if ($this->type !== null && ($this->type !== "file" && $this->type !== "dir")) {
-            throw new BuildException("Type must be one of either dir or file", $this->location);
+            throw new BuildException("Type must be one of either dir or file", $this->getLocation());
         }
 
         if (($this->file !== null) && !$this->_checkFile()) {

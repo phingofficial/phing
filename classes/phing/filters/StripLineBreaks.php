@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,9 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
-
 /**
  * Filter to flatten the stream to a single line.
  *
@@ -36,7 +30,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Id$
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
@@ -139,7 +132,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
         $userDefinedLineBreaks = null;
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::LINES_BREAKS_KEY === $params[$i]->getName()) {
                     $userDefinedLineBreaks = $params[$i]->getValue();
                     break;

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,16 +18,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-include_once 'phing/util/FileUtils.php';
-
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class SortFilterTest extends BuildFileTest
 {
-
     protected $fu;
 
     public function setUp()
@@ -50,5 +45,4 @@ class SortFilterTest extends BuildFileTest
         $result = $this->getProject()->resolveFile("result/sortfilter.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
-
 }

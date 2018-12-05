@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
@@ -28,7 +25,6 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  *
  * @author Anton Stöckl <anton@stoeckl.de>
  * @author Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
- * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN
  * @since 2.1.0
@@ -56,15 +52,6 @@ class SvnLogTask extends SvnBaseTask
     }
 
     /**
-     * Sets whether to force compatibility with older SVN versions (< 1.2)
-     * @deprecated
-     * @param $force
-     */
-    public function setForceCompatible($force)
-    {
-    }
-
-    /**
      * Sets the max num of log entries to get from svn
      * @param $limit
      */
@@ -82,12 +69,12 @@ class SvnLogTask extends SvnBaseTask
     {
         $this->setup('log');
 
-        $switches = array();
+        $switches = [];
         if ($this->limit > 0) {
             $switches['limit'] = $this->limit;
         }
 
-        $output = $this->run(array(), $switches);
+        $output = $this->run([], $switches);
         $result = null;
 
         if ($this->oldVersion) {

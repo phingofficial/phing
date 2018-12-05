@@ -1,7 +1,5 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the IsPropertyTrue/-False Tasks
  *

@@ -38,21 +38,21 @@ interface SelectorContainer
      *
      * @return int the number of selectors in this container
      */
-    public function selectorCount();
+    public function count();
 
     /**
      * Returns a *copy* of the set of selectors as an array.
      *
      * @param Project $p
      *
-     * @return array an array of selectors in this container
+     * @return BaseSelectorContainer[] an array of selectors in this container
      */
     public function getSelectors(Project $p);
 
     /**
      * Returns an array for accessing the set of selectors.
      *
-     * @return an enumerator that goes through each of the selectors
+     * @return BaseSelectorContainer[] an enumerator that goes through each of the selectors
      */
     public function selectorElements();
 
@@ -69,72 +69,127 @@ interface SelectorContainer
 
     /**
      * add a "Select" selector entry on the selector list
+     * @param SelectSelector $selector
      */
-    public function createSelector();
+    public function addSelector(SelectSelector $selector);
 
     /**
      * add an "And" selector entry on the selector list
+     * @param AndSelector $selector
      */
-    public function createAnd();
+    public function addAnd(AndSelector $selector);
 
     /**
      * add an "Or" selector entry on the selector list
+     * @param OrSelector $selector
      */
-    public function createOr();
+    public function addOr(OrSelector $selector);
 
     /**
      * add a "Not" selector entry on the selector list
+     * @param NotSelector $selector
      */
-    public function createNot();
+    public function addNot(NotSelector $selector);
 
     /**
      * add a "None" selector entry on the selector list
+     * @param NoneSelector $selector
      */
-    public function createNone();
+    public function addNone(NoneSelector $selector);
 
     /**
      * add a majority selector entry on the selector list
+     * @param MajoritySelector $selector
      */
-    public function createMajority();
+    public function addMajority(MajoritySelector $selector);
 
     /**
      * add a selector date entry on the selector list
+     * @param DateSelector $selector
      */
-    public function createDate();
+    public function addDate(DateSelector $selector);
 
     /**
      * add a selector size entry on the selector list
+     * @param SizeSelector $selector
      */
-    public function createSize();
+    public function addSize(SizeSelector $selector);
 
     /**
      * add a selector filename entry on the selector list
+     * @param FilenameSelector $selector
      */
-    public function createFilename();
+    public function addFilename(FilenameSelector $selector);
 
     /**
      * add an extended selector entry on the selector list
+     * @param ExtendSelector $selector
      */
-    public function createCustom();
+    public function addCustom(ExtendSelector $selector);
 
     /**
      * add a contains selector entry on the selector list
+     * @param ContainsSelector $selector
      */
-    public function createContains();
+    public function addContains(ContainsSelector $selector);
+
+    /**
+     * add a contains selector entry on the selector list
+     * @param ContainsRegexpSelector $selector
+     */
+    public function addContainsRegexp(ContainsRegexpSelector $selector);
 
     /**
      * add a present selector entry on the selector list
+     * @param PresentSelector $selector
      */
-    public function createPresent();
+    public function addPresent(PresentSelector $selector);
 
     /**
      * add a depth selector entry on the selector list
+     * @param DepthSelector $selector
      */
-    public function createDepth();
+    public function addDepth(DepthSelector $selector);
 
     /**
      * add a depends selector entry on the selector list
+     * @param DependSelector $selector
      */
-    public function createDepend();
+    public function addDepend(DependSelector $selector);
 
+    /**
+     * add a different selector entry on the selector list
+     * @param DifferentSelector $selector
+     */
+    public function addDifferent(DifferentSelector $selector);
+
+    /**
+     * add a type selector entry on the selector list
+     * @param TypeSelector $selector
+     */
+    public function addType(TypeSelector $selector);
+
+    /**
+     * add a executable selector entry on the selector list
+     * @param ExecutableSelector $selector
+     */
+    public function addExecutable(ExecutableSelector $selector);
+
+    /**
+     * add a readable selector entry on the selector list
+     * @param ReadableSelector $selector
+     */
+    public function addReadable(ReadableSelector $selector);
+
+    /**
+     * add a writable selector entry on the selector list
+     * @param WritableSelector $selector
+     */
+    public function addWritable(WritableSelector $selector);
+
+    /**
+     * add a symlink selector entry on the selector list
+     * @param SymlinkSelector $selector
+     */
+    public function addSymlink(SymlinkSelector $selector);
 }

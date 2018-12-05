@@ -8,11 +8,8 @@
  * @package  phing.types
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @version  SVN: $Id$
  * @link     http://www.phing.info/
  */
-require_once 'phing/types/FileSet.php';
-require_once 'phing/util/PearPackageScanner.php';
 
 /**
  * Fileset that contains files of an installed PEAR package.

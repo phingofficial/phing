@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
 
 /**
  * Uses ANSI Color Code Sequences to colorize messages
@@ -95,11 +90,9 @@ include_once 'phing/system/util/Properties.php';
  * @author     Hans Lellelid <hans@xmpl.org> (Phing)
  * @author     Magesh Umasankar (Ant)
  * @package    phing.listener
- * @version    $Id$
  */
 class AnsiColorLogger extends DefaultLogger
 {
-
     const ATTR_NORMAL = 0;
     const ATTR_BRIGHT = 1;
     const ATTR_DIM = 2;
@@ -159,7 +152,6 @@ class AnsiColorLogger extends DefaultLogger
      */
     final private function setColors()
     {
-
         $userColorFile = Phing::getProperty("phing.logger.defaults");
         $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
 
@@ -208,7 +200,6 @@ class AnsiColorLogger extends DefaultLogger
     final protected function printMessage($message, OutputStream $stream, $priority)
     {
         if ($message !== null) {
-
             if (!$this->colorsSet) {
                 $this->setColors();
                 $this->colorsSet = true;

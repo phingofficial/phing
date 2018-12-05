@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,11 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PlainPDOResultFormatter.php';
-require_once 'phing/tasks/ext/pdo/XMLPDOResultFormatter.php';
-require_once 'phing/util/LogWriter.php';
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
@@ -100,12 +93,22 @@ class PDOSQLExecFormatterElement
      * Parameters for a custom formatter.
      * @var array Parameter[]
      */
-    private $formatterParams = array();
+    private $formatterParams = [];
 
     /**
      * @var PDOSQLExecTask
      */
     private $parentTask;
+
+    /**
+     * @var Parameter[]
+     */
+    private $parameters;
+
+    /**
+     * @var bool
+     */
+    private $formatOutput;
 
     /**
      * Construct a new PDOSQLExecFormatterElement with parent task.
@@ -147,12 +150,12 @@ class PDOSQLExecFormatterElement
 
     /**
      * Configures wrapped formatter class with any attributes on this element.
+     * @throws BuildException
      */
-    public function prepare()
+    public function prepare(Location $location)
     {
-
         if (!$this->formatter) {
-            throw new BuildException("No formatter specified (use type or classname attribute)", $this->getLocation());
+            throw new BuildException("No formatter specified (use type or classname attribute)", $location);
         }
 
         $out = $this->getOutputWriter();
@@ -177,9 +180,9 @@ class PDOSQLExecFormatterElement
             if (!method_exists($this->formatter, $param->getName())) {
                 throw new BuildException("Formatter " . get_class(
                         $this->formatter
-                    ) . " does not have a $method method.", $this->getLocation());
+                    ) . " does not have a $method method.", $location);
             }
-            call_user_func(array($this->formatter, $method), $param->getValue());
+            call_user_func([$this->formatter, $method], $param->getValue());
         }
     }
 
@@ -245,10 +248,6 @@ class PDOSQLExecFormatterElement
     public function getOutfile()
     {
         return $this->outfile;
-        /*
-        } else {
-            return new PhingFile($this->formatter->getPreferredOutfile());
-        }*/
     }
 
     /**

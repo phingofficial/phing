@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,30 +18,19 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitMergeTask.php';
-require_once dirname(__FILE__) . '/GitTestsHelper.php';
-
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitMergeTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
-        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
-        // not work on Windows.
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped('Testing not on a windows os.');
-        }
-
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
@@ -55,7 +43,7 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
     public function testAllParamsSet()
@@ -63,7 +51,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up');
     }
 
     public function testNoCommitSet()
@@ -71,7 +59,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up');
     }
 
     public function testRemoteSet()
@@ -79,14 +67,14 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up');
     }
 
     public function testFastForwardCommitSet()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fastForwardCommitSet');
-        $this->assertInLogs('git-merge command: /usr/bin/git merge --no-ff \'origin/master\'');
+        $this->assertInLogs('git-merge command: LC_ALL=C && git merge --no-ff \'origin/master\'');
         $this->assertInLogs('git-merge: replaying "origin/master" commits');
         $this->assertInLogs('Merge remote-tracking branch \'origin/master\' into merge-test-1');
     }

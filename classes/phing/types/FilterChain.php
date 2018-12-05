@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,49 +17,23 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/filters/ConcatFilter.php';
-include_once 'phing/filters/HeadFilter.php';
-include_once 'phing/filters/IconvFilter.php';
-include_once 'phing/filters/TailFilter.php';
-include_once 'phing/filters/LineContains.php';
-include_once 'phing/filters/LineContainsRegexp.php';
-include_once 'phing/filters/EscapeUnicode.php';
-include_once 'phing/filters/ExpandProperties.php';
-include_once 'phing/filters/PhpArrayMapLines.php';
-include_once 'phing/filters/PrefixLines.php';
-include_once 'phing/filters/ReplaceRegexp.php';
-include_once 'phing/filters/ReplaceTokens.php';
-include_once 'phing/filters/ReplaceTokensWithFile.php';
-include_once 'phing/filters/SortFilter.php';
-include_once 'phing/filters/StripPhpComments.php';
-include_once 'phing/filters/StripLineBreaks.php';
-include_once 'phing/filters/StripLineComments.php';
-include_once 'phing/filters/StripWhitespace.php';
-include_once 'phing/filters/SuffixLines.php';
-include_once 'phing/filters/TabToSpaces.php';
-include_once 'phing/filters/TidyFilter.php';
-include_once 'phing/filters/TranslateGettext.php';
-include_once 'phing/filters/XincludeFilter.php';
-include_once 'phing/filters/XsltFilter.php';
-
 /**
  * FilterChain may contain a chained set of filter readers.
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @version   $Id$
  * @package   phing.types
  */
 class FilterChain extends DataType
 {
-
-    private $filterReaders = array();
+    private $filterReaders = [];
 
     /**
      * @param null $project
      */
     public function __construct($project = null)
     {
+        parent::__construct();
+
         if ($project) {
             $this->project = $project;
         }
@@ -316,7 +288,6 @@ class FilterChain extends DataType
      */
     public function setRefid(Reference $r)
     {
-
         if (count($this->filterReaders) !== 0) {
             throw $this->tooManyAttributes();
         }

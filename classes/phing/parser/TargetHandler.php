@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-
 /**
  * The target handler class.
  *
@@ -29,7 +25,6 @@ require_once 'phing/parser/AbstractHandler.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright  2001,2002 THYRELL. All rights reserved
- * @version   $Id$
  * @package   phing.parser
  */
 class TargetHandler extends AbstractHandler
@@ -47,6 +42,11 @@ class TargetHandler extends AbstractHandler
      * @var ProjectConfigurator
      */
     private $configurator;
+
+    /**
+     * @var PhingXMLContext
+     */
+    private $context;
 
     /**
      * Constructs a new TargetHandler
@@ -118,7 +118,7 @@ class TargetHandler extends AbstractHandler
                     $id = (string) $value;
                     break;
                 case "hidden":
-                    $isHidden = ($value == 'true' || $value == '1') ? true : false;
+                    $isHidden = ($value === 'true' || $value === '1');
                     break;
                 case "description":
                     $description = (string) $value;
@@ -140,12 +140,13 @@ class TargetHandler extends AbstractHandler
         $project = $this->configurator->project;
 
         // check to see if this target is a dup within the same file
-        if (isset($this->context->getCurrentTargets[$name])) {
+        if (isset($this->context->getCurrentTargets()[$name])) {
             throw new BuildException("Duplicate target: $name",
                 $this->parser->getLocation());
         }
 
         $this->target = new Target();
+        $this->target->setProject($project);
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);
@@ -195,15 +196,11 @@ class TargetHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param  string  the tag that comes in
-     * @param  array   attributes the tag carries
+     * @param  string $name the tag that comes in
+     * @param  array  $attrs  attributes the tag carries
      */
     public function startElement($name, $attrs)
     {
-        // shorthands
-        $project = $this->configurator->project;
-        $types = $project->getDataTypeDefinitions();
-
         $tmp = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->target);
         $tmp->init($name, $attrs);
     }

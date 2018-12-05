@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -50,7 +48,7 @@ class SourceFileScanner
      * Restrict the given set of files to those that are newer than
      * their corresponding target files.
      *
-     * @param array $files   the original set of files
+     * @param iterable $files   the original set of files
      * @param PhingFile $srcDir  all files are relative to this directory
      * @param PhingFile $destDir target files live here. if null file names
      *                returned by the mapper are assumed to be absolute.
@@ -78,10 +76,9 @@ class SourceFileScanner
             $now += 2000;
         }
 
-        $v = array();
+        $v = [];
 
         for ($i = 0, $size = count($files); $i < $size; $i++) {
-
             $targets = $mapper->main($files[$i]);
             if (empty($targets)) {
                 $this->task->log($files[$i] . " skipped - don't know how to handle it", Project::MSG_VERBOSE);
@@ -112,7 +109,6 @@ class SourceFileScanner
             $targetList = "";
 
             for ($j = 0, $_j = count($targets); (!$added && $j < $_j); $j++) {
-
                 $dest = null;
                 if ($destDir === null) {
                     $dest = new PhingFile($targets[$j]);
@@ -122,7 +118,7 @@ class SourceFileScanner
 
                 if (!$dest->exists()) {
                     $this->task->log(
-                        $files[$i] . " added as " . $dest->__toString() . " doesn't exist.",
+                        ($files[$i] ?: ".") . " added as " . $dest->__toString() . " doesn't exist.",
                         Project::MSG_VERBOSE
                     );
                     $v[] = $files[$i];
@@ -157,12 +153,9 @@ class SourceFileScanner
                     Project::MSG_VERBOSE
                 );
             }
-
         }
-        $result = array();
-        $result = $v;
 
-        return $result;
+        return $v;
     }
 
     /**
@@ -178,8 +171,8 @@ class SourceFileScanner
     public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)
     {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
-        $result = array();
-        for ($i = 0; $i < count($res); $i++) {
+        $result = [];
+        for ($i = 0, $resultsCount = count($res); $i < $resultsCount; $i++) {
             $result[$i] = new PhingFile($srcDir, $res[$i]);
         }
 

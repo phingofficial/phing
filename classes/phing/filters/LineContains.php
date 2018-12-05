@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,10 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -47,7 +40,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@velum.net>
- * @version   $Id$
  * @see       PhingFilterReader
  * @package   phing.filters
  */
@@ -59,18 +51,16 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @var string
      */
     const CONTAINS_KEY = "contains";
+    const NEGATE_KEY = 'negate';
 
     /**
      * Array of Contains objects.
      * @var array
      */
-    private $_contains = array();
+    private $_contains = [];
 
-    /**
-     * [Deprecated]
-     * @var string
-     */
-    private $_line = null;
+    /** @var bool $negate */
+    private $negate = false;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
@@ -91,13 +81,13 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         }
 
         $lines = explode("\n", $buffer);
-        $matched = array();
+        $matched = [];
         $containsSize = count($this->_contains);
 
         foreach ($lines as $line) {
             for ($i = 0; $i < $containsSize; $i++) {
                 $containsStr = $this->_contains[$i]->getValue();
-                if (strstr($line, $containsStr) === false) {
+                if (false === strpos($line, $containsStr)) {
                     $line = null;
                     break;
                 }
@@ -108,55 +98,29 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         }
         $filtered_buffer = implode("\n", $matched);
 
+        if ($this->isNegated()) {
+            $filtered_buffer = implode("\n", array_diff($lines, $matched));
+        }
+
         return $filtered_buffer;
     }
 
     /**
-     * [Deprecated. For reference only, used to be read() method.]
-     * Returns the next character in the filtered stream, only including
-     * lines from the original stream which contain all of the specified words.
-     *
-     * @return the next character in the resulting stream, or -1
-     *             if the end of the resulting stream has been reached
-     *
-     * @exception IOException if the underlying stream throws an IOException
-     * during reading
+     * Set the negation mode.  Default false (no negation).
+     * @param boolean $b the boolean negation mode to set.
      */
-    public function readChar()
+    public function setNegate($b)
     {
-        if (!$this->getInitialized()) {
-            $this->_initialize();
-            $this->setInitialized(true);
-        }
+        $this->negate = (bool) $b;
+    }
 
-        $ch = -1;
-
-        if ($this->_line !== null) {
-            $ch = substr($this->_line, 0, 1);
-            if (strlen($this->_line) === 1) {
-                $this->_line = null;
-            } else {
-                $this->_line = substr($this->_line, 1);
-            }
-        } else {
-            $this->_line = $this->readLine();
-            if ($this->_line === null) {
-                $ch = -1;
-            } else {
-                $containsSize = count($this->_contains);
-                for ($i = 0; $i < $containsSize; $i++) {
-                    $containsStr = $this->_contains[$i]->getValue();
-                    if (strstr($this->_line, $containsStr) === false) {
-                        $this->_line = null;
-                        break;
-                    }
-                }
-
-                return $this->readChar();
-            }
-        }
-
-        return $ch;
+    /**
+     * Find out whether we have been negated.
+     * @return boolean negation flag.
+     */
+    public function isNegated()
+    {
+        return $this->negate;
     }
 
     /**
@@ -185,7 +149,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     {
         // type check, error must never occur, bad code of it does
         if (!is_array($contains)) {
-            throw new Exception("Excpected array got something else");
+            throw new Exception("Expected array got something else");
         }
 
         $this->_contains = $contains;
@@ -219,6 +183,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     {
         $newFilter = new LineContains($reader);
         $newFilter->setContains($this->getContains());
+        $newFilter->setNegate($this->isNegated());
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
 
@@ -236,42 +201,11 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                 if (self::CONTAINS_KEY == $param->getType()) {
                     $cont = new Contains();
                     $cont->setValue($param->getValue());
-                    array_push($this->_contains, $cont);
-                    break; // because we only support a single contains
+                    $this->_contains[] = $cont;
+                } elseif (self::NEGATE_KEY === $param->getType()) {
+                    $this->setNegate(Project::toBoolean($param->getValue()));
                 }
             }
         }
-    }
-}
-
-/**
- * Holds a contains element.
- *
- * @package phing.filters
- */
-class Contains
-{
-
-    /**
-     * @var string
-     */
-    private $_value;
-
-    /**
-     * Set 'contains' value.
-     * @param string $contains
-     */
-    public function setValue($contains)
-    {
-        $this->_value = (string) $contains;
-    }
-
-    /**
-     * Returns 'contains' value.
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->_value;
     }
 }

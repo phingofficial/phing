@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,14 +21,12 @@
  * @package phing.util
  */
 
-require_once 'phing/util/regexp/PregEngine.php';
-
 /**
  * Class PregEngineTest
  *
  * Test cases for phing/util/regexp/PregEngine
  */
-class PregEngineTest extends PHPUnit_Framework_TestCase
+class PregEngineTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test the default ignore-case value.
@@ -121,8 +118,8 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
     {
         $pregEngine = new PregEngine();
         $pregEngine->setModifiers('gu');
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'u'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'g'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'u'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'g'));
     }
 
     /**
@@ -157,10 +154,10 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $pregEngine = new PregEngine();
 
         $pregEngine->setModifiers('guummmii');
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'u'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'g'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'i'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'm'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'u'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'g'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'i'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'm'));
     }
 
     /**
@@ -195,7 +192,7 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $source = '1234';
         $pregEngine->match($pattern, $source, $matches);
 
-        $this->assertEquals(array('12'), $matches);
+        $this->assertEquals(['12'], $matches);
     }
 
     /**
@@ -219,7 +216,7 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $source = '\\\\' . PregEngine::DELIMITER . 'abc\\' . PregEngine::DELIMITER . '123\\' . PregEngine::DELIMITER . 'efg' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
         $pregEngine->match($pattern, $source, $matches);
 
-        $this->assertEquals(array($source), $matches, 'The match method did not properly escape uses of the delimiter in the regular expression.');
+        $this->assertEquals([$source], $matches, 'The match method did not properly escape uses of the delimiter in the regular expression.');
     }
 
     /**
@@ -232,7 +229,7 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $source = '1234';
         $pregEngine->matchAll($pattern, $source, $matches);
 
-        $this->assertEquals(array(array('12','34')), $matches);
+        $this->assertEquals([['12','34']], $matches);
     }
 
     /**
@@ -261,4 +258,3 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<12>', $result);
     }
 }
- 

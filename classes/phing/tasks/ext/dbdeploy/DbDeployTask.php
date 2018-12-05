@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
-
 /**
  * Generate SQL script for db using dbdeploy schema version table
  * and delta scripts
@@ -30,11 +25,12 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
  *     userid="dbdeploy" password="dbdeploy" dir="db" outputfile="">
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbDeployTask extends Task
 {
+    use FileSetAware;
+
     /**
      * The tablename to use from the database for storing all changes
      * This cannot be changed
@@ -113,7 +109,7 @@ class DbDeployTask extends Task
      *
      * @var array
      */
-    protected $appliedChangeNumbers = array();
+    protected $appliedChangeNumbers = [];
 
     /**
      * Checkall attribute
@@ -154,7 +150,6 @@ class DbDeployTask extends Task
             $this->log('Checkall: ' . ($this->checkall ? 'On' : 'Off'));
 
             $this->deploy();
-
         } catch (Exception $e) {
             throw new BuildException($e);
         }
@@ -170,7 +165,7 @@ class DbDeployTask extends Task
     {
         if (count($this->appliedChangeNumbers) == 0) {
             $this->log('Getting applied changed numbers from DB: ' . $this->url);
-            $appliedChangeNumbers = array();
+            $appliedChangeNumbers = [];
             $dbh = new PDO($this->url, $this->userid, $this->password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->dbmsSyntax->applyAttributes($dbh);
@@ -255,28 +250,37 @@ class DbDeployTask extends Task
                 $fullFileName = $this->dir . '/' . $fileName;
                 $fh = fopen($fullFileName, 'r');
                 $contents = fread($fh, filesize($fullFileName));
-                // allow construct with and without space added
-                $split = strpos($contents, '-- //@UNDO');
-                if ($split === false) {
-                    $split = strpos($contents, '--//@UNDO');
-                }
-                if ($split === false) {
-                    $split = strlen($contents);
+                $count_bad_comments = substr_count($contents, '--//');
+                if ($count_bad_comments > 0) {
+                    $this->log('Your SQL delta includes "--//" which, if a comment, should be replaced with "-- //"
+                    to avoid the delta failing.  You may need to manually undo part of this delta.\n\n'
+                        . $contents, Project::MSG_WARN);
                 }
 
+                // ignore tabs and spaces before @UNDO and any characters after in that line
+                $split = preg_split('/--[\t ]*\/\/@UNDO[^\r\n]*/', $contents);
+
+                if ($split === false){
+                    $split = array($contents);
+                }
+
+                $deploySql = $split[0];
+                $undoSql = isset($split[1]) ? $split[1] : '';
+
                 if ($undo) {
-                    $sql .= substr($contents, $split + 10) . "\n";
+                    $sql .= $undoSql;
+                    $sql .= PHP_EOL;
                     $sql .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . '
-	                         WHERE change_number = ' . $fileChangeNumber . '
-	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
+                             WHERE change_number = ' . $fileChangeNumber . '
+                             AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 } else {
-                    $sql .= substr($contents, 0, $split);
+                    $sql .= $deploySql;
                     // Ensuring there's a newline after the final -- //
                     $sql .= PHP_EOL;
                     $sql .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . '
-	                         SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . '
-	                         WHERE change_number = ' . $fileChangeNumber . '
-	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
+                             SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . '
+                             WHERE change_number = ' . $fileChangeNumber . '
+                             AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 }
 
                 $sql .= '-- Fragment ends: ' . $fileChangeNumber . ' --' . "\n";
@@ -293,7 +297,7 @@ class DbDeployTask extends Task
      */
     protected function getDeltasFilesArray()
     {
-        $files = array();
+        $files = [];
 
         $baseDir = realpath($this->dir);
         $dh = opendir($baseDir);
@@ -305,7 +309,7 @@ class DbDeployTask extends Task
         $fileChangeNumberPrefix = '';
         while (($file = readdir($dh)) !== false) {
             if (preg_match('[\d+]', $file, $fileChangeNumberPrefix)) {
-                $files[intval($fileChangeNumberPrefix[0])] = $file;
+                $files[(int)$fileChangeNumberPrefix[0]] = $file;
             }
         }
 
@@ -453,16 +457,5 @@ class DbDeployTask extends Task
     public function setAppliedBy($appliedBy)
     {
         $this->appliedBy = $appliedBy;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 }

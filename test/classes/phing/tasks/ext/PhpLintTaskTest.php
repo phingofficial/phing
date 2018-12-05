@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Unit tests for PhpLintTask
  *
@@ -29,7 +26,6 @@ require_once 'phing/BuildFileTest.php';
  */
 class PhpLintTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
@@ -61,8 +57,8 @@ class PhpLintTaskTest extends BuildFileTest
      */
     public function testDeprecated()
     {
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("HHVM lint does not support testing for deprecated statements");
+        if (defined('HHVM_VERSION') || PHP_MAJOR_VERSION > 5) {
+            $this->markTestSkipped("Testing for deprecated statements only works on PHP 5.x");
         }
 
         file_put_contents(

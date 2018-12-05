@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,7 +21,6 @@
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Id$
  * @package  phing
  */
 class ConfigurationException extends Exception
@@ -52,7 +49,6 @@ class ConfigurationException extends Exception
      */
     public function __construct($p1, $p2 = null)
     {
-
         $cause = null;
         $msg = "";
 
@@ -84,5 +80,4 @@ class ConfigurationException extends Exception
     {
         return $this->cause;
     }
-
 }

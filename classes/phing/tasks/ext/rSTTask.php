@@ -1,5 +1,4 @@
 <?php
-
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
  *
@@ -10,11 +9,7 @@
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
- * @version    SVN: $Id$
  */
-
-require_once 'phing/Task.php';
-require_once 'phing/util/FileUtils.php';
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
@@ -29,6 +24,9 @@ require_once 'phing/util/FileUtils.php';
  */
 class rSTTask extends Task
 {
+    use FileSetAware;
+    use FilterChainAware;
+
     /**
      * @var string Taskname for logger
      */
@@ -49,28 +47,28 @@ class rSTTask extends Task
      * @see $format
      * @see $targetExt
      */
-    protected static $supportedFormats = array(
+    protected static $supportedFormats = [
         'html',
         'latex',
         'man',
         'odt',
         's5',
         'xml'
-    );
+    ];
 
     /**
      * Maps formats to file extensions
      *
      * @var array
      */
-    protected static $targetExt = array(
+    protected static $targetExt = [
         'html' => 'html',
         'latex' => 'tex',
         'man' => '3',
         'odt' => 'odt',
         's5' => 'html',
         'xml' => 'xml',
-    );
+    ];
 
     /**
      * Input file in rST format.
@@ -102,15 +100,7 @@ class rSTTask extends Task
      */
     protected $destination = null;
 
-    protected $filesets = array(); // all fileset objects assigned to this task
     protected $mapperElement = null;
-
-    /**
-     * all filterchains objects assigned to this task
-     *
-     * @var array
-     */
-    protected $filterChains = array();
 
     /**
      * mode to create directories with
@@ -128,19 +118,17 @@ class rSTTask extends Task
     protected $uptodate = false;
 
     /**
+     * @var FileUtils
+     */
+    private $fileUtils;
+
+    /**
      * Sets up this object internal stuff. i.e. the default mode.
      */
     public function __construct()
     {
+        parent::__construct();
         $this->mode = 0777 - umask();
-    }
-
-    /**
-     * Init method: requires the PEAR System class
-     */
-    public function init()
-    {
-        require_once 'System.php';
     }
 
     /**
@@ -215,7 +203,8 @@ class rSTTask extends Task
     protected function render($tool, $source, $targetFile)
     {
         if (count($this->filterChains) == 0) {
-            return $this->renderFile($tool, $source, $targetFile);
+            $this->renderFile($tool, $source, $targetFile);
+            return;
         }
 
         $tmpTarget = tempnam(sys_get_temp_dir(), 'rST-');
@@ -224,10 +213,10 @@ class rSTTask extends Task
         $this->fileUtils->copyFile(
             new PhingFile($tmpTarget),
             new PhingFile($targetFile),
+            $this->getProject(),
             true,
             false,
             $this->filterChains,
-            $this->getProject(),
             $this->mode
         );
         unlink($tmpTarget);
@@ -291,7 +280,8 @@ class rSTTask extends Task
         }
 
         $tool = 'rst2' . $format;
-        $path = System::which($tool);
+        $fs = FileSystem::getFileSystem();
+        $path = $fs->which($tool);
         if (!$path) {
             throw new BuildException(
                 sprintf('"%s" not found. Install python-docutils.', $tool)
@@ -403,7 +393,8 @@ class rSTTask extends Task
     public function setToolpath($path)
     {
         if (!file_exists($path)) {
-            $fullpath = System::which($path);
+            $fs = FileSystem::getFileSystem();
+            $fullpath = $fs->which($path);
             if ($fullpath === false) {
                 throw new BuildException(
                     'Tool does not exist. Path: ' . $path
@@ -432,18 +423,6 @@ class rSTTask extends Task
     }
 
     /**
-     * Add a set of files to be rendered.
-     *
-     * @param FileSet $fileset Set of rst files to render
-     *
-     * @return void
-     */
-    public function addFileset(FileSet $fileset)
-    {
-        $this->filesets[] = $fileset;
-    }
-
-    /**
      * Nested creator, creates one Mapper for this task
      *
      * @return Mapper The created Mapper type object
@@ -454,23 +433,11 @@ class rSTTask extends Task
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
-                'Cannot define more than one mapper', $this->location
+                'Cannot define more than one mapper', $this->getLocation()
             );
         }
         $this->mapperElement = new Mapper($this->project);
 
         return $this->mapperElement;
-    }
-
-    /**
-     * Creates a filterchain, stores and returns it
-     *
-     * @return FilterChain The created filterchain object
-     */
-    public function createFilterChain()
-    {
-        $num = array_push($this->filterChains, new FilterChain($this->project));
-
-        return $this->filterChains[$num - 1];
     }
 }

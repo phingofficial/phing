@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,8 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/YamlFileParser.php';
-include_once 'phing/system/io/FileParserInterface.php';
 
 /**
  * Unit test for YamlFileParser
@@ -27,7 +24,7 @@ include_once 'phing/system/io/FileParserInterface.php';
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class YamlFileParserTest extends PHPUnit_Framework_TestCase
+class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FileParserInterface
@@ -49,8 +46,8 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        if (phpversion() < 5.3 || !class_exists('\Symfony\Component\Yaml\Parser')) {
-            $this->markTestSkipped('Yaml is not installed.');
+        if (!class_exists('\Symfony\Component\Yaml\Parser')) {
+            $this->markTestSkipped('Yaml parser is not installed.');
             exit;
         }
         $this->yamlFileStub = PHING_TEST_BASE .  "/etc/system/io/config.yml";

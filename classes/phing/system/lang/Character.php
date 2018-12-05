@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,34 +22,12 @@
  */
 class Character
 {
-
-    // this class might be extended with plenty of ordinal char constants
-    // and the like to support the multibyte aware datatype (char) in php
-    // in form of an object.
-    // anyway just a thought
-
     /**
      * @param $char
      * @return bool
      */
     public static function isLetter($char)
     {
-
-        if (strlen($char) !== 1) {
-            $char = 0;
-        }
-
-        $char = (int) ord($char);
-
-        if ($char >= ord('A') && $char <= ord('Z')) {
-            return true;
-        }
-
-        if ($char >= ord('a') && $char <= ord('z')) {
-            return true;
-        }
-
-        return false;
+        return strlen($char) === 1 && ctype_alpha($char);
     }
-
 }

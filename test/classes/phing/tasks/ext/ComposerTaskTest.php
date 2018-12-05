@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,15 +19,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ComposerTask.php';
 /**
  * Test class for the ComposerTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
-class ComposerTaskTest extends PHPUnit_Framework_TestCase
+class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ComposerTask
@@ -42,6 +39,7 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new ComposerTask();
+        $this->object->setProject(new Project());
     }
 
     /**
@@ -80,9 +78,14 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
      */
     public function testSetGetComposer()
     {
+        $composer = 'foo';
         $o = $this->object;
-        $o->setComposer('foo');
-        $this->assertEquals('foo', $o->getComposer());
+        $o->setComposer($composer);
+        $composerFile = new SplFileInfo($composer);
+        if (false === $composerFile->isFile()) {
+            $composer = FileSystem::getFileSystem()->which('composer');
+        }
+        $this->assertEquals($composer, $o->getComposer());
     }
 
     /**
@@ -97,18 +100,16 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
 
     public function testMultipleCalls()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped('At least PHP 5.3.2 is required');
-        }
         $o = $this->object;
         $o->setPhp('php');
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
+        $composer = $o->getComposer();
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php composer.phar install --dry-run', strval($method->invoke($o)));
+        $this->assertEquals('php ' . $composer . ' install --dry-run', (string)$method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php composer.phar update --dev', strval($method->invoke($o)));
+        $this->assertEquals('php ' . $composer . ' update --dev', (string)$method->invoke($o));
     }
 }

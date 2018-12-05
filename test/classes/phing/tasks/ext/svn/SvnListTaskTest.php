@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,20 +18,19 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class SvnListTaskTest extends AbstractSvnTaskTest
 {
+    use SvnTaskTestSkip;
+
     public function setUp()
     {
-        parent::setUp('SvnListTest.xml');
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        $this->markTestAsSkippedWhenSvnNotInstalled();
+        $this->initialize('SvnListTest.xml');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
     public function testGetList()

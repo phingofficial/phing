@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@ require_once 'phing/system/io/PhingFile.php';
  *
  * @package phing.tasks.ext.pdepend
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
  * @since   2.4.1
  */
 class PhpDependAnalyzerElement
@@ -43,7 +40,7 @@ class PhpDependAnalyzerElement
      *
      * @var array
      */
-    protected $value = array();
+    protected $value = [];
 
     /**
      * Sets the analyzer type
@@ -82,7 +79,7 @@ class PhpDependAnalyzerElement
      */
     public function setValue($value)
     {
-        $this->value = array();
+        $this->value = [];
 
         $token = ' ,;';
         $values = strtok($value, $token);

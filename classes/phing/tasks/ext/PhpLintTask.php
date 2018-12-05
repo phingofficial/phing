@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,28 +17,23 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/util/DataStore.php';
-require_once 'phing/system/io/FileWriter.php';
-
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
  *
  * @author   Knut Urdalen <knut.urdalen@telio.no>
  * @author   Stefan Priebsch <stefan.priebsch@e-novative.de>
- * @version  $Id$
  * @package  phing.tasks.ext
  */
 class PhpLintTask extends Task
 {
+    use FileSetAware;
 
     protected $file; // the source file (from xml attribute)
-    protected $filesets = array(); // all fileset objects assigned to this task
 
     protected $errorProperty;
     protected $haltOnFailure = false;
     protected $hasErrors = false;
-    protected $badFiles = array();
+    protected $badFiles = [];
     protected $interpreter = ''; // php interpreter to use for linting
 
     protected $logLevel = Project::MSG_VERBOSE;
@@ -119,17 +112,6 @@ class PhpLintTask extends Task
     public function setToFile(PhingFile $tofile)
     {
         $this->tofile = $tofile;
-    }
-
-    /**
-     * Nested adder, adds a set of files (nested fileset attribute).
-     *
-     * @param FileSet $fs
-     * @return void
-     */
-    public function addFileSet(FileSet $fs)
-    {
-        $this->filesets[] = $fs;
     }
 
     /**
@@ -264,12 +246,12 @@ class PhpLintTask extends Task
             }
         }
 
-        $messages = array();
+        $messages = [];
         $errorCount = 0;
 
         exec($command . '"' . $file . '" 2>&1', $messages);
 
-        for ($i = 0; $i < count($messages); $i++) {
+        for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; $i++) {
             $message = $messages[$i];
             if (trim($message) == '') {
                 continue;
@@ -283,10 +265,10 @@ class PhpLintTask extends Task
                 $this->log($message, Project::MSG_ERR);
 
                 if (!isset($this->badFiles[$file])) {
-                    $this->badFiles[$file] = array();
+                    $this->badFiles[$file] = [];
                 }
 
-                array_push($this->badFiles[$file], $message);
+                $this->badFiles[$file][] = $message;
 
                 $this->hasErrors = true;
                 $errorCount++;

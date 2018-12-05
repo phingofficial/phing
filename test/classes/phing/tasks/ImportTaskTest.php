@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,15 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * @author Bryan Davis <bpd@keynetics.com>
  * @package phing.tasks.system
  */
 class ImportTaskTest extends BuildFileTest
 {
-
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/importing.xml");
@@ -89,7 +85,6 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flop target.");
         $this->assertInLogs("This is " . $f2->getAbsolutePath() . " flip target.");
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flipflop target.");
-
     }
 
     public function testOnlyTopLevel()

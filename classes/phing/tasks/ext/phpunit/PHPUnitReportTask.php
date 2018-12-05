@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,11 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
-
 /**
  * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
@@ -32,7 +25,6 @@ require_once 'phing/util/ExtendedFileStream.php';
  * different packages or testcases since it is a Javadoc like report.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
@@ -160,19 +152,15 @@ class PHPUnitReportTask extends Task
 
         $proc = new XSLTProcessor();
         if (defined('XSL_SECPREF_WRITE_FILE')) {
-            if (version_compare(PHP_VERSION, '5.4', "<")) {
-                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            } else {
-                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-            }
+            $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
         }
-
-        $proc->importStyleSheet($xsl);
+        $proc->registerPHPFunctions('nl2br');
+        $proc->importStylesheet($xsl);
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
-        if ($this->format == "noframes") {
+        if ($this->format === "noframes") {
             $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
-            $writer->write($proc->transformToXML($document));
+            $writer->write($proc->transformToXml($document));
             $writer->close();
         } else {
             ExtendedFileStream::registerStream();
@@ -180,14 +168,14 @@ class PHPUnitReportTask extends Task
             $toDir = (string) $this->toDir;
 
             // urlencode() the path if we're on Windows
-            if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+            if (FileSystem::getFileSystem()->getSeparator() === '\\') {
                 $toDir = urlencode($toDir);
             }
 
             // no output for the framed report
             // it's all done by extension...
             $proc->setParameter('', 'output.dir', $toDir);
-            $proc->transformToXML($document);
+            $proc->transformToXml($document);
 
             ExtendedFileStream::unregisterStream();
         }
@@ -206,47 +194,72 @@ class PHPUnitReportTask extends Task
 
         $xp = new DOMXPath($document);
 
-        $nodes = $xp->query("/testsuites/testsuite");
+        $nodes = $xp->query("/testsuites/testsuite/testsuite/testsuite");
 
-        foreach ($nodes as $node) {
-            $children = $xp->query("./testsuite", $node);
+        if ($nodes->length === 0) {
+            $nodes = $xp->query("/testsuites/testsuite");
 
-            if ($children->length) {
-                foreach ($children as $child) {
-                    $rootElement->appendChild($child);
+            foreach ($nodes as $node) {
+                $children = $xp->query("./testsuite", $node);
 
-                    if ($child->hasAttribute('package')) {
-                        continue;
-                    }
-
-                    if ($child->hasAttribute('namespace')) {
-                        $child->setAttribute('package', $child->getAttribute('namespace'));
-                        continue;
-                    }
-
-                    $package = 'default';
-                    $refClass = new ReflectionClass($child->getAttribute('name'));
-
-                    if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
-                        $package = end($matches);
-                    } elseif (method_exists($refClass, 'getNamespaceName')) {
-                        $namespace = $refClass->getNamespaceName();
-
-                        if ($namespace !== '') {
-                            $package = $namespace;
-                        }
-                    }
-
-                    $child->setAttribute('package', trim($package));
+                if ($children->length) {
+                    $this->handleChildren($rootElement, $children);
+                    $rootElement->removeChild($node);
                 }
-
-                $rootElement->removeChild($node);
             }
+        } else {
+            $nodes = $xp->query("/testsuites/testsuite/testsuite");
+
+            foreach ($nodes as $node) {
+                $children = $xp->query("./testsuite", $node);
+
+                if ($children->length) {
+                    $this->handleChildren($rootElement, $children);
+                    $rootElement->firstChild->removeChild($node);
+                }
+            }
+        }
+    }
+
+    private function handleChildren($rootElement, $children)
+    {
+        /** @var $child DOMElement */
+        foreach ($children as $child) {
+            $rootElement->appendChild($child);
+
+            if ($child->hasAttribute('package')) {
+                continue;
+            }
+
+            if ($child->hasAttribute('namespace')) {
+                $child->setAttribute('package', $child->getAttribute('namespace'));
+                continue;
+            }
+
+            $package = 'default';
+            try {
+                $refClass = new ReflectionClass($child->getAttribute('name'));
+
+                if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
+                    $package = end($matches);
+                } elseif (method_exists($refClass, 'getNamespaceName')) {
+                    $namespace = $refClass->getNamespaceName();
+
+                    if ($namespace !== '') {
+                        $package = $namespace;
+                    }
+                }
+            } catch (\ReflectionException $e) {
+                // do nothing
+            }
+
+            $child->setAttribute('package', trim($package));
         }
     }
 
     /**
      * Initialize the task
+     * @throws \BuildException
      */
     public function init()
     {
@@ -267,6 +280,10 @@ class PHPUnitReportTask extends Task
 
         $this->fixDocument($testSuitesDoc);
 
-        $this->transform($testSuitesDoc);
+        try {
+            $this->transform($testSuitesDoc);
+        } catch (IOException $e) {
+            throw new BuildException('Transformation failed.', $e);
+        }
     }
 }

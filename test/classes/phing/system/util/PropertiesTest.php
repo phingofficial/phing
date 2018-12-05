@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,16 +19,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Properties.php';
-
 /**
  * Unit test for Properties class
  *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.util
- * @version $Id$
  */
-class PropertiesTest extends PHPUnit_Framework_TestCase
+class PropertiesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Properties
@@ -77,7 +73,7 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
     {
         $this->props->put('a', 'b');
 
-        $this->assertEquals("a=b" . PHP_EOL, $this->props->toString());
+        $this->assertEquals("a=b" . PHP_EOL, (string) $this->props);
     }
 
     public function testStore()

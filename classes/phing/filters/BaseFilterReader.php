@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,14 +17,10 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/system/io/FilterReader.php';
-include_once 'phing/system/io/StringReader.php';
-
 /**
  * Base class for core filter readers.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */
@@ -37,7 +30,10 @@ class BaseFilterReader extends FilterReader
     /** Have the parameters passed been interpreted? */
     protected $initialized = false;
 
-    /** The Phing project this filter is part of. */
+    /**
+     * The Phing project this filter is part of.
+     * @var Project
+     */
     protected $project = null;
 
     /**

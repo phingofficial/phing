@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 abstract class AbstractPropertySetterTask extends Task
 {
@@ -43,7 +40,8 @@ abstract class AbstractPropertySetterTask extends Task
         }
     }
 
-    protected function setPropertyValue($value) {
+    protected function setPropertyValue($value)
+    {
         if ($value !== null) {
             if ($this->override) {
                 if ($this->getProject()->getUserProperty($this->property) == null) {

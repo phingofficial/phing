@@ -22,7 +22,6 @@
  *  limitations under the License.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Patches a file by applying a 'diff' file to it
@@ -62,7 +61,7 @@ class PatchTask extends Task
      * Command line arguments for patch binary
      * @var array
      */
-    private $cmdArgs = array();
+    private $cmdArgs = [];
 
     /**
      * Halt on error return value from patch invocation.
@@ -162,7 +161,7 @@ class PatchTask extends Task
             throw new BuildException('strip has to be >= 0');
         }
 
-        $this->strip = $num;
+        $this->strip = (integer) $num;
     }
 
     /**
@@ -260,14 +259,14 @@ class PatchTask extends Task
         }
 
         // Define patch file
-        $this->cmdArgs [] = '-i ' . $this->patchFile;
+        $this->cmdArgs [] = '-i ' . escapeshellarg($this->patchFile);
         // Define strip factor
         if ($this->strip != null) {
             $this->cmdArgs [] = '--strip=' . $this->strip;
         }
         // Define original file if specified
         if ($this->originalFile != null) {
-            $this->cmdArgs [] = $this->originalFile;
+            $this->cmdArgs [] = escapeshellarg($this->originalFile);
         }
 
         $cmd = self::CMD . implode(' ', $this->cmdArgs);
@@ -283,6 +282,5 @@ class PatchTask extends Task
         if ($exitCode != 0 && $this->haltOnFailure) {
             throw new BuildException("Task exited with code $exitCode");
         }
-
     }
 }

@@ -1,6 +1,5 @@
 <?php
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,8 +17,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/FileParserFactoryInterface.php';
-include_once 'phing/system/io/FileParserFactory.php';
 
 /**
  * Unit test for FileParserFactory
@@ -27,7 +24,7 @@ include_once 'phing/system/io/FileParserFactory.php';
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class FileParserFactoryTest extends PHPUnit_Framework_TestCase
+class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FileParserInterface
@@ -69,23 +66,12 @@ class FileParserFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function parserTypeProvider()
     {
-        if (phpversion() >= 5.3) {
-            return array(
-                array('properties', 'IniFileParser'),
-                array('ini', 'IniFileParser'),
-                array('foo', 'IniFileParser'),
-                array('yml', 'YamlFileParser'),
-                array('yaml', 'YamlFileParser'),
-            );
-        } else {
-            // For < PHP 5.3, yaml is not supported.
-            return array(
-                array('properties', 'IniFileParser'),
-                array('ini', 'IniFileParser'),
-                array('foo', 'IniFileParser'),
-                array('yml', 'IniFileParser'),
-                array('yaml', 'IniFileParser')
-            );
-        }
+        return [
+            ['properties', 'IniFileParser'],
+            ['ini', 'IniFileParser'],
+            ['foo', 'IniFileParser'],
+            ['yml', 'YamlFileParser'],
+            ['yaml', 'YamlFileParser'],
+        ];
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 /*
- *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Unit tests for PHPUnit task
  *
@@ -38,12 +35,12 @@ class PHPUnitTaskTest extends BuildFileTest
 
     /**
      * Regression test for http://www.phing.info/trac/ticket/655
-     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used"
+     * "PlainPHPUnitResultFormatter7 does not display errors if dataProvider was used"
      */
     public function testPlainFormatterDataProvider()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Tests run: 2, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
+        $this->assertInLogs("Tests run: 2, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
     }
 
     /**

@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * This filter strips line comments.
@@ -48,7 +42,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Id$
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
@@ -59,7 +52,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     const COMMENTS_KEY = "comment";
 
     /** Array that holds the comment prefixes. */
-    private $_comments = array();
+    private $_comments = [];
 
     /**
      * Returns stream only including
@@ -73,7 +66,6 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-
         if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
@@ -86,7 +78,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
         }
 
         $lines = explode("\n", $buffer);
-        $filtered = array();
+        $filtered = [];
 
         $commentsSize = count($this->_comments);
 
@@ -134,7 +126,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     public function setComments($lineBreaks)
     {
         if (!is_array($lineBreaks)) {
-            throw new Exception("Excpected 'array', got something else");
+            throw new Exception("Expected 'array', got something else");
         }
         $this->_comments = $lineBreaks;
     }
@@ -184,49 +176,13 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     {
         $params = $this->getParameters();
         if ($params !== null) {
-            for ($i = 0; $i < count($params); $i++) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::COMMENTS_KEY === $params[$i]->getType()) {
                     $comment = new Comment();
                     $comment->setValue($params[$i]->getValue());
-                    array_push($this->_comments, $comment);
+                    $this->_comments[] = $comment;
                 }
             }
         }
-    }
-}
-
-/**
- * The class that holds a comment representation.
- *
- * @package phing.filters
- */
-class Comment
-{
-
-    /** The prefix for a line comment. */
-    private $_value;
-
-    /*
-     * Sets the prefix for this type of line comment.
-     *
-     * @param string $value The prefix for a line comment of this type.
-     *                      Must not be <code>null</code>.
-     */
-    /**
-     * @param $value
-     */
-    public function setValue($value)
-    {
-        $this->_value = (string) $value;
-    }
-
-    /*
-     * Returns the prefix for this type of line comment.
-     *
-     * @return string The prefix for this type of line comment.
-    */
-    public function getValue()
-    {
-        return $this->_value;
     }
 }

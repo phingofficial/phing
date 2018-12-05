@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Class ZendServerDeploymentToolTask
@@ -40,11 +37,11 @@ abstract class zsdtBaseTask extends Task
     protected $schema;
 
     /** @var array $path */
-    private $path = array(
+    private $path = [
         'NIX' => '/usr/local/zend/bin/zdpack',
         'WIN' => 'C:\Program Files (x86)\Zend\ZendServer\bin\zdpack',
         'USR' => ''
-    );
+    ];
 
     /**
      * The package descriptor file.

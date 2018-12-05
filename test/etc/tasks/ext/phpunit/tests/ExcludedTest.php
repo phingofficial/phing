@@ -3,7 +3,7 @@
 /**
  * @group shouldBeExcluded
  */
-class ExcludedTest extends PHPUnit_Framework_TestCase
+class ExcludedTest extends \PHPUnit\Framework\TestCase
 {
     public function testFails()
     {

@@ -79,7 +79,7 @@ class UnixFileSystem extends FileSystem
     public function normalize($strPathname)
     {
         if (!strlen($strPathname)) {
-            return;
+            return '';
         }
 
         // Start normalising after any scheme that is present.
@@ -189,7 +189,6 @@ class UnixFileSystem extends FileSystem
      */
     public function resolve($parent, $child)
     {
-
         if ($child === "") {
             return $parent;
         }
@@ -272,7 +271,7 @@ class UnixFileSystem extends FileSystem
             $strPath = (string) $f->getPath();
             $perms = (int) (@fileperms($strPath) & 0444);
 
-            return FileSystem::getFileSystem()->chmod($strPath, $perms);
+            FileSystem::getFileSystem()->chmod($strPath, $perms);
         } else {
             throw new Exception("IllegalArgumentType: Argument is not File");
         }
@@ -282,7 +281,7 @@ class UnixFileSystem extends FileSystem
      * compares file paths lexicographically
      * @param PhingFile $f1
      * @param PhingFile $f2
-     * @return int|void
+     * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -306,7 +305,8 @@ class UnixFileSystem extends FileSystem
         global $php_errormsg;
 
         if (!$src->isLink()) {
-            return parent::copy($src, $dest);
+            parent::copy($src, $dest);
+            return;
         }
 
         $srcPath = $src->getAbsolutePath();
@@ -327,25 +327,25 @@ class UnixFileSystem extends FileSystem
     public function listRoots()
     {
         if (!$this->checkAccess('/', false)) {
-            die ("Can not access root");
+            die("Can not access root");
         }
 
-        return array(new PhingFile("/"));
+        return [new PhingFile("/")];
     }
 
     /**
      * returns the contents of a directory in an array
-     * @param $f
+     * @param PhingFile $f
      * @throws Exception
-     * @return array
+     * @return string[]
      */
-    public function lister($f)
+    public function listContents(PhingFile $f)
     {
         $dir = @opendir($f->getAbsolutePath());
         if (!$dir) {
             throw new Exception("Can't open directory " . $f->__toString());
         }
-        $vv = array();
+        $vv = [];
         while (($file = @readdir($dir)) !== false) {
             if ($file == "." || $file == "..") {
                 continue;
@@ -367,7 +367,6 @@ class UnixFileSystem extends FileSystem
 
             // "/foo/" --> "/foo", but "/" --> "/"
             $p = substr($p, 0, strlen($p) - 1);
-
         }
 
         return $p;
@@ -385,5 +384,4 @@ class UnixFileSystem extends FileSystem
 
         return (bool) @is_writable($dir);
     }
-
 }

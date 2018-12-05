@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/ContainerMapper.php';
-
 /**
  * A <code>ContainerMapper</code> that unites the results of its constituent
  * <code>FileNameMapper</code>s into a single set of result filenames.
@@ -31,7 +29,7 @@ class CompositeMapper extends ContainerMapper
     /** {@inheritDoc}. */
     public function main($sourceFileName)
     {
-        $results = array();
+        $results = [];
         foreach ($this->getMappers() as $mapper) {
             $result = $mapper->getImplementation()->main($sourceFileName);
             if ($result === null) {

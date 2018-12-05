@@ -34,12 +34,12 @@ class PresentSelector extends BaseSelector
     private $mapperElement = null;
     private $map = null;
     private $destmustexist = true;
-    private static $filePresence = array("srconly", "both");
+    private static $filePresence = ["srconly", "both"];
 
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "{presentselector targetdir: ";
         if ($this->targetdir === null) {
@@ -54,9 +54,9 @@ class PresentSelector extends BaseSelector
             $buf .= "srconly";
         }
         if ($this->map !== null) {
-            $buf .= $this->map->toString();
+            $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
-            $buf .= $this->mapperElement->toString();
+            $buf .= (string) $this->mapperElement;
         }
         $buf .= "}";
 
@@ -150,7 +150,6 @@ class PresentSelector extends BaseSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         // Determine file whose existence is to be checked

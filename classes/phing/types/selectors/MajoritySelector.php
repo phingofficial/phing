@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,18 +32,17 @@
  */
 class MajoritySelector extends BaseSelectorContainer
 {
-
     private $allowtie = true;
 
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{majorityselect: ";
-            $buf .= parent::toString();
+            $buf .= parent::__toString();
             $buf .= "}";
         }
 
@@ -70,11 +66,10 @@ class MajoritySelector extends BaseSelectorContainer
      * @param string $filename is the name of the file to check
      * @param PhingFile $file is a PhingFile object for the filename that the selector
      * can use
-     * @return whether the file should be selected or not
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         $yesvotes = 0;
@@ -84,9 +79,9 @@ class MajoritySelector extends BaseSelectorContainer
         for ($i = 0, $size = count($selectors); $i < $size; $i++) {
             $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if ($result) {
-                $yesvotes = $yesvotes + 1;
+                ++$yesvotes;
             } else {
-                $novotes = $novotes + 1;
+                ++$novotes;
             }
         }
         if ($yesvotes > $novotes) {
