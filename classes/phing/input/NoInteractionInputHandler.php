@@ -24,7 +24,9 @@
  */
 class NoInteractionInputHandler implements InputHandler
 {
-    public function handleInput(InputRequest $request)
+    public function handleInput(InputRequest $inputRequest)
     {
+        $defaultValue = $inputRequest->getDefaultValue();
+        $inputRequest->setInput($defaultValue);
     }
 }
