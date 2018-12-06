@@ -5001,8 +5001,8 @@ Note that you can omit both startpoint and track attributes in this case
                     </row>
                     <row>
                         <entry><literal>phpversion</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>The PHP version to use</entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Defines which php encoder version will be used (suffix of the encoder file)</entry>
                         <entry>5</entry>
                         <entry>No</entry>
                     </row>
