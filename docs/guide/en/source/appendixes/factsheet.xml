@@ -219,7 +219,9 @@
                     </row>
                     <row>
                         <entry><literal>-inputhandler &lt;file></literal></entry>
-                        <entry>The class to use to handle user input</entry>
+                        <entry>The class to use to handle user input. Default is ConsoleInputHandler.
+                            Other options are NoInteractionInputHandler or an own implementation
+                            of InputHandler.</entry>
                     </row>
                 </tbody>
             </tgroup>
