@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/parser/ExpatParseException.php';
-
 /**
  * This is an abstract class all SAX handler classes must extend
  *

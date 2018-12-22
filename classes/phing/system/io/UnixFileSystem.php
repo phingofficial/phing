@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
-
 /**
  * UnixFileSystem class. This class encapsulates the basic file system functions
  * for platforms using the unix (posix)-stylish filesystem. It wraps php native

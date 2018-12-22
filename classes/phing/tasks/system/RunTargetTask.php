@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-
 /**
  * Task that runs a target.
  *

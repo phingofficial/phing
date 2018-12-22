@@ -76,11 +76,9 @@ abstract class FileSystem
         if (self::$fs === null) {
             switch (Phing::getProperty('host.fstype')) {
                 case 'UNIX':
-                    include_once 'phing/system/io/UnixFileSystem.php';
                     self::$fs = new UnixFileSystem();
                     break;
                 case 'WINDOWS':
-                    include_once 'phing/system/io/WindowsFileSystem.php';
                     self::$fs = new WindowsFileSystem();
                     break;
                 default:

@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/FileParserInterface.php';
 
 /**
  * Implements an IniFileParser. The logic is coming from th Properties.php, but I don't know who's the author.

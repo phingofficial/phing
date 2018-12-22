@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/SubBuildListener.php';
-include_once 'phing/tasks/system/RecorderEntry.php';
-
 /**
  * Adds a listener to the current build process that records the
  * output to a file.
