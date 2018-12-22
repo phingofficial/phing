@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-
 /**
  * Base class for Subversion tasks
  *

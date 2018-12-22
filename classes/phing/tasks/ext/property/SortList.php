@@ -16,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
-
 
 /**
  * SortList Task

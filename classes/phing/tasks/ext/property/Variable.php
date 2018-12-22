@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * Variable Task.
  *

@@ -17,8 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/system/io/Reader.php';
-
 /**
  * Convenience class for reading files.
  *

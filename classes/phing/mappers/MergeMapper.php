@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * For merging files into a single file.  In practice just returns whatever value
  * was set for "to".

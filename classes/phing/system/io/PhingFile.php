@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/system/lang/NullPointerException.php';
-
 /**
  * An abstract representation of file and directory pathnames.
  *

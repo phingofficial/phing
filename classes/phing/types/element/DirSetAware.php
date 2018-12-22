@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DirSet.php';
-
 trait DirSetAware
 {
     /** @var DirSet[] $dirsets */
