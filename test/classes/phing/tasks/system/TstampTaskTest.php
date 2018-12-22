@@ -18,41 +18,55 @@
  */
 
 /**
- * Tests the Attrib Task
+ * Tests the Tstamp Task
  *
- * @author  Siad Ardroumli
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
- *
- * @requires OS WIN
  */
-class AttribTaskTest extends BuildFileTest
+class TstampTaskTest extends BuildFileTest
 {
+    /** @var TstampTask */
+    private $tstamp;
+
     public function setUp()
     {
         $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/system/AttribTaskTest.xml"
+            PHING_TEST_BASE . '/etc/tasks/system/TstampTest.xml'
         );
-        $this->executeTarget("setup");
+
+        $this->tstamp = new TstampTask();
+        $this->tstamp->setProject($this->project);
     }
 
-    public function tearDown()
+    public function testMagicProperty()
     {
-        $this->executeTarget("clean");
-    }
-
-    public function testAttrib()
-    {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped('Windows only test.');
-        }
         $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('DSTAMP', 19700102);
+    }
 
-        /** @var Project $project */
-        $project = $this->getProject();
-        $input = $project->getProperty('input');
+    public function testMagicPropertyIso()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('DSTAMP', 19720417);
+    }
 
-        $this->assertNotIsWritable($input . '/TEST.TXT');
-        $this->assertInLogs('+R', Project::MSG_VERBOSE);
+    public function testMagicPropertyBoth()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('DSTAMP', 19720417);
+    }
+
+    public function testMagicPropertyIsoCustomFormat()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('tstamp.test', '1972-04-17');
+    }
+
+    public function testPrefix()
+    {
+        $this->tstamp->setPrefix('prefix');
+        $this->tstamp->main();
+        $prop = $this->project->getProperty('prefix.DSTAMP');
+        $this->assertNotNull($prop);
     }
 }

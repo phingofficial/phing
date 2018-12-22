@@ -18,41 +18,37 @@
  */
 
 /**
- * Tests the Attrib Task
- *
- * @author  Siad Ardroumli
- * @package phing.tasks.system
- *
- * @requires OS WIN
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.ext.svn
  */
-class AttribTaskTest extends BuildFileTest
+class SvnRevertTask extends SvnBaseTask
 {
-    public function setUp()
+    /** @var bool */
+    private $recursive;
+
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    public function main()
     {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/system/AttribTaskTest.xml"
-        );
-        $this->executeTarget("setup");
+        $this->setup('revert');
+
+        $this->log('Reverts SVN repository');
+
+        $switches = [
+            'R' => $this->recursive
+        ];
+
+        $this->run([$this->getToDir()], $switches);
     }
 
-    public function tearDown()
+    /**
+     * @param bool $recursive
+     */
+    public function setRecursive($recursive)
     {
-        $this->executeTarget("clean");
-    }
-
-    public function testAttrib()
-    {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped('Windows only test.');
-        }
-        $this->executeTarget(__FUNCTION__);
-
-        /** @var Project $project */
-        $project = $this->getProject();
-        $input = $project->getProperty('input');
-
-        $this->assertNotIsWritable($input . '/TEST.TXT');
-        $this->assertInLogs('+R', Project::MSG_VERBOSE);
+        $this->recursive = $recursive;
     }
 }

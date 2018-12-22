@@ -76,7 +76,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $properties = $parser->parse();
 
-        $this->assertTrue(is_array($properties));
+        $this->assertInternalType('array', $properties);
         $this->assertEmpty($properties);
     }
 

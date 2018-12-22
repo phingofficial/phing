@@ -4472,7 +4472,11 @@ file defines a task in the format: name=path.to.Task -->
             filenames, or used to replace placeholder tags inside documents to indicate, for
             example, the release date. The best place for this task is probably in an initialization
             target.</para>
-
+        <para>the magic property phing.tstamp.now can be used to specify a fixed date value in order to create
+            reproducible builds. Its value must be a number and is interpreted as seconds since the epoch
+            (midnight 1970-01-01). With phing.tstamp.now.iso you could also specify that value in DateTime compatible
+            format. If you specify a value in an invalid format an INFO message will be logged and the value will be
+            ignored.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">

@@ -16,43 +16,17 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
+ 
 /**
- * Tests the Attrib Task
+ * Plugin to Phing to disable user input.
  *
- * @author  Siad Ardroumli
- * @package phing.tasks.system
- *
- * @requires OS WIN
+ * @package phing.input
  */
-class AttribTaskTest extends BuildFileTest
+class NoInteractionInputHandler implements InputHandler
 {
-    public function setUp()
+    public function handleInput(InputRequest $inputRequest)
     {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/system/AttribTaskTest.xml"
-        );
-        $this->executeTarget("setup");
-    }
-
-    public function tearDown()
-    {
-        $this->executeTarget("clean");
-    }
-
-    public function testAttrib()
-    {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped('Windows only test.');
-        }
-        $this->executeTarget(__FUNCTION__);
-
-        /** @var Project $project */
-        $project = $this->getProject();
-        $input = $project->getProperty('input');
-
-        $this->assertNotIsWritable($input . '/TEST.TXT');
-        $this->assertInLogs('+R', Project::MSG_VERBOSE);
+        $defaultValue = $inputRequest->getDefaultValue();
+        $inputRequest->setInput($defaultValue);
     }
 }

@@ -112,7 +112,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $arg = $o->createArg();
         $arg = $o->createArg();
         $arg = $o->createArg();
-        $this->assertTrue(count($o->getArgs()) == 3);
+        $this->assertCount(3, $o->getArgs());
     }
 
     /**
