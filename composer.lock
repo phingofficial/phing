@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89bea736e5f62dde9ccca1f4cdf6e26a",
+    "content-hash": "b82feb089d9b9bbb27c47d0b2562abf9",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -1715,16 +1715,16 @@
         },
         {
             "name": "pear/archive_tar",
-            "version": "1.4.4",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Archive_Tar.git",
-                "reference": "b005152d4ed8f23bcc93637611fa94f39ef5b904"
+                "reference": "ff716ca697c5e9e8593212cb785ffd03ee11b01f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/b005152d4ed8f23bcc93637611fa94f39ef5b904",
-                "reference": "b005152d4ed8f23bcc93637611fa94f39ef5b904",
+                "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/ff716ca697c5e9e8593212cb785ffd03ee11b01f",
+                "reference": "ff716ca697c5e9e8593212cb785ffd03ee11b01f",
                 "shasum": ""
             },
             "require": {
@@ -1777,7 +1777,7 @@
                 "archive",
                 "tar"
             ],
-            "time": "2018-12-20T20:47:24+00:00"
+            "time": "2019-01-02T21:45:13+00:00"
         },
         {
             "name": "pear/console_getopt",
