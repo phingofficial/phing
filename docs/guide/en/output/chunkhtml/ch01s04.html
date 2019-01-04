@@ -27,7 +27,7 @@
                         Personal Edition</a>)</p>
             </li></ul></div>
         <p>The sources for the documentation are included under the
-                <code class="literal">docs/docbook5</code> directory. The DocBook sources are split into
+                <code class="literal">docs/</code> directory. The DocBook sources are split into
             several files in order to make it more maintainable using the XML standard
                 <code class="literal">XInclude</code> (see <a class="ulink" href="http://www.w3.org/TR/xinclude/" target="_top">XML Inclusions (XInclude) Version 1.0</a>).</p>
         <p>For the writing of the book only a subset of all available DocBook elements are used
@@ -40,7 +40,7 @@
                 <p>Make sure all documentation is written using UTF-8 text encoding.</p>
             </div><p>
         </p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp407"></a>1.4.1 Building the documentation</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp416"></a>1.4.1 Building the documentation</h3></div></div></div>
             
             <p>In order to build the documentation it is necessary to have the DocBook5 XSL
                 stylesheets installed together with "<code class="literal">xsltproc</code>" which is used to
@@ -125,7 +125,7 @@
             <p>All generated output is stored under the directory "<code class="filename">output</code>" (which is created if it doesn't exist) with a subdirectory
                 corresponding to the name of the chosen output format.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp447"></a>1.4.2 Template for new tasks</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp456"></a>1.4.2 Template for new tasks</h3></div></div></div>
             
             <p>For creating documentation for new tasks the easistes thing is to use the included
                 template <code class="filename">template_for_tasks.xml</code> which is a skeleton tasks with
@@ -137,7 +137,7 @@
                 </div><p>
             </p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp454"></a>1.4.3 Customization of the look &amp; feel of the rendered outputs</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp463"></a>1.4.3 Customization of the look &amp; feel of the rendered outputs</h3></div></div></div>
             
             <p>
                 </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
@@ -193,22 +193,22 @@
                             <p>This is the top element for each chapter and appendix in the
                                 manual. Each &lt;chapter&gt; or &lt;appendix&gt; must also have a
                                 title.</p>
-                            <div class="table"><a name="idp485"></a><p class="formal-object-title"><span class="label">Table 1.1: </span><span class="title">Required attributes</span></p><div class="table-contents">
+                            <div class="table"><a name="idp494"></a><p class="formal-object-title"><span class="label">Table 1.1: </span><span class="title">Required attributes</span></p><div class="table-contents">
                                 
                                 <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">xmlns</code></td><td><code class="literal">http://docbook.org/ns/docbook</code></td><td>Name space for DocBook. Always needed.</td></tr><tr><td><code class="literal">xmlns:xi</code></td><td><code class="literal">http://www.w3.org/2001/XInclude</code></td><td>Name space for <code class="literal">XInclude</code>.
                                                 Needed since we use <code class="literal">XInclude</code> to
                                                 split the manual into different files.</td></tr><tr><td><code class="literal">xmlns:xlink</code></td><td><code class="literal">http://www.w3.org/1999/xlink</code></td><td>Name space for <code class="literal">xlink</code>. Needed
                                                 sine we make use of link and xref elements to link
                                                 to other sites and cross references within the
-                                                manual.</td></tr><tr><td><code class="literal">version</code></td><td><code class="literal">5.0</code></td><td>Versions of DocBook. Always needed</td></tr><tr><td><code class="literal">xml:id</code></td><td><code class="literal">app.XXX</code> ,
+                                                manual.</td></tr><tr><td><code class="literal">version</code></td><td><code class="literal">5.0</code></td><td>Versions of DocBook. Always needed.</td></tr><tr><td><code class="literal">xml:id</code></td><td><code class="literal">app.XXX</code> ,
                                                   <code class="literal">ch.XXX</code></td><td>The id for the chapter or the appendix. Used in
                                                 other part of the manual to refer to this
                                                 chapter/appendix with an
                                                   <code class="literal">&lt;xref&gt;</code> element.</td></tr></tbody></table>
                             </div></div><br class="table-break">
-                            <div class="table"><a name="idp532"></a><p class="formal-object-title"><span class="label">Table 1.2: </span><span class="title">Required nested elements</span></p><div class="table-contents">
+                            <div class="table"><a name="idp541"></a><p class="formal-object-title"><span class="label">Table 1.2: </span><span class="title">Required nested elements</span></p><div class="table-contents">
                                 
-                                <table class="table" summary="Required nested elements" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Element</th><th>Value</th></tr></thead><tbody><tr><td><code class="literal">&lt;title&gt;</code></td><td>The title of the chapter/appendix</td></tr></tbody></table>
+                                <table class="table" summary="Required nested elements" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Element</th><th>Value</th></tr></thead><tbody><tr><td><code class="literal">&lt;title&gt;</code></td><td>The title of the chapter/appendix.</td></tr></tbody></table>
                             </div></div><br class="table-break">
                             <p><span class="bold"><strong>Example:</strong></span></p>
                             <pre class="programlisting">&lt;appendix xmlns="http://docbook.org/ns/docbook"
@@ -234,7 +234,7 @@
                             <p>Each top level section must have the <code class="literal">xml:id</code>
                                 attribute which is used to reference the section from other parts of
                                 the document. Each section must have a nested title element.</p>
-                            <div class="table"><a name="idp562"></a><p class="formal-object-title"><span class="label">Table 1.3: </span><span class="title">Required attributes</span></p><div class="table-contents">
+                            <div class="table"><a name="idp571"></a><p class="formal-object-title"><span class="label">Table 1.3: </span><span class="title">Required attributes</span></p><div class="table-contents">
                                 
                                 <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">role</code></td><td><code class="literal">taskdef</code></td><td>This is only used and required for
                                                   <code class="literal">&lt;sect1&gt;</code> elements for task
@@ -245,7 +245,7 @@
                                                 sections the id should be a logical name that
                                                 descrobes the content.</td></tr></tbody></table>
                             </div></div><br class="table-break">
-                            <div class="table"><a name="idp586"></a><p class="formal-object-title"><span class="label">Table 1.4: </span><span class="title">Required nested elements</span></p><div class="table-contents">
+                            <div class="table"><a name="idp595"></a><p class="formal-object-title"><span class="label">Table 1.4: </span><span class="title">Required nested elements</span></p><div class="table-contents">
                                 
                                 <table class="table" summary="Required nested elements" border="0"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Element</th><th>Value</th></tr></thead><tbody><tr><td><code class="literal">&lt;title&gt;</code></td><td>The title of the section</td></tr></tbody></table>
                             </div></div><br class="table-break">
@@ -267,7 +267,7 @@
                             <p><span class="bold"><strong>Note:</strong></span> Remember to write all
                                 opening '<code class="literal">&lt;</code>' as
                                 <code class="literal">&amp;lt;</code></p>
-                            <div class="table"><a name="idp623"></a><p class="formal-object-title"><span class="label">Table 1.5: </span><span class="title">Required attributes</span></p><div class="table-contents">
+                            <div class="table"><a name="idp632"></a><p class="formal-object-title"><span class="label">Table 1.5: </span><span class="title">Required attributes</span></p><div class="table-contents">
                                 
                                 <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">language</code></td><td><code class="literal">php</code>,
                                                 <code class="literal">xml</code></td><td>The language attribute should indicate what
@@ -295,18 +295,18 @@
                                 variables, name of attributes, XML-elements etc.</p>
                         </dd><dt><span class="term"><code class="literal">&lt;filename&gt;</code></span></dt><dd>
                             <p>Used to indicate a file- or directory name in running text. </p>
-                            <div class="table"><a name="idp660"></a><p class="formal-object-title"><span class="label">Table 1.6: </span><span class="title">Required attributes</span></p><div class="table-contents">
+                            <div class="table"><a name="idp669"></a><p class="formal-object-title"><span class="label">Table 1.6: </span><span class="title">Required attributes</span></p><div class="table-contents">
                                 
-                                <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td>role</td><td>dir</td><td>Used when the filename is a directory</td></tr></tbody></table>
+                                <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td>role</td><td>dir</td><td>Used when the filename is a directory.</td></tr></tbody></table>
                             </div></div><br class="table-break">
                             <p><span class="bold"><strong>Example:</strong></span></p>
                             <pre class="programlisting">&lt;filename role="dir"&gt;/etc/php5&lt;/filename&gt;</pre>
                         </dd><dt><span class="term"><code class="literal">&lt;link&gt;</code></span></dt><dd>
                             <p>Used to include a URL link to other sites or documents outside the
                                 manual. </p>
-                            <div class="table"><a name="idp684"></a><p class="formal-object-title"><span class="label">Table 1.7: </span><span class="title">Required attributes</span></p><div class="table-contents">
+                            <div class="table"><a name="idp693"></a><p class="formal-object-title"><span class="label">Table 1.7: </span><span class="title">Required attributes</span></p><div class="table-contents">
                                 
-                                <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">xlink:href</code></td><td>URL Link</td><td>The link to an external reference</td></tr></tbody></table>
+                                <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">xlink:href</code></td><td>URL Link</td><td>The link to an external reference.</td></tr></tbody></table>
                             </div></div><br class="table-break">
                             <p><span class="bold"><strong>Example:</strong></span></p>
                             <pre class="programlisting">&lt;link xlink:href="http://qbnz.com/highlighter/"
@@ -315,7 +315,7 @@
                             <p>A link to another part of the document. When the link is generated
                                 in the rendered document the  name of the section, chapter or
                                 appendix that the link refers to is included literal.</p>
-                            <div class="table"><a name="idp709"></a><p class="formal-object-title"><span class="label">Table 1.8: </span><span class="title">Required attributes</span></p><div class="table-contents">
+                            <div class="table"><a name="idp718"></a><p class="formal-object-title"><span class="label">Table 1.8: </span><span class="title">Required attributes</span></p><div class="table-contents">
                                 
                                 <table class="table" summary="Required attributes" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">xlink:href</code></td><td>Internal reference to an ID element</td><td>Internal links must be prefixed with a
                                                   '<code class="literal">#</code>' character.</td></tr></tbody></table>
@@ -340,9 +340,9 @@
                                 elemenets. For more information on more advanced CALS formatting
                                 such as joining rows or columns please see <a class="ulink" href="http://www.sagehill.net/docbookxsl/CellSpans.html" target="_top">Chapter 30. Tables</a> in Bob Stayton's book <a class="ulink" href="http://www.sagehill.net/docbookxsl/" target="_top">"DocBook XSL:
                                     The Complete Guide - 4th Edition"</a></p>
-                            <div class="table"><a name="idp739"></a><p class="formal-object-title"><span class="label">Table 1.9: </span><span class="title">Required nested elements</span></p><div class="table-contents">
+                            <div class="table"><a name="idp748"></a><p class="formal-object-title"><span class="label">Table 1.9: </span><span class="title">Required nested elements</span></p><div class="table-contents">
                                 
-                                <table class="table" summary="Required nested elements" border="1"><colgroup><col class="c1"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Description</th></tr></thead><tbody><tr><td>title</td><td>The descriptive title for the table.</td></tr><tr><td>tgroup</td><td>Groups a set of columns together</td></tr><tr><td>colspec</td><td>Defines the sizing of the table</td></tr><tr><td>thead</td><td>Header row for table</td></tr><tr><td>tbody</td><td>Body of table</td></tr></tbody></table>
+                                <table class="table" summary="Required nested elements" border="1"><colgroup><col class="c1"><col class="c3"></colgroup><thead><tr><th>Attribute</th><th>Description</th></tr></thead><tbody><tr><td>title</td><td>The descriptive title for the table.</td></tr><tr><td>tgroup</td><td>Groups a set of columns together.</td></tr><tr><td>colspec</td><td>Defines the sizing of the table.</td></tr><tr><td>thead</td><td>Header row for table.</td></tr><tr><td>tbody</td><td>Body of table.</td></tr></tbody></table>
                             </div></div><br class="table-break">
                             <p><span class="bold"><strong>Example:</strong></span></p>
                             <pre class="programlisting">&lt;table&gt;

@@ -10,12 +10,16 @@
             filenames, or used to replace placeholder tags inside documents to indicate, for
             example, the release date. The best place for this task is probably in an initialization
             target.</p>
-
-        <div class="table"><a name="idp6282"></a><p class="formal-object-title"><span class="label">Table B.51: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <p>the magic property phing.tstamp.now can be used to specify a fixed date value in order to create
+            reproducible builds. Its value must be a number and is interpreted as seconds since the epoch
+            (midnight 1970-01-01). With phing.tstamp.now.iso you could also specify that value in DateTime compatible
+            format. If you specify a value in an invalid format an INFO message will be logged and the value will be
+            ignored.</p>
+        <div class="table"><a name="idp6353"></a><p class="formal-object-title"><span class="label">Table B.51: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">prefix</code></td><td><code class="literal">String</code></td><td>Prefix used for all properties set.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6306"></a>B.49.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6377"></a>B.49.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;tstamp/&gt;</pre>
             <p>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default
@@ -29,7 +33,7 @@
             <p>sets three properties with the standard formats, prefixed with "start.":
                 start.DSTAMP, start.TSTAMP, and start.TODAY.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6314"></a>B.49.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6385"></a>B.49.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">format</code></p>
@@ -39,7 +43,7 @@
                             <code class="literal">strftime()</code> function.</p>
                 </li></ul></div>
 
-            <div class="table"><a name="idp6324"></a><p class="formal-object-title"><span class="label">Table B.52: </span><span class="title">Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp6395"></a><p class="formal-object-title"><span class="label">Table B.52: </span><span class="title">Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>The property to receive the date/time string in the given
                                 pattern.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">pattern</code></td><td><code class="literal">String</code></td><td>The date/time pattern to be used. The values are as defined by

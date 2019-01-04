@@ -4,7 +4,7 @@
             within the build file. Additionally, the <code class="literal">&lt;phing&gt;</code> Tag may contain
                 <code class="literal">&lt;property&gt;</code> Tags (see <a class="xref" href="PropertyTask.html" title="B.34 PropertyTask">Section B.34, “PropertyTask ”</a>).</p>
 
-        <div class="table"><a name="idp4981"></a><p class="formal-object-title"><span class="label">Table B.30: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp5050"></a><p class="formal-object-title"><span class="label">Table B.30: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">inheritAll</code></td><td><code class="literal">Boolean</code></td><td>If true, pass all properties to the new phing project.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">inheritRefs</code></td><td><code class="literal">Boolean</code></td><td>If true, pass all references to the new phing project.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory to use as a base directory for the new phing project.
                             Default is the current project's basedir, unless inheritall has been set
@@ -14,7 +14,7 @@
                             to be a filename relative to the dir attribute given.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">target</code></td><td><code class="literal">String</code></td><td>The target of the new Phing project to execute. Default is the new
                             project's default target.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>If true, fail the build process when the called build fails</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5049"></a>B.30.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5118"></a>B.30.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;!-- Call target "xslttest" from buildfile "alternativebuildfile.xml" --&gt;
 &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" /&gt;
@@ -25,19 +25,19 @@
   &lt;property name="anotherone" value="32" /&gt;
 &lt;/phing&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5052"></a>B.30.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5121"></a>B.30.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5059"></a>B.30.3 Base directory of the new project</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5128"></a>B.30.3 Base directory of the new project</h3></div></div></div>
             
             <p>The base directory of the new project is set dependent on the <code class="literal">dir</code> and
                 the <code class="literal">inheritAll</code> attribute. This is important to keep in mind or
                 else you might run into bugs in your<code class="filename"> build.xml</code>'s. The following
                 table shows when which value is used:</p>
-            <div class="table"><a name="idp5065"></a><p class="formal-object-title"><span class="label">Table B.31: </span><span class="title">How attributes are used</span></p><div class="table-contents">
+            <div class="table"><a name="idp5134"></a><p class="formal-object-title"><span class="label">Table B.31: </span><span class="title">How attributes are used</span></p><div class="table-contents">
                 
                 <table class="table" summary="How attributes are used" border="1"><colgroup><col class="name"><col class="type"><col class="description"></colgroup><thead><tr><th><code class="literal">dir</code></th><th><code class="literal">inheritAll</code></th><th>new project's basedir</th></tr></thead><tbody><tr><td>value provided</td><td><code class="literal">true</code></td><td>value of <code class="literal">dir</code> attribute</td></tr><tr><td>value provided</td><td><code class="literal">false</code></td><td>value of <code class="literal">dir</code> attribute</td></tr><tr><td><code class="literal">omitted</code></td><td><code class="literal">true</code></td><td>basedir of calling task (the build file containing the
                                     <code class="literal">&lt;phing&gt;</code> call.</td></tr><tr><td><code class="literal">omitted</code></td><td><code class="literal">false</code></td><td>basedir attribute of the <code class="literal">&lt;project&gt;</code> element

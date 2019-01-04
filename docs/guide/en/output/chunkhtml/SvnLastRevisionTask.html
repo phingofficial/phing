@@ -3,12 +3,12 @@
         <p> The <code class="literal">SvnLastRevisionTask</code> stores the number of the last revision of
             a Subversion workingcopy in a property.</p>
 
-        <div class="table"><a name="idp17557"></a><p class="formal-object-title"><span class="label">Table C.129: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp17693"></a><p class="formal-object-title"><span class="label">Table C.130: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">svnpath</code></td><td><code class="literal">String</code></td><td>Path to Subversion binary</td><td>/usr/bin/svn</td><td>No</td></tr><tr><td><code class="literal">workingcopy</code></td><td><code class="literal">String</code></td><td>Working copy directory</td><td>none</td><td>Yes, or <code class="literal">repositoryurl</code></td></tr><tr><td><code class="literal">repositoryurl</code></td><td><code class="literal">String</code></td><td>URL of remote repository</td><td>none</td><td>Yes, or <code class="literal">workingcopy</code></td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>A username used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>A password used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">propertyname</code></td><td><code class="literal">String</code></td><td>Name of property to use</td><td>svn.lastrevision</td><td>No</td></tr><tr><td><code class="literal">lastChanged</code></td><td><code class="literal">Boolean</code></td><td>Sets whether to store actual last changed revision of the
                             directory/file mentioned</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17632"></a>C.96.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17768"></a>C.96.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;svnlastrevision
    svnpath="/usr/bin/svn"
