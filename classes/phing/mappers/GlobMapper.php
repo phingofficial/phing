@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * Uses glob patterns to perform filename transformations.
  *

@@ -190,6 +190,7 @@
                 <ref name="svnlastrevision"/>
                 <ref name="svnlist"/>
                 <ref name="svnlog"/>
+                <ref name="svnrevert"/>
                 <ref name="svnswitch"/>
                 <ref name="svnupdate"/>
                 <ref name="symfonyconsole"/>
@@ -6498,6 +6499,20 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="svnrevert">
+        <element name="svnrevert">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <attribute name="recursive">
+                    <data type="boolean"/>
+                </attribute>
             </interleave>
         </element>
     </define>

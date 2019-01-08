@@ -9,7 +9,7 @@
                 <code class="literal">XSLTParam</code> class that is not used anywhere else.) </p>
         <p>For cases where you do need a more generic Type defined, you can create your own Type
             class -- similar to the way a Task is created.</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2297"></a>6.7.1 Creating a DataType</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2314"></a>6.7.1 Creating a DataType</h3></div></div></div>
             
             <p>Type classes need to extend the abstract DataType class. Besides providing a means
                 of categorizing types, the DataType class provides the methods necessary to support
@@ -129,7 +129,7 @@ class DSN extends DataType {
 
 }</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2303"></a>6.7.2  Using the DataType </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2320"></a>6.7.2  Using the DataType </h3></div></div></div>
             
             <p>The <code class="literal">TypedefTask</code> provides a way to "declare" your type so that
                 you can use it in your build file. Here is how you would use this type in order to
@@ -165,9 +165,9 @@ class DSN extends DataType {
 &lt;/project&gt;</pre>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2308"></a>6.7.3  Source Discussion </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2325"></a>6.7.3  Source Discussion </h3></div></div></div>
             
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2310"></a>Getters &amp; Setters</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2327"></a>Getters &amp; Setters</h4></div></div></div>
                 
                 <p>You must provide a setter method for every attribute you want to set from the
                     XML build file. It is good practice to also provide a getter method, but in
@@ -184,7 +184,7 @@ class DSN extends DataType {
                     reason, the getter methods need to be called with the current project, because
                     References are stored relative to a project.</p>
             </div>
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2319"></a>The getRef() Method</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp2336"></a>The getRef() Method</h4></div></div></div>
                 
                 <p>The <code class="literal">getRef()</code> task needs to be implemented in your Type.
                     This method is responsible for returning a referenced object; it needs to check

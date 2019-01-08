@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-
 /**
  * Builds list of files for PEAR_PackageFileManager using a Phing FileSet.
  *

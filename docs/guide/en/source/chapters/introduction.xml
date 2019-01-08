@@ -65,7 +65,7 @@
             7th December 2008, through to version 2.16 Phing has been available to install via PEAR. </para>
 
         <para>In 2018 active work started on producing <acronym>Phing 3.0</acronym> which requires
-        <acronym>PHP7.1</acronym> at a minimum.</para> Phing 3.0 is only available through Composer
+        <acronym>PHP7.1</acronym> at a minimum. Phing 3.0 is only available through Composer
         or as a .phar archive and is no longer installable via the PEAR installer.</para>
     </sect1>
     <sect1>

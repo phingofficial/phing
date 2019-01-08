@@ -4,7 +4,7 @@
         <p>When the os attribute is specified, then the command is only executed when run on one of the specified operating systems.</p>
         <p>The files of a number of Resource Collections – including but not restricted to FileSets, FileLists or DirSets  – are passed as arguments to the system command.</p>
 
-        <div class="table"><a name="idp2817"></a><p class="formal-object-title"><span class="label">Table B.5: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp2834"></a><p class="formal-object-title"><span class="label">Table B.5: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"><col class="alias"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th><th>Alias</th></tr></thead><tbody><tr><td><code class="literal">executable</code></td><td><code class="literal">String</code></td><td>The command to execute without any command line arguments.</td><td>n/a</td><td>Yes</td><td> </td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory the command is to be executed in.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">output</code></td><td><code class="literal">String</code></td><td>Where to direct stdout.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">error</code></td><td><code class="literal">String</code></td><td>Where to direct stderr.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">os</code></td><td><code class="literal">String</code></td><td>Only execute if the <a class="xref" href="app.factsheet.html" title="Appendix A. Fact Sheet">Appendix A, <i>Fact Sheet</i></a> property
                             contains specified text.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">escape</code></td><td><code class="literal">Boolean</code></td><td>Escape shell metacharacters before execution. Setting this to true will enable the escape precaution.</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">passthru</code></td><td><code class="literal">Boolean</code></td><td>Whether to use PHP's passthru() function instead of exec().</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">spawn</code></td><td><code class="literal">Boolean</code></td><td>Whether to spawn unix programs to the background, redirecting stdout (output will
@@ -16,9 +16,13 @@
                             your &lt;arg&gt; elements to mark the insertion point.</td><td><code class="literal">true</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">relative</code></td><td><code class="literal">Boolean</code></td><td>Whether the filenames should be passed on the command line as relative pathnames
                             (relative to the base directory of the corresponding fileset/list for source files).</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">forwardslash</code></td><td><code class="literal">Boolean</code></td><td>Whether the file names should be passed with forward slashes even if the operating
                             system requires other file separator.</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">maxparallel</code></td><td><code class="literal">Integer</code></td><td>Limit the amount of parallelism by passing at most this many sourcefiles at once.
-                            Set it to &lt;= 0 for unlimited.</td><td><code class="literal">0</code></td><td>No</td><td> </td></tr></tbody></table>
+                            Set it to &lt;= 0 for unlimited.</td><td><code class="literal">0</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">skipemptyfilesets</code></td><td><code class="literal">Boolean</code></td><td>Don't run the command, if no source files have been found or are newer than their
+                            corresponding target files. Despite its name, this attribute applies to filelists as well.</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>One of file, dir or both. If set to file, only the names of plain files will be sent to
+                            the command. If set to dir, only the names of directories are considered.
+                            Note: The type attribute does not apply to nested dirsets - dirsets always implicitly assume
+                            type to be dir.</td><td><code class="literal">file</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">force</code></td><td><code class="literal">Boolean</code></td><td>Whether to bypass timestamp comparisons for target files.</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2999"></a>B.4.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3046"></a>B.4.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">
 &lt;!-- Invokes somecommand arg1 SOURCEFILENAME arg2 for each file in /tmp --&gt;
@@ -39,11 +43,11 @@
 &lt;/apply&gt;
             </pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3002"></a>B.4.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3049"></a>B.4.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">arg</code>
-                        </p><div class="table"><a name="idp3008"></a><p class="formal-object-title"><span class="label">Table B.6: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        </p><div class="table"><a name="idp3055"></a><p class="formal-object-title"><span class="label">Table B.6: </span><span class="title">Attributes</span></p><div class="table-contents">
                             
                             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>A single command-line argument; can contain space
                                             characters.</td><td>n/a</td><td rowspan="4">One of these</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of a file as a single command-line argument;
@@ -55,6 +59,6 @@
                                             arguments.</td><td>n/a</td></tr></tbody></table>
                         </div></div><p><br class="table-break">
                     </p>
-                </li><li class="listitem"><p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p></li><li class="listitem"><p><code class="literal"><a class="link" href="FileList.html" title="D.3 FileList">filelist</a></code></p></li><li class="listitem"><p><code class="literal">dirset</code></p></li><li class="listitem"><p><code class="literal">srcfile</code></p></li></ul></div>
+                </li><li class="listitem"><p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p></li><li class="listitem"><p><code class="literal"><a class="link" href="FileList.html" title="D.3 FileList">filelist</a></code></p></li><li class="listitem"><p><code class="literal">dirset</code></p></li><li class="listitem"><p><code class="literal">mapper</code></p></li><li class="listitem"><p><code class="literal">srcfile</code></p></li><li class="listitem"><p><code class="literal">targetfile</code></p></li></ul></div>
         </div>
     </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="AppendTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="AttribTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.3 AppendTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.5 AttribTask</td></tr></table></div></body></html>

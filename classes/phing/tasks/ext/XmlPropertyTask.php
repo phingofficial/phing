@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * Task for setting properties from an XML file in buildfiles.
  *

@@ -69,8 +69,9 @@ class BuildException extends RuntimeException
             }
         } elseif ($p1 instanceof Throwable) {
             $cause = $p1;
+            $msg = $p1->getMessage();
         } else {
-            $msg = $p1;
+            $msg = (string) $p1;
         }
 
         if ($loc !== null) {

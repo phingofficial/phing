@@ -85,12 +85,12 @@
 				<fileset refid="relevant-tests"/>
 			</batchtest>
 		</phpunit>
-		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
-			infile="${tests.reports.dir.resolved}/test-results.xml"
-			styledir="${phing.etc.dir.resolved}"/>
         <if>
             <equals arg1="${tests.codecoverage}" arg2="true"/>
         	<then>
+		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
+			infile="${tests.reports.dir.resolved}/test-results.xml"
+			styledir="${phing.etc.dir.resolved}"/>
                 <coverage-report outfile="reports/coverage.xml">
                     <report todir="reports/coverage" styledir="${phing.etc.dir.resolved}" title="Phing"
                         usesorttable="true"/>

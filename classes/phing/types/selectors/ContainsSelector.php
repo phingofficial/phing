@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/selectors/BaseExtendSelector.php';
-
 /**
  * Selector that filters files based on whether they contain a
  * particular string.

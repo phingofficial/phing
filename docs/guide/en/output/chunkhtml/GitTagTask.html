@@ -2,7 +2,7 @@
         
         <p> Create, list, delete or verify a tag object signed with GPG. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html" target="_top">documentation</a>.</p>
 
-        <div class="table"><a name="idp9097"></a><p class="formal-object-title"><span class="label">Table C.27: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp9168"></a><p class="formal-object-title"><span class="label">Table C.27: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Use given tag message. See -m of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html" target="_top">git-tag</a>
                         </td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Tag name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">commit</code></td><td><code class="literal">String</code></td><td>&lt;commit&gt; argument to git-tag</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">object</code></td><td><code class="literal">String</code></td><td>&lt;object&gt; argument to git-tag</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">pattern</code></td><td><code class="literal">String</code></td><td>&lt;pattern&gt; argument to git-tag</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">outputProperty</code></td><td><code class="literal">String</code></td><td>Property name to set with output value from git-tag</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Take tag message from given file. See -F of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html" target="_top">git-tag</a>
@@ -18,7 +18,7 @@
                         </td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">verify</code></td><td><code class="literal">Boolean</code></td><td>Verify GPG signature of given tag names. See -v of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html" target="_top">git-tag</a>
                         </td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp9274"></a>C.26.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp9345"></a>C.26.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;

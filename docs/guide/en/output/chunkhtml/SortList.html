@@ -5,7 +5,7 @@
             attributes are mutually exclusive, and the value attribute takes
             precedence if both are specified.
         </p>
-        <div class="table"><a name="idp16785"></a><p class="formal-object-title"><span class="label">Table C.121: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp16921"></a><p class="formal-object-title"><span class="label">Table C.122: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>The name of the property to set.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">overwrite</code></td><td><code class="literal">Boolean</code></td><td>If the property is already set, should we change it's value.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The list of values to process, with the delimiter character,
                             indicated by the "delimiter" attribute, separating each value.</td><td>n/a</td><td>Yes, unless "refid" is specified.</td></tr><tr><td><code class="literal">refid</code></td><td><code class="literal">String</code></td><td>The id of where the list of values to sort is stored.</td><td>n/a</td><td>Yes, unless "value" is specified.</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimiter string that separates the values in the
@@ -13,7 +13,7 @@
                             SORT_REGULAR, SORT_NUMERIC, SORT_STRING, SORT_LOCALE_STRING,
                             SORT_NATURAL, SORT_FLAG_CASE</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16849"></a>C.89.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16985"></a>C.89.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;property id="test" name="my.list" value="z;y;X;w;v;U;t" /&gt;
                 &lt;sortlist property="my.sorted.list" refid="test"
