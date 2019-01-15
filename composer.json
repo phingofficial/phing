@@ -26,7 +26,8 @@
         "sebastian/version": "^2.0",
         "symfony/console": "^2.8 || ^3.0 || ^4.0",
         "symfony/yaml": "^2.8 || ^3.1 || ^4.0",
-        "mehr-als-nix/parallel": "^v1.0"
+        "mehr-als-nix/parallel": "^v1.0",
+        "jawira/plantuml-encoding": "^1.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
