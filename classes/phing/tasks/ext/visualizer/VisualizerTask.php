@@ -130,7 +130,7 @@ class VisualizerTask extends HttpTask
      * Transforms buildfile using provided xsl file
      *
      * @param \PhingFile $buildfile Path to buildfile
-     * @param string $xslFile   XSLT file
+     * @param string     $xslFile   XSLT file
      *
      * @return string
      */
@@ -254,7 +254,9 @@ class VisualizerTask extends HttpTask
 
         // Check if path is available
         if (!is_dir(dirname($destination))) {
-            throw new BuildException(sprintf('Directory "%s" is invalid.', $destination));
+            $message = "Directory '$destination' is invalid";
+            $this->log($message, Project::MSG_ERR);
+            throw new BuildException(sprintf($message, $destination));
         }
 
         return $destination;
@@ -294,7 +296,7 @@ class VisualizerTask extends HttpTask
 
         $server = filter_var($server, FILTER_VALIDATE_URL);
         if ($server === false) {
-            $message = 'Invalid url for PlantUml server';
+            $message = 'Invalid PlantUml server';
             $this->log($message, Project::MSG_ERR);
             throw new BuildException($message);
         }

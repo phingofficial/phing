@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="VisualizerTaskTest" default="testWithDefaultValues">
+
+    <import file="build.xml"/>
+
+    <target name="testDefaultValues">
+        <visualizer/>
+    </target>
+
+    <target name="testFormat">
+        <visualizer format="png"/>
+        <visualizer format="puml"/>
+        <visualizer format="svg"/>
+        <visualizer format="eps"/>
+    </target>
+
+    <target name="testInvalidFormat">
+        <visualizer format="jpg"/>
+    </target>
+
+    <target name="testDestinationFile">
+        <visualizer destination="../../../../tmp/my-diagram.png"/>
+    </target>
+
+    <target name="testDestinationDirectory">
+        <visualizer destination="../../../../tmp/"/>
+    </target>
+
+    <target name="testInvalidDestination">
+        <visualizer destination="foo/bar/baz/"/>
+    </target>
+
+    <target name="testCustomServer">
+        <!--https://plantuml.telecomsante.com/-->
+        <!--https://plantuml-server.kkeisuke.app/-->
+        <!--http://wiki-plantuml.mercari.in/-->
+        <!--https://plantuml.itemis.de/-->
+        <!--http://gregoryt.fr:8000/plantuml/-->
+        <!--https://swap.sirap.fr/plantuml/-->
+        <!--https://exp-plant.draw.io/plantuml3/-->
+        <!--https://uml.nunction.net/plantuml/-->
+        <visualizer server="https://exp-plant.draw.io/plantuml3/"/>
+    </target>
+
+    <target name="testInvalidServer">
+        <visualizer server="my.invalid.server"/>
+    </target>
+
+    <target name="clean">
+        <delete file="VisualizerTaskTest.png"/>
+        <delete file="VisualizerTaskTest.puml"/>
+        <delete file="VisualizerTaskTest.svg"/>
+        <delete file="VisualizerTaskTest.eps"/>
+        <delete file="../../../../tmp/my-diagram.png"/>
+        <delete file="../../../../tmp/VisualizerTaskTest.png"/>
+    </target>
+
+</project>
