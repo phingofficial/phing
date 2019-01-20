@@ -2394,7 +2394,7 @@ verbose="true" failonerror="false" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
-        <sect2>
+        <sect2 xml:id="ImportTask-target-overriding">
             <title>Target Overriding</title>
             <para>If a target in the main file is also present in at least one of the imported
                 files, the one from the main file takes precedence.</para>
