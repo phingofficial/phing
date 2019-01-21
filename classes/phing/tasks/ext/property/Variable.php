@@ -116,12 +116,11 @@ class Variable extends PropertyTask
     }
 
     /**
-     * Object rape: fondle the private parts of an object without it's
-     * permission.
+     * Get a private property of a class
      *
-     * @param mixed $thisClass The class to rape.
-     * @param string $fieldName The field to fondle
-     * @return ReflectionProperty               The field value
+     * @param mixed $thisClass The class
+     * @param string $fieldName The property to get
+     * @return ReflectionProperty               The property value
      * @throws Exception
      */
     private function getField($thisClass, $fieldName)
@@ -135,8 +134,7 @@ class Variable extends PropertyTask
     }
 
     /**
-     * Object rape: fondle the private parts of an object without it's
-     * permission.
+     * Get a private property of an object
      *
      * @param mixed $instance the object instance
      * @param string $fieldName the name of the field
