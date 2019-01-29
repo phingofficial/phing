@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
-<appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.optionaltasks">
+<appendix xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.optionaltasks">
     <title>Optional tasks</title>
 
     <para>This appendix contains a reference of all optional tasks, i.e. tasks that are not directly
@@ -14133,6 +14133,30 @@ host="webserver" command="ls" /></programlisting>
                         PlantUML limits image width and height to 4096 pixels. Overcoming this limitation will require
                         to configure your own PlantUML server and to configure it according to
                         <link xlink:href="http://plantuml.com/faq" role="extern">PlantUML FAQ</link> instructions.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+        <sect2>
+            <title>Requirements</title>
+            <para>To work properly, <literal>VisualizerTask</literal> needs to have the following installed:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <link xlink:href="http://php.net/manual/en/book.simplexml.php" role="extern">SimpleXML
+                            extension</link>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <link xlink:href="http://php.net/manual/en/book.xsl.php" role="extern">XSL extension</link>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <link xlink:href="https://packagist.org/packages/pear/http_request2" role="extern">PEAR
+                            HTTP_Request2</link>
                     </para>
                 </listitem>
             </itemizedlist>
