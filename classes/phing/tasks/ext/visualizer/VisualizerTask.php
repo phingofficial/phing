@@ -36,29 +36,35 @@ class VisualizerTask extends HttpTask
     protected $server;
 
     /**
-     * The init method: Do init steps.
+     * Setting some default values and checking requirements
      */
     public function init(): void
     {
-        parent::init();
         $this->setFormat(VisualizerTask::FORMAT_PNG);
         $this->setServer(VisualizerTask::SERVER);
+        $this->checkHttpRequestLibrary();
+        $this->checkPlantUmlLibrary();
         $this->checkXslExtension();
         $this->checkXmlExtension();
     }
 
-    protected function checkXslExtension(): void
+    /**
+     * Checks that `\HTTP_Request2` class is available
+     *
+     * Instead of checking that `pear/http_request2` library is loaded we only check `\HTTP_Request2` class availability
+     */
+    protected function checkHttpRequestLibrary()
     {
-        $this->checkExtension('XSLTProcessor', 'Please install XSL extension');
+        $this->classExists('HTTP_Request2', "Please install 'pear/http_request2' library");
     }
 
     /**
-     * Instead of checking the ext
+     * Verifies that provided $class exists
      *
      * @param string $class   Name of the class to verify
      * @param string $message Error message to display when class don't exists
      */
-    protected function checkExtension(string $class, string $message): void
+    protected function classExists(string $class, string $message): void
     {
         if (!class_exists($class)) {
             $this->log($message, Project::MSG_ERR);
@@ -66,9 +72,41 @@ class VisualizerTask extends HttpTask
         }
     }
 
+    /**
+     * Checks that `encodep` function is available
+     *
+     * Instead of checking that `jawira/plantuml-encoding` library is loaded we only check 'encodep' function
+     * availability
+     */
+    protected function checkPlantUmlLibrary()
+    {
+        $function = '\Jawira\PlantUml\encodep';
+        $message  = "Please install 'jawira/plantuml-encoding' library";
+
+        if (!function_exists($function)) {
+            $this->log($message, Project::MSG_ERR);
+            throw new BuildException($message);
+        }
+    }
+
+    /**
+     * Checks that `XSLTProcessor` class is available
+     *
+     * Instead of checking that XSL extension is loaded we only check `XSLTProcessor` class availability
+     */
+    protected function checkXslExtension(): void
+    {
+        $this->classExists('XSLTProcessor', 'Please install XSL extension');
+    }
+
+    /**
+     * Checks that `SimpleXMLElement` class is available
+     *
+     * Instead of checking that SimpleXML extension is loaded we only check `SimpleXMLElement` class availability
+     */
     protected function checkXmlExtension(): void
     {
-        $this->checkExtension('SimpleXMLElement', 'Please install SimpleXML extension');
+        $this->classExists('SimpleXMLElement', 'Please install SimpleXML extension');
     }
 
     /**
@@ -88,7 +126,7 @@ class VisualizerTask extends HttpTask
     }
 
     /**
-     * Read through provided buildfiles and generates a PlantUML diagram
+     * Retrieves loaded buildfiles and generates a PlantUML diagram
      *
      * @return string
      */
@@ -104,6 +142,8 @@ class VisualizerTask extends HttpTask
     }
 
     /**
+     * Read through provided buildfiles and generates a PlantUML diagram
+     *
      * @param \PhingFile[] $buildFiles
      *
      * @return string
@@ -146,6 +186,8 @@ class VisualizerTask extends HttpTask
     }
 
     /**
+     * Load XML content from a file
+     *
      * @param string $xmlFile XML or XSLT file
      *
      * @return \SimpleXMLElement
@@ -165,6 +207,8 @@ class VisualizerTask extends HttpTask
     }
 
     /**
+     * Get the image's final location
+     *
      * @return \PhingFile
      * @throws \IOException
      * @throws \NullPointerException
@@ -188,6 +232,8 @@ class VisualizerTask extends HttpTask
     }
 
     /**
+     * Sets and validates diagram's format
+     *
      * @param string $format
      *
      * @return VisualizerTask
@@ -232,6 +278,8 @@ class VisualizerTask extends HttpTask
     }
 
     /**
+     * Figure diagram's file path
+     *
      * @param string      $buildfilePath Path to main buildfile
      * @param string      $format        Extension to use
      * @param null|string $destination   Desired destination provided by user
@@ -289,6 +337,12 @@ class VisualizerTask extends HttpTask
         return $response->getBody();
     }
 
+    /**
+     * Prepares URL from where image will be downloaded
+     *
+     * @param string $format
+     * @param string $encodedPuml
+     */
     protected function prepareImageUrl(string $format, string $encodedPuml): void
     {
         $server = $this->getServer();
@@ -329,7 +383,7 @@ class VisualizerTask extends HttpTask
     /**
      * Receive server's response
      *
-     * This method validates $response's status
+     * This method validates `$response`'s status
      *
      * @param  HTTP_Request2_Response $response Response from server
      *

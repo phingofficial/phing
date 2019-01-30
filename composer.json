@@ -26,8 +26,7 @@
         "sebastian/version": "^2.0",
         "symfony/console": "^2.8 || ^3.0 || ^4.0",
         "symfony/yaml": "^2.8 || ^3.1 || ^4.0",
-        "mehr-als-nix/parallel": "^v1.0",
-        "jawira/plantuml-encoding": "^1.0"
+        "mehr-als-nix/parallel": "^v1.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
@@ -46,7 +45,8 @@
         "sebastian/phpcpd": "^4.1",
         "squizlabs/php_codesniffer": "~2.2",
         "mikey179/vfsStream": "^1.6",
-        "aws/aws-sdk-php": "^3.32"
+        "aws/aws-sdk-php": "^3.32",
+        "jawira/plantuml-encoding": "^1.0"
     },
     "autoload": {
         "classmap": [
@@ -85,6 +85,7 @@
         "tedivm/jshrink": "Javascript Minifier built in PHP",
         "symfony/stopwatch": "Needed by the StopwatchTask",
         "aws/aws-sdk-php": "AWS SDK used by S3*Tasks",
-        "leafo/scssphp": "A compiler for SCSS written in PHP, used by SassTask"
+        "leafo/scssphp": "A compiler for SCSS written in PHP, used by SassTask",
+        "jawira/plantuml-encoding": "Required by VisualizerTask"
     }
 }

@@ -14159,6 +14159,13 @@ host="webserver" command="ls" /></programlisting>
                             HTTP_Request2</link>
                     </para>
                 </listitem>
+                <listitem>
+                    <para>
+                        <link xlink:href="https://packagist.org/packages/jawira/plantuml-encoding" role="extern">
+                            jawira/plantuml-encoding
+                        </link>
+                    </para>
+                </listitem>
             </itemizedlist>
         </sect2>
         <sect2>
