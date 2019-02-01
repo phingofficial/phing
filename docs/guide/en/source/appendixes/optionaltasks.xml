@@ -14099,6 +14099,9 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <para>If you have network connectivity issues, you should try <literal>puml</literal> format. This format
+            doesn't needs Internet connection to generate a diagram.
+        </para>
         <sect2>
             <title>Examples</title>
             <para>Using <literal>VisualizerTask</literal> with default values:

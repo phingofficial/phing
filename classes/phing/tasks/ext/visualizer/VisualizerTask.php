@@ -5,6 +5,8 @@ use function Jawira\PlantUml\encodep;
 /**
  * Class VisualizerTask
  *
+ * VisualizerTask creates diagrams using buildfiles, these diagrams represents calls and depends among targets.
+ *
  * @author Jawira Portugal
  */
 class VisualizerTask extends HttpTask
