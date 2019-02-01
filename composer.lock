@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "21ae2f63467cc5649602d9cd60c1d1d5",
+    "content-hash": "d094db3f1fd7cc0533f69b0480976d0c",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
