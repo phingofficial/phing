@@ -23,10 +23,20 @@
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.types
  */
-class DirSetTest extends AbstractFileSetTest
+class DirSetTest extends \PHPUnit\Framework\TestCase
 {
-    protected function getInstance()
+    /** @var DirSet */
+    private $dirset;
+
+    protected function setUp()
     {
-        return new DirSet();
+        $this->dirset = new DirSet();
+    }
+
+    public function testDirSetIterator()
+    {
+        $this->dirset->setProject(new Project());
+        $this->dirset->setDir(__DIR__);
+        $this->assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
     }
 }
