@@ -166,19 +166,7 @@ class ComponentHelper
                 }
             }
 
-            if ($classname === "") {
-                return null;
-            }
-
-            $cls = Phing::import($classname);
-
-            if (!class_exists($cls)) {
-                throw new BuildException(
-                    "Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)"
-                );
-            }
-
-            $o = new $cls();
+            $o = $this->createObject($classname);
 
             if ($o instanceof Task) {
                 $task = $o;
@@ -220,19 +208,8 @@ class ComponentHelper
                 }
             }
 
-            if ($classname === "") {
-                return null;
-            }
+            $o = $this->createObject($classname);
 
-            $cls = Phing::import($classname);
-
-            if (!class_exists($cls)) {
-                throw new BuildException(
-                    "Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)"
-                );
-            }
-
-            $o = new $cls();
             if ($o instanceof Condition) {
                 return $o;
             } else {
@@ -241,6 +218,23 @@ class ComponentHelper
         } catch (Exception $e) {
             throw new BuildException("Could not create condition of type: " . $conditionType, $e);
         }
+    }
+
+    private function createObject(string $classname)
+    {
+        if ($classname === "") {
+            return null;
+        }
+
+        $cls = Phing::import($classname);
+
+        if (!class_exists($cls)) {
+            throw new BuildException(
+                "Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)"
+            );
+        }
+
+        return new $cls();
     }
 
     /**

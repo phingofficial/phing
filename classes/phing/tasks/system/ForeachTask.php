@@ -229,45 +229,26 @@ class ForeachTask extends Task
         $filecount = count($srcFiles);
         $this->total_files += $filecount;
 
-        for ($j = 0; $j < $filecount; $j++) {
-            $value = $srcFiles[$j];
-            $premapped = "";
-
-            if ($this->absparam) {
-                $prop = $callee->createProperty();
-                $prop->setOverride(true);
-                $prop->setName($this->absparam);
-                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
-            }
-
-            if ($mapper !== null) {
-                $premapped = $value;
-                $value = $mapper->main($value);
-                if ($value === null) {
-                    continue;
-                }
-                $value = array_shift($value);
-            }
-
-            if ($this->param) {
-                $this->log(
-                    "Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''),
-                    Project::MSG_VERBOSE
-                );
-                $prop = $callee->createProperty();
-                $prop->setOverride(true);
-                $prop->setName($this->param);
-                $prop->setValue($value);
-            }
-
-            $callee->main();
-        }
+        $this->processResources($filecount, $srcFiles, $callee, $fromDir, $mapper);
 
         $dircount = count($srcDirs);
         $this->total_dirs += $dircount;
 
-        for ($j = 0; $j < $dircount; $j++) {
-            $value = $srcDirs[$j];
+        $this->processResources($dircount, $srcDirs, $callee, $fromDir, $mapper);
+    }
+
+    /**
+     * @param int $rescount
+     * @param array $srcRes
+     * @param $callee
+     * @param $fromDir
+     * @param $mapper
+     * @throws IOException
+     */
+    private function processResources(int $rescount, array $srcRes, $callee, $fromDir, $mapper)
+    {
+        for ($j = 0; $j < $rescount; $j++) {
+            $value = $srcRes[$j];
             $premapped = "";
 
             if ($this->absparam) {

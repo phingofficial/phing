@@ -185,72 +185,53 @@ class IntrospectionHelper
                     $this->nestedCreators[$name] = $method;
                 } elseif (strpos($name, "addconfigured") === 0) {
 
-                    // *must* use class hints if using addConfigured ...
-
-                    // 1 param only
-                    $params = $method->getParameters();
-
-                    if (count($params) < 1) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() must take at least one parameter.");
-                    }
-
-                    if (count($params) > 1) {
-                        $this->warn(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() takes more than one parameter. (IH only uses the first)"
-                        );
-                    }
-
-                    $classname = null;
-
-                    if (($hint = $params[0]->getClass()) !== null) {
-                        $classname = $hint->getName();
-                    }
-
-                    if ($classname === null) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() method MUST use a class hint to indicate the class type of parameter.");
-                    }
+                    $classname = $this->validateAdders($method);
 
                     $this->nestedTypes[$name] = $classname;
 
                     $this->nestedStorers[$name] = $method;
                 } elseif (strpos($name, "add") === 0) {
 
-                    // *must* use class hints if using add ...
-
-                    // 1 param only
-                    $params = $method->getParameters();
-                    if (count($params) < 1) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() must take at least one parameter.");
-                    }
-
-                    if (count($params) > 1) {
-                        $this->warn(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() takes more than one parameter. (IH only uses the first)"
-                        );
-                    }
-
-                    $classname = null;
-
-                    if (($hint = $params[0]->getClass()) !== null) {
-                        $classname = $hint->getName();
-                    }
-
-                    // we don't use the classname here, but we need to make sure it exists before
-                    // we later try to instantiate a non-existent class
-                    if ($classname === null) {
-                        throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
-                            ) . "() method MUST use a class hint to indicate the class type of parameter.");
-                    }
+                    $this->validateAdders($method);
 
                     $this->nestedCreators[$name] = $method;
                 }
             } // if $method->isPublic()
         } // foreach
+    }
+
+    /**
+     * @param ReflectionMethod $method
+     * @return string|null
+     */
+    private function validateAdders(ReflectionMethod $method): ?string
+    {
+        $params = $method->getParameters();
+
+        if (count($params) < 1) {
+            throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
+                ) . "() must take at least one parameter.");
+        }
+
+        if (count($params) > 1) {
+            $this->warn(
+                $method->getDeclaringClass()->getName() . "::" . $method->getName(
+                ) . "() takes more than one parameter. (IH only uses the first)"
+            );
+        }
+
+        $classname = null;
+
+        if (($hint = $params[0]->getClass()) !== null) {
+            $classname = $hint->getName();
+        }
+
+        if ($classname === null) {
+            throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
+                ) . "() method MUST use a class hint to indicate the class type of parameter.");
+        }
+
+        return $classname;
     }
 
     /**
