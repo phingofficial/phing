@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Visualiser test" default="setup">
+
+    <import file="import1.xml"/>
+    <import file="import2.xml"/>
+
+    <target name="say-hello" depends="cartoons, thefts"/>
+
+    <target name="thefts" depends="professor">
+        <foreach list="en,fr,es" param="lang" target="guys"/>
+        <runtarget target="girls"/>
+    </target>
+
+    <target name="setup" depends="diagnostics, composer:install"/>
+
+    <target name="diagnostics">
+        <diagnostics/>
+    </target>
+
+    <target name="composer:install">
+        <composer command="install"/>
+    </target>
+
+</project>

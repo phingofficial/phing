@@ -9,12 +9,6 @@
 
     pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
 
-    echo -e "\nAuto-discover pear channels and upgrade ..."
-    pear config-set auto_discover 1
-    pear -qq channel-update pear.php.net
-    pear -qq channel-discover pear.phing.info
-    echo "... OK"
-
     echo -e "\nInstalling composer packages ... "
     composer selfupdate --quiet
     composer install -o --no-progress --prefer-dist

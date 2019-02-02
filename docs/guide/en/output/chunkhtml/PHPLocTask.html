@@ -5,11 +5,11 @@
             <span class="bold"><strong>NB:</strong></span> if you have installed the
             PHPLOC PHAR, make sure you set the
             <code class="literal">pharlocation</code> attribute!</p>
-        <div class="table"><a name="idp14363"></a><p class="formal-object-title"><span class="label">Table C.95: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp14444"></a><p class="formal-object-title"><span class="label">Table C.95: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">reportType</code></td><td><code class="literal">String</code></td><td>The type of the report. Available types are cli|csv|txt|xml.</td><td>cli</td><td>No</td></tr><tr><td><code class="literal">reportName</code></td><td><code class="literal">String</code></td><td>The name of the report type without a file extension.</td><td>phploc-report</td><td>No</td></tr><tr><td><code class="literal">reportDirectory</code></td><td><code class="literal">String</code></td><td>The directory to write the report file to.</td><td>false</td><td>Yes, when report type csv, txt or xml is defined.</td></tr><tr><td><code class="literal">countTests</code></td><td><code class="literal">Boolean</code></td><td>Flag to count the projects tests or not.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of the file to check.</td><td>n/a</td><td>Yes, when no nested fileset is defined.</td></tr><tr><td><code class="literal">suffixes</code></td><td><code class="literal">String</code></td><td>A comma-separated list of file suffixes to check.</td><td>php</td><td>No</td></tr><tr><td><code class="literal">pharlocation</code></td><td><code class="literal">String</code></td><td>Location of the PHPLOC PHAR package.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14435"></a>C.72.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14516"></a>C.72.1 Examples</h3></div></div></div>
             
                 <pre class="programlisting">&lt;target name="-measure-and-log"
     description="Measures and logs the size of the project" hidden="true"&gt;
@@ -36,7 +36,7 @@ description="Measures the size of the project and counts the tests"&gt;
 &lt;/target&gt;</pre>
                 <p>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14441"></a>C.72.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14522"></a>C.72.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>
@@ -45,7 +45,7 @@ description="Measures the size of the project and counts the tests"&gt;
                     </p>
                     <p> The results of the analysis can be printed in different formats. A <code class="literal">formatter</code>
                         is required when <code class="literal">reportType</code> is not set.</p>
-                    <div class="table"><a name="idp14454"></a><p class="formal-object-title"><span class="label">Table C.96: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp14535"></a><p class="formal-object-title"><span class="label">Table C.96: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                         <code class="literal">reportType</code> attribute

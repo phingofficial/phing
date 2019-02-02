@@ -4,14 +4,14 @@
             either: there is no failure; or: its retrycount has been exceeded.
             If this happens a BuildException is thrown..
         </p>
-        <div class="table"><a name="idp5720"></a><p class="formal-object-title"><span class="label">Table B.41: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp5790"></a><p class="formal-object-title"><span class="label">Table B.41: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">retrycount</code></td><td><code class="literal">Integer</code></td><td>number of times to attempt to execute the nested task
                         </td><td>1</td><td>Yes</td></tr><tr><td><code class="literal">retrydelay</code></td><td><code class="literal">Integer</code></td><td>number of seconds to wait between retry attempts task.
                         </td><td>0</td><td>No, defaults to no delay</td></tr></tbody></table>
         </div></div><br class="table-break">
         <p>Any valid Phing task may be embedded within the retry task.</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5753"></a>B.40.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5823"></a>B.40.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;retry retrycount="3"&gt;
        &lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/&gt;

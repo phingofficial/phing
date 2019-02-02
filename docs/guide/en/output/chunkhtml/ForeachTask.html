@@ -6,7 +6,7 @@
                 <code class="literal">filesets</code> are evaluated in the order they appear in the
             task.</p>
 
-        <div class="table"><a name="idp4449"></a><p class="formal-object-title"><span class="label">Table B.23: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp4502"></a><p class="formal-object-title"><span class="label">Table B.23: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">inheritall</code></td><td><code class="literal">Boolean</code></td><td>If <code class="literal">true</code>, pass all properties to the called target.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">inheritrefs</code></td><td><code class="literal">Boolean</code></td><td>If <code class="literal">true</code>, pass all references to the the called target.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td><code class="literal">Boolean</code></td><td>If <code class="literal">true</code>, any leading or trailing whitespace will be removed from
                             the list item before it is passed to the requested target.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">list</code></td><td><code class="literal">String</code></td><td>The list of values to process, with the delimiter character,
@@ -14,9 +14,9 @@
                             with the name indicated by the "param" attribute.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">param</code></td><td><code class="literal">String</code></td><td>The name of the parameter to pass the tokens in as to the
                             target.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">absparam</code></td><td><code class="literal">String</code></td><td>The name of the absolute pathparameter to pass the tokens in as to
                             the target (used while processing nested filesets).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimiter string that separates the values in the "list"
-                            parameter. The default is ",".</td><td>,</td><td>No</td></tr></tbody></table>
+                            parameter. The default is ",".</td><td>,</td><td>No</td></tr><tr><td><code class="literal">index</code></td><td><code class="literal">String</code></td><td>The name of the property containing the iteration count.</td><td>index</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4532"></a>B.21.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4593"></a>B.21.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;!-- loop through languages, and call buildlang task with setted param --&gt;
 &lt;property name="languages" value="en,fr,de" /&gt;
@@ -29,7 +29,7 @@
   &lt;/fileset&gt;
 &lt;/foreach&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4535"></a>B.21.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4596"></a>B.21.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="">path</a></code></p>

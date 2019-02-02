@@ -1,7 +1,7 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>H.2 Targets</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.projcomponents.html" title="Appendix H. Project Components"><link rel="prev" href="app.projcomponents.html" title="Appendix H. Project Components"><link rel="next" href="app.coreloggers.html" title="Appendix I. Loggers and Listeners"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">H.2 Targets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="app.projcomponents.html">Prev</a> </td><th width="60%" align="center">Appendix H. Project Components</th><td width="20%" align="right"> <a accesskey="n" href="app.coreloggers.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="Target"></a>H.2 Targets</h2></div></div></div>
         
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22352"></a>H.2.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22546"></a>H.2.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;target if="lang" unless="lang.en" depends="foo1,foo2"
        name="main" description="This is an example target" &gt;
@@ -17,9 +17,9 @@
                 is executed. The name of the target is <code class="literal">main</code> and it also has a
                 description.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22364"></a>H.2.2 Attributes</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22558"></a>H.2.2 Attributes</h3></div></div></div>
             
-            <div class="table"><a name="idp22366"></a><p class="formal-object-title"><span class="label">Table H.2: </span><span class="title">Parameters</span></p><div class="table-contents">
+            <div class="table"><a name="idp22560"></a><p class="formal-object-title"><span class="label">Table H.2: </span><span class="title">Parameters</span></p><div class="table-contents">
                 
                 <table class="table" summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">depends</code></td><td><code class="literal">String</code></td><td>One or more names of targets that have to be executed before this
                                 target can be executed.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">description</code></td><td><code class="literal">String</code></td><td>A free text description of the target.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">if</code></td><td><code class="literal">String</code></td><td>The name of the property that is to be set if the target is to be

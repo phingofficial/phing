@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Compares two files for equality based on size and
  * content. Timestamps are not at all looked at.

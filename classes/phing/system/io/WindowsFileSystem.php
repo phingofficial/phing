@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
-
 /**
  * @package   phing.system.io
  */

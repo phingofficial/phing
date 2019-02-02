@@ -68,7 +68,7 @@
             properties, in the second case setting XSLT parameters.</para>
 
     </sect1>
-    <sect1>
+    <sect1 xml:id="project-components-targets">
         <title> Targets </title>
 
         <para> Targets are collections of project components (but not other targets) that are

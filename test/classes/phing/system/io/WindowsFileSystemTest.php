@@ -25,7 +25,7 @@
  * @author Daniel Holmes
  * @package phing.system.io
  */
-class Win32FileSystemTest extends AbstractWinFileSystemTestCase
+class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {
     protected function createFileSystem()
     {

@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/StringHelper.php';
-
 /**
  * A Path tokenizer takes a path and returns the components that make up
  * that path.

@@ -2,7 +2,7 @@
         
         <p> Checkout a branch or paths to the working tree. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">documentation</a>.</p>
 
-        <div class="table"><a name="idp8049"></a><p class="formal-object-title"><span class="label">Table C.17: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp8120"></a><p class="formal-object-title"><span class="label">Table C.17: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">branchname</code></td><td><code class="literal">String</code></td><td>Branch to checkout. See &lt;branch&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td>origin</td><td>No</td></tr><tr><td><code class="literal">startpoint</code></td><td><code class="literal">String</code></td><td>The name of a commit at which to start the new branch; Defaults to
                             HEAD. See &lt;start_point&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td> </td><td>No</td></tr><tr><td><code class="literal">create</code></td><td><code class="literal">Boolean</code></td><td>Create a new branch named &lt;branchname&gt; and start it at
@@ -12,7 +12,7 @@
                             tree differs from HEAD. This is used to throw away local changes. See
                             --force in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8167"></a>C.16.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8238"></a>C.16.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
                 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
