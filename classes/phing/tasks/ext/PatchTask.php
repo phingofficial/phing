@@ -232,6 +232,14 @@ class PatchTask extends Task
     }
 
     /**
+     * @param string $value
+     */
+    public function setHaltOnFailure(string $value)
+    {
+        $this->failOnError = $value;
+    }
+
+    /**
      * Main task method
      *
      * @return void
