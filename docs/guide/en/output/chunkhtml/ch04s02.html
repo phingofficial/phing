@@ -68,14 +68,14 @@
             described in <a class="xref" href="app.factsheet.html" title="Appendix A. Fact Sheet">Appendix A, <i>Fact Sheet</i></a>
         </p>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1082"></a>4.2.1  Project Element </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1094"></a>4.2.1  Project Element </h3></div></div></div>
             
 
             <p>The first element after the document prolog is the root element named
                     <code class="literal">&lt;project&gt;</code> on line 3. This element is a container for all
                 other elements and can/must have the following attributes: </p>
 
-            <div class="table"><a name="idp1086"></a><p class="formal-object-title"><span class="label">Table 4.1: </span><span class="title">&lt;project&gt; Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1098"></a><p class="formal-object-title"><span class="label">Table 4.1: </span><span class="title">&lt;project&gt; Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="&lt;project&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td>The name of the project</td><td>No</td></tr><tr><td><code class="literal">basedir</code></td><td>The base directory of the project. This attribute controls the value of the
                                 <code class="literal">${project.basedir}</code> property which can be used to reference
@@ -89,7 +89,7 @@
                 See <a class="xref" href="app.projcomponents.html#Project" title="H.1 Phing Projects">Section H.1, “Phing Projects”</a> for a complete reference.
             </p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1126"></a>4.2.2  Target Element </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1138"></a>4.2.2  Target Element </h3></div></div></div>
             
 
             <p>A target can <code class="literal">depend</code> on other targets. You might have a target
@@ -128,13 +128,13 @@
                 of this target, which is printed by the <code class="literal">-projecthelp</code> command-line
                 option.</p>
 
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1149"></a>Target attributes</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1161"></a>Target attributes</h4></div></div></div>
                 
 
                 <p>You can specify one or more of the following attributes within the target
                     element.</p>
 
-                <div class="table"><a name="idp1152"></a><p class="formal-object-title"><span class="label">Table 4.2: </span><span class="title">&lt;target&gt; Attributes</span></p><div class="table-contents">
+                <div class="table"><a name="idp1164"></a><p class="formal-object-title"><span class="label">Table 4.2: </span><span class="title">&lt;target&gt; Attributes</span></p><div class="table-contents">
                     
                     <table class="table" summary="&lt;target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-separated list of targets this target 
                                     depends on.</td><td>No</td></tr><tr><td>if</td><td>The name of the <code class="literal">Property</code> that has to be
@@ -148,7 +148,7 @@
             </p>
         </div>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1185"></a>4.2.3  Task Elements </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1197"></a>4.2.3  Task Elements </h3></div></div></div>
             
 
             <p> A <code class="literal">task</code> is a piece of PHP code that can be executed. This code
@@ -177,7 +177,7 @@
 
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1203"></a>4.2.4  Property Element </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp1215"></a>4.2.4  Property Element </h3></div></div></div>
             
 
             <p><code class="literal">Properties</code> are essentially variables that can be used in the
@@ -191,8 +191,18 @@
                 with the value 'build', then this could be used in an attribute like this:
                     <code class="literal">${BC_BUILD_DIR}/en</code> . This is resolved to
                     <code class="literal">build/en</code>.</p>
+            <p>Getting the value of a Reference with <code class="literal">${toString:}</code>
+                Any Phing type item which has been declared with a reference can also its string value extracted by using
+                the ${toString:} operation, with the name of the reference listed after the toString: text.
+                The __toString() method of the php class instance that is referenced is invoked
+                all built in types strive to produce useful and relevant output in such an instance.</p>
+            <p>For example, here is how to get a listing of the files in a fileset:
+                </p><pre class="programlisting">&lt;fileset id="sourcefiles" dir="src" includes="**/*.php"/&gt;
+&lt;echo&gt; sourcefiles = ${toString:sourcefiles} &lt;/echo&gt;</pre><p>
+            </p>
+            <p>There is no guarantee that external types provide meaningful information in such a situation</p>
 
-            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1213"></a>Built-in Properties</h4></div></div></div>
+            <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp1230"></a>Built-in Properties</h4></div></div></div>
                 
 
                 <p>Phing provides access to system properties as if they had been defined using a

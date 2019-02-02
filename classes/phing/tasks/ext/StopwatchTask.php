@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Stopwatch.
@@ -24,7 +25,7 @@
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.stopwatch
  */
-class StopwatchTask extends Task
+class StopwatchTask extends DispatchTask
 {
     /**
      * Name of the timer.
@@ -41,13 +42,6 @@ class StopwatchTask extends Task
     private $category = '';
 
     /**
-     * Timer  action.
-     *
-     * @var string $action
-     */
-    private $action = 'start';
-
-    /**
      * Holds an instance of Stopwatch.
      *
      * @var Stopwatch $timer
@@ -61,36 +55,22 @@ class StopwatchTask extends Task
      */
     public function init()
     {
-    }
-
-    /**
-     * Load stopwatch.
-     *
-     * @return void
-     *
-     * @throws BuildException
-     */
-    private function loadStopwatch()
-    {
-        @include_once 'Symfony/Component/Stopwatch/autoload.php';
-        @include_once 'Symfony/Component/Stopwatch/autoloader.php';
-        @include_once 'vendor/autoload.php';
-
         if (!class_exists('\\Symfony\\Component\\Stopwatch\\Stopwatch')) {
             throw new BuildException("StopwatchTask requires symfony/stopwatch to be installed.");
         }
+
+        $this->setAction('start');
     }
 
     /**
      * Get the stopwatch instance.
      *
-     * @return \Symfony\Component\Stopwatch\Stopwatch
+     * @return Stopwatch
      */
     private function getStopwatchInstance()
     {
         if (self::$timer === null) {
-            $stopwatch = '\\Symfony\\Component\\Stopwatch\\Stopwatch';
-            self::$timer = new $stopwatch;
+            self::$timer = new Stopwatch();
         }
 
         return self::$timer;
@@ -166,22 +146,6 @@ class StopwatchTask extends Task
     }
 
     /**
-     * Set the action.
-     * Action could be one of
-     * - start
-     * - lap
-     * - stop
-     *
-     * @param string $action
-     *
-     * @return void
-     */
-    public function setAction($action)
-    {
-        $this->action = $action;
-    }
-
-    /**
      * The main entry point
      *
      * @return void
@@ -190,9 +154,7 @@ class StopwatchTask extends Task
      */
     public function main()
     {
-        $this->loadStopwatch();
-
-        switch ($this->action) {
+        switch ($this->getAction()) {
             case "start":
                 $this->start();
                 break;

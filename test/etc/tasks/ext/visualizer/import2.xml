@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Cartoons" default="nephews">
+
+    <target name="cartoons" depends="uncle, nephews"/>
+
+    <target name="nephews" depends="uncle">
+        <runtarget target="huey"/>
+        <runtarget target="dewey"/>
+        <runtarget target="louie"/>
+    </target>
+
+    <target name="huey">
+        <echo>Hello</echo>
+    </target>
+
+    <target name="dewey">
+        <echo>uncle</echo>
+    </target>
+
+    <target name="louie">
+        <echo>Donald</echo>
+    </target>
+
+    <target name="uncle">
+        <echo>My name is Donald</echo>
+    </target>
+
+</project>

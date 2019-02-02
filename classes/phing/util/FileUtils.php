@@ -380,7 +380,7 @@ class FileUtils
      * @return PhingFile            a File reference to the new temporary file.
      * @throws BuildException
      */
-    public function createTempFile($prefix, $suffix, PhingFile $parentDir, $deleteOnExit = false, $createFile = false)
+    public function createTempFile($prefix, $suffix, PhingFile $parentDir = null, $deleteOnExit = false, $createFile = false)
     {
         $result = null;
         $parent = ($parentDir === null) ? sys_get_temp_dir() : $parentDir->getPath();

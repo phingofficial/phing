@@ -9,8 +9,10 @@ language: php
 php:
   - 7.1
   - 7.2
+  - 7.3
   - 7.1snapshot
   - 7.2snapshot
+  - 7.3snapshot
   - master
 
 matrix:
@@ -18,6 +20,8 @@ matrix:
   allow_failures:
     - php: 7.1snapshot
     - php: 7.2snapshot
+    - php: 7.3
+    - php: 7.3snapshot
     - php: master
 
 cache:

@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,15 +18,35 @@
  */
 
 /**
- * Unit test for WinNTFileSystem
- *
- * @author Daniel Holmes
- * @package phing.system.io
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.ext
  */
-class WinNTFileSystemTest extends AbstractWinFileSystemTestCase
+class SvnRevertTaskTest extends AbstractSvnTaskTest
 {
-    protected function createFileSystem()
+    use SvnTaskTestSkip;
+
+    public function setUp()
     {
-        return new WinNTFileSystem();
+        $this->markTestAsSkippedWhenSvnNotInstalled();
+        $this->initialize('SvnRevertTest.xml');
+    }
+
+    /**
+     * @test
+     */
+    public function recursiveRevert()
+    {
+        $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
+    }
+
+    public function testNoRepositorySpecified()
+    {
+        $this->expectBuildExceptionContaining(
+            'noRepository',
+            'Repository is required',
+            'Error parsing arguments'
+        );
     }
 }

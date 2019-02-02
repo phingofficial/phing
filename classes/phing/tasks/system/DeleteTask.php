@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/element/ResourceAware.php';
-
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  *

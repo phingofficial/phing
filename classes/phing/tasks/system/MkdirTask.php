@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-
 /**
  * Task to create a directory.
  *

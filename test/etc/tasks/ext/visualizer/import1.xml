@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Casa de papel" default="professor">
+
+    <target name="girls" depends="professor">
+        <foreach target="tokyo">
+            <fileset dir=".">
+                <include name="*.php"/>
+            </fileset>
+        </foreach>
+        <runtarget target="nairobi"/>
+    </target>
+
+    <target name="tokyo">
+        <echo>My name is Silene</echo>
+    </target>
+
+    <target name="nairobi">
+        <echo>My name is Ágata</echo>
+    </target>
+
+    <target name="guys" depends="professor">
+        <phingcall target="moscow"/>
+        <phingcall target="berlin"/>
+        <phingcall target="rio"/>
+        <phingcall target="denver"/>
+        <phingcall target="helsinki"/>
+    </target>
+
+    <target name="professor">
+        <echo>My name is Martín</echo>
+    </target>
+
+    <target name="moscow">
+        <echo>My name is Agustín</echo>
+    </target>
+
+    <target name="berlin">
+        <echo>My name is Andrés</echo>
+    </target>
+
+    <target name="rio">
+        <echo>My name is Aníbal</echo>
+    </target>
+
+    <target name="denver">
+        <echo>My name is Daniel</echo>
+    </target>
+
+    <target name="helsinki">
+        <echo>My name is Yashin</echo>
+    </target>
+
+</project>
