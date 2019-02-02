@@ -201,6 +201,7 @@
                 <ref name="unzip"/>
                 <ref name="urlencode"/>
                 <ref name="version"/>
+                <ref name="visualizer"/>
                 <ref name="wikipublish"/>
                 <ref name="xmllint"/>
                 <ref name="xmlproperty"/>
@@ -6674,6 +6675,45 @@
                 </attribute>
                 <attribute name="file"/>
                 <attribute name="property"/>
+            </interleave>
+        </element>
+    </define>
+
+    <!--VisualizerTask-->
+    <define name="visualizer">
+        <element name="visualizer">
+            <interleave>
+                <optional>
+                    <attribute name="format">
+                        <choice>
+                            <value>svg</value>
+                            <value>png</value>
+                            <value>puml</value>
+                            <value>eps</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="destination"/>
+                </optional>
+                <optional>
+                    <attribute name="server"/>
+                </optional>
+                <optional>
+                    <attribute name="authUser"/>
+                </optional>
+                <optional>
+                    <attribute name="authPassword"/>
+                </optional>
+                <optional>
+                    <attribute name="authScheme" a:default="basic"/>
+                </optional>
+                <zeroOrMore>
+                    <ref name="config"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="header"/>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>
