@@ -236,7 +236,8 @@ class FilterChain extends DataType
      */
     public function addFilterReader(PhingFilterReader $o)
     {
-        $this->add($o);
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
     }
 
     /**
