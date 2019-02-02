@@ -243,12 +243,13 @@ class PatchTask extends Task
             throw new BuildException('patchfile argument is required', $this->getLocation());
         }
 
+        $toExecute = $this->cmd;
+        $toExecute->setExecutable(self::$PATCH);
+
         if ($this->originalFile !== null) {
             $toExecute->createArgument()->setValue('-o');
             $toExecute->createArgument()->setFile($this->originalFile);
         }
-        $toExecute = $this->cmd;
-        $toExecute->setExecutable(self::$PATCH);
 
         $exe = new ExecTask();
         $exe->setCommand(implode(' ', $toExecute->getCommandline()));
@@ -256,17 +257,18 @@ class PatchTask extends Task
         $exe->setEscape(true);
         $exe->setExecutable($toExecute->getExecutable());
 
-        if ($this->directory === null) {
-            $exe->setDir($this->getProject()->getBasedir());
-        } else {
-            if (!$this->directory->isDirectory()) {
-                throw new BuildException($this->directory . ' is not a directory.', $this->getLocation());
-            }
-            $exe->setDir($this->directory);
-        }
-
-        $this->log($toExecute->describeCommand(), Project::MSG_VERBOSE);
         try {
+            if ($this->directory === null) {
+                $exe->setDir($this->getProject()->getBasedir());
+            } else {
+                if (!$this->directory->isDirectory()) {
+                    throw new BuildException($this->directory . ' is not a directory.', $this->getLocation());
+                }
+                $exe->setDir($this->directory);
+            }
+
+            $this->log($toExecute->describeCommand(), Project::MSG_VERBOSE);
+
             $returnCode = $exe->main();
             if ($exe->isFailure($returnCode)) {
                 $msg = "'" . self::$PATCH . "' failed with exit code " . $returnCode;
