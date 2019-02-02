@@ -166,6 +166,10 @@ class ComponentHelper
                 }
             }
 
+            if ($classname === "") {
+                return null;
+            }
+
             $o = $this->createObject($classname);
 
             if ($o instanceof Task) {
@@ -206,6 +210,10 @@ class ComponentHelper
                     $classname = $class;
                     break;
                 }
+            }
+
+            if ($classname === "") {
+                return null;
             }
 
             $o = $this->createObject($classname);
