@@ -26,17 +26,17 @@
     <resolvepath path="patch-test" dir="${project.basedir}" propertyName="patch-test"/>
 
     <target name="setup">
-        <mkdir dir="${patch-test}"/>
         <echo file="${patch-test}/a">AAA</echo>
         <echo file="${patch-test}/b">BBB</echo>
     </target>
 
     <target name="cleanup">
-        <delete dir="${patch-test}" quiet="true"/>
+        <delete file="${patch-test}/a" quiet="true"/>
+        <delete file="${patch-test}/b" quiet="true"/>
     </target>
 
     <target name="testPatch">
-        <patch originalfile="${patch-test}/a" patchfile="test.patch" />
+        <patch originalfile="${patch-test}/a" patchfile="${patch-test}/file.patch" />
     </target>
 
 </project>
