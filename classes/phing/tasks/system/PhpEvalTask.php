@@ -40,7 +40,10 @@ class PhpEvalTask extends Task
     protected $returnProperty = null; // name of property to set to return value
     protected $params = []; // parameters for function calls
 
-    protected $logLevel = Project::MSG_INFO;
+    public function init()
+    {
+        $this->logLevel = Project::MSG_INFO;
+    }
 
     /** Main entry point. */
     public function main()
