@@ -27,7 +27,6 @@
 
     <target name="setup">
         <echo file="${patch-test}/a">AAA</echo>
-        <echo file="${patch-test}/b">BBB</echo>
     </target>
 
     <target name="cleanup">
@@ -36,7 +35,7 @@
     </target>
 
     <target name="testPatch">
-        <patch originalfile="${patch-test}/a" patchfile="${patch-test}/file.patch" />
+        <patch originalfile="${patch-test}/a" destfile="${patch-test}/b" patchfile="${patch-test}/file.patch" ignorewhitespace="true" reverse="true" failonerror="true" />
     </target>
 
 </project>

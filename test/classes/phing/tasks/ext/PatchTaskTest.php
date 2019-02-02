@@ -44,8 +44,8 @@ class PatchTaskTest extends BuildFileTest
     public function testPatch()
     {
         $this->executeTarget(__FUNCTION__);
-        $fileA = $this->getProject()->getProperty('patch-test') . '/a';
-        $fileB = $this->getProject()->getProperty('patch-test') . '/b';
-        $this->assertFileEquals($fileB, $fileA);
+
+        $fileA = $this->getProject()->getProperty('patch-test') . '/b';
+        $this->assertStringEqualsFile($fileA, 'BBB');
     }
 }

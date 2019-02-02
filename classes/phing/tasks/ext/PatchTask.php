@@ -126,7 +126,7 @@ class PatchTask extends Task
      */
     public function setDestFile(PhingFile $file)
     {
-        $this->cmd->createArgument()->setValue('-r');
+        $this->cmd->createArgument()->setValue('-o');
         $this->cmd->createArgument()->setFile($file);
     }
 
@@ -247,14 +247,12 @@ class PatchTask extends Task
         $toExecute->setExecutable(self::$PATCH);
 
         if ($this->originalFile !== null) {
-            $toExecute->createArgument()->setValue('-o');
             $toExecute->createArgument()->setFile($this->originalFile);
         }
 
         $exe = new ExecTask();
         $exe->setCommand(implode(' ', $toExecute->getCommandline()));
         $exe->setLevel('info');
-        $exe->setEscape(true);
         $exe->setExecutable($toExecute->getExecutable());
 
         try {
@@ -278,7 +276,10 @@ class PatchTask extends Task
                 $this->log($msg, Project::MSG_ERR);
             }
         } catch (IOException $e) {
-            throw new BuildException($e, $this->getLocation());
+            if ($this->failOnError) {
+                throw new BuildException($e, $this->getLocation());
+            }
+            $this->log($e->getMessage(), Project::MSG_ERR);
         }
     }
 }
