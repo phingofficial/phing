@@ -1,5 +1,5 @@
 # http://www.appveyor.com/docs/appveyor-yml
-build: false
+build: off
 clone_folder: C:\projects\phing
 max_jobs: 3
 platform: x86
@@ -11,8 +11,8 @@ environment:
   COMPOSER_ROOT_VERSION: '7.0-dev'
 
   matrix:
-    - PHP_VERSION: '7.1.23'
-      XDEBUG_VERSION: '2.5.5-7.1'
+    - PHP_VERSION: '7.2.14'
+      XDEBUG_VERSION: '2.6.1'
 
 matrix:
   fast_finish: true
