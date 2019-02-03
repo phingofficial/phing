@@ -49,17 +49,7 @@ jobs:
 
     -
       <<: *STANDARD_TEST_JOB
-      php: 7.2
-      env: DEPS="LOW"
-
-    -
-      <<: *STANDARD_TEST_JOB
       php: 7.3
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.3
-      env: DEPS="LOW"
 
     -
       <<: *STANDARD_TEST_JOB
@@ -80,6 +70,7 @@ jobs:
 
   allow_failures:
     - php: 7.1snapshot
+      env: DEPS="LOW"
     - php: 7.2snapshot
     - php: 7.3snapshot
     - php: master
