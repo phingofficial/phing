@@ -28,7 +28,7 @@ class DirSetTest extends \PHPUnit\Framework\TestCase
     /** @var DirSet */
     private $dirset;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dirset = new DirSet();
     }
