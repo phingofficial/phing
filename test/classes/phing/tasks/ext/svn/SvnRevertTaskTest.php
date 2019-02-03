@@ -25,7 +25,7 @@ class SvnRevertTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnRevertTest.xml');
