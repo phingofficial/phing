@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95e4d30623388c9ebe98221db650400d",
+    "content-hash": "0293d116a7daab5ac79cf6b08398ee29",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -1904,6 +1904,47 @@
                 "zformat"
             ],
             "time": "2017-01-10T10:39:54+00:00"
+        },
+        {
+            "name": "jawira/plantuml-encoding",
+            "version": "v1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jawira/plantuml-encoding.git",
+                "reference": "001f300e8f90f78430c2caf6d5142725c4201ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jawira/plantuml-encoding/zipball/001f300e8f90f78430c2caf6d5142725c4201ec5",
+                "reference": "001f300e8f90f78430c2caf6d5142725c4201ec5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/plantuml_functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jawira Portugal"
+                }
+            ],
+            "description": "PlantUML encoding functions",
+            "keywords": [
+                "encodep",
+                "encoding",
+                "functions",
+                "plantuml"
+            ],
+            "time": "2018-03-26T20:44:27+00:00"
         },
         {
             "name": "jms/metadata",
@@ -5230,7 +5271,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
