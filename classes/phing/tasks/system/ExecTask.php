@@ -139,13 +139,12 @@ class ExecTask extends Task
     /**
      * Main method: wraps execute() command.
      *
-     * @return void
      * @throws \BuildException
      */
     public function main()
     {
         if (!$this->isValidOs()) {
-            return;
+            return null;
         }
 
         try {
@@ -158,6 +157,8 @@ class ExecTask extends Task
         $this->buildCommand();
         [$return, $output] = $this->executeCommand();
         $this->cleanup($return, $output);
+
+        return $return;
     }
 
     /**
@@ -200,6 +201,19 @@ class ExecTask extends Task
         @chdir($this->dir->getPath());
 
         $this->commandline->setEscape($this->escape);
+    }
+
+    /**
+     * @param int $exitValue
+     * @return bool
+     */
+    public function isFailure($exitValue = null)
+    {
+        if ($exitValue === null) {
+            $exitValue = $this->getExitValue();
+        }
+
+        return $exitValue !== 0;
     }
 
     /**

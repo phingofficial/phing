@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/AbstractFileSet.php';
-
 /**
  * Subclass as hint for supporting tasks that the included directories
  * instead of files should be used.
@@ -28,8 +26,8 @@ include_once 'phing/types/AbstractFileSet.php';
 class DirSet extends AbstractFileSet
 {
     /**
+     * @param array $options
      * @return array
-     * @throws Exception
      */
     protected function getFiles(...$options)
     {

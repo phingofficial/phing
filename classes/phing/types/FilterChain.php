@@ -52,8 +52,7 @@ class FilterChain extends DataType
      */
     public function addConcatFilter(ConcatFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -61,8 +60,7 @@ class FilterChain extends DataType
      */
     public function addExpandProperties(ExpandProperties $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -70,8 +68,7 @@ class FilterChain extends DataType
      */
     public function addGettext(TranslateGettext $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -79,8 +76,7 @@ class FilterChain extends DataType
      */
     public function addHeadFilter(HeadFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -88,8 +84,7 @@ class FilterChain extends DataType
      */
     public function addIconvFilter(IconvFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -97,8 +92,7 @@ class FilterChain extends DataType
      */
     public function addTailFilter(TailFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -106,8 +100,7 @@ class FilterChain extends DataType
      */
     public function addLineContains(LineContains $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -115,8 +108,7 @@ class FilterChain extends DataType
      */
     public function addLineContainsRegExp(LineContainsRegexp $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -124,8 +116,7 @@ class FilterChain extends DataType
      */
     public function addPrefixLines(PrefixLines $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -133,8 +124,7 @@ class FilterChain extends DataType
      */
     public function addSuffixLines(SuffixLines $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -142,8 +132,7 @@ class FilterChain extends DataType
      */
     public function addEscapeUnicode(EscapeUnicode $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -151,8 +140,7 @@ class FilterChain extends DataType
      */
     public function addPhpArrayMapLines(PhpArrayMapLines $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -160,8 +148,7 @@ class FilterChain extends DataType
      */
     public function addReplaceTokens(ReplaceTokens $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -169,8 +156,7 @@ class FilterChain extends DataType
      */
     public function addReplaceTokensWithFile(ReplaceTokensWithFile $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -178,8 +164,7 @@ class FilterChain extends DataType
      */
     public function addReplaceRegexp(ReplaceRegexp $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -187,8 +172,7 @@ class FilterChain extends DataType
      */
     public function addStripPhpComments(StripPhpComments $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -196,8 +180,7 @@ class FilterChain extends DataType
      */
     public function addStripLineBreaks(StripLineBreaks $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -205,8 +188,7 @@ class FilterChain extends DataType
      */
     public function addStripLineComments(StripLineComments $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -214,8 +196,7 @@ class FilterChain extends DataType
      */
     public function addStripWhitespace(StripWhitespace $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -223,8 +204,7 @@ class FilterChain extends DataType
      */
     public function addTidyFilter(TidyFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -232,8 +212,7 @@ class FilterChain extends DataType
      */
     public function addTabToSpaces(TabToSpaces $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -241,8 +220,7 @@ class FilterChain extends DataType
      */
     public function addXincludeFilter(XincludeFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -250,8 +228,7 @@ class FilterChain extends DataType
      */
     public function addXsltFilter(XsltFilter $o)
     {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
+        $this->add($o);
     }
 
     /**
@@ -267,6 +244,11 @@ class FilterChain extends DataType
      * @param SortFilter $o
      */
     public function addSortFilter(SortFilter $o)
+    {
+        $this->add($o);
+    }
+
+    private function add(BaseFilterReader $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;

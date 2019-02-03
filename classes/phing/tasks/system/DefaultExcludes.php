@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/util/DirectoryScanner.php';
-
 /**
  * Alters the default excludes for the <strong>entire</strong> build.
  *

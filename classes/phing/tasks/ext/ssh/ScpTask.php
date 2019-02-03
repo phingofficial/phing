@@ -29,6 +29,7 @@
 class ScpTask extends Task
 {
     use FileSetAware;
+    use LogLevelAware;
 
     protected $file = "";
     protected $todir = "";
@@ -52,8 +53,6 @@ class ScpTask extends Task
     protected $sftp = null;
 
     protected $counter = 0;
-
-    protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      * If number of success of "sftp" is grater than declared number
@@ -309,31 +308,6 @@ class ScpTask extends Task
         $this->methods = new Ssh2MethodParam();
 
         return $this->methods;
-    }
-
-    /**
-     * Set level of log messages generated (default = verbose)
-     * @param string $level
-     */
-    public function setLevel($level)
-    {
-        switch ($level) {
-            case "error":
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case "warning":
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case "info":
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case "verbose":
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case "debug":
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-        }
     }
 
     public function init()

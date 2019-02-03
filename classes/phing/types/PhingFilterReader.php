@@ -17,9 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Parameter.php';
-
 /**
  * A PhingFilterReader is a wrapper class that encloses the className
  * and configuration of a Configurable FilterReader.

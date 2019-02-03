@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/selectors/FileSelector.php';
-
 /**
  * A selector that selects writable files.
  *

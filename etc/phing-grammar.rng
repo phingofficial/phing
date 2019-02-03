@@ -190,6 +190,7 @@
                 <ref name="svnlastrevision"/>
                 <ref name="svnlist"/>
                 <ref name="svnlog"/>
+                <ref name="svnrevert"/>
                 <ref name="svnswitch"/>
                 <ref name="svnupdate"/>
                 <ref name="symfonyconsole"/>
@@ -200,6 +201,7 @@
                 <ref name="unzip"/>
                 <ref name="urlencode"/>
                 <ref name="version"/>
+                <ref name="visualizer"/>
                 <ref name="wikipublish"/>
                 <ref name="xmllint"/>
                 <ref name="xmlproperty"/>
@@ -4574,6 +4576,14 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="forward">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="fuzz" />
+                </optional>
+                <optional>
                     <attribute name="quiet">
                         <data type="boolean"/>
                     </attribute>
@@ -4594,9 +4604,14 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonfailure">
-                        <data type="boolean"/>
-                    </attribute>
+                    <choice>
+                        <attribute name="failonerror">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="haltonfailure">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
                 </optional>
                 <optional>
                     <attribute name="dir"/>
@@ -6502,6 +6517,20 @@
         </element>
     </define>
 
+    <define name="svnrevert">
+        <element name="svnrevert">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <attribute name="recursive">
+                    <data type="boolean"/>
+                </attribute>
+            </interleave>
+        </element>
+    </define>
+
     <define name="symfonyconsole">
         <element name="symfonyconsole">
             <interleave>
@@ -6659,6 +6688,45 @@
                 </attribute>
                 <attribute name="file"/>
                 <attribute name="property"/>
+            </interleave>
+        </element>
+    </define>
+
+    <!--VisualizerTask-->
+    <define name="visualizer">
+        <element name="visualizer">
+            <interleave>
+                <optional>
+                    <attribute name="format">
+                        <choice>
+                            <value>svg</value>
+                            <value>png</value>
+                            <value>puml</value>
+                            <value>eps</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="destination"/>
+                </optional>
+                <optional>
+                    <attribute name="server"/>
+                </optional>
+                <optional>
+                    <attribute name="authUser"/>
+                </optional>
+                <optional>
+                    <attribute name="authPassword"/>
+                </optional>
+                <optional>
+                    <attribute name="authScheme" a:default="basic"/>
+                </optional>
+                <zeroOrMore>
+                    <ref name="config"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="header"/>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>

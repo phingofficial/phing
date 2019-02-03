@@ -27,6 +27,7 @@
 class PhpLintTask extends Task
 {
     use FileSetAware;
+    use LogLevelAware;
 
     protected $file; // the source file (from xml attribute)
 
@@ -35,8 +36,6 @@ class PhpLintTask extends Task
     protected $hasErrors = false;
     protected $badFiles = [];
     protected $interpreter = ''; // php interpreter to use for linting
-
-    protected $logLevel = Project::MSG_VERBOSE;
 
     protected $cache = null;
 
@@ -112,31 +111,6 @@ class PhpLintTask extends Task
     public function setToFile(PhingFile $tofile)
     {
         $this->tofile = $tofile;
-    }
-
-    /**
-     * Set level of log messages generated (default = info)
-     * @param string $level
-     */
-    public function setLevel($level)
-    {
-        switch ($level) {
-            case "error":
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case "warning":
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case "info":
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case "verbose":
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case "debug":
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-        }
     }
 
     /**

@@ -2,11 +2,11 @@
         
         <p>Task definition for the phing task to switch on a particular value.</p>
 
-        <div class="table"><a name="idp5859"></a><p class="formal-object-title"><span class="label">Table B.44: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp5929"></a><p class="formal-object-title"><span class="label">Table B.44: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value to switch on.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">caseinsensitive</code></td><td><code class="literal">Boolean</code></td><td>Should we do case insensitive comparisons?</td><td>false</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5891"></a>B.43.1 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5961"></a>B.43.1 Supported Nested Tags</h3></div></div></div>
             
             <p>At least one <code class="literal">&lt;case&gt;</code> or <code class="literal">&lt;default&gt;</code> is required.</p>
 
@@ -15,7 +15,7 @@
             <p>An individual case to consider, if the value that is being switched on matches to value attribute
                 of the case, then the nested tasks will be executed.</p>
 
-            <div class="table"><a name="idp5899"></a><p class="formal-object-title"><span class="label">Table B.45: </span><span class="title">Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp5969"></a><p class="formal-object-title"><span class="label">Table B.45: </span><span class="title">Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value to match against the tasks value attribute.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -24,7 +24,7 @@
 
             <p>The default case for when no match is found. Must not appear more than once per task.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5926"></a>B.43.2 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5996"></a>B.43.2 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;switch value="${foo}"&gt;
     &lt;case value="bar"&gt;

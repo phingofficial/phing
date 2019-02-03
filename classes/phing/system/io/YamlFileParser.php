@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/FileParserInterface.php';
 
 /**
  * Implements a YamlFileParser to parse yaml-files as array.

@@ -6,15 +6,15 @@
             to use this task.
         </p>
 
-        <div class="table"><a name="idp10177"></a><p class="formal-object-title"><span class="label">Table C.42: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp10248"></a><p class="formal-object-title"><span class="label">Table C.42: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>The request URL</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory to save the file</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">filename</code></td><td><code class="literal">String</code></td><td>The filename for the downloaded file</td><td>The filename part of the URL</td><td>No</td></tr><tr><td><code class="literal">followRedirects</code></td><td><code class="literal">Boolean</code></td><td>Whether to follow HTTP redirects</td><td>false</td><td>No</td></tr><tr><td><code class="literal">sslVerifyPeer</code></td><td><code class="literal">Boolean</code></td><td>Whether to verify SSL certificates</td><td>true</td><td>No</td></tr><tr><td><code class="literal">authUser</code></td><td><code class="literal">String</code></td><td>The authentication user name</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authPassword</code></td><td><code class="literal">String</code></td><td>The authentication password</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authScheme</code></td><td><code class="literal">String</code></td><td>The authentication scheme</td><td>basic</td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>If true, set default log level to Project.MSG_ERR</td><td>false</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10265"></a>C.41.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10336"></a>C.41.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;httpget url="http://buildserver.com/builds/latest.stable.tar.bz2" dir="/usr/local/lib"/&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10268"></a>C.41.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10339"></a>C.41.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">config</code></p>
@@ -23,7 +23,7 @@
                         for supported values.
                     </p>
 
-                    <div class="table"><a name="idp10276"></a><p class="formal-object-title"><span class="label">Table C.43: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp10347"></a><p class="formal-object-title"><span class="label">Table C.43: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Config parameter name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td>Mixed</td><td>Config value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -31,13 +31,13 @@
                     <p><code class="literal">header</code></p>
                     <p> Holds additional header <code class="literal">name</code> and
                             <code class="literal">value</code>.</p>
-                    <div class="table"><a name="idp10313"></a><p class="formal-object-title"><span class="label">Table C.44: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp10384"></a><p class="formal-object-title"><span class="label">Table C.44: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Header name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Header value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10345"></a>C.41.3 Global configuration</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10416"></a>C.41.3 Global configuration</h3></div></div></div>
             
             <p>
                 In addition to configuring a particular instance of <code class="literal">HTTP_Request2</code> via

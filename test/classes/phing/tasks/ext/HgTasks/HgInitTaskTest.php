@@ -26,8 +26,8 @@ class HgInitTaskTest extends BuildFileTest
         $HGdir = $repository . '/.hg';
         $this->executeTarget('hgInit');
         $this->assertInLogs('Initializing');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($HGdir));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($HGdir);
     }
 
     public function testWrongRepository()

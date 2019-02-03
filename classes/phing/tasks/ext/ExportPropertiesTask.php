@@ -122,12 +122,6 @@ class ExportPropertiesTask extends Task
      */
     protected function isDisallowedPropery($propertyName)
     {
-        foreach ($this->_disallowedPropertyPrefixes as $property) {
-            if (substr($propertyName, 0, strlen($property)) == $property) {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array(substr($propertyName, 0, strlen($property)), $this->_disallowedPropertyPrefixes);
     }
 }

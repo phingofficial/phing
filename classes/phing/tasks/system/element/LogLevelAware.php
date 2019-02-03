@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,16 +17,37 @@
  * <http://phing.info>.
  */
 
+
 /**
- * Unit test for Win32FileSystem
- *
- * @author Daniel Holmes
- * @package phing.system.io
+ * @author   Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package  phing.tasks.system
  */
-class Win32FileSystemTest extends AbstractWinFileSystemTestCase
+trait LogLevelAware
 {
-    protected function createFileSystem()
+    protected $logLevel = Project::MSG_VERBOSE;
+
+    /**
+     * Set level of log messages generated (default = verbose)
+     * @param string $level
+     */
+    public function setLevel($level): void
     {
-        return new WindowsFileSystem();
+        switch ($level) {
+            case 'error':
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case 'warning':
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case 'info':
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case 'verbose':
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case 'debug':
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
+        }
     }
 }

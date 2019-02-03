@@ -471,7 +471,7 @@ class ApplyTaskTest extends BuildFileTest
         foreach ($this->logBuffer as $log) {
             $messages[] = $log['message'];
         }
-        $this->assertTrue(in_array('Applied echo to 4 files and 0 directories.', $messages));
+        $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
     }
 
 

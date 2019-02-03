@@ -574,12 +574,7 @@ class IoncubeEncoderTask extends Task
     {
         $arguments = $this->constructArguments();
 
-        if (in_array($this->phpVersion, [5, 53, 54, 55, 56, 71])) {
-            $encoderName = $this->encoderName . $this->phpVersion;
-        } else {
-            $encoderName = $this->encoderName;
-        }
-        $encoder = new PhingFile($this->ioncubePath, $encoderName);
+        $encoder = new PhingFile($this->ioncubePath, $this->encoderName . $this->phpVersion);
 
         $this->log("Running ionCube Encoder...");
 

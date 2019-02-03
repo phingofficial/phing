@@ -514,6 +514,19 @@ abstract class BuildFileTest extends TestCase
 
         return $returndate;
     }
+
+
+
+    public function assertFileSizeAtLeast(string $filepath, int $bytes)
+    {
+        $actualSize = filesize($filepath);
+
+        if (!is_int($actualSize)) {
+            $this->fail("Error while reading file '$filepath'");
+        }
+
+        $this->assertGreaterThanOrEqual($bytes, $actualSize);
+    }
 }
 
 /**

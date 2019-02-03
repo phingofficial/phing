@@ -44,6 +44,7 @@
 class FtpDeployTask extends Task
 {
     use FileSetAware;
+    use LogLevelAware;
 
     private $host = null;
     private $port = 21;
@@ -60,8 +61,6 @@ class FtpDeployTask extends Task
     private $filemode = false;
     private $rawDataFallback = false;
     private $skipOnSameSize = false;
-
-    protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      *
@@ -191,31 +190,6 @@ class FtpDeployTask extends Task
     public function setSkipOnSameSize($skipOnSameSize)
     {
         $this->skipOnSameSize = StringHelper::booleanValue($skipOnSameSize);
-    }
-
-    /**
-     * Set level of log messages generated (default = info)
-     * @param string $level
-     */
-    public function setLevel($level)
-    {
-        switch ($level) {
-            case "error":
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case "warning":
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case "info":
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case "verbose":
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case "debug":
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-        }
     }
 
     /**
