@@ -22,7 +22,7 @@ jobs:
       install:
         - composer install
       script:
-        - bin/phpcs --standard=PSR2 classes
+        - bin/phpcs -vvv --config=.phpcs.xml --standard=PSR2 classes
 
     - &STANDARD_TEST_JOB
       stage: Test
