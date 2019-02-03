@@ -51,6 +51,7 @@ install:
   - IF NOT EXIST php-installed.txt echo zend_extension=php_xdebug-%XDEBUG_VERSION%-vc15.dll >> php.ini
   - IF NOT EXIST php-installed.txt type nul >> php-installed.txt
   - cd C:\projects\phing
+  - composer selfupdate --quiet
   - composer install --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader
 
 test_script:
