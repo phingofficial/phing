@@ -12,7 +12,7 @@ environment:
 
   matrix:
     - PHP_VERSION: '7.2.13'
-      XDEBUG_VERSION: '2.6.1'
+      XDEBUG_VERSION: '2.6.1-7.2'
 
 matrix:
   fast_finish: true
