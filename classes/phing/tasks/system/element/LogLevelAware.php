@@ -17,20 +17,37 @@
  * <http://phing.info>.
  */
 
+
 /**
- * Subclass as hint for supporting tasks that the included directories
- * instead of files should be used.
- *
- * @package phing.types
+ * @author   Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package  phing.tasks.system
  */
-class DirSet extends AbstractFileSet
+trait LogLevelAware
 {
+    protected $logLevel = Project::MSG_VERBOSE;
+
     /**
-     * @param array $options
-     * @return array
+     * Set level of log messages generated (default = verbose)
+     * @param string $level
      */
-    protected function getFiles(...$options)
+    public function setLevel($level): void
     {
-        return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
+        switch ($level) {
+            case 'error':
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case 'warning':
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case 'info':
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case 'verbose':
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case 'debug':
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
+        }
     }
 }

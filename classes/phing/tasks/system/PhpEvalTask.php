@@ -32,37 +32,17 @@
  */
 class PhpEvalTask extends Task
 {
+    use LogLevelAware;
+
     protected $expression; // Expression to evaluate
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
     protected $returnProperty = null; // name of property to set to return value
     protected $params = []; // parameters for function calls
 
-    protected $logLevel = Project::MSG_INFO;
-
-    /**
-     * Set level of log messages generated (default = info)
-     * @param string $level
-     */
-    public function setLevel($level)
+    public function init()
     {
-        switch ($level) {
-            case "error":
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case "warning":
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case "info":
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case "verbose":
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case "debug":
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-        }
+        $this->logLevel = Project::MSG_INFO;
     }
 
     /** Main entry point. */

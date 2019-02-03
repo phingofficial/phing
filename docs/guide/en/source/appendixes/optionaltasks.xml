@@ -6970,6 +6970,20 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>forward</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Ignore patches that appear to be reversed or already applied.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>fuzz</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Set the fuzz factor to LINES for inexact matching.</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>

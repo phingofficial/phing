@@ -17,20 +17,35 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/BuildFileTest.php';
+
 /**
- * Subclass as hint for supporting tasks that the included directories
- * instead of files should be used.
+ * Tests the Patch Task
  *
- * @package phing.types
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.ext
  */
-class DirSet extends AbstractFileSet
+class PatchTaskTest extends BuildFileTest
 {
-    /**
-     * @param array $options
-     * @return array
-     */
-    protected function getFiles(...$options)
+    public function setUp()
     {
-        return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/ext/PatchTest.xml"
+        );
+        $this->executeTarget("setup");
+    }
+
+    public function tearDown()
+    {
+        $this->executeTarget("cleanup");
+    }
+
+    public function testPatch()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $fileA = $this->getProject()->getProperty('patch-test') . '/b';
+        $this->assertStringEqualsFile($fileA, 'BBB');
     }
 }

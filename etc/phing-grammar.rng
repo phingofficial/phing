@@ -4576,6 +4576,14 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="forward">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="fuzz" />
+                </optional>
+                <optional>
                     <attribute name="quiet">
                         <data type="boolean"/>
                     </attribute>
@@ -4596,9 +4604,14 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonfailure">
-                        <data type="boolean"/>
-                    </attribute>
+                    <choice>
+                        <attribute name="failonerror">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="haltonfailure">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
                 </optional>
                 <optional>
                     <attribute name="dir"/>

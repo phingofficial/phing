@@ -18,19 +18,30 @@
  */
 
 /**
- * Subclass as hint for supporting tasks that the included directories
- * instead of files should be used.
- *
- * @package phing.types
+ * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
+ * @package phing.filters
  */
-class DirSet extends AbstractFileSet
+class ExpandPropertiesTest extends BuildFileTest
 {
-    /**
-     * @param array $options
-     * @return array
-     */
-    protected function getFiles(...$options)
+    protected $fu;
+
+    public function setUp()
     {
-        return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
+        $this->configureProject(PHING_TEST_BASE . "/etc/filters/expandproperties.xml");
+        $this->fu = new FileUtils();
+    }
+
+    public function tearDown()
+    {
+        $this->executeTarget("cleanup");
+    }
+
+    public function testExpandProperties()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $expected = $this->getProject()->resolveFile("expected/expandproperties.test");
+        $result = $this->getProject()->resolveFile("result/expandproperties.test");
+        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

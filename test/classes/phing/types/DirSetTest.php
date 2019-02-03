@@ -18,19 +18,25 @@
  */
 
 /**
- * Subclass as hint for supporting tasks that the included directories
- * instead of files should be used.
+ * Unit tests for DirSet -- including Selectors.
  *
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.types
  */
-class DirSet extends AbstractFileSet
+class DirSetTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @param array $options
-     * @return array
-     */
-    protected function getFiles(...$options)
+    /** @var DirSet */
+    private $dirset;
+
+    protected function setUp()
     {
-        return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
+        $this->dirset = new DirSet();
+    }
+
+    public function testDirSetIterator()
+    {
+        $this->dirset->setProject(new Project());
+        $this->dirset->setDir(__DIR__);
+        $this->assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
     }
 }
