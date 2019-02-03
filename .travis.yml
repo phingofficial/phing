@@ -18,9 +18,9 @@ notifications:
 jobs:
   include:
     - stage: Static Code Analysis
-      php: 7.1
+      php: 7.2
       install:
-        - composer update --prefer-lowest
+        - composer install
       script:
         - bin/phpcs -vvv classes
 
