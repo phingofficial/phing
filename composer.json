@@ -21,9 +21,16 @@
         "slack": "https://www.phing.info/slack",
         "docs": "https://www.phing.info/docs/guide/stable/"
     },
+    "config": {
+        "platform": {
+            "php": "7.1.3"
+        },
+        "bin-dir": "bin",
+        "sort-packages": true
+    },
     "require": {
-        "php": ">=7.1",
-        "sebastian/version": "^1.0 || ^2.0",
+        "php": "^7.1.3",
+        "sebastian/version": "^2.0",
         "symfony/console": "^2.8 || ^3.0 || ^4.0",
         "symfony/yaml": "^2.8 || ^3.1 || ^4.0",
         "mehr-als-nix/parallel": "^v1.0"
@@ -62,9 +69,6 @@
     "bin": [
         "bin/phing"
     ],
-    "config": {
-        "bin-dir": "bin"
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"

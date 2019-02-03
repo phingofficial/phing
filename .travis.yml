@@ -20,7 +20,6 @@ jobs:
     - stage: Static Code Analysis
       php: 7.1
       install:
-        - composer clearcache
         - composer update --prefer-lowest
       script:
         - bin/phpcs -vvv classes
@@ -34,7 +33,6 @@ jobs:
           pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
           composer selfupdate --quiet
           if [[ "$DEPS" == "LOW" ]]; then
-            composer clearcache;
             composer update --prefer-lowest;
           else
             composer install -o --no-progress --prefer-dist;
