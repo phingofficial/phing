@@ -24,8 +24,11 @@ jobs:
           set -e
           pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
           composer selfupdate --quiet
-        - if [ "$DEPS" == "LOW" ]; then composer update --prefer-lowest; else composer install -o --no-progress --prefer-dist; fi
-        - |
+          if [[ "$DEPS" == "LOW" ]]; then
+            composer update --prefer-lowest;
+          else
+            composer install -o --no-progress --prefer-dist;
+          fi
           phpenv config-add .travis.php.ini
           phpenv rehash
           echo "=== SETTING GIT IDENTITY ==="
