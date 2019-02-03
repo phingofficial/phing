@@ -36,7 +36,7 @@ class PatchTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("cleanup");
     }
