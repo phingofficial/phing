@@ -60,7 +60,9 @@ class Environment
         if ($this->variables->count() === 0) {
             return null;
         }
-        return array_map(function ($env) {return $env->getContent();}, $this->variables->getArrayCopy());
+        return array_map(function ($env) {
+            return $env->getContent();
+        }, $this->variables->getArrayCopy());
     }
 
     /**

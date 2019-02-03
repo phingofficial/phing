@@ -542,7 +542,7 @@ abstract class FileSystem
 
         // Make destination directory
         if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
-           return false;
+            return false;
         }
 
         // Loop through the folder
@@ -906,7 +906,7 @@ abstract class FileSystem
         $elements = explode($pathSeparator, $path);
         $amount = count($elements);
         $fstype = Phing::getProperty('host.fstype');
-        switch($fstype) {
+        switch ($fstype) {
         case 'UNIX':
             for ($count = 0; $count < $amount; ++$count) {
                 $file = $elements[$count] . $dirSeparator . $executable;
@@ -939,5 +939,4 @@ abstract class FileSystem
         }
         return $fallback;
     }
-
 }

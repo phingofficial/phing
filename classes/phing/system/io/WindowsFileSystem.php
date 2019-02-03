@@ -640,7 +640,7 @@ class WindowsFileSystem extends FileSystem
     {
         $iterator = new FilesystemIterator($f->getAbsolutePath());
         $filelist = array();
-        foreach($iterator as $entry) {
+        foreach ($iterator as $entry) {
             $filelist[] = $entry->getFilename();
         }
 

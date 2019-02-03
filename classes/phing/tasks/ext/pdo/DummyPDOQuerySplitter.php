@@ -48,7 +48,8 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             if (($line != $delimiter) && (
                     StringHelper::startsWith("//", $line) ||
                     StringHelper::startsWith("--", $line) ||
-                    StringHelper::startsWith("#", $line))
+                    StringHelper::startsWith("#", $line)
+            )
             ) {
                 continue;
             }

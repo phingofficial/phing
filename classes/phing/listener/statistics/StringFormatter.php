@@ -51,7 +51,5 @@ class StringFormatter
             $sb .= $ch;
         }
         return $sb;
-
     }
-
 }

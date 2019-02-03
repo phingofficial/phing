@@ -122,7 +122,8 @@ EXCEPTION_MESSAGE;
                     $msg = sprintf(
                         'Attempt [%s]: error occurred; retrying after %s s...',
                         $i,
-                        $this->retryDelay);
+                        $this->retryDelay
+                    );
                 } else {
                     $msg = sprintf(
                         'Attempt [%s]: error occurred; retrying...',

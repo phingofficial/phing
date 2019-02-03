@@ -182,8 +182,10 @@ class PharDataTask extends MatchingTask
         }
 
         if (!$this->baseDirectory->exists()) {
-            throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!",
-                $this->getLocation());
+            throw new BuildException(
+                "basedir '" . (string) $this->baseDirectory . "' does not exist!",
+                $this->getLocation()
+            );
         }
     }
 }

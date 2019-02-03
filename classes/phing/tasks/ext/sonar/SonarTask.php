@@ -367,10 +367,12 @@ class SonarTask extends Task
             }
 
             if (array_key_exists($name, $this->properties)) {
-                $message = sprintf('Property [%s] overwritten: old value [%s], new value [%s].',
+                $message = sprintf(
+                    'Property [%s] overwritten: old value [%s], new value [%s].',
                     $name,
                     $this->properties[$name],
-                    $value);
+                    $value
+                );
                 $this->log($message, Project::MSG_WARN);
             }
 

@@ -705,7 +705,9 @@ class Project
                     $this->log(
                         "Target '" . $curTarget->getName()
                         . "' failed with message '"
-                        . $thrownException->getMessage() . "'.", Project::MSG_ERR);
+                        . $thrownException->getMessage() . "'.",
+                        Project::MSG_ERR
+                    );
                     // only the first build exception is reported
                     if ($buildException === null) {
                         $buildException = $thrownException;
@@ -715,7 +717,8 @@ class Project
                         "Target '" . $curTarget->getName()
                         . "' failed with message '"
                         . $thrownException->getMessage() . "'." . PHP_EOL
-                        . $thrownException->getTraceAsString(), Project::MSG_ERR
+                        . $thrownException->getTraceAsString(),
+                        Project::MSG_ERR
                     );
                     if ($buildException === null) {
                         $buildException = new BuildException($thrownException);

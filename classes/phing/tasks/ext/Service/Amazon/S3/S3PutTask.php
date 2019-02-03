@@ -424,7 +424,7 @@ class S3PutTask extends Service_Amazon_S3
             if ($this->_fileNameOnly) {
                 foreach ($objects as $object) {
                     $this->_source = $object;
-                    $this->saveObject(basename($object),$fromDir . DIRECTORY_SEPARATOR . $object);
+                    $this->saveObject(basename($object), $fromDir . DIRECTORY_SEPARATOR . $object);
                 }
             } else {
                 foreach ($objects as $object) {

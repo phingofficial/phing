@@ -73,7 +73,6 @@ class DispatchUtils
                 if ($task instanceof UnknownElement) {
                     $task->setRealThing(null);
                 }
-
             } else {
                 try {
                     $refl = new ReflectionClass($task);

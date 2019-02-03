@@ -356,7 +356,6 @@ class Phing
         }
 
         if (in_array('-init', $args) || in_array('-i', $args)) {
-
             $key = array_search('-init', $args) ?: array_search('-i', $args);
             $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
 
@@ -790,7 +789,8 @@ class Phing
 
         if (-1 == version_compare($current, $version)) {
             throw new BuildException(
-                sprintf('Incompatible Phing version (%s). Version "%s" required.', $current, $version));
+                sprintf('Incompatible Phing version (%s). Version "%s" required.', $current, $version)
+            );
         }
     }
 
@@ -1678,8 +1678,10 @@ class Phing
                 // The 'G' modifier is available since PHP 5.1.0
                 case 'g':
                     $val *= 1024;
+                    // no break
                 case 'm':
                     $val *= 1024;
+                    // no break
                 case 'k':
                     $val *= 1024;
             }

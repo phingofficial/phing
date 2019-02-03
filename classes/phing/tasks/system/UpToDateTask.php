@@ -127,8 +127,10 @@ class UpToDateTask extends Task implements Condition
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper",
-                $this->getLocation());
+            throw new BuildException(
+                "Cannot define more than one mapper",
+                $this->getLocation()
+            );
         }
         $this->mapperElement = new Mapper($this->getProject());
 
@@ -219,8 +221,10 @@ class UpToDateTask extends Task implements Condition
     public function main()
     {
         if ($this->_property === null) {
-            throw new BuildException("property attribute is required.",
-                $this->getLocation());
+            throw new BuildException(
+                "property attribute is required.",
+                $this->getLocation()
+            );
         }
         $upToDate = $this->evaluate();
         if ($upToDate) {

@@ -53,7 +53,8 @@ class DefaultExcludes extends Task
         if (!$this->defaultrequested && $this->add === "" && $this->remove === "" && !$this->echo) {
             throw new BuildException(
                 "<defaultexcludes> task must set at least one attribute (echo=\"false\")"
-                . " doesn't count since that is the default");
+                . " doesn't count since that is the default"
+            );
         }
         if ($this->defaultrequested) {
             DirectoryScanner::resetDefaultExcludes();

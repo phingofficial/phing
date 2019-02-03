@@ -142,8 +142,10 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     public function targetStarted(BuildEvent $event)
     {
         $this->log(">> TARGET STARTED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
-        $this->log(Phing::getProperty('line.separator') . $event->getTarget()->getName() . ":",
-            Project::MSG_INFO);
+        $this->log(
+            Phing::getProperty('line.separator') . $event->getTarget()->getName() . ":",
+            Project::MSG_INFO
+        );
         $this->targetStartTime = Phing::currentTimeMillis();
     }
 

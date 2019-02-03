@@ -161,7 +161,6 @@ class IntrospectionHelper
 
                     $this->slotListeners[$name] = $method;
                 } elseif (strpos($name, "set") === 0 && count($method->getParameters()) === 1) {
-
                     $this->attributeSetters[$name] = $method;
                 } elseif (strpos($name, "create") === 0) {
                     if ($method->getNumberOfRequiredParameters() > 0) {
@@ -171,7 +170,7 @@ class IntrospectionHelper
 
                     if ($method->hasReturnType()) {
                         $this->nestedTypes[$name] = $method->getReturnType();
-                    } else  {
+                    } else {
                         preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
                         if (!empty($matches[1]) && class_exists($matches[1], false)) {
                             $this->nestedTypes[$name] = $matches[1];

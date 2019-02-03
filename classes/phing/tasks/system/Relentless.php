@@ -67,7 +67,8 @@ class Relentless extends Task implements TaskContainer
         }
         if ($failCount > 0) {
             throw new BuildException(
-                'Relentless execution: ' . $failCount . ' of ' . count($this->taskList) . ' tasks failed.');
+                'Relentless execution: ' . $failCount . ' of ' . count($this->taskList) . ' tasks failed.'
+            );
         }
 
         $this->log('All tasks completed successfully.');

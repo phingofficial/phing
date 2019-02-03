@@ -385,7 +385,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
                     static::pushAndInvokeCircularReferenceCheck($fileSelector, $stk, $p);
                 }
             }
-            foreach  ($this->additionalPatterns as $ps) {
+            foreach ($this->additionalPatterns as $ps) {
                 static::pushAndInvokeCircularReferenceCheck($ps, $stk, $p);
             }
             $this->setChecked(true);

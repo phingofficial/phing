@@ -357,8 +357,10 @@ class ExecTask extends Task
      */
     public function setCommand($command): void
     {
-        $this->log("The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
-            Project::MSG_WARN);
+        $this->log(
+            "The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
+            Project::MSG_WARN
+        );
         $this->commandline = new Commandline($command);
         $this->executable = $this->commandline->getExecutable();
     }
@@ -626,9 +628,11 @@ class ExecTask extends Task
         $this->log("Current OS is " . $myos, Project::MSG_VERBOSE);
         if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
             // this command will be executed only on the specified OS
-            $this->log("This OS, " . $myos
+            $this->log(
+                "This OS, " . $myos
                 . " was not found in the specified list of valid OSes: " . $this->os,
-                Project::MSG_VERBOSE);
+                Project::MSG_VERBOSE
+            );
             return false;
         }
         return true;

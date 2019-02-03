@@ -57,8 +57,10 @@ class URLEncodeTask extends AbstractPropertySetterTask
     {
         parent::validate();
         if ($this->value === null && $this->ref === null) {
-            throw new BuildException('You must specify value or refid with the name attribute',
-                $this->getLocation());
+            throw new BuildException(
+                'You must specify value or refid with the name attribute',
+                $this->getLocation()
+            );
         }
     }
 

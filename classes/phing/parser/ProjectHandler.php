@@ -47,9 +47,12 @@ class ProjectHandler extends AbstractHandler
      * @param ProjectConfigurator $configurator the ProjectConfigurator object
      * @param PhingXMLContext $context
      */
-    public function __construct(ExpatParser $parser, AbstractHandler $parentHandler,
-        ProjectConfigurator $configurator, PhingXMLContext $context)
-    {
+    public function __construct(
+        ExpatParser $parser,
+        AbstractHandler $parentHandler,
+        ProjectConfigurator $configurator,
+        PhingXMLContext $context
+    ) {
         parent::__construct($parser, $parentHandler);
 
         $this->configurator = $configurator;
@@ -114,7 +117,8 @@ class ProjectHandler extends AbstractHandler
 
         if ($def === null) {
             throw new ExpatParseException(
-                "The default attribute of project is required");
+                "The default attribute of project is required"
+            );
         }
 
         $project->setDefaultTarget($def);

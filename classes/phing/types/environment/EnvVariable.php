@@ -29,7 +29,8 @@ class EnvVariable
      * env key and value pair; everything gets expanded to a string
      * during assignment
      */
-    private $key, $value;
+    private $key;
+    private $value;
 
     /**
      * set the key

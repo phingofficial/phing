@@ -233,7 +233,6 @@ class ApplyTask extends ExecTask
      */
     public function createTargetfile()
     {
-
         if ($this->targetFilePos !== null) {
             throw new BuildException($this->getTaskType() . " doesn\'t support multiple "
                 . "targetfile elements.", $this->getLocation());
@@ -307,10 +306,12 @@ class ApplyTask extends ExecTask
                     $currentType = $this->type;
                     if ($fs instanceof DirSet) {
                         if ($this->type !== self::$types['DIR']) {
-                            $this->log("Found a nested dirset but type is $this->type . "
+                            $this->log(
+                                "Found a nested dirset but type is $this->type . "
                                 . "Temporarily switching to type=\"dir\" on the"
                                 . " assumption that you really did mean"
-                                . " <dirset> not <fileset>.", Project::MSG_DEBUG
+                                . " <dirset> not <fileset>.",
+                                Project::MSG_DEBUG
                             );
                             $currentType = 'dir';
                         }
@@ -360,7 +361,8 @@ class ApplyTask extends ExecTask
                     . ($totalFiles !== 1 ? "s" : "") . " and "
                     . $totalDirs . " director"
                     . ($totalDirs !== 1 ? "ies" : "y") . ".",
-                    $this->loglevel);
+                    $this->loglevel
+                );
             }
             /// Cleanup //
             $this->cleanup();
@@ -398,10 +400,13 @@ class ApplyTask extends ExecTask
         $includedCount = (
             ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
             ) + (
-            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0);
-        $this->log("Skipping fileset for directory " . $base . ". It is "
+            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
+            );
+        $this->log(
+            "Skipping fileset for directory " . $base . ". It is "
             . (($includedCount > 0) ? "up to date." : "empty."),
-            $this->loglevel);
+            $this->loglevel
+        );
     }
 
     /**
@@ -471,16 +476,22 @@ class ApplyTask extends ExecTask
         $this->log('Operating System variant identified : ' . $this->osvariant, $this->loglevel);
 
         if (count($this->filesets) === 0 && count($this->filelists) === 0 && count($this->getDirSets()) === 0) {
-            throw new BuildException("no resources specified",
-                $this->getLocation());
+            throw new BuildException(
+                "no resources specified",
+                $this->getLocation()
+            );
         }
         if ($this->targetFilePos !== null && $this->mapperElement === null) {
-            throw new BuildException("targetfile specified without mapper",
-                $this->getLocation());
+            throw new BuildException(
+                "targetfile specified without mapper",
+                $this->getLocation()
+            );
         }
         if ($this->destDir !== null && $this->mapperElement === null) {
-            throw new BuildException("dest specified without mapper",
-                $this->getLocation());
+            throw new BuildException(
+                "dest specified without mapper",
+                $this->getLocation()
+            );
         }
 
         if ($this->mapperElement !== null) {
@@ -619,8 +630,12 @@ class ApplyTask extends ExecTask
                 $result = array_merge(... $result);
 
                 // targetIndex --> end
-                $result = array_merge(array_slice($orig, $targetIndex + count($srcFiles) + count($targetFiles),
-                    count($orig) - $targetIndex, true), $result);
+                $result = array_merge(array_slice(
+                    $orig,
+                    $targetIndex + count($srcFiles) + count($targetFiles),
+                    count($orig) - $targetIndex,
+                    true
+                ), $result);
             } else {
                 // 0 --> targetIndex
                 $result[] = $orig;
@@ -628,22 +643,31 @@ class ApplyTask extends ExecTask
                 $result = array_merge(... $result);
 
                 // targetIndex --> srcIndex
-                $result = array_merge(array_slice($orig, $targetIndex + count($targetFiles), $srcIndex - $targetIndex,
-                    true), $result);
+                $result = array_merge(array_slice(
+                    $orig,
+                    $targetIndex + count($targetFiles),
+                    $srcIndex - $targetIndex,
+                    true
+                ), $result);
 
                 // srcIndex --> end
-                $result = array_merge(array_slice($orig, $srcIndex + count($srcFiles) + count($targetFiles),
-                    count($orig) - $srcIndex, true), $result);
+                $result = array_merge(array_slice(
+                    $orig,
+                    $srcIndex + count($srcFiles) + count($targetFiles),
+                    count($orig) - $srcIndex,
+                    true
+                ), $result);
                 $srcIndex += count($targetFiles);
             }
-
         } else { // no targetFilePos
 
             // 0 --> srcIndex
             $result = array_merge(array_slice($orig, 0, $srcIndex, true), $result);
             // srcIndex --> end
-            $result = array_merge(array_slice($orig, $srcIndex + count($srcFiles), count($orig) - $srcIndex, true),
-                $result);
+            $result = array_merge(
+                array_slice($orig, $srcIndex + count($srcFiles), count($orig) - $srcIndex, true),
+                $result
+            );
         }
         // fill in source file names
         foreach ($srcFiles as $i => $file) {

@@ -231,9 +231,11 @@ class TarTask extends MatchingTask
             }
 
             if (empty($this->filesets)) {
-                throw new BuildException("You must supply either a basedir "
+                throw new BuildException(
+                    "You must supply either a basedir "
                     . "attribute or some nested filesets.",
-                    $this->getLocation());
+                    $this->getLocation()
+                );
             }
 
             // check if tar is out of date with respect to each fileset

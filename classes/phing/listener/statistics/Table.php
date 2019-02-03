@@ -58,7 +58,7 @@ class Table
     {
         $max = $length;
         for ($i = 0; $i < count($this->output); $i++) {
-        $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
+            $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
             $max = max([$max, $valueLength]);
         }
         return $max;

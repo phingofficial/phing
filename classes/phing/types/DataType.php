@@ -231,7 +231,7 @@ class DataType extends ProjectComponent
      * Basic DataType toString().
      * @return string this DataType formatted as a String.
      */
-    public function  __toString()
+    public function __toString()
     {
         $d = $this->getDescription();
         return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;

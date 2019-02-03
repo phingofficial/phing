@@ -260,7 +260,7 @@ class DbDeployTask extends Task
                 // ignore tabs and spaces before @UNDO and any characters after in that line
                 $split = preg_split('/--[\t ]*\/\/@UNDO[^\r\n]*/', $contents);
 
-                if ($split === false){
+                if ($split === false) {
                     $split = array($contents);
                 }
 

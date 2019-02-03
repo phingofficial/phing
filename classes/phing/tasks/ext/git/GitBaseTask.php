@@ -122,7 +122,9 @@ abstract class GitBaseTask extends Task
             } catch (VersionControl_Git_Exception $e) {
                 // re-package
                 throw new BuildException(
-                    'You must specify readable directory as repository.', $e);
+                    'You must specify readable directory as repository.',
+                    $e
+                );
             }
         }
         $this->gitClient->setGitCommandPath($this->getGitPath());

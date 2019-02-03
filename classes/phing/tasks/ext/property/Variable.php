@@ -87,7 +87,6 @@ class Variable extends PropertyTask
                 $this->setPropValue($properties, $this->getProject(), 'properties');
             }
         } catch (Exception $e) {
-
         }
         try {
             $properties = $this->getPropValue($this->getProject(), 'userProperties');
@@ -96,7 +95,6 @@ class Variable extends PropertyTask
                 $this->setPropValue($properties, $this->getProject(), 'userProperties');
             }
         } catch (Exception $e) {
-
         }
     }
 
@@ -166,7 +164,6 @@ class Variable extends PropertyTask
         $props = new Properties();
         try {
             if ($file->exists()) {
-
                 $props->load($file);
 
                 $this->addProperties($props);
@@ -216,7 +213,6 @@ class Variable extends PropertyTask
             $ih = PropertyHelper::getPropertyHelper($this->project);
 
             while (!$resolved) {
-
                 $fragments = array();
                 $propertyRefs = array();
 

@@ -274,13 +274,17 @@ class PathConvert extends Task
             // unless setonempty == false
             $value = $rslt;
             if ($this->setonempty) {
-                $this->log("Set property " . $this->property . " = " . $value,
-                    Project::MSG_VERBOSE);
+                $this->log(
+                    "Set property " . $this->property . " = " . $value,
+                    Project::MSG_VERBOSE
+                );
                 $this->getProject()->setNewProperty($this->property, $value);
             } else {
                 if ($rslt !== '') {
-                    $this->log("Set property " . $this->property . " = " . $value,
-                        Project::MSG_VERBOSE);
+                    $this->log(
+                        "Set property " . $this->property . " = " . $value,
+                        Project::MSG_VERBOSE
+                    );
                     $this->getProject()->setNewProperty($this->property, $value);
                 }
             }

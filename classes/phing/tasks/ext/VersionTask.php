@@ -199,6 +199,7 @@ class VersionTask extends Task
         switch ($this->releasetype) {
             case self::RELEASETYPE_MAJOR:
                 $version[self::RELEASETYPE_MINOR] = '0';
+                // no break
             case self::RELEASETYPE_MINOR:
                 $version[self::RELEASETYPE_BUGFIX] = '0';
                 break;
@@ -206,11 +207,13 @@ class VersionTask extends Task
 
         $version[$this->releasetype]++;
 
-        return sprintf('%s%u.%u.%u',
+        return sprintf(
+            '%s%u.%u.%u',
                        $version['PREFIX'],
                        $version[self::RELEASETYPE_MAJOR],
                        $version[self::RELEASETYPE_MINOR],
-                       $version[self::RELEASETYPE_BUGFIX]);
+                       $version[self::RELEASETYPE_BUGFIX]
+        );
     }
 
     /**

@@ -105,10 +105,12 @@ class GlobMapper implements FileNameMapper
     {
         $modName = $this->modifyName($sourceFileName);
         if ($this->fromPrefix === null
-            || (strlen($sourceFileName) < ($this->prefixLength + $this->postfixLength)
+            || (
+                strlen($sourceFileName) < ($this->prefixLength + $this->postfixLength)
             || (!$this->fromContainsStar && !$modName === $this->modifyName($this->fromPrefix))
             )
-            || ($this->fromContainsStar
+            || (
+                $this->fromContainsStar
                 && (!StringHelper::startsWith($this->modifyName($this->fromPrefix), $modName)
                     || !StringHelper::endsWith($this->modifyName($this->fromPostfix), $modName))
             )

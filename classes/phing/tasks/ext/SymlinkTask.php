@@ -332,8 +332,8 @@ class SymlinkTask extends Task
         $fs = FileSystem::getFileSystem();
 
         if ($this->isRelative()) {
-           $link =(new PhingFile($link))->getAbsolutePath();
-           $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
+            $link =(new PhingFile($link))->getAbsolutePath();
+            $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
         }
 
         if (is_link($link) && @readlink($link) == $target) {

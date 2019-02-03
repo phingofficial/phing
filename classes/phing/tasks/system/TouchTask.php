@@ -144,8 +144,11 @@ class TouchTask extends Task
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
-                    throw new BuildException("Error creating new file " . $this->file->__toString(),
-                        $ioe, $this->getLocation());
+                    throw new BuildException(
+                        "Error creating new file " . $this->file->__toString(),
+                        $ioe,
+                        $this->getLocation()
+                    );
                 }
             }
         }

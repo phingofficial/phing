@@ -247,6 +247,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             }
                     }
 
+                    // no break
                 case self::STATE_SINGLE_QUOTED:
                 case self::STATE_DOUBLE_QUOTED:
                     if ($this->escape) {
@@ -267,6 +268,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             }
                     }
 
+                    // no break
                 case self::STATE_DOLLAR_QUOTED:
                     if ('$' == $ch && false !== ($tag = $this->checkDollarQuote())) {
                         if ($tag == $this->quotingTag) {

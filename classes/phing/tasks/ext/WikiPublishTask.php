@@ -417,14 +417,16 @@ class WikiPublishTask extends Task
     {
         if (isset($response['error'])) {
             throw new BuildException(
-                'Wiki response error (action: ' . $action . ', error code: ' . $response['error']['code'] . ')');
+                'Wiki response error (action: ' . $action . ', error code: ' . $response['error']['code'] . ')'
+            );
         }
         if (false == isset($response[$action]) || false == isset($response[$action]['result'])) {
             throw new BuildException('Wiki response result not found (action: ' . $action . ')');
         }
         if ($response[$action]['result'] !== $expect) {
             throw new BuildException(
-                'Unexpected Wiki response result ' . $response[$action]['result'] . ' (expected: ' . $expect . ')');
+                'Unexpected Wiki response result ' . $response[$action]['result'] . ' (expected: ' . $expect . ')'
+            );
         }
     }
 }

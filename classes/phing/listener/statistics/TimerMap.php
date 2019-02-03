@@ -23,7 +23,6 @@
  */
 class TimerMap
 {
-
     protected $map = [];
 
     public function get($name)
@@ -55,5 +54,4 @@ class TimerMap
 
         return $seriesMap;
     }
-
 }

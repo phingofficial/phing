@@ -136,13 +136,14 @@ class DependSet extends MatchingTask
             $targetFiles = $targetDS->getIncludedFiles();
 
             foreach ($targetFiles as $targetFile) {
-
                 $dest = new PhingFile($targetFS->getDir($this->getProject()), $targetFile);
                 $allTargets[] = $dest;
 
                 if ($dest->lastModified() > $now) {
-                    $this->log('Warning: ' . $targetFile . ' modified in the future.',
-                        Project::MSG_WARN);
+                    $this->log(
+                        'Warning: ' . $targetFile . ' modified in the future.',
+                        Project::MSG_WARN
+                    );
                 }
                 if ($oldestTarget === null
                     || $dest->lastModified() < $oldestTargetTime) {
@@ -166,8 +167,10 @@ class DependSet extends MatchingTask
 
                 $allTargets[] = $dest;
                 if ($dest->lastModified() > $now) {
-                    $this->log('Warning: ' . $targetFile . ' modified in the future.',
-                        Project::MSG_WARN);
+                    $this->log(
+                        'Warning: ' . $targetFile . ' modified in the future.',
+                        Project::MSG_WARN
+                    );
                 }
                 if ($oldestTarget === null
                     || $dest->lastModified() < $oldestTargetTime) {
@@ -196,8 +199,10 @@ class DependSet extends MatchingTask
                             . ' modified in the future.', Project::MSG_WARN);
                     }
                     if (!$src->exists()) {
-                        $this->log($sourceFile . ' does not exist.',
-                            Project::MSG_VERBOSE);
+                        $this->log(
+                            $sourceFile . ' does not exist.',
+                            Project::MSG_VERBOSE
+                        );
                         $upToDate = false;
                         break 2;
                     }
@@ -235,8 +240,10 @@ class DependSet extends MatchingTask
         if (!$upToDate) {
             $this->log('Deleting all target files. ', Project::MSG_VERBOSE);
             foreach ($allTargets as $fileToRemove) {
-                $this->log('Deleting file ' . $fileToRemove->getAbsolutePath(),
-                    Project::MSG_VERBOSE);
+                $this->log(
+                    'Deleting file ' . $fileToRemove->getAbsolutePath(),
+                    Project::MSG_VERBOSE
+                );
                 $fileToRemove->delete();
             }
         }

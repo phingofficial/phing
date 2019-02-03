@@ -23,7 +23,6 @@
  */
 class SeriesTimer
 {
-
     protected $name;
 
     protected $series;

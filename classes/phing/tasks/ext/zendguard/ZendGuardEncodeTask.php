@@ -387,8 +387,10 @@ class ZendGuardEncodeTask extends MatchingTask
 
         try {
             if (empty($this->filesets)) {
-                throw new BuildException("You must supply nested fileset.",
-                    $this->getLocation());
+                throw new BuildException(
+                    "You must supply nested fileset.",
+                    $this->getLocation()
+                );
             }
 
             $encodedFilesCounter = 0;

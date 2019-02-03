@@ -611,16 +611,20 @@ class PhpCodeSnifferTask extends Task
             // with a minor version release.
             if (PHP_CodeSniffer::VERSION >= '2.2.0') {
                 $cliValues = ['colors' => false];
-                $reporting->printReport($fe->getType(),
+                $reporting->printReport(
+                    $fe->getType(),
                                         $this->showSources,
                                         $cliValues,
                                         $reportFile,
-                                        $this->reportWidth);
+                                        $this->reportWidth
+                );
             } else {
-                $reporting->printReport($fe->getType(),
+                $reporting->printReport(
+                    $fe->getType(),
                                         $this->showSources,
                                         $reportFile,
-                                        $this->reportWidth);
+                                        $this->reportWidth
+                );
             }
 
             // reporting class uses ob_end_flush(), but we don't want

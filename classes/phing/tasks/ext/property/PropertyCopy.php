@@ -60,8 +60,9 @@ class PropertyCopy extends AbstractPropertySetterTask
     protected function validate()
     {
         parent::validate();
-        if ($this->from === null)
+        if ($this->from === null) {
             throw new BuildException("Missing the 'from' attribute.");
+        }
     }
 
     public function main()

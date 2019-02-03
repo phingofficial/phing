@@ -119,7 +119,8 @@ class FileHashTask extends Task
                     sprintf(
                         '[FileHash] Unknown hashtype specified %d. Must be either 0 (=MD5) or 1 (=SHA1)',
                         $this->hashtype
-                    ));
+                    )
+                );
             }
         }
 

@@ -32,7 +32,7 @@ class PropertyHelper
      */
     private $inheritedProperties = [];
 
-// --------------------  Hook management  --------------------
+    // --------------------  Hook management  --------------------
 
     /**
      * Set the project for which this helper is performing property resolution
@@ -269,8 +269,10 @@ class PropertyHelper
         }
 
         if ($verbose && isset($this->properties[$name])) {
-            self::$project->log('Overriding previous definition of property ' . $name,
-                Project::MSG_VERBOSE);
+            self::$project->log(
+                'Overriding previous definition of property ' . $name,
+                Project::MSG_VERBOSE
+            );
         }
 
         if ($verbose) {

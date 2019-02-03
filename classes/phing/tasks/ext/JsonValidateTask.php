@@ -27,7 +27,6 @@
  */
 class JsonValidateTask extends Task
 {
-
     private $file = null;
 
     /**
@@ -35,7 +34,6 @@ class JsonValidateTask extends Task
      */
     public function main()
     {
-
         if (null === $this->getFile()) {
             $msg = "JsonValidate: file is not defined.";
             $this->log($msg, Project::MSG_ERR);
@@ -73,4 +71,3 @@ class JsonValidateTask extends Task
         $this->file = $file;
     }
 }
-

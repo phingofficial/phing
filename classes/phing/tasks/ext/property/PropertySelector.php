@@ -61,8 +61,9 @@ class PropertySelector extends AbstractPropertySetterTask
     protected function validate()
     {
         parent::validate();
-        if ($this->match == null)
+        if ($this->match == null) {
             throw new BuildException("No match expression specified.");
+        }
     }
 
     public function main()
@@ -95,7 +96,9 @@ class PropertySelector extends AbstractPropertySetterTask
 
                 if (!($this->distinct && in_array($output, $used))) {
                     $used[] = $output;
-                    if ($cnt !== 0) $buf .= $this->delim;
+                    if ($cnt !== 0) {
+                        $buf .= $this->delim;
+                    }
                     $buf .= $output;
                     $cnt++;
                 }

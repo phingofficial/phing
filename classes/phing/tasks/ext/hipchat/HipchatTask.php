@@ -34,8 +34,8 @@
  * @author Suat Özgür <suat.oezguer@mindgeek.com>
  * @package phing.tasks.ext
  */
-class HipchatTask extends Task {
-
+class HipchatTask extends Task
+{
     private $domain = 'api.hipchat.com';
     private $room = null;
     private $authToken = null;
@@ -96,17 +96,19 @@ class HipchatTask extends Task {
     /**
      * @return String
      */
-    public function getFormat() {
+    public function getFormat()
+    {
         return $this->format;
     }
 
     /**
      * @param $format
      */
-    public function setFormat($format) {
+    public function setFormat($format)
+    {
         $format = ($format != 'text' && $format != 'html') ? 'text' : $format;
         $this->format = $format;
-    }    
+    }
     
     /**
      * @return string
@@ -159,7 +161,8 @@ class HipchatTask extends Task {
     /**
      * @return string
      */
-    public function getMessage() {
+    public function getMessage()
+    {
         return $this->message;
     }
 
@@ -187,7 +190,8 @@ class HipchatTask extends Task {
         $this->message = trim($message);
     }
 
-    private function executeApiCall($url, $data) {
+    private function executeApiCall($url, $data)
+    {
         $postData = json_encode($data);
 
         $ch = curl_init();
@@ -204,5 +208,4 @@ class HipchatTask extends Task {
         }
         return true;
     }
-
 }

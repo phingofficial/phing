@@ -139,8 +139,10 @@ class LoadFileTask extends Task
                 }
                 $reader->close();
             } else {
-                $this->log("Do not set property " . $this->property . " as its length is 0.",
-                    $this->quiet ? Project::MSG_VERBOSE : Project::MSG_INFO);
+                $this->log(
+                    "Do not set property " . $this->property . " as its length is 0.",
+                    $this->quiet ? Project::MSG_VERBOSE : Project::MSG_INFO
+                );
             }
 
             // publish as property
