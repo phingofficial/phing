@@ -10,12 +10,20 @@ addons:
 cache:
   directories:
     - $HOME/.composer/cache
+    - build/cache
 
 notifications:
   slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH
 
 jobs:
   include:
+    - stage: Static Code Analysis
+      php: 7.2
+      install:
+        - composer install
+      script:
+        - bin/phpcs --standard=PSR2 classes
+
     - &STANDARD_TEST_JOB
       stage: Test
       php: 7.2
