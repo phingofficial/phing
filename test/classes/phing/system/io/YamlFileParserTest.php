@@ -44,8 +44,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @{inheritDoc}
      */
-    public function setUp()
-    {
+    public function setUp(): void    {
         if (!class_exists('\Symfony\Component\Yaml\Parser')) {
             $this->markTestSkipped('Yaml parser is not installed.');
             exit;
@@ -58,8 +57,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @{inheritDoc}
      */
-    public function tearDown()
-    {
+    public function tearDown(): void    {
         $this->objectToTest = null;
     }
 

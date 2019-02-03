@@ -8,15 +8,13 @@
  */
 class DependSetTest extends BuildFileTest
 {
-    public function setUp()
-    {
+    public function setUp(): void    {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/dependset.xml'
         );
     }
 
-    public function tearDown()
-    {
+    public function tearDown(): void    {
         $this->executeTarget('cleanup');
     }
 

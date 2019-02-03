@@ -22,8 +22,7 @@
  */
 class GitDescribeTaskTest extends BuildFileTest
 {
-    public function setUp()
-    {
+    public function setUp(): void    {
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -38,8 +37,7 @@ class GitDescribeTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
-    {
+    public function tearDown(): void    {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 

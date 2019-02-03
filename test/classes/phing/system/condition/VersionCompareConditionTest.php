@@ -3,8 +3,7 @@
 class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
 {
     protected $_condition;
-    public function setUp()
-    {
+    public function setUp(): void    {
         $this->_condition = new VersionCompareCondition();
     }
     

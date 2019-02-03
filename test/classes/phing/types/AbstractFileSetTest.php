@@ -29,8 +29,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 {
     private $project;
 
-    public function setUp()
-    {
+    public function setUp(): void    {
         $this->project = new Project();
         $this->project->setBasedir(PHING_TEST_BASE);
     }

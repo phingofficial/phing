@@ -30,7 +30,7 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     /** @var Project */
     private $p;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->p = new Project();
         $this->p->setBasedir(DIRECTORY_SEPARATOR);

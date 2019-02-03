@@ -7,8 +7,7 @@ class PhingFileTest extends \PHPUnit\Framework\TestCase
      */
     private $file;
 
-    protected function setUp()
-    {
+    protected function setUp(): void    {
         $this->file = new PhingFile(__FILE__);
     }
 

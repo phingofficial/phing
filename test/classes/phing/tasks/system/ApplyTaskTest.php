@@ -35,8 +35,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Setup the test
      */
-    public function setUp()
-    {
+    public function setUp(): void    {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
 

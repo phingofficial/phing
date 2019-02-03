@@ -3,15 +3,13 @@
 
 class IniFileTaskTest extends BuildFileTest
 {
-    public function setUp()
-    {
+    public function setUp(): void    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/inifile/inifile.xml");
         $this->inifiletestdir = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'inifile';
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
-    {
+    public function tearDown(): void    {
         $this->executeTarget("clean");
     }
 

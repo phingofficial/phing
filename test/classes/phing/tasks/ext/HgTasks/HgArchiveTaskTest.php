@@ -2,8 +2,7 @@
 
 class HgArchiveTaskTest extends BuildFileTest
 {
-    public function setUp()
-    {
+    public function setUp(): void    {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
             PHING_TEST_BASE
@@ -11,8 +10,7 @@ class HgArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
-    {
+    public function tearDown(): void    {
         $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
 

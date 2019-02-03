@@ -27,8 +27,7 @@
  */
 class ExcludeZipTest extends BuildFileTest
 {
-    public function setUp()
-    {
+    public function setUp(): void    {
         if (!extension_loaded('zip')) {
             $this->markTestSkipped("Zip extension is required");
         }

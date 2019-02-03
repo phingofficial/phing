@@ -40,7 +40,7 @@
         "phpdocumentor/phpdocumentor": "2.x",
         "phploc/phploc": "^4.0",
         "phpmd/phpmd": "~2.2",
-        "phpunit/phpunit": "^7.3",
+        "phpunit/phpunit": "^7.3 || ^8.0",
         "siad007/versioncontrol_hg": "^1.0",
         "sebastian/phpcpd": "^4.1",
         "squizlabs/php_codesniffer": "~2.2",

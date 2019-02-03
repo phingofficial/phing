@@ -31,7 +31,7 @@ class TargetTest extends BuildFileTest
     /** @var Target */
     private $target;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE

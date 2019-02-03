@@ -30,8 +30,7 @@ class PDODelimitersTest extends BuildFileTest
 
     protected $mockTask;
 
-    public function setUp()
-    {
+    public function setUp(): void    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
         $this->queries = [];
 

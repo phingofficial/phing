@@ -26,8 +26,7 @@ class SvnLogTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp()
-    {
+    public function setUp(): void    {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnLogTest.xml');
     }

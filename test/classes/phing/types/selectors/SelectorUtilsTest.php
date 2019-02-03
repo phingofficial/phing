@@ -14,8 +14,7 @@ class SelectorUtilsTest extends TestCase
      */
     private $selectorUtils;
 
-    protected function setUp()
-    {
+    protected function setUp(): void    {
         $this->selectorUtils = SelectorUtils::getInstance();
     }
 

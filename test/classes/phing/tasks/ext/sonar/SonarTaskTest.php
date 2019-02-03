@@ -24,8 +24,7 @@
  */
 class SonarTaskTest extends BuildFileTest
 {
-    protected function setUp()
-    {
+    protected function setUp(): void    {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/SonarTaskTest.xml';
         $this->configureProject($buildXmlFile);
     }

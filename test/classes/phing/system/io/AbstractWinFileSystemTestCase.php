@@ -31,8 +31,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
      */
     private $fs;
 
-    protected function setUp()
-    {
+    protected function setUp(): void    {
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
             $this->markTestSkipped(
                 'Testing not on a windows os.'

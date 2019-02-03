@@ -25,8 +25,7 @@
  */
 class rSTTaskTest extends BuildFileTest
 {
-    public function setUp()
-    {
+    public function setUp(): void    {
         //needed for PEAR's System class
         error_reporting(error_reporting() & ~E_STRICT & ~E_DEPRECATED);
 
@@ -36,13 +35,12 @@ class rSTTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
-    {
+    public function tearDown(): void    {
         // remove excess file if the test failed
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
     }
 
-    protected function assertPreConditions()
+    protected function assertPreConditions(): void
     {
         try {
             $this->testGetToolPathHtmlFormat();
