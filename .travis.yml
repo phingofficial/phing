@@ -22,7 +22,7 @@ jobs:
       install:
         - composer install
       script:
-        - bin/phpcs -vvv classes
+        - bin/phpcs -v classes
 
     - &STANDARD_TEST_JOB
       stage: Test
