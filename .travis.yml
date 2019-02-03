@@ -7,13 +7,6 @@ addons:
     packages:
       - python-docutils
 
-fast_finish: true
-allow_failures:
-  - php: 7.1snapshot
-  - php: 7.2snapshot
-  - php: 7.3snapshot
-  - php: master
-
 cache:
   directories:
     - $HOME/.composer/cache
@@ -57,10 +50,6 @@ jobs:
     -
       <<: *STANDARD_TEST_JOB
       php: 7.2
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.2
       env: DEPS="LOW"
 
     -
@@ -88,3 +77,9 @@ jobs:
     -
       <<: *STANDARD_TEST_JOB
       php: master
+
+  allow_failures:
+    - php: 7.1snapshot
+    - php: 7.2snapshot
+    - php: 7.3snapshot
+    - php: master
