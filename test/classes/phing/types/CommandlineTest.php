@@ -35,7 +35,8 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
 
     //private $project;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->cmd = new Commandline();
     }
 

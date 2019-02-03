@@ -10,7 +10,8 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
     /** @var PHPStanCommandBuilderFactory */
     private $factory;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->factory = new PHPStanCommandBuilderFactory();
     }
 

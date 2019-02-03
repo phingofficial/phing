@@ -29,12 +29,14 @@ class StripPhpCommentsTest extends BuildFileTest
      */
     protected $fu;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/filters/stripphpcomments.xml");
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("cleanup");
     }
 

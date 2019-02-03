@@ -4,7 +4,8 @@ class HgCloneTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE
             . '/etc/tasks/ext/hg/HgCloneTaskTest.xml'

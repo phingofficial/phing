@@ -3,13 +3,15 @@
 
 class IniFileTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/inifile/inifile.xml");
         $this->inifiletestdir = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'inifile';
         $this->executeTarget("setup");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("clean");
     }
 
@@ -99,7 +101,7 @@ class IniFileTaskTest extends BuildFileTest
 
     public function testDefaultValueInSecondSection()
     {
-        $fill = ["[test]\n",  "foo=bar\n", "[test2]\n",  "foo=\n"];
+        $fill = ["[test]\n", "foo=bar\n", "[test2]\n", "foo=\n"];
         file_put_contents($this->inifiletestdir . "/source.ini", $fill);
         $this->executeTarget("defaultValueInSecondSection");
         $this->assertInLogs("Set property qux to value 'bar' read from key foo in section test");

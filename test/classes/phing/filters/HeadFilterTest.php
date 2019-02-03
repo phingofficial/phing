@@ -24,11 +24,13 @@
  */
 class HeadFilterTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/filters/headfilter.xml");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("cleanup");
     }
 

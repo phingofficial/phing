@@ -26,12 +26,14 @@ class SuffixLinesTest extends BuildFileTest
     /** @var FileUtils $fu */
     protected $fu;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/filters/suffixlines.xml");
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("cleanup");
     }
 

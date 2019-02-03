@@ -27,7 +27,8 @@
  */
 class HtmlEntitiesTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/360/build.xml");
     }
 

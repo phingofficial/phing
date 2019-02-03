@@ -31,7 +31,8 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ForeachTaskTest.xml');
     }

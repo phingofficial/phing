@@ -39,19 +39,21 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @{inheritDoc}
      */
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->objectToTest = new FileParserFactory();
     }
 
     /**
      * @{inheritDoc}
      */
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->objectToTest = null;
     }
 
     /**
-     * @covers FileParserFactory::createParser
+     * @covers       FileParserFactory::createParser
      * @dataProvider parserTypeProvider
      */
     public function testCreateParser($parserName, $expectedType)

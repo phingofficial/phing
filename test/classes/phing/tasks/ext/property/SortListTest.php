@@ -8,7 +8,8 @@
  */
 class SortListTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/SortListTest.xml'
         );

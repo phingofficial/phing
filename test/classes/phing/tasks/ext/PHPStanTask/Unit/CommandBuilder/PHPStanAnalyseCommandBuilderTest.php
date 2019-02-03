@@ -10,7 +10,8 @@ class PHPStanAnalyseCommandBuilderTest extends TestCase
     /** @var PHPStanAnalyseCommandBuilder */
     private $builder;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->builder = new PHPStanAnalyseCommandBuilder();
     }
 

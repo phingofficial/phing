@@ -24,7 +24,8 @@
  */
 class GitInitTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
@@ -34,7 +35,8 @@ class GitInitTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 

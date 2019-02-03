@@ -33,11 +33,13 @@ class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
      */
     private $fs;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->fs = new UnixFileSystem();
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
     }
 
     public function testCompare()

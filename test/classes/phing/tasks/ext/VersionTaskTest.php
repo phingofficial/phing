@@ -25,11 +25,13 @@
  */
 class VersionTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/version.xml");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version')) {
             unlink(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version');
         }

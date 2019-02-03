@@ -9,7 +9,8 @@ class PHPStanHelpCommandBuilderTest extends TestCase
     /** @var PHPStanHelpCommandBuilder */
     private $builder;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->builder = new PHPStanHelpCommandBuilder();
     }
 

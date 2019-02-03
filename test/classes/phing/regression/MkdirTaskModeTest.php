@@ -27,7 +27,8 @@
  */
 class MkdirTaskModeTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/745/build.xml");
     }
 

@@ -30,7 +30,8 @@ class PearPackageTest extends BuildFileTest
 
     private $savedErrorLevel;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/tasks/ext/pearpackage.xml";
@@ -47,7 +48,8 @@ class PearPackageTest extends BuildFileTest
         $GLOBALS['_PEAR_Common_file_roles'] = ['php', 'ext', 'test', 'doc', 'data', 'src', 'script'];
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         error_reporting($this->savedErrorLevel);
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
     }

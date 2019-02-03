@@ -26,7 +26,8 @@
  */
 class MoveTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/system/MoveTaskTest.xml"
@@ -34,7 +35,8 @@ class MoveTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("clean");
     }
 

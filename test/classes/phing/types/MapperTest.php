@@ -30,7 +30,8 @@ class MapperTest extends \PHPUnit\Framework\TestCase
 {
     private $project;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->project = new Project();
         $this->project->setBasedir(__DIR__);
     }
@@ -143,11 +144,13 @@ class MapperTest extends \PHPUnit\Framework\TestCase
  */
 class TaskdefForCopyTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/types/mapper.xml");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("cleanup");
     }
 
@@ -174,6 +177,7 @@ class TaskdefForCopyTest extends BuildFileTest
         $this->assertNotInLogs('.php1');
         $this->assertInLogs('.php2');
     }
+
     public function testCutDirsMapper()
     {
         $this->executeTarget("testCutDirsMapper");

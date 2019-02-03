@@ -14,7 +14,8 @@ class SassCompilerTest extends TestCase
     /** @var SassCompiler */
     private $compiler;
 
-    protected function setUp(): void    {
+    protected function setUp(): void
+    {
         $fs = FileSystem::getFileSystem();
         if (!$fs->which('sass')) {
             $this->markTestSkipped('Sass not found');

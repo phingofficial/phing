@@ -10,7 +10,8 @@ class PHPStanCommandBuilderTest extends TestCase
     /** @var PHPStanCommandBuilderFake */
     private $builder;
 
-    protected function setUp(): void    {
+    protected function setUp(): void
+    {
         $this->builder = new PHPStanCommandBuilderFake();
     }
 

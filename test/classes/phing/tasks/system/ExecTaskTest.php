@@ -32,7 +32,8 @@ class ExecTaskTest extends BuildFileTest
      */
     protected $windows;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ExecTest.xml'
         );

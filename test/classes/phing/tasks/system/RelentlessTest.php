@@ -10,7 +10,8 @@ require_once 'phing/BuildFileTest.php';
  */
 class RelentlessTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/RelentlessTest.xml'
         );

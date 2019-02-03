@@ -30,13 +30,15 @@ class FileUtilsTest extends BuildFileTest
     /** @var FileUtils $fu */
     private $fu;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->fu = new FileUtils();
         $this->configureProject(PHING_TEST_BASE . "/etc/util/fileutils.xml");
         $this->executeTarget('dummy');
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->fu = null;
     }
 

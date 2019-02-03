@@ -25,7 +25,8 @@
  */
 class AutoloaderTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/autoloader/autoloader.xml");
     }
 

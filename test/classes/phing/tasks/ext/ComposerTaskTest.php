@@ -36,7 +36,8 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp(): void    {
+    protected function setUp(): void
+    {
         $this->object = new ComposerTask();
         $this->object->setProject(new Project());
     }
@@ -45,7 +46,8 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void    {
+    protected function tearDown(): void
+    {
     }
 
     /**
@@ -105,9 +107,9 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $composer = $o->getComposer();
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php ' . $composer . ' install --dry-run', (string)$method->invoke($o));
+        $this->assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php ' . $composer . ' update --dev', (string)$method->invoke($o));
+        $this->assertEquals('php ' . $composer . ' update --dev', (string) $method->invoke($o));
     }
 }

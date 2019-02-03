@@ -32,11 +32,13 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
      */
     private $props = null;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->props = new Properties();
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         unset($this->props);
     }
 

@@ -29,11 +29,13 @@ class RegisterSlotTest extends \PHPUnit\Framework\TestCase
 {
     private $slot = null;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->slot = new RegisterSlot('key123');
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         unset($this->slot);
     }
 

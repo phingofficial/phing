@@ -35,7 +35,8 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Setup the test
      */
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
 
@@ -116,7 +117,8 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetOutput()
     {
-        $this->assertAttributeIsSetTo('output', new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename'));
+        $this->assertAttributeIsSetTo('output',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename'));
     }
 
     /**
@@ -124,7 +126,8 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetError()
     {
-        $this->assertAttributeIsSetTo('error', new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename'));
+        $this->assertAttributeIsSetTo('error',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename'));
     }
 
     /**
@@ -449,7 +452,7 @@ class ApplyTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $messages = [];
-        foreach($this->logBuffer as $log) {
+        foreach ($this->logBuffer as $log) {
             $messages[] = $log['message'];
         }
         $this->assertEquals(1, substr_count(implode("\n", $messages), 'Executing command:'));
@@ -465,7 +468,7 @@ class ApplyTaskTest extends BuildFileTest
 
         $this->executeTarget(__FUNCTION__);
         $messages = [];
-        foreach($this->logBuffer as $log) {
+        foreach ($this->logBuffer as $log) {
             $messages[] = $log['message'];
         }
         $this->assertTrue(in_array('Applied echo to 4 files and 0 directories.', $messages));
@@ -477,7 +480,7 @@ class ApplyTaskTest extends BuildFileTest
     /**********************************************************************************/
 
     /**
-     * @param  string    $name
+     * @param  string $name
      * @return Target
      * @throws Exception
      */
@@ -492,9 +495,9 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param  string    $target
-     * @param  string    $taskName
-     * @param  int       $pos
+     * @param  string $target
+     * @param  string $taskName
+     * @param  int $pos
      * @return Task
      * @throws Exception
      */

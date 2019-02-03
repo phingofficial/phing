@@ -7,14 +7,16 @@
  */
 class ContainsRegexpSelectorTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/ContainsRegexpSelectorTest.xml'
         );
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget('clean');
     }
 

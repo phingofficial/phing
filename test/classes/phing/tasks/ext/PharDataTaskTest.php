@@ -26,9 +26,10 @@
  */
 class PharDataTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         if (!extension_loaded('phar')) {
-                $this->markTestSkipped("PharDataTask require either PHP 5.3 or better or the PECL's Phar extension");
+            $this->markTestSkipped("PharDataTask require either PHP 5.3 or better or the PECL's Phar extension");
         }
 
         if (defined('HHVM_VERSION')) {
@@ -42,7 +43,8 @@ class PharDataTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("clean");
     }
 

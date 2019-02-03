@@ -30,11 +30,13 @@ class AppendTaskTest extends BuildFileTest
     /**
      * Setup the test
      */
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/AppendTest.xml');
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->getProject()->executeTarget('cleanup');
     }
 

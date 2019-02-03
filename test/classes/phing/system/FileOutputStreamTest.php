@@ -33,12 +33,14 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
      */
     private $outStream;
 
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->tmpFile = new PhingFile(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         if (is_object($this->outStream)) {
             $this->outStream->close();
         }

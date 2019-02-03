@@ -27,7 +27,8 @@
  */
 class AttribTaskTest extends BuildFileTest
 {
-    public function setUp(): void    {
+    public function setUp(): void
+    {
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/system/AttribTaskTest.xml"
@@ -35,7 +36,8 @@ class AttribTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown(): void    {
+    public function tearDown(): void
+    {
         $this->executeTarget("clean");
     }
 
