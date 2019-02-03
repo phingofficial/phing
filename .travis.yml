@@ -18,11 +18,11 @@ notifications:
 jobs:
   include:
     - stage: Static Code Analysis
-      php: 7.2
+      php: 7.1
       install:
-        - composer install
+        - composer update --prefer-lowest
       script:
-        - bin/phpcs -vvv --config=.phpcs.xml --standard=PSR2 classes
+        - bin/phpcs -vvv classes
 
     - &STANDARD_TEST_JOB
       stage: Test
