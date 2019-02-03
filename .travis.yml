@@ -18,7 +18,8 @@ jobs:
   include:
     - &STANDARD_TEST_JOB
       stage: Test
-      php: 7.2
+      php: 7.1
+      env: DEPS="LOW"
       install:
         - |
           set -e
@@ -47,8 +48,7 @@ jobs:
           fi
     -
       <<: *STANDARD_TEST_JOB
-      php: 7.1
-      env: DEPS="LOW"
+      php: 7.2
 
     -
       <<: *STANDARD_TEST_JOB
