@@ -98,7 +98,7 @@
  * </if>
  * </code>
  *
- * @author <a href="mailto:stefan.bodewig@freenet.de">Stefan Bodewig</a>
+ * @author  <a href="mailto:stefan.bodewig@freenet.de">Stefan Bodewig</a>
  * @package phing.tasks.system
  */
 class IfTask extends ConditionBase
@@ -121,7 +121,8 @@ class IfTask extends ConditionBase
      * be run if the condition holds true.
      *
      * <p>Not required.</p>
-     * @param SequentialTask $t
+     *
+     * @param  SequentialTask $t
      * @throws BuildException
      */
     public function addThen(SequentialTask $t)
@@ -137,7 +138,8 @@ class IfTask extends ConditionBase
      * be run if the condition doesn't hold true.
      *
      * <p>Not required.</p>
-     * @param SequentialTask $e
+     *
+     * @param  SequentialTask $e
      * @throws BuildException
      */
     public function addElse(SequentialTask $e)

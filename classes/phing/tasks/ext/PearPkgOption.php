@@ -3,7 +3,7 @@
 /**
  * Generic option class is used for non-complex options.
  *
- * @package  phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class PearPkgOption
 {

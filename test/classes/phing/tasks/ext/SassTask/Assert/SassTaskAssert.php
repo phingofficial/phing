@@ -28,7 +28,7 @@ class SassTaskAssert extends Assert
         $this->assertFalse($task->getCrunched());
         $this->assertTrue($task->getNested());
     }
-    
+
     public function assertCompactStyle(SassTask $task): void
     {
         $this->assertTrue($task->getCompact());

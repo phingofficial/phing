@@ -3,32 +3,36 @@
 /**
  * "Internal" class for holding an include/exclude pattern.
  *
- * @package  phing.types
+ * @package phing.types
  */
 class PatternSetNameEntry
 {
 
     /**
      * The pattern.
+     *
      * @var string
      */
     private $name;
 
     /**
      * The if-condition property for this pattern to be applied.
+     *
      * @var string
      */
     private $ifCond;
 
     /**
      * The unless-condition property for this pattern to be applied.
+     *
      * @var string
      */
     private $unlessCond;
 
     /**
      * An alias for the setName() method.
-     * @see setName()
+     *
+     * @see   setName()
      * @param string $pattern
      */
     public function setPattern($pattern)
@@ -38,33 +42,37 @@ class PatternSetNameEntry
 
     /**
      * Set the pattern text.
+     *
      * @param string $name The pattern
      */
     public function setName($name)
     {
-        $this->name = (string)$name;
+        $this->name = (string) $name;
     }
 
     /**
      * Sets an if-condition property for this pattern to match.
+     *
      * @param string $cond
      */
     public function setIf($cond)
     {
-        $this->ifCond = (string)$cond;
+        $this->ifCond = (string) $cond;
     }
 
     /**
      * Sets an unless-condition property for this pattern to match.
+     *
      * @param string $cond
      */
     public function setUnless($cond)
     {
-        $this->unlessCond = (string)$cond;
+        $this->unlessCond = (string) $cond;
     }
 
     /**
      * Get the pattern text.
+     *
      * @return string The pattern.
      */
     public function getName()
@@ -74,7 +82,8 @@ class PatternSetNameEntry
 
     /**
      * Evaluates the pattern.
-     * @param Project $project
+     *
+     * @param  Project $project
      * @return string The pattern or null if it is ruled out by a condition.
      */
     public function evalName(Project $project)
@@ -85,6 +94,7 @@ class PatternSetNameEntry
     /**
      * Checks whether pattern should be applied based on whether the if and unless
      * properties are set in project.
+     *
      * @param  Project $project
      * @return boolean
      */
@@ -103,6 +113,7 @@ class PatternSetNameEntry
 
     /**
      * Gets a string representation of this pattern.
+     *
      * @return string
      */
     public function __toString()

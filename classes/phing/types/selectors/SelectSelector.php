@@ -25,9 +25,9 @@
  * works as expected. Note that this is the only selector you
  * can reference.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @package   phing.types.selectors
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
+ * @package phing.types.selectors
  */
 class SelectSelector extends AndSelector
 {
@@ -71,7 +71,8 @@ class SelectSelector extends AndSelector
 
     /**
      * Returns the set of selectors as an array.
-     * @param Project $p
+     *
+     * @param  Project $p
      * @return array
      */
     public function getSelectors(Project $p)
@@ -90,7 +91,7 @@ class SelectSelector extends AndSelector
     /**
      * Add a new selector into this container.
      *
-     * @param FileSelector $selector new selector to add
+     * @param  FileSelector $selector new selector to add
      * @return void
      * @throws BuildException
      */

@@ -9,7 +9,9 @@
  */
 class MapEntry
 {
-    /** @var PathConvert $outer */
+    /**
+     * @var PathConvert $outer
+     */
     private $outer;
 
     public function __construct(PathConvert $outer)
@@ -36,7 +38,7 @@ class MapEntry
     /**
      * Apply this map entry to a given path element
      *
-     * @param string $elem Path element to process
+     * @param  string $elem Path element to process
      * @return string Updated path element after mapping
      *
      * @throws BuildException

@@ -20,14 +20,15 @@
 /**
  * BuildException is for when things go wrong in a build execution.
  *
- * @author   Andreas Aderhold <andi@binarycloud.com>
- * @package  phing
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @package phing
  */
 class BuildException extends RuntimeException
 {
 
     /**
      * Location in the xml file.
+     *
      * @var Location
      */
     protected $location;
@@ -41,9 +42,10 @@ class BuildException extends RuntimeException
      *         throw new BuildException($msg, $causeExc);
      *         throw new BuildException($msg, $loc);
      *         throw new BuildException($msg, $causeExc, $loc);
-     * @param Exception|string        $p1
+     *
+     * @param Exception|string $p1
      * @param Location|Exception|null $p2
-     * @param Location|null           $p3
+     * @param Location|null $p3
      */
     public function __construct($p1 = "", $p2 = null, $p3 = null)
     {

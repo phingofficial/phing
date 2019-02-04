@@ -32,8 +32,8 @@ class PHPLocCSVFormatter extends AbstractPHPLocFormatter
         } elseif (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Csv')) {
             $printer = new \SebastianBergmann\PHPLOC\Log\Csv();
         } else {
-        throw new BuildException('Not supported PHPLOC version used.');
-    }
+            throw new BuildException('Not supported PHPLOC version used.');
+        }
         $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
 }

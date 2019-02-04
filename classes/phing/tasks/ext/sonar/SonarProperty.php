@@ -20,8 +20,8 @@
 /**
  * A property element nested in SonarTask.
  *
- * @author Bernhard Mendl <mail@bernhard-mendl.de>
-  * @package phing.tasks.ext.sonar
+ * @author  Bernhard Mendl <mail@bernhard-mendl.de>
+ * @package phing.tasks.ext.sonar
  */
 class SonarProperty
 {

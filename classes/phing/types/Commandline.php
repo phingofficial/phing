@@ -36,8 +36,8 @@
  * The element <code>someelement</code> must provide a method
  * <code>createAcommandline</code> which returns an instance of this class.
  *
- * @author thomas.haas@softwired-inc.com
- * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
+ * @author  thomas.haas@softwired-inc.com
+ * @author  <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @package phing.types
  */
 class Commandline implements Countable
@@ -49,6 +49,7 @@ class Commandline implements Countable
 
     /**
      * Full path (if not on %PATH% env var) to executable program.
+     *
      * @var string
      */
     public $executable; // public so "inner" class can access
@@ -79,8 +80,9 @@ class Commandline implements Countable
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
-     * @param  boolean             $insertAtStart if true, the argument is inserted at the
-     *                                            beginning of the list of args, otherwise it is appended.
+     * @param  boolean $insertAtStart if true, the argument is inserted at the
+     *                                beginning of the list of args, otherwise
+     *                                it is appended.
      * @return CommandlineArgument
      */
     public function createArgument($insertAtStart = false)
@@ -97,6 +99,7 @@ class Commandline implements Countable
 
     /**
      * Sets the executable to run.
+     *
      * @param string $executable
      * @param bool $translateFileSeparator
      */
@@ -130,6 +133,7 @@ class Commandline implements Countable
 
     /**
      * Returns the executable and all defined arguments.
+     *
      * @return array
      */
     public function getCommandline(): array
@@ -211,7 +215,8 @@ class Commandline implements Countable
         if (strpos($argument, "'") !== false
             || strpos($argument, ' ') !== false
             // WIN9x uses a bat file for executing commands
-            || (OsCondition::isFamily('win32') && strpos($argument, ';') !== false)) {
+            || (OsCondition::isFamily('win32') && strpos($argument, ';') !== false)
+        ) {
             return '"' . $argument . '"';
         }
 
@@ -235,7 +240,15 @@ class Commandline implements Countable
             return '';
         }
 
-        return implode(' ', array_map(function ($arg) {return self::quoteArgument($arg, $this->escape);}, $lines));
+        return implode(
+            ' ',
+            array_map(
+                function ($arg) {
+                    return self::quoteArgument($arg, $this->escape);
+                },
+                $lines
+            )
+        );
     }
 
     /**
@@ -336,6 +349,7 @@ class Commandline implements Countable
      * <p>This marker can be used to locate a position on the
      * commandline - to insert something for example - when all
      * parameters have been set.</p>
+     *
      * @return CommandlineMarker
      */
     public function createMarker()
@@ -350,7 +364,8 @@ class Commandline implements Countable
      *
      * <p>This method assumes that the first entry in the array is the
      * executable to run.</p>
-     * @param  array|Commandline  $args CommandlineArgument[] to use
+     *
+     * @param  array|Commandline $args CommandlineArgument[] to use
      * @return string
      */
     public function describeCommand($args = null)
@@ -382,8 +397,9 @@ class Commandline implements Countable
      * Returns a String that describes the arguments suitable for
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>
-     * @param array $args arguments to use (default is to use current class args)
-     * @param int $offset ignore entries before this index
+     *
+     * @param  array $args arguments to use (default is to use current class args)
+     * @param  int $offset ignore entries before this index
      * @return string
      */
     public function describeArguments(array $args = null, $offset = 0)

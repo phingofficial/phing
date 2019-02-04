@@ -24,10 +24,10 @@
  * Since this class heavily relies on the single char read function,
  * you are recommended to make it work on top of a buffered reader.
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @see       FilterReader
- * @package   phing.filters
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author  hans lellelid, hans@velum.net
+ * @see     FilterReader
+ * @package phing.filters
  */
 class StripPhpComments extends BaseFilterReader implements ChainableReader
 {
@@ -40,6 +40,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
     /**
      * Whether or not the parser is currently in the middle of a string
      * literal.
+     *
      * @var boolean
      */
     private $_inString = false;
@@ -47,10 +48,9 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
     /**
      * Returns the  stream without Php comments.
      *
-     * @param null $len
+     * @param  null $len
      * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
-     *
      */
     public function read($len = null)
     {
@@ -86,7 +86,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param    A|Reader $reader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

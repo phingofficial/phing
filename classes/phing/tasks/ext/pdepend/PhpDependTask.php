@@ -501,7 +501,7 @@ class PhpDependTask extends Task
         $runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
 
         if ($this->debug) {
-            require_once 'PHP/Depend/Util/Log.php';
+            include_once 'PHP/Depend/Util/Log.php';
             // Enable debug logging
             PHP_Depend_Util_Log::setSeverity(PHP_Depend_Util_Log::DEBUG);
         }
@@ -521,13 +521,14 @@ class PhpDependTask extends Task
 
     /**
      * Loads configuration file
+     *
      * @return null|PHP_Depend_Util_Configuration
      * @throws BuildException
      */
     private function getConfiguration()
     {
         // Check for configuration option
-        if ($this->configFile == null || ! ($this->configFile instanceof PhingFile)) {
+        if ($this->configFile == null || !($this->configFile instanceof PhingFile)) {
             return null;
         }
 

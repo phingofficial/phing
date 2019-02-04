@@ -24,27 +24,37 @@
  *
  *  <strong>SMART-UP INLINE DOCS</strong>
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing
  */
 class RuntimeConfigurable
 {
     private $elementTag = null;
 
-    /** @var array $children */
+    /**
+     * @var array $children
+     */
     private $children = [];
 
-    /** @var object|Task $wrappedObject */
+    /**
+     * @var object|Task $wrappedObject
+     */
     private $wrappedObject = null;
 
-    /** @var array $attributes */
+    /**
+     * @var array $attributes
+     */
     private $attributes = [];
 
-    /** @var string $characters */
+    /**
+     * @var string $characters
+     */
     private $characters = "";
 
-    /** @var bool $proxyConfigured */
+    /**
+     * @var bool $proxyConfigured
+     */
     private $proxyConfigured = false;
 
     /**

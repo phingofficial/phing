@@ -20,15 +20,17 @@
 /**
  * Runs PHPUnit tests.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @see BatchTest
- * @since 2.1.0
+ * @see     BatchTest
+ * @since   2.1.0
  */
 class PHPUnitTask extends Task
 {
     private $batchtests = [];
-    /** @var FormatterElement[] $formatters */
+    /**
+     * @var FormatterElement[] $formatters
+     */
     private $formatters = [];
     private $bootstrap = "";
     private $haltonerror = false;
@@ -94,7 +96,7 @@ class PHPUnitTask extends Task
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
          */
-        if (!defined('PHPUnit_MAIN_METHOD')) {
+        if (!defined('PHPUnit_MAIN_METHOD')) { // @codingStandardsIgnoreLine
             define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
         }
     }
@@ -297,7 +299,8 @@ class PHPUnitTask extends Task
 
     /**
      * Load and processes the PHPUnit configuration
-     * @param $configuration
+     *
+     * @param  $configuration
      * @throws BuildException
      * @return array
      */
@@ -350,9 +353,10 @@ class PHPUnitTask extends Task
         }
 
         foreach ($config->getListenerConfiguration() as $listener) {
-            if (!class_exists($listener['class'], false) &&
-                $listener['file'] !== '') {
-                require_once $listener['file'];
+            if (!class_exists($listener['class'], false)
+                && $listener['file'] !== ''
+            ) {
+                include_once $listener['file'];
             }
 
             if (class_exists($listener['class'])) {
@@ -360,11 +364,11 @@ class PHPUnitTask extends Task
                     $listener = new $listener['class'];
                 } else {
                     $listenerClass = new ReflectionClass(
-                                       $listener['class']
-                                     );
-                    $listener      = $listenerClass->newInstanceArgs(
-                                       $listener['arguments']
-                                     );
+                        $listener['class']
+                    );
+                    $listener = $listenerClass->newInstanceArgs(
+                        $listener['arguments']
+                    );
                 }
 
                 if ($listener instanceof \PHPUnit\Framework\TestListener) {
@@ -376,8 +380,8 @@ class PHPUnitTask extends Task
         if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
             $browsers = $config->getSeleniumBrowserConfiguration();
 
-            if (!empty($browsers) &&
-                class_exists('PHPUnit_Extensions_SeleniumTestCase')
+            if (!empty($browsers)
+                && class_exists('PHPUnit_Extensions_SeleniumTestCase')
             ) {
                 PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
             }
@@ -408,7 +412,7 @@ class PHPUnitTask extends Task
         $autoloadSave = spl_autoload_functions();
 
         if ($this->bootstrap) {
-            require $this->bootstrap;
+            include $this->bootstrap;
         }
 
         if ($this->configuration) {
@@ -462,11 +466,41 @@ class PHPUnitTask extends Task
     protected function execute($suite)
     {
         if (class_exists('\PHPUnit_Runner_Version', false)) {
-            $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
-        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(\PHPUnit\Runner\Version::id(), '7.0.0', '<')) {
-            $runner = new PHPUnitTestRunner6($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+            $runner = new PHPUnitTestRunner(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
+        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
+            \PHPUnit\Runner\Version::id(),
+            '7.0.0',
+            '<'
+        )) {
+            $runner = new PHPUnitTestRunner6(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
+        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
+            \PHPUnit\Runner\Version::id(),
+            '8.0.0',
+            '<'
+        )) {
+            $runner = new PHPUnitTestRunner7(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
         } else {
-            $runner = new PHPUnitTestRunner7($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+            $runner = new PHPUnitTestRunner8(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
         }
 
         if ($this->codecoverage) {
@@ -570,8 +604,8 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest $batchTest
-     * @param PHPUnit_Framework_TestSuite|PHPUnit\Framework\TestSuite $suite
+     * @param  BatchTest $batchTest
+     * @param  PHPUnit_Framework_TestSuite|PHPUnit\Framework\TestSuite $suite
      * @throws \BuildException
      */
     protected function appendBatchTestToTestSuite(BatchTest $batchTest, $suite)

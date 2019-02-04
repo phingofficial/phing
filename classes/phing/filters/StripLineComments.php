@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * This filter strips line comments.
@@ -40,18 +40,22 @@
  *   <param type="comment" value="//"/>
  * </filterreader></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @see       BaseParamFilterReader
- * @package   phing.filters
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author  hans lellelid, hans@velum.net
+ * @see     BaseParamFilterReader
+ * @package phing.filters
  */
 class StripLineComments extends BaseParamFilterReader implements ChainableReader
 {
 
-    /** Parameter name for the comment prefix. */
+    /**
+     * Parameter name for the comment prefix.
+     */
     const COMMENTS_KEY = "comment";
 
-    /** Array that holds the comment prefixes. */
+    /**
+     * Array that holds the comment prefixes.
+     */
     private $_comments = [];
 
     /**
@@ -59,10 +63,9 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * lines from the original stream which don't start with any of the
      * specified comment prefixes.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
-     *
      */
     public function read($len = null)
     {

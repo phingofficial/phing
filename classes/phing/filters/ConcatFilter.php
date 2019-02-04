@@ -55,12 +55,14 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Reader for prepend-file.
+     *
      * @var BufferedReader
      */
     private $prependReader;
 
     /**
      * Reader for append-file.
+     *
      * @var BufferedReader
      */
     private $appendReader;
@@ -79,7 +81,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * effectively at an end. Otherwise, the next character from the
      * underlying stream is read and returned.
      *
-     * @param int $len
+     * @param  int $len
      * @return int|string the next character in the resulting stream, or -1
      * if the end of the resulting stream has been reached
      *
@@ -134,7 +136,9 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
         // get parameters
         $params = $this->getParameters();
         if ($params !== null) {
-            /** @var Parameter $param */
+            /**
+             * @var Parameter $param
+             */
             foreach ($params as $param) {
                 if ('prepend' === $param->getName()) {
                     $this->setPrepend(new PhingFile($param->getValue()));
@@ -182,6 +186,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Returns `prepend` attribute.
+     *
      * @return PhingFile prepend attribute
      */
     public function getPrepend()
@@ -191,6 +196,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets `prepend` attribute.
+     *
      * @param PhingFile|string prepend new value
      */
     public function setPrepend($prepend)
@@ -204,6 +210,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Returns `append` attribute.
+     *
      * @return PhingFile append attribute
      */
     public function getAppend()
@@ -213,6 +220,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets `append` attribute.
+     *
      * @param PhingFile|string append new value
      */
     public function setAppend($append)

@@ -23,10 +23,14 @@
  */
 class URLEncodeTask extends AbstractPropertySetterTask
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $value = '';
 
-    /** @var Reference */
+    /**
+     * @var Reference
+     */
     private $ref;
 
     public function setValue(string $value)
@@ -57,8 +61,10 @@ class URLEncodeTask extends AbstractPropertySetterTask
     {
         parent::validate();
         if ($this->value === null && $this->ref === null) {
-            throw new BuildException('You must specify value or refid with the name attribute',
-                $this->getLocation());
+            throw new BuildException(
+                'You must specify value or refid with the name attribute',
+                $this->getLocation()
+            );
         }
     }
 

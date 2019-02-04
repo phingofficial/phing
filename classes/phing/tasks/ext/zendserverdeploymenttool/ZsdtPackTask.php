@@ -17,32 +17,42 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/zendserverdeploymenttool/zsdtBaseTask.php';
-
 /**
  * Class ZendServerDeploymentToolTask
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
-class zsdtPackTask extends zsdtBaseTask
+class ZsdtPackTask extends ZsdtBaseTask
 {
-    /** @var string $package */
+    /**
+     * @var string $package
+     */
     private $package;
 
-    /** @var string $source */
+    /**
+     * @var string $source
+     */
     private $source;
 
-    /** @var string $scripts */
+    /**
+     * @var string $scripts
+     */
     private $scripts;
 
-    /** @var string $output */
+    /**
+     * @var string $output
+     */
     private $output;
 
-    /** @var string $phpbin */
+    /**
+     * @var string $phpbin
+     */
     private $phpbin;
 
-    /** @var bool $lint */
+    /**
+     * @var bool $lint
+     */
     private $lint = false;
 
     /**
@@ -106,6 +116,7 @@ class zsdtPackTask extends zsdtBaseTask
     {
         $this->scripts = escapeshellarg($scripts);
     }
+
     /**
      * The directory that contains the application resources (PHP sources, JavaScript, etc.).
      * The directory's internal structure must match the necessary structure for the application to be functional.

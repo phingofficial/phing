@@ -24,9 +24,9 @@
  *
  * Based on Ant's Tstamp task.
  *
- * @author   Michiel Rook <mrook@php.net>
- * @package  phing.tasks.system
- * @since    2.2.0
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.system
+ * @since   2.2.0
  */
 class TstampTask extends Task
 {
@@ -37,6 +37,7 @@ class TstampTask extends Task
     /**
      * Set a prefix for the properties. If the prefix does not end with a "."
      * one is automatically added.
+     *
      * @param string $prefix the prefix to use.
      */
     public function setPrefix($prefix)
@@ -85,6 +86,7 @@ class TstampTask extends Task
     /**
      * helper that encapsulates prefix logic and property setting
      * policy (i.e. we use setNewProperty instead of setProperty).
+     *
      * @param $name
      * @param $value
      */

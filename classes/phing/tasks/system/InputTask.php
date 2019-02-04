@@ -20,11 +20,11 @@
 /**
  * Reads input from the InputHandler.
  *
- * @see       Project::getInputHandler()
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Ulrich Schmidt <usch@usch.net> (Ant)
- * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package   phing.tasks.system
+ * @see     Project::getInputHandler()
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Ulrich Schmidt <usch@usch.net> (Ant)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @package phing.tasks.system
  */
 class InputTask extends Task
 {
@@ -83,6 +83,7 @@ class InputTask extends Task
 
     /**
      * Sets the Message which gets displayed to the user during the build run.
+     *
      * @param string $message The message to be displayed.
      */
     public function setMessage($message)
@@ -92,6 +93,7 @@ class InputTask extends Task
 
     /**
      * Set a multiline message.
+     *
      * @param string $msg
      */
     public function addText($msg)
@@ -101,6 +103,7 @@ class InputTask extends Task
 
     /**
      * Add a default value.
+     *
      * @param string $v
      */
     public function setDefaultValue($v)
@@ -110,6 +113,7 @@ class InputTask extends Task
 
     /**
      * Set the character/string to use for the prompt.
+     *
      * @param string $c
      */
     public function setPromptChar($c)
@@ -127,6 +131,7 @@ class InputTask extends Task
 
     /**
      * Actual method executed by phing.
+     *
      * @throws BuildException
      */
     public function main()

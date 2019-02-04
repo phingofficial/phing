@@ -20,27 +20,30 @@
 /**
  * Wrapper aroung git-pull
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitPullTask extends GitBaseTask
 {
     /**
      * <repository> argument to git-pull
+     *
      * @var string
      */
     private $source = 'origin';
 
     /**
      * <refspec> argument to git-pull
+     *
      * @var string
      */
     private $refspec;
 
     /**
      * --rebase key to git-pull
+     *
      * @var boolean
      */
     private $rebase = false;
@@ -48,18 +51,21 @@ class GitPullTask extends GitBaseTask
     /**
      * --no-rebase key to git-pull
      * Allow to override --rebase (if set to default true in configuration)
+     *
      * @var boolean
      */
     private $noRebase = false;
 
     /**
      * Merge strategy. See -s <strategy> of git-pull
+     *
      * @var string
      */
     private $strategy;
 
     /**
      * -X or --strategy-option of git-pull
+     *
      * @var string
      */
     private $strategyOption;
@@ -67,12 +73,14 @@ class GitPullTask extends GitBaseTask
     /**
      * Fetch all remotes
      * --all key to git-pull
+     *
      * @var boolean
      */
     private $allRemotes = false;
 
     /**
      * --append key to git-pull
+     *
      * @var boolean
      */
     private $append = false;
@@ -80,6 +88,7 @@ class GitPullTask extends GitBaseTask
     /**
      * Keep downloaded pack
      * --keep key to git-pull
+     *
      * @var boolean
      */
     private $keepFiles = false;
@@ -87,6 +96,7 @@ class GitPullTask extends GitBaseTask
     /**
      * Disable/enable automatic tag following
      * --no-tags key to git-pull
+     *
      * @var boolean
      */
     private $noTags = false;
@@ -94,24 +104,28 @@ class GitPullTask extends GitBaseTask
     /**
      * Fetch all tags (even not reachable from branch heads)
      * --tags key to git-pull
+     *
      * @var boolean
      */
     private $tags = false;
 
     /**
      * --quiet, -q key to git-pull
+     *
      * @var boolean
      */
     private $quiet = true;
 
     /**
      * --force, -f key to git-pull
+     *
      * @var boolean
      */
     private $force = false;
 
     /**
      * Valid merge strategies
+     *
      * @var array
      */
     private $validStrategies = [
@@ -146,7 +160,8 @@ class GitPullTask extends GitBaseTask
             if (false === in_array($strategy, $this->validStrategies)) {
                 throw new BuildException(
                     "Could not find merge strategy '" . $strategy . "'\n" .
-                    "Available strategies are: " . implode(', ', $this->validStrategies));
+                    "Available strategies are: " . implode(', ', $this->validStrategies)
+                );
             }
             $command->setOption('strategy', $strategy);
             if ($this->getStrategyOption()) {

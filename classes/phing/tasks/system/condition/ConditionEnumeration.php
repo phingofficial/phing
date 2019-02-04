@@ -4,15 +4,19 @@
  * "Inner" class for handling enumerations.
  * Uses build-in PHP5 iterator support.
  *
- * @package   phing.tasks.system.condition
+ * @package phing.tasks.system.condition
  */
 class ConditionEnumeration implements Iterator
 {
 
-    /** Current element number */
+    /**
+     * Current element number
+     */
     private $num = 0;
 
-    /** "Outer" ConditionBase class. */
+    /**
+     * "Outer" ConditionBase class.
+     */
     private $outer;
 
     /**

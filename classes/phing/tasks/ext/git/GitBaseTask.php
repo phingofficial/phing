@@ -20,15 +20,16 @@
 /**
  * Base class for Git tasks
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 abstract class GitBaseTask extends Task
 {
     /**
      * Bath to git binary
+     *
      * @var string
      */
     private $gitPath = '/usr/bin/git';
@@ -40,6 +41,7 @@ abstract class GitBaseTask extends Task
 
     /**
      * Current repository directory
+     *
      * @var string
      */
     private $repository;
@@ -52,15 +54,18 @@ abstract class GitBaseTask extends Task
     {
         @include_once 'VersionControl/Git.php';
         if (false == class_exists('VersionControl_Git')) {
-            throw new BuildException("The Git tasks depend on PEAR\'s "
-                . "VersionControl_Git package.", $this->getLocation());
+            throw new BuildException(
+                "The Git tasks depend on PEAR\'s "
+                . "VersionControl_Git package.",
+                $this->getLocation()
+            );
         }
     }
 
     /**
      * Set repository directory
      *
-     * @param  string      $repository Repo directory
+     * @param  string $repository Repo directory
      * @return GitBaseTask
      */
     public function setRepository($repository)
@@ -83,7 +88,7 @@ abstract class GitBaseTask extends Task
     /**
      * Set path to git executable
      *
-     * @param  string      $gitPath New path to git repository
+     * @param  string $gitPath New path to git repository
      * @return GitBaseTask
      */
     public function setGitPath($gitPath)
@@ -122,7 +127,9 @@ abstract class GitBaseTask extends Task
             } catch (VersionControl_Git_Exception $e) {
                 // re-package
                 throw new BuildException(
-                    'You must specify readable directory as repository.', $e);
+                    'You must specify readable directory as repository.',
+                    $e
+                );
             }
         }
         $this->gitClient->setGitCommandPath($this->getGitPath());

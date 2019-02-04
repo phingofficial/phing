@@ -30,7 +30,7 @@ class PDODelimitersTest extends BuildFileTest
 
     protected $mockTask;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
         $this->queries = [];
@@ -64,25 +64,25 @@ class PDODelimitersTest extends BuildFileTest
             <<<SQL
 insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
 SQL
-        ,
+            ,
             <<<SQL
 delete
  from
  foo where bar = 'some value'
 SQL
-        ,
+            ,
             <<<SQL
 update dump -- I should not be ignored
  set message = 'I am a string with \\\\ backslash \' escapes and semicolons;'
 SQL
-        ,
+            ,
             <<<SQL
 create procedure setfoo(newfoo int)
  begin
  set @foo = newfoo;
  end
 SQL
-        ,
+            ,
             <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
 SQL
@@ -107,12 +107,12 @@ SQL
             <<<SQL
 insert into "duh" (foo) values ('duh')
 SQL
-        ,
+            ,
             <<<SQL
 update "duh?" -- I should not be ignored
  set foo = 'some value'
 SQL
-        ,
+            ,
             <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
 SQL
@@ -145,16 +145,16 @@ SQL
 select 1
 # 2
 SQL
-        ,
+            ,
             <<<SQL
 select 'foo'
 // 'bar'
 SQL
-        ,
+            ,
             <<<SQL
 insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
 SQL
-        ,
+            ,
             <<<SQL
 create function foo(text)
 returns boolean as
@@ -165,7 +165,7 @@ END;
 \$function$
 language plpgsql
 SQL
-        ,
+            ,
             <<<SQL
 CREATE FUNCTION phingPDOtest() RETURNS "trigger"
     AS \$_X$
@@ -185,13 +185,13 @@ else
 \$_X$
     LANGUAGE plperl
 SQL
-        ,
+            ,
             "insert into foo (bar) \nvalues ('some value')"
-        ,
+            ,
             <<<SQL
 insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a \$placeholder$ and a semicolon;$$)
 SQL
-        ,
+            ,
             <<<SQL
 create rule blah_insert
 as on insert to blah do instead (
@@ -199,7 +199,7 @@ as on insert to blah do instead (
     insert into bar values (new.id, 'blah-blah');
 )
 SQL
-        ,
+            ,
             <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
 SQL

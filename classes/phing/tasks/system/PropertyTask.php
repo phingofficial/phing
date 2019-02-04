@@ -20,9 +20,9 @@
 /**
  * Task for setting properties in buildfiles.
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class PropertyTask extends Task
 {
@@ -63,13 +63,19 @@ class PropertyTask extends Task
      */
     protected $fallback;
 
-    /** Whether to force overwrite of existing property. */
+    /**
+     * Whether to force overwrite of existing property.
+     */
     protected $override = false;
 
-    /** Whether property should be treated as "user" property. */
+    /**
+     * Whether property should be treated as "user" property.
+     */
     protected $userProperty = false;
 
-    /** Whether to log messages as INFO or VERBOSE  */
+    /**
+     * Whether to log messages as INFO or VERBOSE
+     */
     protected $logOutput = true;
 
     /**
@@ -93,6 +99,7 @@ class PropertyTask extends Task
 
     /**
      * Sets a the name of current property component
+     *
      * @param $name
      */
     public function setName($name)
@@ -100,7 +107,9 @@ class PropertyTask extends Task
         $this->name = (string) $name;
     }
 
-    /** Get property component name. */
+    /**
+     * Get property component name.
+     */
     public function getName()
     {
         return $this->name;
@@ -108,7 +117,8 @@ class PropertyTask extends Task
 
     /**
      * Sets a the value of current property component.
-     * @param  mixed $value Value of name, all scalars allowed
+     *
+     * @param mixed $value Value of name, all scalars allowed
      */
     public function setValue($value)
     {
@@ -117,22 +127,27 @@ class PropertyTask extends Task
 
     /**
      * Sets value of property to CDATA tag contents.
-     * @param $value
+     *
+     * @param    $value
      * @internal param string $values
-     * @since 2.2.0
+     * @since    2.2.0
      */
     public function addText($value)
     {
         $this->setValue($value);
     }
 
-    /** Get the value of current property component. */
+    /**
+     * Get the value of current property component.
+     */
     public function getValue()
     {
         return $this->value;
     }
 
-    /** Set a file to use as the source for properties.
+    /**
+     * Set a file to use as the source for properties.
+     *
      * @param $file
      */
     public function setFile($file)
@@ -143,7 +158,9 @@ class PropertyTask extends Task
         $this->file = $file;
     }
 
-    /** Get the PhingFile that is being used as property source. */
+    /**
+     * Get the PhingFile that is being used as property source.
+     */
     public function getFile()
     {
         return $this->file;
@@ -165,9 +182,10 @@ class PropertyTask extends Task
     /**
      * Prefix to apply to properties loaded using <code>file</code>.
      * A "." is appended to the prefix if not specified.
+     *
      * @param  string $prefix prefix string
      * @return void
-     * @since 2.0
+     * @since  2.0
      */
     public function setPrefix($prefix)
     {
@@ -202,6 +220,7 @@ class PropertyTask extends Task
      * Note also that properties are case sensitive, even if the
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
+     *
      * @param string $env
      */
     public function setEnvironment($env)
@@ -219,6 +238,7 @@ class PropertyTask extends Task
      * This is deprecated in Ant 1.5, but the userProperty attribute
      * of the class is still being set via constructor, so Phing will
      * allow this method to function.
+     *
      * @param boolean $v
      */
     public function setUserProperty($v)
@@ -289,7 +309,8 @@ class PropertyTask extends Task
 
     /**
      * Set quiet mode, which suppresses warnings if chmod() fails.
-     * @see setFailonerror()
+     *
+     * @see   setFailonerror()
      * @param $bool
      */
     public function setQuiet($bool)
@@ -314,8 +335,10 @@ class PropertyTask extends Task
     {
         if ($this->name !== null) {
             if ($this->value === null && $this->reference === null) {
-                throw new BuildException("You must specify value or refid with the name attribute", $this->getLocation(
-                ));
+                throw new BuildException(
+                    "You must specify value or refid with the name attribute",
+                    $this->getLocation()
+                );
             }
         } else {
             if ($this->file === null && $this->env === null) {
@@ -373,6 +396,7 @@ class PropertyTask extends Task
 
     /**
      * load the environment values
+     *
      * @param string $prefix prefix to place before them
      */
     protected function loadEnvironment($prefix)
@@ -391,7 +415,8 @@ class PropertyTask extends Task
     /**
      * iterate through a set of properties,
      * resolve them then assign them
-     * @param $props
+     *
+     * @param  $props
      * @throws BuildException
      */
     protected function addProperties($props)
@@ -409,7 +434,8 @@ class PropertyTask extends Task
 
     /**
      * add a name value pair to the project property set
-     * @param string $name  name of property
+     *
+     * @param string $name name of property
      * @param string $value value to set
      */
     protected function addProperty($name, $value)
@@ -437,7 +463,8 @@ class PropertyTask extends Task
 
     /**
      * load properties from a file.
-     * @param PhingFile $file
+     *
+     * @param  PhingFile $file
      * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
@@ -485,7 +512,11 @@ class PropertyTask extends Task
                 $fragments = [];
                 $propertyRefs = [];
 
-                PropertyHelper::getPropertyHelper($this->project)->parsePropertyString($value, $fragments, $propertyRefs);
+                PropertyHelper::getPropertyHelper($this->project)->parsePropertyString(
+                    $value,
+                    $fragments,
+                    $propertyRefs
+                );
 
                 $resolved = true;
                 if (count($propertyRefs) === 0) {

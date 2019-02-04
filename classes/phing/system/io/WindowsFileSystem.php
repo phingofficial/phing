@@ -54,7 +54,7 @@ class WindowsFileSystem extends FileSystem
     public function isLetter($c)
     {
         return ((ord($c) >= ord('a')) && (ord($c) <= ord('z')))
-        || ((ord($c) >= ord('A')) && (ord($c) <= ord('Z')));
+            || ((ord($c) >= ord('A')) && (ord($c) <= ord('Z')));
     }
 
     /**
@@ -100,9 +100,10 @@ class WindowsFileSystem extends FileSystem
      *    1  drive-relative (begins with '\\')
      *    2  absolute UNC (if first char is '\\'), else directory-relative (has form "z:foo")
      *    3  absolute local pathname (begins with "z:\\")
-     * @param $strPath
-     * @param $len
-     * @param $sb
+     *
+     * @param  $strPath
+     * @param  $len
+     * @param  $sb
      * @return int
      */
     public function normalizePrefix($strPath, $len, &$sb)
@@ -142,11 +143,13 @@ class WindowsFileSystem extends FileSystem
         return $src;
     }
 
-    /** Normalize the given pathname, whose length is len, starting at the given
+    /**
+     * Normalize the given pathname, whose length is len, starting at the given
      * offset; everything before this offset is already normal.
-     * @param $strPath
-     * @param $len
-     * @param $offset
+     *
+     * @param  $strPath
+     * @param  $len
+     * @param  $offset
      * @return string
      */
     protected function normalizer($strPath, $len, $offset)
@@ -221,6 +224,7 @@ class WindowsFileSystem extends FileSystem
      * Check that the given pathname is normal.  If not, invoke the real
      * normalizer on the part of the pathname that requires normalization.
      * This way we iterate through the whole pathname string only once.
+     *
      * @param  string $strPath
      * @return string
      */
@@ -349,7 +353,6 @@ class WindowsFileSystem extends FileSystem
     {
         $p = (string) $strPath;
         if ((strlen($p) > 2) && ($p{2} === ':')) {
-
             // "/c:/foo" --> "c:/foo"
             $p = substr($p, 1);
 
@@ -379,8 +382,10 @@ class WindowsFileSystem extends FileSystem
         return ((($pl === 2) && ($p{0} === $this->slash)) || ($pl === 3) || ($pl === 1 && $p{0} === $this->slash));
     }
 
-    /** private
-     * @param $d
+    /**
+     * private
+     *
+     * @param  $d
      * @return int
      */
     public function _driveIndex($d)
@@ -396,8 +401,10 @@ class WindowsFileSystem extends FileSystem
         return -1;
     }
 
-    /** private
-     * @param $strPath
+    /**
+     * private
+     *
+     * @param  $strPath
      * @return bool
      */
     public function _isPharArchive($strPath)
@@ -577,9 +584,11 @@ class WindowsFileSystem extends FileSystem
 
     /* -- Basic infrastructure -- */
 
-    /** compares file paths lexicographically
-     * @param PhingFile $f1
-     * @param PhingFile $f2
+    /**
+     * compares file paths lexicographically
+     *
+     * @param  PhingFile $f1
+     * @param  PhingFile $f2
      * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
@@ -592,7 +601,8 @@ class WindowsFileSystem extends FileSystem
 
     /**
      * returns the contents of a directory in an array
-     * @param $f
+     *
+     * @param  $f
      * @throws Exception
      * @return array
      */
@@ -617,7 +627,7 @@ class WindowsFileSystem extends FileSystem
     /**
      * On Windows platforms, PHP will mangle non-ASCII characters, see http://bugs.php.net/bug.php?id=47096
      *
-     * @param $strPath
+     * @param  $strPath
      * @return mixed|string
      */
     private function fixEncoding($strPath)
@@ -640,7 +650,7 @@ class WindowsFileSystem extends FileSystem
     {
         $iterator = new FilesystemIterator($f->getAbsolutePath());
         $filelist = array();
-        foreach($iterator as $entry) {
+        foreach ($iterator as $entry) {
             $filelist[] = $entry->getFilename();
         }
 

@@ -50,24 +50,33 @@ require_once 'phing/tasks/system/MatchingTask.php';
  * </p>
  *
  * @package phing.tasks.system
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class DependSet extends MatchingTask
 {
-    /** @var FileSet[] $sourceFileSets */
+    /**
+     * @var FileSet[] $sourceFileSets
+     */
     private $sourceFileSets = [];
 
-    /** @var FileList[] $sourceFileLists */
+    /**
+     * @var FileList[] $sourceFileLists
+     */
     private $sourceFileLists = [];
 
-    /** @var FileSet[] $targetFileSets */
+    /**
+     * @var FileSet[] $targetFileSets
+     */
     private $targetFileSets = [];
 
-    /** @var FileList[] $targetFileLists */
+    /**
+     * @var FileList[] $targetFileLists
+     */
     private $targetFileLists = [];
 
     /**
      * Add a set of source files.
+     *
      * @param FileSet $fs the FileSet to add.
      */
     public function addSrcfileset(FileSet $fs)
@@ -77,6 +86,7 @@ class DependSet extends MatchingTask
 
     /**
      * Add a list of source files.
+     *
      * @param FileList $fl the FileList to add.
      */
     public function addSrcfilelist(FileList $fl)
@@ -86,6 +96,7 @@ class DependSet extends MatchingTask
 
     /**
      * Add a set of target files.
+     *
      * @param FileSet $fs the FileSet to add.
      */
     public function addTargetfileset(FileSet $fs)
@@ -95,6 +106,7 @@ class DependSet extends MatchingTask
 
     /**
      * Add a list of target files.
+     *
      * @param FileList $fl the FileList to add.
      */
     public function addTargetfilelist(FileList $fl)
@@ -104,17 +116,22 @@ class DependSet extends MatchingTask
 
     /**
      * Executes the task.
+     *
      * @throws BuildException if errors occur.
      */
     public function main()
     {
         if ((count($this->sourceFileSets) === 0) && (count($this->sourceFileLists) === 0)) {
-            throw new BuildException('At least one <srcfileset> or <srcfilelist>'
-                . ' element must be set');
+            throw new BuildException(
+                'At least one <srcfileset> or <srcfilelist>'
+                . ' element must be set'
+            );
         }
         if ((count($this->targetFileSets) === 0) && (count($this->targetFileLists) === 0)) {
-            throw new BuildException('At least one <targetfileset> or'
-                . ' <targetfilelist> element must be set');
+            throw new BuildException(
+                'At least one <targetfileset> or'
+                . ' <targetfilelist> element must be set'
+            );
         }
         $now = (new DateTime())->getTimestamp();
         /*
@@ -136,16 +153,18 @@ class DependSet extends MatchingTask
             $targetFiles = $targetDS->getIncludedFiles();
 
             foreach ($targetFiles as $targetFile) {
-
                 $dest = new PhingFile($targetFS->getDir($this->getProject()), $targetFile);
                 $allTargets[] = $dest;
 
                 if ($dest->lastModified() > $now) {
-                    $this->log('Warning: ' . $targetFile . ' modified in the future.',
-                        Project::MSG_WARN);
+                    $this->log(
+                        'Warning: ' . $targetFile . ' modified in the future.',
+                        Project::MSG_WARN
+                    );
                 }
                 if ($oldestTarget === null
-                    || $dest->lastModified() < $oldestTargetTime) {
+                    || $dest->lastModified() < $oldestTargetTime
+                ) {
                     $oldestTargetTime = $dest->lastModified();
                     $oldestTarget = $dest;
                 }
@@ -166,11 +185,14 @@ class DependSet extends MatchingTask
 
                 $allTargets[] = $dest;
                 if ($dest->lastModified() > $now) {
-                    $this->log('Warning: ' . $targetFile . ' modified in the future.',
-                        Project::MSG_WARN);
+                    $this->log(
+                        'Warning: ' . $targetFile . ' modified in the future.',
+                        Project::MSG_WARN
+                    );
                 }
                 if ($oldestTarget === null
-                    || $dest->lastModified() < $oldestTargetTime) {
+                    || $dest->lastModified() < $oldestTargetTime
+                ) {
                     $oldestTargetTime = $dest->lastModified();
                     $oldestTarget = $dest;
                 }
@@ -192,19 +214,27 @@ class DependSet extends MatchingTask
                     $src = new PhingFile($sourceFL->getDir($this->getProject()), $sourceFile);
 
                     if ($src->lastModified() > $now) {
-                        $this->log('Warning: ' . $sourceFile
-                            . ' modified in the future.', Project::MSG_WARN);
+                        $this->log(
+                            'Warning: ' . $sourceFile
+                            . ' modified in the future.',
+                            Project::MSG_WARN
+                        );
                     }
                     if (!$src->exists()) {
-                        $this->log($sourceFile . ' does not exist.',
-                            Project::MSG_VERBOSE);
+                        $this->log(
+                            $sourceFile . ' does not exist.',
+                            Project::MSG_VERBOSE
+                        );
                         $upToDate = false;
                         break 2;
                     }
                     if ($src->lastModified() > $oldestTargetTime) {
                         $upToDate = false;
-                        $this->log($oldestTarget . ' is out of date with respect to '
-                            . $sourceFile, Project::MSG_VERBOSE);
+                        $this->log(
+                            $oldestTarget . ' is out of date with respect to '
+                            . $sourceFile,
+                            Project::MSG_VERBOSE
+                        );
                         break 2;
                     }
                 }
@@ -220,13 +250,19 @@ class DependSet extends MatchingTask
                     $src = new PhingFile($sourceFS->getDir($this->getProject()), $sourceFile);
 
                     if ($src->lastModified() > $now) {
-                        $this->log('Warning: ' . $sourceFile
-                            . ' modified in the future.', Project::MSG_WARN);
+                        $this->log(
+                            'Warning: ' . $sourceFile
+                            . ' modified in the future.',
+                            Project::MSG_WARN
+                        );
                     }
                     if ($src->lastModified() > $oldestTargetTime) {
                         $upToDate = false;
-                        $this->log($oldestTarget . ' is out of date with respect to '
-                            . $sourceFile, Project::MSG_VERBOSE);
+                        $this->log(
+                            $oldestTarget . ' is out of date with respect to '
+                            . $sourceFile,
+                            Project::MSG_VERBOSE
+                        );
                         break 2;
                     }
                 }
@@ -235,8 +271,10 @@ class DependSet extends MatchingTask
         if (!$upToDate) {
             $this->log('Deleting all target files. ', Project::MSG_VERBOSE);
             foreach ($allTargets as $fileToRemove) {
-                $this->log('Deleting file ' . $fileToRemove->getAbsolutePath(),
-                    Project::MSG_VERBOSE);
+                $this->log(
+                    'Deleting file ' . $fileToRemove->getAbsolutePath(),
+                    Project::MSG_VERBOSE
+                );
                 $fileToRemove->delete();
             }
         }

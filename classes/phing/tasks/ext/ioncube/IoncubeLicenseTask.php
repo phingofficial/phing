@@ -22,9 +22,9 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 /**
  * Invokes the ionCube "make_license" program
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.ioncube
- * @since 2.2.0
+ * @since   2.2.0
  */
 class IoncubeLicenseTask extends Task
 {
@@ -39,6 +39,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Sets the path to the ionCube encoder
+     *
      * @param $ioncubePath
      */
     public function setIoncubePath($ioncubePath)
@@ -56,6 +57,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Sets the path to the license file to use
+     *
      * @param $licensePath
      */
     public function setLicensePath($licensePath)
@@ -73,6 +75,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Sets the passphrase to use when encoding files
+     *
      * @param $passPhrase
      */
     public function setPassPhrase($passPhrase)
@@ -90,6 +93,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Adds a comment to be used in encoded files
+     *
      * @param IoncubeComment $comment
      */
     public function addComment(IoncubeComment $comment)
@@ -99,6 +103,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Sets the --allowed-server option to use when generating the license
+     *
      * @param $allowedServer
      */
     public function setAllowedServer($allowedServer)
@@ -116,6 +121,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Sets the --expire-on option to use when generating the license
+     *
      * @param $expireOn
      */
     public function setExpireOn($expireOn)
@@ -133,6 +139,7 @@ class IoncubeLicenseTask extends Task
 
     /**
      * Sets the --expire-in option to use when generating the license
+     *
      * @param $expireIn
      */
     public function setExpireIn($expireIn)

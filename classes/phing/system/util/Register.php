@@ -34,13 +34,15 @@
  *  }
  * </code>
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.system.util
  */
 class Register
 {
 
-    /** Slots that have been registered */
+    /**
+     * Slots that have been registered
+     */
     private static $slots = [];
 
     /**
@@ -48,7 +50,7 @@ class Register
      *
      * If not slot exists a new one is created for key.
      *
-     * @param  string       $key
+     * @param  string $key
      * @return RegisterSlot
      */
     public static function getSlot($key)

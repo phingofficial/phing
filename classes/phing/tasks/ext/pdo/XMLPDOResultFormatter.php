@@ -39,15 +39,16 @@ require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
  * The actual names of the colums will depend on the fetchmode that was used
  * with PDO.
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pdo
- * @since 2.3.0
+ * @since   2.3.0
  */
 class XMLPDOResultFormatter extends PDOResultFormatter
 {
 
     /**
      * The XML document being created.
+     *
      * @var DOMDocument
      */
     private $doc;
@@ -71,6 +72,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
 
     /**
      * Set the DOM document encoding.
+     *
      * @param string $v
      */
     public function setEncoding($v)

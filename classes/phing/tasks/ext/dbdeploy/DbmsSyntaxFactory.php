@@ -20,8 +20,8 @@
 /**
  * Factory for generating dbms-specific syntax-generating objects
  *
- * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @package  phing.tasks.ext.dbdeploy
+ * @author  Luke Crouch at SourceForge (http://sourceforge.net)
+ * @package phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxFactory
 {
@@ -38,26 +38,26 @@ class DbmsSyntaxFactory
     public function getDbmsSyntax()
     {
         switch ($this->dbms) {
-            case('sqlite'):
-                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
+            case ('sqlite'):
+                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
 
                 return new DbmsSyntaxSQLite();
-            case('mysql'):
-                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
+            case ('mysql'):
+                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
 
                 return new DbmsSyntaxMysql();
             case 'odbc':
-            case('mssql'):
+            case ('mssql'):
             case 'dblib':
-                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
+                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
 
                 return new DbmsSyntaxMsSql();
-            case('pgsql'):
-                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
+            case ('pgsql'):
+                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
 
                 return new DbmsSyntaxPgSQL();
             case 'oci':
-                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxOracle.php';
+                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxOracle.php';
 
                 return new DbmsSyntaxOracle();
             default:

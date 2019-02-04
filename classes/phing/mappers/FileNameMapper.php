@@ -20,8 +20,8 @@
 /**
  * Interface for filename mapper classes.
  *
- * @author Andreas Aderhold, andi@binarycloud.com
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.mappers
  */
 interface FileNameMapper

@@ -28,6 +28,7 @@ class SvnPropgetTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $propertyName
      */
     public function setPropertyName($propertyName)
@@ -45,6 +46,7 @@ class SvnPropgetTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $fromDir
      */
     public function setFromDir($fromDir)
@@ -62,6 +64,7 @@ class SvnPropgetTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $svnPropertyName
      */
     public function setSvnPropertyName($svnPropertyName)
@@ -86,10 +89,10 @@ class SvnPropgetTask extends SvnBaseTask
     {
         $this->setup('propget');
 
-        $this->log("Get value from file '" . $this->getWorkingCopy() ."'");
-        
+        $this->log("Get value from file '" . $this->getWorkingCopy() . "'");
+
         $output = $this->run([$this->getSvnPropertyName(), $this->getFromDir()]);
-        
+
         $this->project->setProperty($this->getPropertyName(), $output);
     }
 }

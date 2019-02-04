@@ -20,9 +20,9 @@
 /**
  * This mapper does nothing ;)
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.mappers
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.mappers
  */
 class IdentityMapper implements FileNameMapper
 {
@@ -40,7 +40,8 @@ class IdentityMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $to
+     *
+     * @param  string $to
      * @return void
      */
     public function setTo($to)
@@ -50,7 +51,8 @@ class IdentityMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $from
+     *
+     * @param  string $from
      * @return void
      */
     public function setFrom($from)

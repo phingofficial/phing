@@ -17,20 +17,18 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-
 /**
  * Abstract Service_Amazon class.
  *
  * Implements common methods & properties used by all Amazon services
  *
- * @extends Task
- * @version $ID$
- * @package phing.tasks.ext
- * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
+ * @extends  Task
+ * @version  $ID$
+ * @package  phing.tasks.ext
+ * @author   Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @abstract
  */
-abstract class Service_Amazon extends Task
+abstract class Amazon extends Task
 {
     /**
      * Collection of set options

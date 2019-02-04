@@ -20,7 +20,7 @@
 /**
  * Condition that tests whether a given reference exists.
  *
- * @author Matthias Pigulla <mp@webfactory.de> (Phing)
+ * @author  Matthias Pigulla <mp@webfactory.de> (Phing)
  * @package phing.tasks.system.condition
  */
 class ReferenceExistsCondition extends ProjectComponent implements Condition
@@ -37,13 +37,16 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
 
     /**
      * Check whether the reference exists.
+     *
      * @throws BuildException
      */
     public function evaluate()
     {
         if ($this->refid === null) {
-            throw new BuildException("No ref attribute specified for reference-exists "
-                . "condition");
+            throw new BuildException(
+                "No ref attribute specified for reference-exists "
+                . "condition"
+            );
         }
         $refs = $this->project->getReferences();
 

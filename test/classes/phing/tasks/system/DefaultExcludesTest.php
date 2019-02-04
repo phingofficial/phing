@@ -27,7 +27,7 @@ class DefaultExcludesTest extends BuildFileTest
 {
     private $output;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -36,7 +36,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("clean");
         $this->executeTarget("cleanup-excludes");

@@ -19,6 +19,7 @@
 
 /**
  * Wrapper class for readers, which can be used to apply filters.
+ *
  * @package phing.system.io
  */
 class FilterReader extends Reader
@@ -57,7 +58,8 @@ class FilterReader extends Reader
      * Read data from source.
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
-     * @param null $len
+     *
+     * @param  null $len
      * @return
      */
     public function read($len = null)

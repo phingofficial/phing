@@ -20,8 +20,8 @@
 /**
  * Nested conditions.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system.condition
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system.condition
  */
 class NestedCondition extends ConditionBase implements Condition
 {
@@ -29,7 +29,8 @@ class NestedCondition extends ConditionBase implements Condition
     {
         if ($this->countConditions() != 1) {
             throw new BuildException(
-                "A single nested condition is required.");
+                "A single nested condition is required."
+            );
         }
         $cond = $this->getConditions();
 

@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Filter to flatten the stream to a single line.
@@ -28,28 +28,31 @@
  *
  * <pre><filterreader classname="phing.filters.StripLineBreaks"/></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @see       BaseParamFilterReader
- * @package   phing.filters
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author  hans lellelid, hans@velum.net
+ * @see     BaseParamFilterReader
+ * @package phing.filters
  */
 class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * Default line-breaking characters.
+     *
      * @var string
      */
     const DEFAULT_LINE_BREAKS = "\r\n";
 
     /**
      * Parameter name for the line-breaking characters parameter.
+     *
      * @var string
      */
     const LINES_BREAKS_KEY = "linebreaks";
 
     /**
      * The characters that are recognized as line breaks.
+     *
      * @var string
      */
     private $_lineBreaks = "\r\n"; // self::DEFAULT_LINE_BREAKS;
@@ -58,7 +61,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream, only including
      * characters not in the set of line-breaking characters.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      *
@@ -107,7 +110,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Creates a new StripLineBreaks using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param    Reader $reader
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

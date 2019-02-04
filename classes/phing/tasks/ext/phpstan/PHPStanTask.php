@@ -5,70 +5,114 @@ declare(strict_types=1);
 class PHPStanTask extends Task
 {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $executable = 'phpstan';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $command = 'analyse';
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $help;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $quiet;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $version;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $ansi;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $noAnsi;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $noInteraction;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $verbose;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $configuration;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $level;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $noProgress;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $checkreturn;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $debug;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $autoloadFile;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $errorFormat;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $memoryLimit;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $format;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $raw;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $namespace;
 
-    /** @var string Analyse command paths */
+    /**
+     * @var string Analyse command paths
+     */
     private $paths;
 
-    /** @var string Help command command name*/
+    /**
+     * @var string Help command command name
+     */
     private $commandName;
 
     public function getExecutable(): string

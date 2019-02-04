@@ -22,7 +22,7 @@ require_once "phing/types/DataType.php";
 /**
  * Implementation of console argument
  *
- * @author nuno costa <nuno@francodacosta.com>
+ * @author  nuno costa <nuno@francodacosta.com>
  * @license GPL
  * @package phing.tasks.ext.symfony
  */
@@ -34,6 +34,7 @@ class Arg extends DataType
 
     /**
      * Gets the argument name
+     *
      * @return String
      */
     public function getName()
@@ -43,6 +44,7 @@ class Arg extends DataType
 
     /**
      * Sets the argument name
+     *
      * @param String $name
      */
     public function setName($name)
@@ -52,6 +54,7 @@ class Arg extends DataType
 
     /**
      * Gets the argument value
+     *
      * @return String
      */
     public function getValue()
@@ -61,6 +64,7 @@ class Arg extends DataType
 
     /**
      * Sets the argument value
+     *
      * @param String $value
      */
     public function setValue($value)
@@ -70,6 +74,7 @@ class Arg extends DataType
 
     /**
      * Should the argument value be enclosed in double quotes
+     *
      * @return boolean
      */
     public function getQuotes()
@@ -79,6 +84,7 @@ class Arg extends DataType
 
     /**
      * Should the argument value be enclosed in double quotes
+     *
      * @param boolean $quotes
      */
     public function setQuotes($quotes)
@@ -89,6 +95,7 @@ class Arg extends DataType
     /**
      * Transforms the argument object into a string, takes into consideration
      * the quotes and the argument value
+     *
      * @return String
      */
     public function __toString()

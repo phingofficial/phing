@@ -20,16 +20,19 @@
 /**
  * BuildException + exit status.
  *
- * @author   Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package  phing
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing
  */
 class ExitStatusException extends BuildException
 {
-    /** Status code */
+    /**
+     * Status code
+     */
     protected $code;
 
     /**
      * Constructs an <code>ExitStatusException</code>.
+     *
      * @param null|int|string $arg1
      * @param int $arg2
      * @param Location $arg3

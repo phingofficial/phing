@@ -23,7 +23,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Copies a repository from the repository url to another
  *
  * @package phing.tasks.ext.svn
- * @since 2.3.0
+ * @since   2.3.0
  */
 class SvnCopyTask extends SvnBaseTask
 {
@@ -31,6 +31,7 @@ class SvnCopyTask extends SvnBaseTask
 
     /**
      * Sets the message
+     *
      * @param $message
      */
     public function setMessage($message)

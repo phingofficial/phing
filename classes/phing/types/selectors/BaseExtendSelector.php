@@ -23,21 +23,23 @@
  * assigning an error message and throwing a build exception if an error is
  * detected.
  *
- * @author Hans Lellelid, hans@xmpl.org (Phing)
- * @author Bruce Atherton, bruce@callenish.com (Ant)
+ * @author  Hans Lellelid, hans@xmpl.org (Phing)
+ * @author  Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
 abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSelector
 {
 
-    /** The passed in parameter array. */
+    /**
+     * The passed in parameter array.
+     */
     protected $parameters = null;
 
     /**
      * Set all the Parameters for this custom selector, collected by
      * the ExtendSelector class.
      *
-     * @param array $parameters the complete set of parameters for this selector
+     * @param  array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
     public function setParameters($parameters)

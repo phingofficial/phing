@@ -31,7 +31,7 @@ class PearPackageScannerTest extends BuildFileTest
 {
     protected $backupGlobals = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
             $this->markTestSkipped("This test requires PEAR to be installed");

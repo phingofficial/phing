@@ -20,9 +20,9 @@
 /**
  * Saves currently defined properties into a specified file
  *
- * @author Andrei Serdeliuc
+ * @author  Andrei Serdeliuc
  * @extends Task
- * @package   phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class ExportPropertiesTask extends Task
 {
@@ -84,9 +84,9 @@ class ExportPropertiesTask extends Task
     /**
      * setter for _disallowedPropertyPrefixes
      *
-     * @param $prefixes
+     * @param    $prefixes
      * @internal param string $file
-     * @return bool
+     * @return   bool
      */
     public function setDisallowedPropertyPrefixes($prefixes)
     {

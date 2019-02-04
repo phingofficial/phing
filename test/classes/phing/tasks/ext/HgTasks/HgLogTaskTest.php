@@ -2,7 +2,7 @@
 
 class HgLogTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -11,7 +11,7 @@ class HgLogTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
@@ -24,6 +24,7 @@ class HgLogTaskTest extends BuildFileTest
             "maxcount should be a positive integer."
         );
     }
+
     public function testMaxCountShouldBeAnInteger2()
     {
         $this->expectBuildExceptionContaining(

@@ -44,21 +44,21 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @{inheritDoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('\Symfony\Component\Yaml\Parser')) {
             $this->markTestSkipped('Yaml parser is not installed.');
             exit;
         }
-        $this->yamlFileStub = PHING_TEST_BASE .  "/etc/system/io/config.yml";
-        $this->incorrectYamlFileStub = PHING_TEST_BASE .  "/etc/system/io/config_wrong.yml";
+        $this->yamlFileStub = PHING_TEST_BASE . "/etc/system/io/config.yml";
+        $this->incorrectYamlFileStub = PHING_TEST_BASE . "/etc/system/io/config_wrong.yml";
         $this->objectToTest = new YamlFileParser();
     }
 
     /**
      * @{inheritDoc}
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->objectToTest = null;
     }
@@ -69,7 +69,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileFileNotReadable()
     {
-        $tmpFile =  tempnam(sys_get_temp_dir(), "test");
+        $tmpFile = tempnam(sys_get_temp_dir(), "test");
         touch($tmpFile);
         $file = new PhingFile($tmpFile);
         unlink($tmpFile);

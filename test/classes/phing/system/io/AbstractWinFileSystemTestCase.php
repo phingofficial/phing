@@ -31,7 +31,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
      */
     private $fs;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
             $this->markTestSkipped(
@@ -217,8 +217,8 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider isAbsoluteDataProvider
      * @param boolean $expected
-     * @param string  $path
-     * @param int     $prefix
+     * @param string $path
+     * @param int $prefix
      */
     public function testIsAbsolute($expected, $path, $prefix)
     {

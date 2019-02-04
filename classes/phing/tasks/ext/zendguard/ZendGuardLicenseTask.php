@@ -22,9 +22,9 @@
  * The task can produce a license file from the given
  * license properties or it can use a template.
  *
- * @author    Petr Rybak <petr@rynawe.net>
- * @package   phing.tasks.ext.zendguard
- * @since     2.4.3
+ * @author  Petr Rybak <petr@rynawe.net>
+ * @package phing.tasks.ext.zendguard
+ * @since   2.4.3
  */
 class ZendGuardLicenseTask extends Task
 {
@@ -36,7 +36,6 @@ class ZendGuardLicenseTask extends Task
      *
      * See http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf
      * for more information on how to use ZendGuard
-     *
      */
     /**
      * Path to Zend Guard zendenc_sign executable
@@ -323,7 +322,6 @@ class ZendGuardLicenseTask extends Task
 
         // if license template is NOT provided check that all required parameters are defined
         if (empty($this->licenseTemplate)) {
-
             // check productName
             if (empty($this->productName)) {
                 throw new BuildException("Property must be defined: productName");
@@ -448,7 +446,10 @@ class ZendGuardLicenseTask extends Task
         // Check for exit value 1. Zendenc_sign command for some reason
         // returns 0 in case of failure and 1 in case of success...
         if ($return_var !== 1) {
-            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . implode("\n", $output) . "\n\n");
+            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . implode(
+                "\n",
+                $output
+            ) . "\n\n");
         }
     }
 
@@ -533,7 +534,7 @@ class ZendGuardLicenseTask extends Task
      * @param array $valueArray Array to which the values will be added
      * @param string $keyPrefix Prefix to use when adding the key
      *
-     * @param string $pairSeparator
+     * @param  string $pairSeparator
      * @return void
      */
     protected function parseAndAddUserDefinedValues(

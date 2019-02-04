@@ -20,16 +20,17 @@
 /**
  * Repository initialization task
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitInitTask extends GitBaseTask
 {
 
     /**
      * Whether --bare key should be set for git-init
+     *
      * @var string
      */
     private $isBare = false;

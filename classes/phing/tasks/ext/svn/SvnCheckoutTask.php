@@ -22,9 +22,9 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 /**
  * Checks out a repository to a local directory
  *
- * @author Andrew Eddie <andrew.eddie@jamboworks.com>
+ * @author  Andrew Eddie <andrew.eddie@jamboworks.com>
  * @package phing.tasks.ext.svn
- * @since 2.3.0
+ * @since   2.3.0
  */
 class SvnCheckoutTask extends SvnBaseTask
 {
@@ -47,8 +47,7 @@ class SvnCheckoutTask extends SvnBaseTask
         $this->setup('checkout');
 
         $this->log(
-            "Checking out SVN repository to '" . $this->getToDir(
-            ) . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+            "Checking out SVN repository to '" . $this->getToDir() . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
         );
 
         // revision

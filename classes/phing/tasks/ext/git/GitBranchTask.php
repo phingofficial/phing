@@ -20,51 +20,58 @@
 /**
  * Wrapper aroung git-branch
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitBranchTask extends GitBaseTask
 {
     /**
      * Branch name
+     *
      * @var string
      */
     private $branchname;
 
     /**
      * New Branch name for git-branch -m | -M
+     *
      * @var string
      */
     private $newbranch;
 
     /**
      * If not HEAD, specify starting point
+     *
      * @var string
      */
     private $startPoint;
 
     /**
      * --set-upstream key to git-branch
+     *
      * @var boolean
      */
     private $setUpstream = false;
 
     /**
      * --track key to git-branch
+     *
      * @var boolean
      */
     private $track = false;
 
     /**
      * --no-track key to git-branch
+     *
      * @var boolean
      */
     private $noTrack = false;
 
     /**
      * --force, -f key to git-branch
+     *
      * @var boolean
      */
     private $force = false;
@@ -73,6 +80,7 @@ class GitBranchTask extends GitBaseTask
      * -d, -D, -m, -M options to git-branch
      * Respective task options:
      * delete, forceDelete, move, forceMove
+     *
      * @var array
      */
     private $extraOptions = [
@@ -82,7 +90,9 @@ class GitBranchTask extends GitBaseTask
         'M' => false,
     ];
 
-    /** @var string $setUpstreamTo */
+    /**
+     * @var string $setUpstreamTo
+     */
     private $setUpstreamTo = '';
 
     /**
@@ -143,7 +153,10 @@ class GitBranchTask extends GitBaseTask
         try {
             $output = $command->execute();
         } catch (Exception $e) {
-            throw new BuildException('Task execution failed with git command "' . $command->createCommandString() . '""', $e);
+            throw new BuildException(
+                'Task execution failed with git command "' . $command->createCommandString() . '""',
+                $e
+            );
         }
 
         $this->log(

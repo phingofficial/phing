@@ -28,7 +28,8 @@ class UnzipTask extends ExtractBaseTask
 {
     /**
      * Extract archive content into $this->todir directory
-     * @param PhingFile Zip file to extract
+     *
+     * @param  PhingFile Zip file to extract
      * @return boolean
      */
     protected function extractArchive(PhingFile $zipfile)
@@ -59,7 +60,8 @@ class UnzipTask extends ExtractBaseTask
 
     /**
      * List archive content
-     * @param PhingFile Zip file to list content
+     *
+     * @param  PhingFile Zip file to list content
      * @return array List of files inside $zipfile
      */
     protected function listArchiveContent(PhingFile $zipfile)

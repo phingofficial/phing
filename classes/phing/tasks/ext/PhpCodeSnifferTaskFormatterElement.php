@@ -3,23 +3,26 @@
 /**
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTask_FormatterElement extends DataType
+class PhpCodeSnifferTaskFormatterElement extends DataType
 {
 
     /**
      * Type of output to generate
+     *
      * @var string
      */
     protected $type = "";
 
     /**
      * Output to file?
+     *
      * @var bool
      */
     protected $useFile = true;
 
     /**
      * Output file.
+     *
      * @var string
      */
     protected $outfile = "";

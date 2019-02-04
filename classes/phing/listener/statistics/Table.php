@@ -29,7 +29,7 @@ class Table
 
     private $maxLengths;
 
-    public function __construct(array $header = [], $rows)
+    public function __construct(array $header = [], $rows = 0)
     {
         $this->header = $header;
         $columnSize = ($rows >= 0) ? $rows + 1 : 1;
@@ -58,7 +58,7 @@ class Table
     {
         $max = $length;
         for ($i = 0; $i < count($this->output); $i++) {
-        $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
+            $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
             $max = max([$max, $valueLength]);
         }
         return $max;

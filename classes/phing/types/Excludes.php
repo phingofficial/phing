@@ -96,6 +96,7 @@ class Excludes extends DataType
 
     /**
      * Adds a new ExcludesNameEntry to the given exclusion list.
+     *
      * @param ExcludesNameEntry[] $excludesNameEntryList
      *
      * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance

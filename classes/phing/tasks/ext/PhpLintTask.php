@@ -20,9 +20,9 @@
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
  *
- * @author   Knut Urdalen <knut.urdalen@telio.no>
- * @author   Stefan Priebsch <stefan.priebsch@e-novative.de>
- * @package  phing.tasks.ext
+ * @author  Knut Urdalen <knut.urdalen@telio.no>
+ * @author  Stefan Priebsch <stefan.priebsch@e-novative.de>
+ * @package phing.tasks.ext
  */
 class PhpLintTask extends Task
 {
@@ -53,7 +53,8 @@ class PhpLintTask extends Task
 
     /**
      * Override default php interpreter
-     * @todo    Do some sort of checking if the path is correct but would
+     *
+     * @todo  Do some sort of checking if the path is correct but would
      *          require traversing the systems executeable path too
      * @param string $sPhp
      */
@@ -67,6 +68,7 @@ class PhpLintTask extends Task
 
     /**
      * The haltonfailure property
+     *
      * @param boolean $aValue
      */
     public function setHaltOnFailure($aValue)
@@ -76,6 +78,7 @@ class PhpLintTask extends Task
 
     /**
      * File to be performed syntax check on
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -85,6 +88,7 @@ class PhpLintTask extends Task
 
     /**
      * Set an property name in which to put any errors.
+     *
      * @param string $propname
      */
     public function setErrorproperty($propname)
@@ -105,7 +109,7 @@ class PhpLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param PhingFile $tofile
+     * @param    PhingFile $tofile
      * @internal param PhingFile $file
      */
     public function setToFile(PhingFile $tofile)
@@ -115,6 +119,7 @@ class PhpLintTask extends Task
 
     /**
      * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
+     *
      * @param boolean $deprecatedAsError
      */
     public function setDeprecatedAsError($deprecatedAsError)
@@ -202,11 +207,11 @@ class PhpLintTask extends Task
             $command .= ' -n -l ';
         }
 
-        if (! file_exists($file)) {
+        if (!file_exists($file)) {
             throw new BuildException('File not found: ' . $file);
         }
 
-        if (! is_readable($file)) {
+        if (!is_readable($file)) {
             throw new BuildException('Permission denied: ' . $file);
         }
 
@@ -232,9 +237,9 @@ class PhpLintTask extends Task
             }
 
             if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match(
-                    '/^No syntax errors detected/',
-                    $message
-                )
+                '/^No syntax errors detected/',
+                $message
+            )
             ) {
                 $this->log($message, Project::MSG_ERR);
 

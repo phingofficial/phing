@@ -29,19 +29,29 @@
 class AvailableTask extends Task implements Condition
 {
 
-    /** Property to check for. */
+    /**
+     * Property to check for.
+     */
     private $property;
 
-    /** Value property should be set to. */
+    /**
+     * Value property should be set to.
+     */
     private $value = "true";
 
-    /** File/directory to check existence */
+    /**
+     * File/directory to check existence
+     */
     private $file;
 
-    /** Resource to check for */
+    /**
+     * Resource to check for
+     */
     private $resource;
 
-    /** Extension to check if is loaded */
+    /**
+     * Extension to check if is loaded
+     */
     private $extension;
 
     private $type = null;
@@ -188,6 +198,7 @@ class AvailableTask extends Task implements Condition
     }
 
     // this is prepared for the path type
+
     /**
      * @return bool
      */

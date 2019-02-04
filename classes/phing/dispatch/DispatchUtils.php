@@ -27,7 +27,8 @@ class DispatchUtils
 {
     /**
      * Determines and Executes the action method for the task.
-     * @param object $task the task to execute.
+     *
+     * @param  object $task the task to execute.
      * @throws BuildException on error.
      */
     public static function main($task)
@@ -73,7 +74,6 @@ class DispatchUtils
                 if ($task instanceof UnknownElement) {
                     $task->setRealThing(null);
                 }
-
             } else {
                 try {
                     $refl = new ReflectionClass($task);

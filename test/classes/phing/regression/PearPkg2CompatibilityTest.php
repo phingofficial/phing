@@ -31,7 +31,7 @@ class PearPkg2CompatibilityTest extends BuildFileTest
     private $savedErrorLevel;
     protected $backupGlobals = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
@@ -49,13 +49,13 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         error_reporting($this->savedErrorLevel);
         $this->executeTarget("teardown");
     }
 
-    protected function assertPreConditions()
+    protected function assertPreConditions(): void
     {
         try {
             $this->executeTarget("inactive");

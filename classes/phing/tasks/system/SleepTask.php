@@ -32,13 +32,14 @@
  * also that the system clocks often have a fairly low granularity too, which complicates
  * measuring how long a sleep actually took.</p>
  *
- * @author   Daniel Kutik, daniel@kutik.eu
- * @package  phing.tasks.system
+ * @author  Daniel Kutik, daniel@kutik.eu
+ * @package phing.tasks.system
  */
 class SleepTask extends Task
 {
     /**
      * failure flag
+     *
      * @var bool
      */
     private $failOnError = true;

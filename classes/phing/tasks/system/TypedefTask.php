@@ -39,25 +39,30 @@
  *    -- possibly refactor since this is almost the same as TaskDefTask
  *      (right now these are just too simple to really justify creating an abstract class)
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class TypedefTask extends Task
 {
     use ClasspathAware;
 
-    /** Tag name for datatype that will be used in XML */
+    /**
+     * Tag name for datatype that will be used in XML
+     */
     private $name;
 
     /**
      * Classname of task to register.
      * This can be a dot-path -- relative to a location on PHP include_path.
      * E.g. path.to.MyClass ->  path/to/MyClass.php
+     *
      * @var string
      */
     private $classname;
 
-    /** Main entry point */
+    /**
+     * Main entry point
+     */
     public function main()
     {
         if ($this->name === null || $this->classname === null) {
@@ -68,6 +73,7 @@ class TypedefTask extends Task
 
     /**
      * Sets the name that will be used in XML buildfile.
+     *
      * @param string $name
      */
     public function setName($name)
@@ -77,6 +83,7 @@ class TypedefTask extends Task
 
     /**
      * Sets the class name / dotpath to use.
+     *
      * @param string $class
      */
     public function setClassname($class)

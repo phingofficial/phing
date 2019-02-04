@@ -68,6 +68,7 @@ class AttribTask extends ApplyTask
 
     /**
      * A file to be attribed.
+     *
      * @param PhingFile $src a file
      */
     public function setFile(PhingFile $src)
@@ -79,6 +80,7 @@ class AttribTask extends ApplyTask
 
     /**
      * Set the ReadOnly file attribute.
+     *
      * @param boolean $value
      */
     public function setReadonly($value)
@@ -88,6 +90,7 @@ class AttribTask extends ApplyTask
 
     /**
      * Set the Archive file attribute.
+     *
      * @param boolean $value
      */
     public function setArchive($value)
@@ -97,6 +100,7 @@ class AttribTask extends ApplyTask
 
     /**
      * Set the System file attribute.
+     *
      * @param boolean $value
      */
     public function setSystem($value)
@@ -106,6 +110,7 @@ class AttribTask extends ApplyTask
 
     /**
      * Set the Hidden file attribute.
+     *
      * @param boolean $value
      */
     public function setHidden($value)
@@ -115,6 +120,7 @@ class AttribTask extends ApplyTask
 
     /**
      * Check the attributes.
+     *
      * @throws BuildException
      */
     protected function checkConfiguration()
@@ -130,7 +136,8 @@ class AttribTask extends ApplyTask
     /**
      * Set the executable.
      * This is not allowed, and it always throws a BuildException.
-     * @param mixed $e
+     *
+     * @param  mixed $e
      * @throws BuildException
      */
     public function setExecutable($e): void
@@ -144,14 +151,15 @@ class AttribTask extends ApplyTask
     /**
      * Add source file.
      * This is not allowed, and it always throws a BuildException.
-     * @param boolean $b ignored
+     *
+     * @param  boolean $b ignored
      * @throws BuildException
      */
     public function setAddsourcefile($b)
     {
         throw new BuildException(
             $this->getTaskType()
-                . ' doesn\'t support the addsourcefile attribute',
+            . ' doesn\'t support the addsourcefile attribute',
             $this->getLocation()
         );
     }
@@ -159,14 +167,15 @@ class AttribTask extends ApplyTask
     /**
      * Set max parallel.
      * This is not allowed, and it always throws a BuildException.
-     * @param int $max ignored
+     *
+     * @param  int $max ignored
      * @throws BuildException
      */
     public function setMaxParallel($max)
     {
         throw new BuildException(
             $this->getTaskType()
-                . ' doesn\'t support the maxparallel attribute',
+            . ' doesn\'t support the maxparallel attribute',
             $this->getLocation()
         );
     }
@@ -174,7 +183,8 @@ class AttribTask extends ApplyTask
     /**
      * Set parallel.
      * This is not allowed, and it always throws a BuildException.
-     * @param boolean $parallel ignored
+     *
+     * @param  boolean $parallel ignored
      * @throws BuildException
      */
     public function setParallel($parallel)

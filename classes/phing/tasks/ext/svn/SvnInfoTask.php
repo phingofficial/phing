@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  *
  * @package phing.tasks.ext.svn
  *
- * @see VersionControl_SVN
+ * @see   VersionControl_SVN
  * @since 2.4.9
  */
 class SvnInfoTask extends SvnBaseTask
@@ -38,6 +38,7 @@ class SvnInfoTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $propertyName
      */
     public function setPropertyName($propertyName)

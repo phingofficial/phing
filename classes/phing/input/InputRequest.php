@@ -20,8 +20,8 @@
 /**
  * Encapsulates an input request.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.input
  */
 class InputRequest
@@ -73,6 +73,7 @@ class InputRequest
 
     /**
      * Sets the user provided input.
+     *
      * @param $input
      */
     public function setInput($input)
@@ -98,6 +99,7 @@ class InputRequest
 
     /**
      * Set the default value to use.
+     *
      * @param mixed $v
      */
     public function setDefaultValue($v)
@@ -107,6 +109,7 @@ class InputRequest
 
     /**
      * Return the default value to use.
+     *
      * @return mixed
      */
     public function getDefaultValue()
@@ -116,6 +119,7 @@ class InputRequest
 
     /**
      * Set the default value to use.
+     *
      * @param string $c
      */
     public function setPromptChar($c)
@@ -125,6 +129,7 @@ class InputRequest
 
     /**
      * Return the default value to use.
+     *
      * @return string
      */
     public function getPromptChar()

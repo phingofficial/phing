@@ -34,17 +34,18 @@
  *
  * This is extended from Federico's original code, all his docs are kept in here below.
  *
- * @author    Federico Cargnelutti <fede.carg@gmail.com>
- * @author    Anton Stöckl <anton@stoeckl.de>
- * @version   $Revision$
- * @package   phing.tasks.ext
- * @see       http://svn.fedecarg.com/repo/Phing/tasks/ext/FileSyncTask.php
- * @example   http://fedecarg.com/wiki/FileSyncTask
+ * @author  Federico Cargnelutti <fede.carg@gmail.com>
+ * @author  Anton Stöckl <anton@stoeckl.de>
+ * @version $Revision$
+ * @package phing.tasks.ext
+ * @see     http://svn.fedecarg.com/repo/Phing/tasks/ext/FileSyncTask.php
+ * @example http://fedecarg.com/wiki/FileSyncTask
  */
 class FileSyncTask extends Task
 {
     /**
      * Path to rsync command.
+     *
      * @var string
      */
     protected $rsyncPath = '/usr/bin/rsync';
@@ -52,6 +53,7 @@ class FileSyncTask extends Task
     /**
      * Source directory.
      * For remote sources this must contain user and host, e.g.: user@host:/my/source/dir
+     *
      * @var string
      */
     protected $sourceDir;
@@ -59,30 +61,35 @@ class FileSyncTask extends Task
     /**
      * Destination directory.
      * For remote targets this must contain user and host, e.g.: user@host:/my/target/dir
+     *
      * @var string
      */
     protected $destinationDir;
 
     /**
      * Remote host.
+     *
      * @var string
      */
     protected $remoteHost;
 
     /**
      * Rsync auth username.
+     *
      * @var string
      */
     protected $remoteUser;
 
     /**
      * Rsync auth password.
+     *
      * @var string
      */
     protected $remotePass;
 
     /**
      * Remote shell.
+     *
      * @var string
      */
     protected $remoteShell;
@@ -90,12 +97,14 @@ class FileSyncTask extends Task
     /**
      * Exclude file matching pattern.
      * Use comma seperated values to exclude multiple files/directories, e.g.: a,b
+     *
      * @var string
      */
     protected $exclude;
 
     /**
      * Excluded patterns file.
+     *
      * @var string
      */
     protected $excludeFile;
@@ -104,6 +113,7 @@ class FileSyncTask extends Task
      * This option creates a backup so users can rollback to an existing restore
      * point. The remote directory is copied to a new directory specified by the
      * user.
+     *
      * @var string
      */
     protected $backupDir;
@@ -115,18 +125,21 @@ class FileSyncTask extends Task
      * K - treat symlinked dir on receiver as dir
      * z - compress
      * l - copy symlinks as symlinks
+     *
      * @var string
      */
     protected $defaultOptions = '-rpKzl';
 
     /**
      * Command options.
+     *
      * @var string
      */
     protected $options;
 
     /**
      * Connection type.
+     *
      * @var boolean
      */
     protected $isRemoteConnection = false;
@@ -135,6 +148,7 @@ class FileSyncTask extends Task
      * This option increases the amount of information you are given during the
      * transfer. The verbose option set to true will give you information about
      * what files are being transferred and a brief summary at the end.
+     *
      * @var boolean
      */
     protected $verbose = true;
@@ -142,6 +156,7 @@ class FileSyncTask extends Task
     /**
      * This option makes rsync perform a trial run that doesn’t make any changes
      * (and produces mostly the same output as a real run).
+     *
      * @var boolean
      */
     protected $dryRun = false;
@@ -149,30 +164,35 @@ class FileSyncTask extends Task
     /**
      * This option makes requests a simple itemized list of the changes that are
      * being made to each file, including attribute changes.
+     *
      * @var boolean
      */
     protected $itemizeChanges = false;
 
     /**
      * This option will cause rsync to skip files based on checksum, not mod-time & size.
+     *
      * @var boolean
      */
     protected $checksum = false;
 
     /**
      * This option deletes files that don't exist on sender.
+     *
      * @var boolean
      */
     protected $delete = false;
 
     /**
      * Identity file.
+     *
      * @var string
      */
     protected $identityFile;
-    
+
     /**
      * Remote port for syncing via SSH.
+     *
      * @var int
      */
     protected $remotePort = 22;
@@ -322,7 +342,7 @@ class FileSyncTask extends Task
     /**
      * Returns an error message based on a given error code.
      *
-     * @param  int         $code Error code
+     * @param  int $code Error code
      * @return null|string
      */
     public function getErrorMessage($code)
@@ -540,7 +560,7 @@ class FileSyncTask extends Task
     /**
      * Makes backups into hierarchy based in $dir.
      *
-     * @param string dir
+     * @param  string dir
      * @return void
      */
     public function setBackupDir($dir)
@@ -551,14 +571,14 @@ class FileSyncTask extends Task
     /**
      * Sets the identity file for public key transfers.
      *
-     * @param string location of ssh identity file
+     * @param  string location of ssh identity file
      * @return void
      */
     public function setIdentityFile($identity)
     {
         $this->identityFile = $identity;
     }
-    
+
     /**
      * Sets the port of the remote computer.
      *
@@ -572,7 +592,7 @@ class FileSyncTask extends Task
     /**
      * Sets exclude matching pattern.
      *
-     * @param string $exclude
+     * @param  string $exclude
      * @return void
      */
     public function setExclude($exclude)

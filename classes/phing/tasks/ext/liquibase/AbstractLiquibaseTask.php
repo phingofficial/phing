@@ -21,8 +21,8 @@ require_once 'phing/tasks/system/ExecTask.php';
 /**
  * Abstract Liquibase task. Base class for all Liquibase Phing tasks.
  *
- * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since 2.4.10
+ * @author  Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
+ * @since   2.4.10
  * @package phing.tasks.ext.liquibase
  */
 abstract class AbstractLiquibaseTask extends Task
@@ -48,12 +48,14 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Whether to display the output of the command.
      * True by default to preserve old behaviour
+     *
      * @var boolean
      */
     protected $display = true;
 
     /**
      * Whether liquibase return code can cause a Phing failure.
+     *
      * @var boolean
      */
     protected $checkreturn = false;
@@ -137,6 +139,7 @@ abstract class AbstractLiquibaseTask extends Task
 
     /**
      * Sets whether to display the output of the command
+     *
      * @param boolean $display
      */
     public function setDisplay($display)
@@ -157,7 +160,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Whether to check the liquibase return code.
      *
-     * @param $passthru
+     * @param    $passthru
      * @internal param bool $checkreturn
      */
     public function setPassthru($passthru)
@@ -242,8 +245,8 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Executes the given command and returns the output.
      *
-     * @param $lbcommand
-     * @param string $lbparams the command to execute
+     * @param  $lbcommand
+     * @param  string $lbparams the command to execute
      * @throws BuildException
      * @return string the output of the executed command
      */

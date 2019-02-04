@@ -23,7 +23,7 @@
  * - mapper stuff
  * - filter stuff
  *
- * @package  phing.util
+ * @package phing.util
  */
 class FileUtils
 {
@@ -31,7 +31,7 @@ class FileUtils
      * Returns the default file/dir creation mask value
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
-     * @param  boolean $dirmode     Directory creation mask to select
+     * @param boolean $dirmode Directory creation mask to select
      *
      * @return int  Creation Mask in octal representation
      */
@@ -51,7 +51,7 @@ class FileUtils
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
      *
-     * @param  Reader  $in            Reader to modify (if appropriate).
+     * @param  Reader $in Reader to modify (if appropriate).
      * @param  array   &$filterChains filter chains to apply.
      * @param  Project $project
      * @return Reader  Assembled Reader (w/ filter chains).
@@ -82,7 +82,7 @@ class FileUtils
      * @param  array $filterChains
      * @param  Project $project
      * @param  integer $mode
-     * @param bool $preservePermissions
+     * @param  bool $preservePermissions
      * @throws Exception
      * @throws IOException
      * @return void
@@ -105,7 +105,6 @@ class FileUtils
             // ensure that parent dir of dest file exists!
             $parent = $destFile->getParentFile();
             if ($parent !== null && !$parent->exists()) {
-
                 // Setting source directory permissions to target
                 // (On permissions preservation, the target directory permissions
                 // will be inherited from the source directory, otherwise the 'mode'
@@ -158,8 +157,8 @@ class FileUtils
      * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
      * Otherwise, the source file is renamed only if the destination file is older than it.
      *
-     * @param PhingFile $sourceFile
-     * @param PhingFile $destFile
+     * @param  PhingFile $sourceFile
+     * @param  PhingFile $destFile
      * @return boolean
      */
     public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
@@ -191,10 +190,11 @@ class FileUtils
      * Interpret the filename as a file relative to the given file -
      * unless the filename already represents an absolute filename.
      *
-     * @param  PhingFile $file the "reference" file for relative paths. This
-     *         instance must be an absolute file and must not contain
-     *         ./ or ../ sequences (same for \ instead of /).
-     * @param  string $filename a file name
+     * @param PhingFile $file the "reference" file for relative paths. This
+     *                             instance must be an absolute file and must
+     *                             not contain ./ or ../ sequences (same for \
+     *                             instead of /).
+     * @param string $filename a file name
      *
      * @throws IOException
      *
@@ -210,8 +210,8 @@ class FileUtils
         $filename = str_replace(array('\\', '/'), $fs->getSeparator(), $filename);
 
         // deal with absolute files
-        if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
-            (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')
+        if (StringHelper::startsWith($fs->getSeparator(), $filename)
+            || (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')
         ) {
             return new PhingFile($this->normalize($filename));
         }
@@ -255,7 +255,7 @@ class FileUtils
      *   - DOS style paths that start with a drive letter will have
      *     \ as the separator.
      *
-     * @param  string $path Path to normalize.
+     * @param string $path Path to normalize.
      *
      * @throws IOException
      *
@@ -288,8 +288,8 @@ class FileUtils
             $path = strtoupper($ca[0]) . ':';
 
             for ($i = 2, $_i = strlen($ca); $i < $_i; $i++) {
-                if (($ca[$i] !== '\\') ||
-                    ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
+                if (($ca[$i] !== '\\')
+                    || ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
                 ) {
                     $path .= $ca[$i];
                 }
@@ -367,21 +367,27 @@ class FileUtils
      * exist before this method was invoked, any subsequent invocation
      * of this method will yield a different file name.</p>
      *
-     * @param string $prefix        prefix before the random number.
-     * @param string $suffix        file extension; include the '.'.
-     * @param PhingFile $parentDir  Directory to create the temporary file in;
-     *                              sys_get_temp_dir() used if not specified.
-     * @param boolean $deleteOnExit whether to set the tempfile for deletion on
-     *                              normal exit.
-     * @param boolean $createFile   true if the file must actually be created. If false
-     *                              chances exist that a file with the same name is created in the time
-     *                              between invoking this method and the moment the file is actually created.
-     *                              If possible set to true.
+     * @param  string $prefix prefix before the random number.
+     * @param  string $suffix file extension; include the '.'.
+     * @param  PhingFile $parentDir Directory to create the temporary file in;
+     *                                sys_get_temp_dir() used if not specified.
+     * @param  boolean $deleteOnExit whether to set the tempfile for deletion on
+     *                                normal exit.
+     * @param  boolean $createFile true if the file must actually be created. If false
+     *                                chances exist that a file with the same name is
+     *                                created in the time between invoking this method
+     *                                and the moment the file is actually created. If
+     *                                possible set to true.
      * @return PhingFile            a File reference to the new temporary file.
      * @throws BuildException
      */
-    public function createTempFile($prefix, $suffix, PhingFile $parentDir = null, $deleteOnExit = false, $createFile = false)
-    {
+    public function createTempFile(
+        $prefix,
+        $suffix,
+        PhingFile $parentDir = null,
+        $deleteOnExit = false,
+        $createFile = false
+    ) {
         $result = null;
         $parent = ($parentDir === null) ? sys_get_temp_dir() : $parentDir->getPath();
 

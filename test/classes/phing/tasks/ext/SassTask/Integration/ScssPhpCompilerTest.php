@@ -12,16 +12,16 @@ class ScssPhpCompilerTest extends TestCase
     /** @var ScssPhpCompiler */
     private $compiler;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('\Leafo\ScssPhp\Compiler')) {
             $this->markTestSkipped('ScssPhp not found');
         }
 
-        $this->compiler = new ScssPhpCompiler('compressed', 'UTF-8', false , '');
+        $this->compiler = new ScssPhpCompiler('compressed', 'UTF-8', false, '');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         if (file_exists(self::SASS_TEST_BASE . 'test.css')) {

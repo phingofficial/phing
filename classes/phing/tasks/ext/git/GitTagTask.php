@@ -20,52 +20,59 @@
 /**
  * Wrapper around git-tag
  *
- * @author Evan Kaufman <evan@digitalflophouse.com>
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Evan Kaufman <evan@digitalflophouse.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.5
+ * @see     VersionControl_Git
+ * @since   2.4.5
  */
 class GitTagTask extends GitBaseTask
 {
     /**
      * Make unsigned, annotated tag object. See -a of git-tag
+     *
      * @var boolean
      */
     private $annotate = false;
 
     /**
      * Make GPG-signed tag. See -s of git-tag
+     *
      * @var boolean
      */
     private $sign = false;
 
     /**
      * Make GPG-signed tag, using given key. See -u of git-tag
+     *
      * @var string
      */
     private $keySign;
 
     /**
      * Replace existing tag with given name. See -f of git-tag
+     *
      * @var boolean
      */
     private $replace = false;
 
     /**
      * Delete existing tags with given names. See -d of git-tag
+     *
      * @var boolean
      */
     private $delete = false;
 
     /**
      * Verify gpg signature of given tag names. See -v of git-tag
+     *
      * @var boolean
      */
     private $verify = false;
 
     /**
      * List tags with names matching given pattern. See -l of git-tag
+     *
      * @var boolean
      */
     private $list = false;
@@ -73,54 +80,63 @@ class GitTagTask extends GitBaseTask
     /**
      * <num> specifies how many lines from the annotation, if any, are printed
      * when using -l. See -n of git-tag
+     *
      * @var int
      */
     private $num;
 
     /**
      * Only list tags containing specified commit. See --contains of git-tag
+     *
      * @var string
      */
     private $contains;
 
     /**
      * Use given tag message. See -m of git-tag
+     *
      * @var string
      */
     private $message;
 
     /**
      * Take tag message from given file. See -F of git-tag
+     *
      * @var string
      */
     private $file;
 
     /**
      * <tagname> argument to git-tag
+     *
      * @var string
      */
     private $name;
 
     /**
      * <commit> argument to git-tag
+     *
      * @var string
      */
     private $commit;
 
     /**
      * <object> argument to git-tag
+     *
      * @var string
      */
     private $object;
 
     /**
      * <pattern> argument to git-tag
+     *
      * @var string
      */
     private $pattern;
 
     /**
      * Property name to set with output value from git-tag
+     *
      * @var string
      */
     private $outputProperty;

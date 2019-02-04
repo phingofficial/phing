@@ -20,25 +20,35 @@
 /**
  * Repository archive task
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
+ * @see     VersionControl_Git
  */
 class GitArchiveTask extends GitBaseTask
 {
-    /** @var string|false $format */
+    /**
+     * @var string|false $format
+     */
     private $format = false;
 
-    /** @var PhingFile $output */
+    /**
+     * @var PhingFile $output
+     */
     private $output;
 
-    /** @var string|false $prefix */
+    /**
+     * @var string|false $prefix
+     */
     private $prefix = false;
 
-    /** @var string $treeish */
+    /**
+     * @var string $treeish
+     */
     private $treeish;
 
-    /** @var string|false $remoteRepo */
+    /**
+     * @var string|false $remoteRepo
+     */
     private $remoteRepo = false;
 
     /**

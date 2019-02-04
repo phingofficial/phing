@@ -20,58 +20,66 @@
 /**
  * Wrapper aroung git-log
  *
- * @author Evan Kaufman <evan@digitalflophouse.com>
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Evan Kaufman <evan@digitalflophouse.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.5
+ * @see     VersionControl_Git
+ * @since   2.4.5
  */
 class GitLogTask extends GitBaseTask
 {
     /**
      * Generate a diffstat. See --stat of git-log
+     *
      * @var string|boolean
      */
     private $stat = false;
 
     /**
      * Names + status of changed files. See --name-status of git-log
+     *
      * @var boolean
      */
     private $nameStatus = false;
 
     /**
      * Number of commits to show. See -<n>|-n|--max-count of git-log
+     *
      * @var integer
      */
     private $maxCount;
 
     /**
      * Don't show commits with more than one parent. See --no-merges of git-log
+     *
      * @var boolean
      */
     private $noMerges = false;
 
     /**
      * Commit format. See --format of git-log
+     *
      * @var string
      */
     private $format = 'medium';
 
     /**
      * Date format. See --date of git-log
+     *
      * @var string
      */
     private $date;
 
     /**
      * <since> argument to git-log
+     *
      * @var string
      */
     private $since;
 
     /**
      * <until> argument to git-log
+     *
      * @var string
      */
     private $until;
@@ -79,12 +87,14 @@ class GitLogTask extends GitBaseTask
     /**
      * <path> arguments to git-log
      * Accepts one or more paths delimited by PATH_SEPARATOR
+     *
      * @var string
      */
     private $paths;
 
     /**
      * Property name to set with output value from git-log
+     *
      * @var string
      */
     private $outputProperty;
@@ -117,7 +127,7 @@ class GitLogTask extends GitBaseTask
         if (null !== $this->getSince()) {
             $command->setOption('since', $this->getSince());
         }
-        
+
         if (null !== $this->getUntil()) {
             $command->setOption('until', $this->getUntil());
         }

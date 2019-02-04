@@ -7,7 +7,7 @@
  */
 class ReadWriteTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/ReadWriteTest.xml'
@@ -15,7 +15,7 @@ class ReadWriteTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget('clean');
     }

@@ -20,9 +20,9 @@
 /**
  * Merges code coverage snippets into a code coverage database
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.coverage
- * @since 2.1.0
+ * @since   2.1.0
  */
 class CoverageMergerTask extends Task
 {

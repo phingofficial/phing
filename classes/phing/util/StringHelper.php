@@ -30,10 +30,14 @@
  */
 class StringHelper
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     private static $TRUE_VALUES = ["on", "true", "t", "yes", "1"];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
 
     /**
@@ -177,7 +181,7 @@ class StringHelper
     /**
      * Extracts the variable name for a slot var in the format %{task.current_file}
      *
-     * @param  string $var The var from build file.
+     * @param string $var The var from build file.
      *
      * @return string Extracted name part.
      */

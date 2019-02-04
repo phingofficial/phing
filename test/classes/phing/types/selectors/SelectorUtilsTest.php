@@ -14,7 +14,7 @@ class SelectorUtilsTest extends TestCase
      */
     private $selectorUtils;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->selectorUtils = SelectorUtils::getInstance();
     }
@@ -33,7 +33,8 @@ class SelectorUtilsTest extends TestCase
      */
     public function testDoNotIncludePrefix()
     {
-        $this->assertFalse($this->selectorUtils->matchPath("**/example.php", "vendor/phplot/phplot/contrib/color_range.example.php"));
+        $this->assertFalse($this->selectorUtils->matchPath("**/example.php",
+            "vendor/phplot/phplot/contrib/color_range.example.php"));
     }
 
     /**

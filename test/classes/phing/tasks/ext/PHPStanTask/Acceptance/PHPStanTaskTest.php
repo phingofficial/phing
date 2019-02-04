@@ -95,8 +95,8 @@ class PHPStanTaskTest extends BuildFileTest
     }
 
     /**
-    * @depends testItRun
-    */
+     * @depends testItRun
+     */
     public function testCommonOptionsCanBeSet(): void
     {
         $this->executeTarget("testCommonOptions");

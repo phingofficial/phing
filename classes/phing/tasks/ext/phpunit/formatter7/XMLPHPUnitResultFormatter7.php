@@ -20,9 +20,9 @@
 /**
  * Prints XML output of the test to a specified Writer
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.formatter
- * @since 2.1.0
+ * @since   2.1.0
  */
 class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
@@ -118,8 +118,11 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param PHPUnit\Framework\AssertionFailedError $e
      * @param float $time
      */
-    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, float $time): void
-    {
+    public function addFailure(
+        PHPUnit\Framework\Test $test,
+        PHPUnit\Framework\AssertionFailedError $e,
+        float $time
+    ): void {
         parent::addFailure($test, $e, $time);
 
         $this->logger->addFailure($test, $e, $time);

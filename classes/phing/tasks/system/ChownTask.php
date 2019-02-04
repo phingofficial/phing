@@ -20,8 +20,8 @@
 /**
  * Task that changes the permissions on a file/directory.
  *
- * @author    Mehmet Emre Yilmaz <mehmety@gmail.com>
- * @package   phing.tasks.system
+ * @author  Mehmet Emre Yilmaz <mehmety@gmail.com>
+ * @package phing.tasks.system
  */
 class ChownTask extends Task
 {
@@ -39,7 +39,8 @@ class ChownTask extends Task
 
     /**
      * This flag means 'note errors to the output, but keep going'
-     * @see setQuiet()
+     *
+     * @see   setQuiet()
      * @param $bool
      */
     public function setFailonerror($bool)
@@ -49,7 +50,8 @@ class ChownTask extends Task
 
     /**
      * Set quiet mode, which suppresses warnings if chown() fails.
-     * @see setFailonerror()
+     *
+     * @see   setFailonerror()
      * @param $bool
      */
     public function setQuiet($bool)
@@ -63,6 +65,7 @@ class ChownTask extends Task
     /**
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
+     *
      * @param $bool
      */
     public function setVerbose($bool)
@@ -73,6 +76,7 @@ class ChownTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -82,6 +86,7 @@ class ChownTask extends Task
 
     /**
      * Sets the user
+     *
      * @param $user
      */
     public function setUser($user)
@@ -91,6 +96,7 @@ class ChownTask extends Task
 
     /**
      * Sets the group
+     *
      * @param $group
      */
     public function setGroup($group)
@@ -100,6 +106,7 @@ class ChownTask extends Task
 
     /**
      * Execute the touch operation.
+     *
      * @return void
      */
     public function main()
@@ -111,6 +118,7 @@ class ChownTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
+     *
      * @throws BuildException
      * @return void
      */
@@ -127,6 +135,7 @@ class ChownTask extends Task
 
     /**
      * Does the actual work.
+     *
      * @return void
      */
     private function chown()
@@ -182,9 +191,10 @@ class ChownTask extends Task
 
     /**
      * Actually change the mode for the file.
-     * @param PhingFile $file
-     * @param string $user
-     * @param string $group
+     *
+     * @param  PhingFile $file
+     * @param  string $user
+     * @param  string $group
      * @throws BuildException
      * @throws Exception
      */

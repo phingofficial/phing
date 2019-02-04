@@ -24,18 +24,19 @@
  */
 class SonarTaskTest extends BuildFileTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/SonarTaskTest.xml';
         $this->configureProject($buildXmlFile);
     }
-    
+
     private function ignoreFailureIfDueToMissingParameters(Exception $e)
     {
         // NOTE: Execution will finally fail due to missing properties.
         // We ignore this failure, but pass ary failures that are
         // caused by other errors.
-        if (strpos($e->getMessage(), 'SonarQube Scanner misses some parameters. The following properties are mandatory') !== false) {
+        if (strpos($e->getMessage(),
+                'SonarQube Scanner misses some parameters. The following properties are mandatory') !== false) {
             throw $e;
         }
     }
@@ -99,7 +100,7 @@ class SonarTaskTest extends BuildFileTest
             'executable-is-not-sonar-scanner-and-has-version-string',
             'executable-is-not-sonar-scanner-and-has-version-string',
             'Could not find name of SonarQube Scanner in version string. Executable appears not to be SonarQube Scanner'
-            );
+        );
     }
 
     //
@@ -214,6 +215,6 @@ class SonarTaskTest extends BuildFileTest
             'name-is-missing',
             'name-is-missing',
             'Property name must not be null or empty.'
-            );
+        );
     }
 }

@@ -39,8 +39,9 @@ abstract class AbstractSAXParser
     /**
      * Sets options for PHP interal parser. Must be implemented by the parser
      * class if it should be used.
-     * @param $opt
-     * @param $val
+     *
+     * @param  $opt
+     * @param  $val
      * @return
      */
     abstract public function parserSetOption($opt, $val);
@@ -66,7 +67,7 @@ abstract class AbstractSAXParser
      *
      * @param  object $parser the php's internal parser handle
      * @param  string $name the open tag name
-     * @param  array  $attribs the tag's attributes if any
+     * @param  array $attribs the tag's attributes if any
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function startElement($parser, $name, $attribs)
@@ -83,8 +84,8 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>endElement()</code> method.
      *
-     * @param   object $parser the php's internal parser handle
-     * @param   string $name the closing tag name
+     * @param  object $parser the php's internal parser handle
+     * @param  string $name the closing tag name
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function endElement($parser, $name)
@@ -101,8 +102,8 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>characters()</code> method. That processes the given CDATA.
      *
-     * @param  resource  $parser php's internal parser handle.
-     * @param  string    $data   the CDATA
+     * @param  resource $parser php's internal parser handle.
+     * @param  string $data the CDATA
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function characters($parser, $data)

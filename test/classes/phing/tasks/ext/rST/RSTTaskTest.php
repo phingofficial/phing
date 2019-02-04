@@ -23,9 +23,9 @@
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
  */
-class rSTTaskTest extends BuildFileTest
+class RSTTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         //needed for PEAR's System class
         error_reporting(error_reporting() & ~E_STRICT & ~E_DEPRECATED);
@@ -36,13 +36,13 @@ class rSTTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         // remove excess file if the test failed
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
     }
 
-    protected function assertPreConditions()
+    protected function assertPreConditions(): void
     {
         try {
             $this->testGetToolPathHtmlFormat();
@@ -75,7 +75,7 @@ class rSTTaskTest extends BuildFileTest
     public function testGetToolPathFail()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new rSTTask();
+            $rt = new RSTTask();
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);
@@ -91,7 +91,7 @@ class rSTTaskTest extends BuildFileTest
     public function testGetToolPathCustom()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new rSTTask();
+            $rt = new RSTTask();
             $rt->setToolpath('true'); //mostly /bin/true on unix
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
@@ -109,7 +109,7 @@ class rSTTaskTest extends BuildFileTest
      */
     public function testSetToolpathNotExisting()
     {
-        $rt = new rSTTask();
+        $rt = new RSTTask();
         $rt->setToolpath('doesnotandwillneverexist');
     }
 
@@ -119,14 +119,14 @@ class rSTTaskTest extends BuildFileTest
      */
     public function testSetToolpathNonExecutable()
     {
-        $rt = new rSTTask();
+        $rt = new RSTTask();
         $rt->setToolpath(__FILE__);
     }
 
     public function testGetToolPathHtmlFormat()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new rSTTask();
+            $rt = new RSTTask();
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);

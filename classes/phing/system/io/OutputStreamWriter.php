@@ -24,7 +24,7 @@
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class OutputStreamWriter extends Writer
 {
@@ -36,6 +36,7 @@ class OutputStreamWriter extends Writer
 
     /**
      * Construct a new OutputStreamWriter.
+     *
      * @param OutputStream $outStream OutputStream to write to
      */
     public function __construct(OutputStream $outStream)
@@ -45,6 +46,7 @@ class OutputStreamWriter extends Writer
 
     /**
      * Close the stream.
+     *
      * @return void
      */
     public function close()
@@ -55,9 +57,9 @@ class OutputStreamWriter extends Writer
     /**
      * Write char data to stream.
      *
-     * @param  string $buf
-     * @param  int $off
-     * @param  int $len
+     * @param string $buf
+     * @param int $off
+     * @param int $len
      *
      * @return void
      */

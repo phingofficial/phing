@@ -21,9 +21,9 @@
  * Stores an object on S3
  *
  * @package phing.tasks.ext
- * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
+ * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  */
-class S3PutTask extends Service_Amazon_S3
+class S3PutTask extends S3
 {
     /**
      * File we're trying to upload
@@ -424,7 +424,7 @@ class S3PutTask extends Service_Amazon_S3
             if ($this->_fileNameOnly) {
                 foreach ($objects as $object) {
                     $this->_source = $object;
-                    $this->saveObject(basename($object),$fromDir . DIRECTORY_SEPARATOR . $object);
+                    $this->saveObject(basename($object), $fromDir . DIRECTORY_SEPARATOR . $object);
                 }
             } else {
                 foreach ($objects as $object) {
@@ -452,8 +452,8 @@ class S3PutTask extends Service_Amazon_S3
         $client = $this->getClientInstance();
         $client->putObject(
             [
-                'Bucket'     => $this->getBucket(),
-                'Key'        => $key,
+                'Bucket' => $this->getBucket(),
+                'Key' => $key,
                 'SourceFile' => $sourceFile
             ]
         );

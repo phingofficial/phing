@@ -45,6 +45,7 @@ class PHPLocFormatterElement
 
     /**
      * Loads a specific formatter type
+     *
      * @param string $type
      */
     public function setType($type)
@@ -62,6 +63,7 @@ class PHPLocFormatterElement
 
     /**
      * Sets whether to store formatting results in a file
+     *
      * @param $useFile
      */
     public function setUseFile($useFile)
@@ -79,6 +81,7 @@ class PHPLocFormatterElement
 
     /**
      * Sets output directory
+     *
      * @param string $toDir
      */
     public function setToDir($toDir)
@@ -88,6 +91,7 @@ class PHPLocFormatterElement
 
     /**
      * Returns output directory
+     *
      * @return string
      */
     public function getToDir()
@@ -97,6 +101,7 @@ class PHPLocFormatterElement
 
     /**
      * Sets output filename
+     *
      * @param string $outfile
      */
     public function setOutfile($outfile)
@@ -106,6 +111,7 @@ class PHPLocFormatterElement
 
     /**
      * Returns output filename
+     *
      * @return string
      */
     public function getOutfile()

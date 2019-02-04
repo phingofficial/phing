@@ -20,9 +20,9 @@
 /**
  * Saves coverage output of the test to a specified database
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.coverage
- * @since 2.1.0
+ * @since   2.1.0
  */
 class CoverageMerger
 {
@@ -74,7 +74,7 @@ class CoverageMerger
     }
 
     /**
-     * @param  Project        $project
+     * @param  Project $project
      * @return Properties
      * @throws BuildException
      */

@@ -8,7 +8,7 @@
  */
 class ChmodTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
             $this->markTestSkipped("chmod tests don't work on Windows");
@@ -20,7 +20,7 @@ class ChmodTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget('clean');
     }

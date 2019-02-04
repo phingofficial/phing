@@ -28,7 +28,7 @@
  *
  * {@inheritdoc}
  *
- * @package   phing.types
+ * @package phing.types
  */
 class DataType extends ProjectComponent
 {
@@ -67,7 +67,7 @@ class DataType extends ProjectComponent
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
      *
-     * @param  Reference $r
+     * @param Reference $r
      *
      * @return void
      */
@@ -115,7 +115,6 @@ class DataType extends ProjectComponent
         $o = $this->ref->getReferencedObject($p);
 
         if ($o instanceof DataType) {
-
             // TESTME - make sure that in_array() works just as well here
             //
             // check if reference is in stack
@@ -220,6 +219,7 @@ class DataType extends ProjectComponent
 
     /**
      * Gets as descriptive as possible a name used for this datatype instance.
+     *
      * @return string name.
      */
     protected function getDataTypeName()
@@ -229,9 +229,10 @@ class DataType extends ProjectComponent
 
     /**
      * Basic DataType toString().
+     *
      * @return string this DataType formatted as a String.
      */
-    public function  __toString()
+    public function __toString()
     {
         $d = $this->getDescription();
         return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;

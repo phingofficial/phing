@@ -20,9 +20,9 @@
 /**
  * Transforms information in a code coverage database to XML
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.coverage
- * @since 2.1.0
+ * @since   2.1.0
  */
 class CoverageReportTask extends Task
 {
@@ -32,10 +32,14 @@ class CoverageReportTask extends Task
 
     private $transformers = [];
 
-    /** the path to the GeSHi library (optional) */
+    /**
+     * the path to the GeSHi library (optional)
+     */
     private $geshipath = "";
 
-    /** the path to the GeSHi language files (optional) */
+    /**
+     * the path to the GeSHi language files (optional)
+     */
     private $geshilanguagespath = "";
 
     /**
@@ -127,7 +131,7 @@ class CoverageReportTask extends Task
     /**
      * Adds a subpackage to their package
      *
-     * @param string $packageName    The name of the package
+     * @param string $packageName The name of the package
      * @param string $subpackageName The name of the subpackage
      *
      * @author Benjamin Schultz <bschultz@proqrent.de>
@@ -176,8 +180,8 @@ class CoverageReportTask extends Task
     /**
      * Adds a class to their subpackage
      *
-     * @param string  $classname The name of the class
-     * @param DOMNode $element   The dom node to append to the subpackage element
+     * @param string $classname The name of the class
+     * @param DOMNode $element The dom node to append to the subpackage element
      *
      * @author Benjamin Schultz <bschultz@proqrent.de>
      * @return void
@@ -222,7 +226,7 @@ class CoverageReportTask extends Task
     protected function highlightSourceFile($filename)
     {
         if ($this->geshipath) {
-            require_once $this->geshipath . '/geshi.php';
+            include_once $this->geshipath . '/geshi.php';
 
             $source = file_get_contents($filename);
 
@@ -317,8 +321,8 @@ class CoverageReportTask extends Task
     /**
      * Transforms the coverage information
      *
-     * @param string $filename            The filename
-     * @param array  $coverageInformation Array with covergae information
+     * @param string $filename The filename
+     * @param array $coverageInformation Array with covergae information
      *
      * @author Michiel Rook <mrook@php.net>
      * @author Benjamin Schultz <bschultz@proqrent.de>

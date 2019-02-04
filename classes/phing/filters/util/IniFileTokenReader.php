@@ -15,19 +15,20 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Class that allows reading tokens from INI files.
  *
- * @author    Manuel Holtgewe
- * @package   phing.filters.util
+ * @author  Manuel Holtgewe
+ * @package phing.filters.util
  */
 class IniFileTokenReader extends TokenReader
 {
 
     /**
      * Holds the path to the INI file that is to be read.
+     *
      * @var object  Reference to a PhingFile Object representing
      *              the path to the INI file.
      */

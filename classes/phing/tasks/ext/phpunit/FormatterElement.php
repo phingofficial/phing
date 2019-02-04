@@ -20,13 +20,15 @@
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @since 2.1.0
+ * @since   2.1.0
  */
 class FormatterElement
 {
-    /** @var PHPUnitResultFormatter7 $fomatter */
+    /**
+     * @var PHPUnitResultFormatter7 $fomatter
+     */
     protected $formatter;
 
     protected $type = "";
@@ -41,6 +43,7 @@ class FormatterElement
 
     /**
      * Sets parent task
+     *
      * @param Task $parent Calling Task
      */
     public function setParent($parent)
@@ -50,6 +53,7 @@ class FormatterElement
 
     /**
      * Loads a specific formatter type
+     *
      * @param string $type
      */
     public function setType($type)
@@ -59,6 +63,7 @@ class FormatterElement
 
     /**
      * Loads a specific formatter class
+     *
      * @param $className
      */
     public function setClassName($className)
@@ -70,6 +75,7 @@ class FormatterElement
 
     /**
      * Sets whether to store formatting results in a file
+     *
      * @param $useFile
      */
     public function setUseFile($useFile)
@@ -87,6 +93,7 @@ class FormatterElement
 
     /**
      * Sets output directory
+     *
      * @param string $toDir
      */
     public function setToDir($toDir)
@@ -101,6 +108,7 @@ class FormatterElement
 
     /**
      * Returns output directory
+     *
      * @return string
      */
     public function getToDir()
@@ -110,6 +118,7 @@ class FormatterElement
 
     /**
      * Sets output filename
+     *
      * @param string $outfile
      */
     public function setOutfile($outfile)
@@ -119,6 +128,7 @@ class FormatterElement
 
     /**
      * Returns output filename
+     *
      * @return string
      */
     public function getOutfile()
@@ -132,6 +142,7 @@ class FormatterElement
 
     /**
      * Returns extension
+     *
      * @return string
      */
     public function getExtension()
@@ -141,6 +152,7 @@ class FormatterElement
 
     /**
      * Returns formatter object
+     *
      * @throws BuildException
      * @return PHPUnitResultFormatter7
      */

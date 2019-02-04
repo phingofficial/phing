@@ -28,6 +28,7 @@ trait LogLevelAware
 
     /**
      * Set level of log messages generated (default = verbose)
+     *
      * @param string $level
      */
     public function setLevel($level): void

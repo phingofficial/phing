@@ -25,13 +25,19 @@ class StatisticsListener implements SubBuildListener
 {
     private static $BUILDEVENT_PROJECT_NAME_HAS_NULL_VALUE = true;
 
-    /** @var ProjectTimerMap $projectTimerMap */
+    /**
+     * @var ProjectTimerMap $projectTimerMap
+     */
     protected $projectTimerMap;
 
-    /** @var Clock $clock */
+    /**
+     * @var Clock $clock
+     */
     private $clock;
 
-    /** @var StatisticsReport $statisticsReport */
+    /**
+     * @var StatisticsReport $statisticsReport
+     */
     private $statisticsReport;
 
     public function __construct(Clock $clock = null)

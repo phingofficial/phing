@@ -4,7 +4,7 @@ class HgTagTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp()
+    public function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -13,7 +13,7 @@ class HgTagTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
@@ -49,7 +49,7 @@ class HgTagTaskTest extends BuildFileTest
             "abort: unknown revision 'deadbeef'"
         );
         $this->assertInLogs(
-            'Executing: tag --rev \'deadbeef\' --user \'test\' new-tag'
+            'Executing: tag --rev'
         );
     }
 }

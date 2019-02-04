@@ -22,9 +22,9 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 /**
  * Commits changes in a local working copy to the repository
  *
- * @author Johan Persson <johanp@aditus.nu>
+ * @author  Johan Persson <johanp@aditus.nu>
  * @package phing.tasks.ext.svn
- * @since 2.4.0
+ * @since   2.4.0
  */
 class SvnCommitTask extends SvnBaseTask
 {
@@ -41,6 +41,7 @@ class SvnCommitTask extends SvnBaseTask
 
     /**
      * Sets the commit message
+     *
      * @param $message
      */
     public function setMessage($message)
@@ -58,6 +59,7 @@ class SvnCommitTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use for returned revision
+     *
      * @param $propertyName
      */
     public function setPropertyName($propertyName)

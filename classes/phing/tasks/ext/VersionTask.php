@@ -26,8 +26,8 @@
  * of Major, Minor and Bugfix.
  * Resulting version number is also published under supplied property.
  *
- * @author      Mike Wittje <mw@mike.wittje.de>
- * @package     phing.tasks.ext
+ * @author  Mike Wittje <mw@mike.wittje.de>
+ * @package phing.tasks.ext
  */
 class VersionTask extends Task
 {
@@ -37,25 +37,30 @@ class VersionTask extends Task
      */
     const DEFAULT_PROPERTY_NAME = "build.version";
 
-    /** The default filename to use if no file specified.  */
+    /**
+     * The default filename to use if no file specified.
+     */
     const DEFAULT_FILENAME = self::DEFAULT_PROPERTY_NAME;
 
     private $startingVersion = '0.0.0';
 
     /**
      * Property for Releasetype
+     *
      * @var string $releasetype
      */
     private $releasetype;
 
     /**
      * Property for File
+     *
      * @var PhingFile file
      */
     private $file;
 
     /**
      * Property to be set
+     *
      * @var string $property
      */
     private $property;
@@ -77,6 +82,7 @@ class VersionTask extends Task
 
     /**
      * Set Property for Releasetype (Minor, Major, Bugfix)
+     *
      * @param string $releasetype
      */
     public function setReleasetype($releasetype)
@@ -86,6 +92,7 @@ class VersionTask extends Task
 
     /**
      * Set Property for File containing versioninformation
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -95,7 +102,8 @@ class VersionTask extends Task
 
     /**
      * Set name of property to be set
-     * @param $property
+     *
+     * @param  $property
      * @return void
      */
     public function setProperty($property)
@@ -128,7 +136,7 @@ class VersionTask extends Task
         try {
             if ($this->propFile) {
                 $properties = $this->loadProperties();
-                $content  = $properties->getProperty($this->property);
+                $content = $properties->getProperty($this->property);
             } else {
                 $content = trim($this->file->contents());
             }
@@ -190,31 +198,35 @@ class VersionTask extends Task
         preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion, $version);
 
         // Setting values if not captured
-        $version['PREFIX']                 = $version['PREFIX'] ?? '';
-        $version[self::RELEASETYPE_MAJOR]  = $version[self::RELEASETYPE_MAJOR] ?? '0';
-        $version[self::RELEASETYPE_MINOR]  = $version[self::RELEASETYPE_MINOR] ?? '0';
+        $version['PREFIX'] = $version['PREFIX'] ?? '';
+        $version[self::RELEASETYPE_MAJOR] = $version[self::RELEASETYPE_MAJOR] ?? '0';
+        $version[self::RELEASETYPE_MINOR] = $version[self::RELEASETYPE_MINOR] ?? '0';
         $version[self::RELEASETYPE_BUGFIX] = $version[self::RELEASETYPE_BUGFIX] ?? '0';
 
         // Resetting Minor and/or Bugfix number according to release type
         switch ($this->releasetype) {
             case self::RELEASETYPE_MAJOR:
                 $version[self::RELEASETYPE_MINOR] = '0';
+            // no break
             case self::RELEASETYPE_MINOR:
                 $version[self::RELEASETYPE_BUGFIX] = '0';
                 break;
-         }
+        }
 
         $version[$this->releasetype]++;
 
-        return sprintf('%s%u.%u.%u',
-                       $version['PREFIX'],
-                       $version[self::RELEASETYPE_MAJOR],
-                       $version[self::RELEASETYPE_MINOR],
-                       $version[self::RELEASETYPE_BUGFIX]);
+        return sprintf(
+            '%s%u.%u.%u',
+            $version['PREFIX'],
+            $version[self::RELEASETYPE_MAJOR],
+            $version[self::RELEASETYPE_MINOR],
+            $version[self::RELEASETYPE_BUGFIX]
+        );
     }
 
     /**
      * checks releasetype attribute
+     *
      * @return void
      * @throws BuildException
      */
@@ -232,15 +244,19 @@ class VersionTask extends Task
         ];
 
         if (!in_array($this->releasetype, $releaseTypes)) {
-            throw new BuildException(sprintf(
-                'Unknown Releasetype %s..Must be one of Major, Minor or Bugfix',
-                $this->releasetype
-            ), $this->getLocation());
+            throw new BuildException(
+                sprintf(
+                    'Unknown Releasetype %s..Must be one of Major, Minor or Bugfix',
+                    $this->releasetype
+                ),
+                $this->getLocation()
+            );
         }
     }
 
     /**
      * checks file attribute
+     *
      * @return void
      * @throws BuildException
      */
@@ -254,7 +270,10 @@ class VersionTask extends Task
             }
             if (!$this->file->exists()) {
                 $this->file->createNewFile();
-                $this->log('Creating file "'.$this->file->getName() . '" since it was not present', Project::MSG_INFO);
+                $this->log(
+                    'Creating file "' . $this->file->getName() . '" since it was not present',
+                    Project::MSG_INFO
+                );
             }
         } catch (IOException $ioe) {
             $message = $this->file . " doesn't exist and new file can't be created.";

@@ -31,7 +31,7 @@
  * importing file a mechanism to call the imported files targets as
  * dependencies or via the <phing> or <phingcall> task mechanisms.
  *
- * @author Bryan Davis <bpd@keynetics.com>
+ * @author  Bryan Davis <bpd@keynetics.com>
  * @package phing.tasks.system
  */
 class ImportTask extends Task
@@ -59,6 +59,7 @@ class ImportTask extends Task
 
     /**
      * Initialize task.
+     *
      * @return void
      */
     public function init()
@@ -68,6 +69,7 @@ class ImportTask extends Task
 
     /**
      * Set the file to import.
+     *
      * @param  string $f Path to file
      * @return void
      */
@@ -79,16 +81,18 @@ class ImportTask extends Task
     /**
      * Nested creator, adds a set of files (nested <fileset> attribute).
      * This is for when you don't care what order files get appended.
+     *
      * @return FileSet
      */
     public function createFileSet()
     {
         $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+        return $this->filesets[$num - 1];
     }
 
     /**
      * Is this include optional?
+     *
      * @param  bool $opt If true, do not stop the build if the file does not
      *                   exist
      * @return void

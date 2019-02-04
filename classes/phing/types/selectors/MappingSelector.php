@@ -26,13 +26,19 @@
  */
 abstract class MappingSelector extends BaseSelector
 {
-    /** @var PhingFile $targetdir */
+    /**
+     * @var PhingFile $targetdir
+     */
     protected $targetdir;
 
-    /** @var Mapper $mapperElement */
+    /**
+     * @var Mapper $mapperElement
+     */
     protected $mapperElement;
 
-    /** @var FileNameMapper $map */
+    /**
+     * @var FileNameMapper $map
+     */
     protected $map;
 
     /**
@@ -48,6 +54,7 @@ abstract class MappingSelector extends BaseSelector
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
+     *
      * @return Mapper a mapper to be configured
      * @throws BuildException if more than one mapper defined
      */
@@ -123,8 +130,10 @@ abstract class MappingSelector extends BaseSelector
         }
         // Sanity check
         if (count($destfiles) !== 1 || $destfiles[0] === null) {
-            throw new BuildException('Invalid destination file results for '
-                . $this->targetdir->getName() . ' with filename ' . $filename);
+            throw new BuildException(
+                'Invalid destination file results for '
+                . $this->targetdir->getName() . ' with filename ' . $filename
+            );
         }
         $destname = $destfiles[0];
         $fu = new FileUtils();
@@ -135,8 +144,9 @@ abstract class MappingSelector extends BaseSelector
 
     /**
      * this test is our selection test that compared the file with the destfile
-     * @param PhingFile $srcfile file to test; may be null
-     * @param PhingFile $destfile destination file
+     *
+     * @param  PhingFile $srcfile file to test; may be null
+     * @param  PhingFile $destfile destination file
      * @return true if source file compares with destination file
      */
     abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile);

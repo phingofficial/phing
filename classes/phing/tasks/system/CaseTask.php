@@ -7,7 +7,9 @@
  */
 class CaseTask extends SequentialTask
 {
-    /** @var mixed $value */
+    /**
+     * @var mixed $value
+     */
     private $value = null;
 
     /**
@@ -33,7 +35,9 @@ class CaseTask extends SequentialTask
      */
     public function main()
     {
-        /** @var Task $task */
+        /**
+         * @var Task $task
+         */
         foreach ($this->nestedTasks as $task) {
             $task->perform();
         }

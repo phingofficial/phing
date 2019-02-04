@@ -998,7 +998,7 @@ class SassTask extends Task
 
                 if ($run
                     && ($this->extfilter === ''
-                    || $this->extfilter === $this->pathInfo['extension'])
+                        || $this->extfilter === $this->pathInfo['extension'])
                 ) {
                     $outputFile = $this->buildOutputFilePath();
                     $compiler->compile($fullFilePath, $outputFile, $this->failonerror);

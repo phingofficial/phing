@@ -20,6 +20,7 @@
 /**
  * A <code>FileNameMapper</code> that contains
  * other <code>FileNameMapper</code>s.
+ *
  * @see FileNameMapper
  */
 abstract class ContainerMapper implements FileNameMapper
@@ -31,6 +32,7 @@ abstract class ContainerMapper implements FileNameMapper
 
     /**
      * Add a <code>Mapper</code>.
+     *
      * @param Mapper $mapper the <code>Mapper</code> to add.
      */
     public function addMapper(Mapper $mapper)
@@ -45,6 +47,7 @@ abstract class ContainerMapper implements FileNameMapper
      * the add method was always called first. This
      * addConfigured method has been added to allow
      * chaining to work correctly.
+     *
      * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
      */
     public function addConfigured(FileNameMapper $fileNameMapper)
@@ -54,7 +57,8 @@ abstract class ContainerMapper implements FileNameMapper
 
     /**
      * Add a <code>FileNameMapper</code>.
-     * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
+     *
+     * @param  FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
      * @throws BadMethodCallException if attempting to add this
      *         <code>ContainerMapper</code> to itself, or if the specified
      *         <code>FileNameMapper</code> is itself a <code>ContainerMapper</code>
@@ -72,7 +76,8 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Return <code>true</code> if this <code>ContainerMapper</code> or any of
      * its sub-elements contains the specified <code>FileNameMapper</code>.
-     * @param FileNameMapper $fileNameMapper   the <code>FileNameMapper</code> to search for.
+     *
+     * @param  FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to search for.
      * @return boolean
      */
     protected function contains(FileNameMapper $fileNameMapper)
@@ -88,6 +93,7 @@ abstract class ContainerMapper implements FileNameMapper
 
     /**
      * Get the <code>List</code> of <code>Mapper</code>s.
+     *
      * @return Mapper[]
      */
     public function getMappers()
@@ -97,6 +103,7 @@ abstract class ContainerMapper implements FileNameMapper
 
     /**
      * Empty implementation.
+     *
      * @param string $ignore ignored.
      */
     public function setFrom($ignore)
@@ -106,6 +113,7 @@ abstract class ContainerMapper implements FileNameMapper
 
     /**
      * Empty implementation.
+     *
      * @param string $ignore ignored.
      */
     public function setTo($ignore)

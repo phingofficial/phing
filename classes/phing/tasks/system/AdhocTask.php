@@ -27,14 +27,15 @@
  *
  * Subclasses exist for conveniently declaring and registering tasks and types.
  *
- * @author   Hans Lellelid <hans@xmpl.org>
- * @package  phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class AdhocTask extends Task
 {
 
     /**
      * The PHP script
+     *
      * @var string
      */
     protected $script;
@@ -58,6 +59,7 @@ class AdhocTask extends Task
 
     /**
      * Get array of names of newly defined classes.
+     *
      * @return array
      */
     protected function getNewClasses()
@@ -67,6 +69,7 @@ class AdhocTask extends Task
 
     /**
      * Load the adhoc class, and perform any core validation.
+     *
      * @return string         The classname of the ProjectComponent class.
      * @throws BuildException - if more than one class is defined.
      */
@@ -79,6 +82,7 @@ class AdhocTask extends Task
 
     /**
      * Set the script.
+     *
      * @param string $script
      */
     public function addText($script)

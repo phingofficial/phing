@@ -29,16 +29,16 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     private $parser;
     private $root;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->parser = new IniFileParser();
-        $this->root = \org\bovigo\vfs\vfsStream::setup();
+        $this->root = \org\bovigo\vfs\vfsStream::setUp();
     }
 
     /**
      * @dataProvider provideIniFiles
-     * @covers IniFileParser::parseFile
-     * @covers IniFileParser::inVal
+     * @covers       IniFileParser::parseFile
+     * @covers       IniFileParser::inVal
      */
     public function testParseFile($data, $expected)
     {
@@ -66,59 +66,59 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     {
         return [
             [
-                'data'     => "property = test\nproperty2 = test2\nproperty3 = test3\n",
+                'data' => "property = test\nproperty2 = test2\nproperty3 = test3\n",
                 'expected' => [
-                    'property'  => 'test',
+                    'property' => 'test',
                     'property2' => 'test2',
                     'property3' => 'test3',
                 ],
             ],
             [
-                'data'     => "property = test\r\nproperty2 = test2\r\nproperty3 = test3\r\n",
+                'data' => "property = test\r\nproperty2 = test2\r\nproperty3 = test3\r\n",
                 'expected' => [
-                    'property'  => 'test',
+                    'property' => 'test',
                     'property2' => 'test2',
                     'property3' => 'test3',
                 ],
             ],
             [
-                'data'     => "property = test,\\\ntest2,\\\ntest3\n",
+                'data' => "property = test,\\\ntest2,\\\ntest3\n",
                 'expected' => [
                     'property' => 'test,test2,test3',
                 ],
             ],
             [
-                'data'     => "property = test,\\\r\ntest2,\\\r\ntest3\r\n",
+                'data' => "property = test,\\\r\ntest2,\\\r\ntest3\r\n",
                 'expected' => [
                     'property' => 'test,test2,test3',
                 ],
             ],
             [
-                'data'     => "# property = test",
+                'data' => "# property = test",
                 'expected' => [],
             ],
             [
-                'data'     => "   # property = test",
+                'data' => "   # property = test",
                 'expected' => [],
             ],
             [
-                'data'     => "; property = test",
+                'data' => "; property = test",
                 'expected' => [],
             ],
             [
-                'data'     => "property=test",
+                'data' => "property=test",
                 'expected' => [
                     'property' => 'test',
                 ],
             ],
             [
-                'data'     => "property = true",
+                'data' => "property = true",
                 'expected' => [
                     'property' => true,
                 ],
             ],
             [
-                'data'     => "property = false",
+                'data' => "property = false",
                 'expected' => [
                     'property' => false,
                 ],

@@ -26,7 +26,9 @@
  */
 class FirstMatchMapper extends ContainerMapper
 {
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function main($sourceFileName)
     {
         foreach ($this->getMappers() as $mapper) {

@@ -20,9 +20,9 @@
 /**
  * Echos a message to the logging system or to a file
  *
- * @author   Michiel Rook <mrook@php.net>
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @package  phing.tasks.system
+ * @author  Michiel Rook <mrook@php.net>
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @package phing.tasks.system
  */
 class EchoTask extends Task
 {
@@ -111,7 +111,9 @@ class EchoTask extends Task
         return $msg;
     }
 
-    /** setter for file
+    /**
+     * setter for file
+     *
      * @param $file
      */
     public function setFile($file)
@@ -119,7 +121,9 @@ class EchoTask extends Task
         $this->file = (string) $file;
     }
 
-    /** setter for level
+    /**
+     * setter for level
+     *
      * @param $level
      */
     public function setLevel($level)
@@ -127,7 +131,9 @@ class EchoTask extends Task
         $this->level = (string) $level;
     }
 
-    /** setter for append
+    /**
+     * setter for append
+     *
      * @param $append
      */
     public function setAppend($append)
@@ -135,7 +141,9 @@ class EchoTask extends Task
         $this->append = $append;
     }
 
-    /** setter for message
+    /**
+     * setter for message
+     *
      * @param $msg
      */
     public function setMsg($msg)
@@ -143,7 +151,9 @@ class EchoTask extends Task
         $this->setMessage($msg);
     }
 
-    /** alias setter
+    /**
+     * alias setter
+     *
      * @param $msg
      */
     public function setMessage($msg)
@@ -151,7 +161,9 @@ class EchoTask extends Task
         $this->msg = (string) $msg;
     }
 
-    /** Supporting the <echo>Message</echo> syntax.
+    /**
+     * Supporting the <echo>Message</echo> syntax.
+     *
      * @param $msg
      */
     public function addText($msg)

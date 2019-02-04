@@ -33,6 +33,7 @@ class ExecTask extends Task
 
     /**
      * Command to be executed
+     *
      * @var string
      */
     protected $realCommand;
@@ -46,6 +47,7 @@ class ExecTask extends Task
 
     /**
      * Working directory.
+     *
      * @var PhingFile
      */
     protected $dir;
@@ -54,48 +56,56 @@ class ExecTask extends Task
 
     /**
      * Operating system.
+     *
      * @var string
      */
     protected $os;
 
     /**
      * Whether to escape shell command using escapeshellcmd().
+     *
      * @var boolean
      */
     protected $escape = false;
 
     /**
      * Where to direct output.
+     *
      * @var PhingFile
      */
     protected $output;
 
     /**
      * Whether to use PHP's passthru() function instead of exec()
+     *
      * @var boolean
      */
     protected $passthru = false;
 
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
+     *
      * @var boolean
      */
     protected $logOutput = false;
 
     /**
      * Logging level for status messages
+     *
      * @var integer
      */
     protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      * Where to direct error output.
+     *
      * @var PhingFile
      */
     protected $error;
 
     /**
      * If spawn is set then [unix] programs will redirect stdout and add '&'.
+     *
      * @var boolean
      */
     protected $spawn = false;
@@ -116,6 +126,7 @@ class ExecTask extends Task
 
     /**
      * Whether to check the return code.
+     *
      * @var boolean
      */
     protected $checkreturn = false;
@@ -251,7 +262,7 @@ class ExecTask extends Task
         if ($this->output === null && $this->error === null && $this->passthru === false) {
             $this->realCommand .= ' 2>&1';
         }
-        
+
         // we ignore the spawn boolean for windows
         if ($this->spawn) {
             $this->realCommand .= ' &';
@@ -357,8 +368,10 @@ class ExecTask extends Task
      */
     public function setCommand($command): void
     {
-        $this->log("The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
-            Project::MSG_WARN);
+        $this->log(
+            "The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
+            Project::MSG_WARN
+        );
         $this->commandline = new Commandline($command);
         $this->executable = $this->commandline->getExecutable();
     }
@@ -425,6 +438,7 @@ class ExecTask extends Task
 
     /**
      * Restrict this execution to a single OS Family
+     *
      * @param string $osFamily the family to restrict to.
      */
     public function setOsFamily($osFamily): void
@@ -598,6 +612,7 @@ class ExecTask extends Task
 
     /**
      * Is this the OS the user wanted?
+     *
      * @return boolean.
      * <ul>
      * <li>
@@ -626,9 +641,11 @@ class ExecTask extends Task
         $this->log("Current OS is " . $myos, Project::MSG_VERBOSE);
         if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
             // this command will be executed only on the specified OS
-            $this->log("This OS, " . $myos
+            $this->log(
+                "This OS, " . $myos
                 . " was not found in the specified list of valid OSes: " . $this->os,
-                Project::MSG_VERBOSE);
+                Project::MSG_VERBOSE
+            );
             return false;
         }
         return true;
@@ -659,8 +676,8 @@ class ExecTask extends Task
     /**
      * Indicates whether to attempt to resolve the executable to a
      * file.
-     * @return bool the resolveExecutable flag
      *
+     * @return bool the resolveExecutable flag
      */
     public function getResolveExecutable(): bool
     {
@@ -674,7 +691,8 @@ class ExecTask extends Task
      *
      * @param string $exec the name of the executable.
      * @param bool $mustSearchPath if true, the executable will be looked up in
-     * the PATH environment and the absolute path is returned.
+     *                               the PATH environment and the absolute path
+     *                               is returned.
      *
      * @return string the executable as a full path if it can be determined.
      * @throws \BuildException

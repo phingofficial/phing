@@ -21,11 +21,11 @@
 /**
  * ApiGen task (http://apigen.org).
  *
- * @package   phing.tasks.ext.apigen
- * @author    Martin Srank <martin@smasty.net>
- * @author    Jaroslav Hanslík <kukulich@kukulich.cz>
- * @author    Lukáš Homza <lukashomza@gmail.com>
- * @since     2.4.10
+ * @package phing.tasks.ext.apigen
+ * @author  Martin Srank <martin@smasty.net>
+ * @author  Jaroslav Hanslík <kukulich@kukulich.cz>
+ * @author  Lukáš Homza <lukashomza@gmail.com>
+ * @since   2.4.10
  */
 class ApiGenTask extends Task
 {
@@ -330,7 +330,7 @@ class ApiGenTask extends Task
      * Sets if highlighted source code files should not be generated.
      *
      * @deprecated
-     * @param boolean $noSourceCode
+     * @param      boolean $noSourceCode
      */
     public function setNoSourceCode($noSourceCode)
     {
@@ -365,7 +365,7 @@ class ApiGenTask extends Task
      * Runs ApiGen.
      *
      * @throws BuildException If something is wrong.
-     * @see Task::main()
+     * @see    Task::main()
      */
     public function main()
     {
@@ -376,10 +376,13 @@ class ApiGenTask extends Task
         if (!empty($this->options['config'])) {
             // Config check
             if (!is_file($this->options['config'])) {
-                throw new BuildException(sprintf(
-                    'Config file %s doesn\'t exist',
-                    $this->options['config']
-                ), $this->getLocation());
+                throw new BuildException(
+                    sprintf(
+                        'Config file %s doesn\'t exist',
+                        $this->options['config']
+                    ),
+                    $this->getLocation()
+                );
             }
         } else {
             // Source check
@@ -402,7 +405,11 @@ class ApiGenTask extends Task
         }
 
         // Execute ApiGen
-        exec(escapeshellcmd($this->executable) . ' ' . escapeshellcmd($this->action) . ' ' . $this->constructArguments(), $output, $return);
+        exec(
+            escapeshellcmd($this->executable) . ' ' . escapeshellcmd($this->action) . ' ' . $this->constructArguments(),
+            $output,
+            $return
+        );
 
         $logType = 0 === $return ? Project::MSG_INFO : Project::MSG_ERR;
         foreach ($output as $line) {

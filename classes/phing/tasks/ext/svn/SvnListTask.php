@@ -23,11 +23,11 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Stores the output of a list command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
  *
- * @author Anton Stöckl <anton@stoeckl.de>
- * @author Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
+ * @author  Anton Stöckl <anton@stoeckl.de>
+ * @author  Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
  * @package phing.tasks.ext.svn
- * @see VersionControl_SVN
- * @since 2.1.0
+ * @see     VersionControl_SVN
+ * @since   2.1.0
  */
 class SvnListTask extends SvnBaseTask
 {
@@ -37,6 +37,7 @@ class SvnListTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $propertyName
      */
     public function setPropertyName($propertyName)
@@ -54,6 +55,7 @@ class SvnListTask extends SvnBaseTask
 
     /**
      * Sets the max num of tags to display
+     *
      * @param $limit
      */
     public function setLimit($limit)
@@ -63,6 +65,7 @@ class SvnListTask extends SvnBaseTask
 
     /**
      * Sets whether to sort tags in descending order
+     *
      * @param $orderDescending
      */
     public function setOrderDescending($orderDescending)

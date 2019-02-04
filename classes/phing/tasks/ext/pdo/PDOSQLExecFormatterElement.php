@@ -22,9 +22,9 @@
  *
  * This class is inspired by the similarly-named class in the PHPUnit tasks.
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pdo
- * @since 2.3.0
+ * @since   2.3.0
  */
 class PDOSQLExecFormatterElement
 {
@@ -35,36 +35,42 @@ class PDOSQLExecFormatterElement
 
     /**
      * The type of the formatter (used for built-in formatter classes).
+     *
      * @var string
      */
     private $type = "";
 
     /**
      * Whether to use file (or write output to phing log).
+     *
      * @var boolean
      */
     private $useFile = true;
 
     /**
      * Output file for formatter.
+     *
      * @var PhingFile
      */
     private $outfile;
 
     /**
      * Print header columns.
+     *
      * @var boolean
      */
     private $showheaders = true;
 
     /**
      * Whether to format XML output.
+     *
      * @var boolean
      */
     private $formatoutput = true;
 
     /**
      * Encoding for XML output.
+     *
      * @var string
      */
     private $encoding;
@@ -72,6 +78,7 @@ class PDOSQLExecFormatterElement
     /**
      * Column delimiter.
      * Defaults to ','
+     *
      * @var string
      */
     private $coldelimiter = ",";
@@ -79,18 +86,21 @@ class PDOSQLExecFormatterElement
     /**
      * Row delimiter.
      * Defaults to PHP_EOL.
+     *
      * @var string
      */
     private $rowdelimiter = PHP_EOL;
 
     /**
      * Append to an existing file or overwrite it?
+     *
      * @var boolean
      */
     private $append = false;
 
     /**
      * Parameters for a custom formatter.
+     *
      * @var array Parameter[]
      */
     private $formatterParams = [];
@@ -112,6 +122,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Construct a new PDOSQLExecFormatterElement with parent task.
+     *
      * @param PDOSQLExecTask $parentTask
      */
     public function __construct(PDOSQLExecTask $parentTask)
@@ -121,6 +132,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Supports nested <param> element (for custom formatter classes).
+     *
      * @return Parameter
      */
     public function createParam()
@@ -132,6 +144,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets a configured output writer.
+     *
      * @return Writer
      */
     private function getOutputWriter()
@@ -150,6 +163,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Configures wrapped formatter class with any attributes on this element.
+     *
      * @throws BuildException
      */
     public function prepare(Location $location)
@@ -178,9 +192,12 @@ class PDOSQLExecFormatterElement
             $param = new Parameter();
             $method = 'set' . $param->getName();
             if (!method_exists($this->formatter, $param->getName())) {
-                throw new BuildException("Formatter " . get_class(
+                throw new BuildException(
+                    "Formatter " . get_class(
                         $this->formatter
-                    ) . " does not have a $method method.", $location);
+                    ) . " does not have a $method method.",
+                    $location
+                );
             }
             call_user_func([$this->formatter, $method], $param->getValue());
         }
@@ -188,7 +205,8 @@ class PDOSQLExecFormatterElement
 
     /**
      * Sets the formatter type.
-     * @param string $type
+     *
+     * @param  string $type
      * @throws BuildException
      */
     public function setType($type)
@@ -205,6 +223,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Set classname for a custom formatter (must extend PDOResultFormatter).
+     *
      * @param string $className
      */
     public function setClassName($className)
@@ -215,6 +234,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Set whether to write formatter results to file.
+     *
      * @param boolean $useFile
      */
     public function setUseFile($useFile)
@@ -224,6 +244,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Return whether to write formatter results to file.
+     *
      * @return boolean
      */
     public function getUseFile()
@@ -233,7 +254,8 @@ class PDOSQLExecFormatterElement
 
     /**
      * Sets the output file for the formatter results.
-     * @param PhingFile $outfile
+     *
+     * @param    PhingFile $outfile
      * @internal param PhingFile $outFile
      */
     public function setOutfile(PhingFile $outfile)
@@ -243,6 +265,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Get the output file.
+     *
      * @return PhingFile
      */
     public function getOutfile()
@@ -253,6 +276,7 @@ class PDOSQLExecFormatterElement
     /**
      * whether output should be appended to or overwrite
      * an existing file.  Defaults to false.
+     *
      * @param boolean $append
      */
     public function setAppend($append)
@@ -262,6 +286,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Whether output should be appended to file.
+     *
      * @return boolean
      */
     public function getAppend()
@@ -272,6 +297,7 @@ class PDOSQLExecFormatterElement
     /**
      * Print headers for result sets from the
      * statements; optional, default true.
+     *
      * @param boolean $showheaders
      */
     public function setShowheaders($showheaders)
@@ -281,6 +307,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Sets the column delimiter.
+     *
      * @param string $v
      */
     public function setColdelim($v)
@@ -290,6 +317,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Sets the row delimiter.
+     *
      * @param string $v
      */
     public function setRowdelim($v)
@@ -299,6 +327,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Set the DOM document encoding.
+     *
      * @param string $v
      */
     public function setEncoding($v)
@@ -316,6 +345,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets a default output writer for this task.
+     *
      * @return Writer
      */
     private function getDefaultOutput()
@@ -325,6 +355,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets the formatter that has been configured based on this element.
+     *
      * @return PDOResultFormatter
      */
     public function getFormatter()

@@ -20,8 +20,8 @@
 /**
  * Convenience class for reading console input.
  *
- * @author Hans Lellelid <hans@xmpl.org>
- * @author Matthew Hershberger <matthewh@lightsp.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Matthew Hershberger <matthewh@lightsp.com>
  * @package phing.system.io
  */
 class ConsoleReader extends Reader
@@ -40,7 +40,7 @@ class ConsoleReader extends Reader
 
     /**
      *
-     * @param  int    $len Num chars to read.
+     * @param  int $len Num chars to read.
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)
@@ -66,6 +66,7 @@ class ConsoleReader extends Reader
 
     /**
      * Whether eof has been reached with stream.
+     *
      * @return boolean
      */
     public function eof()
@@ -75,6 +76,7 @@ class ConsoleReader extends Reader
 
     /**
      * Returns path to file we are reading.
+     *
      * @return string
      */
     public function getResource()

@@ -20,9 +20,9 @@
 /**
  * Wrapper for comments for ionCube tasks
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.ioncube
- * @since 2.2.0
+ * @since   2.2.0
  */
 class IoncubeComment
 {

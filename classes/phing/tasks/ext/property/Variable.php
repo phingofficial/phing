@@ -20,8 +20,8 @@
 /**
  * Variable Task.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.ext.property
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.ext.property
  */
 class Variable extends PropertyTask
 {
@@ -87,7 +87,6 @@ class Variable extends PropertyTask
                 $this->setPropValue($properties, $this->getProject(), 'properties');
             }
         } catch (Exception $e) {
-
         }
         try {
             $properties = $this->getPropValue($this->getProject(), 'userProperties');
@@ -96,7 +95,6 @@ class Variable extends PropertyTask
                 $this->setPropValue($properties, $this->getProject(), 'userProperties');
             }
         } catch (Exception $e) {
-
         }
     }
 
@@ -118,8 +116,8 @@ class Variable extends PropertyTask
     /**
      * Get a private property of a class
      *
-     * @param mixed $thisClass The class
-     * @param string $fieldName The property to get
+     * @param  mixed $thisClass The class
+     * @param  string $fieldName The property to get
      * @return ReflectionProperty               The property value
      * @throws Exception
      */
@@ -136,8 +134,8 @@ class Variable extends PropertyTask
     /**
      * Get a private property of an object
      *
-     * @param mixed $instance the object instance
-     * @param string $fieldName the name of the field
+     * @param  mixed $instance the object instance
+     * @param  string $fieldName the name of the field
      * @return mixed an object representing the value of the field
      * @throws Exception
      */
@@ -166,7 +164,6 @@ class Variable extends PropertyTask
         $props = new Properties();
         try {
             if ($file->exists()) {
-
                 $props->load($file);
 
                 $this->addProperties($props);
@@ -184,7 +181,7 @@ class Variable extends PropertyTask
     /**
      * iterate through a set of properties, resolve them, then assign them
      *
-     * @param Properties $props  The feature to be added to the Properties attribute
+     * @param Properties $props The feature to be added to the Properties attribute
      */
     protected function addProperties($props)
     {
@@ -197,7 +194,7 @@ class Variable extends PropertyTask
     /**
      * resolve properties inside a properties hashtable
      *
-     * @param Properties $props               properties object to resolve
+     * @param  Properties $props properties object to resolve
      * @throws BuildException  Description of the Exception
      */
     protected function resolveAllProperties(Properties $props)
@@ -216,7 +213,6 @@ class Variable extends PropertyTask
             $ih = PropertyHelper::getPropertyHelper($this->project);
 
             while (!$resolved) {
-
                 $fragments = array();
                 $propertyRefs = array();
 

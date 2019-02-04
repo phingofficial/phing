@@ -26,7 +26,7 @@
  */
 class ZipUnzipTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!extension_loaded('zip')) {
             $this->markTestSkipped("Zip extension is required");
@@ -38,7 +38,7 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("clean");
     }

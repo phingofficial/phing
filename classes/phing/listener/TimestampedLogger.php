@@ -20,8 +20,8 @@
 /**
  * Like a normal logger, except with timed outputs.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener
  */
 class TimestampedLogger extends DefaultLogger
 {

@@ -20,7 +20,7 @@
 /**
  * Prints plain text output of the test to a specified Writer.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
 class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
@@ -96,8 +96,11 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param PHPUnit\Framework\AssertionFailedError $e
      * @param float $time
      */
-    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, float $time): void
-    {
+    public function addFailure(
+        PHPUnit\Framework\Test $test,
+        PHPUnit\Framework\AssertionFailedError $e,
+        float $time
+    ): void {
         parent::addFailure($test, $e, $time);
         $this->formatError("FAILED", $test, $e);
     }

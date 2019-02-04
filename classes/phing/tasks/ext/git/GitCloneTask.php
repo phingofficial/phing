@@ -20,31 +20,34 @@
 /**
  * Wrapper around git-clone
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitCloneTask extends GitBaseTask
 {
     /**
      * Whether --depth key should be set for git-clone
+     *
      * @var int
      */
     private $depth = 0;
 
     /**
      * Whether --bare key should be set for git-clone
+     *
      * @var bool
      */
     private $isBare = false;
 
     /**
      * Whether --single-branch key should be set for git-clone
+     *
      * @var bool
      */
     private $singleBranch = false;
-    
+
     /**
      * Branch to check out
      *
@@ -54,6 +57,7 @@ class GitCloneTask extends GitBaseTask
 
     /**
      * Path to target directory
+     *
      * @var string
      */
     private $targetPath;
@@ -234,7 +238,7 @@ class GitCloneTask extends GitBaseTask
     {
         return !empty($this->branch);
     }
-    
+
     /**
      * @param string $branch
      */

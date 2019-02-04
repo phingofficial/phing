@@ -21,22 +21,28 @@
 /**
  * Class ZendServerDeploymentToolTask
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
-abstract class zsdtBaseTask extends Task
+abstract class ZsdtBaseTask extends Task
 {
     protected $action;
 
     protected $arguments = '';
 
-    /** @var string $descriptor */
+    /**
+     * @var string $descriptor
+     */
     protected $descriptor;
 
-    /** @var string $schema */
+    /**
+     * @var string $schema
+     */
     protected $schema;
 
-    /** @var array $path */
+    /**
+     * @var array $path
+     */
     private $path = [
         'NIX' => '/usr/local/zend/bin/zdpack',
         'WIN' => 'C:\Program Files (x86)\Zend\ZendServer\bin\zdpack',

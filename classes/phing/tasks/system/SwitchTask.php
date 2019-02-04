@@ -67,21 +67,29 @@
  * </switch>
  * ```
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
 class SwitchTask extends Task
 {
-    /** @var mixed $value */
+    /**
+     * @var mixed $value
+     */
     private $value = null;
 
-    /** @var array $cases */
+    /**
+     * @var array $cases
+     */
     private $cases = [];
 
-    /** @var SequentialTask $defaultCase */
+    /**
+     * @var SequentialTask $defaultCase
+     */
     private $defaultCase = null;
 
-    /** @var bool $caseInsensitive */
+    /**
+     * @var bool $caseInsensitive
+     */
     private $caseInsensitive = false;
 
     /***
@@ -142,7 +150,9 @@ class SwitchTask extends Task
 
         $selectedCase = $this->defaultCase;
 
-        /** @var CaseTask $case */
+        /**
+         * @var CaseTask $case
+         */
         foreach ($this->cases as $case) {
             $cValue = $case->getValue();
 

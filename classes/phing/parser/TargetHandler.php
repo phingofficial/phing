@@ -24,7 +24,7 @@
  * nested tags (datatypes and tasks).
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @copyright  2001,2002 THYRELL. All rights reserved
+ * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.parser
  */
 class TargetHandler extends AbstractHandler
@@ -33,12 +33,14 @@ class TargetHandler extends AbstractHandler
     /**
      * Reference to the target object that represents the currently parsed
      * target.
+     *
      * @var object the target instance
      */
     private $target;
 
     /**
      * The phing project configurator object
+     *
      * @var ProjectConfigurator
      */
     private $configurator;
@@ -51,10 +53,10 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param AbstractSAXParser $parser
-     * @param AbstractHandler $parentHandler
-     * @param ProjectConfigurator $configurator
-     * @param PhingXMLContext $context
+     * @param    AbstractSAXParser $parser
+     * @param    AbstractHandler $parentHandler
+     * @param    ProjectConfigurator $configurator
+     * @param    PhingXMLContext $context
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
      * @internal param the $object ProjectConfigurator object
@@ -82,10 +84,10 @@ class TargetHandler extends AbstractHandler
      * <li>adding a reference to the target (if id attribute is given)</li>
      * </ul>
      *
-     * @param $tag
-     * @param $attrs
-     * @throws BuildException
-     * @throws ExpatParseException
+     * @param    $tag
+     * @param    $attrs
+     * @throws   BuildException
+     * @throws   ExpatParseException
      * @internal param the $string tag that comes in
      * @internal param attributes $array the tag carries
      */
@@ -132,8 +134,10 @@ class TargetHandler extends AbstractHandler
         }
 
         if ($name === null) {
-            throw new ExpatParseException("target element appears without a name attribute", $this->parser->getLocation(
-            ));
+            throw new ExpatParseException(
+                "target element appears without a name attribute",
+                $this->parser->getLocation()
+            );
         }
 
         // shorthand
@@ -141,8 +145,10 @@ class TargetHandler extends AbstractHandler
 
         // check to see if this target is a dup within the same file
         if (isset($this->context->getCurrentTargets()[$name])) {
-            throw new BuildException("Duplicate target: $name",
-                $this->parser->getLocation());
+            throw new BuildException(
+                "Duplicate target: $name",
+                $this->parser->getLocation()
+            );
         }
 
         $this->target = new Target();
@@ -160,9 +166,9 @@ class TargetHandler extends AbstractHandler
         // check to see if target with same name is already defined
         $projectTargets = $project->getTargets();
         if (isset($projectTargets[$name])) {
-            if ($this->configurator->isIgnoringProjectTag() &&
-                $this->configurator->getCurrentProjectName() != null &&
-                strlen($this->configurator->getCurrentProjectName()) != 0
+            if ($this->configurator->isIgnoringProjectTag()
+                && $this->configurator->getCurrentProjectName() != null
+                && strlen($this->configurator->getCurrentProjectName()) != 0
             ) {
                 // In an impored file (and not completely
                 // ignoring the project tag)
@@ -196,8 +202,8 @@ class TargetHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param  string $name the tag that comes in
-     * @param  array  $attrs  attributes the tag carries
+     * @param string $name the tag that comes in
+     * @param array $attrs attributes the tag carries
      */
     public function startElement($name, $attrs)
     {

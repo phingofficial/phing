@@ -65,7 +65,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test the convertShorthand function 
+     * Test the convertShorthand function
      */
     public function testConvertShorthand()
     {

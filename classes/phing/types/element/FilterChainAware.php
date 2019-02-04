@@ -19,7 +19,9 @@
 
 trait FilterChainAware
 {
-    /** @var FilterChain[] $filterChains */
+    /**
+     * @var FilterChain[] $filterChains
+     */
     protected $filterChains = [];
 
     /**

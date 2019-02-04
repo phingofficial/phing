@@ -23,7 +23,9 @@
  */
 class SvnRevertTask extends SvnBaseTask
 {
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $recursive;
 
     /**

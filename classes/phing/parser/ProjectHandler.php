@@ -21,7 +21,7 @@
  * Handler class for the <project> XML element This class handles all elements
  * under the <project> element.
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
+ * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright (c) 2001,2002 THYRELL. All rights reserved
  * @package   phing.parser
  */
@@ -30,6 +30,7 @@ class ProjectHandler extends AbstractHandler
 
     /**
      * The phing project configurator object.
+     *
      * @var ProjectConfigurator
      */
     private $configurator;
@@ -42,14 +43,17 @@ class ProjectHandler extends AbstractHandler
     /**
      * Constructs a new ProjectHandler
      *
-     * @param ExpatParser $parser  the ExpatParser object
+     * @param ExpatParser $parser the ExpatParser object
      * @param AbstractHandler $parentHandler the parent handler that invoked this handler
      * @param ProjectConfigurator $configurator the ProjectConfigurator object
      * @param PhingXMLContext $context
      */
-    public function __construct(ExpatParser $parser, AbstractHandler $parentHandler,
-        ProjectConfigurator $configurator, PhingXMLContext $context)
-    {
+    public function __construct(
+        ExpatParser $parser,
+        AbstractHandler $parentHandler,
+        ProjectConfigurator $configurator,
+        PhingXMLContext $context
+    ) {
         parent::__construct($parser, $parentHandler);
 
         $this->configurator = $configurator;
@@ -61,7 +65,7 @@ class ProjectHandler extends AbstractHandler
      * this method handles the attributes of a tag.
      *
      * @param  string $tag the tag that comes in
-     * @param  array  $attrs attributes the tag carries
+     * @param  array $attrs attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -114,7 +118,8 @@ class ProjectHandler extends AbstractHandler
 
         if ($def === null) {
             throw new ExpatParseException(
-                "The default attribute of project is required");
+                "The default attribute of project is required"
+            );
         }
 
         $project->setDefaultTarget($def);
@@ -164,7 +169,7 @@ class ProjectHandler extends AbstractHandler
      * calling the required handlers for the detected element.
      *
      * @param  string $name the tag that comes in
-     * @param  array  $attrs attributes the tag carries
+     * @param  array $attrs attributes the tag carries
      * @throws ExpatParseException if a unxepected element occurs
      */
     public function startElement($name, $attrs)
@@ -176,8 +181,14 @@ class ProjectHandler extends AbstractHandler
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {
-            $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->context->getImplicitTarget(
-            ));
+            $tf = new ElementHandler(
+                $this->parser,
+                $this,
+                $this->configurator,
+                null,
+                null,
+                $this->context->getImplicitTarget()
+            );
             $tf->init($name, $attrs);
         }
     }

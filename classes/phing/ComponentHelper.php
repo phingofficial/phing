@@ -18,18 +18,21 @@ class ComponentHelper
 
     /**
      * task definitions for this project
+     *
      * @var string[]
      */
     private $taskdefs = [];
 
     /**
      * type definitions for this project
+     *
      * @var string[]
      */
     private $typedefs = [];
 
     /**
      * ComponentHelper constructor.
+     *
      * @param Project $project
      */
     public function __construct(Project $project)
@@ -47,7 +50,9 @@ class ComponentHelper
             return null;
         }
 
-        /** @var ComponentHelper $componentHelper */
+        /**
+         * @var ComponentHelper $componentHelper
+         */
         $componentHelper = $project->getReference(self::COMPONENT_HELPER_REFERENCE);
 
         if ($componentHelper !== null) {
@@ -72,6 +77,7 @@ class ComponentHelper
 
     /**
      * Adds a task definition.
+     *
      * @param string $name Name of tag.
      * @param string $class The class path to use.
      * @param string $classpath The classpat to use.
@@ -91,6 +97,7 @@ class ComponentHelper
 
     /**
      * Returns the task definitions
+     *
      * @return array
      */
     public function getTaskDefinitions()
@@ -100,6 +107,7 @@ class ComponentHelper
 
     /**
      * Adds a data type definition.
+     *
      * @param string $typeName Name of the type.
      * @param string $typeClass The class to use.
      * @param string $classpath The classpath to use.
@@ -140,6 +148,7 @@ class ComponentHelper
 
     /**
      * Returns the data type definitions
+     *
      * @return array
      */
     public function getDataTypeDefinitions()
@@ -297,7 +306,7 @@ class ComponentHelper
 
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new PhingFile((string)$taskdefs);
+            $in = new PhingFile((string) $taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -320,7 +329,7 @@ class ComponentHelper
 
         try { // try to load typedefs
             $props = new Properties();
-            $in = new PhingFile((string)$typedefs);
+            $in = new PhingFile((string) $typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }

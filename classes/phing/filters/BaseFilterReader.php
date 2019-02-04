@@ -15,23 +15,26 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Base class for core filter readers.
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @see       FilterReader
- * @package   phing.filters
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @see     FilterReader
+ * @package phing.filters
  */
 class BaseFilterReader extends FilterReader
 {
 
-    /** Have the parameters passed been interpreted? */
+    /**
+     * Have the parameters passed been interpreted?
+     */
     protected $initialized = false;
 
     /**
      * The Phing project this filter is part of.
+     *
      * @var Project
      */
     protected $project = null;
@@ -100,7 +103,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Reads characters.
      *
-     * @param  int $len  Maximum number of characters to read.
+     * @param int $len Maximum number of characters to read.
      *
      * @return string Characters read, or -1 if the end of the stream
      *                    has been reached
@@ -149,8 +152,8 @@ class BaseFilterReader extends FilterReader
     /**
      * Convenience method to support logging in filters.
      *
-     * @param string $msg   Message to log.
-     * @param int    $level Priority level.
+     * @param string $msg Message to log.
+     * @param int $level Priority level.
      *
      * @return void
      */

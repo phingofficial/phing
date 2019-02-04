@@ -70,6 +70,7 @@ class WikiPublishTask extends Task
     private $mode = 'append';
     /**
      * Publish modes map
+     *
      * @var array
      */
     private $modeMap = [
@@ -167,10 +168,12 @@ class WikiPublishTask extends Task
     public function setMode($mode)
     {
         if (false === isset($this->modeMap[$mode])) {
-            throw new BuildException('Mode is invalid (' . $mode . ', should be one of ' . implode(
+            throw new BuildException(
+                'Mode is invalid (' . $mode . ', should be one of ' . implode(
                     ',',
                     array_keys($this->modeMap)
-                ) . ')');
+                ) . ')'
+            );
         }
         $this->mode = $mode;
     }
@@ -353,7 +356,7 @@ class WikiPublishTask extends Task
     /**
      * Call Wiki webapi
      *
-     * @param string     $queryString
+     * @param string $queryString
      * @param array|null $postData
      *
      * @return array
@@ -408,7 +411,7 @@ class WikiPublishTask extends Task
      * Validate Wiki webapi response
      *
      * @param string $action
-     * @param array  $response
+     * @param array $response
      * @param string $expect
      *
      * @throws BuildException
@@ -417,14 +420,16 @@ class WikiPublishTask extends Task
     {
         if (isset($response['error'])) {
             throw new BuildException(
-                'Wiki response error (action: ' . $action . ', error code: ' . $response['error']['code'] . ')');
+                'Wiki response error (action: ' . $action . ', error code: ' . $response['error']['code'] . ')'
+            );
         }
         if (false == isset($response[$action]) || false == isset($response[$action]['result'])) {
             throw new BuildException('Wiki response result not found (action: ' . $action . ')');
         }
         if ($response[$action]['result'] !== $expect) {
             throw new BuildException(
-                'Unexpected Wiki response result ' . $response[$action]['result'] . ' (expected: ' . $expect . ')');
+                'Unexpected Wiki response result ' . $response[$action]['result'] . ' (expected: ' . $expect . ')'
+            );
         }
     }
 }

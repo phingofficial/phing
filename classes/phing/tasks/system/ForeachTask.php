@@ -36,69 +36,95 @@
  * delimiter --> The delimiter string that separates the values in the "list"
  *               parameter.  The default is ",".
  *
- * @author    Jason Hines <jason@greenhell.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Jason Hines <jason@greenhell.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class ForeachTask extends Task
 {
     use ResourceAware;
 
-    /** Delimter-separated list of values to process. */
+    /**
+     * Delimter-separated list of values to process.
+     */
     private $list;
 
-    /** Name of parameter to pass to callee */
+    /**
+     * Name of parameter to pass to callee
+     */
     private $param;
 
-    /** @var PropertyTask[] $params */
+    /**
+     * @var PropertyTask[] $params
+     */
     private $params = [];
 
-    /** Name of absolute path parameter to pass to callee */
+    /**
+     * Name of absolute path parameter to pass to callee
+     */
     private $absparam;
 
-    /** Delimiter that separates items in $list */
+    /**
+     * Delimiter that separates items in $list
+     */
     private $delimiter = ',';
 
     /**
      * PhingCallTask that will be invoked w/ calleeTarget.
+     *
      * @var PhingCallTask
      */
     private $callee;
 
-    /** Instance of mapper */
+    /**
+     * Instance of mapper
+     */
     private $mapperElement;
 
     /**
      * Target to execute.
+     *
      * @var string
      */
     private $calleeTarget;
 
     /**
      * Total number of files processed
+     *
      * @var integer
      */
     private $total_files = 0;
 
     /**
      * Total number of directories processed
+     *
      * @var integer
      */
     private $total_dirs = 0;
 
-    /** @var bool $trim */
+    /**
+     * @var bool $trim
+     */
     private $trim = false;
 
-    /** @var  $inheritAll */
+    /**
+     * @var  $inheritAll
+     */
     private $inheritAll = false;
 
-    /** @var bool $inheritRefs */
+    /**
+     * @var bool $inheritRefs
+     */
     private $inheritRefs = false;
 
-    /** @var Path $currPath */
+    /**
+     * @var Path $currPath
+     */
     private $currPath;
 
-    /** @var PhingReference[] $references */
+    /**
+     * @var PhingReference[] $references
+     */
     private $references = [];
 
     /**
@@ -108,6 +134,7 @@ class ForeachTask extends Task
 
     /**
      * This method does the work.
+     *
      * @throws BuildException
      * @return void
      */
@@ -410,7 +437,9 @@ class ForeachTask extends Task
 
     private function createCallTarget()
     {
-        /** @var PhingCallTask $ct */
+        /**
+         * @var PhingCallTask $ct
+         */
         $ct = $this->getProject()->createTask("phingcall");
         $ct->setOwningTarget($this->getOwningTarget());
         $ct->setTaskName($this->getTaskName());

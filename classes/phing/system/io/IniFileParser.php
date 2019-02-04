@@ -23,7 +23,7 @@
  * FIXME
  *  - Add support for arrays (separated by ',')
  *
- * @author Mike Lohmann <mike.lohmann@deck36.de>
+ * @author  Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
 class IniFileParser implements FileParserInterface
@@ -67,7 +67,8 @@ class IniFileParser implements FileParserInterface
     /**
      * Process values when being read in from properties file.
      * does things like convert "true" => true
-     * @param string $val Trimmed value.
+     *
+     * @param  string $val Trimmed value.
      * @return mixed The new property value (may be boolean, etc.)
      */
     protected function inVal($val)

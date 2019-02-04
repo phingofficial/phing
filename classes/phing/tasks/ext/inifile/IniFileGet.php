@@ -140,4 +140,3 @@ class IniFileGet
         return $this->output;
     }
 }
-?>

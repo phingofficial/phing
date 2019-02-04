@@ -36,21 +36,29 @@
  *   </copy>
  * ```
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.property
  */
 class PathToFileSet extends Task
 {
-    /** @var PhingFile $dir */
+    /**
+     * @var PhingFile $dir
+     */
     private $dir;
 
-    /** @var string $name */
+    /**
+     * @var string $name
+     */
     private $name;
 
-    /** @var string $pathRefId */
+    /**
+     * @var string $pathRefId
+     */
     private $pathRefId;
 
-    /** @var bool $ignoreNonRelative */
+    /**
+     * @var bool $ignoreNonRelative
+     */
     private $ignoreNonRelative = false;
 
     /**
@@ -104,7 +112,8 @@ class PathToFileSet extends Task
         }
         if (!$this->dir->isDirectory()) {
             throw new BuildException(
-                (string) $this->dir . " is not a directory");
+                (string) $this->dir . " is not a directory"
+            );
         }
         $path = $this->getProject()->getReference($this->pathRefId);
         if ($path == null) {
@@ -130,7 +139,8 @@ class PathToFileSet extends Task
             $includePattern = $this->getIncludePattern($dirNormal, $sourceFile);
             if ($includePattern === false && !$this->ignoreNonRelative) {
                 throw new BuildException(
-                    $sources[$i] . " is not relative to " . $this->dir->getAbsolutePath());
+                    $sources[$i] . " is not relative to " . $this->dir->getAbsolutePath()
+                );
             }
             if ($includePattern === false) {
                 continue;

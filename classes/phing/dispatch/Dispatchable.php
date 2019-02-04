@@ -29,6 +29,7 @@ interface Dispatchable
 {
     /**
      * Get the name of the parameter.
+     *
      * @return string the name of the parameter that contains the name of the method.
      */
     public function getActionParameterName();

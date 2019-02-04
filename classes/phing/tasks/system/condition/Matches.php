@@ -21,24 +21,34 @@
 /**
  * Simple regular expression condition.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
 class Matches extends ProjectComponent implements Condition
 {
-    /** @var string $string */
+    /**
+     * @var string $string
+     */
     private $string;
-    
-    /** @var RegularExpression $regularExpression */
+
+    /**
+     * @var RegularExpression $regularExpression
+     */
     private $regularExpression;
-    
-    /** @var bool $multiLine */
+
+    /**
+     * @var bool $multiLine
+     */
     private $multiLine = false;
-    
-    /** @var bool $caseSensitive */
+
+    /**
+     * @var bool $caseSensitive
+     */
     private $caseSensitive = true;
-    
-    /** @var string $modifiers */
+
+    /**
+     * @var string $modifiers
+     */
     private $modifiers;
 
     /**
@@ -51,6 +61,7 @@ class Matches extends ProjectComponent implements Condition
 
     /**
      * Whether to match should be multiline.
+     *
      * @param boolean $multiLine
      */
     public function setMultiLine($multiLine)
@@ -73,6 +84,7 @@ class Matches extends ProjectComponent implements Condition
 
     /**
      * The string to match
+     *
      * @param string $string
      */
     public function setString($string)
@@ -100,7 +112,7 @@ class Matches extends ProjectComponent implements Condition
         $this->regularExpression->setIgnoreCase(!$this->caseSensitive);
         $this->regularExpression->setModifiers($this->modifiers);
         $regexp = $this->regularExpression->getRegexp($this->getProject());
-        
+
         return $regexp->matches($this->string);
     }
 }

@@ -23,11 +23,11 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Stores the output of a log command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
  *
- * @author Anton Stöckl <anton@stoeckl.de>
- * @author Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
+ * @author  Anton Stöckl <anton@stoeckl.de>
+ * @author  Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
  * @package phing.tasks.ext.svn
- * @see VersionControl_SVN
- * @since 2.1.0
+ * @see     VersionControl_SVN
+ * @since   2.1.0
  */
 class SvnLogTask extends SvnBaseTask
 {
@@ -36,6 +36,7 @@ class SvnLogTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $propertyName
      */
     public function setPropertyName($propertyName)
@@ -53,6 +54,7 @@ class SvnLogTask extends SvnBaseTask
 
     /**
      * Sets the max num of log entries to get from svn
+     *
      * @param $limit
      */
     public function setLimit($limit)

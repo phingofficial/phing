@@ -79,9 +79,9 @@
  * Look at the build.xml in the Phing base directory (assuming you have the full distro / CVS version of Phing) to
  * see a more complete example of how to call this script.
  *
- * @author   Stuart Binge <stuart.binge@complinet.com>
- * @author   Hans Lellelid <hans@xmpl.org>
- * @package  phing.tasks.ext
+ * @author  Stuart Binge <stuart.binge@complinet.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.ext
  */
 class PearPackage2Task extends PearPackageTask
 {
@@ -258,6 +258,7 @@ class PearPackage2Task extends PearPackageTask
 
     /**
      * Main entry point.
+     *
      * @throws BuildException
      * @return void
      */

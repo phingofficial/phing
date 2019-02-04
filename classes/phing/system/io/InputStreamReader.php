@@ -24,7 +24,7 @@
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class InputStreamReader extends Reader
 {
@@ -36,7 +36,8 @@ class InputStreamReader extends Reader
 
     /**
      * Construct a new InputStreamReader.
-     * @param InputStream $inStream
+     *
+     * @param    InputStream $inStream
      * @internal param $InputStream $$inStream InputStream to read from
      */
     public function __construct(InputStream $inStream)
@@ -54,7 +55,8 @@ class InputStreamReader extends Reader
 
     /**
      * Skip over $n bytes.
-     * @param int $n
+     *
+     * @param  int $n
      * @return int
      */
     public function skip($n)
@@ -64,7 +66,8 @@ class InputStreamReader extends Reader
 
     /**
      * Read data from file.
-     * @param  int    $len Num chars to read.
+     *
+     * @param  int $len Num chars to read.
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)
@@ -74,6 +77,7 @@ class InputStreamReader extends Reader
 
     /**
      * Marks the current position in this input stream.
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
     public function mark()
@@ -83,6 +87,7 @@ class InputStreamReader extends Reader
 
     /**
      * Whether the attached stream supports mark/reset.
+     *
      * @return boolean
      */
     public function markSupported()
@@ -92,6 +97,7 @@ class InputStreamReader extends Reader
 
     /**
      * Repositions this stream to the position at the time the mark method was last called on this input stream.
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
     public function reset()
@@ -101,6 +107,7 @@ class InputStreamReader extends Reader
 
     /**
      * Whether eof has been reached with stream.
+     *
      * @return boolean
      */
     public function eof()
@@ -110,6 +117,7 @@ class InputStreamReader extends Reader
 
     /**
      * Returns string representation of attached stream.
+     *
      * @return string
      */
     public function getResource()

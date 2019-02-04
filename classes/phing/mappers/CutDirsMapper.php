@@ -30,6 +30,7 @@ class CutDirsMapper implements FileNameMapper
 
     /**
      * Empty implementation.
+     *
      * @param mixed $ignore ignored.
      */
     public function setFrom($ignore)
@@ -38,6 +39,7 @@ class CutDirsMapper implements FileNameMapper
 
     /**
      * The number of leading directories to cut.
+     *
      * @param int $dirs
      */
     public function setTo($dirs)
@@ -45,7 +47,9 @@ class CutDirsMapper implements FileNameMapper
         $this->dirs = (int) $dirs;
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function main($sourceFileName)
     {
         if ($this->dirs <= 0) {

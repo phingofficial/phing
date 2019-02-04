@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category   Tasks
- * @package    phing.tasks.ext
- * @author     Christian Weiske <cweiske@cweiske.de>
- * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       http://www.phing.info/
+ * @category Tasks
+ * @package  phing.tasks.ext
+ * @author   Christian Weiske <cweiske@cweiske.de>
+ * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
+ * @link     http://www.phing.info/
  */
 
 /**
@@ -16,13 +16,13 @@
  *
  * PHP version 5
  *
- * @category   Tasks
- * @package    phing.tasks.ext
- * @author     Christian Weiske <cweiske@cweiske.de>
- * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       http://www.phing.info/
+ * @category Tasks
+ * @package  phing.tasks.ext
+ * @author   Christian Weiske <cweiske@cweiske.de>
+ * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
+ * @link     http://www.phing.info/
  */
-class rSTTask extends Task
+class RSTTask extends Task
 {
     use FileSetAware;
     use FilterChainAware;
@@ -34,6 +34,7 @@ class rSTTask extends Task
 
     /**
      * Result format, defaults to "html".
+     *
      * @see $supportedFormats for all possible options
      *
      * @var string
@@ -194,8 +195,8 @@ class rSTTask extends Task
     /**
      * Renders a single file and applies filters on it
      *
-     * @param string $tool       conversion tool to use
-     * @param string $source     rST source file
+     * @param string $tool conversion tool to use
+     * @param string $source rST source file
      * @param string $targetFile target file name
      *
      * @return void
@@ -225,8 +226,8 @@ class rSTTask extends Task
     /**
      * Renders a single file with the rST tool.
      *
-     * @param string $tool       conversion tool to use
-     * @param string $source     rST source file
+     * @param string $tool conversion tool to use
+     * @param string $source rST source file
      * @param string $targetFile target file name
      *
      * @return void
@@ -295,7 +296,7 @@ class rSTTask extends Task
      * Determines and returns the target file name from the
      * input file and the configured destination name.
      *
-     * @param string $file        Input file
+     * @param string $file Input file
      * @param string $destination Destination file or directory name,
      *                            may be null
      *
@@ -383,12 +384,11 @@ class rSTTask extends Task
     /**
      * The setter for the attribute "toolpath"
      *
-     * @param $path
-     * @throws BuildException
+     * @param    $path
+     * @throws   BuildException
      * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
      *
      * @return void
-     *
      */
     public function setToolpath($path)
     {
@@ -433,7 +433,8 @@ class rSTTask extends Task
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
-                'Cannot define more than one mapper', $this->getLocation()
+                'Cannot define more than one mapper',
+                $this->getLocation()
             );
         }
         $this->mapperElement = new Mapper($this->project);

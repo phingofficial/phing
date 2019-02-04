@@ -34,6 +34,7 @@ class ElementHandler extends AbstractHandler
     /**
      * Reference to the parent object that represents the parent tag
      * of this nested element
+     *
      * @var object
      */
     private $parent;
@@ -41,24 +42,28 @@ class ElementHandler extends AbstractHandler
     /**
      * Reference to the child object that represents the child tag
      * of this nested element
+     *
      * @var UnknownElement
      */
     private $child;
 
     /**
      *  Reference to the parent wrapper object
+     *
      * @var RuntimeConfigurable
      */
     private $parentWrapper;
 
     /**
      *  Reference to the child wrapper object
+     *
      * @var RuntimeConfigurable
      */
     private $childWrapper;
 
     /**
      *  Reference to the related target object
+     *
      * @var Target the target instance
      */
     private $target;
@@ -110,7 +115,7 @@ class ElementHandler extends AbstractHandler
      * </ul>
      *
      * @param  string $tag the tag that comes in
-     * @param  array  $attrs attributes the tag carries
+     * @param  array $attrs attributes the tag carries
      * @throws ExpatParseException if the setup process fails
      */
     public function init($tag, $attrs)
@@ -144,15 +149,18 @@ class ElementHandler extends AbstractHandler
                 $this->parentWrapper->addChild($this->childWrapper);
             }
         } catch (BuildException $exc) {
-            throw new ExpatParseException("Error initializing nested element <$tag>", $exc, $this->parser->getLocation(
-            ));
+            throw new ExpatParseException(
+                "Error initializing nested element <$tag>",
+                $exc,
+                $this->parser->getLocation()
+            );
         }
     }
 
     /**
      * Handles character data.
      *
-     * @param string $data  the CDATA that comes in
+     * @param  string $data the CDATA that comes in
      * @throws ExpatParseException if the CDATA could not be set-up properly
      */
     public function characters($data)
@@ -164,12 +172,19 @@ class ElementHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param string $name  the tag that comes in
-     * @param array  $attrs attributes the tag carries
+     * @param string $name the tag that comes in
+     * @param array $attrs attributes the tag carries
      */
     public function startElement($name, $attrs)
     {
-        $eh = new ElementHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
+        $eh = new ElementHandler(
+            $this->parser,
+            $this,
+            $this->configurator,
+            $this->child,
+            $this->childWrapper,
+            $this->target
+        );
         $eh->init($name, $attrs);
     }
 }

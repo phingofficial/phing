@@ -15,14 +15,14 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Abstract class for TokenReaders.
  *
- * @author    Manuel Holtgewe
+ * @author Manuel Holtgewe
  *
- * @package   phing.filters.util
+ * @package phing.filters.util
  */
 abstract class TokenReader
 {

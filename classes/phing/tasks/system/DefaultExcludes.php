@@ -25,20 +25,29 @@
  */
 class DefaultExcludes extends Task
 {
-    /** @var string $add */
+    /**
+     * @var string $add
+     */
     private $add = "";
 
-    /** @var string $remove */
+    /**
+     * @var string $remove
+     */
     private $remove = "";
 
-    /** @var boolean $defaultrequested */
+    /**
+     * @var boolean $defaultrequested
+     */
     private $defaultrequested = false;
 
-    /** @var boolean $echo */
+    /**
+     * @var boolean $echo
+     */
     private $echo = false;
 
     /**
      * by default, messages are always displayed
+     *
      * @var int
      */
     private $logLevel = Project::MSG_WARN;
@@ -53,7 +62,8 @@ class DefaultExcludes extends Task
         if (!$this->defaultrequested && $this->add === "" && $this->remove === "" && !$this->echo) {
             throw new BuildException(
                 "<defaultexcludes> task must set at least one attribute (echo=\"false\")"
-                . " doesn't count since that is the default");
+                . " doesn't count since that is the default"
+            );
         }
         if ($this->defaultrequested) {
             DirectoryScanner::resetDefaultExcludes();

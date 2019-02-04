@@ -15,37 +15,40 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Applies XSL stylesheet to incoming text.
  *
  * Uses PHP XSLT support (libxslt).
  *
- * @author    Hans Lellelid <hans@velum.net>
- * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author Hans Lellelid <hans@velum.net>
+ * @author Yannick Lecaillez <yl@seasonfive.com>
+ * @author Andreas Aderhold <andi@binarycloud.com>
  *
- * @see       FilterReader
- * @package   phing.filters
+ * @see     FilterReader
+ * @package phing.filters
  */
 class XsltFilter extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * Path to XSL stylesheet.
+     *
      * @var string
      */
     private $xslFile = null;
 
     /**
      * Whether XML file has been transformed.
+     *
      * @var boolean
      */
     private $processed = false;
 
     /**
      * XSLT Params.
+     *
      * @var XsltParam[]
      */
     private $xsltParams = [];
@@ -77,6 +80,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Create new XSLT Param object, to handle the <param/> nested element.
+     *
      * @return XsltParam
      */
     public function createParam()
@@ -89,6 +93,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the XSLT params for this class.
      * This is used to "clone" this class, in the chain() method.
+     *
      * @param array $params
      */
     public function setParams($params)
@@ -99,6 +104,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the XSLT params set for this class.
      * This is used to "clone" this class, in the chain() method.
+     *
      * @return array
      */
     public function getParams()
@@ -108,6 +114,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Set the XSLT stylesheet.
+     *
      * @param mixed $file PhingFile object or path.
      */
     public function setStyle(PhingFile $file)
@@ -118,6 +125,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether to use HTML parser for the XML.
      * This is supported in libxml2 -- Yay!
+     *
      * @return boolean
      */
     public function getHtml()
@@ -127,6 +135,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Whether to use HTML parser for XML.
+     *
      * @param boolean $b
      */
     public function setHtml($b)
@@ -136,6 +145,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Get the path to XSLT stylesheet.
+     *
      * @return mixed XSLT stylesheet path.
      */
     public function getStyle()
@@ -189,7 +199,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Reads stream, applies XSLT and returns resulting stream.
-     * @param null $len
+     *
+     * @param  null $len
      * @throws BuildException
      * @return string         transformed buffer.
      */
@@ -247,6 +258,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     // {{{ method _ProcessXsltTransformation($xml, $xslt) throws BuildException
+
     /**
      * Try to process the XSLT transformation
      *
@@ -274,7 +286,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         } else {
             $result = @$xmlDom->loadXML($xml);
         }
-        
+
         if ($result === false) {
             throw new BuildException('Invalid syntax detected.');
         }
