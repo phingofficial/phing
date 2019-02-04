@@ -50,6 +50,7 @@ class ExtendedFileStream
         }
     }
 
+    // @codingStandardsIgnoreStart
     /**
      * @param $path
      * @param $mode
@@ -143,6 +144,7 @@ class ExtendedFileStream
     {
         return fstat($this->fp);
     }
+    // @codingStandardsIgnoreEnd
 
     /**
      * @param $path
