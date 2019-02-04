@@ -158,7 +158,6 @@ class ChainReaderHelper
                 $filter = $finalFilters[$i];
 
                 if ($filter instanceof PhingFilterReader) {
-
                     // This filter reader is an external class.
                     $className = $filter->getClassName();
                     $classpath = $filter->getClasspath();

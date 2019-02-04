@@ -115,7 +115,6 @@ class DataType extends ProjectComponent
         $o = $this->ref->getReferencedObject($p);
 
         if ($o instanceof DataType) {
-
             // TESTME - make sure that in_array() works just as well here
             //
             // check if reference is in stack

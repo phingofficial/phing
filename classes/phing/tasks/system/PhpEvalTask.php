@@ -51,8 +51,10 @@ class PhpEvalTask extends Task
     public function main()
     {
         if ($this->function === null && $this->expression === null) {
-            throw new BuildException("You must specify a function to execute or PHP expression to evalute.",
-                $this->getLocation());
+            throw new BuildException(
+                "You must specify a function to execute or PHP expression to evalute.",
+                $this->getLocation()
+            );
         }
 
         if ($this->function !== null && $this->expression !== null) {
@@ -60,8 +62,10 @@ class PhpEvalTask extends Task
         }
 
         if ($this->expression !== null && !empty($this->params)) {
-            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.",
-                $this->getLocation());
+            throw new BuildException(
+                "You cannot use nested <param> tags when evaluationg a PHP expression.",
+                $this->getLocation()
+            );
         }
 
         if ($this->function !== null) {
@@ -95,11 +99,12 @@ class PhpEvalTask extends Task
             if ($p instanceof Parameter) {
                 $value = $p->getParams();
                 array_walk_recursive(
-                    $value, function (&$item) {
-                    if ($item instanceof Parameter) {
-                        $item = $item->getValue();
+                    $value,
+                    function (&$item) {
+                        if ($item instanceof Parameter) {
+                            $item = $item->getValue();
+                        }
                     }
-                }
                 );
                 if ($value === null) {
                     continue;

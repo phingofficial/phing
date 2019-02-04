@@ -232,7 +232,8 @@ class TarTask extends MatchingTask
             if ($this->baseDir !== null) {
                 if (!$this->baseDir->exists()) {
                     throw new BuildException(
-                        "basedir '" . (string) $this->baseDir . "' does not exist!", $this->getLocation()
+                        "basedir '" . (string) $this->baseDir . "' does not exist!",
+                        $this->getLocation()
                     );
                 }
                 if (empty($this->filesets)) { // if there weren't any explicit filesets specivied, then

@@ -241,10 +241,12 @@ class Commandline implements Countable
         }
 
         return implode(
-            ' ', array_map(
+            ' ',
+            array_map(
                 function ($arg) {
                     return self::quoteArgument($arg, $this->escape);
-                }, $lines
+                },
+                $lines
             )
         );
     }

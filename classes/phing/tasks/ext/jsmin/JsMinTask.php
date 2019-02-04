@@ -136,10 +136,10 @@ class JsMinTask extends Task
             $this->log('Minifying file ' . $file);
             try {
                 $target = $this->targetDir . '/' . str_replace(
-                        $fullPath,
-                        '',
-                        str_replace('.js', $this->suffix . '.js', $file)
-                    );
+                    $fullPath,
+                    '',
+                    str_replace('.js', $this->suffix . '.js', $file)
+                );
                 if (file_exists(dirname($target)) === false) {
                     mkdir(dirname($target), 0777 - umask(), true);
                 }

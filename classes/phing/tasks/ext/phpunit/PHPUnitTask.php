@@ -466,19 +466,41 @@ class PHPUnitTask extends Task
     protected function execute($suite)
     {
         if (class_exists('\PHPUnit_Runner_Version', false)) {
-            $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups,
-                $this->processIsolation);
-        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(\PHPUnit\Runner\Version::id(),
-                '7.0.0', '<')) {
-            $runner = new PHPUnitTestRunner6($this->project, $this->groups, $this->excludeGroups,
-                $this->processIsolation);
-        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(\PHPUnit\Runner\Version::id(),
-                '8.0.0', '<')) {
-            $runner = new PHPUnitTestRunner7($this->project, $this->groups, $this->excludeGroups,
-                $this->processIsolation);
+            $runner = new PHPUnitTestRunner(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
+        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
+            \PHPUnit\Runner\Version::id(),
+            '7.0.0',
+            '<'
+        )) {
+            $runner = new PHPUnitTestRunner6(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
+        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
+            \PHPUnit\Runner\Version::id(),
+            '8.0.0',
+            '<'
+        )) {
+            $runner = new PHPUnitTestRunner7(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
         } else {
-            $runner = new PHPUnitTestRunner8($this->project, $this->groups, $this->excludeGroups,
-                $this->processIsolation);
+            $runner = new PHPUnitTestRunner8(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
         }
 
         if ($this->codecoverage) {

@@ -353,7 +353,6 @@ class WindowsFileSystem extends FileSystem
     {
         $p = (string) $strPath;
         if ((strlen($p) > 2) && ($p{2} === ':')) {
-
             // "/c:/foo" --> "c:/foo"
             $p = substr($p, 1);
 

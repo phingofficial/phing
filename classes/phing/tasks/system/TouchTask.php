@@ -148,8 +148,10 @@ class TouchTask extends Task
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
-                $this->log("Creating " . $this->file->__toString(),
-                    $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
+                $this->log(
+                    "Creating " . $this->file->__toString(),
+                    $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE
+                );
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {

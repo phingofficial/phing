@@ -322,7 +322,6 @@ class ZendGuardLicenseTask extends Task
 
         // if license template is NOT provided check that all required parameters are defined
         if (empty($this->licenseTemplate)) {
-
             // check productName
             if (empty($this->productName)) {
                 throw new BuildException("Property must be defined: productName");
@@ -447,8 +446,10 @@ class ZendGuardLicenseTask extends Task
         // Check for exit value 1. Zendenc_sign command for some reason
         // returns 0 in case of failure and 1 in case of success...
         if ($return_var !== 1) {
-            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . implode("\n",
-                    $output) . "\n\n");
+            throw new BuildException("Creating license failed. \n\nZendenc_sign msg:\n" . implode(
+                "\n",
+                $output
+            ) . "\n\n");
         }
     }
 

@@ -248,7 +248,8 @@ class VersionTask extends Task
                 sprintf(
                     'Unknown Releasetype %s..Must be one of Major, Minor or Bugfix',
                     $this->releasetype
-                ), $this->getLocation()
+                ),
+                $this->getLocation()
             );
         }
     }
@@ -269,8 +270,10 @@ class VersionTask extends Task
             }
             if (!$this->file->exists()) {
                 $this->file->createNewFile();
-                $this->log('Creating file "' . $this->file->getName() . '" since it was not present',
-                    Project::MSG_INFO);
+                $this->log(
+                    'Creating file "' . $this->file->getName() . '" since it was not present',
+                    Project::MSG_INFO
+                );
             }
         } catch (IOException $ioe) {
             $message = $this->file . " doesn't exist and new file can't be created.";

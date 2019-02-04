@@ -295,7 +295,6 @@ class PharPackageTask extends MatchingTask
             }
 
             if ($this->signatureAlgorithm == Phar::OPENSSL) {
-
                 // Load up the contents of the key
                 $keyContents = file_get_contents($this->key);
 
@@ -359,14 +358,16 @@ class PharPackageTask extends MatchingTask
         if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
                 throw new BuildException(
-                    "basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation()
+                    "basedir '" . (string) $this->baseDirectory . "' does not exist!",
+                    $this->getLocation()
                 );
             }
         }
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
             if (!extension_loaded('openssl')) {
                 throw new BuildException(
-                    "PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation()
+                    "PHP OpenSSL extension is required for OpenSSL signing of Phars!",
+                    $this->getLocation()
                 );
             }
 

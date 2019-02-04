@@ -663,13 +663,13 @@ class IoncubeEncoderTask extends Task
                 case "rename":
                     {
                         $arguments .= "--" . $this->targetOption . "-target ";
-                    }
+                }
                     break;
 
                 default:
                     {
                         throw new BuildException("Unknown target option '" . $this->targetOption . "'");
-                    }
+                }
                     break;
             }
         }

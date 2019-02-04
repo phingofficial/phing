@@ -182,7 +182,12 @@ class ProjectHandler extends AbstractHandler
             $tf->init($name, $attrs);
         } else {
             $tf = new ElementHandler(
-                $this->parser, $this, $this->configurator, null, null, $this->context->getImplicitTarget()
+                $this->parser,
+                $this,
+                $this->configurator,
+                null,
+                null,
+                $this->context->getImplicitTarget()
             );
             $tf->init($name, $attrs);
         }

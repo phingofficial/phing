@@ -195,7 +195,8 @@ class PDOSQLExecFormatterElement
                 throw new BuildException(
                     "Formatter " . get_class(
                         $this->formatter
-                    ) . " does not have a $method method.", $location
+                    ) . " does not have a $method method.",
+                    $location
                 );
             }
             call_user_func([$this->formatter, $method], $param->getValue());

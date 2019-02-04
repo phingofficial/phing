@@ -255,7 +255,8 @@ class DbDeployTask extends Task
                     $this->log(
                         'Your SQL delta includes "--//" which, if a comment, should be replaced with "-- //"
                     to avoid the delta failing.  You may need to manually undo part of this delta.\n\n'
-                        . $contents, Project::MSG_WARN
+                        . $contents,
+                        Project::MSG_WARN
                     );
                 }
 

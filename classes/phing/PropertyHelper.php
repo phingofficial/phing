@@ -289,7 +289,8 @@ class PropertyHelper
         if ($verbose) {
             self::$project->log(
                 'Setting project property: ' . $name . " -> "
-                . $value, Project::MSG_DEBUG
+                . $value,
+                Project::MSG_DEBUG
             );
         }
         $this->properties[$name] = $value;
@@ -377,7 +378,8 @@ class PropertyHelper
 
         self::$project->log(
             "Setting ro project property: " . $name . " -> "
-            . $value, Project::MSG_DEBUG
+            . $value,
+            Project::MSG_DEBUG
         );
         $this->userProperties[$name] = $value;
 
@@ -546,7 +548,6 @@ class PropertyHelper
                 $fragments[] = '$';
                 $prev = $pos + 1;
             } elseif ($value{$pos + 1} !== '{') {
-
                 // the string positions were changed to value-1 to correct
                 // a fatal error coming from function substring()
                 $fragments[] = StringHelper::substring($value, $pos, $pos + 1);

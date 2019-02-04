@@ -76,8 +76,10 @@ class SelectorUtils
         // DIRECTORY_SEPARATOR.
         // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
         // DIRECTORY_SEPARATOR.
-        if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !== StringHelper::startsWith(DIRECTORY_SEPARATOR,
-                $pattern)
+        if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !== StringHelper::startsWith(
+            DIRECTORY_SEPARATOR,
+            $pattern
+        )
         ) {
             return false;
         }

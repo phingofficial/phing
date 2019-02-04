@@ -341,7 +341,8 @@ class PDOSQLExecTask extends PDOTask
                 throw new BuildException(
                     "Source file or fileset/filelist, "
                     . "transactions or sql statement "
-                    . "must be set!", $this->getLocation()
+                    . "must be set!",
+                    $this->getLocation()
                 );
             }
 
@@ -387,7 +388,6 @@ class PDOSQLExecTask extends PDOTask
                 $this->initFormatters();
 
                 try {
-
                     // Process all transactions
                     for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
                         if (!$this->isAutocommit()) {

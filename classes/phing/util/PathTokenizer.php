@@ -111,7 +111,6 @@ class PathTokenizer
             && $this->dosStyleFilesystem
             && !empty($this->tokens)
         ) {
-
             // we are on a dos style system so this path could be a drive
 
             // spec. We look at the next token
@@ -119,7 +118,6 @@ class PathTokenizer
             $nextToken = trim(array_shift($this->tokens));
 
             if (StringHelper::startsWith('\\', $nextToken) || StringHelper::startsWith('/', $nextToken)) {
-
                 // we know we are on a DOS style platform and the next path
 
                 // starts with a slash or backslash, so we know this is a
@@ -128,7 +126,6 @@ class PathTokenizer
 
                 $token .= ':' . $nextToken;
             } else {
-
                 // store the token just read for next time
 
                 $this->lookahead = $nextToken;

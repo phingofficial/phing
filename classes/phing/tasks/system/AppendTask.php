@@ -229,7 +229,6 @@ class AppendTask extends Task
             }
 
             if ($this->text !== null) {
-
                 // simply append the text
                 if ($this->to instanceof PhingFile) {
                     $this->log("Appending string to " . $this->to->getPath());
@@ -245,7 +244,6 @@ class AppendTask extends Task
                 $text = $this->appendFooter($text);
                 $writer->write($text);
             } else {
-
                 // append explicitly-specified file
                 if ($this->file !== null) {
                     try {

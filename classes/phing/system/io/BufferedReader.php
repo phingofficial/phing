@@ -67,7 +67,6 @@ class BufferedReader extends Reader
         }
 
         if (($data = $this->in->read($len)) !== -1) {
-
             // not all files end with a newline character, so we also need to check EOF
             if (!$this->in->eof()) {
                 $notValidPart = strrchr($data, "\n");

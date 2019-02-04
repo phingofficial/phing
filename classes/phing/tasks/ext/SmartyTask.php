@@ -429,7 +429,6 @@ class SmartyTask extends Task
             $source = new Properties();
 
             try {
-
                 // resolve relative path from basedir and leave
                 // absolute path untouched.
                 $fullPath = $this->project->resolveFile($sources[$i]);

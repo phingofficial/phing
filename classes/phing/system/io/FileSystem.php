@@ -758,7 +758,6 @@ abstract class FileSystem
                 // Don't error on readdir().
                 while (false !== ($entry = @readdir($handle))) {
                     if ($entry != '.' && $entry != '..') {
-
                         // Only add / if it isn't already the last char.
                         // This ONLY serves the purpose of making the Logger
                         // output look nice:)

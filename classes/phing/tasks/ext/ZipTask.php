@@ -174,8 +174,10 @@ class ZipTask extends MatchingTask
         try {
             if ($this->baseDir !== null) {
                 if (!$this->baseDir->exists()) {
-                    throw new BuildException("basedir '" . (string) $this->baseDir . "' does not exist!",
-                        $this->getLocation());
+                    throw new BuildException(
+                        "basedir '" . (string) $this->baseDir . "' does not exist!",
+                        $this->getLocation()
+                    );
                 }
 
                 if (empty($this->filesets)) {

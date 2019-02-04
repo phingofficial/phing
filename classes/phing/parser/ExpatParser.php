@@ -108,7 +108,9 @@ class ExpatParser extends AbstractSAXParser
             $path = $this->reader->getResource();
         }
         $this->location = new Location(
-            $path, xml_get_current_line_number($this->parser), xml_get_current_column_number(
+            $path,
+            xml_get_current_line_number($this->parser),
+            xml_get_current_column_number(
                 $this->parser
             )
         );

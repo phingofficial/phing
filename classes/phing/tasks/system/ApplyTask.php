@@ -251,7 +251,8 @@ class ApplyTask extends ExecTask
         if ($this->targetFilePos !== null) {
             throw new BuildException(
                 $this->getTaskType() . " doesn\'t support multiple "
-                . "targetfile elements.", $this->getLocation()
+                . "targetfile elements.",
+                $this->getLocation()
             );
         }
 
@@ -272,7 +273,8 @@ class ApplyTask extends ExecTask
         if ($this->srcFilePos !== null) {
             throw new BuildException(
                 $this->getTaskType() . " doesn\'t support multiple "
-                . "srcfile elements.", $this->getLocation()
+                . "srcfile elements.",
+                $this->getLocation()
             );
         }
 
@@ -461,7 +463,6 @@ class ApplyTask extends ExecTask
 
         // Directory (in which the command should be executed)
         if ($this->dir !== null) {
-
             // Try expanding (any) symbolic links
             if (!$this->dir->getCanonicalFile()->isDirectory()) {
                 $this->throwBuildException("'" . $this->dir . "' is not a valid directory");
@@ -553,8 +554,11 @@ class ApplyTask extends ExecTask
 
         // Setting command output redirection with content appending
         if ($this->output !== null) {
-            $this->additionalCmds .= sprintf(' 1>%s %s', $this->appendoutput ? '>' : '',
-                escapeshellarg($this->output->getPath()));
+            $this->additionalCmds .= sprintf(
+                ' 1>%s %s',
+                $this->appendoutput ? '>' : '',
+                escapeshellarg($this->output->getPath())
+            );
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
             $this->additionalCmds .= sprintf(' %s', 'WIN' === $this->osvariant ? '> NUL' : '1>/dev/null');
 
@@ -563,13 +567,15 @@ class ApplyTask extends ExecTask
 
         // Setting command error redirection with content appending
         if ($this->error !== null) {
-            $this->additionalCmds .= sprintf(' 2>%s %s', $this->appendoutput ? '>' : '',
-                escapeshellarg($this->error->getPath()));
+            $this->additionalCmds .= sprintf(
+                ' 2>%s %s',
+                $this->appendoutput ? '>' : '',
+                escapeshellarg($this->error->getPath())
+            );
         }
 
         // Setting the execution as a background process
         if ($this->spawn) {
-
             // Validating the O.S. variant
             if ('WIN' === $this->osvariant) {
                 $this->additionalCmds = 'start /b ' . $this->additionalCmds; // MS Windows background process forking
@@ -660,7 +666,8 @@ class ApplyTask extends ExecTask
                         $targetIndex + count($srcFiles) + count($targetFiles),
                         count($orig) - $targetIndex,
                         true
-                    ), $result
+                    ),
+                    $result
                 );
             } else {
                 // 0 --> targetIndex
@@ -675,7 +682,8 @@ class ApplyTask extends ExecTask
                         $targetIndex + count($targetFiles),
                         $srcIndex - $targetIndex,
                         true
-                    ), $result
+                    ),
+                    $result
                 );
 
                 // srcIndex --> end
@@ -685,7 +693,8 @@ class ApplyTask extends ExecTask
                         $srcIndex + count($srcFiles) + count($targetFiles),
                         count($orig) - $srcIndex,
                         true
-                    ), $result
+                    ),
+                    $result
                 );
                 $srcIndex += count($targetFiles);
             }

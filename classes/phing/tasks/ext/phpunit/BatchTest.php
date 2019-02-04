@@ -114,9 +114,9 @@ class BatchTest
     private function isTestCase($input)
     {
         return is_subclass_of($input, '\PHPUnit\Framework\TestCase') || is_subclass_of(
-                $input,
-                'PHPUnit_Framework_TestSuite'
-            );
+            $input,
+            'PHPUnit_Framework_TestSuite'
+        );
     }
 
     /**

@@ -154,7 +154,7 @@ class PHPLocTask extends Task
         if (!empty($this->pharLocation)) {
             // hack to prevent PHPLOC from starting in CLI mode and halting Phing
             eval(
-            "namespace SebastianBergmann\PHPLOC\CLI;
+                "namespace SebastianBergmann\PHPLOC\CLI;
 class Application
 {
     public function run() {}

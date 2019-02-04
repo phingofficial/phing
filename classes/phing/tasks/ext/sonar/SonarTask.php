@@ -259,8 +259,10 @@ class SonarTask extends Task
         exec($escapedExecutable . ' --version', $output, $returnCode);
 
         if ($returnCode !== self::EXIT_SUCCESS) {
-            $message = sprintf('Could not check version string. Executable appears not to be SonarQube Scanner: [%s].',
-                $this->executable);
+            $message = sprintf(
+                'Could not check version string. Executable appears not to be SonarQube Scanner: [%s].',
+                $this->executable
+            );
             throw new BuildException($message);
         }
 
@@ -276,8 +278,10 @@ class SonarTask extends Task
             $message = sprintf('Found SonarQube Scanner: [%s].', $this->executable);
             $this->log($message, Project::MSG_VERBOSE);
         } else {
-            $message = sprintf('Could not find name of SonarQube Scanner in version string. Executable appears not to be SonarQube Scanner: [%s].',
-                $this->executable);
+            $message = sprintf(
+                'Could not find name of SonarQube Scanner in version string. Executable appears not to be SonarQube Scanner: [%s].',
+                $this->executable
+            );
             throw new BuildException($message);
         }
     }
@@ -388,8 +392,10 @@ class SonarTask extends Task
         ];
         $intersection = array_intersect($requiredProperties, array_keys($this->properties));
         if (count($intersection) < count($requiredProperties)) {
-            $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(', ',
-                    $requiredProperties) . '.';
+            $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(
+                ', ',
+                $requiredProperties
+            ) . '.';
             throw new BuildException($message);
         }
     }

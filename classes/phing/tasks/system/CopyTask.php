@@ -529,7 +529,6 @@ class CopyTask extends Task
                 $s = new PhingFile((string) $srcdir);
                 $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
-
                     // Setting source directory permissions to target
                     // (On permissions preservation, the target directory permissions
                     // will be inherited from the source directory, otherwise the 'mode'
@@ -567,12 +566,28 @@ class CopyTask extends Task
         foreach ($this->fileCopyMap as $from => $toFiles) {
             if (is_array($toFiles)) {
                 foreach ($toFiles as $to) {
-                    $this->copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot,
-                        $count, $total);
+                    $this->copyToSingleDestination(
+                        $from,
+                        $to,
+                        $fromSlot,
+                        $fromBasenameSlot,
+                        $toSlot,
+                        $toBasenameSlot,
+                        $count,
+                        $total
+                    );
                 }
             } else {
-                $this->copyToSingleDestination($from, $toFiles, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot,
-                    $count, $total);
+                $this->copyToSingleDestination(
+                    $from,
+                    $toFiles,
+                    $fromSlot,
+                    $fromBasenameSlot,
+                    $toSlot,
+                    $toBasenameSlot,
+                    $count,
+                    $total
+                );
             }
         }
     }

@@ -66,7 +66,8 @@ class Environment
         return array_map(
             function ($env) {
                 return $env->getContent();
-            }, $this->variables->getArrayCopy()
+            },
+            $this->variables->getArrayCopy()
         );
     }
 

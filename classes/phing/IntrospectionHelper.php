@@ -128,7 +128,6 @@ class IntrospectionHelper
         //$methods = get_class_methods($bean);
         foreach ($this->bean->getMethods() as $method) {
             if ($method->isPublic()) {
-
                 // We're going to keep case-insensitive method names
                 // for as long as we're allowed :)  It makes it much
                 // easier to map XML attributes to PHP class method names.
@@ -148,7 +147,6 @@ class IntrospectionHelper
                 if ($name === "addtext") {
                     $this->methodAddText = $method;
                 } elseif (strpos($name, "setlistening") === 0) {
-
                     // Phing supports something unique called "RegisterSlots"
                     // These are dynamic values that use a basic slot system so that
                     // classes can register to listen to specific slots, and the value
@@ -188,7 +186,6 @@ class IntrospectionHelper
 
                     $this->nestedCreators[$name] = $method;
                 } elseif (strpos($name, "addconfigured") === 0) {
-
                     // *must* use class hints if using addConfigured ...
 
                     // 1 param only
@@ -222,7 +219,6 @@ class IntrospectionHelper
 
                     $this->nestedStorers[$name] = $method;
                 } elseif (strpos($name, "add") === 0) {
-
                     // *must* use class hints if using add ...
 
                     // 1 param only
@@ -296,9 +292,9 @@ class IntrospectionHelper
 
             if (!isset($this->slotListeners[$as])) {
                 $msg = $this->getElementName(
-                        $project,
-                        $element
-                    ) . " doesn't support a slot-listening '$attributeName' attribute.";
+                    $project,
+                    $element
+                ) . " doesn't support a slot-listening '$attributeName' attribute.";
                 throw new BuildException($msg);
             }
 
@@ -309,7 +305,6 @@ class IntrospectionHelper
                 $key
             ); // returns a RegisterSlot object which will hold current value of that register (accessible using getValue())
         } else {
-
             // Traditional value options
 
             $as = "set" . strtolower($attributeName);

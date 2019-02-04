@@ -130,37 +130,37 @@ class WaitForTask extends ConditionBase
             case "week":
                 {
                     return self::ONE_WEEK;
-                }
+            }
 
             case "day":
                 {
                     return self::ONE_DAY;
-                }
+            }
 
             case "hour":
                 {
                     return self::ONE_HOUR;
-                }
+            }
 
             case "minute":
                 {
                     return self::ONE_MINUTE;
-                }
+            }
 
             case "second":
                 {
                     return self::ONE_SECOND;
-                }
+            }
 
             case "millisecond":
                 {
                     return self::ONE_MILLISECOND;
-                }
+            }
 
             default:
                 {
                     throw new BuildException("Illegal unit '$unit'");
-                }
+            }
         }
     }
 

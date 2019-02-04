@@ -108,8 +108,10 @@ class HttpCondition extends ProjectComponent implements Condition
         }
 
         if (!filter_var($this->url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-            $this->log("Possible malformed URL: " . $this->url,
-                $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+            $this->log(
+                "Possible malformed URL: " . $this->url,
+                $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN
+            );
         }
 
         $this->log("Checking for " . $this->url, Project::MSG_VERBOSE);
@@ -120,8 +122,10 @@ class HttpCondition extends ProjectComponent implements Condition
         curl_setopt($handle, CURLOPT_FOLLOWLOCATION, $this->followRedirects);
 
         if (!curl_exec($handle)) {
-            $this->log("No response received from URL: " . $this->url,
-                $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
+            $this->log(
+                "No response received from URL: " . $this->url,
+                $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR
+            );
 
             return false;
         }

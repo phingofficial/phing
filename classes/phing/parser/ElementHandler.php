@@ -150,7 +150,9 @@ class ElementHandler extends AbstractHandler
             }
         } catch (BuildException $exc) {
             throw new ExpatParseException(
-                "Error initializing nested element <$tag>", $exc, $this->parser->getLocation()
+                "Error initializing nested element <$tag>",
+                $exc,
+                $this->parser->getLocation()
             );
         }
     }
@@ -175,8 +177,14 @@ class ElementHandler extends AbstractHandler
      */
     public function startElement($name, $attrs)
     {
-        $eh = new ElementHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper,
-            $this->target);
+        $eh = new ElementHandler(
+            $this->parser,
+            $this,
+            $this->configurator,
+            $this->child,
+            $this->childWrapper,
+            $this->target
+        );
         $eh->init($name, $attrs);
     }
 }

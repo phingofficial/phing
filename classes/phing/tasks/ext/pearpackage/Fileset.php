@@ -93,7 +93,6 @@ class PEAR_PackageFileManager_Fileset
 
         foreach ($allfiles as $basedir => $files) {
             foreach ($files as $file) {
-
                 // paths are relative to $basedir above
                 $path = strtr(dirname($file), DIRECTORY_SEPARATOR, '/');
 

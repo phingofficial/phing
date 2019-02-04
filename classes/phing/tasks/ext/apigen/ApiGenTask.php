@@ -380,7 +380,8 @@ class ApiGenTask extends Task
                     sprintf(
                         'Config file %s doesn\'t exist',
                         $this->options['config']
-                    ), $this->getLocation()
+                    ),
+                    $this->getLocation()
                 );
             }
         } else {
@@ -404,8 +405,11 @@ class ApiGenTask extends Task
         }
 
         // Execute ApiGen
-        exec(escapeshellcmd($this->executable) . ' ' . escapeshellcmd($this->action) . ' ' . $this->constructArguments(),
-            $output, $return);
+        exec(
+            escapeshellcmd($this->executable) . ' ' . escapeshellcmd($this->action) . ' ' . $this->constructArguments(),
+            $output,
+            $return
+        );
 
         $logType = 0 === $return ? Project::MSG_INFO : Project::MSG_ERR;
         foreach ($output as $line) {

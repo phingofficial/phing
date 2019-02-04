@@ -365,7 +365,6 @@ class UnixFileSystem extends FileSystem
     public function fromURIPath($p)
     {
         if (StringHelper::endsWith("/", $p) && (strlen($p) > 1)) {
-
             // "/foo/" --> "/foo", but "/" --> "/"
             $p = substr($p, 0, strlen($p) - 1);
         }

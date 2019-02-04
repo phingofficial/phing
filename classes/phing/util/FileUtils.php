@@ -105,7 +105,6 @@ class FileUtils
             // ensure that parent dir of dest file exists!
             $parent = $destFile->getParentFile();
             if ($parent !== null && !$parent->exists()) {
-
                 // Setting source directory permissions to target
                 // (On permissions preservation, the target directory permissions
                 // will be inherited from the source directory, otherwise the 'mode'

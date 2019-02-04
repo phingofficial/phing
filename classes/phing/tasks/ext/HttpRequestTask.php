@@ -189,7 +189,8 @@ class HttpRequestTask extends HttpTask
                         array_map(
                             function (Parameter $postParameter) {
                                 return [$postParameter->getName() => $postParameter->getValue()];
-                            }, $this->postParameters
+                            },
+                            $this->postParameters
                         )
                     )
                 );

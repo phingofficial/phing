@@ -247,8 +247,8 @@ class JslLintTask extends Task
     protected function lint($file)
     {
         $command = $this->executable . ' -output-format ' . escapeshellarg(
-                'file:__FILE__;line:__LINE__;message:__ERROR__'
-            ) . ' ';
+            'file:__FILE__;line:__LINE__;message:__ERROR__'
+        ) . ' ';
 
         if (isset($this->conf)) {
             $command .= '-conf ' . escapeshellarg($this->conf->getPath()) . ' ';

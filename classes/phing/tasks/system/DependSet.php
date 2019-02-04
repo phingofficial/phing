@@ -216,7 +216,8 @@ class DependSet extends MatchingTask
                     if ($src->lastModified() > $now) {
                         $this->log(
                             'Warning: ' . $sourceFile
-                            . ' modified in the future.', Project::MSG_WARN
+                            . ' modified in the future.',
+                            Project::MSG_WARN
                         );
                     }
                     if (!$src->exists()) {
@@ -231,7 +232,8 @@ class DependSet extends MatchingTask
                         $upToDate = false;
                         $this->log(
                             $oldestTarget . ' is out of date with respect to '
-                            . $sourceFile, Project::MSG_VERBOSE
+                            . $sourceFile,
+                            Project::MSG_VERBOSE
                         );
                         break 2;
                     }
@@ -250,14 +252,16 @@ class DependSet extends MatchingTask
                     if ($src->lastModified() > $now) {
                         $this->log(
                             'Warning: ' . $sourceFile
-                            . ' modified in the future.', Project::MSG_WARN
+                            . ' modified in the future.',
+                            Project::MSG_WARN
                         );
                     }
                     if ($src->lastModified() > $oldestTargetTime) {
                         $upToDate = false;
                         $this->log(
                             $oldestTarget . ' is out of date with respect to '
-                            . $sourceFile, Project::MSG_VERBOSE
+                            . $sourceFile,
+                            Project::MSG_VERBOSE
                         );
                         break 2;
                     }

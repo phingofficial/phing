@@ -135,7 +135,8 @@ class TargetHandler extends AbstractHandler
 
         if ($name === null) {
             throw new ExpatParseException(
-                "target element appears without a name attribute", $this->parser->getLocation()
+                "target element appears without a name attribute",
+                $this->parser->getLocation()
             );
         }
 

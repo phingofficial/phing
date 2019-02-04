@@ -81,7 +81,8 @@ class RootHandler extends AbstractHandler
             $ph->init($tag, $attrs);
         } else {
             throw new ExpatParseException(
-                "Unexpected tag <$tag> in top-level of build file.", $this->parser->getLocation()
+                "Unexpected tag <$tag> in top-level of build file.",
+                $this->parser->getLocation()
             );
         }
     }

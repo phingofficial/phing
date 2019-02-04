@@ -352,8 +352,13 @@ class ProjectConfigurator
         if ($ex->getLocation() === null || $ex->getMessage() === null) {
             return $ex;
         }
-        $errorMessage = sprintf("The following error occurred while executing this line:%s%s %s%s", PHP_EOL,
-            $ex->getLocation(), $ex->getMessage(), PHP_EOL);
+        $errorMessage = sprintf(
+            "The following error occurred while executing this line:%s%s %s%s",
+            PHP_EOL,
+            $ex->getLocation(),
+            $ex->getMessage(),
+            PHP_EOL
+        );
         if ($ex instanceof ExitStatusException) {
             $exitStatus = $ex->getCode();
             if ($newLocation === null) {

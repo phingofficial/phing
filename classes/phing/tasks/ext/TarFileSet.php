@@ -39,7 +39,6 @@ class TarFileSet extends FileSet
             $this->files = $ds->getIncludedFiles();
 
             if ($includeEmpty) {
-
                 // first any empty directories that will not be implicitly added by any of the files
                 $implicitDirs = [];
                 foreach ($this->files as $file) {

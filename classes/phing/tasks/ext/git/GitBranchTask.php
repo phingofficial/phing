@@ -153,8 +153,10 @@ class GitBranchTask extends GitBaseTask
         try {
             $output = $command->execute();
         } catch (Exception $e) {
-            throw new BuildException('Task execution failed with git command "' . $command->createCommandString() . '""',
-                $e);
+            throw new BuildException(
+                'Task execution failed with git command "' . $command->createCommandString() . '""',
+                $e
+            );
         }
 
         $this->log(

@@ -336,7 +336,8 @@ class PropertyTask extends Task
         if ($this->name !== null) {
             if ($this->value === null && $this->reference === null) {
                 throw new BuildException(
-                    "You must specify value or refid with the name attribute", $this->getLocation()
+                    "You must specify value or refid with the name attribute",
+                    $this->getLocation()
                 );
             }
         } else {
@@ -511,8 +512,11 @@ class PropertyTask extends Task
                 $fragments = [];
                 $propertyRefs = [];
 
-                PropertyHelper::getPropertyHelper($this->project)->parsePropertyString($value, $fragments,
-                    $propertyRefs);
+                PropertyHelper::getPropertyHelper($this->project)->parsePropertyString(
+                    $value,
+                    $fragments,
+                    $propertyRefs
+                );
 
                 $resolved = true;
                 if (count($propertyRefs) === 0) {

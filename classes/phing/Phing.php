@@ -415,10 +415,10 @@ class Phing
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
         if (false !== ($key = array_search('-quiet', $args, true)) || false !== ($key = array_search(
-                '-q',
-                $args,
-                true
-            ))
+            '-q',
+            $args,
+            true
+        ))
         ) {
             self::$msgOutputLevel = Project::MSG_WARN;
             unset($args[$key]);
@@ -1009,7 +1009,6 @@ class Phing
                     case E_USER_ERROR:
                     default:
                         self::log($message, Project::MSG_ERR);
-
                 } // switch
             } // if phpErrorCapture
         } // if not @
@@ -1396,7 +1395,6 @@ class Phing
     public static function __import($path, $classpath = null)
     {
         if ($classpath) {
-
             // Apparently casting to (string) no longer invokes __toString() automatically.
             if (is_object($classpath)) {
                 $classpath = $classpath->__toString();

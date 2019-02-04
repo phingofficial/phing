@@ -212,7 +212,6 @@ class PathConvert extends Task
         $savedDirSep = $this->dirSep;// may be altered in validateSetup
 
         try {
-
             // If we are a reference, create a Path from the reference
             if ($this->isReference()) {
                 $this->path = new Path($this->getProject());
@@ -319,7 +318,6 @@ class PathConvert extends Task
         $size = count($this->prefixMap);
 
         if ($size !== 0) {
-
             // Iterate over the map entries and apply each one.
             // Stop when one of the entries actually changes the element.
 

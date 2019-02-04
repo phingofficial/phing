@@ -256,7 +256,6 @@ class PhingTask extends Task
                     $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
                 }
             } else {
-
                 // Since we're not changing the basedir here (for file resolution),
                 // we don't need to worry about any side-effects in this scanrio.
                 $this->dir = $this->getProject()->getBasedir();
@@ -271,8 +270,10 @@ class PhingTask extends Task
             $file = $fu->resolveFile($this->dir, $this->phingFile);
             $this->phingFile = $file->getAbsolutePath();
 
-            $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'",
-                Project::MSG_VERBOSE);
+            $this->log(
+                "Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'",
+                Project::MSG_VERBOSE
+            );
 
             $this->newProject->setUserProperty("phing.file", $this->phingFile);
 
@@ -469,7 +470,6 @@ class PhingTask extends Task
         // Now add all references that are not defined in the
         // subproject, if inheritRefs is true
         if ($this->inheritRefs) {
-
             // get the keys that are were not used by the subproject
             $unusedRefKeys = array_diff(array_keys($projReferences), $subprojRefKeys);
 

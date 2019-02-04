@@ -187,18 +187,18 @@ class UpToDateTask extends Task implements Condition
             $fs = $this->filesets[$i];
             $ds = $fs->getDirectoryScanner($this->project);
             $upToDate = $upToDate && $this->scanDir(
-                    $fs->getDir($this->project),
-                    $ds->getIncludedFiles()
-                );
+                $fs->getDir($this->project),
+                $ds->getIncludedFiles()
+            );
         }
 
         for ($i = 0, $size = count($this->filelists); $i < $size && $upToDate; $i++) {
             $fl = $this->filelists[$i];
             $srcFiles = $fl->getFiles($this->project);
             $upToDate = $upToDate && $this->scanDir(
-                    $fl->getDir($this->project),
-                    $srcFiles
-                );
+                $fl->getDir($this->project),
+                $srcFiles
+            );
         }
 
         if ($this->_sourceFile !== null) {
