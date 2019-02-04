@@ -27,7 +27,7 @@
  * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pearpackage
  */
-class PEAR_PackageFileManager_Fileset
+class PEARPackageFileManagerFileset
 {
 
     /**

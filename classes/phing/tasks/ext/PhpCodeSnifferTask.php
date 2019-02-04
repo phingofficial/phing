@@ -55,7 +55,7 @@ class PhpCodeSnifferTask extends Task
     protected $format = 'full';
 
     /**
-     * @var PhpCodeSnifferTask_FormatterElement[]
+     * @var PhpCodeSnifferTaskFormatterElement[]
      */
     protected $formatters = [];
 
@@ -319,13 +319,13 @@ class PhpCodeSnifferTask extends Task
     /**
      * Create object for nested formatter element.
      *
-     * @return PhpCodeSnifferTask_FormatterElement
+     * @return PhpCodeSnifferTaskFormatterElement
      */
     public function createFormatter()
     {
         $num = array_push(
             $this->formatters,
-            new PhpCodeSnifferTask_FormatterElement()
+            new PhpCodeSnifferTaskFormatterElement()
         );
 
         return $this->formatters[$num - 1];
@@ -462,7 +462,7 @@ class PhpCodeSnifferTask extends Task
 
         if (count($this->formatters) == 0) {
             // turn legacy format attribute into formatter
-            $fmt = new PhpCodeSnifferTask_FormatterElement();
+            $fmt = new PhpCodeSnifferTaskFormatterElement();
             $fmt->setType($this->format);
             $fmt->setUseFile(false);
             $this->formatters[] = $fmt;
@@ -541,7 +541,7 @@ class PhpCodeSnifferTask extends Task
         }
 
         if ($this->cache) {
-            PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache($this->cache);
+            ReportsPhingRemoveFromCache::setCache($this->cache);
             // add a fake report to remove from cache
             $_SERVER['argv'][] = '--report-phingRemoveFromCache';
             $_SERVER['argc']++;
@@ -552,7 +552,7 @@ class PhpCodeSnifferTask extends Task
         $_SERVER['argc'] = 0;
 
         if ($this->cache) {
-            PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache(null);
+            ReportsPhingRemoveFromCache::setCache(null);
             $this->cache->commit();
         }
 

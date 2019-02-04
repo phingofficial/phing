@@ -251,7 +251,7 @@ class PearPackageTask extends MatchingTask
     }
 
     /**
-     * Used by the PEAR_PackageFileManager_PhingFileSet lister.
+     * Used by the PEARPackageFileManagerFileset lister.
      *
      * @return array FileSet[]
      */

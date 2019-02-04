@@ -24,7 +24,7 @@
  * @package  PHP_CodeSniffer
  * @author   Rui Filipe Da Cunha Alves <ruifil@ruifil.com>
  */
-class PHP_CodeSniffer_Reports_PhingRemoveFromCache implements PHP_CodeSniffer_Report
+class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
 {
     /**
      * Cache data storage

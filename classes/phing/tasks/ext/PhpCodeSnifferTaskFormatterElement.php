@@ -3,7 +3,7 @@
 /**
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTask_FormatterElement extends DataType
+class PhpCodeSnifferTaskFormatterElement extends DataType
 {
 
     /**
