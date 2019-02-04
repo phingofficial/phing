@@ -33,7 +33,7 @@ install:
     fi
 script:
   - |
-    if [[ "$PHPCS" == "FALSE" ]]; then
+    if [[ "$PHPCS" != "TRUE" ]]; then
       echo "=== TESTING PHING ==="
       cd test
       ../bin/phing -Dtests.codecoverage=true
@@ -41,7 +41,7 @@ script:
     fi
 after_success:
   - |
-    if [[ "$PHPCS" == "FALSE" ]]; then
+    if [[ "$PHPCS" != "TRUE" ]]; then
       if [[ "$TRAVIS_BRANCH" == "master" ]]; then
         bash <(curl -s https://codecov.io/bash)
       fi
@@ -56,10 +56,6 @@ php:
   - 7.3snapshot
   - master
 
-env:
-  - DEPS="HIGH"
-  - PHPCS="FALSE"
-
 matrix:
   include:
     - php: 7.2
@@ -73,7 +69,6 @@ matrix:
     - php: 7.2snapshot
     - php: 7.3snapshot
     - php: master
-
   fast_finish: true
   allow_failures:
     - php: 7.1snapshot
