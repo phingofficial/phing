@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-
 /**
  *  Based on Apache Ant Wait For:
  *
@@ -86,6 +84,42 @@ class WaitForTask extends ConditionBase
     }
 
     /**
+     * Convert the unit to a multipler.
+     *
+     * @param  string $unit
+     * @throws BuildException
+     * @return int
+     */
+    protected function _convertUnit($unit)
+    {
+        if ($unit === 'week') {
+            return self::ONE_WEEK;
+        }
+
+        if ($unit === 'day') {
+            return self::ONE_DAY;
+        }
+
+        if ($unit === 'hour') {
+            return self::ONE_HOUR;
+        }
+
+        if ($unit === 'minute') {
+            return self::ONE_MINUTE;
+        }
+
+        if ($unit === 'second') {
+            return self::ONE_SECOND;
+        }
+
+        if ($unit === 'millisecond') {
+            return self::ONE_MILLISECOND;
+        }
+
+        throw new BuildException("Illegal unit '$unit'");
+    }
+
+    /**
      * Set the time between each check
      *
      * @param int $checkEvery
@@ -115,53 +149,6 @@ class WaitForTask extends ConditionBase
     public function setTimeoutProperty($timeoutProperty)
     {
         $this->timeoutProperty = $timeoutProperty;
-    }
-
-    /**
-     * Convert the unit to a multipler.
-     *
-     * @param  string $unit
-     * @throws BuildException
-     * @return int
-     */
-    protected function _convertUnit($unit)
-    {
-        switch ($unit) {
-            case "week":
-                {
-                    return self::ONE_WEEK;
-            }
-
-            case "day":
-                {
-                    return self::ONE_DAY;
-            }
-
-            case "hour":
-                {
-                    return self::ONE_HOUR;
-            }
-
-            case "minute":
-                {
-                    return self::ONE_MINUTE;
-            }
-
-            case "second":
-                {
-                    return self::ONE_SECOND;
-            }
-
-            case "millisecond":
-                {
-                    return self::ONE_MILLISECOND;
-            }
-
-            default:
-                {
-                    throw new BuildException("Illegal unit '$unit'");
-            }
-        }
     }
 
     /**

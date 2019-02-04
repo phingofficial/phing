@@ -24,7 +24,7 @@
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
-abstract class zsdtBaseTask extends Task
+abstract class ZsdtBaseTask extends Task
 {
     protected $action;
 

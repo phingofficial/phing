@@ -17,15 +17,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/zendserverdeploymenttool/zsdtBaseTask.php';
-
 /**
  * Class ZendServerDeploymentToolTask
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
-class zsdtPackTask extends zsdtBaseTask
+class ZsdtPackTask extends ZsdtBaseTask
 {
     /**
      * @var string $package
