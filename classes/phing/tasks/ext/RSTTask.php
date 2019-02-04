@@ -22,7 +22,7 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link     http://www.phing.info/
  */
-class rSTTask extends Task
+class RSTTask extends Task
 {
     use FileSetAware;
     use FilterChainAware;

@@ -17,7 +17,7 @@
  * release files (zip, tgz, phar).
  *
  * @internal
- * A normal fileset is used that way in CopyTask, rSTTask:
+ * A normal fileset is used that way in CopyTask, RSTTask:
  * <code>
  *  $ds = $fs->getDirectoryScanner($project);
  *  $fromDir  = $fs->getDir($project);

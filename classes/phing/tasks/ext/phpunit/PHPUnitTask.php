@@ -96,7 +96,7 @@ class PHPUnitTask extends Task
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
          */
-        if (!defined('PHPUnit_MAIN_METHOD')) {
+        if (!defined('PHPUnit_MAIN_METHOD')) { // @codingStandardsIgnoreLine
             define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
         }
     }

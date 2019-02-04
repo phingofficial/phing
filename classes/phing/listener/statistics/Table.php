@@ -29,7 +29,7 @@ class Table
 
     private $maxLengths;
 
-    public function __construct(array $header = [], $rows)
+    public function __construct(array $header = [], $rows = 0)
     {
         $this->header = $header;
         $columnSize = ($rows >= 0) ? $rows + 1 : 1;
