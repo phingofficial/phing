@@ -7,10 +7,14 @@
  */
 class PathElement
 {
-    /** @var array $parts */
+    /**
+     * @var array $parts
+     */
     private $parts = [];
 
-    /** @var Path $outer */
+    /**
+     * @var Path $outer
+     */
     private $outer;
 
     /**

@@ -27,8 +27,8 @@
  * project description per project.  A second description element will
  * overwrite the first.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Craeg Strong <cstrong@arielpartners.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Craeg Strong <cstrong@arielpartners.com> (Ant)
  * @package phing.types
  */
 class Description extends DataType
@@ -37,7 +37,7 @@ class Description extends DataType
     /**
      * Adds descriptive text to the project.
      *
-     * @param $text
+     * @param  $text
      * @return void
      */
     public function addText($text)

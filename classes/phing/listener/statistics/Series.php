@@ -25,7 +25,9 @@ class Series
 {
     private $stack;
 
-    /** @var Duration[] $list */
+    /**
+     * @var Duration[] $list
+     */
     private $list = [];
 
     public function __construct()

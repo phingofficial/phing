@@ -42,38 +42,56 @@
  *
  * </pre>
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.regex
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.regex
  */
 class RegexTask extends AbstractPropertySetterTask
 {
-    /** @var string $subject */
+    /**
+     * @var string $subject
+     */
     private $subject;
 
-    /** @var string $pattern */
+    /**
+     * @var string $pattern
+     */
     private $pattern;
 
-    /** @var string $match */
+    /**
+     * @var string $match
+     */
     private $match;
 
-    /** @var string $replace */
+    /**
+     * @var string $replace
+     */
     private $replace;
 
-    /** @var string $defaultValue */
+    /**
+     * @var string $defaultValue
+     */
     private $defaultValue;
 
-    /** @var bool $caseSensitive */
+    /**
+     * @var bool $caseSensitive
+     */
     private $caseSensitive = true;
 
-    /** @var array $modifiers */
+    /**
+     * @var array $modifiers
+     */
     private $modifiers = '';
 
-    /** @var Regexp $reg */
+    /**
+     * @var Regexp $reg
+     */
     private $reg;
 
-    /** @var int $limit */
+    /**
+     * @var int $limit
+     */
     private $limit = -1;
-    
+
     public function init()
     {
         $this->reg = new Regexp();
@@ -86,7 +104,7 @@ class RegexTask extends AbstractPropertySetterTask
     {
         $this->limit = $limit;
     }
-    
+
     /**
      * @param string $subject
      */

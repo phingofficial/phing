@@ -28,60 +28,70 @@ class GitDescribeTask extends GitBaseTask
 {
     /**
      * Use any ref found in .git/refs/. See --all of git-describe
+     *
      * @var boolean
      */
     private $all = false;
 
     /**
      * Use any tag found in .git/refs/tags. See --tags of git-describe
+     *
      * @var boolean
      */
     private $tags = false;
 
     /**
      * Find tag that contains the commit. See --contains of git-describe
+     *
      * @var boolean
      */
     private $contains = false;
 
     /**
      * Use <n> digit object name. See --abbrev of git-describe
+     *
      * @var integer
      */
     private $abbrev;
 
     /**
      * Consider up to <n> most recent tags. See --candidates of git-describe
+     *
      * @var integer
      */
     private $candidates;
 
     /**
      * Always output the long format. See --long of git-describe
+     *
      * @var boolean
      */
     private $long = false;
 
     /**
      * Only consider tags matching the given pattern. See --match of git-describe
+     *
      * @var string
      */
     private $match;
 
     /**
      * Show uniquely abbreviated commit object as fallback. See --always of git-describe
+     *
      * @var boolean
      */
     private $always = false;
 
     /**
      * <committish> argument to git-describe
+     *
      * @var string
      */
     private $committish;
 
     /**
      * Property name to set with output value from git-describe
+     *
      * @var string
      */
     private $outputProperty;

@@ -20,8 +20,8 @@
 /**
  * Task that runs a target.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class RunTargetTask extends Task
 {

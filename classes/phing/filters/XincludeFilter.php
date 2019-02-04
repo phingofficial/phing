@@ -22,9 +22,9 @@
  *
  * Uses PHP DOM XML support
  *
- * @author    Bill Karwin <bill@karwin.com>
- * @see       FilterReader
- * @package   phing.filters
+ * @author  Bill Karwin <bill@karwin.com>
+ * @see     FilterReader
+ * @package phing.filters
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 {
@@ -84,7 +84,8 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Reads stream, applies XSLT and returns resulting stream.
-     * @param null $len
+     *
+     * @param  null $len
      * @throws BuildException
      * @return string         transformed buffer.
      */
@@ -131,7 +132,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Try to process the Xinclude transformation
      *
-     * @param   string  XML to process.
+     * @param string  XML to process.
      *
      * @return string
      * @throws BuildException On errors

@@ -23,7 +23,7 @@ require_once 'phing/tasks/system/MatchingTask.php';
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
  * @package phing.tasks.ext
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PharDataTask extends MatchingTask
 {

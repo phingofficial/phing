@@ -36,10 +36,10 @@
  *   </fileset>
  * </ftpdeploy>
  *
- * @author Jorrit Schippers <jorrit at ncode dot nl>
+ * @author      Jorrit Schippers <jorrit at ncode dot nl>
  * @contributor Steffen Sørensen <steffen@sublife.dk>
- * @since 2.3.1
- * @package  phing.tasks.ext
+ * @since       2.3.1
+ * @package     phing.tasks.ext
  */
 class FtpDeployTask extends Task
 {
@@ -213,30 +213,33 @@ class FtpDeployTask extends Task
     {
         $project = $this->getProject();
 
-        require_once 'PEAR.php';
-        require_once 'Net/FTP.php';
+        include_once 'PEAR.php';
+        include_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
         if ($this->ssl) {
             $ret = $ftp->setSsl();
             if (@PEAR::isError($ret)) {
-                throw new BuildException('SSL connection not supported by php' . ': ' . $ret->getMessage(
-                    ));
+                throw new BuildException(
+                    'SSL connection not supported by php' . ': ' . $ret->getMessage()
+                );
             } else {
                 $this->log('Use SSL connection', $this->logLevel);
             }
         }
         $ret = $ftp->connect();
         if (@PEAR::isError($ret)) {
-            throw new BuildException('Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage(
-                ));
+            throw new BuildException(
+                'Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage()
+            );
         } else {
             $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
         }
 
         $ret = $ftp->login($this->username, $this->password);
         if (@PEAR::isError($ret)) {
-            throw new BuildException('Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage(
-                ));
+            throw new BuildException(
+                'Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage()
+            );
         } else {
             $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
         }

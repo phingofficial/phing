@@ -22,7 +22,7 @@ require_once 'phing/system/io/Writer.php';
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
 abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
@@ -31,29 +31,44 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     protected $project;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $timers = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $runCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $failureCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $errorCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $incompleteCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $skipCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $warningCounts = false;
 
     /**
      * Constructor
+     *
      * @param PHPUnitTask $parentTask Calling Task
      */
     public function __construct(PHPUnitTask $parentTask)
@@ -63,6 +78,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     /**
      * Sets the writer the formatter is supposed to write its results to.
+     *
      * @param Writer $out
      */
     public function setOutput(Writer $out)
@@ -177,8 +193,11 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      * @param PHPUnit\Framework\AssertionFailedError $e
      * @param float $time
      */
-    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, float $time): void
-    {
+    public function addFailure(
+        PHPUnit\Framework\Test $test,
+        PHPUnit\Framework\AssertionFailedError $e,
+        float $time
+    ): void {
         $this->failureCounts[count($this->failureCounts) - 1]++;
     }
 

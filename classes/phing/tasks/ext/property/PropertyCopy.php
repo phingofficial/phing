@@ -25,10 +25,14 @@
  */
 class PropertyCopy extends AbstractPropertySetterTask
 {
-    /** @var string $from */
+    /**
+     * @var string $from
+     */
     private $from;
 
-    /** @var bool $silent */
+    /**
+     * @var bool $silent
+     */
     private $silent;
 
     /***

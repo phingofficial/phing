@@ -15,14 +15,14 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
  *
- * @author    Hans Lellelid, hans@velum.net
- * @see       FilterReader
- * @package   phing.filters
+ * @author  Hans Lellelid, hans@velum.net
+ * @see     FilterReader
+ * @package phing.filters
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {
@@ -31,10 +31,9 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
     /**
      * Returns the  stream without Php comments and whitespace.
      *
-     * @param null $len
+     * @param  null $len
      * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
-     *
      */
     public function read($len = null)
     {
@@ -74,7 +73,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * Creates a new StripWhitespace using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param    A|Reader $reader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

@@ -20,9 +20,9 @@
 /**
  * Prints short summary output of the test to Phing's logging system.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.formatter
- * @since 2.1.0
+ * @since   2.1.0
  */
 class SummaryPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
 {

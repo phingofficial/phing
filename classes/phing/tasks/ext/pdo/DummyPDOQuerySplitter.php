@@ -45,11 +45,9 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             $project = $this->parent->getOwningTarget()->getProject();
             $line = $project->replaceProperties(trim($line));
 
-            if (($line != $delimiter) && (
-                    StringHelper::startsWith("//", $line) ||
-                    StringHelper::startsWith("--", $line) ||
-                    StringHelper::startsWith("#", $line)
-            )
+            if (($line != $delimiter) && (StringHelper::startsWith("//", $line)
+                    || StringHelper::startsWith("--", $line)
+                    || StringHelper::startsWith("#", $line))
             ) {
                 continue;
             }
@@ -58,6 +56,7 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
 
             /**
              * fix issue with PDO and wrong formated multistatements
+             *
              * @issue 1108
              */
             if (StringHelper::endsWith($delimiter, $line)) {

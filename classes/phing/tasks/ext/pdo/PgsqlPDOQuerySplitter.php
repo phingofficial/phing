@@ -50,36 +50,42 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
 
     /**
      * Nesting depth of current multiline comment
+     *
      * @var int
      */
     protected $commentDepth = 0;
 
     /**
      * Current dollar-quoting "tag"
+     *
      * @var string
      */
     protected $quotingTag = '';
 
     /**
      * Current lexer state, one of STATE_* constants
+     *
      * @var int
      */
     protected $state = self::STATE_NORMAL;
 
     /**
      * Whether a backslash was just encountered in quoted string
+     *
      * @var bool
      */
     protected $escape = false;
 
     /**
      * Current source line being examined
+     *
      * @var string
      */
     protected $line = '';
 
     /**
      * Position in current source line
+     *
      * @var int
      */
     protected $inputIndex;
@@ -247,7 +253,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             }
                     }
 
-                    // no break
+                // no break
                 case self::STATE_SINGLE_QUOTED:
                 case self::STATE_DOUBLE_QUOTED:
                     if ($this->escape) {
@@ -268,7 +274,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             }
                     }
 
-                    // no break
+                // no break
                 case self::STATE_DOLLAR_QUOTED:
                     if ('$' == $ch && false !== ($tag = $this->checkDollarQuote())) {
                         if ($tag == $this->quotingTag) {

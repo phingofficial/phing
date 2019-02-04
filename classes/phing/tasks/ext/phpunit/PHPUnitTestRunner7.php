@@ -20,7 +20,7 @@
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
  */
 class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
@@ -112,7 +112,8 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
 
     /**
      * Run a test
-     * @param PHPUnit\Framework\TestSuite $suite
+     *
+     * @param  PHPUnit\Framework\TestSuite $suite
      * @throws \BuildException
      */
     public function run(PHPUnit\Framework\TestSuite $suite)
@@ -319,21 +320,24 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
     /**
      * A failure occurred.
      *
-     * @param PHPUnit\Framework\Test                 $test
+     * @param PHPUnit\Framework\Test $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param float $time
      */
-    public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, float $time): void
-    {
+    public function addFailure(
+        PHPUnit\Framework\Test $test,
+        PHPUnit\Framework\AssertionFailedError $e,
+        float $time
+    ): void {
         $this->lastFailureMessage = $this->composeMessage("FAILURE", $test, $e);
     }
 
     /**
      * A failure occurred.
      *
-     * @param PHPUnit\Framework\Test                 $test
+     * @param PHPUnit\Framework\Test $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param float $time
      */
     public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
     {
@@ -344,8 +348,8 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * Incomplete test.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Exception $e
+     * @param float $time
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -356,9 +360,9 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * Skipped test.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
-     * @since  Method available since Release 3.0.0
+     * @param Exception $e
+     * @param float $time
+     * @since Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -369,8 +373,8 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * Risky test
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Exception $e
+     * @param float $time
      */
     public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -398,8 +402,8 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
     /**
      * A test failed.
      *
-     * @param integer                                $status
-     * @param PHPUnit\Framework\Test                 $test
+     * @param integer $status
+     * @param PHPUnit\Framework\Test $test
      * @param PHPUnit\Framework\AssertionFailedError $e
      */
     public function testFailed($status, PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e)
@@ -410,7 +414,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * Override to define how to handle a failed loading of
      * a test suite.
      *
-     * @param string $message
+     * @param  string $message
      * @throws BuildException
      */
     protected function runFailed($message)
@@ -422,7 +426,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * A test suite started.
      *
      * @param PHPUnit\Framework\TestSuite $suite
-     * @since  Method available since Release 2.2.0
+     * @since Method available since Release 2.2.0
      */
     public function startTestSuite(PHPUnit\Framework\TestSuite $suite): void
     {
@@ -432,7 +436,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * A test suite ended.
      *
      * @param PHPUnit\Framework\TestSuite $suite
-     * @since  Method available since Release 2.2.0
+     * @since Method available since Release 2.2.0
      */
     public function endTestSuite(PHPUnit\Framework\TestSuite $suite): void
     {
@@ -451,7 +455,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * A test ended.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param float                  $time
+     * @param float $time
      */
     public function endTest(PHPUnit\Framework\Test $test, float $time): void
     {

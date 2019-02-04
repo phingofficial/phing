@@ -31,17 +31,23 @@ class ProjectConfigurator
 {
     const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
-    /** @var Project $project */
+    /**
+     * @var Project $project
+     */
     public $project;
     public $locator;
 
     public $buildFile;
     public $buildFileParent;
 
-    /** Synthetic target that will be called at the end to the parse phase */
+    /**
+     * Synthetic target that will be called at the end to the parse phase
+     */
     private $parseEndTarget;
 
-    /** Name of the current project */
+    /**
+     * Name of the current project
+     */
     private $currentProjectName;
 
     private $isParsing = true;
@@ -56,8 +62,8 @@ class ProjectConfigurator
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
      *
-     * @param  Project $project the Project instance this configurator should use
-     * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @param Project $project the Project instance this configurator should use
+     * @param PhingFile $buildFile the buildfile object the parser should use
      *
      * @throws \IOException
      * @throws \BuildException
@@ -88,6 +94,7 @@ class ProjectConfigurator
 
     /**
      * find out the build file
+     *
      * @return PhingFile the build file to which the xml context belongs
      */
     public function getBuildFile()
@@ -97,6 +104,7 @@ class ProjectConfigurator
 
     /**
      * find out the parent build file of this build file
+     *
      * @return PhingFile the parent build file of this build file
      */
     public function getBuildFileParent()
@@ -106,6 +114,7 @@ class ProjectConfigurator
 
     /**
      * find out the current project name
+     *
      * @return string current project name
      */
     public function getCurrentProjectName()
@@ -115,6 +124,7 @@ class ProjectConfigurator
 
     /**
      * set the name of the current project
+     *
      * @param string $name name of the current project
      */
     public function setCurrentProjectName($name)
@@ -124,6 +134,7 @@ class ProjectConfigurator
 
     /**
      * tells whether the project tag is being ignored
+     *
      * @return bool whether the project tag is being ignored
      */
     public function isIgnoringProjectTag()
@@ -133,6 +144,7 @@ class ProjectConfigurator
 
     /**
      * sets the flag to ignore the project tag
+     *
      * @param bool $flag flag to ignore the project tag
      */
     public function setIgnoreProjectTag($flag)
@@ -237,9 +249,9 @@ class ProjectConfigurator
     /**
      * Configures an element and resolves eventually given properties.
      *
-     * @param mixed $target element to configure
-     * @param array $attrs element's attributes
-     * @param Project $project project this element belongs to
+     * @param  mixed $target element to configure
+     * @param  array $attrs element's attributes
+     * @param  Project $project project this element belongs to
      * @throws BuildException
      * @throws Exception
      */
@@ -283,9 +295,9 @@ class ProjectConfigurator
     /**
      * Configures the #CDATA of an element.
      *
-     * @param  Project $project  the project this element belongs to
-     * @param  object  the element to configure
-     * @param  string $text the element's #CDATA
+     * @param Project $project the project this element belongs to
+     * @param object  the element to configure
+     * @param string $text the element's #CDATA
      */
     public static function addText($project, $target, $text = null)
     {
@@ -300,10 +312,10 @@ class ProjectConfigurator
     /**
      * Stores a configured child element into its parent object
      *
-     * @param  object  the project this element belongs to
-     * @param  object  the parent element
-     * @param  object  the child element
-     * @param  string  the XML tagname
+     * @param object  the project this element belongs to
+     * @param object  the parent element
+     * @param object  the child element
+     * @param string  the XML tagname
      */
     public static function storeChild($project, $parent, $child, $tag)
     {
@@ -316,7 +328,7 @@ class ProjectConfigurator
      * project.
      *
      * @param object $target the element's object
-     * @param array  $attr the element's attributes
+     * @param array $attr the element's attributes
      */
     public function configureId($target, $attr)
     {
@@ -327,9 +339,10 @@ class ProjectConfigurator
 
     /**
      * Add location to build exception.
-     * @param BuildException $ex the build exception, if the build exception
-     *           does not include
-     * @param Location $newLocation the location of the calling task (may be null)
+     *
+     * @param  BuildException $ex the build exception, if the build exception
+     *                                    does not include
+     * @param  Location $newLocation the location of the calling task (may be null)
      * @return BuildException a new build exception based in the build exception with
      *         location set to newLocation. If the original exception
      *         did not have a location, just return the build exception
@@ -339,7 +352,8 @@ class ProjectConfigurator
         if ($ex->getLocation() === null || $ex->getMessage() === null) {
             return $ex;
         }
-        $errorMessage = sprintf("The following error occurred while executing this line:%s%s %s%s", PHP_EOL, $ex->getLocation(), $ex->getMessage(), PHP_EOL);
+        $errorMessage = sprintf("The following error occurred while executing this line:%s%s %s%s", PHP_EOL,
+            $ex->getLocation(), $ex->getMessage(), PHP_EOL);
         if ($ex instanceof ExitStatusException) {
             $exitStatus = $ex->getCode();
             if ($newLocation === null) {

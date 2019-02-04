@@ -20,7 +20,7 @@
 /**
  * Prints plain text output of the test to a specified Writer.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
 class PlainPHPUnitResultFormatter6 extends PHPUnitResultFormatter6

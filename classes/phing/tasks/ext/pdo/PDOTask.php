@@ -17,17 +17,17 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Reference.php';
+require_once 'phing/types/Reference.php';
 
 /**
  * Handles PDO configuration needed by SQL type tasks.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Nick Chalko <nick@chalko.com> (Ant)
- * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
- * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
- * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Nick Chalko <nick@chalko.com> (Ant)
+ * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
+ * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
+ * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
+ * @package phing.tasks.system
  */
 abstract class PDOTask extends Task
 {
@@ -70,6 +70,7 @@ abstract class PDOTask extends Task
      * Caching loaders / driver. This is to avoid
      * getting an OutOfMemoryError when calling this task
      * multiple times in a row; default: true
+     *
      * @param $enable
      */
     public function setCaching($enable)
@@ -79,6 +80,7 @@ abstract class PDOTask extends Task
 
     /**
      * Sets the database connection URL; required.
+     *
      * @param string The url to set
      */
     public function setUrl($url)
@@ -88,6 +90,7 @@ abstract class PDOTask extends Task
 
     /**
      * Sets the password; required.
+     *
      * @param string $password The password to set
      */
     public function setPassword($password)
@@ -98,6 +101,7 @@ abstract class PDOTask extends Task
     /**
      * Auto commit flag for database connection;
      * optional, default false.
+     *
      * @param bool $autocommit The autocommit to set
      */
     public function setAutocommit($autocommit)
@@ -108,6 +112,7 @@ abstract class PDOTask extends Task
     /**
      * Creates a new Connection as using the driver, url, userid and password specified.
      * The calling method is responsible for closing the connection.
+     *
      * @return PDO     the newly created connection.
      * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
      */
@@ -159,6 +164,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the autocommit.
+     *
      * @return bool
      */
     public function isAutocommit()
@@ -168,6 +174,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the url.
+     *
      * @return string
      */
     public function getUrl()
@@ -177,6 +184,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the userId.
+     *
      * @return string
      */
     public function getUserId()
@@ -186,6 +194,7 @@ abstract class PDOTask extends Task
 
     /**
      * Set the user name for the connection; required.
+     *
      * @param string $userId
      */
     public function setUserid($userId)
@@ -195,6 +204,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the password.
+     *
      * @return string
      */
     public function getPassword()

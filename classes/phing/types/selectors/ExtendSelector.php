@@ -23,8 +23,8 @@
  * TODO - Consider adding Path (phing.types.Path) support to this class
  *         and to the Mappers class.  See Ant versions for implimentation details.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 class ExtendSelector extends BaseSelector
@@ -73,7 +73,7 @@ class ExtendSelector extends BaseSelector
     /**
      * Create new parameters to pass to custom selector.
      *
-     * @param Parameter $p The new Parameter object
+     * @param  Parameter $p The new Parameter object
      * @return void
      */
     public function addParam(Parameter $p)
@@ -111,9 +111,9 @@ class ExtendSelector extends BaseSelector
      * Allows the custom selector to choose whether to select a file. This
      * is also where the Parameters are passed to the custom selector.
      *
-     * @param PhingFile $basedir
-     * @param string $filename The filename
-     * @param PhingFile $file
+     * @param  PhingFile $basedir
+     * @param  string $filename The filename
+     * @param  PhingFile $file
      * @return bool
      * @throws BuildException
      */

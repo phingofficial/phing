@@ -24,8 +24,8 @@
  * <dbdeploy url="mysql:host=localhost;dbname=test"
  *     userid="dbdeploy" password="dbdeploy" dir="db" outputfile="">
  *
- * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @package  phing.tasks.ext.dbdeploy
+ * @author  Luke Crouch at SourceForge (http://sourceforge.net)
+ * @package phing.tasks.ext.dbdeploy
  */
 class DbDeployTask extends Task
 {
@@ -211,7 +211,7 @@ class DbDeployTask extends Task
      * Generate the sql for doing/undoing the deployment and write it to a file
      *
      * @param  string $file
-     * @param  bool   $undo
+     * @param  bool $undo
      * @return void
      */
     protected function createOutputFile($file, $undo = false)
@@ -224,7 +224,7 @@ class DbDeployTask extends Task
     /**
      * Generate the sql for doing/undoing this deployment
      *
-     * @param  bool   $undo
+     * @param  bool $undo
      * @return string The sql
      */
     protected function generateSql($undo = false)
@@ -252,9 +252,11 @@ class DbDeployTask extends Task
                 $contents = fread($fh, filesize($fullFileName));
                 $count_bad_comments = substr_count($contents, '--//');
                 if ($count_bad_comments > 0) {
-                    $this->log('Your SQL delta includes "--//" which, if a comment, should be replaced with "-- //"
+                    $this->log(
+                        'Your SQL delta includes "--//" which, if a comment, should be replaced with "-- //"
                     to avoid the delta failing.  You may need to manually undo part of this delta.\n\n'
-                        . $contents, Project::MSG_WARN);
+                        . $contents, Project::MSG_WARN
+                    );
                 }
 
                 // ignore tabs and spaces before @UNDO and any characters after in that line
@@ -309,7 +311,7 @@ class DbDeployTask extends Task
         $fileChangeNumberPrefix = '';
         while (($file = readdir($dh)) !== false) {
             if (preg_match('[\d+]', $file, $fileChangeNumberPrefix)) {
-                $files[(int)$fileChangeNumberPrefix[0]] = $file;
+                $files[(int) $fileChangeNumberPrefix[0]] = $file;
             }
         }
 
@@ -320,7 +322,7 @@ class DbDeployTask extends Task
      * Sort files in the patch files directory (ascending or descending depending on $undo boolean)
      *
      * @param  array $files
-     * @param  bool  $undo
+     * @param  bool $undo
      * @return void
      */
     protected function sortFiles(&$files, $undo)
@@ -336,7 +338,7 @@ class DbDeployTask extends Task
      * Determine if this patch file need to be deployed
      * (using fileChangeNumber, lastChangeAppliedInDb and $this->checkall)
      *
-     * @param  int    $fileChangeNumber
+     * @param  int $fileChangeNumber
      * @param  string $lastChangeAppliedInDb
      * @return bool   True or false if patch file needs to be deployed
      */
@@ -418,7 +420,7 @@ class DbDeployTask extends Task
     /**
      * Set the lastchangetoapply property
      *
-     * @param  int  $lastChangeToApply
+     * @param  int $lastChangeToApply
      * @return void
      */
     public function setLastChangeToApply($lastChangeToApply)

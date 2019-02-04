@@ -32,24 +32,28 @@ abstract class Task extends ProjectComponent
 
     /**
      * Owning Target object
+     *
      * @var Target
      */
     protected $target;
 
     /**
      * Internal taskname (req)
+     *
      * @var string
      */
     protected $taskType;
 
     /**
      * Taskname for logger
+     *
      * @var string
      */
     protected $taskName;
 
     /**
      * Wrapper of the task
+     *
      * @var RuntimeConfigurable
      */
     protected $wrapper;
@@ -96,7 +100,7 @@ abstract class Task extends ProjectComponent
     /**
      * Sets the name of this task for log messages
      *
-     * @param  string $name
+     * @param string $name
      */
     public function setTaskName($name)
     {
@@ -126,7 +130,8 @@ abstract class Task extends ProjectComponent
 
     /**
      * Returns a name
-     * @param string $slotName
+     *
+     * @param  string $slotName
      * @return \RegisterSlot
      */
     protected function getRegisterSlot($slotName)
@@ -140,8 +145,8 @@ abstract class Task extends ProjectComponent
      * @param string $msg The message to log
      * @param int $level The priority of the message
      * @param Exception|null $t
-     * @see BuildEvent
-     * @see BuildListener
+     * @see   BuildEvent
+     * @see   BuildListener
      */
     public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
     {

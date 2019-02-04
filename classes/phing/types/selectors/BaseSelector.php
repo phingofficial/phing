@@ -31,10 +31,14 @@
  */
 abstract class BaseSelector extends DataType implements FileSelector
 {
-    /** @var string $errmsg */
+    /**
+     * @var string $errmsg
+     */
     private $errmsg = null;
 
-    /** @var Exception $cause */
+    /**
+     * @var Exception $cause
+     */
     private $cause;
 
     /**

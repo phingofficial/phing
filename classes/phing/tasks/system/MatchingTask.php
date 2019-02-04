@@ -23,22 +23,26 @@
  *
  * This is very closely based on the ANT class of the same name.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Arnout J. Kuiper <ajkuiper@wxs.nl> (Ant)
- * @author    Stefano Mazzocchi  <stefano@apache.org> (Ant)
- * @author    Sam Ruby <rubys@us.ibm.com> (Ant)
- * @author    Jon S. Stevens <jon@clearink.com> (Ant
- * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Arnout J. Kuiper <ajkuiper@wxs.nl> (Ant)
+ * @author  Stefano Mazzocchi  <stefano@apache.org> (Ant)
+ * @author  Sam Ruby <rubys@us.ibm.com> (Ant)
+ * @author  Jon S. Stevens <jon@clearink.com> (Ant
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
+ * @package phing.tasks.system
  */
 abstract class MatchingTask extends Task implements SelectorContainer
 {
 
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     protected $useDefaultExcludes = true;
 
-    /** @var FileSet */
+    /**
+     * @var FileSet
+     */
     protected $fileset;
 
     /**
@@ -62,6 +66,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a name entry on the include list
+     *
      * @return PatternSetNameEntry
      */
     public function createInclude()
@@ -71,6 +76,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a name entry on the include files list
+     *
      * @return PatternSetNameEntry
      */
     public function createIncludesFile()
@@ -80,6 +86,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a name entry on the exclude list
+     *
      * @return PatternSetNameEntry
      */
     public function createExclude()
@@ -89,6 +96,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a name entry on the include files list
+     *
      * @return PatternSetNameEntry
      */
     public function createExcludesFile()
@@ -98,6 +106,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a set of patterns
+     *
      * @return PatternSet
      */
     public function createPatternSet()
@@ -142,7 +151,8 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * Returns the directory scanner needed to access the files to process.
-     * @param PhingFile $baseDir
+     *
+     * @param  PhingFile $baseDir
      * @throws BuildException
      * @return DirectoryScanner
      */
@@ -224,7 +234,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the set of selectors as an array.
      *
-     * @param Project $p
+     * @param  Project $p
      * @return array FileSelector[] An array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -257,6 +267,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a "Select" selector entry on the selector list
+     *
      * @return SelectSelector
      */
     public function addSelector(SelectSelector $selector)
@@ -266,6 +277,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add an "And" selector entry on the selector list
+     *
      * @return AndSelector
      */
     public function addAnd(AndSelector $selector)
@@ -275,6 +287,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add an "Or" selector entry on the selector list
+     *
      * @return OrSelector
      */
     public function addOr(OrSelector $selector)
@@ -284,6 +297,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a "Not" selector entry on the selector list
+     *
      * @return NotSelector
      */
     public function addNot(NotSelector $selector)
@@ -293,6 +307,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a "None" selector entry on the selector list
+     *
      * @return NoneSelector
      */
     public function addNone(NoneSelector $selector)
@@ -302,6 +317,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a majority selector entry on the selector list
+     *
      * @return MajoritySelector
      */
     public function addMajority(MajoritySelector $selector)
@@ -311,6 +327,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a selector date entry on the selector list
+     *
      * @return DateSelector
      */
     public function addDate(DateSelector $selector)
@@ -320,6 +337,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a selector size entry on the selector list
+     *
      * @return SizeSelector
      */
     public function addSize(SizeSelector $selector)
@@ -329,6 +347,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a selector filename entry on the selector list
+     *
      * @return FilenameSelector
      */
     public function addFilename(FilenameSelector $selector)
@@ -338,6 +357,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add an extended selector entry on the selector list
+     *
      * @return ExtendSelector
      */
     public function addCustom(ExtendSelector $selector)
@@ -411,6 +431,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a type selector entry on the selector list
+     *
      * @param TypeSelector $selector
      */
     public function addType(TypeSelector $selector)
@@ -420,6 +441,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a contains selector entry on the selector list
+     *
      * @param ContainsRegexpSelector $selector
      */
     public function addContainsRegexp(ContainsRegexpSelector $selector)

@@ -40,6 +40,7 @@ class PathTokenizer
     /**
      * A string which stores any path components which have been read ahead
      * due to DOS filesystem compensation.
+     *
      * @var string
      */
     private $lookahead;
@@ -47,6 +48,7 @@ class PathTokenizer
     /**
      * Flag to indicate whether or not we are running on a platform with a
      * DOS style filesystem
+     *
      * @var boolean
      */
     private $dosStyleFilesystem;
@@ -106,9 +108,7 @@ class PathTokenizer
 
 
         if (strlen($token) === 1 && Character::isLetter($token{0})
-
             && $this->dosStyleFilesystem
-
             && !empty($this->tokens)
         ) {
 
@@ -142,7 +142,7 @@ class PathTokenizer
      * Non StringTokenizer function, that indicates whether the specified path is contained in loaded tokens.
      * We can do this easily because in PHP implimentation we're using arrays.
      *
-     * @param  string  $path path to search for.
+     * @param string $path path to search for.
      *
      * @return boolean
      */

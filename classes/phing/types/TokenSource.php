@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * A parameter is composed of a name, type and value.
@@ -38,26 +38,29 @@
  *   </param>
  * </filterreader>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @package   phing.types
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @package phing.types
  */
 class TokenSource extends DataType
 {
 
     /**
      * String to hold the path to the TokenReader
-     * @var     string
+     *
+     * @var string
      */
     protected $classname = null;
 
     /**
      * Array holding parameters for the wrapped TokenReader.
+     *
      * @var array
      */
     protected $parameters = [];
 
     /**
      * Reference to the TokenReader used by this TokenSource
+     *
      * @var TokenReader
      */
     protected $reader;
@@ -99,7 +102,6 @@ class TokenSource extends DataType
     /**
      * This function uses the wrapper to read the tokens and then
      * returns them.
-     *
      */
     public function getTokens()
     {
@@ -113,6 +115,7 @@ class TokenSource extends DataType
     /**
      * Configures a TokenReader with the parameters passed to the
      * TokenSource.
+     *
      * @param TokenReader $reader
      */
     private function configureTokenReader(TokenReader $reader)
@@ -127,6 +130,7 @@ class TokenSource extends DataType
 
     /**
      * Set the classname (dot-path) to use for handling token replacement.
+     *
      * @param string $c
      */
     public function setClassname($c)
@@ -136,6 +140,7 @@ class TokenSource extends DataType
 
     /**
      * Returns the qualified classname (dot-path) to use for handling token replacement.
+     *
      * @return string
      */
     public function getClassname()
@@ -146,6 +151,7 @@ class TokenSource extends DataType
     /**
      * Create nested <param> tag.
      * Uses standard name/value Parameter class.
+     *
      * @return Parameter
      */
     public function createParam()

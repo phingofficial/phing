@@ -57,8 +57,8 @@ abstract class AbstractHandler
      * Must be overloaded by the child class. Throws an ExpatParseException
      * if there is no handler registered for an element.
      *
-     * @param string $name name of the XML element
-     * @param array $attribs attributes of the XML element
+     * @param  string $name name of the XML element
+     * @param  array $attribs attributes of the XML element
      * @throws ExpatParseException
      */
     public function startElement($name, $attribs)
@@ -90,8 +90,8 @@ abstract class AbstractHandler
     /**
      * Invoked by occurrence of #PCDATA.
      *
-     * @param  string $data contents
-     * @throws ExpatParseException
+     * @param     string $data contents
+     * @throws    ExpatParseException
      * @exception ExpatParseException if there is no CDATA but method
      *            was called
      */

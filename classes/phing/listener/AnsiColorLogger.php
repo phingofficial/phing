@@ -87,9 +87,9 @@
  *  46 -> Cyan
  *  47 -> White
  *
- * @author     Hans Lellelid <hans@xmpl.org> (Phing)
- * @author     Magesh Umasankar (Ant)
- * @package    phing.listener
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Magesh Umasankar (Ant)
+ * @package phing.listener
  */
 class AnsiColorLogger extends DefaultLogger
 {
@@ -193,9 +193,9 @@ class AnsiColorLogger extends DefaultLogger
 
     /**
      * @see DefaultLogger#printMessage
-     * @param string       $message
+     * @param string $message
      * @param OutputStream $stream
-     * @param int          $priority
+     * @param int $priority
      */
     final protected function printMessage($message, OutputStream $stream, $priority)
     {

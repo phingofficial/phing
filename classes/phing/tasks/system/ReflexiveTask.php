@@ -39,19 +39,23 @@
  *    </reflexive>
  * </code>
  *
- * @author    Hans Lellelid <hans@xmpl.org>
+ * @author Hans Lellelid <hans@xmpl.org>
  *
- * @package   phing.tasks.system
+ * @package phing.tasks.system
  */
 class ReflexiveTask extends Task
 {
     use FileSetAware;
     use FilterChainAware;
 
-    /** Single file to process. */
+    /**
+     * Single file to process.
+     */
     private $file;
 
-    /** Alias for setFrom()
+    /**
+     * Alias for setFrom()
+     *
      * @param PhingFile $f
      */
     public function setFile(PhingFile $f)
@@ -59,7 +63,9 @@ class ReflexiveTask extends Task
         $this->file = $f;
     }
 
-    /** Append the file(s). */
+    /**
+     * Append the file(s).
+     */
     public function main()
     {
         if ($this->file === null && empty($this->filesets)) {

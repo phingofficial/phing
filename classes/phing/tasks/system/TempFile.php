@@ -62,10 +62,14 @@ class TempFile extends Task
      */
     private $suffix = '';
 
-    /** deleteOnExit flag */
+    /**
+     * deleteOnExit flag
+     */
     private $deleteOnExit;
 
-    /** createFile flag */
+    /**
+     * createFile flag
+     */
     private $createFile;
 
     /**
@@ -118,6 +122,7 @@ class TempFile extends Task
     /**
      * Set whether the tempfile created by this task should be set
      * for deletion on normal VM exit.
+     *
      * @param boolean $deleteOnExit boolean flag.
      */
     public function setDeleteOnExit($deleteOnExit)
@@ -127,6 +132,7 @@ class TempFile extends Task
 
     /**
      * Learn whether deleteOnExit is set for this tempfile task.
+     *
      * @return boolean deleteOnExit flag.
      */
     public function isDeleteOnExit()
@@ -136,6 +142,7 @@ class TempFile extends Task
 
     /**
      * If set the file is actually created, if not just a name is created.
+     *
      * @param boolean $createFile boolean flag.
      */
     public function setCreateFile($createFile)
@@ -145,6 +152,7 @@ class TempFile extends Task
 
     /**
      * Learn whether createFile flag is set for this tempFile task.
+     *
      * @return boolean the createFile flag.
      */
     public function isCreateFile()

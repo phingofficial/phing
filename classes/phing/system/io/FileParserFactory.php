@@ -21,7 +21,7 @@
  * The factory to create fileParsers based on extension name from
  * PhingFile->getFileExtension()
  *
- * @author Mike Lohmann <mike.lohmann@deck36.de>
+ * @author  Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
 class FileParserFactory implements FileParserFactoryInterface
@@ -33,8 +33,8 @@ class FileParserFactory implements FileParserFactoryInterface
     private const YAML_FILE_EXTENSION = 'yml';
 
     /**
-   * @const string
-   */
+     * @const string
+     */
     private const YAML_FILE_EXTENSION_LONG = 'yaml';
 
     /**

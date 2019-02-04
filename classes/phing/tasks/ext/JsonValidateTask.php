@@ -22,8 +22,8 @@
  * Checks if a given file is valid JSON
  * <jsonvalidate file="path/file.json" />
  *
- * @author Suat Özgür
- * @package   phing.tasks.ext
+ * @author  Suat Özgür
+ * @package phing.tasks.ext
  */
 class JsonValidateTask extends Task
 {

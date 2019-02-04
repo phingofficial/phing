@@ -24,10 +24,14 @@
  */
 class Reference
 {
-    /** @var string $refid */
+    /**
+     * @var string $refid
+     */
     protected $refid;
 
-    /** @var Project $project */
+    /**
+     * @var Project $project
+     */
     private $project;
 
     /**
@@ -62,13 +66,14 @@ class Reference
 
     /**
      * Get the associated project, if any; may be null.
+     *
      * @return Project the associated project
      */
     public function getProject(): \Project
     {
         return $this->project;
     }
-    
+
     /**
      * returns reference to object in references container of project
      *

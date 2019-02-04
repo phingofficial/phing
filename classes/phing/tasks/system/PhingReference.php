@@ -4,7 +4,7 @@
  * Helper class that implements the nested <reference>
  * element of <phing> and <phingcall>.
  *
- * @package   phing.tasks.system
+ * @package phing.tasks.system
  */
 class PhingReference extends Reference
 {

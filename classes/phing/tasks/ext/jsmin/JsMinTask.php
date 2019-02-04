@@ -24,9 +24,9 @@
  * Requires JShrink (https://github.com/tedivm/JShrink) which
  * can be installed using composer
  *
- * @author Frank Kleine <mikey@stubbles.net>
+ * @author  Frank Kleine <mikey@stubbles.net>
  * @package phing.tasks.ext
- * @since 2.3.0
+ * @since   2.3.0
  */
 class JsMinTask extends Task
 {
@@ -50,7 +50,7 @@ class JsMinTask extends Task
     /**
      * directory to put minified javascript files into
      *
-     * @var  string
+     * @var string
      */
     protected $targetDir = "";
 

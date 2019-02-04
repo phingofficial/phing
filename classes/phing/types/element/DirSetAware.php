@@ -19,7 +19,9 @@
 
 trait DirSetAware
 {
-    /** @var DirSet[] $dirsets */
+    /**
+     * @var DirSet[] $dirsets
+     */
     protected $dirsets = [];
 
     public function addDirSet(DirSet $dirSet)

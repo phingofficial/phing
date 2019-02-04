@@ -22,9 +22,9 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 /**
  * Switches a repository at a given local directory to a different location
  *
- * @author Dom Udall <dom.udall@clock.co.uk>
+ * @author  Dom Udall <dom.udall@clock.co.uk>
  * @package phing.tasks.ext.svn
- * @since 2.4.3
+ * @since   2.4.3
  */
 class SvnSwitchTask extends SvnBaseTask
 {

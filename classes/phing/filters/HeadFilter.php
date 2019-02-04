@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Reads the first <code>n</code> lines of a stream.
@@ -28,12 +28,12 @@
  *    <param name="lines" value="3"/>
  * </filterreader></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
+ * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author hans lellelid, hans@velum.net
  *
- * @see       FilterReader
+ * @see FilterReader
  *
- * @package   phing.filters
+ * @package phing.filters
  */
 class HeadFilter extends BaseParamFilterReader implements ChainableReader
 {
@@ -42,7 +42,9 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     const LINES_KEY = "lines";
 
-    /** Parameter name for the number of lines to be skipped. */
+    /**
+     * Parameter name for the number of lines to be skipped.
+     */
     const SKIP_KEY = 'skip';
 
     /**
@@ -59,16 +61,17 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     private $lines = 10;
 
-    /** Number of lines to be skipped. */
+    /**
+     * Number of lines to be skipped.
+     */
     private $skip = 0;
 
     /**
      * Returns first n lines of stream.
      *
-     * @param int $len
+     * @param  int $len
      * @return string|int the resulting stream, or -1
      *                    if the end of the resulting stream has been reached
-     *
      */
     public function read($len = null)
     {

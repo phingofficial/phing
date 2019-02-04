@@ -21,8 +21,8 @@
  * An interface used to describe the actions required of any type of
  * directory scanner.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing
  */
 interface FileScanner
 {
@@ -56,7 +56,6 @@ interface FileScanner
      *
      * @return the names of the files which matched at least one of the
      *         include patterns and at least one of the exclude patterns.
-     *
      */
     public function getExcludedFiles();
 

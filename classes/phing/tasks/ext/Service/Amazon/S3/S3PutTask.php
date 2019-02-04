@@ -21,7 +21,7 @@
  * Stores an object on S3
  *
  * @package phing.tasks.ext
- * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
+ * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  */
 class S3PutTask extends Service_Amazon_S3
 {
@@ -452,8 +452,8 @@ class S3PutTask extends Service_Amazon_S3
         $client = $this->getClientInstance();
         $client->putObject(
             [
-                'Bucket'     => $this->getBucket(),
-                'Key'        => $key,
+                'Bucket' => $this->getBucket(),
+                'Key' => $key,
                 'SourceFile' => $sourceFile
             ]
         );

@@ -20,14 +20,15 @@
 /**
  * Convenience class for performing file write operations.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class FileWriter extends OutputStreamWriter
 {
 
     /**
      * Construct a new FileWriter.
-     * @param mixed   $file   PhingFile or string pathname.
+     *
+     * @param mixed $file PhingFile or string pathname.
      * @param boolean $append Append to existing file?
      */
     public function __construct($file, $append = false)

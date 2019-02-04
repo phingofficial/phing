@@ -7,7 +7,9 @@ use Leafo\ScssPhp\Compiler;
 class ScssPhpCompiler implements SassTaskCompiler
 {
 
-    /** @var Compiler */
+    /**
+     * @var Compiler
+     */
     private $scssCompiler;
 
     public function __construct(string $style, string $encoding, bool $lineNumbers, string $loadPath)

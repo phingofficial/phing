@@ -19,39 +19,45 @@
 
 /**
  * A factory class for regex functions.
- * @author Hans Lellelid <hans@xmpl.org>
- * @package  phing.util.regexp
+ *
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.util.regexp
  */
 class Regexp
 {
 
     /**
      * Matching groups found.
+     *
      * @var array
      */
     private $groups = [];
 
     /**
      * Pattern to match.
+     *
      * @var string
      */
     private $pattern;
 
     /**
      * Replacement pattern.
+     *
      * @var string
      */
     private $replace;
 
     /**
      * The regex engine -- e.g. 'preg' or 'ereg';
+     *
      * @var RegexpEngine
      */
     private $engine;
 
     /**
      * Constructor sets the regex engine to use (preg by default).
-     * @param string $engineType
+     *
+     * @param  string $engineType
      * @throws BuildException
      */
     public function __construct($engineType = 'preg')
@@ -65,6 +71,7 @@ class Regexp
 
     /**
      * Sets pattern to use for matching.
+     *
      * @param  string $pat The pattern to match on.
      * @return void
      */
@@ -75,6 +82,7 @@ class Regexp
 
     /**
      * Gets pattern to use for matching.
+     *
      * @return string The pattern to match on.
      */
     public function getPattern()
@@ -84,6 +92,7 @@ class Regexp
 
     /**
      * Sets replacement string.
+     *
      * @param  string $rep The pattern to replace matches with.
      * @return void
      */
@@ -94,6 +103,7 @@ class Regexp
 
     /**
      * Gets replacement string.
+     *
      * @return string The pattern to replace matches with.
      */
     public function getReplace()
@@ -103,6 +113,7 @@ class Regexp
 
     /**
      * Performs match of specified pattern against $subject.
+     *
      * @param  string $subject The subject, on which to perform matches.
      * @throws RegexpException
      * @return boolean Whether or not pattern matches subject string passed.
@@ -118,6 +129,7 @@ class Regexp
 
     /**
      * Performs replacement of specified pattern and replacement strings.
+     *
      * @param  string $subject Text on which to perform replacement.
      * @throws RegexpException
      * @return string subject after replacement has been performed.
@@ -133,6 +145,7 @@ class Regexp
 
     /**
      * Get array of matched groups.
+     *
      * @return array Matched groups
      */
     public function getGroups()
@@ -142,6 +155,7 @@ class Regexp
 
     /**
      * Get specific matched group.
+     *
      * @param  integer $idx
      * @return string  specified group or NULL if group is not set.
      */
@@ -170,6 +184,7 @@ class Regexp
      * Subsequent call to engines getModifiers() filters out duplicates
      * i.e. if i is provided in $mods, and setIgnoreCase(true), "i"
      * modifier would be included only once
+     *
      * @return string
      */
     public function getModifiers()
@@ -180,6 +195,7 @@ class Regexp
     /**
      * Sets whether the regexp matching is case insensitive.
      * (default is false -- i.e. case sensisitive)
+     *
      * @param boolean $bit
      */
     public function setIgnoreCase($bit)
@@ -189,6 +205,7 @@ class Regexp
 
     /**
      * Gets whether the regexp matching is case insensitive.
+     *
      * @return boolean
      */
     public function getIgnoreCase()
@@ -198,6 +215,7 @@ class Regexp
 
     /**
      * Sets whether regexp should be applied in multiline mode.
+     *
      * @param boolean $bit
      */
     public function setMultiline($bit)
@@ -207,6 +225,7 @@ class Regexp
 
     /**
      * Gets whether regexp is to be applied in multiline mode.
+     *
      * @return boolean
      */
     public function getMultiline()
@@ -216,6 +235,7 @@ class Regexp
 
     /**
      * Sets the maximum possible replacements for each pattern.
+     *
      * @param int $limit
      */
     public function setLimit($limit)

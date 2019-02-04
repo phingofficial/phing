@@ -22,7 +22,7 @@
  * conditions - ensures that the types of conditions inside the task
  * and the "container" conditions are in sync.
  *
- * @author  Hans Lellelid <hans@xmpl.org>
+ * @author    Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.tasks.system.condition
@@ -31,7 +31,9 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 {
     public $conditions = []; // needs to be public for "inner" class access
 
-    /** @var string $taskName */
+    /**
+     * @var string $taskName
+     */
     private $taskName = 'condition';
 
     public function __construct($taskName = 'component')
@@ -223,7 +225,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
         return $this->conditions[$num - 1];
     }
-    
+
     public function createVersionCompare()
     {
         $num = array_push($this->conditions, new VersionCompareCondition());
@@ -288,8 +290,8 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     }
 
     /**
-     * @param  string         $elementName
-     * @param  Project        $project
+     * @param  string $elementName
+     * @param  Project $project
      * @throws BuildException
      * @return Condition
      */

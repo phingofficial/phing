@@ -20,7 +20,7 @@
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
  */
 class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
@@ -39,12 +39,16 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
     private $lastRiskyMessage = '';
     private $formatters = [];
 
-    /** @var \PHPUnit\Runner\TestHook[]  */
+    /**
+     * @var \PHPUnit\Runner\TestHook[]
+     */
     private $listeners = [];
 
     private $codecoverage;
 
-    /** @var Project $project */
+    /**
+     * @var Project $project
+     */
     private $project;
 
     private $groups = [];
@@ -116,7 +120,8 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
 
     /**
      * Run a test
-     * @param PHPUnit\Framework\TestSuite $suite
+     *
+     * @param  PHPUnit\Framework\TestSuite $suite
      * @throws \BuildException
      * @throws ReflectionException
      */
@@ -395,7 +400,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
      * @param PHPUnit\Framework\Test $test
      * @param Exception $e
      * @param float $time
-     * @since  Method available since Release 3.0.0
+     * @since Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -487,7 +492,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
      * Override to define how to handle a failed loading of
      * a test suite.
      *
-     * @param string $message
+     * @param  string $message
      * @throws BuildException
      */
     protected function runFailed($message): void

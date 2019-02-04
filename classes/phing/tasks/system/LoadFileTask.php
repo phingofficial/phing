@@ -33,12 +33,14 @@ class LoadFileTask extends Task
 
     /**
      * File to read
+     *
      * @var PhingFile file
      */
     private $file;
 
     /**
      * Property to be set
+     *
      * @var string $property
      */
     private $property;
@@ -68,6 +70,7 @@ class LoadFileTask extends Task
 
     /**
      * Set file to read
+     *
      * @param PhingFile $file
      */
     public function setFile($file)
@@ -77,7 +80,8 @@ class LoadFileTask extends Task
 
     /**
      * Convenience setter to maintain Ant compatibility (@see setFile())
-     * @param $srcFile
+     *
+     * @param    $srcFile
      * @internal param PhingFile $file
      */
     public function setSrcFile($srcFile)
@@ -87,7 +91,8 @@ class LoadFileTask extends Task
 
     /**
      * Set name of property to be set
-     * @param $property
+     *
+     * @param  $property
      * @return void
      */
     public function setProperty($property)
@@ -119,7 +124,7 @@ class LoadFileTask extends Task
                 $this->file = new PhingFile($this->file);
             }
             if (!$this->file->exists()) {
-                $message = (string)$this->file . ' doesn\'t exist';
+                $message = (string) $this->file . ' doesn\'t exist';
                 if ($this->failOnError) {
                     throw new BuildException($message);
                 } else {
@@ -128,7 +133,7 @@ class LoadFileTask extends Task
                 }
             }
 
-            $this->log("loading " . (string)$this->file . " into property " . $this->property, Project::MSG_VERBOSE);
+            $this->log("loading " . (string) $this->file . " into property " . $this->property, Project::MSG_VERBOSE);
             // read file (through filterchains)
             $contents = "";
 

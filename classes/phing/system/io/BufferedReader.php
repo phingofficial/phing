@@ -15,16 +15,16 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Convenience class for reading files.
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  *
- * @see       FilterReader
+ * @see FilterReader
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class BufferedReader extends Reader
 {
@@ -34,15 +34,17 @@ class BufferedReader extends Reader
 
     /**
      * The Reader we are buffering for.
+     *
      * @var InputStreamReader
      */
     private $in;
 
     /**
      *
-     * @param InputStreamReader  $reader   The reader (e.g. FileReader).
+     * @param InputStreamReader $reader The reader (e.g. FileReader).
      * @param integer $buffsize The size of the buffer we should use for reading files.
-     *                          A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
+     *                                    A large buffer ensures that most files (all scripts?)
+     *                                    are parsed in 1 buffer.
      */
     public function __construct(InputStreamReader $reader, $buffsize = 65536)
     {
@@ -52,7 +54,8 @@ class BufferedReader extends Reader
 
     /**
      * Reads and returns a chunk of data.
-     * @param  int   $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
+     *
+     * @param  int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
      * @return mixed buffer or -1 if EOF.
      */
     public function read($len = null)
@@ -129,6 +132,7 @@ class BufferedReader extends Reader
 
     /**
      * Reads a single char from the reader.
+     *
      * @return string single char or -1 if EOF.
      */
     public function readChar()
@@ -162,6 +166,7 @@ class BufferedReader extends Reader
      * Returns whether eof has been reached in stream.
      * This is important, because filters may want to know if the end of the file (and not just buffer)
      * has been reached.
+     *
      * @return boolean
      */
     public function eof()

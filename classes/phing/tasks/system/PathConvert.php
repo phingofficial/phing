@@ -21,9 +21,9 @@
  * Converts path and classpath information to a specific target OS
  * format. The resulting formatted path is placed into the specified property.
  *
- * @author   Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  *
- * @package  phing.tasks.system
+ * @package phing.tasks.system
  */
 class PathConvert extends Task
 {
@@ -34,6 +34,7 @@ class PathConvert extends Task
     private $path = null;
     /**
      * Reference to path/fileset to convert
+     *
      * @var Reference $refid
      */
     private $refid = null;
@@ -59,6 +60,7 @@ class PathConvert extends Task
     private $property = null;
     /**
      * Path prefix map
+     *
      * @var MapEntry[]
      */
     private $prefixMap = [];
@@ -85,7 +87,9 @@ class PathConvert extends Task
         $this->onWindows = strncasecmp(PHP_OS, 'WIN', 3) === 0;
     }
 
-    /** Create a nested PATH element */
+    /**
+     * Create a nested PATH element
+     */
     public function createPath()
     {
         if ($this->isReference()) {
@@ -101,6 +105,7 @@ class PathConvert extends Task
 
     /**
      * Create a nested MAP element
+     *
      * @return MapEntry a Map to configure
      */
     public function createMap()
@@ -127,6 +132,7 @@ class PathConvert extends Task
      * Set setonempty
      *
      * If false, don't set the new property if the result is the empty string.
+     *
      * @param bool $setonempty true or false
      */
     public function setSetonempty($setonempty)
@@ -185,6 +191,7 @@ class PathConvert extends Task
 
     /**
      * Has the refid attribute of this element been set?
+     *
      * @return true if refid is valid
      */
     public function isReference()
@@ -193,7 +200,9 @@ class PathConvert extends Task
     }
 
 
-    /** Do the execution.
+    /**
+     * Do the execution.
+     *
      * @throws BuildException if something is invalid
      */
     public function main()
@@ -226,9 +235,11 @@ class PathConvert extends Task
 
                     $this->path->addFilelist($fl);
                 } else {
-                    throw new BuildException("'refid' does not refer to a "
+                    throw new BuildException(
+                        "'refid' does not refer to a "
                         . "path, fileset, dirset, or "
-                        . "filelist.");
+                        . "filelist."
+                    );
                 }
             }
 
@@ -300,7 +311,7 @@ class PathConvert extends Task
      * between Windows drive letters and Unix paths. If no map is configured,
      * then the input string is returned unchanged.
      *
-     * @param string $elem The path element to apply the map to
+     * @param  string $elem The path element to apply the map to
      * @return String Updated element
      */
     private function mapElement($elem)
@@ -360,8 +371,10 @@ class PathConvert extends Task
         // Must either have a target OS or both a dirSep and pathSep
 
         if ($this->targetOS == null && $this->pathSep == null && $this->dirSep == null) {
-            throw new BuildException("You must specify at least one of "
-                . "targetOS, dirSep, or pathSep");
+            throw new BuildException(
+                "You must specify at least one of "
+                . "targetOS, dirSep, or pathSep"
+            );
         }
 
         // Determine the separator strings.  The dirsep and pathsep attributes
@@ -393,12 +406,15 @@ class PathConvert extends Task
      */
     private function noChildrenAllowed()
     {
-        return new BuildException("You must not specify nested <path> "
-            . "elements when using the refid attribute.");
+        return new BuildException(
+            "You must not specify nested <path> "
+            . "elements when using the refid attribute."
+        );
     }
 
     /**
      * Get the preserveDuplicates.
+     *
      * @return boolean
      */
     public function isPreserveDuplicates(): bool

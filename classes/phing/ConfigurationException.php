@@ -20,20 +20,22 @@
 /**
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.
  *
- * @author   Hans Lellelid <hans@xmpl.org>
- * @package  phing
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing
  */
 class ConfigurationException extends Exception
 {
 
     /**
      * Location in the xml file.
+     *
      * @var Location
      */
     protected $location;
 
     /**
      * The nested "cause" exception.
+     *
      * @var Exception
      */
     protected $cause;
@@ -44,8 +46,9 @@ class ConfigurationException extends Exception
      *         throw new BuildException($causeExc);
      *         throw new BuildException($msg);
      *         throw new BuildException($msg, $causeExc);
+     *
      * @param Exception|string $p1
-     * @param Exception|null   $p2
+     * @param Exception|null $p2
      */
     public function __construct($p1, $p2 = null)
     {

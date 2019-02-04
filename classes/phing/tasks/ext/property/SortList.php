@@ -25,16 +25,24 @@
  */
 class SortList extends AbstractPropertySetterTask
 {
-    /** @var string $value */
+    /**
+     * @var string $value
+     */
     private $value;
 
-    /** @var Reference $ref */
+    /**
+     * @var Reference $ref
+     */
     private $ref;
 
-    /** @var string $delimiter */
+    /**
+     * @var string $delimiter
+     */
     private $delimiter = ",";
 
-    /** @var array $flags */
+    /**
+     * @var array $flags
+     */
     private static $allowedFlags = [
         'SORT_REGULAR',
         'SORT_NUMERIC',
@@ -44,7 +52,9 @@ class SortList extends AbstractPropertySetterTask
         'SORT_FLAG_CASE'
     ];
 
-    /** @var string $flags */
+    /**
+     * @var string $flags
+     */
     private $flags = "";
 
     public function setValue($value)
@@ -77,7 +87,9 @@ class SortList extends AbstractPropertySetterTask
 
         $val = $this->value;
         if ($val === null && $this->ref !== null) {
-            /** @var PropertyTask $propTask */
+            /**
+             * @var PropertyTask $propTask
+             */
             $propTask = $this->ref->getReferencedObject($this->project);
             $val = $propTask->getValue();
         }

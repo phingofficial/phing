@@ -29,7 +29,9 @@ class TouchTask extends Task
     use FileListAware;
     use FileSetAware;
 
-    /** @var PhingFile $file */
+    /**
+     * @var PhingFile $file
+     */
     private $file;
     private $millis = -1;
     private $dateTime;
@@ -49,7 +51,8 @@ class TouchTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
-     * @param PhingFile $file
+     *
+     * @param  PhingFile $file
      * @return void
      */
     public function setFile(PhingFile $file)
@@ -61,7 +64,8 @@ class TouchTask extends Task
      * the new modification time of the file
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
-     * @param $millis
+     *
+     * @param  $millis
      * @return void
      */
     public function setMillis($millis)
@@ -73,7 +77,8 @@ class TouchTask extends Task
      * the new modification time of the file
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
-     * @param $dateTime
+     *
+     * @param  $dateTime
      * @return void
      */
     public function setDatetime($dateTime)
@@ -84,6 +89,7 @@ class TouchTask extends Task
     /**
      * Set whether nonexistent parent directories should be created
      * when touching new files.
+     *
      * @param boolean $mkdirs whether to create parent directories.
      */
     public function setMkdirs($mkdirs)
@@ -94,6 +100,7 @@ class TouchTask extends Task
     /**
      * Set whether the touch task will report every file it creates;
      * defaults to <code>true</code>.
+     *
      * @param boolean $verbose flag.
      */
     public function setVerbose($verbose)
@@ -103,6 +110,7 @@ class TouchTask extends Task
 
     /**
      * Execute the touch operation.
+     *
      * @throws BuildException
      * @throws IOException
      */
@@ -140,7 +148,8 @@ class TouchTask extends Task
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
-                $this->log("Creating " . $this->file->__toString(), $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
+                $this->log("Creating " . $this->file->__toString(),
+                    $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {

@@ -24,7 +24,7 @@
  *
  * @version $ID$
  * @package phing.tasks.ext
- * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
+ * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  */
 abstract class Service_Amazon_S3 extends Service_Amazon
 {
@@ -94,7 +94,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Object
      *
-     * @param  mixed $object
+     * @param mixed $object
      *
      * @return Aws\Result
      *

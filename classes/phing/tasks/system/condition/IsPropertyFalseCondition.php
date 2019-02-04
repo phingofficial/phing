@@ -22,12 +22,14 @@
  *
  * Returns true if the property evaluates to true.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system.condition
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system.condition
  */
 class IsPropertyFalseCondition extends ConditionBase implements Condition
 {
-    /** @var string|null $property */
+    /**
+     * @var string|null $property
+     */
     private $property = null;
 
     /**

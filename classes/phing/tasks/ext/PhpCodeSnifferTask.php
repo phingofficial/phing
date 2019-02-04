@@ -80,6 +80,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Cache data storage
+     *
      * @var DataStore
      */
     protected $cache;
@@ -95,6 +96,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * File to be performed syntax check on
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -122,6 +124,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the sniffs which the standard should be restricted to
+     *
      * @param string $sniffs
      */
     public function setSniffs($sniffs)
@@ -160,6 +163,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the flag if warnings should be shown
+     *
      * @param boolean $show
      */
     public function setShowWarnings($show)
@@ -193,6 +197,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the verbosity level
+     *
      * @param int $level
      */
     public function setVerbosity($level)
@@ -202,6 +207,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the tab width to replace tabs with spaces
+     *
      * @param int $width
      */
     public function setTabWidth($width)
@@ -211,6 +217,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets file encoding
+     *
      * @param string $encoding
      */
     public function setEncoding($encoding)
@@ -220,6 +227,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the allowed file extensions when using directories instead of specific files
+     *
      * @param array $extensions
      */
     public function setAllowedFileExtensions($extensions)
@@ -235,6 +243,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the allowed types for the PHP_CodeSniffer::suggestType()
+     *
      * @param array $types
      */
     public function setAllowedTypes($types)
@@ -250,7 +259,8 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the ignore patterns to skip files when using directories instead of specific files
-     * @param $patterns
+     *
+     * @param    $patterns
      * @internal param array $extensions
      */
     public function setIgnorePatterns($patterns)
@@ -266,6 +276,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the flag if subdirectories should be skipped
+     *
      * @param boolean $subdirectories
      */
     public function setNoSubdirectories($subdirectories)
@@ -287,6 +298,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the flag if the used sniffs should be listed
+     *
      * @param boolean $show
      */
     public function setShowSniffs($show)
@@ -296,6 +308,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the output format
+     *
      * @param string $format
      */
     public function setFormat($format)
@@ -305,6 +318,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Create object for nested formatter element.
+     *
      * @return PhpCodeSnifferTask_FormatterElement
      */
     public function createFormatter()
@@ -319,6 +333,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the haltonerror flag
+     *
      * @param boolean $value
      */
     public function setHaltonerror($value)
@@ -328,6 +343,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the haltonwarning flag
+     *
      * @param boolean $value
      */
     public function setHaltonwarning($value)
@@ -337,6 +353,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the skipversioncheck flag
+     *
      * @param boolean $value
      */
     public function setSkipVersionCheck($value)
@@ -346,6 +363,7 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the name of the property to use
+     *
      * @param $propertyName
      */
     public function setPropertyName($propertyName)
@@ -413,8 +431,10 @@ class PhpCodeSnifferTask extends Task
             @include_once 'PHP/CodeSniffer.php';
 
             if (!class_exists('PHP_CodeSniffer')) {
-                throw new BuildException("This task requires the PHP_CodeSniffer package installed and available on the include path", $this->getLocation(
-                ));
+                throw new BuildException(
+                    "This task requires the PHP_CodeSniffer package installed and available on the include path",
+                    $this->getLocation()
+                );
             }
         }
 
@@ -523,7 +543,7 @@ class PhpCodeSnifferTask extends Task
         }
 
         if ($this->cache) {
-            require_once 'phing/tasks/ext/phpcs/Reports_PhingRemoveFromCache.php';
+            include_once 'phing/tasks/ext/phpcs/Reports_PhingRemoveFromCache.php';
             PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache($this->cache);
             // add a fake report to remove from cache
             $_SERVER['argv'][] = '--report-phingRemoveFromCache';
@@ -613,17 +633,17 @@ class PhpCodeSnifferTask extends Task
                 $cliValues = ['colors' => false];
                 $reporting->printReport(
                     $fe->getType(),
-                                        $this->showSources,
-                                        $cliValues,
-                                        $reportFile,
-                                        $this->reportWidth
+                    $this->showSources,
+                    $cliValues,
+                    $reportFile,
+                    $this->reportWidth
                 );
             } else {
                 $reporting->printReport(
                     $fe->getType(),
-                                        $this->showSources,
-                                        $reportFile,
-                                        $this->reportWidth
+                    $this->showSources,
+                    $reportFile,
+                    $this->reportWidth
                 );
             }
 
@@ -680,7 +700,8 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Outputs the messages of a specific type for one file
-     * @param array  $messages
+     *
+     * @param array $messages
      * @param string $type
      */
     protected function outputCustomFormatMessages($messages, $type)

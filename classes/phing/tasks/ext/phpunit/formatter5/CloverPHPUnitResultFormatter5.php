@@ -22,9 +22,9 @@ require_once 'phing/tasks/ext/phpunit/formatter5/PHPUnitResultFormatter5.php';
 /**
  * Prints Clover XML output of the test
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.formatter
- * @since 2.4.0
+ * @since   2.4.0
  */
 class CloverPHPUnitResultFormatter5 extends PHPUnitResultFormatter5
 {
@@ -35,6 +35,7 @@ class CloverPHPUnitResultFormatter5 extends PHPUnitResultFormatter5
 
     /**
      * PHPUnit version
+     *
      * @var string
      */
     private $version = null;

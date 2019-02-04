@@ -20,7 +20,7 @@
 /**
  * Extended file stream wrapper class which auto-creates directories
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.util
  */
 class ExtendedFileStream
@@ -71,7 +71,7 @@ class ExtendedFileStream
 
         $this->fp = fopen($filepath, $mode);
 
-        if (! $this->fp) {
+        if (!$this->fp) {
             throw new BuildException("Unable to open stream for path {$path}");
         }
 

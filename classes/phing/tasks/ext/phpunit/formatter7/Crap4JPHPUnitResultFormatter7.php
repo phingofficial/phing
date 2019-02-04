@@ -20,7 +20,7 @@
 /**
  * Prints Clover XML output of the test
  *
- * @author Daniel Kreckel <daniel@kreckel.koeln>
+ * @author  Daniel Kreckel <daniel@kreckel.koeln>
  * @package phing.tasks.ext.formatter
  */
 class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
@@ -31,9 +31,11 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     private $result = null;
     /**
      * PHPUnit version
+     *
      * @var string
      */
     private $version = null;
+
     /**
      * @param PHPUnitTask $parentTask
      */
@@ -42,6 +44,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         parent::__construct($parentTask);
         $this->version = PHPUnit\Runner\Version::id();
     }
+
     /**
      * @return string
      */
@@ -49,6 +52,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         return '.xml';
     }
+
     /**
      * @return string
      */
@@ -56,7 +60,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         return 'crap4j-coverage';
     }
-    
+
     /**
      * @param PHPUnit\Framework\TestResult $result
      */
@@ -64,7 +68,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         $this->result = $result;
     }
-    
+
     public function endTestRun()
     {
         $coverage = $this->result->getCodeCoverage();

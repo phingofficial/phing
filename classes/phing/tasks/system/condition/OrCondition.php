@@ -24,7 +24,7 @@
  * evaluates to true.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @copyright  2001,2002 THYRELL. All rights reserved
+ * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.tasks.system.condition
  */
 class OrCondition extends ConditionBase implements Condition

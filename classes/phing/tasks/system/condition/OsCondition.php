@@ -50,7 +50,8 @@ class OsCondition implements Condition
     /**
      * Determines if the OS on which Ant is executing matches the
      * given OS family.
-     * @param string $family the family to check for
+     *
+     * @param  string $family the family to check for
      * @return true if the OS matches
      */
     public static function isFamily($family)

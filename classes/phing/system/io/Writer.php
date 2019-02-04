@@ -20,21 +20,23 @@
 /**
  * Abstract class for writing character streams.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 abstract class Writer
 {
 
     /**
      * Writes data to output stream.
+     *
      * @param string $buf
-     * @param int    $off
-     * @param int    $len
+     * @param int $off
+     * @param int $len
      */
     abstract public function write($buf, $off = null, $len = null);
 
     /**
      * Close the stream.
+     *
      * @throws IOException - if there is an error closing stream.
      */
     abstract public function close();
@@ -48,6 +50,7 @@ abstract class Writer
 
     /**
      * Returns a string representation of resource filename, url, etc. that is being written to.
+     *
      * @return string
      */
     abstract public function getResource();

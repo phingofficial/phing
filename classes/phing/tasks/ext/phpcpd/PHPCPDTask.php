@@ -208,11 +208,13 @@ class PHPCPDTask extends Task
     {
         if (!empty($this->pharLocation)) {
             // hack to prevent PHPCPD from starting in CLI mode and halting Phing
-            eval("namespace SebastianBergmann\PHPCPD\CLI;
+            eval(
+            "namespace SebastianBergmann\PHPCPD\CLI;
 class Application
 {
     public function run() {}
-}");
+}"
+            );
 
             ob_start();
             include $this->pharLocation;

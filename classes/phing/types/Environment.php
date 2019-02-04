@@ -20,13 +20,14 @@
 /**
  * Wrapper for environment variables.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.types
  */
 class Environment
 {
     /**
      * a vector of type Environment.Variable
+     *
      * @see Variable
      */
     protected $variables;
@@ -43,6 +44,7 @@ class Environment
      * add a variable.
      * Validity checking is <i>not</i> performed at this point. Duplicates
      * are not caught either.
+     *
      * @param EnvVariable $var new variable.
      */
     public function addVariable(EnvVariable $var)
@@ -52,6 +54,7 @@ class Environment
 
     /**
      * get the variable list as an array
+     *
      * @return array of key=value assignment strings
      * @throws BuildException if any variable is misconfigured
      */
@@ -60,13 +63,16 @@ class Environment
         if ($this->variables->count() === 0) {
             return null;
         }
-        return array_map(function ($env) {
-            return $env->getContent();
-        }, $this->variables->getArrayCopy());
+        return array_map(
+            function ($env) {
+                return $env->getContent();
+            }, $this->variables->getArrayCopy()
+        );
     }
 
     /**
      * Get the raw vector of variables. This is not a clone.
+     *
      * @return ArrayObject a potentially empty (but never null) vector of elements of type
      * Variable
      */

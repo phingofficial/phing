@@ -3,7 +3,7 @@
 /**
  * Sub-element of <mapping>.
  *
- * @package  phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class PearPkgMappingElement
 {
@@ -35,6 +35,7 @@ class PearPkgMappingElement
     /**
      * Returns either the simple value or
      * the calculated value (array) of nested elements.
+     *
      * @return mixed
      */
     public function getValue()

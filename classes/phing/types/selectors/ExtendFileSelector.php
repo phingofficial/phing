@@ -26,8 +26,8 @@
  * as the base class for your custom selector rather than implementing
  * this interface from scratch.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 interface ExtendFileSelector extends Parameterizable, FileSelector

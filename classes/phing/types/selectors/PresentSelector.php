@@ -161,8 +161,10 @@ class PresentSelector extends BaseSelector
         }
         // Sanity check
         if (count($destfiles) !== 1 || $destfiles[0] === null) {
-            throw new BuildException("Invalid destination file results for "
-                . $this->targetdir . " with filename " . $filename);
+            throw new BuildException(
+                "Invalid destination file results for "
+                . $this->targetdir . " with filename " . $filename
+            );
         }
         $destname = $destfiles[0];
         $destfile = new PhingFile($this->targetdir, $destname);

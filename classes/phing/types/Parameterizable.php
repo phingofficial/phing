@@ -20,8 +20,8 @@
 /**
  * Parameterizable objects take genric key value pairs.
  *
- * @author Hans Lellelid, hans@xmpl.org (Phing)
- * @author Magesh Umasankar (Ant)
+ * @author  Hans Lellelid, hans@xmpl.org (Phing)
+ * @author  Magesh Umasankar (Ant)
  * @package phing.types
  */
 interface Parameterizable

@@ -31,7 +31,7 @@
  *     Hello &lt;i&gt;World&lt;/i&gt;!
  * </hipchat>
  *
- * @author Suat Özgür <suat.oezguer@mindgeek.com>
+ * @author  Suat Özgür <suat.oezguer@mindgeek.com>
  * @package phing.tasks.ext
  */
 class HipchatTask extends Task
@@ -109,7 +109,7 @@ class HipchatTask extends Task
         $format = ($format != 'text' && $format != 'html') ? 'text' : $format;
         $this->format = $format;
     }
-    
+
     /**
      * @return string
      */

@@ -20,7 +20,7 @@
 /**
  * Implements an XmlFileParser.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.system.io
  */
 class XmlFileParser implements FileParserInterface

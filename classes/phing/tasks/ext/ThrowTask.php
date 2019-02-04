@@ -21,9 +21,9 @@
  * Exits the active build, giving an additional message
  * if available.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Nico Seessle <nico@seessle.de> (Ant)
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Nico Seessle <nico@seessle.de> (Ant)
+ * @package phing.tasks.system
  */
 class ThrowTask extends FailTask
 {

@@ -36,23 +36,31 @@ class PatchTask extends Task
 
     /**
      * File to be patched
+     *
      * @var PhingFile
      */
     private $originalFile;
 
-    /** @var PhingFile $directory */
+    /**
+     * @var PhingFile $directory
+     */
     private $directory;
 
     /**
      * Halt on error return value from patch invocation.
+     *
      * @var bool
      */
     private $failOnError = false;
 
-    /** @var Commandline $cmd */
+    /**
+     * @var Commandline $cmd
+     */
     private $cmd;
 
-    /** @var bool $havePatchFile */
+    /**
+     * @var bool $havePatchFile
+     */
     private $havePatchFile = false;
 
     public function __construct()
@@ -82,6 +90,7 @@ class PatchTask extends Task
 
     /**
      * flag to create backups; optional, default=false
+     *
      * @param bool $backups if true create backups
      */
     public function setBackups($backups)
@@ -93,6 +102,7 @@ class PatchTask extends Task
 
     /**
      * flag to ignore whitespace differences; default=false
+     *
      * @param bool $ignore if true ignore whitespace differences
      */
     public function setIgnorewhitespace($ignore)
@@ -153,6 +163,7 @@ class PatchTask extends Task
      * Work silently unless an error occurs
      *
      * Optional, default - false
+     *
      * @param  bool $flag If true suppress set the -s option on the patch command
      * @return void
      */

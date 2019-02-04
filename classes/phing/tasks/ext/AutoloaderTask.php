@@ -56,12 +56,14 @@ class AutoloaderTask extends Task
     public function main()
     {
         if (is_dir($this->autoloaderPath) || !is_readable($this->autoloaderPath)) {
-            throw new BuildException(sprintf(
-                'Provided autoloader file "%s" is not a readable file',
-                $this->autoloaderPath
-            ));
+            throw new BuildException(
+                sprintf(
+                    'Provided autoloader file "%s" is not a readable file',
+                    $this->autoloaderPath
+                )
+            );
         }
         $this->log('Loading autoloader from ' . $this->autoloaderPath);
-        require_once $this->autoloaderPath;
+        include_once $this->autoloaderPath;
     }
 }

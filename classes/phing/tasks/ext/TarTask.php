@@ -20,12 +20,12 @@
 /**
  * Creates a tar archive using PEAR Archive_Tar.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Stefano Mazzocchi <stefano@apache.org> (Ant)
- * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @author    Magesh Umasankar
+ * @author Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author Stefano Mazzocchi <stefano@apache.org> (Ant)
+ * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author Magesh Umasankar
  *
- * @package   phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class TarTask extends MatchingTask
 {
@@ -35,17 +35,23 @@ class TarTask extends MatchingTask
     const FAIL = "fail";
     const OMIT = "omit";
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     private $tarFile;
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     private $baseDir;
 
     private $includeEmpty = true; // Whether to include empty dirs in the TAR
 
     private $longFileMode = "warn";
 
-    /** @var TarFileSet[] */
+    /**
+     * @var TarFileSet[]
+     */
     private $filesets = [];
 
     /**
@@ -78,6 +84,7 @@ class TarTask extends MatchingTask
 
     /**
      * Add a new fileset
+     *
      * @return FileSet
      */
     public function createTarFileSet()
@@ -90,8 +97,9 @@ class TarTask extends MatchingTask
 
     /**
      * Add a new fileset.  Alias to createTarFileSet() for backwards compatibility.
+     *
      * @return FileSet
-     * @see createTarFileSet()
+     * @see    createTarFileSet()
      */
     public function createFileSet()
     {
@@ -103,6 +111,7 @@ class TarTask extends MatchingTask
 
     /**
      * Set is the name/location of where to create the tar file.
+     *
      * @param PhingFile $destFile The output of the tar
      */
     public function setDestFile(PhingFile $destFile)
@@ -112,6 +121,7 @@ class TarTask extends MatchingTask
 
     /**
      * This is the base directory to look in for things to tar.
+     *
      * @param PhingFile $baseDir
      */
     public function setBasedir(PhingFile $baseDir)
@@ -122,7 +132,7 @@ class TarTask extends MatchingTask
     /**
      * Set the include empty dirs flag.
      *
-     * @param  boolean $bool Flag if empty dirs should be tarred too
+     * @param boolean $bool Flag if empty dirs should be tarred too
      *
      * @return void
      */
@@ -143,6 +153,7 @@ class TarTask extends MatchingTask
      * <li>  gnu - GNU extensions are used for any paths greater than the maximum.
      * <li>  omit - paths greater than the maximum are omitted from the archive
      * </ul>
+     *
      * @param $mode
      */
     public function setLongfile($mode)
@@ -158,6 +169,7 @@ class TarTask extends MatchingTask
      * <li>  gzip - Gzip compression
      * <li>  bzip2 - Bzip2 compression
      * </ul>
+     *
      * @param string $mode
      */
     public function setCompression($mode)
@@ -195,6 +207,7 @@ class TarTask extends MatchingTask
 
     /**
      * do the work
+     *
      * @throws BuildException
      */
     public function main()
@@ -218,8 +231,9 @@ class TarTask extends MatchingTask
         try {
             if ($this->baseDir !== null) {
                 if (!$this->baseDir->exists()) {
-                    throw new BuildException("basedir '" . (string) $this->baseDir . "' does not exist!", $this->getLocation(
-                        ));
+                    throw new BuildException(
+                        "basedir '" . (string) $this->baseDir . "' does not exist!", $this->getLocation()
+                    );
                 }
                 if (empty($this->filesets)) { // if there weren't any explicit filesets specivied, then
                     // create a default, all-inclusive fileset using the specified basedir.
@@ -256,10 +270,12 @@ class TarTask extends MatchingTask
             foreach ($this->filesets as $fs) {
                 $files = $fs->getIterator($this->includeEmpty);
                 if (count($files) > 1 && strlen($fs->getFullpath()) > 0) {
-                    throw new BuildException("fullpath attribute may only "
+                    throw new BuildException(
+                        "fullpath attribute may only "
                         . "be specified for "
                         . "filesets that specify a "
-                        . "single file.");
+                        . "single file."
+                    );
                 }
                 $fsBasedir = $fs->getDir($this->project);
                 $filesToTar = [];

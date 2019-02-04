@@ -19,6 +19,7 @@
 
 /**
  * Dummy class for reading from string of characters.
+ *
  * @package phing.system.io
  */
 class StringReader extends Reader

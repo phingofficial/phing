@@ -20,9 +20,9 @@
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @since 2.1.0
+ * @since   2.1.0
  */
 class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
 {
@@ -109,7 +109,8 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
 
     /**
      * Run a test
-     * @param PHPUnit_Framework_TestSuite $suite
+     *
+     * @param  PHPUnit_Framework_TestSuite $suite
      * @throws \BuildException
      */
     public function run(PHPUnit_Framework_TestSuite $suite)
@@ -267,8 +268,8 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * An error occurred.
      *
      * @param PHPUnit_Framework_Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Exception $e
+     * @param float $time
      */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
@@ -278,9 +279,9 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
     /**
      * A failure occurred.
      *
-     * @param PHPUnit_Framework_Test                 $test
+     * @param PHPUnit_Framework_Test $test
      * @param PHPUnit_Framework_AssertionFailedError $e
-     * @param float                                  $time
+     * @param float $time
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
@@ -291,8 +292,8 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * Incomplete test.
      *
      * @param PHPUnit_Framework_Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Exception $e
+     * @param float $time
      */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
@@ -303,9 +304,9 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * Skipped test.
      *
      * @param PHPUnit_Framework_Test $test
-     * @param Exception              $e
-     * @param float                  $time
-     * @since  Method available since Release 3.0.0
+     * @param Exception $e
+     * @param float $time
+     * @since Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
@@ -316,8 +317,8 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * Risky test
      *
      * @param PHPUnit_Framework_Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Exception $e
+     * @param float $time
      */
     public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
@@ -344,8 +345,8 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
     /**
      * A test failed.
      *
-     * @param integer                                $status
-     * @param PHPUnit_Framework_Test                 $test
+     * @param integer $status
+     * @param PHPUnit_Framework_Test $test
      * @param PHPUnit_Framework_AssertionFailedError $e
      */
     public function testFailed($status, PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e)
@@ -356,7 +357,7 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * Override to define how to handle a failed loading of
      * a test suite.
      *
-     * @param string $message
+     * @param  string $message
      * @throws BuildException
      */
     protected function runFailed($message)
@@ -368,7 +369,7 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * A test suite started.
      *
      * @param PHPUnit_Framework_TestSuite $suite
-     * @since  Method available since Release 2.2.0
+     * @since Method available since Release 2.2.0
      */
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
@@ -378,7 +379,7 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * A test suite ended.
      *
      * @param PHPUnit_Framework_TestSuite $suite
-     * @since  Method available since Release 2.2.0
+     * @since Method available since Release 2.2.0
      */
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
@@ -397,7 +398,7 @@ class PHPUnitTestRunner implements PHPUnit_Framework_TestListener
      * A test ended.
      *
      * @param PHPUnit_Framework_Test $test
-     * @param float                  $time
+     * @param float $time
      */
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {

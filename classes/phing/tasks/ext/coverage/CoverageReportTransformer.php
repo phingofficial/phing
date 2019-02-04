@@ -21,9 +21,9 @@
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.coverage
- * @since 2.1.0
+ * @since   2.1.0
  */
 class CoverageReportTransformer
 {
@@ -37,7 +37,9 @@ class CoverageReportTransformer
 
     private $document = null;
 
-    /** title of the project, used in the coverage report */
+    /**
+     * title of the project, used in the coverage report
+     */
     private $title = "";
 
     /**
@@ -82,6 +84,7 @@ class CoverageReportTransformer
 
     /**
      * Setter for title parameter
+     *
      * @param $title
      */
     public function setTitle($title)

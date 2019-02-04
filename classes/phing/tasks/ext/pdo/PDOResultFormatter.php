@@ -22,9 +22,9 @@ require_once 'phing/system/io/PhingFile.php';
 /**
  * Abstract
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pdo
- * @since 2.3.0
+ * @since   2.3.0
  */
 abstract class PDOResultFormatter
 {
@@ -57,6 +57,7 @@ abstract class PDOResultFormatter
 
     /**
      * Gets the preferred output filename for this formatter.
+     *
      * @return string
      */
     abstract public function getPreferredOutfile();

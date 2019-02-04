@@ -19,7 +19,9 @@
 
 trait FileSetAware
 {
-    /** @var FileSet[] $filesets */
+    /**
+     * @var FileSet[] $filesets
+     */
     protected $filesets = [];
 
     public function addFileSet(FileSet $fileSet)

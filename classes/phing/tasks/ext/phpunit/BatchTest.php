@@ -34,13 +34,19 @@ class BatchTest
     use ClasspathAware;
     use FileSetAware;
 
-    /** the reference to the project */
+    /**
+     * the reference to the project
+     */
     private $project = null;
 
-    /** names of classes to exclude */
+    /**
+     * names of classes to exclude
+     */
     private $excludeClasses = [];
 
-    /** name of the batchtest/suite */
+    /**
+     * name of the batchtest/suite
+     */
     protected $name = "Phing Batchtest";
 
     /**
@@ -55,6 +61,7 @@ class BatchTest
 
     /**
      * Sets the name of the batchtest/suite
+     *
      * @param $name
      */
     public function setName($name)
@@ -107,9 +114,9 @@ class BatchTest
     private function isTestCase($input)
     {
         return is_subclass_of($input, '\PHPUnit\Framework\TestCase') || is_subclass_of(
-            $input,
-            'PHPUnit_Framework_TestSuite'
-        );
+                $input,
+                'PHPUnit_Framework_TestSuite'
+            );
     }
 
     /**

@@ -30,17 +30,19 @@
  *                        byline="true"/>
  * </code>
  *
- * @author    Jonathan Bond-Caron <jbondc@openmv.com>
+ * @author Jonathan Bond-Caron <jbondc@openmv.com>
  *
- * @package   phing.tasks.system
+ * @package phing.tasks.system
  *
- * @link      http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
+ * @link http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
  */
 class ReplaceRegexpTask extends Task
 {
     use FileSetAware;
 
-    /** Single file to process. */
+    /**
+     * Single file to process.
+     */
     private $file;
 
     /**

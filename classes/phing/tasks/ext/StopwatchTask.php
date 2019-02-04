@@ -22,7 +22,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 /**
  * Stopwatch.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.stopwatch
  */
 class StopwatchTask extends DispatchTask
@@ -98,7 +98,8 @@ class StopwatchTask extends DispatchTask
         $event = $timer->stop($this->name);
 
         foreach ($event->getPeriods() as $period) {
-            $this->log('Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() . ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(), Project::MSG_INFO);
+            $this->log('Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() . ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(),
+                Project::MSG_INFO);
         }
 
         $this->log('Name:       ' . $this->name, Project::MSG_INFO);

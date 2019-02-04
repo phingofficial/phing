@@ -41,6 +41,7 @@
  *     <filelist dir="book/" listfile="book/PhingGuide.book"/>
  * </append>
  * </code>
+ *
  * @package phing.tasks.system
  */
 class AppendTask extends Task
@@ -49,21 +50,31 @@ class AppendTask extends Task
     use FileSetAware;
     use FilterChainAware;
 
-    /** Append stuff to this file. */
+    /**
+     * Append stuff to this file.
+     */
     private $to;
 
-    /** Explicit file to append. */
+    /**
+     * Explicit file to append.
+     */
     private $file;
 
-    /** Text to append. (cannot be used in conjunction w/ files or filesets) */
+    /**
+     * Text to append. (cannot be used in conjunction w/ files or filesets)
+     */
     private $text;
 
     private $filtering = true;
 
-    /** @var TextElement $header */
+    /**
+     * @var TextElement $header
+     */
     private $header;
 
-    /** @var TextElement $footer */
+    /**
+     * @var TextElement $footer
+     */
     private $footer;
 
     private $append = true;
@@ -79,7 +90,7 @@ class AppendTask extends Task
      */
     public function setFiltering($filtering)
     {
-        $this->filtering = (bool)$filtering;
+        $this->filtering = (bool) $filtering;
     }
 
     /**
@@ -107,6 +118,7 @@ class AppendTask extends Task
      * <code>true</code> the task will append the stream data an
      * {@link Appendable} resource; otherwise existing content will be
      * overwritten. Defaults to <code>false</code>.
+     *
      * @param bool $append if true append output.
      */
     public function setAppend($append)
@@ -118,6 +130,7 @@ class AppendTask extends Task
      * Specify the end of line to find and to add if
      * not present at end of each input file. This attribute
      * is used in conjunction with fixlastline.
+     *
      * @param string $crlf the type of new line to add -
      *              cr, mac, lf, unix, crlf, or dos
      */
@@ -137,6 +150,7 @@ class AppendTask extends Task
 
     /**
      * Sets specific file to append.
+     *
      * @param PhingFile $f
      */
     public function setFile(PhingFile $f)
@@ -160,7 +174,7 @@ class AppendTask extends Task
      */
     public function setText($txt)
     {
-        $this->text = (string)$txt;
+        $this->text = (string) $txt;
     }
 
     /**
@@ -172,7 +186,7 @@ class AppendTask extends Task
      */
     public function addText($txt)
     {
-        $this->text .= (string)$txt;
+        $this->text .= (string) $txt;
     }
 
     public function addHeader(TextElement $headerToAdd)
@@ -188,6 +202,7 @@ class AppendTask extends Task
     /**
      * Append line.separator to files that do not end
      * with a line.separator, default false.
+     *
      * @param bool $fixLastLine if true make sure each input file has
      *                          new line on the concatenated stream
      */
@@ -397,13 +412,15 @@ class AppendTask extends Task
         }
 
         if (!$f->exists()) {
-            $this->log("File " . (string)$f . " does not exist.", Project::MSG_ERR);
+            $this->log("File " . (string) $f . " does not exist.", Project::MSG_ERR);
             return false;
         }
         if ($this->to !== null && $f->equals($this->to)) {
-            throw new BuildException("Input file \""
+            throw new BuildException(
+                "Input file \""
                 . $f . "\" "
-                . "is the same as the output file.");
+                . "is the same as the output file."
+            );
         }
 
         if ($this->to !== null
@@ -411,7 +428,7 @@ class AppendTask extends Task
             && $this->to->exists()
             && $f->lastModified() > $this->to->lastModified()
         ) {
-            $this->log((string)$this->to . " is up-to-date.", Project::MSG_VERBOSE);
+            $this->log((string) $this->to . " is up-to-date.", Project::MSG_VERBOSE);
             return false;
         }
 

@@ -22,7 +22,7 @@ require_once 'phing/tasks/ext/zendserverdeploymenttool/zsdtBaseTask.php';
 /**
  * Class ZendServerDeploymentToolTask
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
 class zsdtValidateTask extends zsdtBaseTask

@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * A regular expression datatype.  Keeps an instance of the
@@ -24,9 +24,9 @@
  * time it is needed).  The syntax is the dependent on which
  * regular expression type you are using.
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @see       phing.util.regex.RegexMatcher
- * @package   phing.types
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @see     phing.util.regex.RegexMatcher
+ * @package phing.types
  */
 class RegularExpression extends DataType
 {

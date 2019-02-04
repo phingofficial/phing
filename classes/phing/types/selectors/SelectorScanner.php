@@ -21,8 +21,8 @@
  * An interface used to describe the actions required by any type of
  * directory scanner that supports Selecters.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 interface SelectorScanner

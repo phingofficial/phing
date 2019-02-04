@@ -19,7 +19,9 @@
 
 trait ClasspathAware
 {
-    /** @var Path $classpath */
+    /**
+     * @var Path $classpath
+     */
     protected $classpath;
 
     /**

@@ -21,11 +21,11 @@
  * Sets the given property if the specified target has a timestamp
  * greater than all of the source files.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    William Ferguson <williamf@mincom.com> (Ant)
- * @author    Hiroaki Nakamura <hnakamur@mc.neweb.ne.jp> (Ant)
- * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  William Ferguson <williamf@mincom.com> (Ant)
+ * @author  Hiroaki Nakamura <hnakamur@mc.neweb.ne.jp> (Ant)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @package phing.tasks.system
  */
 class UpToDateTask extends Task implements Condition
 {
@@ -67,6 +67,7 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * Get property name
+     *
      * @return string property the name of the property to set if Target is up-to-date.
      */
     public function getProperty()
@@ -140,25 +141,32 @@ class UpToDateTask extends Task implements Condition
     /**
      * Evaluate (all) target and source file(s) to
      * see if the target(s) is/are up-to-date.
+     *
      * @throws BuildException
      * @return boolean
      */
     public function evaluate()
     {
         if (count($this->filesets) == 0 && count($this->filelists) == 0 && $this->_sourceFile === null) {
-            throw new BuildException("At least one srcfile or a nested "
-                . "<fileset> or <filelist> element must be set.");
+            throw new BuildException(
+                "At least one srcfile or a nested "
+                . "<fileset> or <filelist> element must be set."
+            );
         }
 
         if ((count($this->filesets) > 0 || count($this->filelists) > 0) && $this->_sourceFile !== null) {
-            throw new BuildException("Cannot specify both the srcfile "
+            throw new BuildException(
+                "Cannot specify both the srcfile "
                 . "attribute and a nested <fileset> "
-                . "or <filelist> element.");
+                . "or <filelist> element."
+            );
         }
 
         if ($this->_targetFile === null && $this->mapperElement === null) {
-            throw new BuildException("The targetfile attribute or a nested "
-                . "mapper element must be set.");
+            throw new BuildException(
+                "The targetfile attribute or a nested "
+                . "mapper element must be set."
+            );
         }
 
         // if the target file is not there, then it can't be up-to-date
@@ -168,8 +176,10 @@ class UpToDateTask extends Task implements Condition
 
         // if the source file isn't there, throw an exception
         if ($this->_sourceFile !== null && !$this->_sourceFile->exists()) {
-            throw new BuildException($this->_sourceFile->getAbsolutePath()
-                . " not found.");
+            throw new BuildException(
+                $this->_sourceFile->getAbsolutePath()
+                . " not found."
+            );
         }
 
         $upToDate = true;
@@ -216,6 +226,7 @@ class UpToDateTask extends Task implements Condition
     /**
      * Sets property to true if target file(s) have a more recent timestamp
      * than (each of) the corresponding source file(s).
+     *
      * @throws BuildException
      */
     public function main()

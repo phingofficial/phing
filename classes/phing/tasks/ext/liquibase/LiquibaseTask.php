@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
  * Parameters can be provided by nested <parameter name='foo' value='bar' /> tags.
  * That will result in --foo='bar' on the command line.
  *
- * @author Joakim Israelsson <joakim.israelsson.86@gmail.com>
+ * @author  Joakim Israelsson <joakim.israelsson.86@gmail.com>
  * @package phing.tasks.ext.liquibase
  */
 class LiquibaseTask extends AbstractLiquibaseTask

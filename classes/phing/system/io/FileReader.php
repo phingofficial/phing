@@ -19,13 +19,15 @@
 
 /**
  * Convenience class for reading files.
- * @package   phing.system.io
+ *
+ * @package phing.system.io
  */
 class FileReader extends InputStreamReader
 {
 
     /**
      * Construct a new FileReader.
+     *
      * @param mixed $file PhingFile or string pathname.
      */
     public function __construct($file)

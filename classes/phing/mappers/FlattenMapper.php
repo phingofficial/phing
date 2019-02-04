@@ -20,8 +20,8 @@
 /**
  * Removes any directory information from the passed path.
  *
- * @author   Andreas Aderhold <andi@binarycloud.com>
- * @package  phing.mappers
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @package phing.mappers
  */
 class FlattenMapper implements FileNameMapper
 {
@@ -42,7 +42,8 @@ class FlattenMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $to
+     *
+     * @param  string $to
      * @return void
      */
     public function setTo($to)
@@ -52,7 +53,8 @@ class FlattenMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $from
+     *
+     * @param  string $from
      * @return void
      */
     public function setFrom($from)

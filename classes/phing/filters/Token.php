@@ -3,19 +3,21 @@
 /**
  * Holds a token.
  *
- * @package   phing.filters
+ * @package phing.filters
  */
 class Token
 {
 
     /**
      * Token key.
+     *
      * @var string
      */
     private $_key;
 
     /**
      * Token value.
+     *
      * @var string
      */
     private $_value;
@@ -27,7 +29,7 @@ class Token
      */
     public function setKey($key)
     {
-        $this->_key = (string)$key;
+        $this->_key = (string) $key;
     }
 
     /**
@@ -45,7 +47,7 @@ class Token
                 $this->_value = "false";
             }
         } else {
-            $this->_value = (string)$value;
+            $this->_value = (string) $value;
         }
     }
 

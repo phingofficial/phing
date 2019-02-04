@@ -20,22 +20,24 @@
 /**
  * Wrapper aroung git-merge
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
- * @link http://www.kernel.org/pub/software/scm/git/docs/git-merge.html
+ * @see     VersionControl_Git
+ * @since   2.4.3
+ * @link    http://www.kernel.org/pub/software/scm/git/docs/git-merge.html
  */
 class GitMergeTask extends GitBaseTask
 {
     /**
      * <commit> of git-merge
+     *
      * @var string
      */
     private $remote;
 
     /**
      * Commit message
+     *
      * @var string
      */
     private $message;
@@ -43,42 +45,49 @@ class GitMergeTask extends GitBaseTask
     /**
      * Merge strategy. See -s <strategy> of git-merge
      * Available strategies are: octopus ours recursive resolve subtree
+     *
      * @var string
      */
     private $strategy;
 
     /**
      * -X or --strategy-option of git-merge
+     *
      * @var string
      */
     private $strategyOption;
 
     /**
      * --commit key of git-merge
+     *
      * @var boolean
      */
     private $commit = false;
 
     /**
      * --no-commit key of git-merge
+     *
      * @var boolean
      */
     private $noCommit = false;
 
     /**
      * --ff --no-ff keys to git-merge
+     *
      * @var boolean
      */
     private $fastForwardCommit = false;
 
     /**
      * --quiet, -q key to git-merge
+     *
      * @var boolean
      */
     private $quiet = false;
 
     /**
      * Valid merge strategies
+     *
      * @var array
      */
     private $validStrategies = [

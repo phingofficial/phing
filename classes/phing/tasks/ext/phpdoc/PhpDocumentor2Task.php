@@ -22,9 +22,9 @@
  * PhpDocumentor2 Task (http://www.phpdoc.org)
  * Based on the DocBlox Task
  *
- * @author    Michiel Rook <mrook@php.net>
- * @since     2.4.10
- * @package   phing.tasks.ext.phpdoc
+ * @author  Michiel Rook <mrook@php.net>
+ * @since   2.4.10
+ * @package phing.tasks.ext.phpdoc
  */
 class PhpDocumentor2Task extends Task
 {
@@ -32,36 +32,42 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Destination/target directory
+     *
      * @var PhingFile
      */
     private $destDir = null;
 
     /**
      * name of the template to use
+     *
      * @var string
      */
     private $template = "responsive-twig";
 
     /**
      * Title of the project
+     *
      * @var string
      */
     private $title = "API Documentation";
 
     /**
      * Name of default package
+     *
      * @var string
      */
     private $defaultPackageName = "Default";
 
     /**
      * Path to the phpDocumentor .phar
+     *
      * @var string
      */
     private $pharLocation = '';
 
     /**
      * Path to the phpDocumentor 2 source
+     *
      * @var string
      */
     private $phpDocumentorPath = "";
@@ -73,6 +79,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets destination/target directory
+     *
      * @param PhingFile $destDir
      */
     public function setDestDir(PhingFile $destDir)
@@ -82,6 +89,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Convenience setter (@see setDestDir)
+     *
      * @param PhingFile $output
      */
     public function setOutput(PhingFile $output)
@@ -91,6 +99,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets the template to use
+     *
      * @param string $template
      */
     public function setTemplate($template)
@@ -100,6 +109,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets the title of the project
+     *
      * @param string $title
      */
     public function setTitle($title)
@@ -109,6 +119,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets the default package name
+     *
      * @param string $defaultPackageName
      */
     public function setDefaultPackageName($defaultPackageName)
@@ -152,7 +163,7 @@ class PhpDocumentor2Task extends Task
 
             set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
 
-            require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
+            include_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
         }
 
         $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
@@ -255,6 +266,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Task entry point
+     *
      * @see Task::main()
      */
     public function main()

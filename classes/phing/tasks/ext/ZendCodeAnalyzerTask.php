@@ -55,8 +55,8 @@
  * <b>empty-cond</b> - Condition without a body
  * <b>expr-unused</b> - Expression result is never used
  *
- * @author   Knut Urdalen <knut.urdalen@gmail.com>
- * @package  phing.tasks.ext
+ * @author  Knut Urdalen <knut.urdalen@gmail.com>
+ * @package phing.tasks.ext
  */
 class ZendCodeAnalyzerTask extends Task
 {
@@ -112,6 +112,7 @@ class ZendCodeAnalyzerTask extends Task
 
     /**
      * Sets the haltonwarning flag
+     *
      * @param boolean $value
      */
     public function setHaltonwarning($value)

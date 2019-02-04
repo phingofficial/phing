@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Task that invokes phing on another build file.
@@ -32,41 +32,58 @@
  *   </phing>
  * </pre>
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class PhingTask extends Task
 {
     use FileSetAware;
 
-    /** the basedir where is executed the build file */
+    /**
+     * the basedir where is executed the build file
+     */
     private $dir;
 
-    /** build.xml (can be absolute) in this case dir will be ignored */
+    /**
+     * build.xml (can be absolute) in this case dir will be ignored
+     */
     private $phingFile;
 
-    /** the target to call if any */
+    /**
+     * the target to call if any
+     */
     protected $newTarget;
 
-    /** should we inherit properties from the parent ? */
+    /**
+     * should we inherit properties from the parent ?
+     */
     private $inheritAll = true;
 
-    /** should we inherit references from the parent ? */
+    /**
+     * should we inherit references from the parent ?
+     */
     private $inheritRefs = false;
 
-    /** the properties to pass to the new project */
+    /**
+     * the properties to pass to the new project
+     */
     private $properties = [];
 
-    /** the references to pass to the new project */
+    /**
+     * the references to pass to the new project
+     */
     private $references = [];
 
     /**
      * The temporary project created to run the build file
+     *
      * @var Project
      */
     private $newProject;
 
-    /** Fail the build process when the called build fails? */
+    /**
+     * Fail the build process when the called build fails?
+     */
     private $haltOnFailure = false;
 
     /**
@@ -82,6 +99,7 @@ class PhingTask extends Task
 
     /**
      * Creates a Project instance for the project to call.
+     *
      * @return void
      */
     public function init()
@@ -106,9 +124,13 @@ class PhingTask extends Task
         $this->init();
         $count = count($this->properties);
         for ($i = 0; $i < $count; $i++) {
-            /** @var PropertyTask $p */
+            /**
+             * @var PropertyTask $p
+             */
             $p = $this->properties[$i];
-            /** @var PropertyTask $newP */
+            /**
+             * @var PropertyTask $newP
+             */
             $newP = $this->newProject->createTask("property");
             $newP->setName($p->getName());
             if ($p->getValue() !== null) {
@@ -249,7 +271,8 @@ class PhingTask extends Task
             $file = $fu->resolveFile($this->dir, $this->phingFile);
             $this->phingFile = $file->getAbsolutePath();
 
-            $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'", Project::MSG_VERBOSE);
+            $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'",
+                Project::MSG_VERBOSE);
 
             $this->newProject->setUserProperty("phing.file", $this->phingFile);
 
@@ -260,10 +283,10 @@ class PhingTask extends Task
             }
 
             // Are we trying to call the target in which we are defined?
-            if ($this->newProject->getBaseDir() == $this->project->getBaseDir() &&
-                $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file") &&
-                $this->getOwningTarget() !== null &&
-                $this->newTarget == $this->getOwningTarget()->getName()
+            if ($this->newProject->getBaseDir() == $this->project->getBaseDir()
+                && $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file")
+                && $this->getOwningTarget() !== null
+                && $this->newTarget == $this->getOwningTarget()->getName()
             ) {
                 throw new BuildException("phing task calling its own parent target");
             }
@@ -306,6 +329,7 @@ class PhingTask extends Task
 
     /**
      * Get the (sub)-Project instance currently in use.
+     *
      * @return Project
      */
     protected function getNewProject(): \Project
@@ -325,7 +349,6 @@ class PhingTask extends Task
      * Developer note:
      * This function replaces the old methods "init", "_reinit" and
      * "_initializeProject".
-     *
      */
     private function initializeProject()
     {
@@ -380,6 +403,7 @@ class PhingTask extends Task
     /**
      * Override the properties in the new project with the one
      * explicitly defined as nested elements here.
+     *
      * @return void
      * @throws BuildException
      */
@@ -418,8 +442,10 @@ class PhingTask extends Task
                 $refid = $ref->getRefId();
 
                 if ($refid === null) {
-                    throw new BuildException("the refid attribute is required"
-                        . " for reference elements");
+                    throw new BuildException(
+                        "the refid attribute is required"
+                        . " for reference elements"
+                    );
                 }
                 if (!isset($projReferences[$refid])) {
                     $this->log(
@@ -581,7 +607,6 @@ class PhingTask extends Task
     /**
      * Property to pass to the new project.
      * The property is passed as a 'user property'
-     *
      */
     public function createProperty()
     {

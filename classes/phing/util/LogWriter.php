@@ -20,7 +20,7 @@
 /**
  * Extends the Writer class to output messages to Phing's log
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.util
  */
 class LogWriter extends Writer
@@ -31,6 +31,7 @@ class LogWriter extends Writer
 
     /**
      * Constructs a new LogWriter object
+     *
      * @param Task $task
      * @param int $level
      */

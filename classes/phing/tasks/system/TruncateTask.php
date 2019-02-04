@@ -32,7 +32,8 @@ class TruncateTask extends Task
 
     /**
      * Set a single target File.
-     * @param PhingFile|string $f the single File
+     *
+     * @param  PhingFile|string $f the single File
      * @throws \IOException
      * @throws \NullPointerException
      */
@@ -47,6 +48,7 @@ class TruncateTask extends Task
     /**
      * Set the amount by which files' lengths should be adjusted.
      * It is permissible to append K / M / G / T / P.
+     *
      * @param $adjust (positive or negative) adjustment amount.
      */
     public function setAdjust($adjust)
@@ -57,6 +59,7 @@ class TruncateTask extends Task
     /**
      * Set the length to which files should be set.
      * It is permissible to append K / M / G / T / P.
+     *
      * @param $length (positive) adjustment amount.
      *
      * @throws \BuildException
@@ -71,6 +74,7 @@ class TruncateTask extends Task
 
     /**
      * Set whether to create nonexistent files.
+     *
      * @param boolean $create default <code>true</code>.
      */
     public function setCreate($create)
@@ -81,6 +85,7 @@ class TruncateTask extends Task
     /**
      * Set whether, when creating nonexistent files, nonexistent directories
      * should also be created.
+     *
      * @param boolean $mkdirs default <code>false</code>.
      */
     public function setMkdirs($mkdirs)
@@ -90,6 +95,7 @@ class TruncateTask extends Task
 
     /**
      * {@inheritDoc}.
+     *
      * @throws \BuildException
      */
     public function main()
@@ -126,7 +132,9 @@ class TruncateTask extends Task
         }
         $exception = null;
         try {
-            /** @var PhingFile $parent */
+            /**
+             * @var PhingFile $parent
+             */
             $parent = $f->getParentFile();
             if ($this->mkdirs && !$parent->exists()) {
                 $parent->mkdirs();
@@ -161,7 +169,7 @@ class TruncateTask extends Task
         $splFile = new SplFileObject($f->getPath(), 'a+');
 
         if (!$splFile->ftruncate((int) $newLength)) {
-            throw new BuildException("Exception working with " . (string)$splFile);
+            throw new BuildException("Exception working with " . (string) $splFile);
         }
 
         $splFile->rewind();

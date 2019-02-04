@@ -21,8 +21,8 @@
  * This selector has a collection of other selectors, all of which have to
  * select a file in order for this selector to select it.
  *
- * @author Hans Lellelid, hans@xmpl.org (Phing)
- * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
+ * @author  Hans Lellelid, hans@xmpl.org (Phing)
+ * @author  <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
  * @package phing.types.selectors
  */
 class AndSelector extends BaseSelectorContainer
@@ -47,10 +47,10 @@ class AndSelector extends BaseSelectorContainer
      * Returns true (the file is selected) only if all other selectors
      * agree that the file should be selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename the name of the file to check
-     * @param PhingFile $file a PhingFile object for the filename that the selector
-     * can use
+     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  string $filename the name of the file to check
+     * @param  PhingFile $file a PhingFile object for the filename that the selector
+     *                            can use
      * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

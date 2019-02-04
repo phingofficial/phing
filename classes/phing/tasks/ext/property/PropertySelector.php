@@ -25,7 +25,9 @@
  */
 class PropertySelector extends AbstractPropertySetterTask
 {
-    /** @var RegularExpression $match */
+    /**
+     * @var RegularExpression $match
+     */
     private $match;
     private $select = "\\0";
     private $delim = ',';

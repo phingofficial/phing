@@ -19,6 +19,7 @@ class PearPkgRole
 
     /**
      * Sets the file extension
+     *
      * @param string $extension
      */
     public function setExtension($extension)
@@ -28,6 +29,7 @@ class PearPkgRole
 
     /**
      * Retrieves the file extension
+     *
      * @return string
      */
     public function getExtension()
@@ -37,6 +39,7 @@ class PearPkgRole
 
     /**
      * Sets the role
+     *
      * @param string $role
      */
     public function setRole($role)
@@ -46,6 +49,7 @@ class PearPkgRole
 
     /**
      * Retrieves the role
+     *
      * @return string
      */
     public function getRole()

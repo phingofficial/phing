@@ -26,10 +26,10 @@
  *
  * Classes that implement a listener must implement this interface.
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @see       BuildEvent
- * @see       Project::addBuildListener()
- * @package   phing
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @see     BuildEvent
+ * @see     Project::addBuildListener()
+ * @package phing
  */
 interface BuildLogger extends BuildListener
 {
@@ -53,12 +53,14 @@ interface BuildLogger extends BuildListener
 
     /**
      * Sets the standard output stream to use.
+     *
      * @param OutputStream $output Configured output stream (e.g. STDOUT) for standard output.
      */
     public function setOutputStream(OutputStream $output);
 
     /**
      * Sets the output stream to use for errors.
+     *
      * @param OutputStream $err Configured output stream (e.g. STDERR) for errors.
      */
     public function setErrorStream(OutputStream $err);

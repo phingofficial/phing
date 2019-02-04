@@ -9,17 +9,20 @@
 /**
  * Class that holds an XSLT parameter.
  *
- * @package   phing.filters
+ * @package phing.filters
  */
 class XsltParam
 {
     private $name;
 
-    /** @var RegisterSlot */
+    /**
+     * @var RegisterSlot
+     */
     private $expr;
 
     /**
      * Sets param name.
+     *
      * @param string $name
      */
     public function setName($name)
@@ -29,6 +32,7 @@ class XsltParam
 
     /**
      * Get param name.
+     *
      * @return string
      */
     public function getName()
@@ -40,7 +44,7 @@ class XsltParam
      * Sets expression value (alias to the setExpression()) method.
      *
      * @param string $v
-     * @see setExpression()
+     * @see   setExpression()
      */
     public function setValue($v)
     {
@@ -51,7 +55,7 @@ class XsltParam
      * Gets expression value (alias to the getExpression()) method.
      *
      * @return string
-     * @see getExpression()
+     * @see    getExpression()
      */
     public function getValue()
     {
@@ -60,6 +64,7 @@ class XsltParam
 
     /**
      * Sets expression value.
+     *
      * @param string $expr
      */
     public function setExpression($expr)
@@ -69,6 +74,7 @@ class XsltParam
 
     /**
      * Sets expression to dynamic register slot.
+     *
      * @param RegisterSlot $expr
      */
     public function setListeningExpression(RegisterSlot $expr)

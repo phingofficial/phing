@@ -21,14 +21,15 @@
  * This is a task that hands off work to the Diagnostics module.
  * It lets you run diagnostics in an IDE.
  *
- * @author   Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package  phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class DiagnosticsTask extends Task
 {
     /**
      * Execute the task.
      * This delegates to the Diagnostics class.
+     *
      * @throws BuildException on error.
      */
     public function main()

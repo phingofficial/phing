@@ -21,11 +21,12 @@
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the optional $methods parameter
  * for the ssh2_connect function
+ *
  * @see http://php.net/ssh2_connect
  *
  * @author Derek Gallo <http://github.com/drock>
  *
- * @package   phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class Ssh2MethodParam extends DataType
 {
@@ -123,6 +124,7 @@ class Ssh2MethodParam extends DataType
 
     /**
      * Handles the <client /> nested element
+     *
      * @return Ssh2MethodConnectionParam
      */
     public function createClient()
@@ -134,6 +136,7 @@ class Ssh2MethodParam extends DataType
 
     /**
      * Handles the <server /> nested element
+     *
      * @return Ssh2MethodConnectionParam
      */
     public function createServer()
@@ -145,7 +148,8 @@ class Ssh2MethodParam extends DataType
 
     /**
      * Convert the params to an array that is suitable to be passed in the ssh2_connect $methods parameter
-     * @param Project $p
+     *
+     * @param  Project $p
      * @return array
      */
     public function toArray(Project $p)

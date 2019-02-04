@@ -27,22 +27,24 @@
  * TODO:
  *        - Add Path / useClasspath support?
  *
- * @author    Hans Lellelid <hans@xmpl.org> (SmartyTask)
- * @author    Jason van Zyl <jvanzyl@apache.org> (TexenTask)
- * @author    Robert Burrell Donkin <robertdonkin@mac.com>
- * @package   phing.tasks.ext
+ * @author  Hans Lellelid <hans@xmpl.org> (SmartyTask)
+ * @author  Jason van Zyl <jvanzyl@apache.org> (TexenTask)
+ * @author  Robert Burrell Donkin <robertdonkin@mac.com>
+ * @package phing.tasks.ext
  */
 class SmartyTask extends Task
 {
 
     /**
      * Smarty template engine.
+     *
      * @var Smarty
      */
     protected $context;
 
     /**
      * Variables that are assigned to the context on parse/compile.
+     *
      * @var array
      */
     protected $properties = [];
@@ -51,6 +53,7 @@ class SmartyTask extends Task
      * This is the control template that governs the output.
      * It may or may not invoke the services of worker
      * templates.
+     *
      * @var string
      */
     protected $controlTemplate;
@@ -58,6 +61,7 @@ class SmartyTask extends Task
     /**
      * This is where Smarty will look for templates
      * using the file template loader.
+     *
      * @var string
      */
     protected $templatePath;
@@ -65,6 +69,7 @@ class SmartyTask extends Task
     /**
      * This is where texen will place all the output
      * that is a product of the generation process.
+     *
      * @var string
      */
     protected $outputDirectory;
@@ -72,6 +77,7 @@ class SmartyTask extends Task
     /**
      * This is the file where the generated text
      * will be placed.
+     *
      * @var string
      */
     protected $outputFile;
@@ -115,6 +121,7 @@ class SmartyTask extends Task
     /**
      * Smarty compiles templates before parsing / replacing tokens in them.
      * By default it will try ./templates_c, but you may wish to override this.
+     *
      * @var string
      */
     protected $compilePath;
@@ -124,6 +131,7 @@ class SmartyTask extends Task
      * Smarty does check file modification time, but you can set this
      * to be *sure* that the template will be compiled (of course it will
      * be slower if you do).
+     *
      * @var boolean
      */
     protected $forceCompile = false;
@@ -131,18 +139,21 @@ class SmartyTask extends Task
     /**
      * Smarty can use config files.
      * This tells Smarty where to look for the config files.
+     *
      * @var string
      */
     protected $configPath;
 
     /**
      * Customize the left delimiter for Smarty tags.
+     *
      * @var string
      */
     protected $leftDelimiter;
 
     /**
      * Customize the right delimiter for Smarty tags.
+     *
      * @var string
      */
     protected $rightDelimiter;
@@ -169,6 +180,7 @@ class SmartyTask extends Task
     /**
      * [REQUIRED] Set the control template for the
      * generating process.
+     *
      * @param  string $controlTemplate
      * @return void
      */
@@ -180,6 +192,7 @@ class SmartyTask extends Task
     /**
      * Get the control template for the
      * generating process.
+     *
      * @return string
      */
     public function getControlTemplate()
@@ -191,7 +204,8 @@ class SmartyTask extends Task
      * [REQUIRED] Set the path where Smarty will look
      * for templates using the file template
      * loader.
-     * @param $templatePath
+     *
+     * @param  $templatePath
      * @return void
      */
     public function setTemplatePath($templatePath)
@@ -220,6 +234,7 @@ class SmartyTask extends Task
      * Get the path where Smarty will look
      * for templates using the file template
      * loader.
+     *
      * @return string
      */
     public function getTemplatePath()
@@ -230,6 +245,7 @@ class SmartyTask extends Task
     /**
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
+     *
      * @param  PhingFile $outputDirectory
      * @return void
      * @throws Exception
@@ -254,6 +270,7 @@ class SmartyTask extends Task
 
     /**
      * Get the output directory.
+     *
      * @return string
      */
     public function getOutputDirectory()
@@ -264,7 +281,8 @@ class SmartyTask extends Task
     /**
      * [REQUIRED] Set the output file for the
      * generation process.
-     * @param $outputFile
+     *
+     * @param  $outputFile
      * @return void
      */
     public function setOutputFile($outputFile)
@@ -275,6 +293,7 @@ class SmartyTask extends Task
     /**
      * Get the output file for the
      * generation process.
+     *
      * @return string
      */
     public function getOutputFile()
@@ -284,6 +303,7 @@ class SmartyTask extends Task
 
     /**
      * Set the path Smarty uses as a "cache" for compiled templates.
+     *
      * @param string $compilePath
      */
     public function setCompilePath($compilePath)
@@ -293,6 +313,7 @@ class SmartyTask extends Task
 
     /**
      * Get the path Smarty uses for compiling templates.
+     *
      * @return string
      */
     public function getCompilePath()
@@ -302,6 +323,7 @@ class SmartyTask extends Task
 
     /**
      * Set whether Smarty should always recompile templates.
+     *
      * @param  boolean $force
      * @return void
      */
@@ -312,6 +334,7 @@ class SmartyTask extends Task
 
     /**
      * Get whether Smarty should always recompile template.
+     *
      * @return boolean
      */
     public function getForceCompile()
@@ -321,6 +344,7 @@ class SmartyTask extends Task
 
     /**
      * Set where Smarty looks for config files.
+     *
      * @param  string $configPath
      * @return void
      */
@@ -331,6 +355,7 @@ class SmartyTask extends Task
 
     /**
      * Get the path that Smarty uses for looking for config files.
+     *
      * @return string
      */
     public function getConfigPath()
@@ -340,6 +365,7 @@ class SmartyTask extends Task
 
     /**
      * Set Smarty template left delimiter.
+     *
      * @param  string $delim
      * @return void
      */
@@ -350,6 +376,7 @@ class SmartyTask extends Task
 
     /**
      * Get Smarty template right delimiter
+     *
      * @return string
      */
     public function getLeftDelimiter()
@@ -359,6 +386,7 @@ class SmartyTask extends Task
 
     /**
      * Set Smarty template right delimiter.
+     *
      * @param  string $delim
      * @return void
      */
@@ -369,6 +397,7 @@ class SmartyTask extends Task
 
     /**
      * Get Smarty template right delimiter
+     *
      * @return string
      */
     public function getRightDelimiter()
@@ -380,6 +409,7 @@ class SmartyTask extends Task
      * Set the context properties that will be
      * fed into the initial context be the
      * generating process starts.
+     *
      * @param  string $file
      * @throws BuildException
      * @return void
@@ -406,8 +436,10 @@ class SmartyTask extends Task
                 $this->log("Using contextProperties file: " . $fullPath->__toString());
                 $source->load($fullPath);
             } catch (Exception $e) {
-                throw new BuildException("Context properties file " . $sources[$i] .
-                    " could not be found in the file system!");
+                throw new BuildException(
+                    "Context properties file " . $sources[$i] .
+                    " could not be found in the file system!"
+                );
             }
 
             $keys = $source->keys();
@@ -424,6 +456,7 @@ class SmartyTask extends Task
      * Get the context properties that will be
      * fed into the initial context be the
      * generating process starts.
+     *
      * @return Properties
      */
     public function getContextProperties()
@@ -613,10 +646,10 @@ class SmartyTask extends Task
      * <p><code>$generator</code> is not put into the context in this
      * method.</p>
      *
-     * @param Smarty|The $context
+     * @param    Smarty|The $context
      * @internal param The $context context to populate, as retrieved from
      * {@link #initControlContext()}.
-     * @return void
+     * @return   void
      */
     protected function populateInitialContext(Smarty $context)
     {
@@ -627,6 +660,7 @@ class SmartyTask extends Task
      * be overridden to perform any necessary cleanup activities (such
      * as the release of database connections, etc.).  By default,
      * does nothing.
+     *
      * @return void
      * @throws Exception Problem cleaning up.
      */

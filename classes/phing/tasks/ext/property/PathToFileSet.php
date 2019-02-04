@@ -36,21 +36,29 @@
  *   </copy>
  * ```
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.property
  */
 class PathToFileSet extends Task
 {
-    /** @var PhingFile $dir */
+    /**
+     * @var PhingFile $dir
+     */
     private $dir;
 
-    /** @var string $name */
+    /**
+     * @var string $name
+     */
     private $name;
 
-    /** @var string $pathRefId */
+    /**
+     * @var string $pathRefId
+     */
     private $pathRefId;
 
-    /** @var bool $ignoreNonRelative */
+    /**
+     * @var bool $ignoreNonRelative
+     */
     private $ignoreNonRelative = false;
 
     /**

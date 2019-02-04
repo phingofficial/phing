@@ -23,19 +23,21 @@
  * Calculate either MD5 or SHA hash value of a specified file and retun the
  * value in a property
  *
- * @author      Johan Persson <johan162@gmail.com>
- * @package     phing.tasks.ext
+ * @author  Johan Persson <johan162@gmail.com>
+ * @package phing.tasks.ext
  */
 class FileHashTask extends Task
 {
     /**
      * Property for File
+     *
      * @var PhingFile file
      */
     private $file;
 
     /**
      * Property to be set
+     *
      * @var string $property
      */
     private $propertyName = "filehashvalue";
@@ -53,6 +55,7 @@ class FileHashTask extends Task
 
     /**
      * Specify if MD5 or SHA1 hash should be used
+     *
      * @param integer $type 0=MD5, 1=SHA1
      */
     public function setHashtype($type)
@@ -67,6 +70,7 @@ class FileHashTask extends Task
 
     /**
      * Which file to calculate the hash value of
+     *
      * @param PhingFile $file
      */
     public function setFile($file)
@@ -76,7 +80,8 @@ class FileHashTask extends Task
 
     /**
      * Set the name of the property to store the hash value in
-     * @param $property
+     *
+     * @param  $property
      * @return void
      */
     public function setPropertyName($property)
@@ -130,14 +135,15 @@ class FileHashTask extends Task
 
     /**
      * checks file attribute
+     *
      * @return void
      * @throws BuildException
      */
     private function checkFile()
     {
         // check File
-        if ($this->file === null ||
-            strlen($this->file) == 0
+        if ($this->file === null
+            || strlen($this->file) == 0
         ) {
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
         }
@@ -154,13 +160,14 @@ class FileHashTask extends Task
 
     /**
      * checks property attribute
+     *
      * @return void
      * @throws BuildException
      */
     private function checkPropertyName()
     {
-        if (null === $this->propertyName ||
-            strlen($this->propertyName) === 0
+        if (null === $this->propertyName
+            || strlen($this->propertyName) === 0
         ) {
             throw new BuildException('Property name for publishing hashvalue is not set');
         }

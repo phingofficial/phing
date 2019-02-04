@@ -20,8 +20,8 @@
 /**
  * Convenience class for writing files.
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.system.io
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.system.io
  */
 class BufferedWriter extends Writer
 {

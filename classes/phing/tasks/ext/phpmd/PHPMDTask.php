@@ -228,9 +228,9 @@ class PHPMDTask extends Task
 
         if ($this->newVersion) {
             $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
-            require_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
+            include_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
         } else {
-            require_once 'PHP/PMD/AbstractRule.php';
+            include_once 'PHP/PMD/AbstractRule.php';
             $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
         }
 

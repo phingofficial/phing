@@ -20,8 +20,8 @@
 /**
  * Condition that compare versions
  *
- * @author    Tomáš Fejfar (tomas.fejfar@gmail.com)
- * @package   phing.tasks.system.condition
+ * @author  Tomáš Fejfar (tomas.fejfar@gmail.com)
+ * @package phing.tasks.system.condition
  */
 class VersionCompareCondition implements Condition
 {
@@ -73,11 +73,13 @@ class VersionCompareCondition implements Condition
     {
         $allowed = ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne'];
         if (!in_array($operator, $allowed)) { // allowed operators for php's version_comapare()
-            throw new BuildException(sprintf(
-                'Operator "%s" is not supported. Supported operators: %s',
-                $operator,
-                implode(', ', $allowed)
-            ));
+            throw new BuildException(
+                sprintf(
+                    'Operator "%s" is not supported. Supported operators: %s',
+                    $operator,
+                    implode(', ', $allowed)
+                )
+            );
         }
         $this->operator = $operator;
     }
@@ -106,7 +108,7 @@ class VersionCompareCondition implements Condition
                 $this->version,
                 $this->operator,
                 $this->desiredVersion
-             );
+            );
         }
         return $isValid;
     }

@@ -20,7 +20,7 @@
 /**
  * Representation of a single env value.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.types.environment
  */
 class EnvVariable
@@ -34,6 +34,7 @@ class EnvVariable
 
     /**
      * set the key
+     *
      * @param string $key string
      */
     public function setKey($key)
@@ -43,6 +44,7 @@ class EnvVariable
 
     /**
      * set the value
+     *
      * @param string $value
      */
     public function setValue($value)
@@ -52,6 +54,7 @@ class EnvVariable
 
     /**
      * key accessor
+     *
      * @return string key
      */
     public function getKey()
@@ -61,6 +64,7 @@ class EnvVariable
 
     /**
      * value accessor
+     *
      * @return string value
      */
     public function getValue()
@@ -72,6 +76,7 @@ class EnvVariable
      * stringify path and assign to the value.
      * The value will contain all path elements separated by the appropriate
      * separator
+     *
      * @param Path $path
      */
     public function setPath(Path $path)
@@ -81,6 +86,7 @@ class EnvVariable
 
     /**
      * get the absolute path of a file and assign it to the value
+     *
      * @param PhingFile $file file to use as the value
      */
     public function setFile(PhingFile $file)
@@ -92,6 +98,7 @@ class EnvVariable
      * get the assignment string
      * This is not ready for insertion into a property file without following
      * the escaping rules of the properties class.
+     *
      * @return string of the form key=value.
      * @throws BuildException if key or value are unassigned
      */
@@ -103,6 +110,7 @@ class EnvVariable
 
     /**
      * checks whether all required attributes have been specified.
+     *
      * @throws BuildException if key or value are unassigned
      */
     public function validate()

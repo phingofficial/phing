@@ -23,10 +23,14 @@
  */
 class URLEncodeTask extends AbstractPropertySetterTask
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $value = '';
 
-    /** @var Reference */
+    /**
+     * @var Reference
+     */
     private $ref;
 
     public function setValue(string $value)

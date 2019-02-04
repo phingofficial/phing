@@ -20,7 +20,7 @@
 /**
  * Prints Clover XML output of the test
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.formatter
  */
 class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
@@ -32,6 +32,7 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * PHPUnit version
+     *
      * @var string
      */
     private $version = null;

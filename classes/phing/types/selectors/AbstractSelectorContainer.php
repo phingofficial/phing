@@ -20,7 +20,7 @@
 /**
  * This is the base class for selectors that can contain other selectors.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.types.selectors
  */
 abstract class AbstractSelectorContainer extends DataType implements SelectorContainer
@@ -122,7 +122,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Returns the set of selectors as an array.
      *
-     * @param Project $p
+     * @param  Project $p
      * @throws BuildException
      * @return array of selectors in this container
      */

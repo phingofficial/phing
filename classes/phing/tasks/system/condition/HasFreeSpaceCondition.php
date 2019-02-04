@@ -22,15 +22,19 @@ require_once 'phing/tasks/system/condition/Condition.php';
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
 class HasFreeSpaceCondition implements Condition
 {
-    /** @var string $partition */
+    /**
+     * @var string $partition
+     */
     private $partition;
 
-    /** @var string $needed */
+    /**
+     * @var string $needed
+     */
     private $needed;
 
     /**

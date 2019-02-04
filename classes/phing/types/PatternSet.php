@@ -21,8 +21,8 @@
  * The patternset storage component. Carries all necessary data and methods
  * for the patternset stuff.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @package  phing.types
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @package phing.types
  */
 class PatternSet extends DataType
 {
@@ -36,7 +36,8 @@ class PatternSet extends DataType
      * instance.
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
-     * @param Reference $r
+     *
+     * @param  Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -188,7 +189,7 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the excludes patterns.
      *
-     * @param PhingFile $excludesFile file to fetch the exclude patterns from.
+     * @param  PhingFile $excludesFile file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesFile($excludesFile)
@@ -324,7 +325,7 @@ class PatternSet extends DataType
     public function hasPatterns()
     {
         return (boolean) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
-        || count($this->includeList) > 0 || count($this->excludeList) > 0;
+            || count($this->includeList) > 0 || count($this->excludeList) > 0;
     }
 
     /**

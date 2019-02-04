@@ -21,10 +21,10 @@
  *  Abstract class providing properties and methods common to all
  *  the project components
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
+ * @author Andreas Aderhold <andi@binarycloud.com>
+ * @author Hans Lellelid <hans@xmpl.org>
  *
- * @package   phing
+ * @package phing
  */
 abstract class ProjectComponent
 {
@@ -36,10 +36,14 @@ abstract class ProjectComponent
      */
     protected $project = null;
 
-    /** @var Location $location */
+    /**
+     * @var Location $location
+     */
     private $location;
 
-    /** @var string $description */
+    /**
+     * @var string $description
+     */
     private $description;
 
     public function __construct()
@@ -98,7 +102,6 @@ abstract class ProjectComponent
      * @param string $desc Description of the current action.
      *             May be <code>null</code>, indicating that no description is
      *             available.
-     *
      */
     public function setDescription($desc)
     {

@@ -37,8 +37,8 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
- * @author    Michiel Rook <mrook@php.net>
- * @package   phing.tasks.system
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.system
  */
 class WaitForTask extends ConditionBase
 {
@@ -67,6 +67,7 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the maximum length of time to wait.
+     *
      * @param int $maxWait
      */
     public function setMaxWait($maxWait)
@@ -76,6 +77,7 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the max wait time unit
+     *
      * @param string $maxWaitUnit
      */
     public function setMaxWaitUnit($maxWaitUnit)
@@ -85,6 +87,7 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the time between each check
+     *
      * @param int $checkEvery
      */
     public function setCheckEvery($checkEvery)
@@ -94,7 +97,8 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the check every time unit
-     * @param string $checkEveryUnit
+     *
+     * @param  string $checkEveryUnit
      * @return void
      */
     public function setCheckEveryUnit($checkEveryUnit)
@@ -104,7 +108,8 @@ class WaitForTask extends ConditionBase
 
     /**
      * Name of the property to set after a timeout.
-     * @param string $timeoutProperty
+     *
+     * @param  string $timeoutProperty
      * @return void
      */
     public function setTimeoutProperty($timeoutProperty)
@@ -114,7 +119,8 @@ class WaitForTask extends ConditionBase
 
     /**
      * Convert the unit to a multipler.
-     * @param string $unit
+     *
+     * @param  string $unit
      * @throws BuildException
      * @return int
      */
@@ -122,38 +128,38 @@ class WaitForTask extends ConditionBase
     {
         switch ($unit) {
             case "week":
-            {
-                return self::ONE_WEEK;
-            }
+                {
+                    return self::ONE_WEEK;
+                }
 
             case "day":
-            {
-                return self::ONE_DAY;
-            }
+                {
+                    return self::ONE_DAY;
+                }
 
             case "hour":
-            {
-                return self::ONE_HOUR;
-            }
+                {
+                    return self::ONE_HOUR;
+                }
 
             case "minute":
-            {
-                return self::ONE_MINUTE;
-            }
+                {
+                    return self::ONE_MINUTE;
+                }
 
             case "second":
-            {
-                return self::ONE_SECOND;
-            }
+                {
+                    return self::ONE_SECOND;
+                }
 
             case "millisecond":
-            {
-                return self::ONE_MILLISECOND;
-            }
+                {
+                    return self::ONE_MILLISECOND;
+                }
 
             default:
                 {
-                throw new BuildException("Illegal unit '$unit'");
+                    throw new BuildException("Illegal unit '$unit'");
                 }
         }
     }
@@ -161,6 +167,7 @@ class WaitForTask extends ConditionBase
     /**
      * Check repeatedly for the specified conditions until they become
      * true or the timeout expires.
+     *
      * @throws BuildException
      */
     public function main()

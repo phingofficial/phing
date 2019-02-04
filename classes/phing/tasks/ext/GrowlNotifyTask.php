@@ -31,11 +31,11 @@
  *
  * PHP version 5
  *
- * @category   Tasks
- * @package    phing.tasks.ext
- * @author     Laurent Laville <pear@laurent-laville.org>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link       https://github.com/llaville/phing-GrowlNotifyTask
+ * @category Tasks
+ * @package  phing.tasks.ext
+ * @author   Laurent Laville <pear@laurent-laville.org>
+ * @license  http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @link     https://github.com/llaville/phing-GrowlNotifyTask
  */
 
 
@@ -44,11 +44,11 @@
  *
  * PHP version 5
  *
- * @category   Tasks
- * @package    phing.tasks.ext
- * @author     Laurent Laville <pear@laurent-laville.org>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link       https://github.com/llaville/phing-GrowlNotifyTask
+ * @category Tasks
+ * @package  phing.tasks.ext
+ * @author   Laurent Laville <pear@laurent-laville.org>
+ * @license  http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @link     https://github.com/llaville/phing-GrowlNotifyTask
  */
 class GrowlNotifyTask extends Task
 {

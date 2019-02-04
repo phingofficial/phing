@@ -21,10 +21,10 @@
  * Executes a command on the (filtered) file list/set.
  * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)
  *
- * @author    Utsav Handa <handautsav at hotmail dot com>
- * @package   phing.tasks.system
+ * @author  Utsav Handa <handautsav at hotmail dot com>
+ * @package phing.tasks.system
  *
- * @todo      Add support for mapper, targetfile expressions
+ * @todo Add support for mapper, targetfile expressions
  */
 class ApplyTask extends ExecTask
 {
@@ -35,6 +35,7 @@ class ApplyTask extends ExecTask
 
     /**
      * Whether output should be appended to or overwrite an existing file
+     *
      * @var boolean
      */
     protected $appendoutput = false;
@@ -42,18 +43,21 @@ class ApplyTask extends ExecTask
     /**
      * Runs the command only once, appending all files as arguments
      * else command will be executed once for every file.
+     *
      * @var boolean
      */
     protected $parallel = false;
 
     /**
      * Whether source file name should be added to the end of command automatically
+     *
      * @var boolean
      */
     protected $addsourcefile = true;
 
     /**
      * Whether the filenames should be passed on the command line as relative pathnames (relative to the base directory of the corresponding fileset/list)
+     *
      * @var boolean
      */
     protected $relative = false;
@@ -63,12 +67,14 @@ class ApplyTask extends ExecTask
 
     /**
      * Logging level for status messages
+     *
      * @var integer
      */
     protected $loglevel = null;
 
     /**
      * Whether to use forward-slash as file-separator on the file names
+     *
      * @var boolean
      */
     protected $forwardslash = false;
@@ -76,6 +82,7 @@ class ApplyTask extends ExecTask
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
      * (Set it to <= 0 for unlimited)
+     *
      * @var integer
      */
     protected $maxparallel = 0;
@@ -87,9 +94,13 @@ class ApplyTask extends ExecTask
     ];
 
     protected $type = 'file';
-    /** @var CommandlineMarker $targetFilePos */
+    /**
+     * @var CommandlineMarker $targetFilePos
+     */
     protected $targetFilePos;
-    /** @var CommandlineMarker $srcFilePos */
+    /**
+     * @var CommandlineMarker $srcFilePos
+     */
     protected $srcFilePos;
     protected $srcIsFirst = true;
 
@@ -98,7 +109,9 @@ class ApplyTask extends ExecTask
     private $mapper;
     private $destDir;
 
-    /** @var Mapper $mapperElement */
+    /**
+     * @var Mapper $mapperElement
+     */
     private $mapperElement;
     private $additionalCmds;
 
@@ -106,6 +119,7 @@ class ApplyTask extends ExecTask
      * Set whether empty filesets will be skipped.  If true and
      * no source files have been found or are newer than their
      * corresponding target files, the command will not be run.
+     *
      * @param boolean $skip whether to skip empty filesets.
      */
     public function setSkipEmptyFilesets(boolean $skip)
@@ -126,7 +140,7 @@ class ApplyTask extends ExecTask
     /**
      * File to which output should be written
      *
-     * @param $append
+     * @param    $append
      * @internal param PhingFile $outputfile Output log file
      *
      * @return void
@@ -164,7 +178,7 @@ class ApplyTask extends ExecTask
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list)
      *
-     * @param $relative
+     * @param    $relative
      * @internal param bool $escape Escape command before execution
      *
      * @return void
@@ -201,7 +215,7 @@ class ApplyTask extends ExecTask
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
      *
-     * @param $max
+     * @param    $max
      * @internal param bool $forwardslash Indicator to use forward-slash
      *
      * @return void
@@ -218,6 +232,7 @@ class ApplyTask extends ExecTask
 
     /**
      * Set whether the command works only on files, directories or both.
+     *
      * @param string $type a FileDirBoth EnumeratedAttribute.
      */
     public function setType(string $type)
@@ -234,8 +249,10 @@ class ApplyTask extends ExecTask
     public function createTargetfile()
     {
         if ($this->targetFilePos !== null) {
-            throw new BuildException($this->getTaskType() . " doesn\'t support multiple "
-                . "targetfile elements.", $this->getLocation());
+            throw new BuildException(
+                $this->getTaskType() . " doesn\'t support multiple "
+                . "targetfile elements.", $this->getLocation()
+            );
         }
 
         $this->targetFilePos = $this->commandline->createMarker();
@@ -253,8 +270,10 @@ class ApplyTask extends ExecTask
     public function createSrcfile()
     {
         if ($this->srcFilePos !== null) {
-            throw new BuildException($this->getTaskType() . " doesn\'t support multiple "
-                . "srcfile elements.", $this->getLocation());
+            throw new BuildException(
+                $this->getTaskType() . " doesn\'t support multiple "
+                . "srcfile elements.", $this->getLocation()
+            );
         }
 
         $this->srcFilePos = $this->commandline->createMarker();
@@ -283,6 +302,7 @@ class ApplyTask extends ExecTask
 
     /**
      * Do work
+     *
      * @throws \BuildException
      */
     public function main()
@@ -346,7 +366,9 @@ class ApplyTask extends ExecTask
                 }
                 unset($this->filesets);
                 // - FileLists
-                /** @var FileList $fl */
+                /**
+                 * @var FileList $fl
+                 */
                 foreach ($this->filelists as $fl) {
                     $totalFiles++;
                     $this->process($fl->getFiles($this->project), $fl->getDir($this->project));
@@ -531,7 +553,8 @@ class ApplyTask extends ExecTask
 
         // Setting command output redirection with content appending
         if ($this->output !== null) {
-            $this->additionalCmds .= sprintf(' 1>%s %s', $this->appendoutput ? '>' : '', escapeshellarg($this->output->getPath()));
+            $this->additionalCmds .= sprintf(' 1>%s %s', $this->appendoutput ? '>' : '',
+                escapeshellarg($this->output->getPath()));
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
             $this->additionalCmds .= sprintf(' %s', 'WIN' === $this->osvariant ? '> NUL' : '1>/dev/null');
 
@@ -540,7 +563,8 @@ class ApplyTask extends ExecTask
 
         // Setting command error redirection with content appending
         if ($this->error !== null) {
-            $this->additionalCmds .= sprintf(' 2>%s %s', $this->appendoutput ? '>' : '', escapeshellarg($this->error->getPath()));
+            $this->additionalCmds .= sprintf(' 2>%s %s', $this->appendoutput ? '>' : '',
+                escapeshellarg($this->error->getPath()));
         }
 
         // Setting the execution as a background process
@@ -630,12 +654,14 @@ class ApplyTask extends ExecTask
                 $result = array_merge(... $result);
 
                 // targetIndex --> end
-                $result = array_merge(array_slice(
-                    $orig,
-                    $targetIndex + count($srcFiles) + count($targetFiles),
-                    count($orig) - $targetIndex,
-                    true
-                ), $result);
+                $result = array_merge(
+                    array_slice(
+                        $orig,
+                        $targetIndex + count($srcFiles) + count($targetFiles),
+                        count($orig) - $targetIndex,
+                        true
+                    ), $result
+                );
             } else {
                 // 0 --> targetIndex
                 $result[] = $orig;
@@ -643,20 +669,24 @@ class ApplyTask extends ExecTask
                 $result = array_merge(... $result);
 
                 // targetIndex --> srcIndex
-                $result = array_merge(array_slice(
-                    $orig,
-                    $targetIndex + count($targetFiles),
-                    $srcIndex - $targetIndex,
-                    true
-                ), $result);
+                $result = array_merge(
+                    array_slice(
+                        $orig,
+                        $targetIndex + count($targetFiles),
+                        $srcIndex - $targetIndex,
+                        true
+                    ), $result
+                );
 
                 // srcIndex --> end
-                $result = array_merge(array_slice(
-                    $orig,
-                    $srcIndex + count($srcFiles) + count($targetFiles),
-                    count($orig) - $srcIndex,
-                    true
-                ), $result);
+                $result = array_merge(
+                    array_slice(
+                        $orig,
+                        $srcIndex + count($srcFiles) + count($targetFiles),
+                        count($orig) - $srcIndex,
+                        true
+                    ), $result
+                );
                 $srcIndex += count($targetFiles);
             }
         } else { // no targetFilePos
@@ -680,7 +710,8 @@ class ApplyTask extends ExecTask
                 $src = str_replace(PhingFile::$separator, '/', $src);
             }
             if ($this->srcFilePos !== null && (count($this->srcFilePos->getPrefix()) > 0
-                    || count($this->srcFilePos->getSuffix()) > 0)) {
+                    || count($this->srcFilePos->getSuffix()) > 0)
+            ) {
                 $src = $this->srcFilePos->getPrefix() . $src . $this->srcFilePos->getSuffix();
             }
             $result[$srcIndex + $i] = $src;
@@ -756,7 +787,7 @@ class ApplyTask extends ExecTask
     /**
      * Throws the exception with specified information
      *
-     * @param  string $information Exception information
+     * @param string $information Exception information
      *
      * @throws BuildException
      *

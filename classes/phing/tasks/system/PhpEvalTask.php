@@ -25,8 +25,8 @@
  *        This task can, of course, be abused with devastating effects.  E.g. do not
  *        modify internal Phing classes unless you know what you are doing.
  *
- * @author   Hans Lellelid <hans@xmpl.org>
- * @package  phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  *
  * @todo Add support for evaluating expressions
  */
@@ -45,11 +45,14 @@ class PhpEvalTask extends Task
         $this->logLevel = Project::MSG_INFO;
     }
 
-    /** Main entry point. */
+    /**
+     * Main entry point.
+     */
     public function main()
     {
         if ($this->function === null && $this->expression === null) {
-            throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->getLocation());
+            throw new BuildException("You must specify a function to execute or PHP expression to evalute.",
+                $this->getLocation());
         }
 
         if ($this->function !== null && $this->expression !== null) {
@@ -57,7 +60,8 @@ class PhpEvalTask extends Task
         }
 
         if ($this->expression !== null && !empty($this->params)) {
-            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->getLocation());
+            throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.",
+                $this->getLocation());
         }
 
         if ($this->function !== null) {
@@ -69,6 +73,7 @@ class PhpEvalTask extends Task
 
     /**
      * Calls function and returns results.
+     *
      * @return mixed
      */
     protected function callFunction()
@@ -89,11 +94,13 @@ class PhpEvalTask extends Task
         foreach ($this->params as $p) {
             if ($p instanceof Parameter) {
                 $value = $p->getParams();
-                array_walk_recursive($value, function (&$item) {
+                array_walk_recursive(
+                    $value, function (&$item) {
                     if ($item instanceof Parameter) {
-                        $item =  $item->getValue();
+                        $item = $item->getValue();
                     }
-                });
+                }
+                );
                 if ($value === null) {
                     continue;
                 }
@@ -124,7 +131,7 @@ class PhpEvalTask extends Task
             if (is_array($value->getValue())) {
                 $this->resolveParams($value->getValue());
             }
-            $value = is_string($value) ? $value :  $value->getValue();
+            $value = is_string($value) ? $value : $value->getValue();
         }
 
         return $iterator;
@@ -132,6 +139,7 @@ class PhpEvalTask extends Task
 
     /**
      * Evaluates expression and returns resulting value.
+     *
      * @return mixed
      */
     protected function evalExpression()
@@ -150,7 +158,9 @@ class PhpEvalTask extends Task
         }
     }
 
-    /** Set function to execute
+    /**
+     * Set function to execute
+     *
      * @param $f
      */
     public function setFunction($f)
@@ -158,7 +168,9 @@ class PhpEvalTask extends Task
         $this->function = $f;
     }
 
-    /** Set [static] class which contains function to execute
+    /**
+     * Set [static] class which contains function to execute
+     *
      * @param $c
      */
     public function setClass($c)
@@ -166,7 +178,9 @@ class PhpEvalTask extends Task
         $this->class = $c;
     }
 
-    /** Sets property name to set with return value of function or expression.
+    /**
+     * Sets property name to set with return value of function or expression.
+     *
      * @param $r
      */
     public function setReturnProperty($r)
@@ -174,7 +188,9 @@ class PhpEvalTask extends Task
         $this->returnProperty = $r;
     }
 
-    /** Set PHP expression to evaluate.
+    /**
+     * Set PHP expression to evaluate.
+     *
      * @param $expression
      */
     public function addText($expression)
@@ -182,7 +198,9 @@ class PhpEvalTask extends Task
         $this->expression = $expression;
     }
 
-    /** Set PHP expression to evaluate.
+    /**
+     * Set PHP expression to evaluate.
+     *
      * @param $expression
      */
     public function setExpression($expression)
@@ -190,7 +208,9 @@ class PhpEvalTask extends Task
         $this->expression = $expression;
     }
 
-    /** Add a nested <param> tag. */
+    /**
+     * Add a nested <param> tag.
+     */
     public function addParam(Parameter $p)
     {
         $this->params[] = $p;

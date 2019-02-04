@@ -74,6 +74,7 @@ class EchoProperties extends Task
     private static $ATTR_VALUE = "value";
     /**
      * the input file.
+     *
      * @var PhingFile
      */
     private $inFile = null;
@@ -81,6 +82,7 @@ class EchoProperties extends Task
     /**
      * File object pointing to the output file. If this is null, then
      * we output to the project log, not to a file.
+     *
      * @var PhingFile
      */
     private $destfile = null;
@@ -89,17 +91,24 @@ class EchoProperties extends Task
      * If this is true, then errors generated during file output will become
      * build errors, and if false, then such errors will be logged, but not
      * thrown.
+     *
      * @var boolean
      */
     private $failonerror = true;
 
-    /** @var string $format */
+    /**
+     * @var string $format
+     */
     private $format = "text";
 
-    /** @var string $prefix */
+    /**
+     * @var string $prefix
+     */
     private $prefix = '';
 
-    /** @var string $regex */
+    /**
+     * @var string $regex
+     */
     private $regex = '';
 
     /**
@@ -136,7 +145,7 @@ class EchoProperties extends Task
      * If true, the task will fail if an error occurs writing the properties
      * file, otherwise errors are just logged.
      *
-     * @param  failonerror <tt>true</tt> if IO exceptions are reported as build
+     * @param failonerror <tt>true</tt> if IO exceptions are reported as build
      *      exceptions, or <tt>false</tt> if IO exceptions are ignored.
      */
     public function setFailOnError($failonerror)
@@ -187,6 +196,7 @@ class EchoProperties extends Task
 
     /**
      * Set the output format - xml or text.
+     *
      * @param string $ea an enumerated <code>FormatAttribute</code> value
      */
     public function setFormat($ea)
@@ -330,8 +340,9 @@ class EchoProperties extends Task
 
     /**
      * Output the properties as xml output.
-     * @param Properties $props the properties to save
-     * @param OutputStream $os the output stream to write to (Note this gets closed)
+     *
+     * @param  Properties $props the properties to save
+     * @param  OutputStream $os the output stream to write to (Note this gets closed)
      * @throws BuildException
      */
     protected function xmlSaveProperties(Properties $props, OutputStream $os)

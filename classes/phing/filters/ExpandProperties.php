@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Expands Phing Properties, if any, in the data.
@@ -25,10 +25,10 @@
  * Or:
  * <pre><filterreader classname="phing.filters.ExpandProperties'/></pre>
  *
- * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @see       BaseFilterReader
- * @package   phing.filters
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @see     BaseFilterReader
+ * @package phing.filters
  */
 class ExpandProperties extends BaseFilterReader implements ChainableReader
 {
@@ -36,7 +36,7 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and the Phing properties are expanded.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
      * @exception IOException if the underlying stream throws an IOException
@@ -50,7 +50,9 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
             return -1;
         }
 
-        /** @var Project $project */
+        /**
+         * @var Project $project
+         */
         $project = $this->getProject();
         $buffer = $project->replaceProperties($buffer);
 

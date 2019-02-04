@@ -21,7 +21,7 @@
  * Composer Task
  * Run composer straight from phing
  *
- * @author nuno costa <nuno@francodacosta.com>
+ * @author  nuno costa <nuno@francodacosta.com>
  * @license MIT
  * @package phing.tasks.ext
  */
@@ -29,24 +29,28 @@ class ComposerTask extends Task
 {
     /**
      * Path to php interpreter
+     *
      * @var string
      */
     private $php = '';
 
     /**
      * Composer command to execute
+     *
      * @var string
      */
     private $command = null;
 
     /**
      * Commandline object
+     *
      * @var Commandline
      */
     private $commandLine = null;
 
     /**
      * Path to Composer application
+     *
      * @var string
      */
     private $composer = 'composer.phar';
@@ -165,7 +169,7 @@ class ComposerTask extends Task
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
         $this->commandLine->createArgument(true)->setValue($this->getCommand());
         $this->commandLine->createArgument(true)->setValue($this->getComposer());
-        $commandLine = (string)$this->commandLine;
+        $commandLine = (string) $this->commandLine;
         //Creating new Commandline instance. It allows to handle subsequent calls correctly
         $this->commandLine = new Commandline();
 
@@ -174,6 +178,7 @@ class ComposerTask extends Task
 
     /**
      * Executes the Composer task.
+     *
      * @throws IOException
      */
     public function main()

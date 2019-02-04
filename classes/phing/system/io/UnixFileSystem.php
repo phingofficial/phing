@@ -34,9 +34,9 @@
  *  - Comments
  *  - Error handling reduced to min, error are handled by PhingFile mainly
  *
- * @author    Andreas Aderhold, andi@binarycloud.com
+ * @author Andreas Aderhold, andi@binarycloud.com
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class UnixFileSystem extends FileSystem
 {
@@ -259,7 +259,8 @@ class UnixFileSystem extends FileSystem
 
     /**
      * set file readonly on unix
-     * @param PhingFile $f
+     *
+     * @param  PhingFile $f
      * @throws Exception
      * @throws IOException
      */
@@ -277,8 +278,9 @@ class UnixFileSystem extends FileSystem
 
     /**
      * compares file paths lexicographically
-     * @param PhingFile $f1
-     * @param PhingFile $f2
+     *
+     * @param  PhingFile $f1
+     * @param  PhingFile $f2
      * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
@@ -292,7 +294,7 @@ class UnixFileSystem extends FileSystem
     /**
      * Copy a file, takes care of symbolic links
      *
-     * @param PhingFile $src  Source path and name file to copy.
+     * @param PhingFile $src Source path and name file to copy.
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void
@@ -333,7 +335,8 @@ class UnixFileSystem extends FileSystem
 
     /**
      * returns the contents of a directory in an array
-     * @param PhingFile $f
+     *
+     * @param  PhingFile $f
      * @throws Exception
      * @return string[]
      */
@@ -372,6 +375,7 @@ class UnixFileSystem extends FileSystem
 
     /**
      * Whether file can be deleted.
+     *
      * @param  PhingFile $f
      * @return boolean
      */

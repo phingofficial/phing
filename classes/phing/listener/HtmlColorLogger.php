@@ -38,10 +38,10 @@
  *
  * This stems from the Ansi Color Logger done by Hans Lellelid:
  *
- * @author     Anton Stöckl <anton@stoeckl.de> (Phing HTML Color Logger)
- * @author     Hans Lellelid <hans@xmpl.org> (Phing Ansi Color Logger)
- * @author     Magesh Umasankar (Ant)
- * @package    phing.listener
+ * @author  Anton Stöckl <anton@stoeckl.de> (Phing HTML Color Logger)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing Ansi Color Logger)
+ * @author  Magesh Umasankar (Ant)
+ * @package phing.listener
  */
 class HtmlColorLogger extends DefaultLogger
 {
@@ -117,9 +117,9 @@ class HtmlColorLogger extends DefaultLogger
 
     /**
      * @see DefaultLogger#printMessage
-     * @param string       $message
+     * @param string $message
      * @param OutputStream $stream
-     * @param int          $priority
+     * @param int $priority
      */
     final protected function printMessage($message, OutputStream $stream, $priority)
     {

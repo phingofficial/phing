@@ -22,10 +22,10 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 /**
  * Stores the number of the last revision of a workingcopy in a property
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.svn
- * @see VersionControl_SVN
- * @since 2.1.0
+ * @see     VersionControl_SVN
+ * @since   2.1.0
  */
 class SvnLastRevisionTask extends SvnBaseTask
 {
@@ -34,6 +34,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param string $propertyName
      */
     public function setPropertyName($propertyName)
@@ -43,6 +44,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 
     /**
      * Returns the name of the property to use
+     *
      * @return string
      */
     public function getPropertyName()
@@ -52,6 +54,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 
     /**
      * Sets whether to retrieve the last changed revision
+     *
      * @param $lastChanged
      */
     public function setLastChanged($lastChanged)

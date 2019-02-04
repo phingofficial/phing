@@ -34,38 +34,46 @@
  * @author    hans lellelid, hans@velum.net
  * @copyright 2003 seasonfive. All rights reserved
  *
- * @see       BaseParamFilterReader
+ * @see BaseParamFilterReader
  *
- * @package   phing.filters
+ * @package phing.filters
  */
 class TailFilter extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the number of lines to be returned.
+     *
      * @var string
      */
     const LINES_KEY = "lines";
 
-    /** Parameter name for the number of lines to be skipped. */
+    /**
+     * Parameter name for the number of lines to be skipped.
+     */
     const SKIP_KEY = "skip";
 
     /**
      * Number of lines to be returned in the filtered stream.
+     *
      * @var integer
      */
     private $lines = 10;
 
     /**
      * Array to hold lines.
+     *
      * @var array
      */
     private $lineBuffer = [];
 
-    /** Number of lines to be skipped. */
+    /**
+     * Number of lines to be skipped.
+     */
     private $skip = 0;
 
     /**
      * Returns the last n lines of a file.
+     *
      * @param  int $len Num chars to read.
      * @return mixed The filtered buffer or -1 if EOF.
      */
@@ -90,7 +98,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
                 // Fill lineBuffer with the last "$this->_lines" lasts ones.
                 $off = count($lines) - $this->lines;
                 if ($skip > 0) {
-                    $this->lineBuffer = array_slice($lines, $off - $skip, - $skip);
+                    $this->lineBuffer = array_slice($lines, $off - $skip, -$skip);
                 } else {
                     $this->lineBuffer = array_slice($lines, $off);
                 }

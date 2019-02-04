@@ -20,21 +20,23 @@
 /**
  * Wrapper aroung git-fetch
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitFetchTask extends GitBaseTask
 {
     /**
      * --force, -f key to git-fetch
+     *
      * @var boolean
      */
     private $force = false;
 
     /**
      * --quiet, -q key to git-fetch
+     *
      * @var boolean
      */
     private $quiet = false;
@@ -42,6 +44,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * Fetch all remotes
      * --all key to git-fetch
+     *
      * @var boolean
      */
     private $allRemotes = false;
@@ -49,6 +52,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * Keep downloaded pack
      * --keep key to git-fetch
+     *
      * @var boolean
      */
     private $keepFiles = false;
@@ -57,6 +61,7 @@ class GitFetchTask extends GitBaseTask
      * After fetching, remove any remote tracking branches which no longer
      * exist on the remote.
      * --prune key to git fetch
+     *
      * @var boolean
      */
     private $prune = false;
@@ -64,6 +69,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * Disable/enable automatic tag following
      * --no-tags key to git-fetch
+     *
      * @var boolean
      */
     private $noTags = false;
@@ -71,24 +77,28 @@ class GitFetchTask extends GitBaseTask
     /**
      * Fetch all tags (even not reachable from branch heads)
      * --tags key to git-fetch
+     *
      * @var boolean
      */
     private $tags = false;
 
     /**
      * <group> argument to git-fetch
+     *
      * @var string
      */
     private $group;
 
     /**
      * <repository> argument to git-fetch
+     *
      * @var string
      */
     private $source = 'origin';
 
     /**
      * <refspec> argument to git-fetch
+     *
      * @var string
      */
     private $refspec;

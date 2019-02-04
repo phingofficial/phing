@@ -52,9 +52,9 @@
  * and split into single elements. It will usually be used
  * to define a path from an environment variable.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Thomas.Haas@softwired-inc.com (Ant)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Thomas.Haas@softwired-inc.com (Ant)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
 class Path extends DataType
@@ -63,8 +63,9 @@ class Path extends DataType
 
     /**
      * Constructor for internally instantiated objects sets project.
+     *
      * @param Project $project
-     * @param string  $path    (for use by IntrospectionHelper)
+     * @param string $path (for use by IntrospectionHelper)
      */
     public function __construct($project = null, $path = null)
     {
@@ -277,7 +278,7 @@ class Path extends DataType
     /**
      * Returns all path elements defined by this and nested path objects.
      *
-     * @param bool $preserveDuplicates
+     * @param  bool $preserveDuplicates
      * @return array List of path elements.
      * @throws IOException
      * @throws NullPointerException
@@ -309,8 +310,10 @@ class Path extends DataType
             } elseif ($o instanceof PathElement) {
                 $parts = $o->getParts();
                 if ($parts === null) {
-                    throw new BuildException("You must either set location or"
-                        . " path on <pathelement>");
+                    throw new BuildException(
+                        "You must either set location or"
+                        . " path on <pathelement>"
+                    );
                 }
                 foreach ($parts as $part) {
                     $result[] = $part;

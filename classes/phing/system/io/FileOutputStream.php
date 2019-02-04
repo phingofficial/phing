@@ -20,7 +20,7 @@
 /**
  * Output stream subclass for file streams.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class FileOutputStream extends OutputStream
 {
@@ -32,8 +32,9 @@ class FileOutputStream extends OutputStream
 
     /**
      * Construct a new FileOutputStream.
-     * @param  mixed       $file
-     * @param  boolean     $append Whether to append bytes to end of file rather than beginning.
+     *
+     * @param  mixed $file
+     * @param  boolean $append Whether to append bytes to end of file rather than beginning.
      * @throws Exception   - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */
@@ -60,6 +61,7 @@ class FileOutputStream extends OutputStream
 
     /**
      * Returns a string representation of the attached file.
+     *
      * @return string
      */
     public function __toString()

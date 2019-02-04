@@ -39,23 +39,25 @@
  * <b>stop</b> execution and commit transaction;
  * and <b>abort</b> execution and transaction and fail task.</p>
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
- * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
- * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package   phing.tasks.ext.pdo
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
+ * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
+ * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
+ * @package phing.tasks.ext.pdo
  */
 class PDOSQLExecTask extends PDOTask
 {
 
     /**
      * Count of how many statements were executed successfully.
+     *
      * @var int
      */
     private $goodSql = 0;
 
     /**
      * Count of total number of SQL statements.
+     *
      * @var int
      */
     private $totalSql = 0;
@@ -66,42 +68,49 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Database connection
+     *
      * @var PDO
      */
     private $conn = null;
 
     /**
      * Files to load
+     *
      * @var FileSet[]
      */
     private $filesets = [];
 
     /**
      * Files to load
+     *
      * @var FileList[]
      */
     private $filelists = [];
 
     /**
      * Formatter elements.
+     *
      * @var PDOSQLExecFormatterElement[]
      */
     private $formatters = [];
 
     /**
      * SQL statement
+     *
      * @var PDOStatement
      */
     private $statement;
 
     /**
      * SQL input file
+     *
      * @var PhingFile
      */
     private $srcFile;
 
     /**
      * SQL input command
+     *
      * @var string
      */
     private $sqlCommand = "";
@@ -113,6 +122,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * SQL Statement delimiter (for parsing files)
+     *
      * @var string
      */
     private $delimiter = ";";
@@ -135,6 +145,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Fetch mode for PDO select queries.
+     *
      * @var int
      */
     private $fetchMode;
@@ -142,6 +153,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
+     *
      * @param PhingFile $srcFile
      */
     public function setSrc(PhingFile $srcFile)
@@ -152,6 +164,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set an inline SQL command to execute.
      * NB: Properties are not expanded in this text.
+     *
      * @param $sql
      */
     public function addText($sql)
@@ -161,6 +174,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Adds a set of files (nested fileset attribute).
+     *
      * @param FileSet $set
      */
     public function addFileset(FileSet $set)
@@ -170,6 +184,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Adds a set of files (nested filelist attribute).
+     *
      * @param FileList $list
      */
     public function addFilelist(FileList $list)
@@ -179,6 +194,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Creates a new PDOSQLExecFormatterElement for <formatter> element.
+     *
      * @return PDOSQLExecFormatterElement
      */
     public function createFormatter()
@@ -249,6 +265,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Action to perform when statement fails: continue, stop, or abort
      * optional; default &quot;abort&quot;
+     *
      * @param $action
      */
     public function setOnerror($action)
@@ -258,7 +275,8 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Sets the fetch mode to use for the PDO resultset.
-     * @param mixed $mode The PDO fetchmode integer or constant name.
+     *
+     * @param  mixed $mode The PDO fetchmode integer or constant name.
      * @throws BuildException
      */
     public function setFetchmode($mode)
@@ -320,9 +338,11 @@ class PDOSQLExecTask extends PDOTask
                 && empty($this->filesets) && empty($this->filelists)
                 && count($this->transactions) === 0
             ) {
-                throw new BuildException("Source file or fileset/filelist, "
+                throw new BuildException(
+                    "Source file or fileset/filelist, "
                     . "transactions or sql statement "
-                    . "must be set!", $this->getLocation());
+                    . "must be set!", $this->getLocation()
+                );
             }
 
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
@@ -425,19 +445,20 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * read in lines and execute them
-     * @param Reader $reader
+     *
+     * @param  Reader $reader
      * @throws BuildException
      */
     public function runStatements(Reader $reader)
     {
         if (self::DELIM_NONE == $this->delimiterType) {
-            require_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
+            include_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
         } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
-            require_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
+            include_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
-            require_once 'phing/tasks/ext/pdo/DefaultPDOQuerySplitter.php';
+            include_once 'phing/tasks/ext/pdo/DefaultPDOQuerySplitter.php';
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
         }
 
@@ -456,7 +477,7 @@ class PDOSQLExecTask extends PDOTask
      * This does a pretty simple match, checking to see if statement starts with
      * 'select' (but not 'select into').
      *
-     * @param  string  $sql
+     * @param string $sql
      *
      * @return boolean Whether specified SQL looks like a SELECT query.
      */

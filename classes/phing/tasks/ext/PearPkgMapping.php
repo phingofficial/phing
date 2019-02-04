@@ -3,7 +3,7 @@
 /**
  * Handles complex options <mapping> elements which are hashes (assoc arrays).
  *
- * @package  phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class PearPkgMapping
 {
@@ -44,6 +44,7 @@ class PearPkgMapping
 
     /**
      * Returns the PHP hash or array of hashes (etc.) that this mapping represents.
+     *
      * @return array
      */
     public function getValue()

@@ -23,9 +23,9 @@
  * element, so isn't available as an ExtendSelector (since those
  * parameters can't hold other elements).
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @package   phing.types.selectors
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
+ * @package phing.types.selectors
  */
 class DependSelector extends BaseSelector
 {
@@ -63,7 +63,7 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param PhingFile|the $targetdir
+     * @param    PhingFile|the $targetdir
      * @internal param the $targetdir directory to scan looking for files.
      */
     public function setTargetdir(PhingFile $targetdir)
@@ -74,6 +74,7 @@ class DependSelector extends BaseSelector
     /**
      * Sets the number of milliseconds leeway we will give before we consider
      * a file out of date.
+     *
      * @param $granularity
      */
     public function setGranularity($granularity)
@@ -83,6 +84,7 @@ class DependSelector extends BaseSelector
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
+     *
      * @throws BuildException
      */
     public function createMapper()

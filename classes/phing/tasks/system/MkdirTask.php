@@ -20,20 +20,22 @@
 /**
  * Task to create a directory.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @package  phing.tasks.system
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @package phing.tasks.system
  */
 class MkdirTask extends Task
 {
 
     /**
      * Directory to create.
+     *
      * @var PhingFile $dir
      */
     private $dir;
 
     /**
      * Mode to create directory with
+     *
      * @var integer
      */
     private $mode = 0;
@@ -58,8 +60,9 @@ class MkdirTask extends Task
             throw new BuildException("dir attribute is required", $this->getLocation());
         }
         if ($this->dir->isFile()) {
-            throw new BuildException("Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath(
-                ));
+            throw new BuildException(
+                "Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath()
+            );
         }
         if (!$this->dir->exists()) {
             $result = $this->dir->mkdirs($this->mode);
@@ -69,8 +72,7 @@ class MkdirTask extends Task
 
                     return;
                 }
-                $msg = "Directory " . $this->dir->getAbsolutePath(
-                    ) . " creation was not successful for an unknown reason";
+                $msg = "Directory " . $this->dir->getAbsolutePath() . " creation was not successful for an unknown reason";
                 throw new BuildException($msg, $this->getLocation());
             }
             $this->log("Created dir: " . $this->dir->getAbsolutePath());
@@ -79,7 +81,8 @@ class MkdirTask extends Task
 
     /**
      * The directory to create; required.
-     * @param PhingFile $dir
+     *
+     * @param  PhingFile $dir
      * @return void
      */
     public function setDir(PhingFile $dir)
@@ -89,7 +92,8 @@ class MkdirTask extends Task
 
     /**
      * Sets mode to create directory with
-     * @param mixed $mode
+     *
+     * @param  mixed $mode
      * @return void
      */
     public function setMode($mode)
