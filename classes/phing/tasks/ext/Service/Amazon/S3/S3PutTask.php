@@ -23,7 +23,7 @@
  * @package phing.tasks.ext
  * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  */
-class S3PutTask extends Service_Amazon_S3
+class S3PutTask extends S3
 {
     /**
      * File we're trying to upload

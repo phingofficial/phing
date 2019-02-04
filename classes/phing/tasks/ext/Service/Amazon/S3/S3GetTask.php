@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__DIR__) . '/S3.php';
-
 /**
  * Downloads an object off S3
  *
@@ -26,7 +24,7 @@ require_once dirname(__DIR__) . '/S3.php';
  * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @extends Service_Amazon_S3
  */
-class S3GetTask extends Service_Amazon_S3
+class S3GetTask extends S3
 {
     /**
      * This is where we'll store the object

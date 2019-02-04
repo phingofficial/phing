@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-
 /**
  * Abstract Service_Amazon class.
  *
@@ -30,7 +28,7 @@ require_once "phing/Task.php";
  * @author   Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @abstract
  */
-abstract class Service_Amazon extends Task
+abstract class Amazon extends Task
 {
     /**
      * Collection of set options
