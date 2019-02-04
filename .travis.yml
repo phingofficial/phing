@@ -22,18 +22,16 @@ install:
     else
       composer install -o --no-progress --prefer-dist;
     fi
+    phpenv config-add .travis.php.ini;
+    phpenv rehash;
+    echo "=== SETTING GIT IDENTITY ===";
+    git config --global user.email "travis-ci-build@phing.info";
+    git config --global user.name "Phing Travis Builder";
+script:
+  - |
     if [[ "$PHPCS" == "TRUE" ]]; then
       bin/phpcs -n --standard=./ruleset.xml classes
     else
-      phpenv config-add .travis.php.ini;
-      phpenv rehash;
-      echo "=== SETTING GIT IDENTITY ===";
-      git config --global user.email "travis-ci-build@phing.info";
-      git config --global user.name "Phing Travis Builder";
-    fi
-script:
-  - |
-    if [[ "$PHPCS" != "TRUE" ]]; then
       echo "=== TESTING PHING ==="
       cd test
       ../bin/phing -Dtests.codecoverage=true
