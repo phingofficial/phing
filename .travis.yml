@@ -12,76 +12,74 @@ cache:
     - $HOME/.composer/cache
     - build/cache
 
-notifications:
-  slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH
+install:
+  - |
+    set -e
+    pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
+    if [[ "$DEPS" == "LOW" ]]; then
+      composer install -n;
+      composer update --prefer-lowest;
+    else
+      composer install -o --no-progress --prefer-dist;
+    fi
+    if [[ "$PHPCS" == "TRUE" ]]; then
+      bin/phpcs -n --standard=./ruleset.xml classes
+    else
+      phpenv config-add .travis.php.ini;
+      phpenv rehash;
+      echo "=== SETTING GIT IDENTITY ===";
+      git config --global user.email "travis-ci-build@phing.info";
+      git config --global user.name "Phing Travis Builder";
+    fi
+script:
+  - |
+    if [[ "$PHPCS" == "FALSE" ]]; then
+      echo "=== TESTING PHING ==="
+      cd test
+      ../bin/phing -Dtests.codecoverage=true
+      cd ..
+    fi
+after_success:
+  - |
+    if [[ "$PHPCS" == "FALSE" ]]; then
+      if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+        bash <(curl -s https://codecov.io/bash)
+      fi
+    fi
 
-jobs:
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.1snapshot
+  - 7.2snapshot
+  - 7.3snapshot
+  - master
+
+env:
+  - DEPS="HIGH"
+  - PHPCS="FALSE"
+
+matrix:
   include:
-    - stage: Static Code Analysis
-      php: 7.2
-      install:
-        - composer install
-      script:
-        - bin/phpcs -n --standard=./ruleset.xml classes
-
-    - &STANDARD_TEST_JOB
-      stage: Test
-      php: 7.2
-      install:
-        - |
-          set -e
-          pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
-          if [[ "$DEPS" == "LOW" ]]; then
-            composer install -n;
-            composer update --prefer-lowest;
-          else
-            composer install -o --no-progress --prefer-dist;
-          fi
-          phpenv config-add .travis.php.ini
-          phpenv rehash
-          echo "=== SETTING GIT IDENTITY ==="
-          git config --global user.email "travis-ci-build@phing.info"
-          git config --global user.name "Phing Travis Builder"
-      script:
-        - |
-          echo "=== TESTING PHING ==="
-          cd test
-          ../bin/phing -Dtests.codecoverage=true
-          cd ..
-      after_success:
-        - |
-          if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-            bash <(curl -s https://codecov.io/bash)
-          fi
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.1
+    - php: 7.2
+      env: PHPCS="TRUE"
+    - php: 7.1
       env: DEPS="LOW"
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.3
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.1snapshot
-      env: DEPS="LOW"
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.2snapshot
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: 7.3snapshot
-
-    -
-      <<: *STANDARD_TEST_JOB
-      php: master
-
-  allow_failures:
+    - php: 7.2
+    - php: 7.3
     - php: 7.1snapshot
       env: DEPS="LOW"
     - php: 7.2snapshot
     - php: 7.3snapshot
     - php: master
+
+  fast_finish: true
+  allow_failures:
+    - php: 7.1snapshot
+    - php: 7.2snapshot
+    - php: 7.3snapshot
+    - php: master
+
+notifications:
+  slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH
