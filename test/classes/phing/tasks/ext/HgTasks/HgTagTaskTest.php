@@ -49,7 +49,7 @@ class HgTagTaskTest extends BuildFileTest
             "abort: unknown revision 'deadbeef'"
         );
         $this->assertInLogs(
-            'Executing: tag --rev \'deadbeef\' --user \'test\' new-tag'
+            'Executing: tag --rev'
         );
     }
 }
