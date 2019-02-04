@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
-
 /**
  * Invokes the ionCube Encoder (PHP4 or PHP5)
  *
@@ -661,16 +659,10 @@ class IoncubeEncoderTask extends Task
                 case "merge":
                 case "update":
                 case "rename":
-                    {
-                        $arguments .= "--" . $this->targetOption . "-target ";
-                }
+                    $arguments .= "--" . $this->targetOption . "-target ";
                     break;
-
                 default:
-                    {
-                        throw new BuildException("Unknown target option '" . $this->targetOption . "'");
-                }
-                    break;
+                    throw new BuildException("Unknown target option '" . $this->targetOption . "'");
             }
         }
 

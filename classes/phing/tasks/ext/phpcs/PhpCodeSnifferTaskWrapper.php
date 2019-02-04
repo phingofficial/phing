@@ -24,7 +24,7 @@
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTask_Wrapper extends PHP_CodeSniffer
+class PhpCodeSnifferTaskWrapper extends PHP_CodeSniffer
 {
     public function __destruct()
     {

@@ -477,18 +477,16 @@ class PhpCodeSnifferTask extends Task
         $_SERVER['argv'] = [];
         $_SERVER['argc'] = 0;
 
-        include_once 'phing/tasks/ext/phpcs/PhpCodeSnifferTask_Wrapper.php';
-
-        $codeSniffer = new PhpCodeSnifferTask_Wrapper($this->verbosity, $this->tabWidth, $this->encoding);
+        $codeSniffer = new PhpCodeSnifferTaskWrapper($this->verbosity, $this->tabWidth, $this->encoding);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if ($this->allowedTypes) {
-            PhpCodeSnifferTask_Wrapper::$allowedTypes = $this->allowedTypes;
+            PhpCodeSnifferTaskWrapper::$allowedTypes = $this->allowedTypes;
         }
         if (is_array($this->ignorePatterns)) {
             $codeSniffer->setIgnorePatterns($this->ignorePatterns);
         }
         foreach ($this->configData as $configData) {
-            $codeSniffer->setConfigData($configData->getName(), $configData->getValue(), true);
+            $codeSniffer::setConfigData($configData->getName(), $configData->getValue(), true);
         }
 
         /*
@@ -543,7 +541,6 @@ class PhpCodeSnifferTask extends Task
         }
 
         if ($this->cache) {
-            include_once 'phing/tasks/ext/phpcs/Reports_PhingRemoveFromCache.php';
             PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache($this->cache);
             // add a fake report to remove from cache
             $_SERVER['argv'][] = '--report-phingRemoveFromCache';
