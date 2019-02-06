@@ -427,14 +427,14 @@ class CoverageReportTask extends Task
                 $statementcount = count(
                     array_filter(
                         $coverageInformation,
-                        create_function('$var', 'return ($var != -2);')
+                        function($var){return ($var != -2);}
                     )
                 );
 
                 $statementscovered = count(
                     array_filter(
                         $coverageInformation,
-                        create_function('$var', 'return ($var >= 0);')
+                        function($var){return ($var >= 0);}
                     )
                 );
 
