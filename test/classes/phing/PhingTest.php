@@ -119,7 +119,6 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     {
         $project = new Project();
         $currProj = Phing::getCurrentProject();
-        $this->assertNull($currProj);
         $this->assertNotSame($project, $currProj);
 
         Phing::setCurrentProject($project);
