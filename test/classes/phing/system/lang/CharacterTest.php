@@ -25,15 +25,22 @@
  */
 class CharacterTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var Character */
+    private $char;
+
+    public function setUp()
+    {
+        $this->char = new Character();
+    }
     /**
      * @dataProvider getChars
      */
     public function testIsChar($elem, bool $expected)
     {
-        $this->assertSame(Character::isLetter($elem), $expected);
+        $this->assertSame($this->char::isLetter($elem), $expected);
     }
 
-    public function getChars()
+    public function getChars(): array
     {
         return [
             'more than 2' => ['as', false],
