@@ -32,6 +32,12 @@ class CharacterTest extends \PHPUnit\Framework\TestCase
     {
         $this->char = new Character();
     }
+
+    public function tearDown()
+    {
+        $this->char = null;
+    }
+
     /**
      * @dataProvider getChars
      */
