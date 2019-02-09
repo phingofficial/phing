@@ -90,7 +90,11 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     public function testFloatOnCurrentTimeMillis()
     {
-        $this->assertIsFloat(Phing::currentTimeMillis());
+        if (method_exists($this, 'assertIsFloat')) {
+            $this->assertIsFloat(Phing::currentTimeMillis());
+        } else {
+            $this->assertInternalType('float', Phing::currentTimeMillis());
+        }
     }
 
     public function testGetPhingVersion()
