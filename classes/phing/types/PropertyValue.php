@@ -29,7 +29,7 @@ class PropertyValue
     /**
      * @var string
      */
-    protected $value = '';
+    protected $value;
 
     /**
      * Constructor optionaly sets a the value of property component.
@@ -66,6 +66,6 @@ class PropertyValue
      */
     public function __toString()
     {
-        return $this->getValue();
+        return (string) $this->getValue();
     }
 }
