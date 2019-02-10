@@ -29,7 +29,7 @@ class PropertyValue
     /**
      * @var string
      */
-    protected $value;
+    protected $value = '';
 
     /**
      * Constructor optionaly sets a the value of property component.
