@@ -101,13 +101,12 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                 $matched[] = $line;
             }
         }
-        $filtered_buffer = implode("\n", $matched);
 
         if ($this->isNegated()) {
-            $filtered_buffer = implode("\n", array_diff($lines, $matched));
+            $matched = array_diff($lines, $matched);
         }
 
-        return $filtered_buffer;
+        return implode("\n", $matched) . "\n";
     }
 
     /**
