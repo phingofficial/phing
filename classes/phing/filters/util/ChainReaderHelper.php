@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Process a FilterReader chain.
@@ -50,22 +49,30 @@
  *
  * TODO: Implement the classPath feature.
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @package   phing.filters.util
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @package phing.filters.util
  */
 class ChainReaderHelper
 {
 
-    /** Primary reader to wich the reader chain is to be attached */
+    /**
+     * Primary reader to wich the reader chain is to be attached
+     */
     private $primaryReader = null;
 
-    /** The site of the buffer to be used. */
+    /**
+     * The site of the buffer to be used.
+     */
     private $bufferSize = 8192;
 
-    /** Chain of filters */
+    /**
+     * Chain of filters
+     */
     private $filterChains = [];
 
-    /** The Phing project */
+    /**
+     * The Phing project
+     */
     private $project;
 
     /*
@@ -118,7 +125,7 @@ class ChainReaderHelper
      */
     public function setFilterChains(&$fchain)
     {
-        $this->filterChains = & $fchain;
+        $this->filterChains = &$fchain;
     }
 
     /*
@@ -136,7 +143,7 @@ class ChainReaderHelper
 
         // Collect all filter readers of all filter chains used ...
         for ($i = 0; $i < $filterReadersCount; $i++) {
-            $filterchain = & $this->filterChains[$i];
+            $filterchain = &$this->filterChains[$i];
             $filterReaders = $filterchain->getFilterReaders();
             $readerCount = count($filterReaders);
             for ($j = 0; $j < $readerCount; $j++) {
@@ -151,7 +158,6 @@ class ChainReaderHelper
                 $filter = $finalFilters[$i];
 
                 if ($filter instanceof PhingFilterReader) {
-
                     // This filter reader is an external class.
                     $className = $filter->getClassName();
                     $classpath = $filter->getClasspath();

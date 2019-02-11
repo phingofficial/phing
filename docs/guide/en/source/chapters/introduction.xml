@@ -40,7 +40,7 @@
                     several files from that XML with different XSLT.</para>
             </listitem>
         </itemizedlist>
-        <para>It the beginning, Binarycloud used the GNU make system; however, this approach had
+        <para>In the beginning, Binarycloud used the GNU make system; however, this approach had
             some drawbacks: The space-before-tab-problem in makefiles, the fact that it is only
             natively available for Unix systems etc. So, the need for a better build system arose.
             Due to its XML build files and modular design, Apache Ant was a logical choice.
@@ -48,17 +48,25 @@
             computer to use it. Besides the need for yet another interpreter (i.e. besides PHP),
             there was also legal/ideological conflict in requiring a commercial JVM (there were
             problems with Ant on JVMs other than Sun's) for an LGPL'd Binarycloud.</para>
+
         <para>So, the development of <acronym>Phing</acronym> began. <acronym>Phing</acronym> is a
             build system written in PHP and uses the ideas of Ant. The first release was designed
             &amp; developed simultaneously, and thus not very sophisticated. This original system
             was quickly pushed to its limits and the need for a better Phing became a priority.
             Andreas Aderhold, who was responsible for <acronym>Phing</acronym>/r1, designed and
-            wrote much of the Phing/r2 that followed. Phing/r2 became the Phing-1.0 that exists
-            today for PHP4.</para>
-        <para>The current development version of <acronym>Phing 2.x</acronym>, requires
-                <acronym>PHP5</acronym> (at least 5.2.x) and makes use of many of the available
+            wrote much of the Phing/r2 that followed. Phing/r2 became the Phing-1.0 that run under 
+            PHP4.</para>
+
+        <para>Next came <acronym>Phing 2.x</acronym>, which required
+                <acronym>PHP5</acronym> (at least 5.2.x) and made use of many of the available
             features in PHP5.2 to achieve a high degree of modularization, code efficiency as well
-            as stability and testability.</para>
+            as stability and testability. Phing became supported as a build tool in a number of
+            various IDEs such as phpStorm, Netbeans 8.1 and the like. From versions 2.3.3, released on
+            7th December 2008, through to version 2.16 Phing has been available to install via PEAR. </para>
+
+        <para>In 2018 active work started on producing <acronym>Phing 3.0</acronym> which requires
+        <acronym>PHP7.1</acronym> at a minimum. Phing 3.0 is only available through Composer
+        or as a .phar archive and is no longer installable via the PEAR installer.</para>
     </sect1>
     <sect1>
         <title>How Phing Works</title>
@@ -81,7 +89,7 @@
         <title>Cool, so how can I help?</title>
         <para><acronym>Phing</acronym> is under active development and there are many things to be
             done. The project will also welcome non-coders to help keep the documentation up to
-            date. If you don't already know about DocBook participåating in the documentation is a
+            date. If you don't already know about DocBook participating in the documentation is a
             great opportunity to get experience! </para>
         <para>To get involved start by doing the following:</para>
         <itemizedlist>

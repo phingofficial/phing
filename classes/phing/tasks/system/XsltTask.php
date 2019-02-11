@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,8 +23,8 @@
  * This is a shortcut for calling the <copy> task with the XSLTFilter used
  * in the <filterchains> section.
  *
- * @author    Andreas Aderhold, andi@binarycloud.com
- * @package   phing.tasks.system
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @package phing.tasks.system
  */
 class XsltTask extends CopyTask
 {
@@ -54,6 +53,7 @@ class XsltTask extends CopyTask
 
     /**
      * Set any XSLT Param and invoke CopyTask::main()
+     *
      * @see CopyTask::main()
      */
     public function main()
@@ -73,6 +73,7 @@ class XsltTask extends CopyTask
 
     /**
      * Set the stylesheet to use.
+     *
      * @param PhingFile $style
      */
     public function setStyle(PhingFile $style)
@@ -106,6 +107,7 @@ class XsltTask extends CopyTask
 
     /**
      * Support nested <param> tags using XSLTParam class.
+     *
      * @return XsltParam
      */
     public function createParam()

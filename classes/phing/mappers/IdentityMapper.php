@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,9 +20,9 @@
 /**
  * This mapper does nothing ;)
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.mappers
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.mappers
  */
 class IdentityMapper implements FileNameMapper
 {
@@ -41,7 +40,8 @@ class IdentityMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $to
+     *
+     * @param  string $to
      * @return void
      */
     public function setTo($to)
@@ -51,7 +51,8 @@ class IdentityMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $from
+     *
+     * @param  string $from
      * @return void
      */
     public function setFrom($from)

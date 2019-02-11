@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.
@@ -30,20 +29,25 @@
  * </tidyfilter>
  * </pre>
  *
- * @author Hans Lellelid <hans@xmpl.org>
- * @package   phing.filters
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.filters
  */
 class TidyFilter extends BaseParamFilterReader implements ChainableReader
 {
 
-    /** @var string Encoding of resulting document. */
+    /**
+     * @var string Encoding of resulting document.
+     */
     private $encoding = 'utf8';
 
-    /** @var array Parameter[] */
+    /**
+     * @var array Parameter[]
+     */
     private $configParameters = [];
 
     /**
      * Set the encoding for resulting (X)HTML document.
+     *
      * @param string $v
      */
     public function setEncoding($v)
@@ -53,8 +57,9 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets the config params.
+     *
      * @param array Parameter[]
-     * @see chain()
+     * @see   chain()
      */
     public function setConfigParameters($params)
     {
@@ -63,6 +68,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Adds a <config> element (which is a Parameter).
+     *
      * @return Parameter
      */
     public function createConfig()
@@ -74,6 +80,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Converts the Parameter objects being used to store configuration into a simle assoc array.
+     *
      * @return array
      */
     private function getDistilledConfig()
@@ -89,10 +96,9 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads input and returns Tidy-filtered output.
      *
-     * @param null $len
+     * @param  null $len
      * @throws BuildException
      * @return int the resulting stream, or -1 if the end of the resulting stream has been reached
-     *
      */
     public function read($len = null)
     {
@@ -122,7 +128,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new TidyFilter using the passed in Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param    A|Reader $reader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

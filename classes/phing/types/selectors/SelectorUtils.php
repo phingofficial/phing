@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/StringHelper.php';
-
 /**
  * <p>This is a utility class used by selectors and DirectoryScanner. The
  * functionality more properly belongs just to selectors, but unfortunately
@@ -29,10 +25,10 @@ include_once 'phing/util/StringHelper.php';
  * </p>
  * <p>This is a Singleton.</p>
  *
- * @author Hans Lellelid, hans@xmpl.org (Phing)
- * @author Arnout J. Kuiper, ajkuiper@wxs.nl (Ant)
- * @author Magesh Umasankar
- * @author Bruce Atherton, bruce@callenish.com (Ant)
+ * @author  Hans Lellelid, hans@xmpl.org (Phing)
+ * @author  Arnout J. Kuiper, ajkuiper@wxs.nl (Ant)
+ * @author  Magesh Umasankar
+ * @author  Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
 class SelectorUtils
@@ -80,8 +76,10 @@ class SelectorUtils
         // DIRECTORY_SEPARATOR.
         // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
         // DIRECTORY_SEPARATOR.
-        if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !==
-            StringHelper::startsWith(DIRECTORY_SEPARATOR, $pattern)
+        if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !== StringHelper::startsWith(
+            DIRECTORY_SEPARATOR,
+            $pattern
+        )
         ) {
             return false;
         }
@@ -160,12 +158,12 @@ class SelectorUtils
      * '?' means one and only one character
      *
      * @param string $pattern The pattern to match against.
-     *                Must not be <code>null</code>.
-     * @param string $str     The string which must be matched against the pattern.
-     *                Must not be <code>null</code>.
+     *                                Must not be
+     *                                <code>null</code>.
+     * @param string $str The string which must be matched against the pattern.
+     *                                Must not be <code>null</code>.
      * @param bool $isCaseSensitive Whether or not matching should be performed
-     *                        case sensitively.
-     *
+     *                                case sensitively.case sensitively.
      *
      * @return bool <code>true</code> if the string matches against the pattern,
      *                           or <code>false</code> otherwise.
@@ -187,9 +185,9 @@ class SelectorUtils
      * false if the src file doesn't even exist, since how could the
      * target then be out of date.
      *
-     * @param  PhingFile $src         the original file
-     * @param  PhingFile $target      the file being compared against
-     * @param  int       $granularity the amount in seconds of slack we will give in
+     * @param  PhingFile $src the original file
+     * @param  PhingFile $target the file being compared against
+     * @param  int $granularity the amount in seconds of slack we will give in
      *                                determining out of dateness
      * @return bool whether   the target is out of date
      */

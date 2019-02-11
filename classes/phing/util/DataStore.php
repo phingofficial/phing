@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -70,8 +69,8 @@ class DataStore
     /**
      * Adds a value to the data store
      *
-     * @param string  $key        the key
-     * @param mixed   $value      the value
+     * @param string $key the key
+     * @param mixed $value the value
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      *
@@ -89,7 +88,7 @@ class DataStore
     /**
      * Remove a value from the data store
      *
-     * @param string  $key        the key
+     * @param string $key the key
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      */
@@ -121,8 +120,10 @@ class DataStore
     private function read()
     {
         if (!$this->file->canRead()) {
-            throw new BuildException("Can't read data store from '" .
-                $this->file->getPath() . "'");
+            throw new BuildException(
+                "Can't read data store from '" .
+                $this->file->getPath() . "'"
+            );
         } else {
             $serializedData = $this->file->contents();
 
@@ -139,8 +140,10 @@ class DataStore
     private function write()
     {
         if (!$this->file->canWrite()) {
-            throw new BuildException("Can't write data store to '" .
-                $this->file->getPath() . "'");
+            throw new BuildException(
+                "Can't write data store to '" .
+                $this->file->getPath() . "'"
+            );
         } else {
             $serializedData = serialize($this->data);
 

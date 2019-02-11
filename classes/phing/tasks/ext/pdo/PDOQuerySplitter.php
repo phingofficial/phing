@@ -30,12 +30,14 @@ abstract class PDOQuerySplitter
 {
     /**
      * Task that uses the splitter
+     *
      * @var PDOSQLExecTask
      */
     protected $parent;
 
     /**
      * Reader with SQL source
+     *
      * @var BufferedReader
      */
     protected $sqlReader;
@@ -44,7 +46,7 @@ abstract class PDOQuerySplitter
      * Constructor, sets the parent task and reader with SQL source
      *
      * @param PDOSQLExecTask $parent
-     * @param Reader         $reader
+     * @param Reader $reader
      */
     public function __construct(PDOSQLExecTask $parent, Reader $reader)
     {

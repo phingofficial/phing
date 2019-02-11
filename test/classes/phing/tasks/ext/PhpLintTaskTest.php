@@ -26,12 +26,12 @@
  */
 class PhpLintTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         @unlink(PHING_TEST_BASE . '/tmp/phplint_file.php');
     }

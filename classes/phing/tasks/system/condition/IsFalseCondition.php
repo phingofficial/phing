@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,8 +20,8 @@
 /**
  * Condition that tests whether a given string evals to false.
  *
- * @author Hans Lellelid (Phing)
- * @author Steve Loughran (Ant)
+ * @author  Hans Lellelid (Phing)
+ * @author  Steve Loughran (Ant)
  * @package phing.tasks.system.condition
  */
 class IsFalseCondition extends ProjectComponent implements Condition
@@ -35,6 +34,7 @@ class IsFalseCondition extends ProjectComponent implements Condition
 
     /**
      * Set the value to be tested.
+     *
      * @param boolean $value
      */
     public function setValue($value)
@@ -44,6 +44,7 @@ class IsFalseCondition extends ProjectComponent implements Condition
 
     /**
      * return the inverted value;
+     *
      * @throws BuildException if someone forgot to spec a value
      */
     public function evaluate()

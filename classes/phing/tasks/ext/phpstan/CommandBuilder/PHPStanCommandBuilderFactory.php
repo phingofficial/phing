@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 class PHPStanCommandBuilderFactory
 {
-
     public function createBuilder(PHPStanTask $task): PHPStanCommandBuilder
     {
         switch ($task->getCommand()) {

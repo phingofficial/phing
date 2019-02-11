@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,14 +20,15 @@
 /**
  * Convenience class for performing file write operations.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class FileWriter extends OutputStreamWriter
 {
 
     /**
      * Construct a new FileWriter.
-     * @param mixed   $file   PhingFile or string pathname.
+     *
+     * @param mixed $file PhingFile or string pathname.
      * @param boolean $append Append to existing file?
      */
     public function __construct($file, $append = false)

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,9 +21,9 @@
  * Selector that filters files based on whether they contain a
  * particular string using regexp.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @package   phing.types.selectors
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
+ * @package phing.types.selectors
  */
 class ContainsRegexpSelector extends BaseExtendSelector
 {
@@ -35,16 +34,24 @@ class ContainsRegexpSelector extends BaseExtendSelector
      */
     private $userProvidedExpression;
 
-    /** @var Regexp $myExpression */
+    /**
+     * @var Regexp $myExpression
+     */
     private $myExpression;
 
-    /** @var bool $casesensitive */
+    /**
+     * @var bool $casesensitive
+     */
     private $casesensitive = true;
 
-    /** @var bool $casesensitive */
+    /**
+     * @var bool $casesensitive
+     */
     private $multiline = false;
 
-    /** @var RegularExpression $myRegExp */
+    /**
+     * @var RegularExpression $myRegExp
+     */
     private $myRegExp;
 
     const EXPRESSION_KEY = "expression";
@@ -123,7 +130,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the pattern attribute has been set.
-     *
      */
     public function verifySettings()
     {

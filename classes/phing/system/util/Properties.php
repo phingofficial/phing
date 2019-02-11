@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,7 +23,7 @@
  * FIXME
  *        - Add support for arrays (separated by ',')
  *
- * @package    phing.system.util
+ * @package phing.system.util
  */
 class Properties
 {
@@ -79,7 +77,7 @@ class Properties
     /**
      * Parses the file given.
      *
-     * @param  PhingFile $file
+     * @param PhingFile $file
      */
     protected function parse(PhingFile $file)
     {
@@ -89,7 +87,8 @@ class Properties
     /**
      * Process values when being written out to properties file.
      * does things like convert true => "true"
-     * @param  mixed  $val The property value (may be boolean, etc.)
+     *
+     * @param  mixed $val The property value (may be boolean, etc.)
      * @return string
      */
     protected function outVal($val)
@@ -124,8 +123,8 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param  PhingFile   $file   File to create/overwrite with properties.
-     * @param  string      $header Header text that will be placed (within comments) at the top of properties file.
+     * @param  PhingFile $file File to create/overwrite with properties.
+     * @param  string $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
@@ -202,7 +201,7 @@ class Properties
      *
      * @param  string $prop The property name (key).
      * @return mixed
-     * @see get()
+     * @see    get()
      */
     public function getProperty($prop)
     {
@@ -220,7 +219,7 @@ class Properties
      *
      * @param  string $prop The property name (key).
      * @return mixed
-     * @see getProperty()
+     * @see    getProperty()
      */
     public function get($prop)
     {
@@ -235,7 +234,7 @@ class Properties
      * Set the value for a property.
      *
      * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed $value
      * @return mixed  Old property value or null if none was set.
      */
     public function setProperty($key, $value)
@@ -254,8 +253,8 @@ class Properties
      * This function exists to provide hashtable-lie
      * interface for properties.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string $key
+     * @param  mixed $value
      * @return mixed
      */
     public function put($key, $value)
@@ -269,7 +268,7 @@ class Properties
      * If the property does not, it just adds it.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      * @param string $delimiter
      */
     public function append($key, $value, $delimiter = ',')
@@ -283,6 +282,7 @@ class Properties
 
     /**
      * Same as keys() function, returns an array of property names.
+     *
      * @return array
      */
     public function propertyNames()
@@ -292,7 +292,8 @@ class Properties
 
     /**
      * Whether loaded properties array contains specified property name.
-     * @param $key
+     *
+     * @param  $key
      * @return boolean
      */
     public function containsKey($key)
@@ -304,6 +305,7 @@ class Properties
      * Returns properties keys.
      * Use this for foreach () {} iterations, as this is
      * faster than looping through property values.
+     *
      * @return array
      */
     public function keys()
@@ -313,6 +315,7 @@ class Properties
 
     /**
      * Whether properties list is empty.
+     *
      * @return boolean
      */
     public function isEmpty()

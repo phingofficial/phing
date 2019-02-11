@@ -30,13 +30,19 @@ class JslLintTask extends Task
 {
     use FileSetAware;
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     protected $file; // the source file (from xml attribute)
 
-    /** @var bool $showWarnings */
+    /**
+     * @var bool $showWarnings
+     */
     protected $showWarnings = true;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     protected $haltOnFailure = false;
 
     /**
@@ -54,19 +60,29 @@ class JslLintTask extends Task
      */
     protected $hasWarnings = false;
 
-    /** @var array $badFiles */
+    /**
+     * @var array $badFiles
+     */
     private $badFiles = [];
 
-    /** @var DataStore */
+    /**
+     * @var DataStore
+     */
     private $cache = null;
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     private $conf = null;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $executable = "jsl";
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     protected $tofile = null;
 
     /**
@@ -202,23 +218,27 @@ class JslLintTask extends Task
         }
 
         if ($this->haltOnFailure && $this->hasErrors) {
-            throw new BuildException('Syntax error(s) in JS files:' . implode(
+            throw new BuildException(
+                'Syntax error(s) in JS files:' . implode(
                     ', ',
                     array_keys($this->badFiles)
-                ));
+                )
+            );
         }
         if ($this->haltOnWarning && $this->hasWarnings) {
-            throw new BuildException('Syntax warning(s) in JS files:' . implode(
+            throw new BuildException(
+                'Syntax warning(s) in JS files:' . implode(
                     ', ',
                     array_keys($this->badFiles)
-                ));
+                )
+            );
         }
     }
 
     /**
      * Performs the actual syntax check
      *
-     * @param  string $file
+     * @param string $file
      *
      * @throws BuildException
      *
@@ -227,8 +247,8 @@ class JslLintTask extends Task
     protected function lint($file)
     {
         $command = $this->executable . ' -output-format ' . escapeshellarg(
-                'file:__FILE__;line:__LINE__;message:__ERROR__'
-            ) . ' ';
+            'file:__FILE__;line:__LINE__;message:__ERROR__'
+        ) . ' ';
 
         if (isset($this->conf)) {
             $command .= '-conf ' . escapeshellarg($this->conf->getPath()) . ' ';

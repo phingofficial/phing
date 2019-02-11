@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,7 +24,7 @@
  * evaluates to true.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @copyright  2001,2002 THYRELL. All rights reserved
+ * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.tasks.system.condition
  */
 class OrCondition extends ConditionBase implements Condition

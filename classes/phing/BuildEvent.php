@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -32,21 +31,23 @@
  * <p> Events are all fired from the project class by creating an event object
  * using this class and passing it to the listeners.
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing
  */
 class BuildEvent extends EventObject
 {
 
     /**
      * A reference to the project
+     *
      * @var Project
      */
     protected $project;
 
     /**
      * A reference to the target
+     *
      * @var Target
      */
     protected $target;
@@ -60,6 +61,7 @@ class BuildEvent extends EventObject
 
     /**
      * The message of this event, if the event is a message
+     *
      * @var string
      */
     protected $message = null;
@@ -67,15 +69,15 @@ class BuildEvent extends EventObject
     /**
      * The priority of the message
      *
-     * @var    int
-     * @see    $message
+     * @var int
+     * @see $message
      */
     protected $priority = Project::MSG_VERBOSE;
 
     /**
      * The exception that caused the event, if any
      *
-     * @var    object
+     * @var object
      */
     protected $exception = null;
 
@@ -109,8 +111,8 @@ class BuildEvent extends EventObject
     /**
      * Sets the message with details and the message priority for this event.
      *
-     * @param  string   The string message of the event
-     * @param  integer  The priority this message should have
+     * @param string   The string message of the event
+     * @param integer  The priority this message should have
      */
     public function setMessage($message, $priority)
     {
@@ -121,7 +123,7 @@ class BuildEvent extends EventObject
     /**
      * Set the exception that was the cause of this event.
      *
-     * @param  Exception The exception that caused the event
+     * @param Exception The exception that caused the event
      */
     public function setException($exception)
     {
@@ -194,9 +196,9 @@ class BuildEvent extends EventObject
      * This field will only be set for "taskFinished", "targetFinished", and
      * "buildFinished" events.
      *
-     * @see BuildListener::taskFinished()
-     * @see BuildListener::targetFinished()
-     * @see BuildListener::buildFinished()
+     * @see    BuildListener::taskFinished()
+     * @see    BuildListener::targetFinished()
+     * @see    BuildListener::buildFinished()
      * @return Exception
      */
     public function getException()

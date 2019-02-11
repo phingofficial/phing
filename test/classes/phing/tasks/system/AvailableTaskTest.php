@@ -26,10 +26,11 @@
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.
+ * @requires OS ^(?:(?!Win).)*$
  */
 class AvailableTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -38,17 +39,13 @@ class AvailableTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("clean");
     }
 
     public function testDanglingSymlink()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Dangling symlinks don't work on Windows");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }

@@ -17,10 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/SubBuildListener.php';
-include_once 'phing/tasks/system/RecorderEntry.php';
-
 /**
  * Adds a listener to the current build process that records the
  * output to a file.
@@ -35,12 +31,14 @@ include_once 'phing/tasks/system/RecorderEntry.php';
  * events (buildFinished, targetFinished and taskFinished), and is closed on
  * a buildFinished event.</p>
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class RecorderTask extends Task implements SubBuildListener
 {
-    /** The name of the file to record to. */
+    /**
+     * The name of the file to record to.
+     */
     private $filename = null;
     /**
      * Whether or not to append. Need Boolean to record an unset state (null).
@@ -51,21 +49,26 @@ class RecorderTask extends Task implements SubBuildListener
      * state (null).
      */
     private $start = null;
-    /** The level to log at. A level of -1 means not initialized yet. */
+    /**
+     * The level to log at. A level of -1 means not initialized yet.
+     */
     private $loglevel = -1;
-    /** Strip task banners if true.  */
+    /**
+     * Strip task banners if true.
+     */
     private $emacsMode = false;
 
     private $logLevelChoices = [
-        'error'   => 0,
-        'warn'    => 1,
-        'info'    => 2,
+        'error' => 0,
+        'warn' => 1,
+        'info' => 2,
         'verbose' => 3,
-        'debug'   => 4
+        'debug' => 4
     ];
 
     /**
      * The list of recorder entries.
+     *
      * @var RecorderEntry[]
      */
     private static $recorderEntries = [];
@@ -102,6 +105,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Whether or not the logger should append to a previous file.
+     *
      * @param bool $append if true, append to a previous file.
      */
     public function setAppend($append)
@@ -112,6 +116,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Set emacs mode.
+     *
      * @param bool $emacsMode if true use emacs mode
      */
     public function setEmacsMode($emacsMode)
@@ -121,6 +126,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Sets the level to which this recorder entry should log to.
+     *
      * @param string $level the level to set.
      */
     public function setLoglevel($level)
@@ -130,6 +136,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * The main execution.
+     *
      * @throws BuildException on error
      */
     public function main()
@@ -166,15 +173,16 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Gets the recorder that's associated with the passed in name. If the
      * recorder doesn't exist, then a new one is created.
-     * @param string $name the name of the recorder
-     * @param Project $proj the current project
+     *
+     * @param  string $name the name of the recorder
+     * @param  Project $proj the current project
      * @return RecorderEntry a recorder
      * @throws BuildException on error
      */
     protected function getRecorder($name, Project $proj)
     {
         // create a recorder entry
-            $entry = isset(self::$recorderEntries[$name]) ? self::$recorderEntries[$name] : new RecorderEntry($name);
+        $entry = isset(self::$recorderEntries[$name]) ? self::$recorderEntries[$name] : new RecorderEntry($name);
 
         if ($this->append == null) {
             $entry->openFile(false);
@@ -189,6 +197,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function buildStarted(BuildEvent $event)
@@ -197,6 +206,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function subBuildStarted(BuildEvent $event)
@@ -205,6 +215,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function targetStarted(BuildEvent $event)
@@ -213,6 +224,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function targetFinished(BuildEvent $event)
@@ -221,6 +233,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function taskStarted(BuildEvent $event)
@@ -229,6 +242,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function taskFinished(BuildEvent $event)
@@ -237,6 +251,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Empty implementation required by SubBuildListener interface.
+     *
      * @param BuildEvent $event ignored.
      */
     public function messageLogged(BuildEvent $event)
@@ -245,6 +260,7 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Cleans recorder registry.
+     *
      * @param BuildEvent $event ignored.
      */
     public function buildFinished(BuildEvent $event)
@@ -255,6 +271,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Cleans recorder registry, if this is the subbuild the task has
      * been created in.
+     *
      * @param BuildEvent $event ignored.
      */
     public function subBuildFinished(BuildEvent $event)

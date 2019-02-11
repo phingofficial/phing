@@ -26,7 +26,7 @@ class SvnSwitchTaskTest extends BuildFileTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
 
@@ -44,7 +44,7 @@ class SvnSwitchTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }

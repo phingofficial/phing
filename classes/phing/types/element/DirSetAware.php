@@ -17,11 +17,11 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DirSet.php';
-
 trait DirSetAware
 {
-    /** @var DirSet[] $dirsets */
+    /**
+     * @var DirSet[] $dirsets
+     */
     protected $dirsets = [];
 
     public function addDirSet(DirSet $dirSet)

@@ -28,14 +28,14 @@ class PHPUnitTaskTest extends BuildFileTest
 {
     protected $backupGlobals = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpunit/build.xml");
     }
 
     /**
      * Regression test for http://www.phing.info/trac/ticket/655
-     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used"
+     * "PlainPHPUnitResultFormatter7 does not display errors if dataProvider was used"
      */
     public function testPlainFormatterDataProvider()
     {

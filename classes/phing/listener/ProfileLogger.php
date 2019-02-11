@@ -20,8 +20,8 @@
 /**
  * This is a special logger that is designed to profile builds.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener
  */
 class ProfileLogger extends DefaultLogger
 {

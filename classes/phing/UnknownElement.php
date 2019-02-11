@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,9 +25,9 @@
  * it is not aware of at start time. This is a situation where special steps
  * need to be taken so that the element is then known.</em>
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing
  */
 class UnknownElement extends Task
 {
@@ -39,7 +38,7 @@ class UnknownElement extends Task
     /**
      * Constructs a UnknownElement object
      *
-     * @param    string  The XML element name that is unknown
+     * @param string  The XML element name that is unknown
      */
     public function __construct($elementName)
     {
@@ -97,7 +96,7 @@ class UnknownElement extends Task
     /**
      * Add a child element to the unknown element
      *
-     * @param UnknownElement $child
+     * @param    UnknownElement $child
      * @internal param The $object object representing the child element
      */
     public function addChild(UnknownElement $child)
@@ -108,7 +107,7 @@ class UnknownElement extends Task
     /**
      *  Handle child elemets of the unknown element, if any.
      *
-     * @param object $parent        The parent object the unknown element belongs to
+     * @param object $parent The parent object the unknown element belongs to
      * @param object $parentWrapper The parent wrapper object
      */
     public function handleChildren($parent, $parentWrapper)
@@ -117,7 +116,7 @@ class UnknownElement extends Task
             $parent = $parent->getProxy();
         }
 
-        $parentClass = get_class($parent);
+        $parentClass = $parent === null ? get_class() : get_class($parent);
         $ih = IntrospectionHelper::getHelper($parentClass);
 
         for ($i = 0, $childrenCount = count($this->children); $i < $childrenCount; $i++) {
@@ -160,8 +159,9 @@ class UnknownElement extends Task
             $o = $this->project->createDataType($ue->getTag());
         }
         if ($o === null) {
-            throw new BuildException("Could not create task/type: '" . $ue->getTag(
-                ) . "'. Make sure that this class has been declared using taskdef / typedef.");
+            throw new BuildException(
+                "Could not create task/type: '" . $ue->getTag() . "'. Make sure that this class has been declared using taskdef / typedef."
+            );
         }
 
         return $o;
@@ -230,6 +230,7 @@ class UnknownElement extends Task
 
     /**
      * Set the configured object
+     *
      * @param object $realThing the configured object
      */
     public function setRealThing($realThing)

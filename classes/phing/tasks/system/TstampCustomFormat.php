@@ -52,17 +52,17 @@ class TstampCustomFormat
     /**
      * validate parameter and execute the format.
      *
-     * @param TstampTask $tstamp reference to task
+     * @param  TstampTask $tstamp reference to task
      * @throws BuildException
      */
-    public function execute(TstampTask $tstamp)
+    public function execute(TstampTask $tstamp, $d, $location)
     {
         if (empty($this->propertyName)) {
-            throw new BuildException("property attribute must be provided");
+            throw new BuildException("property attribute must be provided", $location);
         }
 
         if (empty($this->pattern)) {
-            throw new BuildException("pattern attribute must be provided");
+            throw new BuildException("pattern attribute must be provided", $location);
         }
 
         $oldlocale = "";
@@ -76,7 +76,7 @@ class TstampCustomFormat
             date_default_timezone_set($this->timezone);
         }
 
-        $value = strftime($this->pattern);
+        $value = strftime($this->pattern, $d);
         $tstamp->prefixProperty($this->propertyName, $value);
 
         if (!empty($this->locale)) {

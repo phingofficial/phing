@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,7 +28,8 @@ class UnzipTask extends ExtractBaseTask
 {
     /**
      * Extract archive content into $this->todir directory
-     * @param PhingFile Zip file to extract
+     *
+     * @param  PhingFile Zip file to extract
      * @return boolean
      */
     protected function extractArchive(PhingFile $zipfile)
@@ -60,7 +60,8 @@ class UnzipTask extends ExtractBaseTask
 
     /**
      * List archive content
-     * @param PhingFile Zip file to list content
+     *
+     * @param  PhingFile Zip file to list content
      * @return array List of files inside $zipfile
      */
     protected function listArchiveContent(PhingFile $zipfile)

@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,9 +20,9 @@
 /**
  * Encodes files using Zeng Guard Encoder
  *
- * @author    Petr Rybak <petr@rynawe.net>
- * @package   phing.tasks.ext.zendguard
- * @since     2.4.3
+ * @author  Petr Rybak <petr@rynawe.net>
+ * @package phing.tasks.ext.zendguard
+ * @since   2.4.3
  */
 class ZendGuardEncodeTask extends MatchingTask
 {
@@ -36,7 +34,6 @@ class ZendGuardEncodeTask extends MatchingTask
      *
      * See http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf
      * for more information on how to use ZendGuard
-     *
      */
     /**
      * Permanently deletes (see warning below) the original source files specified in the
@@ -79,7 +76,6 @@ class ZendGuardEncodeTask extends MatchingTask
      */
     protected $aspTags = false;
     /**
-     *
      * Disables the PHP-compatible header that is added to the top of every encoded file
      * by default. Encoded files generated with this option will not display a meaningful
      * error when loaded by PHP that doesn't have the Zend Optimizer properly installed.
@@ -182,6 +178,7 @@ class ZendGuardEncodeTask extends MatchingTask
 
     /**
      * TASK PROPERTIES SETTERS
+     *
      * @param $value
      */
     public function setZendEncoderPath($value)
@@ -389,8 +386,10 @@ class ZendGuardEncodeTask extends MatchingTask
 
         try {
             if (empty($this->filesets)) {
-                throw new BuildException("You must supply nested fileset.",
-                    $this->getLocation());
+                throw new BuildException(
+                    "You must supply nested fileset.",
+                    $this->getLocation()
+                );
             }
 
             $encodedFilesCounter = 0;
@@ -504,7 +503,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Encodes a file using currently defined Zend Guard settings
      *
-     * @param string $filePath Path to the encoded file
+     * @param  string $filePath Path to the encoded file
      * @throws BuildException
      * @return bool
      */

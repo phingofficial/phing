@@ -26,7 +26,7 @@
  */
 class CopyTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,7 +35,7 @@ class CopyTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("clean");
     }
@@ -88,6 +88,8 @@ class CopyTaskTest extends BuildFileTest
     /**
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
      * - Error overwriting symlinks on copy or move
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testOverwriteExistingSymlink()
     {

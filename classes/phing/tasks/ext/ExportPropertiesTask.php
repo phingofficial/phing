@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,9 +20,9 @@
 /**
  * Saves currently defined properties into a specified file
  *
- * @author Andrei Serdeliuc
+ * @author  Andrei Serdeliuc
  * @extends Task
- * @package   phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class ExportPropertiesTask extends Task
 {
@@ -85,9 +84,9 @@ class ExportPropertiesTask extends Task
     /**
      * setter for _disallowedPropertyPrefixes
      *
-     * @param $prefixes
+     * @param    $prefixes
      * @internal param string $file
-     * @return bool
+     * @return   bool
      */
     public function setDisallowedPropertyPrefixes($prefixes)
     {
@@ -123,12 +122,6 @@ class ExportPropertiesTask extends Task
      */
     protected function isDisallowedPropery($propertyName)
     {
-        foreach ($this->_disallowedPropertyPrefixes as $property) {
-            if (substr($propertyName, 0, strlen($property)) == $property) {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array(substr($propertyName, 0, strlen($property)), $this->_disallowedPropertyPrefixes);
     }
 }

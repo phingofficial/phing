@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/parser/ExpatParseException.php';
 
 /**
  * This is an abstract class all SAX handler classes must extend
@@ -61,8 +57,8 @@ abstract class AbstractHandler
      * Must be overloaded by the child class. Throws an ExpatParseException
      * if there is no handler registered for an element.
      *
-     * @param string $name name of the XML element
-     * @param array $attribs attributes of the XML element
+     * @param  string $name name of the XML element
+     * @param  array $attribs attributes of the XML element
      * @throws ExpatParseException
      */
     public function startElement($name, $attribs)
@@ -94,8 +90,8 @@ abstract class AbstractHandler
     /**
      * Invoked by occurrence of #PCDATA.
      *
-     * @param  string $data contents
-     * @throws ExpatParseException
+     * @param     string $data contents
+     * @throws    ExpatParseException
      * @exception ExpatParseException if there is no CDATA but method
      *            was called
      */

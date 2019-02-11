@@ -21,40 +21,50 @@
  * This is a class that represents a recorder. This is the listener to the
  * build process.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class RecorderEntry implements BuildLogger, SubBuildListener
 {
     /**
      * The name of the file associated with this recorder entry.
+     *
      * @var string $filename
      */
     private $filename = null;
 
     /**
      * The state of the recorder (recorder on or off).
+     *
      * @var bool $record
      */
     private $record = true;
 
-    /** The current verbosity level to record at.  */
+    /**
+     * The current verbosity level to record at.
+     */
     private $loglevel;
 
     /**
      * The output OutputStream to record to.
+     *
      * @var OutputStream $out
      */
     private $out = null;
 
-    /** The start time of the last know target.  */
+    /**
+     * The start time of the last know target.
+     */
     private $targetStartTime;
 
-    /** Strip task banners if true.  */
+    /**
+     * Strip task banners if true.
+     */
     private $emacsMode = false;
 
     /**
      * project instance the recorder is associated with
+     *
      * @var Project $project
      */
     private $project;
@@ -90,13 +100,17 @@ class RecorderEntry implements BuildLogger, SubBuildListener
         }
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function buildStarted(BuildEvent $event)
     {
         $this->log("> BUILD STARTED", Project::MSG_DEBUG);
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function buildFinished(BuildEvent $event)
     {
         $this->log("< BUILD FINISHED", Project::MSG_DEBUG);
@@ -107,8 +121,10 @@ class RecorderEntry implements BuildLogger, SubBuildListener
             if ($error == null) {
                 $this->out->write(Phing::getProperty('line.separator') . "BUILD SUCCESSFUL" . PHP_EOL);
             } else {
-                $this->out->write(Phing::getProperty('line.separator') . "BUILD FAILED"
-                    . Phing::getProperty('line.separator') . PHP_EOL);
+                $this->out->write(
+                    Phing::getProperty('line.separator') . "BUILD FAILED"
+                    . Phing::getProperty('line.separator') . PHP_EOL
+                );
                 $this->out->write($error->getTraceAsString());
             }
         }
@@ -138,16 +154,22 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     {
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function targetStarted(BuildEvent $event)
     {
         $this->log(">> TARGET STARTED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
-        $this->log(Phing::getProperty('line.separator') . $event->getTarget()->getName() . ":",
-            Project::MSG_INFO);
+        $this->log(
+            Phing::getProperty('line.separator') . $event->getTarget()->getName() . ":",
+            Project::MSG_INFO
+        );
         $this->targetStartTime = Phing::currentTimeMillis();
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function targetFinished(BuildEvent $event)
     {
         $this->log("<< TARGET FINISHED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
@@ -158,20 +180,26 @@ class RecorderEntry implements BuildLogger, SubBuildListener
         flush();
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function taskStarted(BuildEvent $event)
     {
         $this->log(">>> TASK STARTED -- " . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function taskFinished(BuildEvent $event)
     {
         $this->log("<<< TASK FINISHED -- " . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
         $this->flush();
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function messageLogged(BuildEvent $event)
     {
         $this->log("--- MESSAGE LOGGED", Project::MSG_DEBUG);
@@ -217,7 +245,9 @@ class RecorderEntry implements BuildLogger, SubBuildListener
         }
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function setMessageOutputLevel($level)
     {
         if ($level >= Project::MSG_ERR && $level <= Project::MSG_DEBUG) {
@@ -225,20 +255,26 @@ class RecorderEntry implements BuildLogger, SubBuildListener
         }
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function setOutputStream(OutputStream $output)
     {
         $this->closeFile();
         $this->out = $output;
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function setEmacsMode($emacsMode)
     {
         $this->emacsMode = $emacsMode;
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function setErrorStream(OutputStream $err)
     {
         $this->setOutputStream($err);
@@ -252,12 +288,12 @@ class RecorderEntry implements BuildLogger, SubBuildListener
 
         if ($minutes > 0) {
             return $minutes . " minute"
-            . ($minutes == 1 ? " " : "s ")
-            . ($seconds % 60) . " second"
-            . ($seconds % 60 == 1 ? "" : "s");
+                . ($minutes == 1 ? " " : "s ")
+                . ($seconds % 60) . " second"
+                . ($seconds % 60 == 1 ? "" : "s");
         } else {
             return $seconds . " second"
-            . ($seconds % 60 == 1 ? "" : "s");
+                . ($seconds % 60 == 1 ? "" : "s");
         }
     }
 
@@ -294,7 +330,8 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * Initially opens the file associated with this recorder.
      * Used by Recorder.
-     * @param bool $append Indicates if output must be appended to the logfile or that
+     *
+     * @param  bool $append Indicates if output must be appended to the logfile or that
      * the logfile should be overwritten.
      * @throws BuildException
      */
@@ -318,6 +355,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * Re-opens the file associated with this recorder.
      * Used by Recorder.
+     *
      * @throws BuildException
      */
     public function reopenFile()

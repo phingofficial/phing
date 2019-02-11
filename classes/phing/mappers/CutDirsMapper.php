@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,6 +30,7 @@ class CutDirsMapper implements FileNameMapper
 
     /**
      * Empty implementation.
+     *
      * @param mixed $ignore ignored.
      */
     public function setFrom($ignore)
@@ -39,6 +39,7 @@ class CutDirsMapper implements FileNameMapper
 
     /**
      * The number of leading directories to cut.
+     *
      * @param int $dirs
      */
     public function setTo($dirs)
@@ -46,7 +47,9 @@ class CutDirsMapper implements FileNameMapper
         $this->dirs = (int) $dirs;
     }
 
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function main($sourceFileName)
     {
         if ($this->dirs <= 0) {

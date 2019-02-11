@@ -8,7 +8,7 @@ trait SvnTaskTestSkip
     public function markTestAsSkippedWhenSvnNotInstalled(): void
     {
         exec('svn help > /dev/null 2>&1', $output, $code);
-        if ($code != 0)  {
+        if ($code != 0) {
             $this->markTestSkipped('This test require svn to be installed');
         }
     }

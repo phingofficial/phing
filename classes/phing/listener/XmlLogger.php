@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,40 +23,60 @@
  * The default filename is "log.xml", but this can be overridden
  * with the property <code>XmlLogger.file</code>.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.listener
  */
 class XmlLogger implements BuildLogger
 {
 
-    /** XML element name for a build. */
+    /**
+     * XML element name for a build.
+     */
     const BUILD_TAG = "build";
 
-    /** XML element name for a target. */
+    /**
+     * XML element name for a target.
+     */
     const TARGET_TAG = "target";
 
-    /** XML element name for a task. */
+    /**
+     * XML element name for a task.
+     */
     const TASK_TAG = "task";
 
-    /** XML element name for a message. */
+    /**
+     * XML element name for a message.
+     */
     const MESSAGE_TAG = "message";
 
-    /** XML attribute name for a name. */
+    /**
+     * XML attribute name for a name.
+     */
     const NAME_ATTR = "name";
 
-    /** XML attribute name for a time. */
+    /**
+     * XML attribute name for a time.
+     */
     const TIME_ATTR = "time";
 
-    /** XML attribute name for a message priority. */
+    /**
+     * XML attribute name for a message priority.
+     */
     const PRIORITY_ATTR = "priority";
 
-    /** XML attribute name for a file location. */
+    /**
+     * XML attribute name for a file location.
+     */
     const LOCATION_ATTR = "location";
 
-    /** XML attribute name for an error description. */
+    /**
+     * XML attribute name for an error description.
+     */
     const ERROR_ATTR = "error";
 
-    /** XML element name for a stack trace. */
+    /**
+     * XML element name for a stack trace.
+     */
     const STACKTRACE_TAG = "stacktrace";
 
     /**
@@ -132,7 +151,7 @@ class XmlLogger implements BuildLogger
      * Fired when the build finishes, this adds the time taken and any
      * error stacktrace to the build element and writes the document to disk.
      *
-     * @param BuildEvent $event An event with any relevant extra information.
+     * @param  BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
      * @throws BuildException
      */
@@ -336,7 +355,7 @@ class XmlLogger implements BuildLogger
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
      * @param int $level The logging level for the logger.
-     * @see BuildLogger#setMessageOutputLevel()
+     * @see   BuildLogger#setMessageOutputLevel()
      */
     public function setMessageOutputLevel($level)
     {
@@ -345,8 +364,9 @@ class XmlLogger implements BuildLogger
 
     /**
      * Sets the output stream.
+     *
      * @param OutputStream $output
-     * @see BuildLogger#setOutputStream()
+     * @see   BuildLogger#setOutputStream()
      */
     public function setOutputStream(OutputStream $output)
     {
@@ -355,8 +375,9 @@ class XmlLogger implements BuildLogger
 
     /**
      * Sets the error stream.
+     *
      * @param OutputStream $err
-     * @see BuildLogger#setErrorStream()
+     * @see   BuildLogger#setErrorStream()
      */
     public function setErrorStream(OutputStream $err)
     {

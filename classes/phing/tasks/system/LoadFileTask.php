@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,12 +33,14 @@ class LoadFileTask extends Task
 
     /**
      * File to read
+     *
      * @var PhingFile file
      */
     private $file;
 
     /**
      * Property to be set
+     *
      * @var string $property
      */
     private $property;
@@ -69,6 +70,7 @@ class LoadFileTask extends Task
 
     /**
      * Set file to read
+     *
      * @param PhingFile $file
      */
     public function setFile($file)
@@ -78,7 +80,8 @@ class LoadFileTask extends Task
 
     /**
      * Convenience setter to maintain Ant compatibility (@see setFile())
-     * @param $srcFile
+     *
+     * @param    $srcFile
      * @internal param PhingFile $file
      */
     public function setSrcFile($srcFile)
@@ -88,7 +91,8 @@ class LoadFileTask extends Task
 
     /**
      * Set name of property to be set
-     * @param $property
+     *
+     * @param  $property
      * @return void
      */
     public function setProperty($property)
@@ -120,7 +124,7 @@ class LoadFileTask extends Task
                 $this->file = new PhingFile($this->file);
             }
             if (!$this->file->exists()) {
-                $message = (string)$this->file . ' doesn\'t exist';
+                $message = (string) $this->file . ' doesn\'t exist';
                 if ($this->failOnError) {
                     throw new BuildException($message);
                 } else {
@@ -129,7 +133,7 @@ class LoadFileTask extends Task
                 }
             }
 
-            $this->log("loading " . (string)$this->file . " into property " . $this->property, Project::MSG_VERBOSE);
+            $this->log("loading " . (string) $this->file . " into property " . $this->property, Project::MSG_VERBOSE);
             // read file (through filterchains)
             $contents = "";
 
@@ -140,8 +144,10 @@ class LoadFileTask extends Task
                 }
                 $reader->close();
             } else {
-                $this->log("Do not set property " . $this->property . " as its length is 0.",
-                    $this->quiet ? Project::MSG_VERBOSE : Project::MSG_INFO);
+                $this->log(
+                    "Do not set property " . $this->property . " as its length is 0.",
+                    $this->quiet ? Project::MSG_VERBOSE : Project::MSG_INFO
+                );
             }
 
             // publish as property

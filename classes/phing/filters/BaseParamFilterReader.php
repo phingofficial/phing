@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Base class for core filter readers.
@@ -23,8 +23,8 @@
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @copyright 2003 seasonfive. All rights reserved
  *
- * @see       FilterReader
- * @package   phing.filters
+ * @see     FilterReader
+ * @package phing.filters
  */
 class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
 {

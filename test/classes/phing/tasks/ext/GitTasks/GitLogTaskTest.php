@@ -21,6 +21,7 @@
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitLogTaskTest extends BuildFileTest
 {
@@ -94,7 +95,7 @@ class GitLogTaskTest extends BuildFileTest
 
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
@@ -110,7 +111,7 @@ class GitLogTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }

@@ -21,10 +21,11 @@
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitCloneTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
@@ -35,7 +36,7 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
@@ -57,10 +58,10 @@ class GitCloneTaskTest extends BuildFileTest
         $this->executeTarget('gitClone');
 
         $this->assertInLogs('git-clone: cloning "' . $bundle . '" repository to "' . $repository . '" directory');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($gitFilesDir));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($gitFilesDir);
         // test that file is actully cloned
-        $this->assertTrue(is_readable($repository . '/README'));
+        $this->assertIsReadable($repository . '/README');
     }
 
     public function testGitCloneBare()
@@ -72,11 +73,11 @@ class GitCloneTaskTest extends BuildFileTest
         $this->assertInLogs(
             'git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory'
         );
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($repository . '/branches'));
-        $this->assertTrue(is_dir($repository . '/info'));
-        $this->assertTrue(is_dir($repository . '/hooks'));
-        $this->assertTrue(is_dir($repository . '/refs'));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($repository . '/branches');
+        $this->assertDirectoryExists($repository . '/info');
+        $this->assertDirectoryExists($repository . '/hooks');
+        $this->assertDirectoryExists($repository . '/refs');
     }
 
     public function testNoRepositorySpecified()

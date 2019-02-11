@@ -38,18 +38,22 @@
  * use timestamps is to be preferred. If this selector must be used, use it
  * over as few files as possible, perhaps following it with an &lt;uptodate;&gt
  * to keep the descendant routines conditional.
- *
  */
 class DifferentSelector extends MappingSelector
 {
-    /** @var bool $ignoreFileTimes */
+    /**
+     * @var bool $ignoreFileTimes
+     */
     private $ignoreFileTimes = true;
 
-    /** @var bool $ignoreContents */
+    /**
+     * @var bool $ignoreContents
+     */
     private $ignoreContents = false;
 
     /**
      * This flag tells the selector to ignore file times in the comparison
+     *
      * @param bool $ignoreFileTimes if true ignore file times
      */
     public function setIgnoreFileTimes($ignoreFileTimes)
@@ -59,6 +63,7 @@ class DifferentSelector extends MappingSelector
 
     /**
      * This flag tells the selector to ignore contents
+     *
      * @param bool $ignoreContents if true ignore contents
      */
     public function setIgnoreContents($ignoreContents)
@@ -69,8 +74,8 @@ class DifferentSelector extends MappingSelector
     /**
      * This test is our selection test that compared the file with the destfile.
      *
-     * @param PhingFile $srcfile the source file
-     * @param PhingFile $destfile the destination file
+     * @param  PhingFile $srcfile the source file
+     * @param  PhingFile $destfile the destination file
      * @return bool true if the files are different
      *
      * @throws BuildException

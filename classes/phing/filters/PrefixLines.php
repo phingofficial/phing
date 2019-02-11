@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Attaches a prefix to every line.
@@ -31,22 +29,24 @@
  *  <param name="prefix" value="Foo"/>
  * </filterreader></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @see       FilterReader
- * @package   phing.filters
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author  hans lellelid, hans@velum.net
+ * @see     FilterReader
+ * @package phing.filters
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * Parameter name for the prefix.
+     *
      * @var string
      */
     const PREFIX_KEY = "lines";
 
     /**
      * The prefix to be used.
+     *
      * @var string
      */
     private $_prefix = null;
@@ -54,7 +54,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a prefix to each line of input stream and returns resulting stream.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -109,7 +109,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param    Reader $reader
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

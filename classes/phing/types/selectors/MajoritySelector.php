@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,8 +26,8 @@
  * as exercises for the reader (as are the usecases where this would
  * be necessary).
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 class MajoritySelector extends BaseSelectorContainer
@@ -64,10 +62,10 @@ class MajoritySelector extends BaseSelectorContainer
      * agree. In case of a tie, go by the allowtie setting. That defaults
      * to true, meaning in case of a tie, the file is selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a PhingFile object for the filename that the selector
-     * can use
+     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  string $filename is the name of the file to check
+     * @param  PhingFile $file is a PhingFile object for the filename that the selector
+     *                            can use
      * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

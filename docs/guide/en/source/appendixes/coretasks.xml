@@ -2256,6 +2256,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>,</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>index</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property containing the iteration count.</entry>
+                        <entry>index</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -2387,7 +2394,7 @@ verbose="true" failonerror="false" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
-        <sect2>
+        <sect2 xml:id="ImportTask-target-overriding">
             <title>Target Overriding</title>
             <para>If a target in the main file is also present in at least one of the imported
                 files, the one from the main file takes precedence.</para>
@@ -2847,6 +2854,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>Should the property be set, even if the result is
                             the empty string?</entry>
                         <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>preserveduplicates</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to preserve duplicate resources.</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -4458,7 +4472,11 @@ file defines a task in the format: name=path.to.Task -->
             filenames, or used to replace placeholder tags inside documents to indicate, for
             example, the release date. The best place for this task is probably in an initialization
             target.</para>
-
+        <para>the magic property phing.tstamp.now can be used to specify a fixed date value in order to create
+            reproducible builds. Its value must be a number and is interpreted as seconds since the epoch
+            (midnight 1970-01-01). With phing.tstamp.now.iso you could also specify that value in DateTime compatible
+            format. If you specify a value in an invalid format an INFO message will be logged and the value will be
+            ignored.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">

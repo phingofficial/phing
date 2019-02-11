@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -32,7 +31,7 @@
  * <!-- maps all PHP files from development server to production server, for example -->
  * </code>
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.types
  */
 class Mapper extends DataType
@@ -42,11 +41,15 @@ class Mapper extends DataType
     protected $from;
     protected $to;
 
-    /** @var Path $classpath */
+    /**
+     * @var Path $classpath
+     */
     protected $classpath;
     protected $classpathId;
 
-    /** @var ContainerMapper $container */
+    /**
+     * @var ContainerMapper $container
+     */
     private $container = null;
 
     /**
@@ -61,7 +64,7 @@ class Mapper extends DataType
     /**
      * Set the classpath to be used when searching for component being defined
      *
-     * @param Path $classpath An Path object containing the classpath.
+     * @param  Path $classpath An Path object containing the classpath.
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)
@@ -93,7 +96,8 @@ class Mapper extends DataType
 
     /**
      * Reference to a classpath to use when loading the files.
-     * @param Reference $r
+     *
+     * @param  Reference $r
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
@@ -107,7 +111,8 @@ class Mapper extends DataType
 
     /**
      * Set the type of FileNameMapper to use.
-     * @param $type
+     *
+     * @param  $type
      * @throws BuildException
      */
     public function setType($type)
@@ -120,7 +125,8 @@ class Mapper extends DataType
 
     /**
      * Add a nested <code>FileNameMapper</code>.
-     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
+     *
+     * @param  FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
      * @throws BuildException
      */
     public function add(Mapper $fileNameMapper)
@@ -146,6 +152,7 @@ class Mapper extends DataType
 
     /**
      * Add a Mapper
+     *
      * @param Mapper $mapper the mapper to add
      */
     public function addMapper(Mapper $mapper)
@@ -155,7 +162,8 @@ class Mapper extends DataType
 
     /**
      * Set the class name of the FileNameMapper to use.
-     * @param string $classname
+     *
+     * @param  string $classname
      * @throws BuildException
      */
     public function setClassname($classname)
@@ -168,7 +176,8 @@ class Mapper extends DataType
 
     /**
      * Set the argument to FileNameMapper.setFrom
-     * @param $from
+     *
+     * @param  $from
      * @throws BuildException
      */
     public function setFrom($from)
@@ -181,7 +190,8 @@ class Mapper extends DataType
 
     /**
      * Set the argument to FileNameMapper.setTo
-     * @param $to
+     *
+     * @param  $to
      * @throws BuildException
      */
     public function setTo($to)
@@ -196,7 +206,8 @@ class Mapper extends DataType
      * Make this Mapper instance a reference to another Mapper.
      *
      * You must not set any other attribute if you make it a reference.
-     * @param Reference $r
+     *
+     * @param  Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -207,7 +218,9 @@ class Mapper extends DataType
         parent::setRefid($r);
     }
 
-    /** Factory, returns inmplementation of file name mapper as new instance */
+    /**
+     * Factory, returns inmplementation of file name mapper as new instance
+     */
     public function getImplementation()
     {
         if ($this->isReference()) {
@@ -277,7 +290,9 @@ class Mapper extends DataType
         return $m;
     }
 
-    /** Performs the check for circular references and returns the referenced Mapper. */
+    /**
+     * Performs the check for circular references and returns the referenced Mapper.
+     */
     private function getRef()
     {
         $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);

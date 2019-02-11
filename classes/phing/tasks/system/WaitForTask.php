@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  *  Based on Apache Ant Wait For:
@@ -38,8 +35,8 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
- * @author    Michiel Rook <mrook@php.net>
- * @package   phing.tasks.system
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.system
  */
 class WaitForTask extends ConditionBase
 {
@@ -68,6 +65,7 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the maximum length of time to wait.
+     *
      * @param int $maxWait
      */
     public function setMaxWait($maxWait)
@@ -77,6 +75,7 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the max wait time unit
+     *
      * @param string $maxWaitUnit
      */
     public function setMaxWaitUnit($maxWaitUnit)
@@ -85,7 +84,44 @@ class WaitForTask extends ConditionBase
     }
 
     /**
+     * Convert the unit to a multipler.
+     *
+     * @param  string $unit
+     * @throws BuildException
+     * @return int
+     */
+    protected function _convertUnit($unit)
+    {
+        if ($unit === 'week') {
+            return self::ONE_WEEK;
+        }
+
+        if ($unit === 'day') {
+            return self::ONE_DAY;
+        }
+
+        if ($unit === 'hour') {
+            return self::ONE_HOUR;
+        }
+
+        if ($unit === 'minute') {
+            return self::ONE_MINUTE;
+        }
+
+        if ($unit === 'second') {
+            return self::ONE_SECOND;
+        }
+
+        if ($unit === 'millisecond') {
+            return self::ONE_MILLISECOND;
+        }
+
+        throw new BuildException("Illegal unit '$unit'");
+    }
+
+    /**
      * Set the time between each check
+     *
      * @param int $checkEvery
      */
     public function setCheckEvery($checkEvery)
@@ -95,7 +131,8 @@ class WaitForTask extends ConditionBase
 
     /**
      * Set the check every time unit
-     * @param string $checkEveryUnit
+     *
+     * @param  string $checkEveryUnit
      * @return void
      */
     public function setCheckEveryUnit($checkEveryUnit)
@@ -105,7 +142,8 @@ class WaitForTask extends ConditionBase
 
     /**
      * Name of the property to set after a timeout.
-     * @param string $timeoutProperty
+     *
+     * @param  string $timeoutProperty
      * @return void
      */
     public function setTimeoutProperty($timeoutProperty)
@@ -114,54 +152,9 @@ class WaitForTask extends ConditionBase
     }
 
     /**
-     * Convert the unit to a multipler.
-     * @param string $unit
-     * @throws BuildException
-     * @return int
-     */
-    protected function _convertUnit($unit)
-    {
-        switch ($unit) {
-            case "week":
-            {
-                return self::ONE_WEEK;
-            }
-
-            case "day":
-            {
-                return self::ONE_DAY;
-            }
-
-            case "hour":
-            {
-                return self::ONE_HOUR;
-            }
-
-            case "minute":
-            {
-                return self::ONE_MINUTE;
-            }
-
-            case "second":
-            {
-                return self::ONE_SECOND;
-            }
-
-            case "millisecond":
-            {
-                return self::ONE_MILLISECOND;
-            }
-
-            default:
-                {
-                throw new BuildException("Illegal unit '$unit'");
-                }
-        }
-    }
-
-    /**
      * Check repeatedly for the specified conditions until they become
      * true or the timeout expires.
+     *
      * @throws BuildException
      */
     public function main()

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,7 +21,7 @@
  * Contains some shared attributes and methods -- and some abstract methods with
  * engine-specific implementations that sub-classes must override.
  *
- * @author Hans Lellelid <hans@velum.net>
+ * @author  Hans Lellelid <hans@velum.net>
  * @package phing.util.regexp
  */
 interface RegexpEngine
@@ -30,6 +29,7 @@ interface RegexpEngine
 
     /**
      * Sets whether or not regex operation should ingore case.
+     *
      * @param  boolean $bit
      * @return void
      */
@@ -37,57 +37,65 @@ interface RegexpEngine
 
     /**
      * Returns status of ignore case flag.
+     *
      * @return boolean
      */
     public function getIgnoreCase();
 
     /**
      * Sets whether regexp should be applied in multiline mode.
+     *
      * @param boolean $bit
      */
     public function setMultiline($bit);
 
     /**
      * Gets whether regexp is to be applied in multiline mode.
+     *
      * @return boolean
      */
     public function getMultiline();
 
     /**
      * Sets the maximum possible replacements for each pattern.
+     *
      * @param int $limit
      */
     public function setLimit($limit);
 
     /**
      * Returns the maximum possible replacements for each pattern.
+     *
      * @return int
      */
     public function getLimit();
 
     /**
      * Matches pattern against source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     *
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function match($pattern, $source, &$matches);
 
     /**
      * Matches all patterns in source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     *
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches);
 
     /**
      * Replaces $pattern with $replace in $source string.
+     *
      * @param  string $pattern The regex pattern to match.
      * @param  string $replace The string with which to replace matches.
-     * @param  string $source  The source string.
+     * @param  string $source The source string.
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source);

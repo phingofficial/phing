@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,8 +20,8 @@
 /**
  * Parameterizable objects take genric key value pairs.
  *
- * @author Hans Lellelid, hans@xmpl.org (Phing)
- * @author Magesh Umasankar (Ant)
+ * @author  Hans Lellelid, hans@xmpl.org (Phing)
+ * @author  Magesh Umasankar (Ant)
  * @package phing.types
  */
 interface Parameterizable

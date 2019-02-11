@@ -4,7 +4,7 @@ class HgRevertTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 
@@ -15,7 +15,7 @@ class HgRevertTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }

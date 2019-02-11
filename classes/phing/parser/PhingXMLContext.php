@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,8 +20,8 @@
 /**
  * Track the current state of the Xml parse operation.
  *
- * @author    Bryan Davis <bpd@keynetics.com>
- * @package   phing.parser
+ * @author  Bryan Davis <bpd@keynetics.com>
+ * @package phing.parser
  */
 class PhingXMLContext
 {
@@ -50,6 +49,7 @@ class PhingXMLContext
 
     /**
      * Constructor
+     *
      * @param Project $project the project to which this antxml context belongs to
      */
     public function __construct(Project $project)
@@ -60,7 +60,9 @@ class PhingXMLContext
         $this->implicitTarget->setHidden(true);
     }
 
-    /** The project to configure. */
+    /**
+     * The project to configure.
+     */
     private $project;
 
     private $configurators = [];
@@ -91,7 +93,9 @@ class PhingXMLContext
         }
     }
 
-    /** Impoerted files */
+    /**
+     * Impoerted files
+     */
     private $importStack = [];
 
     /**
@@ -112,6 +116,7 @@ class PhingXMLContext
 
     /**
      * find out the project to which this context belongs
+     *
      * @return project
      */
     public function getProject()

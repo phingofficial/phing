@@ -19,6 +19,7 @@
 
 /**
  * Text element points to a file or contains text.
+ *
  * @package phing.tasks.system.AppendTask
  */
 class TextElement extends ProjectComponent
@@ -53,7 +54,8 @@ class TextElement extends ProjectComponent
 
     /**
      * set the text using a file
-     * @param PhingFile $file the file to use
+     *
+     * @param  PhingFile $file the file to use
      * @throws BuildException if the file does not exist, or cannot be
      *                        read
      */
@@ -83,6 +85,7 @@ class TextElement extends ProjectComponent
 
     /**
      * set the text using inline
+     *
      * @param string $value the text to place inline
      */
     public function addText($value)
@@ -92,6 +95,7 @@ class TextElement extends ProjectComponent
 
     /**
      * s:^\s*:: on each line of input
+     *
      * @param bool $trimLeading if true do the trim
      */
     public function setTrimLeading($trimLeading)
@@ -101,6 +105,7 @@ class TextElement extends ProjectComponent
 
     /**
      * whether to call text.trim()
+     *
      * @param bool $trim if true trim the text
      */
     public function setTrim($trim)

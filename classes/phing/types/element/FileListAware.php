@@ -19,7 +19,9 @@
 
 trait FileListAware
 {
-    /** @var FileList[] $filelists */
+    /**
+     * @var FileList[] $filelists
+     */
     protected $filelists = [];
 
     public function addFileList(FileList $fileList)

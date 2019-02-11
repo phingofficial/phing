@@ -23,22 +23,28 @@
  * than the destination file, or when the destination file does not
  * exist. It is possible to explicitly overwrite existing files.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
+ * @author Andreas Aderhold, andi@binarycloud.com
  *
- * @package  phing.tasks.system
+ * @package phing.tasks.system
  */
 class CopyTask extends Task
 {
     use ResourceAware;
     use FilterChainAware;
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     protected $file = null; // the source file (from xml attribute)
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     protected $destFile = null; // the destiantion file (from xml attribute)
 
-    /** @var PhingFile */
+    /**
+     * @var PhingFile
+     */
     protected $destDir = null; // the destination dir (from xml attribute)
 
     protected $overwrite = false; // overwrite destination (from xml attribute)
@@ -47,22 +53,30 @@ class CopyTask extends Task
     protected $includeEmpty = true; // include empty dirs? (from XML)
     protected $flatten = false; // apply the FlattenMapper right way (from XML)
 
-    /** @var Mapper */
+    /**
+     * @var Mapper
+     */
     protected $mapperElement = null;
 
     protected $fileCopyMap = []; // asoc array containing mapped file names
     protected $dirCopyMap = []; // asoc array containing mapped file names
     protected $completeDirMap = []; // asoc array containing complete dir names
 
-    /** @var FileUtils */
+    /**
+     * @var FileUtils
+     */
     protected $fileUtils = null; // a instance of fileutils
 
     protected $verbosity = Project::MSG_VERBOSE;
 
-    /** @var int $mode */
+    /**
+     * @var int $mode
+     */
     protected $mode = 0; // mode to create directories with
 
-    /** @var bool $haltonerror */
+    /**
+     * @var bool $haltonerror
+     */
     protected $haltonerror = true; // stop build on errors
 
     protected $enableMultipleMappings = false;
@@ -83,7 +97,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean $bool Overwrite the destination file(s) if it/they already exist
+     * @param boolean $bool Overwrite the destination file(s) if it/they already exist
      *
      * @return void
      */
@@ -98,6 +112,7 @@ class CopyTask extends Task
      * the same name in the source directory tree, only the first
      * file will be copied into the "flattened" directory, unless
      * the forceoverwrite attribute is true.
+     *
      * @param bool $flatten if true flatten the destination directory. Default
      *                is false.
      */
@@ -108,6 +123,7 @@ class CopyTask extends Task
 
     /**
      * Used to force listing of all names of copied files.
+     *
      * @param boolean $verbosity
      */
     public function setVerbose($verbosity)
@@ -344,8 +360,8 @@ class CopyTask extends Task
                 $srcFiles = $ds->getIncludedFiles();
                 $srcDirs = $ds->getIncludedDirectories();
 
-                if (!$this->flatten && $this->mapperElement === null &&
-                    $ds->isEverythingIncluded()
+                if (!$this->flatten && $this->mapperElement === null
+                    && $ds->isEverythingIncluded()
                 ) {
                     $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
                 }
@@ -513,7 +529,6 @@ class CopyTask extends Task
                 $s = new PhingFile((string) $srcdir);
                 $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
-
                     // Setting source directory permissions to target
                     // (On permissions preservation, the target directory permissions
                     // will be inherited from the source directory, otherwise the 'mode'
@@ -534,8 +549,7 @@ class CopyTask extends Task
             }
             if ($count > 0) {
                 $this->log(
-                    "Created " . $count . " empty director" . ($count == 1 ? "y" : "ies") . " in " . $this->destDir->getAbsolutePath(
-                    )
+                    "Created " . $count . " empty director" . ($count == 1 ? "y" : "ies") . " in " . $this->destDir->getAbsolutePath()
                 );
             }
         }
@@ -545,18 +559,35 @@ class CopyTask extends Task
         }
 
         $this->log(
-            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath(
-            )
+            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath()
         );
         // walks the map and actually copies the files
         $count = 0;
         foreach ($this->fileCopyMap as $from => $toFiles) {
             if (is_array($toFiles)) {
                 foreach ($toFiles as $to) {
-                    $this->copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total);
+                    $this->copyToSingleDestination(
+                        $from,
+                        $to,
+                        $fromSlot,
+                        $fromBasenameSlot,
+                        $toSlot,
+                        $toBasenameSlot,
+                        $count,
+                        $total
+                    );
                 }
             } else {
-                $this->copyToSingleDestination($from, $toFiles, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total);
+                $this->copyToSingleDestination(
+                    $from,
+                    $toFiles,
+                    $fromSlot,
+                    $fromBasenameSlot,
+                    $toSlot,
+                    $toBasenameSlot,
+                    $count,
+                    $total
+                );
             }
         }
     }
@@ -571,8 +602,16 @@ class CopyTask extends Task
      * @param $count
      * @param $total
      */
-    private function copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, &$count, &$total)
-    {
+    private function copyToSingleDestination(
+        $from,
+        $to,
+        $fromSlot,
+        $fromBasenameSlot,
+        $toSlot,
+        $toBasenameSlot,
+        &$count,
+        &$total
+    ) {
         if ($from === $to) {
             $this->log("Skipping self-copy of " . $from, $this->verbosity);
             $total--;

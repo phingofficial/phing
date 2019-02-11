@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -56,8 +55,8 @@
  * <b>empty-cond</b> - Condition without a body
  * <b>expr-unused</b> - Expression result is never used
  *
- * @author   Knut Urdalen <knut.urdalen@gmail.com>
- * @package  phing.tasks.ext
+ * @author  Knut Urdalen <knut.urdalen@gmail.com>
+ * @package phing.tasks.ext
  */
 class ZendCodeAnalyzerTask extends Task
 {
@@ -113,6 +112,7 @@ class ZendCodeAnalyzerTask extends Task
 
     /**
      * Sets the haltonwarning flag
+     *
      * @param boolean $value
      */
     public function setHaltonwarning($value)

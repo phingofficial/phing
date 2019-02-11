@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -57,12 +56,14 @@ class AutoloaderTask extends Task
     public function main()
     {
         if (is_dir($this->autoloaderPath) || !is_readable($this->autoloaderPath)) {
-            throw new BuildException(sprintf(
-                'Provided autoloader file "%s" is not a readable file',
-                $this->autoloaderPath
-            ));
+            throw new BuildException(
+                sprintf(
+                    'Provided autoloader file "%s" is not a readable file',
+                    $this->autoloaderPath
+                )
+            );
         }
         $this->log('Loading autoloader from ' . $this->autoloaderPath);
-        require_once $this->autoloaderPath;
+        include_once $this->autoloaderPath;
     }
 }

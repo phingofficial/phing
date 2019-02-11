@@ -50,7 +50,7 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         error_reporting($this->savedErrorLevel);
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');

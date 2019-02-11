@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -40,16 +38,17 @@
  * This will include only those lines that contain <code>foo</code> and
  * <code>bar</code>.
  *
- * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @author    Hans Lellelid <hans@velum.net>
- * @see       PhingFilterReader
- * @package   phing.filters
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
+ * @author  Hans Lellelid <hans@velum.net>
+ * @see     PhingFilterReader
+ * @package phing.filters
  */
 class LineContains extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * The parameter name for the string to match on.
+     *
      * @var string
      */
     const CONTAINS_KEY = "contains";
@@ -57,16 +56,20 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Array of Contains objects.
+     *
      * @var array
      */
     private $_contains = [];
 
-    /** @var bool $negate */
+    /**
+     * @var bool $negate
+     */
     private $negate = false;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
-     * @param null $len
+     *
+     * @param  null $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -109,6 +112,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Set the negation mode.  Default false (no negation).
+     *
      * @param boolean $b the boolean negation mode to set.
      */
     public function setNegate($b)
@@ -118,6 +122,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Find out whether we have been negated.
+     *
      * @return boolean negation flag.
      */
     public function isNegated()
@@ -142,7 +147,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Sets the array of words which must be contained within a line read
      * from the original stream in order for it to match this filter.
      *
-     * @param array $contains An array of words which must be contained
+     * @param  array $contains An array of words which must be contained
      *                        within a line in order for it to match in this filter.
      *                        Must not be <code>null</code>.
      * @throws Exception

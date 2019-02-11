@@ -27,7 +27,7 @@
  */
 class PharPackageTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (ini_get('phar.readonly') == "1") {
             $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
@@ -67,7 +67,7 @@ class PharPackageTaskTest extends BuildFileTest
         $this->assertEquals('OpenSSL', $signature['hash_type']);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');

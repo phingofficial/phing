@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -37,14 +36,15 @@
  *   </fileset>
  * </ftpdeploy>
  *
- * @author Jorrit Schippers <jorrit at ncode dot nl>
+ * @author      Jorrit Schippers <jorrit at ncode dot nl>
  * @contributor Steffen Sørensen <steffen@sublife.dk>
- * @since 2.3.1
- * @package  phing.tasks.ext
+ * @since       2.3.1
+ * @package     phing.tasks.ext
  */
 class FtpDeployTask extends Task
 {
     use FileSetAware;
+    use LogLevelAware;
 
     private $host = null;
     private $port = 21;
@@ -61,8 +61,6 @@ class FtpDeployTask extends Task
     private $filemode = false;
     private $rawDataFallback = false;
     private $skipOnSameSize = false;
-
-    protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      *
@@ -195,31 +193,6 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * Set level of log messages generated (default = info)
-     * @param string $level
-     */
-    public function setLevel($level)
-    {
-        switch ($level) {
-            case "error":
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case "warning":
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case "info":
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case "verbose":
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case "debug":
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-        }
-    }
-
-    /**
      * The init method: check if Net_FTP is available
      */
     public function init()
@@ -240,30 +213,33 @@ class FtpDeployTask extends Task
     {
         $project = $this->getProject();
 
-        require_once 'PEAR.php';
-        require_once 'Net/FTP.php';
+        include_once 'PEAR.php';
+        include_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
         if ($this->ssl) {
             $ret = $ftp->setSsl();
             if (@PEAR::isError($ret)) {
-                throw new BuildException('SSL connection not supported by php' . ': ' . $ret->getMessage(
-                    ));
+                throw new BuildException(
+                    'SSL connection not supported by php' . ': ' . $ret->getMessage()
+                );
             } else {
                 $this->log('Use SSL connection', $this->logLevel);
             }
         }
         $ret = $ftp->connect();
         if (@PEAR::isError($ret)) {
-            throw new BuildException('Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage(
-                ));
+            throw new BuildException(
+                'Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage()
+            );
         } else {
             $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
         }
 
         $ret = $ftp->login($this->username, $this->password);
         if (@PEAR::isError($ret)) {
-            throw new BuildException('Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage(
-                ));
+            throw new BuildException(
+                'Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage()
+            );
         } else {
             $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
         }

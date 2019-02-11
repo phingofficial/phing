@@ -216,7 +216,8 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
         $source = '\\\\' . PregEngine::DELIMITER . 'abc\\' . PregEngine::DELIMITER . '123\\' . PregEngine::DELIMITER . 'efg' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
         $pregEngine->match($pattern, $source, $matches);
 
-        $this->assertEquals([$source], $matches, 'The match method did not properly escape uses of the delimiter in the regular expression.');
+        $this->assertEquals([$source], $matches,
+            'The match method did not properly escape uses of the delimiter in the regular expression.');
     }
 
     /**
@@ -229,7 +230,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
         $source = '1234';
         $pregEngine->matchAll($pattern, $source, $matches);
 
-        $this->assertEquals([['12','34']], $matches);
+        $this->assertEquals([['12', '34']], $matches);
     }
 
     /**

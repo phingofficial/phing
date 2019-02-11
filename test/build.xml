@@ -68,7 +68,9 @@
                         <include name="**/*.php"/>
                         <!-- exclude these to prevent fatals when running on phpunit 6 (the default) -->
                         <exclude name="**/phpunit/PHPUnitTestRunner.php"/>
+						<exclude name="**/phpunit/PHPUnitTestRunner6.php"/>
                         <exclude name="**/phpunit/formatter5/*.php"/>
+						<exclude name="**/phpunit/formatter6/*.php"/>
                     </fileset>
         		</coverage-setup>
 	    	</then>
@@ -83,12 +85,12 @@
 				<fileset refid="relevant-tests"/>
 			</batchtest>
 		</phpunit>
-		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
-			infile="${tests.reports.dir.resolved}/test-results.xml"
-			styledir="${phing.etc.dir.resolved}"/>
         <if>
             <equals arg1="${tests.codecoverage}" arg2="true"/>
         	<then>
+		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
+			infile="${tests.reports.dir.resolved}/test-results.xml"
+			styledir="${phing.etc.dir.resolved}"/>
                 <coverage-report outfile="reports/coverage.xml">
                     <report todir="reports/coverage" styledir="${phing.etc.dir.resolved}" title="Phing"
                         usesorttable="true"/>

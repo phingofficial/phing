@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -47,8 +46,8 @@ class TargetLogger extends AnsiColorLogger
     public function targetFinished(BuildEvent $event)
     {
         $msg = PHP_EOL . "Target time: " . self::formatTime(
-                Phing::currentTimeMillis() - $this->targetStartTime
-            ) . PHP_EOL;
+            Phing::currentTimeMillis() - $this->targetStartTime
+        ) . PHP_EOL;
         $event->setMessage($msg, Project::MSG_INFO);
         $this->messageLogged($event);
         $this->targetName = null;

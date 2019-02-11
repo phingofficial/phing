@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Encode data from <code>in</code> encoding to <code>out</code> encoding.
@@ -34,8 +32,8 @@
  * </filterreader>
  * </pre>
  *
- * @author    Alexey Shockov, <alexey@shockov.com>
- * @package   phing.filters
+ * @author  Alexey Shockov, <alexey@shockov.com>
+ * @package phing.filters
  */
 class IconvFilter extends BaseParamFilterReader implements ChainableReader
 {
@@ -45,7 +43,8 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Returns first n lines of stream.
-     * @param null $len
+     *
+     * @param  null $len
      * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
@@ -68,8 +67,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         $this->log(
-            "Encoding " . $this->in->getResource() . " from " . $this->getInputEncoding(
-            ) . " to " . $this->getOutputEncoding(),
+            "Encoding " . $this->in->getResource() . " from " . $this->getInputEncoding() . " to " . $this->getOutputEncoding(),
             Project::MSG_VERBOSE
         );
 
@@ -115,7 +113,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new IconvFilter using the passed in Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param    Reader $reader
      * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      *
      * @return self A new filter based on this configuration, but filtering the specified reader.

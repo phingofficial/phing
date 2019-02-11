@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +17,10 @@
  * <http://phing.info>.
  */
 
-/** Class to hold a property value
+/**
+ * Class to hold a property value
  *  Class only required to make it possible to add a property as reference
+ *
  * @package phing.types
  */
 class PropertyValue
@@ -32,7 +33,8 @@ class PropertyValue
 
     /**
      * Constructor optionaly sets a the value of property component.
-     * @param    mixed      Value of name, all scalars allowed
+     *
+     * @param mixed      Value of name, all scalars allowed
      */
     public function __construct($value = null)
     {
@@ -43,14 +45,17 @@ class PropertyValue
 
     /**
      * Sets a the value of property component.
-     * @param    mixed      Value of name, all scalars allowed
+     *
+     * @param mixed      Value of name, all scalars allowed
      */
     public function setValue($value)
     {
         $this->value = (string) $value;
     }
 
-    /** Get the value of property component. */
+    /**
+     * Get the value of property component.
+     */
     public function getValue()
     {
         return $this->value;
@@ -61,6 +66,6 @@ class PropertyValue
      */
     public function __toString()
     {
-        return $this->getValue();
+        return (string) $this->getValue();
     }
 }

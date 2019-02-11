@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,35 +20,39 @@
 /**
  * Task that changes the permissions on a file/directory.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class Basename extends Task
 {
-    /** @var PhingFile $file */
+    /**
+     * @var PhingFile $file
+     */
     private $file;
 
-    /** @var string $property */
+    /**
+     * @var string $property
+     */
     private $property;
 
-    /** @var string $suffix */
+    /**
+     * @var string $suffix
+     */
     private $suffix;
 
     /**
      * file or directory to get base name from
+     *
      * @param PhingFile $file file or directory to get base name from
      */
-    public function setFile($file)
+    public function setFile(PhingFile $file)
     {
-        if (is_string($file)) {
-            $this->file = new PhingFile($file);
-        } else {
-            $this->file = $file;
-        }
+        $this->file = $file;
     }
 
     /**
      * Property to set base name to.
+     *
      * @param string $property name of property
      */
     public function setProperty($property)
@@ -59,6 +62,7 @@ class Basename extends Task
 
     /**
      * Optional suffix to remove from base name.
+     *
      * @param string $suffix suffix to remove from base name
      */
     public function setSuffix($suffix)
@@ -68,6 +72,7 @@ class Basename extends Task
 
     /**
      * do the work
+     *
      * @throws BuildException if required attributes are not supplied
      *                        property and attribute are required attributes
      */
@@ -77,21 +82,22 @@ class Basename extends Task
             throw new BuildException("property attribute required", $this->getLocation());
         }
 
-        if ($this->file == null) {
+        if ($this->file === null) {
             throw new BuildException("file attribute required", $this->getLocation());
         }
 
-        $value = $this->file->getName();
-        if ($this->suffix != null && StringHelper::endsWith($this->suffix, $value)) {
-            // if the suffix does not starts with a '.' and the
-            // char preceding the suffix is a '.', we assume the user
-            // wants to remove the '.' as well
-            $pos = strlen($value) - strlen($this->suffix) - 1;
-            if ($pos > 0 && $this->suffix{0} !== '.' && $value{$pos} === '.') {
-                $pos--;
-            }
-            $value = StringHelper::substring($value, 0, $pos);
+        $this->getProject()->setNewProperty(
+            $this->property,
+            $this->removeExtension($this->file->getName(), $this->suffix)
+        );
+    }
+
+    private function removeExtension(?string $s, ?string $ext)
+    {
+        if ($ext === null || !StringHelper::endsWith($ext, $s)) {
+            return $s;
         }
-        $this->getProject()->setNewProperty($this->property, $value);
+
+        return rtrim(substr($s, 0, -strlen($ext)), '.');
     }
 }

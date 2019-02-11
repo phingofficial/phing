@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,11 +21,12 @@
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the client_to_server and server_to_client keys of the optional $methods parameter
  * for the ssh2_connect function
+ *
  * @see http://php.net/ssh2_connect
  *
  * @author Derek Gallo <http://github.com/drock>
  *
- * @package   phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class Ssh2MethodConnectionParam
 {
@@ -96,6 +96,7 @@ class Ssh2MethodConnectionParam
     /**
      * Get the params as an array
      * unset/null params are excluded from the array
+     *
      * @return array
      */
     public function toArray()

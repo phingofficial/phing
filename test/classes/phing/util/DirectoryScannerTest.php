@@ -34,14 +34,14 @@ class DirectoryScannerTest extends BuildFileTest
 {
     private $_basedir = "";
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->_basedir = PHING_TEST_BASE . "/etc/util/tmp";
         $this->configureProject(PHING_TEST_BASE . "/etc/util/directoryscanner.xml");
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("cleanup");
     }

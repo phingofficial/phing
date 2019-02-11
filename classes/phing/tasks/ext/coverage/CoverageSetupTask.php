@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,9 +20,9 @@
 /**
  * Initializes a code coverage database
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.coverage
- * @since 2.1.0
+ * @since   2.1.0
  */
 class CoverageSetupTask extends Task
 {
@@ -31,7 +30,9 @@ class CoverageSetupTask extends Task
     use FileListAware;
     use FileSetAware;
 
-    /** the filename of the coverage database */
+    /**
+     * the filename of the coverage database
+     */
     private $database = "coverage.db";
 
     /**
@@ -57,7 +58,7 @@ class CoverageSetupTask extends Task
             try {
                 $list = $fl->getFiles($this->project);
                 foreach ($list as $file) {
-                    $fs = new PhingFile((string)$fl->getDir($this->project), $file);
+                    $fs = new PhingFile((string) $fl->getDir($this->project), $file);
                     $files[] = ['key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath()];
                 }
             } catch (BuildException $be) {

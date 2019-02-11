@@ -69,126 +69,147 @@ interface SelectorContainer
 
     /**
      * add a "Select" selector entry on the selector list
+     *
      * @param SelectSelector $selector
      */
     public function addSelector(SelectSelector $selector);
 
     /**
      * add an "And" selector entry on the selector list
+     *
      * @param AndSelector $selector
      */
     public function addAnd(AndSelector $selector);
 
     /**
      * add an "Or" selector entry on the selector list
+     *
      * @param OrSelector $selector
      */
     public function addOr(OrSelector $selector);
 
     /**
      * add a "Not" selector entry on the selector list
+     *
      * @param NotSelector $selector
      */
     public function addNot(NotSelector $selector);
 
     /**
      * add a "None" selector entry on the selector list
+     *
      * @param NoneSelector $selector
      */
     public function addNone(NoneSelector $selector);
 
     /**
      * add a majority selector entry on the selector list
+     *
      * @param MajoritySelector $selector
      */
     public function addMajority(MajoritySelector $selector);
 
     /**
      * add a selector date entry on the selector list
+     *
      * @param DateSelector $selector
      */
     public function addDate(DateSelector $selector);
 
     /**
      * add a selector size entry on the selector list
+     *
      * @param SizeSelector $selector
      */
     public function addSize(SizeSelector $selector);
 
     /**
      * add a selector filename entry on the selector list
+     *
      * @param FilenameSelector $selector
      */
     public function addFilename(FilenameSelector $selector);
 
     /**
      * add an extended selector entry on the selector list
+     *
      * @param ExtendSelector $selector
      */
     public function addCustom(ExtendSelector $selector);
 
     /**
      * add a contains selector entry on the selector list
+     *
      * @param ContainsSelector $selector
      */
     public function addContains(ContainsSelector $selector);
 
     /**
      * add a contains selector entry on the selector list
+     *
      * @param ContainsRegexpSelector $selector
      */
     public function addContainsRegexp(ContainsRegexpSelector $selector);
 
     /**
      * add a present selector entry on the selector list
+     *
      * @param PresentSelector $selector
      */
     public function addPresent(PresentSelector $selector);
 
     /**
      * add a depth selector entry on the selector list
+     *
      * @param DepthSelector $selector
      */
     public function addDepth(DepthSelector $selector);
 
     /**
      * add a depends selector entry on the selector list
+     *
      * @param DependSelector $selector
      */
     public function addDepend(DependSelector $selector);
 
     /**
      * add a different selector entry on the selector list
+     *
      * @param DifferentSelector $selector
      */
     public function addDifferent(DifferentSelector $selector);
 
     /**
      * add a type selector entry on the selector list
+     *
      * @param TypeSelector $selector
      */
     public function addType(TypeSelector $selector);
 
     /**
      * add a executable selector entry on the selector list
+     *
      * @param ExecutableSelector $selector
      */
     public function addExecutable(ExecutableSelector $selector);
 
     /**
      * add a readable selector entry on the selector list
+     *
      * @param ReadableSelector $selector
      */
     public function addReadable(ReadableSelector $selector);
 
     /**
      * add a writable selector entry on the selector list
+     *
      * @param WritableSelector $selector
      */
     public function addWritable(WritableSelector $selector);
 
     /**
      * add a symlink selector entry on the selector list
+     *
      * @param SymlinkSelector $selector
      */
     public function addSymlink(SymlinkSelector $selector);

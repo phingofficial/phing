@@ -5,7 +5,9 @@ declare(strict_types=1);
 class SassTaskCompilerFactory
 {
 
-    /** @var FileSystem */
+    /**
+     * @var FileSystem
+     */
     private $fs;
 
     public function __construct(FileSystem $fs)

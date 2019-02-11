@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,8 +20,8 @@
 /**
  * Utility class for generating necessary server-specific SQL commands
  *
- * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @package  phing.tasks.ext.dbdeploy
+ * @author  Luke Crouch at SourceForge (http://sourceforge.net)
+ * @package phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxMysql extends DbmsSyntax
 {

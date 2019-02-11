@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -53,6 +52,7 @@ class EqualsCondition implements Condition
 
     /**
      * Should we want to trim the arguments before comparing them?
+     *
      * @param boolean $b
      */
     public function setTrim($b)
@@ -62,6 +62,7 @@ class EqualsCondition implements Condition
 
     /**
      * Should the comparison be case sensitive?
+     *
      * @param boolean $b
      */
     public function setCaseSensitive($b)

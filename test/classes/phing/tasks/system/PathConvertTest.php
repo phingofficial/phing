@@ -28,7 +28,7 @@ class PathConvertTest extends BuildFileTest
     /**
      * Setup the test
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PathConvertTest.xml');
@@ -51,6 +51,22 @@ class PathConvertTest extends BuildFileTest
     public function testMapper()
     {
         $this->assertTarget('testmapper');
+    }
+
+    public function testUnique()
+    {
+        $p = new Path($this->project, '/a:/a');
+        $p->setPath("\\a;/a");
+        $l = $p->listPaths();
+        $this->assertCount(1, $l, "1 after setPath");
+        $p->append(new Path($this->project, "/a;\\a:\\a"));
+        $l = $p->listPaths();
+        $this->assertCount(1, $l, "1 after append");
+        $p->createPath()->setPath("\\a:/a");
+        $l = $p->listPaths();
+        $this->assertCount(1, $l, "1 after append");
+        $l = $p->listPaths(true);
+        $this->assertCount(6, $l, "6 after preserved duplicates");
     }
 
     private function assertTarget(string $target)

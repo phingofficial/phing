@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,12 +16,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/FileParserInterface.php';
 
 /**
  * Implements a YamlFileParser to parse yaml-files as array.
  *
- * @author Mike Lohmann <mike.lohmann@deck36.de>
+ * @author  Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
 class YamlFileParser implements FileParserInterface
@@ -67,6 +65,7 @@ class YamlFileParser implements FileParserInterface
 
     /**
      * Flattens an array to key => value.
+     *
      * @todo: milo - 20142901 - If you plan to extend phing and add a new fileparser, please move this to an abstract
      * class.
      *
@@ -76,7 +75,7 @@ class YamlFileParser implements FileParserInterface
     {
         $flattenedArray = [];
         foreach ($arrayToFlatten as $key => $value) {
-            $tmpFlattendKey = (!empty($flattenedKey) ? $flattenedKey.$separator : '') . $key;
+            $tmpFlattendKey = (!empty($flattenedKey) ? $flattenedKey . $separator : '') . $key;
             // only append next value if is array and is an associative array
             if (is_array($value) && array_keys($value) !== range(0, count($value) - 1)) {
                 $flattenedArray = array_merge(

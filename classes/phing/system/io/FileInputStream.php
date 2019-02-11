@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,13 +20,14 @@
 /**
  * Input stream subclass for file streams.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class FileInputStream extends InputStream
 {
 
     /**
      * The associated file.
+     *
      * @var PhingFile
      */
     protected $file;
@@ -35,7 +35,7 @@ class FileInputStream extends InputStream
     /**
      * Construct a new FileInputStream.
      *
-     * @param  PhingFile|string $file   Path to the file
+     * @param  PhingFile|string $file Path to the file
      * @throws Exception        - if invalid argument specified.
      * @throws IOException      - if unable to open file.
      */
@@ -57,7 +57,10 @@ class FileInputStream extends InputStream
         }
         $stream = @fopen($this->file->getAbsolutePath(), "rb");
         if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(error_get_last(), true));
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(
+                error_get_last(),
+                true
+            ));
         }
 
         parent::__construct($stream);
@@ -65,6 +68,7 @@ class FileInputStream extends InputStream
 
     /**
      * Returns a string representation of the attached file.
+     *
      * @return string
      */
     public function __toString()
@@ -74,6 +78,7 @@ class FileInputStream extends InputStream
 
     /**
      * Mark is supported by FileInputStream.
+     *
      * @return boolean TRUE
      */
     public function markSupported()

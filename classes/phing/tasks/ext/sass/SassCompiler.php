@@ -5,10 +5,14 @@ declare(strict_types=1);
 class SassCompiler implements SassTaskCompiler
 {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $executable;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $flags;
 
     public function __construct(string $executable, string $flags)
@@ -40,7 +44,7 @@ class SassCompiler implements SassTaskCompiler
     /**
      * Executes the command and returns return code and output.
      *
-     * @param string $inputFile  Input file
+     * @param string $inputFile Input file
      * @param string $outputFile Output file
      *
      * @access protected

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
@@ -35,13 +34,19 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  */
 class ConditionTask extends ConditionBase
 {
-    /** @var string $property */
+    /**
+     * @var string $property
+     */
     private $property;
 
-    /** @var string $value */
+    /**
+     * @var string $value
+     */
     private $value = "true";
 
-    /** @var string $alternative */
+    /**
+     * @var string $alternative
+     */
     private $alternative;
 
     /**
@@ -51,10 +56,11 @@ class ConditionTask extends ConditionBase
     {
         parent::__construct('condition');
     }
-    
+
     /**
      * The name of the property to set. Required.
-     * @param string $p
+     *
+     * @param  string $p
      * @return void
      */
     public function setProperty($p)
@@ -64,7 +70,8 @@ class ConditionTask extends ConditionBase
 
     /**
      * The value for the property to set. Defaults to "true".
-     * @param string $v
+     *
+     * @param  string $v
      * @return void
      */
     public function setValue($v)
@@ -82,9 +89,10 @@ class ConditionTask extends ConditionBase
     {
         $this->alternative = $v;
     }
-    
+
     /**
      * See whether our nested condition holds and set the property.
+     *
      * @throws BuildException
      * @return void
      */

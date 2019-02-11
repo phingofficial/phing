@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/selectors/BaseExtendSelector.php';
-
 /**
  * Selector that filters files based on whether they contain a
  * particular string.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 class ContainsSelector extends BaseExtendSelector
@@ -94,7 +90,7 @@ class ContainsSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param array $parameters the complete set of parameters for this selector
+     * @param  array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
     public function setParameters($parameters)
@@ -123,7 +119,6 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the pattern attribute has been set.
-     *
      */
     public function verifySettings()
     {

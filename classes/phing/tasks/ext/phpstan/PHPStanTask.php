@@ -5,67 +5,114 @@ declare(strict_types=1);
 class PHPStanTask extends Task
 {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $executable = 'phpstan';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $command = 'analyse';
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $help;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $quiet;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $version;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $ansi;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $noAnsi;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $noInteraction;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $verbose;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $configuration;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $level;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $noProgress;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
+    private $checkreturn;
+
+    /**
+     * @var bool
+     */
     private $debug;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $autoloadFile;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $errorFormat;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $memoryLimit;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $format;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $raw;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $namespace;
 
-    /** @var string Analyse command paths */
+    /**
+     * @var string Analyse command paths
+     */
     private $paths;
 
-    /** @var string Help command command name*/
+    /**
+     * @var string Help command command name
+     */
     private $commandName;
 
     public function getExecutable(): string
@@ -126,6 +173,11 @@ class PHPStanTask extends Task
     public function isNoProgress(): ?bool
     {
         return $this->noProgress;
+    }
+
+    public function isCheckreturn(): ?bool
+    {
+        return $this->checkreturn;
     }
 
     public function isDebug(): ?bool
@@ -233,6 +285,11 @@ class PHPStanTask extends Task
         $this->noProgress = $noProgress;
     }
 
+    public function setCheckreturn(bool $checkreturn)
+    {
+        $this->checkreturn = $checkreturn;
+    }
+
     public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
@@ -283,12 +340,17 @@ class PHPStanTask extends Task
         $commandBuilder = (new PHPStanCommandBuilderFactory())->createBuilder($this);
         $command = $commandBuilder->build($this);
 
-        $this->log('Executing: ' . $command, Project::MSG_INFO);
+        $this->log('Executing: ' . $command);
 
         $output = [];
         $return = null;
         exec($command, $output, $return);
 
-        return [$return, $output];
+        $level = Project::MSG_INFO;
+        if (0 != $return && $this->checkreturn) {
+            $level = Project::MSG_ERR;
+        }
+
+        $this->log(implode("\n", $output), $level);
     }
 }

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,8 +22,8 @@
  * must refuse to select a file before the file is considered selected by
  * this selector.
  *
- * @author Hans Lellelid <hans@xmpl.org>
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 class NoneSelector extends BaseSelectorContainer
@@ -49,10 +48,10 @@ class NoneSelector extends BaseSelectorContainer
      * Returns true (the file is selected) only if all other selectors
      * agree that the file should not be selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a java.io.File object for the filename that the selector
-     * can use
+     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  string $filename is the name of the file to check
+     * @param  PhingFile $file is a java.io.File object for the filename that the selector
+     *                            can use
      * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

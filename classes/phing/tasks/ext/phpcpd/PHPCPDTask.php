@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -209,11 +208,13 @@ class PHPCPDTask extends Task
     {
         if (!empty($this->pharLocation)) {
             // hack to prevent PHPCPD from starting in CLI mode and halting Phing
-            eval("namespace SebastianBergmann\PHPCPD\CLI;
+            eval(
+                "namespace SebastianBergmann\PHPCPD\CLI;
 class Application
 {
     public function run() {}
-}");
+}"
+            );
 
             ob_start();
             include $this->pharLocation;
@@ -225,8 +226,8 @@ class Application
         }
 
         if (class_exists('Composer\\Autoload\\ClassLoader', false) && class_exists(
-                '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy'
-            )
+            '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy'
+        )
         ) {
             return;
         }

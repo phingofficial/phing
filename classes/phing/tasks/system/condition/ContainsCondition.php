@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,8 +22,8 @@ require_once 'phing/tasks/system/condition/Condition.php';
 /**
  * Is one string part of another string?
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.tasks.system.condition
  */
 class ContainsCondition implements Condition
@@ -36,6 +34,7 @@ class ContainsCondition implements Condition
 
     /**
      * The string to search in.
+     *
      * @param string $a1
      */
     public function setString($a1)
@@ -45,6 +44,7 @@ class ContainsCondition implements Condition
 
     /**
      * The string to search for.
+     *
      * @param string $a2
      */
     public function setSubstring($a2)
@@ -54,6 +54,7 @@ class ContainsCondition implements Condition
 
     /**
      * Whether to search ignoring case or not.
+     *
      * @param $b
      */
     public function setCaseSensitive($b)
@@ -63,13 +64,16 @@ class ContainsCondition implements Condition
 
     /**
      * Check whether string contains substring.
+     *
      * @throws BuildException
      */
     public function evaluate()
     {
         if ($this->string === null || $this->subString === null) {
-            throw new BuildException("both string and substring are required "
-                . "in contains");
+            throw new BuildException(
+                "both string and substring are required "
+                . "in contains"
+            );
         }
 
         return $this->caseSensitive

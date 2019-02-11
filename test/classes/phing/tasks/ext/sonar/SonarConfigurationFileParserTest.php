@@ -24,7 +24,7 @@
  */
 class SonarConfigurationFileParserTest extends BuildFileTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/ConfigurationFileParserTest.xml';
         $this->configureProject($buildXmlFile);
@@ -76,7 +76,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $properties = $parser->parse();
 
-        $this->assertTrue(is_array($properties));
+        $this->assertInternalType('array', $properties);
         $this->assertEmpty($properties);
     }
 

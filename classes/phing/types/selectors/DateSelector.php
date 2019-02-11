@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,9 +22,9 @@
  * millisecond precision (thanks to Java); PHP is forced to use only seconds
  * precision.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @package   phing.types.selectors
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
+ * @package phing.types.selectors
  */
 class DateSelector extends BaseExtendSelector
 {
@@ -135,6 +134,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * Sets the number of milliseconds leeway we will give before we consider
      * a file not to have matched a date.
+     *
      * @param int $granularity
      */
     public function setGranularity($granularity)
@@ -162,7 +162,7 @@ class DateSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param array $parameters the complete set of parameters for this selector
+     * @param  array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
     public function setParameters($parameters)
@@ -218,9 +218,9 @@ class DateSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param  PhingFile $basedir  the base directory the scan is being done from
-     * @param  string    $filename is the name of the file to check
-     * @param  PhingFile $file     is a PhingFile object the selector can use
+     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  string $filename is the name of the file to check
+     * @param  PhingFile $file is a PhingFile object the selector can use
      * @return boolean   Whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,48 +17,52 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * Uses glob patterns to perform filename transformations.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @package   phing.mappers
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @package phing.mappers
  */
 class GlobMapper implements FileNameMapper
 {
     /**
      * Part of &quot;from&quot; pattern before the <code>.*</code>.
+     *
      * @var string $fromPrefix
      */
     private $fromPrefix = null;
 
     /**
      * Part of &quot;from&quot; pattern after the <code>.*</code>.
+     *
      * @var string $fromPostfix
      */
     private $fromPostfix = null;
 
     /**
      * Length of the prefix (&quot;from&quot; pattern).
+     *
      * @var int $prefixLength
      */
     private $prefixLength;
 
     /**
      * Length of the postfix (&quot;from&quot; pattern).
+     *
      * @var int $postfixLength
      */
     private $postfixLength;
 
     /**
      * Part of &quot;to&quot; pattern before the <code>*.</code>.
+     *
      * @var string $toPrefix
      */
     private $toPrefix = null;
 
     /**
      * Part of &quot;to&quot; pattern after the <code>*.</code>.
+     *
      * @var string $toPostfix
      */
     private $toPostfix = null;
@@ -72,6 +75,7 @@ class GlobMapper implements FileNameMapper
     /**
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
+     *
      * @param boolean $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)
@@ -101,7 +105,8 @@ class GlobMapper implements FileNameMapper
 
     /**
      * {@inheritdoc}
-     * @param mixed $sourceFileName
+     *
+     * @param  mixed $sourceFileName
      * @return array|null
      */
     public function main($sourceFileName)
@@ -109,27 +114,26 @@ class GlobMapper implements FileNameMapper
         $modName = $this->modifyName($sourceFileName);
         if ($this->fromPrefix === null
             || (strlen($sourceFileName) < ($this->prefixLength + $this->postfixLength)
-            || (!$this->fromContainsStar && !$modName === $this->modifyName($this->fromPrefix))
-            )
+                || (!$this->fromContainsStar && !$modName === $this->modifyName($this->fromPrefix)))
             || ($this->fromContainsStar
                 && (!StringHelper::startsWith($this->modifyName($this->fromPrefix), $modName)
-                    || !StringHelper::endsWith($this->modifyName($this->fromPostfix), $modName))
-            )
+                    || !StringHelper::endsWith($this->modifyName($this->fromPostfix), $modName)))
         ) {
             return null;
         }
         return [
             $this->toPrefix . (
-                $this->toContainsStar
-                    ? $this->extractVariablePart($sourceFileName) . $this->toPostfix
-                    : ''
+            $this->toContainsStar
+                ? $this->extractVariablePart($sourceFileName) . $this->toPostfix
+                : ''
             )
         ];
     }
 
     /**
      * {@inheritdoc}
-     * @param string $from
+     *
+     * @param  string $from
      * @return void
      */
     public function setFrom($from)
@@ -155,7 +159,8 @@ class GlobMapper implements FileNameMapper
     /**
      * Sets the &quot;to&quot; pattern. Required.
      * {@inheritdoc}
-     * @param string $to
+     *
+     * @param  string $to
      * @return void
      */
     public function setTo($to)
@@ -177,7 +182,8 @@ class GlobMapper implements FileNameMapper
 
     /**
      * Extracts the variable part.
-     * @param string $name
+     *
+     * @param  string $name
      * @return string
      */
     private function extractVariablePart($name)
@@ -187,7 +193,8 @@ class GlobMapper implements FileNameMapper
 
     /**
      * modify string based on dir char mapping and case sensitivity
-     * @param string $name the name to convert
+     *
+     * @param  string $name the name to convert
      * @return string the converted name
      */
     private function modifyName($name)

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -37,73 +36,105 @@
  * delimiter --> The delimiter string that separates the values in the "list"
  *               parameter.  The default is ",".
  *
- * @author    Jason Hines <jason@greenhell.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Jason Hines <jason@greenhell.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class ForeachTask extends Task
 {
     use ResourceAware;
 
-    /** Delimter-separated list of values to process. */
+    /**
+     * Delimter-separated list of values to process.
+     */
     private $list;
 
-    /** Name of parameter to pass to callee */
+    /**
+     * Name of parameter to pass to callee
+     */
     private $param;
 
-    /** @var PropertyTask[] $params */
+    /**
+     * @var PropertyTask[] $params
+     */
     private $params = [];
 
-    /** Name of absolute path parameter to pass to callee */
+    /**
+     * Name of absolute path parameter to pass to callee
+     */
     private $absparam;
 
-    /** Delimiter that separates items in $list */
+    /**
+     * Delimiter that separates items in $list
+     */
     private $delimiter = ',';
 
     /**
      * PhingCallTask that will be invoked w/ calleeTarget.
+     *
      * @var PhingCallTask
      */
     private $callee;
 
-    /** Instance of mapper */
+    /**
+     * Instance of mapper
+     */
     private $mapperElement;
 
     /**
      * Target to execute.
+     *
      * @var string
      */
     private $calleeTarget;
 
     /**
      * Total number of files processed
+     *
      * @var integer
      */
     private $total_files = 0;
 
     /**
      * Total number of directories processed
+     *
      * @var integer
      */
     private $total_dirs = 0;
 
-    /** @var bool $trim */
+    /**
+     * @var bool $trim
+     */
     private $trim = false;
 
-    /** @var  $inheritAll */
+    /**
+     * @var  $inheritAll
+     */
     private $inheritAll = false;
 
-    /** @var bool $inheritRefs */
+    /**
+     * @var bool $inheritRefs
+     */
     private $inheritRefs = false;
 
-    /** @var Path $currPath */
+    /**
+     * @var Path $currPath
+     */
     private $currPath;
 
-    /** @var PhingReference[] $references */
+    /**
+     * @var PhingReference[] $references
+     */
     private $references = [];
 
     /**
+     * @var string $index
+     */
+    private $index = 'index';
+
+    /**
      * This method does the work.
+     *
      * @throws BuildException
      * @return void
      */
@@ -130,7 +161,7 @@ class ForeachTask extends Task
             $arr = explode($this->delimiter, $this->list);
             $total_entries = 0;
 
-            foreach ($arr as $value) {
+            foreach ($arr as $index => $value) {
                 if ($this->trim) {
                     $value = trim($value);
                 }
@@ -151,6 +182,10 @@ class ForeachTask extends Task
                 $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->index);
+                $prop->setValue($index);
                 $callee->main();
                 $total_entries++;
             }
@@ -221,45 +256,26 @@ class ForeachTask extends Task
         $filecount = count($srcFiles);
         $this->total_files += $filecount;
 
-        for ($j = 0; $j < $filecount; $j++) {
-            $value = $srcFiles[$j];
-            $premapped = "";
-
-            if ($this->absparam) {
-                $prop = $callee->createProperty();
-                $prop->setOverride(true);
-                $prop->setName($this->absparam);
-                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
-            }
-
-            if ($mapper !== null) {
-                $premapped = $value;
-                $value = $mapper->main($value);
-                if ($value === null) {
-                    continue;
-                }
-                $value = array_shift($value);
-            }
-
-            if ($this->param) {
-                $this->log(
-                    "Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''),
-                    Project::MSG_VERBOSE
-                );
-                $prop = $callee->createProperty();
-                $prop->setOverride(true);
-                $prop->setName($this->param);
-                $prop->setValue($value);
-            }
-
-            $callee->main();
-        }
+        $this->processResources($filecount, $srcFiles, $callee, $fromDir, $mapper);
 
         $dircount = count($srcDirs);
         $this->total_dirs += $dircount;
 
-        for ($j = 0; $j < $dircount; $j++) {
-            $value = $srcDirs[$j];
+        $this->processResources($dircount, $srcDirs, $callee, $fromDir, $mapper);
+    }
+
+    /**
+     * @param int $rescount
+     * @param array $srcRes
+     * @param $callee
+     * @param $fromDir
+     * @param $mapper
+     * @throws IOException
+     */
+    private function processResources(int $rescount, array $srcRes, $callee, $fromDir, $mapper)
+    {
+        for ($j = 0; $j < $rescount; $j++) {
+            $value = $srcRes[$j];
             $premapped = "";
 
             if ($this->absparam) {
@@ -347,6 +363,11 @@ class ForeachTask extends Task
         $this->delimiter = (string) $delimiter;
     }
 
+    public function setIndex($index)
+    {
+        $this->index = $index;
+    }
+
     public function createPath()
     {
         if ($this->currPath === null) {
@@ -416,7 +437,9 @@ class ForeachTask extends Task
 
     private function createCallTarget()
     {
-        /** @var PhingCallTask $ct */
+        /**
+         * @var PhingCallTask $ct
+         */
         $ct = $this->getProject()->createTask("phingcall");
         $ct->setOwningTarget($this->getOwningTarget());
         $ct->setTaskName($this->getTaskName());

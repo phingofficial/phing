@@ -49,8 +49,8 @@ abstract class BuildFileTest extends TestCase
     /**
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
-     * @param int    $priority Message priority (default: any)
-     * @param string $errmsg   The error message to display.
+     * @param int $priority Message priority (default: any)
+     * @param string $errmsg The error message to display.
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
@@ -72,7 +72,7 @@ abstract class BuildFileTest extends TestCase
             }
         }
         $representation = [];
-        foreach($this->logBuffer as $log) {
+        foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
         $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
@@ -81,11 +81,14 @@ abstract class BuildFileTest extends TestCase
     /**
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
-     * @param int    $priority Message priority (default: any)
-     * @param string $errmsg   The error message to display.
+     * @param int $priority Message priority (default: any)
+     * @param string $errmsg The error message to display.
      */
-    protected function assertLogLineContaining($expected, $priority = null, $errormsg = "Expected to find a log line that starts with '%s': %s")
-    {
+    protected function assertLogLineContaining(
+        $expected,
+        $priority = null,
+        $errormsg = "Expected to find a log line that starts with '%s': %s"
+    ) {
         $found = false;
         foreach ($this->logBuffer as $log) {
             if (false !== strpos($log['message'], $expected)) {
@@ -104,16 +107,17 @@ abstract class BuildFileTest extends TestCase
             }
         }
         $representation = [];
-        foreach($this->logBuffer as $log) {
+        foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
         $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
+
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
      * @param string $expected Message subsctring
-     * @param int    $priority Message priority (default: any)
-     * @param string $errmsg   The error message to display.
+     * @param int $priority Message priority (default: any)
+     * @param string $errmsg The error message to display.
      */
     protected function assertNotInLogs(
         $message,
@@ -123,7 +127,7 @@ abstract class BuildFileTest extends TestCase
         foreach ($this->logBuffer as $log) {
             if (false !== stripos($log['message'], $message)) {
                 $representation = [];
-                foreach($this->logBuffer as $log) {
+                foreach ($this->logBuffer as $log) {
                     $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
                 }
                 $this->fail(sprintf($errormsg, $message, var_export($representation, true)));
@@ -137,7 +141,7 @@ abstract class BuildFileTest extends TestCase
      *  run a target, expect for any build exception
      *
      * @param string $target target to run
-     * @param string $cause  information string to reader of report
+     * @param string $cause information string to reader of report
      */
     protected function expectBuildException($target, $cause)
     {
@@ -177,8 +181,8 @@ abstract class BuildFileTest extends TestCase
     /**
      *  execute the target, verify output matches expectations
      *
-     * @param string $target  target to execute
-     * @param string $output  output to look for
+     * @param string $target target to execute
+     * @param string $output output to look for
      */
     protected function expectOutput($target, $output)
     {
@@ -190,9 +194,9 @@ abstract class BuildFileTest extends TestCase
     /**
      *  execute the target, verify output matches expectations
      *  and that we got the named error at the end
-     * @param string $target  target to execute
-     * @param string $output  output to look for
-     * @param string $error   Description of Parameter
+     * @param string $target target to execute
+     * @param string $output output to look for
+     * @param string $error Description of Parameter
      */
 
     protected function expectOutputAndError($target, $output, $error)
@@ -305,8 +309,8 @@ abstract class BuildFileTest extends TestCase
      *  run a target, wait for a build exception
      *
      * @param string $target target to run
-     * @param string $cause  information string to reader of report
-     * @param string $msg    the message value of the build exception we are waiting for
+     * @param string $cause information string to reader of report
+     * @param string $msg the message value of the build exception we are waiting for
      * set to null for any build exception to be valid
      */
     protected function expectSpecificBuildException($target, $cause, $msg)
@@ -334,9 +338,9 @@ abstract class BuildFileTest extends TestCase
      *  containing the substring we look for (case sensitive match)
      *
      * @param string $target target to run
-     * @param string $cause  information string to reader of report
-     * @param string $msg    the message value of the build exception we are waiting for
-     * @param string $contains  substring of the build exception to look for
+     * @param string $cause information string to reader of report
+     * @param string $msg the message value of the build exception we are waiting for
+     * @param string $contains substring of the build exception to look for
      */
     protected function expectBuildExceptionContaining($target, $cause, $contains)
     {
@@ -346,6 +350,7 @@ abstract class BuildFileTest extends TestCase
             $this->buildException = $ex;
             $found = false;
             while ($ex) {
+                $msg = $ex->getMessage();
                 if (false !== strpos($ex->getMessage(), $contains)) {
                     $found = true;
                 }
@@ -354,8 +359,8 @@ abstract class BuildFileTest extends TestCase
 
             if (!$found) {
                 $this->fail(
-                    "Should throw BuildException because '" . $cause . "' with message containing '" . $contains . "' (actual message '" . $ex->getMessage(
-                    ) . "' instead)"
+                    "Should throw BuildException because '" . $cause . "' with message containing '" . $contains
+                    . "' (actual message '" . $msg . "' instead)"
                 );
             }
 
@@ -508,6 +513,19 @@ abstract class BuildFileTest extends TestCase
         }
 
         return $returndate;
+    }
+
+
+
+    public function assertFileSizeAtLeast(string $filepath, int $bytes)
+    {
+        $actualSize = filesize($filepath);
+
+        if (!is_int($actualSize)) {
+            $this->fail("Error while reading file '$filepath'");
+        }
+
+        $this->assertGreaterThanOrEqual($bytes, $actualSize);
     }
 }
 

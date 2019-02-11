@@ -21,8 +21,8 @@ require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 /**
  * Rollbacks the database changes.
  *
- * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since 2.4.10
+ * @author  Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
+ * @since   2.4.10
  * @package phing.tasks.ext.liquibase
  */
 class LiquibaseRollbackTask extends AbstractLiquibaseTask

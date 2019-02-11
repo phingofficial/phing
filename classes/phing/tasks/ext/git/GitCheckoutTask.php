@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,33 +20,37 @@
 /**
  * Wrapper around git-checkout
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitCheckoutTask extends GitBaseTask
 {
     /**
      * Branch name
+     *
      * @var string
      */
     private $branchname;
 
     /**
      * If not HEAD, specify starting point
+     *
      * @var string
      */
     private $startPoint;
 
     /**
      * --force, -f key to git-checkout
+     *
      * @var boolean
      */
     private $force = false;
 
     /**
      * --quiet, -q key to git-checkout
+     *
      * @var boolean
      */
     private $quiet = false;
@@ -55,6 +58,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * When creating a new branch, set up "upstream" configuration.
      * --track key to git-checkout
+     *
      * @var boolean
      */
     private $track = false;
@@ -62,6 +66,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * Do not set up "upstream" configuration
      * --no-track key to git-checkout
+     *
      * @var boolean
      */
     private $noTrack = false;
@@ -70,6 +75,7 @@ class GitCheckoutTask extends GitBaseTask
      * -b, -B, -m  options to git-checkout
      * Respective task options:
      * create, forceCreate, merge
+     *
      * @var array
      */
     private $extraOptions = [

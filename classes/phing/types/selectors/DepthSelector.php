@@ -21,17 +21,21 @@
  * Selector that filters files based on the how deep in the directory
  * tree they are.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author Bruce Atherton <bruce@callenish.com> (Ant)
  *
- * @package   phing.types.selectors
+ * @package phing.types.selectors
  */
 class DepthSelector extends BaseExtendSelector
 {
-    /** @var int $min */
+    /**
+     * @var int $min
+     */
     public $min = -1;
 
-    /** @var int $max */
+    /**
+     * @var int $max
+     */
     public $max = -1;
 
     const MIN_KEY = "min";
@@ -162,8 +166,10 @@ class DepthSelector extends BaseExtendSelector
                 $basetoken = $tok_base[$i];
                 // Sanity check. Ditch it if you want faster performance
                 if ($basetoken !== $filetoken) {
-                    throw new BuildException("File " . $filename .
-                        " does not appear within " . $abs_base . "directory");
+                    throw new BuildException(
+                        "File " . $filename .
+                        " does not appear within " . $abs_base . "directory"
+                    );
                 }
             } else { // no more basepath tokens
                 $depth++;
@@ -173,8 +179,10 @@ class DepthSelector extends BaseExtendSelector
             }
         }
         if (isset($tok_base[$i + 1])) {
-            throw new BuildException("File " . $filename .
-                " is outside of " . $abs_base . "directory tree");
+            throw new BuildException(
+                "File " . $filename .
+                " is outside of " . $abs_base . "directory tree"
+            );
         }
         if ($this->min > -1 && $depth < $this->min) {
             return false;

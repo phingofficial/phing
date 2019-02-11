@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,6 +19,7 @@
 
 /**
  * Wrapper class for readers, which can be used to apply filters.
+ *
  * @package phing.system.io
  */
 class FilterReader extends Reader
@@ -58,7 +58,8 @@ class FilterReader extends Reader
      * Read data from source.
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
-     * @param null $len
+     *
+     * @param  null $len
      * @return
      */
     public function read($len = null)

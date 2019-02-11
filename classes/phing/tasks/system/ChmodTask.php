@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,15 +17,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/element/DirSetAware.php';
-
 /**
  * Task that changes the permissions on a file/directory.
  *
- * @author    Manuel Holtgrewe <grin@gmx.net>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Manuel Holtgrewe <grin@gmx.net>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class ChmodTask extends Task
 {
@@ -43,7 +39,8 @@ class ChmodTask extends Task
 
     /**
      * This flag means 'note errors to the output, but keep going'
-     * @see setQuiet()
+     *
+     * @see   setQuiet()
      * @param $bool
      */
     public function setFailonerror($bool)
@@ -53,7 +50,8 @@ class ChmodTask extends Task
 
     /**
      * Set quiet mode, which suppresses warnings if chmod() fails.
-     * @see setFailonerror()
+     *
+     * @see   setFailonerror()
      * @param $bool
      */
     public function setQuiet($bool)
@@ -67,6 +65,7 @@ class ChmodTask extends Task
     /**
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
+     *
      * @param $bool
      */
     public function setVerbose($bool)
@@ -77,6 +76,7 @@ class ChmodTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -94,6 +94,7 @@ class ChmodTask extends Task
 
     /**
      * Execute the touch operation.
+     *
      * @return void
      */
     public function main()
@@ -105,6 +106,7 @@ class ChmodTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
+     *
      * @throws BuildException
      * @return void
      */
@@ -128,6 +130,7 @@ class ChmodTask extends Task
 
     /**
      * Does the actual work.
+     *
      * @return void
      */
     private function chmod()
@@ -180,8 +183,9 @@ class ChmodTask extends Task
 
     /**
      * Actually change the mode for the file.
-     * @param PhingFile $file
-     * @param int $mode
+     *
+     * @param  PhingFile $file
+     * @param  int $mode
      * @throws BuildException
      * @throws Exception
      */

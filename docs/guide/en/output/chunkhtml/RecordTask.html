@@ -13,7 +13,7 @@
             Some technical issues: the file's output stream is flushed for "finished" events
             (buildFinished, targetFinished and taskFinished), and is closed on a buildFinished event.
         </p>
-        <div class="table"><a name="idp5490"></a><p class="formal-object-title"><span class="label">Table B.37: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp5560"></a><p class="formal-object-title"><span class="label">Table B.37: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>The name of the file this logger is associated with.</td><td>n/a</td><td>yes</td></tr><tr><td><code class="literal">action</code></td><td><code class="literal">String</code></td><td>This tells the logger what to do: should it start recording or stop?
                             The first time that the recorder task is called for this logfile, and if this attribute is not
@@ -25,7 +25,7 @@
                             parameter (like append is) -- you can increase or decrease the logging level as the build
                             process continues. [Values= {error|warn|info|verbose|debug}, Default = no change]</td><td><code class="literal">false</code></td><td>no</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5550"></a>B.36.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5620"></a>B.36.1 Example</h3></div></div></div>
             
             <p>The following build.xml snippet is an example of how to use the recorder to record just the
                 <code class="literal">&lt;echo&gt;</code> task:</p>

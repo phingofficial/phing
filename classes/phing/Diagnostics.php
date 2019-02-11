@@ -25,7 +25,9 @@
  */
 class Diagnostics
 {
-    /** utility class */
+    /**
+     * utility class
+     */
     private function __construct()
     {
         // hidden constructor

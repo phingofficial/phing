@@ -35,12 +35,14 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 {
     /**
      * Delimiter type, one of PDOSQLExecTask::DELIM_ROW or PDOSQLExecTask::DELIM_NORMAL
+     *
      * @var string
      */
     private $delimiterType;
 
     /**
      * Leftover SQL from previous line
+     *
      * @var string
      */
     private $sqlBacklog = '';
@@ -49,8 +51,8 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      * Constructor, sets the parent task, reader with SQL source and delimiter type
      *
      * @param PDOSQLExecTask $parent
-     * @param Reader         $reader
-     * @param string         $delimiterType
+     * @param Reader $reader
+     * @param string $delimiterType
      */
     public function __construct(PDOSQLExecTask $parent, Reader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
     {
@@ -77,10 +79,9 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
             $project = $this->parent->getOwningTarget()->getProject();
             $line = $project->replaceProperties(trim($line));
 
-            if (($line != $delimiter) && (
-                    StringHelper::startsWith("//", $line) ||
-                    StringHelper::startsWith("--", $line) ||
-                    StringHelper::startsWith("#", $line))
+            if (($line != $delimiter) && (StringHelper::startsWith("//", $line)
+                    || StringHelper::startsWith("--", $line)
+                    || StringHelper::startsWith("#", $line))
             ) {
                 continue;
             }

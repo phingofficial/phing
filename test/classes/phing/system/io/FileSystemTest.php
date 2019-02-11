@@ -28,12 +28,12 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 {
     private $oldFsType = "";
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->oldFsType = Phing::getProperty('host.fstype');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Phing::setProperty('host.fstype', $this->oldFsType);
         $this->_resetFileSystem();

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -32,14 +31,17 @@
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.parser
  */
-
 class ExpatParser extends AbstractSAXParser
 {
 
-    /** @var resource */
+    /**
+     * @var resource
+     */
     private $parser;
 
-    /** @var Reader */
+    /**
+     * @var Reader
+     */
     private $reader;
 
     /**
@@ -49,7 +51,9 @@ class ExpatParser extends AbstractSAXParser
 
     private $buffer = 4096;
 
-    /** @var Location Current cursor pos in XML file. */
+    /**
+     * @var Location Current cursor pos in XML file.
+     */
     private $location;
 
     /**
@@ -59,8 +63,8 @@ class ExpatParser extends AbstractSAXParser
      * for the file to be parsed. It sets up php's internal expat parser
      * and options.
      *
-     * @param  Reader    $reader   The Reader Object that is to be read from.
-     * @param  string    $filename Filename to read.
+     * @param  Reader $reader The Reader Object that is to be read from.
+     * @param  string $filename Filename to read.
      * @throws Exception if the given argument is not a PhingFile object
      */
     public function __construct(Reader $reader, $filename = null)
@@ -80,10 +84,10 @@ class ExpatParser extends AbstractSAXParser
     /**
      * Override PHP's parser default settings, created in the constructor.
      *
-     * @param $opt
-     * @param $val
+     * @param    $opt
+     * @param    $val
      * @internal param the $string option to set
-     * @return boolean true if the option could be set, otherwise false
+     * @return   boolean true if the option could be set, otherwise false
      */
     public function parserSetOption($opt, $val)
     {
@@ -103,9 +107,13 @@ class ExpatParser extends AbstractSAXParser
         } else {
             $path = $this->reader->getResource();
         }
-        $this->location = new Location($path, xml_get_current_line_number($this->parser), xml_get_current_column_number(
-            $this->parser
-        ));
+        $this->location = new Location(
+            $path,
+            xml_get_current_line_number($this->parser),
+            xml_get_current_column_number(
+                $this->parser
+            )
+        );
 
         return $this->location;
     }

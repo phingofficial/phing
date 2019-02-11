@@ -27,7 +27,7 @@
  */
 class ExcludeZipTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!extension_loaded('zip')) {
             $this->markTestSkipped("Zip extension is required");
@@ -41,7 +41,7 @@ class ExcludeZipTest extends BuildFileTest
 
         $expected = "Adding ./.git to archive.";
         $representation = [];
-        foreach($this->logBuffer as $log) {
+        foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
 

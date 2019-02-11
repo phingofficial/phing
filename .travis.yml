@@ -1,30 +1,76 @@
+language: php
+
 sudo: false
 
 addons:
   apt:
     packages:
-    - python-docutils
-
-language: php
-php:
-  - 7.1
-  - 7.2
-  - 7.1snapshot
-  - 7.2snapshot
-  - master
-
-matrix:
-  fast_finish: true
-  allow_failures:
-    - php: 7.1snapshot
-    - php: 7.2snapshot
-    - php: master
+      - python-docutils
 
 cache:
   directories:
     - $HOME/.composer/cache
+    - build/cache
 
-script: ./.travis.sh
+install:
+  - |
+    set -e
+    pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
+    if [[ "$DEPS" == "LOW" ]]; then
+      composer install -n;
+      composer update --prefer-lowest;
+    else
+      composer install -o --no-progress --prefer-dist;
+    fi
+    phpenv config-add .travis.php.ini;
+    phpenv rehash;
+    echo "=== SETTING GIT IDENTITY ===";
+    git config --global user.email "travis-ci-build@phing.info";
+    git config --global user.name "Phing Travis Builder";
+script:
+  - |
+    if [[ "$PHPCS" == "TRUE" ]]; then
+      bin/phpcs -n --standard=./ruleset.xml classes
+    else
+      echo "=== TESTING PHING ==="
+      cd test
+      ../bin/phing -Dtests.codecoverage=true
+      cd ..
+    fi
+after_success:
+  - |
+    if [[ "$PHPCS" != "TRUE" ]]; then
+      if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+        bash <(curl -s https://codecov.io/bash)
+      fi
+    fi
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.1snapshot
+  - 7.2snapshot
+  - 7.3snapshot
+  - master
+
+matrix:
+  include:
+    - php: 7.2
+      env: PHPCS="TRUE"
+    - php: 7.1
+      env: DEPS="LOW"
+    - php: 7.1snapshot
+      env: DEPS="LOW"
+  exclude:
+    - php: 7.1
+    - php: 7.1snapshot
+  fast_finish: true
+  allow_failures:
+    - php: 7.1snapshot
+    - php: 7.2snapshot
+    - php: 7.3snapshot
+    - php: master
 
 notifications:
   slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH

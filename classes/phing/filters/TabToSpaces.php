@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Converts tabs to spaces.
@@ -32,28 +30,31 @@
  *   <param name="tablength" value="8">
  * </filterreader></pre>
  *
- * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @see       BaseParamFilterReader
- * @package   phing.filters
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @see     BaseParamFilterReader
+ * @package phing.filters
  */
 class TabToSpaces extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * The default tab length.
+     *
      * @var int
      */
     const DEFAULT_TAB_LENGTH = 8;
 
     /**
      * Parameter name for the length of a tab.
+     *
      * @var string
      */
     const TAB_LENGTH_KEY = "tablength";
 
     /**
      * Tab length in this filter.
+     *
      * @var int
      */
     private $tabLength = 8; //self::DEFAULT_TAB_LENGTH;
@@ -61,7 +62,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns stream after converting tabs to the specified number of spaces.
      *
-     * @param null $len
+     * @param  null $len
      * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *

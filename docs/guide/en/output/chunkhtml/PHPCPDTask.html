@@ -7,12 +7,12 @@
             PHPCPD PHAR, make sure you set the
             <code class="literal">pharlocation</code> attribute!</p>
 
-        <div class="table"><a name="idp14224"></a><p class="formal-object-title"><span class="label">Table C.93: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp14305"></a><p class="formal-object-title"><span class="label">Table C.93: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
                         <code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">minTokens</code></td><td><code class="literal">Integer</code></td><td>Sets the minimum number of identical tokens (default: 70)</td><td>70</td><td>No</td></tr><tr><td><code class="literal">minLines</code></td><td><code class="literal">Integer</code></td><td>Sets the minimum number of identical lines (default: 5)</td><td>5</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The format for the report when no nested formatter is used.</td><td>default</td><td>No</td></tr><tr><td><code class="literal">fuzzy</code></td><td><code class="literal">Boolean</code></td><td>If fuzzy is set to true, the task will perform a fuzzy match.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">pharlocation</code></td><td><code class="literal">String</code></td><td>Location of the PHPCPD PHAR package.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14291"></a>C.71.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14372"></a>C.71.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpcpd file="path/to/source.php"/&gt;</pre>
 
@@ -35,7 +35,7 @@
  &lt;/phpcpd&gt;</pre>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14298"></a>C.71.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14379"></a>C.71.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code>
@@ -49,7 +49,7 @@
                         Output will always be sent to a file, unless you set the
                             <code class="literal">usefile</code> attribute to <code class="literal">false</code>.</p>
 
-                    <div class="table"><a name="idp14313"></a><p class="formal-object-title"><span class="label">Table C.94: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp14394"></a><p class="formal-object-title"><span class="label">Table C.94: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute

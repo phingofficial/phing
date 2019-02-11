@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,12 +17,10 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/element/ResourceAware.php';
-
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  *
- * @package   phing.tasks.system
+ * @package phing.tasks.system
  */
 class DeleteTask extends Task
 {
@@ -39,6 +36,7 @@ class DeleteTask extends Task
 
     /**
      * Set the name of a single file to be removed.
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -48,6 +46,7 @@ class DeleteTask extends Task
 
     /**
      * Set the directory from which files are to be deleted.
+     *
      * @param PhingFile $dir
      */
     public function setDir(PhingFile $dir)
@@ -57,6 +56,7 @@ class DeleteTask extends Task
 
     /**
      * Used to force listing of all names of deleted files.
+     *
      * @param boolean $verbosity
      */
     public function setVerbose($verbosity)
@@ -75,7 +75,8 @@ class DeleteTask extends Task
      * then no error is reported. This setting emulates the
      * -f option to the Unix rm command. Default is false
      * meaning things are verbose
-     * @param bool $bool
+     *
+     * @param  bool $bool
      * @return void
      */
     public function setQuiet($bool)
@@ -86,8 +87,10 @@ class DeleteTask extends Task
         }
     }
 
-    /** this flag means 'note errors to the output, but keep going'
-     * @param bool $bool
+    /**
+     * this flag means 'note errors to the output, but keep going'
+     *
+     * @param   bool $bool
      * @retujrn void
      */
     public function setFailOnError($bool)
@@ -97,7 +100,8 @@ class DeleteTask extends Task
 
     /**
      * Used to delete empty directories.
-     * @param bool $includeEmpty
+     *
+     * @param  bool $includeEmpty
      * @return void
      */
     public function setIncludeEmptyDirs($includeEmpty)
@@ -107,6 +111,7 @@ class DeleteTask extends Task
 
     /**
      * Delete the file(s).
+     *
      * @throws BuildException
      */
     public function main()
@@ -128,8 +133,7 @@ class DeleteTask extends Task
             if ($this->file->exists()) {
                 if ($this->file->isDirectory()) {
                     $this->log(
-                        "Directory " . $this->file->__toString(
-                        ) . " cannot be removed using the file attribute. Use dir instead."
+                        "Directory " . $this->file->__toString() . " cannot be removed using the file attribute. Use dir instead."
                     );
                 } else {
                     $this->log("Deleting: " . $this->file->__toString());
@@ -222,7 +226,8 @@ class DeleteTask extends Task
 
     /**
      * Recursively removes a directory.
-     * @param PhingFile $d The directory to remove.
+     *
+     * @param  PhingFile $d The directory to remove.
      * @throws BuildException
      */
     private function removeDir($d)
@@ -266,9 +271,10 @@ class DeleteTask extends Task
     /**
      * remove an array of files in a directory, and a list of subdirectories
      * which will only be deleted if 'includeEmpty' is true
-     * @param PhingFile $d directory to work from
-     * @param array &$files array of files to delete; can be of zero length
-     * @param array &$dirs array of directories to delete; can of zero length
+     *
+     * @param  PhingFile $d directory to work from
+     * @param  array     &$files array of files to delete; can be of zero length
+     * @param  array     &$dirs array of directories to delete; can of zero length
      * @throws BuildException
      */
     private function removeFiles(PhingFile $d, &$files, &$dirs)

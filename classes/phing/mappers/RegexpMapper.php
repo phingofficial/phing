@@ -54,6 +54,7 @@ class RegexpMapper implements FileNameMapper
     /**
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
+     *
      * @param boolean $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)

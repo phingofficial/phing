@@ -31,7 +31,7 @@ class TargetTest extends BuildFileTest
     /** @var Target */
     private $target;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -57,7 +57,7 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsValidDataProvider
-     * @param array  $expectedDepends
+     * @param array $expectedDepends
      * @param string $depends
      */
     public function testSetDependsValid(array $expectedDepends, $depends)

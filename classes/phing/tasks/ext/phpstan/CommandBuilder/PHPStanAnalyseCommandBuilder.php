@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 class PHPStanAnalyseCommandBuilder extends PHPStanCommandBuilder
 {
-
     public function build(PHPStanTask $task): string
     {
         $commandParts = [];

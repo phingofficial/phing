@@ -27,6 +27,7 @@ class SvnPropsetTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $svnPropertyName
      */
     public function setSvnPropertyName($svnPropertyName)
@@ -44,6 +45,7 @@ class SvnPropsetTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     *
      * @param $svnPropertyValue
      */
     public function setSvnPropertyValue($svnPropertyValue)
@@ -58,7 +60,7 @@ class SvnPropsetTask extends SvnBaseTask
     {
         return $this->svnPropertyValue;
     }
-    
+
     /**
      * The main entry point
      *
@@ -68,8 +70,8 @@ class SvnPropsetTask extends SvnBaseTask
     {
         $this->setup('propset');
 
-        $this->log("Set svn property for '" . $this->getToDir() ."'");
-        
+        $this->log("Set svn property for '" . $this->getToDir() . "'");
+
         $output = $this->run([$this->getSvnPropertyName(), $this->getSvnPropertyValue(), $this->getToDir()]);
     }
 }

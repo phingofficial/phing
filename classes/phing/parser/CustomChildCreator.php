@@ -1,7 +1,5 @@
 <?php
-
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,7 +21,7 @@
  * Interface for elements that want to be able to create custom child elements
  * at runtime.
  *
- * @author keith.rogers@unit4.com
+ * @author  keith.rogers@unit4.com
  * @package phing.parser
  */
 interface CustomChildCreator
@@ -31,8 +29,8 @@ interface CustomChildCreator
     /**
      * Creates the object for the child element
      *
-     * @param  string  $elementName the name of the element that has been requested
-     * @param  Project $project     The project the element is in
+     * @param  string $elementName the name of the element that has been requested
+     * @param  Project $project The project the element is in
      * @return object  Returns the nested element
      */
     public function customChildCreator($elementName, Project $project);

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,9 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/Task.php';
-require_once 'phing/tasks/system/SequentialTask.php';
 
 /**
  * Task definition for the phing task to switch on a particular value.
@@ -71,21 +67,29 @@ require_once 'phing/tasks/system/SequentialTask.php';
  * </switch>
  * ```
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
 class SwitchTask extends Task
 {
-    /** @var mixed $value */
+    /**
+     * @var mixed $value
+     */
     private $value = null;
 
-    /** @var array $cases */
+    /**
+     * @var array $cases
+     */
     private $cases = [];
 
-    /** @var SequentialTask $defaultCase */
+    /**
+     * @var SequentialTask $defaultCase
+     */
     private $defaultCase = null;
 
-    /** @var bool $caseInsensitive */
+    /**
+     * @var bool $caseInsensitive
+     */
     private $caseInsensitive = false;
 
     /***
@@ -146,7 +150,9 @@ class SwitchTask extends Task
 
         $selectedCase = $this->defaultCase;
 
-        /** @var CaseTask $case */
+        /**
+         * @var CaseTask $case
+         */
         foreach ($this->cases as $case) {
             $cValue = $case->getValue();
 

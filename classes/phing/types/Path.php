@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -53,9 +52,9 @@
  * and split into single elements. It will usually be used
  * to define a path from an environment variable.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Thomas.Haas@softwired-inc.com (Ant)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Thomas.Haas@softwired-inc.com (Ant)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
 class Path extends DataType
@@ -64,8 +63,9 @@ class Path extends DataType
 
     /**
      * Constructor for internally instantiated objects sets project.
+     *
      * @param Project $project
-     * @param string  $path    (for use by IntrospectionHelper)
+     * @param string $path (for use by IntrospectionHelper)
      */
     public function __construct($project = null, $path = null)
     {
@@ -278,11 +278,12 @@ class Path extends DataType
     /**
      * Returns all path elements defined by this and nested path objects.
      *
-     * @throws BuildException
-     *
+     * @param  bool $preserveDuplicates
      * @return array List of path elements.
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function listPaths()
+    public function listPaths($preserveDuplicates = false)
     {
         if (!$this->checked) {
             // make sure we don't have a circular reference here
@@ -309,8 +310,10 @@ class Path extends DataType
             } elseif ($o instanceof PathElement) {
                 $parts = $o->getParts();
                 if ($parts === null) {
-                    throw new BuildException("You must either set location or"
-                        . " path on <pathelement>");
+                    throw new BuildException(
+                        "You must either set location or"
+                        . " path on <pathelement>"
+                    );
                 }
                 foreach ($parts as $part) {
                     $result[] = $part;
@@ -353,7 +356,7 @@ class Path extends DataType
             }
         }
 
-        return array_unique($result);
+        return $preserveDuplicates ? $result : array_unique($result);
     }
 
 

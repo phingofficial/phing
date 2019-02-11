@@ -20,9 +20,9 @@
 /**
  * Runs SonarQube Scanner.
  *
- * @author Bernhard Mendl <mail@bernhard-mendl.de>
+ * @author  Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
- * @see http://www.sonarqube.org
+ * @see     http://www.sonarqube.org
  */
 class SonarTask extends Task
 {
@@ -82,7 +82,7 @@ class SonarTask extends Task
      * If the SonarQube Scanner is included in the PATH environment variable,
      * the file name is sufficient.
      *
-     * @param string $executable
+     * @param  string $executable
      * @return void
      */
     public function setExecutable($executable)
@@ -96,7 +96,7 @@ class SonarTask extends Task
     /**
      * Sets or unsets the "--errors" flag of SonarQube Scanner.
      *
-     * @param string $errors
+     * @param  string $errors
      *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
      * @return void
      */
@@ -111,7 +111,7 @@ class SonarTask extends Task
     /**
      * Sets or unsets the "--debug" flag of SonarQube Scanner.
      *
-     * @param string $debug
+     * @param  string $debug
      *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
      * @return void
      */
@@ -126,7 +126,7 @@ class SonarTask extends Task
     /**
      * Sets the path of a configuration file for SonarQube Scanner.
      *
-     * @param string $configuration
+     * @param  string $configuration
      * @return void
      */
     public function setConfiguration($configuration)
@@ -140,7 +140,7 @@ class SonarTask extends Task
     /**
      * Adds a nested Property element.
      *
-     * @param SonarProperty $property
+     * @param  SonarProperty $property
      * @return void
      */
     public function addProperty(SonarProperty $property)
@@ -152,7 +152,6 @@ class SonarTask extends Task
     }
 
     /**
-     *
      * {@inheritdoc}
      *
      * @see Task::init()
@@ -163,7 +162,6 @@ class SonarTask extends Task
     }
 
     /**
-     *
      * {@inheritdoc}
      *
      * @see Task::main()
@@ -217,7 +215,7 @@ class SonarTask extends Task
      */
     private function checkExecAllowed()
     {
-        if (! function_exists('exec') || ! is_callable('exec')) {
+        if (!function_exists('exec') || !is_callable('exec')) {
             $message = 'Cannot execute SonarQube Scanner because calling PHP function exec() is not permitted by PHP configuration.';
             throw new BuildException($message);
         }
@@ -261,7 +259,10 @@ class SonarTask extends Task
         exec($escapedExecutable . ' --version', $output, $returnCode);
 
         if ($returnCode !== self::EXIT_SUCCESS) {
-            $message = sprintf('Could not check version string. Executable appears not to be SonarQube Scanner: [%s].', $this->executable);
+            $message = sprintf(
+                'Could not check version string. Executable appears not to be SonarQube Scanner: [%s].',
+                $this->executable
+            );
             throw new BuildException($message);
         }
 
@@ -277,7 +278,10 @@ class SonarTask extends Task
             $message = sprintf('Found SonarQube Scanner: [%s].', $this->executable);
             $this->log($message, Project::MSG_VERBOSE);
         } else {
-            $message = sprintf('Could not find name of SonarQube Scanner in version string. Executable appears not to be SonarQube Scanner: [%s].', $this->executable);
+            $message = sprintf(
+                'Could not find name of SonarQube Scanner in version string. Executable appears not to be SonarQube Scanner: [%s].',
+                $this->executable
+            );
             throw new BuildException($message);
         }
     }
@@ -336,12 +340,12 @@ class SonarTask extends Task
             return;
         }
 
-        if (! @file_exists($this->configuration)) {
+        if (!@file_exists($this->configuration)) {
             $message = sprintf('Cannot find configuration file [%s].', $this->configuration);
             throw new BuildException($message);
         }
 
-        if (! @is_readable($this->configuration)) {
+        if (!@is_readable($this->configuration)) {
             $message = sprintf('Cannot read configuration file [%s].', $this->configuration);
             throw new BuildException($message);
         }
@@ -367,10 +371,12 @@ class SonarTask extends Task
             }
 
             if (array_key_exists($name, $this->properties)) {
-                $message = sprintf('Property [%s] overwritten: old value [%s], new value [%s].',
+                $message = sprintf(
+                    'Property [%s] overwritten: old value [%s], new value [%s].',
                     $name,
                     $this->properties[$name],
-                    $value);
+                    $value
+                );
                 $this->log($message, Project::MSG_WARN);
             }
 
@@ -386,7 +392,10 @@ class SonarTask extends Task
         ];
         $intersection = array_intersect($requiredProperties, array_keys($this->properties));
         if (count($intersection) < count($requiredProperties)) {
-            $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(', ', $requiredProperties) . '.';
+            $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(
+                ', ',
+                $requiredProperties
+            ) . '.';
             throw new BuildException($message);
         }
     }

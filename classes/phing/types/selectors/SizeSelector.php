@@ -27,26 +27,38 @@
  */
 class SizeSelector extends BaseExtendSelector
 {
-    /** @var int $size */
+    /**
+     * @var int $size
+     */
     private $size = -1;
 
-    /** @var int $multiplier */
+    /**
+     * @var int $multiplier
+     */
     private $multiplier = 1;
 
-    /** @var int $sizelimit */
+    /**
+     * @var int $sizelimit
+     */
     private $sizelimit = -1;
 
-    /** @var int $cmp */
+    /**
+     * @var int $cmp
+     */
     private $cmp = 2;
 
     const SIZE_KEY = "value";
     const UNITS_KEY = "units";
     const WHEN_KEY = "when";
 
-    /** @var array $sizeComparisons */
+    /**
+     * @var array $sizeComparisons
+     */
     private static $sizeComparisons = ["less", "more", "equal"];
 
-    /** @var array $byteUnits */
+    /**
+     * @var array $byteUnits
+     */
     private static $byteUnits = [
         "K",
         "k",

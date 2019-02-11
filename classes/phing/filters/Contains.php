@@ -15,15 +15,17 @@ class Contains
 
     /**
      * Set 'contains' value.
+     *
      * @param string $contains
      */
     public function setValue($contains)
     {
-        $this->_value = (string)$contains;
+        $this->_value = (string) $contains;
     }
 
     /**
      * Returns 'contains' value.
+     *
      * @return string
      */
     public function getValue()

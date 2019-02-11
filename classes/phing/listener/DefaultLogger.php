@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,6 +33,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
     /**
      *  Size of the left column in output. The default char width is 12.
+     *
      * @var int
      */
     const LEFT_COLUMN_SIZE = 12;
@@ -41,12 +41,14 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  The message output level that should be used. The default is
      *  <code>Project::MSG_VERBOSE</code>.
+     *
      * @var int
      */
     protected $msgOutputLevel = Project::MSG_ERR;
 
     /**
      *  Time that the build started
+     *
      * @var int
      */
     protected $startTime;
@@ -90,7 +92,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
      * @param int $level The logging level for the logger.
-     * @see BuildLogger#setMessageOutputLevel()
+     * @see   BuildLogger#setMessageOutputLevel()
      */
     public function setMessageOutputLevel($level)
     {
@@ -99,8 +101,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
     /**
      * Sets the output stream.
+     *
      * @param OutputStream $output
-     * @see BuildLogger#setOutputStream()
+     * @see   BuildLogger#setOutputStream()
      */
     public function setOutputStream(OutputStream $output)
     {
@@ -109,8 +112,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
     /**
      * Sets the error stream.
+     *
      * @param OutputStream $err
-     * @see BuildLogger#setErrorStream()
+     * @see   BuildLogger#setErrorStream()
      */
     public function setErrorStream(OutputStream $err)
     {
@@ -151,7 +155,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  occurred during the build. Also outputs the total build-time.
      *
      * @param BuildEvent $event
-     * @see    BuildEvent::getException()
+     * @see   BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
     {
@@ -188,12 +192,13 @@ class DefaultLogger implements StreamRequiredBuildLogger
             }
         }
         $msg .= $verbose || !$error instanceof BuildException
-            ? $error->getTraceAsString()
+            ? $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL
             : $error->getLocation() . ' ' . $error->getMessage() . PHP_EOL;
     }
 
     /**
      * Get the message to return when a build failed.
+     *
      * @return string The classic "BUILD FAILED"
      */
     protected function getBuildFailedMessage()
@@ -203,6 +208,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
     /**
      * Get the message to return when a build succeeded.
+     *
      * @return string The classic "BUILD FINISHED"
      */
     protected function getBuildSuccessfulMessage()
@@ -214,7 +220,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Prints the current target name
      *
      * @param BuildEvent $event
-     * @see    BuildEvent::getTarget()
+     * @see   BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
     {
@@ -222,8 +228,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             && $event->getTarget()->getName() != ''
         ) {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
-            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName(
-                ) . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
+            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -233,7 +238,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event
-     * @see    BuildEvent::getException()
+     * @see   BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
     {
@@ -244,7 +249,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event
-     * @see    BuildEvent::getTask()
+     * @see   BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
     {
@@ -254,8 +259,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  BuildEvent $event  The BuildEvent
-     * @see    BuildEvent::getException()
+     * @param BuildEvent $event The BuildEvent
+     * @see   BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
     {
@@ -265,7 +270,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Print a message to the stdout.
      *
      * @param BuildEvent $event
-     * @see    BuildEvent::getMessage()
+     * @see   BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
     {
@@ -297,7 +302,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     public static function formatTime($micros)
     {
         $seconds = $micros;
-        $minutes = (int)floor($seconds / 60);
+        $minutes = (int) floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
                 "%1.0f minute%s %0.2f second%s",
@@ -315,10 +320,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * Prints a message to console.
      *
      * @param  string $message The message to print.
-     *                            Should not be <code>null</code>.
-     * @param OutputStream|resource $stream The stream to use for message printing.
+     *                                         Should not be
+     *                                         <code>null</code>.
+     * @param  OutputStream|resource $stream The stream to use for message printing.
      * @param  int $priority The priority of the message.
-     *                            (Ignored in this implementation.)
+     *                                         (Ignored in this
+     *                                         implementation.)
      * @throws IOException
      * @return void
      */

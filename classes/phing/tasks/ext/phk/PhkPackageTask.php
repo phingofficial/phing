@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,7 +22,7 @@ require_once 'phing/tasks/ext/phk/PhkPackageWebAccess.php';
 /**
  * See {@link http://phk.tekwire.net/} for more information about PHK.
  *
- * @author Alexey Shockov <alexey@shockov.com>
+ * @author  Alexey Shockov <alexey@shockov.com>
  * @package phing.tasks.ext.phk
  */
 class PhkPackageTask extends Task
@@ -204,7 +203,7 @@ class PhkPackageTask extends Task
             throw new BuildException('You must specify the "outputfile" attribute for PHK task.');
         }
 
-        require_once $this->phkCreatorPath;
+        include_once $this->phkCreatorPath;
 
         $mountPoint = PHK_Mgr::mount($this->outputFile, PHK::F_CREATOR);
         $phkManager = PHK_Mgr::instance($mountPoint);

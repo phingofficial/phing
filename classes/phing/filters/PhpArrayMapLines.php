@@ -29,19 +29,21 @@
  *  <param name="function" value="strtoupper"/>
  * </filterreader></pre>
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.filters
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.filters
  */
 class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the function.
+     *
      * @var string
      */
     const FUNCTION_KEY = "function";
 
     /**
      * The function to be used.
+     *
      * @var string
      */
     private $function = null;
@@ -49,7 +51,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Applies a native php function to the original input and returns resulting stream.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -97,6 +99,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Make sure that required attributes are set.
+     *
      * @throws BuildException - if any required attribs aren't set.
      */
     protected function checkAttributes()

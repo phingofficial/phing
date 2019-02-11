@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 abstract class PHPStanCommandBuilder
 {
-
     public function build(PHPStanTask $task): string
     {
         $commandParts = [];

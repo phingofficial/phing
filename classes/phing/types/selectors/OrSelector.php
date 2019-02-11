@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,8 +21,8 @@
  * This selector has a collection of other selectors, any of which have to
  * select a file in order for this selector to select it.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
 class OrSelector extends BaseSelectorContainer
@@ -48,10 +47,10 @@ class OrSelector extends BaseSelectorContainer
      * Returns true (the file is selected) if any of the other selectors
      * agree that the file should be selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string filename the name of the file to check
-     * @param PhingFile $file a PhingFile object for the filename that the selector
-     * can use
+     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  string filename the name of the file to check
+     * @param  PhingFile $file a PhingFile object for the filename that the selector
+     *                                                                can use
      * @return boolean Whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

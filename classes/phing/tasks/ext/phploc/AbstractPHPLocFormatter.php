@@ -1,7 +1,5 @@
 <?php
-
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -51,6 +49,7 @@ abstract class AbstractPHPLocFormatter
 
     /**
      * Sets whether to store formatting results in a file
+     *
      * @param $useFile
      */
     public function setUseFile($useFile)
@@ -68,6 +67,7 @@ abstract class AbstractPHPLocFormatter
 
     /**
      * Sets output directory
+     *
      * @param string $toDir
      */
     public function setToDir($toDir)
@@ -82,6 +82,7 @@ abstract class AbstractPHPLocFormatter
 
     /**
      * Returns output directory
+     *
      * @return string
      */
     public function getToDir()
@@ -91,6 +92,7 @@ abstract class AbstractPHPLocFormatter
 
     /**
      * Sets output filename
+     *
      * @param string $outfile
      */
     public function setOutfile($outfile)
@@ -100,6 +102,7 @@ abstract class AbstractPHPLocFormatter
 
     /**
      * Returns output filename
+     *
      * @return string
      */
     public function getOutfile()

@@ -25,7 +25,9 @@
  */
 class ChainedMapper extends ContainerMapper
 {
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function main($sourceFileName)
     {
         $results[] = $sourceFileName;

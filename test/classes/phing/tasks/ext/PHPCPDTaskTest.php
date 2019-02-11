@@ -27,7 +27,7 @@
  */
 class PHPCPDTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
     }
@@ -55,6 +55,6 @@ class PHPCPDTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("0.00% duplicated lines out of 5 total lines of code.", $output);
+        $this->assertContains("No clones found.\n\n", $output);
     }
 }

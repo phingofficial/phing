@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,24 +24,29 @@
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.parser
  */
-
 class Location
 {
-    /** @var null|string $fileName */
+    /**
+     * @var null|string $fileName
+     */
     private $fileName;
-    
-    /** @var int|null $lineNumber */
+
+    /**
+     * @var int|null $lineNumber
+     */
     private $lineNumber;
-    
-    /** @var int|null $columnNumber */
+
+    /**
+     * @var int|null $columnNumber
+     */
     private $columnNumber;
 
     /**
      * Constructs the location consisting of a file name and line number
      *
-     * @param  string $fileName the filename
-     * @param  integer $lineNumber the line number
-     * @param  integer $columnNumber the column number
+     * @param string $fileName the filename
+     * @param integer $lineNumber the line number
+     * @param integer $columnNumber the column number
      */
     public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
     {

@@ -20,10 +20,11 @@
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
+ * @requires OS ^(?:(?!Win).)*$
  */
 class GitArchiveTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
@@ -34,7 +35,7 @@ class GitArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }

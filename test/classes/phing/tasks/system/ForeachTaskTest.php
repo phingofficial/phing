@@ -31,7 +31,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ForeachTaskTest.xml');
@@ -123,5 +123,11 @@ class ForeachTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
+    }
+
+    public function testIndex()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('2 - de');
     }
 }

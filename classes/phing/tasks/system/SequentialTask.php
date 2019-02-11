@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,17 +26,20 @@ require_once 'phing/TaskContainer.php';
  * elements apart from Ant tasks. Any valid Ant task may be embedded within the
  * sequential task.
  *
- * @since 2.1.2
+ * @since   2.1.2
  * @package phing.tasks.system
  */
 class SequentialTask extends Task implements TaskContainer
 {
 
-    /** Optional Vector holding the nested tasks */
+    /**
+     * Optional Vector holding the nested tasks
+     */
     protected $nestedTasks = [];
 
     /**
      * Add a nested task to Sequential.
+     *
      * @param Task $nestedTask Nested task to execute Sequential
      */
     public function addTask(Task $nestedTask)
@@ -48,6 +49,7 @@ class SequentialTask extends Task implements TaskContainer
 
     /**
      * Execute all nestedTasks.
+     *
      * @throws BuildException if one of the nested tasks fails.
      */
     public function main()

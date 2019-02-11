@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,13 +15,13 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Abstract class for reading character streams.
  *
- * @author Hans Lellelid <hans@xmpl.org>
- * @author Yannick Lecaillez <yl@seasonfive.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @package phing.system.io
  */
 abstract class Reader
@@ -40,6 +39,7 @@ abstract class Reader
 
     /**
      * Close stream.
+     *
      * @throws IOException if there is an error closing stream
      */
     abstract public function close();
@@ -48,12 +48,14 @@ abstract class Reader
      * Returns the filename, url, etc. that is being read from.
      * This is critical for, e.g., ExpatParser's ability to know
      * the filename that is throwing an ExpatParserException, etc.
+     *
      * @return string
      */
     abstract public function getResource();
 
     /**
      * Move stream position relative to current pos.
+     *
      * @param int $n
      */
     public function skip($n)
@@ -78,6 +80,7 @@ abstract class Reader
 
     /**
      * Whether marking is supported.
+     *
      * @return boolean
      */
     public function markSupported()
@@ -87,6 +90,7 @@ abstract class Reader
 
     /**
      * Is stream ready for reading.
+     *
      * @return boolean
      */
     public function ready()

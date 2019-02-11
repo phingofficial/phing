@@ -10,7 +10,7 @@ class PHPStanListCommandBuilderTest extends TestCase
     /** @var PHPStanListCommandBuilder */
     private $builder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->builder = new PHPStanListCommandBuilder();
     }

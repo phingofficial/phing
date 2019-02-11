@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,32 +21,36 @@
  * PREG Regexp Engine.
  * Implements a regexp engine using PHP's preg_match(), preg_match_all(), and preg_replace() functions.
  *
- * @author hans lellelid, hans@velum.net
+ * @author  hans lellelid, hans@velum.net
  * @package phing.util.regexp
  */
 class PregEngine implements RegexpEngine
 {
     /**
      * Set to null by default to distinguish between false and not set
+     *
      * @var boolean
      */
     private $ignoreCase = null;
 
     /**
      * Set to null by default to distinguish between false and not set
+     *
      * @var boolean
      */
     private $multiline = null;
 
     /**
      * Pattern modifiers
+     *
      * @link http://php.net/manual/en/reference.pcre.pattern.modifiers.php
-     * @var string
+     * @var  string
      */
     private $modifiers = null;
 
     /**
      * Set the limit.
+     *
      * @var int
      */
     private $limit = -1;
@@ -70,6 +73,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Gets pattern modifiers.
+     *
      * @return string
      */
     public function getModifiers()
@@ -94,6 +98,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Sets whether or not regex operation is case sensitive.
+     *
      * @param  boolean $bit
      * @return void
      */
@@ -104,6 +109,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Gets whether or not regex operation is case sensitive.
+     *
      * @return boolean
      */
     public function getIgnoreCase()
@@ -113,6 +119,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Sets whether regexp should be applied in multiline mode.
+     *
      * @param boolean $bit
      */
     public function setMultiline($bit)
@@ -122,6 +129,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Gets whether regexp is to be applied in multiline mode.
+     *
      * @return boolean
      */
     public function getMultiline()
@@ -131,6 +139,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Sets the maximum possible replacements for each pattern.
+     *
      * @param int $limit
      */
     public function setLimit($limit)
@@ -140,6 +149,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * Returns the maximum possible replacements for each pattern.
+     *
      * @return int
      */
     public function getLimit()
@@ -149,6 +159,7 @@ class PregEngine implements RegexpEngine
 
     /**
      * The pattern needs to be converted into PREG style -- which includes adding expression delims & any flags, etc.
+     *
      * @param  string $pattern
      * @return string prepared pattern.
      */
@@ -162,11 +173,11 @@ class PregEngine implements RegexpEngine
 
             foreach ($matches[0] as $match) {
                 $str = $match[0];
-                $offset = $match[1]+$diffOffset;
+                $offset = $match[1] + $diffOffset;
 
-                $escStr = (strlen($str) % 2) ? '\\'.$str : $str; // This will increase an even number of backslashes, before a forward slash, to an odd number.  I.e. '\\/' becomes '\\\/'.
+                $escStr = (strlen($str) % 2) ? '\\' . $str : $str; // This will increase an even number of backslashes, before a forward slash, to an odd number.  I.e. '\\/' becomes '\\\/'.
 
-                $diffOffset += strlen($escStr)-strlen($str);
+                $diffOffset += strlen($escStr) - strlen($str);
 
                 $pattern = substr_replace($pattern, $escStr, $offset, strlen($str));
             }
@@ -177,9 +188,10 @@ class PregEngine implements RegexpEngine
 
     /**
      * Matches pattern against source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     *
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function match($pattern, $source, &$matches)
@@ -189,9 +201,10 @@ class PregEngine implements RegexpEngine
 
     /**
      * Matches all patterns in source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     *
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches)
@@ -203,9 +216,10 @@ class PregEngine implements RegexpEngine
      * Replaces $pattern with $replace in $source string.
      * References to \1 group matches will be replaced with more preg-friendly
      * $1.
+     *
      * @param  string $pattern The regex pattern to match.
      * @param  string $replace The string with which to replace matches.
-     * @param  string $source  The source string.
+     * @param  string $source The source string.
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source)

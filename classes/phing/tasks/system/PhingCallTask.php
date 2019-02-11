@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -75,6 +74,7 @@ class PhingCallTask extends Task
     /**
      *  If true, pass all properties to the new Phing project.
      *  Defaults to true. Future use.
+     *
      * @param boolean new value
      */
     public function setInheritAll($inherit)
@@ -95,6 +95,7 @@ class PhingCallTask extends Task
 
     /**
      * Alias for createProperty
+     *
      * @see createProperty()
      */
     public function createParam()
@@ -120,6 +121,7 @@ class PhingCallTask extends Task
 
     /**
      * Target to execute, required.
+     *
      * @param $target
      */
     public function setTarget($target)
@@ -130,6 +132,7 @@ class PhingCallTask extends Task
     /**
      * Reference element identifying a data type to carry
      * over to the invoked target.
+     *
      * @param PhingReference $r the specified `PhingReference`.
      */
     public function addReference(PhingReference $r)
@@ -156,6 +159,7 @@ class PhingCallTask extends Task
 
     /**
      *  hand off the work to the phing task of ours, after setting it up
+     *
      * @throws BuildException on validation failure or if the target didn't
      *                        execute
      */

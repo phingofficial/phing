@@ -1,6 +1,6 @@
 # P     H     I     N     G
 
-  [![Build Status](https://travis-ci.org/phingofficial/phing.png?branch=master)](https://travis-ci.org/phingofficial/phing) [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing)
+  [![Build Status](https://travis-ci.org/phingofficial/phing.svg?branch=master)](https://travis-ci.org/phingofficial/phing) [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing) [![Build status](https://ci.appveyor.com/api/projects/status/ws2xv6tuu36sere7/branch/master?svg=true)](https://ci.appveyor.com/project/mrook/phing/branch/master)
 
   Thank you for using PHING!
 
@@ -50,19 +50,13 @@
 
          $ php phing-latest.phar
 
-## Running the (unit) tests
+  3. **Docker** (experimental)
 
-  To successfully run all Phing tests, the following conditions have to be met:
+  The official Phing Docker image can be found on [Docker Hub](https://hub.docker.com/r/phing/phing/).
 
-  * PEAR installed, channel "pear.phing.info" discovered
-  * Packages "python-docutils" and "subversion" installed
-  * php.ini setting "phar.readonly" set to "Off"
+  To execute Phing inside a container and execute `build.xml` located in `/home/user`, run the following:
 
-  Then, perform the following steps (on a clone/fork of Phing):
-
-         $ composer install
-         $ cd test
-         $ ../bin/phing
+         $ docker run --rm phing/phing:3.0 -v /home/foo:/opt -f /opt/build.xml
 
 ## Documentation
 
@@ -111,6 +105,20 @@ The best way to submit code to Phing is to [make a Pull Request on GitHub](https
 Please help us merge your contribution quickly and keep your pull requests clean and concise: squash commits and don't introduce unnecessary (whitespace) changes.
 
 Phing's source code is formatted according to the PSR-2 standard.
+
+### Running the (unit) tests
+
+If you'd like to contribute code to Phing, please make sure you run the tests before submitting your pull request. To successfully run all Phing tests, the following conditions have to be met:
+
+  * PEAR installed, channel "pear.phing.info" discovered
+  * Packages "python-docutils" and "subversion" installed
+  * php.ini setting "phar.readonly" set to "Off"
+
+Then, perform the following steps (on a clone/fork of Phing):
+
+         $ composer install
+         $ cd test
+         $ ../bin/phing
 
 ## Licensing
 

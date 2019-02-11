@@ -10,7 +10,7 @@ use Symfony\Component\Console\Question\Question;
 /**
  * Uses Symfony Console to present questions
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.input
  */
 class ConsoleInputHandler implements InputHandler
@@ -27,6 +27,7 @@ class ConsoleInputHandler implements InputHandler
 
     /**
      * ConsoleInputHandler constructor.
+     *
      * @param resource $inputStream
      * @param OutputInterface $output
      */
@@ -44,7 +45,8 @@ class ConsoleInputHandler implements InputHandler
      *
      * <p>Postcondition: request.getInput will return a non-null
      * value, request.isInputValid will return true.</p>
-     * @param InputRequest $request
+     *
+     * @param  InputRequest $request
      * @return void
      */
     public function handleInput(InputRequest $request)
@@ -53,9 +55,9 @@ class ConsoleInputHandler implements InputHandler
         if (method_exists($questionHelper, 'setInputStream')) {
             $questionHelper->setInputStream($this->inputStream);
         }
-        
-        $question =  $this->getQuestion($request);
-        
+
+        $question = $this->getQuestion($request);
+
         if ($request->isHidden()) {
             $question->setHidden(true);
         }
@@ -66,7 +68,7 @@ class ConsoleInputHandler implements InputHandler
         }
 
         $result = $questionHelper->ask($input, $this->output, $question);
-        
+
         $request->setInput($result);
     }
 
@@ -80,9 +82,9 @@ class ConsoleInputHandler implements InputHandler
 
         if ($inputRequest instanceof YesNoInputRequest) {
             return new ConfirmationQuestion($prompt);
-        } else if ($inputRequest instanceof MultipleChoiceInputRequest) {
+        } elseif ($inputRequest instanceof MultipleChoiceInputRequest) {
             return new ChoiceQuestion($prompt, $inputRequest->getChoices(), $inputRequest->getDefaultValue());
-        } else  {
+        } else {
             return new Question($prompt, $inputRequest->getDefaultValue());
         }
     }
@@ -100,10 +102,10 @@ class ConsoleInputHandler implements InputHandler
             if ($inputRequest instanceof YesNoInputRequest) {
                 $defaultValue = $inputRequest->getChoices()[$defaultValue];
             }
-            
+
             $prompt .= ' [' . $defaultValue . ']';
         }
-        
+
         $pchar = $inputRequest->getPromptChar();
 
         return $prompt . ($pchar ? $pchar . ' ' : ' ');

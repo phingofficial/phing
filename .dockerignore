@@ -1,0 +1,10 @@
+.dockerignore
+.gitignore
+.git
+.github
+.idea
+ansible
+build
+docs
+test
+vendor

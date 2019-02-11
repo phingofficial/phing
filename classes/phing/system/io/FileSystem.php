@@ -60,6 +60,7 @@ abstract class FileSystem
 
     /**
      * Instance for getFileSystem() method.
+     *
      * @var FileSystem
      */
     private static $fs;
@@ -76,11 +77,9 @@ abstract class FileSystem
         if (self::$fs === null) {
             switch (Phing::getProperty('host.fstype')) {
                 case 'UNIX':
-                    include_once 'phing/system/io/UnixFileSystem.php';
                     self::$fs = new UnixFileSystem();
                     break;
                 case 'WINDOWS':
-                    include_once 'phing/system/io/WindowsFileSystem.php';
                     self::$fs = new WindowsFileSystem();
                     break;
                 default:
@@ -165,6 +164,7 @@ abstract class FileSystem
 
     /**
      * canonicalize filename by checking on disk
+     *
      * @param  string $strPath
      * @return mixed  Canonical path or false if the file doesn't exist.
      */
@@ -180,7 +180,7 @@ abstract class FileSystem
      * by the given abstract pathname, or zero if it does not exist or some
      * other I/O error occurs.
      *
-     * @param PhingFile $f
+     * @param  PhingFile $f
      * @throws IOException
      */
     public function getBooleanAttributes($f)
@@ -196,8 +196,8 @@ abstract class FileSystem
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
      *
-     * @param PhingFile $f
-     * @param boolean $write
+     * @param  PhingFile $f
+     * @param  boolean $write
      * @return bool
      */
     public function checkAccess(PhingFile $f, $write = false)
@@ -232,6 +232,7 @@ abstract class FileSystem
 
     /**
      * Whether file can be deleted.
+     *
      * @param  PhingFile $f
      * @return boolean
      */
@@ -248,7 +249,7 @@ abstract class FileSystem
      * abstract pathname was last modified, or zero if it does not exist or
      * some other I/O error occurs.
      *
-     * @param  PhingFile   $f
+     * @param  PhingFile $f
      * @return int
      * @throws IOException
      */
@@ -286,7 +287,7 @@ abstract class FileSystem
      * pathname, or zero if it does not exist, is a directory, or some other
      * I/O error occurs.
      *
-     * @param  PhingFile   $f
+     * @param  PhingFile $f
      * @throws IOException
      * @return int
      */
@@ -310,7 +311,7 @@ abstract class FileSystem
      * file or directory with the given pathname already exists.  Throw an
      * IOException if an I/O error occurs.
      *
-     * @param  string      $strPathname Path of the file to be created.
+     * @param  string $strPathname Path of the file to be created.
      * @throws IOException
      * @return boolean
      */
@@ -336,7 +337,7 @@ abstract class FileSystem
      * returning true if and only if the operation succeeds.
      *
      * @param  PhingFile $f
-     * @param  boolean   $recursive
+     * @param  boolean $recursive
      * @throws IOException
      */
     public function delete(PhingFile $f, $recursive = false)
@@ -353,7 +354,7 @@ abstract class FileSystem
      * pathname to be deleted when Phing::shutdown is called, returning
      * true if and only if the operation succeeds.
      *
-     * @param  PhingFile   $f
+     * @param  PhingFile $f
      * @throws IOException
      */
     public function deleteOnExit($f)
@@ -366,7 +367,7 @@ abstract class FileSystem
      * pathname.  Return an array of strings naming the elements of the
      * directory if successful; otherwise, return <code>null</code>.
      *
-     * @param PhingFile $f
+     * @param  PhingFile $f
      * @return array
      */
     public function listDir(PhingFile $f)
@@ -395,7 +396,7 @@ abstract class FileSystem
      * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
      *
      * @param  PhingFile $f
-     * @param  int       $mode
+     * @param  int $mode
      * @return boolean
      */
     public function createDirectory(&$f, $mode = 0755)
@@ -412,8 +413,8 @@ abstract class FileSystem
      * the second abstract pathname, returning true if and only if
      * the operation succeeds.
      *
-     * @param  PhingFile   $f1 abstract source file
-     * @param  PhingFile   $f2 abstract destination file
+     * @param  PhingFile $f1 abstract source file
+     * @param  PhingFile $f2 abstract destination file
      * @return void
      * @throws IOException if rename cannot be performed
      */
@@ -433,8 +434,8 @@ abstract class FileSystem
      * given abstract pathname returning true if and only if the
      * operation succeeds.
      *
-     * @param  PhingFile   $f
-     * @param  int         $time
+     * @param  PhingFile $f
+     * @param  int $time
      * @return void
      * @throws IOException
      */
@@ -452,7 +453,7 @@ abstract class FileSystem
      * read-only, returning <code>true</code> if and only if the operation
      * succeeds.
      *
-     * @param  PhingFile   $f
+     * @param  PhingFile $f
      * @throws IOException
      */
     public function setReadOnly($f)
@@ -464,6 +465,7 @@ abstract class FileSystem
 
     /**
      * List the available filesystem roots, return array of PhingFile objects
+     *
      * @throws IOException
      * @return PhingFile[]
      */
@@ -477,8 +479,8 @@ abstract class FileSystem
     /**
      * Compare two abstract pathnames lexicographically.
      *
-     * @param PhingFile $f1
-     * @param PhingFile $f2
+     * @param  PhingFile $f1
+     * @param  PhingFile $f2
      * @throws IOException
      * @return int
      */
@@ -490,7 +492,7 @@ abstract class FileSystem
     /**
      * Copy a file.
      *
-     * @param PhingFile $src  Source path and name file to copy.
+     * @param PhingFile $src Source path and name file to copy.
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void
@@ -521,12 +523,12 @@ abstract class FileSystem
     /**
      * Copy a file, or recursively copy a folder and its contents
      *
-     * @author      Aidan Lister <aidan@php.net>
-     * @version     1.0.1
-     * @link        http://aidanlister.com/repos/v/function.copyr.php
+     * @author  Aidan Lister <aidan@php.net>
+     * @version 1.0.1
+     * @link    http://aidanlister.com/repos/v/function.copyr.php
      *
-     * @param  string $source Source path
-     * @param  string $dest   Destination path
+     * @param string $source Source path
+     * @param string $dest Destination path
      *
      * @return bool   Returns TRUE on success, FALSE on failure
      */
@@ -544,7 +546,7 @@ abstract class FileSystem
 
         // Make destination directory
         if (!is_dir($dest) && !mkdir($dest) && !is_dir($dest)) {
-           return false;
+            return false;
         }
 
         // Loop through the folder
@@ -569,7 +571,7 @@ abstract class FileSystem
      * Change the ownership on a file or directory.
      *
      * @param string $pathname Path and name of file or directory.
-     * @param string $user     The user name or number of the file or directory. See http://us.php.net/chown
+     * @param string $user The user name or number of the file or directory. See http://us.php.net/chown
      *
      * @return void
      *
@@ -587,7 +589,7 @@ abstract class FileSystem
      * Change the group on a file or directory.
      *
      * @param string $pathname Path and name of file or directory.
-     * @param string $group    The group of the file or directory. See http://us.php.net/chgrp
+     * @param string $group The group of the file or directory. See http://us.php.net/chgrp
      *
      * @return void
      * @throws IOException if operation failed.
@@ -604,7 +606,7 @@ abstract class FileSystem
      * Change the permissions on a file or directory.
      *
      * @param string $pathname Path and name of file or directory.
-     * @param int    $mode     The mode (permissions) of the file or
+     * @param int $mode The mode (permissions) of the file or
      *                         directory. If using octal add leading 0. eg. 0777.
      *                         Mode is affected by the umask system setting.
      *
@@ -725,8 +727,8 @@ abstract class FileSystem
      * Delete an empty directory OR a directory and all of its contents.
      *
      * @param string $dir Path and/or name of directory to delete.
-     * @param bool $children     False: don't delete directory contents.
-     *                           True: delete directory contents.
+     * @param bool $children False: don't delete directory contents.
+     *                         True: delete directory contents.
      *
      * @throws Exception
      *
@@ -756,7 +758,6 @@ abstract class FileSystem
                 // Don't error on readdir().
                 while (false !== ($entry = @readdir($handle))) {
                     if ($entry != '.' && $entry != '..') {
-
                         // Only add / if it isn't already the last char.
                         // This ONLY serves the purpose of making the Logger
                         // output look nice:)
@@ -776,8 +777,7 @@ abstract class FileSystem
                             try {
                                 self::unlink($next_entry); // Delete.
                             } catch (Exception $e) {
-                                $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() $next_entry. " . $e->getMessage(
-                                    );
+                                $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() $next_entry. " . $e->getMessage();
                                 throw new Exception($msg);
                             }
                         } else { // Is directory.
@@ -785,8 +785,7 @@ abstract class FileSystem
                             try {
                                 self::rmdir($next_entry, true); // Delete
                             } catch (Exception $e) {
-                                $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage(
-                                    );
+                                $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage();
                                 throw new Exception($msg);
                             }
                         } // end is_dir else
@@ -808,8 +807,8 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param Int $mode
-     * @throws Exception
+     * @param    Int $mode
+     * @throws   Exception
      * @internal param Int $mode . Permissions usually in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
      *
@@ -870,7 +869,8 @@ abstract class FileSystem
 
     /**
      * returns the contents of a directory in an array
-     * @param PhingFile $f
+     *
+     * @param  PhingFile $f
      * @throws Exception
      * @return string[]
      */
@@ -885,7 +885,7 @@ abstract class FileSystem
      * Used to retrieve/determine the full path for a command.
      *
      * @param string $executable Executable file to search for
-     * @param mixed  $fallback   Default to fallback to.
+     * @param mixed $fallback Default to fallback to.
      *
      * @return string Full path for the specified executable/command.
      */
@@ -908,38 +908,37 @@ abstract class FileSystem
         $elements = explode($pathSeparator, $path);
         $amount = count($elements);
         $fstype = Phing::getProperty('host.fstype');
-        switch($fstype) {
-        case 'UNIX':
-            for ($count = 0; $count < $amount; ++$count) {
-                $file = $elements[$count] . $dirSeparator . $executable;
-                if (file_exists($file) && is_executable($file)) {
-                    return $file;
-                }
-            }
-            break;
-        case 'WINDOWS':
-            $exts = getenv('PATHEXT');
-            if ($exts === false) {
-                $exts = ['.exe', '.bat', '.cmd', '.com'];
-            } else {
-                $exts = explode($pathSeparator, $exts);
-            }
-            for ($count = 0; $count < $amount; $count++) {
-                foreach ($exts as $ext) {
-                    $file = $elements[$count] . $dirSeparator . $executable . $ext ;
-                    // Not all of the extensions above need to be set executable on Windows for them to be executed.
-                    // I'm sure there's a joke here somewhere.
-                    if (file_exists($file)) {
+        switch ($fstype) {
+            case 'UNIX':
+                for ($count = 0; $count < $amount; ++$count) {
+                    $file = $elements[$count] . $dirSeparator . $executable;
+                    if (file_exists($file) && is_executable($file)) {
                         return $file;
                     }
                 }
-            }
-            break;
+                break;
+            case 'WINDOWS':
+                $exts = getenv('PATHEXT');
+                if ($exts === false) {
+                    $exts = ['.exe', '.bat', '.cmd', '.com'];
+                } else {
+                    $exts = explode($pathSeparator, $exts);
+                }
+                for ($count = 0; $count < $amount; $count++) {
+                    foreach ($exts as $ext) {
+                        $file = $elements[$count] . $dirSeparator . $executable . $ext;
+                        // Not all of the extensions above need to be set executable on Windows for them to be executed.
+                        // I'm sure there's a joke here somewhere.
+                        if (file_exists($file)) {
+                            return $file;
+                        }
+                    }
+                }
+                break;
         }
         if (file_exists($executable) && is_executable($executable)) {
             return $executable;
         }
         return $fallback;
     }
-
 }

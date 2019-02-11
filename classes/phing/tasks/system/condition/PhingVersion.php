@@ -20,8 +20,8 @@
 /**
  * An phing version condition/task.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class PhingVersion extends Task implements Condition
 {
@@ -31,6 +31,7 @@ class PhingVersion extends Task implements Condition
 
     /**
      * Run as a task.
+     *
      * @throws BuildException if an error occurs.
      */
     public function main()
@@ -51,6 +52,7 @@ class PhingVersion extends Task implements Condition
 
     /**
      * Evaluate the condition.
+     *
      * @return true if the condition is true.
      * @throws BuildException if an error occurs.
      */
@@ -88,6 +90,7 @@ class PhingVersion extends Task implements Condition
 
     /**
      * Get the atleast attribute.
+     *
      * @return string the atleast attribute.
      */
     public function getAtLeast()
@@ -99,6 +102,7 @@ class PhingVersion extends Task implements Condition
      * Set the atleast attribute.
      * This is of the form major.minor.point.
      * For example 1.7.0.
+     *
      * @param string $atLeast the version to check against.
      */
     public function setAtLeast($atLeast)
@@ -108,6 +112,7 @@ class PhingVersion extends Task implements Condition
 
     /**
      * Get the exactly attribute.
+     *
      * @return string the exactly attribute.
      */
     public function getExactly()
@@ -119,6 +124,7 @@ class PhingVersion extends Task implements Condition
      * Set the exactly attribute.
      * This is of the form major.minor.point.
      * For example 1.7.0.
+     *
      * @param string $exactly the version to check against.
      */
     public function setExactly($exactly)
@@ -128,6 +134,7 @@ class PhingVersion extends Task implements Condition
 
     /**
      * Get the name of the property to hold the phing version.
+     *
      * @return string the name of the property.
      */
     public function getProperty()
@@ -137,6 +144,7 @@ class PhingVersion extends Task implements Condition
 
     /**
      * Set the name of the property to hold the phing version.
+     *
      * @param string $propertyname the name of the property.
      */
     public function setProperty($propertyname)

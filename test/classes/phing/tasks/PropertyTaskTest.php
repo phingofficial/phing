@@ -26,7 +26,7 @@
  */
 class PropertyTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
     }
@@ -58,10 +58,7 @@ class PropertyTaskTest extends BuildFileTest
         try {
             $this->executeTarget("prefix.fail");
         } catch (BuildException $e) {
-            $this->assertTrue(
-                strpos($e->getMessage(), "Prefix is only valid") !== false,
-                "Prefix allowed on non-resource/file load - "
-            );
+            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
 
             return;
         }
@@ -91,10 +88,7 @@ class PropertyTaskTest extends BuildFileTest
         try {
             $this->executeTarget($target);
         } catch (BuildException $e) {
-            $this->assertTrue(
-                strpos($e->getMessage(), "was circularly defined") !== false,
-                "Circular definition not detected - "
-            );
+            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
 
             return;
         }

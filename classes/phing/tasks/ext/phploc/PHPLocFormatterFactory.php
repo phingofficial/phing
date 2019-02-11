@@ -1,7 +1,5 @@
 <?php
-
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,14 +20,15 @@
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc
  */
 class PHPLocFormatterFactory
 {
     /**
      * Returns formatter object
-     * @param PHPLocFormatterElement $formatterElement
+     *
+     * @param  PHPLocFormatterElement $formatterElement
      * @throws BuildException
      * @return AbstractPHPLocFormatter
      */
@@ -40,16 +39,16 @@ class PHPLocFormatterFactory
 
         switch ($type) {
             case "xml":
-                require_once 'phing/tasks/ext/phploc/PHPLocXMLFormatter.php';
+                include_once 'phing/tasks/ext/phploc/PHPLocXMLFormatter.php';
                 $formatter = new PHPLocXMLFormatter();
                 break;
             case "csv":
-                require_once 'phing/tasks/ext/phploc/PHPLocCSVFormatter.php';
+                include_once 'phing/tasks/ext/phploc/PHPLocCSVFormatter.php';
                 $formatter = new PHPLocCSVFormatter();
                 break;
             case "txt":
             case "cli":
-                require_once 'phing/tasks/ext/phploc/PHPLocTextFormatter.php';
+                include_once 'phing/tasks/ext/phploc/PHPLocTextFormatter.php';
                 $formatter = new PHPLocTextFormatter();
                 break;
             default:

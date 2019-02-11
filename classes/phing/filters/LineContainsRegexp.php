@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Filter which includes only those lines that contain the user-specified
@@ -35,16 +34,17 @@
  *
  * This will fetch all those lines that contain the pattern <code>foo</code>
  *
- * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @see       FilterReader
- * @package   phing.filters
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @see     FilterReader
+ * @package phing.filters
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * Parameter name for regular expression.
+     *
      * @var string
      */
     const REGEXP_KEY = "regexp";
@@ -53,19 +53,25 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Regular expressions that are applied against lines.
+     *
      * @var RegularExpression[]
      */
     private $_regexps = [];
 
-    /** @var bool $negate */
+    /**
+     * @var bool $negate
+     */
     private $negate = false;
 
-    /** @var bool $casesensitive */
+    /**
+     * @var bool $casesensitive
+     */
     private $casesensitive = true;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
-     * @param null $len
+     *
+     * @param  null $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -119,6 +125,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Find out whether we match casesensitevly.
+     *
      * @return boolean negation flag.
      */
     public function isCaseSensitive()
@@ -128,6 +135,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Set the negation mode.  Default false (no negation).
+     *
      * @param boolean $b the boolean negation mode to set.
      */
     public function setNegate($b)
@@ -137,6 +145,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Find out whether we have been negated.
+     *
      * @return boolean negation flag.
      */
     public function isNegated()
@@ -161,8 +170,8 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * a line read from the original stream in order for it to match this
      * filter.
      *
-     * @param array $regexps
-     * @throws Exception
+     * @param    array $regexps
+     * @throws   Exception
      * @internal param An $regexps array of regular expressions which must be contained
      *                within a line in order for it to match in this filter. Must not be
      *                <code>null</code>.
@@ -205,8 +214,8 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
-     * @throws Exception
+     * @param    Reader $reader
+     * @throws   Exception
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

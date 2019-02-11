@@ -26,13 +26,13 @@ class SortFilterTest extends BuildFileTest
 {
     protected $fu;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/filters/sortfilter.xml");
         $this->fu = new FileUtils();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("cleanup");
     }

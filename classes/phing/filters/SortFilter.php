@@ -57,15 +57,17 @@
  * will be in ascendant order.
  * </p>
  *
- * @author    Siad.ardroumli <siad.ardroumli@gmail.com>
+ * @author Siad.ardroumli <siad.ardroumli@gmail.com>
  *
- * @see       BaseParamFilterReader
+ * @see BaseParamFilterReader
  *
- * @package   phing.filters
+ * @package phing.filters
  */
 class SortFilter extends BaseParamFilterReader implements ChainableReader
 {
-    /** Parameter name for reverse order. */
+    /**
+     * Parameter name for reverse order.
+     */
     private static $REVERSE_KEY = "reverse";
 
     /**
@@ -99,10 +101,10 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * an end. Otherwise, the next character from the underlying stream is read
      * and returned.
      *
-     * @param int $len
-     * @return string the next character in the resulting stream, or -1 if the end of
+     * @param     int $len
+     * @return    string the next character in the resulting stream, or -1 if the end of
      *         the resulting stream has been reached
-     * @throws BuildException
+     * @throws    BuildException
      * @exception IOException
      *                if the underlying stream throws an IOException during
      *                reading

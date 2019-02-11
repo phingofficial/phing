@@ -35,8 +35,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class BlockForTask extends WaitForTask
 {
@@ -52,8 +52,8 @@ class BlockForTask extends WaitForTask
 
     /**
      * If the wait fails, a BuildException is thrown. All the superclasses actions are called first.
-     * @throws BuildTimeoutException on timeout, using the text in {@link #text}
      *
+     * @throws BuildTimeoutException on timeout, using the text in {@link #text}
      */
     protected function processTimeout()
     {

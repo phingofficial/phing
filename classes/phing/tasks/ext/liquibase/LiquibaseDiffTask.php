@@ -22,8 +22,8 @@ require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
  * Task to create the diff between two databases. Will output the changes needed
  * to convert the reference database to the database.
  *
- * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since 2.4.10
+ * @author  Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
+ * @since   2.4.10
  * @package phing.tasks.ext.liquibase
  */
 class LiquibaseDiffTask extends AbstractLiquibaseTask

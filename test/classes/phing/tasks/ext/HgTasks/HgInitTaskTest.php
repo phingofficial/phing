@@ -4,7 +4,7 @@ class HgInitTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp()
+    public function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -13,7 +13,7 @@ class HgInitTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
     }
@@ -26,8 +26,8 @@ class HgInitTaskTest extends BuildFileTest
         $HGdir = $repository . '/.hg';
         $this->executeTarget('hgInit');
         $this->assertInLogs('Initializing');
-        $this->assertTrue(is_dir($repository));
-        $this->assertTrue(is_dir($HGdir));
+        $this->assertDirectoryExists($repository);
+        $this->assertDirectoryExists($HGdir);
     }
 
     public function testWrongRepository()

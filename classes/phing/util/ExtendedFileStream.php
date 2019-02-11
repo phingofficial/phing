@@ -1,9 +1,5 @@
 <?php
-
-include_once 'phing/system/io/PhingFile.php';
-
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +20,7 @@ include_once 'phing/system/io/PhingFile.php';
 /**
  * Extended file stream wrapper class which auto-creates directories
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.util
  */
 class ExtendedFileStream
@@ -54,6 +50,7 @@ class ExtendedFileStream
         }
     }
 
+    // @codingStandardsIgnoreStart
     /**
      * @param $path
      * @param $mode
@@ -75,7 +72,7 @@ class ExtendedFileStream
 
         $this->fp = fopen($filepath, $mode);
 
-        if (! $this->fp) {
+        if (!$this->fp) {
             throw new BuildException("Unable to open stream for path {$path}");
         }
 
@@ -147,6 +144,7 @@ class ExtendedFileStream
     {
         return fstat($this->fp);
     }
+    // @codingStandardsIgnoreEnd
 
     /**
      * @param $path

@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/StringHelper.php';
-
 /**
  * A Path tokenizer takes a path and returns the components that make up
  * that path.
@@ -42,6 +40,7 @@ class PathTokenizer
     /**
      * A string which stores any path components which have been read ahead
      * due to DOS filesystem compensation.
+     *
      * @var string
      */
     private $lookahead;
@@ -49,6 +48,7 @@ class PathTokenizer
     /**
      * Flag to indicate whether or not we are running on a platform with a
      * DOS style filesystem
+     *
      * @var boolean
      */
     private $dosStyleFilesystem;
@@ -108,12 +108,9 @@ class PathTokenizer
 
 
         if (strlen($token) === 1 && Character::isLetter($token{0})
-
             && $this->dosStyleFilesystem
-
             && !empty($this->tokens)
         ) {
-
             // we are on a dos style system so this path could be a drive
 
             // spec. We look at the next token
@@ -121,7 +118,6 @@ class PathTokenizer
             $nextToken = trim(array_shift($this->tokens));
 
             if (StringHelper::startsWith('\\', $nextToken) || StringHelper::startsWith('/', $nextToken)) {
-
                 // we know we are on a DOS style platform and the next path
 
                 // starts with a slash or backslash, so we know this is a
@@ -130,7 +126,6 @@ class PathTokenizer
 
                 $token .= ':' . $nextToken;
             } else {
-
                 // store the token just read for next time
 
                 $this->lookahead = $nextToken;
@@ -144,7 +139,7 @@ class PathTokenizer
      * Non StringTokenizer function, that indicates whether the specified path is contained in loaded tokens.
      * We can do this easily because in PHP implimentation we're using arrays.
      *
-     * @param  string  $path path to search for.
+     * @param string $path path to search for.
      *
      * @return boolean
      */

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,8 +20,8 @@
 /**
  * Condition that tests whether a given property has been set.
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.tasks.system.condition
  */
 class IsSetCondition extends ProjectComponent implements Condition
@@ -39,13 +38,16 @@ class IsSetCondition extends ProjectComponent implements Condition
 
     /**
      * Check whether property is set.
+     *
      * @throws BuildException
      */
     public function evaluate()
     {
         if ($this->property === null) {
-            throw new BuildException("No property specified for isset "
-                . "condition");
+            throw new BuildException(
+                "No property specified for isset "
+                . "condition"
+            );
         }
 
         return $this->project->getProperty($this->property) !== null;

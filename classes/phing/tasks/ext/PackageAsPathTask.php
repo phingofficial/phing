@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,16 +21,20 @@
 /**
  * Convert dot-notation packages to relative paths.
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.ext
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.ext
  */
 class PackageAsPathTask extends Task
 {
 
-    /** The package to convert. */
+    /**
+     * The package to convert.
+     */
     protected $pckg;
 
-    /** The property to store the conversion in. */
+    /**
+     * The property to store the conversion in.
+     */
     protected $name;
 
     /**

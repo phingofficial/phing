@@ -9,7 +9,7 @@ class ProgressLogger extends AnsiColorLogger
      * @var ProgressBar
      */
     private $bar;
-    
+
     private $numTargets = 0;
     private $remTargets = 0;
     private $numTasks = 0;
@@ -18,12 +18,14 @@ class ProgressLogger extends AnsiColorLogger
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->bar = new ProgressBar(new ConsoleOutput());
         $this->bar->setBarWidth(80);
-        $this->bar->setFormat("<fg=cyan>Buildfile: %buildfile%</>\n" .
+        $this->bar->setFormat(
+            "<fg=cyan>Buildfile: %buildfile%</>\n" .
             "  <fg=green>%current%/%max% [%bar%] %percent:3s%% %elapsed:6s%</>\n" .
-            "<fg=cyan>[%target% %task%] %message%</>");
+            "<fg=cyan>[%target% %task%] %message%</>"
+        );
         $this->bar->setProgressCharacter('|');
         $this->bar->setMessage('', 'target');
         $this->bar->setMessage('', 'task');
@@ -44,13 +46,13 @@ class ProgressLogger extends AnsiColorLogger
      * Fired after the last target has finished.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getException()
+     * @see   BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
     {
         $this->bar->finish();
         echo "\n";
-        
+
         parent::buildFinished($event);
     }
 
@@ -58,7 +60,7 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a target is started.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getTarget()
+     * @see   BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
     {
@@ -70,7 +72,7 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a target has finished.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent#getException()
+     * @see   BuildEvent#getException()
      */
     public function targetFinished(BuildEvent $event)
     {
@@ -81,7 +83,7 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a task is started.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getTask()
+     * @see   BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
     {
@@ -99,7 +101,7 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a task has finished.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getException()
+     * @see   BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
     {
@@ -116,13 +118,13 @@ class ProgressLogger extends AnsiColorLogger
      * Fired whenever a message is logged.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getMessage()
+     * @see   BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $this->bar->setMessage(str_replace(["\n","\r"], ["",""], $event->getMessage()));
+            $this->bar->setMessage(str_replace(["\n", "\r"], ["", ""], $event->getMessage()));
             $this->bar->display();
         }
     }
@@ -154,7 +156,7 @@ class ProgressLogger extends AnsiColorLogger
                     $this->numTargets++;
                 }
             }
-            
+
             $this->remTargets = $this->numTargets;
             $this->remTasks = $this->numTasks;
             $this->bar->start($this->numTasks);

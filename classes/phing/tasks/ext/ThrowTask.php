@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,9 +21,9 @@
  * Exits the active build, giving an additional message
  * if available.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Nico Seessle <nico@seessle.de> (Ant)
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Nico Seessle <nico@seessle.de> (Ant)
+ * @package phing.tasks.system
  */
 class ThrowTask extends FailTask
 {

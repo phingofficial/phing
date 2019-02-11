@@ -15,18 +15,14 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
-
-// include_once 'phing/system/io/Reader.php'; // really this is unrelated to Reader
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/filters/ReplaceTokens.php'; // For class Token
+ */
 
 /**
  * Abstract class for TokenReaders.
  *
- * @author    Manuel Holtgewe
+ * @author Manuel Holtgewe
  *
- * @package   phing.filters.util
+ * @package phing.filters.util
  */
 abstract class TokenReader
 {

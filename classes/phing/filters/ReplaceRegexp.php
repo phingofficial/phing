@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Performs a regexp find/replace on stream.
@@ -30,8 +28,8 @@
  * </replaceregexp>
  * </pre>
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.filters
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.filters
  */
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 {
@@ -43,6 +41,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 
     /**
      * Creator method handles nested <regexp> tags.
+     *
      * @return RegularExpression
      */
     public function createRegexp()
@@ -55,6 +54,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
     /**
      * Sets the current regexps.
      * (Used when, e.g., cloning/chaining the method.)
+     *
      * @param array RegularExpression[]
      */
     public function setRegexps($regexps)
@@ -65,6 +65,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
     /**
      * Gets the current regexps.
      * (Used when, e.g., cloning/chaining the method.)
+     *
      * @return array RegularExpression[]
      */
     public function getRegexps()
@@ -97,8 +98,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
             try {
                 $buffer = $regexp->replace($buffer);
                 $this->log(
-                    "Performing regexp replace: /" . $regexp->getPattern() . "/" . $regexp->getReplace(
-                    ) . "/g" . $regexp->getModifiers(),
+                    "Performing regexp replace: /" . $regexp->getPattern() . "/" . $regexp->getReplace() . "/g" . $regexp->getModifiers(),
                     Project::MSG_VERBOSE
                 );
             } catch (Exception $e) {

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,33 +20,37 @@
 /**
  * Wrapper around git-gc
  *
- * @author Victor Farazdagi <simple.square@gmail.com>
+ * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see VersionControl_Git
- * @since 2.4.3
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitGcTask extends GitBaseTask
 {
     /**
      * --aggressive key to git-gc
+     *
      * @var boolean
      */
     private $isAggressive = false;
 
     /**
      * --auto key to git-gc
+     *
      * @var boolean
      */
     private $isAuto = false;
 
     /**
      * --no-prune key to git-gc
+     *
      * @var boolean
      */
     private $noPrune = false;
 
     /**
      * --prune=<date>option of git-gc
+     *
      * @var string
      */
     private $prune = '2.weeks.ago';

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,10 +23,10 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Exports/checks out a repository to a local directory
  * with authentication
  *
- * @author Michiel Rook <mrook@php.net>
- * @author Andrew Eddie <andrew.eddie@jamboworks.com>
+ * @author  Michiel Rook <mrook@php.net>
+ * @author  Andrew Eddie <andrew.eddie@jamboworks.com>
  * @package phing.tasks.ext.svn
- * @since 2.2.0
+ * @since   2.2.0
  */
 class SvnExportTask extends SvnBaseTask
 {

@@ -36,7 +36,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new SymfonyConsoleTask();
     }
@@ -45,7 +45,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -83,6 +83,17 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers SymfonyConsoleTask::setSilent
+     * @covers SymfonyConsoleTask::getSilent
+     */
+    public function testSetGetSilent()
+    {
+        $o = $this->object;
+        $o->setSilent(true);
+        $this->assertTrue($o->getSilent());
+    }
+
+    /**
      * @covers SymfonyConsoleTask::createArg
      */
     public function testCreateArg()
@@ -101,7 +112,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $arg = $o->createArg();
         $arg = $o->createArg();
         $arg = $o->createArg();
-        $this->assertTrue(count($o->getArgs()) == 3);
+        $this->assertCount(3, $o->getArgs());
     }
 
     /**

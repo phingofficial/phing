@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,8 +21,8 @@
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *
  * @package phing.tasks.ext
- * @author Alexey Shockov <alexey@shockov.com>
- * @since 2.4.0
+ * @author  Alexey Shockov <alexey@shockov.com>
+ * @since   2.4.0
  */
 class PharPackageTask extends MatchingTask
 {
@@ -296,7 +295,6 @@ class PharPackageTask extends MatchingTask
             }
 
             if ($this->signatureAlgorithm == Phar::OPENSSL) {
-
                 // Load up the contents of the key
                 $keyContents = file_get_contents($this->key);
 
@@ -359,14 +357,18 @@ class PharPackageTask extends MatchingTask
         }
         if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
-                throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation(
-                    ));
+                throw new BuildException(
+                    "basedir '" . (string) $this->baseDirectory . "' does not exist!",
+                    $this->getLocation()
+                );
             }
         }
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
             if (!extension_loaded('openssl')) {
-                throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation(
-                ));
+                throw new BuildException(
+                    "PHP OpenSSL extension is required for OpenSSL signing of Phars!",
+                    $this->getLocation()
+                );
             }
 
             if (null === $this->key) {

@@ -6,7 +6,7 @@
  * Permissions are currently not implemented by PEAR Archive_Tar,
  * but hopefully they will be in the future.
  *
- * @package   phing.tasks.ext
+ * @package phing.tasks.ext
  */
 class TarFileSet extends FileSet
 {
@@ -39,7 +39,6 @@ class TarFileSet extends FileSet
             $this->files = $ds->getIncludedFiles();
 
             if ($includeEmpty) {
-
                 // first any empty directories that will not be implicitly added by any of the files
                 $implicitDirs = [];
                 foreach ($this->files as $file) {
@@ -80,11 +79,12 @@ class TarFileSet extends FileSet
      * A 3 digit octal string, specify the user, group and
      * other modes in the standard Unix fashion;
      * optional, default=0644
+     *
      * @param string $octalString
      */
     public function setMode($octalString)
     {
-        $octal = (int)$octalString;
+        $octal = (int) $octalString;
         $this->mode = 0100000 | $octal;
     }
 
@@ -100,6 +100,7 @@ class TarFileSet extends FileSet
      * The username for the tar entry
      * This is not the same as the UID, which is
      * not currently set by the task.
+     *
      * @param $userName
      */
     public function setUserName($userName)
@@ -119,6 +120,7 @@ class TarFileSet extends FileSet
      * The groupname for the tar entry; optional, default=""
      * This is not the same as the GID, which is
      * not currently set by the task.
+     *
      * @param $groupName
      */
     public function setGroup($groupName)
@@ -138,6 +140,7 @@ class TarFileSet extends FileSet
      * If the prefix attribute is set, all files in the fileset
      * are prefixed with that path in the archive.
      * optional.
+     *
      * @param bool $prefix
      */
     public function setPrefix($prefix)
@@ -158,6 +161,7 @@ class TarFileSet extends FileSet
      * is written with that path in the archive. The prefix attribute,
      * if specified, is ignored. It is an error to have more than one file specified in
      * such a fileset.
+     *
      * @param $fullpath
      */
     public function setFullpath($fullpath)
@@ -184,7 +188,7 @@ class TarFileSet extends FileSet
      */
     public function setPreserveLeadingSlashes($b)
     {
-        $this->preserveLeadingSlashes = (boolean)$b;
+        $this->preserveLeadingSlashes = (boolean) $b;
     }
 
     /**

@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,8 +20,8 @@
 /**
  * This class throws errors for Expat, the XML processor.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @package  phing.parser
+ * @author  Andreas Aderhold, andi@binarycloud.com
+ * @package phing.parser
  */
 class ExpatParseException extends BuildException
 {

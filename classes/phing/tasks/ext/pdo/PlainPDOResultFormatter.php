@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,20 +23,22 @@ require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
 /**
  * Plain text formatter for PDO results.
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pdo
- * @since 2.3.0
+ * @since   2.3.0
  */
 class PlainPDOResultFormatter extends PDOResultFormatter
 {
     /**
      * Have column headers been printed?
+     *
      * @var boolean
      */
     private $colsprinted = false;
 
     /**
      * Whether to show headers.
+     *
      * @var boolean
      */
     private $showheaders = true;
@@ -45,6 +46,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Column delimiter.
      * Defaults to ','
+     *
      * @var string
      */
     private $coldelimiter = ",";
@@ -52,12 +54,14 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Row delimiter.
      * Defaults to PHP_EOL.
+     *
      * @var string
      */
     private $rowdelimiter = PHP_EOL;
 
     /**
      * Set the showheaders attribute.
+     *
      * @param boolean $v
      */
     public function setShowheaders($v)
@@ -67,6 +71,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
     /**
      * Sets the column delimiter.
+     *
      * @param string $v
      */
     public function setColdelim($v)
@@ -76,6 +81,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
     /**
      * Sets the row delimiter.
+     *
      * @param string $v
      */
     public function setRowdelim($v)

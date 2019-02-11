@@ -17,20 +17,21 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/system/lang/NullPointerException.php';
-
 /**
  * An abstract representation of file and directory pathnames.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class PhingFile
 {
-    /** separator string, static, obtained from FileSystem */
+    /**
+     * separator string, static, obtained from FileSystem
+     */
     public static $separator;
 
-    /** path separator string, static, obtained from FileSystem (; or :)*/
+    /**
+     * path separator string, static, obtained from FileSystem (; or :)
+     */
     public static $pathSeparator;
 
     /**
@@ -42,6 +43,7 @@ class PhingFile
 
     /**
      * The length of this abstract pathname's prefix, or zero if it has no prefix.
+     *
      * @var int
      */
     private $prefixLength = 0;
@@ -110,10 +112,10 @@ class PhingFile
     }
 
     /**
-     *
      * Enter description here ...
-     * @param string $parent
-     * @param string $child
+     *
+     * @param  string $parent
+     * @param  string $child
      * @throws NullPointerException
      */
     protected function _constructStringParentStringChild($parent, $child = null)
@@ -137,10 +139,10 @@ class PhingFile
     }
 
     /**
-     *
      * Enter description here ...
-     * @param PhingFile $parent
-     * @param string $child
+     *
+     * @param  PhingFile $parent
+     * @param  string $child
      * @throws NullPointerException
      */
     protected function _constructFileParentStringChild($parent, $child = null)
@@ -393,7 +395,6 @@ class PhingFile
      *
      * @return void A URL object representing the equivalent file URL
      * @todo   Not implemented yet
-     *
      */
     public function toURL()
     {
@@ -405,6 +406,7 @@ class PhingFile
 
     /**
      * Constructs a file: URI that represents this abstract pathname.
+     *
      * @todo   Not implemented yet
      * @return void
      */
@@ -421,10 +423,10 @@ class PhingFile
     }
 
     /**
-     *
      * Enter description here ...
+     *
      * @param  PhingFile|string $path
-     * @param  boolean          $isDirectory
+     * @param  boolean $isDirectory
      * @return string
      */
     public function _slashify($path, $isDirectory)
@@ -653,6 +655,7 @@ class PhingFile
     /**
      * Convenience method for returning the contents of this file as a string.
      * This method uses file_get_contents() to read file in an optimized way.
+     *
      * @return string
      * @throws Exception - if file cannot be read
      */
@@ -674,8 +677,8 @@ class PhingFile
      * are a single operation that is atomic with respect to all other
      * filesystem activities that might affect the file.
      *
-     * @param bool $parents
-     * @param int $mode
+     * @param  bool $parents
+     * @param  int $mode
      * @throws IOException
      * @return boolean     true if the named file does not exist and was
      *                     successfully created; <code>false</code> if the named file
@@ -683,7 +686,9 @@ class PhingFile
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
-        /** @var PhingFile $parent */
+        /**
+         * @var PhingFile $parent
+         */
         $parent = $this->getParentFile();
         if ($parents && $parent !== null && !$parent->exists()) {
             $parent->mkdirs();
@@ -699,7 +704,7 @@ class PhingFile
      * this pathname denotes a directory, then the directory must be empty in
      * order to be deleted.
      *
-     * @param bool $recursive
+     * @param  bool $recursive
      * @throws IOException
      */
     public function delete($recursive = false)
@@ -720,7 +725,6 @@ class PhingFile
      *
      * Once deletion has been requested, it is not possible to cancel the
      * request.  This method should therefore be used with care.
-     *
      */
     public function deleteOnExit()
     {
@@ -762,7 +766,7 @@ class PhingFile
      * operation fails it may have succeeded in creating some of the necessary
      * parent directories.
      *
-     * @param int $mode
+     * @param  int $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created,
      *                     along with all necessary parent directories; false
@@ -788,7 +792,7 @@ class PhingFile
     /**
      * Creates the directory named by this abstract pathname.
      *
-     * @param int $mode
+     * @param  int $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created; false otherwise
      */
@@ -939,7 +943,7 @@ class PhingFile
     /**
      * Sets the mode of the file
      *
-     * @param int $mode Octal mode.
+     * @param  int $mode Octal mode.
      * @throws IOException
      */
     public function setMode($mode)
@@ -1005,6 +1009,7 @@ class PhingFile
 
     /**
      * Returns the path to the temp directory.
+     *
      * @return string
      */
     public static function getTempDir()

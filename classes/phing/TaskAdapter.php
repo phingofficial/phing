@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,11 +28,14 @@
 class TaskAdapter extends Task
 {
 
-    /** target object */
+    /**
+     * target object
+     */
     private $proxy;
 
     /**
      * Main entry point.
+     *
      * @throws BuildException
      * @throws Exception
      * @return void
@@ -74,6 +76,7 @@ class TaskAdapter extends Task
 
     /**
      * Set the target object.
+     *
      * @param  object $o
      * @return void
      */
@@ -84,6 +87,7 @@ class TaskAdapter extends Task
 
     /**
      * Gets the target object.
+     *
      * @return object
      */
     public function getProxy()

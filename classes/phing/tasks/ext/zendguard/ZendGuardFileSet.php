@@ -14,7 +14,8 @@ class ZendGuardFileSet extends FileSet
 
     /**
      *  Get a list of files and directories specified in the fileset.
-     * @param array $options
+     *
+     * @param  array $options
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      * @throws BuildException

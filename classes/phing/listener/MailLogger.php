@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,8 +21,8 @@
  * Uses PEAR Mail package to send the build log to one or
  * more recipients.
  *
- * @author     Michiel Rook <mrook@php.net>
- * @package    phing.listener
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.listener
  */
 class MailLogger extends DefaultLogger
 {
@@ -44,7 +43,7 @@ class MailLogger extends DefaultLogger
             throw new BuildException('Need the PEAR Mail package to send logs');
         }
 
-        $tolist  = Phing::getDefinedProperty('phing.log.mail.recipients');
+        $tolist = Phing::getDefinedProperty('phing.log.mail.recipients');
 
         if (!empty($tolist)) {
             $this->tolist = $tolist;
@@ -67,7 +66,7 @@ class MailLogger extends DefaultLogger
     /**
      * Sends the mail
      *
-     * @see DefaultLogger#buildFinished
+     * @see   DefaultLogger#buildFinished
      * @param BuildEvent $event
      */
     public function buildFinished(BuildEvent $event)
@@ -109,13 +108,13 @@ class MailLogger extends DefaultLogger
                 $defaultSubject = ($success) ? 'Build Success' : 'Build Failure';
             }
             $hdrs = [];
-            $hdrs['From']     = $this->getValue($properties, 'from', $this->from);
+            $hdrs['From'] = $this->getValue($properties, 'from', $this->from);
             $hdrs['Reply-To'] = $this->getValue($properties, 'replyto', '');
-            $hdrs['Cc']       = $this->getValue($properties, $prefix . '.cc', '');
-            $hdrs['Bcc']      = $this->getValue($properties, $prefix . '.bcc', '');
-            $hdrs['Body']     = $this->getValue($properties, $prefix . '.body', '');
-            $hdrs['Subject']  = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
-            $tolist           = $this->getValue($properties, $prefix . '.to', $this->tolist);
+            $hdrs['Cc'] = $this->getValue($properties, $prefix . '.cc', '');
+            $hdrs['Bcc'] = $this->getValue($properties, $prefix . '.bcc', '');
+            $hdrs['Body'] = $this->getValue($properties, $prefix . '.body', '');
+            $hdrs['Subject'] = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
+            $tolist = $this->getValue($properties, $prefix . '.to', $this->tolist);
         } catch (BadMethodCallException $e) {
             $project->log($e->getMessage(), Project::MSG_WARN);
         }

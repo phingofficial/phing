@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,9 +20,9 @@
 /**
  * Various utility functions
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @since 2.1.0
+ * @since   2.1.0
  */
 class PHPUnitUtil
 {
@@ -32,7 +31,7 @@ class PHPUnitUtil
     /**
      * Returns the package of a class as defined in the docblock of the class using @package
      *
-     * @param string the name of the class
+     * @param  string the name of the class
      * @return string the name of the package
      */
     public static function getPackageName($classname)
@@ -79,7 +78,7 @@ class PHPUnitUtil
      * Assumes that there is only one class defined in that particular file, and that
      * the naming follows the dot-path (Java) notation scheme.
      *
-     * @param string the filename
+     * @param  string the filename
      * @return string the name fo the class
      */
     public static function getClassFromFileName($filename)

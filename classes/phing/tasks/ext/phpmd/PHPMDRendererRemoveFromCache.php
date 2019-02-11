@@ -25,14 +25,15 @@ use PHPMD\Report;
 /**
  * This class will remove files with violations from cache
  *
- * @category  PHP
- * @package   PHPMD
- * @author    Rui Filipe Da Cunha Alves <ruifil@ruifil.com>
+ * @category PHP
+ * @package  PHPMD
+ * @author   Rui Filipe Da Cunha Alves <ruifil@ruifil.com>
  */
 class PHPMDRendererRemoveFromCache extends AbstractRenderer
 {
     /**
      * Cache data storage
+     *
      * @var DataStore
      */
     protected $cache;
@@ -51,7 +52,7 @@ class PHPMDRendererRemoveFromCache extends AbstractRenderer
      * This method will be called when the engine has finished the source
      * analysis phase. To remove file with violations from cache.
      *
-     * @param Report $report
+     * @param  Report $report
      * @return void
      */
     public function renderReport(Report $report)

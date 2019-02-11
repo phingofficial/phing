@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -68,8 +67,8 @@
  * Look at the build.xml in the Phing base directory (assuming you have the full distro / CVS version of Phing) to
  * see a more complete example of how to call this script.
  *
- * @author   Hans Lellelid <hans@xmpl.org>
- * @package  phing.tasks.ext
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.ext
  */
 class PearPackageTask extends MatchingTask
 {
@@ -78,25 +77,36 @@ class PearPackageTask extends MatchingTask
     /** */
     protected $package;
 
-    /** Base directory for reading files. */
+    /**
+     * Base directory for reading files.
+     */
     protected $dir;
 
-    /** Package file */
+    /**
+     * Package file
+     */
     private $packageFile;
 
-    /** @var PEAR_PackageFileManager */
+    /**
+     * @var PEAR_PackageFileManager
+     */
     protected $pkg;
 
     private $preparedOptions = [];
 
-    /** @var array PearPkgOption[] */
+    /**
+     * @var array PearPkgOption[]
+     */
     protected $options = [];
 
-    /** Nested <mapping> (complex options) types. */
+    /**
+     * Nested <mapping> (complex options) types.
+     */
     protected $mappings = [];
 
     /**
      * Nested <role> elements
+     *
      * @var PearPkgRole[]
      */
     protected $roles = [];
@@ -111,6 +121,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets PEAR package.xml options, based on class properties.
+     *
      * @throws BuildException
      * @return void
      */
@@ -159,7 +170,8 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Fixes the boolean in optional dependencies
-     * @param $deps
+     *
+     * @param  $deps
      * @return
      */
     private function fixDeps($deps)
@@ -198,8 +210,7 @@ class PearPackageTask extends MatchingTask
         // key => value options that can be passed to PEAR_PackageFileManager
 
         foreach ($this->options as $opt) {
-            $this->preparedOptions[$opt->getName()] = $opt->getValue(
-            ); //no arrays yet. preg_split('/\s*,\s*/', $opt->getValue());
+            $this->preparedOptions[$opt->getName()] = $opt->getValue(); //no arrays yet. preg_split('/\s*,\s*/', $opt->getValue());
         }
 
         foreach ($this->mappings as $map) {
@@ -215,6 +226,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Main entry point.
+     *
      * @throws BuildException
      * @return void
      */
@@ -239,7 +251,8 @@ class PearPackageTask extends MatchingTask
     }
 
     /**
-     * Used by the PEAR_PackageFileManager_PhingFileSet lister.
+     * Used by the PEARPackageFileManagerFileset lister.
+     *
      * @return array FileSet[]
      */
     public function getFileSets()
@@ -253,7 +266,8 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Set "package" property from XML.
-     * @see setName()
+     *
+     * @see    setName()
      * @param  string $v
      * @return void
      */
@@ -264,6 +278,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets "dir" property from XML.
+     *
      * @param  PhingFile $f
      * @return void
      */
@@ -274,6 +289,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets "name" property from XML.
+     *
      * @param  string $v
      * @return void
      */
@@ -284,6 +300,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets the file to use for generated package.xml
+     *
      * @param PhingFile $f
      */
     public function setDestFile(PhingFile $f)
@@ -315,6 +332,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Handles nested <role> elements
+     *
      * @return PearPkgRole
      */
     public function createRole()

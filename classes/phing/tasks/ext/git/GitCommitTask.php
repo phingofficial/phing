@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,9 +21,9 @@
  * Wrapper around git-commit
  *
  * @package phing.tasks.ext.git
- * @author Jonathan Creasy <jonathan.creasy@gmail.com>
- * @see VersionControl_Git
- * @since 2.4.3
+ * @author  Jonathan Creasy <jonathan.creasy@gmail.com>
+ * @see     VersionControl_Git
+ * @since   2.4.3
  */
 class GitCommitTask extends GitBaseTask
 {

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,7 +20,7 @@
 /**
  * Extends the Writer class to output messages to Phing's log
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.util
  */
 class LogWriter extends Writer
@@ -32,6 +31,7 @@ class LogWriter extends Writer
 
     /**
      * Constructs a new LogWriter object
+     *
      * @param Task $task
      * @param int $level
      */

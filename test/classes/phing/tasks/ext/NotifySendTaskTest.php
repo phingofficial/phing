@@ -4,7 +4,7 @@ class NotifySendTaskTest extends BuildFileTest
 {
     protected $object;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/NotifySendTaskTest.xml");
         $this->object = new NotifySendTask();
@@ -26,6 +26,7 @@ class NotifySendTaskTest extends BuildFileTest
         $this->object->setTitle("Test Again");
         $this->assertEquals("Test Again", $this->object->getTitle());
     }
+
     public function testSettingMsg()
     {
         $this->object->setMsg("Test");

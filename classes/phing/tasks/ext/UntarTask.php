@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,9 +20,9 @@
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar
  *
- * @author    Joakim Bodin <joakim.bodin+phing@gmail.com>
- * @package   phing.tasks.ext
- * @since     2.2.0
+ * @author  Joakim Bodin <joakim.bodin+phing@gmail.com>
+ * @package phing.tasks.ext
+ * @since   2.2.0
  */
 class UntarTask extends ExtractBaseTask
 {
@@ -89,7 +88,7 @@ class UntarTask extends ExtractBaseTask
     /**
      * Init a Archive_Tar class with correct compression for the given file.
      *
-     * @param  PhingFile   $tarfile
+     * @param  PhingFile $tarfile
      * @return Archive_Tar the tar class instance
      */
     private function initTar(PhingFile $tarfile)

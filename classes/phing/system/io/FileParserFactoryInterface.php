@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,7 +21,7 @@
  * This interface can be used to implement a fileParserFactory to create FileParsers based on config.
  * Currently it is used in the PropertyTask to deliver the correct parser based on filetype.
  *
- * @author Mike Lohmann <mike.lohmann@deck36.de>
+ * @author  Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
 interface FileParserFactoryInterface
@@ -30,7 +29,7 @@ interface FileParserFactoryInterface
     /**
      * Based on the $name a parser will be returned.
      *
-     * @param string $fileExtension
+     * @param  string $fileExtension
      * @return FileParserInterface
      */
     public function createParser($fileExtension);

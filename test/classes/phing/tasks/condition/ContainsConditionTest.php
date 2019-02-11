@@ -33,7 +33,7 @@ class ContainsConditionTest extends \PHPUnit\Framework\TestCase
         $con = new ContainsCondition();
         $con->setString("abc");
         $con->setSubstring("A");
-        $this->assertTrue(!$con->evaluate());
+        $this->assertFalse($con->evaluate());
 
         $con->setCaseSensitive(false);
         $this->assertTrue($con->evaluate());

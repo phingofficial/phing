@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Replaces tokens in the original input with user-supplied values.
@@ -36,28 +34,31 @@
  *   <param type="token" name="DATE" value="${TODAY}"/>
  * </filterreader></pre>
  *
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author    hans lellelid, hans@velum.net
- * @see       BaseParamFilterReader
- * @package   phing.filters
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author  hans lellelid, hans@velum.net
+ * @see     BaseParamFilterReader
+ * @package phing.filters
  */
 class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 {
 
     /**
      * Default "begin token" character.
+     *
      * @var string
      */
     const DEFAULT_BEGIN_TOKEN = "@";
 
     /**
      * Default "end token" character.
+     *
      * @var string
      */
     const DEFAULT_END_TOKEN = "@";
 
     /**
      * Array to hold the replacee-replacer pairs (String to String).
+     *
      * @var array
      */
     private $_tokens = [];
@@ -65,6 +66,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Array to hold the token sources that make tokens from
      * different sources available
+     *
      * @var array
      */
     private $_tokensources = [];
@@ -72,25 +74,29 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Array holding all tokens given directly to the Filter and
      * those passed via a TokenSource.
+     *
      * @var array
      */
     private $_alltokens = null;
 
     /**
      * Character marking the beginning of a token.
+     *
      * @var string
      */
     private $_beginToken = "@"; // self::DEFAULT_BEGIN_TOKEN;
 
     /**
      * Character marking the end of a token.
+     *
      * @var string
      */
     private $_endToken = "@"; //self::DEFAULT_END_TOKEN;
 
     /**
      * Performs lookup on key and returns appropriate replacement string.
-     * @param  array  $matches Array of 1 el containing key to search for.
+     *
+     * @param  array $matches Array of 1 el containing key to search for.
      * @return string Text with which to replace key or value of key if none is found.
      */
     private function replaceTokenCallback($matches)
@@ -141,7 +147,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -237,8 +243,8 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Sets the map of tokens to replace.
      * ; used by ReplaceTokens::chain()
      *
-     * @param $tokens
-     * @throws Exception
+     * @param    $tokens
+     * @throws   Exception
      * @internal param A $array map (String->String) of token keys to replacement
      *              values. Must not be <code>null</code>.
      */
@@ -266,8 +272,8 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the tokensources to use; used by ReplaceTokens::chain()
      *
-     * @param $sources
-     * @throws Exception
+     * @param    $sources
+     * @throws   Exception
      * @internal param An $array array of token sources.
      */
     public function setTokensources($sources)
@@ -293,8 +299,8 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
-     * @throws Exception
+     * @param    Reader $reader
+     * @throws   Exception
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

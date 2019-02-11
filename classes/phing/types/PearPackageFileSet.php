@@ -17,7 +17,7 @@
  * release files (zip, tgz, phar).
  *
  * @internal
- * A normal fileset is used that way in CopyTask, rSTTask:
+ * A normal fileset is used that way in CopyTask, RSTTask:
  * <code>
  *  $ds = $fs->getDirectoryScanner($project);
  *  $fromDir  = $fs->getDir($project);
@@ -141,7 +141,7 @@ class PearPackageFileSet extends FileSet
      * Sets the package.xml filename.
      * If it is not set, the local pear installation is queried for the package.
      *
-     * @param $descFile
+     * @param  $descFile
      * @return void
      */
     public function setDescFile($descFile)

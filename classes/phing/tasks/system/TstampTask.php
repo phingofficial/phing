@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,9 +24,9 @@
  *
  * Based on Ant's Tstamp task.
  *
- * @author   Michiel Rook <mrook@php.net>
- * @package  phing.tasks.system
- * @since    2.2.0
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.system
+ * @since   2.2.0
  */
 class TstampTask extends Task
 {
@@ -38,6 +37,7 @@ class TstampTask extends Task
     /**
      * Set a prefix for the properties. If the prefix does not end with a "."
      * one is automatically added.
+     *
      * @param string $prefix the prefix to use.
      */
     public function setPrefix($prefix)
@@ -67,28 +67,62 @@ class TstampTask extends Task
      */
     public function main()
     {
+        $d = $this->getNow();
+
         foreach ($this->customFormats as $cf) {
-            $cf->execute($this);
+            $cf->execute($this, $d, $this->getLocation());
         }
 
-        $dstamp = strftime('%Y%m%d');
+        $dstamp = strftime('%Y%m%d', $d);
         $this->prefixProperty('DSTAMP', $dstamp);
 
-        $tstamp = strftime('%H%M');
+        $tstamp = strftime('%H%M', $d);
         $this->prefixProperty('TSTAMP', $tstamp);
 
-        $today = strftime('%B %d %Y');
+        $today = strftime('%B %d %Y', $d);
         $this->prefixProperty('TODAY', $today);
     }
 
     /**
      * helper that encapsulates prefix logic and property setting
      * policy (i.e. we use setNewProperty instead of setProperty).
+     *
      * @param $name
      * @param $value
      */
     public function prefixProperty($name, $value)
     {
         $this->getProject()->setNewProperty($this->prefix . $name, $value);
+    }
+
+    protected function getNow(): int
+    {
+        $property = $this->getProject()->getProperty('phing.tstamp.now.iso');
+
+        if ($property !== null && $property !== '') {
+            try {
+                $dateTime = new DateTime($property);
+            } catch (Exception $e) {
+                $this->log('magic property phing.tstamp.now.iso ignored as ' . $property . ' is not a valid number');
+                $dateTime = new DateTime();
+            }
+
+            return $dateTime->getTimestamp();
+        }
+
+        $property = $this->getProject()->getProperty('phing.tstamp.now');
+
+        $dateTime = (new DateTime())->getTimestamp();
+
+        if ($property !== null && $property !== '') {
+            $dateTime = DateTime::createFromFormat('U', $property);
+            if ($dateTime === false) {
+                $this->log('magic property phing.tstamp.now ignored as ' . $property . ' is not a valid number');
+            } else {
+                $dateTime = $dateTime->getTimestamp();
+            }
+        }
+
+        return $dateTime;
     }
 }

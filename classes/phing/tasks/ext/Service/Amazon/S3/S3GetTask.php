@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,16 +17,14 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__DIR__) . '/S3.php';
-
 /**
  * Downloads an object off S3
  *
  * @package phing.tasks.ext
- * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
+ * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @extends Service_Amazon_S3
  */
-class S3GetTask extends Service_Amazon_S3
+class S3GetTask extends S3
 {
     /**
      * This is where we'll store the object
@@ -119,7 +115,7 @@ class S3GetTask extends Service_Amazon_S3
         $client->getObject(
             [
                 'Bucket' => $this->getBucket(),
-                'Key'    => $this->getObject(),
+                'Key' => $this->getObject(),
                 'SaveAs' => $target
             ]
         );

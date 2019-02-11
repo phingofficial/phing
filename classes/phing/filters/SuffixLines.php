@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Attaches a suffix to every line.
@@ -29,20 +29,22 @@
  *  <param name="suffix" value="Foo"/>
  * </filterreader></pre>
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @see       FilterReader
- * @package   phing.filters
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @see     FilterReader
+ * @package phing.filters
  */
 class SuffixLines extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the suffix.
+     *
      * @var string
      */
     const SUFFIX_KEY = "suffix";
 
     /**
      * The suffix to be used.
+     *
      * @var string
      */
     private $suffix = null;
@@ -50,7 +52,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
-     * @param null $len
+     * @param  null $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -103,7 +105,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param    Reader $reader
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *

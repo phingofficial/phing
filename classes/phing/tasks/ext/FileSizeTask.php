@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,25 +23,28 @@
  * Calculate either MD5 or SHA hash value of a specified file and retun the
  * value in a property
  *
- * @author      Johan Persson <johan162@gmail.com>
- * @package     phing.tasks.ext
+ * @author  Johan Persson <johan162@gmail.com>
+ * @package phing.tasks.ext
  */
 class FileSizeTask extends Task
 {
     /**
      * Property for File
+     *
      * @var PhingFile file
      */
     private $file;
 
     /**
      * Property where the file size will be stored
+     *
      * @var string $property
      */
     private $propertyName = "filesize";
 
     /**
      * Which file to calculate the file size of
+     *
      * @param PhingFile $file
      */
     public function setFile($file)
@@ -52,7 +54,8 @@ class FileSizeTask extends Task
 
     /**
      * Set the name of the property to store the file size
-     * @param $property
+     *
+     * @param  $property
      * @return void
      */
     public function setPropertyName($property)
@@ -83,35 +86,39 @@ class FileSizeTask extends Task
 
     /**
      * checks file attribute
+     *
      * @return void
      * @throws BuildException
      */
     private function checkFile()
     {
         // check File
-        if ($this->file === null ||
-            strlen($this->file) == 0
+        if ($this->file === null
+            || strlen($this->file) == 0
         ) {
             throw new BuildException('[FileSize] You must specify an input file.', $this->file);
         }
 
         if (!is_readable($this->file)) {
-            throw new BuildException(sprintf(
-                '[FileSize] Input file does not exist or is not readable: %s',
-                $this->file
-            ));
+            throw new BuildException(
+                sprintf(
+                    '[FileSize] Input file does not exist or is not readable: %s',
+                    $this->file
+                )
+            );
         }
     }
 
     /**
      * checks property attribute
+     *
      * @return void
      * @throws BuildException
      */
     private function checkPropertyName()
     {
-        if (null === $this->propertyName ||
-            strlen($this->propertyName) === 0
+        if (null === $this->propertyName
+            || strlen($this->propertyName) === 0
         ) {
             throw new BuildException('[FileSize] Property name for publishing file size is not set');
         }

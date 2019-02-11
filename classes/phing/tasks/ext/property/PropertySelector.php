@@ -16,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
-
 
 /**
  * PropertySelector Task
@@ -27,7 +25,9 @@ include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
  */
 class PropertySelector extends AbstractPropertySetterTask
 {
-    /** @var RegularExpression $match */
+    /**
+     * @var RegularExpression $match
+     */
     private $match;
     private $select = "\\0";
     private $delim = ',';
@@ -63,8 +63,9 @@ class PropertySelector extends AbstractPropertySetterTask
     protected function validate()
     {
         parent::validate();
-        if ($this->match == null)
+        if ($this->match == null) {
             throw new BuildException("No match expression specified.");
+        }
     }
 
     public function main()
@@ -97,7 +98,9 @@ class PropertySelector extends AbstractPropertySetterTask
 
                 if (!($this->distinct && in_array($output, $used))) {
                     $used[] = $output;
-                    if ($cnt !== 0) $buf .= $this->delim;
+                    if ($cnt !== 0) {
+                        $buf .= $this->delim;
+                    }
                     $buf .= $output;
                     $cnt++;
                 }

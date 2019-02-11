@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,16 +17,16 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
+require_once 'phing/Task.php';
 
 /**
  * Send an e-mail message
  *
  * <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail>
  *
- * @author   Michiel Rook <mrook@php.net>
- * @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- * @package  phing.tasks.ext
+ * @author  Michiel Rook <mrook@php.net>
+ * @author  Francois Harvey at SecuriWeb (http://www.securiweb.net)
+ * @package phing.tasks.ext
  */
 class MailTask extends Task
 {
@@ -60,8 +59,8 @@ class MailTask extends Task
 
     protected function sendFilesets()
     {
-        @require_once 'Mail.php';
-        @require_once 'Mail/mime.php';
+        @include_once 'Mail.php';
+        @include_once 'Mail/mime.php';
 
         if (!class_exists('Mail_mime')) {
             throw new BuildException('Need the PEAR Mail_mime package to send attachments');
@@ -93,6 +92,7 @@ class MailTask extends Task
 
     /**
      * Setter for message
+     *
      * @param $msg
      */
     public function setMsg($msg)
@@ -102,6 +102,7 @@ class MailTask extends Task
 
     /**
      * Alias setter
+     *
      * @param $msg
      */
     public function setMessage($msg)
@@ -111,6 +112,7 @@ class MailTask extends Task
 
     /**
      * Setter for subject
+     *
      * @param $subject
      */
     public function setSubject($subject)
@@ -120,6 +122,7 @@ class MailTask extends Task
 
     /**
      * Setter for tolist
+     *
      * @param $tolist
      */
     public function setToList($tolist)
@@ -129,6 +132,7 @@ class MailTask extends Task
 
     /**
      * Alias for (deprecated) recipient
+     *
      * @param $recipient
      */
     public function setRecipient($recipient)
@@ -138,6 +142,7 @@ class MailTask extends Task
 
     /**
      * Alias for to
+     *
      * @param $to
      */
     public function setTo($to)
@@ -147,6 +152,7 @@ class MailTask extends Task
 
     /**
      * Supports the <mail>Message</mail> syntax.
+     *
      * @param $msg
      */
     public function addText($msg)
@@ -156,6 +162,7 @@ class MailTask extends Task
 
     /**
      * Sets email address of sender
+     *
      * @param $from
      */
     public function setFrom($from)
@@ -165,6 +172,7 @@ class MailTask extends Task
 
     /**
      * Sets PEAR Mail backend to use
+     *
      * @param $backend
      */
     public function setBackend($backend)
@@ -174,6 +182,7 @@ class MailTask extends Task
 
     /**
      * Sets PEAR Mail backend params to use
+     *
      * @param $backendParams
      */
     public function setBackendParams($backendParams)

@@ -20,9 +20,9 @@
 /**
  * Creates a zip archive using PHP ZipArchive extension/
  *
- * @author    Michiel Rook <mrook@php.net>
- * @package   phing.tasks.ext
- * @since     2.1.0
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.ext
+ * @since   2.1.0
  */
 class ZipTask extends MatchingTask
 {
@@ -42,7 +42,7 @@ class ZipTask extends MatchingTask
     private $includeEmpty = true;
 
     private $filesets = [];
-    
+
     private $ignoreLinks = false;
 
     /**
@@ -74,6 +74,7 @@ class ZipTask extends MatchingTask
 
     /**
      * Add a new fileset.
+     *
      * @param ZipFileSet $fileset
      */
     public function addZipFileSet(ZipFileSet $fileset)
@@ -83,6 +84,7 @@ class ZipTask extends MatchingTask
 
     /**
      * Set is the name/location of where to create the zip file.
+     *
      * @param PhingFile $destFile The output of the zip
      */
     public function setDestFile(PhingFile $destFile)
@@ -92,6 +94,7 @@ class ZipTask extends MatchingTask
 
     /**
      * This is the base directory to look in for things to zip.
+     *
      * @param PhingFile $baseDir
      */
     public function setBasedir(PhingFile $baseDir)
@@ -113,6 +116,7 @@ class ZipTask extends MatchingTask
 
     /**
      * Set the include empty dirs flag.
+     *
      * @param  boolean  Flag if empty dirs should be tarred too
      * @return void
      */
@@ -123,6 +127,7 @@ class ZipTask extends MatchingTask
 
     /**
      * Set the ignore symlinks flag.
+     *
      * @param  boolean $bool Flag if symlinks should be ignored
      * @return void
      */
@@ -145,6 +150,7 @@ class ZipTask extends MatchingTask
 
     /**
      * do the work
+     *
      * @throws BuildException
      */
     public function main()
@@ -168,7 +174,10 @@ class ZipTask extends MatchingTask
         try {
             if ($this->baseDir !== null) {
                 if (!$this->baseDir->exists()) {
-                    throw new BuildException("basedir '" . (string) $this->baseDir . "' does not exist!", $this->getLocation());
+                    throw new BuildException(
+                        "basedir '" . (string) $this->baseDir . "' does not exist!",
+                        $this->getLocation()
+                    );
                 }
 
                 if (empty($this->filesets)) {
@@ -180,9 +189,11 @@ class ZipTask extends MatchingTask
             }
 
             if (empty($this->filesets)) {
-                throw new BuildException("You must supply either a basedir "
+                throw new BuildException(
+                    "You must supply either a basedir "
                     . "attribute or some nested filesets.",
-                    $this->getLocation());
+                    $this->getLocation()
+                );
             }
 
             // check if zip is out of date with respect to each
@@ -219,7 +230,7 @@ class ZipTask extends MatchingTask
     }
 
     /**
-     * @param  array     $files array of filenames
+     * @param  array $files array of filenames
      * @param  PhingFile $dir
      * @return boolean
      */
@@ -238,7 +249,9 @@ class ZipTask extends MatchingTask
      */
     public function areFilesetsUpToDate()
     {
-        /** @var FileSet $fs */
+        /**
+         * @var FileSet $fs
+         */
         foreach ($this->filesets as $fs) {
             $files = $fs->getIterator($this->includeEmpty);
             if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {

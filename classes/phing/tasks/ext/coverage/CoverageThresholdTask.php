@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -175,8 +174,8 @@ class CoverageThresholdTask extends Task
     /**
      * Calculates the coverage threshold
      *
-     * @param string $filename The filename to analyse
-     * @param array $coverageInformation Array with coverage information
+     * @param  string $filename The filename to analyse
+     * @param  array $coverageInformation Array with coverage information
      * @throws BuildException
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)

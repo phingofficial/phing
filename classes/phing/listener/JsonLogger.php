@@ -32,7 +32,7 @@ class JsonLogger extends XmlLogger
      * Fired when the build finishes, this adds the time taken and any
      * error stacktrace to the build element and writes the document to disk.
      *
-     * @param BuildEvent $event An event with any relevant extra information.
+     * @param  BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
      * @throws BuildException
      */
@@ -89,7 +89,7 @@ class JsonLogger extends XmlLogger
             if (count($xmlnode->attributes()) > 0) {
                 $jsnode["@attribute"] = [];
                 foreach ($xmlnode->attributes() as $key => $value) {
-                    $jsnode["@attribute"][$key] = (string)$value;
+                    $jsnode["@attribute"][$key] = (string) $value;
                 }
             }
 

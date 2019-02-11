@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,16 +17,14 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-
 /**
  * A wrapper task that lets you run tasks(s) when another set
  * of tasks fails.
  *
  * Inspired by {@link http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html}
  *
- * @author   Michiel Rook <mrook@php.net>
- * @package  phing.tasks.system
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.system
  */
 class TryCatchTask extends Task
 {

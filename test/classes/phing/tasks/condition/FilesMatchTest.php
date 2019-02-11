@@ -8,7 +8,7 @@
  */
 class FilesMatchTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/FilesMatchTest.xml'

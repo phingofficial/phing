@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
-<appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.optionaltasks">
+<appendix xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.optionaltasks">
     <title>Optional tasks</title>
 
     <para>This appendix contains a reference of all optional tasks, i.e. tasks that are not directly
@@ -4336,8 +4336,9 @@ Note that you can omit both startpoint and track attributes in this case
             <para>
                 In addition to configuring a particular instance of <literal>HTTP_Request2</literal> via
                 nested <literal>&lt;config&gt;</literal> tags it is also possible to set default
-                configuration values for <literal>HttpGetTask</literal> / <literal>HttpRequestTask</literal>
-                by setting <literal>phing.http.*</literal> properties.
+                configuration values for <link linkend='HttpGetTask'>HttpGetTask</link> / <link linkend='HttpRequestTask'>HttpRequestTask</link>
+                / <link linkend='VisualizerTask'>VisualizerTask</link> by setting <literal>phing.http.*</literal>
+                properties.
             </para>
             <programlisting role="xml"><![CDATA[
 <property name="phing.http.proxy" value="socks5://localhost:1080/"/>
@@ -4608,8 +4609,9 @@ Note that you can omit both startpoint and track attributes in this case
             <para>
                 In addition to configuring a particular instance of <literal>HTTP_Request2</literal> via
                 nested <literal>&lt;config&gt;</literal> tags it is also possible to set default
-                configuration values for <literal>HttpGetTask</literal> / <literal>HttpRequestTask</literal>
-                by setting <literal>phing.http.*</literal> properties.
+                configuration values for <link linkend='HttpGetTask'>HttpGetTask</link> / <link linkend='HttpRequestTask'>HttpRequestTask</link>
+                / <link linkend='VisualizerTask'>VisualizerTask</link> by setting <literal>phing.http.*</literal>
+                properties.
             </para>
             <programlisting role="xml"><![CDATA[
 <property name="phing.http.proxy" value="socks5://localhost:1080/"/>
@@ -5001,8 +5003,8 @@ Note that you can omit both startpoint and track attributes in this case
                     </row>
                     <row>
                         <entry><literal>phpversion</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>The PHP version to use</entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Defines which php encoder version will be used (suffix of the encoder file)</entry>
                         <entry>5</entry>
                         <entry>No</entry>
                     </row>
@@ -6966,6 +6968,20 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Stop the build process if the patching process encounters an
                             error.</entry>
                         <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>forward</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Ignore patches that appear to be reversed or already applied.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>fuzz</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Set the fuzz factor to LINES for inexact matching.</entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -10101,7 +10117,7 @@ description="Measures the size of the project and counts the tests">
             <title>Example</title>
             <programlisting language="xml">&lt;property name="org" value="MyOrg" />
 &lt;property name="org.MyOrg.DisplayName" value="My Organiziation" />
-&lt;propertycopy name="displayName" from="org.${org}.DisplayName" /></programlisting>
+&lt;propertycopy property="displayName" from="org.${org}.DisplayName" /></programlisting>
             <para>Sets displayName to "My Organiziation".</para>
         </sect2>
     </sect1>
@@ -10446,6 +10462,66 @@ description="Measures the size of the project and counts the tests">
                                       match="package\.([^\.]*)\.name"
                                       select="\1"
                                       casesensitive="false" /></programlisting>
+            </sect2>
+        </sect1>
+        <sect1 role="taskdef" xml:id="URLEncodeTask">
+            <title>URLEncodeTask</title>
+            <para> The URLEncode task will encode a given property for use within a a URL string. This value which is
+                actually set will be encoded via the urlencode() function. Typically, you must do this
+                for all parameter values within a URL.
+            </para>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>property</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the property to set.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>override</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>If the property is already set, should we change it's value. Can be <literal>true</literal> or <literal>false</literal></entry>
+                            <entry>false</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>value</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The value of the property.</entry>
+                            <entry>n/a</entry>
+                            <entry>No, if refid is specified</entry>
+                        </row>
+                        <row>
+                            <entry><literal>refid</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The id of a saved reference whose value will be the value of the property.</entry>
+                            <entry>n/a</entry>
+                            <entry>No, if value is specified</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <sect2>
+                <title>Example</title>
+                <programlisting language="xml">&lt;urlencode name="file.location" value="C:\\wwwhome\\my reports\\report.xml" /></programlisting>
             </sect2>
         </sect1>
     </sect1>
@@ -12595,11 +12671,9 @@ host="webserver" command="ls" /></programlisting>
         </sect2>
 
     </sect1>
-    <sect1 role="taskdef" xml:id="SvnLogTask">
-        <title>SvnLogTask</title>
-        <para>The <literal>SvnLogTask</literal> stores the output of a svn log command on a
-            workingcopy or repositoryurl in a property. The result will be stored in an array,
-            one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</para>
+    <sect1 role="taskdef" xml:id="SvnRevertTask">
+        <title>SvnRevertTask</title>
+        <para>The <literal>SvnRevertTask</literal> reverts a svn repository.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -12619,13 +12693,6 @@ host="webserver" command="ls" /></programlisting>
                 </thead>
                 <tbody>
                     <row>
-                        <entry><literal>svnpath</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Subversion binary</entry>
-                        <entry>/usr/bin/svn</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
                         <entry><literal>workingcopy</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Working copy directory</entry>
@@ -12639,50 +12706,104 @@ host="webserver" command="ls" /></programlisting>
                         <entry>none</entry>
                     </row>
                     <row>
-                        <entry><literal>username</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>A username used to connect to the SVN server</entry>
+                        <entry><literal>recursive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Flag for recursive revert.</entry>
                         <entry>none</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>password</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>A password used to connect to the SVN server</entry>
-                        <entry>none</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>propertyname</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Name of property to use</entry>
-                        <entry>svn.list</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>limit</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>Limits the number of items to get back from the command</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>Yes</entry>
                     </row>
                 </tbody>
             </tgroup>
         </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
-            workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
-            repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
-            <para>The latter example could produce a history of the latest revisions in the
-                trunk:</para>
-            <programlisting language="xml">4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
-4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
-4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
-...</programlisting>
-        </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="SvnLogTask">
+    <title>SvnLogTask</title>
+    <para>The <literal>SvnLogTask</literal> stores the output of a svn log command on a
+        workingcopy or repositoryurl in a property. The result will be stored in an array,
+        one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>svnpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Subversion binary</entry>
+                    <entry>/usr/bin/svn</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>workingcopy</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Working copy directory</entry>
+                    <entry>none</entry>
+                    <entry morerows="1">One of the two</entry>
+                </row>
+                <row>
+                    <entry><literal>repositoryurl</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>URL of remote repository</entry>
+                    <entry>none</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>A username used to connect to the SVN server</entry>
+                    <entry>none</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>A password used to connect to the SVN server</entry>
+                    <entry>none</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>propertyname</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Name of property to use</entry>
+                    <entry>svn.list</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>limit</literal></entry>
+                    <entry><literal role="type">Integer</literal></entry>
+                    <entry>Limits the number of items to get back from the command</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
+            workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
+        <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn"
+            repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
+        <para>The latter example could produce a history of the latest revisions in the
+            trunk:</para>
+        <programlisting language="xml">4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
+            4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
+            4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
+            ...</programlisting>
+    </sect2>
+</sect1>
     <sect1 role="taskdef" xml:id="SvnUpdateTask">
         <title>SvnUpdateTask</title>
         <para> The <literal>SvnUpdateTask</literal> updates a local directory.</para>
@@ -13242,6 +13363,14 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Boolean</entry>
                         <entry>The symfony cli debug mode</entry>
                         <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry>silent</entry>
+                        <entry>Boolean</entry>
+                        <entry>Disable task output except errors.
+                            Use in conjunction with additional output helper like Symfonys ProgressBar</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -13839,7 +13968,7 @@ host="webserver" command="ls" /></programlisting>
             given file and writes it back to the file. The resulting version number is also
             published under supplied property.</para>
         <para>The version number in the text file is expected in the format of Major.Minor.Bugfix
-            (e.g. 1.3.2).</para>
+            (e.g. 1.3.2). Alternatively you can use 'v' as prefix (e.g. v1.3.2).</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -13882,7 +14011,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>propFile</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Set to true, if version should be saved as property file.</entry>
+                        <entry>If <literal>true</literal>, version will be saved using <emphasis>property file</emphasis> format (i.e. key=value).</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -13899,8 +14028,330 @@ host="webserver" command="ls" /></programlisting>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
+            <programlisting language="xml">&lt;version releasetype="Minor" startingVersion="v5.7" propFile="true"/></programlisting>
         </sect2>
 
+    </sect1>
+
+    <sect1 role="taskdef" xml:id="VisualizerTask">
+        <title>VisualizerTask</title>
+        <para>The <literal>VisualizerTask</literal> generates a graphical representation of your current buildfile.
+            This allows you to see all available targets but also the calls and dependencies among targets.
+        </para>
+        <para><literal>VisualizerTask</literal> is able to represent:</para>
+        <itemizedlist>
+            <listitem>
+                <para><link linkend="project-components-targets">Target's depends</link></para>
+            </listitem>
+            <listitem>
+                <para><link linkend="RunTargetTask">RunTargetTask</link></para>
+            </listitem>
+            <listitem>
+                <para><link linkend="PhingCallTask">PhingCallTask</link></para>
+            </listitem>
+            <listitem>
+                <para><link linkend="ForeachTask">ForeachTask</link></para>
+            </listitem>
+        </itemizedlist>
+        <table>
+            <title>Basic attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1"/>
+                <colspec colname="type" colnum="2"/>
+                <colspec colname="description" colnum="3"/>
+                <colspec colname="default" colnum="4"/>
+                <colspec colname="required" colnum="5"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>
+                            <literal>format</literal>
+                        </entry>
+                        <entry>
+                            <literal role="type">String</literal>
+                        </entry>
+                        <entry>Diagram's format. Supported formats are: <literal>png</literal>, <literal>svg</literal>,
+                            <literal>puml</literal> and <literal>eps</literal>.
+                        </entry>
+                        <entry>
+                            <literal>png</literal>
+                        </entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <literal>destination</literal>
+                        </entry>
+                        <entry>
+                            <literal role="type">String</literal>
+                        </entry>
+                        <entry>Location where the diagram will be saved. It could be a file or directory path.</entry>
+                        <entry>Same location as current
+                            <literal>buildfile</literal>
+                        </entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <literal>server</literal>
+                        </entry>
+                        <entry>
+                            <literal role="type">String</literal>
+                        </entry>
+                        <entry>PlantUML server.</entry>
+                        <entry>http://www.plantuml.com/plantuml</entry>
+                        <entry>no</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <para>If you have network connectivity issues, you should try <literal>puml</literal> format. This format
+            doesn't needs Internet connection to generate a diagram.
+        </para>
+        <sect2>
+            <title>Examples</title>
+            <para>Using <literal>VisualizerTask</literal> with default values:
+            </para>
+            <programlisting language="xml">&lt;visualizer/&gt;</programlisting>
+            <para>Setting diagram's format to <literal>svg</literal>:
+            </para>
+            <programlisting language="xml">&lt;visualizer format="svg"/&gt;</programlisting>
+            <para>Save diagram into <filename>resources/images/</filename> directory:
+            </para>
+            <programlisting language="xml">&lt;visualizer destination="resources/images/"/&gt;</programlisting>
+        </sect2>
+        <sect2>
+            <title>Limitations</title>
+            <itemizedlist>
+                <listitem>
+                    <para>Special target naming is not interpreted by <literal>VisualizerTask</literal>,
+                        targets' names are used <emphasis>as is</emphasis>. Please read <link
+                                linkend="ImportTask-target-overriding">Target Overriding
+                        </link> for more details.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        As said before, <literal>VisualizerTask</literal> depends on a remote PlantUML server. Even if
+                        only buildfile's name and targets' names are sent to server, please be sure you are not sending
+                        any sensible information.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        PlantUML limits image width and height to 4096 pixels. Overcoming this limitation will require
+                        to configure your own PlantUML server and to configure it according to
+                        <link xlink:href="http://plantuml.com/faq" role="extern">PlantUML FAQ</link> instructions.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+        <sect2>
+            <title>Requirements</title>
+            <para>To work properly, <literal>VisualizerTask</literal> needs to have the following installed:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <link xlink:href="http://php.net/manual/en/book.simplexml.php" role="extern">SimpleXML
+                            extension</link>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <link xlink:href="http://php.net/manual/en/book.xsl.php" role="extern">XSL extension</link>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <link xlink:href="https://packagist.org/packages/pear/http_request2" role="extern">PEAR
+                            HTTP_Request2</link>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <link xlink:href="https://packagist.org/packages/jawira/plantuml-encoding" role="extern">
+                            jawira/plantuml-encoding
+                        </link>
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+        <sect2>
+            <title>Advanced HTTP configuration</title>
+            <para>
+                As said before <literal>VisualizerTask</literal> needs a remote server to generate the diagrams. In
+                order to configure the connection with remote server, several attributes and nested tags are available.
+            </para>
+            <para>
+                Because <literal>VisualizerTask</literal> relies on an internal Phing's library, these attributes and
+                nested tags are shared among these tasks: <link linkend='HttpGetTask'>HttpGetTask</link>,
+                <link linkend='HttpRequestTask'>HttpRequestTask</link> and
+                <link linkend='VisualizerTask'>VisualizerTask</link>.
+            </para>
+            <sect3>
+                <title>HTTP attributes</title>
+                <para>Use the following attributes if your PlanUML server requires an authentication mechanism.</para>
+                <table>
+                    <title>Attributes</title>
+                    <tgroup cols="5">
+                        <colspec colname="name" colnum="1"/>
+                        <colspec colname="type" colnum="2"/>
+                        <colspec colname="description" colnum="3"/>
+                        <colspec colname="default" colnum="4"/>
+                        <colspec colname="required" colnum="5"/>
+                        <thead>
+                            <row>
+                                <entry>Name</entry>
+                                <entry>Type</entry>
+                                <entry>Description</entry>
+                                <entry>Default</entry>
+                                <entry>Required</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry><literal>authUser</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>The authentication user name</entry>
+                                <entry>n/a</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry><literal>authPassword</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>The authentication password</entry>
+                                <entry>n/a</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry><literal>authScheme</literal></entry>
+                                <entry><literal role="type">String</literal></entry>
+                                <entry>The authentication scheme</entry>
+                                <entry>basic</entry>
+                                <entry>No</entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+            </sect3>
+            <sect3 role="nestedtags">
+                <title>Supported Nested Tags</title>
+                <itemizedlist>
+                    <listitem>
+                        <para><literal>config</literal></para>
+                        <para>Holds additional config data. See
+                            <link xlink:href="http://pear.php.net/manual/en/package.http.http-request2.config.php"
+                                  role="extern">HTTP_Request2 documentation</link> for supported values.
+                        </para>
+                        <table>
+                            <title>Attributes</title>
+                            <tgroup cols="5">
+                                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                                <thead>
+                                    <row>
+                                        <entry>Name</entry>
+                                        <entry>Type</entry>
+                                        <entry>Description</entry>
+                                        <entry>Default</entry>
+                                        <entry>Required</entry>
+                                    </row>
+                                </thead>
+                                <tbody>
+                                    <row>
+                                        <entry><literal>name</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>Config parameter name</entry>
+                                        <entry>n/a</entry>
+                                        <entry>Yes</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>value</literal></entry>
+                                        <entry>Mixed</entry>
+                                        <entry>Config value</entry>
+                                        <entry>n/a</entry>
+                                        <entry>Yes</entry>
+                                    </row>
+                                </tbody>
+                            </tgroup>
+                        </table>
+                    </listitem>
+                    <listitem>
+                        <para><literal>header</literal></para>
+                        <para> Holds additional header <literal>name</literal> and
+                            <literal>value</literal>.</para>
+                        <table>
+                            <title>Attributes</title>
+                            <tgroup cols="5">
+                                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                                <thead>
+                                    <row>
+                                        <entry>Name</entry>
+                                        <entry>Type</entry>
+                                        <entry>Description</entry>
+                                        <entry>Default</entry>
+                                        <entry>Required</entry>
+                                    </row>
+                                </thead>
+                                <tbody>
+                                    <row>
+                                        <entry><literal>name</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>Header name</entry>
+                                        <entry>n/a</entry>
+                                        <entry>Yes</entry>
+                                    </row>
+                                    <row>
+                                        <entry><literal>value</literal></entry>
+                                        <entry><literal role="type">String</literal></entry>
+                                        <entry>Header value</entry>
+                                        <entry>n/a</entry>
+                                        <entry>Yes</entry>
+                                    </row>
+                                </tbody>
+                            </tgroup>
+                        </table>
+                    </listitem>
+                </itemizedlist>
+            </sect3>
+            <sect3>
+                <title>Global configuration</title>
+                <para>
+                    In addition to configuring a particular instance of <literal>HTTP_Request2</literal> via
+                    nested <literal>&lt;config&gt;</literal> tags it is also possible to set default
+                    configuration values for <link linkend='HttpGetTask'>HttpGetTask</link> / <link linkend='HttpRequestTask'>HttpRequestTask</link>
+                    / <link linkend='VisualizerTask'>VisualizerTask</link> by setting <literal>phing.http.*</literal>
+                    properties.
+                </para>
+                <programlisting role="xml"><![CDATA[
+<property name="phing.http.proxy" value="socks5://localhost:1080/"/>
+
+<!-- This request will go through the default proxy -->
+<visualizer/>
+
+<visualizer>
+    <!-- This proxy will be used instead of the default one -->
+    <config name="proxy" value="http://foo:bar@proxy.example.org:3128/"/>
+    <header name="user-agent" value="Phing VisualizerTask"/>
+</visualizer>]]></programlisting>
+            </sect3>
+        </sect2>
     </sect1>
 
     <sect1 role="taskdef" xml:id="WikiPublishTask">
@@ -14915,6 +15366,13 @@ a2.a3.a4=false</programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to PHPStan executable</entry>
                         <entry>phpstan</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checkReturn</literal></entry>
+                        <entry>Boolean</entry>
+                        <entry>Whether to check the return code.</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

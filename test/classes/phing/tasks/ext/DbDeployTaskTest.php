@@ -25,7 +25,7 @@
  */
 class DbDeployTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!extension_loaded('sqlite')) {
             $this->markTestSkipped('This test require sqlite extension to be loaded');

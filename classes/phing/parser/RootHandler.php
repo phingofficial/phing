@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -70,8 +69,8 @@ class RootHandler extends AbstractHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
      * and calls init.
      *
-     * @param  string              $tag   The xml tagname
-     * @param  array               $attrs The attributes of the tag
+     * @param  string $tag The xml tagname
+     * @param  array $attrs The attributes of the tag
      * @throws ExpatParseException if the first element within our build file
      *                                   is not the &gt;project&lt; element
      */
@@ -81,8 +80,10 @@ class RootHandler extends AbstractHandler
             $ph = new ProjectHandler($this->parser, $this, $this->configurator, $this->context);
             $ph->init($tag, $attrs);
         } else {
-            throw new ExpatParseException("Unexpected tag <$tag> in top-level of build file.", $this->parser->getLocation(
-            ));
+            throw new ExpatParseException(
+                "Unexpected tag <$tag> in top-level of build file.",
+                $this->parser->getLocation()
+            );
         }
     }
 }

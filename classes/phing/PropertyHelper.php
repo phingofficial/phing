@@ -9,11 +9,15 @@
  */
 class PropertyHelper
 {
-    /** @var Project $project */
+    /**
+     * @var Project $project
+     */
     private static $project;
     private $next;
 
-    /** Project properties map (usually String to String). */
+    /**
+     * Project properties map (usually String to String).
+     */
     private $properties = [];
 
     /**
@@ -32,7 +36,7 @@ class PropertyHelper
      */
     private $inheritedProperties = [];
 
-// --------------------  Hook management  --------------------
+    // --------------------  Hook management  --------------------
 
     /**
      * Set the project for which this helper is performing property resolution
@@ -44,7 +48,8 @@ class PropertyHelper
         self::$project = $p;
     }
 
-    /** There are 2 ways to hook into property handling:
+    /**
+     * There are 2 ways to hook into property handling:
      *  - you can replace the main PropertyHelper. The replacement is required
      * to support the same semantics (of course :-)
      *
@@ -81,7 +86,9 @@ class PropertyHelper
      */
     public static function getPropertyHelper(Project $project)
     {
-        /** @var PropertyHelper $helper */
+        /**
+         * @var PropertyHelper $helper
+         */
         $helper = $project->getReference('phing.PropertyHelper');
         if ($helper !== null) {
             return $helper;
@@ -103,15 +110,16 @@ class PropertyHelper
      * If all helpers return false, the property will be saved in
      * the default properties table by setProperty.
      *
-     * @param string $ns   The namespace that the property is in (currently
-     *             not used.
-     * @param string $name The name of property to set.
-     *             Must not be <code>null</code>.
-     * @param string $value The new value of the property.
-     *              Must not be <code>null</code>.
-     * @param bool $inherited True if this property is inherited (an [sub]ant[call] property).
-     * @param bool $user      True if this property is a user property.
-     * @param bool $isNew     True is this is a new property.
+     * @param  string $ns The namespace that the property is in (currently
+     *                          not used.
+     * @param  string $name The name of property to set.
+     *                          Must not be
+     *                          <code>null</code>.
+     * @param  string $value The new value of the property.
+     *                          Must not be <code>null</code>.
+     * @param  bool $inherited True if this property is inherited (an [sub]ant[call] property).
+     * @param  bool $user True if this property is a user property.
+     * @param  bool $isNew True is this is a new property.
      * @return bool true if this helper has stored the property, false if it
      *    couldn't. Each helper should delegate to the next one (unless it
      *    has a good reason not to).
@@ -129,12 +137,13 @@ class PropertyHelper
         return false;
     }
 
-    /** Get a property. If all hooks return null, the default
+    /**
+     * Get a property. If all hooks return null, the default
      * tables will be used.
      *
-     * @param string $ns namespace of the sought property.
-     * @param string $name name of the sought property.
-     * @param bool $user True if this is a user property.
+     * @param  string $ns namespace of the sought property.
+     * @param  string $name name of the sought property.
+     * @param  bool $user True if this is a user property.
      * @return string The property, if returned by a hook, or null if none.
      */
     public function getPropertyHook($ns, $name, $user)
@@ -165,18 +174,18 @@ class PropertyHelper
      * Replaces <code>${xxx}</code> style constructions in the given value
      * with the string value of the corresponding data types.
      *
-     * @param string $ns    The namespace for the property.
+     * @param string $ns The namespace for the property.
      * @param string $value The string to be scanned for property references.
-     *              May be <code>null</code>, in which case this
-     *              method returns immediately with no effect.
-     * @param string[] $keys  Mapping (String to String) of property names to their
+     *                        May be <code>null</code>, in which case this
+     *                        method returns immediately with no effect.
+     * @param string[] $keys Mapping (String to String) of property names to their
      *              values. If <code>null</code>, only project properties will
      *              be used.
      *
      * @exception BuildException if the string contains an opening
      *                           <code>${</code> without a closing
      *                           <code>}</code>
-     * @return string the original string with the properties replaced, or
+     * @return    string the original string with the properties replaced, or
      *         <code>null</code> if the original string is <code>null</code>.
      */
     public function replaceProperties($ns, $value, $keys)
@@ -244,13 +253,15 @@ class PropertyHelper
     // compatibility. Some will be deprecated, you should avoid calling them.
 
 
-    /** Default implementation of setProperty. Will be called from Project.
+    /**
+     * Default implementation of setProperty. Will be called from Project.
      *  This is the original 1.5 implementation, with calls to the hook
      *  added.
-     * @param string $ns      The namespace for the property (currently not used).
-     * @param string $name    The name of the property.
-     * @param string $value   The value to set the property to.
-     * @param bool $verbose If this is true output extra log messages.
+     *
+     * @param  string $ns The namespace for the property (currently not used).
+     * @param  string $name The name of the property.
+     * @param  string $value The value to set the property to.
+     * @param  bool $verbose If this is true output extra log messages.
      * @return bool true if the property is set.
      */
     public function setProperty($ns, $name, $value, $verbose)
@@ -269,13 +280,18 @@ class PropertyHelper
         }
 
         if ($verbose && isset($this->properties[$name])) {
-            self::$project->log('Overriding previous definition of property ' . $name,
-                Project::MSG_VERBOSE);
+            self::$project->log(
+                'Overriding previous definition of property ' . $name,
+                Project::MSG_VERBOSE
+            );
         }
 
         if ($verbose) {
-            self::$project->log('Setting project property: ' . $name . " -> "
-                . $value, Project::MSG_DEBUG);
+            self::$project->log(
+                'Setting project property: ' . $name . " -> "
+                . $value,
+                Project::MSG_DEBUG
+            );
         }
         $this->properties[$name] = $value;
         self::$project->addReference($name, new PropertyValue($value));
@@ -287,9 +303,10 @@ class PropertyHelper
      * exists already, a message is logged and the method returns with
      * no other effect.
      *
-     * @param string $ns   The namespace for the property (currently not used).
+     * @param string $ns The namespace for the property (currently not used).
      * @param string $name The name of property to set.
-     *             Must not be <code>null</code>.
+     *                      Must not be
+     *                      <code>null</code>.
      * @param string $value The new value of the property.
      *              Must not be <code>null</code>.
      */
@@ -315,9 +332,11 @@ class PropertyHelper
     /**
      * Sets a user property, which cannot be overwritten by
      * set/unset property calls. Any previous value is overwritten.
-     * @param string $ns   The namespace for the property (currently not used).
+     *
+     * @param string $ns The namespace for the property (currently not used).
      * @param string $name The name of property to set.
-     *             Must not be <code>null</code>.
+     *                      Must not be
+     *                      <code>null</code>.
      * @param string $value The new value of the property.
      *              Must not be <code>null</code>.
      */
@@ -343,9 +362,10 @@ class PropertyHelper
      * these properties as properties that have not come from the
      * command line.
      *
-     * @param string $ns   The namespace for the property (currently not used).
+     * @param string $ns The namespace for the property (currently not used).
      * @param string $name The name of property to set.
-     *             Must not be <code>null</code>.
+     *                      Must not be
+     *                      <code>null</code>.
      * @param string $value The new value of the property.
      *              Must not be <code>null</code>.
      */
@@ -356,8 +376,11 @@ class PropertyHelper
         }
         $this->inheritedProperties[$name] = $value;
 
-        self::$project->log("Setting ro project property: " . $name . " -> "
-            . $value, Project::MSG_DEBUG);
+        self::$project->log(
+            "Setting ro project property: " . $name . " -> "
+            . $value,
+            Project::MSG_DEBUG
+        );
         $this->userProperties[$name] = $value;
 
         $done = $this->setPropertyHook($ns, $name, $value, true, false, false);
@@ -374,8 +397,8 @@ class PropertyHelper
      * Returns the value of a property, if it is set.  You can override
      * this method in order to plug your own storage.
      *
-     * @param string $ns   The namespace for the property (currently not used).
-     * @param string $name The name of the property.
+     * @param  string $ns The namespace for the property (currently not used).
+     * @param  string $name The name of the property.
      *             May be <code>null</code>, in which case
      *             the return value is also <code>null</code>.
      * @return string the property value, or <code>null</code> for no match
@@ -406,8 +429,8 @@ class PropertyHelper
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param string $ns The namespace for the property (currently not used).
-     * @param string $name The name of the property.
+     * @param  string $ns The namespace for the property (currently not used).
+     * @param  string $name The name of the property.
      *             May be <code>null</code>, in which case
      *             the return value is also <code>null</code>.
      * @return string the property value, or <code>null</code> for no match
@@ -433,6 +456,7 @@ class PropertyHelper
 
     /**
      * Returns a copy of the properties table.
+     *
      * @return array a hashtable containing all properties
      *         (including user properties).
      */
@@ -443,6 +467,7 @@ class PropertyHelper
 
     /**
      * Returns a copy of the user property hashtable
+     *
      * @return array a hashtable containing just the user properties
      */
     public function getUserProperties()
@@ -500,11 +525,11 @@ class PropertyHelper
      *
      * It can be overridden with a more efficient or customized version.
      *
-     * @param string $value     Text to parse. Must not be <code>null</code>.
+     * @param string $value Text to parse. Must not be <code>null</code>.
      * @param array $fragments List to add text fragments to.
-     *                  Must not be <code>null</code>.
+     *                             Must not be <code>null</code>.
      * @param array $propertyRefs List to add property names to.
-     *                     Must not be <code>null</code>.
+     *                             Must not be <code>null</code>.
      *
      * @throws BuildException if the string contains an opening
      *                           <code>${</code> without a closing
@@ -523,7 +548,6 @@ class PropertyHelper
                 $fragments[] = '$';
                 $prev = $pos + 1;
             } elseif ($value{$pos + 1} !== '{') {
-
                 // the string positions were changed to value-1 to correct
                 // a fatal error coming from function substring()
                 $fragments[] = StringHelper::substring($value, $pos, $pos + 1);

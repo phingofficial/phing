@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,7 +20,7 @@
 /**
  * Wrapper class for PHP stream that supports read operations.
  *
- * @package   phing.system.io
+ * @package phing.system.io
  */
 class InputStream
 {
@@ -43,7 +42,8 @@ class InputStream
 
     /**
      * Construct a new InputStream.
-     * @param resource $stream Configured PHP stream for writing.
+     *
+     * @param  resource $stream Configured PHP stream for writing.
      * @throws IOException
      */
     public function __construct($stream)
@@ -56,7 +56,8 @@ class InputStream
 
     /**
      * Skip over $n bytes.
-     * @param int $n
+     *
+     * @param  int $n
      * @return int
      */
     public function skip($n)
@@ -81,7 +82,8 @@ class InputStream
 
     /**
      * Read data from stream until $len chars or EOF.
-     * @param  int    $len Num chars to read.  If not specified this stream will read until EOF.
+     *
+     * @param  int $len Num chars to read.  If not specified this stream will read until EOF.
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)
@@ -106,6 +108,7 @@ class InputStream
 
     /**
      * Marks the current position in this input stream.
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
     public function mark()
@@ -118,6 +121,7 @@ class InputStream
 
     /**
      * Whether the input stream supports mark and reset methods.
+     *
      * @return boolean
      */
     public function markSupported()
@@ -127,6 +131,7 @@ class InputStream
 
     /**
      * Repositions this stream to the position at the time the mark method was last called on this input stream.
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
     public function reset()
@@ -141,6 +146,7 @@ class InputStream
 
     /**
      * Closes stream.
+     *
      * @throws IOException if stream cannot be closed (note that calling close() on an already-closed stream will not raise an exception)
      */
     public function close()
@@ -158,6 +164,7 @@ class InputStream
 
     /**
      * Whether eof has been reached with stream.
+     *
      * @return boolean
      */
     public function eof()
@@ -167,6 +174,7 @@ class InputStream
 
     /**
      * Returns string representation of attached stream.
+     *
      * @return string
      */
     public function __toString()

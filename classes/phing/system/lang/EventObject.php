@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,11 +23,15 @@
 class EventObject
 {
 
-    /** The object on which the Event initially occurred. */
+    /**
+     * The object on which the Event initially occurred.
+     */
     protected $source;
 
-    /** Constructs a prototypical Event.
-     * @param $source
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param  $source
      * @throws Exception
      */
     public function __construct($source)
@@ -39,13 +42,17 @@ class EventObject
         $this->source = $source;
     }
 
-    /** The object on which the Event initially occurred. */
+    /**
+     * The object on which the Event initially occurred.
+     */
     public function getSource()
     {
         return $this->source;
     }
 
-    /** Returns a String representation of this EventObject.*/
+    /**
+     * Returns a String representation of this EventObject.
+     */
     public function __toString()
     {
         if (method_exists($this->source, "toString")) {

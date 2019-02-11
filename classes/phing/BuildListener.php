@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,11 +23,11 @@
  * Classes that implement a listener must extend this class and (faux)implement
  * all methods that are decleard as dummies below.
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
- * @see       BuildEvent
- * @see       Project::addBuildListener()
- * @package   phing
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @see     BuildEvent
+ * @see     Project::addBuildListener()
+ * @package phing
  */
 interface BuildListener
 {
@@ -44,7 +43,7 @@ interface BuildListener
      * Fired after the last target has finished.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getException()
+     * @see   BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event);
 
@@ -52,7 +51,7 @@ interface BuildListener
      * Fired when a target is started.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getTarget()
+     * @see   BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event);
 
@@ -60,7 +59,7 @@ interface BuildListener
      * Fired when a target has finished.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent#getException()
+     * @see   BuildEvent#getException()
      */
     public function targetFinished(BuildEvent $event);
 
@@ -68,7 +67,7 @@ interface BuildListener
      * Fired when a task is started.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getTask()
+     * @see   BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event);
 
@@ -76,7 +75,7 @@ interface BuildListener
      * Fired when a task has finished.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getException()
+     * @see   BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event);
 
@@ -84,7 +83,7 @@ interface BuildListener
      * Fired whenever a message is logged.
      *
      * @param BuildEvent $event The BuildEvent
-     * @see BuildEvent::getMessage()
+     * @see   BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event);
 }

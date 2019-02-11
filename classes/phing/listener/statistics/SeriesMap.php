@@ -23,7 +23,6 @@
  */
 class SeriesMap
 {
-
     protected $map = [];
 
     public function getNames()

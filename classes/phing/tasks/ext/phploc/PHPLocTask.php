@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -154,11 +153,13 @@ class PHPLocTask extends Task
     {
         if (!empty($this->pharLocation)) {
             // hack to prevent PHPLOC from starting in CLI mode and halting Phing
-            eval("namespace SebastianBergmann\PHPLOC\CLI;
+            eval(
+                "namespace SebastianBergmann\PHPLOC\CLI;
 class Application
 {
     public function run() {}
-}");
+}"
+            );
 
             ob_start();
             include $this->pharLocation;

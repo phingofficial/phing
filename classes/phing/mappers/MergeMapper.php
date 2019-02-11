@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,28 +17,28 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/FileNameMapper.php';
-
 /**
  * For merging files into a single file.  In practice just returns whatever value
  * was set for "to".
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @package   phing.mappers
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @package phing.mappers
  */
 class MergeMapper implements FileNameMapper
 {
 
-    /** the merge */
+    /**
+     * the merge
+     */
     private $mergedFile;
 
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param mixed $sourceFileName The data the mapper works on
+     * @param  mixed $sourceFileName The data the mapper works on
      * @throws BuildException
      * @return mixed The data after the mapper has been applied
-     * @author  Andreas Aderhold, andi@binarycloud.com
+     * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function main($sourceFileName)
     {
@@ -53,9 +52,9 @@ class MergeMapper implements FileNameMapper
     /**
      * Accessor. Sets the to property
      *
-     * @param   string     To what this mapper should convert the from string
+     * @param  string     To what this mapper should convert the from string
      * @return boolean True
-     * @author  Andreas Aderhold, andi@binarycloud.com
+     * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setTo($to)
     {
@@ -64,6 +63,7 @@ class MergeMapper implements FileNameMapper
 
     /**
      * Ignored.
+     *
      * @param string $from
      */
     public function setFrom($from)

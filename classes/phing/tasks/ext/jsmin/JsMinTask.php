@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,9 +24,9 @@
  * Requires JShrink (https://github.com/tedivm/JShrink) which
  * can be installed using composer
  *
- * @author Frank Kleine <mikey@stubbles.net>
+ * @author  Frank Kleine <mikey@stubbles.net>
  * @package phing.tasks.ext
- * @since 2.3.0
+ * @since   2.3.0
  */
 class JsMinTask extends Task
 {
@@ -51,7 +50,7 @@ class JsMinTask extends Task
     /**
      * directory to put minified javascript files into
      *
-     * @var  string
+     * @var string
      */
     protected $targetDir = "";
 
@@ -137,10 +136,10 @@ class JsMinTask extends Task
             $this->log('Minifying file ' . $file);
             try {
                 $target = $this->targetDir . '/' . str_replace(
-                        $fullPath,
-                        '',
-                        str_replace('.js', $this->suffix . '.js', $file)
-                    );
+                    $fullPath,
+                    '',
+                    str_replace('.js', $this->suffix . '.js', $file)
+                );
                 if (file_exists(dirname($target)) === false) {
                     mkdir(dirname($target), 0777 - umask(), true);
                 }

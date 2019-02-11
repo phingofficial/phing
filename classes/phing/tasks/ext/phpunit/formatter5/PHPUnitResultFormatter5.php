@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,9 +22,9 @@ require_once 'phing/system/io/Writer.php';
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit.formatter
- * @since 2.1.0
+ * @since   2.1.0
  */
 abstract class PHPUnitResultFormatter5 implements PHPUnit_Framework_TestListener
 {
@@ -33,26 +32,39 @@ abstract class PHPUnitResultFormatter5 implements PHPUnit_Framework_TestListener
 
     protected $project = null;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $timers = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $runCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $failureCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $errorCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $incompleteCounts = false;
 
-    /** @var bool|array */
+    /**
+     * @var bool|array
+     */
     private $skipCounts = false;
 
     /**
      * Constructor
+     *
      * @param PHPUnitTask $parentTask Calling Task
      */
     public function __construct(PHPUnitTask $parentTask)
@@ -62,6 +74,7 @@ abstract class PHPUnitResultFormatter5 implements PHPUnit_Framework_TestListener
 
     /**
      * Sets the writer the formatter is supposed to write its results to.
+     *
      * @param Writer $out
      */
     public function setOutput(Writer $out)

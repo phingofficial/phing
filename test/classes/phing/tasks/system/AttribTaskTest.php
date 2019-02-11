@@ -27,7 +27,7 @@
  */
 class AttribTaskTest extends BuildFileTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -36,7 +36,7 @@ class AttribTaskTest extends BuildFileTest
         $this->executeTarget("setup");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget("clean");
     }
@@ -52,7 +52,7 @@ class AttribTaskTest extends BuildFileTest
         $project = $this->getProject();
         $input = $project->getProperty('input');
 
-        $this->assertFalse(is_writable($input . '/TEST.TXT'));
+        $this->assertNotIsWritable($input . '/TEST.TXT');
         $this->assertInLogs('+R', Project::MSG_VERBOSE);
     }
 }

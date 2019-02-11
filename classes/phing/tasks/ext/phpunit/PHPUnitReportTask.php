@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,9 +24,9 @@
  * the framed report is much more convenient if you want to browse into
  * different packages or testcases since it is a Javadoc like report.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @since 2.1.0
+ * @since   2.1.0
  */
 class PHPUnitReportTask extends Task
 {
@@ -47,12 +46,15 @@ class PHPUnitReportTask extends Task
      */
     private $useSortTable = false;
 
-    /** the directory where the results XML can be found */
+    /**
+     * the directory where the results XML can be found
+     */
     private $inFile = "testsuites.xml";
 
     /**
      * Set the filename of the XML results file to use.
-     * @param PhingFile $inFile
+     *
+     * @param  PhingFile $inFile
      * @return void
      */
     public function setInFile(PhingFile $inFile)
@@ -62,7 +64,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * Set the format of the generated report. Must be noframes or frames.
-     * @param $format
+     *
+     * @param  $format
      * @return void
      */
     public function setFormat($format)
@@ -72,7 +75,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * Set the directory where the stylesheets are located.
-     * @param $styleDir
+     *
+     * @param  $styleDir
      * @return void
      */
     public function setStyleDir($styleDir)
@@ -83,7 +87,8 @@ class PHPUnitReportTask extends Task
     /**
      * Set the directory where the files resulting from the
      * transformation should be written to.
-     * @param PhingFile $toDir
+     *
+     * @param  PhingFile $toDir
      * @return void
      */
     public function setToDir(PhingFile $toDir)
@@ -95,7 +100,7 @@ class PHPUnitReportTask extends Task
      * Sets whether to use the sorttable JavaScript library, defaults to false
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
-     * @param boolean $useSortTable
+     * @param  boolean $useSortTable
      * @return void
      */
     public function setUseSortTable($useSortTable)
@@ -105,6 +110,7 @@ class PHPUnitReportTask extends Task
 
     /**
      * Returns the path to the XSL stylesheet
+     *
      * @throws BuildException
      */
     protected function getStyleSheet()
@@ -136,7 +142,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * Transforms the DOM document
-     * @param DOMDocument $document
+     *
+     * @param  DOMDocument $document
      * @throws BuildException
      * @throws IOException
      */
@@ -187,6 +194,7 @@ class PHPUnitReportTask extends Task
      *   - adds package="default" to 'testsuite' elements without
      *     package attribute
      *   - removes outer 'testsuite' container(s)
+     *
      * @param DOMDocument $document
      */
     protected function fixDocument(DOMDocument $document)
@@ -224,7 +232,9 @@ class PHPUnitReportTask extends Task
 
     private function handleChildren($rootElement, $children)
     {
-        /** @var $child DOMElement */
+        /**
+         * @var $child DOMElement
+         */
         foreach ($children as $child) {
             $rootElement->appendChild($child);
 
@@ -260,6 +270,7 @@ class PHPUnitReportTask extends Task
 
     /**
      * Initialize the task
+     *
      * @throws \BuildException
      */
     public function init()

@@ -26,7 +26,9 @@
  */
 class CompositeMapper extends ContainerMapper
 {
-    /** {@inheritDoc}. */
+    /**
+     * {@inheritDoc}.
+     */
     public function main($sourceFileName)
     {
         $results = [];

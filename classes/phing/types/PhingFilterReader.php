@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,18 +15,15 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
-
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Parameter.php';
+ */
 
 /**
  * A PhingFilterReader is a wrapper class that encloses the className
  * and configuration of a Configurable FilterReader.
  *
- * @author    Yannick Lecaillez <yl@seasonfive.com>
- * @see       FilterReader
- * @package   phing.types
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
+ * @see     FilterReader
+ * @package phing.types
  */
 class PhingFilterReader extends DataType
 {
@@ -50,7 +46,8 @@ class PhingFilterReader extends DataType
 
     /**
      * Set the classpath to load the FilterReader through (attribute).
-     * @param Path $classpath
+     *
+     * @param  Path $classpath
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)

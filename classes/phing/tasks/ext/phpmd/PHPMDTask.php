@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -229,9 +228,9 @@ class PHPMDTask extends Task
 
         if ($this->newVersion) {
             $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
-            require_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
+            include_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
         } else {
-            require_once 'PHP/PMD/AbstractRule.php';
+            include_once 'PHP/PMD/AbstractRule.php';
             $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
         }
 

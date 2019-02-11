@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -32,54 +31,63 @@ class Target implements TaskContainer
 
     /**
      * Name of target
+     *
      * @var string
      */
     private $name;
 
     /**
      * Dependencies
+     *
      * @var array
      */
     private $dependencies = [];
 
     /**
      * Holds objects of children of this target
+     *
      * @var array
      */
     private $children = [];
 
     /**
      * The if condition from xml
+     *
      * @var string
      */
     private $ifCondition = "";
 
     /**
      * The unless condition from xml
+     *
      * @var string
      */
     private $unlessCondition = "";
 
     /**
      * Description of this target
+     *
      * @var string
      */
     private $description;
 
     /**
      * Whether to hide target in targets list (-list -p switches)
+     *
      * @var boolean
      */
     private $hidden = false;
 
     /**
      * Whether to log message as INFO or VERBOSE if target skipped
+     *
      * @var boolean
      */
     private $logSkipped = false;
 
     /**
      * Rreference to project
+     *
      * @var Project
      */
     private $project;
@@ -107,8 +115,8 @@ class Target implements TaskContainer
     /**
      * Sets the target dependencies from xml
      *
-     * @param  string         $depends Comma separated list of targetnames that depend on
-     *                                 this target
+     * @param  string $depends Comma separated list of targetnames that depend on
+     *                         this target
      * @throws BuildException
      */
     public function setDepends($depends)
@@ -118,8 +126,9 @@ class Target implements TaskContainer
         for ($i = 0, $size = count($deps); $i < $size; $i++) {
             $trimmed = trim($deps[$i]);
             if ($trimmed === "") {
-                throw new BuildException("Syntax Error: Depend attribute for target " . $this->getName(
-                    ) . " is malformed.");
+                throw new BuildException(
+                    "Syntax Error: Depend attribute for target " . $this->getName() . " is malformed."
+                );
             }
             $this->addDependency($trimmed);
         }

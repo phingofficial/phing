@@ -65,7 +65,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test the convertShorthand function 
+     * Test the convertShorthand function
      */
     public function testConvertShorthand()
     {
@@ -81,6 +81,55 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1073741824, Phing::convertShorthand('1g'));
 
         self::assertEquals(200, Phing::convertShorthand('200j'));
+    }
+
+    public function testTimer()
+    {
+        $this->assertInstanceOf('Timer', Phing::getTimer());
+    }
+
+    public function testFloatOnCurrentTimeMillis()
+    {
+        if (method_exists($this, 'assertIsFloat')) {
+            $this->assertIsFloat(Phing::currentTimeMillis());
+        } else {
+            $this->assertInternalType('float', Phing::currentTimeMillis());
+        }
+    }
+
+    public function testGetPhingVersion()
+    {
+        $this->assertStringStartsWith('Phing ', Phing::getPhingVersion());
+    }
+
+    public function testPrintTargets()
+    {
+        $target = $this->getMockBuilder(Target::class)->getMock();
+        $project = $this->getMockBuilder(Project::class)->disableOriginalConstructor()->getMock();
+        $project->method('getTargets')->willReturn([$target]);
+        $phing = new Phing();
+        $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
+
+        $this->assertNull($phing->printTargets($project));
+    }
+
+    public function testCallStartupShutdown()
+    {
+        $this->assertNull(Phing::startup());
+        $this->assertNull(Phing::shutdown());
+    }
+
+    public function testCurrentProject()
+    {
+        $project = new Project();
+        $currProj = Phing::getCurrentProject();
+        $this->assertNotSame($project, $currProj);
+
+        Phing::setCurrentProject($project);
+        $this->assertSame($project, Phing::getCurrentProject());
+
+        Phing::unsetCurrentProject();
+        $this->assertNull(Phing::getCurrentProject());
     }
 
     /**

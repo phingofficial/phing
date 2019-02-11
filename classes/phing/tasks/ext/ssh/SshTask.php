@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,8 +22,8 @@ require_once 'Ssh2MethodParam.php';
 /**
  * Execute commands on a remote host using ssh.
  *
- * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @package   phing.tasks.ext
+ * @author  Johan Van den Brande <johan@vandenbrande.com>
+ * @package phing.tasks.ext
  */
 class SshTask extends Task
 {
@@ -85,12 +84,14 @@ class SshTask extends Task
 
     /**
      * The name of the property to capture (any) output of the command
+     *
      * @var string
      */
     private $property = "";
 
     /**
      * Whether to display the output of the command
+     *
      * @var boolean
      */
     private $display = true;
@@ -166,6 +167,7 @@ class SshTask extends Task
 
     /**
      * Sets the public key file of the user to scp
+     *
      * @param $pubkeyfile
      */
     public function setPubkeyfile($pubkeyfile)
@@ -183,6 +185,7 @@ class SshTask extends Task
 
     /**
      * Sets the private key file of the user to scp
+     *
      * @param $privkeyfile
      */
     public function setPrivkeyfile($privkeyfile)
@@ -200,6 +203,7 @@ class SshTask extends Task
 
     /**
      * Sets the private key file passphrase of the user to scp
+     *
      * @param $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
@@ -209,7 +213,8 @@ class SshTask extends Task
 
     /**
      * Returns the private keyfile passphrase
-     * @param $privkeyfilepassphrase
+     *
+     * @param  $privkeyfilepassphrase
      * @return string
      */
     public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
@@ -251,6 +256,7 @@ class SshTask extends Task
 
     /**
      * Sets the name of the property to capture (any) output of the command
+     *
      * @param string $property
      */
     public function setProperty($property)
@@ -260,6 +266,7 @@ class SshTask extends Task
 
     /**
      * Sets whether to display the output of the command
+     *
      * @param boolean $display
      */
     public function setDisplay($display)
@@ -269,7 +276,8 @@ class SshTask extends Task
 
     /**
      * Sets whether to fail the task on any error
-     * @param $failonerror
+     *
+     * @param    $failonerror
      * @internal param bool $failOnError
      */
     public function setFailonerror($failonerror)
@@ -279,6 +287,7 @@ class SshTask extends Task
 
     /**
      * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
+     *
      * @return Ssh2MethodParam
      */
     public function createSshconfig()
@@ -344,7 +353,8 @@ class SshTask extends Task
      * This function reads the streams from the ssh2_exec
      * command, stores output data, checks for errors and
      * closes the streams properly.
-     * @param $stream
+     *
+     * @param  $stream
      * @throws BuildException
      */
     protected function handleStream($stream)

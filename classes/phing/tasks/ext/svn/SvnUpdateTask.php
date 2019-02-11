@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,9 +22,9 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 /**
  * Updates a repository in local directory
  *
- * @author Andrew Eddie <andrew.eddie@jamboworks.com>
+ * @author  Andrew Eddie <andrew.eddie@jamboworks.com>
  * @package phing.tasks.ext.svn
- * @since 2.3.0
+ * @since   2.3.0
  */
 class SvnUpdateTask extends SvnBaseTask
 {
@@ -48,8 +47,7 @@ class SvnUpdateTask extends SvnBaseTask
         $this->setup('update');
 
         $this->log(
-            "Updating SVN repository at '" . $this->getToDir(
-            ) . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+            "Updating SVN repository at '" . $this->getToDir() . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
         );
 
         // revision

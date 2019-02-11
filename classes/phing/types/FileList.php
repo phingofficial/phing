@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,7 +35,7 @@
  *
  * (or a mixture of files="" and listfile="" can be used)
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.types
  */
 class FileList extends DataType
@@ -44,17 +43,24 @@ class FileList extends DataType
 
     // public for "cloning" purposes
 
-    /** Array containing all filenames. */
+    /**
+     * Array containing all filenames.
+     */
     public $filenames = [];
 
-    /** Base directory for this file list. */
+    /**
+     * Base directory for this file list.
+     */
     public $dir;
 
-    /** @var PhingFile that contains a list of files (one per line). */
+    /**
+     * @var PhingFile that contains a list of files (one per line).
+     */
     public $listfile;
 
     /**
      * Construct a new FileList.
+     *
      * @param FileList $filelist
      */
     public function __construct($filelist = null)
@@ -71,7 +77,8 @@ class FileList extends DataType
     /**
      * Makes this instance in effect a reference to another FileList
      * instance.
-     * @param Reference $r
+     *
+     * @param  Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -84,7 +91,8 @@ class FileList extends DataType
 
     /**
      * Base directory for files in list.
-     * @param PhingFile $dir
+     *
+     * @param  PhingFile $dir
      * @throws BuildException
      */
     public function setDir(PhingFile $dir)
@@ -100,7 +108,8 @@ class FileList extends DataType
 
     /**
      * Get the basedir for files in list.
-     * @param Project $p
+     *
+     * @param  Project $p
      * @throws BuildException
      * @return PhingFile
      */
@@ -117,7 +126,8 @@ class FileList extends DataType
 
     /**
      * Set the array of files in list.
-     * @param array $filenames
+     *
+     * @param  array $filenames
      * @throws BuildException
      */
     public function setFiles($filenames)
@@ -139,7 +149,8 @@ class FileList extends DataType
 
     /**
      * Sets a source "list" file that contains filenames to add -- one per line.
-     * @param string $file
+     *
+     * @param  string $file
      * @throws BuildException
      */
     public function setListFile($file)
@@ -155,7 +166,8 @@ class FileList extends DataType
 
     /**
      * Get the source "list" file that contains file names.
-     * @param  Project   $p
+     *
+     * @param  Project $p
      * @return PhingFile
      */
     public function getListFile(Project $p)
@@ -171,6 +183,7 @@ class FileList extends DataType
 
     /**
      * Returns the list of files represented by this FileList.
+     *
      * @param  Project $p
      * @return array
      */
@@ -193,6 +206,7 @@ class FileList extends DataType
     /**
      * Performs the check for circular references and returns the
      * referenced FileSet.
+     *
      * @param Project $p
      *
      * @throws BuildException
@@ -231,8 +245,9 @@ class FileList extends DataType
             if ($listReader) {
                 $listReader->close();
             }
-            throw new BuildException("An error occurred while reading from list file " . $this->listfile->__toString(
-                ) . ": " . $e->getMessage());
+            throw new BuildException(
+                "An error occurred while reading from list file " . $this->listfile->__toString() . ": " . $e->getMessage()
+            );
         }
 
         $listReader->close();

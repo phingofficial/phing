@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,18 +17,18 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @since 2.1.0
+ * @since   2.1.0
  */
 class FormatterElement
 {
-    /** @var PHPUnitResultFormatter $fomatter */
+    /**
+     * @var PHPUnitResultFormatter7 $fomatter
+     */
     protected $formatter;
 
     protected $type = "";
@@ -44,6 +43,7 @@ class FormatterElement
 
     /**
      * Sets parent task
+     *
      * @param Task $parent Calling Task
      */
     public function setParent($parent)
@@ -53,6 +53,7 @@ class FormatterElement
 
     /**
      * Loads a specific formatter type
+     *
      * @param string $type
      */
     public function setType($type)
@@ -62,6 +63,7 @@ class FormatterElement
 
     /**
      * Loads a specific formatter class
+     *
      * @param $className
      */
     public function setClassName($className)
@@ -73,6 +75,7 @@ class FormatterElement
 
     /**
      * Sets whether to store formatting results in a file
+     *
      * @param $useFile
      */
     public function setUseFile($useFile)
@@ -90,6 +93,7 @@ class FormatterElement
 
     /**
      * Sets output directory
+     *
      * @param string $toDir
      */
     public function setToDir($toDir)
@@ -104,6 +108,7 @@ class FormatterElement
 
     /**
      * Returns output directory
+     *
      * @return string
      */
     public function getToDir()
@@ -113,6 +118,7 @@ class FormatterElement
 
     /**
      * Sets output filename
+     *
      * @param string $outfile
      */
     public function setOutfile($outfile)
@@ -122,6 +128,7 @@ class FormatterElement
 
     /**
      * Returns output filename
+     *
      * @return string
      */
     public function getOutfile()
@@ -135,6 +142,7 @@ class FormatterElement
 
     /**
      * Returns extension
+     *
      * @return string
      */
     public function getExtension()
@@ -144,8 +152,9 @@ class FormatterElement
 
     /**
      * Returns formatter object
+     *
      * @throws BuildException
-     * @return PHPUnitResultFormatter
+     * @return PHPUnitResultFormatter7
      */
     public function getFormatter()
     {
@@ -153,7 +162,7 @@ class FormatterElement
             return $this->formatter;
         }
 
-        if (class_exists('PHPUnit_Runner_Version')) {
+        if (class_exists('PHPUnit_Runner_Version', false)) {
             if ($this->type === "summary") {
                 $this->formatter = new SummaryPHPUnitResultFormatter5($this->parent);
             } elseif ($this->type === "clover") {
@@ -167,17 +176,33 @@ class FormatterElement
             } else {
                 throw new BuildException("Formatter '" . $this->type . "' not implemented");
             }
+        } elseif (\version_compare('6', \PHPUnit\Runner\Version::id(), '>=')
+            && \version_compare('7', \PHPUnit\Runner\Version::id(), '<')
+        ) {
+            if ($this->type === "summary") {
+                $this->formatter = new SummaryPHPUnitResultFormatter6($this->parent);
+            } elseif ($this->type === "clover") {
+                $this->formatter = new CloverPHPUnitResultFormatter6($this->parent);
+            } elseif ($this->type === "xml") {
+                $this->formatter = new XMLPHPUnitResultFormatter6($this->parent);
+            } elseif ($this->type === "plain") {
+                $this->formatter = new PlainPHPUnitResultFormatter6($this->parent);
+            } elseif ($this->type === "crap4j") {
+                $this->formatter = new Crap4JPHPUnitResultFormatter6($this->parent);
+            } else {
+                throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            }
         } else {
             if ($this->type === "summary") {
-                $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
+                $this->formatter = new SummaryPHPUnitResultFormatter7($this->parent);
             } elseif ($this->type === "clover") {
-                $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
+                $this->formatter = new CloverPHPUnitResultFormatter7($this->parent);
             } elseif ($this->type === "xml") {
-                $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
+                $this->formatter = new XMLPHPUnitResultFormatter7($this->parent);
             } elseif ($this->type === "plain") {
-                $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
+                $this->formatter = new PlainPHPUnitResultFormatter7($this->parent);
             } elseif ($this->type === "crap4j") {
-                $this->formatter = new Crap4JPHPUnitResultFormatter($this->parent);
+                $this->formatter = new Crap4JPHPUnitResultFormatter7($this->parent);
             } else {
                 throw new BuildException("Formatter '" . $this->type . "' not implemented");
             }

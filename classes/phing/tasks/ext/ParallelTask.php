@@ -1,7 +1,5 @@
 <?php
-
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,21 +24,23 @@
  *
  * WARNING: this task is highly experimental!
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
- * @see https://github.com/phpdocumentor/Parallel
- * @since 2.4.10
+ * @see     https://github.com/phpdocumentor/Parallel
+ * @since   2.4.10
  */
 class ParallelTask extends SequentialTask
 {
     /**
      * Maximum number of threads / processes
+     *
      * @var int
      */
     private $threadCount = 2;
 
     /**
      * Sets the maximum number of threads / processes to use
+     *
      * @param int $threadCount
      */
     public function setThreadCount($threadCount)
@@ -75,7 +75,9 @@ class ParallelTask extends SequentialTask
 
         $mgr->execute();
 
-        /** @var MehrAlsNix\Parallel\Worker $nestedTask */
+        /**
+         * @var MehrAlsNix\Parallel\Worker $nestedTask
+         */
         foreach ($mgr as $nestedTask) {
             if ($nestedTask->getError() === "") {
                 continue;

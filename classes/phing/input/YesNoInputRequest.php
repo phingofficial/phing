@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,7 +20,7 @@
 /**
  * Encapsulates an input request that returns a boolean (yes/no).
  *
- * @author Hans Lellelid <hans@xmpl.org>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.input
  */
 class YesNoInputRequest extends MultipleChoiceInputRequest
@@ -37,6 +36,7 @@ class YesNoInputRequest extends MultipleChoiceInputRequest
 
     /**
      * Converts input to boolean.
+     *
      * @return boolean
      */
     public function getInput()

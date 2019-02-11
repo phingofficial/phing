@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,8 +27,8 @@
  *   <includepath classpath="new/path/here"/>
  * </code>
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class IncludePathTask extends Task
 {
@@ -40,12 +38,14 @@ class IncludePathTask extends Task
      * Classname of task to register.
      * This can be a dot-path -- relative to a location on PHP include_path.
      * E.g. path.to.MyClass ->  path/to/MyClass.php
+     *
      * @var string
      */
     private $classname;
 
     /**
      * Whether to prepend, append or replace the include path
+     *
      * @var string
      */
     private $mode = "prepend";
@@ -63,7 +63,9 @@ class IncludePathTask extends Task
         $this->mode = $mode;
     }
 
-    /** Main entry point */
+    /**
+     * Main entry point
+     */
     public function main()
     {
 

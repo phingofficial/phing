@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Register a task for use within a buildfile.
@@ -40,32 +36,37 @@ include_once 'phing/system/io/PhingFile.php';
  *    -- possibly refactor since this is almost the same as TypeDefTask
  *      (right now these are just too simple to really justify creating an abstract class)
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class TaskdefTask extends Task
 {
     use ClasspathAware;
 
-    /** Tag name for task that will be used in XML */
+    /**
+     * Tag name for task that will be used in XML
+     */
     private $name;
 
     /**
      * Classname of task to register.
      * This can be a dot-path -- relative to a location on PHP include_path.
      * E.g. path.to.MyClass ->  path/to/MyClass.php
+     *
      * @var string
      */
     private $classname;
 
     /**
      * Name of file to load multiple definitions from.
+     *
      * @var string
      */
     private $typeFile;
 
     /**
      * Sets the name that will be used in XML buildfile.
+     *
      * @param string $name
      */
     public function setName($name)
@@ -75,6 +76,7 @@ class TaskdefTask extends Task
 
     /**
      * Sets the class name / dotpath to use.
+     *
      * @param string $class
      */
     public function setClassname($class)
@@ -84,6 +86,7 @@ class TaskdefTask extends Task
 
     /**
      * Sets the file of definitionas to use to use.
+     *
      * @param string $file
      */
     public function setFile($file)
@@ -91,11 +94,13 @@ class TaskdefTask extends Task
         $this->typeFile = $file;
     }
 
-    /** Main entry point */
+    /**
+     * Main entry point
+     */
     public function main()
     {
-        if ($this->typeFile === null &&
-            ($this->name === null || $this->classname === null)
+        if ($this->typeFile === null
+            && ($this->name === null || $this->classname === null)
         ) {
             throw new BuildException("You must specify name and class attributes for <taskdef>.");
         }

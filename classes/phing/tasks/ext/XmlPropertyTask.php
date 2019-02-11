@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,15 +17,13 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * Task for setting properties from an XML file in buildfiles.
  *
- * @author    Jonathan Bond-Caron <jbondc@openmv.com>
- * @package   phing.tasks.ext
- * @since     2.4.0
- * @link      http://ant.apache.org/manual/CoreTasks/xmlproperty.html
+ * @author  Jonathan Bond-Caron <jbondc@openmv.com>
+ * @package phing.tasks.ext
+ * @since   2.4.0
+ * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
  */
 class XmlPropertyTask extends PropertyTask
 {
@@ -36,7 +32,9 @@ class XmlPropertyTask extends PropertyTask
     private $_delimiter = ',';
     private $_required = false;
 
-    /** Set a file to use as the source for properties.
+    /**
+     * Set a file to use as the source for properties.
+     *
      * @param $file
      */
     public function setFile($file)
@@ -47,7 +45,9 @@ class XmlPropertyTask extends PropertyTask
         $this->file = $file;
     }
 
-    /** Get the PhingFile that is being used as property source. */
+    /**
+     * Get the PhingFile that is being used as property source.
+     */
     public function getFile()
     {
         return $this->file;
@@ -56,9 +56,10 @@ class XmlPropertyTask extends PropertyTask
     /**
      * Prefix to apply to properties loaded using <code>file</code>.
      * A "." is appended to the prefix if not specified.
+     *
      * @param  string $prefix prefix string
      * @return void
-     * @since 2.0
+     * @since  2.0
      */
     public function setPrefix($prefix)
     {
@@ -166,7 +167,8 @@ class XmlPropertyTask extends PropertyTask
 
     /**
      * load properties from an XML file.
-     * @param PhingFile $file
+     *
+     * @param  PhingFile $file
      * @throws BuildException
      * @return Properties
      */

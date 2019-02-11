@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,8 +20,8 @@
 /**
  * This is the interface to be used by all selectors.
  *
- * @author Hans Lellelid, hans@xmpl.org (Phing)
- * @author Bruce Atherton, bruce@callenish.com (Ant)
+ * @author  Hans Lellelid, hans@xmpl.org (Phing)
+ * @author  Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
 interface FileSelector
@@ -35,9 +33,9 @@ interface FileSelector
      * of a selector, it can throw a BuildException to indicate
      * the problem.
      *
-     * @param PhingFile $basedir A PhingFile object for the base directory
-     * @param string $filename The name of the file to check
-     * @param PhingFile $file A PhingFile object for this filename
+     * @param  PhingFile $basedir A PhingFile object for the base directory
+     * @param  string $filename The name of the file to check
+     * @param  PhingFile $file A PhingFile object for this filename
      * @return bool whether the file should be selected or not
      * @throws BuildException if the selector was not configured correctly
      */

@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
@@ -34,9 +32,9 @@
  * <translategettext locale="en_US" domain="messages" dir="${webroot}/local"/>
  * </pre>
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @see       BaseFilterReader
- * @package   phing.filters
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @see     BaseFilterReader
+ * @package phing.filters
  */
 class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 {
@@ -47,16 +45,24 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     const DIR_KEY = "dir";
     const LOCALE_KEY = "locale";
 
-    /** The domain to use */
+    /**
+     * The domain to use
+     */
     private $domain = 'messages';
 
-    /** The dir containing LC_MESSAGES */
+    /**
+     * The dir containing LC_MESSAGES
+     */
     private $dir;
 
-    /** The locale to use */
+    /**
+     * The locale to use
+     */
     private $locale;
 
-    /** The system locale before it was changed for this filter. */
+    /**
+     * The system locale before it was changed for this filter.
+     */
     private $storedLocale;
 
     /**
@@ -64,6 +70,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * The text domain must correspond to the name of the compiled .mo files.
      * E.g. "messages" ==> $dir/LC_MESSAGES/messages.mo
      *         "mydomain" ==> $dir/LC_MESSAGES/mydomain.mo
+     *
      * @param string $domain
      */
     public function setDomain($domain)
@@ -73,6 +80,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Get the current domain.
+     *
      * @return string
      */
     public function getDomain()
@@ -82,6 +90,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets the root locale directory.
+     *
      * @param PhingFile $dir
      */
     public function setDir(PhingFile $dir)
@@ -91,6 +100,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Gets the root locale directory.
+     *
      * @return PhingFile
      */
     public function getDir()
@@ -103,6 +113,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Note that for gettext() to work, you have to make sure this locale
      * is specific enough for your system (e.g. some systems may allow an 'en' locale,
      * but others will require 'en_US', etc.).
+     *
      * @param string $locale
      */
     public function setLocale($locale)
@@ -112,6 +123,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Gets the locale to use for translation.
+     *
      * @return string
      */
     public function getLocale()
@@ -121,6 +133,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Make sure that required attributes are set.
+     *
      * @throws BuldException - if any required attribs aren't set.
      */
     protected function checkAttributes()
@@ -137,7 +150,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return void
      * @throws BuildException - if locale cannot be set.
-     * @see restoreEnvironment()
+     * @see    restoreEnvironment()
      */
     protected function initEnvironment()
     {
@@ -178,7 +191,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * string replacements.  (alternative would be using preg_replace with /e which
      * would probably be faster, but no ability to debug/log.)
      *
-     * @param  array  $matches Array of matches; we're interested in $matches[2].
+     * @param  array $matches Array of matches; we're interested in $matches[2].
      * @return string Translated text
      */
     private function xlateStringCallback($matches)
@@ -195,10 +208,9 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and then translation is performed.
      *
-     * @param null $len
+     * @param  null $len
      * @throws BuildException
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
-     *
      */
     public function read($len = null)
     {

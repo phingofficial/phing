@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,8 +20,8 @@
 /**
  * Removes any directory information from the passed path.
  *
- * @author   Andreas Aderhold <andi@binarycloud.com>
- * @package  phing.mappers
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @package phing.mappers
  */
 class FlattenMapper implements FileNameMapper
 {
@@ -43,7 +42,8 @@ class FlattenMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $to
+     *
+     * @param  string $to
      * @return void
      */
     public function setTo($to)
@@ -53,7 +53,8 @@ class FlattenMapper implements FileNameMapper
     /**
      * Ignored here.
      * {@inheritdoc}
-     * @param string $from
+     *
+     * @param  string $from
      * @return void
      */
     public function setFrom($from)

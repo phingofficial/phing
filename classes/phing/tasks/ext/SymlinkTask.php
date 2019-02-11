@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -39,7 +38,7 @@
  *     </symlink>
  * </code>
  *
- * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
+ * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @extends Task
  * @version $ID$
  * @package phing.tasks.ext
@@ -205,7 +204,7 @@ class SymlinkTask extends Task
     /**
      * Given an existing path, convert it to a path relative to a given starting path.
      *
-     * @param string $endPath   Absolute path of target
+     * @param string $endPath Absolute path of target
      * @param string $startPath Absolute path where traversal begins
      *
      * @return string Path of target relative to starting path
@@ -237,7 +236,7 @@ class SymlinkTask extends Task
         $endPathRemainder = implode('/', array_slice($endPathArr, $index));
 
         // Construct $endPath from traversing to the common path, then to the remaining $endPath
-        $relativePath = $traverser.('' !== $endPathRemainder ? $endPathRemainder.'/' : '');
+        $relativePath = $traverser . ('' !== $endPathRemainder ? $endPathRemainder . '/' : '');
 
         return '' === $relativePath ? './' : $relativePath;
     }
@@ -333,8 +332,8 @@ class SymlinkTask extends Task
         $fs = FileSystem::getFileSystem();
 
         if ($this->isRelative()) {
-           $link =(new PhingFile($link))->getAbsolutePath();
-           $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
+            $link = (new PhingFile($link))->getAbsolutePath();
+            $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
         }
 
         if (is_link($link) && @readlink($link) == $target) {

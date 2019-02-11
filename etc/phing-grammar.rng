@@ -166,6 +166,7 @@
                 <ref name="phplint"/>
                 <ref name="phploc"/>
                 <ref name="phpmd"/>
+                <ref name="phpstan"/>
                 <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
                 <ref name="propertycopy"/>
@@ -189,6 +190,7 @@
                 <ref name="svnlastrevision"/>
                 <ref name="svnlist"/>
                 <ref name="svnlog"/>
+                <ref name="svnrevert"/>
                 <ref name="svnswitch"/>
                 <ref name="svnupdate"/>
                 <ref name="symfonyconsole"/>
@@ -197,7 +199,9 @@
                 <ref name="throw"/>
                 <ref name="untar"/>
                 <ref name="unzip"/>
+                <ref name="urlencode"/>
                 <ref name="version"/>
+                <ref name="visualizer"/>
                 <ref name="wikipublish"/>
                 <ref name="xmllint"/>
                 <ref name="xmlproperty"/>
@@ -1670,6 +1674,9 @@
                     <attribute name="delimiter" a:defaultValue=","/>
                 </optional>
                 <optional>
+                    <attribute name="delta" a:defaultValue="delta"/>
+                </optional>
+                <optional>
                     <attribute name="trim" a:defaultValue="false"/>
                 </optional>
                 <optional>
@@ -2003,6 +2010,11 @@
                 </optional>
                 <optional>
                     <attribute name="setonempty"/>
+                </optional>
+                <optional>
+                    <attribute name="preserveduplicates" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
             </interleave>
             <interleave>
@@ -4564,6 +4576,14 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="forward">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="fuzz" />
+                </optional>
+                <optional>
                     <attribute name="quiet">
                         <data type="boolean"/>
                     </attribute>
@@ -4584,9 +4604,14 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="haltonfailure">
-                        <data type="boolean"/>
-                    </attribute>
+                    <choice>
+                        <attribute name="failonerror">
+                            <data type="boolean"/>
+                        </attribute>
+                        <attribute name="haltonfailure">
+                            <data type="boolean"/>
+                        </attribute>
+                    </choice>
                 </optional>
                 <optional>
                     <attribute name="dir"/>
@@ -5307,6 +5332,92 @@
 
     <!--
         =========================================
+        PHPStanTask
+        =========================================
+    -->
+    <define name="phpstan">
+        <element name="phpstan">
+            <interleave>
+                <optional>
+                    <attribute name="command"/>
+                </optional>
+                <optional>
+                    <attribute name="executable"/>
+                </optional>
+                <optional>
+                    <attribute name="checkReturn">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configuration"/>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+                <optional>
+                    <attribute name="noProgress"/>
+                </optional>
+                <optional>
+                    <attribute name="debug"/>
+                </optional>
+                <optional>
+                    <attribute name="autoloadFile"/>
+                </optional>
+                <optional>
+                    <attribute name="errorFormat"/>
+                </optional>
+                <optional>
+                    <attribute name="memoryLimit"/>
+                </optional>
+                <optional>
+                    <attribute name="paths"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="raw"/>
+                </optional>
+                <optional>
+                    <attribute name="namespace"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="raw"/>
+                </optional>
+                <optional>
+                    <attribute name="commandName"/>
+                </optional>
+                <optional>
+                    <attribute name="help"/>
+                </optional>
+                <optional>
+                    <attribute name="quiet"/>
+                </optional>
+                <optional>
+                    <attribute name="version"/>
+                </optional>
+                <optional>
+                    <attribute name="ansi"/>
+                </optional>
+                <optional>
+                    <attribute name="noAnsi"/>
+                </optional>
+                <optional>
+                    <attribute name="noInteraction"/>
+                </optional>
+                <optional>
+                    <attribute name="verbose"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <!--
+        =========================================
         PHPUnitTask
         =========================================
     -->
@@ -5492,6 +5603,23 @@
         </element>
     </define>
 
+    <define name="urlencode">
+        <element name="urlencode">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="override">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <choice>
+                    <attribute name="value"/>
+                    <attribute name="refid"/>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+
     <define name="replaceregexp_task">
         <element name="replaceregexp">
             <interleave>
@@ -5516,7 +5644,7 @@
 
     <!--
         =========================================
-        rSTTask
+        RSTTask
         =========================================
     -->
     <define name="rst">
@@ -6389,6 +6517,20 @@
         </element>
     </define>
 
+    <define name="svnrevert">
+        <element name="svnrevert">
+            <interleave>
+                <choice>
+                    <attribute name="workingcopy"/>
+                    <attribute name="repositoryurl"/>
+                </choice>
+                <attribute name="recursive">
+                    <data type="boolean"/>
+                </attribute>
+            </interleave>
+        </element>
+    </define>
+
     <define name="symfonyconsole">
         <element name="symfonyconsole">
             <interleave>
@@ -6396,6 +6538,9 @@
                 <optional>
                     <attribute name="console"/>
                     <attribute name="debug">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="silent" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -6543,6 +6688,45 @@
                 </attribute>
                 <attribute name="file"/>
                 <attribute name="property"/>
+            </interleave>
+        </element>
+    </define>
+
+    <!--VisualizerTask-->
+    <define name="visualizer">
+        <element name="visualizer">
+            <interleave>
+                <optional>
+                    <attribute name="format">
+                        <choice>
+                            <value>svg</value>
+                            <value>png</value>
+                            <value>puml</value>
+                            <value>eps</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="destination"/>
+                </optional>
+                <optional>
+                    <attribute name="server"/>
+                </optional>
+                <optional>
+                    <attribute name="authUser"/>
+                </optional>
+                <optional>
+                    <attribute name="authPassword"/>
+                </optional>
+                <optional>
+                    <attribute name="authScheme" a:default="basic"/>
+                </optional>
+                <zeroOrMore>
+                    <ref name="config"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="header"/>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>

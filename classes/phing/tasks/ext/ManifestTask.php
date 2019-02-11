@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -38,8 +37,6 @@
  * <manifest checksum="md5,adler32,sha256" file="${dir_build}/Manifest">
  *      <fileset refid="files_build" />
  * </manifest>
- *
- *
  *
  * @author David Persson <davidpersson at qeweurope dot org>
  *
@@ -114,7 +111,7 @@ class ManifestTask extends Task
     /**
      * The setter for the attribute "checksum"
      *
-     * @param  mixed $mixed
+     * @param mixed $mixed
      *
      * @return void
      */
@@ -136,7 +133,7 @@ class ManifestTask extends Task
     /**
      * The setter for the optional attribute "salt"
      *
-     * @param  string $string
+     * @param string $string
      *
      * @return void
      */
@@ -240,11 +237,11 @@ class ManifestTask extends Task
      * Automatically selects extension
      * Falls back to built-in functions
      *
-     * @link  http://www.php.net/mhash
-     * @link  http://www.php.net/hash
+     * @link http://www.php.net/mhash
+     * @link http://www.php.net/hash
      *
-     * @param  string $msg  The string that should be hashed
-     * @param  string $algo Algorithm
+     * @param string $msg The string that should be hashed
+     * @param string $algo Algorithm
      *
      * @return mixed  String on success, false if $algo is not available
      */
@@ -279,8 +276,8 @@ class ManifestTask extends Task
     /**
      * Hash a file's contents
      *
-     * @param  string $file
-     * @param  string $algo
+     * @param string $file
+     * @param string $algo
      *
      * @return mixed  String on success, false if $algo is not available
      */

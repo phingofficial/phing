@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,14 +21,14 @@
 /**
  * Copy files to and from a remote host using scp.
  *
- * @author    Michiel Rook <mrook@php.net>
- * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @package   phing.tasks.ext
+ * @author  Michiel Rook <mrook@php.net>
+ * @author  Johan Van den Brande <johan@vandenbrande.com>
+ * @package phing.tasks.ext
  */
-
 class ScpTask extends Task
 {
     use FileSetAware;
+    use LogLevelAware;
 
     protected $file = "";
     protected $todir = "";
@@ -54,8 +53,6 @@ class ScpTask extends Task
 
     protected $counter = 0;
 
-    protected $logLevel = Project::MSG_VERBOSE;
-
     /**
      * If number of success of "sftp" is grater than declared number
      * decide to skip "scp" operation.
@@ -77,6 +74,7 @@ class ScpTask extends Task
 
     /**
      * Sets the remote host
+     *
      * @param $h
      */
     public function setHost($h)
@@ -94,6 +92,7 @@ class ScpTask extends Task
 
     /**
      * Sets the remote host port
+     *
      * @param $p
      */
     public function setPort($p)
@@ -111,6 +110,7 @@ class ScpTask extends Task
 
     /**
      * Sets the mode value
+     *
      * @param $value
      */
     public function setMode($value)
@@ -128,6 +128,7 @@ class ScpTask extends Task
 
     /**
      * Sets the username of the user to scp
+     *
      * @param $username
      */
     public function setUsername($username)
@@ -145,6 +146,7 @@ class ScpTask extends Task
 
     /**
      * Sets the password of the user to scp
+     *
      * @param $password
      */
     public function setPassword($password)
@@ -162,6 +164,7 @@ class ScpTask extends Task
 
     /**
      * Sets the public key file of the user to scp
+     *
      * @param $pubkeyfile
      */
     public function setPubkeyfile($pubkeyfile)
@@ -179,6 +182,7 @@ class ScpTask extends Task
 
     /**
      * Sets the private key file of the user to scp
+     *
      * @param $privkeyfile
      */
     public function setPrivkeyfile($privkeyfile)
@@ -196,6 +200,7 @@ class ScpTask extends Task
 
     /**
      * Sets the private key file passphrase of the user to scp
+     *
      * @param $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
@@ -205,7 +210,8 @@ class ScpTask extends Task
 
     /**
      * Returns the private keyfile passphrase
-     * @param $privkeyfilepassphrase
+     *
+     * @param  $privkeyfilepassphrase
      * @return string
      */
     public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
@@ -215,6 +221,7 @@ class ScpTask extends Task
 
     /**
      * Sets whether to autocreate remote directories
+     *
      * @param $autocreate
      */
     public function setAutocreate($autocreate)
@@ -232,6 +239,7 @@ class ScpTask extends Task
 
     /**
      * Set destination directory
+     *
      * @param $todir
      */
     public function setTodir($todir)
@@ -249,6 +257,7 @@ class ScpTask extends Task
 
     /**
      * Sets local filename
+     *
      * @param $file
      */
     public function setFile($file)
@@ -266,6 +275,7 @@ class ScpTask extends Task
 
     /**
      * Sets whether to send (default) or fetch files
+     *
      * @param $fetch
      */
     public function setFetch($fetch)
@@ -303,6 +313,7 @@ class ScpTask extends Task
 
     /**
      * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
+     *
      * @return Ssh2MethodParam
      */
     public function createSshconfig()
@@ -310,31 +321,6 @@ class ScpTask extends Task
         $this->methods = new Ssh2MethodParam();
 
         return $this->methods;
-    }
-
-    /**
-     * Set level of log messages generated (default = verbose)
-     * @param string $level
-     */
-    public function setLevel($level)
-    {
-        switch ($level) {
-            case "error":
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case "warning":
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case "info":
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case "verbose":
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case "debug":
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-        }
     }
 
     public function init()

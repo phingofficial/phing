@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/FileParserInterface.php';
 
 /**
  * Implements an IniFileParser. The logic is coming from th Properties.php, but I don't know who's the author.
@@ -25,7 +23,7 @@ include_once 'phing/system/io/FileParserInterface.php';
  * FIXME
  *  - Add support for arrays (separated by ',')
  *
- * @author Mike Lohmann <mike.lohmann@deck36.de>
+ * @author  Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
 class IniFileParser implements FileParserInterface
@@ -69,7 +67,8 @@ class IniFileParser implements FileParserInterface
     /**
      * Process values when being read in from properties file.
      * does things like convert "true" => true
-     * @param string $val Trimmed value.
+     *
+     * @param  string $val Trimmed value.
      * @return mixed The new property value (may be boolean, etc.)
      */
     protected function inVal($val)

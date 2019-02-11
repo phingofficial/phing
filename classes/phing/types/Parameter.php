@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,32 +15,38 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
-
-include_once 'phing/types/DataType.php';
+ */
 
 /**
  * A parameter is composed of a name, type and value. Nested
  * Parameters are also possible, but the using task/type has
  * to support them
  *
- * @author    Manuel Holtgrewe
- * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @package   phing.types
+ * @author  Manuel Holtgrewe
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @package phing.types
  */
 class Parameter extends DataType
 {
 
-    /** Parameter name */
+    /**
+     * Parameter name
+     */
     protected $name;
 
-    /** Parameter type */
+    /**
+     * Parameter type
+     */
     protected $type;
 
-    /** Parameter value */
+    /**
+     * Parameter value
+     */
     protected $value;
 
-    /** Nested parameters */
+    /**
+     * Nested parameters
+     */
     protected $parameters = [];
 
     /**
@@ -62,6 +67,7 @@ class Parameter extends DataType
 
     /**
      * Sets value to dynamic register slot.
+     *
      * @param RegisterSlot $value
      */
     public function setListeningValue(RegisterSlot $value)

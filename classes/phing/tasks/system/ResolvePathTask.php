@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,19 +35,25 @@
  * TODO:
  *      - Possibly integrate this with PackageAsPath, for handling/resolving dot-path paths.
  *
- * @author    Hans Lellelid <hans@xmpl.org>
- * @package   phing.tasks.system
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.tasks.system
  */
 class ResolvePathTask extends Task
 {
 
-    /** Name of property to set. */
+    /**
+     * Name of property to set.
+     */
     private $propertyName;
 
-    /** The [possibly] relative file/path that needs to be resolved. */
+    /**
+     * The [possibly] relative file/path that needs to be resolved.
+     */
     private $file;
 
-    /** Base directory used for resolution.
+    /**
+     * Base directory used for resolution.
+     *
      * @var PhingFile
      */
     private $dir;
@@ -60,6 +65,7 @@ class ResolvePathTask extends Task
 
     /**
      * Set the name of the property to set.
+     *
      * @param  string $v Property name
      * @return void
      */
@@ -70,6 +76,7 @@ class ResolvePathTask extends Task
 
     /**
      * Sets a base dir to use for resolution.
+     *
      * @param PhingFile $d
      */
     public function setDir(PhingFile $d)
@@ -81,8 +88,9 @@ class ResolvePathTask extends Task
      * Sets a path (file or directory) that we want to resolve.
      * This is the same as setFile() -- just more generic name so that it's
      * clear that you can also use it to set directory.
+     *
      * @param string $f
-     * @see setFile()
+     * @see   setFile()
      */
     public function setPath($f)
     {
@@ -91,6 +99,7 @@ class ResolvePathTask extends Task
 
     /**
      * Sets a file that we want to resolve.
+     *
      * @param string $f
      */
     public function setFile($f)

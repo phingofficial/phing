@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +22,8 @@ require_once __DIR__ . "/Arg.php";
 
 /**
  * Symfony Console Task
- * @author nuno costa <nuno@francodacosta.com>
+ *
+ * @author  nuno costa <nuno@francodacosta.com>
  * @license GPL
  * @package phing.tasks.ext.symfony
  */
@@ -57,18 +56,26 @@ class SymfonyConsoleTask extends Task
 
     /**
      * Whether to check the return code.
+     *
      * @var boolean
      */
     private $checkreturn = false;
 
     /**
      * Is the symfony cli debug mode set? (true by default)
+     *
      * @var boolean
      */
     private $debug = true;
-    
+
+    /**
+     * @var bool $silent
+     */
+    private $silent = false;
+
     /**
      * sets the symfony console command to execute
+     *
      * @param string $command
      */
     public function setCommand($command)
@@ -78,6 +85,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      * return the symfony console command to execute
+     *
      * @return String
      */
     public function getCommand()
@@ -87,6 +95,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      * sets the path to symfony console application
+     *
      * @param string $console
      */
     public function setConsole($console)
@@ -96,6 +105,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      * returns the path to symfony console application
+     *
      * @return string
      */
     public function getConsole()
@@ -105,7 +115,8 @@ class SymfonyConsoleTask extends Task
 
     /**
      * Set the name of the property to store the application output in
-     * @param $property
+     *
+     * @param  $property
      * @return void
      */
     public function setPropertyName($property)
@@ -125,7 +136,6 @@ class SymfonyConsoleTask extends Task
         $this->checkreturn = (bool) $checkreturn;
     }
 
-    
     /**
      * Whether to set the symfony cli debug mode
      *
@@ -140,11 +150,22 @@ class SymfonyConsoleTask extends Task
 
     /**
      * Get if the symfony cli debug mode is set
+     *
      * @return boolean
      */
     public function getDebug()
     {
         return $this->debug;
+    }
+
+    public function setSilent(bool $flag)
+    {
+        $this->silent = $flag;
+    }
+
+    public function getSilent()
+    {
+        return $this->silent;
     }
 
     /**
@@ -162,6 +183,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      * return the argumments passed to this task
+     *
      * @return array of Arg()
      */
     public function getArgs()
@@ -171,6 +193,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      * Check if the no-debug option was added via args
+     *
      * @return boolean
      */
     private function isNoDebugArgPresent()
@@ -180,12 +203,13 @@ class SymfonyConsoleTask extends Task
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Gets the command string to be executed
+     *
      * @return string
      */
     public function getCmdString()
@@ -211,14 +235,14 @@ class SymfonyConsoleTask extends Task
     {
         $cmd = $this->getCmdString();
 
-        $this->log("executing $cmd");
+        $this->silent ?: $this->log("executing $cmd");
         $return = null;
         $output = [];
         exec($cmd, $output, $return);
 
         $lines = implode("\r\n", $output);
 
-        $this->log($lines, Project::MSG_INFO);
+        $this->silent ?: $this->log($lines, Project::MSG_INFO);
 
         if ($this->propertyName != null) {
             $this->project->setProperty($this->propertyName, $lines);

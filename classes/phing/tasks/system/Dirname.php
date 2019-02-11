@@ -32,17 +32,20 @@
  * element. If file is a file, the directory will be the current
  * directory.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
 class Dirname extends Task
 {
-    /** @var PhingFile $file */
+    /**
+     * @var PhingFile $file
+     */
     private $file;
     private $property;
 
     /**
      * Path to take the dirname of.
+     *
      * @param string|PhingFile file a <code>File</code> value
      */
     public function setFile($file)
@@ -56,6 +59,7 @@ class Dirname extends Task
 
     /**
      * The name of the property to set.
+     *
      * @param string $property the name of the property
      */
     public function setProperty($property)
@@ -65,6 +69,7 @@ class Dirname extends Task
 
     /**
      * Execute this task.
+     *
      * @throws BuildException on error
      */
     public function main()

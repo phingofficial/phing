@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +23,7 @@ require_once 'phing/tasks/system/MatchingTask.php';
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
  * @package phing.tasks.ext
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PharDataTask extends MatchingTask
 {
@@ -183,8 +182,10 @@ class PharDataTask extends MatchingTask
         }
 
         if (!$this->baseDirectory->exists()) {
-            throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!",
-                $this->getLocation());
+            throw new BuildException(
+                "basedir '" . (string) $this->baseDirectory . "' does not exist!",
+                $this->getLocation()
+            );
         }
     }
 }

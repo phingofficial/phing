@@ -21,10 +21,10 @@
  * Exits the active build, giving an additional message
  * if available.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Nico Seessle <nico@seessle.de> (Ant)
+ * @author Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author Nico Seessle <nico@seessle.de> (Ant)
  *
- * @package   phing.tasks.system
+ * @package phing.tasks.system
  */
 class FailTask extends Task
 {
@@ -104,6 +104,7 @@ class FailTask extends Task
 
     /**
      * Set the status code to associate with the thrown Exception.
+     *
      * @param int $int the <code>int</code> status
      */
     public function setStatus($int)
@@ -120,7 +121,7 @@ class FailTask extends Task
      */
     public function main()
     {
-        $fail =  $this->nestedConditionPresent() ? $this->testNestedCondition() :
+        $fail = $this->nestedConditionPresent() ? $this->testNestedCondition() :
             $this->testIfCondition() && $this->testUnlessCondition();
 
         if ($fail) {
@@ -159,6 +160,7 @@ class FailTask extends Task
 
     /**
      * Add a condition element.
+     *
      * @return NestedCondition
      * @throws BuildException
      */
@@ -212,6 +214,7 @@ class FailTask extends Task
 
     /**
      * test the nested condition
+     *
      * @return bool true if there is none, or it evaluates to true
      * @throws BuildException
      */
@@ -228,6 +231,7 @@ class FailTask extends Task
 
     /**
      * test whether there is a nested condition.
+     *
      * @return boolean
      */
     private function nestedConditionPresent()

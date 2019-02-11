@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -133,6 +132,7 @@ class HttpRequestTask extends HttpTask
 
     /**
      * The setter for the method
+     *
      * @param $method
      */
     public function setMethod($method)
@@ -166,7 +166,7 @@ class HttpRequestTask extends HttpTask
         $this->authScheme = HTTP_Request2::AUTH_BASIC;
 
         // Other dependencies that should only be loaded when class is actually used
-        require_once 'HTTP/Request2/Observer/Log.php';
+        include_once 'HTTP/Request2/Observer/Log.php';
     }
 
     /**
@@ -184,9 +184,16 @@ class HttpRequestTask extends HttpTask
             $request->setMethod(HTTP_Request2::METHOD_POST);
 
             if ($this->isHeaderSet('content-type', 'application/json')) {
-                $request->setBody(json_encode(array_map(function (Parameter $postParameter) {
-                    return [$postParameter->getName() => $postParameter->getValue()];
-                }, $this->postParameters)));
+                $request->setBody(
+                    json_encode(
+                        array_map(
+                            function (Parameter $postParameter) {
+                                return [$postParameter->getName() => $postParameter->getValue()];
+                            },
+                            $this->postParameters
+                        )
+                    )
+                );
             } else {
                 foreach ($this->postParameters as $postParameter) {
                     $request->addPostParameter($postParameter->getName(), $postParameter->getValue());

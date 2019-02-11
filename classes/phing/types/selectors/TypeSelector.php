@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,18 +20,22 @@
 /**
  * Selector that selects a certain kind of file: directory or regular file.
  *
- * @author    Hans Lellelid <hans@xmpl.org> (Phing)
- * @author    Jeff Turner <jefft@apache.org> (Ant)
- * @package   phing.types.selectors
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Jeff Turner <jefft@apache.org> (Ant)
+ * @package phing.types.selectors
  */
 class TypeSelector extends BaseExtendSelector
 {
     private $type;
 
-    /** Key to used for parameterized custom selector */
+    /**
+     * Key to used for parameterized custom selector
+     */
     const TYPE_KEY = "type";
 
-    /** Valid types */
+    /**
+     * Valid types
+     */
     private static $types = ['file', 'dir', 'link'];
 
     /**
@@ -47,6 +50,7 @@ class TypeSelector extends BaseExtendSelector
 
     /**
      * Set the type of file to require.
+     *
      * @param string $type The type of file - 'file' or 'dir'
      */
     public function setType($type)
@@ -58,7 +62,7 @@ class TypeSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param array $parameters the complete set of parameters for this selector
+     * @param  array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
     public function setParameters($parameters)
@@ -79,7 +83,6 @@ class TypeSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the pattern attribute has been set.
-     *
      */
     public function verifySettings()
     {
@@ -94,9 +97,9 @@ class TypeSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param  PhingFile $basedir  the base directory the scan is being done from
-     * @param  string    $filename is the name of the file to check
-     * @param  PhingFile $file     is a PhingFile object the selector can use
+     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  string $filename is the name of the file to check
+     * @param  PhingFile $file is a PhingFile object the selector can use
      * @return boolean   Whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

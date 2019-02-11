@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,7 +21,7 @@
  * This interface can be used to implement a fileParser for property files.
  * For example: You can implement a .ini-Fileparser or .yaml/.xml/.php.
  *
- * @author Mike Lohmann <mike.lohmann@deck36.de>
+ * @author  Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
 interface FileParserInterface
@@ -30,7 +29,7 @@ interface FileParserInterface
     /**
      * Builds an array from the given (ini) file and returns it.
      *
-     * @param $file
+     * @param  $file
      * @return array
      * @throws IOException
      */

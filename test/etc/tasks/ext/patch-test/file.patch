@@ -1,0 +1,7 @@
+--- test/etc/tasks/ext/patch-test/a	2019-02-02 18:58:56.503145000 +0100
++++ test/etc/tasks/ext/patch-test/b	2019-02-02 18:58:56.505144000 +0100
+@@ -1 +1 @@
+-AAA
+\ No newline at end of file
++BBB
+\ No newline at end of file
