@@ -332,6 +332,15 @@
                         <entry>false</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>matchAny</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If <literal>false</literal>, then all the strings are expected to be present in the line.
+                            If <literal>true</literal>, then the presence of any of the strings in the line
+                            is considered a successful match.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -340,9 +349,7 @@
             <title>Nested tags</title>
 
             <para>The <literal>linecontains</literal> tag must contain one or more
-                    <literal>contains</literal> tags. Latter must have a <literal>value</literal>
-                attribute that has to be set to the string the line has to contain to be let
-                through.</para>
+                    <literal>contains</literal> tags.</para>
         </sect2>
     </sect1>
     <sect1 role="filterdef" xml:id="LineContainsRegexp">
