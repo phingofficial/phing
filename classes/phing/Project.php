@@ -986,7 +986,9 @@ class Project
         if ($ref !== null && !$ref instanceof UnknownElement) {
             $this->log("Overriding previous definition of reference to $name", Project::MSG_VERBOSE);
         }
-        $this->log("Adding reference: $name -> " . get_class($object), Project::MSG_DEBUG);
+        $refName = method_exists($object, 'toString') ? $object->toString() : get_class($object);
+        $refName = method_exists($object, '__toString') ? (string) $object : $refName;
+        $this->log("Adding reference: $name -> " . $refName, Project::MSG_DEBUG);
         $this->references[$name] = $object;
     }
 
