@@ -102,8 +102,8 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                         );
                         $this->log(
                             'This could happen, if the input value is a boolean type like 0, false, no etc.',
-                                Project::MSG_WARN
-                            );
+                            Project::MSG_WARN
+                        );
                         $matches = false;
                     } else {
                         $matches = false !== strpos($this->line, $containsStr);
