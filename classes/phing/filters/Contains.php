@@ -11,7 +11,7 @@ class Contains
     /**
      * @var string
      */
-    private $_value;
+    private $value;
 
     /**
      * Set 'contains' value.
@@ -20,7 +20,7 @@ class Contains
      */
     public function setValue($contains)
     {
-        $this->_value = (string) $contains;
+        $this->value = (string) $contains;
     }
 
     /**
@@ -30,6 +30,6 @@ class Contains
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 }
