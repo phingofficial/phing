@@ -18,54 +18,35 @@
  */
 
 /**
- * Class to hold a property value
- *  Class only required to make it possible to add a property as reference
+ * Unit test for Timer
  *
- * @package phing.types
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.system.util
  */
-class PropertyValue
+class TimerTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var Timer */
+    private $timer;
 
-    /**
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * Constructor optionaly sets a the value of property component.
-     *
-     * @param mixed      Value of name, all scalars allowed
-     */
-    public function __construct($value = null)
+    public function setUp(): void
     {
-        if ($value !== null) {
-            $this->setValue($value);
+        $this->timer = new Timer();
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->timer);
+    }
+
+    public function testTimer()
+    {
+        $this->timer->start();
+        $this->timer->stop();
+
+        if (method_exists($this, '')) {
+            $this->assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.001);
+        } else {
+            $this->assertEquals(0.0, $this->timer->getElapsedTime(), '', 0.001);
         }
-    }
-
-    /**
-     * Sets a the value of property component.
-     *
-     * @param mixed      Value of name, all scalars allowed
-     */
-    public function setValue($value)
-    {
-        $this->value = (string) $value;
-    }
-
-    /**
-     * Get the value of property component.
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getValue();
     }
 }
