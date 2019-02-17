@@ -45,14 +45,15 @@
  */
 class LineContains extends BaseParamFilterReader implements ChainableReader
 {
+    /**
+     * The parameter name for the string to match on.
+     */
+    private const CONTAINS_KEY = 'contains';
 
     /**
      * The parameter name for the string to match on.
-     *
-     * @var string
      */
-    const CONTAINS_KEY = "contains";
-    const NEGATE_KEY = 'negate';
+    private const NEGATE_KEY = 'negate';
 
     /**
      * Array of Contains objects.
@@ -65,14 +66,27 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @var bool $negate
      */
     private $negate = false;
+
+    /**
+     * Remaining line to be read from this filter, or <code>null</code> if
+     * the next call to <code>read()</code> should read the original stream
+     * to find the next matching line.
+     */
     private $line;
+
     private $matchAny = false;
 
     /**
-     * Returns all lines in a buffer that contain specified strings.
+     * Remaining line to be read from this filter, or <code>null</code> if
+     * the next call to <code>read()</code> should read the original stream
+     * to find the next matching line.
      *
-     * @param  null $len
-     * @return mixed buffer, -1 on EOF
+     * @param  int|null $len
+     *
+     * @return int|string  the next character in the resulting stream, or -1
+     *                     if the end of the resulting stream has been reached
+     *
+     * @throws IOException if the underlying stream throws an IOException during reading
      */
     public function read($len = null)
     {
@@ -88,7 +102,9 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
             if (strlen($this->line) === 1) {
                 $this->line = null;
             } else {
-                $this->line = substr($this->line, 1) !== false ? substr($this->line, 1) : null;
+                $part = substr($this->line, 1);
+
+                $this->line = $part !== false ? $part : null;
             }
         } else {
             for ($this->line = $this->readLine(); $this->line !== null; $this->line = $this->readLine()) {
@@ -98,11 +114,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                     if ($containsStr === '') {
                         $this->log(
                             'The value of <contents> is evaluated to an empty string.',
-                            Project::MSG_WARN
-                        );
-                        $this->log(
-                            'This could happen, if the input value is a boolean type like 0, false, no etc.',
-                            Project::MSG_WARN
+                            Project::MSG_DEBUG
                         );
                         $matches = false;
                     } else {
@@ -146,7 +158,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *
      * @return boolean negation flag.
      */
-    public function isNegated()
+    public function isNegated(): bool
     {
         return $this->negate;
     }
@@ -157,7 +169,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @return Contains The <code>contains</code> element added.
      *                  Must not be <code>null</code>.
      */
-    public function createContains()
+    public function createContains(): \Contains
     {
         $num = array_push($this->contains, new Contains());
 
@@ -187,7 +199,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *               returned object is "live" - in other words, changes made to the
      *               returned object are mirrored in the filter.
      */
-    public function getContains()
+    public function getContains(): array
     {
         return $this->contains;
     }
@@ -203,9 +215,9 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *                      the specified reader
      * @throws Exception
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): LineContains
     {
-        $newFilter = new LineContains($reader);
+        $newFilter = new self($reader);
         $newFilter->setContains($this->getContains());
         $newFilter->setNegate($this->isNegated());
         $newFilter->setMatchAny($this->isMatchAny());
