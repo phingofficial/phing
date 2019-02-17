@@ -7130,6 +7130,11 @@
                 <data type="boolean"/>
             </attribute>
         </optional>
+        <optional>
+            <attribute name="matchany" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
         <element name="linecontains">
             <oneOrMore>
                 <ref name="contains"/>
