@@ -149,7 +149,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * The base directory which should be scanned.
      *
-     * @var string
+     * @var PhingFile
      */
     protected $basedir;
 
@@ -364,19 +364,18 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @param string $_basedir the (non-null) basedir for scanning
      */
-    public function setBasedir($_basedir)
+    public function setBasedir(PhingFile $basedir)
     {
-        $_basedir = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $_basedir);
-        $this->basedir = $_basedir;
+        $this->basedir = $basedir;
     }
 
     /**
      * Gets the basedir that is used for scanning. This is the directory that
      * is scanned recursively.
      *
-     * @return string the basedir that is used for scanning
+     * @return PhingFile the basedir that is used for scanning
      */
-    public function getBasedir()
+    public function getBasedir(): PhingFile
     {
         return $this->basedir;
     }
@@ -416,7 +415,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         if (empty($_includes) || null === $_includes) {
             $this->includes = null;
         } else {
-            for ($i = 0; $i < count($_includes); $i++) {
+            for ($i = 0, $iMax = count($_includes); $i < $iMax; $i++) {
                 $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
@@ -440,7 +439,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         if (empty($_excludes) || null === $_excludes) {
             $this->excludes = null;
         } else {
-            for ($i = 0; $i < count($_excludes); $i++) {
+            for ($i = 0, $iMax = count($_excludes); $i < $iMax; $i++) {
                 $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
@@ -466,27 +465,27 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function scan()
     {
-        if (empty($this->basedir)) {
+        if ($this->basedir === null) {
             return false;
-        } else {
-            $exception = null;
+        }
 
-            if (!@file_exists($this->basedir)) {
-                if ($this->errorOnMissingDir) {
-                    $exception = new BuildException(
-                        "basedir  $this->basedir does not exist."
-                    );
-                } else {
-                    return false;
-                }
-            } elseif (!@is_dir($this->basedir)) {
+        $exception = null;
+
+        if (!$this->basedir->exists()) {
+            if ($this->errorOnMissingDir) {
                 $exception = new BuildException(
-                    "basedir $this->basedir is not a directory."
+                    "basedir  $this->basedir does not exist."
                 );
+            } else {
+                return false;
             }
-            if ($exception !== null) {
-                throw $exception;
-            }
+        } elseif (!$this->basedir->isDirectory()) {
+            $exception = new BuildException(
+                "basedir $this->basedir is not a directory."
+            );
+        }
+        if ($exception !== null) {
+            throw $exception;
         }
 
         if ($this->includes === null) {
@@ -542,13 +541,13 @@ class DirectoryScanner implements FileScanner, SelectorScanner
 
         for ($i = 0, $_i = count($excl); $i < $_i; $i++) {
             if (!$this->couldHoldIncluded($excl[$i])) {
-                $this->scandir($this->basedir . $excl[$i], $excl[$i] . DIRECTORY_SEPARATOR, false);
+                $this->scandir(new PhingFile($this->basedir->getPath() . $excl[$i]), $excl[$i] . DIRECTORY_SEPARATOR, false);
             }
         }
 
         for ($i = 0, $_i = count($notIncl); $i < $_i; $i++) {
             if (!$this->couldHoldIncluded($notIncl[$i])) {
-                $this->scandir($this->basedir . $notIncl[$i], $notIncl[$i] . DIRECTORY_SEPARATOR, false);
+                $this->scandir(new PhingFile($this->basedir->getPath() . $notIncl[$i]), $notIncl[$i] . DIRECTORY_SEPARATOR, false);
             }
         }
 
@@ -558,23 +557,14 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Lists contents of a given directory and returns array with entries
      *
-     * @param string $_dir directory to list contents for
+     * @param PhingFile $_dir directory to list contents for
      *
      * @return array directory entries
      * @author Albert Lash, alash@plateauinnovation.com
      */
-    public function listDir($_dir)
+    public function listDir(PhingFile $_dir)
     {
-        $d = dir($_dir);
-        $list = [];
-        while (($entry = $d->read()) !== false) {
-            if ($entry != "." && $entry != "..") {
-                $list[] = $entry;
-            }
-        }
-        $d->close();
-
-        return $list;
+        return $_dir->listDir();
     }
 
     /**
@@ -583,7 +573,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * matching of includes and excludes. When a directory is found, it is
      * scanned recursively.
      *
-     * @param string $_rootdir the directory to scan
+     * @param PhingFile $_rootdir the directory to scan
      * @param string $_vpath the path relative to the basedir (needed to prevent
      *                         problems with an absolute path when using dir)
      * @param bool $_fast
@@ -595,19 +585,19 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * @see #dirsNotIncluded
      * @see #dirsExcluded
      */
-    private function scandir($_rootdir, $_vpath, $_fast)
+    private function scandir(PhingFile $_rootdir, $_vpath, $_fast)
     {
-        if (!is_readable($_rootdir)) {
+        if (!$_rootdir->canRead()) {
             return;
         }
 
         $newfiles = $this->listDir($_rootdir);
 
         for ($i = 0, $_i = count($newfiles); $i < $_i; $i++) {
-            $file = $_rootdir . DIRECTORY_SEPARATOR . $newfiles[$i];
+            $file = new PhingFile($_rootdir->getPath() . DIRECTORY_SEPARATOR . $newfiles[$i]);
             $name = $_vpath . $newfiles[$i];
 
-            if (@is_link($file) && !$this->expandSymbolicLinks) {
+            if ($file->isLink() && !$this->expandSymbolicLinks) {
                 if ($this->isIncluded($name)) {
                     if (!$this->isExcluded($name)) {
                         if ($this->isSelected($name, $file)) {
@@ -625,7 +615,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
                     $this->filesNotIncluded[] = $name;
                 }
             } else {
-                if (@is_dir($file)) {
+                if ($file->isDirectory()) {
                     if ($this->isIncluded($name)) {
                         if (!$this->isExcluded($name)) {
                             if ($this->isSelected($name, $file)) {
@@ -658,7 +648,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
                     if (!$_fast) {
                         $this->scandir($file, $name . DIRECTORY_SEPARATOR, $_fast);
                     }
-                } elseif (@is_file($file)) {
+                } elseif ($file->isFile()) {
                     if ($this->isIncluded($name)) {
                         if (!$this->isExcluded($name)) {
                             if ($this->isSelected($name, $file)) {
@@ -689,7 +679,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     protected function isIncluded($_name)
     {
         for ($i = 0, $_i = count($this->includes); $i < $_i; $i++) {
-            if (DirectoryScanner::matchPath($this->includes[$i], $_name, $this->isCaseSensitive)) {
+            if ($this->matchPath($this->includes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
         }
@@ -707,7 +697,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     protected function couldHoldIncluded($_name)
     {
         for ($i = 0, $includesCount = count($this->includes); $i < $includesCount; $i++) {
-            if (DirectoryScanner::matchPatternStart($this->includes[$i], $_name, $this->isCaseSensitive)) {
+            if ($this->matchPatternStart($this->includes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
         }
@@ -725,7 +715,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     protected function isExcluded($_name)
     {
         for ($i = 0, $excludesCount = count($this->excludes); $i < $excludesCount; $i++) {
-            if (DirectoryScanner::matchPath($this->excludes[$i], $_name, $this->isCaseSensitive)) {
+            if ($this->matchPath($this->excludes[$i], $_name, $this->isCaseSensitive)) {
                 return true;
             }
         }
@@ -931,19 +921,18 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Tests whether a name should be selected.
      *
-     * @param  string $name The filename to check for selecting.
-     * @param  string $file The full file path.
-     * @return boolean False when the selectors says that the file
-     *                      should not be selected, True otherwise.
+     * @param  string    $name The filename to check for selecting.
+     * @param  PhingFile $file The full file path.
+     * @return boolean   False when the selectors says that the file
+     *                   should not be selected, True otherwise.
      * @throws \BuildException
      * @throws \IOException
      * @throws NullPointerException
      */
-    protected function isSelected($name, $file)
+    protected function isSelected($name, PhingFile $file): bool
     {
         if ($this->selectorsList !== null) {
-            $basedir = new PhingFile($this->basedir);
-            $file = new PhingFile($file);
+            $basedir = $this->basedir;
             if (!$file->canRead()) {
                 return false;
             }

@@ -113,10 +113,10 @@ interface FileScanner
      * <code>File.separatorChar</code>, so the separator used need not match
      * <code>File.separatorChar</code>.
      *
-     * @param basedir The base directory to scan.
+     * @param PhingFile $basedir The base directory to scan.
      *                Must not be <code>null</code>.
      */
-    public function setBasedir($basedir);
+    public function setBasedir(PhingFile $basedir);
 
     /**
      * Sets the list of exclude patterns to use.
