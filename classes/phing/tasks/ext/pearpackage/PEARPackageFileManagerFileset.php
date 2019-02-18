@@ -194,7 +194,7 @@ class PEARPackageFileManagerFileset
      */
     public function setDir($dir, $contents)
     {
-        while (list($one, $two) = each($contents)) {
+        foreach ($contents as $one => $two) {
             if (isset($dir[$one])) {
                 $dir[$one] = $this->setDir($dir[$one], $contents[$one]);
             } else {

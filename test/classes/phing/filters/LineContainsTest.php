@@ -55,4 +55,13 @@ class LineContainsTest extends BuildFileTest
         $result = $this->getProject()->resolveFile("result/linecontains.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
+
+    public function testLineContainsMatchAny()
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $expected = $this->getProject()->resolveFile("expected/linecontains-matchany.test");
+        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
+    }
 }

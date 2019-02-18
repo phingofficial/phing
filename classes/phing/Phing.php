@@ -471,13 +471,13 @@ class Phing
                     if (!isset($args[$i + 1])) {
                         $msg = "You must specify a log file when using the -logfile argument\n";
                         throw new ConfigurationException($msg);
-                    } else {
-                        $logFile = new PhingFile($args[++$i]);
-                        $out = new FileOutputStream($logFile); // overwrite
-                        self::setOutputStream($out);
-                        self::setErrorStream($out);
-                        self::$isLogFileUsed = true;
                     }
+
+                    $logFile = new PhingFile($args[++$i]);
+                    $out = new FileOutputStream($logFile); // overwrite
+                    self::setOutputStream($out);
+                    self::setErrorStream($out);
+                    self::$isLogFileUsed = true;
                 } catch (IOException $ioe) {
                     $msg = "Cannot write on the specified log file. Make sure the path exists and you have write permissions.";
                     throw new ConfigurationException($msg, $ioe);
@@ -486,16 +486,16 @@ class Phing
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a buildfile when using the -buildfile argument.";
                     throw new ConfigurationException($msg);
-                } else {
-                    $this->buildFile = new PhingFile($args[++$i]);
                 }
+
+                $this->buildFile = new PhingFile($args[++$i]);
             } elseif ($arg == "-listener") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a listener class when using the -listener argument";
                     throw new ConfigurationException($msg);
-                } else {
-                    $this->listeners[] = $args[++$i];
                 }
+
+                $this->listeners[] = $args[++$i];
             } elseif (StringHelper::startsWith("-D", $arg)) {
                 // Evaluating the property information //
                 // Checking whether arg. is not just a switch, and next arg. does not starts with switch identifier
@@ -518,9 +518,9 @@ class Phing
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a classname when using the -logger argument";
                     throw new ConfigurationException($msg);
-                } else {
-                    $this->loggerClassname = $args[++$i];
                 }
+
+                $this->loggerClassname = $args[++$i];
             } elseif ($arg == "-no-strict") {
                 $this->strictMode = false;
             } elseif ($arg == "-strict") {
@@ -532,9 +532,9 @@ class Phing
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a classname when using the -inputhandler argument";
                     throw new ConfigurationException($msg);
-                } else {
-                    $this->inputHandlerClassname = $args[++$i];
                 }
+
+                $this->inputHandlerClassname = $args[++$i];
             } elseif ($arg === "-propertyfile") {
                 $i = $this->handleArgPropertyFile($args, $i);
             } elseif ($arg === "-keep-going" || $arg === "-k") {
