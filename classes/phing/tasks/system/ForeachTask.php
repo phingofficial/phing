@@ -194,10 +194,11 @@ class ForeachTask extends Task
         if ($this->currPath !== null) {
             $pathElements = $this->currPath->listPaths();
             foreach ($pathElements as $pathElement) {
+                $file = new PhingFile($pathElement);
                 $ds = new DirectoryScanner();
-                $ds->setBasedir($pathElement);
+                $ds->setBasedir($file);
                 $ds->scan();
-                $this->process($callee, new PhingFile($pathElement), $ds->getIncludedFiles(), array());
+                $this->process($callee, $file, $ds->getIncludedFiles(), array());
             }
         }
 

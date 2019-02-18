@@ -287,7 +287,7 @@ class PearPackageScanner extends DirectoryScanner
             } else {
                 $base_dir = dirname($this->packageFile);
             }
-            $this->setBasedir($base_dir);
+            $this->setBasedir(new PhingFile($base_dir));
         }
 
         return true;
