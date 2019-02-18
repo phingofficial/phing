@@ -53,7 +53,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testErrorOnMissingDir()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
+        $ds->setBasedir(new PhingFile($this->_basedir . '/THIS_DOES_NOT_EXIST'));
         $ds->setErrorOnMissingDir(true);
         $ds->scan();
     }
