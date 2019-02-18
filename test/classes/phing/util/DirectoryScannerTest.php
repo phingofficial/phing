@@ -240,12 +240,11 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $base = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . "/tmp", $base->getPrefixLength());
-        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
         $this->executeTarget("extended-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir(new PhingFile($prefix));
+        $ds->setBasedir($base);
         $ds->setIncludes([$tmpdir . "/**/*"]);
         $ds->scan();
 
@@ -268,12 +267,11 @@ class DirectoryScannerTest extends BuildFileTest
     public function testAbsolute2()
     {
         $base = $this->getProject()->getBasedir();
-        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
         $this->executeTarget("setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir(new PhingFile($prefix));
+        $ds->setBasedir($base);
         $ds->setIncludes(["alpha/**", "alpha/beta/gamma/**"]);
         $ds->scan();
 
@@ -284,12 +282,11 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $base = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . "/tmp", $base->getPrefixLength());
-        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
         $this->executeTarget("extended-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir(new PhingFile($prefix));
+        $ds->setBasedir($base);
         $ds->setIncludes([$tmpdir . "/**/*"]);
         $ds->setExcludes(["**/alpha", "**/delta/*"]);
         $ds->scan();
@@ -312,12 +309,11 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $base = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . "/tmp", $base->getPrefixLength());
-        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
         $this->executeTarget("extended-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir(new PhingFile($prefix));
+        $ds->setBasedir($base);
         $ds->setIncludes([$tmpdir . "/alpha/beta/**/*", $tmpdir . "/delta/*"]);
         $ds->setExcludes(["**/beta.xml"]);
         $ds->scan();
