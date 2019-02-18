@@ -95,7 +95,7 @@ class PearPackageScannerTest extends BuildFileTest
         $basedir = $pps->getBasedir();
         $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
-            $fullpath = $basedir->getPath() . $file;
+            $fullpath = $basedir->getAbsolutePath() . DIRECTORY_SEPARATOR . $file;
             $this->assertTrue(
                 file_exists($fullpath) || file_exists($fullpath . '.gz'),
                 'File does not exist: ' . $file . ' at ' . $fullpath
