@@ -36,7 +36,7 @@ class DirSetTest extends \PHPUnit\Framework\TestCase
     public function testDirSetIterator()
     {
         $this->dirset->setProject(new Project());
-        $this->dirset->setDir(__DIR__);
+        $this->dirset->setDir(new PhingFile(__DIR__));
         $this->assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
     }
 }

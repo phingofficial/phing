@@ -27,6 +27,7 @@
  */
 abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var Project */
     private $project;
 
     public function setUp(): void
