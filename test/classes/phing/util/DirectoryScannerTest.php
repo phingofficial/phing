@@ -61,14 +61,14 @@ class DirectoryScannerTest extends BuildFileTest
     public function testNoErrorOnMissingDir()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
+        $ds->setBasedir(new PhingFile($this->_basedir . '/THIS_DOES_NOT_EXIST'));
         $ds->scan();
     }
 
     public function test1()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["alpha"]);
         $ds->scan();
 
@@ -78,7 +78,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function test2()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["alpha/"]);
         $ds->scan();
 
@@ -99,7 +99,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function test3()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->scan();
 
         $this->compareFiles(
@@ -120,7 +120,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testFullPathMatchesCaseSensitive()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["alpha/beta/gamma/GAMMA.XML"]);
         $ds->scan();
 
@@ -131,7 +131,7 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $ds = new DirectoryScanner();
         $ds->setCaseSensitive(false);
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["alpha/beta/gamma/GAMMA.XML"]);
         $ds->scan();
 
@@ -142,7 +142,7 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $ds = new DirectoryScanner();
         $ds->setCaseSensitive(false);
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["ALPHA/"]);
         $ds->scan();
 
@@ -163,7 +163,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testExcludeOneFile()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["**/*.xml"]);
         $ds->setExcludes(["alpha/beta/b*xml"]);
         $ds->scan();
@@ -174,7 +174,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testExcludeHasPrecedence()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["alpha/**"]);
         $ds->setExcludes(["alpha/**"]);
         $ds->scan();
@@ -185,7 +185,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testAlternateIncludeExclude()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setIncludes(["alpha/**", "alpha/beta/gamma/**"]);
         $ds->setExcludes(["alpha/beta/**"]);
         $ds->scan();
@@ -196,7 +196,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testAlternateExcludeInclude()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setExcludes(["alpha/**", "alpha/beta/gamma/**"]);
         $ds->setIncludes(["alpha/beta/**"]);
         $ds->scan();
@@ -209,14 +209,14 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("children-of-excluded-dir-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setExcludes(["alpha/**"]);
         $ds->scan();
 
         $this->compareFiles($ds, ["delta/delta.xml"], ["", "delta"]);
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir(new PhingFile($this->_basedir));
         $ds->setExcludes(["alpha"]);
         $ds->scan();
 
@@ -245,7 +245,7 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("extended-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($prefix);
+        $ds->setBasedir(new PhingFile($prefix));
         $ds->setIncludes([$tmpdir . "/**/*"]);
         $ds->scan();
 
@@ -273,7 +273,7 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($prefix);
+        $ds->setBasedir(new PhingFile($prefix));
         $ds->setIncludes(["alpha/**", "alpha/beta/gamma/**"]);
         $ds->scan();
 
@@ -289,7 +289,7 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("extended-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($prefix);
+        $ds->setBasedir(new PhingFile($prefix));
         $ds->setIncludes([$tmpdir . "/**/*"]);
         $ds->setExcludes(["**/alpha", "**/delta/*"]);
         $ds->scan();
@@ -317,7 +317,7 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("extended-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($prefix);
+        $ds->setBasedir(new PhingFile($prefix));
         $ds->setIncludes([$tmpdir . "/alpha/beta/**/*", $tmpdir . "/delta/*"]);
         $ds->setExcludes(["**/beta.xml"]);
         $ds->scan();
@@ -340,7 +340,7 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("multiple-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir . "/echo");
+        $ds->setBasedir(new PhingFile($this->_basedir . "/echo"));
         $ds->setIncludes(["**"]);
         $ds->setExcludes(["**/.gitignore", ".svn/", ".git/", "cache/", "build.xml", "a/a.xml"]);
         $ds->scan();
