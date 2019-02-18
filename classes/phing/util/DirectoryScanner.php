@@ -362,7 +362,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * recursively. All '/' and '\' characters are replaced by
      * DIRECTORY_SEPARATOR
      *
-     * @param string $_basedir the (non-null) basedir for scanning
+     * @param PhingFile $basedir the (non-null) basedir for scanning
      */
     public function setBasedir(PhingFile $basedir)
     {
