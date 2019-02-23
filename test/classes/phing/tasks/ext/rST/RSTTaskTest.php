@@ -271,7 +271,7 @@ class RSTTaskTest extends BuildFileTest
 
     /**
      * @expectedException BuildException
-     * @expectedExceptionMessageRegExp /No filename mapper found for "\w+\/files\/single\.rst"/
+     * @expectedExceptionMessageRegExp /No filename mapper found for \w+/
      */
     public function testNotMatchingMapper()
     {
