@@ -51,19 +51,12 @@ class PearPackageFileSetTest extends BuildFileTest
         $ds = $ppfs->getDirectoryScanner(new Project());
 
         $arFiles = $ds->getIncludedFiles();
-        $this->assertInternalType(
-            'array',
-            $arFiles,
-            'getIncludedFiles returned no array'
-        );
-        $this->assertEquals(1, count($arFiles));
+        $this->assertIsArray($arFiles, 'getIncludedFiles returned no array');
+        $this->assertCount(1, $arFiles);
         $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 
-        $fullPath = $ds->getBaseDir() . reset($arFiles);
-        $this->assertTrue(
-            file_exists($fullPath),
-            'File does not exist: ' . $fullPath
-        );
+        $fullPath = $ds->getBasedir()->getAbsolutePath() . reset($arFiles);
+        $this->assertFileExists($fullPath, 'File does not exist: ' . $fullPath);
     }
 
     public function testRoleDoc()
@@ -94,11 +87,11 @@ class PearPackageFileSetTest extends BuildFileTest
 
         $dir = $ppfs->getDir($proj);
         $this->assertTrue(
-            file_exists($dir),
+            $dir->exists(),
             'Directory does not exist: ' . $dir
         );
         $this->assertTrue(
-            is_dir($dir),
+            $dir->exists(),
             '$dir is not a directory: ' . $dir
         );
     }
@@ -111,11 +104,11 @@ class PearPackageFileSetTest extends BuildFileTest
 
         $dir = $ppfs->getDir(new Project());
         $this->assertTrue(
-            file_exists($dir),
+            $dir->exists(),
             'Directory does not exist: ' . $dir
         );
         $this->assertTrue(
-            is_dir($dir),
+            $dir->exists(),
             '$dir is not a directory: ' . $dir
         );
     }
