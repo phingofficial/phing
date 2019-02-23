@@ -55,7 +55,7 @@ class PearPackageFileSetTest extends BuildFileTest
         $this->assertCount(1, $arFiles);
         $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 
-        $fullPath = $ds->getBasedir()->getAbsolutePath() . reset($arFiles);
+        $fullPath = $ds->getBasedir()->getAbsolutePath() . DIRECTORY_SEPARATOR . reset($arFiles);
         $this->assertFileExists($fullPath, 'File does not exist: ' . $fullPath);
     }
 
