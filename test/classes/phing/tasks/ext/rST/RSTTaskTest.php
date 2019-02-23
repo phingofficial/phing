@@ -271,7 +271,7 @@ class RSTTaskTest extends BuildFileTest
 
     /**
      * @expectedException BuildException
-     * @expectedExceptionMessageRegExp /No filename mapper found for \w+/
+     * @expectedExceptionMessageRegExp /No filename mapper found for ".+"/
      */
     public function testNotMatchingMapper()
     {
