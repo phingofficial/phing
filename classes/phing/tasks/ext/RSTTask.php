@@ -187,7 +187,7 @@ class RSTTask extends Task
                 } else {
                     $targetFile = $this->getTargetFile($file, $this->destination);
                 }
-                $this->render($tool, $file, $targetFile);
+                $this->render($tool, $file, new PhingFile($targetFile));
             }
         }
     }
