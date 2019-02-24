@@ -148,7 +148,9 @@ class RSTTask extends Task
 
         if ($this->file) {
             $file = $this->file;
-            $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file->getName()) : $file;
+            $targetFile = $this->destination !== null
+                ? new PhingFile($this->destination, $file->getName())
+                : $file;
             $this->render($tool, $file, $targetFile);
 
             return;
@@ -254,10 +256,9 @@ class RSTTask extends Task
             . ' ' . $this->toolParam
             . ' ' . escapeshellarg($source->getAbsolutePath());
             if (!$targetFile->equals($source)) {
-                $cmd .= ' ' . escapeshellarg($targetFile->getAbsolutePath());
+                $cmd .= ' ' . escapeshellarg($targetFile);
             }
         $cmd .= ' 2>&1';
-
         $this->log('command: ' . $cmd, Project::MSG_VERBOSE);
         exec($cmd, $arOutput, $retval);
         if ($retval != 0) {
@@ -332,12 +333,12 @@ class RSTTask extends Task
     /**
      * The setter for the attribute "destination"
      *
-     * @param PhingFile $destination Output file or directory. When it ends
+     * @param string $destination Output file or directory. When it ends
      *                            with a slash, it is taken as directory.
      *
      * @return void
      */
-    public function setDestination(PhingFile $destination)
+    public function setDestination(string $destination)
     {
         $this->destination = $destination;
     }
