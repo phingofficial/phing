@@ -252,9 +252,11 @@ class RSTTask extends Task
         $cmd = $tool
             . ' --exit-status=2'
             . ' ' . $this->toolParam
-            . ' ' . escapeshellarg($source->getAbsolutePath())
-            . ' ' . escapeshellarg($targetFile->getAbsolutePath())
-            . ' 2>&1';
+            . ' ' . escapeshellarg($source->getAbsolutePath());
+            if (!$targetFile->equals($source)) {
+                $cmd .= ' ' . escapeshellarg($targetFile->getAbsolutePath());
+            }
+        $cmd .= ' 2>&1';
 
         $this->log('command: ' . $cmd, Project::MSG_VERBOSE);
         exec($cmd, $arOutput, $retval);
