@@ -101,6 +101,7 @@ class RSTTask extends Task
      */
     protected $destination = null;
 
+    /** @var Mapper */
     protected $mapperElement = null;
 
     /**
@@ -148,7 +149,7 @@ class RSTTask extends Task
         if ($this->file != '') {
             $file = $this->file;
             $targetFile = $this->getTargetFile($file, $this->destination);
-            $this->render($tool, $file, $targetFile);
+            $this->render($tool, new PhingFile($file), new PhingFile($targetFile));
 
             return;
         }
@@ -165,10 +166,9 @@ class RSTTask extends Task
             $mapper = $this->mapperElement->getImplementation();
         }
 
-        $project = $this->getProject();
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
+            $ds = $fs->getDirectoryScanner();
+            $fromDir = $fs->getDir();
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $src) {
@@ -196,64 +196,64 @@ class RSTTask extends Task
      * Renders a single file and applies filters on it
      *
      * @param string $tool conversion tool to use
-     * @param string $source rST source file
-     * @param string $targetFile target file name
+     * @param PhingFile $source rST source file
+     * @param PhingFile $targetFile target file name
      *
      * @return void
      */
-    protected function render($tool, $source, $targetFile)
+    protected function render($tool, PhingFile $source, PhingFile $targetFile)
     {
-        if (count($this->filterChains) == 0) {
+        if (count($this->filterChains) === 0) {
             $this->renderFile($tool, $source, $targetFile);
             return;
         }
 
-        $tmpTarget = tempnam(sys_get_temp_dir(), 'rST-');
+        $tmpTarget = PhingFile::createTempFile('rST-', '', new PhingFile(PhingFile::getTempDir()));
         $this->renderFile($tool, $source, $tmpTarget);
 
         $this->fileUtils->copyFile(
-            new PhingFile($tmpTarget),
-            new PhingFile($targetFile),
+            $tmpTarget,
+            $targetFile,
             $this->getProject(),
             true,
             false,
             $this->filterChains,
             $this->mode
         );
-        unlink($tmpTarget);
+        $tmpTarget->removeTempFile();
     }
 
     /**
      * Renders a single file with the rST tool.
      *
      * @param string $tool conversion tool to use
-     * @param string $source rST source file
-     * @param string $targetFile target file name
+     * @param PhingFile $source rST source file
+     * @param PhingFile $targetFile target file name
      *
      * @return void
      *
      * @throws BuildException When the conversion fails
      */
-    protected function renderFile($tool, $source, $targetFile)
+    protected function renderFile($tool, PhingFile $source, PhingFile $targetFile)
     {
-        if ($this->uptodate && file_exists($targetFile)
-            && filemtime($source) <= filemtime($targetFile)
+        if ($this->uptodate && $targetFile->exists()
+            && $source->lastModified() <= $targetFile->lastModified()
         ) {
             //target is up to date
             return;
         }
-        //work around a bug in php by replacing /./ with /
-        $targetDir = str_replace('/./', '/', dirname($targetFile));
-        if (!is_dir($targetDir)) {
+
+        $targetDir = $targetFile->getParentFile();
+        if ($targetDir === null) {
             $this->log("Creating directory '$targetDir'", Project::MSG_VERBOSE);
-            mkdir($targetDir, $this->mode, true);
+            $targetDir->mkdir($this->mode);
         }
 
         $cmd = $tool
             . ' --exit-status=2'
             . ' ' . $this->toolParam
-            . ' ' . escapeshellarg($source)
-            . ' ' . escapeshellarg($targetFile)
+            . ' ' . escapeshellarg($source->getAbsolutePath())
+            . ' ' . escapeshellarg($targetFile->getAbsolutePath())
             . ' 2>&1';
 
         $this->log('command: ' . $cmd, Project::MSG_VERBOSE);
@@ -314,7 +314,7 @@ class RSTTask extends Task
             return $destination;
         }
 
-        if (strtolower(substr($file, -4)) == '.rst') {
+        if (StringHelper::endsWith('.rst', strtolower($file))) {
             $file = substr($file, 0, -4);
         }
 
