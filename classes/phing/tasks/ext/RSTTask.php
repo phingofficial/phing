@@ -75,7 +75,7 @@ class RSTTask extends Task
      * Input file in rST format.
      * Required
      *
-     * @var string
+     * @var PhingFile
      */
     protected $file = null;
 
@@ -97,7 +97,7 @@ class RSTTask extends Task
      * Output file or directory. May be omitted.
      * When it ends with a slash, it is considered to be a directory
      *
-     * @var string
+     * @var PhingFile
      */
     protected $destination = null;
 
@@ -146,10 +146,10 @@ class RSTTask extends Task
             $this->fileUtils = new FileUtils();
         }
 
-        if ($this->file != '') {
+        if ($this->file) {
             $file = $this->file;
-            $targetFile = $this->getTargetFile($file, $this->destination);
-            $this->render($tool, new PhingFile($file), new PhingFile($targetFile));
+            $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file) : new PhingFile($file);
+            $this->render($tool, $file, new PhingFile($targetFile));
 
             return;
         }
@@ -183,11 +183,11 @@ class RSTTask extends Task
                             )
                         );
                     }
-                    $targetFile = reset($results);
+                    $targetFile = new PhingFile(reset($results));
                 } else {
-                    $targetFile = $this->getTargetFile($file, $this->destination);
+                    $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file) : new PhingFile($file);
                 }
-                $this->render($tool, $file, new PhingFile($targetFile));
+                $this->render($tool, $file, $targetFile);
             }
         }
     }
@@ -293,42 +293,13 @@ class RSTTask extends Task
     }
 
     /**
-     * Determines and returns the target file name from the
-     * input file and the configured destination name.
-     *
-     * @param string $file Input file
-     * @param string $destination Destination file or directory name,
-     *                            may be null
-     *
-     * @return string Target file name
-     *
-     * @uses $format
-     * @uses $targetExt
-     */
-    public function getTargetFile($file, $destination = null)
-    {
-        if ($destination != ''
-            && substr($destination, -1) !== '/'
-            && substr($destination, -1) !== '\\'
-        ) {
-            return $destination;
-        }
-
-        if (StringHelper::endsWith('.rst', strtolower($file))) {
-            $file = substr($file, 0, -4);
-        }
-
-        return $destination . $file . '.' . self::$targetExt[$this->format];
-    }
-
-    /**
      * The setter for the attribute "file"
      *
-     * @param string $file Path of file to render
+     * @param PhingFile $file Path of file to render
      *
      * @return void
      */
-    public function setFile($file)
+    public function setFile(PhingFile $file)
     {
         $this->file = $file;
     }
@@ -359,12 +330,12 @@ class RSTTask extends Task
     /**
      * The setter for the attribute "destination"
      *
-     * @param string $destination Output file or directory. When it ends
+     * @param PhingFile $destination Output file or directory. When it ends
      *                            with a slash, it is taken as directory.
      *
      * @return void
      */
-    public function setDestination($destination)
+    public function setDestination(PhingFile $destination)
     {
         $this->destination = $destination;
     }
