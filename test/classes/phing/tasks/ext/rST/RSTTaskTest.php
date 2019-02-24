@@ -139,7 +139,7 @@ class RSTTaskTest extends BuildFileTest
     public function testSingleFileParameterFile()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileCreated('files/single.html');
+        $this->assertFileCreated($this->getProject()->getBasedir()->getAbsolutePath() . '/files/single.html');
     }
 
     public function testSingleFileParameterFileNoExt()
