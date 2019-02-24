@@ -148,7 +148,7 @@ class RSTTask extends Task
 
         if ($this->file) {
             $file = $this->file;
-            $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file) : new PhingFile($file);
+            $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file->getName()) : new PhingFile($file);
             $this->render($tool, $file, new PhingFile($targetFile));
 
             return;
@@ -185,7 +185,7 @@ class RSTTask extends Task
                     }
                     $targetFile = new PhingFile(reset($results));
                 } else {
-                    $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file) : new PhingFile($file);
+                    $targetFile = $this->destination !== null ? new PhingFile($this->destination, $file->getName()) : new PhingFile($file);
                 }
                 $this->render($tool, $file, $targetFile);
             }
