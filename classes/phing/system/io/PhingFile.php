@@ -77,7 +77,7 @@ class PhingFile
                 throw new NullPointerException("Argument1 to function must not be null");
             }
             $this->path = (string) $arg1;
-            $this->prefixLength = (int) $arg2;
+            $this->prefixLength = $arg2 instanceof self ? $arg2->prefixLength : (int) $arg2;
         }
     }
 
