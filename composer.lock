@@ -368,23 +368,22 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.87.2",
+            "version": "3.87.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7c00779a343c9b813628bf6a27b94945272ced93"
+                "reference": "266641679eea15075ea13c088f9737460351f7ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7c00779a343c9b813628bf6a27b94945272ced93",
-                "reference": "7c00779a343c9b813628bf6a27b94945272ced93",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/266641679eea15075ea13c088f9737460351f7ab",
+                "reference": "266641679eea15075ea13c088f9737460351f7ab",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
-                "ext-spl": "*",
                 "guzzlehttp/guzzle": "^5.3.3|^6.2.1",
                 "guzzlehttp/promises": "~1.0",
                 "guzzlehttp/psr7": "^1.4.1",
@@ -447,7 +446,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-01-25T22:29:49+00:00"
+            "time": "2019-02-28T20:02:04+00:00"
         },
         {
             "name": "cilex/cilex",
@@ -4618,7 +4617,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
