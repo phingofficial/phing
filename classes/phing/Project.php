@@ -1081,6 +1081,8 @@ class Project
         foreach ($this->listeners as $listener) {
             $listener->buildStarted($event);
         }
+
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1093,6 +1095,8 @@ class Project
         foreach ($this->listeners as $listener) {
             $listener->buildFinished($event);
         }
+
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1104,6 +1108,8 @@ class Project
         foreach ($this->listeners as $listener) {
             $listener->targetStarted($event);
         }
+
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1117,6 +1123,8 @@ class Project
         foreach ($this->listeners as $listener) {
             $listener->targetFinished($event);
         }
+
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1128,6 +1136,8 @@ class Project
         foreach ($this->listeners as $listener) {
             $listener->taskStarted($event);
         }
+
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1141,6 +1151,8 @@ class Project
         foreach ($this->listeners as $listener) {
             $listener->taskFinished($event);
         }
+
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
