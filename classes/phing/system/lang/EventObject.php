@@ -55,10 +55,14 @@ class EventObject
      */
     public function __toString()
     {
-        if (method_exists($this->source, "toString")) {
-            return get_class($this) . "[source=" . $this->source->toString() . "]";
-        } else {
-            return get_class($this) . "[source=" . get_class($this->source) . "]";
+        if (method_exists($this->getSource(), "toString")) {
+            return get_class($this) . "[source=" . $this->getSource()->toString() . "]";
         }
+
+        if (method_exists($this->getSource(), "__toString")) {
+            return get_class($this) . "[source=" . $this->getSource() . "]";
+        }
+
+        return get_class($this) . "[source=" . get_class($this->getSource()) . "]";
     }
 }
