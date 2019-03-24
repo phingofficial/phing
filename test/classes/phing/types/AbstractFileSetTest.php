@@ -27,6 +27,7 @@
  */
 abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var Project */
     private $project;
 
     public function setUp(): void
@@ -162,6 +163,51 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
             $f->setDir($this->project->resolveFile("."));
             $this->fail(
                 "Can set dir in "
+                . $f
+                . " that is a reference."
+            );
+        } catch (BuildException $be) {
+            $this->assertEquals(
+                "You must not specify more than one attribute "
+                . "when using refid",
+                $be->getMessage()
+            );
+        }
+
+        try {
+            $f->setExpandSymbolicLinks(true);
+            $this->fail(
+                "Can expand symbolic links in "
+                . $f
+                . " that is a reference."
+            );
+        } catch (BuildException $be) {
+            $this->assertEquals(
+                "You must not specify more than one attribute "
+                . "when using refid",
+                $be->getMessage()
+            );
+        }
+
+        try {
+            $f->setFile($this->project->resolveFile(__FILE__));
+            $this->fail(
+                "Can set file in "
+                . $f
+                . " that is a reference."
+            );
+        } catch (BuildException $be) {
+            $this->assertEquals(
+                "You must not specify more than one attribute "
+                . "when using refid",
+                $be->getMessage()
+            );
+        }
+
+        try {
+            $f->setCaseSensitive(true);
+            $this->fail(
+                "Can set case sensitive in "
                 . $f
                 . " that is a reference."
             );
