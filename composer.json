@@ -38,7 +38,7 @@
     "require-dev": {
         "ext-pdo_sqlite": "*",
         "pear/archive_tar": "1.4.6",
-        "pear/http_request2": "dev-trunk",
+        "pear/http_request2": "^2.3",
         "pear/net_growl": "dev-trunk",
         "pear/pear-core-minimal": "1.10.7",
         "pear/versioncontrol_git": "@dev",
