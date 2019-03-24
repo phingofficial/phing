@@ -565,16 +565,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function listDir($_dir)
     {
-        $d = dir($_dir);
-        $list = [];
-        while (($entry = $d->read()) !== false) {
-            if ($entry != "." && $entry != "..") {
-                $list[] = $entry;
-            }
-        }
-        $d->close();
-
-        return $list;
+        return (new PhingFile($_dir))->listDir();
     }
 
     /**
