@@ -600,31 +600,6 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * returns the contents of a directory in an array
-     *
-     * @param  $f
-     * @throws Exception
-     * @return array
-     */
-    public function lister($f)
-    {
-        $dir = @opendir($f->getAbsolutePath());
-        if (!$dir) {
-            throw new Exception("Can't open directory " . $f->__toString());
-        }
-        $vv = [];
-        while (($file = @readdir($dir)) !== false) {
-            if ($file == "." || $file == "..") {
-                continue;
-            }
-            $vv[] = (string) $file;
-        }
-        @closedir($dir);
-
-        return $vv;
-    }
-
-    /**
      * On Windows platforms, PHP will mangle non-ASCII characters, see http://bugs.php.net/bug.php?id=47096
      *
      * @param  $strPath
