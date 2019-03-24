@@ -565,7 +565,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function listDir($_dir)
     {
-        return (new PhingFile())->listDir();
+        return (new PhingFile($_dir))->listDir();
     }
 
     /**
