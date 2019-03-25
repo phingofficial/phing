@@ -34,7 +34,7 @@ script:
     else
       echo "=== TESTING PHING ==="
       cd test
-      ../bin/phing -Dtests.codecoverage=true
+      ../bin/phing -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
       cd ..
     fi
 after_success:

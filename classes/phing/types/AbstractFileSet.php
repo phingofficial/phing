@@ -91,6 +91,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function setExpandSymbolicLinks($expandSymbolicLinks)
     {
+        if ($this->isReference()) {
+            throw $this->tooManyAttributes();
+        }
         $this->expandSymbolicLinks = $expandSymbolicLinks;
     }
 
@@ -211,6 +214,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     public function setFile(PhingFile $file)
     {
+        if ($this->isReference()) {
+            throw $this->tooManyAttributes();
+        }
         $this->setDir($file->getParentFile());
         $this->createInclude()->setName($file->getName());
     }
@@ -297,6 +303,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function setCaseSensitive($isCaseSensitive)
     {
+        if ($this->isReference()) {
+            throw $this->tooManyAttributes();
+        }
         $this->isCaseSensitive = $isCaseSensitive;
     }
 

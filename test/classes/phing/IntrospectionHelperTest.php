@@ -37,7 +37,6 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     *
      * @throws BuildException
      */
     public function testAddText()
@@ -49,11 +48,14 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         } catch (BuildException $be) {
         }
 
+        $element = new IHProjectComponent();
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
-        $ih->addText($this->p, new IHProjectComponent(), "test");
+        $ih->addText($this->p, $element, "test");
+
+        $this->assertSame('test', $element->text);
     }
 
-    public function testSupportsCharacters()
+    public function testSupportsCharactersAdders()
     {
         $ih = IntrospectionHelper::getHelper('Exception');
         $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
@@ -83,6 +85,11 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
+
+        $fs = new FileSet();
+        $fs->setProject($this->p);
+
+        $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), "FileSet"));
     }
 
     /*
@@ -354,13 +361,22 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 
 class IHProjectComponent
 {
+    public $text;
+    public $container = [];
+
     public function addText($text)
     {
+        $this->text .= $text;
     }
 
     public function createOne()
     {
         return "test";
+    }
+
+    public function addFileSet(FileSet $fs): void
+    {
+        $this->container[] = $fs;
     }
 }
 

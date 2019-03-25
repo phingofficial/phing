@@ -18,54 +18,38 @@
  */
 
 /**
- * Class to hold a property value
- *  Class only required to make it possible to add a property as reference
+ * Unit test for EventObject
  *
- * @package phing.types
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.system.lang
  */
-class PropertyValue
+class EventObjectTest extends \PHPUnit\Framework\TestCase
 {
+    /** @var EventObject */
+    private $eventObject;
 
-    /**
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * Constructor optionaly sets a the value of property component.
-     *
-     * @param mixed      Value of name, all scalars allowed
-     */
-    public function __construct($value = null)
+    public function setUp(): void
     {
-        if ($value !== null) {
-            $this->setValue($value);
-        }
+        $this->eventObject = new EventObject(new stdClass());
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->eventObject);
+    }
+
+    public function testEventObject()
+    {
+        $this->assertInstanceOf('stdClass', $this->eventObject->getSource());
+        $this->assertSame('EventObject[source=stdClass]', (string) $this->eventObject);
     }
 
     /**
-     * Sets a the value of property component.
-     *
-     * @param mixed      Value of name, all scalars allowed
+     * @expectedException Exception
+     * @expectedExceptionMessage Null source
      */
-    public function setValue($value)
+    public function testEventObjectThrowsExceptionOnNull()
     {
-        $this->value = (string) $value;
-    }
-
-    /**
-     * Get the value of property component.
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getValue();
+        new EventObject(null);
     }
 }
