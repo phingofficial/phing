@@ -871,12 +871,18 @@ abstract class FileSystem
      * returns the contents of a directory in an array
      *
      * @param  PhingFile $f
-     * @throws Exception
      * @return string[]
      */
     public function listContents(PhingFile $f)
     {
-        throw new IOException("listContents() not implemented by local fs driver");
+        return array_keys(
+            iterator_to_array(
+                new FilesystemIterator(
+                    $f->getAbsolutePath(),
+                    FilesystemIterator::KEY_AS_FILENAME
+                )
+            )
+        );
     }
 
     /**
