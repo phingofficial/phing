@@ -363,33 +363,6 @@ abstract class FileSystem
     }
 
     /**
-     * List the elements of the directory denoted by the given abstract
-     * pathname.  Return an array of strings naming the elements of the
-     * directory if successful; otherwise, return <code>null</code>.
-     *
-     * @param  PhingFile $f
-     * @return array
-     */
-    public function listDir(PhingFile $f)
-    {
-        $strPath = (string) $f->getAbsolutePath();
-        $d = @dir($strPath);
-        if (!$d) {
-            return null;
-        }
-        $list = [];
-        while ($entry = $d->read()) {
-            if ($entry != "." && $entry != "..") {
-                $list[] = $entry;
-            }
-        }
-        $d->close();
-        unset($d);
-
-        return $list;
-    }
-
-    /**
      * Create a new directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      *
