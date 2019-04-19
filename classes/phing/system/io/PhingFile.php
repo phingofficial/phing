@@ -747,17 +747,21 @@ class PhingFile
      * will appear in any specific order; they are not, in particular,
      * guaranteed to appear in alphabetical order.
      *
-     * @return array An array of strings naming the files and directories in the
-     *               directory denoted by this abstract pathname.  The array will be
-     *               empty if the directory is empty.  Returns null if
-     *               this abstract pathname does not denote a directory, or if an
-     *               I/O error occurs.
+     * @return array|null An array of strings naming the files and directories in the
+     *                    directory denoted by this abstract pathname.  The array will be
+     *                    empty if the directory is empty.  Returns null if
+     *                    this abstract pathname does not denote a directory, or if an
+     *                    I/O error occurs.
      */
-    public function listDir()
+    public function listDir(): ?array
     {
-        $fs = FileSystem::getFileSystem();
+        try {
+            $elements = FileSystem::getFileSystem()->listContents($this);
+        } catch (IOException $e) {
+            $elements = null;
+        }
 
-        return $fs->listContents($this);
+        return $elements;
     }
 
     /**

@@ -334,31 +334,6 @@ class UnixFileSystem extends FileSystem
     }
 
     /**
-     * returns the contents of a directory in an array
-     *
-     * @param  PhingFile $f
-     * @throws Exception
-     * @return string[]
-     */
-    public function listContents(PhingFile $f)
-    {
-        $dir = @opendir($f->getAbsolutePath());
-        if (!$dir) {
-            throw new Exception("Can't open directory " . $f->__toString());
-        }
-        $vv = [];
-        while (($file = @readdir($dir)) !== false) {
-            if ($file == "." || $file == "..") {
-                continue;
-            }
-            $vv[] = (string) $file;
-        }
-        @closedir($dir);
-
-        return $vv;
-    }
-
-    /**
      * @param string $p
      * @return string
      */
