@@ -79,6 +79,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             $this->selectorsList = $fileset->selectorsList;
             $this->expandSymbolicLinks = $fileset->expandSymbolicLinks;
             $this->errorOnMissingDir = $fileset->errorOnMissingDir;
+            $this->setProject($fileset->getProject());
         }
 
         $this->defaultPatterns = new PatternSet();
@@ -89,7 +90,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @var boolean
      */
-    public function setExpandSymbolicLinks($expandSymbolicLinks)
+    public function setExpandSymbolicLinks(bool $expandSymbolicLinks)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -141,8 +142,12 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @return mixed
      * @throws BuildException
      */
-    public function getDir(Project $p)
+    public function getDir(Project $p = null)
     {
+        if ($p === null) {
+            $p = $this->getProject();
+        }
+
         if ($this->isReference()) {
             return $this->getRef($p)->getDir($p);
         }
@@ -316,8 +321,12 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @throws BuildException
      * @return \DirectoryScanner
      */
-    public function getDirectoryScanner(Project $p)
+    public function getDirectoryScanner(Project $p = null)
     {
+        if ($p === null) {
+            $p = $this->getProject();
+        }
+
         if ($this->isReference()) {
             $o = $this->getRef($p);
 
@@ -351,8 +360,12 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @param  Project $p
      * @throws BuildException
      */
-    protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p)
+    protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
     {
+        if ($p === null) {
+            $p = $this->getProject();
+        }
+
         if ($this->isReference()) {
             $this->getRef($p)->setupDirectoryScanner($ds, $p);
             return;
