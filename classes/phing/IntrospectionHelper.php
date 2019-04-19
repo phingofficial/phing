@@ -595,7 +595,7 @@ class IntrospectionHelper
             return "$elClass (unknown)";
         } else {
             // ->getTag() method does exist, so use it
-            $elName = $element->getTag();
+            $elName = $element->getTag($project);
             if (isset($taskdefs[$elName])) {
                 return $taskdefs[$elName];
             } elseif (isset($typedefs[$elName])) {
