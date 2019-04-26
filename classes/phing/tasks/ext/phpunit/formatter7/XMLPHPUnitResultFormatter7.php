@@ -41,7 +41,15 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         $logIncompleteSkipped = $parentTask->getHaltonincomplete() || $parentTask->getHaltonskipped();
 
         $this->logger = new PHPUnit\Util\Log\JUnit(null, $logIncompleteSkipped);
-        $this->logger->setWriteDocument(false);
+
+        if (method_exists($this->logger, 'setWriteDocument')) {
+            $this->logger->setWriteDocument(false);
+        } else {
+            $logger = (new ReflectionObject($this->logger));
+            $prop = $logger->getProperty('writeDocument');
+            $prop->setAccessible(true);
+            $prop->setValue($this->logger, false);
+        }
     }
 
     /**
