@@ -27,7 +27,7 @@
 class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     /**
-     * @var PHPUnit_Util_Log_JUnit
+     * @var JUnit
      */
     private $logger = null;
 
@@ -40,16 +40,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
         $logIncompleteSkipped = $parentTask->getHaltonincomplete() || $parentTask->getHaltonskipped();
 
-        $this->logger = new PHPUnit\Util\Log\JUnit(null, $logIncompleteSkipped);
-
-        if (method_exists($this->logger, 'setWriteDocument')) {
-            $this->logger->setWriteDocument(false);
-        } else {
-            $logger = (new ReflectionObject($this->logger));
-            $prop = $logger->getProperty('writeDocument');
-            $prop->setAccessible(true);
-            $prop->setValue($this->logger, false);
-        }
+        $this->logger = new JUnit(null, $logIncompleteSkipped);
+        $this->logger->setWriteDocument(false);
     }
 
     /**
