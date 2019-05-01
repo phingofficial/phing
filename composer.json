@@ -42,7 +42,7 @@
         "leafo/scssphp": "^0.7.7",
         "mikey179/vfsstream": "^1.6",
         "pdepend/pdepend": "^2.5",
-        "pear/archive_tar": "1.4.6",
+        "pear/archive_tar": "1.4.7",
         "pear/http_request2": "^2.3",
         "pear/net_growl": "dev-trunk",
         "pear/pear-core-minimal": "1.10.7",
