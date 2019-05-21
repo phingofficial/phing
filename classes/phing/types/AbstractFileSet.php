@@ -334,7 +334,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         }
 
         if ($this->dir === null) {
-            throw new BuildException(sprintf("No directory specified for <%s>.", strtolower(get_class($this))));
+            throw new BuildException(sprintf("No directory specified for <%s>.", $this->getDataTypeName()));
         }
         if (!$this->dir->exists() && $this->errorOnMissingDir) {
             throw new BuildException("Directory " . $this->dir->getAbsolutePath() . " not found.");
@@ -436,8 +436,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
-        return $this->getCheckedRef(__CLASS__, $dataTypeName);
+        return $this->getCheckedRef(__CLASS__, $this->getDataTypeName());
     }
 
     // SelectorContainer methods
