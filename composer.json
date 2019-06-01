@@ -39,7 +39,7 @@
         "ext-pdo_sqlite": "*",
         "aws/aws-sdk-php": "^3.32",
         "jawira/plantuml-encoding": "^1.0",
-        "leafo/scssphp": "^0.7.7",
+        "leafo/scssphp": "^0.8.2",
         "mikey179/vfsstream": "^1.6",
         "pdepend/pdepend": "^2.5",
         "pear/archive_tar": "1.4.7",
