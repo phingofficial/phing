@@ -10995,7 +10995,7 @@ key="AmazonKey" secret="AmazonSecret" /></programlisting>
         <title>SassTask</title>
         <para>The <literal>SassTask</literal> converts SCSS or Sass files to CSS using either the
         <link xlink:href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#using_sass" role="extern">'sass' gem</link>
-        or the <link xlink:href="http://leafo.github.io/scssphp/" role="extern">scssphp package</link>.</para>
+        or the <link xlink:href="https://scssphp.github.io/scssphp/" role="extern">scssphp package</link>.</para>
     <table>
         <title>Attributes</title>
         <tgroup cols="5">
