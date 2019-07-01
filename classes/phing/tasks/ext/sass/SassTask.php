@@ -843,7 +843,7 @@ class SassTask extends Task
      * @param string $value Jenkins style boolean value.
      *
      * @return void
-     * @link   http://leafo.github.io/scssphp/
+     * @link   https://scssphp.github.io/scssphp/
      */
     public function setUseScssphp($value)
     {

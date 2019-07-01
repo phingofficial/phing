@@ -747,14 +747,6 @@
                     <attribute name="excludesfile"/>
                 </optional>
                 <optional>
-                    <attribute name="casesensitive" a:defaultValue="yes">
-                        <choice>
-                            <value>yes</value>
-                            <value>no</value>
-                        </choice>
-                    </attribute>
-                </optional>
-                <optional>
                     <attribute name="expandsymboliclinks" a:defaultValue="no">
                         <choice>
                             <value>yes</value>
@@ -1013,35 +1005,33 @@
             <optional>
                 <attribute name="text"/>
             </optional>
-            <interleave>
-                <optional>
-                    <choice>
-                        <attribute name="file"/>
-                        <oneOrMore>
-                            <interleave>
-                                <optional>
-                                    <ref name="fileset"/>
-                                </optional>
-                                <optional>
-                                    <ref name="filelist"/>
-                                </optional>
-                            </interleave>
-                        </oneOrMore>
-                    </choice>
-                </optional>
-                <optional>
-                    <ref name="filterchain"/>
-                </optional>
-                <optional>
-                    <ref name="append-header"/>
-                </optional>
-                <optional>
-                    <ref name="append-footer"/>
-                </optional>
-                <optional>
-                    <ref name="path"/>
-                </optional>
-            </interleave>
+            <optional>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <interleave>
+                            <optional>
+                                <ref name="fileset"/>
+                            </optional>
+                            <optional>
+                                <ref name="filelist"/>
+                            </optional>
+                        </interleave>
+                    </oneOrMore>
+                </choice>
+            </optional>
+            <optional>
+                <ref name="filterchain"/>
+            </optional>
+            <optional>
+                <ref name="append-header"/>
+            </optional>
+            <optional>
+                <ref name="append-footer"/>
+            </optional>
+            <optional>
+                <ref name="path"/>
+            </optional>
         </element>
     </define>
 
@@ -1227,79 +1217,75 @@
 
     <define name="chmod">
         <element name="chmod">
-            <interleave>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
+            <choice>
+                <attribute name="file"/>
+                <oneOrMore>
+                    <ref name="fileset"/>
+                </oneOrMore>
+            </choice>
+            <attribute name="mode"/>
+            <optional>
+                <attribute name="failonerror">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="quiet">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="verbose">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <choice>
+                <text/>
+                <zeroOrMore>
+                    <choice>
+                        <ref name="pathelement"/>
                         <ref name="fileset"/>
-                    </oneOrMore>
-                </choice>
-                <attribute name="mode"/>
-                <optional>
-                    <attribute name="failonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="verbose">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <choice>
-                    <text/>
-                    <zeroOrMore>
-                        <choice>
-                            <ref name="pathelement"/>
-                            <ref name="fileset"/>
-                            <ref name="dirset"/>
-                        </choice>
-                    </zeroOrMore>
-                </choice>
-            </interleave>
+                        <ref name="dirset"/>
+                    </choice>
+                </zeroOrMore>
+            </choice>
         </element>
     </define>
 
     <define name="chown">
         <element name="chown">
-            <interleave>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
+            <choice>
+                <attribute name="file"/>
+                <oneOrMore>
+                    <ref name="fileset"/>
+                </oneOrMore>
+            </choice>
+            <attribute name="user"/>
+            <optional>
+                <attribute name="failonerror">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="quiet">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="verbose">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <choice>
+                <text/>
+                <zeroOrMore>
+                    <choice>
+                        <ref name="pathelement"/>
                         <ref name="fileset"/>
-                    </oneOrMore>
-                </choice>
-                <attribute name="user"/>
-                <optional>
-                    <attribute name="failonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="verbose">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <choice>
-                    <text/>
-                    <zeroOrMore>
-                        <choice>
-                            <ref name="pathelement"/>
-                            <ref name="fileset"/>
-                            <ref name="dirset"/>
-                        </choice>
-                    </zeroOrMore>
-                </choice>
-            </interleave>
+                        <ref name="dirset"/>
+                    </choice>
+                </zeroOrMore>
+            </choice>
         </element>
     </define>
 
@@ -1438,7 +1424,7 @@
 
     <define name="defaultexcludes">
         <element name="defaultexcludes">
-            <oneOrMore>
+            <optional>
                 <attribute name="default">
                     <data type="boolean" a:defaultValue="false"/>
                 </attribute>
@@ -1451,7 +1437,7 @@
                 <attribute name="echo">
                     <data type="boolean" a:defaultValue="false"/>
                 </attribute>
-            </oneOrMore>
+            </optional>
         </element>
     </define>
 
@@ -5252,9 +5238,6 @@
                     <attribute name="title"/>
                 </optional>
                 <optional>
-                    <attribute name="destdir"/>
-                </optional>
-                <optional>
                     <choice>
                         <attribute name="destdir"/>
                         <attribute name="output"/>
@@ -5372,12 +5355,6 @@
                 </optional>
                 <optional>
                     <attribute name="paths"/>
-                </optional>
-                <optional>
-                    <attribute name="format"/>
-                </optional>
-                <optional>
-                    <attribute name="raw"/>
                 </optional>
                 <optional>
                     <attribute name="namespace"/>
@@ -7099,7 +7076,6 @@
 
     <define name="filterchain">
         <element name="filterchain">
-            <oneOrMore>
                 <choice>
                     <ref name="expandproperties"/>
                     <ref name="filterreader"/>
@@ -7120,13 +7096,17 @@
                     <ref name="xincludefilter"/>
                     <ref name="xsltfilter"/>
                 </choice>
-            </oneOrMore>
         </element>
     </define>
 
     <define name="linecontains">
         <optional>
             <attribute name="negate" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="matchany" a:defaultValue="false">
                 <data type="boolean"/>
             </attribute>
         </optional>

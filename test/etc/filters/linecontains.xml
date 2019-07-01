@@ -32,4 +32,17 @@
     </copy>
   </target>
 
+  <target name="testLineContainsMatchAny" depends="init">
+    <copy todir="result">
+      <fileset dir="input"/>
+      <filterchain>
+        <linecontains matchany="true">
+          <contains value="alpha"/>
+          <contains value="beta"/>
+          <contains value="gamma"/>
+        </linecontains>
+      </filterchain>
+    </copy>
+  </target>
+
 </project>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Leafo\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Compiler;
 
 class ScssPhpCompiler implements SassTaskCompiler
 {
@@ -17,7 +17,7 @@ class ScssPhpCompiler implements SassTaskCompiler
         $this->scssCompiler = new Compiler();
         if ($style) {
             $ucStyle = ucfirst(strtolower($style));
-            $this->scssCompiler->setFormatter('Leafo\\ScssPhp\\Formatter\\' . $ucStyle);
+            $this->scssCompiler->setFormatter('ScssPhp\\ScssPhp\\Formatter\\' . $ucStyle);
         }
         if ($encoding) {
             $this->scssCompiler->setEncoding($encoding);

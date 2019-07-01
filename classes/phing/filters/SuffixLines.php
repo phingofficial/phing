@@ -49,6 +49,9 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      */
     private $suffix = null;
 
+    /** @var string */
+    private $queuedData;
+
     /**
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
@@ -62,21 +65,36 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
             $this->setInitialized(true);
         }
 
-        $buffer = $this->in->read($len);
+        $ch = -1;
 
-        if ($buffer === -1) {
-            return -1;
-        }
-        $lines = preg_split("~\R~", $buffer);
-        $filtered = [];
-
-        foreach ($lines as $line) {
-            $filtered[] = $line . $this->suffix;
+        if ($this->queuedData !== null && $this->queuedData === '') {
+            $this->queuedData = null;
         }
 
-        $filtered_buffer = implode(PHP_EOL, $filtered);
-
-        return $filtered_buffer;
+        if ($this->queuedData !== null) {
+            $ch = $this->queuedData[0];
+            $this->queuedData = substr($this->queuedData, 1);
+            if ($this->queuedData === '') {
+                $this->queuedData = null;
+            }
+        } else {
+            $this->queuedData = $this->readLine();
+            if ($this->queuedData === null) {
+                $ch = -1;
+            } else {
+                if ($this->suffix !== null) {
+                    $lf = '';
+                    if (StringHelper::endsWith($this->queuedData, "\r\n")) {
+                        $lf = "\r\n";
+                    } elseif (StringHelper::endsWith($this->queuedData, "\n")) {
+                        $lf = "\n";
+                    }
+                    $this->queuedData = substr($this->queuedData, 0, strlen($this->queuedData) - strlen($lf)) . $this->suffix . $lf;
+                }
+                return $this->read();
+            }
+        }
+        return $ch;
     }
 
     /**

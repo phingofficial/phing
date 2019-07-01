@@ -381,7 +381,7 @@ class FtpDeployTask extends Task
             if (!empty($directory)) {
                 $directory .= '/';
             }
-            while (list(, $val) = each($content)) {
+            foreach ($content as $val) {
                 if ($val['name'] != '.' && $val['name'] != '..') {
                     $remoteFileInformations[$directory . $val['name']] = $val;
                 }
