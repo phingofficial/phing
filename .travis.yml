@@ -34,7 +34,7 @@ script:
     else
       echo "=== TESTING PHING ==="
       cd test
-      ../bin/phing -Dtests.codecoverage=true
+      ../bin/phing -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
       cd ..
     fi
 after_success:
@@ -73,4 +73,4 @@ matrix:
     - php: master
 
 notifications:
-  slack: phing:VFLtGWQdtJTgyPldJqwv5ZdH
+  secure: "Q8xCtM0IMQyjQuPJOPFCcFvBUlD7zwg6E5vEFfsaFQj+9bJ83Xo3loURsizTBf+WpRruDxmu3tlg0GNk5yDt92POOCOISzyWPBDmHiy2MVDfINEwyNsJpzdlw1UnChoTjSwRS3goPivfQDkOsbSrszLE93iE9PIIUw5BV4CAoho="

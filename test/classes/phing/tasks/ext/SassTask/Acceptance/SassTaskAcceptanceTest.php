@@ -61,7 +61,7 @@ class SassTaskAcceptanceTest extends BuildFileTest
 
     public function testItCompilesWithScssPhp(): void
     {
-        if (!class_exists('\Leafo\ScssPhp\Compiler')) {
+        if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
             $this->markTestSkipped('ScssPhp not found');
         }
         $this->executeTarget("testItCompilesWithScssPhp");

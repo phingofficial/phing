@@ -88,8 +88,11 @@ class PearPackageFileSet extends FileSet
      *
      * @return PearPackageScanner
      */
-    public function getDirectoryScanner(Project $p)
+    public function getDirectoryScanner(Project $p = null)
     {
+        if ($p === null) {
+            $p = $this->getProject();
+        }
         if ($this->isReference()) {
             $obj = $this->getRef($p);
 
@@ -108,8 +111,11 @@ class PearPackageFileSet extends FileSet
      *
      * @return PhingFile Base directory
      */
-    public function getDir(Project $p)
+    public function getDir(Project $p = null)
     {
+        if ($p === null) {
+            $p = $this->getProject();
+        }
         if ($this->pps === null) {
             $this->loadPearPackageScanner($p);
         }

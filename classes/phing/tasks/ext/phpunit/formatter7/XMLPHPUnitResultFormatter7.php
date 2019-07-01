@@ -27,7 +27,7 @@
 class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     /**
-     * @var PHPUnit_Util_Log_JUnit
+     * @var JUnit
      */
     private $logger = null;
 
@@ -40,7 +40,7 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
         $logIncompleteSkipped = $parentTask->getHaltonincomplete() || $parentTask->getHaltonskipped();
 
-        $this->logger = new PHPUnit\Util\Log\JUnit(null, $logIncompleteSkipped);
+        $this->logger = new JUnit(null, $logIncompleteSkipped);
         $this->logger->setWriteDocument(false);
     }
 
