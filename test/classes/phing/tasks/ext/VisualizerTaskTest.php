@@ -40,7 +40,7 @@ class VisualizerTaskTest extends BuildFileTest
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml', 1200);
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg', 23000);
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps', 123000);
+        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps', 102560);
     }
 
     /**
