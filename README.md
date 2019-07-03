@@ -56,7 +56,7 @@
 
   To execute Phing inside a container and execute `build.xml` located in `/home/user`, run the following:
 
-         $ docker run --rm phing/phing:3.0 -v /home/foo:/opt -f /opt/build.xml
+         $ docker run --rm -v /home/user:/opt phing/phing:3.0 -f /opt/build.xml
 
 ## Documentation
 
