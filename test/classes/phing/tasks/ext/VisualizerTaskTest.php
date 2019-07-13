@@ -88,7 +88,6 @@ class VisualizerTaskTest extends BuildFileTest
      */
     public function testCustomServer()
     {
-        $this->markTestSkipped('random timeouts.');
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
