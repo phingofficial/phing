@@ -32,15 +32,49 @@
     </target>
 
     <target name="testCustomServer">
-        <!-- ℹ️ If test fails, then try using another server: -->
-        <!-- https://plantuml.telecomsante.com/ -->
-        <!-- https://plantuml-server.kkeisuke.app/ -->
-        <!-- http://wiki-plantuml.mercari.in/ -->
-        <!-- https://plantuml.itemis.de/ -->
-        <!-- http://gregoryt.fr:8000/plantuml/ -->
-        <!-- https://swap.sirap.fr/plantuml/ -->
-        <!-- https://exp-plant.draw.io/plantuml3/ -->
-        <visualizer server="https://uml.nunction.net/plantuml/"/>
+
+        <!--Retrieving a valid PlantUML server-->
+        <if>
+            <http url="https://plantuml-server.kkeisuke.app/" errorsBeginAt="300"/>
+            <then>
+                <property name="plantuml-server" value="https://plantuml-server.kkeisuke.app/"/>
+            </then>
+
+            <elseif>
+                <http url="http://wiki-plantuml.mercari.in/" errorsBeginAt="300"/>
+                <then>
+                    <property name="plantuml-server" value="http://wiki-plantuml.mercari.in/"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <http url="https://plantuml.itemis.de/" errorsBeginAt="300"/>
+                <then>
+                    <property name="plantuml-server" value="https://plantuml.itemis.de/"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <http url="http://gregoryt.fr:8000/plantuml/" errorsBeginAt="300"/>
+                <then>
+                    <property name="plantuml-server" value="http://gregoryt.fr:8000/plantuml/"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <http url="https://swap.sirap.fr/plantuml/" errorsBeginAt="300"/>
+                <then>
+                    <property name="plantuml-server" value="https://swap.sirap.fr/plantuml/"/>
+                </then>
+            </elseif>
+
+            <else>
+                <fail message="Cannot find valid PlantUML server"/>
+            </else>
+        </if>
+
+        <!--Testing custom server-->
+        <visualizer server="${plantuml-server}"/>
     </target>
 
     <target name="testInvalidServer">
