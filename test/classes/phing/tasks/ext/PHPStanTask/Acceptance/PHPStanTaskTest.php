@@ -21,6 +21,18 @@ class PHPStanTaskTest extends BuildFileTest
         $this->assertExpectedCommandInLogs($expectedCommand);
     }
 
+    public function testItRunWithFileset(): void
+    {
+        $this->executeTarget("testRunFileset");
+
+        $this->assertInLogs('[OK] No errors', Project::MSG_VERBOSE);
+    }
+
+    private function assertExpectedCommandInLogs(string $expectedCommand): void
+    {
+        $this->assertInLogs('Executing command: ' . $expectedCommand, Project::MSG_INFO);
+    }
+
     /**
      * @depends testItRun
      */
@@ -28,7 +40,11 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testExecutableChange");
 
-        $expectedCommand = '/non/existing/path/to/phpstan'; // I hope
+        $expectedCommand = str_replace(
+            '/',
+            DIRECTORY_SEPARATOR,
+            '/non/existing/path/to/phpstan'
+        );
         $expectedCommand .= ' analyse';
 
         $this->assertExpectedCommandInLogs($expectedCommand);
@@ -111,10 +127,5 @@ class PHPStanTaskTest extends BuildFileTest
         $expectedCommand .= ' --verbose';
 
         $this->assertExpectedCommandInLogs($expectedCommand);
-    }
-
-    private function assertExpectedCommandInLogs(string $expectedCommand): void
-    {
-        $this->assertInLogs('Executing: ' . $expectedCommand, Project::MSG_INFO);
     }
 }

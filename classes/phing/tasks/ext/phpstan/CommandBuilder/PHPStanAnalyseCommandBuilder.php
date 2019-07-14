@@ -4,87 +4,42 @@ declare(strict_types=1);
 
 class PHPStanAnalyseCommandBuilder extends PHPStanCommandBuilder
 {
-    public function build(PHPStanTask $task): string
+    public function build(PHPStanTask $task): void
     {
-        $commandParts = [];
+        parent::build($task);
 
-        $commandParts[] = parent::build($task);
+        $cmd = $task->getCommandline();
 
-        $commandParts[] = $this->buildConfiguration($task);
-        $commandParts[] = $this->buildLevel($task);
-        $commandParts[] = $this->buildNoProgress($task);
-        $commandParts[] = $this->buildDebug($task);
-        $commandParts[] = $this->buildAutoloadFile($task);
-        $commandParts[] = $this->buildErrorFormat($task);
-        $commandParts[] = $this->buildMemoryLimit($task);
-        $commandParts[] = $this->buildPaths($task);
-
-        $commandParts = array_filter($commandParts);
-
-        return implode(' ', $commandParts);
-    }
-
-    private function buildConfiguration(PHPStanTask $task): ?string
-    {
         if (!empty($task->getConfiguration())) {
-            return '--configuration=' . $task->getConfiguration();
+            $cmd->createArgument()->setValue('--configuration=' . $task->getConfiguration());
         }
-        return null;
-    }
-
-    private function buildLevel(PHPStanTask $task): ?string
-    {
         if (!empty($task->getLevel())) {
-            return '--level=' . $task->getLevel();
+            $cmd->createArgument()->setValue('--level=' . $task->getLevel());
         }
-        return null;
-    }
-
-    private function buildNoProgress(PHPStanTask $task): ?string
-    {
         if ($task->isNoProgress()) {
-            return '--no-progress';
+            $cmd->createArgument()->setValue('--no-progress');
         }
-        return null;
-    }
-
-    private function buildDebug(PHPStanTask $task): ?string
-    {
         if ($task->isDebug()) {
-            return '--debug';
+            $cmd->createArgument()->setValue('--debug');
         }
-        return null;
-    }
-
-    private function buildAutoloadFile(PHPStanTask $task): ?string
-    {
         if (!empty($task->getAutoloadFile())) {
-            return '--autoload-file=' . $task->getAutoloadFile();
+            $cmd->createArgument()->setValue('--autoload-file=' . $task->getAutoloadFile());
         }
-        return null;
-    }
-
-    private function buildErrorFormat(PHPStanTask $task): ?string
-    {
         if (!empty($task->getErrorFormat())) {
-            return '--errorFormat=' . $task->getErrorFormat();
+            $cmd->createArgument()->setValue('--errorFormat=' . $task->getErrorFormat());
         }
-        return null;
-    }
-
-    private function buildMemoryLimit(PHPStanTask $task): ?string
-    {
         if (!empty($task->getMemoryLimit())) {
-            return '--memory-limit=' . $task->getMemoryLimit();
+            $cmd->createArgument()->setValue('--memory-limit=' . $task->getMemoryLimit());
         }
-        return null;
-    }
-
-    private function buildPaths(PHPStanTask $task): ?string
-    {
         if (!empty($task->getPaths())) {
-            return $task->getPaths();
+            $cmd->createArgument()->setValue($task->getPaths());
         }
-        return null;
+        if (count($task->getFileSets()) > 0) {
+            foreach ($task->getFileSets() as $fs) {
+                foreach ($fs as $file) {
+                    $cmd->createArgument()->setValue($file);
+                }
+            }
+        }
     }
 }
