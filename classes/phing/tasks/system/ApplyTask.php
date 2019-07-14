@@ -718,8 +718,8 @@ class ApplyTask extends ExecTask
             if ($this->forwardslash && PhingFile::$separator !== '/') {
                 $src = str_replace(PhingFile::$separator, '/', $src);
             }
-            if ($this->srcFilePos !== null && (count($this->srcFilePos->getPrefix()) > 0
-                    || count($this->srcFilePos->getSuffix()) > 0)
+            if ($this->srcFilePos !== null && ($this->srcFilePos->getPrefix() !== ''
+                    || $this->srcFilePos->getSuffix() !== '')
             ) {
                 $src = $this->srcFilePos->getPrefix() . $src . $this->srcFilePos->getSuffix();
             }

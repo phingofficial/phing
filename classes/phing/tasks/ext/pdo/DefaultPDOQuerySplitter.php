@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +18,6 @@
  *
  * @package phing.tasks.ext.pdo
  */
-
-require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
 
 /**
  * Splits SQL source into queries using simple regular expressions
