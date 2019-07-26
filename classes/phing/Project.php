@@ -276,7 +276,7 @@ class Project
      */
     public function replaceProperties($value)
     {
-        return PropertyHelper::getPropertyHelper($this)->replaceProperties(null, $value, $this->getProperties());
+        return PropertyHelper::getPropertyHelper($this)->replaceProperties($value, $this->getProperties());
     }
 
     /**
