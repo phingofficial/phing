@@ -67,7 +67,7 @@ class PHPStanAnalyseCommandBuilder extends PHPStanCommandBuilder
     private function buildErrorFormat(PHPStanTask $task): ?string
     {
         if (!empty($task->getErrorFormat())) {
-            return '--errorFormat=' . $task->getErrorFormat();
+            return '--error-format=' . $task->getErrorFormat();
         }
         return null;
     }

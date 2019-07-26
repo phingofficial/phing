@@ -57,7 +57,7 @@ class PHPStanTaskTest extends BuildFileTest
         $expectedCommand .= ' --no-progress';
         $expectedCommand .= ' --debug';
         $expectedCommand .= ' --autoload-file=anyAutoloadFile';
-        $expectedCommand .= ' --errorFormat=anyErrorFormat';
+        $expectedCommand .= ' --error-format=anyErrorFormat';
         $expectedCommand .= ' --memory-limit=anyMemoryLimit';
         $expectedCommand .= ' path1 path2';
 
