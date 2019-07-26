@@ -49,6 +49,10 @@ trait LogLevelAware
             case 'debug':
                 $this->logLevel = Project::MSG_DEBUG;
                 break;
+            default:
+                throw new BuildException(
+                    sprintf('Unknown log level "%s"', $level)
+                );
         }
     }
 }

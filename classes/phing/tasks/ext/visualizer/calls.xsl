@@ -11,7 +11,7 @@ extension-element-prefixes="str">
 <xsl:for-each select="./target">
 <xsl:variable name="current-target" select="@name"/>
 <xsl:for-each select=".//phingcall | .//foreach | .//runtarget">
-(<xsl:value-of select="$current-target"/>) --> (<xsl:value-of select="@target"/>) : call:<xsl:value-of
+(<xsl:value-of select="$current-target"/>) -[#EC87C0]-> (<xsl:value-of select="@target"/>) : call:<xsl:value-of
 select="position()"/>
 </xsl:for-each>
 <xsl:if test="@depends">
@@ -29,7 +29,7 @@ select="position()"/>
 <xsl:param name="depends"/>
 <xsl:variable name="targets" select="str:split($depends, ',')"/>
 <xsl:for-each select="$targets">
-(<xsl:value-of select="$from"/>) --> (<xsl:value-of select="normalize-space(text())"/>) : depend:<xsl:value-of
+(<xsl:value-of select="$from"/>) -[#5D9CEC]-> (<xsl:value-of select="normalize-space(text())"/>) : depend:<xsl:value-of
 select="position()"/>
 </xsl:for-each>
 </xsl:template>

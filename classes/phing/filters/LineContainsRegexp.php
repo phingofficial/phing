@@ -117,10 +117,11 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Whether to match casesensitevly.
+     * @param bool $b
      */
-    public function setCaseSensitive($b)
+    public function setCaseSensitive(bool $b)
     {
-        $this->casesensitive = (bool) $b;
+        $this->casesensitive = $b;
     }
 
     /**
@@ -138,9 +139,9 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      *
      * @param boolean $b the boolean negation mode to set.
      */
-    public function setNegate($b)
+    public function setNegate(bool $b)
     {
-        $this->negate = (bool) $b;
+        $this->negate = $b;
     }
 
     /**

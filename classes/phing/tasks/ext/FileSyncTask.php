@@ -489,9 +489,9 @@ class FileSyncTask extends Task
      * @param  boolean $verbose
      * @return void
      */
-    public function setVerbose($verbose)
+    public function setVerbose(bool $verbose)
     {
-        $this->verbose = (bool) $verbose;
+        $this->verbose = $verbose;
     }
 
     /**
@@ -503,9 +503,9 @@ class FileSyncTask extends Task
      * @param  boolean $checksum
      * @return void
      */
-    public function setChecksum($checksum)
+    public function setChecksum(bool $checksum)
     {
-        $this->checksum = (bool) $checksum;
+        $this->checksum = $checksum;
     }
 
     /**
@@ -516,9 +516,9 @@ class FileSyncTask extends Task
      * @param  boolean $dryRun
      * @return void
      */
-    public function setDryRun($dryRun)
+    public function setDryRun(bool $dryRun)
     {
-        $this->dryRun = (bool) $dryRun;
+        $this->dryRun = $dryRun;
     }
 
     /**
@@ -527,9 +527,9 @@ class FileSyncTask extends Task
      * @param  boolean $itemizeChanges
      * @return void
      */
-    public function setItemizeChanges($itemizeChanges)
+    public function setItemizeChanges(bool $itemizeChanges)
     {
-        $this->itemizeChanges = (bool) $itemizeChanges;
+        $this->itemizeChanges = $itemizeChanges;
     }
 
     /**
@@ -540,9 +540,9 @@ class FileSyncTask extends Task
      * @param  boolean $delete
      * @return void
      */
-    public function setDelete($delete)
+    public function setDelete(bool $delete)
     {
-        $this->delete = (bool) $delete;
+        $this->delete = $delete;
     }
 
     /**

@@ -238,9 +238,9 @@ class ZendGuardLicenseTask extends Task
     /**
      * @param $hardwareLocked
      */
-    public function setHardwareLocked($hardwareLocked)
+    public function setHardwareLocked(bool $hardwareLocked)
     {
-        $this->hardwareLocked = (bool) $hardwareLocked;
+        $this->hardwareLocked = $hardwareLocked;
     }
 
     /**

@@ -259,9 +259,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $internal
      */
-    public function setInternal($internal)
+    public function setInternal(bool $internal)
     {
-        if ((bool) $internal) {
+        if ($internal) {
             $this->options['internal'] = null;
         }
     }
@@ -271,9 +271,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $php
      */
-    public function setPhp($php)
+    public function setPhp(bool $php)
     {
-        if ((bool) $php) {
+        if ($php) {
             $this->options['php'] = null;
         }
     }
@@ -283,9 +283,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $tree
      */
-    public function setTree($tree)
+    public function setTree(bool $tree)
     {
-        if ((bool) $tree) {
+        if ($tree) {
             $this->options['tree'] = null;
         }
     }
@@ -295,9 +295,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $deprecated
      */
-    public function setDeprecated($deprecated)
+    public function setDeprecated(bool $deprecated)
     {
-        if ((bool) $deprecated) {
+        if ($deprecated) {
             $this->options['deprecated'] = null;
         }
     }
@@ -307,9 +307,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $todo
      */
-    public function setTodo($todo)
+    public function setTodo(bool $todo)
     {
-        if ((bool) $todo) {
+        if ($todo) {
             $this->options['todo'] = null;
         }
     }
@@ -319,9 +319,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $noSourceCode
      */
-    public function setSourceCode($noSourceCode)
+    public function setSourceCode(bool $noSourceCode)
     {
-        if (!((bool) $noSourceCode)) {
+        if (!$noSourceCode) {
             $this->options['no-source-code'] = null;
         }
     }
@@ -332,7 +332,7 @@ class ApiGenTask extends Task
      * @deprecated
      * @param      boolean $noSourceCode
      */
-    public function setNoSourceCode($noSourceCode)
+    public function setNoSourceCode(bool $noSourceCode)
     {
         $this->setSourceCode(!$noSourceCode);
     }
@@ -342,9 +342,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $download
      */
-    public function setDownload($download)
+    public function setDownload(bool $download)
     {
-        if ((bool) $download) {
+        if ($download) {
             $this->options['download'] = null;
         }
     }
@@ -354,9 +354,9 @@ class ApiGenTask extends Task
      *
      * @param boolean $debug
      */
-    public function setDebug($debug)
+    public function setDebug(bool $debug)
     {
-        if ((bool) $debug) {
+        if ($debug) {
             $this->options['debug'] = null;
         }
     }

@@ -37,9 +37,9 @@ class IsTrueCondition extends ProjectComponent implements Condition
      *
      * @param boolean $value
      */
-    public function setValue($value)
+    public function setValue(bool $value)
     {
-        $this->value = (bool) $value;
+        $this->value = $value;
     }
 
     /**

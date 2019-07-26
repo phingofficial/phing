@@ -110,9 +110,9 @@ class GitGcTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setAggressive($flag)
+    public function setAggressive(bool $flag)
     {
-        $this->isAggressive = (bool) $flag;
+        $this->isAggressive = $flag;
     }
 
     /**
@@ -134,9 +134,9 @@ class GitGcTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setAuto($flag)
+    public function setAuto(bool $flag)
     {
-        $this->isAuto = (bool) $flag;
+        $this->isAuto = $flag;
     }
 
     /**
@@ -158,9 +158,9 @@ class GitGcTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setNoPrune($flag)
+    public function setNoPrune(bool $flag)
     {
-        $this->noPrune = (bool) $flag;
+        $this->noPrune = $flag;
     }
 
     /**

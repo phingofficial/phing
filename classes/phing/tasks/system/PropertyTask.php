@@ -294,9 +294,9 @@ class PropertyTask extends Task
     /**
      * @param $logOutput
      */
-    public function setLogoutput($logOutput)
+    public function setLogoutput(bool $logOutput)
     {
-        $this->logOutput = (bool) $logOutput;
+        $this->logOutput = $logOutput;
     }
 
     /**
