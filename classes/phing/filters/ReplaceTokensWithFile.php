@@ -117,15 +117,9 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     private $_translatehtml = true;
 
-    /**
-     * Sets the drectory where to look for the files to use for token replacement
-     *
-     * @param    $translate
-     * @internal param string $dir
-     */
-    public function setTranslateHTML($translate)
+    public function setTranslateHTML(bool $translate)
     {
-        $this->_translatehtml = (bool) $translate;
+        $this->_translatehtml = $translate;
     }
 
     /**

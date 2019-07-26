@@ -88,9 +88,9 @@ class XsltTask extends CopyTask
      *
      * @since 2.4
      */
-    public function setResolveDocumentExternals($resolveExternals)
+    public function setResolveDocumentExternals(bool $resolveExternals)
     {
-        $this->xsltFilter->setResolveDocumentExternals((bool) $resolveExternals);
+        $this->xsltFilter->setResolveDocumentExternals($resolveExternals);
     }
 
     /**
@@ -100,9 +100,9 @@ class XsltTask extends CopyTask
      *
      * @since 2.4
      */
-    public function setResolveStylesheetExternals($resolveExternals)
+    public function setResolveStylesheetExternals(bool $resolveExternals)
     {
-        $this->xsltFilter->setResolveStylesheetExternals((bool) $resolveExternals);
+        $this->xsltFilter->setResolveStylesheetExternals($resolveExternals);
     }
 
     /**

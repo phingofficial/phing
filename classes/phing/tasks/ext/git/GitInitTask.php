@@ -74,8 +74,8 @@ class GitInitTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setBare($flag)
+    public function setBare(bool $flag)
     {
-        $this->isBare = (bool) $flag;
+        $this->isBare = $flag;
     }
 }

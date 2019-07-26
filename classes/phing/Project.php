@@ -446,14 +446,14 @@ class Project
      * (If strict mode is On, all the warnings would be converted to an error
      * (and the build will be stopped/aborted)
      *
-     * @param  string $mode Strict-mode information
+     * @param bool $strictmode
      * @return void
      * @access public
      * @author Utsav Handa, handautsav@hotmail.com
      */
-    public function setStrictMode($strictmode)
+    public function setStrictMode(bool $strictmode)
     {
-        $this->strictMode = (bool) $strictmode;
+        $this->strictMode = $strictmode;
         $this->setProperty("phing.project.strictmode", $this->strictMode);
     }
 

@@ -144,9 +144,9 @@ class GrowlNotifyTask extends Task
      *
      * @return void
      */
-    public function setSticky($sticky = true)
+    public function setSticky(bool $sticky = true)
     {
-        $this->sticky = (bool) $sticky;
+        $this->sticky = $sticky;
     }
 
     /**

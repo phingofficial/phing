@@ -241,7 +241,7 @@ abstract class FileSystem
         clearstatcache();
         $dir = dirname($f->getAbsolutePath());
 
-        return (bool) @is_writable($dir);
+        return @is_writable($dir);
     }
 
     /**
