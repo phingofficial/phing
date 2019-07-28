@@ -276,7 +276,6 @@ class IntrospectionHelper
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
     {
-
         // we want to check whether the value we are setting looks like
         // a slot-listener variable:  %{task.current_file}
         //
@@ -286,7 +285,6 @@ class IntrospectionHelper
         //
         // This is made possible by PHP5 (objects automatically passed by reference) and PHP's loose
         // typing.
-
         if (StringHelper::isSlotVar($value)) {
             $as = "setlistening" . strtolower($attributeName);
 
@@ -319,25 +317,27 @@ class IntrospectionHelper
             if ($as == "setrefid") {
                 $value = new Reference($project, $value);
             } else {
+                $params = $method->getParameters();
+                $reflectedAttr = null;
+
+                // try to determine parameter type
+                if (($argType = $params[0]->getType()) !== null) {
+                    /** @var ReflectionNamedType $argType */
+                    $reflectedAttr = $argType->getName();
+                } else if (($classType = $params[0]->getClass()) !== null) {
+                    /** @var ReflectionClass $classType */
+                    $reflectedAttr = $classType->getName();
+                }
+
                 // value is a string representation of a boolean type,
                 // convert it to primitive
-                if (StringHelper::isBoolean($value)) {
+                if ($reflectedAttr === 'bool' || StringHelper::isBoolean($value)) {
                     $value = StringHelper::booleanValue($value);
                 }
 
-                // does method expect a PhingFile object? if so, then
-                // pass a project-relative file.
-                $params = $method->getParameters();
-
-                $classname = null;
-
-                if (($hint = $params[0]->getClass()) !== null) {
-                    $classname = $hint->getName();
-                }
-
                 // there should only be one param; we'll just assume ....
-                if ($classname !== null) {
-                    switch (strtolower($classname)) {
+                if ($reflectedAttr !== null) {
+                    switch (strtolower($reflectedAttr)) {
                         case "phingfile":
                             $value = $project->resolveFile($value);
                             break;

@@ -107,7 +107,7 @@ class HttpCondition extends ProjectComponent implements Condition
             throw new BuildException("No url specified in http condition");
         }
 
-        if (!filter_var($this->url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+        if (!filter_var($this->url, FILTER_VALIDATE_URL)) {
             $this->log(
                 "Possible malformed URL: " . $this->url,
                 $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN

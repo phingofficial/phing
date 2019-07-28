@@ -108,9 +108,9 @@ class RecorderTask extends Task implements SubBuildListener
      *
      * @param bool $append if true, append to a previous file.
      */
-    public function setAppend($append)
+    public function setAppend(bool $append)
     {
-        $this->append = (bool) $append;
+        $this->append = $append;
     }
 
 

@@ -56,7 +56,7 @@ class SassTaskCompilerFactory
     {
         if (!$this->isScssPhpLoaded()) {
             $msg = sprintf(
-                "Install leafo scssphp."
+                "Install scssphp/scssphp."
             );
             throw new BuildException($msg);
         }
@@ -75,6 +75,6 @@ class SassTaskCompilerFactory
 
     private function isScssPhpLoaded(): bool
     {
-        return class_exists('\Leafo\ScssPhp\Compiler');
+        return class_exists('\ScssPhp\ScssPhp\Compiler');
     }
 }

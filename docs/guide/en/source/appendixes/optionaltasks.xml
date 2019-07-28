@@ -10995,7 +10995,7 @@ key="AmazonKey" secret="AmazonSecret" /></programlisting>
         <title>SassTask</title>
         <para>The <literal>SassTask</literal> converts SCSS or Sass files to CSS using either the
         <link xlink:href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#using_sass" role="extern">'sass' gem</link>
-        or the <link xlink:href="http://leafo.github.io/scssphp/" role="extern">scssphp package</link>.</para>
+        or the <link xlink:href="https://scssphp.github.io/scssphp/" role="extern">scssphp package</link>.</para>
     <table>
         <title>Attributes</title>
         <tgroup cols="5">
@@ -15614,6 +15614,15 @@ a2.a3.a4=false</programlisting>
             </tgroup>
         </table>
 
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+
         <sect2>
             <title>Example</title>
             <programlisting language="xml">
@@ -15628,6 +15637,11 @@ a2.a3.a4=false</programlisting>
                 memoryLimit="anyMemoryLimit"
                 paths="path1 path2"
                 />
+            </programlisting>
+            <programlisting language="xml">
+                &lt;phpstan command="analyse">
+                    &lt;fileset refid="files-to-analyse"/>
+                &lt;/phpstan>
             </programlisting>
         </sect2>
     </sect1>

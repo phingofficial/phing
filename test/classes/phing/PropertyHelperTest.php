@@ -17,36 +17,27 @@
  * <http://phing.info>.
  */
 
-/**
- * Tests the SortList Task
- *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
- */
-class SortListTest extends BuildFileTest
+use PHPUnit\Framework\TestCase;
+
+class PropertyHelperTest extends TestCase
 {
-    public function setUp(): void
+    public function testUndefinedPropertyShouldNotBeReplaced()
     {
-        $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/ext/property/SortListTest.xml'
-        );
+        $project = new Project();
+        $helper = PropertyHelper::getPropertyHelper($project);
+
+        $value = $helper->replaceProperties('${undefined.property}', []);
+
+        $this->assertEquals('${undefined.property}', $value);
     }
 
-    public function testSortList()
+    public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
     {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('my.sorted.list', 't,u,v,w,x,y,z');
-    }
+        $project = new Project();
+        $helper = PropertyHelper::getPropertyHelper($project);
 
-    public function testDelimFlags()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('my.sorted.list', 't;U;v;w;X;y;z');
-    }
+        $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
 
-    public function testRef()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('my.sorted.list', 'U;X;t;v;w;y;z');
+        $this->assertEquals('abc123', $value);
     }
 }

@@ -4,92 +4,48 @@ declare(strict_types=1);
 
 abstract class PHPStanCommandBuilder
 {
-    public function build(PHPStanTask $task): string
+    private const ARG_HELP = '--help';
+    private const ARG_QUIET = '--quiet';
+    private const ARG_VERSION = '--version';
+    private const ARG_ANSI = '--ansi';
+    private const ARG_NO_ANSI = '--no-ansi';
+    private const ARG_NO_INTERACTION = '--no-interaction';
+    private const ARG_VERBOSE = '--verbose';
+
+    public function build(PHPStanTask $task): void
     {
-        $commandParts = [];
+        $this->validate($task);
 
-        $commandParts[] = $this->buildExecutable($task);
-        $commandParts[] = $this->buildCommand($task);
-
-        $commandParts[] = $this->buildHelp($task);
-        $commandParts[] = $this->buildQuiet($task);
-        $commandParts[] = $this->buildVersion($task);
-        $commandParts[] = $this->buildANSI($task);
-        $commandParts[] = $this->buildNoANSI($task);
-        $commandParts[] = $this->buildNoInteraction($task);
-        $commandParts[] = $this->buildVerbose($task);
-
-        $commandParts = array_filter($commandParts);
-        
-        return implode(' ', $commandParts);
+        $cmd = $task->getCommandline();
+        $cmd->setExecutable($task->getExecutable());
+        $cmd->createArgument()->setValue($task->getCommand());
+        if ($task->isHelp()) {
+            $cmd->createArgument()->setValue(self::ARG_HELP);
+        }
+        if ($task->isQuiet()) {
+            $cmd->createArgument()->setValue(self::ARG_QUIET);
+        }
+        if ($task->isVersion()) {
+            $cmd->createArgument()->setValue(self::ARG_VERSION);
+        }
+        if ($task->isAnsi()) {
+            $cmd->createArgument()->setValue(self::ARG_ANSI);
+        }
+        if ($task->isNoAnsi()) {
+            $cmd->createArgument()->setValue(self::ARG_NO_ANSI);
+        }
+        if ($task->isNoInteraction()) {
+            $cmd->createArgument()->setValue(self::ARG_NO_INTERACTION);
+        }
+        if ($task->isVerbose()) {
+            $cmd->createArgument()->setValue(self::ARG_VERBOSE);
+        }
     }
 
-    private function buildExecutable(PHPStanTask $task): string
+    private function validate(PHPStanTask $task): void
     {
         if (empty($task->getExecutable())) {
             throw new BuildException('executable not set');
         }
-        return $task->getExecutable();
-    }
-
-    private function buildCommand(PHPStanTask $task): string
-    {
-        return $task->getCommand();
-    }
-
-    private function buildHelp(PHPStanTask $task): ?string
-    {
-        if ($task->isHelp()) {
-            return '--help';
-        }
-        return null;
-    }
-
-    private function buildQuiet(PHPStanTask $task): ?string
-    {
-        if ($task->isQuiet()) {
-            return '--quiet';
-        }
-        return null;
-    }
-
-    private function buildVersion(PHPStanTask $task): ?string
-    {
-        if ($task->isVersion()) {
-            return '--version';
-        }
-        return null;
-    }
-
-    private function buildANSI(PHPStanTask $task): ?string
-    {
-        if ($task->isAnsi()) {
-            return '--ansi';
-        }
-        return null;
-    }
-
-    private function buildNoANSI(PHPStanTask $task): ?string
-    {
-        if ($task->isNoAnsi()) {
-            return '--no-ansi';
-        }
-        return null;
-    }
-
-    private function buildNoInteraction(PHPStanTask $task): ?string
-    {
-        if ($task->isNoInteraction()) {
-            return '--no-interaction';
-        }
-        return null;
-    }
-
-    private function buildVerbose(PHPStanTask $task): ?string
-    {
-        if ($task->isVerbose()) {
-            return '--verbose';
-        }
-        return null;
     }
 }

@@ -25,13 +25,17 @@ class PHPStanListCommandBuilderTest extends TestCase
         $task->setRaw(true);
         $task->setNamespace('anyNamespace');
 
-        $command = $this->builder->build($task);
+        $this->builder->build($task);
 
-        $expectedCommand = 'phpstan list';
-        $expectedCommand .= ' --format=anyFormat';
-        $expectedCommand .= ' --raw';
-        $expectedCommand .= ' anyNamespace';
+        $expectedCommand = <<<CMD
+Executing 'phpstan' with arguments:
+'list'
+'--format=anyFormat'
+'--raw'
+'anyNamespace'
+The ' characters around the executable and arguments are not part of the command.
+CMD;
 
-        $this->assertEquals($expectedCommand, $command);
+        $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 }

@@ -27,6 +27,8 @@
  */
 class ExecTask extends Task
 {
+    use LogLevelAware;
+
     const INVALID = PHP_INT_MAX;
 
     private $exitValue = self::INVALID;
@@ -88,13 +90,6 @@ class ExecTask extends Task
      * @var boolean
      */
     protected $logOutput = false;
-
-    /**
-     * Logging level for status messages
-     *
-     * @var integer
-     */
-    protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      * Where to direct error output.
@@ -399,9 +394,9 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setEscape($escape): void
+    public function setEscape(bool $escape): void
     {
-        $this->escape = (bool) $escape;
+        $this->escape = $escape;
     }
 
     /**
@@ -555,39 +550,6 @@ class ExecTask extends Task
     public function setOutputProperty($prop): void
     {
         $this->outputProperty = $prop;
-    }
-
-    /**
-     * Set level of log messages generated (default = verbose)
-     *
-     * @param string $level Log level
-     *
-     * @throws BuildException
-     * @return void
-     */
-    public function setLevel($level): void
-    {
-        switch ($level) {
-            case 'error':
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case 'warning':
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case 'info':
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case 'verbose':
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case 'debug':
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-            default:
-                throw new BuildException(
-                    sprintf('Unknown log level "%s"', $level)
-                );
-        }
     }
 
     /**

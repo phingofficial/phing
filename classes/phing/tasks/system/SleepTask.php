@@ -64,16 +64,11 @@ class SleepTask extends Task
     private $milliseconds = 0;
 
     /**
-     * @param string $var
+     * @param bool $var
      */
-    public function setFailOnError($var)
+    public function setFailOnError(bool $var)
     {
-        if (is_string($var)) {
-            $var = strtolower($var);
-            $this->failOnError = ($var === 'yes' || $var === 'true');
-        } else {
-            $this->failOnError = (bool) $var;
-        }
+        $this->failOnError = $var;
     }
 
     /**

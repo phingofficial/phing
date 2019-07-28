@@ -83,9 +83,9 @@ abstract class ExtractBaseTask extends MatchingTask
      * @param  boolean $forceExtract
      * @return void
      */
-    public function setForceExtract($forceExtract)
+    public function setForceExtract(bool $forceExtract)
     {
-        $this->forceExtract = (bool) $forceExtract;
+        $this->forceExtract = $forceExtract;
     }
 
     /**

@@ -81,7 +81,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    private function start()
+    public function start()
     {
         $timer = $this->getStopwatchInstance();
         $timer->start($this->name, $this->category);
@@ -92,7 +92,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    private function stop()
+    public function stop()
     {
         $timer = $this->getStopwatchInstance();
         $event = $timer->stop($this->name);
@@ -118,7 +118,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    private function lap()
+    public function lap()
     {
         $timer = $this->getStopwatchInstance();
         $timer->lap($this->name);

@@ -71,9 +71,9 @@ class XmlLintTask extends Task
      *
      * @return void
      */
-    public function setHaltonfailure($haltonfailure)
+    public function setHaltonfailure(bool $haltonfailure)
     {
-        $this->haltonfailure = (bool) $haltonfailure;
+        $this->haltonfailure = $haltonfailure;
     }
 
     /**

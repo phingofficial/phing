@@ -197,33 +197,33 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * @param $value
      */
-    public function setShortTags($value)
+    public function setShortTags(bool $value)
     {
-        $this->shortTags = (bool) $value;
+        $this->shortTags = $value;
     }
 
     /**
      * @param $value
      */
-    public function setAspTags($value)
+    public function setAspTags(bool $value)
     {
-        $this->aspTags = (bool) $value;
+        $this->aspTags = $value;
     }
 
     /**
      * @param $value
      */
-    public function setDeleteSource($value)
+    public function setDeleteSource(bool $value)
     {
-        $this->shortTags = (bool) $value;
+        $this->shortTags = $value;
     }
 
     /**
      * @param $value
      */
-    public function setUseCrypto($value)
+    public function setUseCrypto(bool $value)
     {
-        $this->useCrypto = (bool) $value;
+        $this->useCrypto = $value;
     }
 
     /**
@@ -237,9 +237,9 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * @param $value
      */
-    public function setLicenseProduct($value)
+    public function setLicenseProduct(bool $value)
     {
-        $this->licenseProduct = (bool) $value;
+        $this->licenseProduct = $value;
     }
 
     /**
@@ -253,33 +253,33 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * @param $value
      */
-    public function setSignProduct($value)
+    public function setSignProduct(bool $value)
     {
-        $this->signProduct = (bool) $value;
+        $this->signProduct = $value;
     }
 
     /**
      * @param $value
      */
-    public function setForceEncode($value)
+    public function setForceEncode(bool $value)
     {
-        $this->forceEncode = (bool) $value;
+        $this->forceEncode = $value;
     }
 
     /**
      * @param $value
      */
-    public function setEncodedOnly($value)
+    public function setEncodedOnly(bool $value)
     {
-        $this->encodedOnly = (bool) $value;
+        $this->encodedOnly = $value;
     }
 
     /**
      * @param $value
      */
-    public function setIgnoreFileModes($value)
+    public function setIgnoreFileModes(bool $value)
     {
-        $this->ignoreFileModes = (bool) $value;
+        $this->ignoreFileModes = $value;
     }
 
     /**
@@ -317,9 +317,9 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * @param $value
      */
-    public function setNoHeader($value)
+    public function setNoHeader(bool $value)
     {
-        $this->noHeader = (bool) $value;
+        $this->noHeader = $value;
     }
 
     /**
