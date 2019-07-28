@@ -54,7 +54,7 @@
         "phpunit/phpunit": "^7.3 || ^8.0",
         "sebastian/phpcpd": "^4.1",
         "siad007/versioncontrol_hg": "^1.0",
-        "squizlabs/php_codesniffer": "~2.2",
+        "squizlabs/php_codesniffer": "~3.4",
         "symfony/stopwatch": "~2.3",
         "tedivm/jshrink": "^1.3"
     },

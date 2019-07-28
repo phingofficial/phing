@@ -33,4 +33,8 @@
             <formatter type="summary" usefile="false"  />
         </phpcodesniffer>
     </target>
+
+    <target name="testPhpCs">
+        <phpcs bin="../../../../../bin/phpcs" file="../../../../../classes/phing/dispatch" checkreturn="true" />
+    </target>
 </project>
