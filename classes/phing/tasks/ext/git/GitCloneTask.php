@@ -157,7 +157,7 @@ class GitCloneTask extends GitBaseTask
      */
     public function hasDepth()
     {
-        return (bool) $this->depth;
+        return $this->depth > 0;
     }
 
     /**
@@ -200,11 +200,11 @@ class GitCloneTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $bare
      */
-    public function setBare($flag)
+    public function setBare(bool $bare)
     {
-        $this->isBare = (bool) $flag;
+        $this->isBare = $bare;
     }
 
     /**

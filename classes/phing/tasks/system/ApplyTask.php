@@ -145,9 +145,9 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setAppend($append)
+    public function setAppend(bool $append)
     {
-        $this->appendoutput = (bool) $append;
+        $this->appendoutput = $append;
     }
 
     /**
@@ -157,9 +157,9 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setParallel($parallel)
+    public function setParallel(bool $parallel)
     {
-        $this->parallel = (bool) $parallel;
+        $this->parallel = $parallel;
     }
 
     /**
@@ -169,9 +169,9 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setAddsourcefile($addsourcefile)
+    public function setAddsourcefile(bool $addsourcefile)
     {
-        $this->addsourcefile = (bool) $addsourcefile;
+        $this->addsourcefile = $addsourcefile;
     }
 
     /**
@@ -183,9 +183,9 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setRelative($relative)
+    public function setRelative(bool $relative)
     {
-        $this->relative = (bool) $relative;
+        $this->relative = $relative;
     }
 
     /**
@@ -195,9 +195,9 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setFailonerror($failonerror)
+    public function setFailonerror(bool $failonerror)
     {
-        $this->checkreturn = (bool) $failonerror;
+        $this->checkreturn = $failonerror;
     }
 
     /**
@@ -207,9 +207,9 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setForwardslash($forwardslash)
+    public function setForwardslash(bool $forwardslash)
     {
-        $this->forwardslash = (bool) $forwardslash;
+        $this->forwardslash = $forwardslash;
     }
 
     /**
@@ -718,8 +718,8 @@ class ApplyTask extends ExecTask
             if ($this->forwardslash && PhingFile::$separator !== '/') {
                 $src = str_replace(PhingFile::$separator, '/', $src);
             }
-            if ($this->srcFilePos !== null && (count($this->srcFilePos->getPrefix()) > 0
-                    || count($this->srcFilePos->getSuffix()) > 0)
+            if ($this->srcFilePos !== null && ($this->srcFilePos->getPrefix() !== ''
+                    || $this->srcFilePos->getSuffix() !== '')
             ) {
                 $src = $this->srcFilePos->getPrefix() . $src . $this->srcFilePos->getSuffix();
             }

@@ -110,9 +110,9 @@ class AvailableTask extends Task implements Condition
     /**
      * @param $followSymlinks
      */
-    public function setFollowSymlinks($followSymlinks)
+    public function setFollowSymlinks(bool $followSymlinks)
     {
-        $this->followSymlinks = (bool) $followSymlinks;
+        $this->followSymlinks = $followSymlinks;
     }
 
     /**

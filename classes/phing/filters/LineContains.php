@@ -148,9 +148,9 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *
      * @param boolean $b the boolean negation mode to set.
      */
-    public function setNegate($b)
+    public function setNegate(bool $b)
     {
-        $this->negate = (bool) $b;
+        $this->negate = $b;
     }
 
     /**

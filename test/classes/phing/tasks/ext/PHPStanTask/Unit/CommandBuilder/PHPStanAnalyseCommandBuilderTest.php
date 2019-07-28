@@ -39,7 +39,7 @@ Executing 'phpstan' with arguments:
 '--no-progress'
 '--debug'
 '--autoload-file=anyAutoloadFile'
-'--errorFormat=anyErrorFormat'
+'--error-format=anyErrorFormat'
 '--memory-limit=anyMemoryLimit'
 'path1 path2'
 The ' characters around the executable and arguments are not part of the command.

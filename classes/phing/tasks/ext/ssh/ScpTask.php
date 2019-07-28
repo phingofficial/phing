@@ -222,11 +222,11 @@ class ScpTask extends Task
     /**
      * Sets whether to autocreate remote directories
      *
-     * @param $autocreate
+     * @param bool $autocreate
      */
-    public function setAutocreate($autocreate)
+    public function setAutocreate(bool $autocreate)
     {
-        $this->autocreate = (bool) $autocreate;
+        $this->autocreate = $autocreate;
     }
 
     /**
@@ -276,11 +276,11 @@ class ScpTask extends Task
     /**
      * Sets whether to send (default) or fetch files
      *
-     * @param $fetch
+     * @param bool $fetch
      */
-    public function setFetch($fetch)
+    public function setFetch(bool $fetch)
     {
-        $this->fetch = (bool) $fetch;
+        $this->fetch = $fetch;
     }
 
     /**

@@ -1,4 +1,21 @@
 <?php
+/**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
+ */
 
 /**
  * Component creation and configuration
@@ -12,7 +29,7 @@ class PropertyHelper
     /**
      * @var Project $project
      */
-    private static $project;
+    private $project;
     private $next;
 
     /**
@@ -43,9 +60,9 @@ class PropertyHelper
      *
      * @param Project $p the project instance.
      */
-    public function setProject(Project $p)
+    private function setProject(Project $p)
     {
-        self::$project = $p;
+        $this->project = $p;
     }
 
     /**
@@ -155,9 +172,9 @@ class PropertyHelper
             }
         }
 
-        if (self::$project !== null && StringHelper::startsWith('toString:', $name)) {
+        if ($this->project !== null && StringHelper::startsWith('toString:', $name)) {
             $name = StringHelper::substring($name, strlen('toString:'));
-            $v = self::$project->getReference($name);
+            $v = $this->project->getReference($name);
             return ($v === null) ? null : (string) $v;
         }
 
@@ -174,7 +191,6 @@ class PropertyHelper
      * Replaces <code>${xxx}</code> style constructions in the given value
      * with the string value of the corresponding data types.
      *
-     * @param string $ns The namespace for the property.
      * @param string $value The string to be scanned for property references.
      *                        May be <code>null</code>, in which case this
      *                        method returns immediately with no effect.
@@ -182,19 +198,19 @@ class PropertyHelper
      *              values. If <code>null</code>, only project properties will
      *              be used.
      *
+     * @return    string the original string with the properties replaced, or
+     *         <code>null</code> if the original string is <code>null</code>.
      * @exception BuildException if the string contains an opening
      *                           <code>${</code> without a closing
      *                           <code>}</code>
-     * @return    string the original string with the properties replaced, or
-     *         <code>null</code> if the original string is <code>null</code>.
      */
-    public function replaceProperties($ns, $value, $keys)
+    public function replaceProperties($value, $keys)
     {
         if ($value === null) {
             return null;
         }
         if ($keys === null) {
-            $keys = self::$project->getProperties();
+            $keys = $this->project->getProperties();
         }
         // Because we're not doing anything special (like multiple passes),
         // regex is the simplest / fastest.  PropertyTask, though, uses
@@ -220,7 +236,7 @@ class PropertyHelper
                     }
 
                     if ($replacement === null) {
-                        self::$project->log(
+                        $this->project->log(
                             'Property ${' . $propertyName . '} has not been set.',
                             Project::MSG_VERBOSE
                         );
@@ -228,7 +244,7 @@ class PropertyHelper
                         return $matches[0];
                     }
 
-                    self::$project->log(
+                    $this->project->log(
                         'Property ${' . $propertyName . '} => ' . (string) $replacement,
                         Project::MSG_VERBOSE
                     );
@@ -269,7 +285,7 @@ class PropertyHelper
         // user (CLI) properties take precedence
         if (isset($this->userProperties[$name])) {
             if ($verbose) {
-                self::$project->log('Override ignored for user property ' . $name, Project::MSG_VERBOSE);
+                $this->project->log('Override ignored for user property ' . $name, Project::MSG_VERBOSE);
             }
             return false;
         }
@@ -280,21 +296,21 @@ class PropertyHelper
         }
 
         if ($verbose && isset($this->properties[$name])) {
-            self::$project->log(
+            $this->project->log(
                 'Overriding previous definition of property ' . $name,
                 Project::MSG_VERBOSE
             );
         }
 
         if ($verbose) {
-            self::$project->log(
+            $this->project->log(
                 'Setting project property: ' . $name . " -> "
                 . $value,
                 Project::MSG_DEBUG
             );
         }
         $this->properties[$name] = $value;
-        self::$project->addReference($name, new PropertyValue($value));
+        $this->project->addReference($name, new PropertyValue($value));
         return true;
     }
 
@@ -313,7 +329,7 @@ class PropertyHelper
     public function setNewProperty($ns, $name, $value)
     {
         if (isset($this->properties[$name])) {
-            self::$project->log('Override ignored for property ' . $name, Project::MSG_VERBOSE);
+            $this->project->log('Override ignored for property ' . $name, Project::MSG_VERBOSE);
             return;
         }
 
@@ -322,10 +338,10 @@ class PropertyHelper
             return;
         }
 
-        self::$project->log('Setting project property: ' . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->project->log('Setting project property: ' . $name . " -> " . $value, Project::MSG_DEBUG);
         if ($name !== null && $value !== null) {
             $this->properties[$name] = $value;
-            self::$project->addReference($name, new PropertyValue($value));
+            $this->project->addReference($name, new PropertyValue($value));
         }
     }
 
@@ -345,7 +361,7 @@ class PropertyHelper
         if ($name === null || $value === null) {
             return;
         }
-        self::$project->log('Setting ro project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
+        $this->project->log('Setting ro project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
         $this->userProperties[$name] = $value;
 
         $done = $this->setPropertyHook($ns, $name, $value, false, true, false);
@@ -353,7 +369,7 @@ class PropertyHelper
             return;
         }
         $this->properties[$name] = $value;
-        self::$project->addReference($name, new PropertyValue($value));
+        $this->project->addReference($name, new PropertyValue($value));
     }
 
     /**
@@ -376,7 +392,7 @@ class PropertyHelper
         }
         $this->inheritedProperties[$name] = $value;
 
-        self::$project->log(
+        $this->project->log(
             "Setting ro project property: " . $name . " -> "
             . $value,
             Project::MSG_DEBUG
@@ -388,7 +404,7 @@ class PropertyHelper
             return;
         }
         $this->properties[$name] = $value;
-        self::$project->addReference($name, new PropertyValue($value));
+        $this->project->addReference($name, new PropertyValue($value));
     }
 
     // -------------------- Getting properties  --------------------
@@ -418,7 +434,7 @@ class PropertyHelper
         // check to see if there are unresolved property references
         if (false !== strpos($found, '${')) {
             // attempt to resolve properties
-            $found = $this->replaceProperties(null, $found, null);
+            $found = $this->replaceProperties($found, null);
             // save resolved value
             $this->properties[$name] = $found;
         }

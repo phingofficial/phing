@@ -160,9 +160,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @since 2.4
      */
-    public function setResolveDocumentExternals($resolveExternals)
+    public function setResolveDocumentExternals(bool $resolveExternals)
     {
-        $this->resolveDocumentExternals = (bool) $resolveExternals;
+        $this->resolveDocumentExternals = $resolveExternals;
     }
 
     /**
@@ -182,9 +182,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @since 2.4
      */
-    public function setResolveStylesheetExternals($resolveExternals)
+    public function setResolveStylesheetExternals(bool $resolveExternals)
     {
-        $this->resolveStylesheetExternals = (bool) $resolveExternals;
+        $this->resolveStylesheetExternals = $resolveExternals;
     }
 
     /**

@@ -68,9 +68,9 @@ class ChmodTask extends Task
      *
      * @param $bool
      */
-    public function setVerbose($bool)
+    public function setVerbose(bool $bool)
     {
-        $this->verbose = (bool) $bool;
+        $this->verbose = $bool;
     }
 
     /**

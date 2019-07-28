@@ -131,9 +131,9 @@ class SymfonyConsoleTask extends Task
      *
      * @return void
      */
-    public function setCheckreturn($checkreturn)
+    public function setCheckreturn(bool $checkreturn)
     {
-        $this->checkreturn = (bool) $checkreturn;
+        $this->checkreturn = $checkreturn;
     }
 
     /**
@@ -143,9 +143,9 @@ class SymfonyConsoleTask extends Task
      *
      * @return void
      */
-    public function setDebug($debug)
+    public function setDebug(bool $debug)
     {
-        $this->debug = (bool) $debug;
+        $this->debug = $debug;
     }
 
     /**

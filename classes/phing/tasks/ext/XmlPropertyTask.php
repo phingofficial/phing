@@ -83,9 +83,9 @@ class XmlPropertyTask extends PropertyTask
      *
      * @param bool $yesNo
      */
-    public function setKeepRoot($yesNo)
+    public function setKeepRoot(bool $yesNo)
     {
-        $this->_keepRoot = (bool) $yesNo;
+        $this->_keepRoot = $yesNo;
     }
 
     /**
@@ -101,9 +101,9 @@ class XmlPropertyTask extends PropertyTask
      *
      * @param bool $yesNo
      */
-    public function setCollapseAttributes($yesNo)
+    public function setCollapseAttributes(bool $yesNo)
     {
-        $this->_collapseAttr = (bool) $yesNo;
+        $this->_collapseAttr = $yesNo;
     }
 
     /**

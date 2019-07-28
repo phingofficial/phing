@@ -88,9 +88,9 @@ class AppendTask extends Task
     /**
      * @param bool $filtering
      */
-    public function setFiltering($filtering)
+    public function setFiltering(bool $filtering)
     {
-        $this->filtering = (bool) $filtering;
+        $this->filtering = $filtering;
     }
 
     /**

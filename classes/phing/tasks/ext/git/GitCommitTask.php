@@ -118,9 +118,9 @@ class GitCommitTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setAllFiles($flag)
+    public function setAllFiles(bool $flag)
     {
-        $this->allFiles = (bool) $flag;
+        $this->allFiles = $flag;
     }
 
     /**

@@ -297,12 +297,9 @@ class Target implements TaskContainer
         return $this->description;
     }
 
-    /**
-     * @param $log
-     */
-    public function setLogSkipped($log)
+    public function setLogSkipped(bool $log)
     {
-        $this->logSkipped = (bool) $log;
+        $this->logSkipped = $log;
     }
 
     /**
