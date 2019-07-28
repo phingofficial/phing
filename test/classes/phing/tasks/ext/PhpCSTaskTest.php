@@ -34,6 +34,6 @@ class PhpCSTaskTest extends BuildFileTest
     public function testPhpCs()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('SIAD');
+        $this->assertInLogs('Missing');
     }
 }

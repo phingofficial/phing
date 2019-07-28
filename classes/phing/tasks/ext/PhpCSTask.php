@@ -50,9 +50,6 @@ class PhpCSTask extends Task
     /** @var string */
     private $bin = 'phpcs';
 
-    /** @var bool */
-    private $passthru = false;
-
     public function __construct()
     {
         $this->cmd = new Commandline();
@@ -104,14 +101,6 @@ class PhpCSTask extends Task
         $this->file = $file;
     }
 
-    /**
-     * @param bool $passthru
-     */
-    public function setPassthru(bool $passthru): void
-    {
-        $this->passthru = $passthru;
-    }
-
     public function main()
     {
         $toExecute = $this->getCommandline();
@@ -138,7 +127,6 @@ class PhpCSTask extends Task
         $exe->setExecutable($this->bin);
         $exe->setCheckreturn($this->checkreturn);
         $exe->setLevel('info');
-        $exe->setPassthru($this->passthru);
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->main();
