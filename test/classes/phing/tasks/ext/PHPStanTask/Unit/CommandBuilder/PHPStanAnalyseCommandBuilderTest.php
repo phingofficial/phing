@@ -45,6 +45,6 @@ Executing 'phpstan' with arguments:
 The ' characters around the executable and arguments are not part of the command.
 CMD;
 
-        $this->assertEquals($expectedCommand, $task->getCommandline()->describeCommand());
+        $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 }

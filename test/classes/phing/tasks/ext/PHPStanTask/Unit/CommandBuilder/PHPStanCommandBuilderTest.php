@@ -29,7 +29,7 @@ Executing 'anyExecutable' with arguments:
 The ' characters around the executable and arguments are not part of the command.
 CMD;
 
-        $this->assertEquals($cmd, $task->getCommandline()->describeCommand());
+        $this->assertEquals($cmd, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 
     /**
@@ -72,6 +72,6 @@ Executing 'anyExecutable' with arguments:
 The ' characters around the executable and arguments are not part of the command.
 CMD;
 
-        $this->assertEquals($expectedCommand, $task->getCommandline()->describeCommand());
+        $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 }
