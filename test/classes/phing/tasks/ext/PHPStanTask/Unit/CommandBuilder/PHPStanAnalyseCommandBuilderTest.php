@@ -30,18 +30,21 @@ class PHPStanAnalyseCommandBuilderTest extends TestCase
         $task->setMemoryLimit('anyMemoryLimit');
         $task->setPaths('path1 path2');
 
-        $command = $this->builder->build($task);
+        $this->builder->build($task);
+        $expectedCommand = <<< CMD
+Executing 'phpstan' with arguments:
+'analyse'
+'--configuration=anyConfiguration'
+'--level=anyLevel'
+'--no-progress'
+'--debug'
+'--autoload-file=anyAutoloadFile'
+'--errorFormat=anyErrorFormat'
+'--memory-limit=anyMemoryLimit'
+'path1 path2'
+The ' characters around the executable and arguments are not part of the command.
+CMD;
 
-        $expectedCommand = 'phpstan analyse';
-        $expectedCommand .= ' --configuration=anyConfiguration';
-        $expectedCommand .= ' --level=anyLevel';
-        $expectedCommand .= ' --no-progress';
-        $expectedCommand .= ' --debug';
-        $expectedCommand .= ' --autoload-file=anyAutoloadFile';
-        $expectedCommand .= ' --errorFormat=anyErrorFormat';
-        $expectedCommand .= ' --memory-limit=anyMemoryLimit';
-        $expectedCommand .= ' path1 path2';
-
-        $this->assertEquals($expectedCommand, $command);
+        $this->assertEquals($expectedCommand, $task->getCommandline()->describeCommand());
     }
 }

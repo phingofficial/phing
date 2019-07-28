@@ -21,9 +21,15 @@ class PHPStanCommandBuilderTest extends TestCase
         $task->setExecutable('anyExecutable');
         $task->setCommand('anyCommand');
 
-        $command = $this->builder->build($task);
+        $this->builder->build($task);
 
-        $this->assertEquals('anyExecutable anyCommand', $command);
+        $cmd = <<<CMD
+Executing 'anyExecutable' with arguments:
+'anyCommand'
+The ' characters around the executable and arguments are not part of the command.
+CMD;
+
+        $this->assertEquals($cmd, $task->getCommandline()->describeCommand());
     }
 
     /**
@@ -51,17 +57,21 @@ class PHPStanCommandBuilderTest extends TestCase
         $task->setNoInteraction(true);
         $task->setVerbose(true);
 
-        $command = $this->builder->build($task);
+        $this->builder->build($task);
 
-        $expectedCommand = 'anyExecutable anyCommand';
-        $expectedCommand .= ' --help';
-        $expectedCommand .= ' --quiet';
-        $expectedCommand .= ' --version';
-        $expectedCommand .= ' --ansi';
-        $expectedCommand .= ' --no-ansi';
-        $expectedCommand .= ' --no-interaction';
-        $expectedCommand .= ' --verbose';
+        $expectedCommand = <<<CMD
+Executing 'anyExecutable' with arguments:
+'anyCommand'
+'--help'
+'--quiet'
+'--version'
+'--ansi'
+'--no-ansi'
+'--no-interaction'
+'--verbose'
+The ' characters around the executable and arguments are not part of the command.
+CMD;
 
-        $this->assertEquals($expectedCommand, $command);
+        $this->assertEquals($expectedCommand, $task->getCommandline()->describeCommand());
     }
 }
