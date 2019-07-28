@@ -30,7 +30,7 @@ install:
 script:
   - |
     if [[ "$PHPCS" == "TRUE" ]]; then
-      bin/phpcs -n --standard=./ruleset.xml classes
+      bin/phpcs -n --standard=PSR12 classes
     else
       echo "=== TESTING PHING ==="
       cd test
