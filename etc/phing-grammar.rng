@@ -5394,6 +5394,11 @@
                 <optional>
                     <attribute name="verbose"/>
                 </optional>
+                <optional>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </optional>
             </interleave>
         </element>
     </define>

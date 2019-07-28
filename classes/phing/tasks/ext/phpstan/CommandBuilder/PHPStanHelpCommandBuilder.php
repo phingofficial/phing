@@ -4,42 +4,20 @@ declare(strict_types=1);
 
 class PHPStanHelpCommandBuilder extends PHPStanCommandBuilder
 {
-    public function build(PHPStanTask $task): string
+    public function build(PHPStanTask $task): void
     {
-        $commandParts = [];
+        parent::build($task);
 
-        $commandParts[] = parent::build($task);
+        $cmd = $task->getCommandline();
 
-        $commandParts[] = $this->buildFormat($task);
-        $commandParts[] = $this->buildRaw($task);
-        $commandParts[] = $this->buildCommandName($task);
-
-        $commandParts = array_filter($commandParts);
-
-        return implode(' ', $commandParts);
-    }
-
-    private function buildFormat(PHPStanTask $task): ?string
-    {
         if (!empty($task->getFormat())) {
-            return '--format=' .  $task->getFormat();
+            $cmd->createArgument()->setValue('--format=' .  $task->getFormat());
         }
-        return null;
-    }
-
-    private function buildRaw(PHPStanTask $task): ?string
-    {
         if ($task->isRaw()) {
-            return '--raw';
+            $cmd->createArgument()->setValue('--raw');
         }
-        return null;
-    }
-
-    private function buildCommandName(PHPStanTask $task): ?string
-    {
         if (!empty($task->getCommandName())) {
-            return $task->getCommandName();
+            $cmd->createArgument()->setValue($task->getCommandName());
         }
-        return null;
     }
 }
