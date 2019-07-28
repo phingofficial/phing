@@ -25,7 +25,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testRunFileset");
 
-        $this->assertInLogs('[OK] No errors', Project::MSG_VERBOSE);
+        $this->assertExpectedCommandInLogs('phpstan analyse');
     }
 
     private function assertExpectedCommandInLogs(string $expectedCommand): void
