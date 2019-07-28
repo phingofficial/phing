@@ -236,6 +236,6 @@ class FailTask extends Task
      */
     private function nestedConditionPresent()
     {
-        return (bool) $this->nestedCondition;
+        return $this->nestedCondition !== null;
     }
 }

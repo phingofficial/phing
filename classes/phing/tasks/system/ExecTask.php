@@ -394,9 +394,9 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setEscape($escape): void
+    public function setEscape(bool $escape): void
     {
-        $this->escape = (bool) $escape;
+        $this->escape = $escape;
     }
 
     /**

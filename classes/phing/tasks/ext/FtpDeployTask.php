@@ -91,9 +91,9 @@ class FtpDeployTask extends Task
     /**
      * @param $ssl
      */
-    public function setSsl($ssl)
+    public function setSsl(bool $ssl)
     {
-        $this->ssl = (bool) $ssl;
+        $this->ssl = $ssl;
     }
 
     /**
@@ -139,25 +139,25 @@ class FtpDeployTask extends Task
     /**
      * @param $passive
      */
-    public function setPassive($passive)
+    public function setPassive(bool $passive)
     {
-        $this->passive = (bool) $passive;
+        $this->passive = $passive;
     }
 
     /**
      * @param $clearFirst
      */
-    public function setClearFirst($clearFirst)
+    public function setClearFirst(bool $clearFirst)
     {
-        $this->clearFirst = (bool) $clearFirst;
+        $this->clearFirst = $clearFirst;
     }
 
     /**
      * @param $depends
      */
-    public function setDepends($depends)
+    public function setDepends(bool $depends)
     {
-        $this->depends = (bool) $depends;
+        $this->depends = $depends;
     }
 
     /**
@@ -179,9 +179,9 @@ class FtpDeployTask extends Task
     /**
      * @param $fallback
      */
-    public function setRawdatafallback($fallback)
+    public function setRawdatafallback(bool $fallback)
     {
-        $this->rawDataFallback = (bool) $fallback;
+        $this->rawDataFallback = $fallback;
     }
 
     /**

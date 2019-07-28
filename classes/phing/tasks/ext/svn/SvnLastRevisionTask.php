@@ -55,11 +55,11 @@ class SvnLastRevisionTask extends SvnBaseTask
     /**
      * Sets whether to retrieve the last changed revision
      *
-     * @param $lastChanged
+     * @param bool $lastChanged
      */
-    public function setLastChanged($lastChanged)
+    public function setLastChanged(bool $lastChanged)
     {
-        $this->lastChanged = (bool) $lastChanged;
+        $this->lastChanged = $lastChanged;
     }
 
     /**

@@ -389,6 +389,11 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="multiline" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
         </element>
     </define>

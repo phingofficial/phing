@@ -17,42 +17,27 @@
  * <http://phing.info>.
  */
 
-/**
- * Condition that tests whether a given string evals to false.
- *
- * @author  Hans Lellelid (Phing)
- * @author  Steve Loughran (Ant)
- * @package phing.tasks.system.condition
- */
-class IsFalseCondition extends ProjectComponent implements Condition
+use PHPUnit\Framework\TestCase;
+
+class PropertyHelperTest extends TestCase
 {
-
-    /**
-     * what we eval
-     */
-    private $value;
-
-    /**
-     * Set the value to be tested.
-     *
-     * @param boolean $value
-     */
-    public function setValue(bool $value)
+    public function testUndefinedPropertyShouldNotBeReplaced()
     {
-        $this->value = $value;
+        $project = new Project();
+        $helper = PropertyHelper::getPropertyHelper($project);
+
+        $value = $helper->replaceProperties('${undefined.property}', []);
+
+        $this->assertEquals('${undefined.property}', $value);
     }
 
-    /**
-     * return the inverted value;
-     *
-     * @throws BuildException if someone forgot to spec a value
-     */
-    public function evaluate()
+    public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
     {
-        if ($this->value === null) {
-            throw new BuildException("Nothing to test for falsehood");
-        }
+        $project = new Project();
+        $helper = PropertyHelper::getPropertyHelper($project);
 
-        return !$this->value;
+        $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
+
+        $this->assertEquals('abc123', $value);
     }
 }

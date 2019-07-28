@@ -70,7 +70,7 @@ class SvnListTask extends SvnBaseTask
      */
     public function setOrderDescending($orderDescending)
     {
-        $this->orderDescending = (bool) $orderDescending;
+        $this->orderDescending = $orderDescending;
     }
 
     /**

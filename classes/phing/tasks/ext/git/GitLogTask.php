@@ -219,9 +219,9 @@ class GitLogTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setNoMerges($flag)
+    public function setNoMerges(bool $flag)
     {
-        $this->noMerges = (bool) $flag;
+        $this->noMerges = $flag;
     }
 
     /**

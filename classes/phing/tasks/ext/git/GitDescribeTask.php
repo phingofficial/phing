@@ -147,9 +147,9 @@ class GitDescribeTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setAll($flag)
+    public function setAll(bool $flag)
     {
-        $this->all = (bool) $flag;
+        $this->all = $flag;
     }
 
     /**
@@ -171,9 +171,9 @@ class GitDescribeTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setTags($flag)
+    public function setTags(bool $flag)
     {
-        $this->tags = (bool) $flag;
+        $this->tags = $flag;
     }
 
     /**
@@ -195,9 +195,9 @@ class GitDescribeTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setContains($flag)
+    public function setContains(bool $flag)
     {
-        $this->contains = (bool) $flag;
+        $this->contains = $flag;
     }
 
     /**
@@ -251,9 +251,9 @@ class GitDescribeTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setLong($flag)
+    public function setLong(bool $flag)
     {
-        $this->long = (bool) $flag;
+        $this->long = $flag;
     }
 
     /**
@@ -291,9 +291,9 @@ class GitDescribeTask extends GitBaseTask
     /**
      * @param $flag
      */
-    public function setAlways($flag)
+    public function setAlways(bool $flag)
     {
-        $this->always = (bool) $flag;
+        $this->always = $flag;
     }
 
     /**

@@ -84,12 +84,9 @@ class VersionCompareCondition implements Condition
         $this->operator = $operator;
     }
 
-    /**
-     * @param $debug
-     */
-    public function setDebug($debug)
+    public function setDebug(bool $debug)
     {
-        $this->debug = (bool) $debug;
+        $this->debug = $debug;
     }
 
     /**

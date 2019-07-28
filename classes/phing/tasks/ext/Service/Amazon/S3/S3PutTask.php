@@ -263,12 +263,9 @@ class S3PutTask extends S3
         return $this->_contentType;
     }
 
-    /**
-     * @param bool $createBuckets
-     */
-    public function setCreateBuckets($createBuckets)
+    public function setCreateBuckets(bool $createBuckets)
     {
-        $this->_createBuckets = (bool) $createBuckets;
+        $this->_createBuckets = $createBuckets;
     }
 
     /**
@@ -276,7 +273,7 @@ class S3PutTask extends S3
      */
     public function getCreateBuckets()
     {
-        return (bool) $this->_createBuckets;
+        return $this->_createBuckets;
     }
 
     /**
@@ -337,12 +334,9 @@ class S3PutTask extends S3
         return $headers;
     }
 
-    /**
-     * @param bool $fileNameOnly
-     */
-    public function setFileNameOnly($fileNameOnly)
+    public function setFileNameOnly(bool $fileNameOnly)
     {
-        $this->_fileNameOnly = (bool) $fileNameOnly;
+        $this->_fileNameOnly = $fileNameOnly;
     }
 
     /**

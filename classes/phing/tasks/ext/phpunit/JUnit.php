@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-use DOMDocument;
-use DOMElement;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\ExceptionWrapper;
 use PHPUnit\Framework\SelfDescribing;
@@ -30,8 +28,6 @@ use PHPUnit\Framework\Warning;
 use PHPUnit\Util\Filter;
 use PHPUnit\Util\Printer;
 use PHPUnit\Util\Xml;
-use ReflectionClass;
-use ReflectionException;
 
 /**
  * A TestListener that generates a logfile of the test execution in XML markup.

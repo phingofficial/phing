@@ -26,7 +26,7 @@ class PHPStanAnalyseCommandBuilder extends PHPStanCommandBuilder
             $cmd->createArgument()->setValue('--autoload-file=' . $task->getAutoloadFile());
         }
         if (!empty($task->getErrorFormat())) {
-            $cmd->createArgument()->setValue('--errorFormat=' . $task->getErrorFormat());
+            $cmd->createArgument()->setValue('--error-format=' . $task->getErrorFormat());
         }
         if (!empty($task->getMemoryLimit())) {
             $cmd->createArgument()->setValue('--memory-limit=' . $task->getMemoryLimit());
