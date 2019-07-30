@@ -35,6 +35,6 @@
     </target>
 
     <target name="testPhpCs">
-        <phpcs bin="../../../../../bin/phpcs" file="../../../../../classes/phing/dispatch" checkreturn="true" />
+        <phpcs bin="../../../../../bin/phpcs" file="../../../../../classes/phing/dispatch" checkreturn="false" ignoreAnnotations="true" />
     </target>
 </project>

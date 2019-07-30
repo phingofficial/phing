@@ -39,9 +39,6 @@ class PhpCSTask extends Task
     private $cache = false;
 
     /** @var bool */
-    private $colors = false;
-
-    /** @var bool */
     private $ignoreAnnotations = false;
 
     /** @var bool */
@@ -104,10 +101,6 @@ class PhpCSTask extends Task
     public function main()
     {
         $toExecute = $this->getCommandline();
-
-        $this->colors
-            ? $toExecute->createArgument()->setValue('--colors')
-            : $toExecute->createArgument()->setValue('--no-colors');
 
         $this->cache
             ? $toExecute->createArgument()->setValue('--cache')
