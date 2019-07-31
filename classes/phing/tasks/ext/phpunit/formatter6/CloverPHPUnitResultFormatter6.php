@@ -77,7 +77,7 @@ class CloverPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
 
         if (!empty($coverage)) {
             $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
-            $clover = new $cloverClass;
+            $clover = new $cloverClass();
 
             $contents = $clover->process($coverage);
 

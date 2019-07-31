@@ -73,7 +73,7 @@ class StringHelper
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));
 
-        return (boolean) in_array($trimmed, self::$TRUE_VALUES);
+        return (bool) in_array($trimmed, self::$TRUE_VALUES);
     }
 
     /**

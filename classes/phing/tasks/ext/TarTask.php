@@ -138,7 +138,7 @@ class TarTask extends MatchingTask
      */
     public function setIncludeEmptyDirs($bool)
     {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = (bool) $bool;
     }
 
     /**

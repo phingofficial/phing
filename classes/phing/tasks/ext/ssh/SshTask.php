@@ -271,7 +271,7 @@ class SshTask extends Task
      */
     public function setDisplay($display)
     {
-        $this->display = (boolean) $display;
+        $this->display = (bool) $display;
     }
 
     /**
@@ -282,7 +282,7 @@ class SshTask extends Task
      */
     public function setFailonerror($failonerror)
     {
-        $this->failonerror = (boolean) $failonerror;
+        $this->failonerror = (bool) $failonerror;
     }
 
     /**

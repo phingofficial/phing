@@ -59,7 +59,7 @@ class ContainsCondition implements Condition
      */
     public function setCaseSensitive($b)
     {
-        $this->caseSensitive = (boolean) $b;
+        $this->caseSensitive = (bool) $b;
     }
 
     /**

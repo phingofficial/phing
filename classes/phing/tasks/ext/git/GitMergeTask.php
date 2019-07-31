@@ -261,7 +261,7 @@ class GitMergeTask extends GitBaseTask
      */
     public function setCommit($flag)
     {
-        $this->commit = (boolean) $flag;
+        $this->commit = (bool) $flag;
     }
 
     /**
@@ -285,7 +285,7 @@ class GitMergeTask extends GitBaseTask
      */
     public function setNoCommit($flag)
     {
-        $this->noCommit = (boolean) $flag;
+        $this->noCommit = (bool) $flag;
     }
 
     /**

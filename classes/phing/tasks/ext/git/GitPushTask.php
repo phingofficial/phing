@@ -174,7 +174,7 @@ class GitPushTask extends GitBaseTask
      */
     public function setMirror($flag)
     {
-        $this->mirror = (boolean) $flag;
+        $this->mirror = (bool) $flag;
     }
 
     /**
@@ -198,7 +198,7 @@ class GitPushTask extends GitBaseTask
      */
     public function setDelete($flag)
     {
-        $this->delete = (boolean) $flag;
+        $this->delete = (bool) $flag;
     }
 
     /**
