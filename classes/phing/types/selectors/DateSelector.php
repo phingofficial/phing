@@ -128,7 +128,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setCheckdirs($includeDirs)
     {
-        $this->includeDirs = (boolean) $includeDirs;
+        $this->includeDirs = (bool) $includeDirs;
     }
 
     /**

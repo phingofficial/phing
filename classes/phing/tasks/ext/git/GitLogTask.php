@@ -181,7 +181,7 @@ class GitLogTask extends GitBaseTask
      */
     public function setNameStatus($flag)
     {
-        $this->nameStatus = (boolean) $flag;
+        $this->nameStatus = (bool) $flag;
     }
 
     /**

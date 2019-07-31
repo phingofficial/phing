@@ -106,7 +106,7 @@ class DeleteTask extends Task
      */
     public function setIncludeEmptyDirs($includeEmpty)
     {
-        $this->includeEmpty = (boolean) $includeEmpty;
+        $this->includeEmpty = (bool) $includeEmpty;
     }
 
     /**

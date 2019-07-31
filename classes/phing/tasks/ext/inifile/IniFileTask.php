@@ -279,7 +279,7 @@ class IniFileTask extends Task
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
-                        "', key '" . $key ."'",
+                        "', key '" . $key . "'",
                         Project::MSG_ERR
                     );
                     $this->logDebugOrMore($ex->getMessage());
@@ -318,7 +318,7 @@ class IniFileTask extends Task
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
-                        "', key '" . $key ."'"
+                        "', key '" . $key . "'"
                     );
                     $this->logDebugOrMore($ex->getMessage());
                 }

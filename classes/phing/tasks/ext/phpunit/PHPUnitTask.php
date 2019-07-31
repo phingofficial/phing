@@ -361,7 +361,7 @@ class PHPUnitTask extends Task
 
             if (class_exists($listener['class'])) {
                 if (count($listener['arguments']) == 0) {
-                    $listener = new $listener['class'];
+                    $listener = new $listener['class']();
                 } else {
                     $listenerClass = new ReflectionClass(
                         $listener['class']
@@ -511,7 +511,7 @@ class PHPUnitTask extends Task
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
-                $filter = new \SebastianBergmann\CodeCoverage\Filter;
+                $filter = new \SebastianBergmann\CodeCoverage\Filter();
                 if (method_exists($filter, 'addDirectoryToBlacklist')) {
                     $filter->addDirectoryToBlacklist($path);
                 }

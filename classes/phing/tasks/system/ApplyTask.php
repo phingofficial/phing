@@ -699,7 +699,6 @@ class ApplyTask extends ExecTask
                 $srcIndex += count($targetFiles);
             }
         } else { // no targetFilePos
-
             // 0 --> srcIndex
             $result = array_merge(array_slice($orig, 0, $srcIndex, true), $result);
             // srcIndex --> end
