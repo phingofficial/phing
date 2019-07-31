@@ -23,7 +23,6 @@
  * @category PHP
  * @package  PHP_CodeSniffer
  * @author   Rui Filipe Da Cunha Alves <ruifil@ruifil.com>
- * @codeCoverageIgnore
  */
 class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
 {
