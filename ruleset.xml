@@ -6,5 +6,6 @@
 
     <rule ref="PSR12">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
     </rule>
 </ruleset>
