@@ -49,9 +49,7 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - 7.1snapshot
-  - 7.2snapshot
-  - 7.3snapshot
+  - 7.4snapshot
   - master
 
 matrix:
@@ -60,16 +58,9 @@ matrix:
       env: PHPCS="TRUE"
     - php: 7.1
       env: DEPS="LOW"
-    - php: 7.1snapshot
-      env: DEPS="LOW"
-  exclude:
-    - php: 7.1
-    - php: 7.1snapshot
   fast_finish: true
   allow_failures:
-    - php: 7.1snapshot
-    - php: 7.2snapshot
-    - php: 7.3snapshot
+    - php: 7.4snapshot
     - php: master
 
 notifications:
