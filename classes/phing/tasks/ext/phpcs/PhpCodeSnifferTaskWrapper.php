@@ -23,6 +23,7 @@
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
+ * @codeCoverageIgnore
  */
 class PhpCodeSnifferTaskWrapper extends PHP_CodeSniffer
 {
