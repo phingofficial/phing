@@ -419,7 +419,7 @@ class RSTTask extends Task
      */
     public function setUptodate($uptodate)
     {
-        $this->uptodate = (boolean) $uptodate;
+        $this->uptodate = (bool) $uptodate;
     }
 
     /**

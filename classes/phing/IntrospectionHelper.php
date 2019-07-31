@@ -421,7 +421,6 @@ class IntrospectionHelper
             // project components must use class hints to support the add methods
 
             try { // try to invoke the adder method on object
-
                 $project->log(
                     "    -calling adder " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
                     Project::MSG_DEBUG

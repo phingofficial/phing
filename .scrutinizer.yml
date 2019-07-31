@@ -1,0 +1,14 @@
+tools:
+  external_code_coverage:
+    timeout: 1200
+
+checks:
+  php:
+    duplication: false
+
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - 'php-scrutinizer-run --enable-security-analysis'

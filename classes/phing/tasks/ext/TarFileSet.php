@@ -205,7 +205,7 @@ class TarFileSet extends FileSet
      */
     public function setPreserveLeadingSlashes($b)
     {
-        $this->preserveLeadingSlashes = (boolean) $b;
+        $this->preserveLeadingSlashes = (bool) $b;
     }
 
     /**
