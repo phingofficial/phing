@@ -85,7 +85,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      */
     public function setFormatOutput($v)
     {
-        $this->formatOutput = (boolean) $v;
+        $this->formatOutput = (bool) $v;
     }
 
     public function initialize()

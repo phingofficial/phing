@@ -243,7 +243,7 @@ class PropertyTask extends Task
      */
     public function setUserProperty($v)
     {
-        $this->userProperty = (boolean) $v;
+        $this->userProperty = (bool) $v;
     }
 
     /**
@@ -259,7 +259,7 @@ class PropertyTask extends Task
      */
     public function setOverride($v)
     {
-        $this->override = (boolean) $v;
+        $this->override = (bool) $v;
     }
 
     /**

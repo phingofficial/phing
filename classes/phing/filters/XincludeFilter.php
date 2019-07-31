@@ -106,7 +106,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if ($_xml === null) { // EOF?
-
             return -1;
         }
 
