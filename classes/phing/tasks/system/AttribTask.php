@@ -155,7 +155,7 @@ class AttribTask extends ApplyTask
      * @param  boolean $b ignored
      * @throws BuildException
      */
-    public function setAddsourcefile($b)
+    public function setAddsourcefile(bool $b)
     {
         throw new BuildException(
             $this->getTaskType()
@@ -187,7 +187,7 @@ class AttribTask extends ApplyTask
      * @param  boolean $parallel ignored
      * @throws BuildException
      */
-    public function setParallel($parallel)
+    public function setParallel(bool $parallel)
     {
         throw new BuildException(
             $this->getTaskType()
