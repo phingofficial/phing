@@ -92,13 +92,6 @@ class PHPUnitTask extends Task
         if (!class_exists('PHPUnit_Runner_Version') && !class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
-
-        /**
-         * point PHPUnit_MAIN_METHOD define to non-existing method
-         */
-        if (!defined('PHPUnit_MAIN_METHOD')) { // @codingStandardsIgnoreLine
-            define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
-        }
     }
 
     /**
