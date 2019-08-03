@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +18,9 @@
  */
 
 /**
- * Tests for PhpCodeSnifferTask
+ * Tests for PhpCSTask
  *
- * @author Michiel Rook <mrook@php.net>
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
  */
 class PhpCSTaskTest extends BuildFileTest
@@ -29,7 +28,7 @@ class PhpCSTaskTest extends BuildFileTest
     public function setUp(): void
     {
         if (class_exists('PHP_CodeSniffer')) {
-            $this->markTestSkipped('PHP CodeSniffer package available.');
+            $this->markTestSkipped('PHP CodeSniffer 2 package available.');
         }
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }

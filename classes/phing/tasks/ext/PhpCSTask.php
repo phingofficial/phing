@@ -100,6 +100,10 @@ class PhpCSTask extends Task
 
     public function main()
     {
+        if ($this->file === null) {
+            throw new BuildException('Missing attribute "file".');
+        }
+
         $toExecute = $this->getCommandline();
 
         $this->cache
