@@ -8718,35 +8718,35 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>file</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>...</entry>
+                        <entry>File or directory to check.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
                     <row>
                         <entry><literal>bin</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>...</entry>
+                        <entry>Path to phpcs binary.</entry>
                         <entry>phpcs</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>cache</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>...</entry>
+                        <entry>Cache results between runs.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>ignoreAnnotations</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>...</entry>
+                        <entry>Ignore all phpcs annotations in code comments.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>checkreturn</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>...</entry>
+                        <entry>Whether to check the return code.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
