@@ -8755,10 +8755,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Examples</title>
-            <para>...</para>
-            <programlisting language="xml">...</programlisting>
-            <para>...</para>
-            <programlisting language="xml">...</programlisting>
+            <programlisting language="xml">&lt;phpcs bin="bin/phpcs" file="classes" checkreturn="true"/></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PHPCPDTask">
