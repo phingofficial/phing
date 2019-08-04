@@ -23,4 +23,4 @@ build:
     tests:
       tests:
         override:
-          - 'cd test && ../bin/phing'
+          - 'git config --global user.email "scrutinizer@phing.info" && git config --global user.name "Phing Scrutinizer Builder" && cd test && ../bin/phing'
