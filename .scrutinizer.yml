@@ -2,13 +2,25 @@ tools:
   external_code_coverage:
     timeout: 1200
 
+filter:
+  paths: ["classes/*", "test/classes/*"]
+  dependency_paths:
+    - "vendor/"
+
 checks:
   php:
     duplication: false
 
 build:
+  environment:
+    php:
+      version: '7.3'
   nodes:
     analysis:
       tests:
         override:
           - 'php-scrutinizer-run --enable-security-analysis'
+    tests:
+      tests:
+        override:
+          - 'git config --global user.email "scrutinizer@phing.info" && git config --global user.name "Phing Scrutinizer Builder" && cd test && ../bin/phing'
