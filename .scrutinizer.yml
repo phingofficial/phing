@@ -14,9 +14,9 @@ checks:
     duplication: false
 
 build:
+  tests: false
   nodes:
     analysis:
       tests:
         override:
           - 'php-scrutinizer-run --enable-security-analysis'
-    tests: false
