@@ -92,8 +92,9 @@ class FileList extends DataType
     /**
      * Base directory for files in list.
      *
-     * @param  PhingFile $dir
-     * @throws BuildException
+     * @param PhingFile $dir
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setDir(PhingFile $dir)
     {
@@ -150,8 +151,9 @@ class FileList extends DataType
     /**
      * Sets a source "list" file that contains filenames to add -- one per line.
      *
-     * @param  string $file
-     * @throws BuildException
+     * @param string $file
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setListFile($file)
     {
@@ -184,8 +186,10 @@ class FileList extends DataType
     /**
      * Returns the list of files represented by this FileList.
      *
-     * @param  Project $p
+     * @param Project $p
      * @return array
+     * @throws IOException
+     * @throws BuildException
      */
     public function getFiles(Project $p)
     {
@@ -196,8 +200,16 @@ class FileList extends DataType
             return $ret;
         }
 
+        if ($this->dir === null) {
+            throw new BuildException("No directory specified for filelist.");
+        }
+
         if ($this->listfile !== null) {
             $this->readListFile($p);
+        }
+
+        if (empty($this->filenames)) {
+            throw new BuildException("No files specified for filelist.");
         }
 
         return $this->filenames;
@@ -225,6 +237,7 @@ class FileList extends DataType
      * @param Project $p
      *
      * @throws BuildException
+     * @throws IOException
      */
     private function readListFile(Project $p)
     {

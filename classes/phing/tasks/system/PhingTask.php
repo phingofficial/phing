@@ -94,7 +94,7 @@ class PhingTask extends Task
      */
     public function setHaltOnFailure($hof)
     {
-        $this->haltOnFailure = (boolean) $hof;
+        $this->haltOnFailure = (bool) $hof;
     }
 
     /**
@@ -533,7 +533,7 @@ class PhingTask extends Task
      */
     public function setInheritAll($value)
     {
-        $this->inheritAll = (boolean) $value;
+        $this->inheritAll = (bool) $value;
     }
 
     /**
@@ -544,7 +544,7 @@ class PhingTask extends Task
      */
     public function setInheritRefs($value)
     {
-        $this->inheritRefs = (boolean) $value;
+        $this->inheritRefs = (bool) $value;
     }
 
     /**

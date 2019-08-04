@@ -159,6 +159,7 @@
                 <ref name="pharpackage"/>
                 <ref name="phkpackage"/>
                 <ref name="phpcodesniffer"/>
+                <ref name="phpcs"/>
                 <ref name="phpcpd"/>
                 <ref name="phpdepend"/>
                 <ref name="phpdoc"/>
@@ -5013,6 +5014,34 @@
                 </zeroOrMore>
                 <optional>
                     <attribute name="cachefile"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="phpcs">
+        <element name="phpcs">
+            <interleave>
+                <attribute name="file"/>
+                <optional>
+                    <attribute name="bin" a:defaultValue="phpcs">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="cache" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignoreAnnotations" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="checkreturn" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>

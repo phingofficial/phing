@@ -560,6 +560,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getIterator(...$options): \ArrayIterator
     {
+        if ($this->isReference()) {
+            return $this->getRef($this->getProject())->getIterator($options);
+        }
         return new ArrayIterator($this->getFiles($options));
     }
 

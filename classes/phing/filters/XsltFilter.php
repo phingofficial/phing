@@ -140,7 +140,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setHtml($b)
     {
-        $this->html = (boolean) $b;
+        $this->html = (bool) $b;
     }
 
     /**
@@ -226,7 +226,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if ($_xml === null) { // EOF?
-
             return -1;
         }
 

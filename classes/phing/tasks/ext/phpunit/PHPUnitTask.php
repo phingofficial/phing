@@ -92,13 +92,6 @@ class PHPUnitTask extends Task
         if (!class_exists('PHPUnit_Runner_Version') && !class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
-
-        /**
-         * point PHPUnit_MAIN_METHOD define to non-existing method
-         */
-        if (!defined('PHPUnit_MAIN_METHOD')) { // @codingStandardsIgnoreLine
-            define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
-        }
     }
 
     /**
@@ -361,7 +354,7 @@ class PHPUnitTask extends Task
 
             if (class_exists($listener['class'])) {
                 if (count($listener['arguments']) == 0) {
-                    $listener = new $listener['class'];
+                    $listener = new $listener['class']();
                 } else {
                     $listenerClass = new ReflectionClass(
                         $listener['class']
@@ -511,7 +504,7 @@ class PHPUnitTask extends Task
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
-                $filter = new \SebastianBergmann\CodeCoverage\Filter;
+                $filter = new \SebastianBergmann\CodeCoverage\Filter();
                 if (method_exists($filter, 'addDirectoryToBlacklist')) {
                     $filter->addDirectoryToBlacklist($path);
                 }
