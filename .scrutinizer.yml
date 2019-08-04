@@ -7,8 +7,6 @@ tools:
     enabled: true
     filter:
       paths: ["classes/*", "test/classes/*"]
-      dependency_paths:
-        - vendor/
   sensiolabs_security_checker: true
 
 checks:
