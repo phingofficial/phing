@@ -785,18 +785,17 @@ class Project
     /**
      * Helper function
      *
-     * @param  $fileName
-     * @param  null $rootDir
+     * @param  string $fileName
+     * @param  PhingFile $rootDir
      * @throws IOException
      * @return \PhingFile
      */
-    public function resolveFile($fileName, $rootDir = null)
+    public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
-        } else {
-            return $this->fileUtils->resolveFile($rootDir, $fileName);
         }
+        return $this->fileUtils->resolveFile($rootDir, $fileName);
     }
 
     /**
