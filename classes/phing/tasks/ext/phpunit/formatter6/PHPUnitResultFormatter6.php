@@ -302,7 +302,7 @@ abstract class PHPUnitResultFormatter6 implements PHPUnit\Framework\TestListener
      */
     private function getMicrotime()
     {
-        list($usec, $sec) = explode(' ', microtime());
+        [$usec, $sec] = explode(' ', microtime());
 
         return (float) $usec + (float) $sec;
     }

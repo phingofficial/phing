@@ -424,7 +424,7 @@ class WindowsFileSystem extends FileSystem
             return null;
         }
 
-        $s = (isset(self::$driveDirCache[$i]) ? self::$driveDirCache[$i] : null);
+        $s = (self::$driveDirCache[$i] ?? null);
 
         if ($s !== null) {
             return $s;

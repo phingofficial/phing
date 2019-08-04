@@ -105,7 +105,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * @return    string the next character in the resulting stream, or -1 if the end of
      *         the resulting stream has been reached
      * @throws    BuildException
-     * @exception IOException
+     * @throws IOException
      *                if the underlying stream throws an IOException during
      *                reading
      */

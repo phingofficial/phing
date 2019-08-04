@@ -135,7 +135,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * @param string  XML to process.
      *
      * @return string
-     * @throws BuildException On errors
      */
     protected function process($xml)
     {
@@ -171,7 +170,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function chain(Reader $reader): Reader
     {
-        $newFilter = new XincludeFilter($reader);
+        $newFilter = new self($reader);
         $newFilter->setProject($this->getProject());
         $newFilter->setBasedir($this->getBasedir());
 

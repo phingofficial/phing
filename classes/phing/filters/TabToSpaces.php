@@ -66,7 +66,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
-     * @exception IOException if the underlying stream throws an IOException
+     * @throws IOException if the underlying stream throws an IOException
      *            during reading
      */
     public function read($len = null)

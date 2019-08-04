@@ -253,11 +253,7 @@ class S3PutTask extends S3
     {
         if ($this->_contentType === 'auto') {
             $ext = strtolower(substr(strrchr($this->getSource(), '.'), 1));
-            if (isset($this->_extensionContentTypeMapper[$ext])) {
-                return $this->_extensionContentTypeMapper[$ext];
-            }
-
-            return 'binary/octet-stream';
+            return $this->_extensionContentTypeMapper[$ext] ?? 'binary/octet-stream';
         }
 
         return $this->_contentType;
