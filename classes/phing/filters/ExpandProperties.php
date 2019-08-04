@@ -69,9 +69,9 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * @return ExpandProperties A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new ExpandProperties($reader);
+        $newFilter = new self($reader);
         $newFilter->setProject($this->getProject());
 
         return $newFilter;

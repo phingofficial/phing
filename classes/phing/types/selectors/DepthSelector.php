@@ -89,7 +89,7 @@ class DepthSelector extends BaseExtendSelector
      *
      * @return mixed|void
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
         if ($parameters !== null) {

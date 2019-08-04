@@ -134,16 +134,16 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new SortReader using the passed in Reader for instantiation.
      *
-     * @param Reader $rdr
+     * @param Reader $reader
      *            A Reader object providing the underlying stream. Must not be
      *            <code>null</code>.
      *
      * @return SortFilter a new filter based on this configuration, but filtering the
      *         specified reader
      */
-    public function chain(Reader $rdr)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new SortFilter($rdr);
+        $newFilter = new SortFilter($reader);
         $newFilter->setReverse($this->isReverse());
         $newFilter->setInitialized(true);
         return $newFilter;

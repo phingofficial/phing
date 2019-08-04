@@ -119,7 +119,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      * @return PhpArrayMapLines A new filter based on this configuration, but filtering
      *                          the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new PhpArrayMapLines($reader);
         $newFilter->setFunction($this->getFunction());

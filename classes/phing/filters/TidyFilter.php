@@ -128,15 +128,13 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new TidyFilter using the passed in Reader for instantiation.
      *
-     * @param    A|Reader $reader
-     * @internal param A $reader Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
+     * @param Reader $reader Reader object providing the underlying stream.
+     *                    Must not be <code>null</code>.
      * @return TidyFilter a new filter based on this configuration, but filtering the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new TidyFilter($reader);
+        $newFilter = new self($reader);
         $newFilter->setConfigParameters($this->configParameters);
         $newFilter->setEncoding($this->encoding);
         $newFilter->setProject($this->getProject());

@@ -166,10 +166,10 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * @param Reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return Reader A new filter based on this configuration, but filtering
+     * @return XincludeFilter A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new XincludeFilter($reader);
         $newFilter->setProject($this->getProject());

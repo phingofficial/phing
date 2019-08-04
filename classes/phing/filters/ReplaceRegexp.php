@@ -120,7 +120,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * @return ReplaceRegExp A new filter based on this configuration, but filtering
      *                       the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new ReplaceRegExp($reader);
         $newFilter->setProject($this->getProject());

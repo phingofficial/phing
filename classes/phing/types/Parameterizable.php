@@ -27,8 +27,8 @@
 interface Parameterizable
 {
     /**
-     * @param $parameters
+     * @param array $parameters
      * @return mixed
      */
-    public function setParameters($parameters);
+    public function setParameters(array $parameters): void;
 }
