@@ -331,7 +331,7 @@ class IntrospectionHelper
 
                 // value is a string representation of a boolean type,
                 // convert it to primitive
-                if ($reflectedAttr === 'bool') {
+                if ($reflectedAttr === 'bool' || ($reflectedAttr !== 'string' && StringHelper::isBoolean($value))) {
                     $value = StringHelper::booleanValue($value);
                 }
 
