@@ -12,8 +12,15 @@ checks:
     duplication: false
 
 build:
+  environment:
+    php:
+      version: '7.3'
   nodes:
     analysis:
       tests:
         override:
           - 'php-scrutinizer-run --enable-security-analysis'
+    tests:
+      tests:
+        override:
+          - 'cd test && ../bin/phing'
