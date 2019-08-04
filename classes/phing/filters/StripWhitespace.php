@@ -48,7 +48,6 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
         }
 
         if ($php === null) { // EOF?
-
             return -1;
         }
 

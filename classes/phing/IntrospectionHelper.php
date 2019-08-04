@@ -331,7 +331,7 @@ class IntrospectionHelper
 
                 // value is a string representation of a boolean type,
                 // convert it to primitive
-                if ($reflectedAttr === 'bool' || StringHelper::isBoolean($value)) {
+                if ($reflectedAttr === 'bool' || ($reflectedAttr !== 'string' && StringHelper::isBoolean($value))) {
                     $value = StringHelper::booleanValue($value);
                 }
 
@@ -421,7 +421,6 @@ class IntrospectionHelper
             // project components must use class hints to support the add methods
 
             try { // try to invoke the adder method on object
-
                 $project->log(
                     "    -calling adder " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
                     Project::MSG_DEBUG

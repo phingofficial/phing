@@ -156,7 +156,7 @@ class PatchTask extends Task
             throw new BuildException('strip has to be >= 0');
         }
 
-        $this->strip = (integer) $num;
+        $this->strip = (int) $num;
     }
 
     /**

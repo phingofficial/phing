@@ -8691,6 +8691,73 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PhpCSTask">
+        <title>PhpCSTask</title>
+        <para> This task runs <link xlink:href="http://pear.php.net/package/PHP_CodeSniffer"
+                                    role="extern">PHP_CodeSniffer Version 3+</link> to detect violations of a defined
+            set of coding standards.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>File or directory to check.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>bin</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to phpcs binary.</entry>
+                        <entry>phpcs</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>cache</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Cache results between runs.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>ignoreAnnotations</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Ignore all phpcs annotations in code comments.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checkreturn</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to check the return code.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;phpcs bin="bin/phpcs" file="classes" checkreturn="true"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="PHPCPDTask">
         <title>PHPCPDTask</title>
         <para> This task runs <link xlink:href="http://github.com/sebastianbergmann/phpcpd/"

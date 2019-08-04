@@ -122,7 +122,7 @@ class ZipTask extends MatchingTask
      */
     public function setIncludeEmptyDirs($bool)
     {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = (bool) $bool;
     }
 
     /**
@@ -133,7 +133,7 @@ class ZipTask extends MatchingTask
      */
     public function setIgnoreLinks($bool)
     {
-        $this->ignoreLinks = (boolean) $bool;
+        $this->ignoreLinks = (bool) $bool;
     }
 
     /**

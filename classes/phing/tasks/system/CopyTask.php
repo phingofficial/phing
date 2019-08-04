@@ -103,7 +103,7 @@ class CopyTask extends Task
      */
     public function setOverwrite($bool)
     {
-        $this->overwrite = (boolean) $bool;
+        $this->overwrite = (bool) $bool;
     }
 
     /**
@@ -154,7 +154,7 @@ class CopyTask extends Task
      */
     public function setPreserveLastModified($bool)
     {
-        $this->preserveLMT = (boolean) $bool;
+        $this->preserveLMT = (bool) $bool;
     }
 
     /**
@@ -167,7 +167,7 @@ class CopyTask extends Task
      */
     public function setPreservepermissions($bool)
     {
-        $this->preservePermissions = (boolean) $bool;
+        $this->preservePermissions = (bool) $bool;
     }
 
     /**
@@ -188,7 +188,7 @@ class CopyTask extends Task
      */
     public function setIncludeEmptyDirs($bool)
     {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = (bool) $bool;
     }
 
     /**
@@ -248,7 +248,7 @@ class CopyTask extends Task
 
     public function setEnableMultipleMappings($enableMultipleMappings)
     {
-        $this->enableMultipleMappings = (boolean) $enableMultipleMappings;
+        $this->enableMultipleMappings = (bool) $enableMultipleMappings;
     }
 
     public function isEnabledMultipleMappings()
@@ -266,7 +266,7 @@ class CopyTask extends Task
      */
     public function setHaltonerror($haltonerror)
     {
-        $this->haltonerror = (boolean) $haltonerror;
+        $this->haltonerror = (bool) $haltonerror;
     }
 
     /**
@@ -619,7 +619,6 @@ class CopyTask extends Task
         }
         $this->log("From " . $from . " to " . $to, $this->verbosity);
         try { // try to copy file
-
             $fromFile = new PhingFile($from);
             $toFile = new PhingFile($to);
 
