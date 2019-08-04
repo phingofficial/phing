@@ -1,13 +1,11 @@
 tools:
   external_code_coverage:
     timeout: 1200
-  php_code_coverage:
-    enabled: false
-  php_analyzer:
-    enabled: true
-    filter:
-      paths: ["classes/*", "test/classes/*"]
-  sensiolabs_security_checker: true
+
+filter:
+  paths: ["classes/*", "test/classes/*"]
+  dependency_paths:
+    - "vendor/"
 
 checks:
   php:
