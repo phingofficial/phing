@@ -300,7 +300,7 @@ class CoverageReportTask extends Task
             $lineElement = $this->doc->createElement('sourceline');
             $lineElement->setAttribute(
                 'coveredcount',
-                (isset($coverageInformation[$linenr]) ? $coverageInformation[$linenr] : '0')
+                ($coverageInformation[$linenr] ?? '0')
             );
 
             if ($linenr == $classStartLine) {

@@ -200,7 +200,7 @@ class PropertyHelper
      *
      * @return    string the original string with the properties replaced, or
      *         <code>null</code> if the original string is <code>null</code>.
-     * @exception BuildException if the string contains an opening
+     * @throws BuildException if the string contains an opening
      *                           <code>${</code> without a closing
      *                           <code>}</code>
      */

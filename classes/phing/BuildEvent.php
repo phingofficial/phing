@@ -77,7 +77,7 @@ class BuildEvent extends EventObject
     /**
      * The exception that caused the event, if any
      *
-     * @var object
+     * @var Exception
      */
     protected $exception = null;
 

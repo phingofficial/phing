@@ -258,7 +258,7 @@ class Target implements TaskContainer
      */
     public function setIf($property)
     {
-        $this->ifCondition = ($property === null) ? "" : $property;
+        $this->ifCondition = $property ?? "";
     }
 
     /**
@@ -270,7 +270,7 @@ class Target implements TaskContainer
      */
     public function setUnless($property)
     {
-        $this->unlessCondition = ($property === null) ? "" : $property;
+        $this->unlessCondition = $property ?? "";
     }
 
     /**

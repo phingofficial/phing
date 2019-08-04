@@ -92,7 +92,7 @@ interface FileScanner
      * Returns the names of the files which matched none of the include
      * patterns. The names are relative to the base directory.
      *
-     * @return the names of the files which matched none of the include
+     * @return array the names of the files which matched none of the include
      *         patterns.
      */
     public function getNotIncludedFiles();
@@ -100,10 +100,6 @@ interface FileScanner
     /**
      * Scans the base directory for files which match at least one include
      * pattern and don't match any exclude patterns.
-     *
-     * @exception IllegalStateException if the base directory was set
-     *            incorrectly (i.e. if it is <code>null</code>, doesn't exist,
-     *            or isn't a directory).
      */
     public function scan();
 

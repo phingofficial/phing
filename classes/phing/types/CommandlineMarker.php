@@ -70,7 +70,7 @@ class CommandlineMarker
      */
     public function setPrefix($prefix)
     {
-        $this->prefix = $prefix !== null ? $prefix : '';
+        $this->prefix = $prefix ?? '';
     }
 
     /**
@@ -88,7 +88,7 @@ class CommandlineMarker
      */
     public function setSuffix($suffix)
     {
-        $this->suffix = $suffix !== null ? $suffix : '';
+        $this->suffix = $suffix ?? '';
     }
 
     /**

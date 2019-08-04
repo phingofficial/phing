@@ -268,7 +268,7 @@ class DbDeployTask extends Task
                 }
 
                 $deploySql = $split[0];
-                $undoSql = isset($split[1]) ? $split[1] : '';
+                $undoSql = $split[1] ?? '';
 
                 if ($undo) {
                     $sql .= $undoSql;

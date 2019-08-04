@@ -63,7 +63,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
 
         foreach ($tokens as $token) {
             if (is_array($token)) {
-                list($id, $text) = $token;
+                [$id, $text] = $token;
 
                 switch ($id) {
                     case T_COMMENT:

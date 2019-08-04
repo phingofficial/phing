@@ -130,10 +130,6 @@ class PHPUnitUtil
             }
         }
 
-        if (isset(self::$definedClasses[$filename])) {
-            return self::$definedClasses[$filename];
-        } else {
-            return [];
-        }
+        return self::$definedClasses[$filename] ?? [];
     }
 }

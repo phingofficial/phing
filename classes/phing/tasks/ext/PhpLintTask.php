@@ -189,7 +189,6 @@ class PhpLintTask extends Task
      *
      * @param  string $file
      * @throws BuildException
-     * @return void
      */
     protected function lint($file)
     {
@@ -221,7 +220,7 @@ class PhpLintTask extends Task
             if ($lastmtime >= filemtime($file)) {
                 $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
 
-                return false;
+                return;
             }
         }
 

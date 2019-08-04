@@ -64,7 +64,7 @@ class GitArchiveTask extends GitBaseTask
             throw new BuildException('"treeish" is required parameter');
         }
 
-        $cmd = $this->getGitClient(false, $this->getRepository() !== null ? $this->getRepository() : './')
+        $cmd = $this->getGitClient(false, $this->getRepository() ?? './')
             ->getCommand('archive')
             ->setOption('prefix', $this->prefix)
             ->setOption('output', $this->output !== null ? $this->output->getPath() : false)
