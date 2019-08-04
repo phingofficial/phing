@@ -162,7 +162,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @return StripLineComments
      * @throws Exception
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new StripLineComments($reader);
         $newFilter->setComments($this->getComments());

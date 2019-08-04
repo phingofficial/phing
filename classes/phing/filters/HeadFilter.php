@@ -160,9 +160,9 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * @return HeadFilter A new filter based on this configuration, but filtering
      *                    the specified reader.
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new HeadFilter($reader);
+        $newFilter = new self($reader);
         $newFilter->setLines($this->getLines());
         $newFilter->setSkip($this->getSkip());
         $newFilter->setInitialized(true);

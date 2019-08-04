@@ -109,14 +109,13 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param    Reader $reader
+     * @param Reader $reader
+     * @return PrefixLines A new filter based on this configuration, but filtering
+     *                the specified reader
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new PrefixLines($reader);
         $newFilter->setPrefix($this->getPrefix());

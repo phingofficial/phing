@@ -104,7 +104,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
         if ($parameters !== null) {

@@ -86,14 +86,13 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
      *
-     * @param    A|Reader $reader
-     * @internal param A $reader Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
+     * @param A|Reader $reader
      * @return $this a new filter based on this configuration, but filtering
      *           the specified reader
+     * @internal param A $reader Reader object providing the underlying stream.
+     *               Must not be <code>null</code>.
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new StripPhpComments($reader);
         $newFilter->setProject($this->getProject());

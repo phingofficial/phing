@@ -222,7 +222,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * @throws BuildException
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
         if ($parameters !== null) {

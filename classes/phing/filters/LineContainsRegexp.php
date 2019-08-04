@@ -215,15 +215,14 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @param    Reader $reader
-     * @throws   Exception
+     * @param Reader $reader
+     * @return LineContainsRegexp A new filter based on this configuration, but filtering
+     *                the specified reader
+     * @throws Exception
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new LineContainsRegExp($reader);
         $newFilter->setRegexps($this->getRegexps());

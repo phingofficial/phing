@@ -215,7 +215,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *                      the specified reader
      * @throws Exception
      */
-    public function chain(Reader $reader): LineContains
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new self($reader);
         $newFilter->setContains($this->getContains());
