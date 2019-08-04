@@ -122,9 +122,6 @@ class PropertyTask extends Task
      */
     public function setValue($value)
     {
-        if (StringHelper::isBoolean($value)) {
-            $value = Project::toBoolean($value);
-        }
         $this->value = $value;
     }
 
