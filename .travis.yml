@@ -43,9 +43,9 @@ after_success:
       if [[ "$TRAVIS_BRANCH" == "master" ]]; then
         bash <(curl -s https://codecov.io/bash)
       fi
+      wget https://scrutinizer-ci.com/ocular.phar
+      php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
     fi
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
 
 php:
   - 7.1
