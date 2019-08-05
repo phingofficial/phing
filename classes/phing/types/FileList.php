@@ -38,7 +38,7 @@
  * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.types
  */
-class FileList extends DataType
+class FileList extends DataType implements IteratorAggregate
 {
 
     // public for "cloning" purposes
@@ -72,6 +72,15 @@ class FileList extends DataType
             $this->filenames = $filelist->filenames;
             $this->listfile = $filelist->listfile;
         }
+    }
+
+    public function getIterator()
+    {
+        if ($this->isReference()) {
+            return $this->getRef($this->getProject())->getIterator();
+        }
+
+        return new ArrayIterator($this->filenames);
     }
 
     /**
