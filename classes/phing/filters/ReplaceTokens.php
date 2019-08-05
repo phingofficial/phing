@@ -147,7 +147,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)

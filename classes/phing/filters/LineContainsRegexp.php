@@ -71,7 +71,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Returns all lines in a buffer that contain specified strings.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)

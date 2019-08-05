@@ -54,7 +54,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a prefix to each line of input stream and returns resulting stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)

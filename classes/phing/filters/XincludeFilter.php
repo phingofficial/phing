@@ -85,7 +85,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @throws BuildException
      * @return string         transformed buffer.
      */

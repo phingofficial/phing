@@ -44,7 +44,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns first n lines of stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *

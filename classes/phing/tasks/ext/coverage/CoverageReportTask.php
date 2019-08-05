@@ -255,8 +255,9 @@ class CoverageReportTask extends Task
             return $lines;
         } else {
             $lines = file($filename);
+            $numLines = count($lines);
 
-            for ($i = 0; $i < count($lines); $i++) {
+            for ($i = 0; $i < $numLines; $i++) {
                 $line = $lines[$i];
 
                 $line = rtrim($line);
