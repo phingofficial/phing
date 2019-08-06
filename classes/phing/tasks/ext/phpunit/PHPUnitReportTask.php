@@ -111,7 +111,9 @@ class PHPUnitReportTask extends Task
     /**
      * Returns the path to the XSL stylesheet
      *
-     * @throws BuildException
+     * @return PhingFile
+     * @throws IOException
+     * @throws NullPointerException
      */
     protected function getStyleSheet()
     {
@@ -143,9 +145,10 @@ class PHPUnitReportTask extends Task
     /**
      * Transforms the DOM document
      *
-     * @param  DOMDocument $document
+     * @param DOMDocument $document
      * @throws BuildException
      * @throws IOException
+     * @throws NullPointerException
      */
     protected function transform(DOMDocument $document)
     {
@@ -284,6 +287,7 @@ class PHPUnitReportTask extends Task
      * The main entry point
      *
      * @throws BuildException
+     * @throws NullPointerException
      */
     public function main()
     {
