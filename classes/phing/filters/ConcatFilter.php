@@ -218,7 +218,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns `append` attribute.
      *
-     * @return PhingFile append attribute
+     * @return PhingFile|string append attribute
      */
     public function getAppend()
     {

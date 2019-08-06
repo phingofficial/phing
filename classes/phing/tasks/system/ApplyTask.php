@@ -122,7 +122,7 @@ class ApplyTask extends ExecTask
      *
      * @param boolean $skip whether to skip empty filesets.
      */
-    public function setSkipEmptyFilesets(boolean $skip)
+    public function setSkipEmptyFilesets(bool $skip)
     {
         $this->skipEmpty = $skip;
     }

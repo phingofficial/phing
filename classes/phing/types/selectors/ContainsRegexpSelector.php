@@ -97,6 +97,14 @@ class ContainsRegexpSelector extends BaseExtendSelector
     }
 
     /**
+     * @param bool $multiline
+     */
+    public function setMultiline(bool $multiline): void
+    {
+        $this->multiline = $multiline;
+    }
+
+    /**
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
@@ -146,9 +154,9 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * @param string $filename the name of the file to check
      * @param PhingFile $file PhingFile object the selector can use
      *
-     * @throws BuildException
-     *
      * @return bool whether the file should be selected or not
+     * @throws IOException
+     * @throws RegexpException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

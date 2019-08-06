@@ -93,8 +93,8 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-        if (!class_exists('DomDocument')) {
-            throw new BuildException("Could not find the DomDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
+        if (!class_exists('DOMDocument')) {
+            throw new BuildException("Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
         }
 
         if ($this->processed === true) {
@@ -145,7 +145,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         // Create and setup document.
-        $xmlDom = new DomDocument();
+        $xmlDom = new DOMDocument();
         $xmlDom->resolveExternals = $this->resolveExternals;
 
         $xmlDom->loadXML($xml);

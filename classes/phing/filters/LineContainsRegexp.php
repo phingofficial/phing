@@ -71,8 +71,10 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Returns all lines in a buffer that contain specified strings.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed buffer, -1 on EOF
+     * @throws IOException
+     * @throws RegexpException
      */
     public function read($len = null)
     {
@@ -224,7 +226,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public function chain(Reader $reader): Reader
     {
-        $newFilter = new LineContainsRegExp($reader);
+        $newFilter = new LineContainsRegexp($reader);
         $newFilter->setRegexps($this->getRegexps());
         $newFilter->setNegate($this->isNegated());
         $newFilter->setCaseSensitive($this->isCaseSensitive());

@@ -88,7 +88,7 @@ class Parameter extends DataType
      */
     public function addText($v)
     {
-        $this->val = $v;
+        $this->value = $v;
     }
 
     public function getName()

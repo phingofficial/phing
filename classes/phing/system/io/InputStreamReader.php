@@ -47,6 +47,7 @@ class InputStreamReader extends Reader
 
     /**
      * Close the stream.
+     * @throws IOException
      */
     public function close()
     {
@@ -68,7 +69,7 @@ class InputStreamReader extends Reader
      * Read data from file.
      *
      * @param  int $len Num chars to read.
-     * @return string chars read or -1 if eof.
+     * @return mixed chars read or -1 if eof.
      */
     public function read($len = null)
     {

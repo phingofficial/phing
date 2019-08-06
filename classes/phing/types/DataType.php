@@ -61,6 +61,14 @@ class DataType extends ProjectComponent
     }
 
     /**
+     * @return string|null
+     */
+    public function getRefId()
+    {
+        return ($this->ref !== null ? $this->ref->getRefId() : null);
+    }
+
+    /**
      * Set the value of the refid attribute.
      *
      * Subclasses may need to check whether any other attributes
