@@ -35,7 +35,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Path to XSL stylesheet.
      *
-     * @var string
+     * @var PhingFile
      */
     private $xslFile = null;
 
@@ -146,7 +146,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Get the path to XSLT stylesheet.
      *
-     * @return mixed XSLT stylesheet path.
+     * @return PhingFile XSLT stylesheet path.
      */
     public function getStyle()
     {

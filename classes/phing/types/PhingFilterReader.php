@@ -29,6 +29,8 @@ class PhingFilterReader extends DataType
 {
     private $className;
     private $parameters = [];
+
+    /** @var Path */
     private $classPath;
 
     /**

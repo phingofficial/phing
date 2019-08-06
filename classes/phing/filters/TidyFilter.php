@@ -98,7 +98,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param  int $len
      * @throws BuildException
-     * @return int the resulting stream, or -1 if the end of the resulting stream has been reached
+     * @return string Characters read, or -1 if the end of the stream has been reached
      */
     public function read($len = null)
     {
@@ -149,7 +149,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     private function _initialize()
     {
         $params = $this->getParameters();
-        if ($params) {
+        if (!empty($params)) {
             foreach ($params as $param) {
                 if ($param->getType() == "config") {
                     $this->configParameters[] = $param;

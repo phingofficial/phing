@@ -50,11 +50,7 @@ class PearPackageFileSetTest extends BuildFileTest
         $ds = $ppfs->getDirectoryScanner(new Project());
 
         $arFiles = $ds->getIncludedFiles();
-        $this->assertInternalType(
-            'array',
-            $arFiles,
-            'getIncludedFiles returned no array'
-        );
+        $this->assertIsArray($arFiles, 'getIncludedFiles returned no array');
         $this->assertEquals(1, count($arFiles));
         $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 

@@ -34,6 +34,8 @@ abstract class Reader
      * otherwise stream is read until EOF.
      *
      * @param int $len
+     * @return string
+     * @throws IOException
      */
     abstract public function read($len = null);
 

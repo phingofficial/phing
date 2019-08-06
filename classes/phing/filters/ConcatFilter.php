@@ -49,7 +49,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * File to add after the content.
      *
-     * @var PhingFile $append
+     * @var PhingFile|string $append
      */
     private $append;
 
