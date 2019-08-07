@@ -273,7 +273,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  $excl The file to fetch the exclude patterns from.
+     * @param  PhingFile $excl The file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesfile($excl)

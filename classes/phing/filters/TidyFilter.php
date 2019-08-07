@@ -118,7 +118,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
 
         $config = $this->getDistilledConfig();
 
-        $tidy = new Tidy();
+        $tidy = new tidy();
         $tidy->parseString($buffer, $config, $this->encoding);
         $tidy->cleanRepair();
 

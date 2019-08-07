@@ -144,9 +144,9 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *                                    should be used, "false"|"off"|"no" when they
      *                                    shouldn't be used.
      */
-    public function setDefaultexcludes($useDefaultExcludes)
+    public function setDefaultexcludes(bool $useDefaultExcludes)
     {
-        $this->useDefaultExcludes = (bool) $useDefaultExcludes;
+        $this->useDefaultExcludes = $useDefaultExcludes;
     }
 
     /**
@@ -256,7 +256,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * Add a new selector into this container.
      *
      * @param  FileSelector $selector the new selector to add
-     * @return void
      */
     public function appendSelector(FileSelector $selector)
     {
@@ -267,92 +266,74 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a "Select" selector entry on the selector list
-     *
-     * @return SelectSelector
      */
     public function addSelector(SelectSelector $selector)
     {
-        return $this->fileset->addSelector($selector);
+        $this->fileset->addSelector($selector);
     }
 
     /**
      * add an "And" selector entry on the selector list
-     *
-     * @return AndSelector
      */
     public function addAnd(AndSelector $selector)
     {
-        return $this->fileset->addAnd($selector);
+        $this->fileset->addAnd($selector);
     }
 
     /**
      * add an "Or" selector entry on the selector list
-     *
-     * @return OrSelector
      */
     public function addOr(OrSelector $selector)
     {
-        return $this->fileset->addOr($selector);
+        $this->fileset->addOr($selector);
     }
 
     /**
      * add a "Not" selector entry on the selector list
-     *
-     * @return NotSelector
      */
     public function addNot(NotSelector $selector)
     {
-        return $this->fileset->addNot($selector);
+        $this->fileset->addNot($selector);
     }
 
     /**
      * add a "None" selector entry on the selector list
-     *
-     * @return NoneSelector
      */
     public function addNone(NoneSelector $selector)
     {
-        return $this->fileset->addNone($selector);
+        $this->fileset->addNone($selector);
     }
 
     /**
      * add a majority selector entry on the selector list
-     *
-     * @return MajoritySelector
      */
     public function addMajority(MajoritySelector $selector)
     {
-        return $this->fileset->addMajority($selector);
+        $this->fileset->addMajority($selector);
     }
 
     /**
      * add a selector date entry on the selector list
-     *
-     * @return DateSelector
      */
     public function addDate(DateSelector $selector)
     {
-        return $this->fileset->addDate($selector);
+        $this->fileset->addDate($selector);
     }
 
     /**
      * add a selector size entry on the selector list
-     *
-     * @return SizeSelector
      */
     public function addSize(SizeSelector $selector)
     {
-        return $this->fileset->addSize($selector);
+        $this->fileset->addSize($selector);
     }
 
     /**
      * add a selector filename entry on the selector list
-     *
-     * @return FilenameSelector
      */
     public function addFilename(FilenameSelector $selector)
     {
-        return $this->fileset->addFilename($selector);
+        $this->fileset->addFilename($selector);
     }
 
     /**
@@ -370,7 +351,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addContains(ContainsSelector $selector)
     {
-        return $this->fileset->addContains($selector);
+        $this->fileset->addContains($selector);
     }
 
     /**
@@ -378,7 +359,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addPresent(PresentSelector $selector)
     {
-        return $this->fileset->addPresent($selector);
+        $this->fileset->addPresent($selector);
     }
 
     /**
@@ -386,7 +367,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addDepth(DepthSelector $selector)
     {
-        return $this->fileset->addDepth($selector);
+        $this->fileset->addDepth($selector);
     }
 
     /**
@@ -394,7 +375,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addDepend(DependSelector $selector)
     {
-        return $this->fileset->addDepend($selector);
+        $this->fileset->addDepend($selector);
     }
 
     /**
@@ -402,7 +383,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addExecutable(ExecutableSelector $selector)
     {
-        return $this->fileset->addExecutable($selector);
+        $this->fileset->addExecutable($selector);
     }
 
     /**
@@ -410,7 +391,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addReadable(ReadableSelector $selector)
     {
-        return $this->fileset->addReadable($selector);
+        $this->fileset->addReadable($selector);
     }
 
     /**
@@ -418,7 +399,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addWritable(WritableSelector $selector)
     {
-        return $this->fileset->addWritable($selector);
+        $this->fileset->addWritable($selector);
     }
 
     /**
@@ -426,7 +407,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addDifferent(DifferentSelector $selector)
     {
-        return $this->fileset->addDifferent($selector);
+        $this->fileset->addDifferent($selector);
     }
 
     /**
@@ -436,7 +417,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addType(TypeSelector $selector)
     {
-        return $this->fileset->addType($selector);
+        $this->fileset->addType($selector);
     }
 
     /**
@@ -446,12 +427,12 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function addContainsRegexp(ContainsRegexpSelector $selector)
     {
-        return $this->fileset->addContainsRegexp($selector);
+        $this->fileset->addContainsRegexp($selector);
     }
 
     public function addSymlink(SymlinkSelector $selector)
     {
-        return $this->fileset->addSymlink($selector);
+        $this->fileset->addSymlink($selector);
     }
 
     /**
