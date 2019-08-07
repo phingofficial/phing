@@ -108,7 +108,9 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     /**
      * @param PHPUnit\Framework\TestResult $result
      */
-    abstract public function processResult(PHPUnit\Framework\TestResult $result);
+    public function processResult(PHPUnit\Framework\TestResult $result)
+    {
+    }
 
     public function startTestRun()
     {
