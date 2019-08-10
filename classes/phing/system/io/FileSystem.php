@@ -744,17 +744,15 @@ abstract class FileSystem
 
                     // Don't error on is_dir()
                     if (false == @is_dir($next_entry)) { // Is file.
-
                         try {
-                            self::unlink($next_entry); // Delete.
+                            $this->unlink($next_entry); // Delete.
                         } catch (Exception $e) {
                             $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() $next_entry. " . $e->getMessage();
                             throw new Exception($msg);
                         }
                     } else { // Is directory.
-
                         try {
-                            self::rmdir($next_entry, true); // Delete
+                            $this->rmdir($next_entry, true); // Delete
                         } catch (Exception $e) {
                             $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage();
                             throw new Exception($msg);
