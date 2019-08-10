@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -76,7 +76,11 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $properties = $parser->parse();
 
-        $this->assertIsArray($properties);
+        if (method_exists($this, 'assertIsArray')) {
+            $this->assertIsArray($properties);
+        } else {
+            $this->assertInternalType('array', $properties);
+        }
         $this->assertEmpty($properties);
     }
 
