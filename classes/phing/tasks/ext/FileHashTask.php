@@ -119,14 +119,14 @@ class FileHashTask extends Task
                         implode(', ', hash_algos())
                     )
                 );
-            } else {
-                throw new BuildException(
-                    sprintf(
-                        '[FileHash] Unknown hashtype specified %d. Must be either 0 (=MD5) or 1 (=SHA1)',
-                        $this->hashtype
-                    )
-                );
             }
+
+            throw new BuildException(
+                sprintf(
+                    '[FileHash] Unknown hashtype specified %d. Must be either 0 (=MD5) or 1 (=SHA1)',
+                    $this->hashtype
+                )
+            );
         }
 
         // publish hash value

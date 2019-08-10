@@ -86,10 +86,10 @@ class MajoritySelector extends BaseSelectorContainer
         }
         if ($yesvotes > $novotes) {
             return true;
-        } else {
-            if ($novotes > $yesvotes) {
-                return false;
-            }
+        }
+
+        if ($novotes > $yesvotes) {
+            return false;
         }
         // At this point, we know we have a tie.
         return $this->allowtie;

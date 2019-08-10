@@ -156,9 +156,9 @@ class PDOSQLExecFormatterElement
             }
 
             return new FileWriter($of, $this->append);
-        } else {
-            return $this->getDefaultOutput();
         }
+
+        return $this->getDefaultOutput();
     }
 
     /**

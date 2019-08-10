@@ -65,9 +65,9 @@ class WindowsFileSystem extends FileSystem
     {
         if ((strlen($p) > 0) && ($p{0} != $this->slash)) {
             return $this->slash . $p;
-        } else {
-            return $p;
         }
+
+        return $p;
     }
 
     /* -- Normalization and construction -- */
@@ -208,9 +208,9 @@ class WindowsFileSystem extends FileSystem
                     // Path does not denote a root directory, so do not append
                     // trailing slash
                     break;
-                } else {
-                    $sb .= $slash;
                 }
+
+                $sb .= $slash;
             } else {
                 $sb .= $c;
             }

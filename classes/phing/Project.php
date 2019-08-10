@@ -794,9 +794,9 @@ class Project
     {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
-        } else {
-            return $this->fileUtils->resolveFile($rootDir, $fileName);
         }
+
+        return $this->fileUtils->resolveFile($rootDir, $fileName);
     }
 
     /**

@@ -53,7 +53,9 @@ class HgAddTask extends HgBaseTask
 
         if (!file_exists($dir)) {
             throw new BuildException("\"$dir\" does not exist.");
-        } elseif (!is_dir($dir)) {
+        }
+
+        if (!is_dir($dir)) {
             throw new BuildException("\"$dir\" is not a directory.");
         }
 

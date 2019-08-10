@@ -347,9 +347,9 @@ class DbDeployTask extends Task
     {
         if ($this->checkall) {
             return (!in_array($fileChangeNumber, $this->appliedChangeNumbers));
-        } else {
-            return ($fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply);
         }
+
+        return ($fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply);
     }
 
     /**

@@ -206,14 +206,14 @@ class AvailableTask extends Task implements Condition
     {
         if ($this->filepath === null) {
             return $this->_checkFile1($this->file);
-        } else {
-            $paths = $this->filepath->listPaths();
-            foreach ($paths as $path) {
-                $this->log("Searching " . $path, Project::MSG_VERBOSE);
-                $tmp = new PhingFile($path, $this->file->getName());
-                if ($tmp->isFile()) {
-                    return true;
-                }
+        }
+
+        $paths = $this->filepath->listPaths();
+        foreach ($paths as $path) {
+            $this->log("Searching " . $path, Project::MSG_VERBOSE);
+            $tmp = new PhingFile($path, $this->file->getName());
+            if ($tmp->isFile()) {
+                return true;
             }
         }
 
@@ -246,10 +246,10 @@ class AvailableTask extends Task implements Condition
         if ($this->type !== null) {
             if ($this->type === "dir") {
                 return $file->isDirectory();
-            } else {
-                if ($this->type === "file") {
-                    return $file->isFile();
-                }
+            }
+
+            if ($this->type === "file") {
+                return $file->isFile();
             }
         }
 
@@ -264,8 +264,8 @@ class AvailableTask extends Task implements Condition
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
             return $this->_checkFile1(new PhingFile($resourcePath));
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

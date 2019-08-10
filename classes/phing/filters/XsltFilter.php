@@ -314,9 +314,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
             //$errno = xslt_errno($processor);
             //$err   = xslt_error($processor);
             throw new BuildException("XSLT Error");
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 
     /**

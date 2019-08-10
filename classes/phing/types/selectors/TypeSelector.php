@@ -121,8 +121,8 @@ class TypeSelector extends BaseExtendSelector
 
         if ($file->isDirectory()) {
             return $this->type === 'dir';
-        } else {
-            return $this->type === 'file';
         }
+
+        return $this->type === 'file';
     }
 }

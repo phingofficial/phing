@@ -91,8 +91,8 @@ class XsltParam
     {
         if ($this->expr instanceof RegisterSlot) {
             return $this->expr->getValue();
-        } else {
-            return $this->expr;
         }
+
+        return $this->expr;
     }
 }

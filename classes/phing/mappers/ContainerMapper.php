@@ -68,9 +68,9 @@ abstract class ContainerMapper implements FileNameMapper
     {
         if ($this == $fileNameMapper || ($fileNameMapper instanceof ContainerMapper && $fileNameMapper->contains($this))) {
             throw new BadMethodCallException("Circular mapper containment condition detected");
-        } else {
-            $this->mappers[] = $fileNameMapper;
         }
+
+        $this->mappers[] = $fileNameMapper;
     }
 
     /**

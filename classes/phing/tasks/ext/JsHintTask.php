@@ -228,12 +228,14 @@ class JsHintTask extends Task
         );
         if ($this->haltOnError && $errorsCount) {
             throw new BuildException($message);
-        } elseif ($this->haltOnWarning && $warningsCount) {
-            throw new BuildException($message);
-        } else {
-            $this->log('');
-            $this->log($message);
         }
+
+        if ($this->haltOnWarning && $warningsCount) {
+            throw new BuildException($message);
+        }
+
+        $this->log('');
+        $this->log($message);
 
         if ($this->checkstyleReportPath) {
             file_put_contents($this->checkstyleReportPath, $output);

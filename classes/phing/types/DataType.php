@@ -129,11 +129,11 @@ class DataType extends ProjectComponent
             if (in_array($o, $stk, true)) {
                 // throw build exception
                 throw $this->circularReference();
-            } else {
-                $stk[] = $o;
-                $o->dieOnCircularReference($stk, $p);
-                array_pop($stk);
             }
+
+            $stk[] = $o;
+            $o->dieOnCircularReference($stk, $p);
+            array_pop($stk);
         }
         $this->checked = true;
     }
@@ -167,9 +167,9 @@ class DataType extends ProjectComponent
         $o = $this->ref->getReferencedObject($this->getProject());
         if (!($o instanceof $requiredClass)) {
             throw new BuildException($this->ref->getRefId() . " doesn't denote a " . $dataTypeName);
-        } else {
-            return $o;
         }
+
+        return $o;
     }
 
     /**

@@ -82,11 +82,13 @@ class ConsoleInputHandler implements InputHandler
 
         if ($inputRequest instanceof YesNoInputRequest) {
             return new ConfirmationQuestion($prompt);
-        } elseif ($inputRequest instanceof MultipleChoiceInputRequest) {
-            return new ChoiceQuestion($prompt, $inputRequest->getChoices(), $inputRequest->getDefaultValue());
-        } else {
-            return new Question($prompt, $inputRequest->getDefaultValue());
         }
+
+        if ($inputRequest instanceof MultipleChoiceInputRequest) {
+            return new ChoiceQuestion($prompt, $inputRequest->getChoices(), $inputRequest->getDefaultValue());
+        }
+
+        return new Question($prompt, $inputRequest->getDefaultValue());
     }
 
     /**

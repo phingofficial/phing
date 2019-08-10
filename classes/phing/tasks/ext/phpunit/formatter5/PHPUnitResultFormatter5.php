@@ -269,9 +269,9 @@ abstract class PHPUnitResultFormatter5 implements PHPUnit_Framework_TestListener
     {
         if (end($this->timers)) {
             return $this->getMicrotime() - end($this->timers);
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**

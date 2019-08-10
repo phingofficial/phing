@@ -68,9 +68,9 @@ class PHPUnitUtil
 
         if (preg_match('/@subpackage[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
             return $matches[1];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -132,8 +132,8 @@ class PHPUnitUtil
 
         if (isset(self::$definedClasses[$filename])) {
             return self::$definedClasses[$filename];
-        } else {
-            return [];
         }
+
+        return [];
     }
 }

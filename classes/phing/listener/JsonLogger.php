@@ -106,11 +106,11 @@ class JsonLogger extends XmlLogger
                 $jsnode[$childname][] = $this->xml2js($childxmlnode, false);
             }
             return $jsnode;
-        } else {
-            $nodename = $xmlnode->getName();
-            $jsnode[$nodename] = [];
-            $jsnode[$nodename][] = $this->xml2js($xmlnode, false);
-            return json_encode($jsnode, JSON_PRETTY_PRINT);
         }
+
+        $nodename = $xmlnode->getName();
+        $jsnode[$nodename] = [];
+        $jsnode[$nodename][] = $this->xml2js($xmlnode, false);
+        return json_encode($jsnode, JSON_PRETTY_PRINT);
     }
 }

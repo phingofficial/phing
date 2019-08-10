@@ -287,7 +287,9 @@ class ZipTask extends MatchingTask
 
                 if ($this->ignoreLinks && $f->isLink()) {
                     continue;
-                } elseif ($f->isDirectory()) {
+                }
+
+                if ($f->isDirectory()) {
                     if ($pathInZip != '.') {
                         $zip->addEmptyDir($pathInZip);
                     }
