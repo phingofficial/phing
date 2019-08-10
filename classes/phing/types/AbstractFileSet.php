@@ -451,6 +451,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->hasSelectors();
         }
+        $stk[] = $this;
+        $this->dieOnCircularReference($stk, $this->getProject());
 
         return !empty($this->selectorsList);
     }
@@ -465,6 +467,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->hasPatterns();
         }
+        $stk[] = $this;
+        $this->dieOnCircularReference($stk, $this->getProject());
 
         if ($this->defaultPatterns->hasPatterns()) {
             return true;
