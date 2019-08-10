@@ -134,9 +134,9 @@ class ImportTask extends Task
                 if ($this->optional) {
                     $this->log($msg . '... skipped');
                     return;
-                } else {
-                    throw new BuildException($msg);
                 }
+
+                throw new BuildException($msg);
             }
             $this->importFile($file);
         }

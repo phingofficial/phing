@@ -285,14 +285,14 @@ class EchoProperties extends Task
                 $exception ?? $message,
                 $this->getLocation()
             );
-        } else {
-            $this->log(
-                $exception !== null && $message === ''
-                    ? $exception->getMessage()
-                    : $message,
-                $level
-            );
         }
+
+        $this->log(
+            $exception !== null && $message === ''
+                ? $exception->getMessage()
+                : $message,
+            $level
+        );
     }
 
     /**

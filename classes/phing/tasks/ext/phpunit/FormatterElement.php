@@ -137,9 +137,9 @@ class FormatterElement
     {
         if ($this->outfile) {
             return $this->outfile;
-        } else {
-            return $this->formatter->getPreferredOutfile() . $this->getExtension();
         }
+
+        return $this->formatter->getPreferredOutfile() . $this->getExtension();
     }
 
     /**

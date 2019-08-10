@@ -423,9 +423,9 @@ class ZendGuardLicenseTask extends Task
     {
         if (!empty($this->licenseTemplate)) {
             return $this->licenseTemplate;
-        } else {
-            return $this->generateLicenseTemplate();
         }
+
+        return $this->generateLicenseTemplate();
     }
 
     /**

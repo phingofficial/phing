@@ -497,13 +497,13 @@ class PhingFile
 
         if (is_link($this->path)) {
             return true;
-        } else {
-            if ($this->isDirectory()) {
-                return true;
-            } else {
-                return @file_exists($this->path) || is_link($this->path);
-            }
         }
+
+        if ($this->isDirectory()) {
+            return true;
+        }
+
+        return @file_exists($this->path) || is_link($this->path);
     }
 
     /**

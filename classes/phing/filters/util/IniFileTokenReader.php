@@ -63,9 +63,9 @@ class IniFileTokenReader extends TokenReader
 
         if (count($this->tokens) > 0) {
             return array_pop($this->tokens);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

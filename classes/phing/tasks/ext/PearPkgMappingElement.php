@@ -68,9 +68,9 @@ class PearPkgMappingElement
             }
 
             return $value;
-        } else {
-            return $this->value;
         }
+
+        return $this->value;
     }
 
     /**

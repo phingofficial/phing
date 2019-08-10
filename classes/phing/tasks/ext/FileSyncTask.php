@@ -221,10 +221,10 @@ class FileSyncTask extends Task
 
         if ($this->sourceDir === null) {
             throw new BuildException('The "sourcedir" attribute is missing or undefined.');
-        } else {
-            if ($this->destinationDir === null) {
-                throw new BuildException('The "destinationdir" attribute is missing or undefined.');
-            }
+        }
+
+        if ($this->destinationDir === null) {
+            throw new BuildException('The "destinationdir" attribute is missing or undefined.');
         }
 
         if (strpos($this->destinationDir, ':')) {
@@ -268,9 +268,9 @@ class FileSyncTask extends Task
                 Project::MSG_ERR
             );
             throw new BuildException($return . ': ' . $this->getErrorMessage($return));
-        } else {
-            $this->log($lines, Project::MSG_INFO);
         }
+
+        $this->log($lines, Project::MSG_INFO);
 
         return $return;
     }

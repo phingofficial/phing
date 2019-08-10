@@ -514,15 +514,15 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getSelectors($p);
-        } else {
-            // *copy* selectors
-            $result = [];
-            for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
-                $result[] = clone $this->selectorsList[$i];
-            }
-
-            return $result;
         }
+
+// *copy* selectors
+        $result = [];
+        for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
+            $result[] = clone $this->selectorsList[$i];
+        }
+
+        return $result;
     }
 
     /**

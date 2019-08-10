@@ -66,9 +66,9 @@ abstract class Amazon extends Task
         if (!isset($this->$var)) {
             if (!($val = $this->getProject()->getProperty('amazon.' . strtolower($var)))) {
                 return false;
-            } else {
-                return $val;
             }
+
+            return $val;
         }
 
         return $this->_options[$var];

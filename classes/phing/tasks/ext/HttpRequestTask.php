@@ -242,9 +242,9 @@ class HttpRequestTask extends HttpTask
 
             if (!$this->regexp->matches($response->getBody())) {
                 throw new BuildException('The received response body did not match the given regular expression');
-            } else {
-                $this->log('The response body matched the provided regex.');
             }
+
+            $this->log('The response body matched the provided regex.');
         }
 
         if ($this->responseCodeRegex !== '') {
@@ -252,9 +252,9 @@ class HttpRequestTask extends HttpTask
 
             if (!$this->regexp->matches($response->getStatus())) {
                 throw new BuildException('The received response status-code did not match the given regular expression');
-            } else {
-                $this->log('The response status-code matched the provided regex.');
             }
+
+            $this->log('The response status-code matched the provided regex.');
         }
     }
 }

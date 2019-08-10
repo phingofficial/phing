@@ -274,9 +274,7 @@ class CoverageThresholdTask extends Task
                         $methodCoverage = 0;
                     }
 
-                    if ($methodCoverage < $this->_perMethod
-                        && !$method->isAbstract()
-                    ) {
+                    if ($methodCoverage < $this->_perMethod && !$method->isAbstract()) {
                         throw new BuildException(
                             'The coverage (' . round($methodCoverage, 2) . '%) '
                             . 'for method "' . $method->getName() . '" is lower'
@@ -284,7 +282,9 @@ class CoverageThresholdTask extends Task
                             . $this->_perMethod . '%), see file: "'
                             . $filename . '"'
                         );
-                    } elseif ($methodCoverage < $this->_perMethod
+                    }
+
+                    if ($methodCoverage < $this->_perMethod
                         && $method->isAbstract()
                         && $this->_verbose === true
                     ) {
@@ -319,16 +319,16 @@ class CoverageThresholdTask extends Task
                     $classCoverage = 0;
                 }
 
-                if ($classCoverage < $this->_perClass
-                    && !$reflection->isAbstract()
-                ) {
+                if ($classCoverage < $this->_perClass && !$reflection->isAbstract()) {
                     throw new BuildException(
                         'The coverage (' . round($classCoverage, 2) . '%) for class "'
                         . $reflection->getName() . '" is lower than the '
                         . 'specified threshold (' . $this->_perClass . '%), '
                         . 'see file: "' . $filename . '"'
                     );
-                } elseif ($classCoverage < $this->_perClass
+                }
+
+                if ($classCoverage < $this->_perClass
                     && $reflection->isAbstract()
                     && $this->_verbose === true
                 ) {

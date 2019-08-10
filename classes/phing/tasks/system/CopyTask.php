@@ -655,8 +655,8 @@ class CopyTask extends Task
     {
         if ($this->haltonerror) {
             throw new BuildException($message, $location);
-        } else {
-            $this->log($message, Project::MSG_ERR);
         }
+
+        $this->log($message, Project::MSG_ERR);
     }
 }

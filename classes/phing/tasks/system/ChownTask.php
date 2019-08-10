@@ -221,9 +221,9 @@ class ChownTask extends Task
         } catch (Exception $e) {
             if ($this->failonerror) {
                 throw $e;
-            } else {
-                $this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
             }
+
+            $this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
         }
     }
 }

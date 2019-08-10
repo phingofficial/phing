@@ -70,9 +70,9 @@ class PHPUnitUtil
 
         if (preg_match('/@subpackage[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
             return $matches[1];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

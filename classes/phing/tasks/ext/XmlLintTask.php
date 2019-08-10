@@ -122,9 +122,9 @@ class XmlLintTask extends Task
     {
         if ($this->haltonfailure) {
             throw new BuildException($message);
-        } else {
-            $this->log($message, Project::MSG_ERR);
         }
+
+        $this->log($message, Project::MSG_ERR);
     }
 
     /**

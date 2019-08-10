@@ -470,25 +470,25 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     {
         if (empty($this->basedir)) {
             return false;
-        } else {
-            $exception = null;
+        }
 
-            if (!@file_exists($this->basedir)) {
-                if ($this->errorOnMissingDir) {
-                    $exception = new BuildException(
-                        "basedir  $this->basedir does not exist."
-                    );
-                } else {
-                    return false;
-                }
-            } elseif (!@is_dir($this->basedir)) {
+        $exception = null;
+
+        if (!@file_exists($this->basedir)) {
+            if ($this->errorOnMissingDir) {
                 $exception = new BuildException(
-                    "basedir $this->basedir is not a directory."
+                    "basedir  $this->basedir does not exist."
                 );
+            } else {
+                return false;
             }
-            if ($exception !== null) {
-                throw $exception;
-            }
+        } elseif (!@is_dir($this->basedir)) {
+            $exception = new BuildException(
+                "basedir $this->basedir is not a directory."
+            );
+        }
+        if ($exception !== null) {
+            throw $exception;
         }
 
         if ($this->includes === null) {

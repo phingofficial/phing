@@ -79,9 +79,9 @@ class Dirname extends Task
         }
         if ($this->file == null) {
             throw new BuildException("file attribute required", $this->getLocation());
-        } else {
-            $value = $this->file->getAbsoluteFile()->getParent();
-            $this->getProject()->setNewProperty($this->property, $value);
         }
+
+        $value = $this->file->getAbsoluteFile()->getParent();
+        $this->getProject()->setNewProperty($this->property, $value);
     }
 }

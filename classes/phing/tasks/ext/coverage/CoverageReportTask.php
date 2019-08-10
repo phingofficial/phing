@@ -254,28 +254,28 @@ class CoverageReportTask extends Task
             $lines = array_map([$this, 'stripDiv'], $lines);
 
             return $lines;
-        } else {
-            $lines = file($filename);
-            $numLines = count($lines);
+        }
 
-            for ($i = 0; $i < $numLines; $i++) {
-                $line = $lines[$i];
+        $lines = file($filename);
+        $numLines = count($lines);
 
-                $line = rtrim($line);
+        for ($i = 0; $i < $numLines; $i++) {
+            $line = $lines[$i];
 
-                if (function_exists('mb_check_encoding') && mb_check_encoding($line, 'UTF-8')) {
-                    $lines[$i] = $line;
+            $line = rtrim($line);
+
+            if (function_exists('mb_check_encoding') && mb_check_encoding($line, 'UTF-8')) {
+                $lines[$i] = $line;
+            } else {
+                if (function_exists('mb_convert_encoding')) {
+                    $lines[$i] = mb_convert_encoding($line, 'UTF-8');
                 } else {
-                    if (function_exists('mb_convert_encoding')) {
-                        $lines[$i] = mb_convert_encoding($line, 'UTF-8');
-                    } else {
-                        $lines[$i] = utf8_encode($line);
-                    }
+                    $lines[$i] = utf8_encode($line);
                 }
             }
-
-            return $lines;
         }
+
+        return $lines;
     }
 
     /**

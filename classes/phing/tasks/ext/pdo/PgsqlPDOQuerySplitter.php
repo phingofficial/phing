@@ -130,25 +130,29 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
         if ('$' == $ch) {
             // empty tag
             return '';
-        } elseif (!ctype_alpha($ch) && '_' != $ch) {
+        }
+
+        if (!ctype_alpha($ch) && '_' != $ch) {
             // not a delimiter
             $this->ungetc();
 
             return false;
-        } else {
-            $tag = $ch;
-            while (false !== ($ch = $this->getc())) {
-                if ('$' == $ch) {
-                    return $tag;
-                } elseif (ctype_alnum($ch) || '_' == $ch) {
-                    $tag .= $ch;
-                } else {
-                    for ($i = 0, $tagLength = strlen($tag); $i < $tagLength; $i++) {
-                        $this->ungetc();
-                    }
+        }
 
-                    return false;
+        $tag = $ch;
+        while (false !== ($ch = $this->getc())) {
+            if ('$' == $ch) {
+                return $tag;
+            }
+
+            if (ctype_alnum($ch) || '_' == $ch) {
+                $tag .= $ch;
+            } else {
+                for ($i = 0, $tagLength = strlen($tag); $i < $tagLength; $i++) {
+                    $this->ungetc();
                 }
+
+                return false;
             }
         }
     }
@@ -216,10 +220,10 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             }
                             if ($hasQuery) {
                                 return $sql;
-                            } else {
-                                for ($j = 1; $j < $i; $j++) {
-                                    $this->ungetc();
-                                }
+                            }
+
+                            for ($j = 1; $j < $i; $j++) {
+                                $this->ungetc();
                             }
                     }
                     break;

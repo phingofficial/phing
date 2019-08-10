@@ -59,7 +59,9 @@ class ScssPhpCompiler implements SassTaskCompiler
     {
         if (file_exists($inputFilePath) && is_readable($inputFilePath)) {
             return true;
-        } elseif ($failOnError) {
+        }
+
+        if ($failOnError) {
             throw new BuildException(
                 "Cannot read from input file " . var_export($inputFilePath, true),
                 Project::MSG_INFO

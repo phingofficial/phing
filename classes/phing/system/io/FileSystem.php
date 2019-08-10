@@ -225,9 +225,9 @@ abstract class FileSystem
 
         if (!$write) {
             return (bool) @is_readable($strPath);
-        } else {
-            return (bool) @is_writable($strPath);
         }
+
+        return (bool) @is_writable($strPath);
     }
 
     /**
@@ -297,10 +297,10 @@ abstract class FileSystem
         $fs = filesize((string) $strPath);
         if ($fs !== false) {
             return $fs;
-        } else {
-            $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $php_errormsg";
-            throw new IOException($msg);
         }
+
+        $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $php_errormsg";
+        throw new IOException($msg);
     }
 
     /* -- File operations -- */
@@ -724,42 +724,42 @@ abstract class FileSystem
             if (false === $handle) { // Error.
                 $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $php_errormsg";
                 throw new Exception($msg);
-            } else { // Read from handle.
-                // Don't error on readdir().
-                while (false !== ($entry = @readdir($handle))) {
-                    if ($entry != '.' && $entry != '..') {
-                        // Only add / if it isn't already the last char.
-                        // This ONLY serves the purpose of making the Logger
-                        // output look nice:)
+            }
+            // Read from handle.
+            // Don't error on readdir().
+            while (false !== ($entry = @readdir($handle))) {
+                if ($entry != '.' && $entry != '..') {
+                    // Only add / if it isn't already the last char.
+                    // This ONLY serves the purpose of making the Logger
+                    // output look nice:)
 
-                        if (strpos(strrev($dir), DIRECTORY_SEPARATOR) === 0) { // there is a /
-                            $next_entry = $dir . $entry;
-                        } else { // no /
-                            $next_entry = $dir . DIRECTORY_SEPARATOR . $entry;
+                    if (strpos(strrev($dir), DIRECTORY_SEPARATOR) === 0) { // there is a /
+                        $next_entry = $dir . $entry;
+                    } else { // no /
+                        $next_entry = $dir . DIRECTORY_SEPARATOR . $entry;
+                    }
+
+                    // NOTE: As of php 4.1.1 is_dir doesn't return FALSE it
+                    // returns 0. So use == not ===.
+
+                    // Don't error on is_dir()
+                    if (false == @is_dir($next_entry)) { // Is file.
+                        try {
+                            $this->unlink($next_entry); // Delete.
+                        } catch (Exception $e) {
+                            $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() $next_entry. " . $e->getMessage();
+                            throw new Exception($msg);
                         }
-
-                        // NOTE: As of php 4.1.1 is_dir doesn't return FALSE it
-                        // returns 0. So use == not ===.
-
-                        // Don't error on is_dir()
-                        if (false == @is_dir($next_entry)) { // Is file.
-                            try {
-                                self::unlink($next_entry); // Delete.
-                            } catch (Exception $e) {
-                                $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() $next_entry. " . $e->getMessage();
-                                throw new Exception($msg);
-                            }
-                        } else { // Is directory.
-                            try {
-                                self::rmdir($next_entry, true); // Delete
-                            } catch (Exception $e) {
-                                $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage();
-                                throw new Exception($msg);
-                            }
-                        } // end is_dir else
-                    } // end .. if
-                } // end while
-            } // end handle if
+                    } else { // Is directory.
+                        try {
+                            $this->rmdir($next_entry, true); // Delete
+                        } catch (Exception $e) {
+                            $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage();
+                            throw new Exception($msg);
+                        }
+                    }
+                }
+            }
 
             // Don't error on closedir()
             @closedir($handle);
@@ -821,18 +821,21 @@ abstract class FileSystem
             // Add error from php to end of log message. $php_errormsg.
             $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of $file1.";
             throw new Exception($msg);
-        } elseif ($mtime2 === false) { // FAILED. Log and return err.
+        }
+
+        if ($mtime2 === false) { // FAILED. Log and return err.
             // Add error from php to end of log message. $php_errormsg.
             $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of $file2.";
             throw new Exception($msg);
-        } else { // Worked. Log and return compare.
-            // Compare mtimes.
-            if ($mtime1 == $mtime2) {
-                return 0;
-            } else {
-                return ($mtime1 < $mtime2) ? -1 : 1;
-            } // end compare
         }
+
+// Worked. Log and return compare.
+        // Compare mtimes.
+        if ($mtime1 == $mtime2) {
+            return 0;
+        }
+
+        return ($mtime1 < $mtime2) ? -1 : 1; // end compare
     }
 
     /**

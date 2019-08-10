@@ -246,9 +246,9 @@ class ComponentHelper
 
             if ($o instanceof Condition) {
                 return $o;
-            } else {
-                throw new BuildException("Not actually a condition");
             }
+
+            throw new BuildException("Not actually a condition");
         } catch (Exception $e) {
             throw new BuildException("Could not create condition of type: " . $conditionType, $e);
         }

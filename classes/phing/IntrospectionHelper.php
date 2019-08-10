@@ -592,17 +592,19 @@ class IntrospectionHelper
             }
 
             return "$elClass (unknown)";
-        } else {
-            // ->getTag() method does exist, so use it
-            $elName = $element->getTag();
-            if (isset($taskdefs[$elName])) {
-                return $taskdefs[$elName];
-            } elseif (isset($typedefs[$elName])) {
-                return $typedefs[$elName];
-            } else {
-                return "$elName (unknown)";
-            }
         }
+
+// ->getTag() method does exist, so use it
+        $elName = $element->getTag();
+        if (isset($taskdefs[$elName])) {
+            return $taskdefs[$elName];
+        }
+
+        if (isset($typedefs[$elName])) {
+            return $typedefs[$elName];
+        }
+
+        return "$elName (unknown)";
     }
 
     /**
