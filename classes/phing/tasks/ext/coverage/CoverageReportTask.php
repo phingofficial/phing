@@ -95,15 +95,16 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $packageName
-     * @return null
+     * @param string $packageName
+     * @return DOMElement|null
      */
-    protected function getPackageElement($packageName)
+    protected function getPackageElement($packageName): ?DOMNode
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
+        /** @var DOMElement $package */
         foreach ($packages as $package) {
-            if ($package->getAttribute('name') == $packageName) {
+            if ($package->getAttribute('name') === $packageName) {
                 return $package;
             }
         }
