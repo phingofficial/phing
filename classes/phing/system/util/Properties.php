@@ -239,10 +239,7 @@ class Properties
      */
     public function setProperty($key, $value)
     {
-        $oldValue = null;
-        if (isset($this->properties[$key])) {
-            $oldValue = $this->properties[$key];
-        }
+        $oldValue = $this->properties[$key] ?? null;
         $this->properties[$key] = $value;
 
         return $oldValue;

@@ -147,7 +147,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -299,15 +299,14 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @param    Reader $reader
-     * @throws   Exception
+     * @param Reader $reader
+     * @return ReplaceTokens A new filter based on this configuration, but filtering
+     *                the specified reader
+     * @throws Exception
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new ReplaceTokens($reader);
         $newFilter->setProject($this->getProject());

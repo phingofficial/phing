@@ -517,7 +517,7 @@ class ZendGuardLicenseTask extends Task
         // merge all the values
         $content = '';
         foreach ($contentArr as $valuePair) {
-            list($key, $value) = $valuePair;
+            [$key, $value] = $valuePair;
 
             $content .= $key . " = " . $value . "\n";
         }
@@ -547,7 +547,7 @@ class ZendGuardLicenseTask extends Task
         $valuePairs = explode($pairSeparator, $valueString);
         if (!empty($valuePairs)) {
             foreach ($valuePairs as $valuePair) {
-                list($key, $value) = explode('=', $valuePair, 2);
+                [$key, $value] = explode('=', $valuePair, 2);
 
                 // add pair into the valueArray
                 $valueArray[] = [$keyPrefix . $key, $value];

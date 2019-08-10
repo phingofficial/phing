@@ -168,11 +168,11 @@ class PearPackage2Task extends PearPackageTask
                     $deps = $map->getValue();
                     foreach ($deps as $dep) {
                         $type = isset($dep['optional']) ? 'optional' : 'required';
-                        $min = isset($dep['min']) ? $dep['min'] : $dep['version'];
-                        $max = isset($dep['max']) ? $dep['max'] : null;
-                        $rec = isset($dep['recommended']) ? $dep['recommended'] : null;
-                        $channel = isset($dep['channel']) ? $dep['channel'] : false;
-                        $uri = isset($dep['uri']) ? $dep['uri'] : false;
+                        $min = $dep['min'] ?? $dep['version'];
+                        $max = $dep['max'] ?? null;
+                        $rec = $dep['recommended'] ?? null;
+                        $channel = $dep['channel'] ?? false;
+                        $uri = $dep['uri'] ?? false;
 
                         if (!empty($channel)) {
                             $this->pkg->addPackageDepWithChannel(
@@ -197,9 +197,9 @@ class PearPackage2Task extends PearPackageTask
                     $deps = $map->getValue();
                     foreach ($deps as $dep) {
                         $type = isset($dep['optional']) ? 'optional' : 'required';
-                        $min = isset($dep['min']) ? $dep['min'] : $dep['version'];
-                        $max = isset($dep['max']) ? $dep['max'] : $dep['version'];
-                        $rec = isset($dep['recommended']) ? $dep['recommended'] : $dep['version'];
+                        $min = $dep['min'] ?? $dep['version'];
+                        $max = $dep['max'] ?? $dep['version'];
+                        $rec = $dep['recommended'] ?? $dep['version'];
 
                         $this->pkg->addExtensionDep(
                             $type,

@@ -51,7 +51,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Applies a native php function to the original input and returns resulting stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -119,7 +119,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      * @return PhpArrayMapLines A new filter based on this configuration, but filtering
      *                          the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new PhpArrayMapLines($reader);
         $newFilter->setFunction($this->getFunction());

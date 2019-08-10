@@ -36,10 +36,10 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and the Phing properties are expanded.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
-     * @exception IOException if the underlying stream throws an IOException
+     * @throws IOException if the underlying stream throws an IOException
      * during reading
      */
     public function read($len = null)
@@ -69,9 +69,9 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * @return ExpandProperties A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new ExpandProperties($reader);
+        $newFilter = new self($reader);
         $newFilter->setProject($this->getProject());
 
         return $newFilter;

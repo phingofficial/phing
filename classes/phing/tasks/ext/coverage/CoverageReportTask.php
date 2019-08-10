@@ -95,15 +95,16 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $packageName
-     * @return null
+     * @param string $packageName
+     * @return DOMElement|null
      */
-    protected function getPackageElement($packageName)
+    protected function getPackageElement($packageName): ?DOMNode
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
+        /** @var DOMElement $package */
         foreach ($packages as $package) {
-            if ($package->getAttribute('name') == $packageName) {
+            if ($package->getAttribute('name') === $packageName) {
                 return $package;
             }
         }
@@ -256,8 +257,9 @@ class CoverageReportTask extends Task
         }
 
         $lines = file($filename);
+        $numLines = count($lines);
 
-        for ($i = 0; $i < count($lines); $i++) {
+        for ($i = 0; $i < $numLines; $i++) {
             $line = $lines[$i];
 
             $line = rtrim($line);
@@ -300,7 +302,7 @@ class CoverageReportTask extends Task
             $lineElement = $this->doc->createElement('sourceline');
             $lineElement->setAttribute(
                 'coveredcount',
-                (isset($coverageInformation[$linenr]) ? $coverageInformation[$linenr] : '0')
+                ($coverageInformation[$linenr] ?? '0')
             );
 
             if ($linenr == $classStartLine) {

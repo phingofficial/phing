@@ -321,11 +321,7 @@ class FtpDeployTask extends Task
                 }
 
                 $local_filemtime = filemtime($file->getCanonicalPath());
-                if (isset($remoteFileInformations[$filename]['stamp'])) {
-                    $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'];
-                } else {
-                    $remoteFileModificationTime = 0;
-                }
+                $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'] ?? 0;
 
                 if (!$this->depends || ($local_filemtime > $remoteFileModificationTime)) {
                     if ($this->skipOnSameSize === true && $file->length() === $ftp->size($filename)) {

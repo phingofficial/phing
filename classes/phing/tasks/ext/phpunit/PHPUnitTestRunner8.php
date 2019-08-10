@@ -23,7 +23,7 @@
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
  */
-class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
+class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework\TestListener
 {
     private $hasErrors = false;
     private $hasFailures = false;
@@ -145,7 +145,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
 
         /* Set PHPUnit error handler */
         if ($this->useCustomErrorHandler) {
-            $oldErrorHandler = set_error_handler([$this, 'handleError'], E_ALL | E_STRICT);
+            set_error_handler([$this, 'handleError'], E_ALL | E_STRICT);
         }
 
         $this->injectFilters($suite);
@@ -341,12 +341,13 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook
     /**
      * @param string $message
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
+     * @param Throwable $e
      * @return string
      */
-    protected function composeMessage($message, PHPUnit\Framework\Test $test, Exception $e)
+    protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
     {
-        $message = "Test $message (" . $test->getName() . ' in class ' . get_class($test) . '): ' . $e->getMessage();
+        $name = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
+        $message = "Test $message (" . $name . ' in class ' . get_class($test) . '): ' . $e->getMessage();
 
         if ($e instanceof PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
             $message .= "\n" . $e->getComparisonFailure()->getDiff();

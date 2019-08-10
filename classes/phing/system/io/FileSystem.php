@@ -224,10 +224,10 @@ abstract class FileSystem
         }
 
         if (!$write) {
-            return (boolean) @is_readable($strPath);
+            return (bool) @is_readable($strPath);
         }
 
-        return (boolean) @is_writable($strPath);
+        return (bool) @is_writable($strPath);
     }
 
     /**
@@ -719,17 +719,13 @@ abstract class FileSystem
                 throw new Exception($msg);
             }
         } else { // delete contents and dir.
-
             $handle = @opendir($dir);
 
             if (false === $handle) { // Error.
-
                 $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $php_errormsg";
                 throw new Exception($msg);
             }
-
-// Read from handle.
-
+            // Read from handle.
             // Don't error on readdir().
             while (false !== ($entry = @readdir($handle))) {
                 if ($entry != '.' && $entry != '..') {
@@ -763,10 +759,9 @@ abstract class FileSystem
                             $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage();
                             throw new Exception($msg);
                         }
-                    } // end is_dir else
-                } // end .. if
-            } // end while
-            // end handle if
+                    }
+                }
+            }
 
             // Don't error on closedir()
             @closedir($handle);

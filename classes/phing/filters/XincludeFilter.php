@@ -28,6 +28,7 @@
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 {
+    /** @var PhingFile */
     private $basedir = null;
 
     /**
@@ -75,7 +76,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * @return null
+     * @return PhingFile
      */
     public function getBasedir()
     {
@@ -85,14 +86,15 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      *
-     * @param  null $len
-     * @throws BuildException
+     * @param int $len
      * @return string         transformed buffer.
+     * @throws IOException
+     * @throws BuildException
      */
     public function read($len = null)
     {
-        if (!class_exists('DomDocument')) {
-            throw new BuildException("Could not find the DomDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
+        if (!class_exists('DOMDocument')) {
+            throw new BuildException("Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
         }
 
         if ($this->processed === true) {
@@ -106,7 +108,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if ($_xml === null) { // EOF?
-
             return -1;
         }
 
@@ -135,7 +136,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * @param string  XML to process.
      *
      * @return string
-     * @throws BuildException On errors
      */
     protected function process($xml)
     {
@@ -145,7 +145,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         // Create and setup document.
-        $xmlDom = new DomDocument();
+        $xmlDom = new DOMDocument();
         $xmlDom->resolveExternals = $this->resolveExternals;
 
         $xmlDom->loadXML($xml);
@@ -166,12 +166,12 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * @param Reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return Reader A new filter based on this configuration, but filtering
+     * @return XincludeFilter A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new XincludeFilter($reader);
+        $newFilter = new self($reader);
         $newFilter->setProject($this->getProject());
         $newFilter->setBasedir($this->getBasedir());
 

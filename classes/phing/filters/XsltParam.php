@@ -16,7 +16,7 @@ class XsltParam
     private $name;
 
     /**
-     * @var RegisterSlot
+     * @var RegisterSlot|string
      */
     private $expr;
 

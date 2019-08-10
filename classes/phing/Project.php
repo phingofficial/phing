@@ -271,7 +271,7 @@ class Project
      *                by values, or <code>null</code> if the given string is
      *                <code>null</code>.
      *
-     * @exception BuildException if the given value has an unclosed
+     * @throws BuildException if the given value has an unclosed
      *                           property name, e.g. <code>${xxx</code>
      */
     public function replaceProperties($value)
@@ -785,17 +785,16 @@ class Project
     /**
      * Helper function
      *
-     * @param  $fileName
-     * @param  null $rootDir
+     * @param  string $fileName
+     * @param  PhingFile $rootDir
      * @throws IOException
      * @return \PhingFile
      */
-    public function resolveFile($fileName, $rootDir = null)
+    public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
         }
-
         return $this->fileUtils->resolveFile($rootDir, $fileName);
     }
 
@@ -1010,11 +1009,7 @@ class Project
      */
     public function getReference($key)
     {
-        if (isset($this->references[$key])) {
-            return $this->references[$key];
-        }
-
-        return null; // just to be explicit
+        return $this->references[$key] ?? null; // just to be explicit
     }
 
     /**

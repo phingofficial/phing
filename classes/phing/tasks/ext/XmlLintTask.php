@@ -61,7 +61,7 @@ class XmlLintTask extends Task
      */
     public function setUseRNG($bool)
     {
-        $this->useRNG = (boolean) $bool;
+        $this->useRNG = (bool) $bool;
     }
 
     /**

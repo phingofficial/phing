@@ -129,7 +129,7 @@ class UnknownElement extends Task
                 continue;
             }
 
-            $project = $this->project === null ? $parent->project : $this->project;
+            $project = $this->project ?? $parent->project;
             $realChild = $ih->createElement($project, $parent, $child->getTag());
 
             $childWrapper->setProxy($realChild);

@@ -81,7 +81,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      *
      * @return mixed The filtered stream, or -1 if the end of the resulting stream has been reached.
      *
-     * @exception IOException if the underlying stream throws an IOException
+     * @throws IOException if the underlying stream throws an IOException
      * during reading
      */
     public function read($len = null)
@@ -117,12 +117,12 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * @param Reader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
-     * @return ReplaceRegExp A new filter based on this configuration, but filtering
+     * @return ReplaceRegexp A new filter based on this configuration, but filtering
      *                       the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new ReplaceRegExp($reader);
+        $newFilter = new ReplaceRegexp($reader);
         $newFilter->setProject($this->getProject());
         $newFilter->setRegexps($this->getRegexps());
 

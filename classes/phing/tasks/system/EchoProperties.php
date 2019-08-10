@@ -282,7 +282,7 @@ class EchoProperties extends Task
     {
         if ($this->failonerror) {
             throw new BuildException(
-                $exception !== null ? $exception : $message,
+                $exception ?? $message,
                 $this->getLocation()
             );
         }
