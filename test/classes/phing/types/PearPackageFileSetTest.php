@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -50,7 +49,11 @@ class PearPackageFileSetTest extends BuildFileTest
         $ds = $ppfs->getDirectoryScanner(new Project());
 
         $arFiles = $ds->getIncludedFiles();
-        $this->assertIsArray($arFiles, 'getIncludedFiles returned no array');
+        if (method_exists($this, 'assertIsArray')) {
+            $this->assertIsArray($arFiles, 'getIncludedFiles returned no array');
+        } else {
+            $this->assertInternalType('array', $arFiles, 'getIncludedFiles returned no array');
+        }
         $this->assertEquals(1, count($arFiles));
         $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 
