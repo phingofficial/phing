@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -93,7 +92,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         if (method_exists($this, 'assertIsFloat')) {
             $this->assertIsFloat(Phing::currentTimeMillis());
         } else {
-            $this->assertIsFloat(Phing::currentTimeMillis());
+            $this->assertInternalType('float', Phing::currentTimeMillis());
         }
     }
 
