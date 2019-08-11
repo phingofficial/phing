@@ -76,6 +76,11 @@ class MkdirTask extends Task
                 throw new BuildException($msg, $this->getLocation());
             }
             $this->log("Created dir: " . $this->dir->getAbsolutePath());
+        } else {
+            $this->log(
+                'Skipping ' . $this->dir->getAbsolutePath() . ' because it already exists.',
+                Project::MSG_VERBOSE
+            );
         }
     }
 
