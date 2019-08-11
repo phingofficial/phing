@@ -78,7 +78,7 @@ class MkdirTask extends Task
             $this->log("Created dir: " . $this->dir->getAbsolutePath());
         } else {
             $this->log(
-                'Skipping ' . $this->dir->getAbsolutePath() . ' because it already exists.', 
+                'Skipping ' . $this->dir->getAbsolutePath() . ' because it already exists.',
                 Project::MSG_VERBOSE
             );
         }
