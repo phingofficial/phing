@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="database condition test" default="testDsnNotSetException">
+
+    <target name="testDsnIsRequiredException" description="">
+        <if>
+            <database></database>
+            <then>
+                <echo>Never reached this</echo>
+            </then>
+        </if>
+    </target>
+
+    <target name="testFalseWhenInvalidHost">
+        <if>
+            <database dsn="mysql:host=dummy"/>
+            <then>
+                <echo>Database condition returned true</echo>
+            </then>
+            <else>
+                <echo>Database condition returned false</echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="testFalseWhenInvalidDriver">
+        <if>
+            <database dsn="invalid:host=localhost"/>
+            <then>
+                <echo>Database condition returned true</echo>
+            </then>
+            <else>
+                <echo>Database condition returned false</echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="testCompatibleWithConditionTask">
+        <condition property="condition.result" else="condition-not-met">
+            <database dsn="mysql:host=localhost"/>
+        </condition>
+    </target>
+
+    <target name="testCompatibleWithWaitForTask">
+        <waitfor maxwaitunit="millisecond" maxwait="100" timeoutproperty="waitfor.timeout">
+            <database dsn="mysql:host=localhost"/>
+        </waitfor>
+    </target>
+
+    <target name="testSuccessfulCondition">
+        <!-- Retrieving a public MySQL server from:        -->
+        <!-- https://www.ensembl.org/info/data/mysql.html -->
+        <if>
+            <socket server="ensembldb.ensembl.org" port="3306"/>
+            <then>
+                <property name="mysql.host" value="ensembldb.ensembl.org"/>
+                <property name="mysql.port" value="3306"/>
+            </then>
+
+            <elseif>
+                <socket server="useastdb.ensembl.org" port="3306"/>
+                <then>
+                    <property name="mysql.host" value="useastdb.ensembl.org"/>
+                    <property name="mysql.port" value="3306"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <socket server="asiadb.ensembl.org" port="3306"/>
+                <then>
+                    <property name="mysql.host" value="asiadb.ensembl.org"/>
+                    <property name="mysql.port" value="3306"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <socket server="martdb.ensembl.org" port="5316"/>
+                <then>
+                    <property name="mysql.host" value="martdb.ensembl.org"/>
+                    <property name="mysql.port" value="5316"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <socket server="ensembldb.ensembl.org" port="3337"/>
+                <then>
+                    <property name="mysql.host" value="ensembldb.ensembl.org"/>
+                    <property name="mysql.port" value="3337"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <socket server="ensembldb.ensembl.org" port="4306"/>
+                <then>
+                    <property name="mysql.host" value="ensembldb.ensembl.org"/>
+                    <property name="mysql.port" value="4306"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <socket server="martdb.ensembl.org" port="3316"/>
+                <then>
+                    <property name="mysql.host" value="martdb.ensembl.org"/>
+                    <property name="mysql.port" value="3316"/>
+                </then>
+            </elseif>
+
+            <else>
+                <fail message="Cannot find valid MySQL server for testing"/>
+            </else>
+        </if>
+
+        <!--Running the test-->
+        <if>
+            <database dsn="mysql:host=${mysql.host};port=${mysql.port}" username="anonymous"/>
+            <then>
+                <echo>Database condition returned true</echo>
+            </then>
+            <else>
+                <echo>Database condition returned false</echo>
+            </else>
+        </if>
+    </target>
+
+</project>

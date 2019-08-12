@@ -7328,6 +7328,7 @@
             <ref name="versioncompare"/>
             <ref name="available_cond"/>
             <ref name="http"/>
+            <ref name="database_cond"/>
             <ref name="matches_cond"/>
             <ref name="os_cond"/>
         </choice>
@@ -7537,6 +7538,26 @@
                 </optional>
                 <optional>
                     <attribute name="requestmethod">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="database_cond">
+        <element name="database">
+            <interleave>
+                <attribute name="dsn">
+                    <data type="string"/>
+                </attribute>
+                <optional>
+                    <attribute name="username">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="password">
                         <data type="string"/>
                     </attribute>
                 </optional>
