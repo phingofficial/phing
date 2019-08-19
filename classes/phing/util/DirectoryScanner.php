@@ -416,7 +416,8 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         if (empty($_includes) || null === $_includes) {
             $this->includes = null;
         } else {
-            for ($i = 0; $i < count($_includes); $i++) {
+            $numIncludes = count($_includes);
+            for ($i = 0; $i < $numIncludes; $i++) {
                 $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
@@ -440,7 +441,8 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         if (empty($_excludes) || null === $_excludes) {
             $this->excludes = null;
         } else {
-            for ($i = 0; $i < count($_excludes); $i++) {
+            $numExcludes = count($_excludes);
+            for ($i = 0; $i < $numExcludes; $i++) {
                 $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
@@ -468,25 +470,25 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     {
         if (empty($this->basedir)) {
             return false;
-        } else {
-            $exception = null;
+        }
 
-            if (!@file_exists($this->basedir)) {
-                if ($this->errorOnMissingDir) {
-                    $exception = new BuildException(
-                        "basedir  $this->basedir does not exist."
-                    );
-                } else {
-                    return false;
-                }
-            } elseif (!@is_dir($this->basedir)) {
+        $exception = null;
+
+        if (!@file_exists($this->basedir)) {
+            if ($this->errorOnMissingDir) {
                 $exception = new BuildException(
-                    "basedir $this->basedir is not a directory."
+                    "basedir  $this->basedir does not exist."
                 );
+            } else {
+                return false;
             }
-            if ($exception !== null) {
-                throw $exception;
-            }
+        } elseif (!@is_dir($this->basedir)) {
+            $exception = new BuildException(
+                "basedir $this->basedir is not a directory."
+            );
+        }
+        if ($exception !== null) {
+            throw $exception;
         }
 
         if ($this->includes === null) {

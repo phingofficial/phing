@@ -4,42 +4,21 @@ declare(strict_types=1);
 
 class PHPStanListCommandBuilder extends PHPStanCommandBuilder
 {
-    public function build(PHPStanTask $task): string
+    private const ARG_FORMAT = '--format=%s';
+    private const ARG_RAW = '--raw';
+
+    public function build(PHPStanTask $task): void
     {
-        $commandParts = [];
+        parent::build($task);
 
-        $commandParts[] = parent::build($task);
+        $cmd = $task->getCommandline();
 
-        $commandParts[] = $this->buildFormat($task);
-        $commandParts[] = $this->buildRaw($task);
-        $commandParts[] = $this->buildNamespace($task);
-
-        $commandParts = array_filter($commandParts);
-
-        return implode(' ', $commandParts);
-    }
-
-    private function buildFormat(PHPStanTask $task): ?string
-    {
-        if (!empty($task->getFormat())) {
-            return '--format=' .  $task->getFormat();
-        }
-        return null;
-    }
-
-    private function buildRaw(PHPStanTask $task): ?string
-    {
+        $cmd->createArgument()->setValue(sprintf(self::ARG_FORMAT, $task->getFormat()));
         if ($task->isRaw()) {
-            return '--raw';
+            $cmd->createArgument()->setValue(self::ARG_RAW);
         }
-        return null;
-    }
-
-    private function buildNamespace(PHPStanTask $task): ?string
-    {
         if (!empty($task->getNamespace())) {
-            return $task->getNamespace();
+            $cmd->createArgument()->setValue($task->getNamespace());
         }
-        return null;
     }
 }

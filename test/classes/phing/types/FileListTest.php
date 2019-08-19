@@ -17,39 +17,37 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter5/PHPUnitResultFormatter5.php';
+use PHPUnit\Framework\TestCase;
 
-/**
- * Prints short summary output of the test to Phing's logging system.
- *
- * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext.formatter
- * @since   2.1.0
- */
-class SummaryPHPUnitResultFormatter5 extends PHPUnitResultFormatter5
+class FileListTest extends TestCase
 {
-    public function endTestRun()
+    /**
+     * @var Project
+     */
+    private $project;
+
+    public function setUp(): void
     {
-        parent::endTestRun();
-
-        $sb = "Total tests run: " . $this->getRunCount();
-        $sb .= ", Failures: " . $this->getFailureCount();
-        $sb .= ", Errors: " . $this->getErrorCount();
-        $sb .= ", Incomplete: " . $this->getIncompleteCount();
-        $sb .= ", Skipped: " . $this->getSkippedCount();
-        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-
-        if ($this->out != null) {
-            $this->out->write($sb);
-            $this->out->close();
-        }
+        $this->project = new Project();
+        $this->project->setBasedir(PHING_TEST_BASE);
     }
 
-    /**
-     * @return null
-     */
-    public function getExtension()
+    public function testGetFilesWithEmptyDir()
     {
-        return null;
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('No directory specified for filelist.');
+
+        $f = new FileList();
+        $f->getFiles($this->project);
+    }
+
+    public function testGetFilesWithNoFilenames()
+    {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('No files specified for filelist.');
+
+        $f = new FileList();
+        $f->setDir(new PhingFile("."));
+        $f->getFiles($this->project);
     }
 }

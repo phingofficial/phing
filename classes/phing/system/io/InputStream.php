@@ -84,7 +84,7 @@ class InputStream
      * Read data from stream until $len chars or EOF.
      *
      * @param  int $len Num chars to read.  If not specified this stream will read until EOF.
-     * @return string chars read or -1 if eof.
+     * @return mixed chars read or -1 if eof.
      */
     public function read($len = null)
     {

@@ -29,10 +29,11 @@ class PHPUnitUtil
     protected static $definedClasses = [];
 
     /**
-     * Returns the package of a class as defined in the docblock of the class using @package
+     * Returns the package of a class as defined in the docblock of the class using {@package}
      *
-     * @param  string the name of the class
+     * @param string the name of the class
      * @return string the name of the package
+     * @throws ReflectionException
      */
     public static function getPackageName($classname)
     {
@@ -55,12 +56,13 @@ class PHPUnitUtil
 
     /**
      * Returns the subpackage of a class as defined in the docblock of the class
-     * using @subpackage
+     * using {@subpackage}
      *
      * @param string $classname the name of the class
      *
-     * @author Benjamin Schultz <bschultz@proqrent.de>
      * @return string|null the name of the subpackage
+     * @throws ReflectionException
+     * @author Benjamin Schultz <bschultz@proqrent.de>
      */
     public static function getSubpackageName($classname)
     {
@@ -68,9 +70,9 @@ class PHPUnitUtil
 
         if (preg_match('/@subpackage[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
             return $matches[1];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -130,10 +132,6 @@ class PHPUnitUtil
             }
         }
 
-        if (isset(self::$definedClasses[$filename])) {
-            return self::$definedClasses[$filename];
-        } else {
-            return [];
-        }
+        return self::$definedClasses[$filename] ?? [];
     }
 }

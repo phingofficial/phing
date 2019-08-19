@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 class PHPStanTask extends Task
 {
+    use FileSetAware;
 
     /**
      * @var string
@@ -114,6 +115,22 @@ class PHPStanTask extends Task
      * @var string Help command command name
      */
     private $commandName;
+
+    /**
+     * @var Commandline
+     */
+    private $cmd;
+
+    public function __construct()
+    {
+        $this->cmd = new Commandline();
+        parent::__construct();
+    }
+
+    public function getCommandline(): Commandline
+    {
+        return $this->cmd;
+    }
 
     public function getExecutable(): string
     {
@@ -338,19 +355,17 @@ class PHPStanTask extends Task
     public function main()
     {
         $commandBuilder = (new PHPStanCommandBuilderFactory())->createBuilder($this);
-        $command = $commandBuilder->build($this);
+        $commandBuilder->build($this);
 
-        $this->log('Executing: ' . $command);
+        $toExecute = $this->cmd;
 
-        $output = [];
-        $return = null;
-        exec($command, $output, $return);
-
-        $level = Project::MSG_INFO;
-        if (0 != $return && $this->checkreturn) {
-            $level = Project::MSG_ERR;
-        }
-
-        $this->log(implode("\n", $output), $level);
+        $exe = new ExecTask();
+        $exe->setExecutable($toExecute->getExecutable());
+        $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
+        $exe->setCheckreturn($this->checkreturn);
+        $exe->setLocation($this->getLocation());
+        $exe->setProject($this->getProject());
+        $exe->setLevel('info');
+        $exe->main();
     }
 }

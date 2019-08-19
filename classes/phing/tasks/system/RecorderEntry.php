@@ -174,7 +174,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     {
         $this->log("<< TARGET FINISHED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
 
-        $time = $this->formatTime(Phing::currentTimeMillis() - $this->targetStartTime);
+        $time = DefaultLogger::formatTime(Phing::currentTimeMillis() - $this->targetStartTime);
 
         $this->log($event->getTarget()->getName() . ":  duration " . $time, Project::MSG_VERBOSE);
         flush();
@@ -278,23 +278,6 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     public function setErrorStream(OutputStream $err)
     {
         $this->setOutputStream($err);
-    }
-
-    private static function formatTime($millis)
-    {
-        $seconds = $millis / 1000;
-        $minutes = $seconds / 60;
-
-
-        if ($minutes > 0) {
-            return $minutes . " minute"
-                . ($minutes == 1 ? " " : "s ")
-                . ($seconds % 60) . " second"
-                . ($seconds % 60 == 1 ? "" : "s");
-        } else {
-            return $seconds . " second"
-                . ($seconds % 60 == 1 ? "" : "s");
-        }
     }
 
     /**

@@ -331,7 +331,7 @@ class IntrospectionHelper
 
                 // value is a string representation of a boolean type,
                 // convert it to primitive
-                if ($reflectedAttr === 'bool' || StringHelper::isBoolean($value)) {
+                if ($reflectedAttr === 'bool' || ($reflectedAttr !== 'string' && StringHelper::isBoolean($value))) {
                     $value = StringHelper::booleanValue($value);
                 }
 
@@ -421,7 +421,6 @@ class IntrospectionHelper
             // project components must use class hints to support the add methods
 
             try { // try to invoke the adder method on object
-
                 $project->log(
                     "    -calling adder " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
                     Project::MSG_DEBUG
@@ -593,17 +592,19 @@ class IntrospectionHelper
             }
 
             return "$elClass (unknown)";
-        } else {
-            // ->getTag() method does exist, so use it
-            $elName = $element->getTag();
-            if (isset($taskdefs[$elName])) {
-                return $taskdefs[$elName];
-            } elseif (isset($typedefs[$elName])) {
-                return $typedefs[$elName];
-            } else {
-                return "$elName (unknown)";
-            }
         }
+
+// ->getTag() method does exist, so use it
+        $elName = $element->getTag();
+        if (isset($taskdefs[$elName])) {
+            return $taskdefs[$elName];
+        }
+
+        if (isset($typedefs[$elName])) {
+            return $typedefs[$elName];
+        }
+
+        return "$elName (unknown)";
     }
 
     /**

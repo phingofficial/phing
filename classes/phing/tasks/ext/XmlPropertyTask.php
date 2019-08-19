@@ -185,16 +185,16 @@ class XmlPropertyTask extends PropertyTask
                 $properties = $parser->parseFile($file);
 
                 return new Properties($properties);
-            } else {
-                if ($this->getRequired()) {
-                    throw new BuildException("Could not load required properties file.");
-                } else {
-                    $this->log(
-                        "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
-                        Project::MSG_WARN
-                    );
-                }
             }
+
+            if ($this->getRequired()) {
+                throw new BuildException("Could not load required properties file.");
+            }
+
+            $this->log(
+                "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
+                Project::MSG_WARN
+            );
         } catch (IOException $ioe) {
             throw new BuildException("Could not load properties from file.", $ioe);
         }

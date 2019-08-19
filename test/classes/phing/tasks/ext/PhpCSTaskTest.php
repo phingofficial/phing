@@ -18,37 +18,24 @@
  */
 
 /**
- * Prints short summary output of the test to Phing's logging system.
+ * Tests for PhpCSTask
  *
- * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext.formatter
- * @since   2.1.0
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.ext
  */
-class SummaryPHPUnitResultFormatter6 extends PHPUnitResultFormatter6
+class PhpCSTaskTest extends BuildFileTest
 {
-    public function endTestRun()
+    public function setUp(): void
     {
-        parent::endTestRun();
-
-        $sb = "Total tests run: " . $this->getRunCount();
-        $sb .= ", Warnings: " . $this->getWarningCount();
-        $sb .= ", Failures: " . $this->getFailureCount();
-        $sb .= ", Errors: " . $this->getErrorCount();
-        $sb .= ", Incomplete: " . $this->getIncompleteCount();
-        $sb .= ", Skipped: " . $this->getSkippedCount();
-        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-
-        if ($this->out != null) {
-            $this->out->write($sb);
-            $this->out->close();
+        if (class_exists('PHP_CodeSniffer')) {
+            $this->markTestSkipped('PHP CodeSniffer 2 package available.');
         }
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }
 
-    /**
-     * @return null
-     */
-    public function getExtension()
+    public function testPhpCs()
     {
-        return null;
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Missing');
     }
 }

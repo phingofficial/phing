@@ -411,9 +411,9 @@ class PhpCodeSnifferTask extends Task
                         $currentMTime = filemtime($fileAbsolutePath);
                         if ($lastMTime >= $currentMTime) {
                             continue;
-                        } else {
-                            $this->cache->put($fileAbsolutePath, $currentMTime);
                         }
+
+                        $this->cache->put($fileAbsolutePath, $currentMTime);
                     }
                     $filesToParse[] = $fileAbsolutePath;
                 }

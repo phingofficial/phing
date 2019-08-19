@@ -95,15 +95,16 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $packageName
-     * @return null
+     * @param string $packageName
+     * @return DOMElement|null
      */
-    protected function getPackageElement($packageName)
+    protected function getPackageElement($packageName): ?DOMNode
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
+        /** @var DOMElement $package */
         foreach ($packages as $package) {
-            if ($package->getAttribute('name') == $packageName) {
+            if ($package->getAttribute('name') === $packageName) {
                 return $package;
             }
         }
@@ -253,27 +254,28 @@ class CoverageReportTask extends Task
             $lines = array_map([$this, 'stripDiv'], $lines);
 
             return $lines;
-        } else {
-            $lines = file($filename);
+        }
 
-            for ($i = 0; $i < count($lines); $i++) {
-                $line = $lines[$i];
+        $lines = file($filename);
+        $numLines = count($lines);
 
-                $line = rtrim($line);
+        for ($i = 0; $i < $numLines; $i++) {
+            $line = $lines[$i];
 
-                if (function_exists('mb_check_encoding') && mb_check_encoding($line, 'UTF-8')) {
-                    $lines[$i] = $line;
+            $line = rtrim($line);
+
+            if (function_exists('mb_check_encoding') && mb_check_encoding($line, 'UTF-8')) {
+                $lines[$i] = $line;
+            } else {
+                if (function_exists('mb_convert_encoding')) {
+                    $lines[$i] = mb_convert_encoding($line, 'UTF-8');
                 } else {
-                    if (function_exists('mb_convert_encoding')) {
-                        $lines[$i] = mb_convert_encoding($line, 'UTF-8');
-                    } else {
-                        $lines[$i] = utf8_encode($line);
-                    }
+                    $lines[$i] = utf8_encode($line);
                 }
             }
-
-            return $lines;
         }
+
+        return $lines;
     }
 
     /**
@@ -300,7 +302,7 @@ class CoverageReportTask extends Task
             $lineElement = $this->doc->createElement('sourceline');
             $lineElement->setAttribute(
                 'coveredcount',
-                (isset($coverageInformation[$linenr]) ? $coverageInformation[$linenr] : '0')
+                ($coverageInformation[$linenr] ?? '0')
             );
 
             if ($linenr == $classStartLine) {

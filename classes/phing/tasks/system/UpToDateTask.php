@@ -91,7 +91,7 @@ class UpToDateTask extends Task implements Condition
      */
     private function getValue()
     {
-        return ($this->_value !== null) ? $this->_value : "true";
+        return $this->_value ?? "true";
     }
 
     /**

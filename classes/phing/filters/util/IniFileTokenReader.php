@@ -63,9 +63,9 @@ class IniFileTokenReader extends TokenReader
 
         if (count($this->tokens) > 0) {
             return array_pop($this->tokens);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -74,6 +74,10 @@ class IniFileTokenReader extends TokenReader
     protected function processFile()
     {
         $arr = parse_ini_file($this->file->getAbsolutePath(), true);
+
+        if ($arr === false) {
+            return;
+        }
 
         if ($this->section !== null) {
             if (isset($arr[$this->section])) {
@@ -113,7 +117,8 @@ class IniFileTokenReader extends TokenReader
 
     /**
      * @param string|PhingFile $file
-     * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setFile($file)
     {

@@ -159,6 +159,7 @@
                 <ref name="pharpackage"/>
                 <ref name="phkpackage"/>
                 <ref name="phpcodesniffer"/>
+                <ref name="phpcs"/>
                 <ref name="phpcpd"/>
                 <ref name="phpdepend"/>
                 <ref name="phpdoc"/>
@@ -386,6 +387,11 @@
                 <attribute name="expression"/>
                 <optional>
                     <attribute name="casesensitive" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="multiline" a:default-value="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -5013,6 +5019,34 @@
         </element>
     </define>
 
+    <define name="phpcs">
+        <element name="phpcs">
+            <interleave>
+                <attribute name="file"/>
+                <optional>
+                    <attribute name="bin" a:defaultValue="phpcs">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="cache" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignoreAnnotations" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="checkreturn" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="config">
         <element name="config">
             <attribute name="name"/>
@@ -5388,6 +5422,11 @@
                 </optional>
                 <optional>
                     <attribute name="verbose"/>
+                </optional>
+                <optional>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
                 </optional>
             </interleave>
         </element>

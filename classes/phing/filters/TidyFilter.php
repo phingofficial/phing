@@ -96,9 +96,9 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads input and returns Tidy-filtered output.
      *
-     * @param  null $len
+     * @param  int $len
      * @throws BuildException
-     * @return int the resulting stream, or -1 if the end of the resulting stream has been reached
+     * @return string Characters read, or -1 if the end of the stream has been reached
      */
     public function read($len = null)
     {
@@ -118,7 +118,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
 
         $config = $this->getDistilledConfig();
 
-        $tidy = new Tidy();
+        $tidy = new tidy();
         $tidy->parseString($buffer, $config, $this->encoding);
         $tidy->cleanRepair();
 
@@ -128,15 +128,13 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new TidyFilter using the passed in Reader for instantiation.
      *
-     * @param    A|Reader $reader
-     * @internal param A $reader Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
+     * @param Reader $reader Reader object providing the underlying stream.
+     *                    Must not be <code>null</code>.
      * @return TidyFilter a new filter based on this configuration, but filtering the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new TidyFilter($reader);
+        $newFilter = new self($reader);
         $newFilter->setConfigParameters($this->configParameters);
         $newFilter->setEncoding($this->encoding);
         $newFilter->setProject($this->getProject());
@@ -151,7 +149,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     private function _initialize()
     {
         $params = $this->getParameters();
-        if ($params) {
+        if (!empty($params)) {
             foreach ($params as $param) {
                 if ($param->getType() == "config") {
                     $this->configParameters[] = $param;

@@ -62,10 +62,10 @@ class TypeSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param  array $parameters the complete set of parameters for this selector
+     * @param array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
         if ($parameters !== null) {
@@ -121,8 +121,8 @@ class TypeSelector extends BaseExtendSelector
 
         if ($file->isDirectory()) {
             return $this->type === 'dir';
-        } else {
-            return $this->type === 'file';
         }
+
+        return $this->type === 'file';
     }
 }

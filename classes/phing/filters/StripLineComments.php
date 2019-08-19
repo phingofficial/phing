@@ -63,7 +63,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * lines from the original stream which don't start with any of the
      * specified comment prefixes.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      */
@@ -162,7 +162,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @return StripLineComments
      * @throws Exception
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new StripLineComments($reader);
         $newFilter->setComments($this->getComments());

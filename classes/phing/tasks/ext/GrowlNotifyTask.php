@@ -92,10 +92,10 @@ class GrowlNotifyTask extends Task
             throw new BuildException(
                 'The Growl Notify task requires the Net_Growl PEAR package.'
             );
-        } else {
-            fclose($handle);
-            include_once $autoloader;
         }
+
+        fclose($handle);
+        include_once $autoloader;
 
         $this->setTaskName('GrowlNotify');
         $this->setName();

@@ -61,9 +61,9 @@ class DataStore
     {
         if (!isset($this->data[$key])) {
             return null;
-        } else {
-            return $this->data[$key];
         }
+
+        return $this->data[$key];
     }
 
     /**
@@ -124,11 +124,11 @@ class DataStore
                 "Can't read data store from '" .
                 $this->file->getPath() . "'"
             );
-        } else {
-            $serializedData = $this->file->contents();
-
-            $this->data = unserialize($serializedData);
         }
+
+        $serializedData = $this->file->contents();
+
+        $this->data = unserialize($serializedData);
     }
 
     /**
@@ -144,12 +144,12 @@ class DataStore
                 "Can't write data store to '" .
                 $this->file->getPath() . "'"
             );
-        } else {
-            $serializedData = serialize($this->data);
-
-            $writer = new FileWriter($this->file);
-            $writer->write($serializedData);
-            $writer->close();
         }
+
+        $serializedData = serialize($this->data);
+
+        $writer = new FileWriter($this->file);
+        $writer->write($serializedData);
+        $writer->close();
     }
 }

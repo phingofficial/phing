@@ -78,7 +78,8 @@ class StatisticsReport
 
     private function updateTableWithPercentagesOfTotalTime(Table $table, array $totalTimes, $runningTotalTime)
     {
-        for ($i = 0; $i < count($totalTimes); $i++) {
+        $total = count($totalTimes);
+        for ($i = 0; $i < $total; $i++) {
             $totalTime = $totalTimes[$i];
             $round = round(100 * (double)$totalTime / $runningTotalTime);
             $table->put($i + 1, self::$IDX_PERCENTAGE, (string)$round);
@@ -116,7 +117,8 @@ class StatisticsReport
     private function calculateFixedLength(array $maxLengths)
     {
         $fixedLength = 0;
-        for ($i = 0; $i < count($maxLengths); $i++) {
+        $total = count($maxLengths);
+        for ($i = 0; $i < $total; $i++) {
             $fixedLength += $maxLengths[$i] + 4;
         }
         return $fixedLength;

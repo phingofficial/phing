@@ -5,6 +5,12 @@
         <phpstan/>
     </target>
 
+    <target name="testRunFileset">
+        <phpstan>
+            <fileset dir="../../../../" includes="*.php"/>
+        </phpstan>
+    </target>
+
     <target name="testExecutableChange">
         <phpstan executable="/non/existing/path/to/phpstan"/>
     </target>

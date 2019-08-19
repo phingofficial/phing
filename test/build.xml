@@ -71,6 +71,7 @@
 						<exclude name="**/phpunit/PHPUnitTestRunner6.php"/>
                         <exclude name="**/phpunit/formatter5/*.php"/>
 						<exclude name="**/phpunit/formatter6/*.php"/>
+						<exclude name="**/phpcs/*.php"/>
                     </fileset>
         		</coverage-setup>
 	    	</then>

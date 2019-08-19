@@ -25,7 +25,9 @@ class ProjectTimerMap extends TimerMap
 {
     public function get($project)
     {
-        return parent::get($project->getName());
+        $name = $project instanceof Project ? $project->getName() : '';
+
+        return parent::get($name);
     }
 
     public function find($project, Clock $clock)

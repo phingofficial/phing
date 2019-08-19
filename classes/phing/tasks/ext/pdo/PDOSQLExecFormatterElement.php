@@ -156,9 +156,9 @@ class PDOSQLExecFormatterElement
             }
 
             return new FileWriter($of, $this->append);
-        } else {
-            return $this->getDefaultOutput();
         }
+
+        return $this->getDefaultOutput();
     }
 
     /**
@@ -239,7 +239,7 @@ class PDOSQLExecFormatterElement
      */
     public function setUseFile($useFile)
     {
-        $this->useFile = (boolean) $useFile;
+        $this->useFile = (bool) $useFile;
     }
 
     /**
@@ -281,7 +281,7 @@ class PDOSQLExecFormatterElement
      */
     public function setAppend($append)
     {
-        $this->append = (boolean) $append;
+        $this->append = (bool) $append;
     }
 
     /**
@@ -302,7 +302,7 @@ class PDOSQLExecFormatterElement
      */
     public function setShowheaders($showheaders)
     {
-        $this->showheaders = (boolean) $showheaders;
+        $this->showheaders = (bool) $showheaders;
     }
 
     /**
@@ -340,7 +340,7 @@ class PDOSQLExecFormatterElement
      */
     public function setFormatOutput($v)
     {
-        $this->formatOutput = (boolean) $v;
+        $this->formatOutput = (bool) $v;
     }
 
     /**

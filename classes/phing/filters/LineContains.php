@@ -81,7 +81,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * the next call to <code>read()</code> should read the original stream
      * to find the next matching line.
      *
-     * @param  int|null $len
+     * @param  int|int $len
      *
      * @return int|string  the next character in the resulting stream, or -1
      *                     if the end of the resulting stream has been reached
@@ -215,7 +215,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *                      the specified reader
      * @throws Exception
      */
-    public function chain(Reader $reader): LineContains
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new self($reader);
         $newFilter->setContains($this->getContains());

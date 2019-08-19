@@ -67,9 +67,9 @@ class FileUtils
             $rdr = $crh->getAssembledReader();
 
             return $rdr;
-        } else {
-            return $in;
         }
+
+        return $in;
     }
 
     /**
@@ -328,13 +328,15 @@ class FileUtils
             if ("." === $thisToken) {
                 $tok = strtok(DIRECTORY_SEPARATOR);
                 continue;
-            } elseif (".." === $thisToken) {
+            }
+
+            if (".." === $thisToken) {
                 if (count($s) < 2) {
                     // using '..' in path that is too short
                     throw new IOException("Cannot resolve path: $orig");
-                } else {
-                    array_pop($s);
                 }
+
+                array_pop($s);
             } else { // plain component
                 $s[] = $thisToken;
             }

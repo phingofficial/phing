@@ -54,7 +54,9 @@ class BuildException extends RuntimeException
         $msg = "";
 
         if ($p3 !== null) {
-            $cause = $p2;
+            if ($p2 instanceof Throwable) {
+                $cause = $p2;
+            }
             $loc = $p3;
             $msg = $p1;
         } elseif ($p2 !== null) {

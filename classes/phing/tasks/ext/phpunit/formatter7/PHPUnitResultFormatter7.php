@@ -29,42 +29,43 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 {
     protected $out;
 
+    /** @var Project */
     protected $project;
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $timers = false;
+    private $timers = [];
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $runCounts = false;
+    private $runCounts = [];
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $failureCounts = false;
+    private $failureCounts = [];
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $errorCounts = false;
+    private $errorCounts = [];
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $incompleteCounts = false;
+    private $incompleteCounts = [];
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $skipCounts = false;
+    private $skipCounts = [];
 
     /**
-     * @var bool|array
+     * @var array
      */
-    private $warningCounts = false;
+    private $warningCounts = [];
 
     /**
      * Constructor
@@ -305,7 +306,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      */
     private function getMicrotime()
     {
-        list($usec, $sec) = explode(' ', microtime());
+        [$usec, $sec] = explode(' ', microtime());
 
         return (float) $usec + (float) $sec;
     }

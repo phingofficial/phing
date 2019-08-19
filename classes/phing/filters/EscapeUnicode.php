@@ -78,24 +78,22 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
             }
         }
 
-        $escaped = implode(PHP_EOL, $lines);
-
-        return $escaped;
+        return implode(PHP_EOL, $lines);
     }
 
     /**
      * Creates a new EscapeUnicode using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $rdr A Reader object providing the underlying stream.
+     * @param Reader $reader A Reader object providing the underlying stream.
      *            Must not be <code>null</code>.
      *
-     * @return Reader a new filter based on this configuration, but filtering
+     * @return EscapeUnicode a new filter based on this configuration, but filtering
      *         the specified reader
      */
-    public function chain(Reader $rdr)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new EscapeUnicode($rdr);
+        $newFilter = new self($reader);
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
 

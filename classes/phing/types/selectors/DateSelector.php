@@ -128,7 +128,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setCheckdirs($includeDirs)
     {
-        $this->includeDirs = (boolean) $includeDirs;
+        $this->includeDirs = (bool) $includeDirs;
     }
 
     /**
@@ -162,10 +162,10 @@ class DateSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param  array $parameters the complete set of parameters for this selector
+     * @param array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
         if ($parameters !== null) {
@@ -231,10 +231,12 @@ class DateSelector extends BaseExtendSelector
         }
         if ($this->cmp === 0) {
             return (($file->lastModified() - $this->granularity) < $this->seconds);
-        } elseif ($this->cmp === 1) {
-            return (($file->lastModified() - $this->granularity) > $this->seconds);
-        } else {
-            return (abs($file->lastModified() - $this->seconds) <= $this->granularity);
         }
+
+        if ($this->cmp === 1) {
+            return (($file->lastModified() - $this->granularity) > $this->seconds);
+        }
+
+        return (abs($file->lastModified() - $this->seconds) <= $this->granularity);
     }
 }

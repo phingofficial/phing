@@ -67,11 +67,11 @@ class PhingFile
 
         /* simulate signature identified constructors */
         if ($arg1 instanceof PhingFile && is_string($arg2)) {
-            $this->_constructFileParentStringChild($arg1, $arg2);
+            $this->constructFileParentStringChild($arg1, $arg2);
         } elseif (is_string($arg1) && ($arg2 === null)) {
-            $this->_constructPathname($arg1);
+            $this->constructPathname($arg1);
         } elseif (is_string($arg1) && is_string($arg2)) {
-            $this->_constructStringParentStringChild($arg1, $arg2);
+            $this->constructStringParentStringChild($arg1, $arg2);
         } else {
             if ($arg1 === null) {
                 throw new NullPointerException("Argument1 to function must not be null");
@@ -96,73 +96,49 @@ class PhingFile
     /**
      * @param string $pathname
      *
-     * @throws NullPointerException
+     * @throws IOException
      */
-    protected function _constructPathname($pathname)
+    protected function constructPathname(string $pathname): void
     {
-        // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
-
-        if ($pathname === null) {
-            throw new NullPointerException("Argument to function must not be null");
-        }
 
         $this->path = (string) $fs->normalize($pathname);
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
     /**
-     * Enter description here ...
-     *
-     * @param  string $parent
-     * @param  string $child
-     * @throws NullPointerException
+     * @param string $parent
+     * @param string $child
+     * @throws IOException
      */
-    protected function _constructStringParentStringChild($parent, $child = null)
+    protected function constructStringParentStringChild(string $parent, string $child): void
     {
-        // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
-        if ($child === null) {
-            throw new NullPointerException("Argument to function must not be null");
-        }
-        if ($parent !== null) {
-            if ($parent === "") {
-                $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
-            } else {
-                $this->path = $fs->resolve($fs->normalize($parent), $fs->normalize($child));
-            }
+        if ($parent === "") {
+            $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
         } else {
-            $this->path = (string) $fs->normalize($child);
+            $this->path = $fs->resolve($fs->normalize($parent), $fs->normalize($child));
         }
+
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
     /**
-     * Enter description here ...
-     *
-     * @param  PhingFile $parent
-     * @param  string $child
-     * @throws NullPointerException
+     * @param PhingFile $parent
+     * @param string $child
+     * @throws IOException
      */
-    protected function _constructFileParentStringChild($parent, $child = null)
+    protected function constructFileParentStringChild(PhingFile $parent, string $child): void
     {
-        // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
-        if ($child === null) {
-            throw new NullPointerException("Argument to function must not be null");
+        if ($parent->path === "") {
+            $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
+        } else {
+            $this->path = $fs->resolve($parent->path, $fs->normalize($child));
         }
 
-        if ($parent !== null) {
-            if ($parent->path === "") {
-                $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
-            } else {
-                $this->path = $fs->resolve($parent->path, $fs->normalize($child));
-            }
-        } else {
-            $this->path = $fs->normalize($child);
-        }
         $this->prefixLength = $fs->prefixLength($this->path);
     }
 
@@ -463,7 +439,7 @@ class PhingFile
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this)) {
-            return (boolean) @is_link($this->getAbsolutePath()) || @is_readable($this->getAbsolutePath());
+            return (bool) @is_link($this->getAbsolutePath()) || @is_readable($this->getAbsolutePath());
         }
 
         return false;
@@ -497,13 +473,13 @@ class PhingFile
 
         if (is_link($this->path)) {
             return true;
-        } else {
-            if ($this->isDirectory()) {
-                return true;
-            } else {
-                return @file_exists($this->path) || is_link($this->path);
-            }
         }
+
+        if ($this->isDirectory()) {
+            return true;
+        }
+
+        return @file_exists($this->path) || is_link($this->path);
     }
 
     /**

@@ -495,11 +495,11 @@ class Path extends DataType
             if ($o instanceof DataType) {
                 if (in_array($o, $stk, true)) {
                     throw $this->circularReference();
-                } else {
-                    $stk[] = $o;
-                    $o->dieOnCircularReference($stk, $p);
-                    array_pop($stk);
                 }
+
+                $stk[] = $o;
+                $o->dieOnCircularReference($stk, $p);
+                array_pop($stk);
             }
         }
 
