@@ -7367,7 +7367,7 @@
             <ref name="versioncompare"/>
             <ref name="available_cond"/>
             <ref name="http"/>
-            <ref name="database_cond"/>
+            <ref name="pdosqlexec_cond"/>
             <ref name="matches_cond"/>
             <ref name="os_cond"/>
         </choice>
@@ -7584,14 +7584,14 @@
         </element>
     </define>
 
-    <define name="database_cond">
-        <element name="database">
+    <define name="pdosqlexec_cond">
+        <element name="pdosqlexec">
             <interleave>
-                <attribute name="dsn">
+                <attribute name="url">
                     <data type="string"/>
                 </attribute>
                 <optional>
-                    <attribute name="username">
+                    <attribute name="userid">
                         <data type="string"/>
                     </attribute>
                 </optional>

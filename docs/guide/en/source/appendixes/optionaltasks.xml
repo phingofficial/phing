@@ -7172,6 +7172,8 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <para>You can also <link linkend="conditions.pdosqlexec">use
+            PDOSQLExecTask as condition</link></para>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;pdosqlexec url="pgsql:host=localhost dbname=test">

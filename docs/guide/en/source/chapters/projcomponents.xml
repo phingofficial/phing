@@ -597,17 +597,19 @@
 
             <programlisting language="xml">&lt;http url="http://url.to.test" errorsBeginAt="404" /&gt;</programlisting>
         </sect2>
-        <sect2 xml:id="conditions.database">
+        <sect2 xml:id="conditions.pdosqlexec">
             <title>
-                <literal>database</literal>
+                <literal>PDOSQLExec</literal>
             </title>
-            <para>Returns <code>true</code> when the connection to a database
-                succeeds, and <code>false</code> otherwise. This condition requires
-                the <link xlink:href="https://www.php.net/manual/en/book.pdo.php" role="extern">PDO extension</link>
+            <para><link linkend="PDOSQLExecTask">PDOSQLExecTask</link> can also
+                be used as condition. Returns <code>true</code> when the
+                connection to a database succeeds, and <code>false</code>
+                otherwise. This condition requires the
+                <link xlink:href="https://www.php.net/manual/en/book.pdo.php" role="extern">PDO extension</link>
                 to work properly.
             </para>
             <table>
-                <title>database Attributes</title>
+                <title>PDOSQLExec condition attributes</title>
                 <tgroup cols="3">
                     <colspec colname="attribute" colnum="1" colwidth="1*"/>
                     <colspec colname="description" colnum="2" colwidth="2*"/>
@@ -622,7 +624,7 @@
                     <tbody>
                         <row>
                             <entry>
-                                <literal>dsn</literal>
+                                <literal>url</literal>
                             </entry>
                             <entry>The <literal>PDO</literal> Data Source Name (DSN).
                             </entry>
@@ -630,7 +632,7 @@
                         </row>
                         <row>
                             <entry>
-                                <literal>username</literal>
+                                <literal>userid</literal>
                             </entry>
                             <entry>The username for current DSN.
                             </entry>
@@ -647,31 +649,32 @@
                     </tbody>
                 </tgroup>
             </table>
-            <para>This is a typical use case for <literal>database</literal> condition:</para>
+            <para>This is a typical use case for <literal>PDOSQLExec</literal> condition:</para>
             <programlisting language="xml">&lt;target name="wait-for-mysql">
     &lt;waitfor timeoutproperty="mysql.timeout" maxwait="60" maxwaitunit="second">
-        &lt;database dsn="mysql:host=localhost;port=3306"
-                  username="alice"
-                  password="letmein"/>
+        &lt;pdosqlexec url="mysql:host=localhost;port=3306"
+                  userid="${db.username}"
+                  password="${db.password}"/>
     &lt;/waitfor>
     &lt;fail if="mysql.timeout">Cannot reach database&lt;/fail>
 &lt;/target></programlisting>
             <para>If you also want to check if a specific schema exists, you can
-                include the schema's name in your <code>dsn</code>:
+                include the schema's name in your <code>url</code>:
             </para>
-            <programlisting language="xml">&lt;database dsn="mysql:host=127.0.0.1;port=3306;dbname=foo"
-          username="bob"
-          password="password1"/></programlisting>
+            <programlisting language="xml">&lt;pdosqlexec url="mysql:host=127.0.0.1;port=3306;dbname=foo"
+          userid="${db.username}"
+          password="${db.password}"/></programlisting>
             <para>This condition uses PDO behind the scenes. Therefore, if you
                 have installed the appropriate driver you should also be able to
-                reach <link xlink:href="https://www.php.net/manual/en/pdo.drivers.php" role="extern">many other DBMS</link>.
-                For example, for a PostgreSQL databases:
+                reach <link xlink:href="https://www.php.net/manual/en/pdo.drivers.php"
+                            role="extern">many other DBMS</link>.
+                For example, for a PostgreSQL database:
             </para>
-            <programlisting language="xml">&lt;database dsn="pgsql:host=localhost;port=5432;dbname=bar"
-          username="charlie"
-          password="iloveyou"/></programlisting>
-            <para>You should never hard-code sensitive data in your <code>buildfile</code>,
-                you could use an unversioned
+            <programlisting language="xml">&lt;pdosqlexec url="pgsql:host=localhost;port=5432;dbname=bar"
+          userid="${db.username}"
+          password="${db.password}"/></programlisting>
+            <para>You should never hard-code sensitive data in your
+                <code>buildfile</code>, you could use an unversioned
                 <link linkend="sec.morecomplexbuildfile">property file</link>
                 instead. Also, be careful when using <literal>verbose</literal>
                 or <literal>debug</literal> mode since you can expose sensitive
