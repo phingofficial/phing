@@ -49,7 +49,6 @@
  */
 class PDOSQLExecTask extends PDOTask implements Condition
 {
-
     /**
      * Count of how many statements were executed successfully.
      *
@@ -133,7 +132,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * The delimiter type indicating whether the delimiter will
      * only be recognized on a line by itself
      */
-    private $delimiterType = "none"; // can't use constant just defined
+    private $delimiterType = self::DELIM_NONE;
 
     /**
      * Action to perform if an error is found
@@ -234,9 +233,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * <p>For example, set this to "go" and delimitertype to "ROW" for
      * Sybase ASE or MS SQL Server.</p>
      *
-     * @param delimiter
+     * @param string $delimiter
      */
-    public function setDelimiter($delimiter)
+    public function setDelimiter(string $delimiter): void
     {
         $this->delimiter = $delimiter;
     }
@@ -246,7 +245,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @return string
      */
-    public function getDelimiter()
+    public function getDelimiter(): string
     {
         return $this->delimiter;
     }
@@ -259,7 +258,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $delimiterType
      */
-    public function setDelimiterType($delimiterType)
+    public function setDelimiterType(string $delimiterType): void
     {
         $this->delimiterType = $delimiterType;
     }
@@ -268,9 +267,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Action to perform when statement fails: continue, stop, or abort
      * optional; default &quot;abort&quot;
      *
-     * @param $action
+     * @param string $action continue|stop|abort
      */
-    public function setOnerror($action)
+    public function setOnerror($action): void
     {
         $this->onError = $action;
     }
@@ -281,7 +280,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * @param  mixed $mode The PDO fetchmode integer or constant name.
      * @throws BuildException
      */
-    public function setFetchmode($mode)
+    public function setFetchmode($mode): void
     {
         if (is_numeric($mode)) {
             $this->fetchMode = (int) $mode;
@@ -434,15 +433,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 " SQL statements executed successfully"
             );
         } catch (Exception $e) {
+            throw $e;
+        } finally {
             $this->transactions = $savedTransaction;
             $this->sqlCommand = $savedSqlCommand;
             $this->closeConnection();
-            throw $e;
         }
-        // finally {
-        $this->transactions = $savedTransaction;
-        $this->sqlCommand = $savedSqlCommand;
-        $this->closeConnection();
     }
 
     /**
@@ -454,13 +450,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
     public function runStatements(Reader $reader)
     {
         if (self::DELIM_NONE == $this->delimiterType) {
-            include_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
         } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
-            include_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
-            include_once 'phing/tasks/ext/pdo/DefaultPDOQuerySplitter.php';
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
         }
 
@@ -596,7 +589,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Closes current connection
      */
-    protected function closeConnection()
+    protected function closeConnection(): void
     {
         if ($this->conn) {
             unset($this->conn);
