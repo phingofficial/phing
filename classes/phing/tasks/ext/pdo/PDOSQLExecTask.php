@@ -39,13 +39,15 @@
  * <b>stop</b> execution and commit transaction;
  * and <b>abort</b> execution and transaction and fail task.</p>
  *
+ * This task can also be used as a Condition.
+ *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
  * @package phing.tasks.ext.pdo
  */
-class PDOSQLExecTask extends PDOTask
+class PDOSQLExecTask extends PDOTask implements Condition
 {
 
     /**
@@ -600,5 +602,40 @@ class PDOSQLExecTask extends PDOTask
             unset($this->conn);
             $this->conn = null;
         }
+    }
+
+    /**
+     * PDOSQLExecTask as condition
+     *
+     * Returns false when the database connection fails, and true otherwise.
+     * This method only uses three properties: url (required), userId and
+     * password.
+     *
+     * The database connection is not stored in a variable, this allow to
+     * immediately close the connections since there's no reference to it.
+     *
+     * @author Jawira Portugal <dev@tugal.be>
+     *
+     * @return bool
+     */
+    public function evaluate(): bool
+    {
+        if (empty($this->getUrl())) {
+            throw new BuildException('url is required');
+        }
+
+        $this->log('Trying to reach ' . $this->getUrl(), Project::MSG_DEBUG);
+
+        try {
+            new PDO($this->getUrl(), $this->getUserId(), $this->getPassword());
+        } catch (PDOException $ex) {
+            $this->log($ex->getMessage(), Project::MSG_VERBOSE);
+
+            return false;
+        }
+
+        $this->log('Successful connection to ' . $this->getUrl(), Project::MSG_DEBUG);
+
+        return true;
     }
 }

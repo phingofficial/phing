@@ -344,7 +344,7 @@
         </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 xml:id="sec.morecomplexbuildfile">
         <title> More Complex Buildfile </title>
 
         <programlisting language="xml">&lt;?xml version=&quot;1.0&quot;  encoding=&quot;UTF-8&quot; ?&gt;
