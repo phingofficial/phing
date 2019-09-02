@@ -3525,16 +3525,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "56a2ac8b9254dd14b5e78470fa62358fbef65634"
+                "reference": "616c518333c656eaa23182ac6cfc01453f1e7c78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/56a2ac8b9254dd14b5e78470fa62358fbef65634",
-                "reference": "56a2ac8b9254dd14b5e78470fa62358fbef65634",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/616c518333c656eaa23182ac6cfc01453f1e7c78",
+                "reference": "616c518333c656eaa23182ac6cfc01453f1e7c78",
                 "shasum": ""
             },
             "require": {
@@ -3580,7 +3580,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-07-07T02:24:57+00:00"
+            "time": "2019-08-07T20:16:04+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
