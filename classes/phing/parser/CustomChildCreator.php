@@ -33,5 +33,5 @@ interface CustomChildCreator
      * @param  Project $project The project the element is in
      * @return object  Returns the nested element
      */
-    public function __construct($elementName, Project $project);
+    public function customChildCreator($elementName, Project $project);
 }
