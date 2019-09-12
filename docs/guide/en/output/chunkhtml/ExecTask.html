@@ -4,7 +4,7 @@
             However, if you want to use this regularly, you should think about writing a Task for
             it.</p>
 
-        <div class="table"><a name="idp4150"></a><p class="formal-object-title"><span class="label">Table B.19: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp4202"></a><p class="formal-object-title"><span class="label">Table B.19: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">command</code></td><td><code class="literal">String</code></td><td>NOTE: This attribute is deprecated. Please use executable with nested args.
                             The command that is to be executed.</td><td>n/a</td><td rowspan="2">One of the two</td></tr><tr><td><code class="literal">executable</code></td><td><code class="literal">String</code></td><td>The command to execute without any command line arguments.</td><td>n/a</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory the command is to be executed in.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">output</code></td><td><code class="literal">String</code></td><td>Where to direct stdout.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">error</code></td><td><code class="literal">String</code></td><td>Where to direct stderr.</td><td>Redirected to stdout, unless
@@ -22,7 +22,7 @@
                             set this to false.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">searchpath</code></td><td><code class="literal">Boolean</code></td><td>When this attribute is true, then system path environment variables will be searched when
                             resolving the location of the executable.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4316"></a>B.19.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4368"></a>B.19.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;!-- List the contents of "/home". --&gt;
 &lt;exec command="ls -l" dir="/home" /&gt;
@@ -33,11 +33,11 @@
 &lt;!-- List the contents of "/tmp" out to a file. --&gt;
 &lt;exec command="ls -l /tmp &gt; foo.out" escape="false" /&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4319"></a>B.19.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4371"></a>B.19.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">arg</code>
-                        </p><div class="table"><a name="idp4325"></a><p class="formal-object-title"><span class="label">Table B.20: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        </p><div class="table"><a name="idp4377"></a><p class="formal-object-title"><span class="label">Table B.20: </span><span class="title">Attributes</span></p><div class="table-contents">
                             
                             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>A single command-line argument; can contain space
                                             characters. To pass an empty argument, enclose
@@ -53,7 +53,7 @@
                     <p><code class="literal">env</code>
                         </p><p>It is possible to specify environment variables to pass to the system command via nested
                             <code class="literal">&lt;env&gt;</code> elements.</p><p>
-                        </p><div class="table"><a name="idp4382"></a><p class="formal-object-title"><span class="label">Table B.21: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        </p><div class="table"><a name="idp4434"></a><p class="formal-object-title"><span class="label">Table B.21: </span><span class="title">Attributes</span></p><div class="table-contents">
                             
                             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">key</code></td><td><code class="literal">String</code></td><td>The name of the environment variable.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The literal value for the environment variable.</td><td>n/a</td><td rowspan="3">One of these</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The value for the environment variable. Will be replaced by the absolute
                                             filename of the file by Phing.</td><td>n/a</td></tr><tr><td><code class="literal">path</code></td><td><code class="literal">String</code></td><td>The value for a PATH like environment variable. You can use ; or : as

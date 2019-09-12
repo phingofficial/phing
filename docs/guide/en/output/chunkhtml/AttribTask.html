@@ -11,11 +11,11 @@
     If you know for sure that you have a "attrib" executable on your PATH that is command line compatible
     with the Windows command, you can use the task's os attribute and set its value to your current os.
     </p>
-    <div class="table"><a name="idp3126"></a><p class="formal-object-title"><span class="label">Table B.7: </span><span class="title">Attributes</span></p><div class="table-contents">
+    <div class="table"><a name="idp3178"></a><p class="formal-object-title"><span class="label">Table B.7: </span><span class="title">Attributes</span></p><div class="table-contents">
         
         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file or directory of which the permissions must be changed.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">readonly</code></td><td><code class="literal">Boolean</code></td><td>The readonly permission.</td><td>n/a</td><td rowspan="4" valign="middle">at least one of the four.</td></tr><tr><td><code class="literal">archive</code></td><td><code class="literal">Boolean</code></td><td>The archive permission.</td><td>n/a</td></tr><tr><td><code class="literal">system</code></td><td><code class="literal">Boolean</code></td><td>The system permission.</td><td>n/a</td></tr><tr><td><code class="literal">hidden</code></td><td><code class="literal">Boolean</code></td><td>The hidden permission.</td><td>n/a</td></tr><tr><td><code class="literal">verbose</code></td><td><code class="literal">Boolean</code></td><td>Whether to print a summary after execution or not. Defaults to false.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">os</code></td><td><code class="literal">String</code></td><td>List of Operating Systems on which the command may be executed.</td><td>n/a</td><td>No</td></tr></tbody></table>
     </div></div><br class="table-break">
-    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3195"></a>B.5.1 Example</h3></div></div></div>
+    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3247"></a>B.5.1 Example</h3></div></div></div>
         
         <pre class="programlisting">&lt;attrib file="${dist}/run.bat" readonly="true" hidden="true"/&gt;</pre>
         <p>makes the "run.bat" file read-only and hidden.
@@ -27,7 +27,7 @@
         </p>
     </div>
 
-    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3201"></a>B.5.2 Supported Nested Tags</h3></div></div></div>
+    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3253"></a>B.5.2 Supported Nested Tags</h3></div></div></div>
         
         <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                 <p><code class="literal"><a class="link" href="FileList.html" title="D.3 FileList">filelist</a></code></p>

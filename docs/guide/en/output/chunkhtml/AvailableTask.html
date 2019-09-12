@@ -18,14 +18,14 @@
         <p><span class="bold"><strong>NB:</strong></span> the Available task can also be used as a
             condition, see <a class="link" href="conditions.html" title="5.8 Conditions">conditions</a>.</p>
 
-        <div class="table"><a name="idp3238"></a><p class="formal-object-title"><span class="label">Table B.8: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp3290"></a><p class="formal-object-title"><span class="label">Table B.8: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Name of the property that is to be set.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value the property is to be set to.</td><td><code class="literal">"true"</code></td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>File/directory to check existence.</td><td>n/a</td><td>Yes (or <code class="literal">resource</code> or <code class="literal">extension</code>)</td></tr><tr><td><code class="literal">resource</code></td><td><code class="literal">String</code></td><td>Path of the resource to look for.</td><td>n/a</td><td>Yes (or <code class="literal">file</code> or <code class="literal">extension</code>)</td></tr><tr><td><code class="literal">extension</code></td><td><code class="literal">String</code></td><td>Name of the extension to look for.</td><td>n/a</td><td>Yes (or <code class="literal">file</code> or <code class="literal">resource</code>)</td></tr><tr><td><code class="literal">type</code></td><td><code class="literal">String</code> (file|dir)</td><td>Determines if <code class="literal">AvailableTask</code> should look for a file
                             or a directory at the position set by <code class="literal">file</code>. If empty,
                             it checks for either file or directory.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">filepath</code></td><td><code class="literal">String</code></td><td>The path to use when looking up <code class="literal">file</code>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">followSymlinks</code></td><td><code class="literal">Boolean</code></td><td>Whether to dereference symbolic links when looking up
                                 <code class="literal">file</code>.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3330"></a>B.6.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3382"></a>B.6.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/&gt;
 

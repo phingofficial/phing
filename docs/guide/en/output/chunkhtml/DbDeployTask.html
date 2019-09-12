@@ -5,7 +5,7 @@
             database. See <a class="ulink" href="http://dbdeploy.com/documentation/getting-started/rules-for-using-dbdeploy/" target="_top">rules for using dbdeploy</a> for more information. You will need a changelog
             table like so: </p>
 
-        <div class="table"><a name="idp7361"></a><p class="formal-object-title"><span class="label">Table C.9: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp7413"></a><p class="formal-object-title"><span class="label">Table C.9: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>PDO connection url</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">userid</code></td><td><code class="literal">String</code></td><td>DB userid to use for accessing the changelog table.</td><td>none</td><td>As required by db</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>DB password to use for accessing the changelog table.</td><td>none</td><td>As required by db</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>Directory containing dbdeploy delta scripts.</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">outputfile</code></td><td><code class="literal">String</code></td><td>Filename in which deployment SQL will be generated.</td><td>dbdeploy_deploy.sql</td><td>No</td></tr><tr><td><code class="literal">undooutputfile</code></td><td><code class="literal">String</code></td><td>Filename in which undo SQL will be generated.</td><td>dbdeploy_undo.sql</td><td>No</td></tr><tr><td><code class="literal">deltaset</code></td><td><code class="literal">String</code></td><td>deltaset to check within db.</td><td>Main</td><td>No</td></tr><tr><td><code class="literal">lastchangetoapply</code></td><td><code class="literal">Integer</code></td><td>Highest-numbered delta script to apply to db.</td><td>999</td><td>No</td></tr><tr><td><code class="literal">appliedBy</code></td><td><code class="literal">String</code></td><td>Value of the 'applied_by' column for each
                         entry in the changelog table.</td><td>dbdeploy</td><td>No</td></tr><tr><td><code class="literal">checkall</code></td><td><code class="literal">Boolean</code></td><td>False means dbdeploy will only apply patches that have a higher number
@@ -13,7 +13,7 @@
                         True means dbdeploy will apply all changes that aren't applied
                         already (in ascending order).</td><td>false</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7457"></a>C.8.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7509"></a>C.8.1 Example</h3></div></div></div>
             
             <pre class="programlisting">CREATE TABLE changelog (
   change_number BIGINT NOT NULL,
