@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-Sep. XX, 2019 - Phing 3.0.0 alpha 3
+Sep. 12, 2019 - Phing 3.0.0 alpha 3
 -----------------------------------
 
 The following issues and pull requests were closed in this release:
@@ -52,6 +52,7 @@ The following issues and pull requests were closed in this release:
  * Made some args optional. [\#1058](https://github.com/phingofficial/phing/pull/1058)
  * Removed unused method [\#1056](https://github.com/phingofficial/phing/pull/1056)
  * fieldsets not supported by phpstan task [\#1055](https://github.com/phingofficial/phing/issues/1055)
+ * Dependencies missing in PHAR [\#1053](https://github.com/phingofficial/phing/issues/1053)
  * Reduced code [\#1050](https://github.com/phingofficial/phing/pull/1050)
  * Removed duplicate and unused method [\#1049](https://github.com/phingofficial/phing/pull/1049)
  * Added StatisticsListener to the travis builds [\#1048](https://github.com/phingofficial/phing/pull/1048)
