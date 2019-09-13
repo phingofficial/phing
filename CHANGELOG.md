@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-Sep. 12, 2019 - Phing 3.0.0 alpha 3
+Sep. 13, 2019 - Phing 3.0.0 alpha 3
 -----------------------------------
 
 The following issues and pull requests were closed in this release:
