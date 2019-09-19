@@ -50,7 +50,7 @@ install:
       composer install -n;
       composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --prefer-lowest;
     else
-      composer install --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest;
+      composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest;
     fi
 
 script:
