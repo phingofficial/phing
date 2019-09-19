@@ -47,7 +47,7 @@ before_install:
 install:
   - |
     if [[ "$DEPS" == "LOW" ]]; then
-      composer install -n;
+      composer install --prefer-dist --no-progress --no-interaction --no-suggest;
       composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --prefer-lowest;
     else
       composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest;
@@ -59,16 +59,6 @@ script:
   - ../bin/phing -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
   - cd ..
 
-  - |
-    if [[ "$PHPCS" == "TRUE" ]]; then
-
-    else
-      echo "=== TESTING PHING ==="
-      cd test
-      ../bin/phing -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
-      cd ..
-    fi
-
 jobs:
   allow_failures:
     - php: 7.4snapshot
@@ -76,6 +66,7 @@ jobs:
     - php: nightly
   include:
     - php: nightly
+      env: DEPS="IGNORE"
       install: composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --ignore-platform-reqs
 
     - stage: test with coverage
@@ -109,7 +100,6 @@ jobs:
       env: DEPS="NORMAL"
       script:
         - composer validate
-        - composer normalize --dry-run
 
     - stage: static code analysis
       os: linux
