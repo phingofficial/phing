@@ -291,10 +291,10 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
     /**
      * @param string $message
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
+     * @param \Throwable $e
      * @return string
      */
-    protected function composeMessage($message, PHPUnit\Framework\Test $test, Exception $e)
+    protected function composeMessage($message, PHPUnit\Framework\Test $test, \Throwable $e)
     {
         $message = "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
 
@@ -309,10 +309,10 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * An error occurred.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Throwable $e
+     * @param \Throwable $e
      * @param float $time
      */
-    public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addError(PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
     {
         $this->lastErrorMessage = $this->composeMessage("ERROR", $test, $e);
     }
