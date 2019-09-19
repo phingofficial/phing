@@ -105,7 +105,7 @@ jobs:
       os: linux
       php: 7.2
       env: DEPS="NORMAL"
-      script: bin/phpcs -n --standard=./ruleset.xml classes
+      script: bin/phpcs -s --standard=./ruleset.xml classes
 
 notifications:
   secure: "Q8xCtM0IMQyjQuPJOPFCcFvBUlD7zwg6E5vEFfsaFQj+9bJ83Xo3loURsizTBf+WpRruDxmu3tlg0GNk5yDt92POOCOISzyWPBDmHiy2MVDfINEwyNsJpzdlw1UnChoTjSwRS3goPivfQDkOsbSrszLE93iE9PIIUw5BV4CAoho="

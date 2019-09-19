@@ -19,8 +19,6 @@
  * @package phing.tasks.ext.pdo
  */
 
-require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
-
 /**
  * Dummy query splitter: converts entire input into single
  * SQL string

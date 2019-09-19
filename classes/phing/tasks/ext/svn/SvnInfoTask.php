@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
-
 /**
  * Parses the output of 'svn info --xml' and
  *

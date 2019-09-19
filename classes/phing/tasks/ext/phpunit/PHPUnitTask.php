@@ -531,6 +531,8 @@ class PHPUnitTask extends Task
             if ($this->haltonerror) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastErrorMessage();
+                var_dump($runner->getLastErrorMessage());
+                exit;
             }
         }
 

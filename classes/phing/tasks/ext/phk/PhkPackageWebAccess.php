@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phk/PhkPackageWebAccessPath.php';
-
 /**
  * @author Alexey Shockov <alexey@shockov.com>
  * @package phing.tasks.ext.phk
