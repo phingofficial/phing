@@ -13,3 +13,5 @@ bin/*
 .vagrant
 **/*.log
 ansible/playbook.retry
+test/etc/tasks/system/defaultexcludestestinput/
+test/etc/types/selectors/tmp/
