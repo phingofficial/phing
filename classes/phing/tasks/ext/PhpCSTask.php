@@ -25,6 +25,8 @@
  */
 class PhpCSTask extends Task
 {
+    use LogLevelAware;
+
     /**
      * A php source code filename or directory
      *
@@ -123,7 +125,7 @@ class PhpCSTask extends Task
         $exe->setTaskName($this->getTaskName());
         $exe->setExecutable($this->bin);
         $exe->setCheckreturn($this->checkreturn);
-        $exe->setLevel('info');
+        $exe->setLevel($this->logLevel);
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->main();
