@@ -125,7 +125,7 @@ class PhpCSTask extends Task
         $exe->setTaskName($this->getTaskName());
         $exe->setExecutable($this->bin);
         $exe->setCheckreturn($this->checkreturn);
-        $exe->setLevel($this->logLevel);
+        $exe->setLevel($this->logLevelName);
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->main();
