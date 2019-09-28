@@ -8752,6 +8752,21 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>level</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Set the log level of generated messages.
+                          Change this to <literal>verbose</literal>,
+                          if you only want output in verbose mode for example.
+                          Valid log levels are one of
+                          <literal>debug</literal>,
+                          <literal>info</literal>,
+                          <literal>verbose</literal>,
+                          <literal>warning</literal> or
+                          <literal>error</literal></entry>
+                        <entry><literal>info</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
