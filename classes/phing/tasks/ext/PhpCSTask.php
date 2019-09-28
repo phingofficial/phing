@@ -27,8 +27,6 @@ class PhpCSTask extends Task
 {
     use LogLevelAware;
 
-    protected $logLevelName = 'info';
-
     /**
      * A php source code filename or directory
      *
@@ -54,6 +52,7 @@ class PhpCSTask extends Task
     public function __construct()
     {
         $this->cmd = new Commandline();
+        $this->logLevelName = 'info';
         parent::__construct();
     }
 
