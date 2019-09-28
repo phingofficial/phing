@@ -27,6 +27,8 @@ class PhpCSTask extends Task
 {
     use LogLevelAware;
 
+    protected $logLevelName = 'info';
+
     /**
      * A php source code filename or directory
      *
