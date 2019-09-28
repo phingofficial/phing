@@ -5043,6 +5043,17 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="level" a:defaultValue="info">
+                        <choice>
+                            <value>error</value>
+                            <value>warning</value>
+                            <value>info</value>
+                            <value>verbose</value>
+                            <value>debug</value>
+                        </choice>
+                    </attribute>
+                </optional>
             </interleave>
         </element>
     </define>
