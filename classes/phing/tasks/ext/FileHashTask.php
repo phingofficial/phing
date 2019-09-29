@@ -51,6 +51,7 @@ class FileHashTask extends Task
      */
     private $hashtype = 0;
 
+    /** @var string $algorithm */
     private $algorithm = '';
 
     /**
@@ -58,12 +59,12 @@ class FileHashTask extends Task
      *
      * @param integer $type 0=MD5, 1=SHA1
      */
-    public function setHashtype($type)
+    public function setHashtype($type): void
     {
         $this->hashtype = $type;
     }
 
-    public function setAlgorithm($type)
+    public function setAlgorithm($type): void
     {
         $this->algorithm = strtolower($type);
     }
@@ -73,7 +74,7 @@ class FileHashTask extends Task
      *
      * @param PhingFile $file
      */
-    public function setFile($file)
+    public function setFile($file): void
     {
         $this->file = $file;
     }
@@ -84,7 +85,7 @@ class FileHashTask extends Task
      * @param  $property
      * @return void
      */
-    public function setPropertyName($property)
+    public function setPropertyName($property): void
     {
         $this->propertyName = $property;
     }
@@ -92,7 +93,6 @@ class FileHashTask extends Task
     /**
      * Main-Method for the Task
      *
-     * @return void
      * @throws BuildException
      */
     public function main()
@@ -107,9 +107,11 @@ class FileHashTask extends Task
         } elseif ((int) $this->hashtype === 0) {
             $this->log("Calculating MD5 hash from: " . $this->file);
             $hashValue = md5_file($this->file, false);
+            $this->algorithm = 'md5';
         } elseif ((int) $this->hashtype === 1) {
             $this->log("Calculating SHA1 hash from: " . $this->file);
             $hashValue = sha1_file($this->file, false);
+            $this->algorithm = 'sha1';
         } else {
             if ($this->algorithm !== '') {
                 throw new BuildException(
@@ -131,20 +133,19 @@ class FileHashTask extends Task
 
         // publish hash value
         $this->project->setProperty($this->propertyName, $hashValue);
+        $fos = new FileOutputStream($this->file . '.' . $this->algorithm);
+        $fos->write(sprintf('%s  %s', $hashValue, basename($this->file)));
     }
 
     /**
      * checks file attribute
      *
-     * @return void
      * @throws BuildException
      */
-    private function checkFile()
+    private function checkFile(): void
     {
         // check File
-        if ($this->file === null
-            || strlen($this->file) == 0
-        ) {
+        if ($this->file === null || $this->file == '') {
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
         }
 
@@ -161,14 +162,11 @@ class FileHashTask extends Task
     /**
      * checks property attribute
      *
-     * @return void
      * @throws BuildException
      */
-    private function checkPropertyName()
+    private function checkPropertyName(): void
     {
-        if (null === $this->propertyName
-            || strlen($this->propertyName) === 0
-        ) {
+        if (null === $this->propertyName || $this->propertyName === '') {
             throw new BuildException('Property name for publishing hashvalue is not set');
         }
     }
