@@ -1,19 +1,18 @@
 <?xml version="1.0"?>
 <ruleset name="phing">
     <description>
-        PSR2 style with no namespace.
+        PSR12 style with no namespace.
     </description>
 
     <!-- PHP keywords MUST be in lower case. -->
     <rule ref="Generic.PHP.LowerCaseKeyword"/>
 
-    <rule ref="PSR2">
+    <!-- The PHP constants true, false, and null MUST be in lower case. -->
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+
+    <rule ref="PSR12">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
-        <exclude name="Generic.Files.LineLength.TooLong"/><!-- can not be suppressed -->
-        <exclude name="PEAR.Functions.ValidDefaultValue"/><!-- we want to allow null as "default" value -->
-        <exclude name="PSR2.Classes.ClassDeclaration"/><!-- we want whitespace around class body and rules for extends and implements, using PEAR instead -->
         <exclude name="Squiz.Functions.LowercaseFunctionKeywords"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
         <exclude name="Squiz.ControlStructures.LowercaseDeclaration"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
     </rule>

@@ -215,7 +215,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -343,7 +343,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Parses the parameters to get stylesheet path.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {
