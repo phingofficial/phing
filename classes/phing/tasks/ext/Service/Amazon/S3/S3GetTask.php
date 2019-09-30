@@ -33,7 +33,7 @@ class S3GetTask extends S3
      *
      * @var mixed
      */
-    protected $target = null;
+    protected $objectTarget = null;
 
     /**
      * The S3 object we're working with
@@ -86,7 +86,7 @@ class S3GetTask extends S3
             }
         }
 
-        $this->target = $target;
+        $this->objectTarget = $target;
     }
 
     /**
@@ -95,11 +95,11 @@ class S3GetTask extends S3
      */
     public function getTarget()
     {
-        if ($this->target === null) {
+        if ($this->objectTarget === null) {
             throw new BuildException('Target is not set');
         }
 
-        return $this->target;
+        return $this->objectTarget;
     }
 
     public function execute()

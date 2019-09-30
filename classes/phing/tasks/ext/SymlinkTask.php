@@ -52,7 +52,7 @@ class SymlinkTask extends Task
      *
      * @var string
      */
-    private $target = null;
+    private $linkTarget = null;
 
     /**
      * Symlink location
@@ -91,14 +91,14 @@ class SymlinkTask extends Task
     private $relative = false;
 
     /**
-     * setter for _target
+     * setter for linkTarget
      *
-     * @param  string $target
+     * @param  string $linkTarget
      * @return void
      */
-    public function setTarget($target)
+    public function setTarget($linkTarget)
     {
-        $this->target = $target;
+        $this->linkTarget = $linkTarget;
     }
 
     /**
@@ -144,18 +144,18 @@ class SymlinkTask extends Task
     }
 
     /**
-     * getter for _target
+     * getter for linkTarget
      *
      * @throws BuildException
      * @return string
      */
     public function getTarget()
     {
-        if ($this->target === null) {
+        if ($this->linkTarget === null) {
             throw new BuildException('Target not set');
         }
 
-        return $this->target;
+        return $this->linkTarget;
     }
 
     /**
