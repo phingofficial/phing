@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
-
 /**
  * Checks out a repository to a local directory
  *

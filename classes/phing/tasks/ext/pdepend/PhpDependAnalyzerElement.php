@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-
 /**
  * Analyzer element for the PhpDependTask
  *

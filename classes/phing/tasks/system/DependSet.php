@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-
 /**
  * Examines and removes out of date target files.  If any of the target files
  * are out of date with respect to any of the source files, all target

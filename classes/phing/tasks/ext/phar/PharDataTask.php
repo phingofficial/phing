@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
