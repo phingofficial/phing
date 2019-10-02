@@ -48,6 +48,10 @@ class MkdirTaskTest extends BuildFileTest
      */
     public function testUmaskIsHonouredWhenNotUsingModeArgument($umask, $expectedDirMode)
     {
+        if ($umask !== 0) {
+            $this->markTestSkippedIfOsIsWindows();
+        }
+
         umask($umask);
         $this->executeTarget(__FUNCTION__);
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedDirMode);
@@ -55,6 +59,7 @@ class MkdirTaskTest extends BuildFileTest
 
     public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider() {
         return [
+            [0000, 0777],
             [0007, 0770],
             [0077, 0700],
         ];
@@ -67,13 +72,33 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', 0777);
     }
 
-    public function testParentDirectoriesHaveDefaultPermissions()
-    {
-        umask(0077);
+    /**
+     * @dataProvider parentDirectoriesHaveDefaultPermissionsDataProvider
+     */
+    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedPermissionsOfA, $expectedPermissionsOfB) {
+        if ($umask !== 0) {
+            $this->markTestSkippedIfOsIsWindows();
+        }
+
+        umask($umask);
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', 0700);
-        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', 0700);
-        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b/c', 0777);
+        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedPermissionsOfA);
+        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedPermissionsOfB);
+    }
+
+    public function parentDirectoriesHaveDefaultPermissionsDataProvider() {
+        return [
+            [
+                'umask' => 0000,
+                'expectedPermissionsOfA' => 0777,
+                'expectedPermissionsOfB' => 0707,
+            ],
+            [
+                'umask' => 0077,
+                'expectedPermissionsOfA' => 0700,
+                'expectedPermissionsOfB' => 0707,
+            ],
+        ];
     }
 
     public function testAclIsInheritedFromParentDirectoryDefaultAcl()
@@ -164,14 +189,18 @@ class MkdirTaskTest extends BuildFileTest
         );
     }
 
-    private function markTestSkippedIfAclIsNotSupported() {
+    private function markTestSkippedIfOsIsWindows() {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $this->markTestSkipped('POSIX ACL tests cannot be run on Windows.');
-        } else {
-            exec('which setfacl', $dummyOutput, $exitCode);
-            if ($exitCode !== 0) {
-                $this->markTestSkipped('"setfacl" command not found. POSIX ACL tests cannot be run.');
-            }
+        }
+    }
+
+    private function markTestSkippedIfAclIsNotSupported() {
+        $this->markTestSkippedIfOsIsWindows();
+
+        exec('which setfacl', $dummyOutput, $exitCode);
+        if ($exitCode !== 0) {
+            $this->markTestSkipped('"setfacl" command not found. POSIX ACL tests cannot be run.');
         }
     }
 }
