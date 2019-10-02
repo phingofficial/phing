@@ -154,9 +154,14 @@ class InputStream
         if ($this->stream === null) {
             return;
         }
+        if (PHP_MAJOR_VERSION >= 7) {
+            error_clear_last();
+        }
         if (false === @fclose($this->stream)) {
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
             // FAILED.
-            $msg = "Cannot fclose " . $this->__toString() . " $php_errormsg";
+            $msg = "Cannot fclose " . $this->__toString() . " $errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;

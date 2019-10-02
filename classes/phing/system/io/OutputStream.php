@@ -55,10 +55,15 @@ class OutputStream
             return;
         }
         $this->flush();
+        if (PHP_MAJOR_VERSION >= 7) {
+            error_clear_last();
+        }
         if (false === @fclose($this->stream)) {
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
             $metaData = stream_get_meta_data($this->stream);
             $resource = $metaData["uri"];
-            $msg = "Cannot close " . $resource . ": $php_errormsg";
+            $msg = "Cannot close " . $resource . ": $errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;
@@ -71,8 +76,13 @@ class OutputStream
      */
     public function flush()
     {
+        if (PHP_MAJOR_VERSION >= 7) {
+            error_clear_last();
+        }
         if (false === @fflush($this->stream)) {
-            throw new IOException("Could not flush stream: " . $php_errormsg);
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            throw new IOException("Could not flush stream: " . $errormsg);
         }
     }
 
