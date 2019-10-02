@@ -1,15 +1,15 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.88 SonarTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SmartyTask.html" title="C.87 SmartyTask"><link rel="next" href="SortList.html" title="C.89 SortList"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.88 SonarTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SmartyTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SortList.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SonarTask"></a>C.88 SonarTask</h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.89 SonarTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SmartyTask.html" title="C.88 SmartyTask"><link rel="next" href="SortList.html" title="C.90 SortList"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.89 SonarTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SmartyTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SortList.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SonarTask"></a>C.89 SonarTask</h2></div></div></div>
         
         <p>This task runs <a class="ulink" href="http://www.sonarqube.org/" target="_top">SonarQube Scanner</a>, a
             tool for code analysis and <span class="emphasis"><em>continuous inspection</em></span>.</p>
 
-        <div class="table"><a name="idp16793"></a><p class="formal-object-title"><span class="label">Table C.120: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp16932"></a><p class="formal-object-title"><span class="label">Table C.121: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">executable</code></td><td><code class="literal">String</code></td><td>Fully-qualified path of SonarQube Scanner executable. If executable is in <span class="emphasis"><em>PATH</em></span> environment variable, the executable name is sufficient.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">configuration</code></td><td><code class="literal">String</code></td><td>Path of configuration file. The file format is that of a properties file (as used by Java), i.e. a list of key-value pairs <code class="literal">&lt;key&gt;=&lt;value&gt;</code>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">errors</code></td><td><code class="literal">String</code></td><td>Sets errors flag of SonarQube Scanner. Allowed values are "<code class="literal">true</code>", "<code class="literal">false</code>", "<code class="literal">yes</code>", "<code class="literal">no</code>", "<code class="literal">1</code>", and "<code class="literal">0</code>".</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">debug</code></td><td><code class="literal">String</code></td><td>Sets debug flag of SonarQube Scanner. Allowed values are "<code class="literal">true</code>", "<code class="literal">false</code>", "<code class="literal">yes</code>", "<code class="literal">no</code>", "<code class="literal">1</code>", and "<code class="literal">0</code>".</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16857"></a>C.88.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16996"></a>C.89.1 Examples</h3></div></div></div>
             
-                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp16859"></a>Minimal Example</h4></div></div></div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp16998"></a>Minimal Example</h4></div></div></div>
                     <p>This example assumes that the SonarQube Scanner is called <span class="emphasis"><em>sonarqube-scanner</em></span> and is available on the <span class="emphasis"><em>PATH</em></span>.</p>
                     <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;project name="sonar-minimal-example" default="sonar"&gt;
@@ -23,7 +23,7 @@
     &lt;/sonar&gt;
 &lt;/project&gt;</pre>
                 </div>
-                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp16865"></a>Full Example</h4></div></div></div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp17004"></a>Full Example</h4></div></div></div>
                     <p>This example consists of two files – <span class="emphasis"><em>build.xml</em></span> and <span class="emphasis"><em>sonar-project.properties</em></span>.</p>
                     <p>The <span class="emphasis"><em>build.xml</em></span>:</p>
                     <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -47,17 +47,17 @@ sonar.projectVersion = 0.1.0
 sonar.sources        = src</pre>
                 </div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16876"></a>C.88.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17015"></a>C.89.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">property</code>
                     </p>
 					<p>Analysis parameters of SonarQube Scanner can be defined in a configuration file or via nested <code class="literal">property</code> elements. If both a configuration file and property elements are provided, the properties are merged. Values from <code class="literal">property</code> elements overwrite values from the configuration file if their property keys are equal.</p>
 
-                    <div class="table"><a name="idp16885"></a><p class="formal-object-title"><span class="label">Table C.121: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp17024"></a><p class="formal-object-title"><span class="label">Table C.122: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of property.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Value of property.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SmartyTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SortList.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.87 SmartyTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.89 SortList</td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SmartyTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SortList.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.88 SmartyTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.90 SortList</td></tr></table></div></body></html>

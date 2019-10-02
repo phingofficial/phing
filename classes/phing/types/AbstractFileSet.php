@@ -123,7 +123,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param $dir
-     * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setDir($dir)
     {

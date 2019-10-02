@@ -6,7 +6,7 @@
         commits on top of the tagged object and the abbreviated object name
         of the most recent commit.
     </p>
-    <div class="table"><a name="idp9350"></a><p class="formal-object-title"><span class="label">Table C.28: </span><span class="title">Attributes</span></p><div class="table-contents">
+    <div class="table"><a name="idp9402"></a><p class="formal-object-title"><span class="label">Table C.28: </span><span class="title">Attributes</span></p><div class="table-contents">
         
         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">outputProperty</code></td><td><code class="literal">String</code></td><td>Property name to set with output value from git-describe.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">all</code></td><td><code class="literal">Boolean</code></td><td>Instead of using only the annotated tags, use any
                         ref found in refs/ namespace. This option enables
@@ -30,7 +30,7 @@
                         slightly longer but may produce a more accurate result.
                         An n of 0 will cause only exact matches to be output.</td><td>n/a</td><td>No</td></tr></tbody></table>
     </div></div><br class="table-break">
-    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp9462"></a>C.27.1 Example</h3></div></div></div>
+    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp9514"></a>C.27.1 Example</h3></div></div></div>
         
         <pre class="programlisting">&lt;gitdescribe repository="${repo.dir}"
     tags="true"

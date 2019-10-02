@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Task for resolving relative paths and setting absolute path in property value.
  *
@@ -40,6 +39,7 @@
  */
 class ResolvePathTask extends Task
 {
+    use LogLevelAware;
 
     /**
      * Name of property to set.
@@ -57,11 +57,6 @@ class ResolvePathTask extends Task
      * @var PhingFile
      */
     private $dir;
-
-    /**
-     * Log level
-     */
-    private $logLevel = Project::MSG_VERBOSE;
 
     /**
      * Set the name of the property to set.
@@ -105,39 +100,6 @@ class ResolvePathTask extends Task
     public function setFile($f)
     {
         $this->file = $f;
-    }
-
-    /**
-     * Set level of log messages generated (default = verbose)
-     *
-     * @param string $level Log level
-     *
-     * @throws BuildException
-     * @return void
-     */
-    public function setLevel($level)
-    {
-        switch ($level) {
-            case 'error':
-                $this->logLevel = Project::MSG_ERR;
-                break;
-            case 'warning':
-                $this->logLevel = Project::MSG_WARN;
-                break;
-            case 'info':
-                $this->logLevel = Project::MSG_INFO;
-                break;
-            case 'verbose':
-                $this->logLevel = Project::MSG_VERBOSE;
-                break;
-            case 'debug':
-                $this->logLevel = Project::MSG_DEBUG;
-                break;
-            default:
-                throw new BuildException(
-                    sprintf('Unknown log level "%s"', $level)
-                );
-        }
     }
 
     /**

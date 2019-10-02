@@ -36,6 +36,7 @@ install:
   - IF NOT EXIST php-installed.txt echo date.timezone="UTC" >> php.ini
   - IF NOT EXIST php-installed.txt echo extension_dir=ext >> php.ini
   - IF NOT EXIST php-installed.txt echo extension=php_curl.dll >> php.ini
+  - IF NOT EXIST php-installed.txt echo extension=php_intl.dll >> php.ini
   - IF NOT EXIST php-installed.txt echo extension=php_openssl.dll >> php.ini
   - IF NOT EXIST php-installed.txt echo extension=php_mbstring.dll >> php.ini
   - IF NOT EXIST php-installed.txt echo extension=php_fileinfo.dll >> php.ini

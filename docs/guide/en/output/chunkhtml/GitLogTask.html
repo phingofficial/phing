@@ -2,7 +2,7 @@
         
         <p> Show commit logs. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html" target="_top">documentation</a>.</p>
 
-        <div class="table"><a name="idp8648"></a><p class="formal-object-title"><span class="label">Table C.23: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp8700"></a><p class="formal-object-title"><span class="label">Table C.23: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">paths</code></td><td><code class="literal">String</code></td><td>&lt;paentry&gt; arguments to git-log. Accepts one or more paths
                             delimited by PATH_SEPARATOR</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">outputProperty</code></td><td><code class="literal">String</code></td><td>Property name to set with output value from git-log</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>Commit format. See --format of git-log. Can be one of
@@ -15,7 +15,7 @@
                             git-log.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">noMerges</code></td><td><code class="literal">Boolean</code></td><td>Don't show commits with more than one parent. See --no-merges of
                             git-log.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8770"></a>C.22.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8822"></a>C.22.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
                 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;

@@ -4,7 +4,7 @@
         <p>When the os attribute is specified, then the command is only executed when run on one of the specified operating systems.</p>
         <p>The files of a number of Resource Collections – including but not restricted to FileSets, FileLists or DirSets  – are passed as arguments to the system command.</p>
 
-        <div class="table"><a name="idp2834"></a><p class="formal-object-title"><span class="label">Table B.5: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp2886"></a><p class="formal-object-title"><span class="label">Table B.5: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"><col class="alias"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th><th>Alias</th></tr></thead><tbody><tr><td><code class="literal">executable</code></td><td><code class="literal">String</code></td><td>The command to execute without any command line arguments.</td><td>n/a</td><td>Yes</td><td> </td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory the command is to be executed in.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">output</code></td><td><code class="literal">String</code></td><td>Where to direct stdout.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">error</code></td><td><code class="literal">String</code></td><td>Where to direct stderr.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">os</code></td><td><code class="literal">String</code></td><td>Only execute if the <a class="xref" href="app.factsheet.html" title="Appendix A. Fact Sheet">Appendix A, <i>Fact Sheet</i></a> property
                             contains specified text.</td><td>n/a</td><td>No</td><td> </td></tr><tr><td><code class="literal">escape</code></td><td><code class="literal">Boolean</code></td><td>Escape shell metacharacters before execution. Setting this to true will enable the escape precaution.</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">passthru</code></td><td><code class="literal">Boolean</code></td><td>Whether to use PHP's passthru() function instead of exec().</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">spawn</code></td><td><code class="literal">Boolean</code></td><td>Whether to spawn unix programs to the background, redirecting stdout (output will
@@ -22,7 +22,7 @@
                             Note: The type attribute does not apply to nested dirsets - dirsets always implicitly assume
                             type to be dir.</td><td><code class="literal">file</code></td><td>No</td><td> </td></tr><tr><td><code class="literal">force</code></td><td><code class="literal">Boolean</code></td><td>Whether to bypass timestamp comparisons for target files.</td><td><code class="literal">false</code></td><td>No</td><td> </td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3046"></a>B.4.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3098"></a>B.4.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">
 &lt;!-- Invokes somecommand arg1 SOURCEFILENAME arg2 for each file in /tmp --&gt;
@@ -43,11 +43,11 @@
 &lt;/apply&gt;
             </pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3049"></a>B.4.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3101"></a>B.4.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">arg</code>
-                        </p><div class="table"><a name="idp3055"></a><p class="formal-object-title"><span class="label">Table B.6: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        </p><div class="table"><a name="idp3107"></a><p class="formal-object-title"><span class="label">Table B.6: </span><span class="title">Attributes</span></p><div class="table-contents">
                             
                             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>A single command-line argument; can contain space
                                             characters.</td><td>n/a</td><td rowspan="4">One of these</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of a file as a single command-line argument;

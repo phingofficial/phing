@@ -4,12 +4,12 @@
             this task does not actually create the temporary file, but it does guarantee that the file did not
             exist when the task was executed.
         </p>
-        <div class="table"><a name="idp6079"></a><p class="formal-object-title"><span class="label">Table B.47: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp6131"></a><p class="formal-object-title"><span class="label">Table B.47: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Sets the property you wish to assign the temporary file to.</td><td>n/a</td><td>yes</td></tr><tr><td><code class="literal">destdir</code></td><td><code class="literal">String</code></td><td>Sets the destination directory. If not set, the basedir directory is used instead.</td><td>basedir</td><td>no</td></tr><tr><td><code class="literal">prefix</code></td><td><code class="literal">String</code></td><td>Sets the optional prefix string for the temp file.</td><td>n/a</td><td>no</td></tr><tr><td><code class="literal">suffix</code></td><td><code class="literal">String</code></td><td>Sets the optional suffix string for the temp file.</td><td>n/a</td><td>no</td></tr><tr><td><code class="literal">deleteonexit</code></td><td><code class="literal">Boolean</code></td><td>Whether the temp file will be marked for deletion on normal exit
                             (even though the file may never be created).</td><td>false</td><td>no</td></tr><tr><td><code class="literal">createfile</code></td><td><code class="literal">Boolean</code></td><td>Whether the temp file should be created by this task.</td><td>false</td><td>no</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6143"></a>B.45.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6195"></a>B.45.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;tempfile property="temp.file"/&gt;</pre>
             <p>create a temporary file</p>

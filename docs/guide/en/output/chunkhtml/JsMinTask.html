@@ -3,12 +3,12 @@
         <p> The <code class="literal">JsMinTask</code> minifies JavaScript files using <a class="ulink" href="https://github.com/tedivm/JShrink" target="_top">JShrink</a>,
                 which can be installed using composer (Phing will try
                 to use the composer autoloader)</p>
-        <div class="table"><a name="idp11403"></a><p class="formal-object-title"><span class="label">Table C.57: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp11457"></a><p class="formal-object-title"><span class="label">Table C.57: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">targetDir</code></td><td><code class="literal">String</code></td><td>Path where to store minified JavaScript files</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">suffix</code></td><td><code class="literal">String</code></td><td>Suffix to append to the filenames.</td><td>-min</td><td>No</td></tr><tr><td><code class="literal">failonerror</code></td><td><code class="literal">Boolean</code></td><td>Whether an error while minifying a JavaScript file should stop the
                             build or not</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp11444"></a>C.48.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp11498"></a>C.48.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;jsMin targetDir="docroot/script/minified" failOnError="false"&gt;
   &lt;fileset dir="docroot/script"&gt;
@@ -16,7 +16,7 @@
   &lt;/fileset&gt;
 &lt;/jsMin&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp11447"></a>C.48.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp11501"></a>C.48.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code>
