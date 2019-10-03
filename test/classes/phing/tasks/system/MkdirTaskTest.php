@@ -75,15 +75,15 @@ class MkdirTaskTest extends BuildFileTest
     /**
      * @dataProvider parentDirectoriesHaveDefaultPermissionsDataProvider
      */
-    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedPermissionsOfA, $expectedPermissionsOfB) {
+    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB) {
         if ($umask !== 0) {
             $this->markTestSkippedIfOsIsWindows();
         }
 
         umask($umask);
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedPermissionsOfA);
-        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedPermissionsOfB);
+        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedModeA);
+        $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedModeB);
     }
 
     public function parentDirectoriesHaveDefaultPermissionsDataProvider() {
@@ -91,7 +91,7 @@ class MkdirTaskTest extends BuildFileTest
             [
                 'umask' => 0000,
                 'expectedPermissionsOfA' => 0777,
-                'expectedPermissionsOfB' => 0707,
+                'expectedPermissionsOfB' => 0555,
             ],
             [
                 'umask' => 0077,

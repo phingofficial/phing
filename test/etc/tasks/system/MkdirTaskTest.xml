@@ -15,7 +15,7 @@
     </target>
 
     <target name="testParentDirectoriesHaveDefaultPermissions">
-        <mkdir dir="${tmp.dir}/a/b" mode="0707" />
+        <mkdir dir="${tmp.dir}/a/b" mode="0555" />
     </target>
 
     <target name="testAclIsInheritedFromParentDirectoryDefaultAcl">
