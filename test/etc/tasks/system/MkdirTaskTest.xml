@@ -3,7 +3,12 @@
     <property name="tmp.dir" value="tmp"/>
 
     <target name="clean">
-        <delete dir="${tmp.dir}" includeemptydirs="true" />
+        <chmod mode="777" failonerror="false">
+            <fileset dir="./" includes="${tmp.dir}/**"  />
+        </chmod>
+        <delete includeemptydirs="true">
+            <fileset dir="./" includes="${tmp.dir}/**" />
+        </delete>
     </target>
 
     <target name="testUmaskIsHonouredWhenNotUsingModeArgument">

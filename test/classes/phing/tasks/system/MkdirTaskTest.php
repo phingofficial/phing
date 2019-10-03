@@ -96,7 +96,7 @@ class MkdirTaskTest extends BuildFileTest
             [
                 'umask' => 0077,
                 'expectedPermissionsOfA' => 0700,
-                'expectedPermissionsOfB' => 0707,
+                'expectedPermissionsOfB' => 0555,
             ],
         ];
     }
