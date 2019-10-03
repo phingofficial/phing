@@ -3,7 +3,7 @@
     <property name="tmp.dir" value="tmp"/>
 
     <target name="clean">
-        <delete dir="${tmp.dir}"/>
+        <delete dir="${tmp.dir}" includeemptydirs="true" />
     </target>
 
     <target name="testUmaskIsHonouredWhenNotUsingModeArgument">
