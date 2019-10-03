@@ -55,9 +55,7 @@ class OutputStream
             return;
         }
         $this->flush();
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @fclose($this->stream)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
@@ -76,9 +74,7 @@ class OutputStream
      */
     public function flush()
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @fflush($this->stream)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'];

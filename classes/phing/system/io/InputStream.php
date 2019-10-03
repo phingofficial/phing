@@ -154,9 +154,7 @@ class InputStream
         if ($this->stream === null) {
             return;
         }
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @fclose($this->stream)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'];

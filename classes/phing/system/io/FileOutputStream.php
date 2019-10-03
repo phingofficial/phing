@@ -47,9 +47,7 @@ class FileOutputStream extends OutputStream
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if ($append) {
             $stream = @fopen($this->file->getAbsolutePath(), "ab");
         } else {

@@ -260,9 +260,7 @@ abstract class FileSystem
         }
 
         @clearstatcache();
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         $strPath = (string) $f->getPath();
 
         if (@is_link($strPath)) {
@@ -298,9 +296,7 @@ abstract class FileSystem
      */
     public function getLength(PhingFile $f)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         $strPath = (string) $f->getAbsolutePath();
         $fs = filesize((string) $strPath);
         if ($fs !== false) {
@@ -403,9 +399,7 @@ abstract class FileSystem
      */
     public function rename(PhingFile $f1, PhingFile $f2)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         // get the canonical paths of the file to rename
         $src = $f1->getAbsolutePath();
         $dest = $f2->getAbsolutePath();
@@ -429,9 +423,7 @@ abstract class FileSystem
      */
     public function setLastModifiedTime(PhingFile $f, $time)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         $path = $f->getPath();
         $success = @touch($path, $time);
         if (!$success) {
@@ -502,9 +494,7 @@ abstract class FileSystem
         $srcPath = $src->getAbsolutePath();
         $destPath = $dest->getAbsolutePath();
 
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @copy($srcPath, $destPath)) { // Copy FAILED. Log and return err.
             // Add error from php to end of log message. $errormsg.
             $lastError = error_get_last();
@@ -575,9 +565,7 @@ abstract class FileSystem
      */
     public function chown($pathname, $user)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @chown($pathname, $user)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
@@ -597,9 +585,7 @@ abstract class FileSystem
      */
     public function chgrp($pathname, $group)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @chgrp($pathname, $group)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
@@ -621,9 +607,7 @@ abstract class FileSystem
      */
     public function chmod($pathname, $mode)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         $str_mode = decoct($mode); // Show octal in messages.
         if (false === @chmod($pathname, $mode)) { // FAILED.
             $lastError = error_get_last();
@@ -679,9 +663,7 @@ abstract class FileSystem
      */
     public function unlink($file)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (false === @unlink($file)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
@@ -703,9 +685,7 @@ abstract class FileSystem
     public function symlink($target, $link)
     {
 
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         // If Windows OS then symlink() will report it is not supported in
         // the build. Use this error instead of checking for Windows as the OS.
 
@@ -728,9 +708,7 @@ abstract class FileSystem
      */
     public function touch($file, $time = null)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         if (null === $time) {
             $error = @touch($file);
         } else {
@@ -759,9 +737,7 @@ abstract class FileSystem
      */
     public function rmdir($dir, $children = false)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
 
         // If children=FALSE only delete dir if empty.
         if (false === $children) {
@@ -820,9 +796,7 @@ abstract class FileSystem
             // Don't error on closedir()
             @closedir($handle);
 
-            if (PHP_MAJOR_VERSION >= 7) {
-                error_clear_last();
-            }
+            error_clear_last();
             if (false === @rmdir($dir)) { // FAILED.
                 // Add error from php to end of log message.
                 $lastError = error_get_last();
@@ -845,9 +819,7 @@ abstract class FileSystem
      */
     public function umask($mode)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            error_clear_last();
-        }
+        error_clear_last();
         // CONSIDERME:
         // Throw a warning if mode is 0. PHP converts illegal octal numbers to
         // 0 so 0 might not be what the user intended.
