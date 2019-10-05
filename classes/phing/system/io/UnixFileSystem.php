@@ -302,8 +302,6 @@ class UnixFileSystem extends FileSystem
      */
     public function copy(PhingFile $src, PhingFile $dest)
     {
-        global $php_errormsg;
-
         if (!$src->isLink()) {
             parent::copy($src, $dest);
             return;
