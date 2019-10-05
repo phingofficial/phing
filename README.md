@@ -123,10 +123,6 @@ Then, perform the following steps (on a clone/fork of Phing):
          $ cd test
          $ ../bin/phing
 
-Should this not work, you might be able to run the unit tests from the main directory:
-
-         $ $ ./bin/phing -f test/build.xml -Dtest=NotifyTaskTest
-
 ## Licensing
 
   This software is licensed under the terms you may find in the file
