@@ -260,6 +260,7 @@ abstract class FileSystem
         }
 
         @clearstatcache();
+        error_clear_last();
         $strPath = (string) $f->getPath();
 
         if (@is_link($strPath)) {
@@ -275,7 +276,9 @@ abstract class FileSystem
         }
 
         if (false === $mtime) {
-            $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $php_errormsg";
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $errormsg";
             throw new IOException($msg);
         }
 
@@ -293,13 +296,16 @@ abstract class FileSystem
      */
     public function getLength(PhingFile $f)
     {
+        error_clear_last();
         $strPath = (string) $f->getAbsolutePath();
         $fs = filesize((string) $strPath);
         if ($fs !== false) {
             return $fs;
         }
 
-        $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $php_errormsg";
+        $lastError = error_get_last();
+        $errormsg = $lastError['message'];
+        $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $errormsg";
         throw new IOException($msg);
     }
 
@@ -405,11 +411,14 @@ abstract class FileSystem
      */
     public function rename(PhingFile $f1, PhingFile $f2)
     {
+        error_clear_last();
         // get the canonical paths of the file to rename
         $src = $f1->getAbsolutePath();
         $dest = $f2->getAbsolutePath();
         if (false === @rename($src, $dest)) {
-            $msg = "Rename FAILED. Cannot rename $src to $dest. $php_errormsg";
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "Rename FAILED. Cannot rename $src to $dest. $errormsg";
             throw new IOException($msg);
         }
     }
@@ -426,10 +435,13 @@ abstract class FileSystem
      */
     public function setLastModifiedTime(PhingFile $f, $time)
     {
+        error_clear_last();
         $path = $f->getPath();
         $success = @touch($path, $time);
         if (!$success) {
-            throw new IOException("Could not touch '" . $path . "' due to: $php_errormsg");
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            throw new IOException("Could not touch '" . $path . "' due to: $errormsg");
         }
     }
 
@@ -486,8 +498,6 @@ abstract class FileSystem
      */
     public function copy(PhingFile $src, PhingFile $dest)
     {
-        global $php_errormsg;
-
         // Recursively copy a directory
         if ($src->isDirectory()) {
             $this->copyr($src->getAbsolutePath(), $dest->getAbsolutePath());
@@ -496,9 +506,12 @@ abstract class FileSystem
         $srcPath = $src->getAbsolutePath();
         $destPath = $dest->getAbsolutePath();
 
+        error_clear_last();
         if (false === @copy($srcPath, $destPath)) { // Copy FAILED. Log and return err.
-            // Add error from php to end of log message. $php_errormsg.
-            $msg = "FileSystem::copy() FAILED. Cannot copy $srcPath to $destPath. $php_errormsg";
+            // Add error from php to end of log message. $errormsg.
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "FileSystem::copy() FAILED. Cannot copy $srcPath to $destPath. $errormsg";
             throw new IOException($msg);
         }
 
@@ -564,8 +577,11 @@ abstract class FileSystem
      */
     public function chown($pathname, $user)
     {
+        error_clear_last();
         if (false === @chown($pathname, $user)) { // FAILED.
-            $msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($errormsg) ? ' ' . $errormsg : "");
             throw new IOException($msg);
         }
     }
@@ -581,8 +597,11 @@ abstract class FileSystem
      */
     public function chgrp($pathname, $group)
     {
+        error_clear_last();
         if (false === @chgrp($pathname, $group)) { // FAILED.
-            $msg = "FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group." . (isset($errormsg) ? ' ' . $errormsg : "");
             throw new IOException($msg);
         }
     }
@@ -600,9 +619,12 @@ abstract class FileSystem
      */
     public function chmod($pathname, $mode)
     {
+        error_clear_last();
         $str_mode = decoct($mode); // Show octal in messages.
         if (false === @chmod($pathname, $mode)) { // FAILED.
-            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($errormsg) ? ' ' . $errormsg : "");
             throw new IOException($msg);
         }
     }
@@ -653,9 +675,11 @@ abstract class FileSystem
      */
     public function unlink($file)
     {
-        global $php_errormsg;
+        error_clear_last();
         if (false === @unlink($file)) {
-            $msg = "FileSystem::unlink() FAILED. Cannot unlink '$file'. $php_errormsg";
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            $msg = "FileSystem::unlink() FAILED. Cannot unlink '$file'. $errormsg";
             throw new IOException($msg);
         }
     }
@@ -673,12 +697,15 @@ abstract class FileSystem
     public function symlink($target, $link)
     {
 
+        error_clear_last();
         // If Windows OS then symlink() will report it is not supported in
         // the build. Use this error instead of checking for Windows as the OS.
 
         if (false === @symlink($target, $link)) {
-            // Add error from php to end of log message. $php_errormsg.
-            $msg = "FileSystem::Symlink() FAILED. Cannot symlink '$target' to '$link'. $php_errormsg";
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            // Add error from php to end of log message.
+            $msg = "FileSystem::Symlink() FAILED. Cannot symlink '$target' to '$link'. $errormsg";
             throw new IOException($msg);
         }
     }
@@ -693,8 +720,7 @@ abstract class FileSystem
      */
     public function touch($file, $time = null)
     {
-        global $php_errormsg;
-
+        error_clear_last();
         if (null === $time) {
             $error = @touch($file);
         } else {
@@ -702,8 +728,10 @@ abstract class FileSystem
         }
 
         if (false === $error) { // FAILED.
-            // Add error from php to end of log message. $php_errormsg.
-            $msg = "FileSystem::touch() FAILED. Cannot touch '$file'. $php_errormsg";
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            // Add error from php to end of log message.
+            $msg = "FileSystem::touch() FAILED. Cannot touch '$file'. $errormsg";
             throw new Exception($msg);
         }
     }
@@ -721,20 +749,24 @@ abstract class FileSystem
      */
     public function rmdir($dir, $children = false)
     {
-        global $php_errormsg;
+        error_clear_last();
 
         // If children=FALSE only delete dir if empty.
         if (false === $children) {
             if (false === @rmdir($dir)) { // FAILED.
-                // Add error from php to end of log message. $php_errormsg.
-                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $php_errormsg";
+                $lastError = error_get_last();
+                $errormsg = $lastError['message'];
+                // Add error from php to end of log message.
+                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $errormsg";
                 throw new Exception($msg);
             }
         } else { // delete contents and dir.
             $handle = @opendir($dir);
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
 
             if (false === $handle) { // Error.
-                $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $php_errormsg";
+                $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $errormsg";
                 throw new Exception($msg);
             }
             // Read from handle.
@@ -776,9 +808,12 @@ abstract class FileSystem
             // Don't error on closedir()
             @closedir($handle);
 
+            error_clear_last();
             if (false === @rmdir($dir)) { // FAILED.
-                // Add error from php to end of log message. $php_errormsg.
-                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $php_errormsg";
+                // Add error from php to end of log message.
+                $lastError = error_get_last();
+                $errormsg = $lastError['message'];
+                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $errormsg";
                 throw new Exception($msg);
             }
         }
@@ -796,8 +831,7 @@ abstract class FileSystem
      */
     public function umask($mode)
     {
-        global $php_errormsg;
-
+        error_clear_last();
         // CONSIDERME:
         // Throw a warning if mode is 0. PHP converts illegal octal numbers to
         // 0 so 0 might not be what the user intended.
@@ -805,8 +839,10 @@ abstract class FileSystem
         $str_mode = decoct($mode); // Show octal in messages.
 
         if (false === @umask($mode)) { // FAILED.
-            // Add error from php to end of log message. $php_errormsg.
-            $msg = "FileSystem::Umask() FAILED. Value $mode. $php_errormsg";
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            // Add error from php to end of log message.
+            $msg = "FileSystem::Umask() FAILED. Value $mode. $errormsg";
             throw new Exception($msg);
         }
     }
@@ -830,18 +866,18 @@ abstract class FileSystem
         $mtime2 = filemtime($file2);
 
         if ($mtime1 === false) { // FAILED. Log and return err.
-            // Add error from php to end of log message. $php_errormsg.
+            // Add error from php to end of log message.
             $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of $file1.";
             throw new Exception($msg);
         }
 
         if ($mtime2 === false) { // FAILED. Log and return err.
-            // Add error from php to end of log message. $php_errormsg.
+            // Add error from php to end of log message.
             $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of $file2.";
             throw new Exception($msg);
         }
 
-// Worked. Log and return compare.
+        // Worked. Log and return compare.
         // Compare mtimes.
         if ($mtime1 == $mtime2) {
             return 0;

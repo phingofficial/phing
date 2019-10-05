@@ -40,7 +40,6 @@ class FileOutputStream extends OutputStream
      */
     public function __construct($file, $append = false)
     {
-        global $php_errormsg;
         if ($file instanceof PhingFile) {
             $this->file = $file;
         } elseif (is_string($file)) {
@@ -48,13 +47,16 @@ class FileOutputStream extends OutputStream
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }
+        error_clear_last();
         if ($append) {
             $stream = @fopen($this->file->getAbsolutePath(), "ab");
         } else {
             $stream = @fopen($this->file->getAbsolutePath(), "wb");
         }
         if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $php_errormsg);
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
+            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $errormsg);
         }
         parent::__construct($stream);
     }
