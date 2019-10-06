@@ -28,7 +28,7 @@ class StringReader extends InputStreamReader
     /**
      * @var string
      */
-    private $_string;
+    private $string;
 
     /**
      * @var int
@@ -45,7 +45,7 @@ class StringReader extends InputStreamReader
      */
     public function __construct($string)
     {
-        $this->_string = $string;
+        $this->string = $string;
     }
 
     /**
@@ -62,13 +62,13 @@ class StringReader extends InputStreamReader
     public function read($len = null)
     {
         if ($len === null) {
-            return $this->_string;
+            return $this->string;
         }
 
-        if ($this->currPos >= strlen($this->_string)) {
+        if ($this->currPos >= strlen($this->string)) {
             return -1;
         }
-        $out = substr($this->_string, $this->currPos, $len);
+        $out = substr($this->string, $this->currPos, $len);
         $this->currPos += $len;
 
         return $out;
@@ -109,6 +109,6 @@ class StringReader extends InputStreamReader
      */
     public function getResource()
     {
-        return '(string) "' . $this->_string . '"';
+        return '(string) "' . $this->string . '"';
     }
 }

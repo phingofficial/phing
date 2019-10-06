@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phk/PhkPackageWebAccess.php';
-
 /**
  * See {@link http://phk.tekwire.net/} for more information about PHK.
  *

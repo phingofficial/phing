@@ -427,7 +427,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return array
      */
-    public function getElementStack()
+    public function &getElementStack(): array
     {
         return $this->elementStack;
     }
@@ -435,7 +435,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return array
      */
-    public function getTimesStack()
+    public function &getTimesStack(): array
     {
         return $this->timesStack;
     }

@@ -50,7 +50,7 @@ class ReplaceRegexpTask extends Task
      *
      * @var RegularExpression
      */
-    private $_regexp;
+    private $regexp;
 
     /**
      * File to apply regexp on
@@ -73,7 +73,7 @@ class ReplaceRegexpTask extends Task
      */
     public function setMatch($regexp)
     {
-        $this->_regexp->setPattern($regexp);
+        $this->regexp->setPattern($regexp);
     }
 
     /**
@@ -97,7 +97,7 @@ class ReplaceRegexpTask extends Task
      */
     public function setReplace($string)
     {
-        $this->_regexp->setReplace($string);
+        $this->regexp->setReplace($string);
     }
 
     /**
@@ -132,7 +132,7 @@ class ReplaceRegexpTask extends Task
      */
     public function init()
     {
-        $this->_regexp = new RegularExpression();
+        $this->regexp = new RegularExpression();
     }
 
     /**
@@ -181,7 +181,7 @@ class ReplaceRegexpTask extends Task
         $filter = new FilterChain($this->project);
 
         $r = new ReplaceRegexp();
-        $r->setRegexps([$this->_regexp]);
+        $r->setRegexps([$this->regexp]);
 
         $filter->addReplaceRegexp($r);
         $filters = [$filter];

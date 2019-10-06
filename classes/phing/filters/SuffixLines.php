@@ -61,7 +61,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -142,7 +142,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Initializes the suffix if it is available from the parameters.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {

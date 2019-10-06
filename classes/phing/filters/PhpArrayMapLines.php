@@ -57,7 +57,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->checkAttributes();
             $this->setInitialized(true);
         }
@@ -132,7 +132,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Initializes the function if it is available from the parameters.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {

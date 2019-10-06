@@ -107,7 +107,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -146,7 +146,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      * Initializes any parameters (e.g. config options).
      * This method is only called when this filter is used through a <filterreader> tag in build file.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if (!empty($params)) {

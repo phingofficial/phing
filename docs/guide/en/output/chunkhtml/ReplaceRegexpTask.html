@@ -2,10 +2,10 @@
         
         <p>Replaces the occurrences of a given regular expression with a substitution pattern
             in a selected file or set of files.</p>
-        <div class="table"><a name="idp15845"></a><p class="formal-object-title"><span class="label">Table C.111: </span><span class="title"></span></p><div class="table-contents">
+        <div class="table"><a name="idp15860"></a><p class="formal-object-title"><span class="label">Table C.111: </span><span class="title"></span></p><div class="table-contents">
             <table class="table" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>File to apply regular expression on</td><td>n/a</td><td>Yes (or <code class="literal">fileset</code>)</td></tr><tr><td><code class="literal">match</code></td><td><code class="literal">String</code></td><td>Regular expression match pattern</td><td>n/a</td><td>Yes (or <code class="literal">pattern</code>)</td></tr><tr><td><code class="literal">pattern</code></td><td><code class="literal">String</code></td><td>Regular expression match pattern</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">replace</code></td><td><code class="literal">String</code></td><td>The replacement string</td><td>n/a</td><td>Yes</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp15894"></a>C.82.1 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp15909"></a>C.82.1 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>
@@ -15,7 +15,7 @@
             
             <p> Selects property names that match a given regular expression and returns them in a delimited list
             </p>
-            <div class="table"><a name="idp15904"></a><p class="formal-object-title"><span class="label">Table C.112: </span><span class="title">Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp15919"></a><p class="formal-object-title"><span class="label">Table C.112: </span><span class="title">Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>The name of the property to set.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">override</code></td><td><code class="literal">Boolean</code></td><td>If the property is already set, should we change it's value. Can be <code class="literal">true</code> or <code class="literal">false</code></td><td>false</td><td>No</td></tr><tr><td><code class="literal">match</code></td><td><code class="literal">String</code></td><td>The regular expression which is used to select property names for inclusion in the list.
                                 This follows the standard regular expression syntax accepted by phing's regular expression tasks.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">select</code></td><td><code class="literal">String</code></td><td>A pattern which indicates what selection pattern you want in the returned list.
@@ -23,7 +23,7 @@
                                 as a result of the regular expression match.</td><td>\0</td><td>No</td></tr><tr><td><code class="literal">casesensitive</code></td><td><code class="literal">String</code></td><td>Should the match be case sensitive.</td><td>true</td><td>No</td></tr><tr><td><code class="literal">replace</code></td><td><code class="literal">String</code></td><td>A regular expression substitition pattern, which will be used to replace the given
                                 regular expression in the subject.</td><td>n/a</td><td>Yes (unless a match is specified)</td></tr><tr><td><code class="literal">casesensitive</code></td><td><code class="literal">Boolean</code></td><td>Should the match be case sensitive</td><td>true</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimiter used to separate entries in the resulting property</td><td>,</td><td>No</td></tr><tr><td><code class="literal">distinct</code></td><td><code class="literal">Boolean</code></td><td>Should the returned entries be a distinct set (no duplicate entries).</td><td>false</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">
-            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp15994"></a>1.1 Select expressions</h3></div></div></div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16009"></a>1.1 Select expressions</h3></div></div></div>
                 
                 <p>Expressions are matched in a the same syntax as a regular expression substitution pattern.</p>
                 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
@@ -36,7 +36,7 @@
                         <p>etc...</p>
                     </li></ul></div>
             </div>
-            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16006"></a>1.2 Example</h3></div></div></div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16021"></a>1.2 Example</h3></div></div></div>
                 
                 <pre class="programlisting">&lt;property name="package.ABC.name" value="abc pack name" /&gt;
                     &lt;property name="package.DEF.name" value="def pack name" /&gt;
