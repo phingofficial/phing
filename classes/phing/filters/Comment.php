@@ -28,7 +28,7 @@ class Comment
     /**
      * The prefix for a line comment.
      */
-    private $_value;
+    private $value;
 
     /*
      * Sets the prefix for this type of line comment.
@@ -41,7 +41,7 @@ class Comment
      */
     public function setValue($value)
     {
-        $this->_value = (string) $value;
+        $this->value = (string) $value;
     }
 
     /*
@@ -51,6 +51,6 @@ class Comment
     */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 }

@@ -35,7 +35,7 @@ abstract class S3 extends Amazon
      *
      * @var Aws\S3\S3Client
      */
-    protected $_client = null;
+    protected $client = null;
 
     /**
      * We only instantiate the client once per task call
@@ -46,7 +46,7 @@ abstract class S3 extends Amazon
      */
     public function getClient()
     {
-        if ($this->_client === null) {
+        if ($this->client === null) {
             try {
                 $s3Client = new Aws\S3\S3Client(
                     [
@@ -58,10 +58,10 @@ abstract class S3 extends Amazon
                 throw new BuildException($e);
             }
 
-            $this->_client = $s3Client;
+            $this->client = $s3Client;
         }
 
-        return $this->_client;
+        return $this->client;
     }
 
     /**

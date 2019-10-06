@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'Ssh2MethodParam.php';
-
 /**
  * Execute commands on a remote host using ssh.
  *

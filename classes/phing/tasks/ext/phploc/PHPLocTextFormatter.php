@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phploc/AbstractPHPLocFormatter.php';
-
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc

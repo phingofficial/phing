@@ -27,10 +27,10 @@
  */
 class XmlPropertyTask extends PropertyTask
 {
-    private $_keepRoot = true;
-    private $_collapseAttr = false;
-    private $_delimiter = ',';
-    private $_required = false;
+    private $keepRoot = true;
+    private $collapseAttr = false;
+    private $delimiter = ',';
+    private $required = false;
 
     /**
      * Set a file to use as the source for properties.
@@ -85,7 +85,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function setKeepRoot(bool $yesNo)
     {
-        $this->_keepRoot = $yesNo;
+        $this->keepRoot = $yesNo;
     }
 
     /**
@@ -93,7 +93,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function getKeepRoot()
     {
-        return $this->_keepRoot;
+        return $this->keepRoot;
     }
 
     /**
@@ -103,7 +103,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function setCollapseAttributes(bool $yesNo)
     {
-        $this->_collapseAttr = $yesNo;
+        $this->collapseAttr = $yesNo;
     }
 
     /**
@@ -111,7 +111,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function getCollapseAttributes()
     {
-        return $this->_collapseAttr;
+        return $this->collapseAttr;
     }
 
     /**
@@ -121,7 +121,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function setDelimiter($d)
     {
-        $this->_delimiter = $d;
+        $this->delimiter = $d;
     }
 
     /**
@@ -129,7 +129,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function getDelimiter()
     {
-        return $this->_delimiter;
+        return $this->delimiter;
     }
 
     /**
@@ -139,7 +139,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function setRequired($d)
     {
-        $this->_required = $d;
+        $this->required = $d;
     }
 
     /**
@@ -147,7 +147,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function getRequired()
     {
-        return $this->_required;
+        return $this->required;
     }
 
     /**
@@ -178,9 +178,9 @@ class XmlPropertyTask extends PropertyTask
         try { // try to load file
             if ($file->exists()) {
                 $parser = new XmlFileParser();
-                $parser->setCollapseAttr($this->_collapseAttr);
-                $parser->setKeepRoot($this->_keepRoot);
-                $parser->setDelimiter($this->_delimiter);
+                $parser->setCollapseAttr($this->collapseAttr);
+                $parser->setKeepRoot($this->keepRoot);
+                $parser->setDelimiter($this->delimiter);
 
                 $properties = $parser->parseFile($file);
 

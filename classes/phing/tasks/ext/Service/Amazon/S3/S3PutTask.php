@@ -32,7 +32,7 @@ class S3PutTask extends S3
      *
      * @var string
      */
-    protected $_source = null;
+    protected $source = null;
 
     /**
      * Content we're trying to upload
@@ -43,7 +43,7 @@ class S3PutTask extends S3
      *
      * @var mixed
      */
-    protected $_content = null;
+    protected $content = null;
 
     /**
      * Collection of filesets
@@ -53,7 +53,7 @@ class S3PutTask extends S3
      *
      * @var array
      */
-    protected $_filesets = [];
+    protected $filesets = [];
 
     /**
      * Whether to try to create buckets or not
@@ -62,7 +62,7 @@ class S3PutTask extends S3
      *
      * @var bool
      */
-    protected $_createBuckets = false;
+    protected $createBuckets = false;
 
     /**
      * File ACL
@@ -72,7 +72,7 @@ class S3PutTask extends S3
      *
      * @var string
      */
-    protected $_acl = 'private';
+    protected $acl = 'private';
 
     /**
      * File content type
@@ -83,28 +83,28 @@ class S3PutTask extends S3
      *
      * @var string
      */
-    protected $_contentType = 'binary/octet-stream';
+    protected $contentType = 'binary/octet-stream';
 
     /**
      * Object maxage (in seconds).
      *
      * @var int
      */
-    protected $_maxage = null;
+    protected $maxage = null;
 
     /**
      * Content is gzipped.
      *
      * @var boolean
      */
-    protected $_gzipped = false;
+    protected $gzipped = false;
 
     /**
      * Extension content type mapper
      *
      * @var array
      */
-    protected $_extensionContentTypeMapper = [
+    protected $extensionContentTypeMapper = [
         'js' => 'application/x-javascript',
         'css' => 'text/css',
         'html' => 'text/html',
@@ -122,8 +122,8 @@ class S3PutTask extends S3
      *
      * @var bool
      */
-    protected $_fileNameOnly = false;
-    private $_object;
+    protected $fileNameOnly = false;
+    private $object;
 
     /**
      * @param string $source
@@ -136,7 +136,7 @@ class S3PutTask extends S3
             throw new BuildException('Source is not readable: ' . $source);
         }
 
-        $this->_source = $source;
+        $this->source = $source;
     }
 
     /**
@@ -146,18 +146,18 @@ class S3PutTask extends S3
      */
     public function getSource()
     {
-        if ($this->_content !== null) {
+        if ($this->content !== null) {
             $tempFile = tempnam($this->getProject()->getProperty('php.tmpdir'), 's3_put_');
 
-            file_put_contents($tempFile, $this->_content);
-            $this->_source = $tempFile;
+            file_put_contents($tempFile, $this->content);
+            $this->source = $tempFile;
         }
 
-        if ($this->_source === null) {
+        if ($this->source === null) {
             throw new BuildException('Source is not set');
         }
 
-        return $this->_source;
+        return $this->source;
     }
 
     /**
@@ -171,7 +171,7 @@ class S3PutTask extends S3
             throw new BuildException('Content must be a non-empty string');
         }
 
-        $this->_content = $content;
+        $this->content = $content;
     }
 
     /**
@@ -181,11 +181,11 @@ class S3PutTask extends S3
      */
     public function getContent()
     {
-        if ($this->_content === null) {
+        if ($this->content === null) {
             throw new BuildException('Content is not set');
         }
 
-        return $this->_content;
+        return $this->content;
     }
 
     /**
@@ -199,7 +199,7 @@ class S3PutTask extends S3
             throw new BuildException('Object must be a non-empty string');
         }
 
-        $this->_object = $object;
+        $this->object = $object;
     }
 
     /**
@@ -209,11 +209,11 @@ class S3PutTask extends S3
      */
     public function getObject()
     {
-        if ($this->_object === null) {
+        if ($this->object === null) {
             throw new BuildException('Object is not set');
         }
 
-        return $this->_object;
+        return $this->object;
     }
 
     /**
@@ -226,7 +226,7 @@ class S3PutTask extends S3
         if (empty($permission) || !is_string($permission) || !in_array($permission, $valid_acl)) {
             throw new BuildException('Object must be one of the following values: ' . implode('|', $valid_acl));
         }
-        $this->_acl = $permission;
+        $this->acl = $permission;
     }
 
     /**
@@ -234,7 +234,7 @@ class S3PutTask extends S3
      */
     public function getAcl()
     {
-        return $this->_acl;
+        return $this->acl;
     }
 
     /**
@@ -242,7 +242,7 @@ class S3PutTask extends S3
      */
     public function setContentType($contentType)
     {
-        $this->_contentType = $contentType;
+        $this->contentType = $contentType;
     }
 
     /**
@@ -251,17 +251,17 @@ class S3PutTask extends S3
      */
     public function getContentType()
     {
-        if ($this->_contentType === 'auto') {
+        if ($this->contentType === 'auto') {
             $ext = strtolower(substr(strrchr($this->getSource(), '.'), 1));
-            return $this->_extensionContentTypeMapper[$ext] ?? 'binary/octet-stream';
+            return $this->extensionContentTypeMapper[$ext] ?? 'binary/octet-stream';
         }
 
-        return $this->_contentType;
+        return $this->contentType;
     }
 
     public function setCreateBuckets(bool $createBuckets)
     {
-        $this->_createBuckets = $createBuckets;
+        $this->createBuckets = $createBuckets;
     }
 
     /**
@@ -269,7 +269,7 @@ class S3PutTask extends S3
      */
     public function getCreateBuckets()
     {
-        return $this->_createBuckets;
+        return $this->createBuckets;
     }
 
     /**
@@ -279,7 +279,7 @@ class S3PutTask extends S3
      */
     public function setMaxage($seconds)
     {
-        $this->_maxage = $seconds;
+        $this->maxage = $seconds;
     }
 
     /**
@@ -289,7 +289,7 @@ class S3PutTask extends S3
      */
     public function getMaxage()
     {
-        return $this->_maxage;
+        return $this->maxage;
     }
 
     /**
@@ -299,7 +299,7 @@ class S3PutTask extends S3
      */
     public function setGzip($gzipped)
     {
-        $this->_gzipped = $gzipped;
+        $this->gzipped = $gzipped;
     }
 
     /**
@@ -309,7 +309,7 @@ class S3PutTask extends S3
      */
     public function getGzip()
     {
-        return $this->_gzipped;
+        return $this->gzipped;
     }
 
     /**
@@ -320,10 +320,10 @@ class S3PutTask extends S3
     protected function getHttpHeaders()
     {
         $headers = [];
-        if (null !== $this->_maxage) {
-            $headers['Cache-Control'] = 'max-age=' . $this->_maxage;
+        if (null !== $this->maxage) {
+            $headers['Cache-Control'] = 'max-age=' . $this->maxage;
         }
-        if ($this->_gzipped) {
+        if ($this->gzipped) {
             $headers['Content-Encoding'] = 'gzip';
         }
 
@@ -332,7 +332,7 @@ class S3PutTask extends S3
 
     public function setFileNameOnly(bool $fileNameOnly)
     {
-        $this->_fileNameOnly = $fileNameOnly;
+        $this->fileNameOnly = $fileNameOnly;
     }
 
     /**
@@ -342,9 +342,9 @@ class S3PutTask extends S3
      */
     public function createFileset()
     {
-        $num = array_push($this->_filesets, new FileSet());
+        $num = array_push($this->filesets, new FileSet());
 
-        return $this->_filesets[$num - 1];
+        return $this->filesets[$num - 1];
     }
 
     /**
@@ -354,7 +354,7 @@ class S3PutTask extends S3
      */
     public function getFilesets()
     {
-        return $this->_filesets;
+        return $this->filesets;
     }
 
     /**
@@ -397,10 +397,10 @@ class S3PutTask extends S3
         }
 
         // Filesets take precedence
-        if (!empty($this->_filesets)) {
+        if (!empty($this->filesets)) {
             $objects = [];
 
-            foreach ($this->_filesets as $fs) {
+            foreach ($this->filesets as $fs) {
                 if (!($fs instanceof FileSet)) {
                     continue;
                 }
@@ -411,14 +411,14 @@ class S3PutTask extends S3
 
             $fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
 
-            if ($this->_fileNameOnly) {
+            if ($this->fileNameOnly) {
                 foreach ($objects as $object) {
-                    $this->_source = $object;
+                    $this->source = $object;
                     $this->saveObject(basename($object), $fromDir . DIRECTORY_SEPARATOR . $object);
                 }
             } else {
                 foreach ($objects as $object) {
-                    $this->_source = $object;
+                    $this->source = $object;
                     $this->saveObject(
                         str_replace('\\', '/', $object),
                         $fromDir . DIRECTORY_SEPARATOR . $object

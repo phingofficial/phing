@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/AdhocTask.php';
-
 /**
  * A class for creating adhoc datatypes in build file.
  *
