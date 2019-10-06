@@ -7,7 +7,7 @@
             <span class="bold"><strong>NB:</strong></span> if you have installed the
             PHPMD Phar file, make sure you set the
             <code class="literal">pharLocation</code> attribute!</p>
-        <div class="table"><a name="idp14728"></a><p class="formal-object-title"><span class="label">Table C.98: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp14743"></a><p class="formal-object-title"><span class="label">Table C.98: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
                         <code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">rulesets</code></td><td><code class="literal">String</code></td><td>Sets the rulesets used for analyzing the source code</td><td>codesize, unusedcode</td><td>No</td></tr><tr><td><code class="literal">minimumPriority</code></td><td><code class="literal">Integer</code></td><td>The minimum priority for rules to load.</td><td>5</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid file extensions (without dot) for
@@ -17,7 +17,7 @@
                             <code class="literal">cachefile</code>, to speed up processing of files that
                             rarely change</td><td>none</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14817"></a>C.74.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14832"></a>C.74.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpmd file="path/to/source.php"/&gt;</pre>
 
@@ -36,7 +36,7 @@
  &lt;/phpmd&gt;</pre>
             <p>Checking syntax of source files in the fileset pathes.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14825"></a>C.74.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14840"></a>C.74.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code>
@@ -51,7 +51,7 @@
                         attribute to <code class="literal">true</code> and set an filename in the
                             <code class="literal">outfile</code> attribute.</p>
 
-                    <div class="table"><a name="idp14841"></a><p class="formal-object-title"><span class="label">Table C.99: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp14856"></a><p class="formal-object-title"><span class="label">Table C.99: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute
