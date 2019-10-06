@@ -166,7 +166,8 @@ class TargetHandler extends AbstractHandler
         // check to see if target with same name is already defined
         $projectTargets = $project->getTargets();
         if (isset($projectTargets[$name])) {
-            if ($this->configurator->isIgnoringProjectTag()
+            if (
+                $this->configurator->isIgnoringProjectTag()
                 && $this->configurator->getCurrentProjectName() != null
                 && strlen($this->configurator->getCurrentProjectName()) != 0
             ) {

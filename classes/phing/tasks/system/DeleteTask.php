@@ -116,8 +116,12 @@ class DeleteTask extends Task
      */
     public function main()
     {
-        if ($this->file === null && $this->dir === null && count($this->dirsets) === 0
-            && count($this->filesets) === 0 && count($this->filelists) === 0
+        if (
+            $this->file === null
+            && $this->dir === null
+            && count($this->dirsets) === 0
+            && count($this->filesets) === 0
+            && count($this->filelists) === 0
         ) {
             throw new BuildException(
                 "At least one of the file or dir attributes, or a fileset, filelist or dirset element must be set."
