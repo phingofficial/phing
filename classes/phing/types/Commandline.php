@@ -212,10 +212,12 @@ class Commandline implements Countable
             return '\'' . $argument . '\'';
         }
 
-        if (strpos($argument, "'") !== false
+        if (
+            strpos($argument, "'") !== false
             || strpos($argument, ' ') !== false
             // WIN9x uses a bat file for executing commands
-            || (OsCondition::isFamily('win32') && strpos($argument, ';') !== false)
+            || (OsCondition::isFamily('win32')
+            && strpos($argument, ';') !== false)
         ) {
             return '"' . $argument . '"';
         }

@@ -99,8 +99,10 @@ class TaskdefTask extends Task
      */
     public function main()
     {
-        if ($this->typeFile === null
-            && ($this->name === null || $this->classname === null)
+        if (
+            $this->typeFile === null
+            && ($this->name === null
+            || $this->classname === null)
         ) {
             throw new BuildException("You must specify name and class attributes for <taskdef>.");
         }
