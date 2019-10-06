@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,47 +17,23 @@
  * <http://phing.info>.
  */
 
-use PHPMD\AbstractRenderer;
-use PHPMD\Report;
-
-/**
- * This class will remove files with violations from cache
- *
- * @category PHP
- * @package  PHPMD
- * @author   Rui Filipe Da Cunha Alves <ruifil@ruifil.com>
- */
-class PHPMDRendererRemoveFromCache extends AbstractRenderer
+class DescriptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Cache data storage
+     * Test that the aaddText method appends text to description w/o any spaces
      *
-     * @var DataStore
-     */
-    protected $cache;
-
-    /**
-     * Constructor
-     *
-     * @param DataStore $cache
-     */
-    public function __construct($cache)
-    {
-        $this->cache = $cache;
-    }
-
-    /**
-     * This method will be called when the engine has finished the source
-     * analysis phase. To remove file with violations from cache.
-     *
-     * @param  Report $report
      * @return void
      */
-    public function renderReport(Report $report)
+    public function testAddTextAppendsDirectly()
     {
-        foreach ($report->getRuleViolations() as $violation) {
-            $fileName = $violation->getFileName();
-            $this->cache->remove($fileName, null);
-        }
+        $description = new Description();
+        $project = new Project();
+        $text = "project description";
+        $project->setDescription("project description");
+        $this->assertEquals($text, $project->getDescription());
+
+        $description->setProject($project);
+        $description->addText("appended");
+        $this->assertEquals("{$text}appended", $project->getDescription());
     }
 }

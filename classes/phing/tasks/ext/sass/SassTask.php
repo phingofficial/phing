@@ -996,7 +996,8 @@ class SassTask extends Task
                         $run = false;
                 }
 
-                if ($run
+                if (
+                    $run
                     && ($this->extfilter === ''
                         || $this->extfilter === $this->pathInfo['extension'])
                 ) {
