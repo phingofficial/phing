@@ -225,9 +225,10 @@ class Application
             }
         }
 
-        if (class_exists('Composer\\Autoload\\ClassLoader', false) && class_exists(
-            '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy'
-        )
+        if (
+            class_exists('Composer\\Autoload\\ClassLoader', false) && class_exists(
+                '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy'
+            )
         ) {
             return;
         }

@@ -235,10 +235,11 @@ class PhpLintTask extends Task
                 continue;
             }
 
-            if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match(
-                '/^No syntax errors detected/',
-                $message
-            )
+            if (
+                (!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match(
+                    '/^No syntax errors detected/',
+                    $message
+                )
             ) {
                 $this->log($message, Project::MSG_ERR);
 

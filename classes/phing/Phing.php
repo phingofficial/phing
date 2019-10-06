@@ -414,17 +414,19 @@ class Phing
         // 2) Next pull out stand-alone args.
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
-        if (false !== ($key = array_search('-quiet', $args, true)) || false !== ($key = array_search(
-            '-q',
-            $args,
-            true
-        ))
+        if (
+            false !== ($key = array_search('-quiet', $args, true)) || false !== ($key = array_search(
+                '-q',
+                $args,
+                true
+            ))
         ) {
             self::$msgOutputLevel = Project::MSG_WARN;
             unset($args[$key]);
         }
 
-        if (false !== ($key = array_search('-emacs', $args, true))
+        if (
+            false !== ($key = array_search('-emacs', $args, true))
             || false !== ($key = array_search('-e', $args, true))
         ) {
             $this->emacsMode = true;
@@ -441,7 +443,8 @@ class Phing
             unset($args[$key]);
         }
 
-        if (false !== ($key = array_search('-silent', $args, true))
+        if (
+            false !== ($key = array_search('-silent', $args, true))
             || false !== ($key = array_search('-S', $args, true))
         ) {
             $this->silent = true;

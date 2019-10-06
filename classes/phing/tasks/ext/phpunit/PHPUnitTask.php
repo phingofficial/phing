@@ -343,7 +343,8 @@ class PHPUnitTask extends Task
         }
 
         foreach ($config->getListenerConfiguration() as $listener) {
-            if (!class_exists($listener['class'], false)
+            if (
+                !class_exists($listener['class'], false)
                 && $listener['file'] !== ''
             ) {
                 include_once $listener['file'];
@@ -370,7 +371,8 @@ class PHPUnitTask extends Task
         if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
             $browsers = $config->getSeleniumBrowserConfiguration();
 
-            if (!empty($browsers)
+            if (
+                !empty($browsers)
                 && class_exists('PHPUnit_Extensions_SeleniumTestCase')
             ) {
                 PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
@@ -450,11 +452,13 @@ class PHPUnitTask extends Task
      */
     protected function execute($suite)
     {
-        if (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
-            \PHPUnit\Runner\Version::id(),
-            '8.0.0',
-            '<'
-        )) {
+        if (
+            class_exists('\PHPUnit\Runner\Version', false) && version_compare(
+                \PHPUnit\Runner\Version::id(),
+                '8.0.0',
+                '<'
+            )
+        ) {
             $runner = new PHPUnitTestRunner7(
                 $this->project,
                 $this->groups,

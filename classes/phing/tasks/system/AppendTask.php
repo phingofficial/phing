@@ -421,7 +421,8 @@ class AppendTask extends Task
             );
         }
 
-        if ($this->to !== null
+        if (
+            $this->to !== null
             && !$this->overwrite
             && $this->to->exists()
             && $f->lastModified() > $this->to->lastModified()

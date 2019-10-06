@@ -160,7 +160,8 @@ class DependSet extends MatchingTask
                         Project::MSG_WARN
                     );
                 }
-                if ($oldestTarget === null
+                if (
+                    $oldestTarget === null
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
@@ -188,7 +189,8 @@ class DependSet extends MatchingTask
                         Project::MSG_WARN
                     );
                 }
-                if ($oldestTarget === null
+                if (
+                    $oldestTarget === null
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
