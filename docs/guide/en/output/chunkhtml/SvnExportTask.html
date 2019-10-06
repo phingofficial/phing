@@ -3,14 +3,14 @@
         <p> The <code class="literal">SvnExportTask</code> exports a Subversion repository to a local
             directory.</p>
 
-        <div class="table"><a name="idp17633"></a><p class="formal-object-title"><span class="label">Table C.129: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp17648"></a><p class="formal-object-title"><span class="label">Table C.129: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">revision</code></td><td><code class="literal">String</code></td><td>Revision to use in export</td><td>HEAD</td><td>No</td></tr><tr><td><code class="literal">svnpath</code></td><td><code class="literal">String</code></td><td>Path to Subversion binary</td><td>/usr/bin/svn</td><td>No</td></tr><tr><td><code class="literal">repositoryurl</code></td><td><code class="literal">String</code></td><td>URL of SVN repository</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>A username used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>A password used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">nocache</code></td><td><code class="literal">Boolean</code></td><td>Connection credentials will not be cached</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Path to export to</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">depth</code></td><td><code class="literal">String</code></td><td>Limit operation by depth</td><td><code class="literal">empty</code>,
                         <code class="literal">files</code>,
                         <code class="literal">immediates</code> or
                         <code class="literal">infinity</code></td><td>No</td></tr><tr><td><code class="literal">ignoreexternals</code></td><td><code class="literal">Boolean</code></td><td>Ignore externals definitions</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">trustServerCert</code></td><td><code class="literal">Boolean</code></td><td>Trust self-signed certificates</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17736"></a>C.95.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17751"></a>C.95.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;svnexport
    svnpath="/usr/bin/svn"

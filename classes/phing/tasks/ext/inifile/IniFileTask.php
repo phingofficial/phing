@@ -13,11 +13,6 @@
  * @link     http://www.phing.info/
  */
 
-require_once 'IniFileGet.php';
-require_once 'IniFileSet.php';
-require_once 'IniFileRemove.php';
-require_once 'IniFileConfig.php';
-
 /**
  * InifileTask
  *

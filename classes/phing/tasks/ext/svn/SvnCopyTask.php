@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
-
 /**
  * Copies a repository from the repository url to another
  *

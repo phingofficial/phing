@@ -55,7 +55,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    private $_lineBreaks = "\r\n"; // self::DEFAULT_LINE_BREAKS;
+    private $lineBreaks = "\r\n"; // self::DEFAULT_LINE_BREAKS;
 
     /**
      * Returns the filtered stream, only including
@@ -71,7 +71,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -80,7 +80,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
             return -1;
         }
 
-        $buffer = preg_replace("/[" . $this->_lineBreaks . "]/", '', $buffer);
+        $buffer = preg_replace("/[" . $this->lineBreaks . "]/", '', $buffer);
 
         return $buffer;
     }
@@ -93,7 +93,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      */
     public function setLineBreaks($lineBreaks)
     {
-        $this->_lineBreaks = (string) $lineBreaks;
+        $this->lineBreaks = (string) $lineBreaks;
     }
 
     /**
@@ -103,7 +103,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      */
     public function getLineBreaks()
     {
-        return $this->_lineBreaks;
+        return $this->lineBreaks;
     }
 
     /**
@@ -129,7 +129,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
     /**
      * Parses the parameters to set the line-breaking characters.
      */
-    private function _initialize()
+    private function initialize()
     {
         $userDefinedLineBreaks = null;
         $params = $this->getParameters();
@@ -143,7 +143,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
         }
 
         if ($userDefinedLineBreaks !== null) {
-            $this->_lineBreaks = $userDefinedLineBreaks;
+            $this->lineBreaks = $userDefinedLineBreaks;
         }
     }
 }

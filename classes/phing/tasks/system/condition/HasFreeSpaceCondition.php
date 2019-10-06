@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.
  *

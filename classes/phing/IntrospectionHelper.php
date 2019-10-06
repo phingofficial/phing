@@ -324,7 +324,7 @@ class IntrospectionHelper
                 if (($argType = $params[0]->getType()) !== null) {
                     /** @var ReflectionNamedType $argType */
                     $reflectedAttr = $argType->getName();
-                } else if (($classType = $params[0]->getClass()) !== null) {
+                } elseif (($classType = $params[0]->getClass()) !== null) {
                     /** @var ReflectionClass $classType */
                     $reflectedAttr = $classType->getName();
                 }

@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/util/DataStore.php';
-
 use PHPMD\AbstractRenderer;
 use PHPMD\Report;
 

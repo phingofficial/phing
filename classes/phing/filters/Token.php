@@ -30,14 +30,14 @@ class Token
      *
      * @var string
      */
-    private $_key;
+    private $key;
 
     /**
      * Token value.
      *
      * @var string
      */
-    private $_value;
+    private $value;
 
     /**
      * Sets the token key.
@@ -46,7 +46,7 @@ class Token
      */
     public function setKey($key)
     {
-        $this->_key = (string) $key;
+        $this->key = (string) $key;
     }
 
     /**
@@ -59,12 +59,12 @@ class Token
         // special case for boolean values
         if (is_bool($value)) {
             if ($value) {
-                $this->_value = "true";
+                $this->value = "true";
             } else {
-                $this->_value = "false";
+                $this->value = "false";
             }
         } else {
-            $this->_value = (string) $value;
+            $this->value = (string) $value;
         }
     }
 
@@ -75,7 +75,7 @@ class Token
      */
     public function getKey()
     {
-        return $this->_key;
+        return $this->key;
     }
 
     /**
@@ -85,7 +85,7 @@ class Token
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 
     /**

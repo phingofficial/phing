@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * A simple string comparator.  Compares two strings for eqiality in a
  * binary safe manner. Implements the condition interface specification.

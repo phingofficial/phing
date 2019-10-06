@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * Is one string part of another string?
  *
