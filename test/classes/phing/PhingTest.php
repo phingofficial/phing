@@ -112,6 +112,14 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($phing->printTargets($project));
     }
 
+    public function testPrintUsage(): void
+    {
+        $phing = new Phing();
+        $phing::setErrorStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
+
+        $this->assertNull($phing::printUsage());
+    }
+
     public function testCallStartupShutdown()
     {
         $this->assertNull(Phing::startup());
