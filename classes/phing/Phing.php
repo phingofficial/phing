@@ -1379,7 +1379,7 @@ class Phing
 
         $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
 
-        Phing::__import($path, $classpath);
+        Phing::importFile($path, $classpath);
 
         return $classname;
     }
@@ -1387,12 +1387,15 @@ class Phing
     /**
      * Import a PHP file
      *
+     * This used to be named __import, however PHP has reserved all method names
+     * with a double underscore prefix for future use.
+     *
      * @param string $path Path to the PHP file
      * @param mixed $classpath String or object supporting __toString()
      *
      * @throws ConfigurationException
      */
-    public static function __import($path, $classpath = null)
+    public static function importFile($path, $classpath = null)
     {
         if ($classpath) {
             // Apparently casting to (string) no longer invokes __toString() automatically.

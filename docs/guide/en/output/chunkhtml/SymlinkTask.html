@@ -2,12 +2,12 @@
         
         <p>Creates symlink(s) to a specified file / directory or a collection of files /
             directories.</p>
-        <div class="table"><a name="idp18698"></a><p class="formal-object-title"><span class="label">Table C.143: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp18713"></a><p class="formal-object-title"><span class="label">Table C.143: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">target</code></td><td><code class="literal">String</code></td><td>What you're trying to symlink from</td><td>n/a</td><td>Yes (or nested FileSet)</td></tr><tr><td><code class="literal">link</code></td><td><code class="literal">String</code></td><td>Where you'd like the symlink(s)</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">overwrite</code></td><td><code class="literal">Boolean</code></td><td>Whether to override the symlink if it exists but points to a
                             different location</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">relative</code></td><td><code class="literal">Boolean</code></td><td>Whether to create relative symlinks</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18748"></a>C.108.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18763"></a>C.108.1 Example</h3></div></div></div>
             
             <p>Single symlink</p>
             <pre class="programlisting">&lt;symlink target="/path/to/original/file" link="/where/to/symlink" /&gt;</pre>
@@ -32,7 +32,7 @@
         </div>
 
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18766"></a>C.108.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18781"></a>C.108.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>

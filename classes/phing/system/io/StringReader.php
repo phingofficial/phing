@@ -22,7 +22,7 @@
  *
  * @package phing.system.io
  */
-class StringReader extends Reader
+class StringReader extends InputStreamReader
 {
 
     /**

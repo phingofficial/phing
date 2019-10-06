@@ -33,7 +33,6 @@ class TimerMap
     public function find($name, Clock $clock)
     {
         $timer = $this->map[$name] ?? null;
-
         if ($timer === null) {
             $timer = $this->createTimer($name, $clock);
             $this->map[$name] = $timer;
