@@ -453,11 +453,8 @@ class PHPUnitTask extends Task
     protected function execute($suite)
     {
         if (
-            class_exists('\PHPUnit\Runner\Version', false) && version_compare(
-                \PHPUnit\Runner\Version::id(),
-                '8.0.0',
-                '<'
-            )
+            class_exists('\PHPUnit\Runner\Version', false) &&
+            version_compare(\PHPUnit\Runner\Version::id(), '8.0.0', '<')
         ) {
             $runner = new PHPUnitTestRunner7(
                 $this->project,

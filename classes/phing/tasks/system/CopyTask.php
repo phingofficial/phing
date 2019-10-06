@@ -338,7 +338,9 @@ class CopyTask extends Task
                 }
 
                 if (
-                    !$this->flatten && $this->mapperElement === null && $ds->isEverythingIncluded()
+                    !$this->flatten &&
+                    $this->mapperElement === null &&
+                    $ds->isEverythingIncluded()
                 ) {
                     $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
                 }

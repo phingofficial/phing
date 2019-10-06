@@ -415,7 +415,8 @@ class Phing
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
         if (
-            false !== ($key = array_search('-quiet', $args, true)) || false !== ($key = array_search(
+            false !== ($key = array_search('-quiet', $args, true)) ||
+            false !== ($key = array_search(
                 '-q',
                 $args,
                 true
