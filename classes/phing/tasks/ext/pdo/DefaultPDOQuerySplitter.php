@@ -76,14 +76,17 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
             $project = $this->parent->getOwningTarget()->getProject();
             $line = $project->replaceProperties(trim($line));
 
-            if (($line != $delimiter) && (StringHelper::startsWith("//", $line)
+            if (
+                ($line != $delimiter)
+                && (StringHelper::startsWith("//", $line)
                     || StringHelper::startsWith("--", $line)
                     || StringHelper::startsWith("#", $line))
             ) {
                 continue;
             }
 
-            if (strlen($line) > 4
+            if (
+                strlen($line) > 4
                 && strtoupper(substr($line, 0, 4)) == "REM "
             ) {
                 continue;

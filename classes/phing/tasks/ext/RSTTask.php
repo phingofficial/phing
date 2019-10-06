@@ -236,7 +236,9 @@ class RSTTask extends Task
      */
     protected function renderFile($tool, $source, $targetFile)
     {
-        if ($this->uptodate && file_exists($targetFile)
+        if (
+            $this->uptodate
+            && file_exists($targetFile)
             && filemtime($source) <= filemtime($targetFile)
         ) {
             //target is up to date
@@ -307,7 +309,8 @@ class RSTTask extends Task
      */
     public function getTargetFile($file, $destination = null)
     {
-        if ($destination != ''
+        if (
+            $destination != ''
             && substr($destination, -1) !== '/'
             && substr($destination, -1) !== '\\'
         ) {

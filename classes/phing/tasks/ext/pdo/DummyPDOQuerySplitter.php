@@ -42,7 +42,9 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             $project = $this->parent->getOwningTarget()->getProject();
             $line = $project->replaceProperties(trim($line));
 
-            if (($line != $delimiter) && (StringHelper::startsWith("//", $line)
+            if (
+                ($line != $delimiter)
+                && (StringHelper::startsWith("//", $line)
                     || StringHelper::startsWith("--", $line)
                     || StringHelper::startsWith("#", $line))
             ) {

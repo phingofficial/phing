@@ -284,7 +284,8 @@ class PhingTask extends Task
             }
 
             // Are we trying to call the target in which we are defined?
-            if ($this->newProject->getBaseDir() == $this->project->getBaseDir()
+            if (
+                $this->newProject->getBaseDir() == $this->project->getBaseDir()
                 && $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file")
                 && $this->getOwningTarget() !== null
                 && $this->newTarget == $this->getOwningTarget()->getName()
