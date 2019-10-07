@@ -31,7 +31,7 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
 
     public function testSetline()
     {
-        $commandline = new Commandline($command);
+        $commandline = new Commandline();
         $argument = new CommandlineArgument($commandline);
         $argument->setLine(null);
         $parts = $argument->getParts();
