@@ -12,7 +12,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
     {
         $s = "" . $this->patternset;
         $this->assertEquals($s, "patternSet{ includes: empty  excludes: empty }");
-        $this->assertEquals(false, $this->hasPatterns);
+        $this->assertEquals(false, $this->patternset->hasPatterns());
     }
 
     /**
@@ -26,6 +26,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
         $this->patternset->setRefId($reference);
         $this->patternset->createInclude();
     }
+
     /**
      * @expectedException BuildException
      * @expectedExceptionMessage You must not specify nested elements when using refid
