@@ -19,8 +19,6 @@
  * @package phing.tasks.ext.pdo
  */
 
-require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
-
 /**
  * Dummy query splitter: converts entire input into single
  * SQL string
@@ -44,7 +42,9 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             $project = $this->parent->getOwningTarget()->getProject();
             $line = $project->replaceProperties(trim($line));
 
-            if (($line != $delimiter) && (StringHelper::startsWith("//", $line)
+            if (
+                ($line != $delimiter)
+                && (StringHelper::startsWith("//", $line)
                     || StringHelper::startsWith("--", $line)
                     || StringHelper::startsWith("#", $line))
             ) {

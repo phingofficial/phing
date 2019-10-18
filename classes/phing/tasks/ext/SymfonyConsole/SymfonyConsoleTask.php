@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
-require_once __DIR__ . "/Arg.php";
-
 /**
  * Symfony Console Task
  *

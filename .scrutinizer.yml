@@ -3,7 +3,7 @@ tools:
     timeout: 1200
 
 filter:
-  paths: ["classes/*", "test/classes/*"]
+  paths: ["classes/*", "test/classes/*", "test/bootstrap.php"]
   dependency_paths:
     - "vendor/"
 

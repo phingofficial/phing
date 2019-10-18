@@ -93,7 +93,8 @@ class FileSizeTask extends Task
     private function checkFile()
     {
         // check File
-        if ($this->file === null
+        if (
+            $this->file === null
             || strlen($this->file) == 0
         ) {
             throw new BuildException('[FileSize] You must specify an input file.', $this->file);
@@ -117,7 +118,8 @@ class FileSizeTask extends Task
      */
     private function checkPropertyName()
     {
-        if (null === $this->propertyName
+        if (
+            null === $this->propertyName
             || strlen($this->propertyName) === 0
         ) {
             throw new BuildException('[FileSize] Property name for publishing file size is not set');

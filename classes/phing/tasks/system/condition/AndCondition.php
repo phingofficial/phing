@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-
 /**
  * <and> condition container.
  *

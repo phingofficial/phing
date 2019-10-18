@@ -4,8 +4,17 @@
         PSR12 style with no namespace.
     </description>
 
+    <!-- PHP keywords MUST be in lower case. -->
+    <rule ref="Generic.PHP.LowerCaseKeyword"/>
+
+    <!-- The PHP constants true, false, and null MUST be in lower case. -->
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+
     <rule ref="PSR12">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+        <exclude name="Squiz.Functions.LowercaseFunctionKeywords"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
+        <exclude name="Squiz.ControlStructures.LowercaseDeclaration"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
     </rule>
 </ruleset>

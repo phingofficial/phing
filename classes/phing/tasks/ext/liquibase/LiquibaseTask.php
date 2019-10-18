@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
-
 /**
  * Task for running liquibase commands that doesn't have their own
  * commands yet.

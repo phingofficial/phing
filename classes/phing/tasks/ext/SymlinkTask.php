@@ -52,7 +52,7 @@ class SymlinkTask extends Task
      *
      * @var string
      */
-    private $_target = null;
+    private $linkTarget = null;
 
     /**
      * Symlink location
@@ -61,7 +61,7 @@ class SymlinkTask extends Task
      *
      * @var string
      */
-    private $_link = null;
+    private $link = null;
 
     /**
      * Collection of filesets
@@ -71,7 +71,7 @@ class SymlinkTask extends Task
      *
      * @var array
      */
-    private $_filesets = [];
+    private $filesets = [];
 
     /**
      * Whether to override the symlink if it exists but points
@@ -81,7 +81,7 @@ class SymlinkTask extends Task
      *
      * @var boolean
      */
-    private $_overwrite = false;
+    private $overwrite = false;
 
     /**
      * Whether to create relative symlinks
@@ -91,14 +91,14 @@ class SymlinkTask extends Task
     private $relative = false;
 
     /**
-     * setter for _target
+     * setter for linkTarget
      *
-     * @param  string $target
+     * @param  string $linkTarget
      * @return void
      */
-    public function setTarget($target)
+    public function setTarget($linkTarget)
     {
-        $this->_target = $target;
+        $this->linkTarget = $linkTarget;
     }
 
     /**
@@ -109,7 +109,7 @@ class SymlinkTask extends Task
      */
     public function setLink($link)
     {
-        $this->_link = $link;
+        $this->link = $link;
     }
 
     /**
@@ -119,9 +119,9 @@ class SymlinkTask extends Task
      */
     public function createFileset()
     {
-        $num = array_push($this->_filesets, new FileSet());
+        $num = array_push($this->filesets, new FileSet());
 
-        return $this->_filesets[$num - 1];
+        return $this->filesets[$num - 1];
     }
 
     /**
@@ -132,7 +132,7 @@ class SymlinkTask extends Task
      */
     public function setOverwrite($overwrite)
     {
-        $this->_overwrite = $overwrite;
+        $this->overwrite = $overwrite;
     }
 
     /**
@@ -144,18 +144,18 @@ class SymlinkTask extends Task
     }
 
     /**
-     * getter for _target
+     * getter for linkTarget
      *
      * @throws BuildException
      * @return string
      */
     public function getTarget()
     {
-        if ($this->_target === null) {
+        if ($this->linkTarget === null) {
             throw new BuildException('Target not set');
         }
 
-        return $this->_target;
+        return $this->linkTarget;
     }
 
     /**
@@ -166,11 +166,11 @@ class SymlinkTask extends Task
      */
     public function getLink()
     {
-        if ($this->_link === null) {
+        if ($this->link === null) {
             throw new BuildException('Link not set');
         }
 
-        return $this->_link;
+        return $this->link;
     }
 
     /**
@@ -180,7 +180,7 @@ class SymlinkTask extends Task
      */
     public function getFilesets()
     {
-        return $this->_filesets;
+        return $this->filesets;
     }
 
     /**
@@ -190,7 +190,7 @@ class SymlinkTask extends Task
      */
     public function getOverwrite()
     {
-        return $this->_overwrite;
+        return $this->overwrite;
     }
 
     /**

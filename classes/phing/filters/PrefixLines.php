@@ -49,7 +49,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    private $_prefix = null;
+    private $prefix = null;
 
     /**
      * Adds a prefix to each line of input stream and returns resulting stream.
@@ -60,7 +60,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -74,7 +74,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
         $filtered = [];
 
         foreach ($lines as $line) {
-            $line = $this->_prefix . $line;
+            $line = $this->prefix . $line;
             $filtered[] = $line;
         }
 
@@ -92,7 +92,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     public function setPrefix($prefix)
     {
-        $this->_prefix = (string) $prefix;
+        $this->prefix = (string) $prefix;
     }
 
     /**
@@ -102,7 +102,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     public function getPrefix()
     {
-        return $this->_prefix;
+        return $this->prefix;
     }
 
     /**
@@ -128,13 +128,13 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Initializes the prefix if it is available from the parameters.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::PREFIX_KEY == $params[$i]->getName()) {
-                    $this->_prefix = (string) $params[$i]->getValue();
+                    $this->prefix = (string) $params[$i]->getValue();
                     break;
                 }
             }

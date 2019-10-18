@@ -142,7 +142,8 @@ class FileHashTask extends Task
     private function checkFile()
     {
         // check File
-        if ($this->file === null
+        if (
+            $this->file === null
             || strlen($this->file) == 0
         ) {
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
@@ -166,7 +167,8 @@ class FileHashTask extends Task
      */
     private function checkPropertyName()
     {
-        if (null === $this->propertyName
+        if (
+            null === $this->propertyName
             || strlen($this->propertyName) === 0
         ) {
             throw new BuildException('Property name for publishing hashvalue is not set');

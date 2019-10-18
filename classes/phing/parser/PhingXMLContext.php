@@ -171,4 +171,4 @@ class PhingXMLContext
     {
         $this->currentTargets = $currentTargets;
     }
-} //end PhingXMLContext
+}

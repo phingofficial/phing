@@ -43,8 +43,11 @@ class MoveTask extends CopyTask
     protected function validateAttributes()
     {
         if ($this->file !== null && $this->file->isDirectory()) {
-            if (($this->destFile !== null && $this->destDir !== null)
-                || ($this->destFile === null && $this->destDir === null)
+            if (
+                ($this->destFile !== null
+                && $this->destDir !== null)
+                || ($this->destFile === null
+                && $this->destDir === null)
             ) {
                 throw new BuildException("One and only one of tofile and todir must be set.");
             }

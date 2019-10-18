@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-
 /**
  * Examines and removes out of date target files.  If any of the target files
  * are out of date with respect to any of the source files, all target
@@ -162,7 +160,8 @@ class DependSet extends MatchingTask
                         Project::MSG_WARN
                     );
                 }
-                if ($oldestTarget === null
+                if (
+                    $oldestTarget === null
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
@@ -190,7 +189,8 @@ class DependSet extends MatchingTask
                         Project::MSG_WARN
                     );
                 }
-                if ($oldestTarget === null
+                if (
+                    $oldestTarget === null
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
