@@ -113,7 +113,8 @@ class WindowsFileSystem extends FileSystem
             $src++;
         }
         $c = "";
-        if (($len - $src >= 2)
+        if (
+            ($len - $src >= 2)
             && $this->isLetter($c = $strPath[$src])
             && $strPath[$src + 1] === ':'
         ) {
@@ -126,7 +127,8 @@ class WindowsFileSystem extends FileSystem
             $src += 2;
         } else {
             $src = 0;
-            if (($len >= 2)
+            if (
+                ($len >= 2)
                 && $this->isSlash($strPath[0])
                 && $this->isSlash($strPath[1])
             ) {

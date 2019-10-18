@@ -3,11 +3,11 @@
     <p>The <code class="literal">SvnLogTask</code> stores the output of a svn log command on a
         workingcopy or repositoryurl in a property. The result will be stored in an array,
         one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</p>
-    <div class="table"><a name="idp18046"></a><p class="formal-object-title"><span class="label">Table C.134: </span><span class="title">Attributes</span></p><div class="table-contents">
+    <div class="table"><a name="idp18061"></a><p class="formal-object-title"><span class="label">Table C.134: </span><span class="title">Attributes</span></p><div class="table-contents">
         
         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">svnpath</code></td><td><code class="literal">String</code></td><td>Path to Subversion binary</td><td>/usr/bin/svn</td><td>No</td></tr><tr><td><code class="literal">workingcopy</code></td><td><code class="literal">String</code></td><td>Working copy directory</td><td>none</td><td rowspan="2">One of the two</td></tr><tr><td><code class="literal">repositoryurl</code></td><td><code class="literal">String</code></td><td>URL of remote repository</td><td>none</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>A username used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>A password used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">propertyname</code></td><td><code class="literal">String</code></td><td>Name of property to use</td><td>svn.list</td><td>No</td></tr><tr><td><code class="literal">limit</code></td><td><code class="literal">Integer</code></td><td>Limits the number of items to get back from the command</td><td>n/a</td><td>No</td></tr></tbody></table>
     </div></div><br class="table-break">
-    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18117"></a>C.100.1 Example</h3></div></div></div>
+    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18132"></a>C.100.1 Example</h3></div></div></div>
         
         <pre class="programlisting">&lt;svnlog svnpath="/usr/bin/svn"
             workingcopy="/home/user/svnwc" propertyname="svn.log"/&gt;</pre>

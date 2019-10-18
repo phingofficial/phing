@@ -116,7 +116,7 @@ class PHPUnitUtil
             return self::$definedClasses[$filename];
         }
 
-        Phing::__import($filename, $classpath);
+        Phing::importFile($filename, $classpath);
 
         $declaredClasses = get_declared_classes();
 

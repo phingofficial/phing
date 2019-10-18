@@ -55,7 +55,7 @@
         "scssphp/scssphp": "~1.0",
         "sebastian/phpcpd": "^4.1",
         "siad007/versioncontrol_hg": "^1.0",
-        "squizlabs/php_codesniffer": "^2.9 || ^3.4",
+        "squizlabs/php_codesniffer": "^2.9 || ^3.5",
         "symfony/stopwatch": "~2.8 || ^3.1 || ^4.0",
         "tedivm/jshrink": "^1.3"
     },

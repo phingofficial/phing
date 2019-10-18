@@ -145,7 +145,7 @@ class FileHashTask extends Task
     private function checkFile(): void
     {
         // check File
-        if ($this->file === null || $this->file == '') {
+        if ($this->file === null || $this->file === '') {
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
         }
 

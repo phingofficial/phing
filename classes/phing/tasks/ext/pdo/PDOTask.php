@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/Reference.php';
-
 /**
  * Handles PDO configuration needed by SQL type tasks.
  *
