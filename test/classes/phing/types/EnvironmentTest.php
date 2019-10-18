@@ -1,6 +1,6 @@
 <?php
 
-class DataTypeTest extends \PHPUnit\Framework\TestCase
+class EnvironmentTest extends \PHPUnit\Framework\TestCase
 {
     private $environment;
 
