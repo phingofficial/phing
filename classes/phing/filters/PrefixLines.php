@@ -49,13 +49,17 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    private $prefix = null;
+    private $prefix;
+
+    /** @var string|null $queuedData */
+    private $queuedData;
 
     /**
      * Adds a prefix to each line of input stream and returns resulting stream.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed buffer, -1 on EOF
+     * @throws IOException
      */
     public function read($len = null)
     {
@@ -64,23 +68,31 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
             $this->setInitialized(true);
         }
 
-        $buffer = $this->in->read($len);
+        $ch = -1;
 
-        if ($buffer === -1) {
-            return -1;
+        if ($this->queuedData !== null && $this->queuedData === '') {
+            $this->queuedData = null;
         }
 
-        $lines = explode("\n", $buffer);
-        $filtered = [];
-
-        foreach ($lines as $line) {
-            $line = $this->prefix . $line;
-            $filtered[] = $line;
+        if ($this->queuedData !== null) {
+            $ch = $this->queuedData[0];
+            $this->queuedData = (string) substr($this->queuedData, 1);
+            if ($this->queuedData === '') {
+                $this->queuedData = null;
+            }
+        } else {
+            $this->queuedData = $this->readLine();
+            if ($this->queuedData === null) {
+                $ch = -1;
+            } else {
+                if ($this->prefix !== null) {
+                    $this->queuedData = $this->prefix . $this->queuedData;
+                }
+                return $this->read();
+            }
         }
 
-        $filtered_buffer = implode("\n", $filtered);
-
-        return $filtered_buffer;
+        return $ch;
     }
 
     /**
