@@ -137,8 +137,12 @@ class IntrospectionHelper
                 // but should actually just be skipped.  (Note: this means you can't ever
                 // have an attribute named "location" or "tasktype" or a nested element container
                 // named "task" [TaskContainer::addTask(Task)].)
-                if ($name === "setlocation" || $name === "settasktype"
-                    || ('addtask' === $name && $this->isContainer() && count($method->getParameters()) === 1
+                if (
+                    $name === "setlocation"
+                    || $name === "settasktype"
+                    || ('addtask' === $name
+                    && $this->isContainer()
+                    && count($method->getParameters()) === 1
                         && Task::class === $method->getParameters()[0])
                 ) {
                     continue;

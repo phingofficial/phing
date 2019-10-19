@@ -171,7 +171,8 @@ abstract class ExtractBaseTask extends MatchingTask
                 }
                 $compressArchivePath = new PhingFile($this->todir, $compressArchiveFilename);
 
-                if (!$compressArchivePath->exists()
+                if (
+                    !$compressArchivePath->exists()
                     || $fileSystem->compareMTimes(
                         $compressedArchiveFile->getCanonicalPath(),
                         $compressArchivePath->getCanonicalPath()

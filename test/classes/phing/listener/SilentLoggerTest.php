@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,47 +17,40 @@
  * <http://phing.info>.
  */
 
-use PHPMD\AbstractRenderer;
-use PHPMD\Report;
+use PHPUnit\Framework\TestCase;
 
-/**
- * This class will remove files with violations from cache
- *
- * @category PHP
- * @package  PHPMD
- * @author   Rui Filipe Da Cunha Alves <ruifil@ruifil.com>
- */
-class PHPMDRendererRemoveFromCache extends AbstractRenderer
+class SilentLoggerTest extends TestCase
 {
     /**
-     * Cache data storage
-     *
-     * @var DataStore
+     * @test
      */
-    protected $cache;
-
-    /**
-     * Constructor
-     *
-     * @param DataStore $cache
-     */
-    public function __construct($cache)
+    public function buildFinished()
     {
-        $this->cache = $cache;
+        $event = new BuildEvent(new Project());
+        $logger = new SilentLogger();
+        $this->expectOutputString('');
+        $logger->buildFinished($event);
     }
-
     /**
-     * This method will be called when the engine has finished the source
-     * analysis phase. To remove file with violations from cache.
-     *
-     * @param  Report $report
-     * @return void
+     * @test
      */
-    public function renderReport(Report $report)
+    public function buildFinishedException()
     {
-        foreach ($report->getRuleViolations() as $violation) {
-            $fileName = $violation->getFileName();
-            $this->cache->remove($fileName, null);
-        }
+        $event = new BuildEvent(new Project());
+        $event->setException(new Exception('test'));
+        $logger = new class extends SilentLogger {
+            public function printMessage($message, ?OutputStream $stream = null, $priority = null)
+            {
+                echo $message;
+            }
+
+            public static function formatTime($micros)
+            {
+                return 'TIME_STRING';
+            }
+        };
+        $msg = '/' . PHP_EOL . 'BUILD FAILED' . PHP_EOL . 'test' . PHP_EOL . '/';
+        $this->expectOutputRegex($msg);
+        $logger->buildFinished($event);
     }
 }

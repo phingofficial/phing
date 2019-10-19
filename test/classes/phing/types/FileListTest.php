@@ -50,4 +50,36 @@ class FileListTest extends TestCase
         $f->setDir(new PhingFile("."));
         $f->getFiles($this->project);
     }
+    public function testSetRefidWithDirSet()
+    {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage("You must not specify more than one attribute when using refid");
+
+        $f = new FileList();
+        $f->setDir(new PhingFile("."));
+        $project = new Project();
+        $project->setBasedir(__DIR__);
+        $f->setRefid(new Reference($this->project, "dummy"));
+    }
+
+    public function testSetRefidWithFileListSet()
+    {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage("You must not specify more than one attribute when using refid");
+
+        $f = new FileList();
+        $f->setFiles('foo.php');
+        $project = new Project();
+        $project->setBasedir(__DIR__);
+        $f->setRefid(new Reference($this->project, "dummy"));
+    }
+    public function testSetListfile()
+    {
+        $f = new FileList();
+        $f->setListFile("foo.php");
+        $project = new Project();
+        $project->setBasedir(__DIR__);
+        $l = $f->getListFile($project);
+        $this->assertEquals($l->getPath(), "foo.php");
+    }
 }

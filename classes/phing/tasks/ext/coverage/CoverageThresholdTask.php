@@ -196,7 +196,8 @@ class CoverageThresholdTask extends Task
 
                 // Strange PHP5 reflection bug, classes without parent class
                 // or implemented interfaces seem to start one line off
-                if ($reflection->getParentClass() === null
+                if (
+                    $reflection->getParentClass() === null
                     && count($reflection->getInterfaces()) === 0
                 ) {
                     unset($coverageInformation[$classStartLine + 1]);
@@ -220,7 +221,8 @@ class CoverageThresholdTask extends Task
                         $excludedMethods = $this->excludes->getExcludedMethods();
 
                         if (isset($excludedMethods[$className])) {
-                            if (in_array($method->getName(), $excludedMethods[$className])
+                            if (
+                                in_array($method->getName(), $excludedMethods[$className])
                                 || in_array($method->getName() . '()', $excludedMethods[$className])
                             ) {
                                 continue;
@@ -284,7 +286,8 @@ class CoverageThresholdTask extends Task
                         );
                     }
 
-                    if ($methodCoverage < $this->perMethod
+                    if (
+                        $methodCoverage < $this->perMethod
                         && $method->isAbstract()
                         && $this->verbose === true
                     ) {
@@ -328,7 +331,8 @@ class CoverageThresholdTask extends Task
                     );
                 }
 
-                if ($classCoverage < $this->perClass
+                if (
+                    $classCoverage < $this->perClass
                     && $reflection->isAbstract()
                     && $this->verbose === true
                 ) {

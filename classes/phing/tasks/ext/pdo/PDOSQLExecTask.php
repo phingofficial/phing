@@ -335,8 +335,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
         $this->sqlCommand = trim($this->sqlCommand);
 
         try {
-            if ($this->srcFile === null && $this->sqlCommand === ""
-                && empty($this->filesets) && empty($this->filelists)
+            if (
+                $this->srcFile === null
+                && $this->sqlCommand === ""
+                && empty($this->filesets)
+                && empty($this->filelists)
                 && count($this->transactions) === 0
             ) {
                 throw new BuildException(

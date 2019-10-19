@@ -13,6 +13,7 @@
     <rule ref="PSR12">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
         <exclude name="Squiz.Functions.LowercaseFunctionKeywords"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
         <exclude name="Squiz.ControlStructures.LowercaseDeclaration"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
     </rule>
