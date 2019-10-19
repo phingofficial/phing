@@ -167,10 +167,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
+        $msg .= PHP_EOL . "Total time: " . static::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
 
-        $msg .= PHP_EOL . "Total time: " . self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
-
-        ($error === null)
+        $error === null
             ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)
             : $this->printMessage($msg, $this->err, Project::MSG_ERR);
     }
