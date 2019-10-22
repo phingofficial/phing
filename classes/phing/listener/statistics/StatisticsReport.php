@@ -81,8 +81,8 @@ class StatisticsReport
         $total = count($totalTimes);
         for ($i = 0; $i < $total; $i++) {
             $totalTime = $totalTimes[$i];
-            $round = round(100 * (double)$totalTime / $runningTotalTime);
-            $table->put($i + 1, self::$IDX_PERCENTAGE, (string)$round);
+            $round = round(100 * (double) $totalTime / $runningTotalTime);
+            $table->put($i + 1, self::$IDX_PERCENTAGE, (string) $round);
         }
     }
 

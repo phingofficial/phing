@@ -45,15 +45,15 @@
  */
 class HtmlColorLogger extends DefaultLogger
 {
-    const CLASS_ERR = 'phing_err';
-    const CLASS_VERBOSE = 'phing_verbose';
-    const CLASS_DEBUG = 'phing_debug';
-    const CLASS_WARN = 'phing_warn';
-    const CLASS_INFO = 'phing_info';
+    public const CLASS_ERR = 'phing_err';
+    public const CLASS_VERBOSE = 'phing_verbose';
+    public const CLASS_DEBUG = 'phing_debug';
+    public const CLASS_WARN = 'phing_warn';
+    public const CLASS_INFO = 'phing_info';
 
-    const PREFIX = '<span class="';
-    const SUFFIX = '">';
-    const END_COLOR = '</span>';
+    public const PREFIX = '<span class="';
+    public const SUFFIX = '">';
+    public const END_COLOR = '</span>';
 
     private $errColor;
     private $warnColor;

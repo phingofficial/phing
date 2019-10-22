@@ -36,7 +36,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @var int
      */
-    const LEFT_COLUMN_SIZE = 12;
+    public const LEFT_COLUMN_SIZE = 12;
 
     /**
      *  The message output level that should be used. The default is
