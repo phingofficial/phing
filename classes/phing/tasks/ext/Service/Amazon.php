@@ -39,7 +39,7 @@ abstract class Amazon extends Task
      *
      * @var array
      */
-    protected $_options = [];
+    protected $options = [];
 
     /**
      * @param string $var
@@ -47,7 +47,7 @@ abstract class Amazon extends Task
      */
     public function __set($var, $val)
     {
-        $this->_options[$var] = $val;
+        $this->options[$var] = $val;
     }
 
     /**
@@ -66,12 +66,12 @@ abstract class Amazon extends Task
         if (!isset($this->$var)) {
             if (!($val = $this->getProject()->getProperty('amazon.' . strtolower($var)))) {
                 return false;
-            } else {
-                return $val;
             }
+
+            return $val;
         }
 
-        return $this->_options[$var];
+        return $this->options[$var];
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class Amazon extends Task
      */
     public function __isset($var)
     {
-        return array_key_exists($var, $this->_options);
+        return array_key_exists($var, $this->options);
     }
 
     /**

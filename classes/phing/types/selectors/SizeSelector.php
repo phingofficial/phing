@@ -222,7 +222,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * @throws BuildException
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
         if ($parameters !== null) {
@@ -299,10 +299,12 @@ class SizeSelector extends BaseExtendSelector
         }
         if ($this->cmp === 0) {
             return ($file->length() < $this->sizelimit);
-        } elseif ($this->cmp === 1) {
-            return ($file->length() > $this->sizelimit);
-        } else {
-            return ($file->length() === $this->sizelimit);
         }
+
+        if ($this->cmp === 1) {
+            return ($file->length() > $this->sizelimit);
+        }
+
+        return ($file->length() === $this->sizelimit);
     }
 }

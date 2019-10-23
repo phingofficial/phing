@@ -17,39 +17,29 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter5/PHPUnitResultFormatter5.php';
+use PHPUnit\Framework\TestCase;
 
-/**
- * Prints short summary output of the test to Phing's logging system.
- *
- * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext.formatter
- * @since   2.1.0
- */
-class SummaryPHPUnitResultFormatter5 extends PHPUnitResultFormatter5
+class TimestampedLoggerTest extends TestCase
 {
-    public function endTestRun()
-    {
-        parent::endTestRun();
-
-        $sb = "Total tests run: " . $this->getRunCount();
-        $sb .= ", Failures: " . $this->getFailureCount();
-        $sb .= ", Errors: " . $this->getErrorCount();
-        $sb .= ", Incomplete: " . $this->getIncompleteCount();
-        $sb .= ", Skipped: " . $this->getSkippedCount();
-        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-
-        if ($this->out != null) {
-            $this->out->write($sb);
-            $this->out->close();
-        }
-    }
-
     /**
-     * @return null
+     * @test
      */
-    public function getExtension()
+    public function buildFinished()
     {
-        return null;
+        $event = new BuildEvent(new Project());
+        $logger = new class extends TimestampedLogger {
+            public function printMessage($message, ?OutputStream $stream = null, $priority = null)
+            {
+                echo $message;
+            }
+
+            public static function formatTime($micros)
+            {
+                return 'TIME_STRING';
+            }
+        };
+        $msg = '/' . PHP_EOL . 'BUILD FINISHED - at .*' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL . '/';
+        $this->expectOutputRegex($msg);
+        $logger->buildFinished($event);
     }
 }

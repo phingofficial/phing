@@ -17,13 +17,13 @@
   &lt;/replaceregexp&gt;
 &lt;/filterchain&gt;</pre>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21221"></a>E.11.1 Nested tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21639"></a>E.11.1 Nested tags</h3></div></div></div>
             
             <p>The <code class="literal">ReplaceRegExp</code> filter must contain one or more
                     <code class="literal">regexp</code> tags. These must have <code class="literal">pattern</code> and
                     <code class="literal">replace</code> attributes. The full list of supported attributes is
                 as following:</p>
-            <div class="table"><a name="idp21228"></a><p class="formal-object-title"><span class="label">Table E.11: </span><span class="title"> Attributes for the <code class="literal">&lt;regexp&gt;</code> tag </span></p><div class="table-contents">
+            <div class="table"><a name="idp21646"></a><p class="formal-object-title"><span class="label">Table E.11: </span><span class="title"> Attributes for the <code class="literal">&lt;regexp&gt;</code> tag </span></p><div class="table-contents">
                 
                 <table class="table" summary=" Attributes for the &lt;regexp&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">pattern</code></td><td><code class="literal">String</code></td><td>Regular expression used as needle. Phing relies on <a class="ulink" href="http://php.net/pcre" target="_top">Perl-compatible</a> regular
                                 expressions. </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">replace</code></td><td><code class="literal">String</code></td><td>Replacement string.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">ignoreCase</code></td><td><code class="literal">Boolean</code></td><td>Whether search is case-insensitive.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">multiline</code></td><td><code class="literal">Boolean</code></td><td>Whether regular expression is applied in multi-line mode.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">modifiers</code></td><td><code class="literal">String</code></td><td>Raw regular expression <a class="ulink" href="http://php.net/manual/en/reference.pcre.pattern.modifiers.php" target="_top">modifiers</a>. You can pass several modifiers as single

@@ -76,10 +76,11 @@ class SelectorUtils
         // DIRECTORY_SEPARATOR.
         // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
         // DIRECTORY_SEPARATOR.
-        if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !== StringHelper::startsWith(
-            DIRECTORY_SEPARATOR,
-            $pattern
-        )
+        if (
+            StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !== StringHelper::startsWith(
+                DIRECTORY_SEPARATOR,
+                $pattern
+            )
         ) {
             return false;
         }
@@ -108,14 +109,16 @@ class SelectorUtils
         if ($strIdxStart > $strIdxEnd) {
             // String is exhausted
             return true;
-        } elseif ($patIdxStart > $patIdxEnd) {
+        }
+
+        if ($patIdxStart > $patIdxEnd) {
             // String not exhausted, but pattern is. Failure.
             return false;
-        } else {
-            // pattern now holds ** while string is not exhausted
-            // this will generate false positives but we can live with that.
-            return true;
         }
+
+// pattern now holds ** while string is not exhausted
+        // this will generate false positives but we can live with that.
+        return true;
     }
 
     /**

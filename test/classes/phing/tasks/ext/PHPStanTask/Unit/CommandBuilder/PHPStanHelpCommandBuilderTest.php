@@ -24,13 +24,17 @@ class PHPStanHelpCommandBuilderTest extends TestCase
         $task->setRaw(true);
         $task->setCommandName('anyCommand');
 
-        $command = $this->builder->build($task);
+        $this->builder->build($task);
 
-        $expectedCommand = 'phpstan help';
-        $expectedCommand .= ' --format=anyFormat';
-        $expectedCommand .= ' --raw';
-        $expectedCommand .= ' anyCommand';
+        $expectedCommand = <<<CMD
+Executing 'phpstan' with arguments:
+'help'
+'--format=anyFormat'
+'--raw'
+'anyCommand'
+The ' characters around the executable and arguments are not part of the command.
+CMD;
 
-        $this->assertEquals($expectedCommand, $command);
+        $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 }

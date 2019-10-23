@@ -29,20 +29,19 @@
  */
 abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSelector
 {
-
     /**
      * The passed in parameter array.
      */
-    protected $parameters = null;
+    protected $parameters;
 
     /**
      * Set all the Parameters for this custom selector, collected by
      * the ExtendSelector class.
      *
-     * @param  array $parameters the complete set of parameters for this selector
+     * @param array $parameters the complete set of parameters for this selector
      * @return mixed|void
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
     }

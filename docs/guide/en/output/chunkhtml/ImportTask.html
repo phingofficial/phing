@@ -5,11 +5,11 @@
             nearly the same as copy and pasting the imported file onto the end of the importing
             file.</p>
         <p>The import task may only be used as a top-level task. This means that it may not be used in a target.</p>
-        <div class="table"><a name="idp4651"></a><p class="formal-object-title"><span class="label">Table B.24: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp4703"></a><p class="formal-object-title"><span class="label">Table B.24: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file to import.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">optional</code></td><td><code class="literal">Boolean</code></td><td>If true, do not stop the build if the file does not exist.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4684"></a>B.23.1 Target Overriding</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="ImportTask-target-overriding"></a>B.23.1 Target Overriding</h3></div></div></div>
             
             <p>If a target in the main file is also present in at least one of the imported
                 files, the one from the main file takes precedence.</p>
@@ -23,7 +23,7 @@
                     "<code class="literal">builddocs.docs</code>". This enables the new implementation to call
                 the old target, thus enhancing it with tasks called before or after it.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4693"></a>B.23.2 Special Properties</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4745"></a>B.23.2 Special Properties</h3></div></div></div>
             
             <p>Imported files are treated as they are present in the main buildfile. This makes
                 it easy to understand, but it makes it impossible for them to reference files and
@@ -42,7 +42,7 @@
                     <code class="literal">phing.file.projectname</code> and <code class="literal">phing.dir.projectname</code>
                     properties will not be set.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4706"></a>B.23.3 Resolving Files Against the Imported File</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4758"></a>B.23.3 Resolving Files Against the Imported File</h3></div></div></div>
             
             <p>Suppose your main build file called <code class="literal">importing.xml</code> imports a
                 build file <code class="filename">imported.xml</code> , located anywhere on the file system,
@@ -74,7 +74,7 @@
 
         </div>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4726"></a>B.23.4 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4778"></a>B.23.4 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;import file="path/to/build.xml"/&gt;
 &lt;import file="path/to/build.xml" optional="true"/&gt;</pre>

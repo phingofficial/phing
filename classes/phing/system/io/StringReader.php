@@ -22,13 +22,13 @@
  *
  * @package phing.system.io
  */
-class StringReader extends Reader
+class StringReader extends InputStreamReader
 {
 
     /**
      * @var string
      */
-    private $_string;
+    private $string;
 
     /**
      * @var int
@@ -45,7 +45,7 @@ class StringReader extends Reader
      */
     public function __construct($string)
     {
-        $this->_string = $string;
+        $this->string = $string;
     }
 
     /**
@@ -62,16 +62,16 @@ class StringReader extends Reader
     public function read($len = null)
     {
         if ($len === null) {
-            return $this->_string;
-        } else {
-            if ($this->currPos >= strlen($this->_string)) {
-                return -1;
-            }
-            $out = substr($this->_string, $this->currPos, $len);
-            $this->currPos += $len;
-
-            return $out;
+            return $this->string;
         }
+
+        if ($this->currPos >= strlen($this->string)) {
+            return -1;
+        }
+        $out = substr($this->string, $this->currPos, $len);
+        $this->currPos += $len;
+
+        return $out;
     }
 
     public function mark()
@@ -109,6 +109,6 @@ class StringReader extends Reader
      */
     public function getResource()
     {
-        return '(string) "' . $this->_string . '"';
+        return '(string) "' . $this->string . '"';
     }
 }

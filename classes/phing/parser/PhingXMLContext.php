@@ -88,9 +88,9 @@ class PhingXMLContext
         $l = count($this->configurators);
         if (0 == $l) {
             return null;
-        } else {
-            return $this->configurators[$l - 1];
         }
+
+        return $this->configurators[$l - 1];
     }
 
     /**
@@ -171,4 +171,4 @@ class PhingXMLContext
     {
         $this->currentTargets = $currentTargets;
     }
-} //end PhingXMLContext
+}

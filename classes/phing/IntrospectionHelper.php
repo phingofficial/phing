@@ -137,8 +137,12 @@ class IntrospectionHelper
                 // but should actually just be skipped.  (Note: this means you can't ever
                 // have an attribute named "location" or "tasktype" or a nested element container
                 // named "task" [TaskContainer::addTask(Task)].)
-                if ($name === "setlocation" || $name === "settasktype"
-                    || ('addtask' === $name && $this->isContainer() && count($method->getParameters()) === 1
+                if (
+                    $name === "setlocation"
+                    || $name === "settasktype"
+                    || ('addtask' === $name
+                    && $this->isContainer()
+                    && count($method->getParameters()) === 1
                         && Task::class === $method->getParameters()[0])
                 ) {
                     continue;
@@ -324,14 +328,14 @@ class IntrospectionHelper
                 if (($argType = $params[0]->getType()) !== null) {
                     /** @var ReflectionNamedType $argType */
                     $reflectedAttr = $argType->getName();
-                } else if (($classType = $params[0]->getClass()) !== null) {
+                } elseif (($classType = $params[0]->getClass()) !== null) {
                     /** @var ReflectionClass $classType */
                     $reflectedAttr = $classType->getName();
                 }
 
                 // value is a string representation of a boolean type,
                 // convert it to primitive
-                if ($reflectedAttr === 'bool' || StringHelper::isBoolean($value)) {
+                if ($reflectedAttr === 'bool' || ($reflectedAttr !== 'string' && StringHelper::isBoolean($value))) {
                     $value = StringHelper::booleanValue($value);
                 }
 
@@ -421,7 +425,6 @@ class IntrospectionHelper
             // project components must use class hints to support the add methods
 
             try { // try to invoke the adder method on object
-
                 $project->log(
                     "    -calling adder " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
                     Project::MSG_DEBUG
@@ -593,17 +596,19 @@ class IntrospectionHelper
             }
 
             return "$elClass (unknown)";
-        } else {
-            // ->getTag() method does exist, so use it
-            $elName = $element->getTag();
-            if (isset($taskdefs[$elName])) {
-                return $taskdefs[$elName];
-            } elseif (isset($typedefs[$elName])) {
-                return $typedefs[$elName];
-            } else {
-                return "$elName (unknown)";
-            }
         }
+
+// ->getTag() method does exist, so use it
+        $elName = $element->getTag();
+        if (isset($taskdefs[$elName])) {
+            return $taskdefs[$elName];
+        }
+
+        if (isset($typedefs[$elName])) {
+            return $typedefs[$elName];
+        }
+
+        return "$elName (unknown)";
     }
 
     /**

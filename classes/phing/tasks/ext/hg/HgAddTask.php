@@ -53,7 +53,9 @@ class HgAddTask extends HgBaseTask
 
         if (!file_exists($dir)) {
             throw new BuildException("\"$dir\" does not exist.");
-        } elseif (!is_dir($dir)) {
+        }
+
+        if (!is_dir($dir)) {
             throw new BuildException("\"$dir\" is not a directory.");
         }
 
@@ -141,7 +143,8 @@ class HgAddTask extends HgBaseTask
         $line = $this->ignoreFile[0];
         $mode = 'regexp';
         $ignored = false;
-        if (preg_match('#^syntax\s*:\s*(glob|regexp)$#', $line, $matches)
+        if (
+            preg_match('#^syntax\s*:\s*(glob|regexp)$#', $line, $matches)
             || $matches[1] === 'glob'
         ) {
             $mode = 'glob';

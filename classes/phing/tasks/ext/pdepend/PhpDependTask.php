@@ -448,18 +448,18 @@ class PhpDependTask extends Task
         if ($this->file instanceof PhingFile) {
             $filesToParse[] = $this->file->__toString();
             return $filesToParse;
-        } else {
-            // append any files in filesets
-            foreach ($this->filesets as $fs) {
-                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-
-                foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
-                    $filesToParse[] = $f->getAbsolutePath();
-                }
-            }
-            return $filesToParse;
         }
+
+// append any files in filesets
+        foreach ($this->filesets as $fs) {
+            $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+
+            foreach ($files as $filename) {
+                $f = new PhingFile($fs->getDir($this->project), $filename);
+                $filesToParse[] = $f->getAbsolutePath();
+            }
+        }
+        return $filesToParse;
     }
 
     /**

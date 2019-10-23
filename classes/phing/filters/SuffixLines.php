@@ -55,13 +55,13 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -123,14 +123,13 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param    Reader $reader
+     * @param Reader $reader
+     * @return SuffixLines A new filter based on this configuration, but filtering
+     *                the specified reader
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new SuffixLines($reader);
         $newFilter->setSuffix($this->getSuffix());
@@ -143,7 +142,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Initializes the suffix if it is available from the parameters.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {

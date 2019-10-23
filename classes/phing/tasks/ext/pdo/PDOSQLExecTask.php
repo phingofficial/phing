@@ -39,15 +39,16 @@
  * <b>stop</b> execution and commit transaction;
  * and <b>abort</b> execution and transaction and fail task.</p>
  *
+ * This task can also be used as a Condition.
+ *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
  * @package phing.tasks.ext.pdo
  */
-class PDOSQLExecTask extends PDOTask
+class PDOSQLExecTask extends PDOTask implements Condition
 {
-
     /**
      * Count of how many statements were executed successfully.
      *
@@ -131,7 +132,7 @@ class PDOSQLExecTask extends PDOTask
      * The delimiter type indicating whether the delimiter will
      * only be recognized on a line by itself
      */
-    private $delimiterType = "none"; // can't use constant just defined
+    private $delimiterType = self::DELIM_NONE;
 
     /**
      * Action to perform if an error is found
@@ -232,9 +233,9 @@ class PDOSQLExecTask extends PDOTask
      * <p>For example, set this to "go" and delimitertype to "ROW" for
      * Sybase ASE or MS SQL Server.</p>
      *
-     * @param delimiter
+     * @param string $delimiter
      */
-    public function setDelimiter($delimiter)
+    public function setDelimiter(string $delimiter): void
     {
         $this->delimiter = $delimiter;
     }
@@ -244,7 +245,7 @@ class PDOSQLExecTask extends PDOTask
      *
      * @return string
      */
-    public function getDelimiter()
+    public function getDelimiter(): string
     {
         return $this->delimiter;
     }
@@ -257,7 +258,7 @@ class PDOSQLExecTask extends PDOTask
      *
      * @param string $delimiterType
      */
-    public function setDelimiterType($delimiterType)
+    public function setDelimiterType(string $delimiterType): void
     {
         $this->delimiterType = $delimiterType;
     }
@@ -266,9 +267,9 @@ class PDOSQLExecTask extends PDOTask
      * Action to perform when statement fails: continue, stop, or abort
      * optional; default &quot;abort&quot;
      *
-     * @param $action
+     * @param string $action continue|stop|abort
      */
-    public function setOnerror($action)
+    public function setOnerror($action): void
     {
         $this->onError = $action;
     }
@@ -279,7 +280,7 @@ class PDOSQLExecTask extends PDOTask
      * @param  mixed $mode The PDO fetchmode integer or constant name.
      * @throws BuildException
      */
-    public function setFetchmode($mode)
+    public function setFetchmode($mode): void
     {
         if (is_numeric($mode)) {
             $this->fetchMode = (int) $mode;
@@ -334,8 +335,11 @@ class PDOSQLExecTask extends PDOTask
         $this->sqlCommand = trim($this->sqlCommand);
 
         try {
-            if ($this->srcFile === null && $this->sqlCommand === ""
-                && empty($this->filesets) && empty($this->filelists)
+            if (
+                $this->srcFile === null
+                && $this->sqlCommand === ""
+                && empty($this->filesets)
+                && empty($this->filelists)
                 && count($this->transactions) === 0
             ) {
                 throw new BuildException(
@@ -432,15 +436,12 @@ class PDOSQLExecTask extends PDOTask
                 " SQL statements executed successfully"
             );
         } catch (Exception $e) {
+            throw $e;
+        } finally {
             $this->transactions = $savedTransaction;
             $this->sqlCommand = $savedSqlCommand;
             $this->closeConnection();
-            throw $e;
         }
-        // finally {
-        $this->transactions = $savedTransaction;
-        $this->sqlCommand = $savedSqlCommand;
-        $this->closeConnection();
     }
 
     /**
@@ -452,13 +453,10 @@ class PDOSQLExecTask extends PDOTask
     public function runStatements(Reader $reader)
     {
         if (self::DELIM_NONE == $this->delimiterType) {
-            include_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
         } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
-            include_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
-            include_once 'phing/tasks/ext/pdo/DefaultPDOQuerySplitter.php';
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
         }
 
@@ -594,11 +592,46 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Closes current connection
      */
-    protected function closeConnection()
+    protected function closeConnection(): void
     {
         if ($this->conn) {
             unset($this->conn);
             $this->conn = null;
         }
+    }
+
+    /**
+     * PDOSQLExecTask as condition
+     *
+     * Returns false when the database connection fails, and true otherwise.
+     * This method only uses three properties: url (required), userId and
+     * password.
+     *
+     * The database connection is not stored in a variable, this allow to
+     * immediately close the connections since there's no reference to it.
+     *
+     * @author Jawira Portugal <dev@tugal.be>
+     *
+     * @return bool
+     */
+    public function evaluate(): bool
+    {
+        if (empty($this->getUrl())) {
+            throw new BuildException('url is required');
+        }
+
+        $this->log('Trying to reach ' . $this->getUrl(), Project::MSG_DEBUG);
+
+        try {
+            new PDO($this->getUrl(), $this->getUserId(), $this->getPassword());
+        } catch (PDOException $ex) {
+            $this->log($ex->getMessage(), Project::MSG_VERBOSE);
+
+            return false;
+        }
+
+        $this->log('Successful connection to ' . $this->getUrl(), Project::MSG_DEBUG);
+
+        return true;
     }
 }

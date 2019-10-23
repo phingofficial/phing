@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/Condition.php';
-
 /**
  * A simple string comparator.  Compares two strings for eqiality in a
  * binary safe manner. Implements the condition interface specification.
@@ -57,7 +55,7 @@ class EqualsCondition implements Condition
      */
     public function setTrim($b)
     {
-        $this->trim = (boolean) $b;
+        $this->trim = (bool) $b;
     }
 
     /**
@@ -67,7 +65,7 @@ class EqualsCondition implements Condition
      */
     public function setCaseSensitive($b)
     {
-        $this->caseSensitive = (boolean) $b;
+        $this->caseSensitive = (bool) $b;
     }
 
     /**

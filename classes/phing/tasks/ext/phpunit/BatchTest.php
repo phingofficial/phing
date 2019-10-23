@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/types/FileSet.php';
-
 /**
  * Scans a list of files given by the fileset attribute, extracts valid test cases
  *
@@ -113,10 +110,8 @@ class BatchTest
      */
     private function isTestCase($input)
     {
-        return is_subclass_of($input, '\PHPUnit\Framework\TestCase') || is_subclass_of(
-            $input,
-            'PHPUnit_Framework_TestSuite'
-        );
+        return is_subclass_of($input, '\PHPUnit\Framework\TestCase') ||
+            is_subclass_of($input, '\PHPUnit\Framework\TestSuite');
     }
 
     /**
@@ -126,6 +121,7 @@ class BatchTest
      * @param object $input
      *
      * @return bool
+     * @throws ReflectionException
      */
     private function filterTests($input)
     {
@@ -139,6 +135,7 @@ class BatchTest
      * by the files included by the filesets
      *
      * @return array an array of tests.
+     * @throws Exception
      */
     public function elements()
     {

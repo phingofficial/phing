@@ -11,13 +11,13 @@
             when configuring PHP5. In essence this uses the same core libraries as "xsltproc"
             processor.</p>
 
-        <div class="table"><a name="idp21493"></a><p class="formal-object-title"><span class="label">Table E.17: </span><span class="title"> Attributes for the <code class="literal">&lt;xsltfilter&gt;</code> tag </span></p><div class="table-contents">
+        <div class="table"><a name="idp21911"></a><p class="formal-object-title"><span class="label">Table E.17: </span><span class="title"> Attributes for the <code class="literal">&lt;xsltfilter&gt;</code> tag </span></p><div class="table-contents">
             
             <table class="table" summary=" Attributes for the &lt;xsltfilter&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">style</code></td><td><code class="literal">String</code></td><td>The XSLT stylesheet to use for transformation.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">html</code></td><td><code class="literal">Boolean</code></td><td>Whether to parse the input as HTML (using libxml2
                             DOMDocument::loadHTML()).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">resolvedocumentexternals</code></td><td><code class="literal">Boolean</code></td><td>Whether to resolve entities in the XML document. (see <a class="ulink" href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" target="_top">this link</a> for details)</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">resolvestylesheetexternals</code></td><td><code class="literal">Boolean</code></td><td>Whether to resolve entities in the stylesheet.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21546"></a>E.21.1 Nested tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21964"></a>E.21.1 Nested tags</h3></div></div></div>
             
             <p>The <code class="literal">XsltFilter</code> filter may contain one or more
                     <code class="literal">param</code> tags to pass any XSLT parameters to the stylesheet.

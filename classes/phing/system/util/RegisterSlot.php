@@ -115,8 +115,8 @@ class RegisterSlot
     {
         if (is_array($this->value)) {
             return $this->implodeArray($this->value);
-        } else {
-            return (string) $this->value;
         }
+
+        return (string) $this->value;
     }
 }

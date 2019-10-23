@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
-
 /**
  * Prints PMD-XML output of phpcpd run
  *

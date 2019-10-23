@@ -1,6 +1,9 @@
 # P     H     I     N     G
 
-  [![Build Status](https://travis-ci.org/phingofficial/phing.svg?branch=master)](https://travis-ci.org/phingofficial/phing) [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing) [![Build status](https://ci.appveyor.com/api/projects/status/ws2xv6tuu36sere7/branch/master?svg=true)](https://ci.appveyor.com/project/mrook/phing/branch/master)
+  [![Build Status](https://travis-ci.org/phingofficial/phing.svg?branch=master)](https://travis-ci.org/phingofficial/phing)
+  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phingofficial/phing/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phingofficial/phing/?branch=master)
+  [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing)
+  [![Build status](https://ci.appveyor.com/api/projects/status/ws2xv6tuu36sere7/branch/master?svg=true)](https://ci.appveyor.com/project/mrook/phing/branch/master)
 
   Thank you for using PHING!
 

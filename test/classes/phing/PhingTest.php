@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -111,6 +110,14 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
         $this->assertNull($phing->printTargets($project));
+    }
+
+    public function testPrintUsage(): void
+    {
+        $phing = new Phing();
+        $phing::setErrorStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
+
+        $this->assertNull($phing::printUsage());
     }
 
     public function testCallStartupShutdown()

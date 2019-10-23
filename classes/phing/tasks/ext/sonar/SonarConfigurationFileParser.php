@@ -92,7 +92,7 @@ class SonarConfigurationFileParser
         $lines = explode("\n", $contents);
         $count = count($lines);
         $isMultiLine = false;
-        for ($i = 0; $i < $count; $i ++) {
+        for ($i = 0; $i < $count; $i++) {
             $line = $lines[$i];
 
             if ($isMultiLine) {

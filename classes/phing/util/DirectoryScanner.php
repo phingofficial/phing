@@ -362,12 +362,12 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * recursively. All '/' and '\' characters are replaced by
      * DIRECTORY_SEPARATOR
      *
-     * @param string $_basedir the (non-null) basedir for scanning
+     * @param string $basedir the (non-null) basedir for scanning
      */
-    public function setBasedir($_basedir)
+    public function setBasedir($basedir)
     {
-        $_basedir = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $_basedir);
-        $this->basedir = $_basedir;
+        $basedir = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $basedir);
+        $this->basedir = $basedir;
     }
 
     /**
@@ -384,11 +384,11 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Sets the case sensitivity of the file system
      *
-     * @param bool $_isCaseSensitive specifies if the filesystem is case sensitive
+     * @param bool $isCaseSensitive specifies if the filesystem is case sensitive
      */
-    public function setCaseSensitive($_isCaseSensitive)
+    public function setCaseSensitive($isCaseSensitive)
     {
-        $this->isCaseSensitive = ($_isCaseSensitive) ? true : false;
+        $this->isCaseSensitive = ($isCaseSensitive) ? true : false;
     }
 
     /**
@@ -409,15 +409,16 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * When a pattern ends with a '/' or '\', "**" is appended.
      *
-     * @param array $_includes list of include patterns
+     * @param array $includes list of include patterns
      */
-    public function setIncludes($_includes = [])
+    public function setIncludes($includes = [])
     {
-        if (empty($_includes) || null === $_includes) {
+        if (empty($includes) || null === $includes) {
             $this->includes = null;
         } else {
-            for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_includes[$i]);
+            $numIncludes = count($includes);
+            for ($i = 0; $i < $numIncludes; $i++) {
+                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -433,15 +434,16 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * When a pattern ends with a '/' or '\', "**" is appended.
      *
-     * @param array $_excludes list of exclude patterns
+     * @param array $excludes list of exclude patterns
      */
-    public function setExcludes($_excludes = [])
+    public function setExcludes($excludes = [])
     {
-        if (empty($_excludes) || null === $_excludes) {
+        if (empty($excludes) || null === $excludes) {
             $this->excludes = null;
         } else {
-            for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $_excludes[$i]);
+            $numExcludes = count($excludes);
+            for ($i = 0; $i < $numExcludes; $i++) {
+                $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
                     $pattern .= "**";
                 }
@@ -468,25 +470,25 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     {
         if (empty($this->basedir)) {
             return false;
-        } else {
-            $exception = null;
+        }
 
-            if (!@file_exists($this->basedir)) {
-                if ($this->errorOnMissingDir) {
-                    $exception = new BuildException(
-                        "basedir  $this->basedir does not exist."
-                    );
-                } else {
-                    return false;
-                }
-            } elseif (!@is_dir($this->basedir)) {
+        $exception = null;
+
+        if (!@file_exists($this->basedir)) {
+            if ($this->errorOnMissingDir) {
                 $exception = new BuildException(
-                    "basedir $this->basedir is not a directory."
+                    "basedir  $this->basedir does not exist."
                 );
+            } else {
+                return false;
             }
-            if ($exception !== null) {
-                throw $exception;
-            }
+        } elseif (!@is_dir($this->basedir)) {
+            $exception = new BuildException(
+                "basedir $this->basedir is not a directory."
+            );
+        }
+        if ($exception !== null) {
+            throw $exception;
         }
 
         if ($this->includes === null) {

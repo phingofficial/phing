@@ -94,7 +94,7 @@ class PhingTask extends Task
      */
     public function setHaltOnFailure($hof)
     {
-        $this->haltOnFailure = (boolean) $hof;
+        $this->haltOnFailure = (bool) $hof;
     }
 
     /**
@@ -284,7 +284,8 @@ class PhingTask extends Task
             }
 
             // Are we trying to call the target in which we are defined?
-            if ($this->newProject->getBaseDir() == $this->project->getBaseDir()
+            if (
+                $this->newProject->getBaseDir() == $this->project->getBaseDir()
                 && $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file")
                 && $this->getOwningTarget() !== null
                 && $this->newTarget == $this->getOwningTarget()->getName()
@@ -533,7 +534,7 @@ class PhingTask extends Task
      */
     public function setInheritAll($value)
     {
-        $this->inheritAll = (boolean) $value;
+        $this->inheritAll = (bool) $value;
     }
 
     /**
@@ -544,7 +545,7 @@ class PhingTask extends Task
      */
     public function setInheritRefs($value)
     {
-        $this->inheritRefs = (boolean) $value;
+        $this->inheritRefs = (bool) $value;
     }
 
     /**

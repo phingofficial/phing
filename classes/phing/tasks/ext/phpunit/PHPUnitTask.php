@@ -89,15 +89,8 @@ class PHPUnitTask extends Task
         }
 
         @include_once 'PHPUnit/Autoload.php';
-        if (!class_exists('PHPUnit_Runner_Version') && !class_exists('PHPUnit\Runner\Version')) {
+        if (!class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
-        }
-
-        /**
-         * point PHPUnit_MAIN_METHOD define to non-existing method
-         */
-        if (!defined('PHPUnit_MAIN_METHOD')) { // @codingStandardsIgnoreLine
-            define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
         }
     }
 
@@ -301,8 +294,9 @@ class PHPUnitTask extends Task
      * Load and processes the PHPUnit configuration
      *
      * @param  $configuration
-     * @throws BuildException
      * @return array
+     * @throws ReflectionException
+     * @throws BuildException
      */
     protected function handlePHPUnitConfiguration(PhingFile $configuration)
     {
@@ -310,20 +304,16 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        if (class_exists('PHPUnit_Util_Configuration')) {
-            $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
-        } else {
-            $config = \PHPUnit\Util\Configuration::getInstance($configuration->getAbsolutePath());
-        }
+        $config = \PHPUnit\Util\Configuration::getInstance($configuration->getAbsolutePath());
 
         if (empty($config)) {
-            return;
+            return [];
         }
 
         $phpunit = $config->getPHPUnitConfiguration();
 
         if (empty($phpunit)) {
-            return;
+            return [];
         }
 
         $config->handlePHPConfiguration();
@@ -353,7 +343,8 @@ class PHPUnitTask extends Task
         }
 
         foreach ($config->getListenerConfiguration() as $listener) {
-            if (!class_exists($listener['class'], false)
+            if (
+                !class_exists($listener['class'], false)
                 && $listener['file'] !== ''
             ) {
                 include_once $listener['file'];
@@ -361,7 +352,7 @@ class PHPUnitTask extends Task
 
             if (class_exists($listener['class'])) {
                 if (count($listener['arguments']) == 0) {
-                    $listener = new $listener['class'];
+                    $listener = new $listener['class']();
                 } else {
                     $listenerClass = new ReflectionClass(
                         $listener['class']
@@ -380,7 +371,8 @@ class PHPUnitTask extends Task
         if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
             $browsers = $config->getSeleniumBrowserConfiguration();
 
-            if (!empty($browsers)
+            if (
+                !empty($browsers)
                 && class_exists('PHPUnit_Extensions_SeleniumTestCase')
             ) {
                 PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
@@ -398,17 +390,11 @@ class PHPUnitTask extends Task
     public function main()
     {
         if ($this->codecoverage && !extension_loaded('xdebug')) {
-            throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
+            throw new BuildException("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
 
         $this->loadPHPUnit();
-
-        if (class_exists('\PHPUnit_Framework_TestSuite')) {
-            $suite = new PHPUnit_Framework_TestSuite('AllTests');
-        } else {
-            $suite = new \PHPUnit\Framework\TestSuite('AllTests');
-        }
-
+        $suite = new \PHPUnit\Framework\TestSuite('AllTests');
         $autoloadSave = spl_autoload_functions();
 
         if ($this->bootstrap) {
@@ -461,33 +447,15 @@ class PHPUnitTask extends Task
 
     /**
      * @param $suite
-     * @throws \BuildException
+     * @throws BuildException
+     * @throws ReflectionException
      */
     protected function execute($suite)
     {
-        if (class_exists('\PHPUnit_Runner_Version', false)) {
-            $runner = new PHPUnitTestRunner(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
-        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
-            \PHPUnit\Runner\Version::id(),
-            '7.0.0',
-            '<'
-        )) {
-            $runner = new PHPUnitTestRunner6(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
-        } elseif (class_exists('\PHPUnit\Runner\Version', false) && version_compare(
-            \PHPUnit\Runner\Version::id(),
-            '8.0.0',
-            '<'
-        )) {
+        if (
+            class_exists('\PHPUnit\Runner\Version', false) &&
+            version_compare(\PHPUnit\Runner\Version::id(), '8.0.0', '<')
+        ) {
             $runner = new PHPUnitTestRunner7(
                 $this->project,
                 $this->groups,
@@ -511,7 +479,7 @@ class PHPUnitTask extends Task
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
-                $filter = new \SebastianBergmann\CodeCoverage\Filter;
+                $filter = new \SebastianBergmann\CodeCoverage\Filter();
                 if (method_exists($filter, 'addDirectoryToBlacklist')) {
                     $filter->addDirectoryToBlacklist($path);
                 }
@@ -604,21 +572,20 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param  BatchTest $batchTest
-     * @param  PHPUnit_Framework_TestSuite|PHPUnit\Framework\TestSuite $suite
-     * @throws \BuildException
+     * @param BatchTest $batchTest
+     * @param PHPUnit\Framework\TestSuite $suite
+     * @throws BuildException
+     * @throws ReflectionException
      */
     protected function appendBatchTestToTestSuite(BatchTest $batchTest, $suite)
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
-            if (!($testClass instanceof PHPUnit_Framework_TestSuite) || !($testClass instanceof PHPUnit\Framework\TestSuite)) {
+            if (!($testClass instanceof PHPUnit\Framework\TestSuite)) {
                 $testClass = new ReflectionClass($element);
             }
             try {
                 $suite->addTestSuite($testClass);
-            } catch (PHPUnit_Framework_Exception $e) {
-                throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
             } catch (\PHPUnit\Framework\Exception $e) {
                 throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
             }

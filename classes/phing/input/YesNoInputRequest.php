@@ -27,7 +27,7 @@ class YesNoInputRequest extends MultipleChoiceInputRequest
 {
 
     /**
-     * @return true if the input is one of the allowed values.
+     * @return bool true if the input is one of the allowed values.
      */
     public function isInputValid()
     {
@@ -37,7 +37,7 @@ class YesNoInputRequest extends MultipleChoiceInputRequest
     /**
      * Converts input to boolean.
      *
-     * @return boolean
+     * @return bool
      */
     public function getInput()
     {

@@ -31,9 +31,9 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
     /**
      * The passed in parameter array.
      *
-     * @var array $_parameters
+     * @var array $parameters
      */
-    protected $_parameters = [];
+    protected $parameters = [];
 
     /**
      * Sets the parameters used by this filter, and sets
@@ -46,24 +46,19 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      *
      * @throws Exception
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters): void
     {
-        // type check, error must never occur, bad code of it does
-        if (!is_array($parameters)) {
-            throw new Exception("Expected parameters array got something else");
-        }
-
-        $this->_parameters = $parameters;
+        $this->parameters = $parameters;
         $this->setInitialized(false);
     }
 
     /**
      * Returns the parameters to be used by this filter.
      *
-     * @return array the parameters to be used by this filter
+     * @return Parameter[] the parameters to be used by this filter
      */
     public function &getParameters()
     {
-        return $this->_parameters;
+        return $this->parameters;
     }
 }

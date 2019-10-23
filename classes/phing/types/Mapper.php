@@ -233,7 +233,7 @@ class Mapper extends DataType
             }
 
             $od = $o == null ? "null" : get_class($o);
-            throw new BuildException($od . " at reference '" . $r->getRefId() . "' is not a valid mapper reference.");
+            throw new BuildException($od . " at reference '" . $this->getRefId() . "' is not a valid mapper reference.");
         }
 
         if ($this->type === null && $this->classname === null && $this->container == null) {

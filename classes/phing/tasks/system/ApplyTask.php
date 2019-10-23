@@ -122,7 +122,7 @@ class ApplyTask extends ExecTask
      *
      * @param boolean $skip whether to skip empty filesets.
      */
-    public function setSkipEmptyFilesets(boolean $skip)
+    public function setSkipEmptyFilesets(bool $skip)
     {
         $this->skipEmpty = $skip;
     }
@@ -699,7 +699,6 @@ class ApplyTask extends ExecTask
                 $srcIndex += count($targetFiles);
             }
         } else { // no targetFilePos
-
             // 0 --> srcIndex
             $result = array_merge(array_slice($orig, 0, $srcIndex, true), $result);
             // srcIndex --> end
@@ -718,7 +717,9 @@ class ApplyTask extends ExecTask
             if ($this->forwardslash && PhingFile::$separator !== '/') {
                 $src = str_replace(PhingFile::$separator, '/', $src);
             }
-            if ($this->srcFilePos !== null && ($this->srcFilePos->getPrefix() !== ''
+            if (
+                $this->srcFilePos !== null
+                && ($this->srcFilePos->getPrefix() !== ''
                     || $this->srcFilePos->getSuffix() !== '')
             ) {
                 $src = $this->srcFilePos->getPrefix() . $src . $this->srcFilePos->getSuffix();

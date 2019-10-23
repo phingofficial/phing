@@ -222,27 +222,27 @@ class FtpDeployTask extends Task
                 throw new BuildException(
                     'SSL connection not supported by php' . ': ' . $ret->getMessage()
                 );
-            } else {
-                $this->log('Use SSL connection', $this->logLevel);
             }
+
+            $this->log('Use SSL connection', $this->logLevel);
         }
         $ret = $ftp->connect();
         if (@PEAR::isError($ret)) {
             throw new BuildException(
                 'Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage()
             );
-        } else {
-            $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
         }
+
+        $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
 
         $ret = $ftp->login($this->username, $this->password);
         if (@PEAR::isError($ret)) {
             throw new BuildException(
                 'Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage()
             );
-        } else {
-            $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
         }
+
+        $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
 
         if ($this->passive) {
             $this->log('Setting passive mode', $this->logLevel);
@@ -273,9 +273,9 @@ class FtpDeployTask extends Task
         if (@PEAR::isError($ret)) {
             $ftp->disconnect();
             throw new BuildException('Could not change to directory ' . $dir . ': ' . $ret->getMessage());
-        } else {
-            $this->log('Changed directory ' . $dir, $this->logLevel);
         }
+
+        $this->log('Changed directory ' . $dir, $this->logLevel);
 
         $fs = FileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
@@ -321,11 +321,7 @@ class FtpDeployTask extends Task
                 }
 
                 $local_filemtime = filemtime($file->getCanonicalPath());
-                if (isset($remoteFileInformations[$filename]['stamp'])) {
-                    $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'];
-                } else {
-                    $remoteFileModificationTime = 0;
-                }
+                $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'] ?? 0;
 
                 if (!$this->depends || ($local_filemtime > $remoteFileModificationTime)) {
                     if ($this->skipOnSameSize === true && $file->length() === $ftp->size($filename)) {
@@ -377,18 +373,18 @@ class FtpDeployTask extends Task
 
         if (count($content) == 0) {
             return false;
-        } else {
-            if (!empty($directory)) {
-                $directory .= '/';
-            }
-            foreach ($content as $val) {
-                if ($val['name'] != '.' && $val['name'] != '..') {
-                    $remoteFileInformations[$directory . $val['name']] = $val;
-                }
-            }
-
-            return true;
         }
+
+        if (!empty($directory)) {
+            $directory .= '/';
+        }
+        foreach ($content as $val) {
+            if ($val['name'] != '.' && $val['name'] != '..') {
+                $remoteFileInformations[$directory . $val['name']] = $val;
+            }
+        }
+
+        return true;
     }
 
     /**

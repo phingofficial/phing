@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
@@ -33,7 +32,7 @@ class PhpCodeSnifferTask extends Task
      *
      * @var PhingFile
      */
-    protected $file; // the source file (from xml attribute)
+    protected $file;
 
     // parameters for php code sniffer
     protected $standards = ['Generic'];
@@ -411,9 +410,9 @@ class PhpCodeSnifferTask extends Task
                         $currentMTime = filemtime($fileAbsolutePath);
                         if ($lastMTime >= $currentMTime) {
                             continue;
-                        } else {
-                            $this->cache->put($fileAbsolutePath, $currentMTime);
                         }
+
+                        $this->cache->put($fileAbsolutePath, $currentMTime);
                     }
                     $filesToParse[] = $fileAbsolutePath;
                 }
@@ -724,4 +723,4 @@ class PhpCodeSnifferTask extends Task
             }
         }
     }
-} //end phpCodeSnifferTask //end FormatterElement
+}

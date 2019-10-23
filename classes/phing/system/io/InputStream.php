@@ -84,7 +84,7 @@ class InputStream
      * Read data from stream until $len chars or EOF.
      *
      * @param  int $len Num chars to read.  If not specified this stream will read until EOF.
-     * @return string chars read or -1 if eof.
+     * @return mixed chars read or -1 if eof.
      */
     public function read($len = null)
     {
@@ -154,9 +154,12 @@ class InputStream
         if ($this->stream === null) {
             return;
         }
+        error_clear_last();
         if (false === @fclose($this->stream)) {
+            $lastError = error_get_last();
+            $errormsg = $lastError['message'];
             // FAILED.
-            $msg = "Cannot fclose " . $this->__toString() . " $php_errormsg";
+            $msg = "Cannot fclose " . $this->__toString() . " $errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;

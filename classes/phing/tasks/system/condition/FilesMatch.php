@@ -64,7 +64,7 @@ class FilesMatch implements Condition
             throw new BuildException("both file1 and file2 are required in filesmatch");
         }
 
-        $fu = new FileUtils;
+        $fu = new FileUtils();
 
         return $fu->contentEquals($this->file1, $this->file2);
     }

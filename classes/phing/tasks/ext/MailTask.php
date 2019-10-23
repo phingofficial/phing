@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-
 /**
  * Send an e-mail message
  *

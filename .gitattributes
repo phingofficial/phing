@@ -1,6 +1,15 @@
+*.md    text eol=lf
+*.json  text eol=lf
+*.lock  text eol=lf
+*.html  text eol=lf
+*.php   text eol=lf
+*.yml   text eol=lf
+*.xml   text eol=lf
+*.ini   text eol=lf
+*.sh    text eol=lf
+hlsaxon text eol=lf
+
 docs export-ignore
 test export-ignore
 .travis.* export-ignore
 composer.lock export-ignore
-*.sh text eol=lf
-hlsaxon text eol=lf

@@ -154,7 +154,9 @@ class ZsdtPackTask extends ZsdtBaseTask
                 'The deployment tool needs at least the project descriptor, '
                 . 'the scripts folder and package folder to be set.'
             );
-        } elseif ($this->lint !== false && $this->phpbin === null) {
+        }
+
+        if ($this->lint !== false && $this->phpbin === null) {
             throw new BuildException('You set the lint option but not the path to the php executable.');
         }
 

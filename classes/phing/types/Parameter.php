@@ -88,7 +88,7 @@ class Parameter extends DataType
      */
     public function addText($v)
     {
-        $this->val = $v;
+        $this->value = $v;
     }
 
     public function getName()
@@ -108,9 +108,9 @@ class Parameter extends DataType
     {
         if ($this->value instanceof RegisterSlot) {
             return $this->value->getValue();
-        } else {
-            return $this->value;
         }
+
+        return $this->value;
     }
 
     /**

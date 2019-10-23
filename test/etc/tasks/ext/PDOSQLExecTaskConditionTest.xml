@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="pdosqlexec condition test" default="testUrlIsRequiredException">
+
+    <target name="testUrlIsRequiredException" description="">
+        <if>
+            <pdosqlexec></pdosqlexec>
+            <then>
+                <echo>Never reached this</echo>
+            </then>
+        </if>
+    </target>
+
+    <target name="testFalseWhenInvalidHost">
+        <if>
+            <pdosqlexec url="mysql:host=dummy"/>
+            <then>
+                <echo>pdosqlexec condition returned true</echo>
+            </then>
+            <else>
+                <echo>pdosqlexec condition returned false</echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="testFalseWhenInvalidDriver">
+        <if>
+            <pdosqlexec url="invalid:host=localhost"/>
+            <then>
+                <echo>pdosqlexec condition returned true</echo>
+            </then>
+            <else>
+                <echo>pdosqlexec condition returned false</echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="testCompatibleWithConditionTask">
+        <condition property="condition.result" else="condition-not-met">
+            <pdosqlexec url="mysql:host=localhost"/>
+        </condition>
+    </target>
+
+    <target name="testCompatibleWithWaitForTask">
+        <waitfor maxwaitunit="millisecond" maxwait="100" timeoutproperty="waitfor.timeout">
+            <pdosqlexec url="mysql:host=localhost"/>
+        </waitfor>
+    </target>
+
+    <target name="testSuccessfulCondition">
+        <!-- Retrieve a public MySQL server from:         -->
+        <!-- https://www.ensembl.org/info/data/mysql.html -->
+        <property name="mysql.host" value="ensembldb.ensembl.org"/>
+        <property name="mysql.port" value="3306"/>
+
+        <!--Running the test-->
+        <if>
+            <pdosqlexec url="mysql:host=${mysql.host};port=${mysql.port}" userid="anonymous"/>
+            <then>
+                <echo>pdosqlexec condition returned true</echo>
+            </then>
+            <else>
+                <echo>pdosqlexec condition returned false</echo>
+            </else>
+        </if>
+    </target>
+
+</project>

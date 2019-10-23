@@ -159,20 +159,19 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function buildFinished(BuildEvent $event)
     {
+        $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         $error = $event->getException();
-        if ($error === null) {
-            $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
-        } else {
+
+        if ($error !== null) {
             $msg = PHP_EOL . $this->getBuildFailedMessage() . PHP_EOL;
+
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: " . self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
+        $msg .= PHP_EOL . "Total time: " . static::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
 
-        if ($error === null) {
-            $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
-        } else {
-            $this->printMessage($msg, $this->err, Project::MSG_ERR);
-        }
+        $error === null
+            ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)
+            : $this->printMessage($msg, $this->err, Project::MSG_ERR);
     }
 
     public static function throwableMessage(&$msg, $error, $verbose)
@@ -224,7 +223,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function targetStarted(BuildEvent $event)
     {
-        if (Project::MSG_INFO <= $this->msgOutputLevel
+        if (
+            Project::MSG_INFO <= $this->msgOutputLevel
             && $event->getTarget()->getName() != ''
         ) {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
@@ -311,9 +311,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
                 $seconds - floor($seconds / 60) * 60,
                 ($seconds % 60 === 1 ? "" : "s")
             );
-        } else {
-            return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
         }
+
+        return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
     }
 
     /**

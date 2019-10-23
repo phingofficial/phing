@@ -92,7 +92,7 @@ abstract class AbstractHandler
      *
      * @param     string $data contents
      * @throws    ExpatParseException
-     * @exception ExpatParseException if there is no CDATA but method
+     * @throws ExpatParseException if there is no CDATA but method
      *            was called
      */
     public function characters($data)

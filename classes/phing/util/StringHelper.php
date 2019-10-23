@@ -55,9 +55,9 @@ class StringHelper
         $pos = strrpos($qualifiedName, $separator);
         if ($pos === false) {
             return $qualifiedName; // there is no '.' in the qualifed name
-        } else {
-            return substr($qualifiedName, $pos + 1); // start just after '.'
         }
+
+        return substr($qualifiedName, $pos + 1); // start just after '.'
     }
 
     /**
@@ -73,7 +73,7 @@ class StringHelper
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));
 
-        return (boolean) in_array($trimmed, self::$TRUE_VALUES);
+        return (bool) in_array($trimmed, self::$TRUE_VALUES);
     }
 
     /**
@@ -110,9 +110,9 @@ class StringHelper
     {
         if ($check === "" || $check === $string) {
             return true;
-        } else {
-            return strpos($string, $check) === 0;
         }
+
+        return strpos($string, $check) === 0;
     }
 
     /**
@@ -127,9 +127,9 @@ class StringHelper
     {
         if ($check === "" || $check === $string) {
             return true;
-        } else {
-            return strpos(strrev($string), strrev($check)) === 0;
         }
+
+        return strpos(strrev($string), strrev($check)) === 0;
     }
 
     /**
@@ -154,9 +154,9 @@ class StringHelper
         }
         if ($startpos === $endpos) {
             return (string) $string[$startpos];
-        } else {
-            $len = $endpos - $startpos;
         }
+
+        $len = $endpos - $startpos;
 
         return substr($string, $startpos, $len + 1);
     }

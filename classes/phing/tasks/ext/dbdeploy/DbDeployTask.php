@@ -268,7 +268,7 @@ class DbDeployTask extends Task
                 }
 
                 $deploySql = $split[0];
-                $undoSql = isset($split[1]) ? $split[1] : '';
+                $undoSql = $split[1] ?? '';
 
                 if ($undo) {
                     $sql .= $undoSql;
@@ -347,9 +347,9 @@ class DbDeployTask extends Task
     {
         if ($this->checkall) {
             return (!in_array($fileChangeNumber, $this->appliedChangeNumbers));
-        } else {
-            return ($fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply);
         }
+
+        return ($fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply);
     }
 
     /**

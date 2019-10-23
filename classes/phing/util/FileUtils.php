@@ -67,9 +67,9 @@ class FileUtils
             $rdr = $crh->getAssembledReader();
 
             return $rdr;
-        } else {
-            return $in;
         }
+
+        return $in;
     }
 
     /**
@@ -210,8 +210,11 @@ class FileUtils
         $filename = str_replace(array('\\', '/'), $fs->getSeparator(), $filename);
 
         // deal with absolute files
-        if (StringHelper::startsWith($fs->getSeparator(), $filename)
-            || (strlen($filename) >= 2 && Character::isLetter($filename[0]) && $filename[1] === ':')
+        if (
+            StringHelper::startsWith($fs->getSeparator(), $filename)
+            || (strlen($filename) >= 2
+            && Character::isLetter($filename[0])
+            && $filename[1] === ':')
         ) {
             return new PhingFile($this->normalize($filename));
         }
@@ -269,8 +272,11 @@ class FileUtils
         $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
 
         // make sure we are dealing with an absolute path
-        if (!StringHelper::startsWith(DIRECTORY_SEPARATOR, $path)
-            && !(strlen($path) >= 2 && Character::isLetter($path[0]) && $path[1] === ':')
+        if (
+            !StringHelper::startsWith(DIRECTORY_SEPARATOR, $path)
+            && !(strlen($path) >= 2
+            && Character::isLetter($path[0])
+            && $path[1] === ':')
         ) {
             throw new IOException("$path is not an absolute path");
         }
@@ -288,8 +294,10 @@ class FileUtils
             $path = strtoupper($ca[0]) . ':';
 
             for ($i = 2, $_i = strlen($ca); $i < $_i; $i++) {
-                if (($ca[$i] !== '\\')
-                    || ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
+                if (
+                    ($ca[$i] !== '\\')
+                    || ($ca[$i] === '\\'
+                    && $ca[$i - 1] !== '\\')
                 ) {
                     $path .= $ca[$i];
                 }
@@ -328,13 +336,15 @@ class FileUtils
             if ("." === $thisToken) {
                 $tok = strtok(DIRECTORY_SEPARATOR);
                 continue;
-            } elseif (".." === $thisToken) {
+            }
+
+            if (".." === $thisToken) {
                 if (count($s) < 2) {
                     // using '..' in path that is too short
                     throw new IOException("Cannot resolve path: $orig");
-                } else {
-                    array_pop($s);
                 }
+
+                array_pop($s);
             } else { // plain component
                 $s[] = $thisToken;
             }

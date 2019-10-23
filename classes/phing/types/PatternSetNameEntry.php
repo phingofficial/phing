@@ -119,10 +119,10 @@ class PatternSetNameEntry
     {
         if ($this->ifCond !== null && $project->getProperty($this->ifCond) === null) {
             return false;
-        } else {
-            if ($this->unlessCond !== null && $project->getProperty($this->unlessCond) !== null) {
-                return false;
-            }
+        }
+
+        if ($this->unlessCond !== null && $project->getProperty($this->unlessCond) !== null) {
+            return false;
         }
 
         return true;

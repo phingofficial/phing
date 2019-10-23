@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'Ssh2MethodParam.php';
-
 /**
  * Execute commands on a remote host using ssh.
  *
@@ -271,7 +269,7 @@ class SshTask extends Task
      */
     public function setDisplay($display)
     {
-        $this->display = (boolean) $display;
+        $this->display = (bool) $display;
     }
 
     /**
@@ -282,7 +280,7 @@ class SshTask extends Task
      */
     public function setFailonerror($failonerror)
     {
-        $this->failonerror = (boolean) $failonerror;
+        $this->failonerror = (bool) $failonerror;
     }
 
     /**

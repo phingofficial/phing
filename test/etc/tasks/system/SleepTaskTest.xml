@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  ~ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  ~ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  ~ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  ~ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  ~ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  ~ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  ~ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  ~ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  ~ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~
+  ~ This software consists of voluntary contributions made by many individuals
+  ~ and is licensed under the LGPL. For more information please see
+  ~ <http://phing.info>.
+  -->
+<project name="sleeptest" default="all">
+
+  <target name="test1">
+    <sleep/>
+  </target>
+
+  <target name="test2">
+    <sleep milliseconds="10"/>
+  </target>
+
+  <target name="test3">
+    <sleep seconds="2"/>
+  </target>
+
+  <target name="test4">
+    <sleep hours="1" minutes="-59" seconds="-58"/>
+  </target>
+
+  <target name="test5">
+    <sleep minutes="-59" seconds="-58"/>
+  </target>
+
+  <target name="test6">
+    <sleep minutes="-59" seconds="-58" failOnError="no"/>
+  </target>
+
+  <target name="all"
+          depends="test1,test2,test3,test4,test5,test6"/>
+
+</project>

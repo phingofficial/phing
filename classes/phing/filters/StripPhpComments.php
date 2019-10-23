@@ -35,7 +35,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * The read-ahead character, used for effectively pushing a single
      * character back. -1 indicates that no character is in the buffer.
      */
-    private $_readAheadCh = -1;
+    private $readAheadCh = -1;
 
     /**
      * Whether or not the parser is currently in the middle of a string
@@ -43,12 +43,12 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      *
      * @var boolean
      */
-    private $_inString = false;
+    private $inString = false;
 
     /**
      * Returns the  stream without Php comments.
      *
-     * @param  null $len
+     * @param  int $len
      * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      */
@@ -63,7 +63,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
 
         foreach ($tokens as $token) {
             if (is_array($token)) {
-                list($id, $text) = $token;
+                [$id, $text] = $token;
 
                 switch ($id) {
                     case T_COMMENT:
@@ -86,14 +86,13 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
      *
-     * @param    A|Reader $reader
-     * @internal param A $reader Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
+     * @param A|Reader $reader
      * @return $this a new filter based on this configuration, but filtering
      *           the specified reader
+     * @internal param A $reader Reader object providing the underlying stream.
+     *               Must not be <code>null</code>.
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new StripPhpComments($reader);
         $newFilter->setProject($this->getProject());

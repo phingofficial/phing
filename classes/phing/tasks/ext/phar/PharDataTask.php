@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
@@ -136,7 +134,7 @@ class PharDataTask extends MatchingTask
                 $pharData->buildFromIterator($fileset->getIterator(), $fileset->getDir($this->project));
             }
 
-            if ($this->compression !== PHAR::NONE && $pharData->canCompress($this->compression)) {
+            if ($this->compression !== Phar::NONE && $pharData->canCompress($this->compression)) {
                 try {
                     $pharData->compress($this->compression);
                 } catch (UnexpectedValueException $uve) {

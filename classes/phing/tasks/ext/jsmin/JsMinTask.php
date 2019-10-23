@@ -117,9 +117,9 @@ class JsMinTask extends Task
                 // directory doesn't exist or is not readable
                 if ($this->failonerror) {
                     throw $be;
-                } else {
-                    $this->log($be->getMessage(), Project::MSG_WARN);
                 }
+
+                $this->log($be->getMessage(), Project::MSG_WARN);
             }
         }
     }

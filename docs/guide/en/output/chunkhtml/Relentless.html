@@ -11,7 +11,7 @@
             An appropriate message will be written to the log.</p>
         <p>Tasks are executed in the order that they appear within the &lt;relentless&gt; task. It is up to the user
             to ensure that relentless execution of the nested tasks is safe.</p>
-        <div class="table"><a name="idp5739"></a><p class="formal-object-title"><span class="label">Table B.40: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp5791"></a><p class="formal-object-title"><span class="label">Table B.40: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">description</code></td><td><code class="literal">String</code></td><td>A string that will be included in the log output. This can be useful for helping to
                             identify sections of large phing builds.
@@ -25,7 +25,7 @@
             not apply recursively to any tasks that might be invoked by these nested tasks.
             If a nested task invokes some other list of tasks (perhaps by &lt;phingcall&gt; for example), and one of those
             other tasks fails, then the nested task will stop at that point.</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5773"></a>B.39.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp5825"></a>B.39.1 Example</h3></div></div></div>
             
             <p>A relentless task to print out the first five canonical variable names:</p>
             <pre lang="xml" class="programlisting">&lt;relentless description="The first five canonical variable names."&gt;

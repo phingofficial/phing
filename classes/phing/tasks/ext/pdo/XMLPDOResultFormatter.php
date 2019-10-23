@@ -17,9 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
-
 /**
  * XML formatter for PDO results.
  *
@@ -85,7 +82,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      */
     public function setFormatOutput($v)
     {
-        $this->formatOutput = (boolean) $v;
+        $this->formatOutput = (bool) $v;
     }
 
     public function initialize()

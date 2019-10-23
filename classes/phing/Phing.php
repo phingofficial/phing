@@ -398,7 +398,7 @@ class Phing
 
         if (in_array('-init', $args) || in_array('-i', $args)) {
             $key = array_search('-init', $args) ?: array_search('-i', $args);
-            $path = isset($args[$key + 1]) ? $args[$key + 1] : null;
+            $path = $args[$key + 1] ?? null;
 
             self::init($path);
 
@@ -414,17 +414,20 @@ class Phing
         // 2) Next pull out stand-alone args.
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
-        if (false !== ($key = array_search('-quiet', $args, true)) || false !== ($key = array_search(
-            '-q',
-            $args,
-            true
-        ))
+        if (
+            false !== ($key = array_search('-quiet', $args, true)) ||
+            false !== ($key = array_search(
+                '-q',
+                $args,
+                true
+            ))
         ) {
             self::$msgOutputLevel = Project::MSG_WARN;
             unset($args[$key]);
         }
 
-        if (false !== ($key = array_search('-emacs', $args, true))
+        if (
+            false !== ($key = array_search('-emacs', $args, true))
             || false !== ($key = array_search('-e', $args, true))
         ) {
             $this->emacsMode = true;
@@ -441,7 +444,8 @@ class Phing
             unset($args[$key]);
         }
 
-        if (false !== ($key = array_search('-silent', $args, true))
+        if (
+            false !== ($key = array_search('-silent', $args, true))
             || false !== ($key = array_search('-S', $args, true))
         ) {
             $this->silent = true;
@@ -1379,7 +1383,7 @@ class Phing
 
         $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
 
-        Phing::__import($path, $classpath);
+        Phing::importFile($path, $classpath);
 
         return $classname;
     }
@@ -1387,12 +1391,15 @@ class Phing
     /**
      * Import a PHP file
      *
+     * This used to be named __import, however PHP has reserved all method names
+     * with a double underscore prefix for future use.
+     *
      * @param string $path Path to the PHP file
      * @param mixed $classpath String or object supporting __toString()
      *
      * @throws ConfigurationException
      */
-    public static function __import($path, $classpath = null)
+    public static function importFile($path, $classpath = null)
     {
         if ($classpath) {
             // Apparently casting to (string) no longer invokes __toString() automatically.
@@ -1591,16 +1598,16 @@ class Phing
             $sysInfo['nodename'] = php_uname('n');
             $sysInfo['machine'] = php_uname('m');
             //this is a not so ideal substition, but maybe better than nothing
-            $sysInfo['domain'] = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : "unknown";
+            $sysInfo['domain'] = $_SERVER['SERVER_NAME'] ?? "unknown";
             $sysInfo['release'] = php_uname('r');
             $sysInfo['version'] = php_uname('v');
         }
 
-        self::setProperty("host.name", isset($sysInfo['nodename']) ? $sysInfo['nodename'] : "unknown");
-        self::setProperty("host.arch", isset($sysInfo['machine']) ? $sysInfo['machine'] : "unknown");
-        self::setProperty("host.domain", isset($sysInfo['domain']) ? $sysInfo['domain'] : "unknown");
-        self::setProperty("host.os.release", isset($sysInfo['release']) ? $sysInfo['release'] : "unknown");
-        self::setProperty("host.os.version", isset($sysInfo['version']) ? $sysInfo['version'] : "unknown");
+        self::setProperty("host.name", $sysInfo['nodename'] ?? "unknown");
+        self::setProperty("host.arch", $sysInfo['machine'] ?? "unknown");
+        self::setProperty("host.domain", $sysInfo['domain'] ?? "unknown");
+        self::setProperty("host.os.release", $sysInfo['release'] ?? "unknown");
+        self::setProperty("host.os.version", $sysInfo['version'] ?? "unknown");
         unset($sysInfo);
     }
 
@@ -1647,7 +1654,7 @@ class Phing
         // some are cached, see below
 
         // default is the cached value:
-        $val = isset(self::$properties[$propName]) ? self::$properties[$propName] : null;
+        $val = self::$properties[$propName] ?? null;
 
         // special exceptions
         switch ($propName) {
@@ -1686,7 +1693,7 @@ class Phing
      */
     public static function currentTimeMillis()
     {
-        list($usec, $sec) = explode(" ", microtime());
+        [$usec, $sec] = explode(" ", microtime());
 
         return ((float) $usec + (float) $sec);
     }

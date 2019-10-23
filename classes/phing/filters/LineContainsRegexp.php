@@ -56,7 +56,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      *
      * @var RegularExpression[]
      */
-    private $_regexps = [];
+    private $regexps = [];
 
     /**
      * @var bool $negate
@@ -71,13 +71,15 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Returns all lines in a buffer that contain specified strings.
      *
-     * @param  null $len
+     * @param int $len
      * @return mixed buffer, -1 on EOF
+     * @throws IOException
+     * @throws RegexpException
      */
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -90,10 +92,10 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
         $lines = explode("\n", $buffer);
         $matched = [];
 
-        $regexpsSize = count($this->_regexps);
+        $regexpsSize = count($this->regexps);
         foreach ($lines as $line) {
             for ($i = 0; $i < $regexpsSize; $i++) {
-                $regexp = $this->_regexps[$i];
+                $regexp = $this->regexps[$i];
                 $re = $regexp->getRegexp($this->getProject());
                 $re->setIgnoreCase(!$this->casesensitive);
                 $matches = $re->matches($line);
@@ -161,9 +163,9 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public function createRegexp()
     {
-        $num = array_push($this->_regexps, new RegularExpression());
+        $num = array_push($this->regexps, new RegularExpression());
 
-        return $this->_regexps[$num - 1];
+        return $this->regexps[$num - 1];
     }
 
     /**
@@ -183,7 +185,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
         if (!is_array($regexps)) {
             throw new Exception("Expected an 'array', got something else");
         }
-        $this->_regexps = $regexps;
+        $this->regexps = $regexps;
     }
 
     /**
@@ -198,7 +200,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public function getRegexps()
     {
-        return $this->_regexps;
+        return $this->regexps;
     }
 
     /**
@@ -208,24 +210,23 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     {
         $regexp = new RegularExpression();
         $regexp->setPattern($pattern);
-        $this->_regexps[] = $regexp;
+        $this->regexps[] = $regexp;
     }
 
     /**
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @param    Reader $reader
-     * @throws   Exception
+     * @param Reader $reader
+     * @return LineContainsRegexp A new filter based on this configuration, but filtering
+     *                the specified reader
+     * @throws Exception
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
-        $newFilter = new LineContainsRegExp($reader);
+        $newFilter = new LineContainsRegexp($reader);
         $newFilter->setRegexps($this->getRegexps());
         $newFilter->setNegate($this->isNegated());
         $newFilter->setCaseSensitive($this->isCaseSensitive());
@@ -238,7 +239,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Parses parameters to add user defined regular expressions.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {
@@ -247,7 +248,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
                     $pattern = $params[$i]->getValue();
                     $regexp = new RegularExpression();
                     $regexp->setPattern($pattern);
-                    $this->_regexps[] = $regexp;
+                    $this->regexps[] = $regexp;
                 } elseif (self::NEGATE_KEY === $params[$i]->getType()) {
                     $this->setNegate(Project::toBoolean($params[$i]->getValue()));
                 } elseif (self::CS_KEY === $params[$i]->getType()) {

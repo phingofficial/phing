@@ -1,9 +1,9 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.70 PhpCodeSnifferTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhkPackageTask.html" title="C.69 PhkPackageTask"><link rel="next" href="PHPCPDTask.html" title="C.71 PHPCPDTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.70 PhpCodeSnifferTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhkPackageTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PHPCPDTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpCodeSnifferTask"></a>C.70 PhpCodeSnifferTask</h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.70 PhpCodeSnifferTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhkPackageTask.html" title="C.69 PhkPackageTask"><link rel="next" href="PhpCSTask.html" title="C.71 PhpCSTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.70 PhpCodeSnifferTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhkPackageTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhpCSTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpCodeSnifferTask"></a>C.70 PhpCodeSnifferTask</h2></div></div></div>
         
         <p> This task runs <a class="ulink" href="http://pear.php.net/package/PHP_CodeSniffer" target="_top">PHP_CodeSniffer</a> to detect violations of a defined set of coding
             standards.</p>
 
-        <div class="table"><a name="idp13958"></a><p class="formal-object-title"><span class="label">Table C.90: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp14032"></a><p class="formal-object-title"><span class="label">Table C.90: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">standard</code></td><td><code class="literal">String</code></td><td>The list of coding standards to test against.
                             Separated by space, comma or semicolon.</td><td>Generic</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The output format. The <code class="literal">full</code> format is specified
@@ -29,7 +29,7 @@
                             <code class="literal">cachefile</code>, to speed up processing of files that
                             rarely change</td><td>none</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14171"></a>C.70.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14245"></a>C.70.1 Examples</h3></div></div></div>
             
             <p> Checks all files in the directory <code class="literal">file</code> matching the allowed
                 file extension with the <code class="literal">PEAR</code> standard and prints the
@@ -78,7 +78,7 @@
     &lt;config name="installed_paths" value="/path/to/Standards/directory"/&gt;
 &lt;/phpcodesniffer&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14197"></a>C.70.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp14271"></a>C.70.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code>
@@ -91,7 +91,7 @@
                     <p>The configuration parameters which are usually loaded from the
                         CodeSniffer.conf can be set.</p>
 
-                    <div class="table"><a name="idp14210"></a><p class="formal-object-title"><span class="label">Table C.91: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp14284"></a><p class="formal-object-title"><span class="label">Table C.91: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of the configuration parameter.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Value of the configuration parameter.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -103,7 +103,7 @@
                         attribute to <code class="literal">false.</code>
                     </p>
 
-                    <div class="table"><a name="idp14248"></a><p class="formal-object-title"><span class="label">Table C.92: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp14322"></a><p class="formal-object-title"><span class="label">Table C.92: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute
@@ -116,4 +116,4 @@
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhkPackageTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PHPCPDTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.69 PhkPackageTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.71 PHPCPDTask</td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhkPackageTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhpCSTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.69 PhkPackageTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.71 PhpCSTask</td></tr></table></div></body></html>

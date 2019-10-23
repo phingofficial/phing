@@ -78,7 +78,8 @@ class StatisticsReport
 
     private function updateTableWithPercentagesOfTotalTime(Table $table, array $totalTimes, $runningTotalTime)
     {
-        for ($i = 0; $i < count($totalTimes); $i++) {
+        $total = count($totalTimes);
+        for ($i = 0; $i < $total; $i++) {
             $totalTime = $totalTimes[$i];
             $round = round(100 * (double)$totalTime / $runningTotalTime);
             $table->put($i + 1, self::$IDX_PERCENTAGE, (string)$round);
@@ -91,17 +92,17 @@ class StatisticsReport
         $maxLengths = $table->getMaxLengths();
         $titleBarLength = $this->calculateFixedLength($maxLengths);
         $sb .= self::$FORMATTER->center($title, $titleBarLength);
-        $sb .= "\n\n";
+        $sb .= PHP_EOL . PHP_EOL;
 
         for ($i = 0; $i < $table->rows(); $i++) {
             for ($j = 0; $j < $table->columns(); $j++) {
                 $sb .= self::$FORMATTER->left($table->get($i, $j), $maxLengths[$j]);
             }
-            $sb .= "\n";
+            $sb .= PHP_EOL;
             $sb .= $this->createTitleBarIfFirstRow($titleBarLength, $i);
         }
 
-        $sb .= "\n";
+        $sb .= PHP_EOL;
         return $sb;
     }
 
@@ -110,13 +111,14 @@ class StatisticsReport
         if ($i !== 0) {
             return '';
         }
-        return self::$FORMATTER->toChars('-', $titleBarLength) . "\n";
+        return self::$FORMATTER->toChars('-', $titleBarLength) . PHP_EOL;
     }
 
     private function calculateFixedLength(array $maxLengths)
     {
         $fixedLength = 0;
-        for ($i = 0; $i < count($maxLengths); $i++) {
+        $total = count($maxLengths);
+        for ($i = 0; $i < $total; $i++) {
             $fixedLength += $maxLengths[$i] + 4;
         }
         return $fixedLength;
@@ -139,13 +141,13 @@ class StatisticsReport
                 $projectTimer = $this->stack->pop();
                 $projectSeriesMap->put($projectTimer->getName(), $projectTimer->getSeries());
                 $sb .= $this->createTargetStatistics($projectTimer);
-                $sb .= "\n";
+                $sb .= PHP_EOL;
                 $sb .= $this->createTaskStatistics($projectTimer);
-                $sb .= "\n";
+                $sb .= PHP_EOL;
             }
-            print("\n");
+            print(PHP_EOL);
             print($this->create("Project Statistics", $projectSeriesMap));
-            print("\n" . $sb);
+            print(PHP_EOL . $sb);
         }
     }
 

@@ -49,7 +49,7 @@ class CommandlineArgument
      *
      * @param string $value a single commandline argument.
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
         $this->parts = [$value];
     }

@@ -236,9 +236,9 @@ class UnixFileSystem extends FileSystem
         // resolve if parent is a file oject only
         if ($this->isAbsolute($f)) {
             return $f->getPath();
-        } else {
-            return $this->resolve(Phing::getProperty("user.dir"), $f->getPath());
         }
+
+        return $this->resolve(Phing::getProperty("user.dir"), $f->getPath());
     }
 
     /* -- most of the following is mapped to the php natives wrapped by FileSystem */
@@ -302,8 +302,6 @@ class UnixFileSystem extends FileSystem
      */
     public function copy(PhingFile $src, PhingFile $dest)
     {
-        global $php_errormsg;
-
         if (!$src->isLink()) {
             parent::copy($src, $dest);
             return;

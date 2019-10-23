@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/Task.php';
 
 /**
  * LoadFileTask
@@ -127,10 +126,10 @@ class LoadFileTask extends Task
                 $message = (string) $this->file . ' doesn\'t exist';
                 if ($this->failOnError) {
                     throw new BuildException($message);
-                } else {
-                    $this->log($message, $this->quiet ? Project::MSG_WARN : Project::MSG_ERR);
-                    return;
                 }
+
+                $this->log($message, $this->quiet ? Project::MSG_WARN : Project::MSG_ERR);
+                return;
             }
 
             $this->log("loading " . (string) $this->file . " into property " . $this->property, Project::MSG_VERBOSE);
@@ -160,15 +159,15 @@ class LoadFileTask extends Task
             $message = "Unable to load resource: " . $ioe->getMessage();
             if ($this->failOnError) {
                 throw new BuildException($message, $ioe, $this->getLocation());
-            } else {
-                $this->log($message, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
             }
+
+            $this->log($message, $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
         } catch (BuildException $be) {
             if ($this->failOnError) {
                 throw $be;
-            } else {
-                $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
             }
+
+            $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR);
         }
     }
 }

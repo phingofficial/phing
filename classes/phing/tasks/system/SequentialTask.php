@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/TaskContainer.php';
-
 /**
  * Sequential is a container task that contains other Phing Task objects.
  *

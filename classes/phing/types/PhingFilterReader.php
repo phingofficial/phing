@@ -29,6 +29,8 @@ class PhingFilterReader extends DataType
 {
     private $className;
     private $parameters = [];
+
+    /** @var Path */
     private $classPath;
 
     /**
@@ -136,7 +138,7 @@ class PhingFilterReader extends DataType
      * this element if you make it a reference.</p>
      *
      * @param Reference $r the reference to which this instance is associated
-     * @exception BuildException if this instance already has been configured.
+     * @throws BuildException if this instance already has been configured.
     */
     /**
      * @param Reference $r

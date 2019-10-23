@@ -35,7 +35,7 @@ interface FileScanner
      * Returns the base directory to be scanned.
      * This is the directory which is scanned recursively.
      *
-     * @return the base directory to be scanned
+     * @return string the base directory to be scanned
      */
     public function getBasedir();
 
@@ -44,8 +44,8 @@ interface FileScanner
      * include patterns and at least one of the exclude patterns.
      * The names are relative to the base directory.
      *
-     * @return the names of the directories which matched at least one of the
-     * include patterns and at least one of the exclude patterns.
+     * @return string[] the names of the directories which matched at least one of the
+     *                  include patterns and at least one of the exclude patterns.
      */
     public function getExcludedDirectories();
 
@@ -54,8 +54,8 @@ interface FileScanner
      * include patterns and at least one of the exclude patterns.
      * The names are relative to the base directory.
      *
-     * @return the names of the files which matched at least one of the
-     *         include patterns and at least one of the exclude patterns.
+     * @return string[] the names of the files which matched at least one of the
+     *                  include patterns and at least one of the exclude patterns.
      */
     public function getExcludedFiles();
 
@@ -64,8 +64,8 @@ interface FileScanner
      * include patterns and none of the exclude patterns.
      * The names are relative to the base directory.
      *
-     * @return the names of the directories which matched at least one of the
-     * include patterns and none of the exclude patterns.
+     * @return string[] the names of the directories which matched at least one of the
+     *                  include patterns and none of the exclude patterns.
      */
     public function getIncludedDirectories();
 
@@ -74,8 +74,8 @@ interface FileScanner
      * include patterns and none of the exclude patterns.
      * The names are relative to the base directory.
      *
-     * @return the names of the files which matched at least one of the
-     *         include patterns and none of the exclude patterns.
+     * @return string[] the names of the files which matched at least one of the
+     *                  include patterns and none of the exclude patterns.
      */
     public function getIncludedFiles();
 
@@ -83,8 +83,8 @@ interface FileScanner
      * Returns the names of the directories which matched none of the include
      * patterns. The names are relative to the base directory.
      *
-     * @return the names of the directories which matched none of the include
-     * patterns.
+     * @return string[] the names of the directories which matched none of the include
+     *                  patterns.
      */
     public function getNotIncludedDirectories();
 
@@ -92,7 +92,7 @@ interface FileScanner
      * Returns the names of the files which matched none of the include
      * patterns. The names are relative to the base directory.
      *
-     * @return the names of the files which matched none of the include
+     * @return array the names of the files which matched none of the include
      *         patterns.
      */
     public function getNotIncludedFiles();
@@ -100,10 +100,6 @@ interface FileScanner
     /**
      * Scans the base directory for files which match at least one include
      * pattern and don't match any exclude patterns.
-     *
-     * @exception IllegalStateException if the base directory was set
-     *            incorrectly (i.e. if it is <code>null</code>, doesn't exist,
-     *            or isn't a directory).
      */
     public function scan();
 
@@ -113,15 +109,15 @@ interface FileScanner
      * <code>File.separatorChar</code>, so the separator used need not match
      * <code>File.separatorChar</code>.
      *
-     * @param basedir The base directory to scan.
-     *                Must not be <code>null</code>.
+     * @param string $basedir The base directory to scan.
+     *                        Must not be <code>null</code>.
      */
     public function setBasedir($basedir);
 
     /**
      * Sets the list of exclude patterns to use.
      *
-     * @param excludes A list of exclude patterns.
+     * @param $excludes A list of exclude patterns.
      *                 May be <code>null</code>, indicating that no files
      *                 should be excluded. If a non-<code>null</code> list is
      *                 given, all elements must be non-<code>null</code>.
@@ -131,10 +127,10 @@ interface FileScanner
     /**
      * Sets the list of include patterns to use.
      *
-     * @param includes A list of include patterns.
-     *                 May be <code>null</code>, indicating that all files
-     *                 should be included. If a non-<code>null</code>
-     *                 list is given, all elements must be
+     * @param string[] $includes A list of include patterns.
+     *                           May be <code>null</code>, indicating that all files
+     *                           should be included. If a non-<code>null</code>
+     *                           list is given, all elements must be
      * non-<code>null</code>.
      */
     public function setIncludes($includes);
@@ -142,8 +138,8 @@ interface FileScanner
     /**
      * Sets whether or not the file system should be regarded as case sensitive.
      *
-     * @param isCaseSensitive whether or not the file system should be
-     *                        regarded as a case sensitive one
+     * @param bool $isCaseSensitive whether or not the file system should be
+     *                              regarded as a case sensitive one
      */
     public function setCaseSensitive($isCaseSensitive);
 }

@@ -7,14 +7,14 @@
             overwrite the file is available, and the level option is ignored</p>
         <p>Additionally, the task can echo the contents of a nested fileset element.</p>
 
-        <div class="table"><a name="idp3993"></a><p class="formal-object-title"><span class="label">Table B.17: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp4045"></a><p class="formal-object-title"><span class="label">Table B.17: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">msg</code></td><td><code class="literal">String</code></td><td>The string that is to be send to the output.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Alias for <code class="literal">msg</code>.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file to write the message to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">append</code></td><td><code class="literal">Boolean</code></td><td>Append to an existing file?</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">level</code></td><td><code class="literal">String</code></td><td>Control the level at which this message is reported. One of
                                 <code class="literal">error</code>, <code class="literal">warning</code>,
                                 <code class="literal">info</code>, <code class="literal">verbose</code>,
                                 <code class="literal">debug</code>.</td><td><code class="literal">info</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4057"></a>B.17.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4109"></a>B.17.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;echo msg="Phing rocks!" /&gt;
 
@@ -32,7 +32,7 @@
     &lt;fileset refid="test.files"/&gt;
 &lt;/echo&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4062"></a>B.17.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4114"></a>B.17.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>

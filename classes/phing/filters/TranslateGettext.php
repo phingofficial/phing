@@ -208,14 +208,14 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and then translation is performed.
      *
-     * @param  null $len
+     * @param  int $len
      * @throws BuildException
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      */
     public function read($len = null)
     {
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -275,7 +275,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * @return TranslateGettext A new filter based on this configuration, but filtering
      *                          the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new TranslateGettext($reader);
         $newFilter->setProject($this->getProject());
@@ -289,7 +289,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     /**
      * Parses the parameters if this filter is being used in "generic" mode.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {

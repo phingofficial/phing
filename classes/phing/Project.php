@@ -271,7 +271,7 @@ class Project
      *                by values, or <code>null</code> if the given string is
      *                <code>null</code>.
      *
-     * @exception BuildException if the given value has an unclosed
+     * @throws BuildException if the given value has an unclosed
      *                           property name, e.g. <code>${xxx</code>
      */
     public function replaceProperties($value)
@@ -785,18 +785,17 @@ class Project
     /**
      * Helper function
      *
-     * @param  $fileName
-     * @param  null $rootDir
+     * @param  string $fileName
+     * @param  PhingFile $rootDir
      * @throws IOException
      * @return \PhingFile
      */
-    public function resolveFile($fileName, $rootDir = null)
+    public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
-        } else {
-            return $this->fileUtils->resolveFile($rootDir, $fileName);
         }
+        return $this->fileUtils->resolveFile($rootDir, $fileName);
     }
 
     /**
@@ -986,8 +985,7 @@ class Project
         if ($ref !== null && !$ref instanceof UnknownElement) {
             $this->log("Overriding previous definition of reference to $name", Project::MSG_VERBOSE);
         }
-        $refName = method_exists($object, 'toString') ? $object->toString() : get_class($object);
-        $refName = method_exists($object, '__toString') ? (string) $object : $refName;
+        $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string) $object : get_class($object);
         $this->log("Adding reference: $name -> " . $refName, Project::MSG_DEBUG);
         $this->references[$name] = $object;
     }
@@ -1010,11 +1008,7 @@ class Project
      */
     public function getReference($key)
     {
-        if (isset($this->references[$key])) {
-            return $this->references[$key];
-        }
-
-        return null; // just to be explicit
+        return $this->references[$key] ?? null; // just to be explicit
     }
 
     /**

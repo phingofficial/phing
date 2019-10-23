@@ -289,6 +289,13 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
         return $this->conditions[$num - 1];
     }
 
+    public function createPdoSqlExec()
+    {
+        $num = array_push($this->conditions, new PDOSQLExecTask());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string $elementName
      * @param  Project $project

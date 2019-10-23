@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.82 rSTTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="URLEncodeTask.html" title="2 URLEncodeTask"><link rel="next" href="S3PutTask.html" title="C.83 S3PutTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.82 rSTTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="URLEncodeTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="S3PutTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rSTTask"></a>C.82 rSTTask</h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.83 rSTTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="URLEncodeTask.html" title="2 URLEncodeTask"><link rel="next" href="S3PutTask.html" title="C.84 S3PutTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.83 rSTTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="URLEncodeTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="S3PutTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rSTTask"></a>C.83 rSTTask</h2></div></div></div>
         
         <p> Renders rST (reStructuredText) files into different output formats.</p>
         <p> This task requires the <code class="literal">python docutils</code> installed. They contain
@@ -7,7 +7,7 @@
                 <code class="literal">rst2xml</code>.</p>
         <p> Homepage: <a class="ulink" href="https://gitorious.org/phing/rsttask" target="_top">https://gitorious.org/phing/rsttask</a>
         </p>
-        <div class="table"><a name="idp15937"></a><p class="formal-object-title"><span class="label">Table C.113: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp16091"></a><p class="formal-object-title"><span class="label">Table C.114: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>rST input file to render</td><td>n/a</td><td>Yes (or fileset)</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>
                             <p>Output format:</p>
@@ -27,7 +27,7 @@
                         </td><td>html</td><td>No</td></tr><tr><td><code class="literal">destination</code></td><td><code class="literal">String</code></td><td>Path to store the rendered file to. Used as directory if it ends with
                             a <code class="literal">/</code>.</td><td>magically determined from input file</td><td>No</td></tr><tr><td><code class="literal">uptodate</code></td><td><code class="literal">Boolean</code></td><td>Only render if the input file is newer than the target file</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">toolpath</code></td><td><code class="literal">String</code></td><td>Path to the rst2* tool</td><td>determined from <code class="literal">format</code></td><td>No</td></tr><tr><td><code class="literal">toolparam</code></td><td><code class="literal">String</code></td><td>Additional commandline parameters to the rst2* tool</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">mode</code></td><td><code class="literal">Integer</code></td><td>The mode to create directories with.</td><td>From umask</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16026"></a>C.82.1 Features</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16180"></a>C.83.1 Features</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p>renders single files</p>
@@ -51,7 +51,7 @@
                     <p>automatically creates target directories</p>
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16049"></a>C.82.2 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16203"></a>C.83.2 Examples</h3></div></div></div>
             
             <p>Render a single rST file to HTML </p>
             <p>By default, HTML is generated. If no target file is specified, the input file name
@@ -165,7 +165,7 @@
   &lt;/target&gt;
 &lt;/project&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16081"></a>C.82.3 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16235"></a>C.83.3 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>
@@ -175,4 +175,4 @@
                     <p><code class="literal"><a class="link" href="app.corefilters.html" title="Appendix E. Core filters">filterchain</a></code></p>
                 </li></ul></div>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="URLEncodeTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="S3PutTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2 URLEncodeTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.83 S3PutTask</td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="URLEncodeTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="S3PutTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2 URLEncodeTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.84 S3PutTask</td></tr></table></div></body></html>

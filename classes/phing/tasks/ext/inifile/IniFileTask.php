@@ -13,11 +13,6 @@
  * @link     http://www.phing.info/
  */
 
-require_once 'IniFileGet.php';
-require_once 'IniFileSet.php';
-require_once 'IniFileRemove.php';
-require_once 'IniFileConfig.php';
-
 /**
  * InifileTask
  *
@@ -279,7 +274,7 @@ class IniFileTask extends Task
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
-                        "', key '" . $key ."'",
+                        "', key '" . $key . "'",
                         Project::MSG_ERR
                     );
                     $this->logDebugOrMore($ex->getMessage());
@@ -318,7 +313,7 @@ class IniFileTask extends Task
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
-                        "', key '" . $key ."'"
+                        "', key '" . $key . "'"
                     );
                     $this->logDebugOrMore($ex->getMessage());
                 }

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.118 ZendGuardEncodeTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="ZendCodeAnalyzerTask.html" title="C.117 ZendCodeAnalyzerTask"><link rel="next" href="ZendGuardLicenseTask.html" title="C.119 ZendGuardLicenseTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.118 ZendGuardEncodeTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ZendCodeAnalyzerTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ZendGuardLicenseTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ZendGuardEncodeTask"></a>C.118 ZendGuardEncodeTask</h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.120 ZendGuardEncodeTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="ZendCodeAnalyzerTask.html" title="C.119 ZendCodeAnalyzerTask"><link rel="next" href="ZendGuardLicenseTask.html" title="C.121 ZendGuardLicenseTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.120 ZendGuardEncodeTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ZendCodeAnalyzerTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ZendGuardLicenseTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ZendGuardEncodeTask"></a>C.120 ZendGuardEncodeTask</h2></div></div></div>
         
         <p> The <code class="literal">ZendGuardEncodeTask</code> is a wrapper for ZendGuard zendenc
             executable. It pre-compiles the PHP code which improves speed and can prevent
@@ -7,7 +7,7 @@
         <p> For more information about ZendGuard encode parameters see the <a class="ulink" href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf" target="_top">ZendGuard
                 documentation</a>.</p>
 
-        <div class="table"><a name="idp19324"></a><p class="formal-object-title"><span class="label">Table C.153: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp19725"></a><p class="formal-object-title"><span class="label">Table C.158: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">zendEncoderPath</code></td><td><code class="literal">String</code></td><td>Path to zendenc or zendenc5 binary.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">deleteSource</code></td><td><code class="literal">Boolean</code></td><td>Whether to delete the original file and replace with encoded.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">renameSourceExt</code></td><td><code class="literal">String</code></td><td>If defined the original file will be copied to
                             originalfile.renameSourceExt before encoding. This property overrides
@@ -29,7 +29,7 @@
                             encoded file and displayed in case the Zend Optimizer is not
                             installed.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19485"></a>C.118.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19886"></a>C.120.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;zendguardencode
  shortTags="false"
@@ -55,7 +55,7 @@
                 everything in <code class="filename">cache/</code> and <code class="filename">plugins/</code> but include everything in plugins that starts with
                 cs.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19491"></a>C.118.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19892"></a>C.120.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>
@@ -63,4 +63,4 @@
                     <p><code class="literal">zipfileset</code></p>
                 </li></ul></div>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ZendCodeAnalyzerTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ZendGuardLicenseTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.117 ZendCodeAnalyzerTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.119 ZendGuardLicenseTask</td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ZendCodeAnalyzerTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ZendGuardLicenseTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.119 ZendCodeAnalyzerTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.121 ZendGuardLicenseTask</td></tr></table></div></body></html>

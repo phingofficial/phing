@@ -65,7 +65,7 @@ class ImportTask extends Task
     public function init()
     {
         $this->fs = FileSystem::getFileSystem();
-    } //end init
+    }
 
     /**
      * Set the file to import.
@@ -134,9 +134,9 @@ class ImportTask extends Task
                 if ($this->optional) {
                     $this->log($msg . '... skipped');
                     return;
-                } else {
-                    throw new BuildException($msg);
                 }
+
+                throw new BuildException($msg);
             }
             $this->importFile($file);
         }
@@ -163,7 +163,7 @@ class ImportTask extends Task
                 $this->importFile(new PhingFile($fromDir, $srcDirs[$j]));
             }
         }
-    } //end main
+    }
 
     /**
      * Parse a Phing build file and copy the properties, tasks, data types and
@@ -186,5 +186,5 @@ class ImportTask extends Task
             Project::MSG_VERBOSE
         );
         ProjectConfigurator::configureProject($this->project, $file);
-    } //end importFile
-} //end ImportTask
+    }
+}

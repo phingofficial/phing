@@ -35,7 +35,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Path to XSL stylesheet.
      *
-     * @var string
+     * @var PhingFile
      */
     private $xslFile = null;
 
@@ -140,13 +140,13 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setHtml($b)
     {
-        $this->html = (boolean) $b;
+        $this->html = (bool) $b;
     }
 
     /**
      * Get the path to XSLT stylesheet.
      *
-     * @return mixed XSLT stylesheet path.
+     * @return PhingFile XSLT stylesheet path.
      */
     public function getStyle()
     {
@@ -200,7 +200,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      *
-     * @param  null $len
+     * @param  int $len
      * @throws BuildException
      * @return string         transformed buffer.
      */
@@ -215,7 +215,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if (!$this->getInitialized()) {
-            $this->_initialize();
+            $this->initialize();
             $this->setInitialized(true);
         }
 
@@ -226,7 +226,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if ($_xml === null) { // EOF?
-
             return -1;
         }
 
@@ -314,9 +313,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
             //$errno = xslt_errno($processor);
             //$err   = xslt_error($processor);
             throw new BuildException("XSLT Error");
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 
     /**
@@ -329,7 +328,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * @return XsltFilter A new filter based on this configuration, but filtering
      *                    the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(Reader $reader): Reader
     {
         $newFilter = new XsltFilter($reader);
         $newFilter->setProject($this->getProject());
@@ -344,7 +343,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Parses the parameters to get stylesheet path.
      */
-    private function _initialize()
+    private function initialize()
     {
         $params = $this->getParameters();
         if ($params !== null) {

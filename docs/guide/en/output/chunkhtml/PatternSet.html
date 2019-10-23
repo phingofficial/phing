@@ -3,7 +3,7 @@
         <p>The PatternSet data type defines patterns that can be grouped into sets and nested
             into <a class="link" href="FileSet.html" title="D.4 FileSet">FileSets</a>. Patterns can be specified by nested
             &lt;include&gt; or &lt;exclude&gt; elements.</p>
-        <div class="table"><a name="idp20558"></a><p class="formal-object-title"><span class="label">Table D.5: </span><span class="title"> Attributes for <code class="literal">&lt;patternset&gt;</code> tag </span></p><div class="table-contents">
+        <div class="table"><a name="idp20967"></a><p class="formal-object-title"><span class="label">Table D.5: </span><span class="title"> Attributes for <code class="literal">&lt;patternset&gt;</code> tag </span></p><div class="table-contents">
             
             <table class="table" summary=" Attributes for &lt;patternset&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">includes</code></td><td><code class="literal">String</code></td><td>Comma- or space-separated list of patterns of files that must be
                             included; all files are included when omitted.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">includesfile</code></td><td><code class="literal">String</code></td><td>The name of a file; each line of this file is taken to be an include
@@ -12,14 +12,14 @@
                             omitted.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludesfile</code></td><td><code class="literal">String</code></td><td>The name of a file; each line of this file is taken to be an exclude
                             pattern.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp20607"></a>D.6.1 Usage Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21016"></a>D.6.1 Usage Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;patternset id="no.tests"&gt;
   &lt;include name="**/*.php"/&gt;
   &lt;exclude name="**/*Test*"/&gt;
 &lt;/patternset&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp20610"></a>D.6.2 Nested tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21019"></a>D.6.2 Nested tags</h3></div></div></div>
             
             <p> The <code class="literal">&lt;patternset&gt;</code> tag only supports
                     <code class="literal">&lt;include&gt;</code> and <code class="literal">&lt;exclude&gt;</code>. The

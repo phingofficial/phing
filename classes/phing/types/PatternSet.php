@@ -288,11 +288,11 @@ class PatternSet extends DataType
             $o = $this->getRef($p);
 
             return $o->getIncludePatterns($p);
-        } else {
-            $this->readFiles($p);
-
-            return $this->makeArray($this->includeList, $p);
         }
+
+        $this->readFiles($p);
+
+        return $this->makeArray($this->includeList, $p);
     }
 
     /**
@@ -310,11 +310,11 @@ class PatternSet extends DataType
             $o = $this->getRef($p);
 
             return $o->getExcludePatterns($p);
-        } else {
-            $this->readFiles($p);
-
-            return $this->makeArray($this->excludeList, $p);
         }
+
+        $this->readFiles($p);
+
+        return $this->makeArray($this->excludeList, $p);
     }
 
     /**
@@ -324,7 +324,7 @@ class PatternSet extends DataType
      */
     public function hasPatterns()
     {
-        return (boolean) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
+        return (bool) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
             || count($this->includeList) > 0 || count($this->excludeList) > 0;
     }
 

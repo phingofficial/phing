@@ -123,7 +123,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param $dir
-     * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setDir($dir)
     {
@@ -273,7 +274,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  $excl The file to fetch the exclude patterns from.
+     * @param  PhingFile $excl The file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesfile($excl)
@@ -451,6 +452,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->hasSelectors();
         }
+        $stk[] = $this;
+        $this->dieOnCircularReference($stk, $this->getProject());
 
         return !empty($this->selectorsList);
     }
@@ -465,6 +468,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->hasPatterns();
         }
+        $stk[] = $this;
+        $this->dieOnCircularReference($stk, $this->getProject());
 
         if ($this->defaultPatterns->hasPatterns()) {
             return true;
@@ -510,15 +515,15 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getSelectors($p);
-        } else {
-            // *copy* selectors
-            $result = [];
-            for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
-                $result[] = clone $this->selectorsList[$i];
-            }
-
-            return $result;
         }
+
+// *copy* selectors
+        $result = [];
+        for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
+            $result[] = clone $this->selectorsList[$i];
+        }
+
+        return $result;
     }
 
     /**
@@ -560,6 +565,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getIterator(...$options): \ArrayIterator
     {
+        if ($this->isReference()) {
+            return $this->getRef($this->getProject())->getIterator($options);
+        }
         return new ArrayIterator($this->getFiles($options));
     }
 

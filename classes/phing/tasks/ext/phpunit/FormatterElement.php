@@ -95,6 +95,8 @@ class FormatterElement
      * Sets output directory
      *
      * @param string $toDir
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setToDir($toDir)
     {
@@ -135,9 +137,9 @@ class FormatterElement
     {
         if ($this->outfile) {
             return $this->outfile;
-        } else {
-            return $this->formatter->getPreferredOutfile() . $this->getExtension();
         }
+
+        return $this->formatter->getPreferredOutfile() . $this->getExtension();
     }
 
     /**
@@ -162,50 +164,18 @@ class FormatterElement
             return $this->formatter;
         }
 
-        if (class_exists('PHPUnit_Runner_Version', false)) {
-            if ($this->type === "summary") {
-                $this->formatter = new SummaryPHPUnitResultFormatter5($this->parent);
-            } elseif ($this->type === "clover") {
-                $this->formatter = new CloverPHPUnitResultFormatter5($this->parent);
-            } elseif ($this->type === "xml") {
-                $this->formatter = new XMLPHPUnitResultFormatter5($this->parent);
-            } elseif ($this->type === "plain") {
-                $this->formatter = new PlainPHPUnitResultFormatter5($this->parent);
-            } elseif ($this->type === "crap4j") {
-                $this->formatter = new Crap4JPHPUnitResultFormatter5($this->parent);
-            } else {
-                throw new BuildException("Formatter '" . $this->type . "' not implemented");
-            }
-        } elseif (\version_compare('6', \PHPUnit\Runner\Version::id(), '>=')
-            && \version_compare('7', \PHPUnit\Runner\Version::id(), '<')
-        ) {
-            if ($this->type === "summary") {
-                $this->formatter = new SummaryPHPUnitResultFormatter6($this->parent);
-            } elseif ($this->type === "clover") {
-                $this->formatter = new CloverPHPUnitResultFormatter6($this->parent);
-            } elseif ($this->type === "xml") {
-                $this->formatter = new XMLPHPUnitResultFormatter6($this->parent);
-            } elseif ($this->type === "plain") {
-                $this->formatter = new PlainPHPUnitResultFormatter6($this->parent);
-            } elseif ($this->type === "crap4j") {
-                $this->formatter = new Crap4JPHPUnitResultFormatter6($this->parent);
-            } else {
-                throw new BuildException("Formatter '" . $this->type . "' not implemented");
-            }
+        if ($this->type === "summary") {
+            $this->formatter = new SummaryPHPUnitResultFormatter7($this->parent);
+        } elseif ($this->type === "clover") {
+            $this->formatter = new CloverPHPUnitResultFormatter7($this->parent);
+        } elseif ($this->type === "xml") {
+            $this->formatter = new XMLPHPUnitResultFormatter7($this->parent);
+        } elseif ($this->type === "plain") {
+            $this->formatter = new PlainPHPUnitResultFormatter7($this->parent);
+        } elseif ($this->type === "crap4j") {
+            $this->formatter = new Crap4JPHPUnitResultFormatter7($this->parent);
         } else {
-            if ($this->type === "summary") {
-                $this->formatter = new SummaryPHPUnitResultFormatter7($this->parent);
-            } elseif ($this->type === "clover") {
-                $this->formatter = new CloverPHPUnitResultFormatter7($this->parent);
-            } elseif ($this->type === "xml") {
-                $this->formatter = new XMLPHPUnitResultFormatter7($this->parent);
-            } elseif ($this->type === "plain") {
-                $this->formatter = new PlainPHPUnitResultFormatter7($this->parent);
-            } elseif ($this->type === "crap4j") {
-                $this->formatter = new Crap4JPHPUnitResultFormatter7($this->parent);
-            } else {
-                throw new BuildException("Formatter '" . $this->type . "' not implemented");
-            }
+            throw new BuildException("Formatter '" . $this->type . "' not implemented");
         }
 
         return $this->formatter;
