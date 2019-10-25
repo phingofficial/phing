@@ -58,7 +58,7 @@ class PregEngine implements RegexpEngine
     /**
      * Pattern delimiter.
      */
-    const DELIMITER = '`';
+    public const DELIMITER = '`';
 
     /**
      * Sets pattern modifiers for regex engine

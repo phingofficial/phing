@@ -645,9 +645,9 @@ class PhpCodeSnifferTask extends Task
 
             // reporting class uses ob_end_flush(), but we don't want
             // an output if we use a file
-            if ($fe->getUseFile()) {
-                //ob_end_clean();
-            }
+            //if ($fe->getUseFile()) {
+            //    ob_end_clean();
+            //}
         }
     }
 

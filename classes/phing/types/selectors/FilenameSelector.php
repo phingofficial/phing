@@ -31,10 +31,10 @@ class FilenameSelector extends BaseExtendSelector
     private $regex = null;
     private $casesensitive = true;
     private $negated = false;
-    const NAME_KEY = "name";
-    const CASE_KEY = "casesensitive";
-    const NEGATE_KEY = "negate";
-    const REGEX_KEY = "regex";
+    public const NAME_KEY = "name";
+    public const CASE_KEY = "casesensitive";
+    public const NEGATE_KEY = "negate";
+    public const REGEX_KEY = "regex";
 
     private $reg;
     private $expression;

@@ -47,14 +47,14 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    const DEFAULT_BEGIN_TOKEN = "@";
+    public const DEFAULT_BEGIN_TOKEN = "@";
 
     /**
      * Default "end token" character.
      *
      * @var string
      */
-    const DEFAULT_END_TOKEN = "@";
+    public const DEFAULT_END_TOKEN = "@";
 
     /**
      * Array to hold the replacee-replacer pairs (String to String).

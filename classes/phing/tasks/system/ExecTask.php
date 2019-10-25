@@ -29,7 +29,7 @@ class ExecTask extends Task
 {
     use LogLevelAware;
 
-    const INVALID = PHP_INT_MAX;
+    public const INVALID = PHP_INT_MAX;
 
     private $exitValue = self::INVALID;
 

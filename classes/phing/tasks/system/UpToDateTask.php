@@ -209,13 +209,13 @@ class UpToDateTask extends Task implements Condition
                 $sfs = new SourceFileScanner($this);
                 $upToDate = $upToDate &&
                     count(
-                        $sfs->restrict(
-                            $this->sourceFile->getAbsolutePath(),
-                            null,
-                            null,
-                            $this->mapperElement->getImplementation()
-                        )
-                    ) === 0;
+                    $sfs->restrict(
+                        $this->sourceFile->getAbsolutePath(),
+                        null,
+                        null,
+                        $this->mapperElement->getImplementation()
+                    )
+                ) === 0;
             }
         }
 

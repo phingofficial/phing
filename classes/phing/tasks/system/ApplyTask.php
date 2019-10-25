@@ -30,7 +30,7 @@ class ApplyTask extends ExecTask
 {
     use ResourceAware;
 
-    const SOURCEFILE_ID = '__SOURCEFILE__';
+    public const SOURCEFILE_ID = '__SOURCEFILE__';
     protected $currentdirectory;
 
     /**
