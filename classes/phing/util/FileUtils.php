@@ -28,6 +28,34 @@
 class FileUtils
 {
     /**
+     * path separator string, static, obtained from FileSystem (; or :)
+     */
+    public static $pathSeparator;
+    /**
+     * separator string, static, obtained from FileSystem
+     */
+    public static $separator;
+
+    public function __construct()
+    {
+        if (self::$separator === null || FileUtils::$pathSeparator === null) {
+            $fs = FileSystem::getFileSystem();
+            self::$separator = $fs->getSeparator();
+            self::$pathSeparator = $fs->getPathSeparator();
+        }
+    }
+
+    /**
+     * Returns the path to the temp directory.
+     *
+     * @return string
+     */
+    public static function getTempDir()
+    {
+        return Phing::getProperty('php.tmpdir');
+    }
+
+    /**
      * Returns the default file/dir creation mask value
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
@@ -399,7 +427,16 @@ class FileUtils
 
         if ($createFile) {
             try {
-                $result = PhingFile::createTempFile($prefix, $suffix, new PhingFile($parent));
+                $directory = new PhingFile($parent);
+                // quick but efficient hack to create a unique filename ;-)
+                $result = null;
+                do {
+                    $result = new PhingFile($directory, $prefix . substr(md5(time()), 0, 8) . $suffix);
+                } while (file_exists($result->getPath()));
+
+                $fs = FileSystem::getFileSystem();
+                $fs->createNewFile($result->getPath());
+                $fs->lock($result);
             } catch (IOException $e) {
                 throw new BuildException("Could not create tempfile in " . $parent, $e);
             }

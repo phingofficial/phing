@@ -1577,9 +1577,9 @@ class Phing
             self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
         }
         $file = new PhingFile('.');
-        self::setProperty('file.separator', $file::$separator);
+        self::setProperty('file.separator', FileUtils::$separator);
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('path.separator', $file::$pathSeparator);
+        self::setProperty('path.separator', FileUtils::$pathSeparator);
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
@@ -1838,6 +1838,7 @@ class Phing
      */
     public static function shutdown()
     {
+        FileSystem::getFileSystem()::deleteFilesOnExit();
         self::$msgOutputLevel = Project::MSG_INFO;
         self::restoreIni();
         self::getTimer()->stop();
