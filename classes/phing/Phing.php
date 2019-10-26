@@ -245,6 +245,7 @@ class Phing
      */
     protected static function statusExit($exitCode)
     {
+        Phing::shutdown();
         exit($exitCode);
     }
 
