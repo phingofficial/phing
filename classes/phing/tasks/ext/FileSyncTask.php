@@ -255,7 +255,7 @@ class FileSyncTask extends Task
         $lines = '';
         foreach ($output as $line) {
             if (!empty($line)) {
-                $lines .= "\r\n" . "\t\t\t" . $line;
+                $lines .= "\r\n\t\t\t" . $line;
             }
         }
 

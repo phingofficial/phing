@@ -93,36 +93,36 @@
  */
 class AnsiColorLogger extends DefaultLogger
 {
-    const ATTR_NORMAL = 0;
-    const ATTR_BRIGHT = 1;
-    const ATTR_DIM = 2;
-    const ATTR_UNDERLINE = 3;
-    const ATTR_BLINK = 5;
-    const ATTR_REVERSE = 7;
-    const ATTR_HIDDEN = 8;
+    public const ATTR_NORMAL = 0;
+    public const ATTR_BRIGHT = 1;
+    public const ATTR_DIM = 2;
+    public const ATTR_UNDERLINE = 3;
+    public const ATTR_BLINK = 5;
+    public const ATTR_REVERSE = 7;
+    public const ATTR_HIDDEN = 8;
 
-    const FG_BLACK = 30;
-    const FG_RED = 31;
-    const FG_GREEN = 32;
-    const FG_YELLOW = 33;
-    const FG_BLUE = 34;
-    const FG_MAGENTA = 35;
-    const FG_CYAN = 36;
-    const FG_WHITE = 37;
+    public const FG_BLACK = 30;
+    public const FG_RED = 31;
+    public const FG_GREEN = 32;
+    public const FG_YELLOW = 33;
+    public const FG_BLUE = 34;
+    public const FG_MAGENTA = 35;
+    public const FG_CYAN = 36;
+    public const FG_WHITE = 37;
 
-    const BG_BLACK = 40;
-    const BG_RED = 41;
-    const BG_GREEN = 42;
-    const BG_YELLOW = 44;
-    const BG_BLUE = 44;
-    const BG_MAGENTA = 45;
-    const BG_CYAN = 46;
-    const BG_WHITE = 47;
+    public const BG_BLACK = 40;
+    public const BG_RED = 41;
+    public const BG_GREEN = 42;
+    public const BG_YELLOW = 44;
+    public const BG_BLUE = 44;
+    public const BG_MAGENTA = 45;
+    public const BG_CYAN = 46;
+    public const BG_WHITE = 47;
 
-    const PREFIX = "\x1b[";
-    const SUFFIX = "m";
-    const SEPARATOR = ';';
-    const END_COLOR = "\x1b[0m"; // self::PREFIX . self::SUFFIX;
+    public const PREFIX = "\x1b[";
+    public const SUFFIX = "m";
+    public const SEPARATOR = ';';
+    public const END_COLOR = "\x1b[0m"; // self::PREFIX . self::SUFFIX;
 
     private $errColor;
     private $warnColor;

@@ -17,16 +17,29 @@
  * <http://phing.info>.
  */
 
-/**
- * Plugin to Phing to disable user input.
- *
- * @package phing.input
- */
-class NoInteractionInputHandler implements InputHandler
+use PHPUnit\Framework\TestCase;
+
+class TimestampedLoggerTest extends TestCase
 {
-    public function handleInput(InputRequest $inputRequest)
+    /**
+     * @test
+     */
+    public function buildFinished()
     {
-        $defaultValue = $inputRequest->getDefaultValue();
-        $inputRequest->setInput($defaultValue);
+        $event = new BuildEvent(new Project());
+        $logger = new class extends TimestampedLogger {
+            public function printMessage($message, ?OutputStream $stream = null, $priority = null)
+            {
+                echo $message;
+            }
+
+            public static function formatTime($micros)
+            {
+                return 'TIME_STRING';
+            }
+        };
+        $msg = '/' . PHP_EOL . 'BUILD FINISHED - at .*' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL . '/';
+        $this->expectOutputRegex($msg);
+        $logger->buildFinished($event);
     }
 }

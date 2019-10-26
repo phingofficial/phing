@@ -76,7 +76,7 @@ class GitArchiveTask extends GitBaseTask
 
         $cmd->execute();
 
-        $msg = 'git-archive: archivating ' . '"' . $this->getRepository() . '" repository (' . $this->getTreeish() . ')';
+        $msg = 'git-archive: archivating "' . $this->getRepository() . '" repository (' . $this->getTreeish() . ')';
         $this->log($msg, Project::MSG_INFO);
     }
 

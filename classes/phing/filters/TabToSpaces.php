@@ -43,14 +43,14 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      *
      * @var int
      */
-    const DEFAULT_TAB_LENGTH = 8;
+    public const DEFAULT_TAB_LENGTH = 8;
 
     /**
      * Parameter name for the length of a tab.
      *
      * @var string
      */
-    const TAB_LENGTH_KEY = "tablength";
+    public const TAB_LENGTH_KEY = "tablength";
 
     /**
      * Tab length in this filter.

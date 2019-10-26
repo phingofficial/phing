@@ -18,15 +18,30 @@
  */
 
 /**
- * Plugin to Phing to disable user input.
- *
- * @package phing.input
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.filters
  */
-class NoInteractionInputHandler implements InputHandler
+class PrefixLinesTest extends BuildFileTest
 {
-    public function handleInput(InputRequest $inputRequest)
+    public function setUp(): void
     {
-        $defaultValue = $inputRequest->getDefaultValue();
-        $inputRequest->setInput($defaultValue);
+        $this->configureProject(PHING_TEST_BASE . "/etc/filters/prefixlines.xml");
+    }
+
+    public function tearDown(): void
+    {
+        $this->executeTarget("cleanup");
+    }
+
+    public function testPrefixLines()
+    {
+        $this->executeTarget("testPrefixLines");
+
+        $result = $this->getProject()->resolveFile("result/prefixlines.test");
+
+        $this->assertStringEqualsFile(
+            $result->getAbsolutePath(),
+            'FooThis is line 1 with alpha.FooThis is line 2 with beta.FooThis is line 3 with gamma.Foo'
+        );
     }
 }

@@ -220,7 +220,7 @@ class FtpDeployTask extends Task
             $ret = $ftp->setSsl();
             if (@PEAR::isError($ret)) {
                 throw new BuildException(
-                    'SSL connection not supported by php' . ': ' . $ret->getMessage()
+                    'SSL connection not supported by php: ' . $ret->getMessage()
                 );
             }
 
