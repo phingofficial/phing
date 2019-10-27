@@ -235,7 +235,7 @@ class FileUtils
         // as soon as ZE2 is ready
         $fs = FileSystem::getFileSystem();
 
-        $filename = str_replace(array('\\', '/'), $fs->getSeparator(), $filename);
+        $filename = str_replace(['\\', '/'], $fs->getSeparator(), $filename);
 
         // deal with absolute files
         if (
@@ -293,7 +293,7 @@ class FileUtils
         $path = (string) $path;
         $orig = $path;
 
-        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         // make sure we are dealing with an absolute path
         if (
@@ -423,7 +423,7 @@ class FileUtils
         $createFile = false
     ) {
         $result = null;
-        $parent = ($parentDir === null) ? sys_get_temp_dir() : $parentDir->getPath();
+        $parent = ($parentDir === null) ? self::getTempDir() : $parentDir->getPath();
 
         if ($createFile) {
             try {
