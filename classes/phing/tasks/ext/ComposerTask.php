@@ -19,6 +19,7 @@
 
 /**
  * Composer Task
+ *
  * Run composer straight from phing
  *
  * @author  nuno costa <nuno@francodacosta.com>
@@ -166,8 +167,12 @@ class ComposerTask extends Task
     private function prepareCommandLine()
     {
         $this->commandLine->setExecutable($this->getPhp());
+        $command = $this->getCommand();
+        if (empty($command)) {
+            throw new BuildException('"command" attribute is required');
+        }
         //We are un-shifting arguments to the beginning of the command line because arguments should be at the end
-        $this->commandLine->createArgument(true)->setValue($this->getCommand());
+        $this->commandLine->createArgument(true)->setValue($command);
         $this->commandLine->createArgument(true)->setValue($this->getComposer());
         $commandLine = (string) $this->commandLine;
         //Creating new Commandline instance. It allows to handle subsequent calls correctly

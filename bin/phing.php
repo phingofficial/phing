@@ -58,14 +58,13 @@ try {
 
     // Invoke the commandline entry point
     Phing::fire($args);
-
-    // Invoke any shutdown routines.
-    Phing::shutdown();
 } catch (ConfigurationException $x) {
+    Phing::shutdown();
     Phing::printMessage($x);
     exit(-1); // This was convention previously for configuration errors.
 } catch (Exception $x) {
-
+    Phing::shutdown();
+    
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 

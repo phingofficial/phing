@@ -66,4 +66,26 @@ class DefaultLoggerTest extends TestCase
             static::msg($be, false)
         );
     }
+
+    /**
+     * @test
+     */
+    public function buildFinished()
+    {
+        $event = new BuildEvent(new Project());
+        $logger = new class extends DefaultLogger {
+            public function printMessage($message, ?OutputStream $stream = null, $priority = null)
+            {
+                echo $message;
+            }
+
+            public static function formatTime($micros)
+            {
+                return 'TIME_STRING';
+            }
+        };
+        $msg = PHP_EOL . 'BUILD FINISHED' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL;
+        $this->expectOutputString($msg);
+        $logger->buildFinished($event);
+    }
 }

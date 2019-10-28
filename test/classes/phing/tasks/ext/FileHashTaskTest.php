@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,6 +26,19 @@ class FileHashTaskTest extends BuildFileTest
     public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/filehash.xml");
+    }
+
+    public function tearDown()
+    {
+        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.crc32")) {
+            unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.crc32");
+        }
+        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.md5")) {
+            unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.md5");
+        }
+        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.sha1")) {
+            unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.sha1");
+        }
     }
 
     public function testMD5()

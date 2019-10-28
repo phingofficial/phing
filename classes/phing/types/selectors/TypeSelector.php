@@ -31,7 +31,7 @@ class TypeSelector extends BaseExtendSelector
     /**
      * Key to used for parameterized custom selector
      */
-    const TYPE_KEY = "type";
+    public const TYPE_KEY = "type";
 
     /**
      * Valid types

@@ -159,7 +159,7 @@ class FileUtils
      *
      * @param  PhingFile $sourceFile
      * @param  PhingFile $destFile
-     * @return boolean
+     * @return void
      */
     public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
     {
@@ -235,12 +235,8 @@ class FileUtils
                     throw new IOException($msg);
                 }
                 $helpFile = new PhingFile($parentFile);
-            } else {
-                if ($part === '.') {
-                    // Do nothing here
-                } else {
-                    $helpFile = new PhingFile($helpFile, $part);
-                }
+            } elseif ($part !== '.') {
+                $helpFile = new PhingFile($helpFile, $part);
             }
             $tok = strtok($fs->getSeparator());
         }

@@ -198,7 +198,7 @@ class Phing
     public static function start($args, array $additionalUserProperties = null)
     {
         try {
-            $m = new Phing();
+            $m = new self();
             $m->execute($args);
         } catch (Exception $exc) {
             self::handleLogfile();
@@ -245,13 +245,14 @@ class Phing
      */
     protected static function statusExit($exitCode)
     {
+        Phing::shutdown();
         exit($exitCode);
     }
 
     /**
      * Prints the message of the Exception if it's not null.
      *
-     * @param Exception $t
+     * @param Throwable $t
      */
     public static function printMessage(Throwable $t)
     {

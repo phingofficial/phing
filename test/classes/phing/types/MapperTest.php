@@ -137,6 +137,55 @@ class MapperTest extends \PHPUnit\Framework\TestCase
             throw $e;
         }
     }
+
+    public function testSetClasspathThrowsExceptionIfReferenceSetAlready()
+    {
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $p = new Path($this->project);
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $m->setClasspath($p);
+    }
+
+    public function testSetClasspath()
+    {
+        $m = new Mapper($this->project);
+        $p = new Path($this->project);
+        $m->setClasspath($p);
+        $f = $m->createClasspath();
+        $class = get_class($f);
+        $this->assertEquals("Path", $class);
+    }
+
+    public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet()
+    {
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $p = new Path($this->project);
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $f = $m->createClasspath();
+    }
+
+    public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet()
+    {
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $r2 = new Reference($this->project, "dummyref1");
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $m->setClasspathRef($r2);
+    }
+
+    public function testSetClassnameThrowsExceptionIfReferenceIsSet()
+    {
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $m->setClassname("mapper1");
+    }
 }
 
 /**

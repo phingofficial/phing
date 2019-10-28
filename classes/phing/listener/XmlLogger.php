@@ -32,52 +32,52 @@ class XmlLogger implements BuildLogger
     /**
      * XML element name for a build.
      */
-    const BUILD_TAG = "build";
+    public const BUILD_TAG = "build";
 
     /**
      * XML element name for a target.
      */
-    const TARGET_TAG = "target";
+    public const TARGET_TAG = "target";
 
     /**
      * XML element name for a task.
      */
-    const TASK_TAG = "task";
+    public const TASK_TAG = "task";
 
     /**
      * XML element name for a message.
      */
-    const MESSAGE_TAG = "message";
+    public const MESSAGE_TAG = "message";
 
     /**
      * XML attribute name for a name.
      */
-    const NAME_ATTR = "name";
+    public const NAME_ATTR = "name";
 
     /**
      * XML attribute name for a time.
      */
-    const TIME_ATTR = "time";
+    public const TIME_ATTR = "time";
 
     /**
      * XML attribute name for a message priority.
      */
-    const PRIORITY_ATTR = "priority";
+    public const PRIORITY_ATTR = "priority";
 
     /**
      * XML attribute name for a file location.
      */
-    const LOCATION_ATTR = "location";
+    public const LOCATION_ATTR = "location";
 
     /**
      * XML attribute name for an error description.
      */
-    const ERROR_ATTR = "error";
+    public const ERROR_ATTR = "error";
 
     /**
      * XML element name for a stack trace.
      */
-    const STACKTRACE_TAG = "stacktrace";
+    public const STACKTRACE_TAG = "stacktrace";
 
     /**
      * @var DOMDocument The XML document created by this logger.
