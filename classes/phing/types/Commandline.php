@@ -109,7 +109,7 @@ class Commandline implements Countable
             return;
         }
         $this->executable = $translateFileSeparator
-            ? str_replace(['/', '\\'], PhingFile::$separator, $executable)
+            ? str_replace(['/', '\\'], FileUtils::$separator, $executable)
             : $executable;
     }
 

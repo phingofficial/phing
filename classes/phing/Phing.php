@@ -1577,13 +1577,12 @@ class Phing
         } else {
             self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
         }
-        $file = new PhingFile('.');
-        self::setProperty('file.separator', $file::$separator);
+        self::setProperty('file.separator', FileUtils::$separator);
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('path.separator', $file::$pathSeparator);
+        self::setProperty('path.separator', FileUtils::$pathSeparator);
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+        if (stripos(PHP_OS, 'WIN') !== 0) {
             self::setProperty('user.home', getenv('HOME'));
         } else {
             self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
@@ -1593,7 +1592,7 @@ class Phing
 
         // try to detect machine dependent information
         $sysInfo = [];
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && function_exists("posix_uname")) {
+        if (function_exists("posix_uname") && stripos(PHP_OS, 'WIN') !== 0) {
             $sysInfo = posix_uname();
         } else {
             $sysInfo['nodename'] = php_uname('n');
@@ -1720,16 +1719,16 @@ class Phing
      * Converts shorthand notation values as returned by ini_get()
      *
      * @see    http://www.php.net/ini_get
-     * @param  string $val
+     * @param  string|int $val
      * @return int
      */
-    public static function convertShorthand($val)
+    public static function convertShorthand($val): int
     {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
 
         if (!is_numeric($last)) {
-            $val = (int) substr($val, 0, strlen($val) - 1);
+            $val = (int) substr($val, 0, -1);
 
             switch ($last) {
                 // The 'G' modifier is available since PHP 5.1.0
@@ -1749,10 +1748,8 @@ class Phing
 
     /**
      * Sets PHP INI values that Phing needs.
-     *
-     * @return void
      */
-    private static function setIni()
+    private static function setIni(): void
     {
         self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
 
@@ -1781,10 +1778,8 @@ class Phing
      * Currently the following settings are not restored:
      *  - max_execution_time (because getting current time limit is not possible)
      *  - memory_limit (which may have been increased by Phing)
-     *
-     * @return void
      */
-    private static function restoreIni()
+    private static function restoreIni(): void
     {
         foreach (self::$origIniSettings as $settingName => $settingValue) {
             switch ($settingName) {
@@ -1802,7 +1797,7 @@ class Phing
      *
      * @return Timer
      */
-    public static function getTimer()
+    public static function getTimer(): Timer
     {
         if (self::$timer === null) {
             self::$timer = new Timer();
@@ -1818,7 +1813,7 @@ class Phing
      * @return void
      * @throws Exception - If the Phing environment cannot be initialized.
      */
-    public static function startup()
+    public static function startup(): void
     {
 
         // setup STDOUT and STDERR defaults
@@ -1835,10 +1830,11 @@ class Phing
     /**
      * Performs any shutdown routines, such as stopping timers.
      *
-     * @return void
+     * @throws IOException
      */
-    public static function shutdown()
+    public static function shutdown(): void
     {
+        FileSystem::getFileSystem()::deleteFilesOnExit();
         self::$msgOutputLevel = Project::MSG_INFO;
         self::restoreIni();
         self::getTimer()->stop();

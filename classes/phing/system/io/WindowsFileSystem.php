@@ -523,67 +523,6 @@ class WindowsFileSystem extends FileSystem
 
     /* -- most of the following is mapped to the functions mapped th php natives in FileSystem */
 
-    /* -- Attribute accessors -- */
-
-    /**
-     * @param PhingFile $f
-     * @throws Exception
-     */
-    public function setReadOnly($f)
-    {
-        // dunno how to do this on win
-        throw new Exception(__CLASS__ . " doesn't support read-only yet.");
-    }
-
-    /* -- Filesystem interface -- */
-
-    /**
-     * @param $path
-     * @return bool
-     * @throws Exception
-     */
-    protected function _access($path)
-    {
-        if (!$this->checkAccess($path, false)) {
-            throw new Exception("Can't resolve path $path");
-        }
-
-        return true;
-    }
-
-    public function _nativeListRoots()
-    {
-        // FIXME
-    }
-
-    /**
-     * @return array
-     */
-    public function listRoots()
-    {
-        $ds = $this->_nativeListRoots();
-        $n = 0;
-        for ($i = 0; $i < 26; $i++) {
-            if ((($ds >> $i) & 1) !== 0) {
-                if (!$this->_access((string) (chr(ord('A') + $i) . ':' . $this->slash))) {
-                    $ds &= ~(1 << $i);
-                } else {
-                    $n++;
-                }
-            }
-        }
-        $fs = [];
-        $j = (int) 0;
-
-        for ($i = 0; $i < 26; $i++) {
-            if ((($ds >> $i) & 1) !== 0) {
-                $fs[$j++] = new PhingFile(chr(ord('A') + $i) . ':' . $this->slash);
-            }
-        }
-
-        return $fs;
-    }
-
     /* -- Basic infrastructure -- */
 
     /**
