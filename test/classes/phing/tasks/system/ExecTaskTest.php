@@ -306,7 +306,7 @@ class ExecTaskTest extends BuildFileTest
 
     public function testOutput()
     {
-        $file = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
         $this->assertContains('outfoo', file_get_contents($file));
@@ -315,7 +315,7 @@ class ExecTaskTest extends BuildFileTest
 
     public function testError()
     {
-        $file = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
         $this->assertContains('errfoo', file_get_contents($file));
