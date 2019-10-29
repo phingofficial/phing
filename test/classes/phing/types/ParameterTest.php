@@ -1,6 +1,6 @@
 <?php
 
-class ParameterTest extends \PHPUnit\Framework\TestCase
+class ParameterUnitTest extends \PHPUnit\Framework\TestCase
 {
     private $parameter;
 
