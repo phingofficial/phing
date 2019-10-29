@@ -33,11 +33,11 @@ class DateSelector extends BaseExtendSelector
     private $includeDirs = false;
     private $granularity = 0;
     private $cmp = 2;
-    const MILLIS_KEY = "millis";
-    const DATETIME_KEY = "datetime";
-    const CHECKDIRS_KEY = "checkdirs";
-    const GRANULARITY_KEY = "granularity";
-    const WHEN_KEY = "when";
+    public const MILLIS_KEY = "millis";
+    public const DATETIME_KEY = "datetime";
+    public const CHECKDIRS_KEY = "checkdirs";
+    public const GRANULARITY_KEY = "granularity";
+    public const WHEN_KEY = "when";
     private static $timeComparisons = ["before", "after", "equal"];
 
     /**

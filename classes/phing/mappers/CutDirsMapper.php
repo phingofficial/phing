@@ -55,7 +55,7 @@ class CutDirsMapper implements FileNameMapper
         if ($this->dirs <= 0) {
             throw new BuildException('dirs must be set to a positive number');
         }
-        $fileSep = PhingFile::$separator;
+        $fileSep = FileUtils::$separator;
         $fileSepCorrected = str_replace(['/', '\\'], $fileSep, $sourceFileName);
         $nthMatch = strpos($fileSepCorrected, $fileSep);
 

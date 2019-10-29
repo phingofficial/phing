@@ -29,7 +29,7 @@
  */
 class ProjectConfigurator
 {
-    const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
+    public const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
     /**
      * @var Project $project

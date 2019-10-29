@@ -36,13 +36,13 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
     /**#@+
      * Lexer states
      */
-    const STATE_NORMAL = 0;
-    const STATE_SINGLE_QUOTED = 1;
-    const STATE_DOUBLE_QUOTED = 2;
-    const STATE_DOLLAR_QUOTED = 3;
-    const STATE_COMMENT_LINEEND = 4;
-    const STATE_COMMENT_MULTILINE = 5;
-    const STATE_BACKSLASH = 6;
+    public const STATE_NORMAL = 0;
+    public const STATE_SINGLE_QUOTED = 1;
+    public const STATE_DOUBLE_QUOTED = 2;
+    public const STATE_DOLLAR_QUOTED = 3;
+    public const STATE_COMMENT_LINEEND = 4;
+    public const STATE_COMMENT_MULTILINE = 5;
+    public const STATE_BACKSLASH = 6;
     /**#@-*/
 
     /**

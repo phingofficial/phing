@@ -2591,20 +2591,26 @@
         </element>
     </define>
 
-    <define name="composer">
-        <element name="composer">
-            <interleave>
-                <optional>
-                    <attribute name="php"/>
-                    <attribute name="composer"/>
-                    <attribute name="command"/>
-                </optional>
-                <zeroOrMore>
-                    <ref name="arg"/>
-                </zeroOrMore>
-            </interleave>
-        </element>
-    </define>
+  <define name="composer">
+    <element name="composer">
+      <interleave>
+        <attribute name="composer">
+          <data type="string"/>
+        </attribute>
+        <optional>
+          <attribute name="command">
+            <data type="string"/>
+          </attribute>
+          <attribute name="php">
+            <data type="string"/>
+          </attribute>
+        </optional>
+        <zeroOrMore>
+          <ref name="arg"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
 
     <!--
         =========================================

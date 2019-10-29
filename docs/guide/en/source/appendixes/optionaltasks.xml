@@ -274,11 +274,12 @@
     </sect1>
     <sect1 role="taskdef" xml:id="ComposerTask">
         <title>ComposerTask</title>
-        <para>
-            The ComposerTask runs the Composer tool (<link xlink:href="http://getcomposer.org" role="extern">http://getcomposer.org</link>)
-            directly from Phing.
-        </para>
-        <table>
+      <para>
+        The <literal>ComposerTask</literal> runs the Composer tool
+        (<link xlink:href="http://getcomposer.org" role="extern">http://getcomposer.org</link>)
+        directly from Phing.
+      </para>
+      <table>
             <title>Attributes</title>
             <tgroup cols="5">
                 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -296,28 +297,31 @@
                     </row>
                 </thead>
                 <tbody>
-                    <row>
-                        <entry><literal>php</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to the PHP interpreter</entry>
-                        <entry>Defaults to the <literal>${php.interpreter}</literal> property which is
-                            the interpreter used to execute phing itself.</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>composer</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Composer.</entry>
-                        <entry>composer.phar</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>command</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>The Composer command to execute.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
+                  <row>
+                    <entry><literal>command</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The Composer command to execute.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                  </row>
+                  <row>
+                    <entry><literal>composer</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to Composer.</entry>
+                    <entry><literal>composer.phar</literal>, if not found it tries to use <literal>composer</literal> executable
+                      from your system.
+                    </entry>
+                    <entry>No</entry>
+                  </row>
+                  <row>
+                    <entry><literal>php</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Path to the PHP interpreter</entry>
+                    <entry>Defaults to the <literal>${php.interpreter}</literal> property which is the interpreter used
+                      to execute phing itself.
+                    </entry>
+                    <entry>No</entry>
+                  </row>
                 </tbody>
             </tgroup>
         </table>
@@ -382,6 +386,13 @@
                     </para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+        <sect2>
+          <title>Example</title>
+          <programlisting language="xml">&lt;composer command=&quot;install&quot;&gt;
+  &lt;arg value=&quot;--no-dev&quot;/&gt;
+  &lt;arg value=&quot;--no-interaction&quot;/&gt;
+&lt;/composer&gt;</programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="CoverageMergerTask">
@@ -878,7 +889,7 @@
     <sect1 role="taskdef" xml:id="FileHashTask">
         <title>FileHashTask</title>
         <para>Calculates either MD5 or SHA1 hash value of a file and stores the value as a hex
-            string in a property.</para>
+            string in a property and generates a checksum file.</para>
         <para>Other popular <link xlink:href="http://php.net/manual/en/function.hash-algos.php">algorithms</link>
             like "crc32" or "sha512" may be used with help of the <literal>algorithm</literal> attribute.</para>
         <table>
@@ -4123,7 +4134,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>html or text</entry>
                         <entry>text</entry>
                         <entry>No</entry>
-                    </row>			
+                    </row>
                     <row>
                         <entry><literal>domain</literal></entry>
                         <entry><literal role="type">String</literal></entry>
@@ -4627,7 +4638,7 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="IniFileTask">
         <title>IniFileTask</title>
         <para>The <literal>IniFileTask</literal> is inspired by the <link
-        xlink:href="http://ant-contrib.sourceforge.net/tasks/tasks/inifile.html" role="extern">Ant-Contrib IniFile</link> 
+        xlink:href="http://ant-contrib.sourceforge.net/tasks/tasks/inifile.html" role="extern">Ant-Contrib IniFile</link>
         and can be used to build and edit .ini files. Unlike the Ant equivalent, it can also read values from different
         sections of an .ini file and set the retrieved values to specified properties.</para>
         <table>

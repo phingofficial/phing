@@ -26,7 +26,7 @@
  */
 class ComponentHelper
 {
-    const COMPONENT_HELPER_REFERENCE = "phing.ComponentHelper";
+    public const COMPONENT_HELPER_REFERENCE = "phing.ComponentHelper";
 
     /**
      * @var Project
@@ -140,11 +140,11 @@ class ComponentHelper
         }
     }
 
-    public static function getElementName(Project $p = null, $o, $brief = false)
+    public static function getElementName(Project $p = null, $o = null, $brief = false)
     {
-        if ($p === null) {
-            // TODO Project::getProject($o)
-        }
+        //if ($p === null) {
+        //    TODO Project::getProject($o)
+        //}
 
         return $p === null
             ? self::getUnmappedElementName($o, $brief)

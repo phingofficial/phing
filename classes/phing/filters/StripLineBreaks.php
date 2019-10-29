@@ -41,14 +41,14 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    const DEFAULT_LINE_BREAKS = "\r\n";
+    public const DEFAULT_LINE_BREAKS = "\r\n";
 
     /**
      * Parameter name for the line-breaking characters parameter.
      *
      * @var string
      */
-    const LINES_BREAKS_KEY = "linebreaks";
+    public const LINES_BREAKS_KEY = "linebreaks";
 
     /**
      * The characters that are recognized as line breaks.
