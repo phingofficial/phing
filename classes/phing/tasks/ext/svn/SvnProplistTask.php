@@ -56,7 +56,7 @@ class SvnProplistTask extends SvnBaseTask
     {
         return $this->recursive;
     }
-    
+
     /**
      * The main entry point
      *
@@ -67,9 +67,9 @@ class SvnProplistTask extends SvnBaseTask
         $this->setup('proplist');
 
         $this->log("List all properties on files, dirs, or revisions from '" . $this->getWorkingCopy() . "'");
-        
+
         $output = $this->run([$this->getWorkingCopy()], ['recursive' => $this->getRecursive()]);
-        
+
         $this->project->setProperty($this->getPropertyName(), $output);
     }
 }

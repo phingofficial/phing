@@ -89,9 +89,9 @@ class SelectorUtilsTest extends TestCase
      */
     public function testOutOfDate()
     {
-        $source = new PhingFile(tempnam(sys_get_temp_dir(), 'src'));
+        $source = new PhingFile(tempnam(FileUtils::getTempDir(), 'src'));
         sleep(3);
-        $target = new PhingFile(tempnam(sys_get_temp_dir(), 'tgt'));
+        $target = new PhingFile(tempnam(FileUtils::getTempDir(), 'tgt'));
         $ret = $this->selectorUtils::isOutOfDate($source, $target, 20);
         $this->assertEquals(false, $ret);
     }

@@ -35,12 +35,12 @@ class VersionTask extends Task
     /**
      * The name of the property in which the build number is stored.
      */
-    const DEFAULT_PROPERTY_NAME = "build.version";
+    public const DEFAULT_PROPERTY_NAME = "build.version";
 
     /**
      * The default filename to use if no file specified.
      */
-    const DEFAULT_FILENAME = self::DEFAULT_PROPERTY_NAME;
+    public const DEFAULT_FILENAME = self::DEFAULT_PROPERTY_NAME;
 
     private $startingVersion = '0.0.0';
 
@@ -66,9 +66,9 @@ class VersionTask extends Task
     private $property;
 
     /* Allowed Releastypes */
-    const RELEASETYPE_MAJOR = 'MAJOR';
-    const RELEASETYPE_MINOR = 'MINOR';
-    const RELEASETYPE_BUGFIX = 'BUGFIX';
+    public const RELEASETYPE_MAJOR = 'MAJOR';
+    public const RELEASETYPE_MINOR = 'MINOR';
+    public const RELEASETYPE_BUGFIX = 'BUGFIX';
 
     private $propFile = false;
 

@@ -53,14 +53,14 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @var string
      */
-    const DEFAULT_BEGIN_TOKEN = "#@#";
+    public const DEFAULT_BEGIN_TOKEN = "#@#";
 
     /**
      * Default "end token" character.
      *
      * @var string
      */
-    const DEFAULT_END_TOKEN = "#@#";
+    public const DEFAULT_END_TOKEN = "#@#";
 
     /**
      * Array to hold the token sources that make tokens from

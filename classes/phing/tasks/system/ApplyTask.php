@@ -30,7 +30,7 @@ class ApplyTask extends ExecTask
 {
     use ResourceAware;
 
-    const SOURCEFILE_ID = '__SOURCEFILE__';
+    public const SOURCEFILE_ID = '__SOURCEFILE__';
     protected $currentdirectory;
 
     /**
@@ -621,8 +621,8 @@ class ApplyTask extends ExecTask
                             } else {
                                 $name = (new PhingFile($this->destDir, $subTarget))->getAbsolutePath();
                             }
-                            if ($this->forwardslash && PhingFile::$separator !== '/') {
-                                $name = str_replace(PhingFile::$separator, '/', $name);
+                            if ($this->forwardslash && FileUtils::$separator !== '/') {
+                                $name = str_replace(FileUtils::$separator, '/', $name);
                             }
                             if (!isset($addedFiles[$name])) {
                                 $targets[] = $name;
@@ -714,8 +714,8 @@ class ApplyTask extends ExecTask
             } else {
                 $src = (new PhingFile($basedir, $file))->getAbsolutePath();
             }
-            if ($this->forwardslash && PhingFile::$separator !== '/') {
-                $src = str_replace(PhingFile::$separator, '/', $src);
+            if ($this->forwardslash && FileUtils::$separator !== '/') {
+                $src = str_replace(FileUtils::$separator, '/', $src);
             }
             if (
                 $this->srcFilePos !== null
@@ -782,7 +782,7 @@ class ApplyTask extends ExecTask
 
         // Processing the file information
         foreach ($files as $index => $file) {
-            $absolutefilename = (($relative === false) ? ($basedir . PhingFile::$separator) : '');
+            $absolutefilename = (($relative === false) ? ($basedir . FileUtils::$separator) : '');
             $absolutefilename .= $file;
             if ($relative === false) {
                 $files[$index] = (new FileUtils())->normalize($absolutefilename);

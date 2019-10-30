@@ -244,37 +244,6 @@ class UnixFileSystem extends FileSystem
     /* -- most of the following is mapped to the php natives wrapped by FileSystem */
 
     /* -- Attribute accessors -- */
-    /**
-     * @param PhingFile $f
-     * @return int
-     */
-    public function getBooleanAttributes($f)
-    {
-        //$rv = getBooleanAttributes0($f);
-        $name = $f->getName();
-        $hidden = (strlen($name) > 0) && ($name[0] == '.');
-
-        return ($hidden ? FileSystem::BA_HIDDEN : 0);
-    }
-
-    /**
-     * set file readonly on unix
-     *
-     * @param  PhingFile $f
-     * @throws Exception
-     * @throws IOException
-     */
-    public function setReadOnly($f)
-    {
-        if ($f instanceof PhingFile) {
-            $strPath = (string) $f->getPath();
-            $perms = (int) (@fileperms($strPath) & 0444);
-
-            FileSystem::getFileSystem()->chmod($strPath, $perms);
-        } else {
-            throw new Exception("IllegalArgumentType: Argument is not File");
-        }
-    }
 
     /**
      * compares file paths lexicographically
@@ -315,20 +284,6 @@ class UnixFileSystem extends FileSystem
             $msg = "FileSystem::copy() FAILED. Cannot create symlink from $destPath to $linkTarget.";
             throw new Exception($msg);
         }
-    }
-
-    /* -- fs interface --*/
-
-    /**
-     * @return array
-     */
-    public function listRoots()
-    {
-        if (!$this->checkAccess('/', false)) {
-            die("Can not access root");
-        }
-
-        return [new PhingFile("/")];
     }
 
     /**

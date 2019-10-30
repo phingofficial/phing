@@ -191,7 +191,7 @@ class Diagnostics
      */
     private static function doReportTempDir(PrintStream $out)
     {
-        $tempdir = PhingFile::getTempDir();
+        $tempdir = FileUtils::getTempDir();
         if ($tempdir == null) {
             $out->println("Warning: php.tmpdir is undefined");
             return;
@@ -205,14 +205,12 @@ class Diagnostics
         }
 
         $now = time();
-        $tempFile = PhingFile::createTempFile('diag', 'txt', $tempDirectory);
+        $tempFile = (new FileUtils())->createTempFile('diag', 'txt', $tempDirectory, true, true);
         $fileWriter = new FileWriter($tempFile);
         $fileWriter->write('some test text');
         $fileWriter->close();
 
         $filetime = $tempFile->lastModified();
-
-        $tempFile->delete();
 
         $out->println("Temp dir is writeable");
         $drift = $filetime - $now;

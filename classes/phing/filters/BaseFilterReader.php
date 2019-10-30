@@ -119,7 +119,7 @@ class BaseFilterReader extends FilterReader
      * Reads a line of text ending with '\n' (or until the end of the stream).
      * The returned String retains the '\n'.
      *
-     * @return string the line read, or <code>null</code> if the end of the
+     * @return string|null the line read, or <code>null</code> if the end of the
      *             stream has already been reached
      *
      * @throws IOException if the underlying reader throws one during

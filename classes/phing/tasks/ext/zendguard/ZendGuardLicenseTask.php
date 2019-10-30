@@ -462,7 +462,7 @@ class ZendGuardLicenseTask extends Task
      */
     protected function generateLicenseTemplate()
     {
-        $this->tmpLicensePath = tempnam(sys_get_temp_dir(), 'zendlicense');
+        $this->tmpLicensePath = tempnam(FileUtils::getTempDir(), 'zendlicense');
 
         $this->log("Creating temporary license template " . $this->tmpLicensePath, Project::MSG_VERBOSE);
         if (file_put_contents($this->tmpLicensePath, $this->generateLicenseTemplateContent()) === false) {

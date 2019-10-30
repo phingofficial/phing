@@ -69,7 +69,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileFileNotReadable()
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), "test");
+        $tmpFile = tempnam(FileUtils::getTempDir(), "test");
         touch($tmpFile);
         $file = new PhingFile($tmpFile);
         unlink($tmpFile);

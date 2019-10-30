@@ -54,7 +54,7 @@ class Commandline implements Countable
      */
     public $executable; // public so "inner" class can access
 
-    const DISCLAIMER = "The ' characters around the executable and arguments are not part of the command.";
+    public const DISCLAIMER = "The ' characters around the executable and arguments are not part of the command.";
     private $escape = false;
 
     /**
@@ -109,7 +109,7 @@ class Commandline implements Countable
             return;
         }
         $this->executable = $translateFileSeparator
-            ? str_replace(['/', '\\'], PhingFile::$separator, $executable)
+            ? str_replace(['/', '\\'], FileUtils::$separator, $executable)
             : $executable;
     }
 

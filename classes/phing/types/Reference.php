@@ -85,7 +85,8 @@ class Reference
     {
         $project = $fallback ?? $this->project;
 
-        if ($this->refid === null) {
+        // setRefId casts its argument to a string, so compare strictly against ''
+        if ($this->refid === '') {
             throw new BuildException("No reference specified");
         }
         $o = $project->getReference($this->refid);

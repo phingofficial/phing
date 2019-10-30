@@ -208,7 +208,7 @@ class RSTTask extends Task
             return;
         }
 
-        $tmpTarget = tempnam(sys_get_temp_dir(), 'rST-');
+        $tmpTarget = tempnam($this->fileUtils::getTempDir(), 'rST-');
         $this->renderFile($tool, $source, $tmpTarget);
 
         $this->fileUtils->copyFile(

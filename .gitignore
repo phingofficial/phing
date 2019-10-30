@@ -12,6 +12,7 @@ bin/*
 !bin/phing*
 .vagrant
 **/*.log
+**/*.log.txt
 ansible/playbook.retry
 test/etc/tasks/system/defaultexcludestestinput/
 test/etc/types/selectors/tmp/
