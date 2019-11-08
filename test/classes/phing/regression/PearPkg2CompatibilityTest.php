@@ -29,7 +29,6 @@
 class PearPkg2CompatibilityTest extends BuildFileTest
 {
     private $savedErrorLevel;
-    protected $backupGlobals = false;
 
     public function setUp(): void
     {
@@ -38,12 +37,8 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
         $this->configureProject($buildFile);
 
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
-        }
-
         if (!class_exists('PEAR_PackageFileManager', false)) {
-            $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
+            self::markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
         }
 
         $this->executeTarget("setup");
@@ -61,7 +56,7 @@ class PearPkg2CompatibilityTest extends BuildFileTest
             $this->executeTarget("inactive");
         } catch (Exception $e) {
             if (strpos($e->getMessage(), 'Unknown channel') !== false) {
-                $this->markTestSkipped($e->getMessage());
+                self::markTestSkipped($e->getMessage());
             }
         }
     }
@@ -70,20 +65,20 @@ class PearPkg2CompatibilityTest extends BuildFileTest
     {
         $this->executeTarget("inactive");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-        $this->assertContains('<active>no</active>', $content);
+        self::assertContains('<active>no</active>', $content);
     }
 
     public function testActiveMaintainers()
     {
         $this->executeTarget("active");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-        $this->assertContains('<active>yes</active>', $content);
+        self::assertContains('<active>yes</active>', $content);
     }
 
     public function testNotSetMaintainers()
     {
         $this->executeTarget("notset");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-        $this->assertContains('<active>yes</active>', $content);
+        self::assertContains('<active>yes</active>', $content);
     }
 }

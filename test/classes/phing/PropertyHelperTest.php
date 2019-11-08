@@ -28,7 +28,7 @@ class PropertyHelperTest extends TestCase
 
         $value = $helper->replaceProperties('${undefined.property}', []);
 
-        $this->assertEquals('${undefined.property}', $value);
+        self::assertEquals('${undefined.property}', $value);
     }
 
     public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
@@ -38,6 +38,6 @@ class PropertyHelperTest extends TestCase
 
         $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
 
-        $this->assertEquals('abc123', $value);
+        self::assertEquals('abc123', $value);
     }
 }

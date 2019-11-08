@@ -54,13 +54,11 @@ class PhpLintTaskTest extends BuildFileTest
 
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/590
+     *
+     * @requires PHP < 7.0
      */
     public function testDeprecated()
     {
-        if (defined('HHVM_VERSION') || PHP_MAJOR_VERSION > 5) {
-            $this->markTestSkipped("Testing for deprecated statements only works on PHP 5.x");
-        }
-
         file_put_contents(
             PHING_TEST_BASE . '/tmp/phplint_file.php',
             '<?php class TestClass {}; $t = & new TestClass();'

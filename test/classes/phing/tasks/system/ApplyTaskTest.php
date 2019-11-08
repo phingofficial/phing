@@ -30,7 +30,7 @@ class ApplyTaskTest extends BuildFileTest
      * Whether test is being run on windows
      * @var bool
      */
-    protected $windows;
+    private $windows;
 
     /**
      * Setup the test
@@ -225,7 +225,7 @@ class ApplyTaskTest extends BuildFileTest
 
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
+            self::markTestSkipped("Windows does not have 'ls'");
         }
 
         $this->executeTarget(__FUNCTION__);
@@ -240,11 +240,11 @@ class ApplyTaskTest extends BuildFileTest
 
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/true'");
+            self::markTestSkipped("Windows does not have '/bin/true'");
         }
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -255,7 +255,7 @@ class ApplyTaskTest extends BuildFileTest
 
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/false'");
+            self::markTestSkipped("Windows does not have '/bin/false'");
         }
 
         return $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
@@ -316,7 +316,7 @@ class ApplyTaskTest extends BuildFileTest
         // Validating the output
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
-        $this->assertEquals('outfoo', rtrim($output));
+        self::assertEquals('outfoo', rtrim($output));
     }
 
     /**
@@ -327,7 +327,7 @@ class ApplyTaskTest extends BuildFileTest
 
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("The script is unlikely to run on MS Windows");
+            self::markTestSkipped("The script is unlikely to run on MS Windows");
         }
 
         // Getting a temp. file
@@ -346,7 +346,7 @@ class ApplyTaskTest extends BuildFileTest
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
         @unlink($scriptFile);
-        $this->assertEquals("errfoo", rtrim($output));
+        self::assertEquals("errfoo", rtrim($output));
     }
 
     /**
@@ -356,14 +356,14 @@ class ApplyTaskTest extends BuildFileTest
     {
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have /bin/sleep");
+            self::markTestSkipped("Windows does not have /bin/sleep");
         }
 
         // Process
         $start = time();
         $this->executeTarget(__FUNCTION__);
         $end = time();
-        $this->assertLessThan(
+        self::assertLessThan(
             4,
             ($end - $start),
             'Execution time should be lower than 4 seconds, otherwise spawning did not work'
@@ -403,7 +403,7 @@ class ApplyTaskTest extends BuildFileTest
     {
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
+            self::markTestSkipped("Windows does not have 'ls'");
         }
 
         $this->executeTarget(__FUNCTION__);
@@ -418,7 +418,7 @@ class ApplyTaskTest extends BuildFileTest
 
         // Validating the OS platform
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
+            self::markTestSkipped("Windows does not have 'ls'");
         }
 
         $this->executeTarget(__FUNCTION__);
@@ -442,7 +442,7 @@ class ApplyTaskTest extends BuildFileTest
         // Validating the output
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
-        $this->assertEquals($this->windows ? "Append OK \r\nAppend OK" : "Append OK\nAppend OK", rtrim($output));
+        self::assertEquals($this->windows ? "Append OK \r\nAppend OK" : "Append OK\nAppend OK", rtrim($output));
     }
 
     /**
@@ -455,7 +455,7 @@ class ApplyTaskTest extends BuildFileTest
         foreach ($this->logBuffer as $log) {
             $messages[] = $log['message'];
         }
-        $this->assertEquals(1, substr_count(implode("\n", $messages), 'Executing command:'));
+        self::assertEquals(1, substr_count(implode("\n", $messages), 'Executing command:'));
     }
 
     public function testMapperSupport()
@@ -471,7 +471,7 @@ class ApplyTaskTest extends BuildFileTest
         foreach ($this->logBuffer as $log) {
             $messages[] = $log['message'];
         }
-        $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
+        self::assertContains('Applied echo to 4 files and 0 directories.', $messages);
     }
 
 
@@ -545,6 +545,6 @@ class ApplyTaskTest extends BuildFileTest
         $propertyName = ($propertyName === null) ? $property : $propertyName;
         $rprop = new ReflectionProperty('ApplyTask', $propertyName);
         $rprop->setAccessible(true);
-        $this->assertEquals($value, $rprop->getValue($task));
+        self::assertEquals($value, $rprop->getValue($task));
     }
 }

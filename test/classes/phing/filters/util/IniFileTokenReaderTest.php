@@ -47,7 +47,7 @@ class IniFileTokenReaderTest extends BuildFileTest
 
         $this->executeTarget(__FUNCTION__);
 
-        $this->assertFileExists($filename);
-        $this->assertEquals('to replace: replaced', file_get_contents($filename));
+        self::assertFileExists($filename);
+        self::assertEquals('to replace: replaced', file_get_contents($filename));
     }
 }

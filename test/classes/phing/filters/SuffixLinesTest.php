@@ -24,7 +24,7 @@
 class SuffixLinesTest extends BuildFileTest
 {
     /** @var FileUtils $fu */
-    protected $fu;
+    private $fu;
 
     public function setUp(): void
     {
@@ -44,6 +44,6 @@ class SuffixLinesTest extends BuildFileTest
         $expected = $this->getProject()->resolveFile("expected/suffixlines.test");
         $result = $this->getProject()->resolveFile("result/suffixlines.test");
 
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

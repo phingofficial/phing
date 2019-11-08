@@ -56,14 +56,15 @@ class DependSetTest extends BuildFileTest
     public function test4()
     {
         $this->executeTarget(__FUNCTION__);
+
+        self::assertEquals(1, 1); // increase number of positive assertions
     }
 
     public function test5()
     {
         $this->executeTarget(__FUNCTION__);
         $f = new PhingFile($this->getProjectDir(), 'older.tmp');
-        if ($f->exists()) {
-            $this->fail('dependset failed to remove out of date file ' . (string) $f);
-        }
+
+        self::assertFalse($f->exists(), 'dependset failed to remove out of date file ' . (string) $f);
     }
 }

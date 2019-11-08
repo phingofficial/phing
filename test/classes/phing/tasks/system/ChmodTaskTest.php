@@ -28,7 +28,7 @@ class ChmodTaskTest extends BuildFileTest
     public function setUp(): void
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("chmod tests don't work on Windows");
+            self::markTestSkipped("chmod tests don't work on Windows");
             return;
         }
 
@@ -49,7 +49,7 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/chmodtest');
 
-        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        self::assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
     public function testChangeModeFileSet()
@@ -59,7 +59,7 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/chmodtest');
 
-        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        self::assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
     public function testChangeModeDirSet()
@@ -69,6 +69,6 @@ class ChmodTaskTest extends BuildFileTest
         clearstatcache();
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/A');
 
-        $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+        self::assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 }

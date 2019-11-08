@@ -24,17 +24,14 @@
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
- * @version $Revision: $
  * @package phing
  */
 class PhingTest extends \PHPUnit\Framework\TestCase
 {
-    const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
-    const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
-    const DOTED_CLASS = 'Vendor.Package.DotedClass';
-    const DOTED_CLASS_SHORTNAME = 'DotedClass';
-
-    protected $classpath;
+    private const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
+    private const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
+    private const DOTED_CLASS = 'Vendor.Package.DotedClass';
+    private const DOTED_CLASS_SHORTNAME = 'DotedClass';
 
     /**
      * Test a PSR-0 support of class loading
@@ -84,7 +81,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     public function testTimer()
     {
-        $this->assertInstanceOf('Timer', Phing::getTimer());
+        self::assertInstanceOf('Timer', Phing::getTimer());
     }
 
     public function testFloatOnCurrentTimeMillis()
@@ -109,7 +106,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing = new Phing();
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $this->assertNull($phing->printTargets($project));
+        self::assertNull($phing->printTargets($project));
     }
 
     public function testPrintUsage(): void
@@ -117,13 +114,13 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing = new Phing();
         $phing::setErrorStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $this->assertNull($phing::printUsage());
+        self::assertNull($phing::printUsage());
     }
 
     public function testCallStartupShutdown()
     {
-        $this->assertNull(Phing::startup());
-        $this->assertNull(Phing::shutdown());
+        self::assertNull(Phing::startup());
+        self::assertNull(Phing::shutdown());
     }
 
     public function testCurrentProject()
@@ -133,10 +130,10 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $this->assertNotSame($project, $currProj);
 
         Phing::setCurrentProject($project);
-        $this->assertSame($project, Phing::getCurrentProject());
+        self::assertSame($project, Phing::getCurrentProject());
 
         Phing::unsetCurrentProject();
-        $this->assertNull(Phing::getCurrentProject());
+        self::assertNull(Phing::getCurrentProject());
     }
 
     /**

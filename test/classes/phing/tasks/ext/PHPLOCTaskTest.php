@@ -24,22 +24,20 @@
  *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
+ *
+ * @requires PHP >= 7.3
  */
 class PHPLOCTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (PHP_VERSION_ID >= 70300) {
-            $this->markTestSkipped('phploc task is not running on PHP 7.3');
-        }
-
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phploc/build.xml");
     }
 
     public function testReportText()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt');
@@ -48,7 +46,7 @@ class PHPLOCTaskTest extends BuildFileTest
     public function testReportCSV()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv');
@@ -57,7 +55,7 @@ class PHPLOCTaskTest extends BuildFileTest
     public function testReportXML()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml');
@@ -66,13 +64,13 @@ class PHPLOCTaskTest extends BuildFileTest
     public function testFormatters()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt'
         );
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv'
         );
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt');

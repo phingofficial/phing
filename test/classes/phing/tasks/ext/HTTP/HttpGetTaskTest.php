@@ -90,15 +90,15 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
         $this->executeTarget('recipient');
 
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foobar.txt',
             'This file is named explicitly'
         );
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/disposition.txt',
             'This file is named according to Content-Disposition header'
         );
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foo.bar',
             "This file is named according to an URL part"
         );
@@ -124,7 +124,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             ]
         );
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        self::assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 
     public function testAuthentication()
@@ -138,7 +138,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             // the request returns error 400, but we don't really care
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             ['user' => 'luser', 'password' => 'secret', 'scheme' => 'basic'],
             $trace->requests[0]['auth']
         );
@@ -155,8 +155,8 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             // the request returns error 400, but we don't really care
         }
 
-        $this->assertEquals(15, $trace->requests[0]['config']['timeout']);
-        $this->assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
+        self::assertEquals(15, $trace->requests[0]['config']['timeout']);
+        self::assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
     }
 
     public function testConfigurationViaProperties()
@@ -177,6 +177,6 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             ]
         );
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        self::assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 }

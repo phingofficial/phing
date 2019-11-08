@@ -33,13 +33,13 @@ class EqualsConditionTest extends \PHPUnit\Framework\TestCase
         $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2(" a");
-        $this->assertFalse($eq->evaluate());
+        self::assertFalse($eq->evaluate());
 
         $eq->setTrim(true);
-        $this->assertTrue($eq->evaluate());
+        self::assertTrue($eq->evaluate());
 
         $eq->setArg2("a\t");
-        $this->assertTrue($eq->evaluate());
+        self::assertTrue($eq->evaluate());
     }
 
     public function testCaseSensitive()
@@ -47,9 +47,9 @@ class EqualsConditionTest extends \PHPUnit\Framework\TestCase
         $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2("A");
-        $this->assertFalse($eq->evaluate());
+        self::assertFalse($eq->evaluate());
 
         $eq->setCasesensitive(false);
-        $this->assertTrue($eq->evaluate());
+        self::assertTrue($eq->evaluate());
     }
 }

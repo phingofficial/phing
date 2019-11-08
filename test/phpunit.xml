@@ -18,7 +18,6 @@
     convertWarningsToExceptions="true"
     processIsolation="false"
     stopOnFailure="false"
-    verbose="true"
     enforceTimeLimit="false"
     executionOrder="default"
     resolveDependencies="true">

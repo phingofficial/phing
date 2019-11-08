@@ -52,41 +52,41 @@ class BasenameTest extends BuildFileTest
     {
         $this->executeTarget("test4");
         $checkprop = $this->getProject()->getProperty("file.w.suf");
-        $this->assertEquals("foo.txt", $checkprop);
+        self::assertEquals("foo.txt", $checkprop);
     }
 
     public function test5()
     {
         $this->executeTarget("test5");
         $checkprop = $this->getProject()->getProperty("file.wo.suf");
-        $this->assertEquals("foo", $checkprop);
+        self::assertEquals("foo", $checkprop);
     }
 
     public function testMultipleDots()
     {
         $this->executeTarget("testMultipleDots");
         $checkprop = $this->getProject()->getProperty("file.wo.suf");
-        $this->assertEquals("foo.bar", $checkprop);
+        self::assertEquals("foo.bar", $checkprop);
     }
 
     public function testNoDots()
     {
         $this->executeTarget("testNoDots");
         $checkprop = $this->getProject()->getProperty("file.wo.suf");
-        $this->assertEquals("foo.bar", $checkprop);
+        self::assertEquals("foo.bar", $checkprop);
     }
 
     public function testValueEqualsSuffixWithDot()
     {
         $this->executeTarget("testValueEqualsSuffixWithDot");
         $checkprop = $this->getProject()->getProperty("file.wo.suf");
-        $this->assertEquals("", $checkprop);
+        self::assertEquals("", $checkprop);
     }
 
     public function testValueEqualsSuffixWithoutDot()
     {
         $this->executeTarget("testValueEqualsSuffixWithoutDot");
         $checkprop = $this->getProject()->getProperty("file.wo.suf");
-        $this->assertEquals("", $checkprop);
+        self::assertEquals("", $checkprop);
     }
 }

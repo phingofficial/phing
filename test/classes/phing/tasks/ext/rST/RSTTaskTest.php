@@ -52,7 +52,7 @@ class RSTTaskTest extends BuildFileTest
         try {
             $this->testGetToolPathHtmlFormat();
         } catch (BuildException $be) {
-            $this->markTestSkipped($be->getMessage());
+            self::markTestSkipped($be->getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ class RSTTaskTest extends BuildFileTest
      */
     protected function assertFileCreated($file)
     {
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file,
             $file . ' has not been created'
         );
@@ -76,35 +76,31 @@ class RSTTaskTest extends BuildFileTest
     /**
      * @expectedException BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
+     *
+     * @requires function ReflectionMethod::setAccessible
      */
     public function testGetToolPathFail()
     {
-        if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new RSTTask();
-            $ref = new ReflectionClass($rt);
-            $method = $ref->getMethod('getToolPath');
-            $method->setAccessible(true);
-            $method->invoke($rt, 'doesnotexist');
-        } else {
-            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
-        }
+        $rt = new RSTTask();
+        $ref = new ReflectionClass($rt);
+        $method = $ref->getMethod('getToolPath');
+        $method->setAccessible(true);
+        $method->invoke($rt, 'doesnotexist');
     }
 
     /**
      * Get the tool path previously set with setToolpath()
+     *
+     * @requires function ReflectionMethod::setAccessible
      */
     public function testGetToolPathCustom()
     {
-        if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new RSTTask();
-            $rt->setToolpath('true'); //mostly /bin/true on unix
-            $ref = new ReflectionClass($rt);
-            $method = $ref->getMethod('getToolPath');
-            $method->setAccessible(true);
-            $this->assertContains('/true', $method->invoke($rt, 'foo'));
-        } else {
-            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
-        }
+        $rt = new RSTTask();
+        $rt->setToolpath('true'); //mostly /bin/true on unix
+        $ref = new ReflectionClass($rt);
+        $method = $ref->getMethod('getToolPath');
+        $method->setAccessible(true);
+        self::assertContains('/true', $method->invoke($rt, 'foo'));
     }
 
 
@@ -128,17 +124,17 @@ class RSTTaskTest extends BuildFileTest
         $rt->setToolpath(__FILE__);
     }
 
+    /**
+     * @throws ReflectionException
+     * @requires function ReflectionMethod::setAccessible
+     */
     public function testGetToolPathHtmlFormat()
     {
-        if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new RSTTask();
-            $ref = new ReflectionClass($rt);
-            $method = $ref->getMethod('getToolPath');
-            $method->setAccessible(true);
-            $this->assertContains('rst2html', $method->invoke($rt, 'html'));
-        } else {
-            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
-        }
+        $rt = new RSTTask();
+        $ref = new ReflectionClass($rt);
+        $method = $ref->getMethod('getToolPath');
+        $method->setAccessible(true);
+        self::assertContains('rst2html', $method->invoke($rt, 'html'));
     }
 
     public function testSingleFileParameterFile()
@@ -204,8 +200,8 @@ class RSTTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html';
-        $this->assertFileExists($file);
-        $this->assertEquals(
+        self::assertFileExists($file);
+        self::assertEquals(
             0,
             filesize($file),
             'File size is not 0, which it should have been when'
@@ -288,9 +284,9 @@ class RSTTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/filterchain.html';
-        $this->assertFileExists($file);
+        self::assertFileExists($file);
         $cont = file_get_contents($file);
-        $this->assertContains('This is a bar.', $cont);
+        self::assertContains('This is a bar.', $cont);
         unlink($file);
     }
 
@@ -298,11 +294,11 @@ class RSTTaskTest extends BuildFileTest
     public function testCustomParameter()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists('files/single.html');
+        self::assertFileExists('files/single.html');
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html';
         $cont = file_get_contents($file);
-        $this->assertContains('this is a custom css file', $cont);
-        $this->assertContains('#FF8000', $cont);
+        self::assertContains('this is a custom css file', $cont);
+        self::assertContains('#FF8000', $cont);
         unlink($file);
     }
 }

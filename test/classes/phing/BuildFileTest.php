@@ -42,9 +42,9 @@ abstract class BuildFileTest extends TestCase
      */
     public $logBuffer = [];
 
-    private $outBuffer;
-    private $errBuffer;
-    private $buildException;
+    protected $outBuffer;
+    protected $errBuffer;
+    protected $buildException;
 
     /**
      * Asserts that the log buffer contains specified message at specified priority.
@@ -57,7 +57,7 @@ abstract class BuildFileTest extends TestCase
         $found = false;
         foreach ($this->logBuffer as $log) {
             if (false !== stripos($log['message'], $expected)) {
-                $this->assertEquals(1, 1); // increase number of positive assertions
+                self::assertEquals(1, 1); // increase number of positive assertions
                 if ($priority === null) {
                     return;
                 } elseif ($priority !== null) {
@@ -75,14 +75,14 @@ abstract class BuildFileTest extends TestCase
         foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
-        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
+        self::fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
 
     /**
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
      * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param string $errormsg The error message to display.
      */
     protected function assertLogLineContaining(
         $expected,
@@ -92,15 +92,14 @@ abstract class BuildFileTest extends TestCase
         $found = false;
         foreach ($this->logBuffer as $log) {
             if (false !== strpos($log['message'], $expected)) {
-                $this->assertEquals(1, 1); // increase number of positive assertions
+                self::assertEquals(1, 1); // increase number of positive assertions
                 if ($priority === null) {
                     return;
-                } elseif ($priority !== null) {
-                    if ($priority >= $log['priority']) {
-                        $found = true;
-                    }
                 }
 
+                if ($priority >= $log['priority']) {
+                    $found = true;
+                }
             }
             if ($found) {
                 return;
@@ -110,7 +109,7 @@ abstract class BuildFileTest extends TestCase
         foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
-        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
+        self::fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
 
     /**
@@ -130,11 +129,11 @@ abstract class BuildFileTest extends TestCase
                 foreach ($this->logBuffer as $log) {
                     $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
                 }
-                $this->fail(sprintf($errormsg, $message, var_export($representation, true)));
+                self::fail(sprintf($errormsg, $message, var_export($representation, true)));
             }
         }
 
-        $this->assertEquals(1, 1); // increase number of positive assertions
+        self::assertEquals(1, 1); // increase number of positive assertions
     }
 
     /**
@@ -188,7 +187,7 @@ abstract class BuildFileTest extends TestCase
     {
         $this->executeTarget($target);
         $realOutput = $this->getOutput();
-        $this->assertEquals($output, $realOutput);
+        self::assertEquals($output, $realOutput);
     }
 
     /**
@@ -203,9 +202,9 @@ abstract class BuildFileTest extends TestCase
     {
         $this->executeTarget($target);
         $realOutput = $this->getOutput();
-        $this->assertEquals($output, $realOutput);
+        self::assertEquals($output, $realOutput);
         $realError = $this->getError();
-        $this->assertEquals($error, $realError);
+        self::assertEquals($error, $realError);
     }
 
     protected function getOutput()
@@ -306,31 +305,22 @@ abstract class BuildFileTest extends TestCase
     }
 
     /**
-     *  run a target, wait for a build exception
+     * run a target, wait for a build exception
      *
      * @param string $target target to run
      * @param string $cause information string to reader of report
-     * @param string $msg the message value of the build exception we are waiting for
+     * @param string|null $msg the message value of the build exception we are waiting for
      * set to null for any build exception to be valid
      */
-    protected function expectSpecificBuildException($target, $cause, $msg)
+    protected function expectSpecificBuildException($target, $cause, ?string $msg = null)
     {
-        try {
-            $this->executeTarget($target);
-        } catch (BuildException $ex) {
-            $this->buildException = $ex;
-            if (($msg !== null) && ($ex->getMessage() != $msg)) {
-                $this->fail(
-                    "Should throw BuildException because '" . $cause
-                    . "' with message '" . $msg
-                    . "' (actual message '" . $ex->getMessage() . "' instead)"
-                );
-            }
-            $this->assertEquals(1, 1); // increase number of positive assertions
+        $this->expectException(BuildException::class);
 
-            return;
+        if (null !== $msg) {
+            $this->expectExceptionMessage($msg);
         }
-        $this->fail("Should throw BuildException because: " . $cause);
+
+        $this->executeTarget($target);
     }
 
     /**
@@ -358,16 +348,16 @@ abstract class BuildFileTest extends TestCase
             };
 
             if (!$found) {
-                $this->fail(
+                self::fail(
                     "Should throw BuildException because '" . $cause . "' with message containing '" . $contains
                     . "' (actual message '" . $msg . "' instead)"
                 );
             }
 
-            $this->assertEquals(1, 1); // increase number of positive assertions
+            self::assertEquals(1, 1); // increase number of positive assertions
             return;
         }
-        $this->fail("Should throw BuildException because: " . $cause);
+        self::fail("Should throw BuildException because: " . $cause);
     }
 
     /**
@@ -392,7 +382,7 @@ abstract class BuildFileTest extends TestCase
     protected function assertPropertyEquals($property, $value)
     {
         $result = $this->project->getProperty($property);
-        $this->assertEquals($value, $result, "property " . $property);
+        self::assertEquals($value, $result, "property " . $property);
     }
 
     /**
@@ -522,10 +512,10 @@ abstract class BuildFileTest extends TestCase
         $actualSize = filesize($filepath);
 
         if (!is_int($actualSize)) {
-            $this->fail("Error while reading file '$filepath'");
+            self::fail("Error while reading file '$filepath'");
         }
 
-        $this->assertGreaterThanOrEqual($bytes, $actualSize);
+        self::assertGreaterThanOrEqual($bytes, $actualSize);
     }
 }
 

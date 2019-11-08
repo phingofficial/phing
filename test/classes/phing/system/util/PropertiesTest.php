@@ -30,7 +30,7 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
     /**
      * @var Properties
      */
-    private $props = null;
+    private $props;
 
     public function setUp(): void
     {
@@ -47,33 +47,33 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
         $file = new PhingFile(PHING_TEST_BASE . "/etc/system/util/comments.properties");
         $this->props->load($file);
 
-        $this->assertEquals(
+        self::assertEquals(
             $this->props->getProperty('useragent'),
             'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
         );
-        $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
-        $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
-        $this->assertEquals($this->props->getProperty('testline3'), true);
-        $this->assertEquals($this->props->getProperty('testline4'), false);
+        self::assertEquals($this->props->getProperty('testline1'), 'Testline1');
+        self::assertEquals($this->props->getProperty('testline2'), 'Testline2');
+        self::assertEquals($this->props->getProperty('testline3'), true);
+        self::assertEquals($this->props->getProperty('testline4'), false);
     }
 
     public function testEmpty()
     {
-        $this->assertTrue($this->props->isEmpty());
+        self::assertTrue($this->props->isEmpty());
     }
 
     public function testAppendPropertyValues()
     {
         $this->props->append('t', 'a');
         $this->props->append('t', 'b');
-        $this->assertEquals('a,b', $this->props->get('t'));
+        self::assertEquals('a,b', $this->props->get('t'));
     }
 
     public function testToString()
     {
         $this->props->put('a', 'b');
 
-        $this->assertEquals("a=b" . PHP_EOL, (string) $this->props);
+        self::assertEquals("a=b" . PHP_EOL, (string) $this->props);
     }
 
     public function testStore()
@@ -81,8 +81,8 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
         $file = new PhingFile(PHING_TEST_BASE . "/tmp/props");
         $this->props->put('t', 'a');
         $this->props->store($file, 'header');
-        $this->assertFileExists($file->getPath());
-        $this->assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
+        self::assertFileExists($file->getPath());
+        self::assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
         unlink($file->getPath());
     }
 }

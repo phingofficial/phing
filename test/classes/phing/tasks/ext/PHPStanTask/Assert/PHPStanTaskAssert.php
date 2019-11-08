@@ -9,8 +9,8 @@ class PHPStanTaskAssert extends Assert
 
     public function assertDefaults(PHPStanTask $task): void
     {
-        $this->assertEquals('phpstan', $task->getExecutable());
-        $this->assertEquals('analyse', $task->getCommand());
+        self::assertEquals('phpstan', $task->getExecutable());
+        self::assertEquals('analyse', $task->getCommand());
 
         $this->assertCommonDefaults($task);
         $this->assertAnalyseDefaults($task);
@@ -20,39 +20,39 @@ class PHPStanTaskAssert extends Assert
 
     private function assertCommonDefaults(PHPStanTask $task): void
     {
-        $this->assertNull($task->isHelp());
-        $this->assertNull($task->isQuiet());
-        $this->assertNull($task->isVersion());
-        $this->assertNull($task->isANSI());
-        $this->assertNull($task->isNoANSI());
-        $this->assertNull($task->isNoInteraction());
-        $this->assertNull($task->isVerbose());
-        $this->assertNull($task->isCheckreturn());
+        self::assertNull($task->isHelp());
+        self::assertNull($task->isQuiet());
+        self::assertNull($task->isVersion());
+        self::assertNull($task->isANSI());
+        self::assertNull($task->isNoANSI());
+        self::assertNull($task->isNoInteraction());
+        self::assertNull($task->isVerbose());
+        self::assertNull($task->isCheckreturn());
     }
 
     private function assertAnalyseDefaults(PHPStanTask $task): void
     {
-        $this->assertNull($task->getConfiguration());
-        $this->assertNull($task->getLevel());
-        $this->assertNull($task->isNoProgress());
-        $this->assertNull($task->isDebug());
-        $this->assertNull($task->getAutoloadFile());
-        $this->assertNull($task->getErrorFormat());
-        $this->assertNull($task->getMemoryLimit());
-        $this->assertNull($task->getPaths());
+        self::assertNull($task->getConfiguration());
+        self::assertNull($task->getLevel());
+        self::assertNull($task->isNoProgress());
+        self::assertNull($task->isDebug());
+        self::assertNull($task->getAutoloadFile());
+        self::assertNull($task->getErrorFormat());
+        self::assertNull($task->getMemoryLimit());
+        self::assertNull($task->getPaths());
     }
 
     private function assertHelpDefaults(PHPStanTask $task): void
     {
-        $this->assertNull($task->getFormat());
-        $this->assertNull($task->isRaw());
-        $this->assertNull($task->getCommandName());
+        self::assertNull($task->getFormat());
+        self::assertNull($task->isRaw());
+        self::assertNull($task->getCommandName());
     }
 
     private function assertListDefaults(PHPStanTask $task): void
     {
-        $this->assertNull($task->getFormat());
-        $this->assertNull($task->isRaw());
-        $this->assertNull($task->getNamespace());
+        self::assertNull($task->getFormat());
+        self::assertNull($task->isRaw());
+        self::assertNull($task->getNamespace());
     }
 }

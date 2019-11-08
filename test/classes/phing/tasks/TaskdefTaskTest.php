@@ -43,20 +43,12 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectBuildException("noClassname", "required argument not specified");
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testClassNotFound()
     {
-        try {
-            $this->executeTarget("classNotFound");
-            $this->fail(
-                "Should throw ConfigurationException because: " .
-                "classname specified doesn't exist"
-            );
-        } catch (ConfigurationException $e) {
-            //ignored
-        }
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('');
+
+        $this->executeTarget("classNotFound");
     }
 
     public function testGlobal()
@@ -64,8 +56,8 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testGlobal", "simpletask: testGlobal echo");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
-        $this->assertNotNull("ref is not null");
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        self::assertNotNull("ref is not null");
+        self::assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 
     public function testLocal()
@@ -73,8 +65,8 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testLocal", "Task local will be handled by class example.tasks.TaskdefTestSimpleTask");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
-        $this->assertNotNull("ref is not null");
-        $this->assertInstanceOf('TaskdefTestSimpleTask', $ref);
+        self::assertNotNull("ref is not null");
+        self::assertInstanceOf('TaskdefTestSimpleTask', $ref);
     }
 
     public function tesFile()
@@ -82,10 +74,10 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectLog("testFile", "simpletask: testTdfile echo");
         $refs = $this->project->getReferences();
         $ref = $refs["tdfile"];
-        $this->assertNotNull("ref is not null");
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        self::assertNotNull("ref is not null");
+        self::assertEquals("TaskdefTestSimpleTask", get_class($ref));
         $ref = $refs["tdfile2"];
-        $this->assertNotNull("ref is not null");
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        self::assertNotNull("ref is not null");
+        self::assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 }

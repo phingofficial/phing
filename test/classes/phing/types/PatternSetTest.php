@@ -1,6 +1,9 @@
 <?php
 class PatternSetTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var PatternSet
+     */
     private $patternset;
 
     protected function setUp(): void
@@ -11,8 +14,8 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
     public function testBothEmpty()
     {
         $s = "" . $this->patternset;
-        $this->assertEquals($s, "patternSet{ includes: empty  excludes: empty }");
-        $this->assertEquals(false, $this->patternset->hasPatterns());
+        self::assertEquals($s, "patternSet{ includes: empty  excludes: empty }");
+        self::assertEquals(false, $this->patternset->hasPatterns());
     }
 
     /**

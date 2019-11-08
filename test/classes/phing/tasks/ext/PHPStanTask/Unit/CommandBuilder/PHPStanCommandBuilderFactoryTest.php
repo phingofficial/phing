@@ -22,7 +22,7 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
     }
 
     public function testItCanCreateAnalyzeCommandBuilder(): void
@@ -32,7 +32,7 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
     }
 
     public function testItCanCreateListCommandBuilder(): void
@@ -42,7 +42,7 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanListCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanListCommandBuilder::class, $builder);
     }
 
     public function testItCanCreateHelpCommandBuilder(): void
@@ -52,7 +52,7 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanHelpCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanHelpCommandBuilder::class, $builder);
     }
 
     /**

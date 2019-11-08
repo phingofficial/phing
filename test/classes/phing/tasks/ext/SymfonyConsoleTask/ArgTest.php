@@ -53,7 +53,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setName('foo');
-        $this->assertEquals('foo', $o->getName());
+        self::assertEquals('foo', $o->getName());
     }
 
     /**
@@ -64,7 +64,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setValue('foo');
-        $this->assertEquals('foo', $o->getValue());
+        self::assertEquals('foo', $o->getValue());
     }
 
     /**
@@ -75,7 +75,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setQuotes(true);
-        $this->assertEquals(true, $o->getQuotes());
+        self::assertEquals(true, $o->getQuotes());
     }
 
     /**
@@ -88,7 +88,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
         $o->setValue('value');
         $o->setQuotes(true);
 
-        $this->assertEquals('--name="value"', '' . $o);
+        self::assertEquals('--name="value"', '' . $o);
     }
 
     /**
@@ -101,7 +101,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
         $o->setValue('value');
         $o->setQuotes(false);
 
-        $this->assertEquals('--name=value', '' . $o);
+        self::assertEquals('--name=value', '' . $o);
     }
 
     /**
@@ -113,7 +113,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
         $o->setName('name');
         $o->setQuotes(false);
 
-        $this->assertEquals('--name', '' . $o);
+        self::assertEquals('--name', '' . $o);
     }
 
     /**
@@ -125,7 +125,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
         $o->setValue('value');
         $o->setQuotes(false);
 
-        $this->assertEquals('value', '' . $o);
+        self::assertEquals('value', '' . $o);
     }
 
     /**
@@ -137,6 +137,6 @@ class ArgTest extends \PHPUnit\Framework\TestCase
         $o->setValue('value');
         $o->setQuotes(true);
 
-        $this->assertEquals('"value"', '' . $o);
+        self::assertEquals('"value"', '' . $o);
     }
 }

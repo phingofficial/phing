@@ -91,7 +91,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
     public function test_propertyWithColonAndWithWhitespace()
@@ -101,7 +101,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
     public function test_propertyWithEqualsSignAndWithoutWhitespace()
@@ -111,7 +111,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
     public function test_propertyWithEqualsSignAndWithWhitespace()
@@ -121,7 +121,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
     public function test_commentAtBeginOfLine()
@@ -149,7 +149,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('This is a multi-line comment.', $properties);
+        self::assertContains('This is a multi-line comment.', $properties);
     }
 
     public function test_propertyEndsWithABackSlash()
@@ -160,8 +160,8 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $this->assertArrayHasKey('foo', $properties);
         $this->assertArrayHasKey('bar', $properties);
-        $this->assertContains('This is not a multi-line property, but ends with a backslash\\', $properties);
-        $this->assertContains('baz', $properties);
+        self::assertContains('This is not a multi-line property, but ends with a backslash\\', $properties);
+        self::assertContains('baz', $properties);
     }
 
     public function test_propertyHasMultiLineValue_intermediateLineIsEmpty()
@@ -171,6 +171,6 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('This is a multi-line comment.', $properties);
+        self::assertContains('This is a multi-line comment.', $properties);
     }
 }

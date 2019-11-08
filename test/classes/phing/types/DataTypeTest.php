@@ -24,6 +24,9 @@
  */
 class DataTypeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var DataType
+     */
     private $datatype;
 
     protected function setUp(): void
@@ -71,6 +74,6 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     {
         $str = "";
         $str .= $this->datatype;
-        $this->assertEquals("DataType", $str);
+        self::assertEquals("DataType", $str);
     }
 }

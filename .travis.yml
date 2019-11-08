@@ -30,6 +30,7 @@ stages:
   - test with coverage
 
 before_install:
+  - stty cols 130
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
   - phpenv config-add .travis.php.ini
   - phpenv rehash
@@ -54,6 +55,7 @@ install:
     fi
 
 script:
+  - bin/phpunit -c test/phpunit.xml --colors --columns 119 --no-coverage
   - echo "=== TESTING PHING ==="
   - cd test
   - ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
@@ -73,6 +75,7 @@ jobs:
       php: 7.2
       env: DEPS="NORMAL"
       before_install:
+        - stty cols 130
         - phpenv config-add .travis.php.ini
         - phpenv rehash
         - echo 'opcache.enable=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
@@ -86,6 +89,7 @@ jobs:
         - git config --global user.name "Phing Travis Builder"
         - composer self-update
       script:
+        - bin/phpunit -c test/phpunit.xml --colors --columns 119 --coverage-text
         - echo "=== TESTING PHING ==="
         - cd test
         - ../bin/phing -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"

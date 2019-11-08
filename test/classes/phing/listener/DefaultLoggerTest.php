@@ -34,7 +34,7 @@ class DefaultLoggerTest extends TestCase
     public function throwableMessageOne()
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
-        $this->assertEquals('build.xml:1:0 oops' . PHP_EOL, static::msg($be, false));
+        self::assertEquals('build.xml:1:0 oops' . PHP_EOL, static::msg($be, false));
     }
 
     /**
@@ -44,7 +44,7 @@ class DefaultLoggerTest extends TestCase
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 2, 0));
-        $this->assertEquals(
+        self::assertEquals(
             'build.xml:2:0 The following error occurred while executing this line:' . PHP_EOL .
             'build.xml:1:0 oops' . PHP_EOL,
             static::msg($be, false)
@@ -59,7 +59,7 @@ class DefaultLoggerTest extends TestCase
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 2, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 3, 0));
-        $this->assertEquals(
+        self::assertEquals(
             'build.xml:3:0 The following error occurred while executing this line:' . PHP_EOL .
             'build.xml:2:0 The following error occurred while executing this line:' . PHP_EOL .
             'build.xml:1:0 oops' . PHP_EOL,

@@ -41,11 +41,11 @@ class AttribTaskTest extends BuildFileTest
         $this->executeTarget("clean");
     }
 
+    /**
+     * @requires OS WIN32|WINNT
+     */
     public function testAttrib()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped('Windows only test.');
-        }
         $this->executeTarget(__FUNCTION__);
 
         /** @var Project $project */

@@ -33,11 +33,6 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped(
-                'Testing not on a windows os.'
-            );
-        }
         $this->fs = $this->createFileSystem();
     }
 
@@ -45,12 +40,12 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     public function testGetSeparatorReturnsCorrect()
     {
-        $this->assertSame('\\', $this->fs->getSeparator());
+        self::assertSame('\\', $this->fs->getSeparator());
     }
 
     public function testGetPathSeparatorReturnsCorrect()
     {
-        $this->assertSame(';', $this->fs->getPathSeparator());
+        self::assertSame(';', $this->fs->getPathSeparator());
     }
 
     /**
@@ -62,7 +57,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     {
         $normalisedPath = $this->fs->normalize($path);
 
-        $this->assertSame($expected, $normalisedPath);
+        self::assertSame($expected, $normalisedPath);
     }
 
     public function normaliseDataProvider()
@@ -82,14 +77,14 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider prefixLengthDataPRovider
-     * @param type $expected
-     * @param type $pathname
+     * @param int $expected
+     * @param string $pathname
      */
-    public function testPrefixLength($expected, $pathname)
+    public function testPrefixLength(int $expected, string $pathname)
     {
         $length = $this->fs->prefixLength($pathname);
 
-        $this->assertSame($expected, $length);
+        self::assertSame($expected, $length);
     }
 
     public function prefixLengthDataProvider()
@@ -112,11 +107,11 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
      * @param string $parent
      * @param string $child
      */
-    public function testResolve($expected, $parent, $child)
+    public function testResolve(string $expected, string $parent, string $child)
     {
         $resolved = $this->fs->resolve($parent, $child);
 
-        $this->assertSame($expected, $resolved);
+        self::assertSame($expected, $resolved);
     }
 
     public function resolveDataProvider()
@@ -137,15 +132,16 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
      * @param string $path
      * @param string $prefix
      */
-    public function testResolveFile($expected, $path, $prefix)
+    public function testResolveFile(string $expected, string $path, string $prefix)
     {
-        $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
+        $file = $this->getMockBuilder(PhingFile::class)->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
         $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue($prefix));
 
+        /** @var PhingFile $file */
         $resolved = $this->fs->resolveFile($file);
 
-        $this->assertSame($expected, $resolved);
+        self::assertSame($expected, $resolved);
     }
 
     public function resolveFileDataProvider()
@@ -176,10 +172,11 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Unresolvable path: file.txt');
 
-        $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
+        $file = $this->getMockBuilder(PhingFile::class)->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue('file.txt'));
         $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue(5));
 
+        /** @var PhingFile $file */
         $this->fs->resolveFile($file);
     }
 
@@ -187,19 +184,19 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     {
         $parent = $this->fs->getDefaultParent();
 
-        $this->assertSame('\\', $parent);
+        self::assertSame('\\', $parent);
     }
 
     /**
      * @dataProvider fromURIPathDataProvider
-     * @param type $expected
-     * @param type $path
+     * @param string $expected
+     * @param string $path
      */
-    public function testFromURIPath($expected, $path)
+    public function testFromURIPath(string $expected, string $path)
     {
         $resultPath = $this->fs->fromURIPath($path);
 
-        $this->assertSame($expected, $resultPath);
+        self::assertSame($expected, $resultPath);
     }
 
     public function fromURIPathDataProvider()
@@ -207,7 +204,6 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
         return [
             'singleLetter' => ['f', 'f'],
             'slashStart' => ['/foo', '/foo/'],
-            'driveLetter' => ['c:/foo', '/c:/foo'],
             'driveLetter' => ['c:/foo', '/c:/foo'],
             'slashPath' => ['c:/foo', 'c:/foo/'],
             'slashPathRootDrive' => ['c:/', '/c:/']
@@ -220,15 +216,16 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
      * @param string $path
      * @param int $prefix
      */
-    public function testIsAbsolute($expected, $path, $prefix)
+    public function testIsAbsolute(bool $expected, string $path, int $prefix)
     {
-        $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
+        $file = $this->getMockBuilder(PhingFile::class)->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
         $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue($prefix));
 
+        /** @var PhingFile $file */
         $is = $this->fs->isAbsolute($file);
 
-        $this->assertSame($expected, $is);
+        self::assertSame($expected, $is);
     }
 
     public function isAbsoluteDataProvider()

@@ -35,7 +35,7 @@ class PHPCPDTaskTest extends BuildFileTest
     public function testFormatterOutfile()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
@@ -44,7 +44,7 @@ class PHPCPDTaskTest extends BuildFileTest
     public function testFormatterPMD()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
@@ -55,6 +55,6 @@ class PHPCPDTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("No clones found.\n\n", $output);
+        self::assertContains("No clones found.\n\n", $output);
     }
 }

@@ -46,6 +46,6 @@ class ManifestTaskTest extends BuildFileTest
         $hash = md5("salty" . "File1");
         $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
         $this->assertInLogs("Writing to " . $manifestFile);
-        $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
+        self::assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
     }
 }

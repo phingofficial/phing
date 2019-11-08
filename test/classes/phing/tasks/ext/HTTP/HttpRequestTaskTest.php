@@ -75,8 +75,8 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->copyTasksAddingCustomRequest('post', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $this->assertEquals('POST', $trace->requests[0]['method']);
-        $this->assertEquals('foo=bar&baz=quux', $trace->requests[0]['body']);
+        self::assertEquals('POST', $trace->requests[0]['method']);
+        self::assertEquals('foo=bar&baz=quux', $trace->requests[0]['body']);
     }
 
     public function testAuthentication()
@@ -86,7 +86,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->copyTasksAddingCustomRequest('authentication', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $this->assertEquals(
+        self::assertEquals(
             ['user' => 'luser', 'password' => 'secret', 'scheme' => 'digest'],
             $trace->requests[0]['auth']
         );
@@ -99,8 +99,8 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->copyTasksAddingCustomRequest('nested-tags', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $this->assertEquals(10, $trace->requests[0]['config']['timeout']);
-        $this->assertEquals('Phing HttpRequestTask', $trace->requests[0]['headers']['user-agent']);
+        self::assertEquals(10, $trace->requests[0]['config']['timeout']);
+        self::assertEquals('Phing HttpRequestTask', $trace->requests[0]['headers']['user-agent']);
     }
 
     public function testConfigurationViaProperties()
@@ -116,6 +116,6 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
             ]
         );
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        self::assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 }

@@ -113,7 +113,7 @@ abstract class FileSystem
      *
      * @param string $strPath
      */
-    abstract public function normalize($strPath);
+    abstract public function normalize(string $strPath);
 
     /**
      * Compute the length of this pathname string's prefix.  The pathname
@@ -121,7 +121,7 @@ abstract class FileSystem
      *
      * @param string $pathname
      */
-    abstract public function prefixLength($pathname);
+    abstract public function prefixLength(string $pathname): int;
 
     /**
      * Resolve the child pathname string against the parent.
@@ -131,7 +131,7 @@ abstract class FileSystem
      * @param string $parent
      * @param string $child
      */
-    abstract public function resolve($parent, $child);
+    abstract public function resolve(string $parent, string $child);
 
     /**
      * Resolve the given abstract pathname into absolute form.  Invoked by the
@@ -156,7 +156,7 @@ abstract class FileSystem
      *
      * @param string $path
      */
-    abstract public function fromURIPath($path);
+    abstract public function fromURIPath(string $path): string;
 
     /* -- Path operations -- */
 
@@ -173,7 +173,7 @@ abstract class FileSystem
      * @param  string $strPath
      * @return mixed  Canonical path or false if the file doesn't exist.
      */
-    public function canonicalize($strPath)
+    public function canonicalize(string $strPath)
     {
         return @realpath($strPath);
     }
@@ -192,7 +192,7 @@ abstract class FileSystem
      * @param  boolean $write
      * @return bool
      */
-    public function checkAccess(PhingFile $f, $write = false)
+    public function checkAccess(PhingFile $f, bool $write = false)
     {
         // we clear stat cache, its expensive to look up from scratch,
         // but we need to be sure
@@ -313,7 +313,7 @@ abstract class FileSystem
      * @throws IOException
      * @return boolean
      */
-    public function createNewFile($strPathname)
+    public function createNewFile(string $strPathname): bool
     {
         if (@file_exists($strPathname)) {
             return false;
@@ -338,7 +338,7 @@ abstract class FileSystem
      * @param  boolean $recursive
      * @throws IOException
      */
-    public function delete(PhingFile $f, $recursive = false)
+    public function delete(PhingFile $f, bool $recursive = false)
     {
         if ($f->isDirectory()) {
             $this->rmdir($f->getPath(), $recursive);
@@ -377,7 +377,7 @@ abstract class FileSystem
      * @param  int $mode
      * @return boolean
      */
-    public function createDirectory(&$f, $mode = 0755)
+    public function createDirectory(&$f, int $mode = 0755)
     {
         $old_umask = umask(0);
         $return = @mkdir($f->getAbsolutePath(), $mode);
@@ -420,7 +420,7 @@ abstract class FileSystem
      * @return void
      * @throws IOException
      */
-    public function setLastModifiedTime(PhingFile $f, $time)
+    public function setLastModifiedTime(PhingFile $f, int $time)
     {
         error_clear_last();
         $path = $f->getPath();

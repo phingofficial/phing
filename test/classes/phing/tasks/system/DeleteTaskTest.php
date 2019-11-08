@@ -43,7 +43,7 @@ class DeleteTaskTest extends BuildFileTest
     public function testCopyDanglingSymlink()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Dangling symlinks don't work on Windows");
+            self::markTestSkipped("Dangling symlinks don't work on Windows");
         }
 
         $this->executeTarget("testDeleteDanglingSymlink");
@@ -68,8 +68,8 @@ class DeleteTaskTest extends BuildFileTest
         $dir3 = $tmpDir . '/test-three';
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertDirectoryNotExists($dir1);
-        $this->assertDirectoryNotExists($dir2);
-        $this->assertDirectoryNotExists($dir3);
+        self::assertDirectoryNotExists($dir1);
+        self::assertDirectoryNotExists($dir2);
+        self::assertDirectoryNotExists($dir3);
     }
 }

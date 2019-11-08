@@ -44,7 +44,7 @@ class SymlinkTaskTest extends BuildFileTest
     public function testSymlinkExists()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake1",
+        self::assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake1",
             readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
         $this->assertInLogs("Link exists: ");
     }
@@ -52,7 +52,7 @@ class SymlinkTaskTest extends BuildFileTest
     public function testOverwritingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake2",
+        self::assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake2",
             readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
         $this->assertInLogs("Link removed: ");
     }
@@ -60,7 +60,7 @@ class SymlinkTaskTest extends BuildFileTest
     public function testOverwritingDirectory()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake1",
+        self::assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake1",
             readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
         $this->assertInLogs("Directory removed: ");
     }
@@ -68,7 +68,7 @@ class SymlinkTaskTest extends BuildFileTest
     public function testNotOverwritingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake1",
+        self::assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake1",
             readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
         $this->assertInLogs("Not overwriting existing link");
     }
@@ -77,7 +77,7 @@ class SymlinkTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Link removed: ");
-        $this->assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake2",
+        self::assertEquals(PHING_TEST_BASE . "/etc/tasks/ext/tmp/fake2",
             readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
     }
 }

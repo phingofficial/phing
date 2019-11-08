@@ -47,21 +47,21 @@ class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
         $f1 = new PhingFile(__FILE__);
         $f2 = new PhingFile(__FILE__);
 
-        $this->assertEquals($this->fs->compare($f1, $f2), 0);
+        self::assertEquals($this->fs->compare($f1, $f2), 0);
     }
 
     public function testHomeDirectory1()
     {
-        $this->assertEquals($this->fs->normalize('~/test'), '~/test');
+        self::assertEquals($this->fs->normalize('~/test'), '~/test');
     }
 
     public function testHomeDirectory2()
     {
-        $this->assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
+        self::assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
     }
 
     public function testHomeDirectory3()
     {
-        $this->assertEquals($this->fs->normalize('~test'), '~test');
+        self::assertEquals($this->fs->normalize('~test'), '~test');
     }
 }

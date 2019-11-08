@@ -266,7 +266,7 @@ class WindowsFileSystem extends FileSystem
      * @param string $strPath
      * @return int
      */
-    public function prefixLength($strPath)
+    public function prefixLength(string $strPath): int
     {
         if ($this->_isPharArchive($strPath)) {
             return 0;
@@ -348,26 +348,25 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * @param string $strPath
+     * @param string $path
      * @return string
      */
-    public function fromURIPath($strPath)
+    public function fromURIPath(string $path): string
     {
-        $p = (string) $strPath;
-        if ((strlen($p) > 2) && ($p[2] === ':')) {
+        if ((strlen($path) > 2) && ($path[2] === ':')) {
             // "/c:/foo" --> "c:/foo"
-            $p = substr($p, 1);
+            $path = substr($path, 1);
 
             // "c:/foo/" --> "c:/foo", but "c:/" --> "c:/"
-            if ((strlen($p) > 3) && StringHelper::endsWith('/', $p)) {
-                $p = substr($p, 0, strlen($p) - 1);
+            if ((strlen($path) > 3) && StringHelper::endsWith('/', $path)) {
+                $path = substr($path, 0, strlen($path) - 1);
             }
-        } elseif ((strlen($p) > 1) && StringHelper::endsWith('/', $p)) {
+        } elseif ((strlen($path) > 1) && StringHelper::endsWith('/', $path)) {
             // "/foo/" --> "/foo"
-            $p = substr($p, 0, strlen($p) - 1);
+            $path = substr($path, 0, strlen($path) - 1);
         }
 
-        return (string) $p;
+        return $path;
     }
 
     /* -- Path operations -- */

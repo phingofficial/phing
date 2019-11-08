@@ -43,40 +43,40 @@ class TruncateTaskTest extends BuildFileTest
     public function testBasic()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.basic.length'), 0);
+        self::assertSame($this->getProject()->getProperty('test.basic.length'), 0);
     }
 
     public function testExplicit()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.explicit.length'), 1034);
+        self::assertSame($this->getProject()->getProperty('test.explicit.length'), 1034);
     }
 
     public function testExtend()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.extend.length'), 5);
-        $this->assertSame($this->getProject()->getProperty('test.extend.adjust.length'), 10);
+        self::assertSame($this->getProject()->getProperty('test.extend.length'), 5);
+        self::assertSame($this->getProject()->getProperty('test.extend.adjust.length'), 10);
     }
 
     public function testTruncate()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.truncate.length'), 5);
-        $this->assertSame($this->getProject()->getProperty('test.truncate.adjust.length'), 0);
+        self::assertSame($this->getProject()->getProperty('test.truncate.length'), 5);
+        self::assertSame($this->getProject()->getProperty('test.truncate.adjust.length'), 0);
     }
 
     public function testNoCreate()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/foo');
+        self::assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/foo');
     }
 
     public function testMkdirs()
     {
-        $this->assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/baz');
+        self::assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/baz');
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.mkdirs.length'), 0);
+        self::assertSame($this->getProject()->getProperty('test.mkdirs.length'), 0);
     }
 
     /**

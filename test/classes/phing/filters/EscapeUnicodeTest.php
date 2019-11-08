@@ -23,7 +23,10 @@
  */
 class EscapeUnicodeTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
     public function setUp(): void
     {
@@ -42,6 +45,6 @@ class EscapeUnicodeTest extends BuildFileTest
 
         $expected = $this->getProject()->resolveFile("expected/escapeunicode.test");
         $result = $this->getProject()->resolveFile("result/escapeunicode.test");
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

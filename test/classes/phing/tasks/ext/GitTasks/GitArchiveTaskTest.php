@@ -45,7 +45,7 @@ class GitArchiveTaskTest extends BuildFileTest
         $this->executeTarget('gitArchive');
         $this->assertInLogs('git-archive:');
         $this->assertInLogs('repository (HEAD)', Project::MSG_DEBUG);
-        $this->assertFileExists($this->getProject()->getProperty('tmp.dir.resolved') . '/output.zip');
+        self::assertFileExists($this->getProject()->getProperty('tmp.dir.resolved') . '/output.zip');
     }
 
     public function testWrongRepository()

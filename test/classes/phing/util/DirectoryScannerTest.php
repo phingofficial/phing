@@ -31,6 +31,9 @@
  */
 class DirectoryScannerTest extends BuildFileTest
 {
+    /**
+     * @var string
+     */
     private $_basedir = "";
 
     public function setUp(): void
@@ -62,6 +65,8 @@ class DirectoryScannerTest extends BuildFileTest
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
         $ds->scan();
+
+        self::assertEquals(1, 1); // increase number of positive assertions
     }
 
     public function test1()
@@ -371,7 +376,7 @@ class DirectoryScannerTest extends BuildFileTest
             $includedDirectories = array_values($includedDirectories);
         }
 
-        $this->assertEquals($includedFiles, $expectedFiles);
-        $this->assertEquals($includedDirectories, $expectedDirectories);
+        self::assertEquals($includedFiles, $expectedFiles);
+        self::assertEquals($includedDirectories, $expectedDirectories);
     }
 }

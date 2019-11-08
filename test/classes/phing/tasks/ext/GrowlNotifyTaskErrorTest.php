@@ -64,7 +64,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     public function setUp(): void
     {
         if (!class_exists('Net_Growl')) {
-            $this->markTestSkipped("Need Net_Growl installed to test");
+            self::markTestSkipped("Need Net_Growl installed to test");
 
             return;
         }
@@ -130,7 +130,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {
-            $this->fail(
+            self::fail(
                 $e->getMessage() . ' exception has been raised while not expected.'
             );
         }
@@ -147,7 +147,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {
-            $this->fail(
+            self::fail(
                 $e->getMessage() . ' exception has been raised while not expected.'
             );
         }
@@ -164,7 +164,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {
-            $this->fail(
+            self::fail(
                 $e->getMessage() . ' exception has been raised while not expected.'
             );
         }
@@ -181,7 +181,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {
-            $this->fail(
+            self::fail(
                 $e->getMessage() . ' exception has been raised while not expected.'
             );
         }
@@ -198,9 +198,11 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {
-            $this->fail(
+            self::fail(
                 $e->getMessage() . ' exception has been raised while not expected.'
             );
         }
+
+        self::assertEquals(1, 1); // increase number of positive assertions
     }
 }

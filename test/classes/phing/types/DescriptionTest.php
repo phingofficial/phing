@@ -30,10 +30,10 @@ class DescriptionTest extends \PHPUnit\Framework\TestCase
         $project = new Project();
         $text = "project description";
         $project->setDescription("project description");
-        $this->assertEquals($text, $project->getDescription());
+        self::assertEquals($text, $project->getDescription());
 
         $description->setProject($project);
         $description->addText("appended");
-        $this->assertEquals("{$text}appended", $project->getDescription());
+        self::assertEquals("{$text}appended", $project->getDescription());
     }
 }

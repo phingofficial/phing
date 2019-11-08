@@ -38,5 +38,7 @@ class XsltTaskTest extends BuildFileTest
     public function testHtmlButNotValidXml(): void
     {
         $this->executeTarget(__FUNCTION__);
+
+        self::assertEquals(1, 1); // increase number of positive assertions
     }
 }

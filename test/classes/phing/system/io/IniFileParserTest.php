@@ -26,7 +26,14 @@
  */
 class IniFileParserTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var IniFileParser
+     */
     private $parser;
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
     private $root;
 
     protected function setUp(): void
@@ -46,7 +53,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
         file_put_contents($file, $data);
 
         $phingFile = new PhingFile($file);
-        $this->assertSame($expected, $this->parser->parseFile($phingFile));
+        self::assertSame($expected, $this->parser->parseFile($phingFile));
     }
 
     /**

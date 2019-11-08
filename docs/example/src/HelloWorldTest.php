@@ -14,6 +14,6 @@
         public function testSayHello()
         {
             $hello = new HelloWorld();
-            $this->assertEquals("Hello World!", $hello->sayHello());
+            self::assertEquals("Hello World!", $hello->sayHello());
         }
     }

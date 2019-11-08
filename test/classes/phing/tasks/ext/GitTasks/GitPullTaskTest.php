@@ -48,25 +48,29 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testAllParamsSet()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        self::markTestIncomplete();
+
+        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
         $this->assertInLogs('git-pull output: Updating 6dbaf45..6ad2ea3');
         // make sure that foofile from foobranch made it to master
-        $this->assertTrue(is_readable($repository . '/foofile'));*/
+        self::assertTrue(is_readable($repository . '/foofile'));
     }
 
     public function testAllParamsSetRebase()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        self::markTestIncomplete();
+
+        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSetRebase');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
         $this->assertInLogs('git-pull output: First, rewinding head to replay your work on top of it...');
         $this->assertInLogs('Fast-forwarded master to 6ad2ea37a26ce3534073e89043f890c054fddb20.');
         // make sure that foofile from foobranch made it to master
-        $this->assertTrue(is_readable($repository . '/foofile'));*/
+        self::assertTrue(is_readable($repository . '/foofile'));
     }
 
     public function testAllReposSet()
@@ -79,13 +83,15 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testTagsSet()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        self::markTestIncomplete();
+
+        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('tagsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
         $this->assertInLogs('git-pull output: Updating 6dbaf45..6ad2ea3');
         // make sure that foofile from foobranch made it to master
-        $this->assertTrue(is_readable($repository . '/foofile'));*/
+        self::assertTrue(is_readable($repository . '/foofile'));
     }
 
     public function testAppendSet()
@@ -98,13 +104,15 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testNoTagsSet()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        self::markTestIncomplete();
+
+        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noTagsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
         $this->assertInLogs('git-pull output: Updating 6dbaf45..6ad2ea3');
         // make sure that foofile from foobranch made it to master
-        $this->assertTrue(is_readable($repository . '/foofile'));*/
+        self::assertTrue(is_readable($repository . '/foofile'));
     }
 
     public function testNoRepositorySpecified()

@@ -30,7 +30,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     /**
      * @var SymfonyConsoleTask
      */
-    protected $object;
+    private $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -57,7 +57,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setCommand('foo');
-        $this->assertEquals('foo', $o->getCommand());
+        self::assertEquals('foo', $o->getCommand());
     }
 
     /**
@@ -68,7 +68,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setConsole('foo');
-        $this->assertEquals('foo', $o->getConsole());
+        self::assertEquals('foo', $o->getConsole());
     }
 
     /**
@@ -79,7 +79,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setDebug(false);
-        $this->assertEquals(false, $o->getDebug());
+        self::assertEquals(false, $o->getDebug());
     }
 
     /**
@@ -90,7 +90,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setSilent(true);
-        $this->assertTrue($o->getSilent());
+        self::assertTrue($o->getSilent());
     }
 
     /**
@@ -100,7 +100,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $arg = $o->createArg();
-        $this->assertTrue(get_class($arg) == 'Arg');
+        self::assertTrue(get_class($arg) == 'Arg');
     }
 
     /**
@@ -109,10 +109,10 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     public function testGetArgs()
     {
         $o = $this->object;
-        $arg = $o->createArg();
-        $arg = $o->createArg();
-        $arg = $o->createArg();
-        $this->assertCount(3, $o->getArgs());
+        $o->createArg();
+        $o->createArg();
+        $o->createArg();
+        self::assertCount(3, $o->getArgs());
     }
 
     /**
@@ -131,7 +131,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 
         $ret = "console command --name=value";
 
-        $this->assertEquals($ret, $o->getCmdString());
+        self::assertEquals($ret, $o->getCmdString());
     }
 
     /**
@@ -150,7 +150,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 
         $ret = "console command --name=value --no-debug";
 
-        $this->assertEquals($ret, $o->getCmdString());
+        self::assertEquals($ret, $o->getCmdString());
     }
 
     /**
@@ -168,6 +168,6 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 
         $ret = "console command --no-debug";
 
-        $this->assertEquals($ret, $o->getCmdString());
+        self::assertEquals($ret, $o->getCmdString());
     }
 }

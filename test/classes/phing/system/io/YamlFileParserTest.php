@@ -47,7 +47,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         if (!class_exists('\Symfony\Component\Yaml\Parser')) {
-            $this->markTestSkipped('Yaml parser is not installed.');
+            self::markTestSkipped('Yaml parser is not installed.');
             exit;
         }
         $this->yamlFileStub = PHING_TEST_BASE . "/etc/system/io/config.yml";
@@ -97,14 +97,14 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
         $file = new PhingFile($this->yamlFileStub);
         $properties = $this->objectToTest->parseFile($file);
 
-        $this->assertEquals('testvalue', $properties['testarea']);
-        $this->assertEquals(1, $properties['testarea1.testkey1']);
-        $this->assertEquals(2, $properties['testarea1.testkey2']);
-        $this->assertEquals('testvalue1,testvalue2,testvalue3', $properties['testarea2']);
-        $this->assertEquals(false, $properties['testarea3']);
-        $this->assertEquals(true, $properties['testarea4']);
-        $this->assertEquals('testvalue1', $properties['testarea6.testkey1.testkey1']);
-        $this->assertEquals('testvalue2', $properties['testarea6.testkey1.testkey2']);
-        $this->assertEquals('testvalue1', $properties['testarea6.testkey2.testkey1']);
+        self::assertEquals('testvalue', $properties['testarea']);
+        self::assertEquals(1, $properties['testarea1.testkey1']);
+        self::assertEquals(2, $properties['testarea1.testkey2']);
+        self::assertEquals('testvalue1,testvalue2,testvalue3', $properties['testarea2']);
+        self::assertEquals(false, $properties['testarea3']);
+        self::assertEquals(true, $properties['testarea4']);
+        self::assertEquals('testvalue1', $properties['testarea6.testkey1.testkey1']);
+        self::assertEquals('testvalue2', $properties['testarea6.testkey1.testkey2']);
+        self::assertEquals('testvalue1', $properties['testarea6.testkey2.testkey1']);
     }
 }

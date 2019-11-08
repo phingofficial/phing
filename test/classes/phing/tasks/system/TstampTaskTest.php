@@ -67,6 +67,6 @@ class TstampTaskTest extends BuildFileTest
         $this->tstamp->setPrefix('prefix');
         $this->tstamp->main();
         $prop = $this->project->getProperty('prefix.DSTAMP');
-        $this->assertNotNull($prop);
+        self::assertNotNull($prop);
     }
 }

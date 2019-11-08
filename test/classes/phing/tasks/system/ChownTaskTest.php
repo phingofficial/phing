@@ -40,7 +40,7 @@ class ChownTaskTest extends BuildFileTest
     public function testChangeGroup()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("chown tests don't work on Windows");
+            self::markTestSkipped("chown tests don't work on Windows");
         }
 
         $userinfo = posix_getpwuid(posix_geteuid());
@@ -64,7 +64,7 @@ class ChownTaskTest extends BuildFileTest
             }
         }
         if ($group === null) {
-            $this->markTestSkipped('found no group we can change ownership to');
+            self::markTestSkipped('found no group we can change ownership to');
         }
 
         $this->project->setUserProperty(
@@ -80,7 +80,7 @@ class ChownTaskTest extends BuildFileTest
             $a['gid'],
             'chowntestA group should not have changed'
         );
-        $this->assertEquals(
+        self::assertEquals(
             $group['gid'],
             $b['gid'],
             'chowntestB group should have changed'

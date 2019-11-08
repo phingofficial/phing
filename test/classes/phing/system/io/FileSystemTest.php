@@ -26,6 +26,9 @@
  */
 class FileSystemTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var string
+     */
     private $oldFsType = "";
 
     public function setUp(): void
@@ -69,7 +72,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
         $system = FileSystem::getFileSystem();
 
-        $this->assertInstanceOf($expectedFileSystemClass, $system);
+        self::assertInstanceOf($expectedFileSystemClass, $system);
     }
 
     public function fileSystemMappingsDataProvider()
@@ -84,20 +87,20 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which(42);
-        $this->assertEquals($path, false);
+        self::assertEquals($path, false);
     }
 
     public function testWhichFailsDueToUnusualExecutableName()
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('tasword.bin');
-        $this->assertEquals($path, false);
+        self::assertEquals($path, false);
     }
 
     public function testWhichHinkyExecutableNameWithSeparator()
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('zx:\tasword.bin');
-        $this->assertEquals($path, false);
+        self::assertEquals($path, false);
     }
 }

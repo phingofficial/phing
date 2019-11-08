@@ -43,6 +43,6 @@ class WaitForTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('waitfor: timeout');
-        $this->assertEquals('true', $this->project->getProperty('waitfor.timeout'));
+        self::assertEquals('true', $this->project->getProperty('waitfor.timeout'));
     }
 }

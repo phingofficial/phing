@@ -32,7 +32,7 @@ class SassTaskCompilerFactoryTest extends TestCase
 
         $compiler = $factory->prepareCompiler($sassTask);
 
-        $this->assertInstanceOf(SassCompiler::class, $compiler);
+        self::assertInstanceOf(SassCompiler::class, $compiler);
     }
 
     public function testItPrefersSassCompiler(): void
@@ -45,7 +45,7 @@ class SassTaskCompilerFactoryTest extends TestCase
 
         $compiler = $factory->prepareCompiler($sassTask);
 
-        $this->assertInstanceOf(SassCompiler::class, $compiler);
+        self::assertInstanceOf(SassCompiler::class, $compiler);
     }
 
     /**

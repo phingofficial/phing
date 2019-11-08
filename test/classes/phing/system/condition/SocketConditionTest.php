@@ -29,6 +29,6 @@ class SocketConditionTest extends \PHPUnit\Framework\TestCase
         $condition = new SocketCondition();
         $condition->setServer('localhost');
         $condition->setPort(1337);
-        $this->assertFalse($condition->evaluate());
+        self::assertFalse($condition->evaluate());
     }
 }

@@ -22,34 +22,34 @@ class NotifySendTaskTest extends BuildFileTest
     public function testSettingTitle()
     {
         $this->object->setTitle("Test");
-        $this->assertEquals("Test", $this->object->getTitle());
+        self::assertEquals("Test", $this->object->getTitle());
         $this->object->setTitle("Test Again");
-        $this->assertEquals("Test Again", $this->object->getTitle());
+        self::assertEquals("Test Again", $this->object->getTitle());
     }
 
     public function testSettingMsg()
     {
         $this->object->setMsg("Test");
-        $this->assertEquals("Test", $this->object->getMsg());
+        self::assertEquals("Test", $this->object->getMsg());
         $this->object->setMsg("Test Again");
-        $this->assertEquals("Test Again", $this->object->getMsg());
+        self::assertEquals("Test Again", $this->object->getMsg());
     }
 
     public function testSetStandardIcon()
     {
         $this->object->setIcon("info");
-        $this->assertEquals("info", $this->object->getIcon());
+        self::assertEquals("info", $this->object->getIcon());
 
         $this->object->setIcon("error");
-        $this->assertEquals("error", $this->object->getIcon());
+        self::assertEquals("error", $this->object->getIcon());
 
         $this->object->setIcon("warning");
-        $this->assertEquals("warning", $this->object->getIcon());
+        self::assertEquals("warning", $this->object->getIcon());
     }
 
     public function testSetNonStandardIcon()
     {
         $this->object->setIcon("informational");
-        $this->assertEquals("info", $this->object->getIcon());
+        self::assertEquals("info", $this->object->getIcon());
     }
 }

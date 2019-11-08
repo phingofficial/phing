@@ -24,7 +24,10 @@
  */
 class SortFilterTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
     public function setUp(): void
     {
@@ -43,6 +46,6 @@ class SortFilterTest extends BuildFileTest
 
         $expected = $this->getProject()->resolveFile("expected/sortfilter.test");
         $result = $this->getProject()->resolveFile("result/sortfilter.test");
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

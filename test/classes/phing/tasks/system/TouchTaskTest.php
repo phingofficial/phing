@@ -43,7 +43,7 @@ class TouchTaskTest extends BuildFileTest
     public function testSimpleTouch()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/simple-file"
         );
@@ -52,7 +52,7 @@ class TouchTaskTest extends BuildFileTest
     public function testMkdirs()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"
         );
@@ -64,7 +64,7 @@ class TouchTaskTest extends BuildFileTest
     public function testMkdirsFails()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(
+        self::assertFileNotExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"
         );
@@ -73,7 +73,7 @@ class TouchTaskTest extends BuildFileTest
     public function testFilelist()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/simple-file"
         );
@@ -82,7 +82,7 @@ class TouchTaskTest extends BuildFileTest
     public function testFileset()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/simple-file"
         );

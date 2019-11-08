@@ -32,11 +32,6 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     private $objectToTest;
 
     /**
-     * @var string
-     */
-    private $iniFileStub;
-
-    /**
      * @{inheritDoc}
      */
     public function setUp(): void
@@ -58,7 +53,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreateParser($parserName, $expectedType)
     {
-        $this->assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
+        self::assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
     }
 
     /**

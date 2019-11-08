@@ -43,21 +43,21 @@ class MoveTaskTest extends BuildFileTest
     public function testMoveSingleFile()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/fileB');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/fileB');
     }
 
     public function testMoveFileSet()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
+        self::assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
     public function testRenameDirectory()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
+        self::assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
     /**
@@ -80,6 +80,6 @@ class MoveTaskTest extends BuildFileTest
 
         $contents = file_get_contents(PHING_TEST_BASE . "/etc/tasks/system/tmp/anotherfile.bak");
 
-        $this->assertEquals("BAR", $contents);
+        self::assertEquals("BAR", $contents);
     }
 }

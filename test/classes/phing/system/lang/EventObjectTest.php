@@ -40,8 +40,8 @@ class EventObjectTest extends \PHPUnit\Framework\TestCase
 
     public function testEventObject()
     {
-        $this->assertInstanceOf('stdClass', $this->eventObject->getSource());
-        $this->assertSame('EventObject[source=stdClass]', (string) $this->eventObject);
+        self::assertInstanceOf('stdClass', $this->eventObject->getSource());
+        self::assertSame('EventObject[source=stdClass]', (string) $this->eventObject);
     }
 
     /**

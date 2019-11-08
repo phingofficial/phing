@@ -22,15 +22,13 @@
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
+ *
+ * @requires extension sqlite
  */
 class DbDeployTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (!extension_loaded('sqlite')) {
-            $this->markTestSkipped('This test require sqlite extension to be loaded');
-        }
-
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
         $this->executeTarget("prepare");
     }

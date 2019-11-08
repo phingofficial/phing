@@ -43,14 +43,6 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
-    }
-
-    /**
      * @covers ComposerTask::setCommand
      * @covers ComposerTask::getCommand
      */
@@ -58,7 +50,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setCommand('foo');
-        $this->assertEquals('foo', $o->getCommand());
+        self::assertEquals('foo', $o->getCommand());
     }
 
     /**
@@ -69,7 +61,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $o->setPhp('foo');
-        $this->assertEquals('foo', $o->getPhp());
+        self::assertEquals('foo', $o->getPhp());
     }
 
     /**
@@ -85,7 +77,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         if (false === $composerFile->isFile()) {
             $composer = FileSystem::getFileSystem()->which('composer');
         }
-        $this->assertEquals($composer, $o->getComposer());
+        self::assertEquals($composer, $o->getComposer());
     }
 
     /**
@@ -95,7 +87,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $arg = $o->createArg();
-        $this->assertTrue(get_class($arg) == 'CommandlineArgument');
+        self::assertTrue(get_class($arg) == 'CommandlineArgument');
     }
 
     public function testMultipleCalls()
@@ -107,9 +99,9 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $composer = $o->getComposer();
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
+        self::assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php ' . $composer . ' update --dev', (string) $method->invoke($o));
+        self::assertEquals('php ' . $composer . ' update --dev', (string) $method->invoke($o));
     }
 }

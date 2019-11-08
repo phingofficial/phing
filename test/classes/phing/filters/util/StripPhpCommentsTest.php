@@ -27,7 +27,7 @@ class StripPhpCommentsTest extends BuildFileTest
     /**
      * @var FileUtils
      */
-    protected $fu;
+    private $fu;
 
     public function setUp(): void
     {
@@ -50,6 +50,6 @@ class StripPhpCommentsTest extends BuildFileTest
         $expected = file_get_contents($expectedFile->getAbsolutePath());
         $result = file_get_contents($resultFile->getAbsolutePath());
 
-        $this->assertEquals($expected, $result, "Files don't match!");
+        self::assertEquals($expected, $result, "Files don't match!");
     }
 }

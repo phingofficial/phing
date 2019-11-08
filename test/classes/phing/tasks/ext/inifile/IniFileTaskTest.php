@@ -83,7 +83,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('foo in section [test] has been removed.');
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
         $result = file_get_contents($this->inifiletestdir . "/destination.ini");
-        $this->assertEquals($result, "[test]\n; a comment\n");
+        self::assertEquals($result, "[test]\n; a comment\n");
     }
 
     public function testRemoveSectionFromSourceFile()
@@ -96,7 +96,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('[test] has been removed.');
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
         $result = file_get_contents($this->inifiletestdir . "/destination.ini");
-        $this->assertEquals($result, "");
+        self::assertEquals($result, "");
     }
 
     public function testDefaultValueInSecondSection()

@@ -2,6 +2,9 @@
 
 class EnvironmentTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var Environment
+     */
     private $environment;
 
     public function setUp(): void
@@ -12,13 +15,13 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     public function testVariablesNull()
     {
         $count = $this->environment->getVariables();
-        $this->assertNull($count);
+        self::assertNull($count);
     }
 
     public function testVariablesObjectIsArrayObject()
     {
         $variablesObj = $this->environment->getVariablesObject();
-        $this->assertEquals("ArrayObject", get_class($variablesObj));
+        self::assertEquals("ArrayObject", get_class($variablesObj));
     }
 
     /**
@@ -38,6 +41,6 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
         $ev->setValue(" value ");
         $ev->validate();
         $content = $ev->getContent();
-        $this->assertEquals("key=value", $content);
+        self::assertEquals("key=value", $content);
     }
 }

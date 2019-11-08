@@ -25,7 +25,7 @@
  */
 class GitBaseTest extends BuildFileTest
 {
-    protected $mock;
+    private $mock;
 
     public function setUp(): void
     {
@@ -38,7 +38,7 @@ class GitBaseTest extends BuildFileTest
 
     public function testInitialization()
     {
-        $this->assertInstanceOf('GitBaseTask', $this->mock);
+        self::assertInstanceOf(GitBaseTask::class, $this->mock);
     }
 
     /**
@@ -46,6 +46,7 @@ class GitBaseTest extends BuildFileTest
      */
     public function testArguments()
     {
+        self::markTestIncomplete();
     }
 
     public function testMutators()
@@ -53,13 +54,13 @@ class GitBaseTest extends BuildFileTest
         // gitPath
         $gitPath = $this->mock->getGitPath();
         $this->mock->setGitPath('my-new-path');
-        $this->assertEquals('my-new-path', $this->mock->getGitPath());
+        self::assertEquals('my-new-path', $this->mock->getGitPath());
         $this->mock->setGitPath($gitPath);
 
         // repository
         $repository = $this->mock->getRepository();
         $this->mock->setRepository('/tmp');
-        $this->assertEquals('/tmp', $this->mock->getRepository());
+        self::assertEquals('/tmp', $this->mock->getRepository());
         $this->mock->setRepository($repository);
     }
 }

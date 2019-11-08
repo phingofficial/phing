@@ -51,8 +51,8 @@ class TargetTest extends BuildFileTest
         exec($cmd, $out);
         $out = implode("\n", $out);
         $offset = strpos($out, 'Subtargets:');
-        $this->assertFalse(strpos($out, 'HideInListTarget', $offset));
-        $this->assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
+        self::assertFalse(strpos($out, 'HideInListTarget', $offset));
+        self::assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
     }
 
     /**
@@ -60,11 +60,11 @@ class TargetTest extends BuildFileTest
      * @param array $expectedDepends
      * @param string $depends
      */
-    public function testSetDependsValid(array $expectedDepends, $depends)
+    public function testSetDependsValid(array $expectedDepends, string $depends)
     {
         $this->target->setDepends($depends);
 
-        $this->assertEquals($expectedDepends, $this->target->getDependencies());
+        self::assertEquals($expectedDepends, $this->target->getDependencies());
     }
 
     public function setDependsValidDataProvider()
@@ -79,7 +79,7 @@ class TargetTest extends BuildFileTest
      * @dataProvider setDependsInvalidDataProvider
      * @param string $depends
      */
-    public function testSetDependsInvalid($depends)
+    public function testSetDependsInvalid(string $depends)
     {
         $this->expectException('BuildException');
         $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
@@ -104,7 +104,7 @@ class TargetTest extends BuildFileTest
 
         $tasks = $this->target->getTasks();
 
-        $this->assertEquals([$task], $tasks);
+        self::assertEquals([$task], $tasks);
     }
 
     public function testGetTasksClonesTasks()

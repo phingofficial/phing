@@ -24,14 +24,13 @@
  * - Excluded files may be included in Zip/Tar tasks
  *
  * @package phing.regression
+ *
+ * @requires extension zip
  */
 class ExcludeZipTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (!extension_loaded('zip')) {
-            $this->markTestSkipped("Zip extension is required");
-        }
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
     }
 
@@ -45,13 +44,11 @@ class ExcludeZipTest extends BuildFileTest
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
 
+        self::assertIsArray($this->logBuffer);
+        self::assertGreaterThanOrEqual(1, count($this->logBuffer));
 
         foreach ($this->logBuffer as $log) {
-            if (stripos($log['message'], $expected) !== false) {
-                $this->fail(
-                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true))
-                );
-            }
+            self::assertStringNotContainsString($expected, $log['message'], sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true)));
         }
     }
 }

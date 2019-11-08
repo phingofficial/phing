@@ -40,6 +40,6 @@ class EchoPropertiesTest extends BuildFileTest
     public function testEchoProperties()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists($this->getProject()->getProperty('property.file'));
+        self::assertFileExists($this->getProject()->getProperty('property.file'));
     }
 }

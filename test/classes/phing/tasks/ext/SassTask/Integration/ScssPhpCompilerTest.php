@@ -15,7 +15,7 @@ class ScssPhpCompilerTest extends TestCase
     public function setUp(): void
     {
         if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
-            $this->markTestSkipped('ScssPhp not found');
+            self::markTestSkipped('ScssPhp not found');
         }
 
         $this->compiler = new ScssPhpCompiler('compressed', 'UTF-8', false, '');
@@ -38,7 +38,7 @@ class ScssPhpCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileExists(self::SASS_TEST_BASE . 'test.css');
     }
 
     public function testItNotProducesAnyCompiledOutputWhenNoInput(): void
@@ -49,7 +49,7 @@ class ScssPhpCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 
     /**
@@ -63,6 +63,6 @@ class ScssPhpCompilerTest extends TestCase
             true
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 }

@@ -43,7 +43,7 @@ class CharacterTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsChar($elem, bool $expected)
     {
-        $this->assertSame($this->char::isLetter($elem), $expected);
+        self::assertSame($this->char::isLetter($elem), $expected);
     }
 
     public function getChars(): array

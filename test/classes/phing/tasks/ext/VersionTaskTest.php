@@ -60,28 +60,28 @@ class VersionTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.0');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        self::assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
     }
 
     public function testPropFile()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('propfile.version', '4.5.5');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'property.version', 'File not found');
+        self::assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'property.version', 'File not found');
     }
 
     public function testPropFileWithDefaultProperty()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '4.5.5');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        self::assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
     }
 
     public function testWithStartingVersion()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.1');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        self::assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
     }
 
     /**
@@ -100,7 +100,7 @@ class VersionTaskTest extends BuildFileTest
         $method->setAccessible(true);
 
         $newVersion = $method->invoke($versionTask, $version);
-        $this->assertSame($expectedVersion, $newVersion);
+        self::assertSame($expectedVersion, $newVersion);
     }
 
     public function versionProvider()

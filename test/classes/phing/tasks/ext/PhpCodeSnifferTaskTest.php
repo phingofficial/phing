@@ -29,12 +29,8 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PHP CodeSniffer tests do not (yet) run on HHVM");
-        }
-
         if (!class_exists('PHP_CodeSniffer')) {
-            $this->markTestSkipped('PHP CodeSniffer package not available.');
+            self::markTestSkipped('PHP CodeSniffer package not available.');
         }
 
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
@@ -45,8 +41,8 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
-        $this->assertFileExists(
+        self::assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt');
@@ -57,8 +53,8 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
-        $this->assertFileExists(
+        self::assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt');

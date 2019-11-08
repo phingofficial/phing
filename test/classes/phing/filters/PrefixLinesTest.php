@@ -39,7 +39,7 @@ class PrefixLinesTest extends BuildFileTest
 
         $result = $this->getProject()->resolveFile("result/prefixlines.test");
 
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             $result->getAbsolutePath(),
             'FooThis is line 1 with alpha.FooThis is line 2 with beta.FooThis is line 3 with gamma.Foo'
         );

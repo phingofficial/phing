@@ -47,11 +47,11 @@ class FileUtilsTest extends BuildFileTest
      */
     public function contentEquals()
     {
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile('does_not_exists')));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile('does_not_exists'), new PhingFile(__FILE__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__DIR__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__DIR__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__FILE__)));
-        $this->assertTrue($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__FILE__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile('does_not_exists')));
+        self::assertFalse($this->fu->contentEquals(new PhingFile('does_not_exists'), new PhingFile(__FILE__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__DIR__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__DIR__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__FILE__)));
+        self::assertTrue($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__FILE__)));
     }
 }

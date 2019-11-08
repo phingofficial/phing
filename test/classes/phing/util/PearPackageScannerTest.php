@@ -28,16 +28,10 @@
  */
 class PearPackageScannerTest extends BuildFileTest
 {
-    protected $backupGlobals = false;
-
     public function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
-            $this->markTestSkipped("This test requires PEAR to be installed");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
+            self::markTestSkipped("This test requires PEAR to be installed");
         }
 
         //needed for PEAR's Config and Registry classes
@@ -54,8 +48,8 @@ class PearPackageScannerTest extends BuildFileTest
         $method->setAccessible(true);
         $packageInfo = $method->invoke($ppfs);
 
-        $this->assertNotNull($packageInfo, 'Package info is null');
-        $this->assertInstanceOf('PEAR_PackageFile_v2', $packageInfo);
+        self::assertNotNull($packageInfo, 'Package info is null');
+        self::assertInstanceOf('PEAR_PackageFile_v2', $packageInfo);
     }
 
     /**
@@ -70,7 +64,7 @@ class PearPackageScannerTest extends BuildFileTest
         $ref = new ReflectionClass($ppfs);
         $method = $ref->getMethod('loadPackageInfo');
         $method->setAccessible(true);
-        $packageInfo = $method->invoke($ppfs);
+        $method->invoke($ppfs);
     }
 
     /**
@@ -92,10 +86,10 @@ class PearPackageScannerTest extends BuildFileTest
 
         $arFiles = $pps->getIncludedFiles();
         $basedir = $pps->getBaseDir();
-        $this->assertContains('docs/Archive_Tar.txt', $arFiles);
+        self::assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
             $fullpath = $basedir . $file;
-            $this->assertTrue(
+            self::assertTrue(
                 file_exists($fullpath) || file_exists($fullpath . '.gz'),
                 'File does not exist: ' . $file . ' at ' . $fullpath
             );
@@ -113,22 +107,22 @@ class PearPackageScannerTest extends BuildFileTest
 
     public function testGetIncludedFiles()
     {
-        $this->markTestIncomplete();
+        self::markTestIncomplete();
     }
 
     public function testGetIncludedDirectories()
     {
-        $this->markTestIncomplete();
+        self::markTestIncomplete();
     }
 
     public function testGetBaseDir()
     {
-        $this->markTestIncomplete();
+        self::markTestIncomplete();
     }
 
     public function testScan()
     {
-        $this->markTestIncomplete();
+        self::markTestIncomplete();
     }
 
     /**
@@ -154,7 +148,7 @@ class PearPackageScannerTest extends BuildFileTest
 
         $arFiles = $pps->getIncludedFiles();
 
-        $this->assertEquals(
+        self::assertEquals(
             $arFiles,
             [
                 'Console' . DIRECTORY_SEPARATOR . 'Table.php'
@@ -182,7 +176,7 @@ class PearPackageScannerTest extends BuildFileTest
         $pps->scan();
 
         $arFiles = $pps->getIncludedFiles();
-        $this->assertContains(
+        self::assertContains(
             'PEAR2' . DIRECTORY_SEPARATOR
             . 'Services' . DIRECTORY_SEPARATOR
             . 'Linkback' . DIRECTORY_SEPARATOR

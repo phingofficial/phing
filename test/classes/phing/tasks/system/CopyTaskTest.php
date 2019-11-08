@@ -43,7 +43,7 @@ class CopyTaskTest extends BuildFileTest
     public function testCopyDanglingSymlink()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Dangling symlinks don't work on Windows");
+            self::markTestSkipped("Dangling symlinks don't work on Windows");
         }
 
         $this->executeTarget("testCopyDanglingSymlink");
@@ -58,7 +58,7 @@ class CopyTaskTest extends BuildFileTest
     public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Bug not applicable on Window");
+            self::markTestSkipped("Bug not applicable on Window");
         }
 
         $this->executeTarget(__FUNCTION__);
@@ -95,6 +95,6 @@ class CopyTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Copying 1 file to");
-        $this->assertEquals("tmp/target-a", readlink(PHING_TEST_BASE . "/etc/tasks/system/tmp/link-b"));
+        self::assertEquals("tmp/target-a", readlink(PHING_TEST_BASE . "/etc/tasks/system/tmp/link-b"));
     }
 }

@@ -75,5 +75,7 @@ class PHPUnitTaskTest extends BuildFileTest
     public function testExcludeGroups()
     {
         $this->executeTarget(__FUNCTION__);
+
+        self::assertEquals(1, 1); // increase number of positive assertions
     }
 }

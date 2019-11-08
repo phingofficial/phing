@@ -44,7 +44,7 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         $ih = IntrospectionHelper::getHelper('Exception');
         try {
             $ih->addText($this->p, new Exception(), "test");
-            $this->fail("Exception doesn\'t support addText");
+            self::fail("Exception doesn\'t support addText");
         } catch (BuildException $be) {
         }
 
@@ -52,44 +52,44 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $ih->addText($this->p, $element, "test");
 
-        $this->assertSame('test', $element->text);
+        self::assertSame('test', $element->text);
     }
 
     public function testSupportsCharactersAdders()
     {
         $ih = IntrospectionHelper::getHelper('Exception');
-        $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
+        self::assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
-        $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
+        self::assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
     }
 
     public function testElementCreators()
     {
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
-            $this->fail("create cannot take param");
+            self::fail("create cannot take param");
         } catch (BuildException $be) {
         }
 
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail2');
-            $this->fail("no class hint for add");
+            self::fail("no class hint for add");
         } catch (BuildException $be) {
         }
 
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail3');
-            $this->fail("no class hint for addconfigured");
+            self::fail("no class hint for addconfigured");
         } catch (BuildException $be) {
         }
 
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
-        $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
+        self::assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
 
         $fs = new FileSet();
         $fs->setProject($this->p);
 
-        $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), "FileSet"));
+        self::assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), "FileSet"));
     }
 
     /*
@@ -107,10 +107,10 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
             Class expect = (Class) h.get(name);
             assertNotNull("Support for "+name+" in IntrospectioNHelperTest?",
                           expect);
-            $this->assertEquals("Return type of "+name, expect, ih.getElementType(name));
+            self::assertEquals("Return type of "+name, expect, ih.getElementType(name));
             h.remove(name);
         }
-        $this->assertTrue("Found all", h.isEmpty());
+        self::assertTrue("Found all", h.isEmpty());
     }
 
     public function createOne()
@@ -123,130 +123,130 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         $ih = IntrospectionHelper::getHelper(get_class($this));
         try {
             $ih->setAttribute($p, $this, "one", "test");
-            $this->fail("setOne doesn't exist");
+            self::fail("setOne doesn't exist");
         } catch (BuildException $be) {
         }
         try {
             $ih->setAttribute($p, $this, "two", "test");
-            $this->fail("setTwo returns non void");
+            self::fail("setTwo returns non void");
         } catch (BuildException be) {
         }
         try {
             ih.setAttribute(p, this, "three", "test");
-            $this->fail("setThree takes no args");
+            self::fail("setThree takes no args");
         } catch (BuildException be) {
         }
         try {
             ih.setAttribute(p, this, "four", "test");
-            $this->fail("setFour takes two args");
+            self::fail("setFour takes two args");
         } catch (BuildException be) {
         }
         try {
             ih.setAttribute(p, this, "five", "test");
-            $this->fail("setFive takes array arg");
+            self::fail("setFive takes array arg");
         } catch (BuildException be) {
         }
         try {
             ih.setAttribute(p, this, "six", "test");
-            $this->fail("Project doesn't have a String constructor");
+            self::fail("Project doesn't have a String constructor");
         } catch (BuildException be) {
         }
         ih.setAttribute(p, this, "seven", "2");
         try {
             ih.setAttribute(p, this, "seven", "3");
-            $this->fail("2 shouldn't be equals to three");
+            self::fail("2 shouldn't be equals to three");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "eight", "2");
         try {
             ih.setAttribute(p, this, "eight", "3");
-            $this->fail("2 shouldn't be equals to three - as int");
+            self::fail("2 shouldn't be equals to three - as int");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "nine", "2");
         try {
             ih.setAttribute(p, this, "nine", "3");
-            $this->fail("2 shouldn't be equals to three - as Integer");
+            self::fail("2 shouldn't be equals to three - as Integer");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "ten", "2");
         try {
             ih.setAttribute(p, this, "ten", "3");
-            $this->fail(projectBasedir+"2 shouldn't be equals to "+projectBasedir+"3");
+            self::fail(projectBasedir+"2 shouldn't be equals to "+projectBasedir+"3");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "eleven", "2");
         try {
             ih.setAttribute(p, this, "eleven", "on");
-            $this->fail("on shouldn't be false");
+            self::fail("on shouldn't be false");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "twelve", "2");
         try {
             ih.setAttribute(p, this, "twelve", "on");
-            $this->fail("on shouldn't be false");
+            self::fail("on shouldn't be false");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "thirteen", "org.apache.tools.ant.Project");
         try {
             ih.setAttribute(p, this, "thirteen", "org.apache.tools.ant.ProjectHelper");
-            $this->fail("org.apache.tools.ant.Project shouldn't be equal to org.apache.tools.ant.ProjectHelper");
+            self::fail("org.apache.tools.ant.Project shouldn't be equal to org.apache.tools.ant.ProjectHelper");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         try {
             ih.setAttribute(p, this, "thirteen", "org.apache.tools.ant.Project2");
-            $this->fail("org.apache.tools.ant.Project2 doesn't exist");
+            self::fail("org.apache.tools.ant.Project2 doesn't exist");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof ClassNotFoundException);
+            self::assertTrue(be.getException() instanceof ClassNotFoundException);
         }
         ih.setAttribute(p, this, "fourteen", "2");
         try {
             ih.setAttribute(p, this, "fourteen", "on");
-            $this->fail("2 shouldn't be equals to three - as StringBuffer");
+            self::fail("2 shouldn't be equals to three - as StringBuffer");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "fifteen", "abcd");
         try {
             ih.setAttribute(p, this, "fifteen", "on");
-            $this->fail("o shouldn't be equal to a");
+            self::fail("o shouldn't be equal to a");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "sixteen", "abcd");
         try {
             ih.setAttribute(p, this, "sixteen", "on");
-            $this->fail("o shouldn't be equal to a");
+            self::fail("o shouldn't be equal to a");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "seventeen", "17");
         try {
             ih.setAttribute(p, this, "seventeen", "3");
-            $this->fail("17 shouldn't be equals to three");
+            self::fail("17 shouldn't be equals to three");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "eightteen", "18");
         try {
             ih.setAttribute(p, this, "eightteen", "3");
-            $this->fail("18 shouldn't be equals to three");
+            self::fail("18 shouldn't be equals to three");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
         ih.setAttribute(p, this, "nineteen", "19");
         try {
             ih.setAttribute(p, this, "nineteen", "3");
-            $this->fail("19 shouldn't be equals to three");
+            self::fail("19 shouldn't be equals to three");
         } catch (BuildException be) {
-            $this->assertTrue(be.getException() instanceof AssertionFailedError);
+            self::assertTrue(be.getException() instanceof AssertionFailedError);
         }
     }
 
@@ -275,11 +275,11 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
             Class expect = (Class) h.get(name);
             assertNotNull("Support for "+name+" in IntrospectionHelperTest?",
                           expect);
-            $this->assertEquals("Type of "+name, expect, ih.getAttributeType(name));
+            self::assertEquals("Type of "+name, expect, ih.getAttributeType(name));
             h.remove(name);
         }
         h.remove("name");
-        $this->assertTrue("Found all", h.isEmpty());
+        self::assertTrue("Found all", h.isEmpty());
     }
 
     public function setTwo($s)
@@ -296,61 +296,61 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     public void setSix(Project p) {}
 
     public void setSeven(String s) {
-        $this->assertEquals("2", s);
+        self::assertEquals("2", s);
     }
 
     public void setEight(int i) {
-        $this->assertEquals(2, i);
+        self::assertEquals(2, i);
     }
 
     public void setNine(Integer i) {
-        $this->assertEquals(2, i.intValue());
+        self::assertEquals(2, i.intValue());
     }
 
     public void setTen(File f) {
         if (Os.isFamily("unix")) {
-            $this->assertEquals(projectBasedir+"2", f.getAbsolutePath());
+            self::assertEquals(projectBasedir+"2", f.getAbsolutePath());
         } elseif (Os.isFamily("netware")) {
-            $this->assertEquals(projectBasedir+"2", f.getAbsolutePath().toLowerCase(Locale.US));
+            self::assertEquals(projectBasedir+"2", f.getAbsolutePath().toLowerCase(Locale.US));
         } else {
-            $this->assertEquals(":"+projectBasedir+"2", f.getAbsolutePath().toLowerCase(Locale.US).substring(1));
+            self::assertEquals(":"+projectBasedir+"2", f.getAbsolutePath().toLowerCase(Locale.US).substring(1));
         }
     }
 
     public void setEleven(boolean b) {
-        $this->assertTrue(!b);
+        self::assertTrue(!b);
     }
 
     public void setTwelve(Boolean b) {
-        $this->assertTrue(!b.booleanValue());
+        self::assertTrue(!b.booleanValue());
     }
 
     public void setThirteen(Class c) {
-        $this->assertEquals(Project.class, c);
+        self::assertEquals(Project.class, c);
     }
 
     public void setFourteen(StringBuffer sb) {
-        $this->assertEquals("2", sb.toString());
+        self::assertEquals("2", sb.toString());
     }
 
     public void setFifteen(char c) {
-        $this->assertEquals(c, 'a');
+        self::assertEquals(c, 'a');
     }
 
     public void setSixteen(Character c) {
-        $this->assertEquals(c.charValue(), 'a');
+        self::assertEquals(c.charValue(), 'a');
     }
 
     public void setSeventeen(byte b) {
-        $this->assertEquals(17, b);
+        self::assertEquals(17, b);
     }
 
     public void setEightteen(short s) {
-        $this->assertEquals(18, s);
+        self::assertEquals(18, s);
     }
 
     public void setNineteen(double d) {
-        $this->assertEquals(19, d, 1e-6);
+        self::assertEquals(19, d, 1e-6);
     }
     */
 }

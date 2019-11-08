@@ -53,18 +53,18 @@ class SassTaskAcceptanceTest extends BuildFileTest
     public function testItCompilesWithSass(): void
     {
         if (!$this->fs->which('sass')) {
-            $this->markTestSkipped('Sass not found');
+            self::markTestSkipped('Sass not found');
         }
         $this->executeTarget("testItCompilesWithSass");
-        $this->assertFileExists(self::SASS_TEST_BASE . "test.css");
+        self::assertFileExists(self::SASS_TEST_BASE . "test.css");
     }
 
     public function testItCompilesWithScssPhp(): void
     {
         if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
-            $this->markTestSkipped('ScssPhp not found');
+            self::markTestSkipped('ScssPhp not found');
         }
         $this->executeTarget("testItCompilesWithScssPhp");
-        $this->assertFileExists(self::SASS_TEST_BASE . "test.css");
+        self::assertFileExists(self::SASS_TEST_BASE . "test.css");
     }
 }

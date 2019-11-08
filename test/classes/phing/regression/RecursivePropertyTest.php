@@ -43,6 +43,6 @@ class RecursivePropertyTest extends BuildFileTest
 
         $contents = file_get_contents(PHING_TEST_BASE . "/etc/regression/269/testoutput");
 
-        $this->assertEquals("staging-user1", $contents);
+        self::assertEquals("staging-user1", $contents);
     }
 }

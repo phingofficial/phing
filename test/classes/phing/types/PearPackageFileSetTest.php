@@ -30,11 +30,7 @@ class PearPackageFileSetTest extends BuildFileTest
     public function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
-            $this->markTestSkipped("This test requires PEAR to be installed");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
+            self::markTestSkipped("This test requires PEAR to be installed");
         }
 
         //needed for PEAR's Config and Registry classes
@@ -54,11 +50,11 @@ class PearPackageFileSetTest extends BuildFileTest
         } else {
             $this->assertInternalType('array', $arFiles, 'getIncludedFiles returned no array');
         }
-        $this->assertEquals(1, count($arFiles));
-        $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
+        self::assertEquals(1, count($arFiles));
+        self::assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 
         $fullPath = $ds->getBaseDir() . reset($arFiles);
-        $this->assertTrue(
+        self::assertTrue(
             file_exists($fullPath),
             'File does not exist: ' . $fullPath
         );
@@ -72,7 +68,7 @@ class PearPackageFileSetTest extends BuildFileTest
         $ds = $ppfs->getDirectoryScanner(new Project());
 
         $arFiles = $ds->getIncludedFiles();
-        $this->assertContains('docs/Archive_Tar.txt', $arFiles);
+        self::assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
             $this->assertNotContains(
                 '.php',
@@ -91,11 +87,11 @@ class PearPackageFileSetTest extends BuildFileTest
         $ppfs->getDirectoryScanner($proj);
 
         $dir = $ppfs->getDir($proj);
-        $this->assertTrue(
+        self::assertTrue(
             file_exists($dir),
             'Directory does not exist: ' . $dir
         );
-        $this->assertTrue(
+        self::assertTrue(
             is_dir($dir),
             '$dir is not a directory: ' . $dir
         );
@@ -108,11 +104,11 @@ class PearPackageFileSetTest extends BuildFileTest
         $ppfs->setRole('php');
 
         $dir = $ppfs->getDir(new Project());
-        $this->assertTrue(
+        self::assertTrue(
             file_exists($dir),
             'Directory does not exist: ' . $dir
         );
-        $this->assertTrue(
+        self::assertTrue(
             is_dir($dir),
             '$dir is not a directory: ' . $dir
         );

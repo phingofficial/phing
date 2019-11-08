@@ -33,8 +33,6 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
      */
     private $cmd;
 
-    //private $project;
-
     public function setUp(): void
     {
         $this->cmd = new Commandline();
@@ -45,28 +43,28 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
         // This should work fine; we expect 5 args
         $cmd1 = "cvs -d:pserver:hans@xmpl.org:/cvs commit -m \"added a new test file\" Test.php";
         $c = new Commandline($cmd1);
-        $this->assertEquals(5, count($c->getArguments()));
+        self::assertEquals(5, count($c->getArguments()));
 
         // This has some extra space, but we expect same number of args
         $cmd2 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file\"    Test.php";
         $c2 = new Commandline($cmd2);
-        $this->assertEquals(5, count($c2->getArguments()));
+        self::assertEquals(5, count($c2->getArguments()));
 
         // nested quotes should not be a problem either
         $cmd3 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file for 'fun'\"    Test.php";
         $c3 = new Commandline($cmd3);
-        $this->assertEquals(5, count($c3->getArguments()));
+        self::assertEquals(5, count($c3->getArguments()));
         $args = $c3->getArguments();
-        $this->assertEquals("added a new test file for 'fun'", $args[3]);
+        self::assertEquals("added a new test file for 'fun'", $args[3]);
 
         // now try unbalanced quotes -- this should fail
         $cmd4 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file for 'fun' Test.php";
         try {
             $c4 = new Commandline($cmd4);
-            $this->fail("Should throw BuildException because 'unbalanced quotes'");
+            self::fail("Should throw BuildException because 'unbalanced quotes'");
         } catch (BuildException $be) {
             if (false === strpos($be->getMessage(), "unbalanced quotes")) {
-                $this->fail("Should throw BuildException because 'unbalanced quotes'");
+                self::fail("Should throw BuildException because 'unbalanced quotes'");
             }
         }
     }

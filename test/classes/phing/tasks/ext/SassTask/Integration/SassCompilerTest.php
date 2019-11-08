@@ -18,7 +18,7 @@ class SassCompilerTest extends TestCase
     {
         $fs = FileSystem::getFileSystem();
         if (!$fs->which('sass')) {
-            $this->markTestSkipped('Sass not found');
+            self::markTestSkipped('Sass not found');
         }
 
         $this->compiler = new SassCompiler('sass', '');
@@ -38,7 +38,7 @@ class SassCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileExists(self::SASS_TEST_BASE . 'test.css');
     }
 
     public function testItNotProducesAnyCompiledOutputWhenNoInput(): void
@@ -49,7 +49,7 @@ class SassCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 
     /**
@@ -63,6 +63,6 @@ class SassCompilerTest extends TestCase
             true
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 }

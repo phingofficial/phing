@@ -64,7 +64,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     public function setUp(): void
     {
         if (!class_exists('Net_Growl')) {
-            $this->markTestSkipped("Need Net_Growl installed to test");
+            self::markTestSkipped("Need Net_Growl installed to test");
 
             return;
         }

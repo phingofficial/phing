@@ -24,7 +24,10 @@
  */
 class ConcatFilterTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
     public function setUp(): void
     {
@@ -43,6 +46,6 @@ class ConcatFilterTest extends BuildFileTest
 
         $expected = $this->getProject()->resolveFile("expected/concatfilter.test");
         $result = $this->getProject()->resolveFile("result/concatfilter.test");
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

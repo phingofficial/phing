@@ -168,7 +168,7 @@ class GitLogTaskTest extends BuildFileTest
      */
     public function testGitDateRelative()
     {
-        $this->markTestSkipped('Need to implement the Git relative date calculation');
+        self::markTestSkipped('Need to implement the Git relative date calculation');
         $this->executeTarget('gitLogDateRelative');
         foreach ($this->testCommits as $commit) {
             $timestamp = strtotime($commit['date']);

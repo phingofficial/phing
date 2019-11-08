@@ -1,5 +1,7 @@
 <?php
-/**
+
+/*
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,33 +19,12 @@
  * <http://phing.info>.
  */
 
-/**
- * Tests the Patch Task
- *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext
- */
-class PatchTaskTest extends BuildFileTest
+class TestEcho
 {
-    public function setUp(): void
-    {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/ext/PatchTest.xml"
-        );
-        $this->executeTarget("setup");
-    }
+    public $message;
 
-    public function tearDown(): void
+    public function setMessage($s)
     {
-        $this->executeTarget("cleanup");
-    }
-
-    public function testPatch()
-    {
-        $this->executeTarget(__FUNCTION__);
-
-        $fileA = $this->getProject()->getProperty('patch-test') . '/b';
-        self::assertStringEqualsFile($fileA, 'BBB');
+        $this->message = $s;
     }
 }

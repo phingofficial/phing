@@ -46,6 +46,6 @@ EXPECTED;
 
         $result = file_get_contents($resultFile->getAbsolutePath());
 
-        $this->assertEquals($expected, $result, "Files don't match!");
+        self::assertEquals($expected, $result, "Files don't match!");
     }
 }

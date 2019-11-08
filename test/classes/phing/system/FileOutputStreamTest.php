@@ -33,6 +33,11 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
      */
     private $outStream;
 
+    /**
+     * @var PhingFile
+     */
+    private $tmpFile;
+
     public function setUp(): void
     {
         $this->tmpFile = new PhingFile(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
@@ -50,7 +55,7 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
     public function assertFileContents($contents)
     {
         $actual = file_get_contents($this->tmpFile->getAbsolutePath());
-        $this->assertEquals(
+        self::assertEquals(
             $contents,
             $actual,
             "Expected file contents to match; expected '" . $contents . "', actual '" . $actual . "'"
@@ -85,11 +90,9 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
         $this->outStream->flush();
         $this->outStream->close();
 
-        try {
-            $this->outStream->flush();
-            $this->fail("Expected IOException when attempting to flush a closed stream.");
-        } catch (IOException $ioe) {
-            // exception is expected
-        }
+        $this->expectException(IOException::class);
+        $this->expectExceptionMessage('Could not flush stream: fflush() expects parameter 1 to be resource, null given');
+
+        $this->outStream->flush();
     }
 }

@@ -2,49 +2,52 @@
 
 class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
 {
-    protected $_condition;
+    /**
+     * @var VersionCompareCondition
+     */
+    private $condition;
 
     public function setUp(): void
     {
-        $this->_condition = new VersionCompareCondition();
+        $this->condition = new VersionCompareCondition();
     }
 
     public function testDefaultCompareIsFalseForSmallerRevision()
     {
-        $this->_condition->setVersion('1.2.7');
-        $this->_condition->setDesiredVersion('1.3');
-        $this->assertFalse($this->_condition->evaluate());
+        $this->condition->setVersion('1.2.7');
+        $this->condition->setDesiredVersion('1.3');
+        self::assertFalse($this->condition->evaluate());
     }
 
     public function testDefaultCompareIsTrueForBiggerRevision()
     {
-        $this->_condition->setVersion('1.6.2');
-        $this->_condition->setDesiredVersion('1.3');
-        $this->assertTrue($this->_condition->evaluate());
+        $this->condition->setVersion('1.6.2');
+        $this->condition->setDesiredVersion('1.3');
+        self::assertTrue($this->condition->evaluate());
     }
 
     public function testDefaultCompareIsTrueForSameRevision()
     {
-        $this->_condition->setVersion('1.3');
-        $this->_condition->setDesiredVersion('1.3');
-        $this->assertTrue($this->_condition->evaluate());
+        $this->condition->setVersion('1.3');
+        $this->condition->setDesiredVersion('1.3');
+        self::assertTrue($this->condition->evaluate());
     }
 
     public function testCanUseDifferentOperator()
     {
-        $this->_condition->setVersion('1.2.7');
-        $this->_condition->setDesiredVersion('1.3');
-        $this->_condition->setOperator('<=');
-        $this->assertTrue($this->_condition->evaluate());
+        $this->condition->setVersion('1.2.7');
+        $this->condition->setDesiredVersion('1.3');
+        $this->condition->setOperator('<=');
+        self::assertTrue($this->condition->evaluate());
     }
 
     public function testUseDebugMode()
     {
-        $this->_condition->setVersion('1.2.7');
-        $this->_condition->setDesiredVersion('1.3');
-        $this->_condition->setDebug(true);
+        $this->condition->setVersion('1.2.7');
+        $this->condition->setDesiredVersion('1.3');
+        $this->condition->setDebug(true);
         $this->expectOutputString('Assertion that 1.2.7 >= 1.3 failed' . PHP_EOL);
-        $this->_condition->evaluate();
+        $this->condition->evaluate();
     }
 
     /**
@@ -52,6 +55,6 @@ class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
      */
     public function testCanNotUseUnsupportedOperator()
     {
-        $this->_condition->setOperator('<<<<');
+        $this->condition->setOperator('<<<<');
     }
 }

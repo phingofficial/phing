@@ -25,7 +25,10 @@
  */
 class LineContainsTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
     public function setUp(): void
     {
@@ -44,7 +47,7 @@ class LineContainsTest extends BuildFileTest
 
         $expected = $this->getProject()->resolveFile("expected/linecontains.test");
         $result = $this->getProject()->resolveFile("result/linecontains.test");
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
     public function testLineContainsNegate()
@@ -53,7 +56,7 @@ class LineContainsTest extends BuildFileTest
 
         $expected = $this->getProject()->resolveFile("expected/linecontains-negate.test");
         $result = $this->getProject()->resolveFile("result/linecontains.test");
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
     public function testLineContainsMatchAny()

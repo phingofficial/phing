@@ -35,9 +35,6 @@ class VariableTest extends BuildFileTest
 
     public function testVariable()
     {
-        if (version_compare(PHP_VERSION, '5.3', '<')) {
-            $this->markTestSkipped('PHP Version less than 5.3');
-        }
         $this->executeTarget(__FUNCTION__);
 
         $this->assertInLogs('1: aazz');

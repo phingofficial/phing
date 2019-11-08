@@ -91,7 +91,7 @@ class ExecTaskTest extends BuildFileTest
 
         $rprop = new ReflectionProperty('ExecTask', $propertyName);
         $rprop->setAccessible(true);
-        $this->assertEquals($value, $rprop->getValue($task));
+        self::assertEquals($value, $rprop->getValue($task));
     }
 
     public function testPropertySetCommandline()
@@ -236,19 +236,20 @@ class ExecTaskTest extends BuildFileTest
     {
         try {
             $this->executeTarget(__FUNCTION__);
-            $this->fail('Expected BuildException was not thrown');
+            self::fail('Expected BuildException was not thrown');
         } catch (BuildException $e) {
-            $this->assertContains(
+            self::assertContains(
                 str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"),
                 $e->getMessage()
             );
         }
     }
 
+
     public function testChangeToDir()
     {
         if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
+            self::markTestSkipped("Windows does not have 'ls'");
         }
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ExecTaskTest.php');
@@ -257,10 +258,10 @@ class ExecTaskTest extends BuildFileTest
     public function testCheckreturnTrue()
     {
         if (FileSystem::getFileSystem()->which('true') === false) {
-            $this->markTestSkipped("'true' not found.");
+            self::markTestSkipped("'true' not found.");
         }
         $this->executeTarget(__FUNCTION__);
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -270,7 +271,7 @@ class ExecTaskTest extends BuildFileTest
     public function testCheckreturnFalse()
     {
         if (FileSystem::getFileSystem()->which('false') === false) {
-            $this->markTestSkipped("'false' not found.");
+            self::markTestSkipped("'false' not found.");
         }
         $this->executeTarget(__FUNCTION__);
     }
@@ -298,7 +299,7 @@ class ExecTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $out = ob_get_clean();
-        $this->assertEquals("foo", rtrim($out, " \r\n"));
+        self::assertEquals("foo", rtrim($out, " \r\n"));
         //foo should not be in logs, except for the logged command
         $this->assertInLogs('echo foo');
         $this->assertNotContains('foo', $this->logBuffer);
@@ -309,7 +310,7 @@ class ExecTaskTest extends BuildFileTest
         $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
-        $this->assertContains('outfoo', file_get_contents($file));
+        self::assertContains('outfoo', file_get_contents($file));
         unlink($file);
     }
 
@@ -318,7 +319,7 @@ class ExecTaskTest extends BuildFileTest
         $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
-        $this->assertContains('errfoo', file_get_contents($file));
+        self::assertContains('errfoo', file_get_contents($file));
         unlink($file);
     }
 
@@ -327,7 +328,7 @@ class ExecTaskTest extends BuildFileTest
         $start = time();
         $this->executeTarget(__FUNCTION__);
         $end = time();
-        $this->assertLessThan(
+        self::assertLessThan(
             4,
             $end - $start,
             'Time between start and end should be lower than 4 seconds'
@@ -361,7 +362,6 @@ class ExecTaskTest extends BuildFileTest
 
     public function testEscapedArgWithoutWhitespace()
     {
-        $arg = 'foo|bar';
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs($this->windows ? '"echo" "foo|bar" 2>&1' : '\'echo\' \'foo|bar\' 2>&1');
         $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');

@@ -39,7 +39,7 @@ class SleepTaskTest extends BuildFileTest
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertGreaterThanOrEqual(0, $timer->time());
+        self::assertGreaterThanOrEqual(0, $timer->time());
     }
 
     private function timer()
@@ -58,7 +58,7 @@ class SleepTaskTest extends BuildFileTest
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertGreaterThanOrEqual(0, $timer->time());
+        self::assertGreaterThanOrEqual(0, $timer->time());
     }
 
     public function test3()
@@ -66,7 +66,7 @@ class SleepTaskTest extends BuildFileTest
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertGreaterThanOrEqual(2000000000 - self::ERROR_RANGE, $timer->time());
+        self::assertGreaterThanOrEqual(2000000000 - self::ERROR_RANGE, $timer->time());
     }
 
     public function test4()
@@ -74,7 +74,7 @@ class SleepTaskTest extends BuildFileTest
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertTrue($timer->time() >= (2000000000 - self::ERROR_RANGE) && $timer->time() < 60000000000);
+        self::assertTrue($timer->time() >= (2000000000 - self::ERROR_RANGE) && $timer->time() < 60000000000);
     }
 
     /**
@@ -91,6 +91,6 @@ class SleepTaskTest extends BuildFileTest
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertLessThan(2000000000, $timer->time());
+        self::assertLessThan(2000000000, $timer->time());
     }
 }

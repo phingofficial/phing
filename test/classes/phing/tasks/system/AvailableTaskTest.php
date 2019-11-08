@@ -26,7 +26,7 @@
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN
  */
 class AvailableTaskTest extends BuildFileTest
 {
@@ -47,36 +47,36 @@ class AvailableTaskTest extends BuildFileTest
     public function testDanglingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
+        self::assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testFileSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        self::assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testFileAbsoluteSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        self::assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testDirectorySymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        self::assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testDirectoryAbsoluteSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        self::assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
     public function testDirectorySymlinkBC()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
+        self::assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }
 }

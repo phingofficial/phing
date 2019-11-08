@@ -37,6 +37,6 @@ class DirSetTest extends \PHPUnit\Framework\TestCase
     {
         $this->dirset->setProject(new Project());
         $this->dirset->setDir(__DIR__);
-        $this->assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
+        self::assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
     }
 }

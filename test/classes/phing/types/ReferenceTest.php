@@ -17,7 +17,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
         $project->setDescription($description);
         $reference = new Reference($project);
         $retrieved = $reference->getProject();
-        $this->assertEquals($retrieved->getDescription(), $description);
+        self::assertEquals($retrieved->getDescription(), $description);
     }
 
     /**
@@ -28,7 +28,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
     {
         $project = new Project();
         $reference = new Reference($project, "refOne");
-        $referenced = $reference->getReferencedObject(null);
+        $reference->getReferencedObject(null);
     }
 
     /**
@@ -39,6 +39,6 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
     {
         $project = new Project();
         $reference = new Reference($project);
-        $referenced = $reference->getReferencedObject(null);
+        $reference->getReferencedObject(null);
     }
 }

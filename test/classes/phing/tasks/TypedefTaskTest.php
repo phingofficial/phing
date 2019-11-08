@@ -45,19 +45,12 @@ class TypedefTaskTest extends BuildFileTest
         $this->expectBuildException("noClassname", "required argument not specified");
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testClassNotFound()
     {
-        try {
-            $this->executeTarget("classNotFound");
-            $this->fail(
-                "Should throw ConfigurationException because: " .
-                "classname specified doesn't exist"
-            );
-        } catch (ConfigurationException $ignored) {
-        }
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('');
+
+        $this->executeTarget("classNotFound");
     }
 
     public function testGlobal()
@@ -65,8 +58,8 @@ class TypedefTaskTest extends BuildFileTest
         $this->expectLog("testGlobal", "Adding reference: global -> TypedefTestType");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
-        $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TypedefTestType", get_class($ref));
+        self::assertNotNull("ref is not null", $ref);
+        self::assertEquals("TypedefTestType", get_class($ref));
     }
 
     public function testLocal()
@@ -74,7 +67,7 @@ class TypedefTaskTest extends BuildFileTest
         $this->expectLog("testLocal", "Adding reference: local -> TypedefTestType");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
-        $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TypedefTestType", get_class($ref));
+        self::assertNotNull("ref is not null", $ref);
+        self::assertEquals("TypedefTestType", get_class($ref));
     }
 }

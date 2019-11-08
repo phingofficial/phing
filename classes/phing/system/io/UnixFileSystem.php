@@ -153,7 +153,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return int
      */
-    public function prefixLength($pathname)
+    public function prefixLength(string $pathname): int
     {
         if (strlen($pathname) === 0) {
             return 0;
@@ -290,7 +290,7 @@ class UnixFileSystem extends FileSystem
      * @param string $p
      * @return string
      */
-    public function fromURIPath($p)
+    public function fromURIPath(string $p): string
     {
         if (StringHelper::endsWith("/", $p) && (strlen($p) > 1)) {
             // "/foo/" --> "/foo", but "/" --> "/"

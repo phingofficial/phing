@@ -96,7 +96,7 @@ SQL
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
 
-        $this->assertEquals($expected, $this->queries);
+        self::assertEquals($expected, $this->queries);
     }
 
     public function testDelimiterTypeRow()
@@ -127,7 +127,7 @@ SQL
         $this->project->setProperty('foo.value', "some value");
         $this->project->executeTarget('test');
 
-        $this->assertEquals($expected, $this->queries);
+        self::assertEquals($expected, $this->queries);
     }
 
     /**
@@ -213,6 +213,6 @@ SQL
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
 
-        $this->assertEquals($expected, $this->queries);
+        self::assertEquals($expected, $this->queries);
     }
 }

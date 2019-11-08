@@ -163,7 +163,7 @@ class GitTagTaskTest extends BuildFileTest
 
     public function testTagCreateSignedDefaultKey()
     {
-        $this->markTestSkipped('Involves configured GPG key');
+        self::markTestSkipped('Involves configured GPG key');
         $this->executeTarget('gitTagCreateSignedDefaultKey');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -m\'Version 1.0 tag\' \'ver1.0\'');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l');

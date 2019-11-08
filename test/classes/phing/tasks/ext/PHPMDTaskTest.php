@@ -32,7 +32,7 @@ class PHPMDTaskTest extends BuildFileTest
     public function testReportText()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
@@ -41,7 +41,7 @@ class PHPMDTaskTest extends BuildFileTest
     public function testReportHtml()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html');
@@ -50,7 +50,7 @@ class PHPMDTaskTest extends BuildFileTest
     public function testReportXml()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml');

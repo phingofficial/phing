@@ -40,7 +40,7 @@ class MkdirTaskModeTest extends BuildFileTest
 
         $mode = $dir->getMode() & 511;
 
-        $this->assertEquals($mode, 511);
+        self::assertEquals($mode, 511);
 
         $dir->delete(true);
     }

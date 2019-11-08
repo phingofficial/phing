@@ -83,14 +83,14 @@ class WikiPublishTaskTest extends BuildFileTest
         try {
             $task->main();
         } catch (BuildException $e) {
-            $this->assertEquals('Wiki apiUrl is required', $e->getMessage());
+            self::assertEquals('Wiki apiUrl is required', $e->getMessage());
         }
 
         $task->setApiUrl('http://localhost/testApi.php');
         try {
             $task->main();
         } catch (BuildException $e) {
-            $this->assertEquals('Wiki page id or title is required', $e->getMessage());
+            self::assertEquals('Wiki page id or title is required', $e->getMessage());
         }
     }
 

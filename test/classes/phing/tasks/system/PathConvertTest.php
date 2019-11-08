@@ -58,20 +58,20 @@ class PathConvertTest extends BuildFileTest
         $p = new Path($this->project, '/a:/a');
         $p->setPath("\\a;/a");
         $l = $p->listPaths();
-        $this->assertCount(1, $l, "1 after setPath");
+        self::assertCount(1, $l, "1 after setPath");
         $p->append(new Path($this->project, "/a;\\a:\\a"));
         $l = $p->listPaths();
-        $this->assertCount(1, $l, "1 after append");
+        self::assertCount(1, $l, "1 after append");
         $p->createPath()->setPath("\\a:/a");
         $l = $p->listPaths();
-        $this->assertCount(1, $l, "1 after append");
+        self::assertCount(1, $l, "1 after append");
         $l = $p->listPaths(true);
-        $this->assertCount(6, $l, "6 after preserved duplicates");
+        self::assertCount(6, $l, "6 after preserved duplicates");
     }
 
     private function assertTarget(string $target)
     {
         $this->executeTarget($target);
-        $this->assertEquals("test#" . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));
+        self::assertEquals("test#" . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));
     }
 }

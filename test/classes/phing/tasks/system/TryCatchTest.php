@@ -37,6 +37,6 @@ class TryCatchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('In <catch>.');
         $this->assertInLogs('In <finally>.');
-        $this->assertStringEndsWith('Tada!', $this->project->getProperty("prop." . __FUNCTION__));
+        self::assertStringEndsWith('Tada!', $this->project->getProperty("prop." . __FUNCTION__));
     }
 }

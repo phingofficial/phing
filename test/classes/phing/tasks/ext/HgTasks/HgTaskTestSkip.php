@@ -9,7 +9,7 @@ trait HgTaskTestSkip
     {
         exec('hg help > /dev/null 2>&1', $output, $code);
         if ($code != 0) {
-            $this->markTestSkipped('This test require hg to be installed');
+            self::markTestSkipped('This test require hg to be installed');
         }
     }
 }

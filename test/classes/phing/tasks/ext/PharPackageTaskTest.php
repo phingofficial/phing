@@ -24,17 +24,14 @@
  * @author François Poirotte <clicky@erebot.net>
  * @package phing.tasks.ext
  * @requires extension phar
+ * @requires extension openssl
  */
 class PharPackageTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
         if (ini_get('phar.readonly') == "1") {
-            $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PHAR tests do not run on HHVM");
+            self::markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
         }
 
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
@@ -61,10 +58,10 @@ class PharPackageTaskTest extends BuildFileTest
         // (Phar silently falls back to an SHA1 signature
         // whenever it fails to add an OpenSSL signature)
         $dest = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar';
-        $this->assertFileExists($dest);
+        self::assertFileExists($dest);
         $phar = new Phar($dest);
         $signature = $phar->getSignature();
-        $this->assertEquals('OpenSSL', $signature['hash_type']);
+        self::assertEquals('OpenSSL', $signature['hash_type']);
     }
 
     public function tearDown(): void

@@ -18,7 +18,7 @@ class VisualizerTaskTest extends BuildFileTest
     public function testDefaultValues()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
     }
@@ -29,10 +29,10 @@ class VisualizerTaskTest extends BuildFileTest
     public function testFormat()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.puml');
         $this->assertInLogs('VisualizerTaskTest.svg');
@@ -58,7 +58,7 @@ class VisualizerTaskTest extends BuildFileTest
     public function testDestinationFile()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.png');
+        self::assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.png');
         $this->assertInLogs('my-diagram.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/my-diagram.png', 80000);
     }
@@ -69,7 +69,7 @@ class VisualizerTaskTest extends BuildFileTest
     public function testDestinationDirectory()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png', 80000);
     }
@@ -89,7 +89,7 @@ class VisualizerTaskTest extends BuildFileTest
     public function testCustomServer()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
     }

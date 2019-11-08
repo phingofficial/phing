@@ -32,11 +32,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     public function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
-            $this->markTestSkipped("This test requires PEAR to be installed");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
+            self::markTestSkipped("This test requires PEAR to be installed");
         }
 
         //needed for PEAR's Config and Registry classes
@@ -79,7 +75,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     {
         $registry = new PEAR_Registry();
         if (!$registry->channelExists('pear.phpunit.de')) {
-            $this->markTestSkipped('PEAR channel pear.phpunit.de not registered');
+            self::markTestSkipped('PEAR channel pear.phpunit.de not registered');
         }
 
         $this->executeTarget(__FUNCTION__);
@@ -90,7 +86,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     {
         $registry = new PEAR_Registry();
         if (!$registry->channelExists('pear.phpunit.de')) {
-            $this->markTestSkipped('PEAR channel pear.phpunit.de not registered');
+            self::markTestSkipped('PEAR channel pear.phpunit.de not registered');
         }
 
         $this->executeTarget(__FUNCTION__);

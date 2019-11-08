@@ -65,7 +65,7 @@ class AppendTaskTest extends BuildFileTest
 
         $this->executeTarget(__FUNCTION__);
 
-        $this->assertTrue($file->exists());
+        self::assertTrue($file->exists());
     }
 
     public function test4()
@@ -90,7 +90,7 @@ class AppendTaskTest extends BuildFileTest
         $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
 
-        $this->assertEquals($origSize, $newSize);
+        self::assertEquals($origSize, $newSize);
     }
 
     public function testAppend()
@@ -105,7 +105,7 @@ class AppendTaskTest extends BuildFileTest
         $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
 
-        $this->assertEquals($origSize * 2, $newSize);
+        self::assertEquals($origSize * 2, $newSize);
     }
 
     public function testFilter()
@@ -118,7 +118,7 @@ class AppendTaskTest extends BuildFileTest
         $this->executeTarget("testnooverwrite");
         $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
         $size = $file2->length();
-        $this->assertEquals($size, 0);
+        self::assertEquals($size, 0);
     }
 
     public function testheaderfooter()
@@ -150,7 +150,7 @@ class AppendTaskTest extends BuildFileTest
     public function testfixlastline()
     {
         $this->executeTarget("testfixlastline");
-        $this->assertContains(
+        self::assertContains(
             "end of line" . $this->getProject()->getProperty("line.separator") . "This has",
             file_get_contents($this->getProject()->getProperty("basedir") . 'concat.line4')
         );
@@ -159,7 +159,7 @@ class AppendTaskTest extends BuildFileTest
     public function testfixlastlineeol()
     {
         $this->executeTarget("testfixlastlineeol");
-        $this->assertContains(
+        self::assertContains(
             "end of line\rThis has",
             file_get_contents($this->getProject()->getProperty("basedir") . 'concat.linecr')
         );
