@@ -106,9 +106,6 @@ class FileList extends DataType implements IteratorAggregate
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if (!($dir instanceof PhingFile)) {
-            $dir = new PhingFile($dir);
-        }
         $this->dir = $dir;
     }
 
