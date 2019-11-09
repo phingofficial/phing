@@ -18,22 +18,34 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitFetchTaskTest extends BuildFileTest
 {
+    private const DATA_PATH = 'root';
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    private $uri;
+
     public function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/git');
+
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir($this->uri);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -43,12 +55,12 @@ class GitFetchTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir($this->uri);
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
         $this->assertInLogs('git-fetch output: '); // no output actually
@@ -56,7 +68,7 @@ class GitFetchTaskTest extends BuildFileTest
 
     public function testFetchAllRemotes()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('fetchAllRemotes');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
         $this->assertInLogs('git-fetch output: Fetching origin');
@@ -82,7 +94,7 @@ class GitFetchTaskTest extends BuildFileTest
 
     public function testRefspecSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('refspecSet');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
         $this->assertInLogs('git-fetch output: ');

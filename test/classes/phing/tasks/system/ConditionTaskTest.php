@@ -56,6 +56,9 @@ class ConditionTaskTest extends BuildFileTest
         $this->assertPropertyUnset('ref.exists');
     }
 
+    /**
+     * @requires extension sockets
+     */
     public function testSocketCondition()
     {
         $this->executeTarget(__FUNCTION__);

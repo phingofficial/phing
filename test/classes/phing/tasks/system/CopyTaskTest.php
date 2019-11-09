@@ -89,7 +89,7 @@ class CopyTaskTest extends BuildFileTest
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
      * - Error overwriting symlinks on copy or move
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OS WIN32|WINNT
      */
     public function testOverwriteExistingSymlink()
     {

@@ -18,22 +18,34 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitCheckoutTaskTest extends BuildFileTest
 {
+    private const DATA_PATH = 'root';
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    private $uri;
+
     public function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/git');
+
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir($this->uri);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -43,12 +55,12 @@ class GitCheckoutTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir($this->uri);
     }
 
     public function testCheckoutExistingBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('checkoutExistingBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
         $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track remote branch master from origin');
@@ -87,7 +99,7 @@ class GitCheckoutTaskTest extends BuildFileTest
 
     public function testCheckoutMerge()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('checkoutMerge');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
         $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track remote branch master from origin');
@@ -96,7 +108,7 @@ class GitCheckoutTaskTest extends BuildFileTest
 
     public function testCheckoutCreateBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('checkoutCreateBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
         $this->assertLogLineContaining(
@@ -107,7 +119,7 @@ class GitCheckoutTaskTest extends BuildFileTest
 
     public function testForceCheckoutCreateBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
         $this->executeTarget('checkoutForceCreateBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');

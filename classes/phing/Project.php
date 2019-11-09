@@ -512,7 +512,10 @@ class Project
             try { // try to set it
                 $this->setBasedir(".");
             } catch (BuildException $exc) {
-                throw new BuildException("Can not set default basedir. " . $exc->getMessage());
+                throw new BuildException(
+                    sprintf('Can not set default basedir. %s', $exc->getMessage()),
+                    $exc
+                );
             }
         }
 

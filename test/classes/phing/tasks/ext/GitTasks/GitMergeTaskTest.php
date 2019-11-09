@@ -18,22 +18,34 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitMergeTaskTest extends BuildFileTest
 {
+    private const DATA_PATH = 'root';
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    private $uri;
+
     public function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/git');
+
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir($this->uri);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -43,12 +55,11 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir($this->uri);
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
         $this->assertInLogs('git-merge output: Already up');
@@ -56,7 +67,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testNoCommitSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
@@ -64,7 +74,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testRemoteSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
@@ -72,7 +81,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testFastForwardCommitSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fastForwardCommitSet');
         $this->assertInLogs('git-merge command: LC_ALL=C && git merge --no-ff \'origin/master\'');
         $this->assertInLogs('git-merge: replaying "origin/master" commits');

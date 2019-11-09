@@ -1,12 +1,12 @@
 .buildpath
 .project
 .settings
-.idea
+.idea/
 build/full
 build/pear
-test/reports
+test/reports/
 docs/api/docs
-vendor
+vendor/
 bin/*
 !bin/pear*
 !bin/phing*
@@ -16,3 +16,4 @@ bin/*
 ansible/playbook.retry
 test/etc/tasks/system/defaultexcludestestinput/
 test/etc/types/selectors/tmp/
+test/tmp/

@@ -85,6 +85,9 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         while (($buffer = $this->in->read($len)) !== -1) {
+            // Replace "\r" and "\r\n" with "\n"
+            $buffer = str_replace(["\r\n", "\r"], "\n", $buffer);
+
             // Remove the last "\n" from buffer for
             // prevent explode to add an empty cell at
             // the end of array

@@ -17,17 +17,34 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitArchiveTaskTest extends BuildFileTest
 {
+    private const DATA_PATH = 'root';
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    private $uri;
+
     public function setUp(): void
     {
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/git');
+
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir($this->uri);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -37,7 +54,7 @@ class GitArchiveTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir($this->uri);
     }
 
     public function testGitArchive()

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * Unit test for FileOutputStream.
  *
@@ -27,6 +29,7 @@
  */
 class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 {
+    private const DATA_PATH = 'root';
 
     /**
      * @var FileOutputStream
@@ -34,14 +37,22 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
     private $outStream;
 
     /**
-     * @var PhingFile
+     * @var \org\bovigo\vfs\vfsStreamDirectory
      */
-    private $tmpFile;
+    private $uri;
 
     public function setUp(): void
     {
-        $this->tmpFile = new PhingFile(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
-        $this->outStream = new FileOutputStream($this->tmpFile);
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/' . get_class($this) . ".txt");
+
+        $tmpFile = new PhingFile($this->uri);
+        $this->outStream = new FileOutputStream($tmpFile);
     }
 
     public function tearDown(): void
@@ -49,12 +60,12 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
         if (is_object($this->outStream)) {
             $this->outStream->close();
         }
-        FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
+        unlink($this->uri);
     }
 
     public function assertFileContents($contents)
     {
-        $actual = file_get_contents($this->tmpFile->getAbsolutePath());
+        $actual = file_get_contents($this->uri);
         self::assertEquals(
             $contents,
             $actual,

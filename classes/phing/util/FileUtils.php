@@ -38,7 +38,7 @@ class FileUtils
 
     public function __construct()
     {
-        if (self::$separator === null || FileUtils::$pathSeparator === null) {
+        if (self::$separator === null || self::$pathSeparator === null) {
             $fs = FileSystem::getFileSystem();
             self::$separator = $fs->getSeparator();
             self::$pathSeparator = $fs->getPathSeparator();

@@ -45,8 +45,8 @@ class TaskdefTaskTest extends BuildFileTest
 
     public function testClassNotFound()
     {
-        $this->expectException(ConfigurationException::class);
-        $this->expectExceptionMessage('');
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('include_once(oops.php): failed to open stream: No such file or directory');
 
         $this->executeTarget("classNotFound");
     }

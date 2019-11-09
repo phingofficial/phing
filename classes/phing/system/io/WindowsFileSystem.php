@@ -106,7 +106,7 @@ class WindowsFileSystem extends FileSystem
      * @param  $sb
      * @return int
      */
-    public function normalizePrefix($strPath, $len, &$sb)
+    private function normalizePrefix($strPath, $len, &$sb)
     {
         $src = 0;
         while (($src < $len) && $this->isSlash($strPath[$src])) {
@@ -230,11 +230,11 @@ class WindowsFileSystem extends FileSystem
      * @param  string $strPath
      * @return string
      */
-    public function normalize($strPath)
+    public function normalize(string $strPath): string
     {
         $strPath = $this->fixEncoding($strPath);
 
-        if ($this->_isPharArchive($strPath)) {
+        if ($this->isPharArchive($strPath)) {
             return str_replace('\\', '/', $strPath);
         }
 
@@ -268,7 +268,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function prefixLength(string $strPath): int
     {
-        if ($this->_isPharArchive($strPath)) {
+        if ($this->isPharArchive($strPath)) {
             return 0;
         }
 
@@ -305,7 +305,7 @@ class WindowsFileSystem extends FileSystem
      * @param string $child
      * @return string
      */
-    public function resolve($parent, $child)
+    public function resolve(string $parent, string $child): string
     {
         $parent = (string) $parent;
         $child = (string) $child;
@@ -384,12 +384,10 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * private
-     *
      * @param  $d
      * @return int
      */
-    public function _driveIndex($d)
+    private function driveIndex($d)
     {
         $d = (string) $d[0];
         if ((ord($d) >= ord('a')) && (ord($d) <= ord('z'))) {
@@ -403,12 +401,10 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * private
-     *
-     * @param  $strPath
+     * @param string $strPath
      * @return bool
      */
-    public function _isPharArchive($strPath)
+    private function isPharArchive(string $strPath): bool
     {
         return (strpos($strPath, 'phar://') === 0);
     }
@@ -417,10 +413,10 @@ class WindowsFileSystem extends FileSystem
      * @param $drive
      * @return null
      */
-    public function _getDriveDirectory($drive)
+    private function getDriveDirectory($drive)
     {
         $drive = (string) $drive[0];
-        $i = (int) $this->_driveIndex($drive);
+        $i = (int) $this->driveIndex($drive);
         if ($i < 0) {
             return null;
         }
@@ -431,7 +427,7 @@ class WindowsFileSystem extends FileSystem
             return $s;
         }
 
-        $s = $this->_getDriveDirectory($i + 1);
+        $s = $this->getDriveDirectory($i + 1);
         self::$driveDirCache[$i] = $s;
 
         return $s;
@@ -440,7 +436,7 @@ class WindowsFileSystem extends FileSystem
     /**
      * @return string
      */
-    public function _getUserPath()
+    private function getUserPath()
     {
         //For both compatibility and security, we must look this up every time
         return (string) $this->normalize(Phing::getProperty("user.dir"));
@@ -450,7 +446,7 @@ class WindowsFileSystem extends FileSystem
      * @param $path
      * @return null|string
      */
-    public function _getDrive($path)
+    private function getDrive($path)
     {
         $path = (string) $path;
         $pl = $this->prefixLength($path);
@@ -460,8 +456,11 @@ class WindowsFileSystem extends FileSystem
 
     /**
      * @param PhingFile $f
+     *
+     * @return string
+     * @throws \IOException
      */
-    public function resolveFile(PhingFile $f)
+    public function resolveFile(PhingFile $f): string
     {
         $path = $f->getPath();
         $pl = (int) $f->getPrefixLength();
@@ -475,16 +474,16 @@ class WindowsFileSystem extends FileSystem
         }
 
         if ($pl === 0) {
-            if ($this->_isPharArchive($path)) {
+            if ($this->isPharArchive($path)) {
                 return $path;
             }
 
-            return (string) ($this->_getUserPath() . $this->slashify($path)); //Completely relative
+            return (string) ($this->getUserPath() . $this->slashify($path)); //Completely relative
         }
 
         if ($pl === 1) { // Drive-relative
-            $up = (string) $this->_getUserPath();
-            $ud = (string) $this->_getDrive($up);
+            $up = (string) $this->getUserPath();
+            $ud = (string) $this->getDrive($up);
             if ($ud !== null) {
                 return (string) $ud . $path;
             }
@@ -493,13 +492,13 @@ class WindowsFileSystem extends FileSystem
         }
 
         if ($pl === 2) { // Directory-relative
-            $up = (string) $this->_getUserPath();
-            $ud = (string) $this->_getDrive($up);
+            $up = (string) $this->getUserPath();
+            $ud = (string) $this->getDrive($up);
             if (($ud !== null) && StringHelper::startsWith($ud, $path)) {
                 return (string) ($up . $this->slashify(substr($path, 2)));
             }
             $drive = (string) $path[0];
-            $dir = (string) $this->_getDriveDirectory($drive);
+            $dir = (string) $this->getDriveDirectory($drive);
 
             if ($dir !== null) {
                 /* When resolving a directory-relative path that refers to a
@@ -507,8 +506,12 @@ class WindowsFileSystem extends FileSystem
                 have read permission on the result */
                 $p = (string) $drive . (':' . $dir . $this->slashify(substr($path, 2)));
 
-                if (!$this->checkAccess(new PhingFile($p), false)) {
-                    throw new IOException("Can't resolve path $p");
+                try {
+                    if (!$this->checkAccess(new PhingFile($p), false)) {
+                        throw new IOException("Can't resolve path $p");
+                    }
+                } catch (NullPointerException $e) {
+                    throw new IOException("Can't resolve path $p", 0, $e);
                 }
 
                 return $p;

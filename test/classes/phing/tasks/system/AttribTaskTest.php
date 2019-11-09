@@ -23,7 +23,7 @@
  * @author  Siad Ardroumli
  * @package phing.tasks.system
  *
- * @requires OS WIN
+ * @requires OS WIN32|WINNT
  */
 class AttribTaskTest extends BuildFileTest
 {

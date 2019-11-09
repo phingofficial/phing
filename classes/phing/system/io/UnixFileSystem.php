@@ -74,7 +74,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function normalize($strPathname)
+    public function normalize(string $strPathname): string
     {
         if (!strlen($strPathname)) {
             return '';
@@ -94,12 +94,12 @@ class UnixFileSystem extends FileSystem
         for (; $i < $n; $i++) {
             $c = $strPathname[$i];
             if (($prevChar === '/') && ($c === '/')) {
-                return self::normalizer($strPathname, $n, $i - 1);
+                return $this->normalizer($strPathname, $n, $i - 1);
             }
             $prevChar = $c;
         }
         if ($prevChar === '/') {
-            return self::normalizer($strPathname, $n, $n - 1);
+            return $this->normalizer($strPathname, $n, $n - 1);
         }
 
         return $strPathname;
@@ -185,7 +185,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function resolve($parent, $child)
+    public function resolve(string $parent, string $child): string
     {
         if ($child === "") {
             return $parent;
@@ -231,7 +231,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function resolveFile(PhingFile $f)
+    public function resolveFile(PhingFile $f): string
     {
         // resolve if parent is a file oject only
         if ($this->isAbsolute($f)) {

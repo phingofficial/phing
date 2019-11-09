@@ -18,13 +18,22 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitLogTaskTest extends BuildFileTest
 {
+    private const DATA_PATH = 'root';
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    private $uri;
+
     private $testCommits = [
         [
             'commit' => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f',
@@ -97,13 +106,16 @@ class GitLogTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/git');
+
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir($this->uri);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -113,7 +125,7 @@ class GitLogTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir($this->uri);
     }
 
     public function testGitLogWithoutParams()

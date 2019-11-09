@@ -18,22 +18,34 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitBranchTaskTest extends BuildFileTest
 {
+    private const DATA_PATH = 'root';
+
+    /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    private $uri;
+
     public function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
+        $this->uri = vfsStream::url(self::DATA_PATH . '/tmp/git');
+
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
+        mkdir($this->uri, 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -43,7 +55,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir($this->uri);
     }
 
     public function testAllParamsSet()
@@ -74,7 +86,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testTrackParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         $this->executeTarget('trackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -83,7 +95,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testNoTrackParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         $this->executeTarget('noTrackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -92,7 +104,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testSetUpstreamParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         if (version_compare(substr(trim(exec('git --version')), strlen('git version ')), '2.15.0', '<')) {
             $this->executeTarget('setUpstreamParamSet');
@@ -105,7 +117,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testForceParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         $this->executeTarget('forceParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -114,7 +126,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testDeleteBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         $this->executeTarget('deleteBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -126,7 +138,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testMoveBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         $this->executeTarget('moveBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -136,7 +148,7 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testForceMoveBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = $this->uri;
 
         $this->executeTarget('forceMoveBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');

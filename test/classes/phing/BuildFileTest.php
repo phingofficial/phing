@@ -329,7 +329,6 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $target target to run
      * @param string $cause information string to reader of report
-     * @param string $msg the message value of the build exception we are waiting for
      * @param string $contains substring of the build exception to look for
      */
     protected function expectBuildExceptionContaining($target, $cause, $contains)

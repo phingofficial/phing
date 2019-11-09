@@ -19,13 +19,17 @@
  * <http://phing.info>.
  */
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class IniFileParserTest extends \PHPUnit\Framework\TestCase
 {
+    private const DATA_PATH = 'root';
+
     /**
      * @var IniFileParser
      */
@@ -38,8 +42,13 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
+
         $this->parser = new IniFileParser();
-        $this->root = \org\bovigo\vfs\vfsStream::setUp();
     }
 
     /**
@@ -49,7 +58,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFile($data, $expected)
     {
-        $file = $this->root->url() . '/test';
+        $file = vfsStream::url(self::DATA_PATH . '/tmp/test');
         file_put_contents($file, $data);
 
         $phingFile = new PhingFile($file);

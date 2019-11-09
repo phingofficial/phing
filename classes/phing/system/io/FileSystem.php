@@ -112,14 +112,16 @@ abstract class FileSystem
      * already in normal form then it is simply returned.
      *
      * @param string $strPath
+     * @return string
      */
-    abstract public function normalize(string $strPath);
+    abstract public function normalize(string $strPath): string;
 
     /**
      * Compute the length of this pathname string's prefix.  The pathname
      * string must be in normal form.
      *
      * @param string $pathname
+     * @return int
      */
     abstract public function prefixLength(string $pathname): int;
 
@@ -130,16 +132,18 @@ abstract class FileSystem
      *
      * @param string $parent
      * @param string $child
+     * @return string
      */
-    abstract public function resolve(string $parent, string $child);
+    abstract public function resolve(string $parent, string $child): string;
 
     /**
      * Resolve the given abstract pathname into absolute form.  Invoked by the
      * getAbsolutePath and getCanonicalPath methods in the PhingFile class.
      *
      * @param PhingFile $f
+     * @return string
      */
-    abstract public function resolveFile(PhingFile $f);
+    abstract public function resolveFile(PhingFile $f): string;
 
     /**
      * Return the parent pathname string to be used when the parent-directory

@@ -19,9 +19,10 @@
 
 /**
  * Tests the Xslt Task
- *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
+ * @requires extension xsl
+ * @requires extension dom
  */
 class XsltTaskTest extends BuildFileTest
 {

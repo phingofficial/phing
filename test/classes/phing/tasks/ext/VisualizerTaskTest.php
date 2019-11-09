@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @requires extension xsl
+ */
 class VisualizerTaskTest extends BuildFileTest
 {
     public function setUp(): void
