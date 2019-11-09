@@ -62,5 +62,4 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
         $this->patternset->setRefId($reference);
         $this->patternset->createIncludesFile();
     }
-
 }

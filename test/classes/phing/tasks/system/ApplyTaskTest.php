@@ -117,8 +117,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetOutput()
     {
-        $this->assertAttributeIsSetTo('output',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename'));
+        $this->assertAttributeIsSetTo(
+            'output',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename')
+        );
     }
 
     /**
@@ -126,8 +128,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetError()
     {
-        $this->assertAttributeIsSetTo('error',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename'));
+        $this->assertAttributeIsSetTo(
+            'error',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename')
+        );
     }
 
     /**
@@ -288,7 +292,8 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertInLogs(
             $this->windows
                 ? (escapeshellarg('echo') . ' ' . escapeshellarg('foo') . " " . escapeshellarg('|') . " " . escapeshellarg('cat'))
-                : ("'echo' 'foo' '|' 'cat'"));
+            : ("'echo' 'foo' '|' 'cat'")
+        );
     }
 
     /**

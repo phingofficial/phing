@@ -1,11 +1,9 @@
 <?php
 
-class Dir_Subdir_SampleTask extends Task
+class DirSubdirSampleTask extends Task
 {
-    function main()
+    public function main()
     {
         $this->log("SampleTask executed!");
     }
 }
-
-?>

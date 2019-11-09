@@ -1,11 +1,11 @@
 <?php
 
-class Foo_BarTest extends \PHPUnit\Framework\TestCase
+class FooBarTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetString()
     {
-        $bar = new Foo_Bar();
-        
+        $bar = new FooBar();
+
         $this->assertEquals('baz', $bar->getString());
     }
 }

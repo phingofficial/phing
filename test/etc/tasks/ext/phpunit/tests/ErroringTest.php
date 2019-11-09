@@ -28,10 +28,9 @@ class ErroringTest extends \PHPUnit\Framework\TestCase
     {
         throw new Exception("Error");
     }
-    
+
     public function testFailure()
     {
         $this->fail('Fail');
     }
 }
-

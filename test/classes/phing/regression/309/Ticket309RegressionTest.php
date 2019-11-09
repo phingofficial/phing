@@ -43,4 +43,4 @@ class Ticket309RegressionTest extends BuildFileTest
             $this->assertInLogs("project.basedir: $testBasedir");
         }
     }
-} 
+}

@@ -102,5 +102,4 @@ class VisualizerTaskTest extends BuildFileTest
         $this->expectBuildException(__FUNCTION__, 'Invalid PlantUml server');
         $this->assertInLogs('Invalid PlantUml server');
     }
-
 }

@@ -4143,8 +4143,8 @@ file defines a task in the format: name=path.to.Task -->
             <para>
                 <emphasis role="bold">NB:</emphasis> Taskdef now supports the PEAR-style naming
                 convention to define and load tasks:</para>
-            <programlisting language="xml">&lt;taskdef name="sampletask" classname="Dir_Subdir_SampleTask"/></programlisting>
-            <para>will load class <literal>Dir_Subdir_SampleTask</literal> from file
+            <programlisting language="xml">&lt;taskdef name="sampletask" classname="DirSubdirSampleTask"/></programlisting>
+            <para>will load class <literal>DirSubdirSampleTask</literal> from file
                     <filename>Dir/Subdir/SampleTask.php</filename>.</para>
         </sect2>
 

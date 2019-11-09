@@ -25,4 +25,6 @@ namespace Vendor\Package\Sub_Package;
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class Separated_FullSeparatedClass {}
+class FullSeparatedClass
+{
+}

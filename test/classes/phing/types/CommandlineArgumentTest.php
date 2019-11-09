@@ -39,6 +39,5 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
         $argument->setLine("perl -pie 's/foo/bar/g' test.txt");
         $parts = $argument->getParts();
         $this->assertNotEquals($parts, []);
-
     }
 }

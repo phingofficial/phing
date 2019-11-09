@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -19,33 +20,21 @@
  */
 
 /**
- * Tests the Manifest Task
- *
- * @author  Michiel Rook <mrook@php.net>
+ * @author Hans Lellelid (Phing)
+ * @author Conor MacNeill (Ant)
  * @package phing.tasks.system
  */
-class ManifestTaskTest extends BuildFileTest
+class HangDetectorProperties extends Properties
 {
-    public function setUp(): void
-    {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/ext/ManifestTaskTest.xml"
-        );
-        $this->executeTarget("setup");
-    }
+    private $accesses = 0;
 
-    public function tearDown(): void
+    public function getProperty($prop)
     {
-        $this->executeTarget("clean");
-    }
+        $this->accesses++;
+        if ($this->accesses > 100) {
+            throw new Exception('Cirular definition Hanged!');
+        }
 
-    public function testGenerateManifest()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $hash = md5("saltyFile1");
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
-        $this->assertInLogs("Writing to " . $manifestFile);
-        $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
+        return parent::getProperty($prop);
     }
 }

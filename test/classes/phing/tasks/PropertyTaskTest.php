@@ -109,28 +109,3 @@ class PropertyTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 }
-
-class HangDetectorPropertyTask extends PropertyTask
-{
-    protected function loadFile(PhingFile $file)
-    {
-        $props = new HangDetectorProperties();
-        $props->load($file);
-        $this->addProperties($props);
-    }
-}
-
-class HangDetectorProperties extends Properties
-{
-    private $accesses = 0;
-
-    public function getProperty($prop)
-    {
-        $this->accesses++;
-        if ($this->accesses > 100) {
-            throw new Exception('Cirular definition Hanged!');
-        }
-
-        return parent::getProperty($prop);
-    }
-}

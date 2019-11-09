@@ -65,7 +65,6 @@ abstract class BuildFileTest extends TestCase
                         $found = true;
                     }
                 }
-
             }
             if ($found) {
                 return;
@@ -100,7 +99,6 @@ abstract class BuildFileTest extends TestCase
                         $found = true;
                     }
                 }
-
             }
             if ($found) {
                 return;
@@ -526,91 +524,5 @@ abstract class BuildFileTest extends TestCase
         }
 
         $this->assertGreaterThanOrEqual($bytes, $actualSize);
-    }
-}
-
-/**
- * our own personal build listener
- */
-class PhingTestListener implements BuildListener
-{
-    private $parent;
-
-    public function __construct($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     *  Fired before any targets are started.
-     */
-    public function buildStarted(BuildEvent $event)
-    {
-    }
-
-    /**
-     *  Fired after the last target has finished. This event
-     *  will still be thrown if an error occurred during the build.
-     *
-     * @see BuildEvent#getException()
-     */
-    public function buildFinished(BuildEvent $event)
-    {
-    }
-
-    /**
-     *  Fired when a target is started.
-     *
-     * @see BuildEvent#getTarget()
-     */
-    public function targetStarted(BuildEvent $event)
-    {
-        //System.out.println("targetStarted " + event.getTarget().getName());
-    }
-
-    /**
-     *  Fired when a target has finished. This event will
-     *  still be thrown if an error occurred during the build.
-     *
-     * @see BuildEvent#getException()
-     */
-    public function targetFinished(BuildEvent $event)
-    {
-        //System.out.println("targetFinished " + event.getTarget().getName());
-    }
-
-    /**
-     *  Fired when a task is started.
-     *
-     * @see BuildEvent#getTask()
-     */
-    public function taskStarted(BuildEvent $event)
-    {
-        //System.out.println("taskStarted " + event.getTask().getTaskName());
-    }
-
-    /**
-     *  Fired when a task has finished. This event will still
-     *  be throw if an error occurred during the build.
-     *
-     * @see BuildEvent#getException()
-     */
-    public function taskFinished(BuildEvent $event)
-    {
-        //System.out.println("taskFinished " + event.getTask().getTaskName());
-    }
-
-    /**
-     *  Fired whenever a message is logged.
-     *
-     * @see BuildEvent#getMessage()
-     * @see BuildEvent#getPriority()
-     */
-    public function messageLogged(BuildEvent $event)
-    {
-        $this->parent->logBuffer[] = [
-            'message' => $event->getMessage(),
-            'priority' => $event->getPriority()
-        ];
     }
 }

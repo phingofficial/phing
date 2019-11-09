@@ -7,4 +7,3 @@ class Test
         echo "Hello World";
     }
 }
-

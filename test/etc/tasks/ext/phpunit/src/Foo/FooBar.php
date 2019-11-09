@@ -1,6 +1,6 @@
 <?php
 
-class Foo_Bar
+class FooBar
 {
     public function getString()
     {

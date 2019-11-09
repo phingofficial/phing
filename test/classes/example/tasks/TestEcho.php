@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,34 +19,12 @@
  * <http://phing.info>.
  */
 
-/**
- * Tests the Manifest Task
- *
- * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
- */
-class ManifestTaskTest extends BuildFileTest
+class TestEcho
 {
-    public function setUp(): void
-    {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/ext/ManifestTaskTest.xml"
-        );
-        $this->executeTarget("setup");
-    }
+    public $message;
 
-    public function tearDown(): void
+    public function setMessage($s)
     {
-        $this->executeTarget("clean");
-    }
-
-    public function testGenerateManifest()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $hash = md5("saltyFile1");
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
-        $this->assertInLogs("Writing to " . $manifestFile);
-        $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
+        $this->message = $s;
     }
 }

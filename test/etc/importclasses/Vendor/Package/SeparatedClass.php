@@ -23,4 +23,6 @@
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class Vendor_Package_SeparatedClass {}
+class SeparatedClass
+{
+}

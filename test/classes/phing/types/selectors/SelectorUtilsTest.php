@@ -33,8 +33,10 @@ class SelectorUtilsTest extends TestCase
      */
     public function testDoNotIncludePrefix()
     {
-        $this->assertFalse($this->selectorUtils->matchPath("**/example.php",
-            "vendor/phplot/phplot/contrib/color_range.example.php"));
+        $this->assertFalse($this->selectorUtils->matchPath(
+            "**/example.php",
+            "vendor/phplot/phplot/contrib/color_range.example.php"
+        ));
     }
 
     /**

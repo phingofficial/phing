@@ -8,13 +8,11 @@
     * @author Michiel Rook
     * @package hello.world
     */
-    class HelloWorldTest extends \PHPUnit\Framework\TestCase
+class HelloWorldTest extends \PHPUnit\Framework\TestCase
+{
+    public function testSayHello()
     {
-        public function testSayHello()
-        {
-            $hello = new HelloWorld();
-            $this->assertEquals("Hello World!", $hello->sayHello());
-        }
+        $hello = new HelloWorld();
+        $this->assertEquals("Hello World!", $hello->sayHello());
     }
-
-?>
+}

@@ -2,7 +2,6 @@
 
 class SassTaskAcceptanceTest extends BuildFileTest
 {
-
     use SassCleaner;
 
     private const SASS_TEST_BASE = PHING_TEST_BASE . "/etc/tasks/ext/sass/";

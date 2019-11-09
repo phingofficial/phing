@@ -19,33 +19,18 @@
  */
 
 /**
- * Tests the Manifest Task
+ * testcases for phing.IntrospectionHelper.
  *
- * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
+ * @author Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @package phing
  */
-class ManifestTaskTest extends BuildFileTest
+class IHCreatorFail1
 {
-    public function setUp(): void
+    /**
+     * cannot take param!
+     */
+    public function createBlah($param)
     {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/ext/ManifestTaskTest.xml"
-        );
-        $this->executeTarget("setup");
-    }
-
-    public function tearDown(): void
-    {
-        $this->executeTarget("clean");
-    }
-
-    public function testGenerateManifest()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $hash = md5("saltyFile1");
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
-        $this->assertInLogs("Writing to " . $manifestFile);
-        $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
     }
 }

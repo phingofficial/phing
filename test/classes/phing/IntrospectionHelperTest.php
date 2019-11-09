@@ -41,7 +41,7 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
      */
     public function testAddText()
     {
-        $ih = IntrospectionHelper::getHelper('Exception');
+        $ih = IntrospectionHelper::getHelper(Exception::class);
         try {
             $ih->addText($this->p, new Exception(), "test");
             $this->fail("Exception doesn\'t support addText");
@@ -49,7 +49,7 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         }
 
         $element = new IHProjectComponent();
-        $ih = IntrospectionHelper::getHelper('IHProjectComponent');
+        $ih = IntrospectionHelper::getHelper(IHProjectComponent::class);
         $ih->addText($this->p, $element, "test");
 
         $this->assertSame('test', $element->text);
@@ -57,33 +57,33 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 
     public function testSupportsCharactersAdders()
     {
-        $ih = IntrospectionHelper::getHelper('Exception');
+        $ih = IntrospectionHelper::getHelper(Exception::class);
         $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
-        $ih = IntrospectionHelper::getHelper('IHProjectComponent');
+        $ih = IntrospectionHelper::getHelper(IHProjectComponent::class);
         $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
     }
 
     public function testElementCreators()
     {
         try {
-            $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
+            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail1::class);
             $this->fail("create cannot take param");
         } catch (BuildException $be) {
         }
 
         try {
-            $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail2');
+            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail2::class);
             $this->fail("no class hint for add");
         } catch (BuildException $be) {
         }
 
         try {
-            $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail3');
+            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail3::class);
             $this->fail("no class hint for addconfigured");
         } catch (BuildException $be) {
         }
 
-        $ih = IntrospectionHelper::getHelper('IHProjectComponent');
+        $ih = IntrospectionHelper::getHelper(IHProjectComponent::class);
         $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
 
         $fs = new FileSet();
@@ -353,86 +353,4 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(19, d, 1e-6);
     }
     */
-}
-
-// IntrospectionHelperTest
-
-// These are sample project components
-
-class IHProjectComponent
-{
-    public $text;
-    public $container = [];
-
-    public function addText($text)
-    {
-        $this->text .= $text;
-    }
-
-    public function createOne()
-    {
-        return "test";
-    }
-
-    public function addFileSet(FileSet $fs): void
-    {
-        $this->container[] = $fs;
-    }
-}
-
-// These classes force failure
-//
-
-class IHCreatorFail1
-{
-    /**
-     * cannot take param!
-     */
-    public function createBlah($param)
-    {
-    }
-}
-
-class IHCreatorFail2
-{
-
-    /**
-     * no class hint!
-     */
-    public function addBlah($blah)
-    {
-    }
-}
-
-class IHCreatorFail3
-{
-
-    /**
-     * no class hint!
-     */
-    public function addConfiguredBlah($blah)
-    {
-    }
-}
-
-class IHFail4
-{
-
-    /**
-     * 2 params!
-     */
-    public function setBlah($blah, $blah2)
-    {
-    }
-}
-
-class IHFail5
-{
-
-    /**
-     * no params!
-     */
-    public function setBlah()
-    {
-    }
 }

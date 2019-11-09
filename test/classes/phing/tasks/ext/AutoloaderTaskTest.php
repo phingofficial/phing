@@ -41,6 +41,6 @@ class AutoloaderTaskTest extends BuildFileTest
     public function testExisting()
     {
         $this->expectLog("testExisting", 'Loading autoloader from autoload.php');
-        $this->assertTrue(class_exists('Phing_Autoload_Stub', false));
+        $this->assertTrue(class_exists('PhingAutoloadStub', false));
     }
 }

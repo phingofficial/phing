@@ -6,7 +6,7 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->environment = new Environment;
+        $this->environment = new Environment();
     }
 
     public function testVariablesNull()
