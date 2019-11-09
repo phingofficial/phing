@@ -76,7 +76,7 @@ class FileList extends DataType implements IteratorAggregate
 
     public function getIterator()
     {
-        return new ArrayIterator($this->getFiles());
+        return new ArrayIterator($this->getFiles($this->getProject()));
     }
 
     /**
