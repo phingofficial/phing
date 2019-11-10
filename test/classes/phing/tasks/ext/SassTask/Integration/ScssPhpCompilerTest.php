@@ -54,13 +54,13 @@ class ScssPhpCompilerTest extends TestCase
 
     public function testItThrowsExceptionWhenFailOnErrorIsSet(): void
     {
+        $this->expectException(BuildException::class);
+
         $this->compiler->compile(
             self::SASS_TEST_BASE . 'non-existing.sass',
             self::SASS_TEST_BASE . 'test.css',
             true
         );
-
-        $this->expectException(BuildException::class);
 
         $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }

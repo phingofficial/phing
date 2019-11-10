@@ -30,10 +30,10 @@ class RelentlessTest extends BuildFileTest
 
     public function testFailure()
     {
-        $this->executeTarget(__FUNCTION__);
-
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Relentless execution: 1 of 5 tasks failed.');
+
+        $this->executeTarget(__FUNCTION__);
 
         $this->assertInLogs('Task task 3 failed: baz');
     }

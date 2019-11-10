@@ -32,10 +32,10 @@ class SassTaskAcceptanceTest extends BuildFileTest
 
     public function testSetStyleToUnrecognised(): void
     {
-        $this->executeTarget("testSettingUnrecognisedStyle");
-
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Neither sass nor scssphp are to be used.');
+
+        $this->executeTarget("testSettingUnrecognisedStyle");
 
         $this->assertInLogs('Style compacted ignored', Project::MSG_INFO);
     }
