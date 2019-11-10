@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Register a datatype for use within a buildfile.
  *

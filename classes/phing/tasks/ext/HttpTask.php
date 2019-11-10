@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Base class for HTTP_Request2-backed tasks
  *

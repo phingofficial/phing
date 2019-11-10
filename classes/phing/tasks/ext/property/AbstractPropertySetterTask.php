@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 abstract class AbstractPropertySetterTask extends Task
 {
     private $property;
