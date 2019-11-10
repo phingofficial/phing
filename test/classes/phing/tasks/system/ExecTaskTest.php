@@ -196,12 +196,11 @@ class ExecTaskTest extends BuildFileTest
         $this->assertAttributeIsSetTo('levelDebug', Project::MSG_DEBUG, 'logLevel');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Unknown log level "unknown"
-     */
     public function testPropertySetLevelUnknown()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Unknown log level "unknown"');
+
         $this->getConfiguredTask('testPropertySetLevelUnknown', 'ExecTask');
     }
 
@@ -234,15 +233,20 @@ class ExecTaskTest extends BuildFileTest
 
     public function testFailOnNonExistingDir()
     {
-        try {
-            $this->executeTarget(__FUNCTION__);
-            $this->fail('Expected BuildException was not thrown');
-        } catch (BuildException $e) {
-            $this->assertContains(
-                str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"),
-                $e->getMessage()
-            );
-        }
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessageRegExp('/' . preg_quote(str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"), '/') . '/');
+
+//        try {
+//            $this->executeTarget(__FUNCTION__);
+//            $this->fail('Expected BuildException was not thrown');
+//        } catch (BuildException $e) {
+//            $this->assertContains(
+//                str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"),
+//                $e->getMessage()
+//            );
+//        }
+
+        $this->executeTarget(__FUNCTION__);
     }
 
     public function testChangeToDir()
@@ -263,15 +267,15 @@ class ExecTaskTest extends BuildFileTest
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage exec returned: 1
-     */
     public function testCheckreturnFalse()
     {
         if (FileSystem::getFileSystem()->which('false') === false) {
             $this->markTestSkipped("'false' not found.");
         }
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('exec returned: 1');
+
         $this->executeTarget(__FUNCTION__);
     }
 
@@ -341,12 +345,11 @@ class ExecTaskTest extends BuildFileTest
         $this->assertInLogs($this->windows ? 'nested-arg "b  ar"' : 'nested-arg b  ar');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage ExecTask: Please provide "executable"
-     */
     public function testMissingExecutableAndCommand()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('ExecTask: Please provide "executable"');
+
         $this->executeTarget(__FUNCTION__);
     }
 

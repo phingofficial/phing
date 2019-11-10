@@ -51,11 +51,13 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers IniFileParser::parseFile
-     * @expectedException IOException
      */
     public function testParseFileCouldntOpenFile()
     {
         $phingFile = new PhingFile(uniqid('', true));
+
+        $this->expectException(IOException::class);
+
         $this->parser->parseFile($phingFile);
     }
 

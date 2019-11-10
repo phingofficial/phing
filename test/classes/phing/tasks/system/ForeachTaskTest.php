@@ -40,33 +40,36 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test for required attributes
      *
-     * @expectedException BuildException
      * @return void
      */
     public function testRequiredParameters()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 
     /**
      * Test list of values to process without the 'param' attribute
      *
-     * @expectedException BuildException
      * @return void
      */
     public function testListWithoutParam()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 
     /**
      * Test list of values to process without the 'target' attribute
      *
-     * @expectedException BuildException
      * @return void
      */
     public function testListWithoutCalleeTarget()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 

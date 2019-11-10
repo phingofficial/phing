@@ -29,19 +29,14 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httpget.xml");
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Required attribute 'dir' is missing
-     */
     public function testMissingDir()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Required attribute \'dir\' is missing');
+
         $this->executeTarget('missingDir');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Response from server: 404 Not Found
-     */
     public function testError404()
     {
         $this->copyTasksAddingCustomRequest(
@@ -58,6 +53,10 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 )
             )
         );
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Response from server: 404 Not Found');
+
         $this->executeTarget('recipient');
     }
 

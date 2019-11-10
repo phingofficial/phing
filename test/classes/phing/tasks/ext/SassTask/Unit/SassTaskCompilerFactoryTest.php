@@ -7,10 +7,6 @@ use PHPUnit\Framework\TestCase;
 class SassTaskCompilerFactoryTest extends TestCase
 {
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Neither sass nor scssphp are to be used.
-     */
     public function testItFailsWhenNoCompilerIsSet(): void
     {
         $sassTask = new SassTask();
@@ -18,6 +14,9 @@ class SassTaskCompilerFactoryTest extends TestCase
         $sassTask->setUseScssphp('false');
         $fileSystem = new FileSystemWhichStub(true);
         $factory = new SassTaskCompilerFactory($fileSystem);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Neither sass nor scssphp are to be used.');
 
         $factory->prepareCompiler($sassTask);
     }
@@ -48,10 +47,6 @@ class SassTaskCompilerFactoryTest extends TestCase
         $this->assertInstanceOf(SassCompiler::class, $compiler);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage sass not found. Install sass.
-     */
     public function testItFailsWhenSassExecutableNotFound(): void
     {
         $sassTask = new SassTask();
@@ -60,6 +55,9 @@ class SassTaskCompilerFactoryTest extends TestCase
         $sassTask->setExecutable('sass');
         $fileSystem = new FileSystemWhichStub(false);
         $factory = new SassTaskCompilerFactory($fileSystem);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('sass not found. Install sass.');
 
         $factory->prepareCompiler($sassTask);
     }

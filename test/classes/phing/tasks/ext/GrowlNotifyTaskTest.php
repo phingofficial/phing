@@ -99,12 +99,13 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test for required message attribute
      *
-     * @expectedException        BuildException
-     * @expectedExceptionMessage "message" attribute cannot be empty
      * @return void
      */
     public function testEmptyMessage()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('"message" attribute cannot be empty');
+
         $this->executeTarget(__FUNCTION__);
     }
 

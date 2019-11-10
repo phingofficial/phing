@@ -47,11 +47,10 @@ class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
         $this->_condition->evaluate();
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testCanNotUseUnsupportedOperator()
     {
+        $this->expectException(BuildException::class);
+
         $this->_condition->setOperator('<<<<');
     }
 }

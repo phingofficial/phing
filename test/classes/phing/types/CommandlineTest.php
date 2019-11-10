@@ -61,14 +61,20 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
 
         // now try unbalanced quotes -- this should fail
         $cmd4 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file for 'fun' Test.php";
-        try {
-            $c4 = new Commandline($cmd4);
-            $this->fail("Should throw BuildException because 'unbalanced quotes'");
-        } catch (BuildException $be) {
-            if (false === strpos($be->getMessage(), "unbalanced quotes")) {
-                $this->fail("Should throw BuildException because 'unbalanced quotes'");
-            }
-        }
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessageRegExp('/unbalanced quotes/');
+
+//        try {
+//            new Commandline($cmd4);
+//            $this->fail("Should throw BuildException because 'unbalanced quotes'");
+//        } catch (BuildException $be) {
+//            if (false === strpos($be->getMessage(), "unbalanced quotes")) {
+//                $this->fail("Should throw BuildException because 'unbalanced quotes'");
+//            }
+//        }
+
+        new Commandline($cmd4);
     }
 
     public function testCreateMarkerWithArgument()

@@ -44,12 +44,11 @@ class EventObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('EventObject[source=stdClass]', (string) $this->eventObject);
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Null source
-     */
     public function testEventObjectThrowsExceptionOnNull()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Null source');
+
         new EventObject(null);
     }
 }

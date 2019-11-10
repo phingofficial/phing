@@ -55,14 +55,19 @@ class PropertyTaskTest extends BuildFileTest
 
     public function testPrefixFailure()
     {
-        try {
-            $this->executeTarget("prefix.fail");
-        } catch (BuildException $e) {
-            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessageRegExp('/Prefix is only valid/');
 
-            return;
-        }
-        $this->fail("Did not throw exception on invalid use of prefix");
+//        try {
+//            $this->executeTarget("prefix.fail");
+//        } catch (BuildException $e) {
+//            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
+//
+//            return;
+//        }
+//        $this->fail("Did not throw exception on invalid use of prefix");
+
+        $this->executeTarget("prefix.fail");
     }
 
     public function testFilterChain()
@@ -85,14 +90,19 @@ class PropertyTaskTest extends BuildFileTest
      */
     public function testCircularDefinitionDetection($target)
     {
-        try {
-            $this->executeTarget($target);
-        } catch (BuildException $e) {
-            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessageRegExp('/was circularly defined/');
 
-            return;
-        }
-        $this->fail("Did not throw exception on circular exception");
+//        try {
+//            $this->executeTarget($target);
+//        } catch (BuildException $e) {
+//            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
+//
+//            return;
+//        }
+//        $this->fail("Did not throw exception on circular exception");
+
+        $this->executeTarget($target);
     }
 
     public function testToString()

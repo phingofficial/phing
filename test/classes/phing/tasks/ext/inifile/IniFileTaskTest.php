@@ -15,39 +15,33 @@ class IniFileTaskTest extends BuildFileTest
         $this->executeTarget("clean");
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Neither source nor dest is set
-     */
     public function testNoSourceOrDestSet()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Neither source nor dest is set');
+
         $this->executeTarget('noSourceOrDestSet');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage doesnotexist.ini does not exist
-     */
     public function testNonexistingSourceOnly()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('doesnotexist.ini does not exist');
+
         $this->executeTarget('nonexistingSourceOnly');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage doesnotexist.ini does not exist
-     */
     public function testNonexistingDestOnly()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('doesnotexist.ini does not exist');
         $this->executeTarget('nonexistingDestOnly');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage sourcedoesnotexist.ini does not exist
-     */
     public function testNonexistingDestAndSource()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('sourcedoesnotexist.ini does not exist');
         $this->executeTarget('nonexistingDestAndSource');
     }
 

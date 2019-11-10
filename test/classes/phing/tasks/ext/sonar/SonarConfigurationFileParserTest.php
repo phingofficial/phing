@@ -38,34 +38,30 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         return $parser;
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function test_construct_fileIsNull_throwsException()
     {
         $file = null;
 
+        $this->expectException(BuildException::class);
+
         new SonarConfigurationFileParser($file, $this->getProject());
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function test_construct_fileIsEmpty_throwsException()
     {
         $file = '';
 
+        $this->expectException(BuildException::class);
+
         new SonarConfigurationFileParser($file, $this->getProject());
     }
 
-
-    /**
-     * @expectedException BuildException
-     */
     public function test_construct_fileDoesNotExist_throwsException()
     {
         $file = 'ThisFileDoesNotExist';
         $parser = new SonarConfigurationFileParser($file, $this->getProject());
+
+        $this->expectException(BuildException::class);
 
         $parser->parse();
     }
