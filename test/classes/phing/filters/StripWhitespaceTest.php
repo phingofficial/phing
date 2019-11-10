@@ -38,7 +38,11 @@ class StripWhitespaceTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $resultFile = $this->getProject()->resolveFile("result/stripwhitespace.test");
-        $expected   = $this->getProject()->resolveFile("expected/stripwhitespace.test");
+
+        $expected = <<<EXPECTED
+<?php
+class { public function __construct() { return ''; } } 
+EXPECTED;
 
         $result = file_get_contents($resultFile->getAbsolutePath());
 
