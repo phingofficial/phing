@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
  * Based on the DocBlox Task

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,11 +30,11 @@
  */
 class DirectoryScannerTest extends BuildFileTest
 {
-    private $_basedir = "";
+    private $basedir = "";
 
     public function setUp(): void
     {
-        $this->_basedir = PHING_TEST_BASE . "/etc/util/tmp";
+        $this->basedir = PHING_TEST_BASE . "/etc/util/tmp";
         $this->configureProject(PHING_TEST_BASE . "/etc/util/directoryscanner.xml");
         $this->executeTarget("setup");
     }
@@ -48,7 +47,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testErrorOnMissingDir()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
+        $ds->setBasedir($this->basedir . '/THIS_DOES_NOT_EXIST');
         $ds->setErrorOnMissingDir(true);
 
         $this->expectException(BuildException::class);
@@ -60,14 +59,14 @@ class DirectoryScannerTest extends BuildFileTest
     public function testNoErrorOnMissingDir()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir . '/THIS_DOES_NOT_EXIST');
+        $ds->setBasedir($this->basedir . '/THIS_DOES_NOT_EXIST');
         $ds->scan();
     }
 
     public function test1()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["alpha"]);
         $ds->scan();
 
@@ -77,7 +76,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function test2()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["alpha/"]);
         $ds->scan();
 
@@ -98,7 +97,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function test3()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->scan();
 
         $this->compareFiles(
@@ -119,7 +118,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testFullPathMatchesCaseSensitive()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["alpha/beta/gamma/GAMMA.XML"]);
         $ds->scan();
 
@@ -130,7 +129,7 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $ds = new DirectoryScanner();
         $ds->setCaseSensitive(false);
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["alpha/beta/gamma/GAMMA.XML"]);
         $ds->scan();
 
@@ -141,7 +140,7 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $ds = new DirectoryScanner();
         $ds->setCaseSensitive(false);
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["ALPHA/"]);
         $ds->scan();
 
@@ -162,7 +161,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testExcludeOneFile()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["**/*.xml"]);
         $ds->setExcludes(["alpha/beta/b*xml"]);
         $ds->scan();
@@ -173,7 +172,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testExcludeHasPrecedence()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["alpha/**"]);
         $ds->setExcludes(["alpha/**"]);
         $ds->scan();
@@ -184,7 +183,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testAlternateIncludeExclude()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setIncludes(["alpha/**", "alpha/beta/gamma/**"]);
         $ds->setExcludes(["alpha/beta/**"]);
         $ds->scan();
@@ -195,7 +194,7 @@ class DirectoryScannerTest extends BuildFileTest
     public function testAlternateExcludeInclude()
     {
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setExcludes(["alpha/**", "alpha/beta/gamma/**"]);
         $ds->setIncludes(["alpha/beta/**"]);
         $ds->scan();
@@ -208,14 +207,14 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("children-of-excluded-dir-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setExcludes(["alpha/**"]);
         $ds->scan();
 
         $this->compareFiles($ds, ["delta/delta.xml"], ["", "delta"]);
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir);
+        $ds->setBasedir($this->basedir);
         $ds->setExcludes(["alpha"]);
         $ds->scan();
 
@@ -339,7 +338,7 @@ class DirectoryScannerTest extends BuildFileTest
         $this->executeTarget("multiple-setup");
 
         $ds = new DirectoryScanner();
-        $ds->setBasedir($this->_basedir . "/echo");
+        $ds->setBasedir($this->basedir . "/echo");
         $ds->setIncludes(["**"]);
         $ds->setExcludes(["**/.gitignore", ".svn/", ".git/", "cache/", "build.xml", "a/a.xml"]);
         $ds->scan();

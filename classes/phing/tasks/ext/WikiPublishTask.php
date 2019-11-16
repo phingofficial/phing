@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Publish Wiki document using Wiki API.
  *

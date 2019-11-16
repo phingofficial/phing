@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -43,7 +42,7 @@ class ManifestTaskTest extends BuildFileTest
     public function testGenerateManifest()
     {
         $this->executeTarget(__FUNCTION__);
-        $hash = md5("salty" . "File1");
+        $hash = md5("saltyFile1");
         $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
         $this->assertInLogs("Writing to " . $manifestFile);
         $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));

@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Simple regular expression condition.
  *

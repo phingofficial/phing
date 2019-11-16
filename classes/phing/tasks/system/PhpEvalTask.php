@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.
  *

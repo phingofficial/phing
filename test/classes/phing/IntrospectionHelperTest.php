@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -353,86 +352,4 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(19, d, 1e-6);
     }
     */
-}
-
-// IntrospectionHelperTest
-
-// These are sample project components
-
-class IHProjectComponent
-{
-    public $text;
-    public $container = [];
-
-    public function addText($text)
-    {
-        $this->text .= $text;
-    }
-
-    public function createOne()
-    {
-        return "test";
-    }
-
-    public function addFileSet(FileSet $fs): void
-    {
-        $this->container[] = $fs;
-    }
-}
-
-// These classes force failure
-//
-
-class IHCreatorFail1
-{
-    /**
-     * cannot take param!
-     */
-    public function createBlah($param)
-    {
-    }
-}
-
-class IHCreatorFail2
-{
-
-    /**
-     * no class hint!
-     */
-    public function addBlah($blah)
-    {
-    }
-}
-
-class IHCreatorFail3
-{
-
-    /**
-     * no class hint!
-     */
-    public function addConfiguredBlah($blah)
-    {
-    }
-}
-
-class IHFail4
-{
-
-    /**
-     * 2 params!
-     */
-    public function setBlah($blah, $blah2)
-    {
-    }
-}
-
-class IHFail5
-{
-
-    /**
-     * no params!
-     */
-    public function setBlah()
-    {
-    }
 }
