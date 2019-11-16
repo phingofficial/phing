@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Abstract class for creating adhoc Phing components in buildfile.
  *

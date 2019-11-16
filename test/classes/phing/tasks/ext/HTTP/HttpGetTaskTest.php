@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -121,8 +120,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 'proxy' => 'socks5://localhost:1080/',
                 'ssl_verify_peer' => false,
                 'follow_redirects' => true
-            ]
-        );
+            ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
@@ -174,8 +172,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 'proxy' => 'http://localhost:8080/',
                 'timeout' => 20,
                 'max_redirects' => 9
-            ]
-        );
+            ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }

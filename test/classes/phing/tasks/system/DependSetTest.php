@@ -44,8 +44,10 @@ class DependSetTest extends BuildFileTest
 
     public function test2()
     {
-        $this->expectBuildException(__FUNCTION__,
-            "At least one <targetfileset> or <targetfilelist> element must be set");
+        $this->expectBuildException(
+            __FUNCTION__,
+            "At least one <targetfileset> or <targetfilelist> element must be set"
+        );
     }
 
     public function test3()

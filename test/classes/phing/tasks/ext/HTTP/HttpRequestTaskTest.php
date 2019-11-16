@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -113,8 +112,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $request = new HTTP_Request2(null, 'GET', [
                 'proxy' => 'http://localhost:8080/',
                 'max_redirects' => 9
-            ]
-        );
+            ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }

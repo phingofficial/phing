@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * ApiGen task (http://apigen.org).
  *

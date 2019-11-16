@@ -41,7 +41,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
     /**
      * @expectedException BuildException
      */
-    public function test_construct_fileIsNull_throwsException()
+    public function testConstructFileIsNullThrowsException()
     {
         $file = null;
 
@@ -51,7 +51,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
     /**
      * @expectedException BuildException
      */
-    public function test_construct_fileIsEmpty_throwsException()
+    public function testConstructFileIsEmptyFhrowsException()
     {
         $file = '';
 
@@ -62,7 +62,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
     /**
      * @expectedException BuildException
      */
-    public function test_construct_fileDoesNotExist_throwsException()
+    public function testConstructFileDoesNotExistThrowsException()
     {
         $file = 'ThisFileDoesNotExist';
         $parser = new SonarConfigurationFileParser($file, $this->getProject());
@@ -70,7 +70,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $parser->parse();
     }
 
-    public function test_emptyFile()
+    public function testEmptyFile()
     {
         $parser = $this->initParser('test-empty-file');
 
@@ -84,7 +84,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertEmpty($properties);
     }
 
-    public function test_propertyWithColonAndWithoutWhitespace()
+    public function testPropertyWithColonAndWithoutWhitespace()
     {
         $parser = $this->initParser('test-property-with-colon-and-without-whitespace');
 
@@ -94,7 +94,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertContains('bar', $properties);
     }
 
-    public function test_propertyWithColonAndWithWhitespace()
+    public function testPropertyWithColonAndWithWhitespace()
     {
         $parser = $this->initParser('test-property-with-colon-and-with-whitespace');
 
@@ -104,7 +104,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertContains('bar', $properties);
     }
 
-    public function test_propertyWithEqualsSignAndWithoutWhitespace()
+    public function testPropertyWithEqualsSignAndWithoutWhitespace()
     {
         $parser = $this->initParser('test-property-with-equals-sign-and-without-whitespace');
 
@@ -114,7 +114,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertContains('bar', $properties);
     }
 
-    public function test_propertyWithEqualsSignAndWithWhitespace()
+    public function testPropertyWithEqualsSignAndWithWhitespace()
     {
         $parser = $this->initParser('test-property-with-equals-sign-and-with-whitespace');
 
@@ -124,7 +124,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertContains('bar', $properties);
     }
 
-    public function test_commentAtBeginOfLine()
+    public function testCommentAtBeginOfLine()
     {
         $parser = $this->initParser('test-property-with-comment-at-begin-of-line');
 
@@ -133,7 +133,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertArrayNotHasKey('comment', $properties);
     }
 
-    public function test_commentInMiddleOfLine()
+    public function testCommentInMiddleOfLine()
     {
         $parser = $this->initParser('test-property-with-comment-in-middle-of-line');
 
@@ -142,7 +142,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertArrayNotHasKey('comment', $properties);
     }
 
-    public function test_propertyHasMultiLineValue()
+    public function testPropertyHasMultiLineValue()
     {
         $parser = $this->initParser('test-multiline-property');
 
@@ -152,7 +152,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertContains('This is a multi-line comment.', $properties);
     }
 
-    public function test_propertyEndsWithABackSlash()
+    public function testPropertyEndsWithABackSlash()
     {
         $parser = $this->initParser('test-property-with-trailing-backslash');
 
@@ -164,7 +164,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertContains('baz', $properties);
     }
 
-    public function test_propertyHasMultiLineValue_intermediateLineIsEmpty()
+    public function testPropertyHasMultiLineValueIntermediateLineIsEmpty()
     {
         $parser = $this->initParser('test-multiline-property-with-empty-intermediate-line');
 
