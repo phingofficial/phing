@@ -72,13 +72,12 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
         $this->assertInstanceOf(PHPStanHelpCommandBuilder::class, $builder);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testItThrowsExceptionWhenCommandIsUnknown(): void
     {
         $task = new PHPStanTask();
         $task->setCommand('any unknown');
+
+        $this->expectException(BuildException::class);
 
         $this->factory->createBuilder($task);
     }

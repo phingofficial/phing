@@ -38,25 +38,25 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($retrieved->getDescription(), $description);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Reference refOne not found.
-     */
     public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
     {
         $project = new Project();
         $reference = new Reference($project, "refOne");
-        $referenced = $reference->getReferencedObject(null);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Reference refOne not found.');
+
+        $reference->getReferencedObject(null);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage No reference specified
-     */
     public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven()
     {
         $project = new Project();
         $reference = new Reference($project);
-        $referenced = $reference->getReferencedObject(null);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('No reference specified');
+
+        $reference->getReferencedObject(null);
     }
 }

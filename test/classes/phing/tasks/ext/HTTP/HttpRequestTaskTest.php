@@ -56,13 +56,12 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->expectLog('recipient', 'The response status-code matched the provided regex.');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage The received response body did not match the given regular expression
-     */
     public function testDoesntMatchRegexp()
     {
         $this->copyTasksAddingCustomRequest('doesNotMatchRegexp', 'recipient', $this->createRequestWithMockAdapter());
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('The received response body did not match the given regular expression');
 
         $this->executeTarget('recipient');
     }

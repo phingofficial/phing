@@ -38,11 +38,10 @@ class BlockForTaskTest extends BuildFileTest
         $this->assertInLogs('blockfor: condition was met');
     }
 
-    /**
-     * @expectedException BuildTimeoutException
-     */
     public function testTimeout()
     {
+        $this->expectException(BuildTimeoutException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 }

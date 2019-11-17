@@ -69,11 +69,11 @@ class PHPStanTaskTest extends BuildFileTest
 
     /**
      * @depends testItRun
-     * @expectedException BuildException
-     * @expectedExceptionMessage unknown command
      */
     public function testTestInvalidCommandCausesBuildError(): void
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('unknown command');
         $this->executeTarget("testInvalidCommand");
     }
 

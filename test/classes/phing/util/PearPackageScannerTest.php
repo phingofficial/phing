@@ -57,10 +57,6 @@ class PearPackageScannerTest extends BuildFileTest
         $this->assertInstanceOf('PEAR_PackageFile_v2', $packageInfo);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage PEAR package pear.php.net/this_package_does_not_exist does not exist
-     */
     public function testLoadPackageInfoNonexistingPackage()
     {
         $ppfs = new PearPackageScanner();
@@ -69,15 +65,19 @@ class PearPackageScannerTest extends BuildFileTest
         $ref = new ReflectionClass($ppfs);
         $method = $ref->getMethod('loadPackageInfo');
         $method->setAccessible(true);
-        $packageInfo = $method->invoke($ppfs);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('PEAR package pear.php.net/this_package_does_not_exist does not exist');
+
+        $method->invoke($ppfs);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testSetRoleEmpty()
     {
         $ppfs = new PearPackageScanner();
+
+        $this->expectException(BuildException::class);
+
         $ppfs->setRole(null);
     }
 
@@ -101,12 +101,12 @@ class PearPackageScannerTest extends BuildFileTest
         }
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testSetConfigNonexistingFile()
     {
         $ppfs = new PearPackageScanner();
+
+        $this->expectException(BuildException::class);
+
         $ppfs->setConfig('/this/file/does/not/really/exist');
     }
 
@@ -130,12 +130,12 @@ class PearPackageScannerTest extends BuildFileTest
         $this->markTestIncomplete();
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testSetDescFileNonexistingFile()
     {
         $ppfs = new PearPackageScanner();
+
+        $this->expectException(BuildException::class);
+
         $ppfs->setDescFile('/this/file/does/not/exist');
     }
 

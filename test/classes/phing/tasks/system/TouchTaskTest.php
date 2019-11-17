@@ -57,12 +57,13 @@ class TouchTaskTest extends BuildFileTest
         );
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testMkdirsFails()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Error touch()ing file');
+
         $this->executeTarget(__FUNCTION__);
+
         $this->assertFileNotExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"

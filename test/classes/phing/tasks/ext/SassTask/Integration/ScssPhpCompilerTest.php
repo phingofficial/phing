@@ -69,11 +69,10 @@ class ScssPhpCompilerTest extends TestCase
         $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testItThrowsExceptionWhenFailOnErrorIsSet(): void
     {
+        $this->expectException(BuildException::class);
+
         $this->compiler->compile(
             self::SASS_TEST_BASE . 'non-existing.sass',
             self::SASS_TEST_BASE . 'test.css',

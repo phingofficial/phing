@@ -38,13 +38,13 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals("ArrayObject", get_class($variablesObj));
     }
 
-    /**
-     * @expectedException        BuildException
-     * @expectedExceptionMessage key and value must be specified for environment variables.
-     */
     public function testValidateWithoutKeyAndValueSetRaisesException()
     {
         $ev = new EnvVariable();
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('key and value must be specified for environment variables.');
+
         $ev->validate();
     }
 

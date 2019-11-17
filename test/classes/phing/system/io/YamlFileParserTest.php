@@ -64,7 +64,6 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers IniFileParser::parseFile
-     * @expectedException IOException
      */
     public function testParseFileFileNotReadable()
     {
@@ -72,16 +71,21 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
         touch($tmpFile);
         $file = new PhingFile($tmpFile);
         unlink($tmpFile);
+
+        $this->expectException(IOException::class);
+
         $this->objectToTest->parseFile($file);
     }
 
     /**
      * @covers IniFileParser::parseFile
-     * @expectedException IOException
      */
     public function testParseFileFileIncorrectYaml()
     {
         $file = new PhingFile($this->incorrectYamlFileStub);
+
+        $this->expectException(IOException::class);
+
         $this->objectToTest->parseFile($file);
     }
 

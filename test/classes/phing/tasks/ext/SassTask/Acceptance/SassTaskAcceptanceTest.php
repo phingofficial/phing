@@ -38,22 +38,21 @@ class SassTaskAcceptanceTest extends BuildFileTest
         $this->sassCleanUp(self::SASS_TEST_BASE, 'test.css');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Neither sass nor scssphp are to be used.
-     */
     public function testNothing(): void
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Neither sass nor scssphp are to be used.');
+
         $this->executeTarget("nothing");
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Neither sass nor scssphp are to be used.
-     */
     public function testSetStyleToUnrecognised(): void
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Neither sass nor scssphp are to be used.');
+
         $this->executeTarget("testSettingUnrecognisedStyle");
+
         $this->assertInLogs('Style compacted ignored', Project::MSG_INFO);
     }
 

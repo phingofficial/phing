@@ -44,11 +44,10 @@ class TypedefTaskTest extends BuildFileTest
         $this->expectBuildException("noClassname", "required argument not specified");
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testClassNotFound()
     {
+        $this->expectException(BuildException::class);
+
         try {
             $this->executeTarget("classNotFound");
             $this->fail(

@@ -72,11 +72,6 @@ class RSTTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file);
     }
 
-
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
-     */
     public function testGetToolPathFail()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
@@ -84,6 +79,10 @@ class RSTTaskTest extends BuildFileTest
             $ref = new ReflectionClass($rt);
             $method = $ref->getMethod('getToolPath');
             $method->setAccessible(true);
+
+            $this->expectException(BuildException::class);
+            $this->expectExceptionMessage('"rst2doesnotexist" not found. Install python-docutils.');
+
             $method->invoke($rt, 'doesnotexist');
         } else {
             $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
@@ -107,24 +106,23 @@ class RSTTaskTest extends BuildFileTest
         }
     }
 
-
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Tool does not exist. Path:
-     */
     public function testSetToolpathNotExisting()
     {
         $rt = new RSTTask();
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Tool does not exist. Path:');
+
         $rt->setToolpath('doesnotandwillneverexist');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Tool not executable. Path:
-     */
     public function testSetToolpathNonExecutable()
     {
         $rt = new RSTTask();
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Tool not executable. Path:');
+
         $rt->setToolpath(__FILE__);
     }
 
@@ -274,12 +272,11 @@ class RSTTaskTest extends BuildFileTest
         $this->assertFileCreated('files/two.my.html');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage No filename mapper found for "./files/single.rst"
-     */
     public function testNotMatchingMapper()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('No filename mapper found for "./files/single.rst"');
+
         $this->executeTarget(__FUNCTION__);
     }
 

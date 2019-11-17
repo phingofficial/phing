@@ -49,13 +49,12 @@ CMD;
         $this->assertEquals($cmd, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testItFailsWhenExecutableNotSet(): void
     {
         $task = new PHPStanTask();
         $task->setExecutable('');
+
+        $this->expectException(BuildException::class);
 
         $this->builder->build($task);
     }
