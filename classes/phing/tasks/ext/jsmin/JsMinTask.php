@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Task to minify javascript files.
  *

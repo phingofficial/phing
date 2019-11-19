@@ -1,4 +1,22 @@
 <?php
+/**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
+ */
+
 class ReferenceTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -20,25 +38,25 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($retrieved->getDescription(), $description);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Reference refOne not found.
-     */
     public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
     {
         $project = new Project();
         $reference = new Reference($project, "refOne");
-        $referenced = $reference->getReferencedObject(null);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Reference refOne not found.');
+
+        $reference->getReferencedObject(null);
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage No reference specified
-     */
     public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven()
     {
         $project = new Project();
         $reference = new Reference($project);
-        $referenced = $reference->getReferencedObject(null);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('No reference specified');
+
+        $reference->getReferencedObject(null);
     }
 }

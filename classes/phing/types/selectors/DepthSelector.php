@@ -38,8 +38,8 @@ class DepthSelector extends BaseExtendSelector
      */
     public $max = -1;
 
-    const MIN_KEY = "min";
-    const MAX_KEY = "max";
+    public const MIN_KEY = "min";
+    public const MAX_KEY = "max";
 
     /**
      * @return string

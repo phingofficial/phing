@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -51,11 +49,13 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers IniFileParser::parseFile
-     * @expectedException IOException
      */
     public function testParseFileCouldntOpenFile()
     {
         $phingFile = new PhingFile(uniqid('', true));
+
+        $this->expectException(IOException::class);
+
         $this->parser->parseFile($phingFile);
     }
 

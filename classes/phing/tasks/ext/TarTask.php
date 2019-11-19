@@ -29,11 +29,11 @@
  */
 class TarTask extends MatchingTask
 {
-    const TAR_NAMELEN = 100;
+    public const TAR_NAMELEN = 100;
 
-    const WARN = "warn";
-    const FAIL = "fail";
-    const OMIT = "omit";
+    public const WARN = "warn";
+    public const FAIL = "fail";
+    public const OMIT = "omit";
 
     /**
      * @var PhingFile

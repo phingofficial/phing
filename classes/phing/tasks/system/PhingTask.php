@@ -515,9 +515,8 @@ class PhingTask extends Task
             $copy->setProject($this->newProject);
         } elseif (in_array('setProject', get_class_methods(get_class($copy)))) {
             $copy->setProject($this->newProject);
-        } elseif ($copy instanceof Project) {
+        } elseif (!($copy instanceof Project)) {
             // don't copy the old "Project" itself
-        } else {
             $msg = "Error setting new project instance for "
                 . "reference with id " . $oldKey;
             throw new BuildException($msg);

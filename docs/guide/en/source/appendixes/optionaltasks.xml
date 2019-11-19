@@ -889,7 +889,7 @@
     <sect1 role="taskdef" xml:id="FileHashTask">
         <title>FileHashTask</title>
         <para>Calculates either MD5 or SHA1 hash value of a file and stores the value as a hex
-            string in a property.</para>
+            string in a property and generates a checksum file.</para>
         <para>Other popular <link xlink:href="http://php.net/manual/en/function.hash-algos.php">algorithms</link>
             like "crc32" or "sha512" may be used with help of the <literal>algorithm</literal> attribute.</para>
         <table>

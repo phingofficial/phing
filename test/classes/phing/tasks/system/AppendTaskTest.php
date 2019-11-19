@@ -40,19 +40,17 @@ class AppendTaskTest extends BuildFileTest
         $this->getProject()->executeTarget('cleanup');
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function test1()
     {
+        $this->expectException(BuildException::class);
+
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function test2()
     {
+        $this->expectException(BuildException::class);
+
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
@@ -135,10 +133,11 @@ class AppendTaskTest extends BuildFileTest
 
     /**
      * Expect an exception when attempting to cat an file to itself
-     * @expectedException BuildException
      */
     public function testsame()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget("samefile");
     }
 

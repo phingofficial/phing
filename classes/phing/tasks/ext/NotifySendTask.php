@@ -11,7 +11,6 @@
  * @link     https://github.com/kenguest/Phing-NotifySendTask
  */
 
-
 /**
  * NotifySendTask
  *

@@ -25,16 +25,6 @@
 class PhingFile
 {
     /**
-     * separator string, static, obtained from FileSystem
-     */
-    public static $separator;
-
-    /**
-     * path separator string, static, obtained from FileSystem (; or :)
-     */
-    public static $pathSeparator;
-
-    /**
      * This abstract pathname's normalized pathname string.  A normalized
      * pathname string uses the default name-separator character and does not
      * contain any duplicate or redundant separators.
@@ -59,12 +49,6 @@ class PhingFile
      */
     public function __construct($arg1 = null, $arg2 = null)
     {
-        if (self::$separator === null || self::$pathSeparator === null) {
-            $fs = FileSystem::getFileSystem();
-            self::$separator = $fs->getSeparator();
-            self::$pathSeparator = $fs->getPathSeparator();
-        }
-
         /* simulate signature identified constructors */
         if ($arg1 instanceof PhingFile && is_string($arg2)) {
             $this->constructFileParentStringChild($arg1, $arg2);
@@ -157,7 +141,7 @@ class PhingFile
     public function getName()
     {
         // that's a lastIndexOf
-        $index = ((($res = strrpos($this->path, self::$separator)) === false) ? -1 : $res);
+        $index = ((($res = strrpos($this->path, FileUtils::$separator)) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
             return substr($this->path, $this->prefixLength);
         }
@@ -180,7 +164,7 @@ class PhingFile
     public function getParent()
     {
         // that's a lastIndexOf
-        $index = ((($res = strrpos($this->path, self::$separator)) === false) ? -1 : $res);
+        $index = ((($res = strrpos($this->path, FileUtils::$separator)) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
             if (($this->prefixLength > 0) && (strlen($this->path) > $this->prefixLength)) {
                 return substr($this->path, 0, $this->prefixLength);
@@ -238,8 +222,8 @@ class PhingFile
      */
     public function getPathWithoutBase($basedir)
     {
-        if (!StringHelper::endsWith(self::$separator, $basedir)) {
-            $basedir .= self::$separator;
+        if (!StringHelper::endsWith(FileUtils::$separator, $basedir)) {
+            $basedir .= FileUtils::$separator;
         }
         $path = $this->getPath();
         if (substr($path, 0, strlen($basedir)) != $basedir) {
@@ -357,73 +341,6 @@ class PhingFile
         return new PhingFile($this->getCanonicalPath());
     }
 
-    /**
-     * Converts this abstract pathname into a file: URL.  The
-     * exact form of the URL is system-dependent.  If it can be determined that
-     * the file denoted by this abstract pathname is a directory, then the
-     * resulting URL will end with a slash.
-     *
-     * Usage note: This method does not automatically escape
-     * characters that are illegal in URLs.  It is recommended that new code
-     * convert an abstract pathname into a URL by first converting it into a
-     * URI, via the toURI() method, and then converting the URI
-     * into a URL via the URI::toURL()
-     *
-     * @return void A URL object representing the equivalent file URL
-     * @todo   Not implemented yet
-     */
-    public function toURL()
-    {
-        /*
-        // URL class not implemented yet
-        return new URL("file", "", $this->_slashify($this->getAbsolutePath(), $this->isDirectory()));
-        */
-    }
-
-    /**
-     * Constructs a file: URI that represents this abstract pathname.
-     *
-     * @todo   Not implemented yet
-     * @return void
-     */
-    public function toURI()
-    {
-        /*
-        $f = $this->getAbsoluteFile();
-           $sp = (string) $this->slashify($f->getPath(), $f->isDirectory());
-           if (StringHelper::startsWith('//', $sp))
-        $sp = '//' + sp;
-
-           return new URI('file', null, $sp, null);
-        */
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @param  PhingFile|string $path
-     * @param  boolean $isDirectory
-     * @return string
-     */
-    public function _slashify($path, $isDirectory)
-    {
-        $p = (string) $path;
-
-        if (self::$separator !== '/') {
-            $p = str_replace(self::$separator, '/', $p);
-        }
-
-        if (!StringHelper::startsWith('/', $p)) {
-            $p = '/' . $p;
-        }
-
-        if (!StringHelper::endsWith('/', $p) && $isDirectory) {
-            $p .= '/';
-        }
-
-        return $p;
-    }
-
     /* -- Attribute accessors -- */
 
     /**
@@ -517,29 +434,6 @@ class PhingFile
         clearstatcache();
         //$fs = FileSystem::getFileSystem();
         return @is_file($this->path);
-    }
-
-    /**
-     * Tests whether the file named by this abstract pathname is a hidden
-     * file.  The exact definition of hidden is system-dependent.  On
-     * UNIX systems, a file is considered to be hidden if its name begins with
-     * a period character ('.').  On Win32 systems, a file is considered to be
-     * hidden if it has been marked as such in the filesystem. Currently there
-     * seems to be no way to dermine isHidden on Win file systems via PHP
-     *
-     * @throws IOException
-     * @return boolean true if and only if the file denoted by this
-     *                 abstract pathname is hidden according to the conventions of the
-     *                 underlying platform
-     */
-    public function isHidden()
-    {
-        $fs = FileSystem::getFileSystem();
-        if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->path);
-        }
-
-        return (($fs->getBooleanAttributes($this) & FileSystem::BA_HIDDEN) !== 0);
     }
 
     /**
@@ -853,26 +747,6 @@ class PhingFile
     }
 
     /**
-     * Marks the file or directory named by this abstract pathname so that
-     * only read operations are allowed.  After invoking this method the file
-     * or directory is guaranteed not to change until it is either deleted or
-     * marked to allow write access.  Whether or not a read-only file or
-     * directory may be deleted depends upon the underlying system.
-     *
-     * @throws IOException
-     */
-    public function setReadOnly()
-    {
-        $fs = FileSystem::getFileSystem();
-        if ($fs->checkAccess($this, true) !== true) {
-            // Error, no write access
-            throw new IOException("No write access to " . $this->getPath());
-        }
-
-        $fs->setReadOnly($this);
-    }
-
-    /**
      * Sets the owner of the file.
      *
      * @param mixed $user User name or number.
@@ -887,16 +761,6 @@ class PhingFile
     }
 
     /**
-     * Retrieve the owner of this file.
-     *
-     * @return int User ID of the owner of this file.
-     */
-    public function getUser()
-    {
-        return @fileowner($this->getPath());
-    }
-
-    /**
      * Sets the group of the file.
      *
      * @param string $group
@@ -908,16 +772,6 @@ class PhingFile
         $fs = FileSystem::getFileSystem();
 
         $fs->chgrp($this->getPath(), $group);
-    }
-
-    /**
-     * Retrieve the group of this file.
-     *
-     * @return int User ID of the owner of this file.
-     */
-    public function getGroup()
-    {
-        return @filegroup($this->getPath());
     }
 
     /**
@@ -941,103 +795,6 @@ class PhingFile
     public function getMode()
     {
         return @fileperms($this->getPath());
-    }
-
-    /* -- Filesystem interface -- */
-
-    /**
-     * List the available filesystem roots.
-     *
-     * A particular platform may support zero or more hierarchically-organized
-     * file systems.  Each file system has a root  directory from which all
-     * other files in that file system can be reached.
-     * Windows platforms, for example, have a root directory for each active
-     * drive; UNIX platforms have a single root directory, namely "/".
-     * The set of available filesystem roots is affected by various system-level
-     * operations such the insertion or ejection of removable media and the
-     * disconnecting or unmounting of physical or virtual disk drives.
-     *
-     * This method returns an array of PhingFile objects that
-     * denote the root directories of the available filesystem roots.  It is
-     * guaranteed that the canonical pathname of any file physically present on
-     * the local machine will begin with one of the roots returned by this
-     * method.
-     *
-     * The canonical pathname of a file that resides on some other machine
-     * and is accessed via a remote-filesystem protocol such as SMB or NFS may
-     * or may not begin with one of the roots returned by this method.  If the
-     * pathname of a remote file is syntactically indistinguishable from the
-     * pathname of a local file then it will begin with one of the roots
-     * returned by this method.  Thus, for example, PhingFile objects
-     * denoting the root directories of the mapped network drives of a Windows
-     * platform will be returned by this method, while PhingFile
-     * objects containing UNC pathnames will not be returned by this method.
-     *
-     * @return array An array of PhingFile objects denoting the available
-     *               filesystem roots, or null if the set of roots
-     *               could not be determined.  The array will be empty if there are
-     *               no filesystem roots.
-     */
-    public function listRoots()
-    {
-        $fs = FileSystem::getFileSystem();
-
-        return (array) $fs->listRoots();
-    }
-
-    /* -- Tempfile management -- */
-
-    /**
-     * Returns the path to the temp directory.
-     *
-     * @return string
-     */
-    public static function getTempDir()
-    {
-        return Phing::getProperty('php.tmpdir');
-    }
-
-    /**
-     * Static method that creates a unique filename whose name begins with
-     * $prefix and ends with $suffix in the directory $directory. $directory
-     * is a reference to a PhingFile Object.
-     * Then, the file is locked for exclusive reading/writing.
-     *
-     * @author manuel holtgrewe, grin@gmx.net
-     *
-     * @param $prefix
-     * @param $suffix
-     * @param PhingFile $directory
-     *
-     * @throws IOException
-     * @return PhingFile
-     */
-    public static function createTempFile($prefix, $suffix, PhingFile $directory)
-    {
-
-        // quick but efficient hack to create a unique filename ;-)
-        $result = null;
-        do {
-            $result = new PhingFile($directory, $prefix . substr(md5(time()), 0, 8) . $suffix);
-        } while (file_exists($result->getPath()));
-
-        $fs = FileSystem::getFileSystem();
-        $fs->createNewFile($result->getPath());
-        $fs->lock($result);
-
-        return $result;
-    }
-
-    /**
-     * If necessary, $File the lock on $File is removed and then the file is
-     * deleted.
-     */
-    public function removeTempFile()
-    {
-        $fs = FileSystem::getFileSystem();
-        // catch IO Exception
-        $fs->unlock($this);
-        $this->delete();
     }
 
     /* -- Basic infrastructure -- */

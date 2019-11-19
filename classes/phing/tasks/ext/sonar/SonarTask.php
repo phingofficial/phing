@@ -26,7 +26,7 @@
  */
 class SonarTask extends Task
 {
-    const EXIT_SUCCESS = 0;
+    public const EXIT_SUCCESS = 0;
 
     /**
      *

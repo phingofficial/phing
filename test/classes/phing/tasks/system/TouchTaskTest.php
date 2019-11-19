@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -58,12 +57,13 @@ class TouchTaskTest extends BuildFileTest
         );
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testMkdirsFails()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Error touch()ing file');
+
         $this->executeTarget(__FUNCTION__);
+
         $this->assertFileNotExists(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"

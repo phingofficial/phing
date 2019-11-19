@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Call another target in the same project.
  *

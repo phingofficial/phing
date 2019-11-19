@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -117,8 +116,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetOutput()
     {
-        $this->assertAttributeIsSetTo('output',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename'));
+        $this->assertAttributeIsSetTo(
+            'output',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename')
+        );
     }
 
     /**
@@ -126,8 +127,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetError()
     {
-        $this->assertAttributeIsSetTo('error',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename'));
+        $this->assertAttributeIsSetTo(
+            'error',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename')
+        );
     }
 
     /**
@@ -288,7 +291,8 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertInLogs(
             $this->windows
                 ? (escapeshellarg('echo') . ' ' . escapeshellarg('foo') . " " . escapeshellarg('|') . " " . escapeshellarg('cat'))
-                : ("'echo' 'foo' '|' 'cat'"));
+            : ("'echo' 'foo' '|' 'cat'")
+        );
     }
 
     /**
@@ -307,7 +311,7 @@ class ApplyTaskTest extends BuildFileTest
     {
 
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         // Setting the property
         $this->project->setProperty('execTmpFile', $tempfile);
@@ -331,7 +335,7 @@ class ApplyTaskTest extends BuildFileTest
         }
 
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         $scriptFile = getcwd() . "/error_output.sh";
         file_put_contents($scriptFile, "echo errfoo 1>&2");
@@ -433,7 +437,7 @@ class ApplyTaskTest extends BuildFileTest
     {
 
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         // Setting the property
         $this->project->setProperty('execTmpFile', $tempfile);
@@ -461,7 +465,7 @@ class ApplyTaskTest extends BuildFileTest
     public function testMapperSupport()
     {
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         // Setting the property
         $this->project->setProperty('execTmpFile', $tempfile);

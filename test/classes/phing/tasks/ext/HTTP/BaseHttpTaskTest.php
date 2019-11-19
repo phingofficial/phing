@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -58,12 +57,10 @@ abstract class BaseHttpTaskTest extends BuildFileTest
         return $adapter;
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Required attribute 'url' is missing
-     */
     public function testMissingUrl()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Required attribute \'url\' is missing');
         $this->executeTarget('missingURL');
     }
 }

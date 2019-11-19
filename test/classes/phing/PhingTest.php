@@ -29,10 +29,10 @@
  */
 class PhingTest extends \PHPUnit\Framework\TestCase
 {
-    const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
-    const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
-    const DOTED_CLASS = 'Vendor.Package.DotedClass';
-    const DOTED_CLASS_SHORTNAME = 'DotedClass';
+    private const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
+    private const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
+    private const DOTED_CLASS = 'Vendor.Package.DotedClass';
+    private const DOTED_CLASS_SHORTNAME = 'DotedClass';
 
     protected $classpath;
 

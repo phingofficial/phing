@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Copy files to and from a remote host using scp.
  *

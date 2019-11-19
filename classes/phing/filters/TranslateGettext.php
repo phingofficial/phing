@@ -41,9 +41,9 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     // constants for specifying keys to expect
     // when this is called using <filterreader ... />
-    const DOMAIN_KEY = "domain";
-    const DIR_KEY = "dir";
-    const LOCALE_KEY = "locale";
+    public const DOMAIN_KEY = "domain";
+    public const DIR_KEY = "dir";
+    public const LOCALE_KEY = "locale";
 
     /**
      * The domain to use

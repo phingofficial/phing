@@ -118,13 +118,13 @@ class PearPackageFileSetTest extends BuildFileTest
         );
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Invalid package name
-     */
     public function testSetPackageInvalid()
     {
         $ppfs = new PearPackageFileSet();
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Invalid package name');
+
         $ppfs->setPackage('pear.php.net/console_getopt/thisiswrong');
     }
 }
