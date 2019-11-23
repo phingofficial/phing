@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2fdac4da5ba7404a89f3ea1bcfff1b4",
+    "content-hash": "a4a7706a2f182df0d24cc350be3cfb4d",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -6547,6 +6547,6 @@
         "ext-pdo_sqlite": "*"
     },
     "platform-overrides": {
-        "php": "7.1.3"
+        "php": "7.2"
     }
 }
