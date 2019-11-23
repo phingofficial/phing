@@ -7,6 +7,7 @@
 *.xml   text eol=lf
 *.ini   text eol=lf
 *.sh    text eol=lf
+*.test  text eol=lf
 hlsaxon text eol=lf
 
 .dockerignore text eol=lf
