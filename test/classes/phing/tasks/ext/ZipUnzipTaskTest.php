@@ -22,14 +22,13 @@
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
+ *
+ * @requires extension zip
  */
 class ZipUnzipTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (!extension_loaded('zip')) {
-            $this->markTestSkipped("Zip extension is required");
-        }
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/ext/ZipUnzipTaskTest.xml"

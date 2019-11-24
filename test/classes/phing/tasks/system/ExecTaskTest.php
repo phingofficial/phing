@@ -248,11 +248,11 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
+    /**
+     * @requires OS ^(?:(?!Win).)*$
+     */
     public function testChangeToDir()
     {
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ExecTaskTest.php');
     }

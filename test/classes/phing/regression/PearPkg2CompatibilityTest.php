@@ -28,7 +28,6 @@
 class PearPkg2CompatibilityTest extends BuildFileTest
 {
     private $savedErrorLevel;
-    protected $backupGlobals = false;
 
     public function setUp(): void
     {
@@ -36,10 +35,6 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
         $this->configureProject($buildFile);
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
-        }
 
         if (!class_exists('PEAR_PackageFileManager', false)) {
             $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
