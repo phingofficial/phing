@@ -33,10 +33,6 @@ class PearPackageFileSetTest extends BuildFileTest
             $this->markTestSkipped("This test requires PEAR to be installed");
         }
 
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
-        }
-
         //needed for PEAR's Config and Registry classes
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
     }

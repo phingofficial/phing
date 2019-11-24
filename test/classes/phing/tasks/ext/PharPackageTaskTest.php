@@ -23,6 +23,7 @@
  * @author François Poirotte <clicky@erebot.net>
  * @package phing.tasks.ext
  * @requires extension phar
+ * @requires extension openssl
  */
 class PharPackageTaskTest extends BuildFileTest
 {
@@ -30,10 +31,6 @@ class PharPackageTaskTest extends BuildFileTest
     {
         if (ini_get('phar.readonly') == "1") {
             $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PHAR tests do not run on HHVM");
         }
 
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");

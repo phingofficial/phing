@@ -24,7 +24,6 @@
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
- * @version $Revision: $
  * @package phing
  */
 class PhingTest extends \PHPUnit\Framework\TestCase
