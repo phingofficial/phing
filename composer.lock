@@ -596,6 +596,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -2493,12 +2494,12 @@
             "version": "v2.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpDocumentor/phpDocumentor2.git",
+                "url": "https://github.com/phpDocumentor/phpDocumentor.git",
                 "reference": "be607da0eef9b9249c43c5b4820d25d631c73667"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/phpDocumentor2/zipball/be607da0eef9b9249c43c5b4820d25d631c73667",
+                "url": "https://api.github.com/repos/phpDocumentor/phpDocumentor/zipball/be607da0eef9b9249c43c5b4820d25d631c73667",
                 "reference": "be607da0eef9b9249c43c5b4820d25d631c73667",
                 "shasum": ""
             },
@@ -4734,7 +4735,7 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v2.8.50",
+            "version": "v2.8.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
