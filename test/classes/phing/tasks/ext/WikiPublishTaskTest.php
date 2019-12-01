@@ -24,9 +24,8 @@
  */
 class WikiPublishTaskTest extends BuildFileTest
 {
-
     /**
-     * Test Wiki api success request and response sequence
+     * @requires PHP >= 7.2
      */
     public function testApiEdit()
     {
@@ -73,7 +72,7 @@ class WikiPublishTaskTest extends BuildFileTest
     }
 
     /**
-     * Test invalid input attributes
+     * @requires PHP >= 7.2
      */
     public function testInvalidAttributes()
     {
