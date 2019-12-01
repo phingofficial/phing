@@ -149,7 +149,7 @@ class AppendTaskTest extends BuildFileTest
     public function testfixlastline()
     {
         $this->executeTarget("testfixlastline");
-        $this->assertContains(
+        $this->assertStringContainsString(
             "end of line" . $this->getProject()->getProperty("line.separator") . "This has",
             file_get_contents($this->getProject()->getProperty("basedir") . 'concat.line4')
         );
@@ -158,7 +158,7 @@ class AppendTaskTest extends BuildFileTest
     public function testfixlastlineeol()
     {
         $this->executeTarget("testfixlastlineeol");
-        $this->assertContains(
+        $this->assertStringContainsString(
             "end of line\rThis has",
             file_get_contents($this->getProject()->getProperty("basedir") . 'concat.linecr')
         );
