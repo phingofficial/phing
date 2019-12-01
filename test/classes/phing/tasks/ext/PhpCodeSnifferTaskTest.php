@@ -27,10 +27,6 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PHP CodeSniffer tests do not (yet) run on HHVM");
-        }
-
         if (!class_exists('PHP_CodeSniffer')) {
             $this->markTestSkipped('PHP CodeSniffer package not available.');
         }
