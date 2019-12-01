@@ -28,7 +28,7 @@ class FileHashTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/filehash.xml");
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.crc32")) {
             unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.crc32");
