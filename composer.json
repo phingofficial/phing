@@ -23,7 +23,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.2"
+            "php": "7.1.33"
         },
         "bin-dir": "bin",
         "preferred-install": "dist",
