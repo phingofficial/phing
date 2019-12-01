@@ -100,7 +100,7 @@ class RSTTaskTest extends BuildFileTest
         $ref = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
-        $this->assertContains('/true', $method->invoke($rt, 'foo'));
+        $this->assertStringContainsString('/true', $method->invoke($rt, 'foo'));
     }
 
     public function testSetToolpathNotExisting()
@@ -133,7 +133,7 @@ class RSTTaskTest extends BuildFileTest
         $ref = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
-        $this->assertContains('rst2html', $method->invoke($rt, 'html'));
+        $this->assertStringContainsString('rst2html', $method->invoke($rt, 'html'));
     }
 
     public function testSingleFileParameterFile()
@@ -284,7 +284,7 @@ class RSTTaskTest extends BuildFileTest
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/filterchain.html';
         $this->assertFileExists($file);
         $cont = file_get_contents($file);
-        $this->assertContains('This is a bar.', $cont);
+        $this->assertStringContainsString('This is a bar.', $cont);
         unlink($file);
     }
 
@@ -295,8 +295,8 @@ class RSTTaskTest extends BuildFileTest
         $this->assertFileExists('files/single.html');
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html';
         $cont = file_get_contents($file);
-        $this->assertContains('this is a custom css file', $cont);
-        $this->assertContains('#FF8000', $cont);
+        $this->assertStringContainsString('this is a custom css file', $cont);
+        $this->assertStringContainsString('#FF8000', $cont);
         unlink($file);
     }
 }

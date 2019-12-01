@@ -24,9 +24,8 @@
  */
 class WikiPublishTaskTest extends BuildFileTest
 {
-
     /**
-     * Test Wiki api success request and response sequence
+     * @requires PHP >= 7.2
      */
     public function testApiEdit()
     {
@@ -46,7 +45,7 @@ class WikiPublishTaskTest extends BuildFileTest
                 'action=login',
                 ['lgname' => 'testUser', 'lgpassword' => 'testPassword']
             )
-            ->will($this->returnValue(['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']]));
+            ->willReturn(['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']]);
 
         $task->expects($this->at(1))
             ->method('callApi')
@@ -54,12 +53,12 @@ class WikiPublishTaskTest extends BuildFileTest
                 'action=login',
                 ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']
             )
-            ->will($this->returnValue(['login' => ['result' => 'Success']]));
+            ->willReturn(['login' => ['result' => 'Success']]);
 
         $task->expects($this->at(2))
             ->method('callApi')
             ->with('action=tokens&type=edit')
-            ->will($this->returnValue(['tokens' => ['edittoken' => 'testEditToken+/']]));
+            ->willReturn(['tokens' => ['edittoken' => 'testEditToken+/']]);
 
         $task->expects($this->at(3))
             ->method('callApi')
@@ -67,13 +66,13 @@ class WikiPublishTaskTest extends BuildFileTest
                 'action=edit&token=testEditToken%2B%2F',
                 ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']
             )
-            ->will($this->returnValue(['edit' => ['result' => 'Success']]));
+            ->willReturn(['edit' => ['result' => 'Success']]);
 
         $task->main();
     }
 
     /**
-     * Test invalid input attributes
+     * @requires PHP >= 7.2
      */
     public function testInvalidAttributes()
     {
@@ -95,7 +94,7 @@ class WikiPublishTaskTest extends BuildFileTest
 
     /**
      * Creates WikiPublishTask mock
-     * @return WikiPublishTask
+     * @return \PHPUnit\Framework\MockObject\MockObject|WikiPublishTask
      */
     private function getWikiPublishMock()
     {

@@ -64,20 +64,20 @@ class PearPkg2CompatibilityTest extends BuildFileTest
     {
         $this->executeTarget("inactive");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-        $this->assertContains('<active>no</active>', $content);
+        $this->assertStringContainsString('<active>no</active>', $content);
     }
 
     public function testActiveMaintainers()
     {
         $this->executeTarget("active");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-        $this->assertContains('<active>yes</active>', $content);
+        $this->assertStringContainsString('<active>yes</active>', $content);
     }
 
     public function testNotSetMaintainers()
     {
         $this->executeTarget("notset");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-        $this->assertContains('<active>yes</active>', $content);
+        $this->assertStringContainsString('<active>yes</active>', $content);
     }
 }

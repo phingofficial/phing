@@ -39,7 +39,7 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        $this->assertStringContainsString("PHP CODE SNIFFER REPORT SUMMARY", $output);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
         );
@@ -51,7 +51,7 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        $this->assertStringContainsString("PHP CODE SNIFFER REPORT SUMMARY", $output);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
         );
