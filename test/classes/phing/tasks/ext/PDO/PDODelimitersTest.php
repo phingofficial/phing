@@ -35,7 +35,7 @@ class PDODelimitersTest extends BuildFileTest
         $this->queries = [];
 
         $this->mockTask = $this->getMockBuilder('PDOSQLExecTask')
-            ->onlyMethods(['getConnection', 'execSQL'])
+            ->setMethods(['getConnection', 'execSQL'])
             ->getMock();
         $this->mockTask->setProject($this->project);
         // prevents calling beginTransaction() on obviously missing PDO instance
