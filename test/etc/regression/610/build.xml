@@ -1,9 +1,6 @@
 <project name="Test" default="main">
 	<target name="main">
 		<adhoc-task name="doThis"><![CDATA[
-			require_once 'phing/Task.php';
-			require_once 'BaseTask.php';
-			
 			class doThisTask extends BaseTask
 			{
 				public function main()

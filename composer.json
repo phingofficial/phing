@@ -63,12 +63,14 @@
     },
     "autoload": {
         "classmap": [
-            "classes/phing/"
+            "classes/"
         ]
     },
     "autoload-dev": {
         "classmap": [
-            "test/classes/"
+            "test/classes/Phing/",
+            "test/classes/Example/",
+            "test/etc/"
         ]
     },
     "include-path": ["classes"],

@@ -19,7 +19,7 @@
     </php>
     <testsuites>
         <testsuite name="AllTests">
-            <directory>classes/phing/</directory>
+            <directory>classes/</directory>
         </testsuite>
     </testsuites>
     <groups>
@@ -30,7 +30,7 @@
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../classes/phing/</directory>
+            <directory suffix=".php">../classes/Phing/</directory>
         </whitelist>
     </filter>
 </phpunit>

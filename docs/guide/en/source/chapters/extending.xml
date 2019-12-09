@@ -207,7 +207,7 @@
                 <para>Main application in bin/</para>
             </listitem>
             <listitem>
-                <para>Phing class in classes/phing/</para>
+                <para>Phing class in classes/Phing/</para>
             </listitem>
         </itemizedlist>
 
@@ -595,8 +595,8 @@ class MyEchoTask extends Task {
                 property <literal>$strMessage</literal> to "Hello World". It is now available to the
                 task for further disposal.</para>
 
-            <para>There is also another setter named <literal>setReverse</literal>.This uses the 
-                StringHelper::toBoolean static function to convert truthy values to a true/false value. 
+            <para>There is also another setter named <literal>setReverse</literal>.This uses the
+                StringHelper::toBoolean static function to convert truthy values to a true/false value.
                 This helps keep our own code nice and simple.</para>
 
         </sect2>

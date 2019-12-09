@@ -23,7 +23,7 @@ set_include_path(
             get_include_path()
         );
 
-require_once 'phing/Phing.php';
+require_once 'Phing.php';
 
 /**
 * Code from Symfony/Component/Console/Output/StreamOutput.php
@@ -64,7 +64,7 @@ try {
     exit(-1); // This was convention previously for configuration errors.
 } catch (Exception $x) {
     Phing::shutdown();
-    
+
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 

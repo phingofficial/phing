@@ -6,9 +6,6 @@ set_include_path(
     get_include_path()  // trunk version of phing classes should take precedence
 );
 
-require_once __DIR__ . '/classes/phing/BuildFileTest.php';
-require_once 'phing/Phing.php';
-
 // Use composers autoload.php if available
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     require_once __DIR__ . '/../vendor/autoload.php';

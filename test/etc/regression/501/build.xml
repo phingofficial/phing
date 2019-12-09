@@ -6,7 +6,7 @@
         <resolvepath propertyName="base.dir.resolved" file="${base.dir}" />
         <resolvepath propertyName="build.dir.resolved" file="${build.dir}" />
         <coverage-setup database="${build.dir}/coverage.db">
-            <fileset dir="${base.dir.resolved}/classes/phing/system">
+            <fileset dir="${base.dir.resolved}/classes/Phing/System">
                 <exclude name="form/**/*.php"/>
             </fileset>
         </coverage-setup>
@@ -16,7 +16,7 @@
             <formatter todir="${build.dir}" type="xml"/>
             <formatter usefile="false" type="plain"/>
             <batchtest>
-                <fileset dir="${base.dir.resolved}/test/classes/phing/system">
+                <fileset dir="${base.dir.resolved}/test/classes/Phing/System">
                     <include name="**/*.php"/>
                 </fileset>
             </batchtest>
