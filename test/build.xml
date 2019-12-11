@@ -1,24 +1,7 @@
 <?xml version="1.0"?>
 
-<project name="Phing Build Tests" default="siad" basedir=".">
-    <target name="siad" depends="" >
-        <property name="prop1" value="1" />
-        <echo msg="value=${prop1}"/>
-        <if>
-            <istrue value="${prop1}"/>
-            <then>
-                <echo msg="IS TRUE"/>
-            </then>
-        </if>
-        <property name="prop2" value="11" />
-        <echo msg="value=${prop2}"/>
-        <if>
-            <istrue value="${prop2}"/>
-            <then>
-                <echo msg="IS TRUE"/>
-            </then>
-        </if>
-    </target>
+<project name="Phing Build Tests" default="phpunit" basedir=".">
+
     <!--
       =========================================================================================
       Global Properties
