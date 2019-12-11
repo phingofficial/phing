@@ -26,12 +26,7 @@ class MonologListenerTest extends TestCase
      */
     public function buildStarted()
     {
-        $event = new BuildEvent(new Project());
-        $logger = new class extends MonologListener
-        {
-        };
-        $msg = '/Project\.INFO: Build started\./';
-        $this->expectOutputRegex($msg);
-        $logger->buildStarted($event);
+        $listener = new MonologListener();
+        $this->assertNull($listener->buildStarted(new BuildEvent(new Project())));
     }
 }
