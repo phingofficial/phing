@@ -115,7 +115,8 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function handleError($level, $message, $file, $line): bool
     {
-        return PHPUnit\Util\ErrorHandler::handleError($level, $message, $file, $line);
+        $invoke = new PHPUnit\Util\ErrorHandler(true, true, true, true);
+        return $invoke($level, $message, $file, $line);
     }
 
     /**

@@ -248,11 +248,11 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
+    /**
+     * @requires OS ^(?:(?!Win).)*$
+     */
     public function testChangeToDir()
     {
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ExecTaskTest.php');
     }
@@ -312,7 +312,7 @@ class ExecTaskTest extends BuildFileTest
         $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
-        $this->assertContains('outfoo', file_get_contents($file));
+        $this->assertStringContainsString('outfoo', file_get_contents($file));
         unlink($file);
     }
 
@@ -321,7 +321,7 @@ class ExecTaskTest extends BuildFileTest
         $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
-        $this->assertContains('errfoo', file_get_contents($file));
+        $this->assertStringContainsString('errfoo', file_get_contents($file));
         unlink($file);
     }
 

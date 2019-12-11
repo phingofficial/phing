@@ -16,3 +16,4 @@ bin/*
 ansible/playbook.retry
 test/etc/tasks/system/defaultexcludestestinput/
 test/etc/types/selectors/tmp/
+test/tmp/

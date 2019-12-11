@@ -28,12 +28,12 @@ class CharacterTest extends \PHPUnit\Framework\TestCase
     /** @var Character */
     private $char;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->char = new Character();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->char = null;
     }

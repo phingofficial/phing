@@ -24,7 +24,6 @@
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
- * @version $Revision: $
  * @package phing
  */
 class PhingTest extends \PHPUnit\Framework\TestCase
@@ -101,6 +100,9 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $this->assertStringStartsWith('Phing ', Phing::getPhingVersion());
     }
 
+    /**
+     * @requires PHP >= 7.2
+     */
     public function testPrintTargets()
     {
         $target = $this->getMockBuilder(Target::class)->getMock();
@@ -112,6 +114,9 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($phing->printTargets($project));
     }
 
+    /**
+     * @requires PHP >= 7.2
+     */
     public function testPrintUsage(): void
     {
         $phing = new Phing();

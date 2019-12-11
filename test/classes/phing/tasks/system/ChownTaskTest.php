@@ -22,6 +22,8 @@
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.system
+ *
+ * @requires OS ^(?:(?!Win).)*$
  */
 class ChownTaskTest extends BuildFileTest
 {
@@ -39,10 +41,6 @@ class ChownTaskTest extends BuildFileTest
 
     public function testChangeGroup()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("chown tests don't work on Windows");
-        }
-
         $userinfo = posix_getpwuid(posix_geteuid());
         $username = $userinfo['name'];
 

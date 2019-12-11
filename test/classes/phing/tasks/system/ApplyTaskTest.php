@@ -222,45 +222,33 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the dir changing on an existent directory
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testChangeToDir()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Working directory change successful');
     }
 
     /**
      * Tests the failonerror/checkreturn value for 'true'
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testCheckreturnTrue()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/true'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertTrue(true);
     }
 
     /**
      * Tests the failonerror/checkreturn value for 'false'
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testCheckreturnFalse()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/false'");
-        }
-
         return $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
     }
 
@@ -325,15 +313,11 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the error file functionality
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testError()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("The script is unlikely to run on MS Windows");
-        }
-
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
@@ -355,14 +339,11 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the execution with the background process spawning
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testSpawn()
     {
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have /bin/sleep");
-        }
-
         // Process
         $start = time();
         $this->executeTarget(__FUNCTION__);
@@ -402,29 +383,22 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the relative source filenames functionality
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testRelativeSourceFilenames()
     {
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('/etc/');
     }
 
     /**
      * Tests the source filename addition functionality
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testSourceFilename()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         // As the addsourcefilename is 'off', only the executable should be processed in the execution
         $this->assertInLogs('Executing command: ls');
