@@ -688,7 +688,7 @@ class SassTask extends Task
      */
     public function setPath(string $path): void
     {
-        $this->flags .= "--load-path $path";
+        $this->flags .= " --load-path $path ";
         $this->loadPath = $path;
     }
 
@@ -718,7 +718,7 @@ class SassTask extends Task
             case 'crunched':
                 $this->flags = str_replace(" --style $this->style", '', $this->flags);
                 $this->style = $style;
-                $this->flags .= " --style $style";
+                $this->flags .= " --style $style ";
                 break;
             default:
                 $this->log("Style $style ignored", Project::MSG_INFO);
