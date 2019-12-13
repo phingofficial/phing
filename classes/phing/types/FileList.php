@@ -76,11 +76,7 @@ class FileList extends DataType implements IteratorAggregate
 
     public function getIterator()
     {
-        if ($this->isReference()) {
-            return $this->getRef($this->getProject())->getIterator();
-        }
-
-        return new ArrayIterator($this->filenames);
+        return new ArrayIterator($this->getFiles($this->getProject()));
     }
 
     /**
@@ -109,9 +105,6 @@ class FileList extends DataType implements IteratorAggregate
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
-        }
-        if (!($dir instanceof PhingFile)) {
-            $dir = new PhingFile($dir);
         }
         $this->dir = $dir;
     }
@@ -236,8 +229,7 @@ class FileList extends DataType implements IteratorAggregate
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
-        return $this->getCheckedRef(__CLASS__, $dataTypeName);
+        return $this->getCheckedRef(__CLASS__, $this->getDataTypeName());
     }
 
     /**

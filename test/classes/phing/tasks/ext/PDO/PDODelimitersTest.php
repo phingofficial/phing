@@ -56,6 +56,9 @@ class PDODelimitersTest extends BuildFileTest
         }
     }
 
+    /**
+     * @requires PHP >= 7.2
+     */
     public function testDelimiterTypeNormal()
     {
         // for some reason default splitter mangles spaces on subsequent lines
@@ -99,6 +102,9 @@ SQL
         $this->assertEquals($expected, $this->queries);
     }
 
+    /**
+     * @requires PHP >= 7.2
+     */
     public function testDelimiterTypeRow()
     {
         // for some reason default splitter mangles spaces on subsequent lines
@@ -136,6 +142,7 @@ SQL
      *
      * @link http://www.phing.info/trac/ticket/499
      * @link http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
+     * @requires PHP >= 7.2
      */
     public function testRequest499()
     {

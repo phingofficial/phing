@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -55,14 +53,19 @@ class PropertyTaskTest extends BuildFileTest
 
     public function testPrefixFailure()
     {
-        try {
-            $this->executeTarget("prefix.fail");
-        } catch (BuildException $e) {
-            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessageRegExp('/Prefix is only valid/');
 
-            return;
-        }
-        $this->fail("Did not throw exception on invalid use of prefix");
+//        try {
+//            $this->executeTarget("prefix.fail");
+//        } catch (BuildException $e) {
+//            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
+//
+//            return;
+//        }
+//        $this->fail("Did not throw exception on invalid use of prefix");
+
+        $this->executeTarget("prefix.fail");
     }
 
     public function testFilterChain()
@@ -85,14 +88,19 @@ class PropertyTaskTest extends BuildFileTest
      */
     public function testCircularDefinitionDetection($target)
     {
-        try {
-            $this->executeTarget($target);
-        } catch (BuildException $e) {
-            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessageRegExp('/was circularly defined/');
 
-            return;
-        }
-        $this->fail("Did not throw exception on circular exception");
+//        try {
+//            $this->executeTarget($target);
+//        } catch (BuildException $e) {
+//            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
+//
+//            return;
+//        }
+//        $this->fail("Did not throw exception on circular exception");
+
+        $this->executeTarget($target);
     }
 
     public function testToString()
@@ -107,30 +115,5 @@ class PropertyTaskTest extends BuildFileTest
     public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException()
     {
         $this->executeTarget(__FUNCTION__);
-    }
-}
-
-class HangDetectorPropertyTask extends PropertyTask
-{
-    protected function loadFile(PhingFile $file)
-    {
-        $props = new HangDetectorProperties();
-        $props->load($file);
-        $this->addProperties($props);
-    }
-}
-
-class HangDetectorProperties extends Properties
-{
-    private $accesses = 0;
-
-    public function getProperty($prop)
-    {
-        $this->accesses++;
-        if ($this->accesses > 100) {
-            throw new Exception('Cirular definition Hanged!');
-        }
-
-        return parent::getProperty($prop);
     }
 }

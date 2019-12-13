@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,14 +22,13 @@
  * - Excluded files may be included in Zip/Tar tasks
  *
  * @package phing.regression
+ *
+ * @requires extension zip
  */
 class ExcludeZipTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (!extension_loaded('zip')) {
-            $this->markTestSkipped("Zip extension is required");
-        }
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
     }
 

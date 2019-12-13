@@ -29,9 +29,9 @@ class ContainsSelector extends BaseExtendSelector
 {
     private $contains = null;
     private $casesensitive = true;
-    const CONTAINS_KEY = "text";
-    const CASE_KEY = "casesensitive";
-    const WHITESPACE_KEY = "ignorewhitespace";
+    public const CONTAINS_KEY = "text";
+    public const CASE_KEY = "casesensitive";
+    public const WHITESPACE_KEY = "ignorewhitespace";
     private $ignorewhitespace = false;
 
     /**

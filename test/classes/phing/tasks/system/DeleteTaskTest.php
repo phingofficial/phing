@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -40,12 +39,11 @@ class DeleteTaskTest extends BuildFileTest
         $this->executeTarget("clean");
     }
 
+    /**
+     * @requires OS ^(?:(?!Win).)*$
+     */
     public function testCopyDanglingSymlink()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Dangling symlinks don't work on Windows");
-        }
-
         $this->executeTarget("testDeleteDanglingSymlink");
         $this->assertInLogs("Deleting 1 files from");
     }

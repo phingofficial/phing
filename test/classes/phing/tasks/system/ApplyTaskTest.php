@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -117,8 +116,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetOutput()
     {
-        $this->assertAttributeIsSetTo('output',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename'));
+        $this->assertAttributeIsSetTo(
+            'output',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename')
+        );
     }
 
     /**
@@ -126,8 +127,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetError()
     {
-        $this->assertAttributeIsSetTo('error',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename'));
+        $this->assertAttributeIsSetTo(
+            'error',
+            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename')
+        );
     }
 
     /**
@@ -219,45 +222,33 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the dir changing on an existent directory
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testChangeToDir()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Working directory change successful');
     }
 
     /**
      * Tests the failonerror/checkreturn value for 'true'
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testCheckreturnTrue()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/true'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertTrue(true);
     }
 
     /**
      * Tests the failonerror/checkreturn value for 'false'
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testCheckreturnFalse()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have '/bin/false'");
-        }
-
         return $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
     }
 
@@ -288,7 +279,8 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertInLogs(
             $this->windows
                 ? (escapeshellarg('echo') . ' ' . escapeshellarg('foo') . " " . escapeshellarg('|') . " " . escapeshellarg('cat'))
-                : ("'echo' 'foo' '|' 'cat'"));
+            : ("'echo' 'foo' '|' 'cat'")
+        );
     }
 
     /**
@@ -307,7 +299,7 @@ class ApplyTaskTest extends BuildFileTest
     {
 
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         // Setting the property
         $this->project->setProperty('execTmpFile', $tempfile);
@@ -321,17 +313,13 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the error file functionality
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testError()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("The script is unlikely to run on MS Windows");
-        }
-
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         $scriptFile = getcwd() . "/error_output.sh";
         file_put_contents($scriptFile, "echo errfoo 1>&2");
@@ -351,14 +339,11 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the execution with the background process spawning
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testSpawn()
     {
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have /bin/sleep");
-        }
-
         // Process
         $start = time();
         $this->executeTarget(__FUNCTION__);
@@ -398,29 +383,22 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the relative source filenames functionality
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testRelativeSourceFilenames()
     {
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('/etc/');
     }
 
     /**
      * Tests the source filename addition functionality
+     *
+     * @requires OS ^(?:(?!Win).)*$
      */
     public function testSourceFilename()
     {
-
-        // Validating the OS platform
-        if ($this->windows) {
-            $this->markTestSkipped("Windows does not have 'ls'");
-        }
-
         $this->executeTarget(__FUNCTION__);
         // As the addsourcefilename is 'off', only the executable should be processed in the execution
         $this->assertInLogs('Executing command: ls');
@@ -433,7 +411,7 @@ class ApplyTaskTest extends BuildFileTest
     {
 
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         // Setting the property
         $this->project->setProperty('execTmpFile', $tempfile);
@@ -461,7 +439,7 @@ class ApplyTaskTest extends BuildFileTest
     public function testMapperSupport()
     {
         // Getting a temp. file
-        $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
+        $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
         // Setting the property
         $this->project->setProperty('execTmpFile', $tempfile);

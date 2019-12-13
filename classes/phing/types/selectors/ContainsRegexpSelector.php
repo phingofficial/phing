@@ -54,9 +54,9 @@ class ContainsRegexpSelector extends BaseExtendSelector
      */
     private $myRegExp;
 
-    const EXPRESSION_KEY = "expression";
-    const CASE_KEY = "casesensitive";
-    const ML_KEY = 'multiline';
+    public const EXPRESSION_KEY = "expression";
+    public const CASE_KEY = "casesensitive";
+    public const ML_KEY = 'multiline';
 
     /**
      * @return string

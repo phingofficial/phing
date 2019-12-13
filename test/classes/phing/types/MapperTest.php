@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -137,52 +135,53 @@ class MapperTest extends \PHPUnit\Framework\TestCase
             throw $e;
         }
     }
-}
 
-/**
- * @package phing.mappers
- */
-class TaskdefForCopyTest extends BuildFileTest
-{
-    public function setUp(): void
+    public function testSetClasspathThrowsExceptionIfReferenceSetAlready()
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/types/mapper.xml");
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $p = new Path($this->project);
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $m->setClasspath($p);
     }
 
-    public function tearDown(): void
+    public function testSetClasspath()
     {
-        $this->executeTarget("cleanup");
+        $m = new Mapper($this->project);
+        $p = new Path($this->project);
+        $m->setClasspath($p);
+        $f = $m->createClasspath();
+        $class = get_class($f);
+        $this->assertEquals("Path", $class);
     }
 
-    public function test1()
+    public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet()
     {
-        $this->executeTarget("test1");
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $p = new Path($this->project);
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $f = $m->createClasspath();
     }
 
-    public function test2()
+    public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet()
     {
-        $this->executeTarget("test2");
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $r2 = new Reference($this->project, "dummyref1");
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $m->setClasspathRef($r2);
     }
 
-    public function test3()
+    public function testSetClassnameThrowsExceptionIfReferenceIsSet()
     {
-        $this->executeTarget("test3");
-        $this->assertInLogs('php1');
-        $this->assertInLogs('php2');
-    }
-
-    public function test4()
-    {
-        $this->executeTarget("test4");
-        $this->assertNotInLogs('.php1');
-        $this->assertInLogs('.php2');
-    }
-
-    public function testCutDirsMapper()
-    {
-        $this->executeTarget("testCutDirsMapper");
-        $outputDir = $this->getProject()->getProperty('output');
-        $this->assertFileExists($outputDir . '/D');
-        $this->assertFileExists($outputDir . '/c/E');
+        $m = new Mapper($this->project);
+        $m->setRefid(new Reference($this->project, "dummyref"));
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
+        $m->setClassname("mapper1");
     }
 }

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,7 +19,6 @@
  * @package phing.util
  */
 
-
 /**
  * Testcases for phing.types.PearPackageFileSet
  *
@@ -33,10 +31,6 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     {
         if (!class_exists('PEAR_Config')) {
             $this->markTestSkipped("This test requires PEAR to be installed");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
         }
 
         //needed for PEAR's Config and Registry classes

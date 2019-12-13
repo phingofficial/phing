@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,16 +25,11 @@
  */
 class PharDataTaskTest extends BuildFileTest
 {
+    /**
+     * @requires extension phar
+     */
     public function setUp(): void
     {
-        if (!extension_loaded('phar')) {
-            $this->markTestSkipped("PharDataTask require either PHP 5.3 or better or the PECL's Phar extension");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PHAR tests do not run on HHVM");
-        }
-
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/ext/PharDataTaskTest.xml"

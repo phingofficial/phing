@@ -17,9 +17,11 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
 
     public function testUrlIsRequiredException()
     {
-        $this->expectSpecificBuildException(__FUNCTION__,
-                                            'url property not set in database condition',
-                                            'url is required');
+        $this->expectSpecificBuildException(
+            __FUNCTION__,
+            'url property not set in database condition',
+            'url is required'
+        );
     }
 
     public function testFalseWhenInvalidHost()
@@ -57,5 +59,4 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('pdosqlexec condition returned true', Project::MSG_INFO);
     }
-
 }

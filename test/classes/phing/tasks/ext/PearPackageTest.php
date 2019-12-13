@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,8 +25,6 @@
  */
 class PearPackageTest extends BuildFileTest
 {
-    protected $backupGlobals = false;
-
     private $savedErrorLevel;
 
     public function setUp(): void
@@ -36,10 +33,6 @@ class PearPackageTest extends BuildFileTest
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/tasks/ext/pearpackage.xml";
         $this->configureProject($buildFile);
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
-        }
 
         if (!class_exists('PEAR_PackageFileManager', false)) {
             $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
@@ -58,6 +51,6 @@ class PearPackageTest extends BuildFileTest
     {
         $this->executeTarget("main");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
-        $this->assertContains('<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>', $content);
+        $this->assertStringContainsString('<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>', $content);
     }
 }

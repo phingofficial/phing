@@ -63,9 +63,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     private $totalSql = 0;
 
-    const DELIM_ROW = "row";
-    const DELIM_NORMAL = "normal";
-    const DELIM_NONE = "none";
+    public const DELIM_ROW = "row";
+    public const DELIM_NORMAL = "normal";
+    public const DELIM_NONE = "none";
 
     /**
      * Database connection

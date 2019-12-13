@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -65,24 +64,28 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers IniFileParser::parseFile
-     * @expectedException IOException
      */
     public function testParseFileFileNotReadable()
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), "test");
+        $tmpFile = tempnam(FileUtils::getTempDir(), "test");
         touch($tmpFile);
         $file = new PhingFile($tmpFile);
         unlink($tmpFile);
+
+        $this->expectException(IOException::class);
+
         $this->objectToTest->parseFile($file);
     }
 
     /**
      * @covers IniFileParser::parseFile
-     * @expectedException IOException
      */
     public function testParseFileFileIncorrectYaml()
     {
         $file = new PhingFile($this->incorrectYamlFileStub);
+
+        $this->expectException(IOException::class);
+
         $this->objectToTest->parseFile($file);
     }
 

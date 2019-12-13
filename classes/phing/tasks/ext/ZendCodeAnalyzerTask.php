@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
  *

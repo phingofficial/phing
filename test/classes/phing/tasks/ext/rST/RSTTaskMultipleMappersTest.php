@@ -30,15 +30,14 @@
  */
 class RSTTaskMultipleMappersTest extends BuildFileTest
 {
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Cannot define more than one mapper
-     */
     public function testMultipleMappers()
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build-error-multiple-mappers.xml'
         );
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Cannot define more than one mapper');
 
         $this->executeTarget(__FUNCTION__);
     }

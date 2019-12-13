@@ -32,12 +32,11 @@ class RetryTest extends BuildFileTest
         );
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Task [fail] failed after [3] attempts; giving up
-     */
     public function testRetry()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Task [fail] failed after [3] attempts; giving up');
+
         $this->expectLogContaining(__FUNCTION__, 'This task failed.');
     }
 }

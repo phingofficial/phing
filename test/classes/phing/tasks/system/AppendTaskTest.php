@@ -40,19 +40,17 @@ class AppendTaskTest extends BuildFileTest
         $this->getProject()->executeTarget('cleanup');
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function test1()
     {
+        $this->expectException(BuildException::class);
+
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function test2()
     {
+        $this->expectException(BuildException::class);
+
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
@@ -135,10 +133,11 @@ class AppendTaskTest extends BuildFileTest
 
     /**
      * Expect an exception when attempting to cat an file to itself
-     * @expectedException BuildException
      */
     public function testsame()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget("samefile");
     }
 
@@ -150,7 +149,7 @@ class AppendTaskTest extends BuildFileTest
     public function testfixlastline()
     {
         $this->executeTarget("testfixlastline");
-        $this->assertContains(
+        $this->assertStringContainsString(
             "end of line" . $this->getProject()->getProperty("line.separator") . "This has",
             file_get_contents($this->getProject()->getProperty("basedir") . 'concat.line4')
         );
@@ -159,7 +158,7 @@ class AppendTaskTest extends BuildFileTest
     public function testfixlastlineeol()
     {
         $this->executeTarget("testfixlastlineeol");
-        $this->assertContains(
+        $this->assertStringContainsString(
             "end of line\rThis has",
             file_get_contents($this->getProject()->getProperty("basedir") . 'concat.linecr')
         );
