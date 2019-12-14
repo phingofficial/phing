@@ -1223,7 +1223,7 @@ class Phing
     public function printDescription(Project $project)
     {
         if ($project->getDescription() !== null) {
-            self::$out->write($project->getDescription() . PHP_EOL);
+            $project->log($project->getDescription());
         }
     }
 
@@ -1239,12 +1239,14 @@ class Phing
         $targets = $project->getTargets();
         $targetName = null;
         $targetDescription = null;
+        /** @var Target $currentTarget */
         $currentTarget = null;
 
         // split the targets in top-level and sub-targets depending
         // on the presence of a description
 
         $subNames = [];
+        $subDependencies = [];
         $topNameDescMap = [];
 
         foreach ($targets as $currentTarget) {
@@ -1257,6 +1259,7 @@ class Phing
             // subtargets are targets w/o descriptions
             if ($targetDescription === null) {
                 $subNames[] = $targetName;
+                array_push($subDependencies, ...$currentTarget->getDependencies());
             } else {
                 // topNames and topDescriptions are handled later
                 // here we store in hash map (for sorting purposes)
@@ -1273,6 +1276,7 @@ class Phing
 
         $topNames = array_keys($topNameDescMap);
         $topDescriptions = array_values($topNameDescMap);
+        $topDependencies = $currentTarget->getDependencies();
 
         $defaultTarget = $project->getDefaultTarget();
 
@@ -1287,15 +1291,16 @@ class Phing
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
-            $this->_printTargets($defaultName, $defaultDesc, "Default target:", $maxLength);
+            $this->_printTargets($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
         }
-        $this->_printTargets($topNames, $topDescriptions, "Main targets:", $maxLength);
-        $this->_printTargets($subNames, null, "Subtargets:", 0);
+        $this->_printTargets($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
+        $this->_printTargets($project, $subNames, null, $subDependencies, "Subtargets:", 0);
     }
 
     /**
      * Writes a formatted list of target names with an optional description.
      *
+     * @param Project $project
      * @param array $names The names to be printed.
      *                             Must not be <code>null</code>.
      * @param array $descriptions The associated target descriptions.
@@ -1303,6 +1308,7 @@ class Phing
      *                             no descriptions are displayed.
      *                             If non-<code>null</code>, this should have
      *                             as many elements as <code>names</code>.
+     * @param $dependencies
      * @param string $heading The heading to display.
      *                             Should not be <code>null</code>.
      * @param int $maxlen The maximum length of the names of the targets.
@@ -1310,7 +1316,7 @@ class Phing
      *                             position so they line up (so long as the names really
      *                             <i>are</i> shorter than this).
      */
-    private function _printTargets($names, $descriptions, $heading, $maxlen)
+    private function _printTargets(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
     {
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
@@ -1329,10 +1335,12 @@ class Phing
                 $msg .= $descriptions[$i];
             }
             $msg .= PHP_EOL;
+            if (!empty($dependencies) && isset($dependencies[$i + 1])) {
+                $msg .= '   depends on: ' . implode(', ', $dependencies) . PHP_EOL;
+            }
         }
-        if ($total > 0) {
-            self::$out->write($msg . PHP_EOL);
-        }
+
+        $project->log($msg, Project::MSG_WARN);
     }
 
     /**

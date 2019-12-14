@@ -82,6 +82,7 @@
         <zeroOrMore>
             <choice>
                 <ref name="classpath"/>
+                <ref name="description"/>
                 <ref name="dirset"/>
                 <ref name="excludes"/>
                 <ref name="filelist"/>
@@ -844,6 +845,12 @@
             <attribute name="refid">
                 <data type="IDREF"/>
             </attribute>
+        </element>
+    </define>
+
+    <define name="description">
+        <element name="description">
+            <text/>
         </element>
     </define>
 

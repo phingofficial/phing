@@ -69,6 +69,14 @@ abstract class Task extends ProjectComponent
     }
 
     /**
+     * @return RuntimeConfigurable
+     */
+    public function getWrapper()
+    {
+        return $this->wrapper;
+    }
+    
+    /**
      * Returns the owning target of this task.
      *
      * @return Target The target object that owns this task
