@@ -75,7 +75,7 @@ abstract class Task extends ProjectComponent
     {
         return $this->wrapper;
     }
-    
+
     /**
      * Returns the owning target of this task.
      *
