@@ -1259,7 +1259,10 @@ class Phing
             // subtargets are targets w/o descriptions
             if ($targetDescription === null) {
                 $subNames[] = $targetName;
-                array_push($subDependencies, ...$currentTarget->getDependencies());
+                $currentDependencies = $currentTarget->getDependencies();
+                if (!empty($currentDependencies)) {
+                    array_push($subDependencies, ...$currentTarget->getDependencies());
+                }
             } else {
                 // topNames and topDescriptions are handled later
                 // here we store in hash map (for sorting purposes)
