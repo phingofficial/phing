@@ -29,11 +29,11 @@ class PosixPermissionsSelectorTest extends TestCase
     private $selector;
 
     protected function setUp(): void
-    {
+    {/*
         if (!Os::isFamily(Os::FAMILY_UNIX)) {
             $this->markTestSkipped('Not POSIX');
         }
-
+*/
         $this->selector = new PosixPermissionsSelector();
     }
 
@@ -60,7 +60,8 @@ class PosixPermissionsSelectorTest extends TestCase
                 new PhingFile(__DIR__),
                 (new PhingFile(__FILE__))->getName(),
                 new PhingFile(__FILE__)
-            )
+            ),
+            'actual fileperms: ' . fileperms(__FILE__) & 0777
         );
     }
 
