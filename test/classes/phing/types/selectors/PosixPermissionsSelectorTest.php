@@ -45,8 +45,7 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('the permissions attribute is required');
 
-        $file = $this->getMockBuilder(PhingFile::class)->disableAutoload()->disableOriginalClone()->getMock();
-        $this->selector->isSelected($file, '', $file);
+        $this->selector->isSelected(new PhingFile(__DIR__), '', new PhingFile(__FILE__));
     }
 
     /**
