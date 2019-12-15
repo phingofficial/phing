@@ -29,11 +29,11 @@ class PosixPermissionsSelectorTest extends TestCase
     private $selector;
 
     protected function setUp(): void
-    {/*
+    {
         if (!Os::isFamily(Os::FAMILY_UNIX)) {
             $this->markTestSkipped('Not POSIX');
         }
-*/
+
         $this->selector = new PosixPermissionsSelector();
     }
 
