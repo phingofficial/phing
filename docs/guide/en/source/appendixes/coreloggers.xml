@@ -251,4 +251,9 @@ AnsiColorLogger.DEBUG_COLOR=01;34</programlisting>
         <para>A logger which logs nothing but build failure and what task might output.</para>
     </sect1>
 
+    <sect1 role="loggerdef" xml:id="MonologListener">
+        <title>MonologListener</title>
+        <para>Listener which sends events to Monolog.</para>
+    </sect1>
+
 </appendix>
