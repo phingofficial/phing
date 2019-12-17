@@ -41,7 +41,7 @@ class PosixPermissionsSelector implements FileSelector
             return;
         }
 
-        $this->permissions = implode(
+        $this->permissions .= implode(
             '',
             array_map(
                 'array_sum',
@@ -77,6 +77,6 @@ class PosixPermissionsSelector implements FileSelector
             throw new BuildException('the permissions attribute is required');
         }
 
-        return (fileperms($file->getPath()) & 0777) === $this->permissions;
+        return (fileperms($file->getPath()) & 0777) == sprintf('%03o', $this->permissions);
     }
 }
