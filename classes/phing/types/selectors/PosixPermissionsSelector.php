@@ -36,28 +36,31 @@ class PosixPermissionsSelector implements FileSelector
     {
         $this->validate($permissions);
 
-        if (strlen($permissions) === 3 && ctype_digit($permissions)) {
-            $this->permissions = $permissions;
+        if (strlen($permissions) === 3) {
+            $this->permissions = intval($permissions, 8);
             return;
         }
 
-        $this->permissions .= implode(
-            '',
-            array_map(
-                'array_sum',
-                array_chunk(
-                    str_split(
-                        strtr(
-                            $permissions,
-                            array_combine(
-                                ['r', 'w', 'x', '-'],
-                                [4, 2, 1, 0]
+        $this->permissions = intval(
+            implode(
+                '',
+                array_map(
+                    'array_sum',
+                    array_chunk(
+                        str_split(
+                            strtr(
+                                $permissions,
+                                array_combine(
+                                    ['r', 'w', 'x', '-'],
+                                    [4, 2, 1, 0]
+                                )
                             )
-                        )
-                    ),
-                    3
+                        ),
+                        3
+                    )
                 )
-            )
+            ),
+            8
         );
     }
 
@@ -77,6 +80,6 @@ class PosixPermissionsSelector implements FileSelector
             throw new BuildException('the permissions attribute is required');
         }
 
-        return (fileperms($file->getPath()) & 0777) == sprintf('%03o', $this->permissions);
+        return (fileperms($file->getPath()) & 0777) === $this->permissions;
     }
 }
