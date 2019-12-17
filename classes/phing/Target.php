@@ -280,11 +280,7 @@ class Target implements TaskContainer
      */
     public function setDescription($description)
     {
-        if ($description !== null && strcmp($description, "") !== 0) {
-            $this->description = (string) $description;
-        } else {
-            $this->description = null;
-        }
+        $this->description = $description;
     }
 
     /**
