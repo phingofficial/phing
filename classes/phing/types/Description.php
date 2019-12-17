@@ -33,6 +33,44 @@
  */
 class Description extends DataType
 {
+    /**
+     * Return the descriptions from all the targets of
+     * a project.
+     *
+     * @param project the project to get the descriptions for.
+     * @return string containing the concatenated descriptions of
+     *         the targets.
+     */
+    public static function getAll(Project $project)
+    {
+        $targets = $project->getTargets();
+
+        $description = '';
+        foreach ($targets as $t) {
+            self::concatDescriptions($project, $t, $description);
+        }
+        return $description;
+    }
+
+    private static function concatDescriptions(Project $project, Target $t, &$description)
+    {
+        foreach (self::findElementInTarget($t, 'description') as $task) {
+            if ($task instanceof UnknownElement) {
+                $ue = $task;
+                $descComp = $ue->getWrapper()->getText();
+                if ($descComp !== null) {
+                    $description .= $project->replaceProperties($descComp);
+                }
+            }
+        }
+    }
+
+    private static function findElementInTarget(Target $t, $name)
+    {
+        return array_filter($t->getTasks(), static function (Task $task) use ($name) {
+            return $task->getTaskName() === $name;
+        });
+    }
 
     /**
      * Adds descriptive text to the project.
@@ -42,11 +80,11 @@ class Description extends DataType
      */
     public function addText($text)
     {
-        $currentDescription = $this->project->getDescription();
+        $currentDescription = $this->getProject()->getDescription();
         if ($currentDescription === null) {
-            $this->project->setDescription($text);
+            $this->getProject()->setDescription($text);
         } else {
-            $this->project->setDescription($currentDescription . $text);
+            $this->getProject()->setDescription($currentDescription);
         }
     }
 }

@@ -17,23 +17,26 @@
  * <http://phing.info>.
  */
 
-class DescriptionTest extends \PHPUnit\Framework\TestCase
+class DescriptionTest extends BuildFileTest
 {
     /**
      * Test that the aaddText method appends text to description w/o any spaces
      *
-     * @return void
+     * @dataProvider getFiles
      */
-    public function testAddTextAppendsDirectly()
+    public function test($fileName, $outcome)
     {
-        $description = new Description();
-        $project = new Project();
-        $text = "project description";
-        $project->setDescription("project description");
-        $this->assertEquals($text, $project->getDescription());
+        $this->configureProject(PHING_TEST_BASE . "/etc/types/{$fileName}.xml");
+        $this->assertEquals($outcome, $this->getProject()->getDescription());
+    }
 
-        $description->setProject($project);
-        $description->addText("appended");
-        $this->assertEquals("{$text}appended", $project->getDescription());
+    public function getFiles()
+    {
+        return [
+            'Single' => ['description1', 'Test Project Description'],
+            'Multi line' => ['description2', "Multi Line\nProject Description"],
+            'Multi instance' => ['description3', 'Multi Instance Project Description'],
+            'Multi instance nested' => ['description4', 'Multi Instance Nested Project Description'],
+        ];
     }
 }
