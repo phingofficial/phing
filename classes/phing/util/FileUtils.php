@@ -188,12 +188,12 @@ class FileUtils
 
         // deal with absolute files
         if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
-            (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')
+            (strlen($filename) >= 2 && Character::isLetter($filename[0]) && $filename[1] === ':')
         ) {
             return new PhingFile($this->normalize($filename));
         }
 
-        if (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':') {
+        if (strlen($filename) >= 2 && Character::isLetter($filename[0]) && $filename[1] === ':') {
             return new PhingFile($this->normalize($filename));
         }
 
@@ -248,7 +248,7 @@ class FileUtils
 
         // make sure we are dealing with an absolute path
         if (!StringHelper::startsWith(DIRECTORY_SEPARATOR, $path)
-            && !(strlen($path) >= 2 && Character::isLetter($path{0}) && $path{1} === ':')
+            && !(strlen($path) >= 2 && Character::isLetter($path[0]) && $path[1] === ':')
         ) {
             throw new IOException("$path is not an absolute path");
         }
@@ -258,7 +258,7 @@ class FileUtils
 
         // Eliminate consecutive slashes after the drive spec
 
-        if (strlen($path) >= 2 && Character::isLetter($path{0}) && $path{1} === ':') {
+        if (strlen($path) >= 2 && Character::isLetter($path[0]) && $path[1] === ':') {
             $dosWithDrive = true;
 
             $ca = str_replace('/', '\\', $path);
@@ -289,7 +289,7 @@ class FileUtils
                 $root = DIRECTORY_SEPARATOR;
                 $path = "";
             } else {
-                if ($path{1} == DIRECTORY_SEPARATOR) {
+                if ($path[1] == DIRECTORY_SEPARATOR) {
                     // UNC drive
                     $root = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
                     $path = substr($path, 2);

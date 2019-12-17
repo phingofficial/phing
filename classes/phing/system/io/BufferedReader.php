@@ -164,7 +164,7 @@ class BufferedReader extends Reader
             // Get next buffered char ...
             // handle case where buffer is read-in, but is empty.  The next readChar() will return -1 EOF,
             // so we just return empty string (char) at this point.  (Probably could also return -1 ...?)
-            $ch = ($this->buffer !== "") ? $this->buffer{$this->bufferPos} : '';
+            $ch = ($this->buffer !== "") ? $this->buffer[$this->bufferPos] : '';
             $this->bufferPos++;
             if ($this->bufferPos >= strlen($this->buffer)) {
                 $this->buffer = null;

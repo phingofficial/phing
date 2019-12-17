@@ -92,7 +92,7 @@ class StringHelper
         $ret = array();
         $len = strlen($str);
         for ($i = 0; $i < $len; $i++) {
-            $ret[] = $str{$i};
+            $ret[] = $str[$i];
         }
 
         return $ret;
@@ -265,7 +265,7 @@ class StringHelper
             trigger_error("substring(), Endindex out of bounds must be $startpos<n<" . ($len - 1), E_USER_ERROR);
         }
         if ($startpos === $endpos) {
-            return (string) $string{$startpos};
+            return (string) $string[$startpos];
         } else {
             $len = $endpos - $startpos;
         }
