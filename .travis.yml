@@ -16,6 +16,12 @@ php:
   - 7.1
   - hhvm
 
+before_install:
+  - set -e
+  - echo "=== SETTING GIT IDENTITY ==="
+  - git config --global user.email "travis-ci-build@phing.info"
+  - git config --global user.name "Phing Travis Builder"
+
 matrix:
   include:
     - php: 5.2
