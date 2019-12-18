@@ -106,6 +106,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     public function testPrintTargets()
     {
         $target = $this->getMockBuilder(Target::class)->getMock();
+        $target->method('getDependencies')->willReturn([]);
         $project = $this->getMockBuilder(Project::class)->disableOriginalConstructor()->getMock();
         $project->method('getTargets')->willReturn([$target]);
         $phing = new Phing();

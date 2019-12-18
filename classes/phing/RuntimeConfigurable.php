@@ -148,6 +148,18 @@ class RuntimeConfigurable
         $this->characters .= (string) $data;
     }
 
+    /**
+     * Get the text content of this element. Various text chunks are
+     * concatenated, there is no way (currently) of keeping track of
+     * multiple fragments.
+     *
+     * @return string the text content of this element.
+     */
+    public function getText()
+    {
+        return (string) $this->characters;
+    }
+
     public function getElementTag()
     {
         return $this->elementTag;
