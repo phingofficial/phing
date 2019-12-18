@@ -91,7 +91,7 @@ class GitBranchTaskTest extends BuildFileTest
 
         $this->executeTarget('trackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: Branch track-param-set set up to track local branch master.');
+        $this->assertInLogs('git-branch output: Branch \'track-param-set\' set up to track local branch \'master\'.');
     }
 
     public function testNoTrackParameter()
@@ -127,10 +127,10 @@ class GitBranchTaskTest extends BuildFileTest
 
         $this->executeTarget('deleteBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('Branch delete-branch-1 set up to track local branch master.');
-        $this->assertInLogs('Branch delete-branch-2 set up to track local branch master.');
-        $this->assertInLogs('Deleted branch delete-branch-1');
-        $this->assertInLogs('Deleted branch delete-branch-2');
+        $this->assertInLogs('Branch \'delete-branch-1\' set up to track local branch \'master\'.');
+        $this->assertInLogs('Branch \'delete-branch-2\' set up to track local branch \'master\'.');
+        $this->assertInLogs('Deleted branch \'delete-branch-1\'');
+        $this->assertInLogs('Deleted branch \'delete-branch-2\'');
     }
 
     public function testMoveBranch()
