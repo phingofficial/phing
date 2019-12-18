@@ -72,6 +72,38 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Asserts that the log buffer contains specified message at specified priority.
+     * @param string $expected Message subsctring
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
+     */
+    protected function assertLogLineContaining($expected, $priority = null, $errormsg = "Expected to find a log line that starts with '%s': %s")
+    {
+        $found = false;
+        foreach ($this->logBuffer as $log) {
+            if (false !== strpos($log['message'], $expected)) {
+                $this->assertEquals(1, 1); // increase number of positive assertions
+                if ($priority === null) {
+                    return;
+                } elseif ($priority !== null) {
+                    if ($priority >= $log['priority']) {
+                        $found = true;
+                    }
+                }
+
+            }
+            if ($found) {
+                return;
+            }
+        }
+        $representation = [];
+        foreach($this->logBuffer as $log) {
+            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+        }
+        $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
+    }
+
+    /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
      * @param string $expected Message subsctring
      * @param int    $priority Message priority (default: any)
