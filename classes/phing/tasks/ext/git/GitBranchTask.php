@@ -52,7 +52,7 @@ class GitBranchTask extends GitBaseTask
     private $startPoint;
 
     /**
-     * --set-upstream key to git-branch
+     * --set-upstream-to key to git-branch
      * @var boolean
      */
     private $setUpstream = false;
@@ -110,7 +110,7 @@ class GitBranchTask extends GitBaseTask
         $client = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('branch');
         $command
-            ->setOption('set-upstream', $this->isSetUpstream())
+            ->setOption('set-upstream-to', $this->isSetUpstream())
             ->setOption('no-track', $this->isNoTrack())
             ->setOption('force', $this->isForce());
         if ($this->isNoTrack() == false) {
