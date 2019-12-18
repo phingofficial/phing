@@ -109,13 +109,10 @@ class GitBranchTask extends GitBaseTask
 
         $client = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('branch');
-        if ($this->isNoTrack()) {
-            $command->setOption('set-upstream-to', $this->isSetUpstream());
-        } else {
-            $command->setOption('track', $this->isTrack());
-        }
-        
-        $command->setOption('force', $this->isForce());
+        $command
+            ->setOption('set-upstream-to', $this->isSetUpstream())
+            ->setOption('no-track', $this->isNoTrack())
+            ->setOption('force', $this->isForce());
         if ($this->isNoTrack() == false) {
             $command->setOption('track', $this->getTrack());
         }
