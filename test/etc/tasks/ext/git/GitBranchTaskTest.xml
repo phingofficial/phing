@@ -61,7 +61,7 @@
             targetPath="${tmp.dir.resolved}" />
         <gitbranch 
             repository="${tmp.dir.resolved}" 
-            branchname="set-upstream-param-set"
+            branchname="foobranch"
             setupstream="true" />
     </target>
 
