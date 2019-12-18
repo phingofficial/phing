@@ -63,7 +63,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up to date.');
     }
 
     public function testNoCommitSet()
@@ -71,7 +71,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up to date.');
     }
 
     public function testRemoteSet()
@@ -79,7 +79,7 @@ class GitMergeTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date.');
+        $this->assertInLogs('git-merge output: Already up to date.');
     }
 
     public function testFastForwardCommitSet()
