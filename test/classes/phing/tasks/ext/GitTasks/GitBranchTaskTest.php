@@ -129,8 +129,8 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
         $this->assertInLogs('Branch \'delete-branch-1\' set up to track local branch \'master\'.');
         $this->assertInLogs('Branch \'delete-branch-2\' set up to track local branch \'master\'.');
-        $this->assertInLogs('Deleted branch \'delete-branch-1\'');
-        $this->assertInLogs('Deleted branch \'delete-branch-2\'');
+        $this->assertInLogs('Deleted branch delete-branch-1');
+        $this->assertInLogs('Deleted branch delete-branch-2');
     }
 
     public function testMoveBranch()
