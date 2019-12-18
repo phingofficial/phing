@@ -63,7 +63,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutExistingBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: Branch co-branch set up to track remote branch master from origin.');
+        $this->assertInLogs('git-branch output: Branch \'co-branch\' set up to track remote branch \'master\' from \'origin\'.');
         // @todo - actually make sure that Ebihara updates code to return (not
         // echo output from $command->execute()
         //$this->assertInLogs("Switched to branch 'test'");

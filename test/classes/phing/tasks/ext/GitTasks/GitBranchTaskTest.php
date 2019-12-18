@@ -63,7 +63,7 @@ class GitBranchTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs(
-            'git-branch output: Branch all-params-set set up to track remote branch master from origin.'
+            'git-branch output: Branch \'all-params-set\' set up to track remote branch \'master\' from \'origin\'.'
         );
     }
 
