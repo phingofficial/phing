@@ -54,7 +54,7 @@
             notrack="true" />
     </target>
 
-    <target name="setUpstreamParamSet" description="git-branch --set-upstream">
+    <target name="setUpstreamParamSet" description="git-branch --set-upstream-to">
         <gitclone
             singleBranch="true"
             repository="${repo.dir.resolved}"
