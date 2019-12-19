@@ -22,6 +22,9 @@
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
+ *
+ * @codingStandardsIgnoreFile
+ * phpcs:ignoreFile -- crashes within the <<<SQL ... SQL blocks
  */
 class PDODelimitersTest extends BuildFileTest
 {

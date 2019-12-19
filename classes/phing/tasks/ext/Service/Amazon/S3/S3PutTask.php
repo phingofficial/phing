@@ -444,7 +444,7 @@ class S3PutTask extends S3
             [
                 'Bucket' => $this->getBucket(),
                 'Key' => $key,
-                'SourceFile' => $sourceFile
+                'SourceFile' => $sourceFile,
             ]
         );
     }

@@ -76,7 +76,7 @@ class HttpGetTask extends HttpTask
         }
 
         $config = [
-            'ssl_verify_peer' => $this->sslVerifyPeer
+            'ssl_verify_peer' => $this->sslVerifyPeer,
         ];
         if (isset($this->proxy)) {
             $config['proxy'] = $this->proxy;

@@ -54,7 +54,7 @@ class IniFileConfig
                 $this->lines[] = [
                     'type' => 'comment',
                     'data' => $line,
-                    'section' => $section
+                    'section' => $section,
                 ];
             } elseif (preg_match('/^\s?\[(.*)\]/', $line, $match)) {
                 // section
@@ -62,7 +62,7 @@ class IniFileConfig
                 $this->lines[] = [
                     'type' => 'section',
                     'data' => $line,
-                    'section' => $section
+                    'section' => $section,
                 ];
             } elseif (preg_match('/^\s*(.*?)\s*=\s*(.*?)\s*$/', $line, $match)) {
                 // entry

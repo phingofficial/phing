@@ -38,7 +38,7 @@ class StatisticsReport
         "count",
         "average",
         "total",
-        "%"
+        "%",
     ];
 
     private static $TIME_FORMATTER;

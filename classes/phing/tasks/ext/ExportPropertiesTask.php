@@ -56,7 +56,7 @@ class ExportPropertiesTask extends Task
         'php.',
         'line.',
         'env.',
-        'user.'
+        'user.',
     ];
 
     /**

@@ -45,7 +45,7 @@ abstract class ZsdtBaseTask extends Task
     private $path = [
         'NIX' => '/usr/local/zend/bin/zdpack',
         'WIN' => 'C:\Program Files (x86)\Zend\ZendServer\bin\zdpack',
-        'USR' => ''
+        'USR' => '',
     ];
 
     /**

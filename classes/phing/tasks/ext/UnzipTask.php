@@ -72,7 +72,7 @@ class UnzipTask extends ExtractBaseTask
         $content = [];
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $content[] = [
-                'filename' => $zip->getNameIndex($i)
+                'filename' => $zip->getNameIndex($i),
             ];
         }
 
