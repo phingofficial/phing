@@ -109,9 +109,9 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->executeTarget('recipient');
 
         $request = new HTTP_Request2(null, 'GET', [
-                'proxy' => 'http://localhost:8080/',
-                'max_redirects' => 9
-            ]);
+            'proxy' => 'http://localhost:8080/',
+            'max_redirects' => 9
+        ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
