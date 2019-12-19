@@ -136,17 +136,13 @@
     <rule ref="Generic.PHP.LowerCaseConstant"/>
 
     <!-- Forbid backtick operator -->
-    <!--
     <rule ref="Generic.PHP.BacktickOperator"/>
-    -->
 
     <!-- Force PHP 7 param and return types to be lowercased -->
     <rule ref="Generic.PHP.LowerCaseType"/>
 
     <!-- Forbid `php_sapi_name()` function -->
-    <!--
     <rule ref="Generic.PHP.SAPIUsage"/>
-    -->
 
     <!-- Forbid useless inline string concatenation -->
     <rule ref="Generic.Strings.UnnecessaryStringConcat">
@@ -161,16 +157,12 @@
     <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
 
     <!-- Forbid comments starting with # -->
-    <!--
     <rule ref="PEAR.Commenting.InlineComment"/>
-    -->
 
     <!-- Disallow else if in favor of elseif -->
-    <!--
     <rule ref="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed">
         <type>error</type>
     </rule>
-    -->
 
     <!-- Require presence of constant visibility -->
     <!--
