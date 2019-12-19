@@ -352,7 +352,7 @@ abstract class BuildFileTest extends TestCase
                     $found = true;
                 }
                 $ex = $ex->getPrevious();
-            };
+            }
 
             if (!$found) {
                 $this->fail(
