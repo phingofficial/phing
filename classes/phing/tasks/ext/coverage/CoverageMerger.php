@@ -159,7 +159,7 @@ class CoverageMerger
                 $file = unserialize($props->getProperty($filename));
                 $left = $file['coverage'];
 
-                $coverageMerged = CoverageMerger::mergeCodeCoverage($left, $lines);
+                $coverageMerged = self::mergeCodeCoverage($left, $lines);
 
                 $file['coverage'] = $coverageMerged;
                 $props->setProperty($filename, serialize($file));

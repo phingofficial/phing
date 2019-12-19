@@ -38,7 +38,7 @@ class FileUtils
 
     public function __construct()
     {
-        if (self::$separator === null || FileUtils::$pathSeparator === null) {
+        if (self::$separator === null || self::$pathSeparator === null) {
             $fs                  = FileSystem::getFileSystem();
             self::$separator     = $fs->getSeparator();
             self::$pathSeparator = $fs->getPathSeparator();
@@ -168,7 +168,7 @@ class FileUtils
                 // By default, PHP::Copy also copies the file permissions. Therefore,
                 // re-setting the mode with the "user file-creation mask" information.
                 if ($preservePermissions === false) {
-                    $destFile->setMode(FileUtils::getDefaultFileCreationMask(false));
+                    $destFile->setMode(self::getDefaultFileCreationMask(false));
                 }
             }
 

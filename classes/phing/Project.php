@@ -494,7 +494,7 @@ class Project
         }
         $this->basedir = $dir;
         $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
-        $this->log("Project base dir set to: " . $this->basedir->getPath(), Project::MSG_VERBOSE);
+        $this->log("Project base dir set to: " . $this->basedir->getPath(), self::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
         chdir($dir->getAbsolutePath());
@@ -638,7 +638,7 @@ class Project
      */
     public function addOrReplaceTarget($targetName, &$target)
     {
-        $this->log("  +Target: $targetName", Project::MSG_DEBUG);
+        $this->log("  +Target: $targetName", self::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
 
@@ -757,7 +757,7 @@ class Project
                         "Target '" . $curTarget->getName()
                         . "' failed with message '"
                         . $thrownException->getMessage() . "'.",
-                        Project::MSG_ERR
+                        self::MSG_ERR
                     );
                     // only the first build exception is reported
                     if ($buildException === null) {
@@ -769,7 +769,7 @@ class Project
                         . "' failed with message '"
                         . $thrownException->getMessage() . "'." . PHP_EOL
                         . $thrownException->getTraceAsString(),
-                        Project::MSG_ERR
+                        self::MSG_ERR
                     );
                     if ($buildException === null) {
                         $buildException = new BuildException($thrownException);
@@ -852,7 +852,7 @@ class Project
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
             $retHuman .= (string) $ret[$i] . " ";
         }
-        $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Build sequence for target '$rootTarget' is: $retHuman", self::MSG_VERBOSE);
 
         $keys = array_keys($this->targets);
         while ($keys) {
@@ -874,7 +874,7 @@ class Project
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
             $retHuman .= (string) $ret[$i] . " ";
         }
-        $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Complete build sequence is: $retHuman", self::MSG_VERBOSE);
 
         return $ret;
     }
@@ -984,10 +984,10 @@ class Project
             return;
         }
         if ($ref !== null && !$ref instanceof UnknownElement) {
-            $this->log("Overriding previous definition of reference to $name", Project::MSG_VERBOSE);
+            $this->log("Overriding previous definition of reference to $name", self::MSG_VERBOSE);
         }
         $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string) $object : get_class($object);
-        $this->log("Adding reference: $name -> " . $refName, Project::MSG_DEBUG);
+        $this->log("Adding reference: $name -> " . $refName, self::MSG_DEBUG);
         $this->references[$name] = $object;
     }
 
@@ -1018,7 +1018,7 @@ class Project
      * @param string $msg
      * @param int $level
      */
-    public function log($msg, $level = Project::MSG_INFO)
+    public function log($msg, $level = self::MSG_INFO)
     {
         $this->logObject($this, $msg, $level);
     }
@@ -1035,7 +1035,7 @@ class Project
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
-        if (($this->strictMode) && (Project::MSG_WARN == $level)) {
+        if (($this->strictMode) && (self::MSG_WARN == $level)) {
             throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
         }
     }
@@ -1077,7 +1077,7 @@ class Project
             $listener->buildStarted($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string) $event, self::MSG_DEBUG);
     }
 
     /**
@@ -1091,7 +1091,7 @@ class Project
             $listener->buildFinished($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string) $event, self::MSG_DEBUG);
     }
 
     /**
@@ -1104,7 +1104,7 @@ class Project
             $listener->targetStarted($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string) $event, self::MSG_DEBUG);
     }
 
     /**
@@ -1119,7 +1119,7 @@ class Project
             $listener->targetFinished($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string) $event, self::MSG_DEBUG);
     }
 
     /**
@@ -1132,7 +1132,7 @@ class Project
             $listener->taskStarted($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string) $event, self::MSG_DEBUG);
     }
 
     /**
@@ -1147,7 +1147,7 @@ class Project
             $listener->taskFinished($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string) $event, self::MSG_DEBUG);
     }
 
     /**

@@ -602,9 +602,7 @@
     <rule ref="Squiz.Classes.ClassFileName"/>
 
     <!-- Force `self::` for self-reference, force lower-case self, forbid spaces around `::` -->
-    <!--
     <rule ref="Squiz.Classes.SelfMemberReference"/>
-    -->
 
     <!-- Force phpDoc alignment -->
     <!--
