@@ -70,13 +70,11 @@
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
 
     <!-- Align corresponding assignment statement tokens -->
-    <!--
     <rule ref="Generic.Formatting.MultipleStatementAlignment">
         <properties>
             <property name="error" value="true"/>
         </properties>
     </rule>
-    -->
 
     <!-- Force whitespace after `!` -->
     <!--

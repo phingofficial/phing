@@ -237,7 +237,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
         // Read XSLT
         $_xsl = null;
-        $br = new BufferedReader(new FileReader($this->xslFile));
+        $br   = new BufferedReader(new FileReader($this->xslFile));
         $_xsl = $br->read();
 
         $this->log(
@@ -247,7 +247,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
         $out = '';
         try {
-            $out = $this->process($_xml, $_xsl);
+            $out             = $this->process($_xml, $_xsl);
             $this->processed = true;
         } catch (IOException $e) {
             throw new BuildException($e);
@@ -273,11 +273,11 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         $processor = new XSLTProcessor();
 
         // Create and setup document.
-        $xmlDom = new DOMDocument();
+        $xmlDom                   = new DOMDocument();
         $xmlDom->resolveExternals = $this->resolveDocumentExternals;
 
         // Create and setup stylesheet.
-        $xslDom = new DOMDocument();
+        $xslDom                   = new DOMDocument();
         $xslDom->resolveExternals = $this->resolveStylesheetExternals;
 
         if ($this->html) {

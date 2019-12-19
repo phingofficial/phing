@@ -107,14 +107,14 @@ class HgTagTask extends HgBaseTask
     public function main()
     {
         $clone = $this->getFactoryInstance('tag');
-        $cwd = getcwd();
+        $cwd   = getcwd();
 
         if ($this->name === '') {
             throw new BuildException("Tag name must be set.");
         }
         if ($this->repository === '') {
             $prog = $this->getProject();
-            $dir = $prog->getProperty('application.startdir');
+            $dir  = $prog->getProperty('application.startdir');
         } else {
             $dir = $this->repository;
         }
@@ -144,7 +144,7 @@ class HgTagTask extends HgBaseTask
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            $p = strpos($msg, 'hg returned:');
+            $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {
                 $msg = substr($msg, $p + 13);
             }

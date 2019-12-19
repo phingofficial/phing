@@ -72,7 +72,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
         }
 
         if ($this->queuedData !== null) {
-            $ch = $this->queuedData[0];
+            $ch               = $this->queuedData[0];
             $this->queuedData = substr($this->queuedData, 1);
             if ($this->queuedData === '') {
                 $this->queuedData = null;

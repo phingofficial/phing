@@ -23,7 +23,7 @@
  */
 trait LogLevelAware
 {
-    protected $logLevel = Project::MSG_VERBOSE;
+    protected $logLevel     = Project::MSG_VERBOSE;
     protected $logLevelName = 'verbose';
 
     /**
@@ -35,23 +35,23 @@ trait LogLevelAware
     {
         switch ($level) {
             case 'error':
-                $this->logLevel = Project::MSG_ERR;
+                $this->logLevel     = Project::MSG_ERR;
                 $this->logLevelName = 'error';
                 break;
             case 'warning':
-                $this->logLevel = Project::MSG_WARN;
+                $this->logLevel     = Project::MSG_WARN;
                 $this->logLevelName = 'warning';
                 break;
             case 'info':
-                $this->logLevel = Project::MSG_INFO;
+                $this->logLevel     = Project::MSG_INFO;
                 $this->logLevelName = 'info';
                 break;
             case 'verbose':
-                $this->logLevel = Project::MSG_VERBOSE;
+                $this->logLevel     = Project::MSG_VERBOSE;
                 $this->logLevelName = 'verbose';
                 break;
             case 'debug':
-                $this->logLevel = Project::MSG_DEBUG;
+                $this->logLevel     = Project::MSG_DEBUG;
                 $this->logLevelName = 'debug';
                 break;
             default:

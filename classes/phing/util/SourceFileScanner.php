@@ -45,7 +45,7 @@ class SourceFileScanner
      */
     public function __construct($task)
     {
-        $this->task = $task;
+        $this->task      = $task;
         $this->fileUtils = new FileUtils();
     }
 
@@ -66,7 +66,7 @@ class SourceFileScanner
      */
     public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
     {
-        $now = time();
+        $now        = time();
         $targetList = "";
 
         /*
@@ -110,7 +110,7 @@ class SourceFileScanner
                 continue;
             }
 
-            $added = false;
+            $added      = false;
             $targetList = "";
 
             for ($j = 0, $_j = count($targets); (!$added && $j < $_j); $j++) {
@@ -126,21 +126,21 @@ class SourceFileScanner
                         ($files[$i] ?: ".") . " added as " . $dest->__toString() . " doesn't exist.",
                         Project::MSG_VERBOSE
                     );
-                    $v[] = $files[$i];
+                    $v[]   = $files[$i];
                     $added = true;
                 } elseif ($src->lastModified() > $dest->lastModified()) {
                     $this->task->log(
                         $files[$i] . " added as " . $dest->__toString() . " is outdated.",
                         Project::MSG_VERBOSE
                     );
-                    $v[] = $files[$i];
+                    $v[]   = $files[$i];
                     $added = true;
                 } elseif ($force === true) {
                     $this->task->log(
                         $files[$i] . " added as " . $dest->__toString() . " is forced to be overwritten.",
                         Project::MSG_VERBOSE
                     );
-                    $v[] = $files[$i];
+                    $v[]   = $files[$i];
                     $added = true;
                 } else {
                     if (strlen($targetList) > 0) {
@@ -176,7 +176,7 @@ class SourceFileScanner
      */
     public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)
     {
-        $res = $this->restrict($files, $srcDir, $destDir, $mapper);
+        $res    = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = [];
         for ($i = 0, $resultsCount = count($res); $i < $resultsCount; $i++) {
             $result[$i] = new PhingFile($srcDir, $res[$i]);

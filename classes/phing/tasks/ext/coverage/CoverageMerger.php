@@ -39,7 +39,7 @@ class CoverageMerger
         reset($right);
 
         while (current($left) !== false && current($right) !== false) {
-            $linenr_left = key($left);
+            $linenr_left  = key($left);
             $linenr_right = key($right);
 
             if ($linenr_left < $linenr_right) {
@@ -102,10 +102,10 @@ class CoverageMerger
     public static function getWhiteList($project)
     {
         $whitelist = [];
-        $props = self::_getDatabase($project);
+        $props     = self::_getDatabase($project);
 
         foreach ($props->getProperties() as $property) {
-            $data = unserialize($property);
+            $data        = unserialize($property);
             $whitelist[] = $data['fullname'];
         }
 
@@ -125,7 +125,7 @@ class CoverageMerger
         $coverageTotal = $codeCoverageInformation;
 
         foreach ($coverageTotal as $filename => $data) {
-            $lines = [];
+            $lines    = [];
             $filename = strtolower($filename);
 
             if ($props->getProperty($filename) != null) {

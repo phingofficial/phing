@@ -55,15 +55,15 @@ class ContainsRegexpSelector extends BaseExtendSelector
     private $myRegExp;
 
     public const EXPRESSION_KEY = "expression";
-    public const CASE_KEY = "casesensitive";
-    public const ML_KEY = 'multiline';
+    public const CASE_KEY       = "casesensitive";
+    public const ML_KEY         = 'multiline';
 
     /**
      * @return string
      */
     public function __toString()
     {
-        $buf = "{containsregexpselector expression: ";
+        $buf  = "{containsregexpselector expression: ";
         $buf .= $this->userProvidedExpression;
         $buf .= " casesensitive: ";
         if ($this->casesensitive) {
@@ -182,7 +182,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
 
         $in = null;
         try {
-            $in = new BufferedReader(new FileReader($file));
+            $in      = new BufferedReader(new FileReader($file));
             $teststr = $in->readLine();
             while ($teststr !== null) {
                 $this->myExpression->setMultiline($this->multiline);

@@ -33,13 +33,13 @@ class DispatchUtils
      */
     public static function main($task)
     {
-        $methodName = "main";
+        $methodName   = "main";
         $dispatchable = null;
         try {
             if ($task instanceof Dispatchable) {
                 $dispatchable = $task;
             } elseif ($task instanceof UnknownElement) {
-                $ue = $task;
+                $ue        = $task;
                 $realThing = $ue->getRealThing();
                 if ($realThing != null && $realThing instanceof Dispatchable && $realThing instanceof Task) {
                     $dispatchable = $realThing;
@@ -56,9 +56,9 @@ class DispatchUtils
                 }
                 $mName = "get" . ucfirst($name);
                 try {
-                    $c = new ReflectionClass($dispatchable);
-                    $actionM = $c->getMethod($mName);
-                    $o = $actionM->invoke($dispatchable);
+                    $c          = new ReflectionClass($dispatchable);
+                    $actionM    = $c->getMethod($mName);
+                    $o          = $actionM->invoke($dispatchable);
                     $methodName = trim((string) $o);
                     if (empty($methodName)) {
                         throw new ReflectionException();
@@ -76,7 +76,7 @@ class DispatchUtils
                 }
             } else {
                 try {
-                    $refl = new ReflectionClass($task);
+                    $refl     = new ReflectionClass($task);
                     $executeM = $refl->getMethod($methodName);
                 } catch (ReflectionException $re) {
                     throw new BuildException("No public " . $methodName . "() in " . get_class($task));

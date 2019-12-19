@@ -132,7 +132,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
     private function initialize()
     {
         $userDefinedLineBreaks = null;
-        $params = $this->getParameters();
+        $params                = $this->getParameters();
         if ($params !== null) {
             for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::LINES_BREAKS_KEY === $params[$i]->getName()) {

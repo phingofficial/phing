@@ -26,7 +26,7 @@ class TimestampedLoggerTest extends TestCase
      */
     public function buildFinished()
     {
-        $event = new BuildEvent(new Project());
+        $event  = new BuildEvent(new Project());
         $logger = new class extends TimestampedLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
@@ -38,7 +38,7 @@ class TimestampedLoggerTest extends TestCase
                 return 'TIME_STRING';
             }
         };
-        $msg = '/' . PHP_EOL . 'BUILD FINISHED - at .*' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL . '/';
+        $msg    = '/' . PHP_EOL . 'BUILD FINISHED - at .*' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL . '/';
         $this->expectOutputRegex($msg);
         $logger->buildFinished($event);
     }

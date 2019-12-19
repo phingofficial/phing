@@ -41,7 +41,7 @@ class RecorderTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $fileContent = $this->getProject()->getProperty('file.content');
-        $fileRows = explode(PHP_EOL, $fileContent);
+        $fileRows    = explode(PHP_EOL, $fileContent);
         $this->assertEquals($fileRows[0], '     [echo] recorder test');
     }
 }

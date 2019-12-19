@@ -30,7 +30,7 @@ class SassTaskCompilerFactoryTest extends TestCase
         $sassTask->setUseSass('false');
         $sassTask->setUseScssphp('false');
         $fileSystem = new FileSystemWhichStub(true);
-        $factory = new SassTaskCompilerFactory($fileSystem);
+        $factory    = new SassTaskCompilerFactory($fileSystem);
 
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Neither sass nor scssphp are to be used.');
@@ -44,7 +44,7 @@ class SassTaskCompilerFactoryTest extends TestCase
         $sassTask->setUseSass('true');
         $sassTask->setUseScssphp('false');
         $fileSystem = new FileSystemWhichStub(true);
-        $factory = new SassTaskCompilerFactory($fileSystem);
+        $factory    = new SassTaskCompilerFactory($fileSystem);
 
         $compiler = $factory->prepareCompiler($sassTask);
 
@@ -57,7 +57,7 @@ class SassTaskCompilerFactoryTest extends TestCase
         $sassTask->setUseSass('true');
         $sassTask->setUseScssphp('true');
         $fileSystem = new FileSystemWhichStub(true);
-        $factory = new SassTaskCompilerFactory($fileSystem);
+        $factory    = new SassTaskCompilerFactory($fileSystem);
 
         $compiler = $factory->prepareCompiler($sassTask);
 
@@ -71,7 +71,7 @@ class SassTaskCompilerFactoryTest extends TestCase
         $sassTask->setUseScssphp('false');
         $sassTask->setExecutable('sass');
         $fileSystem = new FileSystemWhichStub(false);
-        $factory = new SassTaskCompilerFactory($fileSystem);
+        $factory    = new SassTaskCompilerFactory($fileSystem);
 
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('sass not found. Install sass.');

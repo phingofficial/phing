@@ -57,7 +57,7 @@ class ProjectHandler extends AbstractHandler
         parent::__construct($parser, $parentHandler);
 
         $this->configurator = $configurator;
-        $this->context = $context;
+        $this->context      = $context;
     }
 
     /**
@@ -70,16 +70,16 @@ class ProjectHandler extends AbstractHandler
      */
     public function init($tag, $attrs)
     {
-        $def = null;
-        $name = null;
-        $id = null;
-        $desc = null;
+        $def     = null;
+        $name    = null;
+        $id      = null;
+        $desc    = null;
         $baseDir = null;
-        $ver = null;
-        $strict = null;
+        $ver     = null;
+        $strict  = null;
 
         // some shorthands
-        $project = $this->configurator->project;
+        $project         = $this->configurator->project;
         $buildFileParent = $this->configurator->buildFileParent;
 
         foreach ($attrs as $key => $value) {
@@ -175,7 +175,7 @@ class ProjectHandler extends AbstractHandler
     public function startElement($name, $attrs)
     {
         $project = $this->configurator->project;
-        $types = $project->getDataTypeDefinitions();
+        $types   = $project->getDataTypeDefinitions();
 
         if ($name === "target") {
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);

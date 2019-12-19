@@ -41,7 +41,7 @@ class ConcatFilterTest extends BuildFileTest
         $this->executeTarget("testConcatFilter");
 
         $expected = $this->getProject()->resolveFile("expected/concatfilter.test");
-        $result = $this->getProject()->resolveFile("result/concatfilter.test");
+        $result   = $this->getProject()->resolveFile("result/concatfilter.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

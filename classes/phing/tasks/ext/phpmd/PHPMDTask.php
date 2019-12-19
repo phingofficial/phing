@@ -135,11 +135,11 @@ class PHPMDTask extends Task
         $this->allowedFileExtensions = [];
 
         $token = ' ,;';
-        $ext = strtok($fileExtensions, $token);
+        $ext   = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
-            $ext = strtok($token);
+            $ext                           = strtok($token);
         }
     }
 
@@ -152,12 +152,12 @@ class PHPMDTask extends Task
     {
         $this->ignorePatterns = [];
 
-        $token = ' ,;';
+        $token   = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
 
         while ($pattern !== false) {
             $this->ignorePatterns[] = $pattern;
-            $pattern = strtok($token);
+            $pattern                = strtok($token);
         }
     }
 
@@ -215,7 +215,7 @@ class PHPMDTask extends Task
 
         if (!class_exists($className)) {
             @include_once 'PHP/PMD.php';
-            $className = "PHP_PMD";
+            $className        = "PHP_PMD";
             $this->newVersion = false;
         }
 
@@ -259,7 +259,7 @@ class PHPMDTask extends Task
                 foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
                     $fileAbsolutePath = $dir . DIRECTORY_SEPARATOR . $filename;
                     if ($this->cache) {
-                        $lastMTime = $this->cache->get($fileAbsolutePath);
+                        $lastMTime    = $this->cache->get($fileAbsolutePath);
                         $currentMTime = filemtime($fileAbsolutePath);
                         if ($lastMTime >= $currentMTime) {
                             continue;

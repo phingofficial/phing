@@ -75,8 +75,8 @@ class DefaultExcludes extends Task
             DirectoryScanner::removeDefaultExclude($this->remove);
         }
         if ($this->echo) {
-            $lineSep = Phing::getProperty('line.separator');
-            $message = "Current Default Excludes:";
+            $lineSep  = Phing::getProperty('line.separator');
+            $message  = "Current Default Excludes:";
             $message .= $lineSep;
             $excludes = DirectoryScanner::getDefaultExcludes();
             $message .= "  ";

@@ -137,15 +137,15 @@ class ChainReaderHelper
      */
     public function getAssembledReader()
     {
-        $instream = $this->primaryReader;
+        $instream           = $this->primaryReader;
         $filterReadersCount = count($this->filterChains);
-        $finalFilters = [];
+        $finalFilters       = [];
 
         // Collect all filter readers of all filter chains used ...
         for ($i = 0; $i < $filterReadersCount; $i++) {
-            $filterchain = &$this->filterChains[$i];
+            $filterchain   = &$this->filterChains[$i];
             $filterReaders = $filterchain->getFilterReaders();
-            $readerCount = count($filterReaders);
+            $readerCount   = count($filterReaders);
             for ($j = 0; $j < $readerCount; $j++) {
                 $finalFilters[] = $filterReaders[$j];
             }
@@ -161,10 +161,10 @@ class ChainReaderHelper
                     // This filter reader is an external class.
                     $className = $filter->getClassName();
                     $classpath = $filter->getClasspath();
-                    $project = $filter->getProject();
+                    $project   = $filter->getProject();
 
                     if ($className !== null) {
-                        $cls = Phing::import($className, $classpath);
+                        $cls  = Phing::import($className, $classpath);
                         $impl = new $cls();
                     }
 

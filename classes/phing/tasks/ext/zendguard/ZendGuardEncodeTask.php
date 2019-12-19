@@ -329,7 +329,7 @@ class ZendGuardEncodeTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new ZendGuardFileSet();
+        $this->fileset    = new ZendGuardFileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;

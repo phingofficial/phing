@@ -166,11 +166,11 @@ class PHPCPDTask extends Task
         $this->allowedFileExtensions = [];
 
         $token = ' ,;';
-        $ext = strtok($fileExtensions, $token);
+        $ext   = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
-            $ext = strtok($token);
+            $ext                           = strtok($token);
         }
     }
 
@@ -183,12 +183,12 @@ class PHPCPDTask extends Task
     {
         $this->ignorePatterns = [];
 
-        $token = ' ,;';
+        $token   = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
 
         while ($pattern !== false) {
             $this->ignorePatterns[] = $pattern;
-            $pattern = strtok($token);
+            $pattern                = strtok($token);
         }
     }
 
@@ -309,7 +309,7 @@ class Application
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $f              = new PhingFile($fs->getDir($this->project), $filename);
                     $filesToParse[] = $f->getAbsolutePath();
                 }
             }
@@ -326,7 +326,7 @@ class Application
         }
 
         $detector = new $detectorClass(new $strategyClass());
-        $clones = $detector->copyPasteDetection(
+        $clones   = $detector->copyPasteDetection(
             $filesToParse,
             $this->minLines,
             $this->minTokens,

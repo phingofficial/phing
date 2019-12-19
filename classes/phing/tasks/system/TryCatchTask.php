@@ -28,11 +28,11 @@
  */
 class TryCatchTask extends Task
 {
-    protected $propertyName = "";
+    protected $propertyName  = "";
     protected $referenceName = '';
 
-    protected $tryContainer = null;
-    protected $catchContainer = null;
+    protected $tryContainer     = null;
+    protected $catchContainer   = null;
     protected $finallyContainer = null;
 
     /**

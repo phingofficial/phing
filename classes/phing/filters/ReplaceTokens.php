@@ -112,7 +112,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
             $count = count($this->tokensources);
             for ($i = 0; $i < $count; $i++) {
-                $source = $this->tokensources[$i];
+                $source          = $this->tokensources[$i];
                 $this->alltokens = array_merge($this->alltokens, $source->getTokens());
             }
 
@@ -122,7 +122,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
         $tokens = $this->alltokens;
 
         $replaceWith = null;
-        $count = count($tokens);
+        $count       = count($tokens);
 
         for ($i = 0; $i < $count; $i++) {
             if ($tokens[$i]->getKey() === $key) {
@@ -342,7 +342,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                         }
                     } else {
                         if ($type === "token") {
-                            $name = $params[$i]->getName();
+                            $name  = $params[$i]->getName();
                             $value = $params[$i]->getValue();
 
                             $tok = new Token();

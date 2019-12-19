@@ -223,7 +223,7 @@ abstract class BuildFileTest extends TestCase
     private function cleanBuffer($buffer)
     {
         $cleanedBuffer = "";
-        $cr = false;
+        $cr            = false;
         for ($i = 0, $bufflen = strlen($buffer); $i < $bufflen; $i++) {
             $ch = $buffer[$i];
             if ($ch == "\r") {
@@ -253,9 +253,9 @@ abstract class BuildFileTest extends TestCase
      */
     protected function configureProject($filename)
     {
-        $this->logBuffer = [];
+        $this->logBuffer     = [];
         $this->fullLogBuffer = "";
-        $this->project = new Project();
+        $this->project       = new Project();
         $this->project->init();
         $f = new PhingFile($filename);
         $this->project->setUserProperty("phing.file", $f->getAbsolutePath());
@@ -275,10 +275,10 @@ abstract class BuildFileTest extends TestCase
             return;
         }
 
-        $this->outBuffer = "";
-        $this->errBuffer = "";
-        $this->logBuffer = [];
-        $this->fullLogBuffer = "";
+        $this->outBuffer      = "";
+        $this->errBuffer      = "";
+        $this->logBuffer      = [];
+        $this->fullLogBuffer  = "";
         $this->buildException = null;
         $this->project->executeTarget($targetName);
     }
@@ -345,7 +345,7 @@ abstract class BuildFileTest extends TestCase
             $this->executeTarget($target);
         } catch (BuildException $ex) {
             $this->buildException = $ex;
-            $found = false;
+            $found                = false;
             while ($ex) {
                 $msg = $ex->getMessage();
                 if (false !== strpos($ex->getMessage(), $contains)) {

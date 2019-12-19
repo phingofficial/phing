@@ -53,7 +53,7 @@ class ElseIfTask extends ConditionBase
         }
 
         $conditions = $this->getConditions();
-        $c = $conditions[0];
+        $c          = $conditions[0];
 
         return $c->evaluate();
     }

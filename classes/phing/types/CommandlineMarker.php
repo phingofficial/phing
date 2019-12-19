@@ -40,7 +40,7 @@ class CommandlineMarker
      */
     public function __construct(Commandline $outer, $position)
     {
-        $this->outer = $outer;
+        $this->outer    = $outer;
         $this->position = $position;
     }
 
@@ -55,7 +55,7 @@ class CommandlineMarker
         if ($this->realPos === -1) {
             $this->realPos = ($this->outer->executable === null ? 0 : 1);
             for ($i = 0; $i < $this->position; $i++) {
-                $arg = $this->outer->arguments[$i];
+                $arg            = $this->outer->arguments[$i];
                 $this->realPos += count($arg->getParts());
             }
         }

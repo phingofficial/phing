@@ -302,7 +302,7 @@ class IntrospectionHelper
 
             $method = $this->slotListeners[$as];
 
-            $key = StringHelper::slotVar($value);
+            $key   = StringHelper::slotVar($value);
             $value = Register::getSlot(
                 $key
             ); // returns a RegisterSlot object which will hold current value of that register (accessible using getValue())
@@ -321,7 +321,7 @@ class IntrospectionHelper
             if ($as == "setrefid") {
                 $value = new Reference($project, $value);
             } else {
-                $params = $method->getParameters();
+                $params        = $method->getParameters();
                 $reflectedAttr = null;
 
                 // try to determine parameter type
@@ -404,8 +404,8 @@ class IntrospectionHelper
      */
     public function createElement(Project $project, $element, $elementName)
     {
-        $addMethod = "add" . strtolower($elementName);
-        $createMethod = "create" . strtolower($elementName);
+        $addMethod     = "add" . strtolower($elementName);
+        $createMethod  = "create" . strtolower($elementName);
         $nestedElement = null;
 
         if (isset($this->nestedCreators[$createMethod])) {
@@ -468,8 +468,8 @@ class IntrospectionHelper
             $typedefs = $project->getDataTypeDefinitions();
             if (isset($typedefs[$elementName])) {
                 $elementClass = Phing::import($typedefs[$elementName]);
-                $parentClass = get_parent_class($elementClass);
-                $addMethod = 'add' . strtolower($parentClass);
+                $parentClass  = get_parent_class($elementClass);
+                $addMethod    = 'add' . strtolower($parentClass);
 
                 if (isset($this->nestedCreators[$addMethod])) {
                     $method = $this->nestedCreators[$addMethod];

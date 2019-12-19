@@ -38,7 +38,7 @@ class RegularExpression extends DataType
      * object itself.
      */
     private $ignoreCase = false;
-    private $multiline = false;
+    private $multiline  = false;
 
     /**
      *

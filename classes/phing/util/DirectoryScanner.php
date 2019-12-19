@@ -318,7 +318,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     public static function addDefaultExclude($s)
     {
         if (!in_array($s, self::$defaultExcludeList)) {
-            $return = true;
+            $return                     = true;
             self::$defaultExcludeList[] = $s;
         } else {
             $return = false;
@@ -366,7 +366,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function setBasedir($basedir)
     {
-        $basedir = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $basedir);
+        $basedir       = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $basedir);
         $this->basedir = $basedir;
     }
 
@@ -499,14 +499,14 @@ class DirectoryScanner implements FileScanner, SelectorScanner
             $this->excludes = [];
         }
 
-        $this->filesIncluded = [];
+        $this->filesIncluded    = [];
         $this->filesNotIncluded = [];
-        $this->filesExcluded = [];
-        $this->dirsIncluded = [];
-        $this->dirsNotIncluded = [];
-        $this->dirsExcluded = [];
-        $this->dirsDeselected = [];
-        $this->filesDeselected = [];
+        $this->filesExcluded    = [];
+        $this->dirsIncluded     = [];
+        $this->dirsNotIncluded  = [];
+        $this->dirsExcluded     = [];
+        $this->dirsDeselected   = [];
+        $this->filesDeselected  = [];
 
         if ($this->isIncluded("")) {
             if (!$this->isExcluded("")) {
@@ -539,7 +539,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         }
 
         // copy trie object add CopyInto() method
-        $excl = $this->dirsExcluded;
+        $excl    = $this->dirsExcluded;
         $notIncl = $this->dirsNotIncluded;
 
         for ($i = 0, $_i = count($excl); $i < $_i; $i++) {
@@ -607,11 +607,11 @@ class DirectoryScanner implements FileScanner, SelectorScanner
                             $this->filesIncluded[] = $name;
                         } else {
                             $this->everythingIncluded = false;
-                            $this->filesDeselected[] = $name;
+                            $this->filesDeselected[]  = $name;
                         }
                     } else {
                         $this->everythingIncluded = false;
-                        $this->filesExcluded[] = $name;
+                        $this->filesExcluded[]    = $name;
                     }
                 } else {
                     $this->everythingIncluded = false;
@@ -628,21 +628,21 @@ class DirectoryScanner implements FileScanner, SelectorScanner
                                 }
                             } else {
                                 $this->everythingIncluded = false;
-                                $this->dirsDeselected[] = $name;
+                                $this->dirsDeselected[]   = $name;
                                 if ($_fast && $this->couldHoldIncluded($name)) {
                                     $this->scandir($file, $name . DIRECTORY_SEPARATOR, $_fast);
                                 }
                             }
                         } else {
                             $this->everythingIncluded = false;
-                            $this->dirsExcluded[] = $name;
+                            $this->dirsExcluded[]     = $name;
                             if ($_fast && $this->couldHoldIncluded($name)) {
                                 $this->scandir($file, $name . DIRECTORY_SEPARATOR, $_fast);
                             }
                         }
                     } else {
                         $this->everythingIncluded = false;
-                        $this->dirsNotIncluded[] = $name;
+                        $this->dirsNotIncluded[]  = $name;
                         if ($_fast && $this->couldHoldIncluded($name)) {
                             $this->scandir($file, $name . DIRECTORY_SEPARATOR, $_fast);
                         }
@@ -658,11 +658,11 @@ class DirectoryScanner implements FileScanner, SelectorScanner
                                 $this->filesIncluded[] = $name;
                             } else {
                                 $this->everythingIncluded = false;
-                                $this->filesDeselected[] = $name;
+                                $this->filesDeselected[]  = $name;
                             }
                         } else {
                             $this->everythingIncluded = false;
-                            $this->filesExcluded[] = $name;
+                            $this->filesExcluded[]    = $name;
                         }
                     } else {
                         $this->everythingIncluded = false;
@@ -893,7 +893,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     public function addDefaultExcludes()
     {
         $defaultExcludesTemp = self::getDefaultExcludes();
-        $newExcludes = [];
+        $newExcludes         = [];
         foreach ($defaultExcludesTemp as $temp) {
             $newExcludes[] = str_replace(['\\', '/'], FileUtils::$separator, $temp);
         }
@@ -936,7 +936,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     {
         if ($this->selectorsList !== null) {
             $basedir = new PhingFile($this->basedir);
-            $file = new PhingFile($file);
+            $file    = new PhingFile($file);
             if (!$file->canRead()) {
                 return false;
             }

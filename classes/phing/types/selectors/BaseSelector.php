@@ -52,7 +52,7 @@ abstract class BaseSelector extends DataType implements FileSelector
     {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
-            $this->cause = $cause;
+            $this->cause  = $cause;
         }
     }
 

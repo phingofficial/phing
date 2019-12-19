@@ -94,7 +94,7 @@ class VersionTaskTest extends BuildFileTest
         $versionTask->setReleasetype($releaseType);
 
         $reflector = new \ReflectionObject($versionTask);
-        $method = $reflector->getMethod('getVersion');
+        $method    = $reflector->getMethod('getVersion');
         $method->setAccessible(true);
 
         $newVersion = $method->invoke($versionTask, $version);

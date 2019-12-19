@@ -28,16 +28,16 @@
  */
 class DateSelector extends BaseExtendSelector
 {
-    private $seconds = -1; // millis in Ant, but PHP doesn't support that level of precision
-    private $dateTime = null;
-    private $includeDirs = false;
-    private $granularity = 0;
-    private $cmp = 2;
-    public const MILLIS_KEY = "millis";
-    public const DATETIME_KEY = "datetime";
-    public const CHECKDIRS_KEY = "checkdirs";
-    public const GRANULARITY_KEY = "granularity";
-    public const WHEN_KEY = "when";
+    private $seconds                = -1; // millis in Ant, but PHP doesn't support that level of precision
+    private $dateTime               = null;
+    private $includeDirs            = false;
+    private $granularity            = 0;
+    private $cmp                    = 2;
+    public const MILLIS_KEY         = "millis";
+    public const DATETIME_KEY       = "datetime";
+    public const CHECKDIRS_KEY      = "checkdirs";
+    public const GRANULARITY_KEY    = "granularity";
+    public const WHEN_KEY           = "when";
     private static $timeComparisons = ["before", "after", "equal"];
 
     /**
@@ -56,7 +56,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf = "{dateselector date: ";
+        $buf  = "{dateselector date: ";
         $buf .= $this->dateTime;
         $buf .= " compare: ";
         if ($this->cmp === 0) {

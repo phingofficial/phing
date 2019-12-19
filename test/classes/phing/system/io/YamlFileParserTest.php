@@ -49,9 +49,9 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped('Yaml parser is not installed.');
             exit;
         }
-        $this->yamlFileStub = PHING_TEST_BASE . "/etc/system/io/config.yml";
+        $this->yamlFileStub          = PHING_TEST_BASE . "/etc/system/io/config.yml";
         $this->incorrectYamlFileStub = PHING_TEST_BASE . "/etc/system/io/config_wrong.yml";
-        $this->objectToTest = new YamlFileParser();
+        $this->objectToTest          = new YamlFileParser();
     }
 
     /**
@@ -97,7 +97,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileFile()
     {
-        $file = new PhingFile($this->yamlFileStub);
+        $file       = new PhingFile($this->yamlFileStub);
         $properties = $this->objectToTest->parseFile($file);
 
         $this->assertEquals('testvalue', $properties['testarea']);

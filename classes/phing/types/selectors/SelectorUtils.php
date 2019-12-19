@@ -89,9 +89,9 @@ class SelectorUtils
         $strDirs = explode(DIRECTORY_SEPARATOR, $str);
 
         $patIdxStart = 0;
-        $patIdxEnd = count($patDirs) - 1;
+        $patIdxEnd   = count($patDirs) - 1;
         $strIdxStart = 0;
-        $strIdxEnd = count($strDirs) - 1;
+        $strIdxEnd   = count($strDirs) - 1;
 
         // up to first '**'
         while ($patIdxStart <= $patIdxEnd && $strIdxStart <= $strIdxEnd) {
@@ -137,9 +137,9 @@ class SelectorUtils
             return false;
         }
 
-        $rePattern = preg_quote($pattern, '/');
-        $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
-        $trailingDirSep = '((' . $dirSep . ')?|(' . $dirSep . ').+)';
+        $rePattern           = preg_quote($pattern, '/');
+        $dirSep              = preg_quote(DIRECTORY_SEPARATOR, '/');
+        $trailingDirSep      = '((' . $dirSep . ')?|(' . $dirSep . ').+)';
         $patternReplacements = [
             $dirSep . '\*\*' . $dirSep => $dirSep . '.*' . $trailingDirSep,
             $dirSep . '\*\*' => $trailingDirSep,
@@ -148,8 +148,8 @@ class SelectorUtils
             '\*' => '[^' . $dirSep . ']*',
             '\?' => '[^' . $dirSep . ']'
         ];
-        $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
-        $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
+        $rePattern           = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
+        $rePattern           = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
         return (bool) preg_match($rePattern, $str);
     }

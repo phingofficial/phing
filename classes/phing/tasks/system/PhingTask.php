@@ -105,7 +105,7 @@ class PhingTask extends Task
     public function init()
     {
         $this->newProject = new Project();
-        $tdf = $this->project->getTaskDefinitions();
+        $tdf              = $this->project->getTaskDefinitions();
         $this->newProject->addTaskDefinition("property", $tdf["property"]);
     }
 
@@ -175,9 +175,9 @@ class PhingTask extends Task
         // if no filesets are given stop here; else process filesets
         if (!empty($this->filesets)) {
             // preserve old settings
-            $savedDir = $this->dir;
+            $savedDir       = $this->dir;
             $savedPhingFile = $this->phingFile;
-            $savedTarget = $this->newTarget;
+            $savedTarget    = $this->newTarget;
 
             // set no specific target for files in filesets
             // [HL] I'm commenting this out; I don't know why this should not be supported!
@@ -186,20 +186,20 @@ class PhingTask extends Task
             foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($this->project);
 
-                $fromDir = $fs->getDir($this->project);
+                $fromDir  = $fs->getDir($this->project);
                 $srcFiles = $ds->getIncludedFiles();
 
                 foreach ($srcFiles as $fname) {
-                    $f = new PhingFile($ds->getbasedir(), $fname);
-                    $f = $f->getAbsoluteFile();
+                    $f               = new PhingFile($ds->getbasedir(), $fname);
+                    $f               = $f->getAbsoluteFile();
                     $this->phingFile = $f->getAbsolutePath();
-                    $this->dir = $f->getParentFile();
+                    $this->dir       = $f->getParentFile();
                     $this->processFile(); // run Phing!
                 }
             }
 
             // side effect free programming ;-)
-            $this->dir = $savedDir;
+            $this->dir       = $savedDir;
             $this->phingFile = $savedPhingFile;
             $this->newTarget = $savedTarget;
 
@@ -223,10 +223,10 @@ class PhingTask extends Task
      */
     private function processFile()
     {
-        $buildFailed = false;
-        $savedDir = $this->dir;
+        $buildFailed    = false;
+        $savedDir       = $this->dir;
         $savedPhingFile = $this->phingFile;
-        $savedTarget = $this->newTarget;
+        $savedTarget    = $this->newTarget;
 
         $savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
 
@@ -266,8 +266,8 @@ class PhingTask extends Task
                 $this->phingFile = "build.xml";
             }
 
-            $fu = new FileUtils();
-            $file = $fu->resolveFile($this->dir, $this->phingFile);
+            $fu              = new FileUtils();
+            $file            = $fu->resolveFile($this->dir, $this->phingFile);
             $this->phingFile = $file->getAbsolutePath();
 
             $this->log(
@@ -310,12 +310,12 @@ class PhingTask extends Task
         // reset environment values to prevent side-effects.
 
         $this->newProject = null;
-        $pkeys = array_keys($this->properties);
+        $pkeys            = array_keys($this->properties);
         foreach ($pkeys as $k) {
             $this->properties[$k]->setProject(null);
         }
 
-        $this->dir = $savedDir;
+        $this->dir       = $savedDir;
         $this->phingFile = $savedPhingFile;
         $this->newTarget = $savedTarget;
 
@@ -440,7 +440,7 @@ class PhingTask extends Task
 
         if (count($this->references) > 0) {
             for ($i = 0, $count = count($this->references); $i < $count; $i++) {
-                $ref = $this->references[$i];
+                $ref   = $this->references[$i];
                 $refid = $ref->getRefId();
 
                 if ($refid === null) {

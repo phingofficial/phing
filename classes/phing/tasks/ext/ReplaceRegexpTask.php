@@ -159,9 +159,9 @@ class ReplaceRegexpTask extends Task
             $filenames = [];
             foreach ($this->filesets as $fs) {
                 try {
-                    $ds = $fs->getDirectoryScanner($this->project);
+                    $ds        = $fs->getDirectoryScanner($this->project);
                     $filenames = $ds->getIncludedFiles(); // get included filenames
-                    $dir = $fs->getDir($this->project);
+                    $dir       = $fs->getDir($this->project);
                     foreach ($filenames as $fname) {
                         $files[] = new PhingFile($dir, $fname);
                     }
@@ -174,7 +174,7 @@ class ReplaceRegexpTask extends Task
         $this->log("Applying Regexp processing to " . count($files) . " files.");
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $slot = $this->getRegisterSlot("currentFile");
+        $slot         = $this->getRegisterSlot("currentFile");
         $basenameSlot = $this->getRegisterSlot("currentFile.basename");
 
         $filter = new FilterChain($this->project);
@@ -195,7 +195,7 @@ class ReplaceRegexpTask extends Task
             $in = null;
             try {
                 $contents = "";
-                $in = FileUtils::getChainedReader(new FileReader($file), $filters, $this->project);
+                $in       = FileUtils::getChainedReader(new FileReader($file), $filters, $this->project);
                 while (-1 !== ($buffer = $in->read())) {
                     $contents .= $buffer;
                 }

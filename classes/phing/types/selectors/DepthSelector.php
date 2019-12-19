@@ -46,7 +46,7 @@ class DepthSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf = "{depthselector min: ";
+        $buf  = "{depthselector min: ";
         $buf .= $this->min;
         $buf .= " max: ";
         $buf .= $this->max;

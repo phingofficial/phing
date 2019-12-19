@@ -29,10 +29,10 @@
  */
 class DependSelector extends BaseSelector
 {
-    private $targetdir = null;
+    private $targetdir     = null;
     private $mapperElement = null;
-    private $map = null;
-    private $granularity = 0;
+    private $map           = null;
+    private $granularity   = 0;
 
     /**
      * @return string

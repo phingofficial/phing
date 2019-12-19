@@ -65,7 +65,7 @@ class HgPushTask extends HgBaseTask
         $clone->setQuiet($this->getQuiet());
         if ($this->repository === '') {
             $project = $this->getProject();
-            $dir = $project->getProperty('application.startdir');
+            $dir     = $project->getProperty('application.startdir');
         } else {
             $dir = $this->repository;
         }
@@ -80,7 +80,7 @@ class HgPushTask extends HgBaseTask
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            $p = strpos($msg, 'hg returned:');
+            $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {
                 $msg = substr($msg, $p + 13);
             }

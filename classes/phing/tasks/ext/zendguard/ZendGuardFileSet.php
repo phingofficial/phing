@@ -40,7 +40,7 @@ class ZendGuardFileSet extends FileSet
     public function getFiles(...$options)
     {
         if ($this->files === null) {
-            $ds = $this->getDirectoryScanner($this->getProject());
+            $ds          = $this->getDirectoryScanner($this->getProject());
             $this->files = $ds->getIncludedFiles();
         } // if ($this->files===null)
 

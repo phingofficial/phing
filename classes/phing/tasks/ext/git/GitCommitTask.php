@@ -60,7 +60,7 @@ class GitCommitTask extends GitBaseTask
         $arguments = [];
         if ($this->allFiles !== true) {
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($this->project);
+                $ds       = $fs->getDirectoryScanner($this->project);
                 $srcFiles = $ds->getIncludedFiles();
 
                 foreach ($srcFiles as $file) {

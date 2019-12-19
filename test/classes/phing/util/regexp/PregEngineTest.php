@@ -186,8 +186,8 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     public function testPatternMatch()
     {
         $pregEngine = new PregEngine();
-        $pattern = '\d{2}';
-        $source = '1234';
+        $pattern    = '\d{2}';
+        $source     = '1234';
         $pregEngine->match($pattern, $source, $matches);
 
         $this->assertEquals(['12'], $matches);
@@ -199,8 +199,8 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     public function testPatternMatchWithPatternDelimiter()
     {
         $pregEngine = new PregEngine();
-        $pattern = PregEngine::DELIMITER;
-        $source = PregEngine::DELIMITER;
+        $pattern    = PregEngine::DELIMITER;
+        $source     = PregEngine::DELIMITER;
         $pregEngine->match($pattern, $source, $matches);
     }
 
@@ -210,8 +210,8 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     public function testPatternMatchWithEscapedPatternDelimiter()
     {
         $pregEngine = new PregEngine();
-        $pattern = '\\\\\\\\' . PregEngine::DELIMITER . 'abc\\\\\\' . PregEngine::DELIMITER . '123\\\\' . PregEngine::DELIMITER . 'efg\\' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
-        $source = '\\\\' . PregEngine::DELIMITER . 'abc\\' . PregEngine::DELIMITER . '123\\' . PregEngine::DELIMITER . 'efg' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
+        $pattern    = '\\\\\\\\' . PregEngine::DELIMITER . 'abc\\\\\\' . PregEngine::DELIMITER . '123\\\\' . PregEngine::DELIMITER . 'efg\\' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
+        $source     = '\\\\' . PregEngine::DELIMITER . 'abc\\' . PregEngine::DELIMITER . '123\\' . PregEngine::DELIMITER . 'efg' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
         $pregEngine->match($pattern, $source, $matches);
 
         $this->assertEquals(
@@ -227,8 +227,8 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     public function testMatchAll()
     {
         $pregEngine = new PregEngine();
-        $pattern = '\d{2}';
-        $source = '1234';
+        $pattern    = '\d{2}';
+        $source     = '1234';
         $pregEngine->matchAll($pattern, $source, $matches);
 
         $this->assertEquals([['12', '34']], $matches);
@@ -240,9 +240,9 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     public function testReplace()
     {
         $pregEngine = new PregEngine();
-        $pattern = '\d{2}';
-        $source = '1234';
-        $result = $pregEngine->replace($pattern, 'ab', $source);
+        $pattern    = '\d{2}';
+        $source     = '1234';
+        $result     = $pregEngine->replace($pattern, 'ab', $source);
 
         $this->assertEquals('abab', $result);
     }
@@ -253,9 +253,9 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     public function testReplaceWithBackReference()
     {
         $pregEngine = new PregEngine();
-        $pattern = '(\d{2})(\d{2})';
-        $source = '1234';
-        $result = $pregEngine->replace($pattern, '<\1>', $source);
+        $pattern    = '(\d{2})(\d{2})';
+        $source     = '1234';
+        $result     = $pregEngine->replace($pattern, '<\1>', $source);
 
         $this->assertEquals('<12>', $result);
     }

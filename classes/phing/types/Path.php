@@ -144,7 +144,7 @@ class Path extends DataType
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
-        $pe = new PathElement($this);
+        $pe               = new PathElement($this);
         $this->elements[] = $pe;
 
         return $pe;
@@ -165,7 +165,7 @@ class Path extends DataType
             throw $this->noChildrenAllowed();
         }
         $this->elements[] = $fl;
-        $this->checked = false;
+        $this->checked    = false;
     }
 
     /**
@@ -183,7 +183,7 @@ class Path extends DataType
             throw $this->noChildrenAllowed();
         }
         $this->elements[] = $fs;
-        $this->checked = false;
+        $this->checked    = false;
     }
 
     /**
@@ -201,7 +201,7 @@ class Path extends DataType
             throw $this->noChildrenAllowed();
         }
         $this->elements[] = $dset;
-        $this->checked = false;
+        $this->checked    = false;
     }
 
     /**
@@ -216,9 +216,9 @@ class Path extends DataType
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
-        $p = new Path($this->project);
+        $p                = new Path($this->project);
         $this->elements[] = $p;
-        $this->checked = false;
+        $this->checked    = false;
 
         return $p;
     }
@@ -287,7 +287,7 @@ class Path extends DataType
     {
         if (!$this->checked) {
             // make sure we don't have a circular reference here
-            $stk = [];
+            $stk   = [];
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->project);
         }
@@ -297,7 +297,7 @@ class Path extends DataType
             $o = $this->elements[$i];
             if ($o instanceof Reference) {
                 $refId = $o->getRefId();
-                $o = $o->getReferencedObject($this->project);
+                $o     = $o->getReferencedObject($this->project);
                 // we only support references to paths right now
                 if (!($o instanceof Path)) {
                     $msg = $refId . " doesn't denote a path";
@@ -328,29 +328,29 @@ class Path extends DataType
                     $result[] = $part;
                 }
             } elseif ($o instanceof DirSet) {
-                $dset = $o;
-                $ds = $dset->getDirectoryScanner($this->project);
+                $dset    = $o;
+                $ds      = $dset->getDirectoryScanner($this->project);
                 $dirstrs = $ds->getIncludedDirectories();
-                $dir = $dset->getDir($this->project);
+                $dir     = $dset->getDir($this->project);
                 foreach ($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d        = new PhingFile($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             } elseif ($o instanceof FileSet) {
-                $fs = $o;
-                $ds = $fs->getDirectoryScanner($this->getProject());
+                $fs       = $o;
+                $ds       = $fs->getDirectoryScanner($this->getProject());
                 $filestrs = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->getProject());
+                $dir      = $fs->getDir($this->getProject());
                 foreach ($filestrs as $fstr) {
-                    $d = new PhingFile($dir, $fstr);
+                    $d        = new PhingFile($dir, $fstr);
                     $result[] = $d->getAbsolutePath();
                 }
             } elseif ($o instanceof FileList) {
-                $fl = $o;
+                $fl      = $o;
                 $dirstrs = $fl->getFiles($this->project);
-                $dir = $fl->getDir($this->project);
+                $dir     = $fl->getDir($this->project);
                 foreach ($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d        = new PhingFile($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             }

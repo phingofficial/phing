@@ -21,13 +21,13 @@ declare(strict_types=1);
 
 abstract class PHPStanCommandBuilder
 {
-    private const ARG_HELP = '--help';
-    private const ARG_QUIET = '--quiet';
-    private const ARG_VERSION = '--version';
-    private const ARG_ANSI = '--ansi';
-    private const ARG_NO_ANSI = '--no-ansi';
+    private const ARG_HELP           = '--help';
+    private const ARG_QUIET          = '--quiet';
+    private const ARG_VERSION        = '--version';
+    private const ARG_ANSI           = '--ansi';
+    private const ARG_NO_ANSI        = '--no-ansi';
     private const ARG_NO_INTERACTION = '--no-interaction';
-    private const ARG_VERBOSE = '--verbose';
+    private const ARG_VERBOSE        = '--verbose';
 
     public function build(PHPStanTask $task): void
     {

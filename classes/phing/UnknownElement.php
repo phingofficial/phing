@@ -117,11 +117,11 @@ class UnknownElement extends Task
         }
 
         $parentClass = $parent === null ? get_class() : get_class($parent);
-        $ih = IntrospectionHelper::getHelper($parentClass);
+        $ih          = IntrospectionHelper::getHelper($parentClass);
 
         for ($i = 0, $childrenCount = count($this->children); $i < $childrenCount; $i++) {
             $childWrapper = $parentWrapper->getChild($i);
-            $child = $this->children[$i];
+            $child        = $this->children[$i];
 
             $realChild = null;
             if ($parent instanceof TaskContainer) {
@@ -129,7 +129,7 @@ class UnknownElement extends Task
                 continue;
             }
 
-            $project = $this->project ?? $parent->project;
+            $project   = $this->project ?? $parent->project;
             $realChild = $ih->createElement($project, $parent, $child->getTag());
 
             $childWrapper->setProxy($realChild);

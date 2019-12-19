@@ -26,10 +26,10 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetParts()
     {
-        $command = "usblamp -s -r 5 red green blue off";
-        $exploded = explode(" ", "-s -r 5 red green blue off");
+        $command     = "usblamp -s -r 5 red green blue off";
+        $exploded    = explode(" ", "-s -r 5 red green blue off");
         $commandline = new Commandline($command);
-        $arguments = ($commandline->arguments);
+        $arguments   = ($commandline->arguments);
         foreach ($arguments as $counter => $argument) {
             $parts = $argument->getParts();
             $this->assertEquals($exploded[$counter], $parts[0]);
@@ -39,9 +39,9 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
 
     public function testSetEscape()
     {
-        $command = "usblamp -s -r 5 red green blue off";
+        $command     = "usblamp -s -r 5 red green blue off";
         $commandline = new Commandline($command);
-        $argument = new CommandlineArgument($commandline);
+        $argument    = new CommandlineArgument($commandline);
         $this->assertEquals($argument->escape, false);
         $argument->setEscape(true);
         $this->assertEquals($argument->escape, true);
@@ -50,7 +50,7 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
     public function testSetline()
     {
         $commandline = new Commandline();
-        $argument = new CommandlineArgument($commandline);
+        $argument    = new CommandlineArgument($commandline);
         $argument->setLine(null);
         $parts = $argument->getParts();
         $this->assertEquals($parts, []);

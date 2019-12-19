@@ -79,12 +79,12 @@ class PhpDependAnalyzerElement
     {
         $this->value = [];
 
-        $token = ' ,;';
+        $token  = ' ,;';
         $values = strtok($value, $token);
 
         while ($values !== false) {
             $this->value[] = $values;
-            $values = strtok($token);
+            $values        = strtok($token);
         }
     }
 

@@ -69,7 +69,7 @@ class SonarConfigurationFileParser
             throw new BuildException('File name must not be null or empty.');
         }
 
-        $this->file = $file;
+        $this->file    = $file;
         $this->project = $project;
     }
 
@@ -89,8 +89,8 @@ class SonarConfigurationFileParser
             throw new BuildException($message);
         }
 
-        $lines = explode("\n", $contents);
-        $count = count($lines);
+        $lines       = explode("\n", $contents);
+        $count       = count($lines);
         $isMultiLine = false;
         for ($i = 0; $i < $count; $i++) {
             $line = $lines[$i];
@@ -98,7 +98,7 @@ class SonarConfigurationFileParser
             if ($isMultiLine) {
                 $isMultiLine = $this->extractContinuedValue($line);
             } else {
-                $this->name = null;
+                $this->name  = null;
                 $this->value = '';
 
                 $isMultiLine = $this->extractNameAndValue($line);
@@ -147,7 +147,7 @@ class SonarConfigurationFileParser
         $hasMatch = preg_match('/\\s*([^=:]*[^=:\\s]+)\\s*[=:]\\s*(.*)$/s', $line, $matches);
 
         if (($hasMatch === 1) && (count($matches) === 3)) {
-            $this->name = $matches[1];
+            $this->name  = $matches[1];
             $this->value = $matches[2];
 
             $isMultiLine = $this->checkMultiLine();

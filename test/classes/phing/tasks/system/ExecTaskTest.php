@@ -67,7 +67,7 @@ class ExecTaskTest extends BuildFileTest
     protected function getConfiguredTask($target, $task, $pos = 0)
     {
         $target = $this->getTargetByName($target);
-        $task = $this->getTaskFromTarget($target, $task);
+        $task   = $this->getTaskFromTarget($target, $task);
         $task->maybeConfigure();
 
         return $task;

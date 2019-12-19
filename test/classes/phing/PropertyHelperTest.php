@@ -24,7 +24,7 @@ class PropertyHelperTest extends TestCase
     public function testUndefinedPropertyShouldNotBeReplaced()
     {
         $project = new Project();
-        $helper = PropertyHelper::getPropertyHelper($project);
+        $helper  = PropertyHelper::getPropertyHelper($project);
 
         $value = $helper->replaceProperties('${undefined.property}', []);
 
@@ -34,7 +34,7 @@ class PropertyHelperTest extends TestCase
     public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
     {
         $project = new Project();
-        $helper = PropertyHelper::getPropertyHelper($project);
+        $helper  = PropertyHelper::getPropertyHelper($project);
 
         $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
 

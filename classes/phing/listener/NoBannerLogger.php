@@ -33,7 +33,7 @@ class NoBannerLogger extends DefaultLogger
      */
     public function targetStarted(BuildEvent $event)
     {
-        $target = $event->getTarget();
+        $target           = $event->getTarget();
         $this->targetName = $target->getName();
     }
 

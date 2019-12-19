@@ -34,11 +34,11 @@
 class AttribTask extends ApplyTask
 {
     private static $ATTR_READONLY = 'R';
-    private static $ATTR_ARCHIVE = 'A';
-    private static $ATTR_SYSTEM = 'S';
-    private static $ATTR_HIDDEN = 'H';
-    private static $SET = '+';
-    private static $UNSET = '-';
+    private static $ATTR_ARCHIVE  = 'A';
+    private static $ATTR_SYSTEM   = 'S';
+    private static $ATTR_HIDDEN   = 'H';
+    private static $SET           = '+';
+    private static $UNSET         = '-';
 
     private $attr = false;
 

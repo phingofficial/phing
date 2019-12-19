@@ -36,7 +36,7 @@ class ExcludeZipTest extends BuildFileTest
     {
         $this->executeTarget("main");
 
-        $expected = "Adding ./.git to archive.";
+        $expected       = "Adding ./.git to archive.";
         $representation = [];
         foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";

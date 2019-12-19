@@ -86,7 +86,7 @@ class MonologListener implements BuildListener
     public function targetFinished(BuildEvent $event)
     {
         $targetName = $event->getTarget()->getName();
-        $cat = $this->log->withName(Target::class);
+        $cat        = $this->log->withName(Target::class);
         if ($event->getException() === null) {
             $cat->info("Target \"{$targetName}\" finished.");
         } else {
@@ -101,7 +101,7 @@ class MonologListener implements BuildListener
     public function taskStarted(BuildEvent $event)
     {
         $task = $event->getTask();
-        $log = $this->log->withName(get_class($task));
+        $log  = $this->log->withName(get_class($task));
         $log->info("Task \"{$task->getTaskName()}\" started.");
     }
 
@@ -112,7 +112,7 @@ class MonologListener implements BuildListener
     public function taskFinished(BuildEvent $event)
     {
         $task = $event->getTask();
-        $log = $this->log->withName(get_class($task));
+        $log  = $this->log->withName(get_class($task));
         if ($event->getException() === null) {
             $log->info("Task \"{$task->getTaskName()}\" finished.");
         } else {

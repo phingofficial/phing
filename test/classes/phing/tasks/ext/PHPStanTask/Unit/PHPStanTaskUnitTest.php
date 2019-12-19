@@ -26,7 +26,7 @@ class PHPStanTaskUnitTest extends TestCase
 
     public function testItHasValidDefaults(): void
     {
-        $task = new PHPStanTask();
+        $task   = new PHPStanTask();
         $assert = new PHPStanTaskAssert();
 
         $assert->assertDefaults($task);

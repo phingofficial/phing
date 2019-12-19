@@ -68,7 +68,7 @@ class StringReader extends InputStreamReader
         if ($this->currPos >= strlen($this->string)) {
             return -1;
         }
-        $out = substr($this->string, $this->currPos, $len);
+        $out            = substr($this->string, $this->currPos, $len);
         $this->currPos += $len;
 
         return $out;

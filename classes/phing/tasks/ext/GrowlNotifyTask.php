@@ -432,7 +432,7 @@ class GrowlNotifyTask extends Task
         $notifications = [
             $this->notification
         ];
-        $options = [
+        $options       = [
             'host' => $this->host,
             'protocol' => $this->protocol,
         ];
@@ -480,7 +480,7 @@ class GrowlNotifyTask extends Task
                 $this->log($key . ': ' . $value, Project::MSG_DEBUG);
             }
 
-            $options = [
+            $options  = [
                 'sticky' => $this->sticky,
                 'priority' => $this->priority,
                 'icon' => $this->icon,

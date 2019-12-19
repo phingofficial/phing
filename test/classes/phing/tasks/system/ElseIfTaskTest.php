@@ -71,8 +71,8 @@ class ElseIfTaskTest extends BuildFileTest
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
-        $cause = 'you cannot have more than 1 condition in your elseif-statement';
-        $msg = 'You must not nest more than one condition into <elseif>';
+        $cause  = 'you cannot have more than 1 condition in your elseif-statement';
+        $msg    = 'You must not nest more than one condition into <elseif>';
 
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }
@@ -87,8 +87,8 @@ class ElseIfTaskTest extends BuildFileTest
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
-        $cause = 'you need to have a condition inside the <elseif>';
-        $msg = 'You must nest a condition into <elseif>';
+        $cause  = 'you need to have a condition inside the <elseif>';
+        $msg    = 'You must nest a condition into <elseif>';
 
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }

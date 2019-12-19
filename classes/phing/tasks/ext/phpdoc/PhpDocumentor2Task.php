@@ -178,7 +178,7 @@ class PhpDocumentor2Task extends Task
      */
     private function parseFiles()
     {
-        $parser = $this->app['parser'];
+        $parser  = $this->app['parser'];
         $builder = $this->app['descriptor.builder'];
 
         $builder->createProjectDescriptor();
@@ -189,8 +189,8 @@ class PhpDocumentor2Task extends Task
 
         // filesets
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->project);
-            $dir = $fs->getDir($this->project);
+            $ds       = $fs->getDirectoryScanner($this->project);
+            $dir      = $fs->getDir($this->project);
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $file) {
@@ -222,9 +222,9 @@ class PhpDocumentor2Task extends Task
      */
     private function transformFiles()
     {
-        $transformer = $this->app['transformer'];
-        $compiler = $this->app['compiler'];
-        $builder = $this->app['descriptor.builder'];
+        $transformer       = $this->app['transformer'];
+        $compiler          = $this->app['compiler'];
+        $builder           = $this->app['descriptor.builder'];
         $projectDescriptor = $builder->getProjectDescriptor();
 
         $transformer->getTemplates()->load($this->template, $transformer);
@@ -250,7 +250,7 @@ class PhpDocumentor2Task extends Task
     private function findPhpDocumentorPath()
     {
         $phpDocumentorPath = null;
-        $directories = ['phpDocumentor', 'phpdocumentor'];
+        $directories       = ['phpDocumentor', 'phpdocumentor'];
         foreach ($directories as $directory) {
             foreach (Phing::explodeIncludePath() as $path) {
                 $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . 'src';

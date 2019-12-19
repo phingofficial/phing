@@ -84,8 +84,8 @@ class IfTaskTest extends BuildFileTest
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
-        $cause = 'you cannot have more than 1 <then> directive in your if-statement';
-        $msg = 'You must not nest more than one <then> into <if>';
+        $cause  = 'you cannot have more than 1 <then> directive in your if-statement';
+        $msg    = 'You must not nest more than one <then> into <if>';
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }
 
@@ -99,8 +99,8 @@ class IfTaskTest extends BuildFileTest
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
-        $cause = 'you cannot have more than 1 <else> directive in your if-statement';
-        $msg = 'You must not nest more than one <else> into <if>';
+        $cause  = 'you cannot have more than 1 <else> directive in your if-statement';
+        $msg    = 'You must not nest more than one <else> into <if>';
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }
 
@@ -114,8 +114,8 @@ class IfTaskTest extends BuildFileTest
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
-        $cause = 'you cannot have more than 1 condition in your if-statement';
-        $msg = 'You must not nest more than one condition into <if>';
+        $cause  = 'you cannot have more than 1 condition in your if-statement';
+        $msg    = 'You must not nest more than one condition into <if>';
         $this->expectBuildExceptionContaining($target, $cause, $msg);
     }
 }

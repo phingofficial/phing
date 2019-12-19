@@ -211,12 +211,12 @@ class SmartyTask extends Task
     public function setTemplatePath($templatePath)
     {
         $resolvedPath = "";
-        $tok = strtok($templatePath, ",");
+        $tok          = strtok($templatePath, ",");
         while ($tok) {
             // resolve relative path from basedir and leave
             // absolute path untouched.
             $fullPath = $this->project->resolveFile($tok);
-            $cpath = $fullPath->getCanonicalPath();
+            $cpath    = $fullPath->getCanonicalPath();
             if ($cpath === false) {
                 $this->log("Template directory does not exist: " . $fullPath->getAbsolutePath());
             } else {
@@ -416,7 +416,7 @@ class SmartyTask extends Task
      */
     public function setContextProperties($file)
     {
-        $sources = explode(",", $file);
+        $sources                 = explode(",", $file);
         $this->contextProperties = new Properties();
 
         // Always try to get the context properties resource
@@ -444,7 +444,7 @@ class SmartyTask extends Task
             $keys = $source->keys();
 
             foreach ($keys as $key) {
-                $name = $key;
+                $name  = $key;
                 $value = $this->project->replaceProperties($source->getProperty($name));
                 $this->contextProperties->setProperty($name, $value);
             }
@@ -604,10 +604,10 @@ class SmartyTask extends Task
                     // reset value, and then
                     // read in the contents of the file into that var
                     $value = "";
-                    $f = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
+                    $f     = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
                         try {
-                            $br = new BufferedReader(new FileReader($f));
+                            $br    = new BufferedReader(new FileReader($f));
                             $value = $br->read();
                         } catch (Exception $e) {
                             throw $e;

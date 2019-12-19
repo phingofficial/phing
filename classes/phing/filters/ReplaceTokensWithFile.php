@@ -250,8 +250,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $dirs = explode(';', $this->dir);
 
         $ndirs = count($dirs);
-        $n = 0;
-        $file = $dirs[$n] . $this->prefix . $filetoken . $this->postfix;
+        $n     = 0;
+        $file  = $dirs[$n] . $this->prefix . $filetoken . $this->postfix;
 
         while ($n < $ndirs && !is_readable($file)) {
             ++$n;
@@ -347,7 +347,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     private function initialize()
     {
         $params = $this->getParameters();
-        $n = count($params);
+        $n      = count($params);
 
         if ($params !== null) {
             for ($i = 0; $i < $n; $i++) {

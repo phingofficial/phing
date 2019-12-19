@@ -108,7 +108,7 @@ class GitLogTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        $client = $this->getGitClient(false, $this->getRepository());
+        $client  = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('log');
         $command
             ->setOption('stat', $this->getStat())

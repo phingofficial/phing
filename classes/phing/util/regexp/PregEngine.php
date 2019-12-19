@@ -172,7 +172,7 @@ class PregEngine implements RegexpEngine
             $diffOffset = 0;
 
             foreach ($matches[0] as $match) {
-                $str = $match[0];
+                $str    = $match[0];
                 $offset = $match[1] + $diffOffset;
 
                 $escStr = (strlen($str) % 2) ? '\\' . $str : $str; // This will increase an even number of backslashes, before a forward slash, to an odd number.  I.e. '\\/' becomes '\\\/'.

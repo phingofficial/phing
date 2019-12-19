@@ -99,7 +99,7 @@ abstract class ZsdtBaseTask extends Task
         }
 
         $commandString = sprintf('%s %s %s', $command, $this->action, $this->arguments);
-        $msg = exec($commandString . ' 2>&1', $output, $code);
+        $msg           = exec($commandString . ' 2>&1', $output, $code);
 
         if ($code !== 0) {
             throw new BuildException("Build package failed. \n Msg: " . $msg . " \n Pack command: " . $commandString);

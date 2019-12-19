@@ -27,7 +27,7 @@
  */
 class CoverageReportTransformer
 {
-    private $task = null;
+    private $task     = null;
     private $styleDir = "";
 
     /**

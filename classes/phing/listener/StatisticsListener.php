@@ -42,7 +42,7 @@ class StatisticsListener implements SubBuildListener
 
     public function __construct(Clock $clock = null)
     {
-        $this->projectTimerMap = new ProjectTimerMap();
+        $this->projectTimerMap  = new ProjectTimerMap();
         $this->statisticsReport = new StatisticsReport();
         if ($clock === null) {
             $this->clock = new DefaultClock();
@@ -119,8 +119,8 @@ class StatisticsListener implements SubBuildListener
     private function findTargetTimer(BuildEvent $buildEvent)
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
-        $target = $buildEvent->getTarget();
-        $name = $target->getName();
+        $target       = $buildEvent->getTarget();
+        $name         = $target->getName();
         return $projectTimer->getTargetTimer($name);
     }
 
@@ -131,8 +131,8 @@ class StatisticsListener implements SubBuildListener
     private function findTaskTimer(BuildEvent $buildEvent)
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
-        $task = $buildEvent->getTask();
-        $name = $task->getTaskName();
+        $task         = $buildEvent->getTask();
+        $name         = $task->getTaskName();
         return $projectTimer->getTaskTimer($name);
     }
 
@@ -145,7 +145,7 @@ class StatisticsListener implements SubBuildListener
     private function updateDurationWithInitialProjectTimer(ProjectTimer $projectTimer)
     {
         $rootProjectTimer = $this->findInitialProjectTimer();
-        $duration = $rootProjectTimer->getSeries()->current();
+        $duration         = $rootProjectTimer->getSeries()->current();
         $projectTimer->getSeries()->add($duration);
     }
 }

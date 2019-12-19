@@ -31,8 +31,8 @@ class SeriesTimer
 
     public function __construct($name, Clock $clock)
     {
-        $this->name = $name;
-        $this->clock = $clock;
+        $this->name   = $name;
+        $this->clock  = $clock;
         $this->series = new Series();
     }
 

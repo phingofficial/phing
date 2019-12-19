@@ -30,12 +30,12 @@ class MailTask extends Task
 {
     use FileSetAware;
 
-    protected $tolist = null;
+    protected $tolist  = null;
     protected $subject = null;
-    protected $msg = null;
-    protected $from = null;
+    protected $msg     = null;
+    protected $from    = null;
 
-    protected $backend = 'mail';
+    protected $backend       = 'mail';
     protected $backendParams = [];
 
     public function main()
@@ -72,8 +72,8 @@ class MailTask extends Task
         $mime->setTXTBody($this->msg);
 
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->project);
-            $fromDir = $fs->getDir($this->project);
+            $ds       = $fs->getDirectoryScanner($this->project);
+            $fromDir  = $fs->getDir($this->project);
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $file) {
@@ -197,8 +197,8 @@ class MailTask extends Task
             if (count($values) == 1) {
                 $this->backendParams[] = $values[0];
             } else {
-                $key = $values[0];
-                $value = $values[1];
+                $key                       = $values[0];
+                $value                     = $values[1];
                 $this->backendParams[$key] = $value;
             }
         }

@@ -33,8 +33,8 @@ class HttpCondition extends ProjectComponent implements Condition
 
     private $errorsBeginAt = 400;
     private $url;
-    private $quiet = false;
-    private $requestMethod = self::DEFAULT_REQUEST_METHOD;
+    private $quiet           = false;
+    private $requestMethod   = self::DEFAULT_REQUEST_METHOD;
     private $followRedirects = true;
 
     /**

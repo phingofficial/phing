@@ -30,7 +30,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     protected function setUp(): void
     {
         $this->parser = new IniFileParser();
-        $this->root = \org\bovigo\vfs\vfsStream::setUp();
+        $this->root   = \org\bovigo\vfs\vfsStream::setUp();
     }
 
     /**

@@ -312,13 +312,13 @@ class EchoProperties extends Task
         $props = new Properties();
 
         if ($this->regex !== '') {
-            $a = new ArrayIterator($allProps);
-            $i = new RegexIterator($a, $this->regex, RegexIterator::MATCH, RegexIterator::USE_KEY);
+            $a        = new ArrayIterator($allProps);
+            $i        = new RegexIterator($a, $this->regex, RegexIterator::MATCH, RegexIterator::USE_KEY);
             $allProps = iterator_to_array($i);
         }
         if ($this->prefix !== '') {
-            $a = new ArrayIterator($allProps);
-            $i = new RegexIterator(
+            $a        = new ArrayIterator($allProps);
+            $i        = new RegexIterator(
                 $a,
                 '~^' . preg_quote($this->prefix, '~') . '.*~',
                 RegexIterator::MATCH,
@@ -347,9 +347,9 @@ class EchoProperties extends Task
      */
     protected function xmlSaveProperties(Properties $props, OutputStream $os)
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
+        $doc               = new DOMDocument('1.0', 'UTF-8');
         $doc->formatOutput = true;
-        $rootElement = $doc->createElement(self::$PROPERTIES);
+        $rootElement       = $doc->createElement(self::$PROPERTIES);
 
         $properties = $props->getProperties();
         ksort($properties);

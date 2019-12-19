@@ -154,7 +154,7 @@ class ComponentHelper
     private static function getUnmappedElementName($c, $brief)
     {
         $clazz = new ReflectionClass($c);
-        $name = $clazz->getName();
+        $name  = $clazz->getName();
 
         if ($brief) {
             return $clazz->getShortName();
@@ -184,7 +184,7 @@ class ComponentHelper
     {
         try {
             $classname = "";
-            $tasklwr = strtolower($taskType);
+            $tasklwr   = strtolower($taskType);
             foreach ($this->taskdefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
                     $classname = $class;
@@ -230,7 +230,7 @@ class ComponentHelper
     {
         try {
             $classname = "";
-            $tasklwr = strtolower($conditionType);
+            $tasklwr   = strtolower($conditionType);
             foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
                     $classname = $class;
@@ -283,7 +283,7 @@ class ComponentHelper
     public function createDataType($typeName)
     {
         try {
-            $cls = "";
+            $cls     = "";
             $typelwr = strtolower($typeName);
             foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $typelwr) {
@@ -323,7 +323,7 @@ class ComponentHelper
 
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new PhingFile((string) $taskdefs);
+            $in    = new PhingFile((string) $taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -346,7 +346,7 @@ class ComponentHelper
 
         try { // try to load typedefs
             $props = new Properties();
-            $in = new PhingFile((string) $typedefs);
+            $in    = new PhingFile((string) $typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }

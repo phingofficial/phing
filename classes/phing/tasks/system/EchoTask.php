@@ -90,21 +90,21 @@ class EchoTask extends Task
     protected function getFilesetsMsg()
     {
         $project = $this->getProject();
-        $msg = '';
+        $msg     = '';
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
-            $srcDirs = $ds->getIncludedDirectories();
+            $ds       = $fs->getDirectoryScanner($project);
+            $fromDir  = $fs->getDir($project);
+            $srcDirs  = $ds->getIncludedDirectories();
             $srcFiles = $ds->getIncludedFiles();
-            $msg .= 'Directory: ' . $fromDir . ' => '
+            $msg     .= 'Directory: ' . $fromDir . ' => '
                 . realpath($fromDir) . "\n";
             foreach ($srcDirs as $dir) {
                 $relPath = $fromDir . DIRECTORY_SEPARATOR . $dir;
-                $msg .= $relPath . "\n";
+                $msg    .= $relPath . "\n";
             }
             foreach ($srcFiles as $file) {
                 $relPath = $fromDir . DIRECTORY_SEPARATOR . $file;
-                $msg .= $relPath . "\n";
+                $msg    .= $relPath . "\n";
             }
         }
 

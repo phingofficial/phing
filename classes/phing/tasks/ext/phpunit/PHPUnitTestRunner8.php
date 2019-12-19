@@ -25,19 +25,19 @@
  */
 class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework\TestListener
 {
-    private $hasErrors = false;
-    private $hasFailures = false;
-    private $hasWarnings = false;
-    private $hasIncomplete = false;
-    private $hasSkipped = false;
-    private $hasRisky = false;
-    private $lastErrorMessage = '';
-    private $lastFailureMessage = '';
-    private $lastWarningMessage = '';
+    private $hasErrors             = false;
+    private $hasFailures           = false;
+    private $hasWarnings           = false;
+    private $hasIncomplete         = false;
+    private $hasSkipped            = false;
+    private $hasRisky              = false;
+    private $lastErrorMessage      = '';
+    private $lastFailureMessage    = '';
+    private $lastWarningMessage    = '';
     private $lastIncompleteMessage = '';
-    private $lastSkippedMessage = '';
-    private $lastRiskyMessage = '';
-    private $formatters = [];
+    private $lastSkippedMessage    = '';
+    private $lastRiskyMessage      = '';
+    private $formatters            = [];
 
     /**
      * @var \PHPUnit\Runner\TestHook[]
@@ -51,7 +51,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     private $project;
 
-    private $groups = [];
+    private $groups        = [];
     private $excludeGroups = [];
 
     private $processIsolation = false;
@@ -70,9 +70,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         $excludeGroups = [],
         $processIsolation = false
     ) {
-        $this->project = $project;
-        $this->groups = $groups;
-        $this->excludeGroups = $excludeGroups;
+        $this->project          = $project;
+        $this->groups           = $groups;
+        $this->excludeGroups    = $excludeGroups;
         $this->processIsolation = $processIsolation;
     }
 
@@ -347,7 +347,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
     {
-        $name = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
+        $name    = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
         $message = "Test $message (" . $name . ' in class ' . get_class($test) . '): ' . $e->getMessage();
 
         if ($e instanceof PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {

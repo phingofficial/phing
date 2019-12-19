@@ -55,7 +55,7 @@ class FileOutputStream extends OutputStream
         }
         if ($stream === false) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg  = $lastError['message'];
             throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $errormsg);
         }
         parent::__construct($stream);

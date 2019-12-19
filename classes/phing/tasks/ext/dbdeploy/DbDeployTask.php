@@ -140,9 +140,9 @@ class DbDeployTask extends Task
     {
         try {
             // get correct DbmsSyntax object
-            $dbms = substr($this->url, 0, strpos($this->url, ':'));
+            $dbms              = substr($this->url, 0, strpos($this->url, ':'));
             $dbmsSyntaxFactory = new DbmsSyntaxFactory($dbms);
-            $this->dbmsSyntax = $dbmsSyntaxFactory->getDbmsSyntax();
+            $this->dbmsSyntax  = $dbmsSyntaxFactory->getDbmsSyntax();
 
             // figure out which revisions are in the db already
             $this->appliedChangeNumbers = $this->getAppliedChangeNumbers();
@@ -166,7 +166,7 @@ class DbDeployTask extends Task
         if (count($this->appliedChangeNumbers) == 0) {
             $this->log('Getting applied changed numbers from DB: ' . $this->url);
             $appliedChangeNumbers = [];
-            $dbh = new PDO($this->url, $this->userid, $this->password);
+            $dbh                  = new PDO($this->url, $this->userid, $this->password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->dbmsSyntax->applyAttributes($dbh);
             $sql = "SELECT *
@@ -217,7 +217,7 @@ class DbDeployTask extends Task
     protected function createOutputFile($file, $undo = false)
     {
         $fileHandle = fopen($file, "w+");
-        $sql = $this->generateSql($undo);
+        $sql        = $this->generateSql($undo);
         fwrite($fileHandle, $sql);
     }
 
@@ -229,9 +229,9 @@ class DbDeployTask extends Task
      */
     protected function generateSql($undo = false)
     {
-        $sql = '';
+        $sql                   = '';
         $lastChangeAppliedInDb = $this->getLastChangeAppliedInDb();
-        $files = $this->getDeltasFilesArray();
+        $files                 = $this->getDeltasFilesArray();
         $this->sortFiles($files, $undo);
 
         foreach ($files as $fileChangeNumber => $fileName) {
@@ -247,9 +247,9 @@ class DbDeployTask extends Task
                 }
 
                 // read the file
-                $fullFileName = $this->dir . '/' . $fileName;
-                $fh = fopen($fullFileName, 'r');
-                $contents = fread($fh, filesize($fullFileName));
+                $fullFileName       = $this->dir . '/' . $fileName;
+                $fh                 = fopen($fullFileName, 'r');
+                $contents           = fread($fh, filesize($fullFileName));
                 $count_bad_comments = substr_count($contents, '--//');
                 if ($count_bad_comments > 0) {
                     $this->log(
@@ -268,7 +268,7 @@ class DbDeployTask extends Task
                 }
 
                 $deploySql = $split[0];
-                $undoSql = $split[1] ?? '';
+                $undoSql   = $split[1] ?? '';
 
                 if ($undo) {
                     $sql .= $undoSql;
@@ -303,7 +303,7 @@ class DbDeployTask extends Task
         $files = [];
 
         $baseDir = realpath($this->dir);
-        $dh = opendir($baseDir);
+        $dh      = opendir($baseDir);
 
         if ($dh === false) {
             return $files;

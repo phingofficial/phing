@@ -83,9 +83,9 @@ class ReflexiveTask extends Task
         if (!empty($this->filesets)) {
             foreach ($this->filesets as $fs) {
                 try {
-                    $ds = $fs->getDirectoryScanner($this->project);
+                    $ds        = $fs->getDirectoryScanner($this->project);
                     $filenames = $ds->getIncludedFiles(); // get included filenames
-                    $dir = $fs->getDir($this->project);
+                    $dir       = $fs->getDir($this->project);
                     foreach ($filenames as $fname) {
                         $files[] = new PhingFile($dir, $fname);
                     }
@@ -98,7 +98,7 @@ class ReflexiveTask extends Task
         $this->log("Applying reflexive processing to " . count($files) . " files.");
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $slot = $this->getRegisterSlot("currentFile");
+        $slot         = $this->getRegisterSlot("currentFile");
         $basenameSlot = $this->getRegisterSlot("currentFile.basename");
 
         foreach ($files as $file) {
@@ -111,7 +111,7 @@ class ReflexiveTask extends Task
             $in = null;
             try {
                 $contents = "";
-                $in = FileUtils::getChainedReader(new FileReader($file), $this->filterChains, $this->project);
+                $in       = FileUtils::getChainedReader(new FileReader($file), $this->filterChains, $this->project);
                 while (-1 !== ($buffer = $in->read())) {
                     $contents .= $buffer;
                 }

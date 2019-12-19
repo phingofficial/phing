@@ -103,7 +103,7 @@ class HgUpdateTask extends HgBaseTask
 
         if ($this->repository === '') {
             $prog = $this->getProject();
-            $dir = $prog->getProperty('application.startdir');
+            $dir  = $prog->getProperty('application.startdir');
         } else {
             $dir = $this->repository;
         }
@@ -118,7 +118,7 @@ class HgUpdateTask extends HgBaseTask
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            $p = strpos($msg, 'hg returned:');
+            $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {
                 $msg = substr($msg, $p + 13);
             }

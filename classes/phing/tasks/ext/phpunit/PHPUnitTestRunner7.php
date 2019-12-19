@@ -25,26 +25,26 @@
  */
 class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
 {
-    private $hasErrors = false;
-    private $hasFailures = false;
-    private $hasWarnings = false;
-    private $hasIncomplete = false;
-    private $hasSkipped = false;
-    private $hasRisky = false;
-    private $lastErrorMessage = '';
-    private $lastFailureMessage = '';
-    private $lastWarningMessage = '';
+    private $hasErrors             = false;
+    private $hasFailures           = false;
+    private $hasWarnings           = false;
+    private $hasIncomplete         = false;
+    private $hasSkipped            = false;
+    private $hasRisky              = false;
+    private $lastErrorMessage      = '';
+    private $lastFailureMessage    = '';
+    private $lastWarningMessage    = '';
     private $lastIncompleteMessage = '';
-    private $lastSkippedMessage = '';
-    private $lastRiskyMessage = '';
-    private $formatters = [];
-    private $listeners = [];
+    private $lastSkippedMessage    = '';
+    private $lastRiskyMessage      = '';
+    private $formatters            = [];
+    private $listeners             = [];
 
     private $codecoverage = null;
 
     private $project = null;
 
-    private $groups = [];
+    private $groups        = [];
     private $excludeGroups = [];
 
     private $processIsolation = false;
@@ -63,9 +63,9 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
         $excludeGroups = [],
         $processIsolation = false
     ) {
-        $this->project = $project;
-        $this->groups = $groups;
-        $this->excludeGroups = $excludeGroups;
+        $this->project          = $project;
+        $this->groups           = $groups;
+        $this->excludeGroups    = $excludeGroups;
         $this->processIsolation = $processIsolation;
     }
 

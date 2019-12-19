@@ -112,13 +112,13 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     public function startTestRun()
     {
-        $this->timers = [$this->getMicrotime()];
-        $this->runCounts = [0];
-        $this->failureCounts = [0];
-        $this->errorCounts = [0];
-        $this->warningCounts = [0];
+        $this->timers           = [$this->getMicrotime()];
+        $this->runCounts        = [0];
+        $this->failureCounts    = [0];
+        $this->errorCounts      = [0];
+        $this->warningCounts    = [0];
         $this->incompleteCounts = [0];
-        $this->skipCounts = [0];
+        $this->skipCounts       = [0];
     }
 
     public function endTestRun()
@@ -130,12 +130,12 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      */
     public function startTestSuite(PHPUnit\Framework\TestSuite $suite): void
     {
-        $this->timers[] = $this->getMicrotime();
-        $this->runCounts[] = 0;
-        $this->failureCounts[] = 0;
-        $this->errorCounts[] = 0;
+        $this->timers[]           = $this->getMicrotime();
+        $this->runCounts[]        = 0;
+        $this->failureCounts[]    = 0;
+        $this->errorCounts[]      = 0;
         $this->incompleteCounts[] = 0;
-        $this->skipCounts[] = 0;
+        $this->skipCounts[]       = 0;
     }
 
     /**
@@ -143,19 +143,19 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      */
     public function endTestSuite(PHPUnit\Framework\TestSuite $suite): void
     {
-        $lastRunCount = array_pop($this->runCounts);
+        $lastRunCount                                  = array_pop($this->runCounts);
         $this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
 
-        $lastFailureCount = array_pop($this->failureCounts);
+        $lastFailureCount                                      = array_pop($this->failureCounts);
         $this->failureCounts[count($this->failureCounts) - 1] += $lastFailureCount;
 
-        $lastErrorCount = array_pop($this->errorCounts);
+        $lastErrorCount                                    = array_pop($this->errorCounts);
         $this->errorCounts[count($this->errorCounts) - 1] += $lastErrorCount;
 
-        $lastIncompleteCount = array_pop($this->incompleteCounts);
+        $lastIncompleteCount                                         = array_pop($this->incompleteCounts);
         $this->incompleteCounts[count($this->incompleteCounts) - 1] += $lastIncompleteCount;
 
-        $lastSkipCount = array_pop($this->skipCounts);
+        $lastSkipCount                                   = array_pop($this->skipCounts);
         $this->skipCounts[count($this->skipCounts) - 1] += $lastSkipCount;
 
         array_pop($this->timers);

@@ -35,7 +35,7 @@ class PHPLocFormatterFactory
     public static function createFormatter($formatterElement)
     {
         $formatter = null;
-        $type = $formatterElement->getType();
+        $type      = $formatterElement->getType();
 
         switch ($type) {
             case "xml":

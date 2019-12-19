@@ -83,7 +83,7 @@ class PHPLocTask extends Task
     public function setSuffixes($suffixListOrSingleSuffix)
     {
         if (strpos($suffixListOrSingleSuffix, ',')) {
-            $suffixes = explode(',', $suffixListOrSingleSuffix);
+            $suffixes              = explode(',', $suffixListOrSingleSuffix);
             $this->suffixesToCheck = array_map('trim', $suffixes);
         } else {
             $this->suffixesToCheck[] = trim($suffixListOrSingleSuffix);
@@ -185,8 +185,8 @@ class Application
         if (count($this->filesets) > 0) {
             foreach ($this->filesets as $fileSet) {
                 $directoryScanner = $fileSet->getDirectoryScanner($this->project);
-                $files = $directoryScanner->getIncludedFiles();
-                $directory = $fileSet->getDir($this->project)->getPath();
+                $files            = $directoryScanner->getIncludedFiles();
+                $directory        = $fileSet->getDir($this->project)->getPath();
 
                 foreach ($files as $file) {
                     if ($this->isFileSuffixSet($file)) {
@@ -319,7 +319,7 @@ class Application
     protected function getCountForFiles(array $files)
     {
         $analyserClass = '\\SebastianBergmann\\PHPLOC\\Analyser';
-        $analyser = new $analyserClass();
+        $analyser      = new $analyserClass();
 
         return $analyser->countFiles($files, $this->countTests);
     }

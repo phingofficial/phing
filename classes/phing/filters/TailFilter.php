@@ -91,7 +91,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
             $buffer = trim($buffer, "\n");
 
             $lines = explode("\n", $buffer);
-            $skip = $this->skip > 0 ? $this->skip : 0;
+            $skip  = $this->skip > 0 ? $this->skip : 0;
 
             if (count($lines) >= $this->lines) {
                 // Buffer have more (or same) number of lines than needed.
@@ -113,7 +113,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
         if (empty($this->lineBuffer)) {
             $ret = -1;
         } else {
-            $ret = implode("\n", $this->lineBuffer);
+            $ret              = implode("\n", $this->lineBuffer);
             $this->lineBuffer = [];
         }
 

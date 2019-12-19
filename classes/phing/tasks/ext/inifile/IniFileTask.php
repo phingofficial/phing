@@ -148,7 +148,7 @@ class IniFileTask extends Task
     public function main()
     {
         $this->ini = new IniFileConfig();
-        $readFile = null;
+        $readFile  = null;
         $writeFile = null;
 
         if (null !== $this->source && null === $this->dest) {
@@ -211,9 +211,9 @@ class IniFileTask extends Task
     {
         foreach ($this->gets as $get) {
             $outProperty = $get->getOutputProperty();
-            $property = $get->getProperty();
-            $section = $get->getSection();
-            $value = '';
+            $property    = $get->getProperty();
+            $section     = $get->getSection();
+            $value       = '';
 
             if ($property === null) {
                 throw new BuildException("property must be set");
@@ -263,9 +263,9 @@ class IniFileTask extends Task
     public function enumerateSets()
     {
         foreach ($this->sets as $set) {
-            $value = $set->getValue();
-            $key = $set->getProperty();
-            $section = $set->getSection();
+            $value     = $set->getValue();
+            $key       = $set->getProperty();
+            $section   = $set->getSection();
             $operation = $set->getOperation();
             if ($value !== null) {
                 try {
@@ -334,7 +334,7 @@ class IniFileTask extends Task
     public function enumerateRemoves()
     {
         foreach ($this->removals as $remove) {
-            $key = $remove->getProperty();
+            $key     = $remove->getProperty();
             $section = $remove->getSection();
             if ($section == '') {
                 $this->log(
@@ -411,7 +411,7 @@ class IniFileTask extends Task
      */
     public function createGet()
     {
-        $get = new IniFileGet();
+        $get          = new IniFileGet();
         $this->gets[] = $get;
         return $get;
     }
@@ -423,7 +423,7 @@ class IniFileTask extends Task
      */
     public function createSet()
     {
-        $set = new IniFileSet();
+        $set          = new IniFileSet();
         $this->sets[] = $set;
         return $set;
     }
@@ -435,7 +435,7 @@ class IniFileTask extends Task
      */
     public function createRemove()
     {
-        $remove = new IniFileRemove();
+        $remove           = new IniFileRemove();
         $this->removals[] = $remove;
         return $remove;
     }

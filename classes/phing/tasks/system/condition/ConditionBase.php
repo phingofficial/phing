@@ -305,7 +305,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     public function customChildCreator($elementName, Project $project)
     {
         $condition = $project->createCondition($elementName);
-        $num = array_push($this->conditions, $condition);
+        $num       = array_push($this->conditions, $condition);
 
         return $this->conditions[$num - 1];
     }

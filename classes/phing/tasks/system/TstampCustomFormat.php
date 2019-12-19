@@ -23,9 +23,9 @@
 class TstampCustomFormat
 {
     private $propertyName = "";
-    private $pattern = "";
-    private $locale = "";
-    private $timezone = "";
+    private $pattern      = "";
+    private $locale       = "";
+    private $timezone     = "";
 
     /**
      * The property to receive the date/time string in the given pattern

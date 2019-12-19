@@ -186,11 +186,11 @@ class PhpDependTask extends Task
         $this->allowedFileExtensions = [];
 
         $token = ' ,;';
-        $ext = strtok($fileExtensions, $token);
+        $ext   = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
-            $ext = strtok($token);
+            $ext                           = strtok($token);
         }
     }
 
@@ -203,12 +203,12 @@ class PhpDependTask extends Task
     {
         $this->excludeDirectories = [];
 
-        $token = ' ,;';
+        $token   = ' ,;';
         $pattern = strtok($excludeDirectories, $token);
 
         while ($pattern !== false) {
             $this->excludeDirectories[] = $pattern;
-            $pattern = strtok($token);
+            $pattern                    = strtok($token);
         }
     }
 
@@ -221,12 +221,12 @@ class PhpDependTask extends Task
     {
         $this->excludePackages = [];
 
-        $token = ' ,;';
+        $token   = ' ,;';
         $pattern = strtok($excludePackages, $token);
 
         while ($pattern !== false) {
             $this->excludePackages[] = $pattern;
-            $pattern = strtok($token);
+            $pattern                 = strtok($token);
         }
     }
 
@@ -455,7 +455,7 @@ class PhpDependTask extends Task
             $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
             foreach ($files as $filename) {
-                $f = new PhingFile($fs->getDir($this->project), $filename);
+                $f              = new PhingFile($fs->getDir($this->project), $filename);
                 $filesToParse[] = $f->getAbsolutePath();
             }
         }
@@ -472,7 +472,7 @@ class PhpDependTask extends Task
         }
 
         $applicationClassName = 'PDepend\\Application';
-        $application = new $applicationClassName();
+        $application          = new $applicationClassName();
 
         $runner = $application->getRunner();
 
@@ -510,7 +510,7 @@ class PhpDependTask extends Task
 
         if ($configuration === null) {
             $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
-            $configuration = $configurationFactory->createDefault();
+            $configuration        = $configurationFactory->createDefault();
         }
 
         PHP_Depend_Util_ConfigurationInstance::set($configuration);

@@ -26,7 +26,7 @@ class SilentLoggerTest extends TestCase
      */
     public function buildFinished()
     {
-        $event = new BuildEvent(new Project());
+        $event  = new BuildEvent(new Project());
         $logger = new SilentLogger();
         $this->expectOutputString('');
         $logger->buildFinished($event);
@@ -49,7 +49,7 @@ class SilentLoggerTest extends TestCase
                 return 'TIME_STRING';
             }
         };
-        $msg = '/' . PHP_EOL . 'BUILD FAILED' . PHP_EOL . 'test' . PHP_EOL . '/';
+        $msg    = '/' . PHP_EOL . 'BUILD FAILED' . PHP_EOL . 'test' . PHP_EOL . '/';
         $this->expectOutputRegex($msg);
         $logger->buildFinished($event);
     }

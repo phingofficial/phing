@@ -51,7 +51,7 @@ class ConsoleInputHandler implements InputHandler
     public function __construct($inputStream, OutputInterface $output)
     {
         $this->inputStream = $inputStream;
-        $this->output = $output;
+        $this->output      = $output;
     }
 
     /**
@@ -114,7 +114,7 @@ class ConsoleInputHandler implements InputHandler
      */
     protected function getPrompt(InputRequest $inputRequest)
     {
-        $prompt = $inputRequest->getPrompt();
+        $prompt       = $inputRequest->getPrompt();
         $defaultValue = $inputRequest->getDefaultValue();
 
         if ($defaultValue !== null) {

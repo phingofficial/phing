@@ -40,7 +40,7 @@ class HgInitTaskTest extends BuildFileTest
         $this->markTestAsSkippedWhenHgNotInstalled();
 
         $repository = PHING_TEST_BASE . '/tmp/hgtest';
-        $HGdir = $repository . '/.hg';
+        $HGdir      = $repository . '/.hg';
         $this->executeTarget('hgInit');
         $this->assertInLogs('Initializing');
         $this->assertDirectoryExists($repository);

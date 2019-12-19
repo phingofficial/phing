@@ -106,11 +106,11 @@ class FileHashTask extends Task
             $hashValue = hash_file($this->algorithm, $this->file);
         } elseif ((int) $this->hashtype === 0) {
             $this->log("Calculating MD5 hash from: " . $this->file);
-            $hashValue = md5_file($this->file, false);
+            $hashValue       = md5_file($this->file, false);
             $this->algorithm = 'md5';
         } elseif ((int) $this->hashtype === 1) {
             $this->log("Calculating SHA1 hash from: " . $this->file);
-            $hashValue = sha1_file($this->file, false);
+            $hashValue       = sha1_file($this->file, false);
             $this->algorithm = 'sha1';
         } else {
             if ($this->algorithm !== '') {

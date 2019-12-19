@@ -22,9 +22,9 @@
  */
 class NotifySendTask extends Task
 {
-    protected $msg = null;
-    protected $title = null;
-    protected $icon = 'info';
+    protected $msg    = null;
+    protected $title  = null;
+    protected $icon   = 'info';
     protected $silent = false;
 
     /**
@@ -133,8 +133,8 @@ class NotifySendTask extends Task
      */
     public function main()
     {
-        $msg = '';
-        $title = 'Phing';
+        $msg        = '';
+        $title      = 'Phing';
         $executable = 'notify-send';
 
         if ($this->title != '') {

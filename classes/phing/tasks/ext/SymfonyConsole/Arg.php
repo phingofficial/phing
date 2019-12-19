@@ -26,8 +26,8 @@
  */
 class Arg extends DataType
 {
-    private $name = null;
-    private $value = null;
+    private $name   = null;
+    private $value  = null;
     private $quotes = false;
 
     /**
@@ -98,7 +98,7 @@ class Arg extends DataType
      */
     public function __toString()
     {
-        $name = "";
+        $name  = "";
         $value = "";
         $quote = $this->getQuotes() ? '"' : '';
 

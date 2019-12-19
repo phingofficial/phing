@@ -44,7 +44,7 @@ class JsonLogger extends XmlLogger
 
         if ($event->getException() != null) {
             $this->getBuildElement()->setAttribute(XmlLogger::ERROR_ATTR, $event->getException()->getMessage());
-            $errText = $this->getDoc()->createCDATASection($event->getException()->getTraceAsString());
+            $errText    = $this->getDoc()->createCDATASection($event->getException()->getTraceAsString());
             $stacktrace = $this->getDoc()->createElement(XmlLogger::STACKTRACE_TAG);
             $stacktrace->appendChild($errText);
             $this->getBuildElement()->appendChild($stacktrace);
@@ -108,8 +108,8 @@ class JsonLogger extends XmlLogger
             return $jsnode;
         }
 
-        $nodename = $xmlnode->getName();
-        $jsnode[$nodename] = [];
+        $nodename            = $xmlnode->getName();
+        $jsnode[$nodename]   = [];
         $jsnode[$nodename][] = $this->xml2js($xmlnode, false);
         return json_encode($jsnode, JSON_PRETTY_PRINT);
     }

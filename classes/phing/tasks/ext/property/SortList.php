@@ -91,7 +91,7 @@ class SortList extends AbstractPropertySetterTask
              * @var PropertyTask $propTask
              */
             $propTask = $this->ref->getReferencedObject($this->project);
-            $val = $propTask->getValue();
+            $val      = $propTask->getValue();
         }
 
         if ($val === null) {

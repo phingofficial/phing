@@ -68,9 +68,9 @@ class FileList extends DataType implements IteratorAggregate
         parent::__construct();
 
         if ($filelist !== null) {
-            $this->dir = $filelist->dir;
+            $this->dir       = $filelist->dir;
             $this->filenames = $filelist->filenames;
-            $this->listfile = $filelist->listfile;
+            $this->listfile  = $filelist->listfile;
         }
     }
 
@@ -250,7 +250,7 @@ class FileList extends DataType implements IteratorAggregate
             $line = $listReader->readLine();
             while ($line !== null) {
                 if (!empty($line)) {
-                    $line = $p->replaceProperties($line);
+                    $line              = $p->replaceProperties($line);
                     $this->filenames[] = trim($line);
                 }
                 $line = $listReader->readLine();

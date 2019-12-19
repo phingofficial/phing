@@ -41,7 +41,7 @@ class EscapeUnicodeTest extends BuildFileTest
         $this->executeTarget("testEscapeUnicode");
 
         $expected = $this->getProject()->resolveFile("expected/escapeunicode.test");
-        $result = $this->getProject()->resolveFile("result/escapeunicode.test");
+        $result   = $this->getProject()->resolveFile("result/escapeunicode.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

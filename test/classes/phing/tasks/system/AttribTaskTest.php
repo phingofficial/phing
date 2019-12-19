@@ -47,7 +47,7 @@ class AttribTaskTest extends BuildFileTest
 
         /** @var Project $project */
         $project = $this->getProject();
-        $input = $project->getProperty('input');
+        $input   = $project->getProperty('input');
 
         $this->assertNotIsWritable($input . '/TEST.TXT');
         $this->assertInLogs('+R', Project::MSG_VERBOSE);

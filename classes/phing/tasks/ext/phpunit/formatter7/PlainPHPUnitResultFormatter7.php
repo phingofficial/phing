@@ -62,7 +62,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
             return;
         }
 
-        $sb = "Testsuite: " . $suite->getName() . "\n";
+        $sb  = "Testsuite: " . $suite->getName() . "\n";
         $sb .= "Tests run: " . $this->getRunCount();
         $sb .= ", Warnings: " . $this->getWarningCount();
         $sb .= ", Failures: " . $this->getFailureCount();

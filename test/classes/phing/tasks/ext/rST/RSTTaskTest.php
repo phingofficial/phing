@@ -77,8 +77,8 @@ class RSTTaskTest extends BuildFileTest
      */
     public function testGetToolPathFail()
     {
-        $rt = new RSTTask();
-        $ref = new ReflectionClass($rt);
+        $rt     = new RSTTask();
+        $ref    = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
 
@@ -97,7 +97,7 @@ class RSTTaskTest extends BuildFileTest
     {
         $rt = new RSTTask();
         $rt->setToolpath('true'); //mostly /bin/true on unix
-        $ref = new ReflectionClass($rt);
+        $ref    = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
         $this->assertStringContainsString('/true', $method->invoke($rt, 'foo'));
@@ -129,8 +129,8 @@ class RSTTaskTest extends BuildFileTest
      */
     public function testGetToolPathHtmlFormat()
     {
-        $rt = new RSTTask();
-        $ref = new ReflectionClass($rt);
+        $rt     = new RSTTask();
+        $ref    = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
         $this->assertStringContainsString('rst2html', $method->invoke($rt, 'html'));

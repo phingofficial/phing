@@ -45,7 +45,7 @@ class Relentless extends Task implements TaskContainer
     public function main()
     {
         $failCount = 0;
-        $taskNo = 0;
+        $taskNo    = 0;
         if (count($this->taskList) === 0) {
             throw new BuildException('No tasks specified for <relentless>.');
         }

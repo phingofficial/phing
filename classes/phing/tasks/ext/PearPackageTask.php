@@ -144,9 +144,9 @@ class PearPackageTask extends MatchingTask
                 throw new BuildException("You must use a <fileset> tag to specify the files to include in the package.xml");
             }
             $this->preparedOptions['filelistgenerator'] = 'Fileset';
-            $this->preparedOptions['usergeneratordir'] = __DIR__ . DIRECTORY_SEPARATOR . 'pearpackage';
+            $this->preparedOptions['usergeneratordir']  = __DIR__ . DIRECTORY_SEPARATOR . 'pearpackage';
             // Some PHING-specific options needed by our Fileset reader
-            $this->preparedOptions['phing_project'] = $this->project;
+            $this->preparedOptions['phing_project']  = $this->project;
             $this->preparedOptions['phing_filesets'] = $this->filesets;
         } elseif ($this->preparedOptions['filelistgenerator'] != 'Fileset' && !empty($this->filesets)) {
             throw new BuildException("You cannot use <fileset> element if you have specified the \"filelistgenerator\" option.");
@@ -192,12 +192,12 @@ class PearPackageTask extends MatchingTask
     {
 
         // These values could be overridden if explicitly defined using nested tags
-        $this->preparedOptions['package'] = $this->package;
+        $this->preparedOptions['package']          = $this->package;
         $this->preparedOptions['packagedirectory'] = $this->dir->getAbsolutePath();
 
         if ($this->packageFile !== null) {
             // create one w/ full path
-            $f = new PhingFile($this->packageFile->getAbsolutePath());
+            $f                                    = new PhingFile($this->packageFile->getAbsolutePath());
             $this->preparedOptions['packagefile'] = $f->getName();
             // must end in trailing slash
             $this->preparedOptions['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
@@ -313,7 +313,7 @@ class PearPackageTask extends MatchingTask
      */
     public function createOption()
     {
-        $o = new PearPkgOption();
+        $o               = new PearPkgOption();
         $this->options[] = $o;
 
         return $o;
@@ -324,7 +324,7 @@ class PearPackageTask extends MatchingTask
      */
     public function createMapping()
     {
-        $o = new PearPkgMapping();
+        $o                = new PearPkgMapping();
         $this->mappings[] = $o;
 
         return $o;
@@ -337,7 +337,7 @@ class PearPackageTask extends MatchingTask
      */
     public function createRole()
     {
-        $role = new PearPkgRole();
+        $role          = new PearPkgRole();
         $this->roles[] = $role;
 
         return $role;

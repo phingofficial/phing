@@ -36,13 +36,13 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
     /**#@+
      * Lexer states
      */
-    public const STATE_NORMAL = 0;
-    public const STATE_SINGLE_QUOTED = 1;
-    public const STATE_DOUBLE_QUOTED = 2;
-    public const STATE_DOLLAR_QUOTED = 3;
-    public const STATE_COMMENT_LINEEND = 4;
+    public const STATE_NORMAL            = 0;
+    public const STATE_SINGLE_QUOTED     = 1;
+    public const STATE_DOUBLE_QUOTED     = 2;
+    public const STATE_DOLLAR_QUOTED     = 3;
+    public const STATE_COMMENT_LINEEND   = 4;
     public const STATE_COMMENT_MULTILINE = 5;
-    public const STATE_BACKSLASH = 6;
+    public const STATE_BACKSLASH         = 6;
     /**#@-*/
 
     /**
@@ -98,8 +98,8 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
             if (null === ($line = $this->sqlReader->readLine())) {
                 return false;
             }
-            $project = $this->parent->getOwningTarget()->getProject();
-            $this->line = $project->replaceProperties($line) . "\n";
+            $project          = $this->parent->getOwningTarget()->getProject();
+            $this->line       = $project->replaceProperties($line) . "\n";
             $this->inputIndex = 0;
         }
 
@@ -160,8 +160,8 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
      */
     public function nextQuery()
     {
-        $sql = '';
-        $delimiter = $this->parent->getDelimiter();
+        $sql        = '';
+        $delimiter  = $this->parent->getDelimiter();
         $openParens = 0;
 
         while (false !== ($ch = $this->getc())) {
@@ -183,7 +183,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             break;
                         case '/':
                             if ('*' == $this->getc()) {
-                                $this->state = self::STATE_COMMENT_MULTILINE;
+                                $this->state        = self::STATE_COMMENT_MULTILINE;
                                 $this->commentDepth = 1;
                             } else {
                                 $this->ungetc();
@@ -191,9 +191,9 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             break;
                         case '$':
                             if (false !== ($tag = $this->checkDollarQuote())) {
-                                $this->state = self::STATE_DOLLAR_QUOTED;
+                                $this->state      = self::STATE_DOLLAR_QUOTED;
                                 $this->quotingTag = $tag;
-                                $sql .= '$' . $tag . '$';
+                                $sql             .= '$' . $tag . '$';
                                 continue 3;
                             }
                             break;

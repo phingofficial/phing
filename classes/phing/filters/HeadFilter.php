@@ -98,8 +98,8 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
 
             // must account for possibility that the num lines requested could
             // involve more than one buffer read.
-            $len = ($linesCount > $this->lines ? $this->lines - $this->linesRead : $linesCount);
-            $filtered_buffer = implode("\n", array_slice($lines, $this->skip, $len));
+            $len              = ($linesCount > $this->lines ? $this->lines - $this->linesRead : $linesCount);
+            $filtered_buffer  = implode("\n", array_slice($lines, $this->skip, $len));
             $this->linesRead += $len;
 
             return $filtered_buffer;

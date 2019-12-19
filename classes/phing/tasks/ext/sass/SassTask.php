@@ -466,7 +466,7 @@ class SassTask extends Task
      */
     public function setCheck($value)
     {
-        $check = StringHelper::booleanValue($value);
+        $check       = StringHelper::booleanValue($value);
         $this->check = $check;
         if ($check) {
             $this->flags .= ' --check ';
@@ -496,9 +496,9 @@ class SassTask extends Task
     {
         $compress = StringHelper::booleanValue($value);
         if ($compress) {
-            $this->flags = str_replace(' --style ' . $this->style, '', $this->flags);
+            $this->flags  = str_replace(' --style ' . $this->style, '', $this->flags);
             $this->flags .= ' --style compact';
-            $this->style = 'compact';
+            $this->style  = 'compact';
         }
     }
 
@@ -524,9 +524,9 @@ class SassTask extends Task
     {
         $compress = StringHelper::booleanValue($value);
         if ($compress) {
-            $this->flags = str_replace(' --style ' . $this->style, '', $this->flags);
+            $this->flags  = str_replace(' --style ' . $this->style, '', $this->flags);
             $this->flags .= ' --style compressed';
-            $this->style = 'compressed';
+            $this->style  = 'compressed';
         }
     }
 
@@ -578,9 +578,9 @@ class SassTask extends Task
     {
         $expand = StringHelper::booleanValue($value);
         if ($expand) {
-            $this->flags = str_replace(' --style ' . $this->style, '', $this->flags);
+            $this->flags  = str_replace(' --style ' . $this->style, '', $this->flags);
             $this->flags .= ' --style expanded';
-            $this->style = 'expanded';
+            $this->style  = 'expanded';
         }
     }
 
@@ -606,9 +606,9 @@ class SassTask extends Task
     {
         $nested = StringHelper::booleanValue($value);
         if ($nested) {
-            $this->flags = str_replace(' --style ' . $this->style, '', $this->flags);
+            $this->flags  = str_replace(' --style ' . $this->style, '', $this->flags);
             $this->flags .= ' --style nested';
-            $this->style = 'nested';
+            $this->style  = 'nested';
         }
     }
 
@@ -632,7 +632,7 @@ class SassTask extends Task
      */
     public function setForce($value)
     {
-        $force = StringHelper::booleanValue($value);
+        $force       = StringHelper::booleanValue($value);
         $this->force = $force;
         if ($force) {
             $this->flags .= ' --force ';
@@ -660,7 +660,7 @@ class SassTask extends Task
      */
     public function setNoCache($value)
     {
-        $noCache = StringHelper::booleanValue($value);
+        $noCache       = StringHelper::booleanValue($value);
         $this->noCache = $noCache;
         if ($noCache) {
             $this->flags .= ' --no-cache ';
@@ -688,7 +688,7 @@ class SassTask extends Task
      */
     public function setPath(string $path): void
     {
-        $this->flags .= " --load-path $path ";
+        $this->flags   .= " --load-path $path ";
         $this->loadPath = $path;
     }
 
@@ -716,8 +716,8 @@ class SassTask extends Task
             case 'compressed':
             case 'expanded':
             case 'crunched':
-                $this->flags = str_replace(" --style $this->style", '', $this->flags);
-                $this->style = $style;
+                $this->flags  = str_replace(" --style $this->style", '', $this->flags);
+                $this->style  = $style;
                 $this->flags .= " --style $style ";
                 break;
             default:
@@ -771,7 +771,7 @@ class SassTask extends Task
      */
     public function setUnixnewlines($newlines)
     {
-        $unixnewlines = StringHelper::booleanValue($newlines);
+        $unixnewlines       = StringHelper::booleanValue($newlines);
         $this->unixnewlines = $unixnewlines;
         if ($unixnewlines) {
             $this->flags .= ' --unix-newlines ';
@@ -797,7 +797,7 @@ class SassTask extends Task
      */
     public function setLineNumbers(string $lineNumbers): void
     {
-        $lineNumbers = StringHelper::booleanValue($lineNumbers);
+        $lineNumbers       = StringHelper::booleanValue($lineNumbers);
         $this->lineNumbers = $lineNumbers;
         if ($lineNumbers) {
             $this->flags .= ' --line-numbers ';
@@ -940,8 +940,8 @@ class SassTask extends Task
         if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {
-                $info = pathinfo($this->file);
-                $path = $info['dirname'];
+                $info             = pathinfo($this->file);
+                $path             = $info['dirname'];
                 $this->outputpath = $path;
             } else {
                 $path = $this->outputpath;
@@ -972,9 +972,9 @@ class SassTask extends Task
     public function processFilesets(SassTaskCompiler $compiler): void
     {
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->project);
+            $ds    = $fs->getDirectoryScanner($this->project);
             $files = $ds->getIncludedFiles();
-            $dir = $fs->getDir($this->project)->getPath();
+            $dir   = $fs->getDir($this->project)->getPath();
 
             // If output path isn't defined then set it to the path of our fileset.
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
@@ -983,7 +983,7 @@ class SassTask extends Task
             }
 
             foreach ($files as $file) {
-                $fullFilePath = $dir . DIRECTORY_SEPARATOR . $file;
+                $fullFilePath   = $dir . DIRECTORY_SEPARATOR . $file;
                 $this->pathInfo = pathinfo($file);
 
                 $run = true;

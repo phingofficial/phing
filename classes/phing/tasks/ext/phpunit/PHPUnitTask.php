@@ -31,25 +31,25 @@ class PHPUnitTask extends Task
     /**
      * @var FormatterElement[] $formatters
      */
-    private $formatters = [];
-    private $bootstrap = "";
-    private $haltonerror = false;
-    private $haltonfailure = false;
+    private $formatters       = [];
+    private $bootstrap        = "";
+    private $haltonerror      = false;
+    private $haltonfailure    = false;
     private $haltonincomplete = false;
-    private $haltonskipped = false;
+    private $haltonskipped    = false;
     private $errorproperty;
     private $failureproperty;
     private $incompleteproperty;
     private $skippedproperty;
-    private $printsummary = false;
-    private $testfailed = false;
-    private $testfailuremessage = "";
-    private $codecoverage = null;
-    private $groups = [];
-    private $excludeGroups = [];
-    private $processIsolation = false;
+    private $printsummary          = false;
+    private $testfailed            = false;
+    private $testfailuremessage    = "";
+    private $codecoverage          = null;
+    private $groups                = [];
+    private $excludeGroups         = [];
+    private $processIsolation      = false;
     private $usecustomerrorhandler = true;
-    private $listeners = [];
+    private $listeners             = [];
 
     /**
      * @var string
@@ -230,12 +230,12 @@ class PHPUnitTask extends Task
      */
     public function setGroups($groups)
     {
-        $token = ' ,;';
+        $token        = ' ,;';
         $this->groups = [];
-        $tok = strtok($groups, $token);
+        $tok          = strtok($groups, $token);
         while ($tok !== false) {
             $this->groups[] = $tok;
-            $tok = strtok($token);
+            $tok            = strtok($token);
         }
     }
 
@@ -244,12 +244,12 @@ class PHPUnitTask extends Task
      */
     public function setExcludeGroups($excludeGroups)
     {
-        $token = ' ,;';
+        $token               = ' ,;';
         $this->excludeGroups = [];
-        $tok = strtok($excludeGroups, $token);
+        $tok                 = strtok($excludeGroups, $token);
         while ($tok !== false) {
             $this->excludeGroups[] = $tok;
-            $tok = strtok($token);
+            $tok                   = strtok($token);
         }
     }
 
@@ -357,7 +357,7 @@ class PHPUnitTask extends Task
                     $listenerClass = new ReflectionClass(
                         $listener['class']
                     );
-                    $listener = $listenerClass->newInstanceArgs(
+                    $listener      = $listenerClass->newInstanceArgs(
                         $listener['arguments']
                     );
                 }
@@ -394,7 +394,7 @@ class PHPUnitTask extends Task
         }
 
         $this->loadPHPUnit();
-        $suite = new \PHPUnit\Framework\TestSuite('AllTests');
+        $suite        = new \PHPUnit\Framework\TestSuite('AllTests');
         $autoloadSave = spl_autoload_functions();
 
         if ($this->bootstrap) {
@@ -475,7 +475,7 @@ class PHPUnitTask extends Task
             /**
              * Add some defaults to the PHPUnit filter
              */
-            $pwd = __DIR__;
+            $pwd  = __DIR__;
             $path = realpath($pwd . '/../../../');
 
             if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
@@ -530,7 +530,7 @@ class PHPUnitTask extends Task
                 $this->project->setNewProperty($this->errorproperty, true);
             }
             if ($this->haltonerror) {
-                $this->testfailed = true;
+                $this->testfailed         = true;
                 $this->testfailuremessage = $runner->getLastErrorMessage();
             }
         }
@@ -541,7 +541,7 @@ class PHPUnitTask extends Task
             }
 
             if ($this->haltonfailure) {
-                $this->testfailed = true;
+                $this->testfailed         = true;
                 $this->testfailuremessage = $runner->getLastFailureMessage();
             }
         }
@@ -552,7 +552,7 @@ class PHPUnitTask extends Task
             }
 
             if ($this->haltonincomplete) {
-                $this->testfailed = true;
+                $this->testfailed         = true;
                 $this->testfailuremessage = $runner->getLastIncompleteMessage();
             }
         }
@@ -563,7 +563,7 @@ class PHPUnitTask extends Task
             }
 
             if ($this->haltonskipped) {
-                $this->testfailed = true;
+                $this->testfailed         = true;
                 $this->testfailuremessage = $runner->getLastSkippedMessage();
             }
         }

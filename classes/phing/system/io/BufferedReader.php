@@ -29,8 +29,8 @@
 class BufferedReader extends Reader
 {
     private $bufferSize = 0;
-    private $buffer = null;
-    private $bufferPos = 0;
+    private $buffer     = null;
+    private $bufferPos  = 0;
 
     /**
      * The Reader we are buffering for.
@@ -48,7 +48,7 @@ class BufferedReader extends Reader
      */
     public function __construct(InputStreamReader $reader, $buffsize = 65536)
     {
-        $this->in = $reader;
+        $this->in         = $reader;
         $this->bufferSize = $buffsize;
     }
 
@@ -69,13 +69,13 @@ class BufferedReader extends Reader
         if (($data = $this->in->read($len)) !== -1) {
             // not all files end with a newline character, so we also need to check EOF
             if (!$this->in->eof()) {
-                $notValidPart = strrchr($data, "\n");
+                $notValidPart     = strrchr($data, "\n");
                 $notValidPartSize = strlen($notValidPart);
 
                 if ($notValidPartSize > 1) {
                     // Block doesn't finish on a EOL
                     // Find the last EOL and forget all following stuff
-                    $dataSize = strlen($data);
+                    $dataSize  = strlen($data);
                     $validSize = $dataSize - $notValidPartSize + 1;
 
                     $data = substr($data, 0, $validSize);
@@ -153,7 +153,7 @@ class BufferedReader extends Reader
             $ch = ($this->buffer !== "") ? $this->buffer[$this->bufferPos] : '';
             $this->bufferPos++;
             if ($this->bufferPos >= strlen($this->buffer)) {
-                $this->buffer = null;
+                $this->buffer    = null;
                 $this->bufferPos = 0;
             }
         }

@@ -74,7 +74,7 @@ class PathConvert extends Task
     private $dirSep = null;
 
     public $from = null;
-    public $to = null;
+    public $to   = null;
     private $mapper;
     private $preserveDuplicates = false;
 
@@ -124,7 +124,7 @@ class PathConvert extends Task
      */
     public function setTargetos($target)
     {
-        $this->targetOS = $target;
+        $this->targetOS      = $target;
         $this->targetWindows = $this->targetOS !== 'unix';
     }
 
@@ -207,9 +207,9 @@ class PathConvert extends Task
      */
     public function main()
     {
-        $savedPath = $this->path;
+        $savedPath    = $this->path;
         $savedPathSep = $this->pathSep;// may be altered in validateSetup
-        $savedDirSep = $this->dirSep;// may be altered in validateSetup
+        $savedDirSep  = $this->dirSep;// may be altered in validateSetup
 
         try {
             // If we are a reference, create a Path from the reference
@@ -299,8 +299,8 @@ class PathConvert extends Task
                 }
             }
         } finally {
-            $this->path = $savedPath;
-            $this->dirSep = $savedDirSep;
+            $this->path    = $savedPath;
+            $this->dirSep  = $savedDirSep;
             $this->pathSep = $savedPathSep;
         }
     }
@@ -394,7 +394,7 @@ class PathConvert extends Task
         }
 
         $this->pathSep = $psep;
-        $this->dirSep = $dsep;
+        $this->dirSep  = $dsep;
     }
 
 

@@ -81,7 +81,7 @@ class TokenSource extends DataType
             throw new BuildException("No Classname given to TokenSource.");
         }
 
-        $classname = Phing::import($this->classname);
+        $classname    = Phing::import($this->classname);
         $this->reader = new $classname($this->project);
 
         // Configure Reader
@@ -123,7 +123,7 @@ class TokenSource extends DataType
         $count = count($this->parameters);
         for ($i = 0; $i < $count; $i++) {
             $method_name = "Set" . $this->parameters[$i]->getName();
-            $value = $this->parameters[$i]->getValue();
+            $value       = $this->parameters[$i]->getValue();
             $reader->$method_name($value);
         }
     }

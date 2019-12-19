@@ -93,34 +93,34 @@
  */
 class AnsiColorLogger extends DefaultLogger
 {
-    public const ATTR_NORMAL = 0;
-    public const ATTR_BRIGHT = 1;
-    public const ATTR_DIM = 2;
+    public const ATTR_NORMAL    = 0;
+    public const ATTR_BRIGHT    = 1;
+    public const ATTR_DIM       = 2;
     public const ATTR_UNDERLINE = 3;
-    public const ATTR_BLINK = 5;
-    public const ATTR_REVERSE = 7;
-    public const ATTR_HIDDEN = 8;
+    public const ATTR_BLINK     = 5;
+    public const ATTR_REVERSE   = 7;
+    public const ATTR_HIDDEN    = 8;
 
-    public const FG_BLACK = 30;
-    public const FG_RED = 31;
-    public const FG_GREEN = 32;
-    public const FG_YELLOW = 33;
-    public const FG_BLUE = 34;
+    public const FG_BLACK   = 30;
+    public const FG_RED     = 31;
+    public const FG_GREEN   = 32;
+    public const FG_YELLOW  = 33;
+    public const FG_BLUE    = 34;
     public const FG_MAGENTA = 35;
-    public const FG_CYAN = 36;
-    public const FG_WHITE = 37;
+    public const FG_CYAN    = 36;
+    public const FG_WHITE   = 37;
 
-    public const BG_BLACK = 40;
-    public const BG_RED = 41;
-    public const BG_GREEN = 42;
-    public const BG_YELLOW = 44;
-    public const BG_BLUE = 44;
+    public const BG_BLACK   = 40;
+    public const BG_RED     = 41;
+    public const BG_GREEN   = 42;
+    public const BG_YELLOW  = 44;
+    public const BG_BLUE    = 44;
     public const BG_MAGENTA = 45;
-    public const BG_CYAN = 46;
-    public const BG_WHITE = 47;
+    public const BG_CYAN    = 46;
+    public const BG_WHITE   = 47;
 
-    public const PREFIX = "\x1b[";
-    public const SUFFIX = "m";
+    public const PREFIX    = "\x1b[";
+    public const SUFFIX    = "m";
     public const SEPARATOR = ';';
     public const END_COLOR = "\x1b[0m"; // self::PREFIX . self::SUFFIX;
 
@@ -139,11 +139,11 @@ class AnsiColorLogger extends DefaultLogger
     public function __construct()
     {
         parent::__construct();
-        $this->errColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_RED . self::SUFFIX;
-        $this->warnColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_MAGENTA . self::SUFFIX;
-        $this->infoColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_CYAN . self::SUFFIX;
+        $this->errColor     = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_RED . self::SUFFIX;
+        $this->warnColor    = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_MAGENTA . self::SUFFIX;
+        $this->infoColor    = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_CYAN . self::SUFFIX;
         $this->verboseColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_GREEN . self::SUFFIX;
-        $this->debugColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_BLUE . self::SUFFIX;
+        $this->debugColor   = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_BLUE . self::SUFFIX;
     }
 
     /**
@@ -152,7 +152,7 @@ class AnsiColorLogger extends DefaultLogger
      */
     final private function setColors()
     {
-        $userColorFile = Phing::getProperty("phing.logger.defaults");
+        $userColorFile   = Phing::getProperty("phing.logger.defaults");
         $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
 
         $in = null;
@@ -166,11 +166,11 @@ class AnsiColorLogger extends DefaultLogger
                 $prop->load($systemColorFile);
             }
 
-            $err = $prop->getProperty("AnsiColorLogger.ERROR_COLOR");
-            $warn = $prop->getProperty("AnsiColorLogger.WARNING_COLOR");
-            $info = $prop->getProperty("AnsiColorLogger.INFO_COLOR");
+            $err     = $prop->getProperty("AnsiColorLogger.ERROR_COLOR");
+            $warn    = $prop->getProperty("AnsiColorLogger.WARNING_COLOR");
+            $info    = $prop->getProperty("AnsiColorLogger.INFO_COLOR");
             $verbose = $prop->getProperty("AnsiColorLogger.VERBOSE_COLOR");
-            $debug = $prop->getProperty("AnsiColorLogger.DEBUG_COLOR");
+            $debug   = $prop->getProperty("AnsiColorLogger.DEBUG_COLOR");
             if ($err !== null) {
                 $this->errColor = self::PREFIX . $err . self::SUFFIX;
             }

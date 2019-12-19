@@ -49,7 +49,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      */
     public const REGEXP_KEY = "regexp";
     public const NEGATE_KEY = 'negate';
-    public const CS_KEY = 'casesensitive';
+    public const CS_KEY     = 'casesensitive';
 
     /**
      * Regular expressions that are applied against lines.
@@ -89,14 +89,14 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
             return -1;
         }
 
-        $lines = explode("\n", $buffer);
+        $lines   = explode("\n", $buffer);
         $matched = [];
 
         $regexpsSize = count($this->regexps);
         foreach ($lines as $line) {
             for ($i = 0; $i < $regexpsSize; $i++) {
                 $regexp = $this->regexps[$i];
-                $re = $regexp->getRegexp($this->getProject());
+                $re     = $regexp->getRegexp($this->getProject());
                 $re->setIgnoreCase(!$this->casesensitive);
                 $matches = $re->matches($line);
                 if (!$matches) {
@@ -246,7 +246,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
             for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if (self::REGEXP_KEY === $params[$i]->getType()) {
                     $pattern = $params[$i]->getValue();
-                    $regexp = new RegularExpression();
+                    $regexp  = new RegularExpression();
                     $regexp->setPattern($pattern);
                     $this->regexps[] = $regexp;
                 } elseif (self::NEGATE_KEY === $params[$i]->getType()) {
