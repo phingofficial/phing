@@ -129,7 +129,7 @@ class JsMinTask extends Task
      */
     protected function processFileSet(FileSet $fs)
     {
-        $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+        $files    = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
         $fullPath = realpath($fs->getDir($this->project));
         foreach ($files as $file) {
             $this->log('Minifying file ' . $file);

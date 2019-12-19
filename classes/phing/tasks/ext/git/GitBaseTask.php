@@ -117,7 +117,7 @@ abstract class GitBaseTask extends Task
     protected function getGitClient($reset = false, $repository = null)
     {
         $this->gitClient = ($reset === true) ? null : $this->gitClient;
-        $repository = $repository ?? $this->getRepository();
+        $repository      = $repository ?? $this->getRepository();
 
         if (null === $this->gitClient) {
             try {

@@ -40,10 +40,10 @@ class HgAddTask extends HgBaseTask
     public function main()
     {
         $filesAdded = false;
-        $clone = $this->getFactoryInstance('add');
+        $clone      = $this->getFactoryInstance('add');
         $clone->setQuiet($this->getQuiet());
 
-        $cwd = getcwd();
+        $cwd     = getcwd();
         $project = $this->getProject();
         if ($this->repository === '') {
             $dir = $project->getProperty('application.startdir');
@@ -72,7 +72,7 @@ class HgAddTask extends HgBaseTask
              * @var $fs FileSet
              */
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
+                $ds      = $fs->getDirectoryScanner($project);
                 $fromDir = $fs->getDir($project);
                 if ($fromDir->getName() === '.') {
                     $statusClone = $this->getFactoryInstance('status');
@@ -122,10 +122,10 @@ class HgAddTask extends HgBaseTask
     public function loadIgnoreFile()
     {
         $ignores = [];
-        $lines = file('.hgignore');
+        $lines   = file('.hgignore');
         foreach ($lines as $line) {
-            $nline =  trim($line);
-            $nline = preg_replace('/\/\*$/', '/', $nline);
+            $nline     =  trim($line);
+            $nline     = preg_replace('/\/\*$/', '/', $nline);
             $ignores[] = $nline;
         }
         $this->ignoreFile = $ignores;
@@ -140,8 +140,8 @@ class HgAddTask extends HgBaseTask
      */
     public function fileIsIgnored($file)
     {
-        $line = $this->ignoreFile[0];
-        $mode = 'regexp';
+        $line    = $this->ignoreFile[0];
+        $mode    = 'regexp';
         $ignored = false;
         if (
             preg_match('#^syntax\s*:\s*(glob|regexp)$#', $line, $matches)

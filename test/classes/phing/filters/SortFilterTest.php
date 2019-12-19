@@ -41,7 +41,7 @@ class SortFilterTest extends BuildFileTest
         $this->executeTarget("testSortFilter");
 
         $expected = $this->getProject()->resolveFile("expected/sortfilter.test");
-        $result = $this->getProject()->resolveFile("result/sortfilter.test");
+        $result   = $this->getProject()->resolveFile("result/sortfilter.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

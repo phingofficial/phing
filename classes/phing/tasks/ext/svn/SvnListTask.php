@@ -29,8 +29,8 @@
  */
 class SvnListTask extends SvnBaseTask
 {
-    private $propertyName = "svn.list";
-    private $limit = null;
+    private $propertyName    = "svn.list";
+    private $limit           = null;
     private $orderDescending = false;
 
     /**
@@ -102,7 +102,7 @@ class SvnListTask extends SvnBaseTask
                 ];
             }
         } else {
-            $output = $this->run([]);
+            $output  = $this->run([]);
             $entries = $output['list'][0]['entry'];
         }
 
@@ -111,7 +111,7 @@ class SvnListTask extends SvnBaseTask
         }
 
         $result = null;
-        $count = 0;
+        $count  = 0;
 
         foreach ($entries as $entry) {
             if ($this->limit > 0 && $count >= $this->limit) {

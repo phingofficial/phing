@@ -36,7 +36,7 @@ class TouchTask extends Task
     private $millis = -1;
     private $dateTime;
     private $fileUtils;
-    private $mkdirs = false;
+    private $mkdirs  = false;
     private $verbose = true;
 
     /**
@@ -166,7 +166,7 @@ class TouchTask extends Task
 
         $resetMillis = false;
         if ($this->millis < 0) {
-            $resetMillis = true;
+            $resetMillis  = true;
             $this->millis = Phing::currentTimeMillis();
         }
 
@@ -176,11 +176,11 @@ class TouchTask extends Task
 
         // deal with the filesets
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->getProject());
+            $ds      = $fs->getDirectoryScanner($this->getProject());
             $fromDir = $fs->getDir($this->getProject());
 
             $srcFiles = $ds->getIncludedFiles();
-            $srcDirs = $ds->getIncludedDirectories();
+            $srcDirs  = $ds->getIncludedDirectories();
 
             for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
                 $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));

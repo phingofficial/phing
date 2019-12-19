@@ -43,7 +43,7 @@ class ZipFileSet extends FileSet
     protected function getFiles($includeEmpty = true, ...$options)
     {
         if ($this->files === null) {
-            $ds = $this->getDirectoryScanner($this->getProject());
+            $ds          = $this->getDirectoryScanner($this->getProject());
             $this->files = $ds->getIncludedFiles();
 
             // build a list of directories implicitly added by any of the files

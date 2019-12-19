@@ -35,7 +35,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
 
     public function testIfReferenceSetThenCreateIncludeThrowsException()
     {
-        $project = new Project();
+        $project   = new Project();
         $reference = new Reference($project);
         $this->patternset->setRefId($reference);
 
@@ -47,7 +47,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
 
     public function testIfReferenceSetThenCreateExcludeThrowsException()
     {
-        $project = new Project();
+        $project   = new Project();
         $reference = new Reference($project);
         $this->patternset->setRefId($reference);
 
@@ -59,7 +59,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
 
     public function testIfReferencesSetThenCreatExcludesFileThrowsException()
     {
-        $project = new Project();
+        $project   = new Project();
         $reference = new Reference($project);
         $this->patternset->setRefId($reference);
 
@@ -71,7 +71,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
 
     public function testIfReferencesSetThenCreatIncludesFileThrowsException()
     {
-        $project = new Project();
+        $project   = new Project();
         $reference = new Reference($project);
         $this->patternset->setRefId($reference);
 

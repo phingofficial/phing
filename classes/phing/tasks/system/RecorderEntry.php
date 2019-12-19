@@ -75,8 +75,8 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     public function __construct($name)
     {
         $this->targetStartTime = Phing::currentTimeMillis();
-        $this->filename = $name;
-        $this->loglevel = Project::MSG_INFO;
+        $this->filename        = $name;
+        $this->loglevel        = Project::MSG_INFO;
     }
 
     /**
@@ -211,7 +211,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
 
             if (!$this->emacsMode) {
                 $label = "[" . $name . "] ";
-                $size = DefaultLogger::LEFT_COLUMN_SIZE - strlen($label);
+                $size  = DefaultLogger::LEFT_COLUMN_SIZE - strlen($label);
 
                 for ($i = 0; $i < $size; $i++) {
                     $buf .= " ";

@@ -27,10 +27,10 @@
  */
 class XmlPropertyTask extends PropertyTask
 {
-    private $keepRoot = true;
+    private $keepRoot     = true;
     private $collapseAttr = false;
-    private $delimiter = ',';
-    private $required = false;
+    private $delimiter    = ',';
+    private $required     = false;
 
     /**
      * Set a file to use as the source for properties.

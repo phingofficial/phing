@@ -144,7 +144,7 @@ class StringHelper
      */
     public static function substring($string, $startpos, $endpos = -1)
     {
-        $len = strlen($string);
+        $len    = strlen($string);
         $endpos = (int) (($endpos === -1) ? $len - 1 : $endpos);
         if ($startpos > $len - 1 || $startpos < 0) {
             trigger_error("substring(), Startindex out of bounds must be 0<n<$len", E_USER_ERROR);

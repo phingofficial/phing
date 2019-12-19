@@ -39,7 +39,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     protected function _resetFileSystem()
     {
-        $refClass = new ReflectionClass('FileSystem');
+        $refClass    = new ReflectionClass('FileSystem');
         $refProperty = $refClass->getProperty('fs');
         $refProperty->setAccessible(true);
         $refProperty->setValue(null);
@@ -80,21 +80,21 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     public function testWhichFailsNonStringExecutable()
     {
-        $fs = FileSystem::getFileSystem();
+        $fs   = FileSystem::getFileSystem();
         $path = $fs->which(42);
         $this->assertEquals($path, false);
     }
 
     public function testWhichFailsDueToUnusualExecutableName()
     {
-        $fs = FileSystem::getFileSystem();
+        $fs   = FileSystem::getFileSystem();
         $path = $fs->which('tasword.bin');
         $this->assertEquals($path, false);
     }
 
     public function testWhichHinkyExecutableNameWithSeparator()
     {
-        $fs = FileSystem::getFileSystem();
+        $fs   = FileSystem::getFileSystem();
         $path = $fs->which('zx:\tasword.bin');
         $this->assertEquals($path, false);
     }

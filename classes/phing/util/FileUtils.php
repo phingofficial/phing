@@ -39,8 +39,8 @@ class FileUtils
     public function __construct()
     {
         if (self::$separator === null || FileUtils::$pathSeparator === null) {
-            $fs = FileSystem::getFileSystem();
-            self::$separator = $fs->getSeparator();
+            $fs                  = FileSystem::getFileSystem();
+            self::$separator     = $fs->getSeparator();
             self::$pathSeparator = $fs->getPathSeparator();
         }
     }
@@ -143,7 +143,7 @@ class FileUtils
             }
 
             if ((is_array($filterChains)) && (!empty($filterChains))) {
-                $in = self::getChainedReader(new BufferedReader(new FileReader($sourceFile)), $filterChains, $project);
+                $in  = self::getChainedReader(new BufferedReader(new FileReader($sourceFile)), $filterChains, $project);
                 $out = new BufferedWriter(new FileWriter($destFile));
 
                 // New read() methods returns a big buffer.
@@ -306,7 +306,7 @@ class FileUtils
         }
 
         $dosWithDrive = false;
-        $root = null;
+        $root         = null;
 
         // Eliminate consecutive slashes after the drive spec
 
@@ -352,7 +352,7 @@ class FileUtils
             }
         }
 
-        $s = [];
+        $s   = [];
         $s[] = $root;
         $tok = strtok($path, DIRECTORY_SEPARATOR);
         while ($tok !== false) {

@@ -50,8 +50,8 @@ class BuildException extends RuntimeException
     public function __construct($p1 = "", $p2 = null, $p3 = null)
     {
         $cause = null;
-        $loc = null;
-        $msg = "";
+        $loc   = null;
+        $msg   = "";
 
         if ($p3 !== null) {
             if ($p2 instanceof Throwable) {
@@ -62,7 +62,7 @@ class BuildException extends RuntimeException
         } elseif ($p2 !== null) {
             if ($p2 instanceof Throwable) {
                 $cause = $p2;
-                $msg = $p1;
+                $msg   = $p1;
             } elseif ($p2 instanceof Location) {
                 $loc = $p2;
                 if ($p1 instanceof Throwable) {
@@ -73,7 +73,7 @@ class BuildException extends RuntimeException
             }
         } elseif ($p1 instanceof Throwable) {
             $cause = $p1;
-            $msg = $p1->getMessage();
+            $msg   = $p1->getMessage();
         } else {
             $msg = (string) $p1;
         }

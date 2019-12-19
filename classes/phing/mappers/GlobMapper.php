@@ -68,9 +68,9 @@ class GlobMapper implements FileNameMapper
     private $toPostfix = null;
 
     private $fromContainsStar = false;
-    private $toContainsStar = false;
-    private $handleDirSep = false;
-    private $caseSensitive = true;
+    private $toContainsStar   = false;
+    private $handleDirSep     = false;
+    private $caseSensitive    = true;
 
     /**
      * Attribute specifying whether to ignore the difference
@@ -147,14 +147,14 @@ class GlobMapper implements FileNameMapper
         $index = strrpos($from, '*');
 
         if ($index === false) {
-            $this->fromPrefix = $from;
+            $this->fromPrefix  = $from;
             $this->fromPostfix = "";
         } else {
-            $this->fromPrefix = substr($from, 0, $index);
-            $this->fromPostfix = substr($from, $index + 1);
+            $this->fromPrefix       = substr($from, 0, $index);
+            $this->fromPostfix      = substr($from, $index + 1);
             $this->fromContainsStar = true;
         }
-        $this->prefixLength = strlen($this->fromPrefix);
+        $this->prefixLength  = strlen($this->fromPrefix);
         $this->postfixLength = strlen($this->fromPostfix);
     }
 
@@ -173,11 +173,11 @@ class GlobMapper implements FileNameMapper
 
         $index = strrpos($to, '*');
         if ($index === false) {
-            $this->toPrefix = $to;
+            $this->toPrefix  = $to;
             $this->toPostfix = "";
         } else {
-            $this->toPrefix = substr($to, 0, $index);
-            $this->toPostfix = substr($to, $index + 1);
+            $this->toPrefix       = substr($to, 0, $index);
+            $this->toPostfix      = substr($to, $index + 1);
             $this->toContainsStar = true;
         }
     }

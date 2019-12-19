@@ -49,8 +49,8 @@ class StatisticsReport
     public function __construct()
     {
         self::$TIME_FORMATTER = new TimeFormatter();
-        self::$FORMATTER = new StringFormatter();
-        $this->stack = new SplStack();
+        self::$FORMATTER      = new StringFormatter();
+        $this->stack          = new SplStack();
     }
 
     public function create($title, SeriesMap $seriesMap)
@@ -59,7 +59,7 @@ class StatisticsReport
         sort($keys);
         $table = new Table(self::$HEADERS, count($keys));
 
-        $totalTimes = [];
+        $totalTimes       = [];
         $runningTotalTime = 0;
         for ($i = 1; $i < $table->rows(); $i++) {
             $series = $seriesMap->get($keys[$i - 1]);
@@ -68,7 +68,7 @@ class StatisticsReport
             $table->put($i, self::$IDX_AVERAGE, self::$TIME_FORMATTER->format($series->getAverageTime()));
             $table->put($i, self::$IDX_TOTAL, self::$TIME_FORMATTER->format($series->getTotalTime()));
             $totalTimes[$i - 1] = $series->getTotalTime();
-            $runningTotalTime += $series->getTotalTime();
+            $runningTotalTime  += $series->getTotalTime();
         }
 
         $this->updateTableWithPercentagesOfTotalTime($table, $totalTimes, $runningTotalTime);
@@ -81,18 +81,18 @@ class StatisticsReport
         $total = count($totalTimes);
         for ($i = 0; $i < $total; $i++) {
             $totalTime = $totalTimes[$i];
-            $round = round(100 * (double) $totalTime / $runningTotalTime);
+            $round     = round(100 * (double) $totalTime / $runningTotalTime);
             $table->put($i + 1, self::$IDX_PERCENTAGE, (string) $round);
         }
     }
 
     private function toString($title, Table $table)
     {
-        $sb = '';
-        $maxLengths = $table->getMaxLengths();
+        $sb             = '';
+        $maxLengths     = $table->getMaxLengths();
         $titleBarLength = $this->calculateFixedLength($maxLengths);
-        $sb .= self::$FORMATTER->center($title, $titleBarLength);
-        $sb .= PHP_EOL . PHP_EOL;
+        $sb            .= self::$FORMATTER->center($title, $titleBarLength);
+        $sb            .= PHP_EOL . PHP_EOL;
 
         for ($i = 0; $i < $table->rows(); $i++) {
             for ($j = 0; $j < $table->columns(); $j++) {
@@ -117,7 +117,7 @@ class StatisticsReport
     private function calculateFixedLength(array $maxLengths)
     {
         $fixedLength = 0;
-        $total = count($maxLengths);
+        $total       = count($maxLengths);
         for ($i = 0; $i < $total; $i++) {
             $fixedLength += $maxLengths[$i] + 4;
         }
@@ -136,7 +136,7 @@ class StatisticsReport
             $this->create("Task Statistics", $projectTimer->toTaskSeriesMap());
         } else {
             $projectSeriesMap = new SeriesMap();
-            $sb = '';
+            $sb               = '';
             while (!$this->stack->isEmpty()) {
                 $projectTimer = $this->stack->pop();
                 $projectSeriesMap->put($projectTimer->getName(), $projectTimer->getSeries());

@@ -45,14 +45,14 @@
  */
 class HtmlColorLogger extends DefaultLogger
 {
-    public const CLASS_ERR = 'phing_err';
+    public const CLASS_ERR     = 'phing_err';
     public const CLASS_VERBOSE = 'phing_verbose';
-    public const CLASS_DEBUG = 'phing_debug';
-    public const CLASS_WARN = 'phing_warn';
-    public const CLASS_INFO = 'phing_info';
+    public const CLASS_DEBUG   = 'phing_debug';
+    public const CLASS_WARN    = 'phing_warn';
+    public const CLASS_INFO    = 'phing_info';
 
-    public const PREFIX = '<span class="';
-    public const SUFFIX = '">';
+    public const PREFIX    = '<span class="';
+    public const SUFFIX    = '">';
     public const END_COLOR = '</span>';
 
     private $errColor;
@@ -70,11 +70,11 @@ class HtmlColorLogger extends DefaultLogger
     public function __construct()
     {
         parent::__construct();
-        $this->errColor = self::PREFIX . self::CLASS_ERR . self::SUFFIX;
-        $this->warnColor = self::PREFIX . self::CLASS_WARN . self::SUFFIX;
-        $this->infoColor = self::PREFIX . self::CLASS_INFO . self::SUFFIX;
+        $this->errColor     = self::PREFIX . self::CLASS_ERR . self::SUFFIX;
+        $this->warnColor    = self::PREFIX . self::CLASS_WARN . self::SUFFIX;
+        $this->infoColor    = self::PREFIX . self::CLASS_INFO . self::SUFFIX;
         $this->verboseColor = self::PREFIX . self::CLASS_VERBOSE . self::SUFFIX;
-        $this->debugColor = self::PREFIX . self::CLASS_DEBUG . self::SUFFIX;
+        $this->debugColor   = self::PREFIX . self::CLASS_DEBUG . self::SUFFIX;
     }
 
     /**
@@ -90,11 +90,11 @@ class HtmlColorLogger extends DefaultLogger
 
             $prop->load($systemColorFile);
 
-            $err = $prop->getProperty("HtmlColorLogger.ERROR_CLASS");
-            $warn = $prop->getProperty("HtmlColorLogger.WARNING_CLASS");
-            $info = $prop->getProperty("HtmlColorLogger.INFO_CLASS");
+            $err     = $prop->getProperty("HtmlColorLogger.ERROR_CLASS");
+            $warn    = $prop->getProperty("HtmlColorLogger.WARNING_CLASS");
+            $info    = $prop->getProperty("HtmlColorLogger.INFO_CLASS");
             $verbose = $prop->getProperty("HtmlColorLogger.VERBOSE_CLASS");
-            $debug = $prop->getProperty("HtmlColorLogger.DEBUG_CLASS");
+            $debug   = $prop->getProperty("HtmlColorLogger.DEBUG_CLASS");
             if ($err !== null) {
                 $this->errColor = self::PREFIX . $err . self::SUFFIX;
             }
@@ -129,16 +129,16 @@ class HtmlColorLogger extends DefaultLogger
                 $this->colorsSet = true;
             }
 
-            $search = ['<', '>'];
+            $search  = ['<', '>'];
             $replace = ['&lt;', '&gt;'];
             $message = str_replace($search, $replace, $message);
 
-            $search = ["\t", "\n", "\r"];
+            $search  = ["\t", "\n", "\r"];
             $replace = ['&nbsp;&nbsp;&nbsp;', '<br>', ''];
             $message = str_replace($search, $replace, $message);
 
             if (preg_match('@^( +)([^ ].+)@', $message, $matches)) {
-                $len = strlen($matches[1]);
+                $len   = strlen($matches[1]);
                 $space = '&nbsp;';
                 for ($i = 1; $i < $len; $i++) {
                     $space .= '&nbsp;';

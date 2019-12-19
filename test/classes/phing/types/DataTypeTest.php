@@ -66,7 +66,7 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
 
     public function testToString()
     {
-        $str = "";
+        $str  = "";
         $str .= $this->datatype;
         $this->assertEquals("DataType", $str);
     }

@@ -192,10 +192,10 @@ class ManifestTask extends Task
         foreach ($this->filesets as $fs) {
             $dir = $fs->getDir($this->project)->getPath();
 
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
+            $ds       = $fs->getDirectoryScanner($project);
+            $fromDir  = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
-            $srcDirs = $ds->getIncludedDirectories();
+            $srcDirs  = $ds->getIncludedDirectories();
 
             foreach ($ds->getIncludedFiles() as $file_path) {
                 $line = $file_path;
@@ -208,7 +208,7 @@ class ManifestTask extends Task
                         $line .= "\t" . $hash;
                     }
                 }
-                $line .= "\n";
+                $line      .= "\n";
                 $manifest[] = $line;
                 $this->log("Adding file " . $file_path, Project::MSG_VERBOSE);
                 $this->meta['totalFileCount']++;

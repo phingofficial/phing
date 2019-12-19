@@ -27,7 +27,7 @@
  */
 class PDOSQLExecTransaction
 {
-    private $tSrcFile = null;
+    private $tSrcFile    = null;
     private $tSqlCommand = "";
     private $parent;
 

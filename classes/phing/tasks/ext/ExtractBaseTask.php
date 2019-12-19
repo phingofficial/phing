@@ -111,8 +111,8 @@ abstract class ExtractBaseTask extends MatchingTask
 
         foreach ($this->filesets as $compressedArchiveFileset) {
             $compressedArchiveDirScanner = $compressedArchiveFileset->getDirectoryScanner($this->project);
-            $compressedArchiveFiles = $compressedArchiveDirScanner->getIncludedFiles();
-            $compressedArchiveDir = $compressedArchiveFileset->getDir($this->project);
+            $compressedArchiveFiles      = $compressedArchiveDirScanner->getIncludedFiles();
+            $compressedArchiveDir        = $compressedArchiveFileset->getDir($this->project);
 
             foreach ($compressedArchiveFiles as $compressedArchiveFilePath) {
                 $compressedArchiveFile = new PhingFile($compressedArchiveDir, $compressedArchiveFilePath);

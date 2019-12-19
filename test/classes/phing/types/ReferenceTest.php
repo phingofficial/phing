@@ -30,7 +30,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetProject()
     {
-        $project = new Project();
+        $project     = new Project();
         $description = "desc" . rand();
         $project->setDescription($description);
         $reference = new Reference($project);
@@ -40,7 +40,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
 
     public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
     {
-        $project = new Project();
+        $project   = new Project();
         $reference = new Reference($project, "refOne");
 
         $this->expectException(BuildException::class);
@@ -51,7 +51,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
 
     public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven()
     {
-        $project = new Project();
+        $project   = new Project();
         $reference = new Reference($project);
 
         $this->expectException(BuildException::class);

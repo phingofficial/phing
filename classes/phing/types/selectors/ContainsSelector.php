@@ -27,19 +27,19 @@
  */
 class ContainsSelector extends BaseExtendSelector
 {
-    private $contains = null;
-    private $casesensitive = true;
-    public const CONTAINS_KEY = "text";
-    public const CASE_KEY = "casesensitive";
+    private $contains           = null;
+    private $casesensitive      = true;
+    public const CONTAINS_KEY   = "text";
+    public const CASE_KEY       = "casesensitive";
     public const WHITESPACE_KEY = "ignorewhitespace";
-    private $ignorewhitespace = false;
+    private $ignorewhitespace   = false;
 
     /**
      * @return string
      */
     public function __toString()
     {
-        $buf = "{containsselector text: ";
+        $buf  = "{containsselector text: ";
         $buf .= $this->contains;
         $buf .= " casesensitive: ";
         if ($this->casesensitive) {
@@ -169,7 +169,7 @@ class ContainsSelector extends BaseExtendSelector
 
         $in = null;
         try {
-            $in = new BufferedReader(new FileReader($file));
+            $in      = new BufferedReader(new FileReader($file));
             $teststr = $in->readLine();
             while ($teststr !== null) {
                 if (!$this->casesensitive) {

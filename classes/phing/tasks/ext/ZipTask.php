@@ -66,7 +66,7 @@ class ZipTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new ZipFileSet();
+        $this->fileset    = new ZipFileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -237,7 +237,7 @@ class ZipTask extends MatchingTask
     private function archiveIsUpToDate($files, $dir)
     {
         $sfs = new SourceFileScanner($this);
-        $mm = new MergeMapper();
+        $mm  = new MergeMapper();
         $mm->setTo($this->zipFile->getAbsolutePath());
 
         return count($sfs->restrict($files, $dir, null, $mm)) == 0;

@@ -72,7 +72,7 @@ class DefaultLoggerTest extends TestCase
      */
     public function buildFinished()
     {
-        $event = new BuildEvent(new Project());
+        $event  = new BuildEvent(new Project());
         $logger = new class extends DefaultLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
@@ -84,7 +84,7 @@ class DefaultLoggerTest extends TestCase
                 return 'TIME_STRING';
             }
         };
-        $msg = PHP_EOL . 'BUILD FINISHED' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL;
+        $msg    = PHP_EOL . 'BUILD FINISHED' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL;
         $this->expectOutputString($msg);
         $logger->buildFinished($event);
     }

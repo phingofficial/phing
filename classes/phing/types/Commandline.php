@@ -55,7 +55,7 @@ class Commandline implements Countable
     public $executable; // public so "inner" class can access
 
     public const DISCLAIMER = "The ' characters around the executable and arguments are not part of the command.";
-    private $escape = false;
+    private $escape         = false;
 
     /**
      * @param null $to_process
@@ -271,13 +271,13 @@ class Commandline implements Countable
 
         // parse with a simple finite state machine
 
-        $normal = 0;
-        $inQuote = 1;
+        $normal        = 0;
+        $inQuote       = 1;
         $inDoubleQuote = 2;
 
-        $state = $normal;
-        $args = [];
-        $current = "";
+        $state                  = $normal;
+        $args                   = [];
+        $current                = "";
         $lastTokenHasBeenQuoted = false;
 
         $tokens = preg_split('/(["\' ])/', $toProcess, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -286,7 +286,7 @@ class Commandline implements Countable
                 case $inQuote:
                     if ("'" === $nextTok) {
                         $lastTokenHasBeenQuoted = true;
-                        $state = $normal;
+                        $state                  = $normal;
                     } else {
                         $current .= $nextTok;
                     }
@@ -294,7 +294,7 @@ class Commandline implements Countable
                 case $inDoubleQuote:
                     if ("\"" === $nextTok) {
                         $lastTokenHasBeenQuoted = true;
-                        $state = $normal;
+                        $state                  = $normal;
                     } else {
                         $current .= $nextTok;
                     }
@@ -306,7 +306,7 @@ class Commandline implements Countable
                         $state = $inDoubleQuote;
                     } elseif (" " === $nextTok) {
                         if ($lastTokenHasBeenQuoted || $current !== '') {
-                            $args[] = $current;
+                            $args[]  = $current;
                             $current = "";
                         }
                     } else {
@@ -382,7 +382,7 @@ class Commandline implements Countable
             return '';
         }
 
-        $buf = "Executing '";
+        $buf  = "Executing '";
         $buf .= $args[0];
         $buf .= "'";
         if (count($args) > 0) {

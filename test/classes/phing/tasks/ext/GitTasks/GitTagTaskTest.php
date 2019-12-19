@@ -172,7 +172,7 @@ class GitTagTaskTest extends BuildFileTest
     public function testTagFileSet()
     {
         $msgFile = PHING_TEST_BASE . '/tmp/msg.txt';
-        $fp = fopen($msgFile, 'w');
+        $fp      = fopen($msgFile, 'w');
         fwrite($fp, 'test tag message');
         fclose($fp);
 

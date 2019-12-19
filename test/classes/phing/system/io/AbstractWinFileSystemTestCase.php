@@ -143,12 +143,12 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     public function resolveFileDataProvider()
     {
-        $cwd = getcwd();
+        $cwd         = getcwd();
         $driveLetter = '';
         // This is a bit weird, but it lets us run the win tests on unix machines. Might be better
         // to find an abstraction for drive letter within file system
         if (substr(PHP_OS, 0, 3) === 'WIN') {
-            $colonPos = strpos($cwd, ':');
+            $colonPos    = strpos($cwd, ':');
             $driveLetter = substr($cwd, 0, $colonPos) . ':';
         } else {
             $cwd = str_replace('/', '\\', $cwd);

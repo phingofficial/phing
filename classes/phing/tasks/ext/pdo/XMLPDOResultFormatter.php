@@ -87,7 +87,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
 
     public function initialize()
     {
-        $this->doc = new DOMDocument("1.0", $this->encoding);
+        $this->doc      = new DOMDocument("1.0", $this->encoding);
         $this->rootNode = $this->doc->createElement('results');
         $this->doc->appendChild($this->rootNode);
         $this->doc->formatOutput = $this->formatOutput;
@@ -108,7 +108,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
             $colNode->setAttribute('name', $columnName);
 
             if ($columnValue != null) {
-                $columnValue = trim($columnValue);
+                $columnValue        = trim($columnValue);
                 $colNode->nodeValue = $columnValue;
             }
             $rowNode->appendChild($colNode);
@@ -135,7 +135,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
     {
         $this->out->write($this->doc->saveXML());
         $this->rootNode = null;
-        $this->doc = null;
+        $this->doc      = null;
         parent::close();
     }
 }

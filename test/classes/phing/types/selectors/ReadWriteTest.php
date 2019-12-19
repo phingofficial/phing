@@ -41,8 +41,8 @@ class ReadWriteTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
-        $output = $project->getProperty('output');
-        $file = $project->getProperty('file');
+        $output  = $project->getProperty('output');
+        $file    = $project->getProperty('file');
         $this->assertTrue(is_readable(sprintf('%s/%s', $output, $file)));
     }
 
@@ -50,8 +50,8 @@ class ReadWriteTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
-        $output = $project->getProperty('output');
-        $file = $project->getProperty('file');
+        $output  = $project->getProperty('output');
+        $file    = $project->getProperty('file');
         $this->assertTrue(is_writable(sprintf('%s/%s', $output, $file)));
     }
 
@@ -59,8 +59,8 @@ class ReadWriteTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
-        $output = $project->getProperty('output');
-        $file = $project->getProperty('file');
+        $output  = $project->getProperty('output');
+        $file    = $project->getProperty('file');
         $this->assertFalse(is_writable(sprintf('%s/%s', $output, $file)));
     }
 }

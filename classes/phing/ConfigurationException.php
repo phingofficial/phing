@@ -53,12 +53,12 @@ class ConfigurationException extends Exception
     public function __construct($p1, $p2 = null)
     {
         $cause = null;
-        $msg = "";
+        $msg   = "";
 
         if ($p2 !== null) {
             if ($p2 instanceof Exception) {
                 $cause = $p2;
-                $msg = $p1;
+                $msg   = $p1;
             }
         } elseif ($p1 instanceof Exception) {
             $cause = $p1;
@@ -69,7 +69,7 @@ class ConfigurationException extends Exception
         parent::__construct($msg);
 
         if ($cause !== null) {
-            $this->cause = $cause;
+            $this->cause    = $cause;
             $this->message .= " [wrapped: " . $cause->getMessage() . "]";
         }
     }

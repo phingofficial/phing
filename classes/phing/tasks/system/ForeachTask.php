@@ -158,7 +158,7 @@ class ForeachTask extends Task
         }
 
         if ($this->list !== null) {
-            $arr = explode($this->delimiter, $this->list);
+            $arr           = explode($this->delimiter, $this->list);
             $total_entries = 0;
 
             foreach ($arr as $index => $value) {
@@ -168,7 +168,7 @@ class ForeachTask extends Task
                 $premapped = '';
                 if ($mapper !== null) {
                     $premapped = $value;
-                    $value = $mapper->main($value);
+                    $value     = $mapper->main($value);
                     if ($value === null) {
                         continue;
                     }
@@ -210,15 +210,15 @@ class ForeachTask extends Task
 
         // filesets
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->project);
+            $ds       = $fs->getDirectoryScanner($this->project);
             $srcFiles = $ds->getIncludedFiles();
-            $srcDirs = $ds->getIncludedDirectories();
+            $srcDirs  = $ds->getIncludedDirectories();
 
             $this->process($callee, $fs->getDir($this->project), $srcFiles, $srcDirs);
         }
 
         foreach ($this->dirsets as $dirset) {
-            $ds = $dirset->getDirectoryScanner($this->project);
+            $ds      = $dirset->getDirectoryScanner($this->project);
             $srcDirs = $ds->getIncludedDirectories();
 
             $this->process($callee, $dirset->getDir($this->project), [], $srcDirs);
@@ -253,12 +253,12 @@ class ForeachTask extends Task
             $mapper = $this->mapperElement->getImplementation();
         }
 
-        $filecount = count($srcFiles);
+        $filecount          = count($srcFiles);
         $this->total_files += $filecount;
 
         $this->processResources($filecount, $srcFiles, $callee, $fromDir, $mapper);
 
-        $dircount = count($srcDirs);
+        $dircount          = count($srcDirs);
         $this->total_dirs += $dircount;
 
         $this->processResources($dircount, $srcDirs, $callee, $fromDir, $mapper);
@@ -275,7 +275,7 @@ class ForeachTask extends Task
     private function processResources(int $rescount, array $srcRes, $callee, $fromDir, $mapper)
     {
         for ($j = 0; $j < $rescount; $j++) {
-            $value = $srcRes[$j];
+            $value     = $srcRes[$j];
             $premapped = "";
 
             if ($this->absparam) {
@@ -287,7 +287,7 @@ class ForeachTask extends Task
 
             if ($mapper !== null) {
                 $premapped = $value;
-                $value = $mapper->main($value);
+                $value     = $mapper->main($value);
                 if ($value === null) {
                     continue;
                 }

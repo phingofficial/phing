@@ -54,7 +54,7 @@ class PhingXMLContext
      */
     public function __construct(Project $project)
     {
-        $this->project = $project;
+        $this->project        = $project;
         $this->implicitTarget = new Target();
         $this->implicitTarget->setName('');
         $this->implicitTarget->setHidden(true);

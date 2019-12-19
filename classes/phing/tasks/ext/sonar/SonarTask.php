@@ -200,7 +200,7 @@ class SonarTask extends Task
         $options = implode(' ', $this->commandLineOptions);
 
         foreach ($this->properties as $name => $value) {
-            $arg = sprintf('%s=%s', $name, $value);
+            $arg      = sprintf('%s=%s', $name, $value);
             $options .= ' -D ' . escapeshellarg($arg);
         }
 
@@ -363,7 +363,7 @@ class SonarTask extends Task
         $this->properties = $this->parseConfigurationFile();
 
         foreach ($this->propertyElements as $property) {
-            $name = $property->getName();
+            $name  = $property->getName();
             $value = $property->getValue();
 
             if ($name === null || $name === '') {
@@ -390,7 +390,7 @@ class SonarTask extends Task
             'sonar.projectVersion',
             'sonar.sources'
         ];
-        $intersection = array_intersect($requiredProperties, array_keys($this->properties));
+        $intersection       = array_intersect($requiredProperties, array_keys($this->properties));
         if (count($intersection) < count($requiredProperties)) {
             $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(
                 ', ',

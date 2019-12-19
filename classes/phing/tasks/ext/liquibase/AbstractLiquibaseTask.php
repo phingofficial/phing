@@ -186,7 +186,7 @@ abstract class AbstractLiquibaseTask extends Task
      */
     public function createProperty()
     {
-        $prop = new LiquibaseProperty();
+        $prop               = new LiquibaseProperty();
         $this->properties[] = $prop;
 
         return $prop;
@@ -199,7 +199,7 @@ abstract class AbstractLiquibaseTask extends Task
      */
     public function createParameter()
     {
-        $param = new LiquibaseParameter();
+        $param              = new LiquibaseParameter();
         $this->parameters[] = $param;
 
         return $param;

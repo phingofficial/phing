@@ -112,7 +112,7 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
         $xmlFile->load($changelogFile);
 
         // create the new node
-        $rootNode = $xmlFile->getElementsByTagName('databaseChangeLog')->item(0);
+        $rootNode    = $xmlFile->getElementsByTagName('databaseChangeLog')->item(0);
         $includeNode = $rootNode->appendChild($xmlFile->createElement('include'));
 
         // set the attributes for the new node

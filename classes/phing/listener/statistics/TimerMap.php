@@ -34,7 +34,7 @@ class TimerMap
     {
         $timer = $this->map[$name] ?? null;
         if ($timer === null) {
-            $timer = $this->createTimer($name, $clock);
+            $timer            = $this->createTimer($name, $clock);
             $this->map[$name] = $timer;
         }
 

@@ -29,7 +29,7 @@ class EqualsCondition implements Condition
 {
     private $arg1;
     private $arg2;
-    private $trim = false;
+    private $trim          = false;
     private $caseSensitive = true;
 
     /**

@@ -156,11 +156,11 @@ class JsHintTask extends Task
 
         if (!isset($this->file)) {
             $fileList = [];
-            $project = $this->getProject();
+            $project  = $this->getProject();
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
+                $ds    = $fs->getDirectoryScanner($project);
                 $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getAbsolutePath();
+                $dir   = $fs->getDir($this->project)->getAbsolutePath();
                 foreach ($files as $file) {
                     $fileList[] = $dir . DIRECTORY_SEPARATOR . $file;
                 }
@@ -189,18 +189,18 @@ class JsHintTask extends Task
         $output = [];
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
-        $xml = simplexml_load_string($output);
+        $xml    = simplexml_load_string($output);
 
         $projectBasedir = $this->_getProjectBasedir();
-        $errorsCount = 0;
-        $warningsCount = 0;
-        $fileError = $this->xmlAttributes['fileError'];
+        $errorsCount    = 0;
+        $warningsCount  = 0;
+        $fileError      = $this->xmlAttributes['fileError'];
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
-            $fileName = (string) $fileAttributes['name'];
+            $fileName       = (string) $fileAttributes['name'];
             foreach ($file->$fileError as $error) {
                 $errAttr = (array) $error->attributes();
-                $attrs = current($errAttr);
+                $attrs   = current($errAttr);
 
                 if ($attrs['severity'] === $this->xmlAttributes['severity']['error']) {
                     $errorsCount++;

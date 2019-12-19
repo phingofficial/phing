@@ -50,8 +50,8 @@ class Location
      */
     public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
     {
-        $this->fileName = $fileName;
-        $this->lineNumber = $lineNumber;
+        $this->fileName     = $fileName;
+        $this->lineNumber   = $lineNumber;
         $this->columnNumber = $columnNumber;
     }
 

@@ -22,7 +22,7 @@ declare(strict_types=1);
 class PHPStanListCommandBuilder extends PHPStanCommandBuilder
 {
     private const ARG_FORMAT = '--format=%s';
-    private const ARG_RAW = '--raw';
+    private const ARG_RAW    = '--raw';
 
     public function build(PHPStanTask $task): void
     {

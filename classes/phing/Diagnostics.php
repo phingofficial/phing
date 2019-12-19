@@ -204,8 +204,8 @@ class Diagnostics
             return;
         }
 
-        $now = time();
-        $tempFile = (new FileUtils())->createTempFile('diag', 'txt', $tempDirectory, true, true);
+        $now        = time();
+        $tempFile   = (new FileUtils())->createTempFile('diag', 'txt', $tempDirectory, true, true);
         $fileWriter = new FileWriter($tempFile);
         $fileWriter->write('some test text');
         $fileWriter->close();

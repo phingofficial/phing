@@ -172,7 +172,7 @@ abstract class HgBaseTask extends Task
 
     public function getFactoryInstance($command, $options = [])
     {
-        $vchq = '\\Siad007\\VersionControl\\HG\\Factory';
+        $vchq          = '\\Siad007\\VersionControl\\HG\\Factory';
         self::$factory = $vchq::getInstance($command, $options);
         return self::$factory;
     }

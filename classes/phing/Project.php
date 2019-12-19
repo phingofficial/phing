@@ -32,11 +32,11 @@ class Project
 {
 
     // Logging level constants.
-    public const MSG_DEBUG = 4;
+    public const MSG_DEBUG   = 4;
     public const MSG_VERBOSE = 3;
-    public const MSG_INFO = 2;
-    public const MSG_WARN = 1;
-    public const MSG_ERR = 0;
+    public const MSG_INFO    = 2;
+    public const MSG_WARN    = 1;
+    public const MSG_ERR     = 0;
 
     /**
      * contains the targets
@@ -426,7 +426,7 @@ class Project
      */
     public function setPhingVersion($version)
     {
-        $version = str_replace('phing', '', strtolower($version));
+        $version            = str_replace('phing', '', strtolower($version));
         $this->phingVersion = (string) trim($version);
     }
 
@@ -643,8 +643,8 @@ class Project
         $target->setProject($this);
         $this->targets[$targetName] = $target;
 
-        $ctx = $this->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
-        $current = $ctx->getCurrentTargets();
+        $ctx                  = $this->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
+        $current              = $ctx->getCurrentTargets();
         $current[$targetName] = $target;
     }
 
@@ -739,10 +739,10 @@ class Project
         // until targetName occurs.
         $sortedTargets = $this->topoSort($targetName);
 
-        $curIndex = (int) 0;
-        $curTarget = null;
+        $curIndex        = (int) 0;
+        $curTarget       = null;
         $thrownException = null;
-        $buildException = null;
+        $buildException  = null;
         do {
             try {
                 $curTarget = $sortedTargets[$curIndex++];
@@ -836,9 +836,9 @@ class Project
     public function topoSort($rootTarget)
     {
         $rootTarget = (string) $rootTarget;
-        $ret = [];
-        $state = [];
-        $visiting = [];
+        $ret        = [];
+        $state      = [];
+        $visiting   = [];
 
         // We first run a DFS based sort using the root as the starting node.
         // This creates the minimum sequence of Targets to the root node.
@@ -909,7 +909,7 @@ class Project
     public function _tsort($root, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
-        $visiting[] = $root;
+        $visiting[]   = $root;
 
         if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $target = null;
@@ -923,7 +923,7 @@ class Project
             array_pop($visiting);
             if (!empty($visiting)) {
                 $parent = (string) $visiting[count($visiting) - 1];
-                $sb .= " It is a dependency of target '$parent'.";
+                $sb    .= " It is a dependency of target '$parent'.";
             }
             throw new BuildException($sb);
         }
@@ -952,7 +952,7 @@ class Project
         }
 
         $state[$root] = "VISITED";
-        $ret[] = $target;
+        $ret[]        = $target;
     }
 
     /**
@@ -964,7 +964,7 @@ class Project
     {
         $sb = "Circular dependency: $end";
         do {
-            $c = (string) array_pop($stk);
+            $c   = (string) array_pop($stk);
             $sb .= " <- " . $c;
         } while ($c != $end);
 

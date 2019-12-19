@@ -25,8 +25,8 @@
  */
 class PhingVersion extends Task implements Condition
 {
-    private $atLeast = null;
-    private $exactly = null;
+    private $atLeast      = null;
+    private $exactly      = null;
     private $propertyname = null;
 
     /**

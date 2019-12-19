@@ -112,7 +112,7 @@ class GitMergeTask extends GitBaseTask
             throw new BuildException('"remote" is required parameter');
         }
 
-        $client = $this->getGitClient(false, $this->getRepository());
+        $client  = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('merge');
         $command
             ->setOption('commit', $this->isCommit())

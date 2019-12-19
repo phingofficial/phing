@@ -33,9 +33,9 @@ class PhpLintTask extends Task
 
     protected $errorProperty;
     protected $haltOnFailure = false;
-    protected $hasErrors = false;
-    protected $badFiles = [];
-    protected $interpreter = ''; // php interpreter to use for linting
+    protected $hasErrors     = false;
+    protected $badFiles      = [];
+    protected $interpreter   = ''; // php interpreter to use for linting
 
     protected $cache = null;
 
@@ -141,9 +141,9 @@ class PhpLintTask extends Task
         } else { // process filesets
             $project = $this->getProject();
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
+                $ds    = $fs->getDirectoryScanner($project);
                 $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getPath();
+                $dir   = $fs->getDir($this->project)->getPath();
                 foreach ($files as $file) {
                     $this->lint($dir . DIRECTORY_SEPARATOR . $file);
                 }
@@ -224,7 +224,7 @@ class PhpLintTask extends Task
             }
         }
 
-        $messages = [];
+        $messages   = [];
         $errorCount = 0;
 
         exec($command . '"' . $file . '" 2>&1', $messages);

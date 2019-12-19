@@ -24,11 +24,11 @@
  */
 class TextElement extends ProjectComponent
 {
-    public $value = "";
+    public $value       = "";
     public $trimLeading = false;
-    public $trim = false;
-    public $filtering = true;
-    public $encoding = null;
+    public $trim        = false;
+    public $filtering   = true;
+    public $encoding    = null;
 
     /**
      * whether to filter the text in this element
@@ -125,10 +125,10 @@ class TextElement extends ProjectComponent
             $this->value = "";
         }
         if ($this->trimLeading) {
-            $current = str_split($this->value);
-            $b = '';
+            $current     = str_split($this->value);
+            $b           = '';
             $startOfLine = true;
-            $pos = 0;
+            $pos         = 0;
             while ($pos < count($current)) {
                 $ch = $current[$pos++];
                 if ($startOfLine) {

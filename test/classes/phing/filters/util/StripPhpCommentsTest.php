@@ -44,10 +44,10 @@ class StripPhpCommentsTest extends BuildFileTest
         $this->executeTarget("testStripPhpComments");
 
         $expectedFile = $this->getProject()->resolveFile("expected/stripphpcomments.test");
-        $resultFile = $this->getProject()->resolveFile("result/stripphpcomments.test");
+        $resultFile   = $this->getProject()->resolveFile("result/stripphpcomments.test");
 
         $expected = file_get_contents($expectedFile->getAbsolutePath());
-        $result = file_get_contents($resultFile->getAbsolutePath());
+        $result   = file_get_contents($resultFile->getAbsolutePath());
 
         $this->assertEquals($expected, $result, "Files don't match!");
     }

@@ -64,7 +64,7 @@ class GitGcTaskTest extends BuildFileTest
     public function testAutoParameter()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+        $msg        = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('autoParamSet');
         $this->assertInLogs($msg);
@@ -73,7 +73,7 @@ class GitGcTaskTest extends BuildFileTest
     public function testNoPruneParameter()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+        $msg        = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('nopruneParamSet');
         $this->assertInLogs($msg);
@@ -82,7 +82,7 @@ class GitGcTaskTest extends BuildFileTest
     public function testAggressiveParameter()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+        $msg        = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('aggressiveParamSet');
         $this->assertInLogs($msg);
@@ -91,7 +91,7 @@ class GitGcTaskTest extends BuildFileTest
     public function testPruneParameter()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+        $msg        = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('pruneParamSet');
         $this->assertInLogs($msg);

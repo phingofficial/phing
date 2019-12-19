@@ -28,7 +28,7 @@
 class SvnLastRevisionTask extends SvnBaseTask
 {
     private $propertyName = "svn.lastrevision";
-    private $lastChanged = false;
+    private $lastChanged  = false;
 
     /**
      * Sets the name of the property to use

@@ -73,8 +73,8 @@ class ExpatParser extends AbstractSAXParser
         if ($filename !== null) {
             $this->file = new SplFileObject($filename);
         }
-        $this->parser = xml_parser_create();
-        $this->buffer = 4096;
+        $this->parser   = xml_parser_create();
+        $this->buffer   = 4096;
         $this->location = new Location();
         xml_set_object($this->parser, $this);
         xml_set_element_handler($this->parser, [$this, "startElement"], [$this, "endElement"]);
@@ -130,7 +130,7 @@ class ExpatParser extends AbstractSAXParser
         while (($data = $this->reader->read()) !== -1) {
             if (!xml_parse($this->parser, $data, $this->reader->eof())) {
                 $error = xml_error_string(xml_get_error_code($this->parser));
-                $e = new ExpatParseException($error, $this->getLocation());
+                $e     = new ExpatParseException($error, $this->getLocation());
                 xml_parser_free($this->parser);
                 throw $e;
             }

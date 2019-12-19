@@ -85,7 +85,7 @@ class HgArchiveTask extends HgBaseTask
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            $p = strpos($msg, 'hg returned:');
+            $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {
                 $msg = substr($msg, $p + 13);
             }

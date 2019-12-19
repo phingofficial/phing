@@ -58,10 +58,10 @@ class OutputStream
         error_clear_last();
         if (false === @fclose($this->stream)) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
-            $metaData = stream_get_meta_data($this->stream);
-            $resource = $metaData["uri"];
-            $msg = "Cannot close " . $resource . ": $errormsg";
+            $errormsg  = $lastError['message'];
+            $metaData  = stream_get_meta_data($this->stream);
+            $resource  = $metaData["uri"];
+            $msg       = "Cannot close " . $resource . ": $errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;
@@ -77,7 +77,7 @@ class OutputStream
         error_clear_last();
         if (false === @fflush($this->stream)) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg  = $lastError['message'];
             throw new IOException("Could not flush stream: " . $errormsg);
         }
     }

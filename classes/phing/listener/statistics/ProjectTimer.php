@@ -33,7 +33,7 @@ class ProjectTimer extends StatsTimer
     {
         parent::__construct($name, $clock);
         $this->targetMap = new TimerMap();
-        $this->taskMap = new TimerMap();
+        $this->taskMap   = new TimerMap();
     }
 
     public function getTargetTimer($name)

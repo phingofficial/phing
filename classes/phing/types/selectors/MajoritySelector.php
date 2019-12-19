@@ -73,7 +73,7 @@ class MajoritySelector extends BaseSelectorContainer
         $this->validate();
 
         $yesvotes = 0;
-        $novotes = 0;
+        $novotes  = 0;
 
         $selectors = $this->selectorElements();
         for ($i = 0, $size = count($selectors); $i < $size; $i++) {

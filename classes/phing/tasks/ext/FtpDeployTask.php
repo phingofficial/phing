@@ -45,21 +45,21 @@ class FtpDeployTask extends Task
     use FileSetAware;
     use LogLevelAware;
 
-    private $host = null;
-    private $port = 21;
-    private $ssl = false;
+    private $host     = null;
+    private $port     = 21;
+    private $ssl      = false;
     private $username = null;
     private $password = null;
-    private $dir = null;
+    private $dir      = null;
     private $completeDirMap;
-    private $mode = FTP_BINARY;
-    private $clearFirst = false;
-    private $passive = false;
-    private $depends = false;
-    private $dirmode = false;
-    private $filemode = false;
+    private $mode            = FTP_BINARY;
+    private $clearFirst      = false;
+    private $passive         = false;
+    private $depends         = false;
+    private $dirmode         = false;
+    private $filemode        = false;
     private $rawDataFallback = false;
-    private $skipOnSameSize = false;
+    private $skipOnSameSize  = false;
 
     /**
      *
@@ -67,7 +67,7 @@ class FtpDeployTask extends Task
     public function __construct()
     {
         parent::__construct();
-        $this->filesets = [];
+        $this->filesets       = [];
         $this->completeDirMap = [];
     }
 
@@ -276,17 +276,17 @@ class FtpDeployTask extends Task
 
         $this->log('Changed directory ' . $dir, $this->logLevel);
 
-        $fs = FileSystem::getFileSystem();
+        $fs      = FileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
 
         foreach ($this->filesets as $fs) {
             // Array for holding directory content informations
             $remoteFileInformations = [];
 
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
+            $ds       = $fs->getDirectoryScanner($project);
+            $fromDir  = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
-            $srcDirs = $ds->getIncludedDirectories();
+            $srcDirs  = $ds->getIncludedDirectories();
 
             foreach ($srcDirs as $dirname) {
                 if ($convert) {
@@ -319,7 +319,7 @@ class FtpDeployTask extends Task
                     $filename = str_replace('\\', '/', $filename);
                 }
 
-                $local_filemtime = filemtime($file->getCanonicalPath());
+                $local_filemtime            = filemtime($file->getCanonicalPath());
                 $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'] ?? 0;
 
                 if (!$this->depends || ($local_filemtime > $remoteFileModificationTime)) {
@@ -400,7 +400,7 @@ class FtpDeployTask extends Task
         $this->log('Start parsing FTP_RAW_DATA in ' . $directory);
         $retval = [];
         foreach ($content as $rawInfo) {
-            $rawInfo = explode(' ', $rawInfo);
+            $rawInfo  = explode(' ', $rawInfo);
             $rawInfo2 = [];
             foreach ($rawInfo as $part) {
                 $part = trim($part);

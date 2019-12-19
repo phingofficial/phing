@@ -122,11 +122,11 @@ class HttpRequestTask extends HttpTask
         $this->observerEvents = [];
 
         $token = ' ,;';
-        $ext = strtok($observerEvents, $token);
+        $ext   = strtok($observerEvents, $token);
 
         while ($ext !== false) {
             $this->observerEvents[] = $ext;
-            $ext = strtok($token);
+            $ext                    = strtok($token);
         }
     }
 

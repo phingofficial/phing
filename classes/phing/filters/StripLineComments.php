@@ -80,7 +80,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
             return -1;
         }
 
-        $lines = explode("\n", $buffer);
+        $lines    = explode("\n", $buffer);
         $filtered = [];
 
         $commentsSize = count($this->comments);

@@ -311,7 +311,7 @@ class SshTask extends Task
             throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
 
-        $methods = !empty($this->methods) ? $this->methods->toArray($p) : [];
+        $methods          = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");

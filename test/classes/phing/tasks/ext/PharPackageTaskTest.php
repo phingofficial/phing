@@ -43,7 +43,7 @@ class PharPackageTaskTest extends BuildFileTest
     {
         // Generate a private key on the fly.
         $passphrase = uniqid('', true);
-        $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
+        $passfile   = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
         file_put_contents($passfile, $passphrase);
         $pkey = openssl_pkey_new();
         openssl_pkey_export_to_file(
@@ -58,7 +58,7 @@ class PharPackageTaskTest extends BuildFileTest
         // whenever it fails to add an OpenSSL signature)
         $dest = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar';
         $this->assertFileExists($dest);
-        $phar = new Phar($dest);
+        $phar      = new Phar($dest);
         $signature = $phar->getSignature();
         $this->assertEquals('OpenSSL', $signature['hash_type']);
     }

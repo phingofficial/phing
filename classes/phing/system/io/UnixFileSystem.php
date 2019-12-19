@@ -89,7 +89,7 @@ class UnixFileSystem extends FileSystem
             $i = 0;
         }
 
-        $n = strlen($strPathname);
+        $n        = strlen($strPathname);
         $prevChar = 0;
         for (; $i < $n; $i++) {
             $c = $strPathname[$i];
@@ -138,7 +138,7 @@ class UnixFileSystem extends FileSystem
             if (($prevChar === '/') && ($c === '/')) {
                 continue;
             }
-            $sb .= $c;
+            $sb      .= $c;
             $prevChar = $c;
         }
 
@@ -160,7 +160,7 @@ class UnixFileSystem extends FileSystem
         }
 
         if (class_exists('Phar', false) && method_exists('Phar', 'running')) {
-            $phar = Phar::running();
+            $phar      = Phar::running();
             $pharAlias = 'phar://' . Phing::PHAR_ALIAS;
 
             if ($phar && strpos($pathname, $phar) === 0) {
@@ -276,7 +276,7 @@ class UnixFileSystem extends FileSystem
             return;
         }
 
-        $srcPath = $src->getAbsolutePath();
+        $srcPath  = $src->getAbsolutePath();
         $destPath = $dest->getAbsolutePath();
 
         $linkTarget = $src->getLinkTarget();

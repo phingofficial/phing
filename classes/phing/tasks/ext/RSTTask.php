@@ -146,7 +146,7 @@ class RSTTask extends Task
         }
 
         if ($this->file != '') {
-            $file = $this->file;
+            $file       = $this->file;
             $targetFile = $this->getTargetFile($file, $this->destination);
             $this->render($tool, $file, $targetFile);
 
@@ -167,8 +167,8 @@ class RSTTask extends Task
 
         $project = $this->getProject();
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
+            $ds       = $fs->getDirectoryScanner($project);
+            $fromDir  = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $src) {
@@ -283,7 +283,7 @@ class RSTTask extends Task
         }
 
         $tool = 'rst2' . $format;
-        $fs = FileSystem::getFileSystem();
+        $fs   = FileSystem::getFileSystem();
         $path = $fs->which($tool);
         if (!$path) {
             throw new BuildException(
@@ -396,7 +396,7 @@ class RSTTask extends Task
     public function setToolpath($path)
     {
         if (!file_exists($path)) {
-            $fs = FileSystem::getFileSystem();
+            $fs       = FileSystem::getFileSystem();
             $fullpath = $fs->which($path);
             if ($fullpath === false) {
                 throw new BuildException(

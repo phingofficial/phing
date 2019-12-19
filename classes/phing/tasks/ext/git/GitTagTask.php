@@ -150,7 +150,7 @@ class GitTagTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        $client = $this->getGitClient(false, $this->getRepository());
+        $client  = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('tag');
         $command
             ->setOption('a', $this->isAnnotate())

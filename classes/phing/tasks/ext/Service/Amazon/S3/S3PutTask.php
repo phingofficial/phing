@@ -405,7 +405,7 @@ class S3PutTask extends S3
                     continue;
                 }
 
-                $ds = $fs->getDirectoryScanner($this->getProject());
+                $ds      = $fs->getDirectoryScanner($this->getProject());
                 $objects = array_merge($objects, $ds->getIncludedFiles());
             }
 

@@ -119,7 +119,7 @@ class GitCloneTask extends GitBaseTask
 
         if (is_dir($this->getTargetPath()) && version_compare('1.6.1.4', $client->getGitVersion(), '>=')) {
             $isEmptyDir = true;
-            $entries = scandir($this->getTargetPath());
+            $entries    = scandir($this->getTargetPath());
             foreach ($entries as $entry) {
                 if ('.' !== $entry && '..' !== $entry) {
                     $isEmptyDir = false;

@@ -27,8 +27,8 @@
 class OsCondition implements Condition
 {
     public const FAMILY_WINDOWS = 'windows';
-    public const FAMILY_MAC = 'mac';
-    public const FAMILY_UNIX = 'unix';
+    public const FAMILY_MAC     = 'mac';
+    public const FAMILY_UNIX    = 'unix';
 
     private const DARWIN = 'darwin';
 

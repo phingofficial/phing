@@ -27,14 +27,14 @@
  */
 class FilenameSelector extends BaseExtendSelector
 {
-    private $pattern = null;
-    private $regex = null;
-    private $casesensitive = true;
-    private $negated = false;
-    public const NAME_KEY = "name";
-    public const CASE_KEY = "casesensitive";
+    private $pattern        = null;
+    private $regex          = null;
+    private $casesensitive  = true;
+    private $negated        = false;
+    public const NAME_KEY   = "name";
+    public const CASE_KEY   = "casesensitive";
     public const NEGATE_KEY = "negate";
-    public const REGEX_KEY = "regex";
+    public const REGEX_KEY  = "regex";
 
     private $reg;
     private $expression;
@@ -96,7 +96,7 @@ class FilenameSelector extends BaseExtendSelector
     public function setRegex($pattern)
     {
         $this->regex = $pattern;
-        $this->reg = null;
+        $this->reg   = null;
     }
 
     /**

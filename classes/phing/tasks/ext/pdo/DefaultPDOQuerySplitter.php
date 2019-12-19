@@ -68,13 +68,13 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      */
     public function nextQuery()
     {
-        $sql = "";
+        $sql      = "";
         $hasQuery = false;
 
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
-            $project = $this->parent->getOwningTarget()->getProject();
-            $line = $project->replaceProperties(trim($line));
+            $project   = $this->parent->getOwningTarget()->getProject();
+            $line      = $project->replaceProperties(trim($line));
 
             if (
                 ($line != $delimiter)
@@ -99,7 +99,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
             }
 
             if ($this->sqlBacklog !== "") {
-                $sql = $this->sqlBacklog;
+                $sql              = $this->sqlBacklog;
                 $this->sqlBacklog = "";
             }
 
@@ -116,7 +116,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
             if ($this->delimiterType == PDOSQLExecTask::DELIM_NORMAL) {
                 $reg = "#((?:\"(?:\\\\.|[^\"])*\"?)+|'(?:\\\\.|[^'])*'?|" . preg_quote($delimiter) . ")#";
 
-                $sqlParts = preg_split($reg, $sql, 0, PREG_SPLIT_DELIM_CAPTURE);
+                $sqlParts         = preg_split($reg, $sql, 0, PREG_SPLIT_DELIM_CAPTURE);
                 $this->sqlBacklog = "";
                 foreach ($sqlParts as $sqlPart) {
                     // we always want to append, even if it's a delim (which will be stripped off later)
@@ -124,9 +124,9 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 
                     // we found a single (not enclosed by ' or ") delimiter, so we can use all stuff before the delim as the actual query
                     if ($sqlPart === $delimiter) {
-                        $sql = $this->sqlBacklog;
+                        $sql              = $this->sqlBacklog;
                         $this->sqlBacklog = "";
-                        $hasQuery = true;
+                        $hasQuery         = true;
                     }
                 }
             }

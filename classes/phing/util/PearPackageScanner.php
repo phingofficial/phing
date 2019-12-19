@@ -184,7 +184,7 @@ class PearPackageScanner extends DirectoryScanner
         } else {
             // loads informations from PEAR package XML description file
             PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
-            $pkg = new PEAR_PackageFile($config);
+            $pkg         = new PEAR_PackageFile($config);
             $packageInfo = $pkg->fromPackageFile($this->packageFile, PEAR_VALIDATE_NORMAL);
             PEAR::staticPopErrorHandling();
             if (@PEAR::isError($packageInfo)) {
@@ -223,16 +223,16 @@ class PearPackageScanner extends DirectoryScanner
             $this->excludes = [];
         }
 
-        $this->filesIncluded = [];
+        $this->filesIncluded    = [];
         $this->filesNotIncluded = [];
-        $this->filesExcluded = [];
-        $this->filesDeselected = [];
+        $this->filesExcluded    = [];
+        $this->filesDeselected  = [];
 
-        $this->dirsIncluded = [];
+        $this->dirsIncluded    = [];
         $this->dirsNotIncluded = [];
-        $this->dirsExcluded = [];
-        $this->dirsDeselected = [];
-        $origFirstFile = null;
+        $this->dirsExcluded    = [];
+        $this->dirsDeselected  = [];
+        $origFirstFile         = null;
 
         foreach ($list as $file => $att) {
             if ($att['role'] != $this->role && $this->role != '') {
@@ -278,7 +278,7 @@ class PearPackageScanner extends DirectoryScanner
 
         if (count($this->filesIncluded) > 0) {
             if (empty($this->packageFile)) {
-                $att = $list[$origFirstFile];
+                $att      = $list[$origFirstFile];
                 $base_dir = substr(
                     $att['installed_as'],
                     0,

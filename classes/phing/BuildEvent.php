@@ -93,16 +93,16 @@ class BuildEvent extends EventObject
         parent::__construct($source);
         if ($source instanceof Project) {
             $this->project = $source;
-            $this->target = null;
-            $this->task = null;
+            $this->target  = null;
+            $this->task    = null;
         } elseif ($source instanceof Target) {
             $this->project = $source->getProject();
-            $this->target = $source;
-            $this->task = null;
+            $this->target  = $source;
+            $this->task    = null;
         } elseif ($source instanceof Task) {
             $this->project = $source->getProject();
-            $this->target = $source->getOwningTarget();
-            $this->task = $source;
+            $this->target  = $source->getOwningTarget();
+            $this->task    = $source;
         } else {
             throw new Exception("Can not construct BuildEvent, unknown source given.");
         }
@@ -116,7 +116,7 @@ class BuildEvent extends EventObject
      */
     public function setMessage($message, $priority)
     {
-        $this->message = (string) $message;
+        $this->message  = (string) $message;
         $this->priority = (int) $priority;
     }
 

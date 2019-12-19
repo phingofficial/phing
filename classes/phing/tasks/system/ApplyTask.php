@@ -105,7 +105,7 @@ class ApplyTask extends ExecTask
     protected $srcIsFirst = true;
 
     protected $skipEmpty = false;
-    private $force = false;
+    private $force       = false;
     private $mapper;
     private $destDir;
 
@@ -257,7 +257,7 @@ class ApplyTask extends ExecTask
         }
 
         $this->targetFilePos = $this->commandline->createMarker();
-        $this->srcIsFirst = ($this->srcFilePos !== null);
+        $this->srcIsFirst    = ($this->srcFilePos !== null);
 
         return $this->targetFilePos;
     }
@@ -321,8 +321,8 @@ class ApplyTask extends ExecTask
                 $this->buildCommand();
                 // Process //
                 $totalFiles = 0;
-                $totalDirs = 0;
-                $fileNames = [];
+                $totalDirs  = 0;
+                $fileNames  = [];
                 // - FileSets
                 foreach ($this->filesets as $fs) {
                     $currentType = $this->type;
@@ -339,13 +339,13 @@ class ApplyTask extends ExecTask
                         }
                     }
                     $base = $fs->getDir($this->project);
-                    $ds = $fs->getDirectoryScanner($this->project);
+                    $ds   = $fs->getDirectoryScanner($this->project);
                     if ($currentType !== self::$types['DIR']) {
                         $s = $this->getFiles($base, $ds);
                         foreach ($s as $fileName) {
                             $totalFiles++;
                             $fileNames[] = $fileName;
-                            $baseDirs[] = $base;
+                            $baseDirs[]  = $base;
                         }
                     }
                     if ($currentType !== self::$types['FILE']) {
@@ -353,7 +353,7 @@ class ApplyTask extends ExecTask
                         foreach ($s as $fileName) {
                             $totalDirs++;
                             $fileNames[] = $fileName;
-                            $baseDirs[] = $base;
+                            $baseDirs[]  = $base;
                         }
                     }
                     if (count($fileNames) === 0 && $this->skipEmpty) {
@@ -625,7 +625,7 @@ class ApplyTask extends ExecTask
                                 $name = str_replace(FileUtils::$separator, '/', $name);
                             }
                             if (!isset($addedFiles[$name])) {
-                                $targets[] = $name;
+                                $targets[]    = $name;
                                 $addedFiles[] = $name;
                             }
                         }
@@ -638,7 +638,7 @@ class ApplyTask extends ExecTask
         if (!$this->addsourcefile) {
             $srcFiles = [];
         }
-        $orig = $this->commandline->getCommandline();
+        $orig   = $this->commandline->getCommandline();
         $result = []; // range(0,count($orig) + count($srcFiles) + count($targetFiles));
 
         $srcIndex = count($orig);
@@ -657,7 +657,7 @@ class ApplyTask extends ExecTask
 
                 $result[] = $orig;
                 $result[] = $targetFiles;
-                $result = array_merge(... $result);
+                $result   = array_merge(... $result);
 
                 // targetIndex --> end
                 $result = array_merge(
@@ -673,7 +673,7 @@ class ApplyTask extends ExecTask
                 // 0 --> targetIndex
                 $result[] = $orig;
                 $result[] = $targetFiles;
-                $result = array_merge(... $result);
+                $result   = array_merge(... $result);
 
                 // targetIndex --> srcIndex
                 $result = array_merge(
@@ -687,7 +687,7 @@ class ApplyTask extends ExecTask
                 );
 
                 // srcIndex --> end
-                $result = array_merge(
+                $result    = array_merge(
                     array_slice(
                         $orig,
                         $srcIndex + count($srcFiles) + count($targetFiles),
@@ -782,7 +782,7 @@ class ApplyTask extends ExecTask
 
         // Processing the file information
         foreach ($files as $index => $file) {
-            $absolutefilename = (($relative === false) ? ($basedir . FileUtils::$separator) : '');
+            $absolutefilename  = (($relative === false) ? ($basedir . FileUtils::$separator) : '');
             $absolutefilename .= $file;
             if ($relative === false) {
                 $files[$index] = (new FileUtils())->normalize($absolutefilename);

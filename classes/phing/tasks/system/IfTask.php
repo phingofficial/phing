@@ -103,9 +103,9 @@
  */
 class IfTask extends ConditionBase
 {
-    private $thenTasks = null;
+    private $thenTasks   = null;
     private $elseIfTasks = [];
-    private $elseTasks = null;
+    private $elseTasks   = null;
 
     /***
      * A nested Else if task
@@ -159,7 +159,7 @@ class IfTask extends ConditionBase
             throw new BuildException("You must nest a condition into <if>");
         }
         $conditions = $this->getConditions();
-        $c = $conditions[0];
+        $c          = $conditions[0];
 
         if ($c->evaluate()) {
             if ($this->thenTasks != null) {
@@ -167,7 +167,7 @@ class IfTask extends ConditionBase
             }
         } else {
             $done = false;
-            $sz = count($this->elseIfTasks);
+            $sz   = count($this->elseIfTasks);
             for ($i = 0; $i < $sz && !$done; $i++) {
                 $ei = $this->elseIfTasks[$i];
                 if ($ei->evaluate()) {

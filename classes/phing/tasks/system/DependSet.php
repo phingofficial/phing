@@ -139,19 +139,19 @@ class DependSet extends MatchingTask
         // $now += FILE_UTILS . getFileTimestampGranularity();
 
         // Grab all the target files specified via filesets:
-        $allTargets = [];
+        $allTargets       = [];
         $oldestTargetTime = 0;
-        $oldestTarget = null;
+        $oldestTarget     = null;
         foreach ($this->targetFileSets as $targetFS) {
             if (!$targetFS->getDir($this->getProject())->exists()) {
                 // this is the same as if it was empty, no target files found
                 continue;
             }
-            $targetDS = $targetFS->getDirectoryScanner($this->getProject());
+            $targetDS    = $targetFS->getDirectoryScanner($this->getProject());
             $targetFiles = $targetDS->getIncludedFiles();
 
             foreach ($targetFiles as $targetFile) {
-                $dest = new PhingFile($targetFS->getDir($this->getProject()), $targetFile);
+                $dest         = new PhingFile($targetFS->getDir($this->getProject()), $targetFile);
                 $allTargets[] = $dest;
 
                 if ($dest->lastModified() > $now) {
@@ -165,7 +165,7 @@ class DependSet extends MatchingTask
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
-                    $oldestTarget = $dest;
+                    $oldestTarget     = $dest;
                 }
             }
         }
@@ -194,7 +194,7 @@ class DependSet extends MatchingTask
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
-                    $oldestTarget = $dest;
+                    $oldestTarget     = $dest;
                 }
             }
         }
@@ -243,7 +243,7 @@ class DependSet extends MatchingTask
         // Check targets vs source files specified via filesets:
         if ($upToDate) {
             foreach ($this->sourceFileSets as $sourceFS) {
-                $sourceDS = $sourceFS->getDirectoryScanner($this->getProject());
+                $sourceDS    = $sourceFS->getDirectoryScanner($this->getProject());
                 $sourceFiles = $sourceDS->getIncludedFiles();
 
                 foreach ($sourceFiles as $sourceFile) {

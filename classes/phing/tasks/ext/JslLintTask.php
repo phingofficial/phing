@@ -195,9 +195,9 @@ class JslLintTask extends Task
         } else { // process filesets
             $project = $this->getProject();
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
+                $ds    = $fs->getDirectoryScanner($project);
                 $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getPath();
+                $dir   = $fs->getDir($this->project)->getPath();
                 foreach ($files as $file) {
                     $this->lint($dir . DIRECTORY_SEPARATOR . $file);
                 }
@@ -283,7 +283,7 @@ class JslLintTask extends Task
                 preg_match('/(\d+)\swarning/', $summary, $matches);
                 $warningCount = (count($matches) > 1 ? $matches[1] : 0);
 
-                $errors = [];
+                $errors   = [];
                 $warnings = [];
                 if ($errorCount > 0 || $warningCount > 0) {
                     $last = false;
@@ -303,15 +303,15 @@ class JslLintTask extends Task
                         if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) {
                             continue;
                         }
-                        $msg = $matches[3];
+                        $msg  = $matches[3];
                         $data = ['filename' => $matches[1], 'line' => $matches[2], 'message' => $msg];
                         if (preg_match('/^.*error:.+$/i', $msg)) {
                             $errors[] = $data;
-                            $last = 'error';
+                            $last     = 'error';
                         } else {
                             if (preg_match('/^.*warning:.+$/i', $msg)) {
                                 $warnings[] = $data;
-                                $last = 'warning';
+                                $last       = 'warning';
                             }
                         }
                     }

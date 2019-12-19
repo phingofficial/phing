@@ -33,9 +33,9 @@ class WindowsFileSystem extends FileSystem
      */
     public function __construct()
     {
-        $this->slash = self::getSeparator();
+        $this->slash     = self::getSeparator();
         $this->semicolon = self::getPathSeparator();
-        $this->altSlash = ($this->slash === '\\') ? '/' : '\\';
+        $this->altSlash  = ($this->slash === '\\') ? '/' : '\\';
     }
 
     /**
@@ -122,8 +122,8 @@ class WindowsFileSystem extends FileSystem
              * This hack is necessary to support file URLs containing drive
              * specifiers (e.g., "file://c:/path").  As a side effect,
              * "/c:/path" can be used as an alternative to "c:/path". */
-            $sb .= $c;
-            $sb .= ':';
+            $sb  .= $c;
+            $sb  .= ':';
             $src += 2;
         } else {
             $src = 0;
@@ -162,9 +162,9 @@ class WindowsFileSystem extends FileSystem
         if ($offset < 3) {
             $offset = 0; //Avoid fencepost cases with UNC pathnames
         }
-        $src = 0;
+        $src   = 0;
         $slash = $this->slash;
-        $sb = "";
+        $sb    = "";
 
         if ($offset == 0) {
             // Complete normalization, including prefix
@@ -238,10 +238,10 @@ class WindowsFileSystem extends FileSystem
             return str_replace('\\', '/', $strPath);
         }
 
-        $n = strlen($strPath);
-        $slash = $this->slash;
+        $n        = strlen($strPath);
+        $slash    = $this->slash;
         $altSlash = $this->altSlash;
-        $prev = 0;
+        $prev     = 0;
         for ($i = 0; $i < $n; $i++) {
             $c = $strPath[$i];
             if ($c === $altSlash) {
@@ -272,9 +272,9 @@ class WindowsFileSystem extends FileSystem
             return 0;
         }
 
-        $path = (string) $strPath;
+        $path  = (string) $strPath;
         $slash = (string) $this->slash;
-        $n = (int) strlen($path);
+        $n     = (int) strlen($path);
         if ($n === 0) {
             return 0;
         }
@@ -308,8 +308,8 @@ class WindowsFileSystem extends FileSystem
     public function resolve($parent, $child)
     {
         $parent = (string) $parent;
-        $child = (string) $child;
-        $slash = (string) $this->slash;
+        $child  = (string) $child;
+        $slash  = (string) $this->slash;
 
         $pn = (int) strlen($parent);
         if ($pn === 0) {
@@ -379,7 +379,7 @@ class WindowsFileSystem extends FileSystem
     public function isAbsolute(PhingFile $f)
     {
         $pl = (int) $f->getPrefixLength();
-        $p = (string) $f->getPath();
+        $p  = (string) $f->getPath();
 
         return ((($pl === 2) && ($p[0] === $this->slash)) || ($pl === 3) || ($pl === 1 && $p[0] === $this->slash));
     }
@@ -421,7 +421,7 @@ class WindowsFileSystem extends FileSystem
     public function _getDriveDirectory($drive)
     {
         $drive = (string) $drive[0];
-        $i = (int) $this->_driveIndex($drive);
+        $i     = (int) $this->_driveIndex($drive);
         if ($i < 0) {
             return null;
         }
@@ -432,7 +432,7 @@ class WindowsFileSystem extends FileSystem
             return $s;
         }
 
-        $s = $this->_getDriveDirectory($i + 1);
+        $s                       = $this->_getDriveDirectory($i + 1);
         self::$driveDirCache[$i] = $s;
 
         return $s;
@@ -454,7 +454,7 @@ class WindowsFileSystem extends FileSystem
     public function _getDrive($path)
     {
         $path = (string) $path;
-        $pl = $this->prefixLength($path);
+        $pl   = $this->prefixLength($path);
 
         return ($pl === 3) ? substr($path, 0, 2) : null;
     }
@@ -465,7 +465,7 @@ class WindowsFileSystem extends FileSystem
     public function resolveFile(PhingFile $f)
     {
         $path = $f->getPath();
-        $pl = (int) $f->getPrefixLength();
+        $pl   = (int) $f->getPrefixLength();
 
         if (($pl === 2) && ($path[0] === $this->slash)) {
             return $path; // UNC
@@ -500,7 +500,7 @@ class WindowsFileSystem extends FileSystem
                 return (string) ($up . $this->slashify(substr($path, 2)));
             }
             $drive = (string) $path[0];
-            $dir = (string) $this->_getDriveDirectory($drive);
+            $dir   = (string) $this->_getDriveDirectory($drive);
 
             if ($dir !== null) {
                 /* When resolving a directory-relative path that refers to a

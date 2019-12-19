@@ -30,7 +30,7 @@
  */
 class PHPUnitReportTask extends Task
 {
-    private $format = "noframes";
+    private $format   = "noframes";
     private $styleDir = "";
 
     /**

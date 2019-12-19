@@ -184,8 +184,8 @@ class UpToDateTask extends Task implements Condition
 
         $upToDate = true;
         for ($i = 0, $size = count($this->filesets); $i < $size && $upToDate; $i++) {
-            $fs = $this->filesets[$i];
-            $ds = $fs->getDirectoryScanner($this->project);
+            $fs       = $this->filesets[$i];
+            $ds       = $fs->getDirectoryScanner($this->project);
             $upToDate = $upToDate && $this->scanDir(
                 $fs->getDir($this->project),
                 $ds->getIncludedFiles()
@@ -193,7 +193,7 @@ class UpToDateTask extends Task implements Condition
         }
 
         for ($i = 0, $size = count($this->filelists); $i < $size && $upToDate; $i++) {
-            $fl = $this->filelists[$i];
+            $fl       = $this->filelists[$i];
             $srcFiles = $fl->getFiles($this->project);
             $upToDate = $upToDate && $this->scanDir(
                 $fl->getDir($this->project),
@@ -206,7 +206,7 @@ class UpToDateTask extends Task implements Condition
                 $upToDate = $upToDate &&
                     ($this->targetFile->lastModified() >= $this->sourceFile->lastModified());
             } else {
-                $sfs = new SourceFileScanner($this);
+                $sfs      = new SourceFileScanner($this);
                 $upToDate = $upToDate &&
                     count(
                         $sfs->restrict(
@@ -267,14 +267,14 @@ class UpToDateTask extends Task implements Condition
      */
     protected function scanDir(PhingFile $srcDir, $files)
     {
-        $sfs = new SourceFileScanner($this);
+        $sfs    = new SourceFileScanner($this);
         $mapper = null;
-        $dir = $srcDir;
+        $dir    = $srcDir;
         if ($this->mapperElement === null) {
             $mm = new MergeMapper();
             $mm->setTo($this->targetFile->getAbsolutePath());
             $mapper = $mm;
-            $dir = null;
+            $dir    = null;
         } else {
             $mapper = $this->mapperElement->getImplementation();
         }

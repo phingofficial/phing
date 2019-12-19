@@ -159,7 +159,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function buildFinished(BuildEvent $event)
     {
-        $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
+        $msg   = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         $error = $event->getException();
 
         if ($error !== null) {
@@ -184,7 +184,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             $msg1 = trim($error);
             $msg2 = trim($cause);
             if (StringHelper::endsWith($msg2, $msg1)) {
-                $msg .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2) - 1);
+                $msg  .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2) - 1);
                 $error = $cause;
             } else {
                 break;
@@ -228,7 +228,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             && $event->getTarget()->getName() != ''
         ) {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
-            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
+            $msg             = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -280,7 +280,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             if ($event->getTask() !== null && !$this->emacsMode) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
-                $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
+                $msg  = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
             }
 
             $msg .= $event->getMessage();

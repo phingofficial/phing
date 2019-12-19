@@ -33,7 +33,7 @@ class XorCondition extends ConditionBase implements Condition
     public function evaluate()
     {
         $conditions = $this->getConditions();
-        $state = false;
+        $state      = false;
         foreach ($conditions as $condition) {
             $state ^= $condition->evaluate();
         }

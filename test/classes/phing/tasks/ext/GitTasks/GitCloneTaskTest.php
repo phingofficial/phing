@@ -51,8 +51,8 @@ class GitCloneTaskTest extends BuildFileTest
 
     public function testGitClone()
     {
-        $bundle = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $bundle      = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
+        $repository  = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitClone');
 
@@ -65,8 +65,8 @@ class GitCloneTaskTest extends BuildFileTest
 
     public function testGitCloneBare()
     {
-        $bundle = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $bundle      = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
+        $repository  = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitCloneBare');
         $this->assertInLogs(

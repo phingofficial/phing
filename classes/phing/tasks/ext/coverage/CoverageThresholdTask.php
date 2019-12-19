@@ -191,7 +191,7 @@ class CoverageThresholdTask extends Task
                     }
                 }
 
-                $reflection = new ReflectionClass($className);
+                $reflection     = new ReflectionClass($className);
                 $classStartLine = $reflection->getStartLine();
 
                 // Strange PHP5 reflection bug, classes without parent class
@@ -231,7 +231,7 @@ class CoverageThresholdTask extends Task
                     }
 
                     $methodStartLine = $method->getStartLine();
-                    $methodEndLine = $method->getEndLine();
+                    $methodEndLine   = $method->getEndLine();
 
                     // small fix for XDEBUG_CC_UNUSED
                     if (isset($coverageInformation[$methodStartLine])) {
@@ -254,7 +254,7 @@ class CoverageThresholdTask extends Task
                     }
 
                     $methodStatementsCovered = 0;
-                    $methodStatementCount = 0;
+                    $methodStatementCount    = 0;
 
                     while ($lineNr !== null && $lineNr <= $methodEndLine) {
                         $methodStatementCount++;
@@ -307,7 +307,7 @@ class CoverageThresholdTask extends Task
                     }
                 }
 
-                $classStatementCount = count($coverageInformation);
+                $classStatementCount    = count($coverageInformation);
                 $classStatementsCovered = count(
                     array_filter(
                         $coverageInformation,
@@ -351,7 +351,7 @@ class CoverageThresholdTask extends Task
                     $this->minClassCoverageFound = $classCoverage;
                 }
 
-                $this->projectStatementCount += $classStatementCount;
+                $this->projectStatementCount    += $classStatementCount;
                 $this->projectStatementsCovered += $classStatementsCovered;
             }
         }

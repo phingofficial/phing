@@ -31,11 +31,11 @@ class ChainedMapper extends ContainerMapper
     public function main($sourceFileName)
     {
         $results[] = $sourceFileName;
-        $mapper = null;
+        $mapper    = null;
 
         foreach ($this->getMappers() as $mapper) {
             if ($mapper !== null) {
-                $inputs = $results;
+                $inputs  = $results;
                 $results = [];
 
                 foreach ($inputs as $input) {

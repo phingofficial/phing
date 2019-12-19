@@ -38,7 +38,7 @@ class HeadFilterTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/headfilter.test");
-        $result = $this->getProject()->resolveFile("result/headfilter.test");
+        $result   = $this->getProject()->resolveFile("result/headfilter.test");
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }

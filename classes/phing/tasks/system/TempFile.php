@@ -173,7 +173,7 @@ class TempFile extends Task
         if ($this->destDir === null) {
             $this->destDir = $this->getProject()->resolveFile('.');
         }
-        $fu = new FileUtils();
+        $fu      = new FileUtils();
         $tmpFile = $fu->createTempFile(
             $this->prefix,
             $this->suffix,

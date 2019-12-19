@@ -42,7 +42,7 @@ class SuffixLinesTest extends BuildFileTest
         $this->executeTarget("testSuffixLines");
 
         $expected = $this->getProject()->resolveFile("expected/suffixlines.test");
-        $result = $this->getProject()->resolveFile("result/suffixlines.test");
+        $result   = $this->getProject()->resolveFile("result/suffixlines.test");
 
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }

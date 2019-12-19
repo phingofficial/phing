@@ -52,7 +52,7 @@ class PharDataTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new FileSet();
+        $this->fileset    = new FileSet();
         $this->filesets[] = $this->fileset;
         return $this->fileset;
     }

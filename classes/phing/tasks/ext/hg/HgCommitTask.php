@@ -68,7 +68,7 @@ class HgCommitTask extends HgBaseTask
         $user = $this->getUser();
 
         $clone = $this->getFactoryInstance('commit');
-        $msg = sprintf("Commit: '%s'", $message);
+        $msg   = sprintf("Commit: '%s'", $message);
         $this->log($msg, Project::MSG_INFO);
         $clone->setQuiet($this->getQuiet());
         $clone->setMessage($message);
@@ -83,7 +83,7 @@ class HgCommitTask extends HgBaseTask
 
         if ($this->repository === '') {
             $project = $this->getProject();
-            $dir = $project->getProperty('application.startdir');
+            $dir     = $project->getProperty('application.startdir');
         } else {
             $dir = $this->repository;
         }

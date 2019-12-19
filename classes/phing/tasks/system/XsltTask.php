@@ -44,7 +44,7 @@ class XsltTask extends CopyTask
      */
     public function init()
     {
-        $xf = new XsltFilter();
+        $xf    = new XsltFilter();
         $chain = new FilterChain($this->getProject());
         $chain->addXsltFilter($xf);
         $this->addFilterChain($chain);

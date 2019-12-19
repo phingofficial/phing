@@ -31,10 +31,10 @@ class TarFileSet extends FileSet
 
     private $mode = 0100644;
 
-    private $userName = "";
-    private $groupName = "";
-    private $prefix = "";
-    private $fullpath = "";
+    private $userName               = "";
+    private $groupName              = "";
+    private $prefix                 = "";
+    private $fullpath               = "";
     private $preserveLeadingSlashes = false;
 
     /**
@@ -52,7 +52,7 @@ class TarFileSet extends FileSet
     protected function getFiles($includeEmpty = true, ...$options)
     {
         if ($this->files === null) {
-            $ds = $this->getDirectoryScanner($this->getProject());
+            $ds          = $this->getDirectoryScanner($this->getProject());
             $this->files = $ds->getIncludedFiles();
 
             if ($includeEmpty) {
@@ -101,7 +101,7 @@ class TarFileSet extends FileSet
      */
     public function setMode($octalString)
     {
-        $octal = (int) $octalString;
+        $octal      = (int) $octalString;
         $this->mode = 0100000 | $octal;
     }
 

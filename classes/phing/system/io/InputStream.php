@@ -95,11 +95,11 @@ class InputStream
         if ($len === null) { // we want to keep reading until we get an eof
             $out = "";
             while (!$this->eof()) {
-                $out .= fread($this->stream, 8192);
+                $out                  .= fread($this->stream, 8192);
                 $this->currentPosition = ftell($this->stream);
             }
         } else {
-            $out = fread($this->stream, $len); // adding 1 seems to ensure that next call to read() will return EOF (-1)
+            $out                   = fread($this->stream, $len); // adding 1 seems to ensure that next call to read() will return EOF (-1)
             $this->currentPosition = ftell($this->stream);
         }
 
@@ -157,7 +157,7 @@ class InputStream
         error_clear_last();
         if (false === @fclose($this->stream)) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg  = $lastError['message'];
             // FAILED.
             $msg = "Cannot fclose " . $this->__toString() . " $errormsg";
             throw new IOException($msg);

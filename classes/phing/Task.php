@@ -248,7 +248,7 @@ abstract class Task extends ProjectComponent
             throw $ex;
         } catch (\Exception $ex) {
             $reason = $ex;
-            $be = new \BuildException($ex);
+            $be     = new \BuildException($ex);
             $be->setLocation($this->getLocation());
             throw $be;
         } catch (\Error $ex) {

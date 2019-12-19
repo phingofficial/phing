@@ -322,7 +322,7 @@ class FileSyncTask extends Task
         if ($this->exclude !== null) {
             //remove trailing comma if any
             $this->exclude = trim($this->exclude, ',');
-            $options .= ' --exclude="' . str_replace(',', '" --exclude="', $this->exclude) . '"';
+            $options      .= ' --exclude="' . str_replace(',', '" --exclude="', $this->exclude) . '"';
         }
 
         if ($this->excludeFile !== null) {
@@ -347,14 +347,14 @@ class FileSyncTask extends Task
      */
     public function getErrorMessage($code)
     {
-        $error[0] = 'Success';
-        $error[1] = 'Syntax or usage error';
-        $error[2] = 'Protocol incompatibility';
-        $error[3] = 'Errors selecting input/output files, dirs';
-        $error[4] = 'Requested action not supported: an attempt was made to manipulate '
+        $error[0]  = 'Success';
+        $error[1]  = 'Syntax or usage error';
+        $error[2]  = 'Protocol incompatibility';
+        $error[3]  = 'Errors selecting input/output files, dirs';
+        $error[4]  = 'Requested action not supported: an attempt was made to manipulate '
             . '64-bit files on a platform that cannot support them; or an option '
             . 'was specified that is supported by the client and not by the server';
-        $error[5] = 'Error starting client-server protocol';
+        $error[5]  = 'Error starting client-server protocol';
         $error[10] = 'Error in socket I/O';
         $error[11] = 'Error in file I/O';
         $error[12] = 'Error in rsync protocol data stream';

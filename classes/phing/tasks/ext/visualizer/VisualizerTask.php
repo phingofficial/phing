@@ -30,15 +30,15 @@ use function Jawira\PlantUml\encodep;
  */
 class VisualizerTask extends HttpTask
 {
-    public const FORMAT_EPS = 'eps';
-    public const FORMAT_PNG = 'png';
+    public const FORMAT_EPS  = 'eps';
+    public const FORMAT_PNG  = 'png';
     public const FORMAT_PUML = 'puml';
-    public const FORMAT_SVG = 'svg';
-    public const SERVER = 'http://www.plantuml.com/plantuml';
-    public const STATUS_OK = 200;
-    public const XSL_CALLS = __DIR__ . '/calls.xsl';
-    public const XSL_FOOTER = __DIR__ . '/footer.xsl';
-    public const XSL_HEADER = __DIR__ . '/header.xsl';
+    public const FORMAT_SVG  = 'svg';
+    public const SERVER      = 'http://www.plantuml.com/plantuml';
+    public const STATUS_OK   = 200;
+    public const XSL_CALLS   = __DIR__ . '/calls.xsl';
+    public const XSL_FOOTER  = __DIR__ . '/footer.xsl';
+    public const XSL_HEADER  = __DIR__ . '/header.xsl';
     public const XSL_TARGETS = __DIR__ . '/targets.xsl';
 
     /**
@@ -102,7 +102,7 @@ class VisualizerTask extends HttpTask
     protected function checkPlantUmlLibrary()
     {
         $function = '\Jawira\PlantUml\encodep';
-        $message = "Please install 'jawira/plantuml-encoding' library";
+        $message  = "Please install 'jawira/plantuml-encoding' library";
 
         if (!function_exists($function)) {
             $this->log($message, Project::MSG_ERR);
@@ -141,8 +141,8 @@ class VisualizerTask extends HttpTask
     {
         $pumlDiagram = $this->generatePumlDiagram();
         $destination = $this->resolveImageDestination();
-        $format = $this->getFormat();
-        $image = $this->generateImage($pumlDiagram, $format);
+        $format      = $this->getFormat();
+        $image       = $this->generateImage($pumlDiagram, $format);
         $this->saveToFile($image, $destination);
     }
 
@@ -156,7 +156,7 @@ class VisualizerTask extends HttpTask
         /**
          * @var \PhingXMLContext $xmlContext
          */
-        $xmlContext = $this->getProject()
+        $xmlContext  = $this->getProject()
             ->getReference("phing.parsing.context");
         $importStack = $xmlContext->getImportStack();
         $pumlDiagram = $this->generatePuml($importStack);
@@ -220,7 +220,7 @@ class VisualizerTask extends HttpTask
     protected function loadXmlFile(string $xmlFile): SimpleXMLElement
     {
         $xmlContent = (new FileReader($xmlFile))->read();
-        $xml = simplexml_load_string($xmlContent);
+        $xml        = simplexml_load_string($xmlContent);
 
         if (!($xml instanceof SimpleXMLElement)) {
             $message = "Error loading XML file: $xmlFile";
@@ -241,9 +241,9 @@ class VisualizerTask extends HttpTask
     protected function resolveImageDestination(): PhingFile
     {
         $phingFile = $this->getProject()->getProperty('phing.file');
-        $format = $this->getFormat();
+        $format    = $this->getFormat();
         $candidate = $this->getDestination();
-        $path = $this->resolveDestination($phingFile, $format, $candidate);
+        $path      = $this->resolveDestination($phingFile, $format, $candidate);
 
         return new PhingFile($path);
     }
@@ -352,7 +352,7 @@ class VisualizerTask extends HttpTask
             return $pumlDiagram;
         }
 
-        $format = $this->getFormat();
+        $format      = $this->getFormat();
         $encodedPuml = encodep($pumlDiagram);
         $this->prepareImageUrl($format, $encodedPuml);
 
@@ -416,7 +416,7 @@ class VisualizerTask extends HttpTask
      */
     protected function processResponse(HTTP_Request2_Response $response): void
     {
-        $status = $response->getStatus();
+        $status       = $response->getStatus();
         $reasonPhrase = $response->getReasonPhrase();
         $this->log("Response status: $status", Project::MSG_DEBUG);
         $this->log("Response reason: $reasonPhrase", Project::MSG_DEBUG);

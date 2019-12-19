@@ -42,7 +42,7 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('console_getopt');
 
-        $ref = new ReflectionClass($ppfs);
+        $ref    = new ReflectionClass($ppfs);
         $method = $ref->getMethod('loadPackageInfo');
         $method->setAccessible(true);
         $packageInfo = $method->invoke($ppfs);
@@ -56,7 +56,7 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('this_package_does_not_exist');
 
-        $ref = new ReflectionClass($ppfs);
+        $ref    = new ReflectionClass($ppfs);
         $method = $ref->getMethod('loadPackageInfo');
         $method->setAccessible(true);
 
@@ -167,7 +167,7 @@ class PearPackageScannerTest extends BuildFileTest
         $pkgInfoFile = __DIR__ . '/../../../etc/types/'
             . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
 
-        $pps = new PearPackageScanner();
+        $pps  = new PearPackageScanner();
         $prop = new ReflectionProperty('PearPackageScanner', 'packageInfo');
         $prop->setAccessible(true);
         $prop->setValue($pps, unserialize(file_get_contents($pkgInfoFile)));

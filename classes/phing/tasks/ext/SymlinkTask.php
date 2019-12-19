@@ -213,13 +213,13 @@ class SymlinkTask extends Task
     {
         // Normalize separators on Windows
         if ('\\' === DIRECTORY_SEPARATOR) {
-            $endPath = str_replace('\\', '/', $endPath);
+            $endPath   = str_replace('\\', '/', $endPath);
             $startPath = str_replace('\\', '/', $startPath);
         }
 
         // Split the paths into arrays
         $startPathArr = explode('/', trim($startPath, '/'));
-        $endPathArr = explode('/', trim($endPath, '/'));
+        $endPathArr   = explode('/', trim($endPath, '/'));
 
         // Find for which directory the common path stops
         $index = 0;
@@ -332,7 +332,7 @@ class SymlinkTask extends Task
         $fs = FileSystem::getFileSystem();
 
         if ($this->isRelative()) {
-            $link = (new PhingFile($link))->getAbsolutePath();
+            $link   = (new PhingFile($link))->getAbsolutePath();
             $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
         }
 

@@ -96,7 +96,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreateArg()
     {
-        $o = $this->object;
+        $o   = $this->object;
         $arg = $o->createArg();
         $this->assertTrue(get_class($arg) == 'Arg');
     }
@@ -106,7 +106,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetArgs()
     {
-        $o = $this->object;
+        $o   = $this->object;
         $arg = $o->createArg();
         $arg = $o->createArg();
         $arg = $o->createArg();
@@ -119,7 +119,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetCmdString()
     {
-        $o = $this->object;
+        $o   = $this->object;
         $arg = $o->createArg();
         $arg->setName('name');
         $arg->setValue('value');
@@ -137,7 +137,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      */
     public function testNoDebugGetCmdString()
     {
-        $o = $this->object;
+        $o   = $this->object;
         $arg = $o->createArg();
         $arg->setName('name');
         $arg->setValue('value');
@@ -156,7 +156,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
      */
     public function testNoDebugOnlyOnce()
     {
-        $o = $this->object;
+        $o   = $this->object;
         $arg = $o->createArg();
         $arg->setName('no-debug');
 

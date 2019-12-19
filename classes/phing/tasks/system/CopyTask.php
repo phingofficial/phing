@@ -47,19 +47,19 @@ class CopyTask extends Task
      */
     protected $destDir = null; // the destination dir (from xml attribute)
 
-    protected $overwrite = false; // overwrite destination (from xml attribute)
-    protected $preserveLMT = false; // sync timestamps (from xml attribute)
+    protected $overwrite           = false; // overwrite destination (from xml attribute)
+    protected $preserveLMT         = false; // sync timestamps (from xml attribute)
     protected $preservePermissions = true; // sync permissions (from xml attribute)
-    protected $includeEmpty = true; // include empty dirs? (from XML)
-    protected $flatten = false; // apply the FlattenMapper right way (from XML)
+    protected $includeEmpty        = true; // include empty dirs? (from XML)
+    protected $flatten             = false; // apply the FlattenMapper right way (from XML)
 
     /**
      * @var Mapper
      */
     protected $mapperElement = null;
 
-    protected $fileCopyMap = []; // asoc array containing mapped file names
-    protected $dirCopyMap = []; // asoc array containing mapped file names
+    protected $fileCopyMap    = []; // asoc array containing mapped file names
+    protected $dirCopyMap     = []; // asoc array containing mapped file names
     protected $completeDirMap = []; // asoc array containing complete dir names
 
     /**
@@ -89,7 +89,7 @@ class CopyTask extends Task
     {
         parent::__construct();
         $this->fileUtils = new FileUtils();
-        $this->mode = 0777 - umask();
+        $this->mode      = 0777 - umask();
     }
 
     /**
@@ -315,9 +315,9 @@ class CopyTask extends Task
 
         // process filelists
         foreach ($this->filelists as $fl) {
-            $fromDir = $fl->getDir($project);
+            $fromDir  = $fl->getDir($project);
             $srcFiles = $fl->getFiles($project);
-            $srcDirs = [$fl->getDir($project)];
+            $srcDirs  = [$fl->getDir($project)];
 
             if (!$this->flatten && $this->mapperElement === null) {
                 $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
@@ -328,7 +328,7 @@ class CopyTask extends Task
 
         foreach ($this->dirsets as $dirset) {
             try {
-                $ds = $dirset->getDirectoryScanner($project);
+                $ds      = $dirset->getDirectoryScanner($project);
                 $fromDir = $dirset->getDir($project);
                 $srcDirs = $ds->getIncludedDirectories();
 
@@ -358,10 +358,10 @@ class CopyTask extends Task
         // process filesets
         foreach ($this->filesets as $fs) {
             try {
-                $ds = $fs->getDirectoryScanner($project);
-                $fromDir = $fs->getDir($project);
+                $ds       = $fs->getDirectoryScanner($project);
+                $fromDir  = $fs->getDir($project);
                 $srcFiles = $ds->getIncludedFiles();
-                $srcDirs = $ds->getIncludedDirectories();
+                $srcDirs  = $ds->getIncludedDirectories();
 
                 if (
                     !$this->flatten
@@ -483,15 +483,15 @@ class CopyTask extends Task
             }
             $toCopy = $v;
         } else {
-            $ds = new SourceFileScanner($this);
+            $ds     = new SourceFileScanner($this);
             $toCopy = $ds->restrict($names, $fromDir, $toDir, $mapper);
         }
 
         for ($i = 0, $_i = count($toCopy); $i < $_i; $i++) {
-            $src = new PhingFile($fromDir, $toCopy[$i]);
+            $src    = new PhingFile($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
             if (!$this->enableMultipleMappings) {
-                $dest = new PhingFile($toDir, $mapped[0]);
+                $dest                         = new PhingFile($toDir, $mapped[0]);
                 $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
             } else {
                 $mappedFiles = [];
@@ -500,7 +500,7 @@ class CopyTask extends Task
                     if ($mappedFile === null) {
                         continue;
                     }
-                    $dest = new PhingFile($toDir, $mappedFile);
+                    $dest          = new PhingFile($toDir, $mappedFile);
                     $mappedFiles[] = $dest->getAbsolutePath();
                 }
                 $map[$src->getAbsolutePath()] = $mappedFiles;
@@ -518,14 +518,14 @@ class CopyTask extends Task
     {
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $fromSlot = $this->getRegisterSlot("currentFromFile");
+        $fromSlot         = $this->getRegisterSlot("currentFromFile");
         $fromBasenameSlot = $this->getRegisterSlot("currentFromFile.basename");
 
-        $toSlot = $this->getRegisterSlot("currentToFile");
+        $toSlot         = $this->getRegisterSlot("currentToFile");
         $toBasenameSlot = $this->getRegisterSlot("currentToFile.basename");
 
         $mapSize = count($this->fileCopyMap);
-        $total = $mapSize;
+        $total   = $mapSize;
 
         // handle empty dirs if appropriate
         if ($this->includeEmpty) {
@@ -625,7 +625,7 @@ class CopyTask extends Task
         $this->log("From " . $from . " to " . $to, $this->verbosity);
         try { // try to copy file
             $fromFile = new PhingFile($from);
-            $toFile = new PhingFile($to);
+            $toFile   = new PhingFile($to);
 
             $fromSlot->setValue($fromFile->getPath());
             $fromBasenameSlot->setValue($fromFile->getName());

@@ -40,7 +40,7 @@ class PrintStream
      */
     public function __construct(OutputStream $out, $autoFlush = false)
     {
-        $this->out = $out;
+        $this->out       = $out;
         $this->autoFlush = $autoFlush;
 
         $this->textOut = new BufferedWriter(new OutputStreamWriter($out));

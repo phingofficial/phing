@@ -121,7 +121,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 
         $out = '';
         try {
-            $out = $this->process($_xml);
+            $out             = $this->process($_xml);
             $this->processed = true;
         } catch (IOException $e) {
             throw new BuildException($e);
@@ -145,7 +145,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         // Create and setup document.
-        $xmlDom = new DOMDocument();
+        $xmlDom                   = new DOMDocument();
         $xmlDom->resolveExternals = $this->resolveExternals;
 
         $xmlDom->loadXML($xml);
