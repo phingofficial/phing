@@ -75,14 +75,14 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @var string
      */
-    private $beginToken = ReplaceTokensWithFile::DEFAULT_BEGIN_TOKEN;
+    private $beginToken = self::DEFAULT_BEGIN_TOKEN;
 
     /**
      * Character marking the end of a token.
      *
      * @var string
      */
-    private $endToken = ReplaceTokensWithFile::DEFAULT_END_TOKEN;
+    private $endToken = self::DEFAULT_END_TOKEN;
 
     /**
      * File prefix to be inserted in front of the token to create the

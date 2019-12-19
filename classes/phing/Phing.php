@@ -245,7 +245,7 @@ class Phing
      */
     protected static function statusExit($exitCode)
     {
-        Phing::shutdown();
+        self::shutdown();
         exit($exitCode);
     }
 
@@ -855,7 +855,7 @@ class Phing
 
         foreach ($this->listeners as $listenerClassname) {
             try {
-                $clz = Phing::import($listenerClassname);
+                $clz = self::import($listenerClassname);
             } catch (Exception $e) {
                 $msg = "Unable to instantiate specified listener "
                     . "class " . $listenerClassname . " : "
@@ -885,7 +885,7 @@ class Phing
             $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
         } else {
             try {
-                $clz     = Phing::import($this->inputHandlerClassname);
+                $clz     = self::import($this->inputHandlerClassname);
                 $handler = new $clz();
                 if ($project !== null && method_exists($handler, 'setProject')) {
                     $handler->setProject($project);
@@ -1392,7 +1392,7 @@ class Phing
 
         $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
 
-        Phing::importFile($path, $classpath);
+        self::importFile($path, $classpath);
 
         return $classname;
     }
@@ -1430,8 +1430,8 @@ class Phing
             // possible to write far less expensive run-time applications (e.g. using Propel), which is
             // really where speed matters more.
 
-            $curr_parts = Phing::explodeIncludePath();
-            $add_parts  = Phing::explodeIncludePath($classpath);
+            $curr_parts = self::explodeIncludePath();
+            $add_parts  = self::explodeIncludePath($classpath);
             $new_parts  = array_diff($add_parts, $curr_parts);
             if ($new_parts) {
                 set_include_path(implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));

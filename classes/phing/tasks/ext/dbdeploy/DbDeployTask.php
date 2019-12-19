@@ -170,7 +170,7 @@ class DbDeployTask extends Task
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->dbmsSyntax->applyAttributes($dbh);
             $sql = "SELECT *
-                    FROM " . DbDeployTask::$TABLE_NAME . "
+                    FROM " . self::$TABLE_NAME . "
                     WHERE delta_set = '$this->deltaSet'
                     ORDER BY change_number";
             foreach ($dbh->query($sql) as $change) {
@@ -239,7 +239,7 @@ class DbDeployTask extends Task
                 $sql .= '-- Fragment begins: ' . $fileChangeNumber . ' --' . "\n";
 
                 if (!$undo) {
-                    $sql .= 'INSERT INTO ' . DbDeployTask::$TABLE_NAME . '
+                    $sql .= 'INSERT INTO ' . self::$TABLE_NAME . '
                                 (change_number, delta_set, start_dt, applied_by, description)' .
                         ' VALUES (' . $fileChangeNumber . ', \'' . $this->deltaSet . '\', ' .
                         $this->dbmsSyntax->generateTimestamp() .
@@ -273,14 +273,14 @@ class DbDeployTask extends Task
                 if ($undo) {
                     $sql .= $undoSql;
                     $sql .= PHP_EOL;
-                    $sql .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . '
+                    $sql .= 'DELETE FROM ' . self::$TABLE_NAME . '
                              WHERE change_number = ' . $fileChangeNumber . '
                              AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 } else {
                     $sql .= $deploySql;
                     // Ensuring there's a newline after the final -- //
                     $sql .= PHP_EOL;
-                    $sql .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . '
+                    $sql .= 'UPDATE ' . self::$TABLE_NAME . '
                              SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . '
                              WHERE change_number = ' . $fileChangeNumber . '
                              AND delta_set = \'' . $this->deltaSet . '\';' . "\n";

@@ -61,8 +61,8 @@ class VisualizerTask extends HttpTask
      */
     public function init(): void
     {
-        $this->setFormat(VisualizerTask::FORMAT_PNG);
-        $this->setServer(VisualizerTask::SERVER);
+        $this->setFormat(self::FORMAT_PNG);
+        $this->setServer(self::SERVER);
         $this->checkHttpRequestLibrary();
         $this->checkPlantUmlLibrary();
         $this->checkXslExtension();
@@ -173,20 +173,20 @@ class VisualizerTask extends HttpTask
      */
     protected function generatePuml(array $buildFiles): string
     {
-        $puml = $this->transformToPuml(reset($buildFiles), VisualizerTask::XSL_HEADER);
+        $puml = $this->transformToPuml(reset($buildFiles), self::XSL_HEADER);
 
         /**
          * @var \PhingFile $buildFile
          */
         foreach ($buildFiles as $buildFile) {
-            $puml .= $this->transformToPuml($buildFile, VisualizerTask::XSL_TARGETS);
+            $puml .= $this->transformToPuml($buildFile, self::XSL_TARGETS);
         }
 
         foreach ($buildFiles as $buildFile) {
-            $puml .= $this->transformToPuml($buildFile, VisualizerTask::XSL_CALLS);
+            $puml .= $this->transformToPuml($buildFile, self::XSL_CALLS);
         }
 
-        $puml .= $this->transformToPuml(reset($buildFiles), VisualizerTask::XSL_FOOTER);
+        $puml .= $this->transformToPuml(reset($buildFiles), self::XSL_FOOTER);
 
         return $puml;
     }
@@ -266,10 +266,10 @@ class VisualizerTask extends HttpTask
     public function setFormat(string $format): VisualizerTask
     {
         switch ($format) {
-            case VisualizerTask::FORMAT_PUML:
-            case VisualizerTask::FORMAT_PNG:
-            case VisualizerTask::FORMAT_EPS:
-            case VisualizerTask::FORMAT_SVG:
+            case self::FORMAT_PUML:
+            case self::FORMAT_PNG:
+            case self::FORMAT_EPS:
+            case self::FORMAT_SVG:
                 $this->format = $format;
                 break;
             default:
@@ -346,7 +346,7 @@ class VisualizerTask extends HttpTask
      */
     protected function generateImage(string $pumlDiagram, string $format): string
     {
-        if ($format === VisualizerTask::FORMAT_PUML) {
+        if ($format === self::FORMAT_PUML) {
             $this->log('Bypassing, no need to call server', Project::MSG_DEBUG);
 
             return $pumlDiagram;
@@ -421,7 +421,7 @@ class VisualizerTask extends HttpTask
         $this->log("Response status: $status", Project::MSG_DEBUG);
         $this->log("Response reason: $reasonPhrase", Project::MSG_DEBUG);
 
-        if ($status !== VisualizerTask::STATUS_OK) {
+        if ($status !== self::STATUS_OK) {
             $message = "Request unsuccessful. Response from server: $status $reasonPhrase";
             $this->log($message, Project::MSG_ERR);
             throw new BuildException($message);
