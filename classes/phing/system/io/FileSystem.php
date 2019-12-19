@@ -170,7 +170,7 @@ abstract class FileSystem
     /**
      * canonicalize filename by checking on disk
      *
-     * @param  string $strPath
+     * @param string $strPath
      * @return mixed  Canonical path or false if the file doesn't exist.
      */
     public function canonicalize($strPath)
@@ -188,8 +188,8 @@ abstract class FileSystem
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
      *
-     * @param  PhingFile $f
-     * @param  boolean $write
+     * @param PhingFile $f
+     * @param boolean $write
      * @return bool
      */
     public function checkAccess(PhingFile $f, $write = false)
@@ -197,7 +197,6 @@ abstract class FileSystem
         // we clear stat cache, its expensive to look up from scratch,
         // but we need to be sure
         @clearstatcache();
-
 
         // Shouldn't this be $f->GetAbsolutePath() ?
         // And why doesn't GetAbsolutePath() work?
@@ -225,7 +224,7 @@ abstract class FileSystem
     /**
      * Whether file can be deleted.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @return boolean
      */
     public function canDelete(PhingFile $f)
@@ -241,7 +240,7 @@ abstract class FileSystem
      * abstract pathname was last modified, or zero if it does not exist or
      * some other I/O error occurs.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @return int
      * @throws IOException
      */
@@ -282,7 +281,7 @@ abstract class FileSystem
      * pathname, or zero if it does not exist, is a directory, or some other
      * I/O error occurs.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @throws IOException
      * @return int
      */
@@ -309,7 +308,7 @@ abstract class FileSystem
      * file or directory with the given pathname already exists.  Throw an
      * IOException if an I/O error occurs.
      *
-     * @param  string $strPathname Path of the file to be created.
+     * @param string $strPathname Path of the file to be created.
      * @throws IOException
      * @return boolean
      */
@@ -334,8 +333,8 @@ abstract class FileSystem
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      *
-     * @param  PhingFile $f
-     * @param  boolean $recursive
+     * @param PhingFile $f
+     * @param boolean $recursive
      * @throws IOException
      */
     public function delete(PhingFile $f, $recursive = false)
@@ -352,7 +351,7 @@ abstract class FileSystem
      * pathname to be deleted when Phing::shutdown is called, returning
      * true if and only if the operation succeeds.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @throws IOException
      */
     public function deleteOnExit(PhingFile $f)
@@ -373,8 +372,8 @@ abstract class FileSystem
      *
      * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
      *
-     * @param  PhingFile $f
-     * @param  int $mode
+     * @param PhingFile $f
+     * @param int $mode
      * @return boolean
      */
     public function createDirectory(&$f, $mode = 0755)
@@ -391,8 +390,8 @@ abstract class FileSystem
      * the second abstract pathname, returning true if and only if
      * the operation succeeds.
      *
-     * @param  PhingFile $f1 abstract source file
-     * @param  PhingFile $f2 abstract destination file
+     * @param PhingFile $f1 abstract source file
+     * @param PhingFile $f2 abstract destination file
      * @return void
      * @throws IOException if rename cannot be performed
      */
@@ -415,8 +414,8 @@ abstract class FileSystem
      * given abstract pathname returning true if and only if the
      * operation succeeds.
      *
-     * @param  PhingFile $f
-     * @param  int $time
+     * @param PhingFile $f
+     * @param int $time
      * @return void
      * @throws IOException
      */
@@ -437,8 +436,8 @@ abstract class FileSystem
     /**
      * Compare two abstract pathnames lexicographically.
      *
-     * @param  PhingFile $f1
-     * @param  PhingFile $f2
+     * @param PhingFile $f1
+     * @param PhingFile $f2
      * @throws IOException
      * @return int
      */
@@ -593,7 +592,7 @@ abstract class FileSystem
     /**
      * Locks a file and throws an Exception if this is not possible.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @return void
      * @throws IOException
      */
@@ -611,7 +610,7 @@ abstract class FileSystem
     /**
      * Unlocks a file and throws an IO Error if this is not possible.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @throws IOException
      * @return void
      */
@@ -650,14 +649,13 @@ abstract class FileSystem
      *
      * Currently symlink is not implemented on Windows. Don't use if the application is to be portable.
      *
-     * @param  string $target Path and/or name of file to link.
-     * @param  string $link Path and/or name of link to be created.
+     * @param string $target Path and/or name of file to link.
+     * @param string $link Path and/or name of link to be created.
      * @throws IOException
      * @return void
      */
     public function symlink($target, $link)
     {
-
         error_clear_last();
         // If Windows OS then symlink() will report it is not supported in
         // the build. Use this error instead of checking for Windows as the OS.
@@ -674,8 +672,8 @@ abstract class FileSystem
     /**
      * Set the modification and access time on a file to the present time.
      *
-     * @param  string $file Path and/or name of file to touch.
-     * @param  int $time
+     * @param string $file Path and/or name of file to touch.
+     * @param int $time
      * @throws Exception
      * @return void
      */
@@ -783,8 +781,8 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param    Int $mode
-     * @throws   Exception
+     * @param int $mode
+     * @throws Exception
      * @internal param Int $mode . Permissions usually in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
      *
@@ -850,7 +848,7 @@ abstract class FileSystem
     /**
      * returns the contents of a directory in an array
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @return string[]
      */
     public function listContents(PhingFile $f)

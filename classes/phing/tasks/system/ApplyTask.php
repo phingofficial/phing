@@ -140,7 +140,7 @@ class ApplyTask extends ExecTask
     /**
      * File to which output should be written
      *
-     * @param    $append
+     * @param $append
      * @internal param PhingFile $outputfile Output log file
      *
      * @return void
@@ -178,7 +178,7 @@ class ApplyTask extends ExecTask
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list)
      *
-     * @param    $relative
+     * @param $relative
      * @internal param bool $escape Escape command before execution
      *
      * @return void
@@ -215,7 +215,7 @@ class ApplyTask extends ExecTask
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
      *
-     * @param    $max
+     * @param $max
      * @internal param bool $forwardslash Indicator to use forward-slash
      *
      * @return void
@@ -537,7 +537,6 @@ class ApplyTask extends ExecTask
      */
     protected function buildCommand()
     {
-
         // Log
         $this->log('Command building started ', $this->loglevel);
 

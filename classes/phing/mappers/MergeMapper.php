@@ -35,7 +35,7 @@ class MergeMapper implements FileNameMapper
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param  mixed $sourceFileName The data the mapper works on
+     * @param mixed $sourceFileName The data the mapper works on
      * @throws BuildException
      * @return mixed The data after the mapper has been applied
      * @author Andreas Aderhold, andi@binarycloud.com
@@ -52,7 +52,7 @@ class MergeMapper implements FileNameMapper
     /**
      * Accessor. Sets the to property
      *
-     * @param  string     To what this mapper should convert the from string
+     * @param string     To what this mapper should convert the from string
      * @return boolean True
      * @author Andreas Aderhold, andi@binarycloud.com
      */

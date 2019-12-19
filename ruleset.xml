@@ -77,13 +77,11 @@
     </rule>
 
     <!-- Force whitespace after `!` -->
-    <!--
     <rule ref="Generic.Formatting.SpaceAfterNot">
         <properties>
             <property name="spacing" value="0" />
         </properties>
     </rule>
-    -->
 
     <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman">
         <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine"/>
@@ -143,9 +141,7 @@
     -->
 
     <!-- Force PHP 7 param and return types to be lowercased -->
-    <!--
     <rule ref="Generic.PHP.LowerCaseType"/>
-    -->
 
     <!-- Forbid `php_sapi_name()` function -->
     <!--
@@ -710,14 +706,12 @@
     -->
 
     <!-- Force whitespace before and after concatenation -->
-    <!--
     <rule ref="Squiz.Strings.ConcatenationSpacing">
         <properties>
             <property name="spacing" value="1"/>
             <property name="ignoreNewlines" value="true"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid strings in `"` unless necessary -->
     <!--
@@ -733,17 +727,12 @@
     -->
 
     <!-- Forbid spaces in type casts -->
-    <!--
     <rule ref="Squiz.WhiteSpace.CastSpacing"/>
-    -->
 
     <!-- Forbid blank line after function opening brace -->
-    <!--
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
-    -->
 
     <!-- Require 1 line before and after function, except at the top and bottom -->
-    <!--
     <rule ref="Squiz.WhiteSpace.FunctionSpacing">
         <properties>
             <property name="spacing" value="1" />
@@ -751,36 +740,25 @@
             <property name="spacingAfterLast" value="0"/>
         </properties>
     </rule>
-    -->
 
     <!-- Require there be no space between increment/decrement operator and its operand -->
-    <!--
     <rule ref="Generic.WhiteSpace.IncrementDecrementSpacing"/>
-    -->
 
     <!-- Require space after language constructs -->
-    <!--
     <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
-    -->
 
     <!-- Require space around logical operators -->
-    <!--
     <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
-    -->
 
     <!-- Forbid spaces around `->` operator -->
-    <!--
     <rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing">
         <properties>
             <property name="ignoreNewlines" value="true"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid spaces before semicolon `;` -->
-    <!--
     <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
-    -->
 
     <!-- Forbid superfluous whitespaces -->
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
@@ -790,10 +768,8 @@
         </properties>
     </rule>
 
-    <!--
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
-        <!- turned off by PSR2 -> turning back on ->
+        <!-- turned off by PSR2 -> turning back on -->
         <severity>5</severity>
     </rule>
-    -->
 </ruleset>

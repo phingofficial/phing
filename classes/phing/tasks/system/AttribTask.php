@@ -137,7 +137,7 @@ class AttribTask extends ApplyTask
      * Set the executable.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  mixed $e
+     * @param mixed $e
      * @throws BuildException
      */
     public function setExecutable($e): void
@@ -152,7 +152,7 @@ class AttribTask extends ApplyTask
      * Add source file.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  boolean $b ignored
+     * @param boolean $b ignored
      * @throws BuildException
      */
     public function setAddsourcefile(bool $b)
@@ -168,7 +168,7 @@ class AttribTask extends ApplyTask
      * Set max parallel.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  int $max ignored
+     * @param int $max ignored
      * @throws BuildException
      */
     public function setMaxParallel($max)
@@ -184,7 +184,7 @@ class AttribTask extends ApplyTask
      * Set parallel.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  boolean $parallel ignored
+     * @param boolean $parallel ignored
      * @throws BuildException
      */
     public function setParallel(bool $parallel)

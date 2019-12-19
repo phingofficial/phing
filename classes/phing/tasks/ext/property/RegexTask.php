@@ -124,7 +124,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param  string $pattern
+     * @param string $pattern
      * @throws BuildException
      */
     public function setPattern($pattern)

@@ -74,8 +74,8 @@ class DifferentSelector extends MappingSelector
     /**
      * This test is our selection test that compared the file with the destfile.
      *
-     * @param  PhingFile $srcfile the source file
-     * @param  PhingFile $destfile the destination file
+     * @param PhingFile $srcfile the source file
+     * @param PhingFile $destfile the destination file
      * @return bool true if the files are different
      *
      * @throws BuildException

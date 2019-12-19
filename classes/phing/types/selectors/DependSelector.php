@@ -63,7 +63,7 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param    PhingFile|the $targetdir
+     * @param PhingFile|the $targetdir
      * @internal param the $targetdir directory to scan looking for files.
      */
     public function setTargetdir(PhingFile $targetdir)

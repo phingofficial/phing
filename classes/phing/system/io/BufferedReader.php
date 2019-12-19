@@ -55,12 +55,11 @@ class BufferedReader extends Reader
     /**
      * Reads and returns a chunk of data.
      *
-     * @param  int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
+     * @param int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
      * @return mixed buffer or -1 if EOF.
      */
     public function read($len = null)
     {
-
         // if $len is specified, we'll use that; otherwise, use the configured buffer size.
         if ($len === null) {
             $len = $this->bufferSize;

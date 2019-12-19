@@ -24,7 +24,6 @@
  */
 class FileReader extends InputStreamReader
 {
-
     /**
      * Construct a new FileReader.
      *

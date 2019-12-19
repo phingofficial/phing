@@ -26,7 +26,6 @@
  */
 class IHCreatorFail3
 {
-
     /**
      * no class hint!
      */

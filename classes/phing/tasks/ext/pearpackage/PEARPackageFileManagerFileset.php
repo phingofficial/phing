@@ -144,13 +144,13 @@ class PEARPackageFileManagerFileset
      * This function converts them to
      * array('dir' => array('subdir' => array('subdir2')))
      *
-     * @param    array $struc is array('dir' => array of files in dir,
+     * @param array $struc is array('dir' => array of files in dir,
      *                        'dir/subdir' => array of files in
      *                        dir/subdir,...)
-     * @param    $dir
-     * @param    $contents
+     * @param $dir
+     * @param $contents
      * @internal param array $array form of 'dir/subdir/subdir2' array('dir','subdir','subdir2')
-     * @return   array same as struc but with array('dir' =>
+     * @return array same as struc but with array('dir' =>
      *               array(file1,file2,'subdir' => array(file1,...)))
      */
     private function setupDirs($struc, $dir, $contents)
@@ -188,8 +188,8 @@ class PEARPackageFileManagerFileset
      * Recursively add all the subdirectories of $contents to $dir without erasing anything in
      * $dir
      *
-     * @param  array
-     * @param  array
+     * @param array
+     * @param array
      * @return array processed $dir
      */
     public function setDir($dir, $contents)
@@ -208,8 +208,8 @@ class PEARPackageFileManagerFileset
     /**
      * Sorting functions for the file list
      *
-     * @param  string
-     * @param  string
+     * @param string
+     * @param string
      * @return int
      */
     private function sortfiles($a, $b)

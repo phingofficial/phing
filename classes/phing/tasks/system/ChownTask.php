@@ -192,9 +192,9 @@ class ChownTask extends Task
     /**
      * Actually change the mode for the file.
      *
-     * @param  PhingFile $file
-     * @param  string $user
-     * @param  string $group
+     * @param PhingFile $file
+     * @param string $user
+     * @param string $group
      * @throws BuildException
      * @throws Exception
      */

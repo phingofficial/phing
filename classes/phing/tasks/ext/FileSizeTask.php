@@ -55,7 +55,7 @@ class FileSizeTask extends Task
     /**
      * Set the name of the property to store the file size
      *
-     * @param  $property
+     * @param $property
      * @return void
      */
     public function setPropertyName($property)

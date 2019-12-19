@@ -114,8 +114,8 @@ class ElementHandler extends AbstractHandler
      * <li>adding a reference to the element (if id attribute is given)</li>
      * </ul>
      *
-     * @param  string $tag the tag that comes in
-     * @param  array $attrs attributes the tag carries
+     * @param string $tag the tag that comes in
+     * @param array $attrs attributes the tag carries
      * @throws ExpatParseException if the setup process fails
      */
     public function init($tag, $attrs)
@@ -160,7 +160,7 @@ class ElementHandler extends AbstractHandler
     /**
      * Handles character data.
      *
-     * @param  string $data the CDATA that comes in
+     * @param string $data the CDATA that comes in
      * @throws ExpatParseException if the CDATA could not be set-up properly
      */
     public function characters($data)

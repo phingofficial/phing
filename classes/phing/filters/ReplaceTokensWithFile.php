@@ -160,12 +160,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $this->prefix = (string) $prefix;
     }
 
-    /*
+    /**
      * Returns the prefix that is prepended to the token in order to create the file
      * name. For example if the token is 01 and the prefix is "example" then
      * the filename to look for will be "example01"
-     */
-    /**
      * @return string
      */
     public function getPrefix()
@@ -238,7 +236,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     /**
      * Replace the token found with the appropriate file contents
      *
-     * @param  array $matches Array of 1 el containing key to search for.
+     * @param array $matches Array of 1 el containing key to search for.
      * @return string Text with which to replace key or value of key if none is found.
      */
     private function replaceTokenCallback($matches)
@@ -287,7 +285,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)

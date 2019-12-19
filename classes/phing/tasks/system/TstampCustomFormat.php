@@ -69,7 +69,7 @@ class TstampCustomFormat
     /**
      * validate parameter and execute the format.
      *
-     * @param  TstampTask $tstamp reference to task
+     * @param TstampTask $tstamp reference to task
      * @throws BuildException
      */
     public function execute(TstampTask $tstamp, $d, $location)

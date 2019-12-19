@@ -29,7 +29,6 @@
  */
 class NotSelector extends NoneSelector
 {
-
     /**
      * @return string
      */

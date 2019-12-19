@@ -101,10 +101,10 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * an end. Otherwise, the next character from the underlying stream is read
      * and returned.
      *
-     * @param     int $len
-     * @return    string the next character in the resulting stream, or -1 if the end of
+     * @param int $len
+     * @return string the next character in the resulting stream, or -1 if the end of
      *         the resulting stream has been reached
-     * @throws    BuildException
+     * @throws BuildException
      * @throws IOException
      *                if the underlying stream throws an IOException during
      *                reading

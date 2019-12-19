@@ -140,7 +140,6 @@ class EchoProperties extends Task
         }
     }
 
-
     /**
      * If true, the task will fail if an error occurs writing the properties
      * file, otherwise errors are just logged.
@@ -152,7 +151,6 @@ class EchoProperties extends Task
     {
         $this->failonerror = $failonerror;
     }
-
 
     /**
      *  If the prefix is set, then only properties which start with this
@@ -301,8 +299,8 @@ class EchoProperties extends Task
      *  sent to the output stream.
      *  The output stream will be closed when this method returns.
      *
-     * @param  array $allProps propfile to save
-     * @param  OutputStream $os output stream
+     * @param array $allProps propfile to save
+     * @param OutputStream $os output stream
      * @throws IOException      on output errors
      * @throws BuildException   on other errors
      */
@@ -341,8 +339,8 @@ class EchoProperties extends Task
     /**
      * Output the properties as xml output.
      *
-     * @param  Properties $props the properties to save
-     * @param  OutputStream $os the output stream to write to (Note this gets closed)
+     * @param Properties $props the properties to save
+     * @param OutputStream $os the output stream to write to (Note this gets closed)
      * @throws BuildException
      */
     protected function xmlSaveProperties(Properties $props, OutputStream $os)

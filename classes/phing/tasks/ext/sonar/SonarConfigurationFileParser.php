@@ -104,7 +104,7 @@ class SonarConfigurationFileParser
                 $isMultiLine = $this->extractNameAndValue($line);
             }
 
-            if (($this->name !== null) && (! $isMultiLine)) {
+            if (($this->name !== null) && (!$isMultiLine)) {
                 if (array_key_exists($this->name, $this->properties)) {
                     $message = sprintf(
                         'Property [%s] overwritten: old value [%s], new value [%s].',

@@ -82,7 +82,7 @@ class SonarTask extends Task
      * If the SonarQube Scanner is included in the PATH environment variable,
      * the file name is sufficient.
      *
-     * @param  string $executable
+     * @param string $executable
      * @return void
      */
     public function setExecutable($executable)
@@ -96,7 +96,7 @@ class SonarTask extends Task
     /**
      * Sets or unsets the "--errors" flag of SonarQube Scanner.
      *
-     * @param  string $errors
+     * @param string $errors
      *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
      * @return void
      */
@@ -111,7 +111,7 @@ class SonarTask extends Task
     /**
      * Sets or unsets the "--debug" flag of SonarQube Scanner.
      *
-     * @param  string $debug
+     * @param string $debug
      *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
      * @return void
      */
@@ -126,7 +126,7 @@ class SonarTask extends Task
     /**
      * Sets the path of a configuration file for SonarQube Scanner.
      *
-     * @param  string $configuration
+     * @param string $configuration
      * @return void
      */
     public function setConfiguration($configuration)
@@ -140,7 +140,7 @@ class SonarTask extends Task
     /**
      * Adds a nested Property element.
      *
-     * @param  SonarProperty $property
+     * @param SonarProperty $property
      * @return void
      */
     public function addProperty(SonarProperty $property)

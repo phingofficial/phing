@@ -103,7 +103,7 @@ class VersionTask extends Task
     /**
      * Set name of property to be set
      *
-     * @param  $property
+     * @param $property
      * @return void
      */
     public function setProperty($property)
@@ -190,7 +190,7 @@ class VersionTask extends Task
     /**
      * Returns new version number corresponding to Release type
      *
-     * @param  string $oldVersion
+     * @param string $oldVersion
      * @return string
      */
     private function getVersion($oldVersion)

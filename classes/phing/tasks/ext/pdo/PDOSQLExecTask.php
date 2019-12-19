@@ -277,7 +277,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Sets the fetch mode to use for the PDO resultset.
      *
-     * @param  mixed $mode The PDO fetchmode integer or constant name.
+     * @param mixed $mode The PDO fetchmode integer or constant name.
      * @throws BuildException
      */
     public function setFetchmode($mode): void
@@ -312,7 +312,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     public function main()
     {
-
         // Set a default fetchmode if none was specified
         // (We're doing that here to prevent errors loading the class is PDO is not available.)
         if ($this->fetchMode === null) {
@@ -447,7 +446,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * read in lines and execute them
      *
-     * @param  Reader $reader
+     * @param Reader $reader
      * @throws BuildException
      */
     public function runStatements(Reader $reader)

@@ -102,7 +102,6 @@ class PathConvert extends Task
         return $this->path->createPath();
     }
 
-
     /**
      * Create a nested MAP element
      *
@@ -165,7 +164,6 @@ class PathConvert extends Task
         $this->refid = $r;
     }
 
-
     /**
      * Set the default path separator string;
      * defaults to current JVM
@@ -177,7 +175,6 @@ class PathConvert extends Task
         $this->pathSep = $sep;
     }
 
-
     /**
      * Set the default directory separator string
      *
@@ -188,7 +185,6 @@ class PathConvert extends Task
         $this->dirSep = $sep;
     }
 
-
     /**
      * Has the refid attribute of this element been set?
      *
@@ -198,7 +194,6 @@ class PathConvert extends Task
     {
         return $this->refid !== null;
     }
-
 
     /**
      * Do the execution.
@@ -310,8 +305,8 @@ class PathConvert extends Task
      * between Windows drive letters and Unix paths. If no map is configured,
      * then the input string is returned unchanged.
      *
-     * @param  string $elem The path element to apply the map to
-     * @return String Updated element
+     * @param string $elem The path element to apply the map to
+     * @return string Updated element
      */
     private function mapElement($elem)
     {
@@ -396,7 +391,6 @@ class PathConvert extends Task
         $this->pathSep = $psep;
         $this->dirSep  = $dsep;
     }
-
 
     /**
      * Creates an exception that indicates that this XML element must not have

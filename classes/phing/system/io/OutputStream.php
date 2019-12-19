@@ -32,7 +32,7 @@ class OutputStream
     /**
      * Construct a new OutputStream.
      *
-     * @param  resource $stream Configured PHP stream for writing.
+     * @param resource $stream Configured PHP stream for writing.
      * @throws IOException
      */
     public function __construct($stream)
@@ -85,9 +85,9 @@ class OutputStream
     /**
      * Writes data to stream.
      *
-     * @param  string $buf Binary/character data to write.
-     * @param  int $off (Optional) offset.
-     * @param  int $len (Optional) number of bytes/chars to write.
+     * @param string $buf Binary/character data to write.
+     * @param int $off (Optional) offset.
+     * @param int $len (Optional) number of bytes/chars to write.
      * @return void
      * @throws IOException - if there is an error writing to stream
      */

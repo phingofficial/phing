@@ -65,7 +65,7 @@ abstract class GitBaseTask extends Task
     /**
      * Set repository directory
      *
-     * @param  string $repository Repo directory
+     * @param string $repository Repo directory
      * @return GitBaseTask
      */
     public function setRepository($repository)
@@ -88,7 +88,7 @@ abstract class GitBaseTask extends Task
     /**
      * Set path to git executable
      *
-     * @param  string $gitPath New path to git repository
+     * @param string $gitPath New path to git repository
      * @return GitBaseTask
      */
     public function setGitPath($gitPath)

@@ -293,7 +293,7 @@ class PHPUnitTask extends Task
     /**
      * Load and processes the PHPUnit configuration
      *
-     * @param  $configuration
+     * @param $configuration
      * @return array
      * @throws ReflectionException
      * @throws BuildException

@@ -33,7 +33,7 @@ class TruncateTask extends Task
     /**
      * Set a single target File.
      *
-     * @param  PhingFile|string $f the single File
+     * @param PhingFile|string $f the single File
      * @throws \IOException
      * @throws \NullPointerException
      */

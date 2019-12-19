@@ -191,7 +191,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * string replacements.  (alternative would be using preg_replace with /e which
      * would probably be faster, but no ability to debug/log.)
      *
-     * @param  array $matches Array of matches; we're interested in $matches[2].
+     * @param array $matches Array of matches; we're interested in $matches[2].
      * @return string Translated text
      */
     private function xlateStringCallback($matches)
@@ -208,7 +208,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and then translation is performed.
      *
-     * @param  int $len
+     * @param int $len
      * @throws BuildException
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      */
@@ -229,7 +229,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         // Setup the locale/gettext environment
         $this->initEnvironment();
-
 
         // replace any occurrences of _("") or gettext("") with
         // the translated value.

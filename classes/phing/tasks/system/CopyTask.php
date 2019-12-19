@@ -149,7 +149,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean $bool Preserve the timestamp on the destination file
+     * @param boolean $bool Preserve the timestamp on the destination file
      * @return void
      */
     public function setPreserveLastModified($bool)
@@ -162,7 +162,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean $bool Preserve the timestamp on the destination file
+     * @param boolean $bool Preserve the timestamp on the destination file
      * @return void
      */
     public function setPreservepermissions($bool)
@@ -183,7 +183,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean $bool Flag if empty dirs should be cpoied too
+     * @param boolean $bool Flag if empty dirs should be cpoied too
      * @return void
      */
     public function setIncludeEmptyDirs($bool)
@@ -516,7 +516,6 @@ class CopyTask extends Task
      */
     protected function doWork()
     {
-
         // These "slots" allow filters to retrieve information about the currently-being-process files
         $fromSlot         = $this->getRegisterSlot("currentFromFile");
         $fromBasenameSlot = $this->getRegisterSlot("currentFromFile.basename");

@@ -26,7 +26,6 @@
  */
 abstract class Reader
 {
-
     /**
      * Read data from source.
      *

@@ -51,7 +51,7 @@ class PHPMDRendererRemoveFromCache extends AbstractRenderer
      * This method will be called when the engine has finished the source
      * analysis phase. To remove file with violations from cache.
      *
-     * @param  Report $report
+     * @param Report $report
      * @return void
      */
     public function renderReport(Report $report)

@@ -251,9 +251,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * pattern=**\a and str=b will yield true.
      *
-     * @param  string $pattern the pattern to match against
-     * @param  string $str the string (path) to match
-     * @param  bool $isCaseSensitive must matches be case sensitive?
+     * @param string $pattern the pattern to match against
+     * @param string $str the string (path) to match
+     * @param bool $isCaseSensitive must matches be case sensitive?
      * @return boolean true if matches, otherwise false
      */
     public function matchPatternStart($pattern, $str, $isCaseSensitive = true)
@@ -311,7 +311,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * Add a pattern to the default excludes unless it is already a
      * default exclude.
      *
-     * @param  string $s A string to add as an exclude pattern.
+     * @param string $s A string to add as an exclude pattern.
      * @return boolean   <code>true</code> if the string was added;
      *                   <code>false</code> if it already existed.
      */
@@ -330,7 +330,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Remove a string if it is a default exclude.
      *
-     * @param  string $s The string to attempt to remove.
+     * @param string $s The string to attempt to remove.
      * @return boolean    <code>true</code> if <code>s</code> was a default
      *                    exclude (and thus was removed);
      *                    <code>false</code> if <code>s</code> was not
@@ -676,7 +676,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Tests whether a name matches against at least one include pattern.
      *
-     * @param  string $_name the name to match
+     * @param string $_name the name to match
      * @return bool <code>true</code> when the name matches against at least one
      */
     protected function isIncluded($_name)
@@ -693,7 +693,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Tests whether a name matches the start of at least one include pattern.
      *
-     * @param  string $_name the name to match
+     * @param string $_name the name to match
      * @return bool <code>true</code> when the name matches against at least one
      *                           include pattern, <code>false</code> otherwise.
      */
@@ -711,7 +711,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Tests whether a name matches against at least one exclude pattern.
      *
-     * @param  string $_name the name to match
+     * @param string $_name the name to match
      * @return bool <code>true</code> when the name matches against at least one
      *                           exclude pattern, <code>false</code> otherwise.
      */
@@ -924,8 +924,8 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Tests whether a name should be selected.
      *
-     * @param  string $name The filename to check for selecting.
-     * @param  string $file The full file path.
+     * @param string $name The filename to check for selecting.
+     * @param string $file The full file path.
      * @return boolean False when the selectors says that the file
      *                      should not be selected, True otherwise.
      * @throws \BuildException

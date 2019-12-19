@@ -278,7 +278,7 @@ class Path extends DataType
     /**
      * Returns all path elements defined by this and nested path objects.
      *
-     * @param  bool $preserveDuplicates
+     * @param bool $preserveDuplicates
      * @return array List of path elements.
      * @throws IOException
      * @throws NullPointerException
@@ -358,7 +358,6 @@ class Path extends DataType
 
         return $preserveDuplicates ? $result : array_unique($result);
     }
-
 
     /**
      * Returns a textual representation of the path, which can be used as

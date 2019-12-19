@@ -96,7 +96,7 @@ class HttpGetTask extends HttpTask
     /**
      * Saves the response body to a specified directory
      *
-     * @param  HTTP_Request2_Response $response
+     * @param HTTP_Request2_Response $response
      * @return void
      * @throws BuildException
      */

@@ -29,7 +29,7 @@ class FlattenMapper implements FileNameMapper
      * The mapper implementation. Returns string with source filename
      * but without leading directory information
      *
-     * @param  string $sourceFileName The data the mapper works on
+     * @param string $sourceFileName The data the mapper works on
      * @return array  The data after the mapper has been applied
      */
     public function main($sourceFileName)
@@ -43,7 +43,7 @@ class FlattenMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param  string $to
+     * @param string $to
      * @return void
      */
     public function setTo($to)
@@ -54,7 +54,7 @@ class FlattenMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param  string $from
+     * @param string $from
      * @return void
      */
     public function setFrom($from)

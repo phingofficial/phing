@@ -28,7 +28,7 @@ class PHPStanHelpCommandBuilder extends PHPStanCommandBuilder
         $cmd = $task->getCommandline();
 
         if (!empty($task->getFormat())) {
-            $cmd->createArgument()->setValue('--format=' .  $task->getFormat());
+            $cmd->createArgument()->setValue('--format=' . $task->getFormat());
         }
         if ($task->isRaw()) {
             $cmd->createArgument()->setValue('--raw');

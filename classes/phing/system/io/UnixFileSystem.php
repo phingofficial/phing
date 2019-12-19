@@ -248,8 +248,8 @@ class UnixFileSystem extends FileSystem
     /**
      * compares file paths lexicographically
      *
-     * @param  PhingFile $f1
-     * @param  PhingFile $f2
+     * @param PhingFile $f1
+     * @param PhingFile $f2
      * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
@@ -303,7 +303,7 @@ class UnixFileSystem extends FileSystem
     /**
      * Whether file can be deleted.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @return boolean
      */
     public function canDelete(PhingFile $f)

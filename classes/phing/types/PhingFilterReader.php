@@ -49,7 +49,7 @@ class PhingFilterReader extends DataType
     /**
      * Set the classpath to load the FilterReader through (attribute).
      *
-     * @param  Path $classpath
+     * @param Path $classpath
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)
@@ -67,6 +67,7 @@ class PhingFilterReader extends DataType
     /*
      * Set the classpath to load the FilterReader through (nested element).
     */
+
     /**
      * @return Path
      * @throws BuildException
@@ -140,6 +141,7 @@ class PhingFilterReader extends DataType
      * @param Reference $r the reference to which this instance is associated
      * @throws BuildException if this instance already has been configured.
     */
+
     /**
      * @param Reference $r
      * @throws BuildException

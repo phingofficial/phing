@@ -173,7 +173,7 @@ class GitCloneTask extends GitBaseTask
     /**
      * Set path to source repo
      *
-     * @param  string $targetPath Path to repository used as source
+     * @param string $targetPath Path to repository used as source
      * @return void
      */
     public function setTargetPath($targetPath)

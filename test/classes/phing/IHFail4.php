@@ -26,7 +26,6 @@
  */
 class IHFail4
 {
-
     /**
      * 2 params!
      */

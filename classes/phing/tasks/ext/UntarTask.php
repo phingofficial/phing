@@ -88,7 +88,7 @@ class UntarTask extends ExtractBaseTask
     /**
      * Init a Archive_Tar class with correct compression for the given file.
      *
-     * @param  PhingFile $tarfile
+     * @param PhingFile $tarfile
      * @return Archive_Tar the tar class instance
      */
     private function initTar(PhingFile $tarfile)

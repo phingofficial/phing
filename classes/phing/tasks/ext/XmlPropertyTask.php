@@ -103,7 +103,7 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      *
-     * @param  PhingFile $file
+     * @param PhingFile $file
      * @throws BuildException
      * @return Properties
      */

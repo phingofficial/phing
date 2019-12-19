@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHPStanTaskUnitTest extends TestCase
 {
-
     public function testItHasValidDefaults(): void
     {
         $task   = new PHPStanTask();

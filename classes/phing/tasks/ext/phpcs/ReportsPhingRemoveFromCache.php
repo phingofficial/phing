@@ -68,7 +68,6 @@ class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
         return false;
     }
 
-
     /**
      * Do nothing
      *

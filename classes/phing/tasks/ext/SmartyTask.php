@@ -181,7 +181,7 @@ class SmartyTask extends Task
      * [REQUIRED] Set the control template for the
      * generating process.
      *
-     * @param  string $controlTemplate
+     * @param string $controlTemplate
      * @return void
      */
     public function setControlTemplate($controlTemplate)
@@ -205,7 +205,7 @@ class SmartyTask extends Task
      * for templates using the file template
      * loader.
      *
-     * @param  $templatePath
+     * @param $templatePath
      * @return void
      */
     public function setTemplatePath($templatePath)
@@ -246,7 +246,7 @@ class SmartyTask extends Task
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
      *
-     * @param  PhingFile $outputDirectory
+     * @param PhingFile $outputDirectory
      * @return void
      * @throws Exception
      */
@@ -282,7 +282,7 @@ class SmartyTask extends Task
      * [REQUIRED] Set the output file for the
      * generation process.
      *
-     * @param  $outputFile
+     * @param $outputFile
      * @return void
      */
     public function setOutputFile($outputFile)
@@ -324,7 +324,7 @@ class SmartyTask extends Task
     /**
      * Set whether Smarty should always recompile templates.
      *
-     * @param  boolean $force
+     * @param boolean $force
      * @return void
      */
     public function setForceCompile($force)
@@ -345,7 +345,7 @@ class SmartyTask extends Task
     /**
      * Set where Smarty looks for config files.
      *
-     * @param  string $configPath
+     * @param string $configPath
      * @return void
      */
     public function setConfigPath($configPath)
@@ -366,7 +366,7 @@ class SmartyTask extends Task
     /**
      * Set Smarty template left delimiter.
      *
-     * @param  string $delim
+     * @param string $delim
      * @return void
      */
     public function setLeftDelimiter($delim)
@@ -387,7 +387,7 @@ class SmartyTask extends Task
     /**
      * Set Smarty template right delimiter.
      *
-     * @param  string $delim
+     * @param string $delim
      * @return void
      */
     public function setRightDelimiter($delim)
@@ -410,7 +410,7 @@ class SmartyTask extends Task
      * fed into the initial context be the
      * generating process starts.
      *
-     * @param  string $file
+     * @param string $file
      * @throws BuildException
      * @return void
      */
@@ -490,7 +490,6 @@ class SmartyTask extends Task
      */
     public function main()
     {
-
         // Make sure the template path is set.
         if (empty($this->templatePath)) {
             throw new BuildException("The template path needs to be defined!");
@@ -645,10 +644,10 @@ class SmartyTask extends Task
      * <p><code>$generator</code> is not put into the context in this
      * method.</p>
      *
-     * @param    Smarty|The $context
+     * @param Smarty|The $context
      * @internal param The $context context to populate, as retrieved from
      * {@link #initControlContext()}.
-     * @return   void
+     * @return void
      */
     protected function populateInitialContext(Smarty $context)
     {

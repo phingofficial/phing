@@ -108,7 +108,7 @@ class ForeachTask extends Task
     private $trim = false;
 
     /**
-     * @var  $inheritAll
+     * @var $inheritAll
      */
     private $inheritAll = false;
 

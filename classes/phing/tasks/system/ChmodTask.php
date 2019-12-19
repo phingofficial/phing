@@ -184,8 +184,8 @@ class ChmodTask extends Task
     /**
      * Actually change the mode for the file.
      *
-     * @param  PhingFile $file
-     * @param  int $mode
+     * @param PhingFile $file
+     * @param int $mode
      * @throws BuildException
      * @throws Exception
      */

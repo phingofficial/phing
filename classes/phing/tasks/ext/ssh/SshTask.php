@@ -212,7 +212,7 @@ class SshTask extends Task
     /**
      * Returns the private keyfile passphrase
      *
-     * @param  $privkeyfilepassphrase
+     * @param $privkeyfilepassphrase
      * @return string
      */
     public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
@@ -275,7 +275,7 @@ class SshTask extends Task
     /**
      * Sets whether to fail the task on any error
      *
-     * @param    $failonerror
+     * @param $failonerror
      * @internal param bool $failOnError
      */
     public function setFailonerror($failonerror)
@@ -352,7 +352,7 @@ class SshTask extends Task
      * command, stores output data, checks for errors and
      * closes the streams properly.
      *
-     * @param  $stream
+     * @param $stream
      * @throws BuildException
      */
     protected function handleStream($stream)

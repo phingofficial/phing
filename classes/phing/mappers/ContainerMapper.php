@@ -58,7 +58,7 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Add a <code>FileNameMapper</code>.
      *
-     * @param  FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
+     * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
      * @throws BadMethodCallException if attempting to add this
      *         <code>ContainerMapper</code> to itself, or if the specified
      *         <code>FileNameMapper</code> is itself a <code>ContainerMapper</code>
@@ -77,7 +77,7 @@ abstract class ContainerMapper implements FileNameMapper
      * Return <code>true</code> if this <code>ContainerMapper</code> or any of
      * its sub-elements contains the specified <code>FileNameMapper</code>.
      *
-     * @param  FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to search for.
+     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to search for.
      * @return boolean
      */
     protected function contains(FileNameMapper $fileNameMapper)

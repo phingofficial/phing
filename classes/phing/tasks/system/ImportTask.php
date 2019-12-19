@@ -70,7 +70,7 @@ class ImportTask extends Task
     /**
      * Set the file to import.
      *
-     * @param  string $f Path to file
+     * @param string $f Path to file
      * @return void
      */
     public function setFile($f)
@@ -93,7 +93,7 @@ class ImportTask extends Task
     /**
      * Is this include optional?
      *
-     * @param  bool $opt If true, do not stop the build if the file does not
+     * @param bool $opt If true, do not stop the build if the file does not
      *                   exist
      * @return void
      */

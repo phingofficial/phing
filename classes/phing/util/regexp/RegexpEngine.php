@@ -26,11 +26,10 @@
  */
 interface RegexpEngine
 {
-
     /**
      * Sets whether or not regex operation should ingore case.
      *
-     * @param  boolean $bit
+     * @param boolean $bit
      * @return void
      */
     public function setIgnoreCase($bit);
@@ -73,9 +72,9 @@ interface RegexpEngine
     /**
      * Matches pattern against source string and sets the matches array.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source The source string.
-     * @param  array $matches The array in which to store matches.
+     * @param string $pattern The regex pattern to match.
+     * @param string $source The source string.
+     * @param array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function match($pattern, $source, &$matches);
@@ -83,9 +82,9 @@ interface RegexpEngine
     /**
      * Matches all patterns in source string and sets the matches array.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source The source string.
-     * @param  array $matches The array in which to store matches.
+     * @param string $pattern The regex pattern to match.
+     * @param string $source The source string.
+     * @param array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches);
@@ -93,9 +92,9 @@ interface RegexpEngine
     /**
      * Replaces $pattern with $replace in $source string.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $replace The string with which to replace matches.
-     * @param  string $source The source string.
+     * @param string $pattern The regex pattern to match.
+     * @param string $replace The string with which to replace matches.
+     * @param string $source The source string.
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source);

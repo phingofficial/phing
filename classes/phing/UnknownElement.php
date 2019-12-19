@@ -96,7 +96,7 @@ class UnknownElement extends Task
     /**
      * Add a child element to the unknown element
      *
-     * @param    UnknownElement $child
+     * @param UnknownElement $child
      * @internal param The $object object representing the child element
      */
     public function addChild(UnknownElement $child)
@@ -146,9 +146,9 @@ class UnknownElement extends Task
      * Creates a named task or data type. If the real object is a task,
      * it is configured up to the init() stage.
      *
-     * @param  UnknownElement $ue The unknown element to create the real object for.
+     * @param UnknownElement $ue The unknown element to create the real object for.
      *                                 Must not be <code>null</code>.
-     * @param  RuntimeConfigurable $w Ignored in this implementation.
+     * @param RuntimeConfigurable $w Ignored in this implementation.
      * @throws BuildException
      * @return object              The Task or DataType represented by the given unknown element.
      */
@@ -170,9 +170,9 @@ class UnknownElement extends Task
     /**
      *  Create a named task and configure it up to the init() stage.
      *
-     * @param  UnknownElement $ue The unknwon element to create a task from
-     * @param  RuntimeConfigurable $w The wrapper object
-     * @param  boolean $onTopLevel Whether to treat this task as if it is top-level.
+     * @param UnknownElement $ue The unknwon element to create a task from
+     * @param RuntimeConfigurable $w The wrapper object
+     * @param boolean $onTopLevel Whether to treat this task as if it is top-level.
      * @throws BuildException
      * @return Task                The freshly created task
      */

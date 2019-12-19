@@ -30,14 +30,11 @@ class Comment
      */
     private $value;
 
-    /*
+    /**
      * Sets the prefix for this type of line comment.
      *
      * @param string $value The prefix for a line comment of this type.
      *                      Must not be <code>null</code>.
-     */
-    /**
-     * @param $value
      */
     public function setValue($value)
     {
