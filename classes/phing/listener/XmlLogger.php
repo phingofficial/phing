@@ -142,7 +142,7 @@ class XmlLogger implements BuildLogger
     public function buildStarted(BuildEvent $event)
     {
         $this->buildTimerStart = Phing::currentTimeMillis();
-        $this->buildElement    = $this->doc->createElement(XmlLogger::BUILD_TAG);
+        $this->buildElement    = $this->doc->createElement(self::BUILD_TAG);
         $this->elementStack[]  = $this->buildElement;
         $this->timesStack[]    = $this->buildTimerStart;
     }
@@ -169,12 +169,12 @@ class XmlLogger implements BuildLogger
 
         $elapsedTime = Phing::currentTimeMillis() - $this->buildTimerStart;
 
-        $this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
+        $this->buildElement->setAttribute(self::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
         if ($event->getException() != null) {
-            $this->buildElement->setAttribute(XmlLogger::ERROR_ATTR, $event->getException()->getMessage());
+            $this->buildElement->setAttribute(self::ERROR_ATTR, $event->getException()->getMessage());
             $errText    = $this->doc->createCDATASection($event->getException()->getTraceAsString());
-            $stacktrace = $this->doc->createElement(XmlLogger::STACKTRACE_TAG);
+            $stacktrace = $this->doc->createElement(self::STACKTRACE_TAG);
             $stacktrace->appendChild($errText);
             $this->buildElement->appendChild($stacktrace);
         }
@@ -222,8 +222,8 @@ class XmlLogger implements BuildLogger
     {
         $target = $event->getTarget();
 
-        $targetElement = $this->doc->createElement(XmlLogger::TARGET_TAG);
-        $targetElement->setAttribute(XmlLogger::NAME_ATTR, $target->getName());
+        $targetElement = $this->doc->createElement(self::TARGET_TAG);
+        $targetElement->setAttribute(self::NAME_ATTR, $target->getName());
 
         $this->timesStack[]   = Phing::currentTimeMillis();
         $this->elementStack[] = $targetElement;
@@ -242,7 +242,7 @@ class XmlLogger implements BuildLogger
         $targetElement    = array_pop($this->elementStack);
 
         $elapsedTime = Phing::currentTimeMillis() - $targetTimerStart;
-        $targetElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
+        $targetElement->setAttribute(self::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
         $parentElement = $this->elementStack[count($this->elementStack) - 1];
         $parentElement->appendChild($targetElement);
@@ -258,9 +258,9 @@ class XmlLogger implements BuildLogger
     {
         $task = $event->getTask();
 
-        $taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
-        $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
-        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string) $task->getLocation());
+        $taskElement = $this->doc->createElement(self::TASK_TAG);
+        $taskElement->setAttribute(self::NAME_ATTR, $task->getTaskName());
+        $taskElement->setAttribute(self::LOCATION_ATTR, (string) $task->getLocation());
 
         $this->timesStack[]   = Phing::currentTimeMillis();
         $this->elementStack[] = $taskElement;
@@ -279,7 +279,7 @@ class XmlLogger implements BuildLogger
         $taskElement    = array_pop($this->elementStack);
 
         $elapsedTime = Phing::currentTimeMillis() - $taskTimerStart;
-        $taskElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
+        $taskElement->setAttribute(self::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
         $parentElement = $this->elementStack[count($this->elementStack) - 1];
         $parentElement->appendChild($taskElement);
@@ -301,7 +301,7 @@ class XmlLogger implements BuildLogger
             return;
         }
 
-        $messageElement = $this->doc->createElement(XmlLogger::MESSAGE_TAG);
+        $messageElement = $this->doc->createElement(self::MESSAGE_TAG);
 
         switch ($priority) {
             case Project::MSG_ERR:
@@ -318,7 +318,7 @@ class XmlLogger implements BuildLogger
                 break;
         }
 
-        $messageElement->setAttribute(XmlLogger::PRIORITY_ATTR, $name);
+        $messageElement->setAttribute(self::PRIORITY_ATTR, $name);
 
         if (function_exists('mb_convert_encoding')) {
             $messageConverted = mb_convert_encoding($event->getMessage(), 'UTF-8');
