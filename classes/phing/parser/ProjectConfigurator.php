@@ -79,8 +79,8 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param  Project $project the Project instance this configurator should use
-     * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @param Project $project the Project instance this configurator should use
+     * @param PhingFile $buildFile the buildfile object the parser should use
      * @throws IOException
      * @throws NullPointerException
      */
@@ -249,9 +249,9 @@ class ProjectConfigurator
     /**
      * Configures an element and resolves eventually given properties.
      *
-     * @param  mixed $target element to configure
-     * @param  array $attrs element's attributes
-     * @param  Project $project project this element belongs to
+     * @param mixed $target element to configure
+     * @param array $attrs element's attributes
+     * @param Project $project project this element belongs to
      * @throws BuildException
      * @throws Exception
      */
@@ -340,9 +340,9 @@ class ProjectConfigurator
     /**
      * Add location to build exception.
      *
-     * @param  BuildException $ex the build exception, if the build exception
+     * @param BuildException $ex the build exception, if the build exception
      *                                    does not include
-     * @param  Location $newLocation the location of the calling task (may be null)
+     * @param Location $newLocation the location of the calling task (may be null)
      * @return BuildException a new build exception based in the build exception with
      *         location set to newLocation. If the original exception
      *         did not have a location, just return the build exception

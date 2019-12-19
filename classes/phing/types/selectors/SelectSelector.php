@@ -31,7 +31,6 @@
  */
 class SelectSelector extends AndSelector
 {
-
     /**
      * @return string
      */
@@ -72,7 +71,7 @@ class SelectSelector extends AndSelector
     /**
      * Returns the set of selectors as an array.
      *
-     * @param  Project $p
+     * @param Project $p
      * @return array
      */
     public function getSelectors(Project $p)
@@ -91,7 +90,7 @@ class SelectSelector extends AndSelector
     /**
      * Add a new selector into this container.
      *
-     * @param  FileSelector $selector new selector to add
+     * @param FileSelector $selector new selector to add
      * @return void
      * @throws BuildException
      */

@@ -58,7 +58,7 @@ abstract class Amazon extends Task
      *
      * This way, we can define global properties for the "Amazon" service, like key and secret
      *
-     * @param  mixed $var
+     * @param mixed $var
      * @return mixed
      */
     public function __get($var)

@@ -200,7 +200,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      *
-     * @param  int $len
+     * @param int $len
      * @throws BuildException
      * @return string         transformed buffer.
      */

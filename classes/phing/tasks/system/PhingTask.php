@@ -166,7 +166,6 @@ class PhingTask extends Task
      */
     public function main()
     {
-
         // Call Phing on the file set with the attribute "phingfile"
         if ($this->phingFile !== null or $this->dir !== null) {
             $this->processFile();
@@ -430,7 +429,6 @@ class PhingTask extends Task
      */
     private function addReferences()
     {
-
         // parent project references
         $projReferences = $this->project->getReferences();
 
@@ -491,8 +489,8 @@ class PhingTask extends Task
      * <p>If we cannot clone it, copy the referenced object itself and
      * keep our fingers crossed.</p>
      *
-     * @param  string $oldKey
-     * @param  string $newKey
+     * @param string $oldKey
+     * @param string $newKey
      * @throws BuildException
      * @return void
      */

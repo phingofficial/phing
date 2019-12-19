@@ -61,7 +61,7 @@ class ResolvePathTask extends Task
     /**
      * Set the name of the property to set.
      *
-     * @param  string $v Property name
+     * @param string $v Property name
      * @return void
      */
     public function setPropertyName($v)

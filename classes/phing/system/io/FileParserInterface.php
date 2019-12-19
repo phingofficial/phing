@@ -29,7 +29,7 @@ interface FileParserInterface
     /**
      * Builds an array from the given (ini) file and returns it.
      *
-     * @param  $file
+     * @param $file
      * @return array
      * @throws IOException
      */

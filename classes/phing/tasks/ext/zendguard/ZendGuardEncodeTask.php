@@ -503,7 +503,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Encodes a file using currently defined Zend Guard settings
      *
-     * @param  string $filePath Path to the encoded file
+     * @param string $filePath Path to the encoded file
      * @throws BuildException
      * @return bool
      */

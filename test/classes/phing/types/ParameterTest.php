@@ -33,6 +33,7 @@ class ParameterUnitTest extends \PHPUnit\Framework\TestCase
         $this->parameter->setName("foo");
         $this->assertEquals("foo", $this->parameter->getName());
     }
+
     public function testSetType()
     {
         $this->parameter->setType(1);
@@ -40,6 +41,7 @@ class ParameterUnitTest extends \PHPUnit\Framework\TestCase
         $this->parameter->setType("foo");
         $this->assertEquals("foo", $this->parameter->getType());
     }
+
     public function testSetValue()
     {
         $this->parameter->setValue(1);
@@ -47,11 +49,13 @@ class ParameterUnitTest extends \PHPUnit\Framework\TestCase
         $this->parameter->setValue("foo");
         $this->assertEquals("foo", $this->parameter->getValue());
     }
+
     public function testGetParamsNoneSet()
     {
         $params = $this->parameter->getParams();
         $this->assertEquals([], $params);
     }
+
     public function testCreateParamGetParams()
     {
         $param = $this->parameter->createParam();
@@ -60,6 +64,7 @@ class ParameterUnitTest extends \PHPUnit\Framework\TestCase
         $params = $this->parameter->getParams();
         $this->assertNotEquals([], $params);
     }
+
     public function testSetListeningValue()
     {
         $slot = new RegisterSlot("key");

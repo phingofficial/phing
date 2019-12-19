@@ -151,7 +151,7 @@ class CoverageThresholdTask extends Task
     /**
      * Filter covered statements
      *
-     * @param  integer $var Coverage CODE/count
+     * @param integer $var Coverage CODE/count
      * @return boolean
      */
     protected function filterCovered($var)
@@ -174,8 +174,8 @@ class CoverageThresholdTask extends Task
     /**
      * Calculates the coverage threshold
      *
-     * @param  string $filename The filename to analyse
-     * @param  array $coverageInformation Array with coverage information
+     * @param string $filename The filename to analyse
+     * @param array $coverageInformation Array with coverage information
      * @throws BuildException
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)

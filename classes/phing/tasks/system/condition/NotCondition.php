@@ -29,7 +29,6 @@
  */
 class NotCondition extends ConditionBase implements Condition
 {
-
     /**
      * @return bool
      * @throws BuildException

@@ -37,7 +37,7 @@ class PatternSet extends DataType
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      *
-     * @param  Reference $r
+     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -112,7 +112,7 @@ class PatternSet extends DataType
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  string $includes the string containing the include patterns
+     * @param string $includes the string containing the include patterns
      * @return void
      * @throws BuildException
      */
@@ -135,7 +135,7 @@ class PatternSet extends DataType
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  string the string containing the exclude patterns
+     * @param string the string containing the exclude patterns
      * @return void
      * @throws BuildException
      */
@@ -157,7 +157,7 @@ class PatternSet extends DataType
     /**
      * add a name entry to the given list
      *
-     * @param  array List onto which the nameentry should be added
+     * @param array List onto which the nameentry should be added
      * @return PatternSetNameEntry Reference to the created PsetNameEntry instance
      */
     private function addPatternToList(&$list)
@@ -189,7 +189,7 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the excludes patterns.
      *
-     * @param  PhingFile $excludesFile file to fetch the exclude patterns from.
+     * @param PhingFile $excludesFile file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesFile($excludesFile)
@@ -412,7 +412,6 @@ class PatternSet extends DataType
      */
     public function __toString()
     {
-
         // We can't compile includeList into array because, toString() does
         // not know about project:
         //

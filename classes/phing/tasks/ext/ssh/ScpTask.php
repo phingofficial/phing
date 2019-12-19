@@ -210,7 +210,7 @@ class ScpTask extends Task
     /**
      * Returns the private keyfile passphrase
      *
-     * @param  $privkeyfilepassphrase
+     * @param $privkeyfilepassphrase
      * @return string
      */
     public function getPrivkeyfilepassphrase($privkeyfilepassphrase)

@@ -25,7 +25,6 @@
  */
 class YesNoInputRequest extends MultipleChoiceInputRequest
 {
-
     /**
      * @return bool true if the input is one of the allowed values.
      */

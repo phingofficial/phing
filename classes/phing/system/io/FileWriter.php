@@ -24,7 +24,6 @@
  */
 class FileWriter extends OutputStreamWriter
 {
-
     /**
      * Construct a new FileWriter.
      *

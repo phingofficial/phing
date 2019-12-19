@@ -64,8 +64,8 @@ class ProjectHandler extends AbstractHandler
      * Executes initialization actions required to setup the project. Usually
      * this method handles the attributes of a tag.
      *
-     * @param  string $tag the tag that comes in
-     * @param  array $attrs attributes the tag carries
+     * @param string $tag the tag that comes in
+     * @param array $attrs attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -168,8 +168,8 @@ class ProjectHandler extends AbstractHandler
      * Handles start elements within the <project> tag by creating and
      * calling the required handlers for the detected element.
      *
-     * @param  string $name the tag that comes in
-     * @param  array $attrs attributes the tag carries
+     * @param string $name the tag that comes in
+     * @param array $attrs attributes the tag carries
      * @throws ExpatParseException if a unxepected element occurs
      */
     public function startElement($name, $attrs)

@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class SassTaskCompilerFactoryTest extends TestCase
 {
-
     public function testItFailsWhenNoCompilerIsSet(): void
     {
         $sassTask = new SassTask();

@@ -74,7 +74,7 @@ class CoverageMerger
     }
 
     /**
-     * @param  Project $project
+     * @param Project $project
      * @return Properties
      * @throws BuildException
      */

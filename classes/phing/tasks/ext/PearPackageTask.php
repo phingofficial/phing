@@ -127,7 +127,6 @@ class PearPackageTask extends MatchingTask
      */
     protected function setOptions()
     {
-
         // 1) first prepare/populate options
         $this->populateOptions();
 
@@ -171,7 +170,7 @@ class PearPackageTask extends MatchingTask
     /**
      * Fixes the boolean in optional dependencies
      *
-     * @param  $deps
+     * @param $deps
      * @return
      */
     private function fixDeps($deps)
@@ -190,7 +189,6 @@ class PearPackageTask extends MatchingTask
      */
     private function populateOptions()
     {
-
         // These values could be overridden if explicitly defined using nested tags
         $this->preparedOptions['package']          = $this->package;
         $this->preparedOptions['packagedirectory'] = $this->dir->getAbsolutePath();
@@ -268,7 +266,7 @@ class PearPackageTask extends MatchingTask
      * Set "package" property from XML.
      *
      * @see    setName()
-     * @param  string $v
+     * @param string $v
      * @return void
      */
     public function setPackage($v)
@@ -279,7 +277,7 @@ class PearPackageTask extends MatchingTask
     /**
      * Sets "dir" property from XML.
      *
-     * @param  PhingFile $f
+     * @param PhingFile $f
      * @return void
      */
     public function setDir(PhingFile $f)
@@ -290,7 +288,7 @@ class PearPackageTask extends MatchingTask
     /**
      * Sets "name" property from XML.
      *
-     * @param  string $v
+     * @param string $v
      * @return void
      */
     public function setName($v)

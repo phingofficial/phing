@@ -51,6 +51,7 @@ abstract class HgBaseTask extends Task
     protected $user = '';
 
     public static $factory = null;
+
     /**
      * Set repository attribute
      *
@@ -62,7 +63,6 @@ abstract class HgBaseTask extends Task
     {
         $this->repository = $repository;
     }
-
 
     /**
      * Set the quiet attribute --quiet

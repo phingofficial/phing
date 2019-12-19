@@ -50,6 +50,7 @@ class FileListTest extends TestCase
         $f->setDir(new PhingFile("."));
         $f->getFiles($this->project);
     }
+
     public function testSetRefidWithDirSet()
     {
         $this->expectException(BuildException::class);
@@ -73,6 +74,7 @@ class FileListTest extends TestCase
         $project->setBasedir(__DIR__);
         $f->setRefid(new Reference($this->project, "dummy"));
     }
+
     public function testSetListfile()
     {
         $f = new FileList();

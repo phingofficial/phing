@@ -122,7 +122,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * Run a test
      *
-     * @param  PHPUnit\Framework\TestSuite $suite
+     * @param PHPUnit\Framework\TestSuite $suite
      * @throws \BuildException
      * @throws ReflectionException
      */
@@ -495,7 +495,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * Override to define how to handle a failed loading of
      * a test suite.
      *
-     * @param  string $message
+     * @param string $message
      * @throws BuildException
      */
     protected function runFailed($message): void

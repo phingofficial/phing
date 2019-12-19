@@ -37,7 +37,6 @@ class BasenameTest extends BuildFileTest
         $this->expectBuildException("test1", '');
     }
 
-
     public function test2()
     {
         $this->expectBuildException("test2", '');

@@ -122,7 +122,7 @@ class IfTask extends ConditionBase
      *
      * <p>Not required.</p>
      *
-     * @param  SequentialTask $t
+     * @param SequentialTask $t
      * @throws BuildException
      */
     public function addThen(SequentialTask $t)
@@ -139,7 +139,7 @@ class IfTask extends ConditionBase
      *
      * <p>Not required.</p>
      *
-     * @param  SequentialTask $e
+     * @param SequentialTask $e
      * @throws BuildException
      */
     public function addElse(SequentialTask $e)

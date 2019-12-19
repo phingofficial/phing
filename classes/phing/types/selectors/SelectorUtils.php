@@ -71,7 +71,6 @@ class SelectorUtils
      */
     public static function matchPatternStart($pattern, $str, $isCaseSensitive = true)
     {
-
         // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
         // DIRECTORY_SEPARATOR.
         // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
@@ -188,9 +187,9 @@ class SelectorUtils
      * false if the src file doesn't even exist, since how could the
      * target then be out of date.
      *
-     * @param  PhingFile $src the original file
-     * @param  PhingFile $target the file being compared against
-     * @param  int $granularity the amount in seconds of slack we will give in
+     * @param PhingFile $src the original file
+     * @param PhingFile $target the file being compared against
+     * @param int $granularity the amount in seconds of slack we will give in
      *                                determining out of dateness
      * @return bool whether   the target is out of date
      */

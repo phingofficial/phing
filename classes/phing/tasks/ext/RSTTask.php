@@ -387,8 +387,8 @@ class RSTTask extends Task
     /**
      * The setter for the attribute "toolpath"
      *
-     * @param    $path
-     * @throws   BuildException
+     * @param $path
+     * @throws BuildException
      * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
      *
      * @return void

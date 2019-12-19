@@ -37,7 +37,7 @@ class InputStreamReader extends Reader
     /**
      * Construct a new InputStreamReader.
      *
-     * @param    InputStream $inStream
+     * @param InputStream $inStream
      * @internal param $InputStream $$inStream InputStream to read from
      */
     public function __construct(InputStream $inStream)
@@ -57,7 +57,7 @@ class InputStreamReader extends Reader
     /**
      * Skip over $n bytes.
      *
-     * @param  int $n
+     * @param int $n
      * @return int
      */
     public function skip($n)
@@ -68,7 +68,7 @@ class InputStreamReader extends Reader
     /**
      * Read data from file.
      *
-     * @param  int $len Num chars to read.
+     * @param int $len Num chars to read.
      * @return mixed chars read or -1 if eof.
      */
     public function read($len = null)

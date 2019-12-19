@@ -186,7 +186,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testDoNotExecuteOnWrongOs()
     {
-
         // Process
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('was not found in the specified list of valid OSes: unknownos');
@@ -297,7 +296,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testOutput()
     {
-
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
@@ -409,7 +407,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testOutputAppend()
     {
-
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
@@ -452,13 +449,12 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
     }
 
-
     /**********************************************************************************/
     /************************** H E L P E R  M E T H O D S ****************************/
     /**********************************************************************************/
 
     /**
-     * @param  string $name
+     * @param string $name
      * @return Target
      * @throws Exception
      */
@@ -473,9 +469,9 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param  string $target
-     * @param  string $taskName
-     * @param  int $pos
+     * @param string $target
+     * @param string $taskName
+     * @param int $pos
      * @return Task
      * @throws Exception
      */
@@ -494,8 +490,8 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param  string $target
-     * @param  string $task
+     * @param string $target
+     * @param string $task
      * @return Task
      */
     protected function getConfiguredTask($target, $task)

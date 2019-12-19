@@ -23,7 +23,6 @@ use PHPUnit\Framework\Assert;
 
 class SassTaskAssert extends Assert
 {
-
     public function assertDefaults(SassTask $task): void
     {
         $this->assertEquals('', $task->getPath());

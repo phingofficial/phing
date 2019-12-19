@@ -90,7 +90,6 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), "FileSet"));
     }
-
     /*
     public function testGetNestedElements()
     {

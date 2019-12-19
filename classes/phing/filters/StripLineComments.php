@@ -63,7 +63,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * lines from the original stream which don't start with any of the
      * specified comment prefixes.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      */
@@ -122,6 +122,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @param comments A list of strings, each of which is a prefix
      *                 for a comment line. Must not be <code>null</code>.
     */
+
     /**
      * @param $lineBreaks
      * @throws Exception
@@ -139,6 +140,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *
      * @return array The list of comment prefixes to strip.
     */
+
     /**
      * @return array
      */
@@ -157,6 +159,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @return a new filter based on this configuration, but filtering
      *           the specified reader
      */
+
     /**
      * @param Reader $reader
      * @return StripLineComments

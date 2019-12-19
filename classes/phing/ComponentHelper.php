@@ -176,7 +176,7 @@ class ComponentHelper
     /**
      * Create a new task instance and return reference to it.
      *
-     * @param  string $taskType Task name
+     * @param string $taskType Task name
      * @return Task           A task object
      * @throws BuildException
      */
@@ -222,7 +222,7 @@ class ComponentHelper
     /**
      * Creates a new condition and returns the reference to it
      *
-     * @param  string $conditionType
+     * @param string $conditionType
      * @return Condition
      * @throws BuildException
      */
@@ -275,7 +275,7 @@ class ComponentHelper
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param  string $typeName Type name
+     * @param string $typeName Type name
      * @return object         A datatype object
      * @throws BuildException
      *                                 Exception

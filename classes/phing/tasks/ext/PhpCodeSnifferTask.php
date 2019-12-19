@@ -259,7 +259,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the ignore patterns to skip files when using directories instead of specific files
      *
-     * @param    $patterns
+     * @param $patterns
      * @internal param array $extensions
      */
     public function setIgnorePatterns($patterns)

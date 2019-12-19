@@ -329,7 +329,7 @@ class ApiGenTask extends Task
      * Sets if highlighted source code files should not be generated.
      *
      * @deprecated
-     * @param      boolean $noSourceCode
+     * @param boolean $noSourceCode
      */
     public function setNoSourceCode(bool $noSourceCode)
     {

@@ -100,7 +100,7 @@ class PatternSetNameEntry
     /**
      * Evaluates the pattern.
      *
-     * @param  Project $project
+     * @param Project $project
      * @return string The pattern or null if it is ruled out by a condition.
      */
     public function evalName(Project $project)
@@ -112,7 +112,7 @@ class PatternSetNameEntry
      * Checks whether pattern should be applied based on whether the if and unless
      * properties are set in project.
      *
-     * @param  Project $project
+     * @param Project $project
      * @return boolean
      */
     public function valid(Project $project)

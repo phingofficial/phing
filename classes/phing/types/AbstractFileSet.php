@@ -104,7 +104,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      *
-     * @param  Reference $r
+     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -231,7 +231,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  $includes
+     * @param $includes
      * @throws BuildException
      */
     public function setIncludes($includes)
@@ -246,7 +246,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  $excludes
+     * @param $excludes
      * @throws BuildException
      */
     public function setExcludes($excludes)
@@ -260,7 +260,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $incl The file to fetch the include patterns from.
+     * @param PhingFile $incl The file to fetch the include patterns from.
      * @throws BuildException
      */
     public function setIncludesfile(PhingFile $incl)
@@ -274,7 +274,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $excl The file to fetch the exclude patterns from.
+     * @param PhingFile $excl The file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesfile($excl)
@@ -288,7 +288,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets whether default exclusions should be used or not.
      *
-     * @param  $useDefaultExcludes "true"|"on"|"yes" when default exclusions
+     * @param $useDefaultExcludes "true"|"on"|"yes" when default exclusions
      *                           should be used, "false"|"off"|"no" when they
      *                           shouldn't be used.
      * @throws BuildException
@@ -318,7 +318,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * returns a reference to the dirscanner object belonging to this fileset
      *
-     * @param  Project $p
+     * @param Project $p
      * @throws BuildException
      * @return \DirectoryScanner
      */
@@ -357,8 +357,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * feed dirscanner with infos defined by this fileset
      *
-     * @param  DirectoryScanner $ds
-     * @param  Project $p
+     * @param DirectoryScanner $ds
+     * @param Project $p
      * @throws BuildException
      */
     protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
@@ -507,7 +507,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Returns the set of selectors as an array.
      *
-     * @param  Project $p
+     * @param Project $p
      * @throws BuildException
      * @return array of selectors in this container
      */

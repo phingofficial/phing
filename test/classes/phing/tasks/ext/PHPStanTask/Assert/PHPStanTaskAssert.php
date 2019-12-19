@@ -23,7 +23,6 @@ use PHPUnit\Framework\Assert;
 
 class PHPStanTaskAssert extends Assert
 {
-
     public function assertDefaults(PHPStanTask $task): void
     {
         $this->assertEquals('phpstan', $task->getExecutable());

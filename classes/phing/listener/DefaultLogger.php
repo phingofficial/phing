@@ -296,7 +296,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Formats a time micro integer to human readable format.
      *
-     * @param  integer The time stamp
+     * @param integer The time stamp
      * @return string
      */
     public static function formatTime($micros)
@@ -319,11 +319,11 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Prints a message to console.
      *
-     * @param  string $message The message to print.
+     * @param string $message The message to print.
      *                                         Should not be
      *                                         <code>null</code>.
-     * @param  OutputStream|resource $stream The stream to use for message printing.
-     * @param  int $priority The priority of the message.
+     * @param OutputStream|resource $stream The stream to use for message printing.
+     * @param int $priority The priority of the message.
      *                                         (Ignored in this
      *                                         implementation.)
      * @throws IOException

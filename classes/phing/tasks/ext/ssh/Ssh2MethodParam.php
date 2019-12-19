@@ -149,7 +149,7 @@ class Ssh2MethodParam extends DataType
     /**
      * Convert the params to an array that is suitable to be passed in the ssh2_connect $methods parameter
      *
-     * @param  Project $p
+     * @param Project $p
      * @return array
      */
     public function toArray(Project $p)

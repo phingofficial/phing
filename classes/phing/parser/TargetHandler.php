@@ -53,10 +53,10 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param    AbstractSAXParser $parser
-     * @param    AbstractHandler $parentHandler
-     * @param    ProjectConfigurator $configurator
-     * @param    PhingXMLContext $context
+     * @param AbstractSAXParser $parser
+     * @param AbstractHandler $parentHandler
+     * @param ProjectConfigurator $configurator
+     * @param PhingXMLContext $context
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
      * @internal param the $object ProjectConfigurator object
@@ -84,10 +84,10 @@ class TargetHandler extends AbstractHandler
      * <li>adding a reference to the target (if id attribute is given)</li>
      * </ul>
      *
-     * @param    $tag
-     * @param    $attrs
-     * @throws   BuildException
-     * @throws   ExpatParseException
+     * @param $tag
+     * @param $attrs
+     * @throws BuildException
+     * @throws ExpatParseException
      * @internal param the $string tag that comes in
      * @internal param attributes $array the tag carries
      */

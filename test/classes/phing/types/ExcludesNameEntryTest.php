@@ -25,6 +25,7 @@ class ExcludesNameEntryTest extends TestCase
     {
         $this->entry = new ExcludesNameEntry();
     }
+
     public function testSetName()
     {
         $this->entry->setName("test");

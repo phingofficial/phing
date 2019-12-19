@@ -296,7 +296,6 @@ class PhingFile
         return new PhingFile((string) $this->getAbsolutePath());
     }
 
-
     /**
      * Returns the canonical pathname string of this abstract pathname.
      *
@@ -327,7 +326,6 @@ class PhingFile
 
         return $fs->canonicalize($this->path);
     }
-
 
     /**
      * Returns the canonical form of this abstract pathname.  Equivalent to
@@ -547,8 +545,8 @@ class PhingFile
      * are a single operation that is atomic with respect to all other
      * filesystem activities that might affect the file.
      *
-     * @param  bool $parents
-     * @param  int $mode
+     * @param bool $parents
+     * @param int $mode
      * @throws IOException
      * @return boolean     true if the named file does not exist and was
      *                     successfully created; <code>false</code> if the named file
@@ -574,7 +572,7 @@ class PhingFile
      * this pathname denotes a directory, then the directory must be empty in
      * order to be deleted.
      *
-     * @param  bool $recursive
+     * @param bool $recursive
      * @throws IOException
      */
     public function delete($recursive = false)
@@ -640,7 +638,7 @@ class PhingFile
      * operation fails it may have succeeded in creating some of the necessary
      * parent directories.
      *
-     * @param  int $mode
+     * @param int $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created,
      *                     along with all necessary parent directories; false
@@ -666,7 +664,7 @@ class PhingFile
     /**
      * Creates the directory named by this abstract pathname.
      *
-     * @param  int $mode
+     * @param int $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created; false otherwise
      */
@@ -684,7 +682,7 @@ class PhingFile
     /**
      * Renames the file denoted by this abstract pathname.
      *
-     * @param  PhingFile $destFile The new abstract pathname for the named file
+     * @param PhingFile $destFile The new abstract pathname for the named file
      * @throws IOException
      */
     public function renameTo(PhingFile $destFile)
@@ -701,7 +699,7 @@ class PhingFile
      * Simple-copies file denoted by this abstract pathname into another
      * PhingFile
      *
-     * @param  PhingFile $destFile The new abstract pathname for the named file
+     * @param PhingFile $destFile The new abstract pathname for the named file
      * @throws IOException
      */
     public function copyTo(PhingFile $destFile)
@@ -730,7 +728,7 @@ class PhingFile
      * lastModified method will return the (possibly truncated) time argument
      * that was passed to this method.
      *
-     * @param  int $time The new last-modified time, measured in milliseconds since
+     * @param int $time The new last-modified time, measured in milliseconds since
      *                       the epoch (00:00:00 GMT, January 1, 1970)
      * @throws Exception
      */
@@ -777,7 +775,7 @@ class PhingFile
     /**
      * Sets the mode of the file
      *
-     * @param  int $mode Octal mode.
+     * @param int $mode Octal mode.
      * @throws IOException
      */
     public function setMode($mode)

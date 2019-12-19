@@ -88,7 +88,7 @@ class RegisterSlot
     /**
      * Recursively implodes an array to a comma-separated string
      *
-     * @param  array $arr
+     * @param array $arr
      * @return string
      */
     private function implodeArray(array $arr)

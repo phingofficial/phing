@@ -55,7 +55,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)

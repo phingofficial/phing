@@ -127,16 +127,16 @@ class PropertyHelper
      * If all helpers return false, the property will be saved in
      * the default properties table by setProperty.
      *
-     * @param  string $ns The namespace that the property is in (currently
+     * @param string $ns The namespace that the property is in (currently
      *                          not used.
-     * @param  string $name The name of property to set.
+     * @param string $name The name of property to set.
      *                          Must not be
      *                          <code>null</code>.
-     * @param  string $value The new value of the property.
+     * @param string $value The new value of the property.
      *                          Must not be <code>null</code>.
-     * @param  bool $inherited True if this property is inherited (an [sub]ant[call] property).
-     * @param  bool $user True if this property is a user property.
-     * @param  bool $isNew True is this is a new property.
+     * @param bool $inherited True if this property is inherited (an [sub]ant[call] property).
+     * @param bool $user True if this property is a user property.
+     * @param bool $isNew True is this is a new property.
      * @return bool true if this helper has stored the property, false if it
      *    couldn't. Each helper should delegate to the next one (unless it
      *    has a good reason not to).
@@ -158,9 +158,9 @@ class PropertyHelper
      * Get a property. If all hooks return null, the default
      * tables will be used.
      *
-     * @param  string $ns namespace of the sought property.
-     * @param  string $name name of the sought property.
-     * @param  bool $user True if this is a user property.
+     * @param string $ns namespace of the sought property.
+     * @param string $name name of the sought property.
+     * @param bool $user True if this is a user property.
      * @return string The property, if returned by a hook, or null if none.
      */
     public function getPropertyHook($ns, $name, $user)
@@ -198,7 +198,7 @@ class PropertyHelper
      *              values. If <code>null</code>, only project properties will
      *              be used.
      *
-     * @return    string the original string with the properties replaced, or
+     * @return string the original string with the properties replaced, or
      *         <code>null</code> if the original string is <code>null</code>.
      * @throws BuildException if the string contains an opening
      *                           <code>${</code> without a closing
@@ -268,16 +268,15 @@ class PropertyHelper
     // Methods used to support the default behavior and provide backward
     // compatibility. Some will be deprecated, you should avoid calling them.
 
-
     /**
      * Default implementation of setProperty. Will be called from Project.
      *  This is the original 1.5 implementation, with calls to the hook
      *  added.
      *
-     * @param  string $ns The namespace for the property (currently not used).
-     * @param  string $name The name of the property.
-     * @param  string $value The value to set the property to.
-     * @param  bool $verbose If this is true output extra log messages.
+     * @param string $ns The namespace for the property (currently not used).
+     * @param string $name The name of the property.
+     * @param string $value The value to set the property to.
+     * @param bool $verbose If this is true output extra log messages.
      * @return bool true if the property is set.
      */
     public function setProperty($ns, $name, $value, $verbose)
@@ -413,8 +412,8 @@ class PropertyHelper
      * Returns the value of a property, if it is set.  You can override
      * this method in order to plug your own storage.
      *
-     * @param  string $ns The namespace for the property (currently not used).
-     * @param  string $name The name of the property.
+     * @param string $ns The namespace for the property (currently not used).
+     * @param string $name The name of the property.
      *             May be <code>null</code>, in which case
      *             the return value is also <code>null</code>.
      * @return string the property value, or <code>null</code> for no match
@@ -445,8 +444,8 @@ class PropertyHelper
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param  string $ns The namespace for the property (currently not used).
-     * @param  string $name The name of the property.
+     * @param string $ns The namespace for the property (currently not used).
+     * @param string $name The name of the property.
      *             May be <code>null</code>, in which case
      *             the return value is also <code>null</code>.
      * @return string the property value, or <code>null</code> for no match
@@ -463,7 +462,6 @@ class PropertyHelper
         }
         return $this->userProperties[$name] ?? null;
     }
-
 
     // -------------------- Access to property tables  --------------------
     // This is used to support ant call and similar tasks. It should be

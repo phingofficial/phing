@@ -31,6 +31,7 @@ class SilentLoggerTest extends TestCase
         $this->expectOutputString('');
         $logger->buildFinished($event);
     }
+
     /**
      * @test
      */

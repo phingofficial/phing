@@ -65,7 +65,6 @@ class FileUtils
      */
     public static function getDefaultFileCreationMask($dirmode = false)
     {
-
         // Preparing the creation mask base permission
         $permission = ($dirmode === true) ? 0777 : 0666;
 
@@ -79,9 +78,9 @@ class FileUtils
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
      *
-     * @param  Reader $in Reader to modify (if appropriate).
-     * @param  array   &$filterChains filter chains to apply.
-     * @param  Project $project
+     * @param Reader $in Reader to modify (if appropriate).
+     * @param array   &$filterChains filter chains to apply.
+     * @param Project $project
      * @return Reader  Assembled Reader (w/ filter chains).
      */
     public static function getChainedReader(Reader $in, &$filterChains, Project $project)
@@ -103,14 +102,14 @@ class FileUtils
     /**
      * Copies a file using filter chains.
      *
-     * @param  PhingFile $sourceFile
-     * @param  PhingFile $destFile
-     * @param  boolean $overwrite
-     * @param  boolean $preserveLastModified
-     * @param  array $filterChains
-     * @param  Project $project
-     * @param  integer $mode
-     * @param  bool $preservePermissions
+     * @param PhingFile $sourceFile
+     * @param PhingFile $destFile
+     * @param boolean $overwrite
+     * @param boolean $preserveLastModified
+     * @param array $filterChains
+     * @param Project $project
+     * @param integer $mode
+     * @param bool $preservePermissions
      * @throws Exception
      * @throws IOException
      * @return void
@@ -179,14 +178,13 @@ class FileUtils
         }
     }
 
-
     /**
      * Attempts to rename a file from a source to a destination.
      * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
      * Otherwise, the source file is renamed only if the destination file is older than it.
      *
-     * @param  PhingFile $sourceFile
-     * @param  PhingFile $destFile
+     * @param PhingFile $sourceFile
+     * @param PhingFile $destFile
      * @return void
      */
     public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
@@ -385,7 +383,6 @@ class FileUtils
             $sb .= (string) $s[$i];
         }
 
-
         $path = (string) $sb;
         if ($dosWithDrive === true) {
             $path = str_replace('/', '\\', $path);
@@ -401,13 +398,13 @@ class FileUtils
      * exist before this method was invoked, any subsequent invocation
      * of this method will yield a different file name.</p>
      *
-     * @param  string $prefix prefix before the random number.
-     * @param  string $suffix file extension; include the '.'.
-     * @param  PhingFile $parentDir Directory to create the temporary file in;
+     * @param string $prefix prefix before the random number.
+     * @param string $suffix file extension; include the '.'.
+     * @param PhingFile $parentDir Directory to create the temporary file in;
      *                                sys_get_temp_dir() used if not specified.
-     * @param  boolean $deleteOnExit whether to set the tempfile for deletion on
+     * @param boolean $deleteOnExit whether to set the tempfile for deletion on
      *                                normal exit.
-     * @param  boolean $createFile true if the file must actually be created. If false
+     * @param boolean $createFile true if the file must actually be created. If false
      *                                chances exist that a file with the same name is
      *                                created in the time between invoking this method
      *                                and the moment the file is actually created. If

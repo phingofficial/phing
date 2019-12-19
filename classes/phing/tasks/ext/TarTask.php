@@ -301,8 +301,8 @@ class TarTask extends MatchingTask
     }
 
     /**
-     * @param  ArrayIterator $files array of filenames
-     * @param  PhingFile $dir
+     * @param ArrayIterator $files array of filenames
+     * @param PhingFile $dir
      *
      * @return boolean
      */

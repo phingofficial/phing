@@ -57,7 +57,7 @@ class XmlPropertyTask extends PropertyTask
      * Prefix to apply to properties loaded using <code>file</code>.
      * A "." is appended to the prefix if not specified.
      *
-     * @param  string $prefix prefix string
+     * @param string $prefix prefix string
      * @return void
      * @since  2.0
      */
@@ -168,7 +168,7 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      *
-     * @param  PhingFile $file
+     * @param PhingFile $file
      * @throws BuildException
      * @return Properties
      */

@@ -59,7 +59,7 @@ class Properties
     /**
      * Load properties from a file.
      *
-     * @param  PhingFile $file
+     * @param PhingFile $file
      * @return void
      * @throws IOException - if unable to read file.
      */
@@ -88,7 +88,7 @@ class Properties
      * Process values when being written out to properties file.
      * does things like convert true => "true"
      *
-     * @param  mixed $val The property value (may be boolean, etc.)
+     * @param mixed $val The property value (may be boolean, etc.)
      * @return string
      */
     protected function outVal($val)
@@ -123,8 +123,8 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param  PhingFile $file File to create/overwrite with properties.
-     * @param  string $header Header text that will be placed (within comments) at the top of properties file.
+     * @param PhingFile $file File to create/overwrite with properties.
+     * @param string $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
@@ -199,7 +199,7 @@ class Properties
      * Get value for specified property.
      * This is the same as get() method.
      *
-     * @param  string $prop The property name (key).
+     * @param string $prop The property name (key).
      * @return mixed
      * @see    get()
      */
@@ -217,7 +217,7 @@ class Properties
      * This function exists to provide a hashtable-like interface for
      * properties.
      *
-     * @param  string $prop The property name (key).
+     * @param string $prop The property name (key).
      * @return mixed
      * @see    getProperty()
      */
@@ -233,8 +233,8 @@ class Properties
     /**
      * Set the value for a property.
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param string $key
+     * @param mixed $value
      * @return mixed  Old property value or null if none was set.
      */
     public function setProperty($key, $value)
@@ -250,8 +250,8 @@ class Properties
      * This function exists to provide hashtable-lie
      * interface for properties.
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param string $key
+     * @param mixed $value
      * @return mixed
      */
     public function put($key, $value)
@@ -290,7 +290,7 @@ class Properties
     /**
      * Whether loaded properties array contains specified property name.
      *
-     * @param  $key
+     * @param $key
      * @return boolean
      */
     public function containsKey($key)

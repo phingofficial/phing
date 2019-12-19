@@ -80,7 +80,7 @@ class PHPUnitUtil
      * Assumes that there is only one class defined in that particular file, and that
      * the naming follows the dot-path (Java) notation scheme.
      *
-     * @param  string the filename
+     * @param string the filename
      * @return string the name fo the class
      */
     public static function getClassFromFileName($filename)

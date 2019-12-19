@@ -74,7 +74,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the last n lines of a file.
      *
-     * @param  int $len Num chars to read.
+     * @param int $len Num chars to read.
      * @return mixed The filtered buffer or -1 if EOF.
      */
     public function read($len = null)

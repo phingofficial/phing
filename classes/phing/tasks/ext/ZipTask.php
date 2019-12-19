@@ -117,7 +117,7 @@ class ZipTask extends MatchingTask
     /**
      * Set the include empty dirs flag.
      *
-     * @param  boolean  Flag if empty dirs should be tarred too
+     * @param boolean  Flag if empty dirs should be tarred too
      * @return void
      */
     public function setIncludeEmptyDirs($bool)
@@ -128,7 +128,7 @@ class ZipTask extends MatchingTask
     /**
      * Set the ignore symlinks flag.
      *
-     * @param  boolean $bool Flag if symlinks should be ignored
+     * @param boolean $bool Flag if symlinks should be ignored
      * @return void
      */
     public function setIgnoreLinks($bool)
@@ -230,8 +230,8 @@ class ZipTask extends MatchingTask
     }
 
     /**
-     * @param  array $files array of filenames
-     * @param  PhingFile $dir
+     * @param array $files array of filenames
+     * @param PhingFile $dir
      * @return boolean
      */
     private function archiveIsUpToDate($files, $dir)

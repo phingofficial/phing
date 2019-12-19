@@ -21,7 +21,6 @@ declare(strict_types=1);
 
 trait SassCleaner
 {
-
     public function sassCleanUp(string $compileDirectoryPath, string $testFileName): void
     {
         $fs = FileSystem::getFileSystem();

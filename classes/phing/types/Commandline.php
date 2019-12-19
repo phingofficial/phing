@@ -80,7 +80,7 @@ class Commandline implements Countable
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
-     * @param  boolean $insertAtStart if true, the argument is inserted at the
+     * @param boolean $insertAtStart if true, the argument is inserted at the
      *                                beginning of the list of args, otherwise
      *                                it is appended.
      * @return CommandlineArgument
@@ -367,7 +367,7 @@ class Commandline implements Countable
      * <p>This method assumes that the first entry in the array is the
      * executable to run.</p>
      *
-     * @param  array|Commandline $args CommandlineArgument[] to use
+     * @param array|Commandline $args CommandlineArgument[] to use
      * @return string
      */
     public function describeCommand($args = null)
@@ -400,8 +400,8 @@ class Commandline implements Countable
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>
      *
-     * @param  array $args arguments to use (default is to use current class args)
-     * @param  int $offset ignore entries before this index
+     * @param array $args arguments to use (default is to use current class args)
+     * @param int $offset ignore entries before this index
      * @return string
      */
     public function describeArguments(array $args = null, $offset = 0)

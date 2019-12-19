@@ -28,7 +28,7 @@ class PHPLocFormatterFactory
     /**
      * Returns formatter object
      *
-     * @param  PHPLocFormatterElement $formatterElement
+     * @param PHPLocFormatterElement $formatterElement
      * @throws BuildException
      * @return AbstractPHPLocFormatter
      */

@@ -83,7 +83,7 @@ class FileList extends DataType implements IteratorAggregate
      * Makes this instance in effect a reference to another FileList
      * instance.
      *
-     * @param  Reference $r
+     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -112,7 +112,7 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Get the basedir for files in list.
      *
-     * @param  Project $p
+     * @param Project $p
      * @throws BuildException
      * @return PhingFile
      */
@@ -130,7 +130,7 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Set the array of files in list.
      *
-     * @param  array $filenames
+     * @param array $filenames
      * @throws BuildException
      */
     public function setFiles($filenames)
@@ -171,7 +171,7 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Get the source "list" file that contains file names.
      *
-     * @param  Project $p
+     * @param Project $p
      * @return PhingFile
      */
     public function getListFile(Project $p)
