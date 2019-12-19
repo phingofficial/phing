@@ -240,7 +240,7 @@ class VersionTask extends Task
         $releaseTypes = [
             self::RELEASETYPE_MAJOR,
             self::RELEASETYPE_MINOR,
-            self::RELEASETYPE_BUGFIX
+            self::RELEASETYPE_BUGFIX,
         ];
 
         if (!in_array($this->releasetype, $releaseTypes)) {

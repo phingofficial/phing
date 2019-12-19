@@ -133,7 +133,7 @@ class GitPullTask extends GitBaseTask
         'ours',
         'recursive',
         'resolve',
-        'subtree'
+        'subtree',
     ];
 
     /**

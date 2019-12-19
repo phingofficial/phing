@@ -96,7 +96,7 @@ class GitMergeTask extends GitBaseTask
         'theirs',
         'recursive',
         'resolve',
-        'subtree'
+        'subtree',
     ];
 
     /**

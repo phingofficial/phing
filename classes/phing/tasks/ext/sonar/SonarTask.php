@@ -388,7 +388,7 @@ class SonarTask extends Task
             'sonar.projectKey',
             'sonar.projectName',
             'sonar.projectVersion',
-            'sonar.sources'
+            'sonar.sources',
         ];
         $intersection       = array_intersect($requiredProperties, array_keys($this->properties));
         if (count($intersection) < count($requiredProperties)) {

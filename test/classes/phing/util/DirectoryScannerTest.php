@@ -84,12 +84,12 @@ class DirectoryScannerTest extends BuildFileTest
             $ds,
             [
                 "alpha/beta/beta.xml",
-                "alpha/beta/gamma/gamma.xml"
+                "alpha/beta/gamma/gamma.xml",
             ],
             [
                 "alpha",
                 "alpha/beta",
-                "alpha/beta/gamma"
+                "alpha/beta/gamma",
             ]
         );
     }
@@ -104,13 +104,13 @@ class DirectoryScannerTest extends BuildFileTest
             $ds,
             [
                 "alpha/beta/beta.xml",
-                "alpha/beta/gamma/gamma.xml"
+                "alpha/beta/gamma/gamma.xml",
             ],
             [
                 "",
                 "alpha",
                 "alpha/beta",
-                "alpha/beta/gamma"
+                "alpha/beta/gamma",
             ]
         );
     }
@@ -148,12 +148,12 @@ class DirectoryScannerTest extends BuildFileTest
             $ds,
             [
                 "alpha/beta/beta.xml",
-                "alpha/beta/gamma/gamma.xml"
+                "alpha/beta/gamma/gamma.xml",
             ],
             [
                 "alpha",
                 "alpha/beta",
-                "alpha/beta/gamma"
+                "alpha/beta/gamma",
             ]
         );
     }
@@ -223,13 +223,13 @@ class DirectoryScannerTest extends BuildFileTest
             [
                 "alpha/beta/beta.xml",
                 "alpha/beta/gamma/gamma.xml",
-                "delta/delta.xml"
+                "delta/delta.xml",
             ],
             [
                 "",
                 "alpha/beta",
                 "alpha/beta/gamma",
-                "delta"
+                "delta",
             ]
         );
     }
@@ -252,13 +252,13 @@ class DirectoryScannerTest extends BuildFileTest
             [
                 $tmpdir . "/alpha/beta/beta.xml",
                 $tmpdir . "/alpha/beta/gamma/gamma.xml",
-                $tmpdir . "/delta/delta.xml"
+                $tmpdir . "/delta/delta.xml",
             ],
             [
                 $tmpdir . "/alpha",
                 $tmpdir . "/alpha/beta",
                 $tmpdir . "/alpha/beta/gamma",
-                $tmpdir . "/delta"
+                $tmpdir . "/delta",
             ]
         );
     }
@@ -296,12 +296,12 @@ class DirectoryScannerTest extends BuildFileTest
             $ds,
             [
                 $tmpdir . "/alpha/beta/beta.xml",
-                $tmpdir . "/alpha/beta/gamma/gamma.xml"
+                $tmpdir . "/alpha/beta/gamma/gamma.xml",
             ],
             [
                 $tmpdir . "/alpha/beta",
                 $tmpdir . "/alpha/beta/gamma",
-                $tmpdir . "/delta"
+                $tmpdir . "/delta",
             ]
         );
     }
@@ -324,7 +324,7 @@ class DirectoryScannerTest extends BuildFileTest
             $ds,
             [
                 $tmpdir . "/alpha/beta/gamma/gamma.xml",
-                $tmpdir . "/delta/delta.xml"
+                $tmpdir . "/delta/delta.xml",
             ],
             [$tmpdir . "/alpha/beta/gamma"]
         );

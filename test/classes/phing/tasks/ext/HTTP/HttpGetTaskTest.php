@@ -81,7 +81,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                         "HTTP/1.1 200 OK\r\n" .
                         "Content-Type: text/plain; charset=iso-8859-1\r\n" .
                         "\r\n" .
-                        "This file is named according to an URL part"
+                        "This file is named according to an URL part",
                     ]
                 )
             )
@@ -118,7 +118,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $request = new HTTP_Request2(null, 'GET', [
             'proxy' => 'socks5://localhost:1080/',
             'ssl_verify_peer' => false,
-            'follow_redirects' => true
+            'follow_redirects' => true,
         ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
@@ -170,7 +170,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $request = new HTTP_Request2(null, 'GET', [
             'proxy' => 'http://localhost:8080/',
             'timeout' => 20,
-            'max_redirects' => 9
+            'max_redirects' => 9,
         ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);

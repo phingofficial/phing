@@ -161,7 +161,7 @@ class Ssh2MethodParam extends DataType
             'kex' => $this->getKex($p),
             'hostkey' => $this->getHostkey($p),
             'client_to_server' => null !== $client_to_server ? $client_to_server->toArray() : null,
-            'server_to_client' => null !== $server_to_client ? $server_to_client->toArray() : null
+            'server_to_client' => null !== $server_to_client ? $server_to_client->toArray() : null,
         ];
 
         return array_filter($array, [$this, '_filterParam']);
