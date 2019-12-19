@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-class ParameterUnitTest extends \PHPUnit\Framework\TestCase
+class ParameterTest extends \PHPUnit\Framework\TestCase
 {
     private $parameter;
 
