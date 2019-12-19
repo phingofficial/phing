@@ -61,12 +61,12 @@ class HipchatTask extends Task
             '/notification?auth_token=' .
             $this->getAuthToken();
 
-        $data = array(
+        $data = [
             'color' => $this->getColor(),
             'message' => $this->getMessage(),
             'notify' => $this->isNotify(),
             'message_format' => $this->getFormat(),
-        );
+        ];
 
         $result = $this->executeApiCall($url, $data);
         if ($result !== true) {
@@ -198,7 +198,7 @@ class HipchatTask extends Task
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POST, 1);
         $response = curl_exec($ch);
         if ($response !== '') {

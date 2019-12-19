@@ -22,9 +22,7 @@
     -->
 
     <!-- Forbid `array(...)` -->
-    <!--
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-    -->
 
     <!-- Forbid duplicate classes -->
     <rule ref="Generic.Classes.DuplicateClassName"/>
@@ -507,9 +505,7 @@
     -->
 
     <!-- Forbid `list(...)` syntax -->
-    <!--
     <rule ref="SlevomatCodingStandard.PHP.ShortList"/>
-    -->
 
     <!-- Forbid use of longhand cast operators -->
     <!--
