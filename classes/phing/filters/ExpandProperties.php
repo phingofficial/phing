@@ -54,7 +54,7 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
          * @var Project $project
          */
         $project = $this->getProject();
-        $buffer = $project->replaceProperties($buffer);
+        $buffer  = $project->replaceProperties($buffer);
 
         return $buffer;
     }

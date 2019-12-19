@@ -58,7 +58,7 @@ class PEARPackageFileManagerFileset
             $options = $options->getOptions();
         }
 
-        $this->project = $options['phing_project'];
+        $this->project  = $options['phing_project'];
         $this->filesets = $options['phing_filesets'];
     }
 
@@ -101,7 +101,7 @@ class PEARPackageFileManagerFileset
                 }
 
                 $parts = explode('.', basename($file));
-                $ext = array_pop($parts);
+                $ext   = array_pop($parts);
                 if (strlen($ext) == strlen($file)) {
                     $ext = '';
                 }
@@ -124,8 +124,8 @@ class PEARPackageFileManagerFileset
         }
 
         $tempstruc = $struc;
-        $struc = ['/' => $tempstruc['/']];
-        $bv = 0;
+        $struc     = ['/' => $tempstruc['/']];
+        $bv        = 0;
         foreach ($tempstruc as $key => $ind) {
             $save = $key;
             if ($key != '/') {
@@ -160,7 +160,7 @@ class PEARPackageFileManagerFileset
                 if (is_string($dir)) {
                     if (strpos($dir, '/')) {
                         $test = true;
-                        $a = $contents[$dir];
+                        $a    = $contents[$dir];
                         unset($contents[$dir]);
                         $b = explode('/', $dir);
                         $c = array_shift($b);

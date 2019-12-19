@@ -304,7 +304,7 @@ abstract class SvnBaseTask extends Task
         $this->svn = VersionControl_SVN::factory($mode, $options);
 
         if (get_parent_class($this->svn) !== 'VersionControl_SVN_Command') {
-            $this->oldVersion = true;
+            $this->oldVersion              = true;
             $this->svn->use_escapeshellcmd = false;
         }
 
@@ -341,7 +341,7 @@ abstract class SvnBaseTask extends Task
      */
     protected function run($args = [], $switches = [])
     {
-        $tempArgs = array_merge($this->svnArgs, $args);
+        $tempArgs     = array_merge($this->svnArgs, $args);
         $tempSwitches = array_merge($this->svnSwitches, $switches);
 
         if ($this->oldVersion) {
@@ -352,7 +352,7 @@ abstract class SvnBaseTask extends Task
             }
 
             if (count($errs = $svnstack->getErrors())) {
-                $err = current($errs);
+                $err          = current($errs);
                 $errorMessage = $err['message'];
 
                 if (isset($err['params']['errstr'])) {

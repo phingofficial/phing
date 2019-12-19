@@ -81,7 +81,7 @@ class DataType extends ProjectComponent
      */
     public function setRefid(Reference $r)
     {
-        $this->ref = $r;
+        $this->ref     = $r;
         $this->checked = false;
     }
 
@@ -167,7 +167,7 @@ class DataType extends ProjectComponent
     {
         if (!$this->checked) {
             // should be in stack
-            $stk = [];
+            $stk   = [];
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->getProject());
         }

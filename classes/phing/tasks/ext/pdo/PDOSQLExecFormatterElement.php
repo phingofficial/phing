@@ -189,7 +189,7 @@ class PDOSQLExecFormatterElement
         }
 
         foreach ($this->formatterParams as $param) {
-            $param = new Parameter();
+            $param  = new Parameter();
             $method = 'set' . $param->getName();
             if (!method_exists($this->formatter, $param->getName())) {
                 throw new BuildException(
@@ -228,7 +228,7 @@ class PDOSQLExecFormatterElement
      */
     public function setClassName($className)
     {
-        $classNameNoDot = Phing::import($className);
+        $classNameNoDot  = Phing::import($className);
         $this->formatter = new $classNameNoDot();
     }
 

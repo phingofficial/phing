@@ -57,7 +57,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testExecutableChange");
 
-        $expectedCommand = str_replace(
+        $expectedCommand  = str_replace(
             '/',
             DIRECTORY_SEPARATOR,
             '/non/existing/path/to/phpstan'
@@ -84,7 +84,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testAnalyseOptions");
 
-        $expectedCommand = 'phpstan analyse';
+        $expectedCommand  = 'phpstan analyse';
         $expectedCommand .= ' --configuration=anyConfiguration';
         $expectedCommand .= ' --level=anyLevel';
         $expectedCommand .= ' --no-progress';
@@ -104,7 +104,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testHelpOptions");
 
-        $expectedCommand = 'phpstan help';
+        $expectedCommand  = 'phpstan help';
         $expectedCommand .= ' --format=anyFormat';
         $expectedCommand .= ' --raw';
         $expectedCommand .= ' anyCommand';
@@ -119,7 +119,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testListOptions");
 
-        $expectedCommand = 'phpstan list';
+        $expectedCommand  = 'phpstan list';
         $expectedCommand .= ' --format=anyFormat';
         $expectedCommand .= ' --raw';
         $expectedCommand .= ' anyNamespace';
@@ -134,7 +134,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->executeTarget("testCommonOptions");
 
-        $expectedCommand = 'phpstan analyse';
+        $expectedCommand  = 'phpstan analyse';
         $expectedCommand .= ' --help';
         $expectedCommand .= ' --quiet';
         $expectedCommand .= ' --version';

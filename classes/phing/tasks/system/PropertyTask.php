@@ -449,7 +449,7 @@ class PropertyTask extends Task
         $this->resolveAllProperties($props);
         foreach ($props->keys() as $name) {
             $value = $props->getProperty($name);
-            $v = $this->project->replaceProperties($value);
+            $v     = $this->project->replaceProperties($value);
             if ($this->prefix !== null) {
                 $name = $this->prefix . $name;
             }
@@ -466,7 +466,7 @@ class PropertyTask extends Task
     protected function addProperty($name, $value)
     {
         if (count($this->filterChains) > 0) {
-            $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
+            $in    = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
             $value = $in->read();
         }
 
@@ -495,7 +495,7 @@ class PropertyTask extends Task
     protected function loadFile(PhingFile $file)
     {
         $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
-        $props = new Properties(null, $fileParser);
+        $props      = new Properties(null, $fileParser);
         $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
@@ -533,12 +533,12 @@ class PropertyTask extends Task
             // system.  The biggest problem is the fact that a resolution may require
             // multiple passes.
 
-            $value = $props->getProperty($name);
-            $resolved = false;
+            $value        = $props->getProperty($name);
+            $resolved     = false;
             $resolveStack = [];
 
             while (!$resolved) {
-                $fragments = [];
+                $fragments    = [];
                 $propertyRefs = [];
 
                 PropertyHelper::getPropertyHelper($this->project)->parsePropertyString(
@@ -579,7 +579,7 @@ class PropertyTask extends Task
                         $fragment = $props->getProperty($propertyName);
                         if (strpos($fragment, '${') !== false) {
                             $resolveStack[] = $propertyName;
-                            $resolved = false; // parse again (could have been replaced w/ another var)
+                            $resolved       = false; // parse again (could have been replaced w/ another var)
                         }
                     } else {
                         $fragment = "\${" . $propertyName . "}";

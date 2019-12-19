@@ -85,7 +85,7 @@ abstract class ContainerMapper implements FileNameMapper
         $foundit = false;
         for ($iter = new ArrayIterator($this->mappers); $iter->valid() && !$foundit;) {
             $iter->next();
-            $next = $iter->current();
+            $next    = $iter->current();
             $foundit = ($next == $fileNameMapper || ($next instanceof ContainerMapper && $next->contains($fileNameMapper)));
         }
         return $foundit;

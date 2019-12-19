@@ -62,10 +62,10 @@ class ZendCodeAnalyzerTask extends Task
     use FileSetAware;
 
     protected $analyzerPath = ""; // Path to ZendCodeAnalyzer binary
-    protected $file = ""; // the source file (from xml attribute)
-    protected $counter = 0;
-    protected $disable = [];
-    protected $enable = [];
+    protected $file         = ""; // the source file (from xml attribute)
+    protected $counter      = 0;
+    protected $disable      = [];
+    protected $enable       = [];
 
     private $haltonwarning = false;
 
@@ -138,9 +138,9 @@ class ZendCodeAnalyzerTask extends Task
             $project = $this->getProject();
 
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
+                $ds    = $fs->getDirectoryScanner($project);
                 $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getPath();
+                $dir   = $fs->getDir($this->project)->getPath();
 
                 foreach ($files as $file) {
                     $this->analyze($dir . DIRECTORY_SEPARATOR . $file);

@@ -107,7 +107,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             $this->out->write($line);
             $this->out->write(PHP_EOL);
 
-            $line = "";
+            $line        = "";
             $colsprinted = true;
         } // if show headers
 

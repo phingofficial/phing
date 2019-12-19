@@ -99,7 +99,7 @@ class ElementHandler extends AbstractHandler
             $this->parent = $parent;
         }
         $this->parentWrapper = $parentWrapper;
-        $this->target = $target;
+        $this->target        = $target;
     }
 
     /**
@@ -121,7 +121,7 @@ class ElementHandler extends AbstractHandler
     public function init($tag, $attrs)
     {
         $configurator = $this->configurator;
-        $project = $this->configurator->project;
+        $project      = $this->configurator->project;
 
         try {
             $this->child = new UnknownElement(strtolower($tag));

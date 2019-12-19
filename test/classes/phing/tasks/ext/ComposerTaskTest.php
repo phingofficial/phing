@@ -77,7 +77,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     public function testSetGetComposer()
     {
         $composer = 'foo';
-        $o = $this->object;
+        $o        = $this->object;
         $o->setComposer($composer);
         $composerFile = new SplFileInfo($composer);
         if (false === $composerFile->isFile()) {
@@ -91,7 +91,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreateArg()
     {
-        $o = $this->object;
+        $o   = $this->object;
         $arg = $o->createArg();
         $this->assertTrue(get_class($arg) == 'CommandlineArgument');
     }
@@ -103,7 +103,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
         $composer = $o->getComposer();
-        $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
+        $method   = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
         $this->assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
         $o->setCommand('update');

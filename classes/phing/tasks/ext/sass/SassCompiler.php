@@ -35,7 +35,7 @@ class SassCompiler implements SassTaskCompiler
     public function __construct(string $executable, string $flags)
     {
         $this->executable = $executable;
-        $this->flags = $flags;
+        $this->flags      = $flags;
     }
 
     /**

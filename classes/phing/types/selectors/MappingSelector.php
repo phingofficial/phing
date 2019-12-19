@@ -136,7 +136,7 @@ abstract class MappingSelector extends BaseSelector
             );
         }
         $destname = $destfiles[0];
-        $fu = new FileUtils();
+        $fu       = new FileUtils();
         $destfile = $fu->resolveFile($this->targetdir, $destname);
 
         return $this->selectionTest($file, $destfile);

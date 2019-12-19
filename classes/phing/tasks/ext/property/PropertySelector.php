@@ -29,10 +29,10 @@ class PropertySelector extends AbstractPropertySetterTask
      * @var RegularExpression $match
      */
     private $match;
-    private $select = "\\0";
-    private $delim = ',';
+    private $select        = "\\0";
+    private $delim         = ',';
     private $caseSensitive = true;
-    private $distinct = false;
+    private $distinct      = false;
 
     public function setMatch($match)
     {
@@ -75,9 +75,9 @@ class PropertySelector extends AbstractPropertySetterTask
         $regex = $this->match->getRegexp($this->project);
         $regex->setIgnoreCase(!$this->caseSensitive);
         $props = $this->project->getProperties();
-        $e = array_keys($props);
-        $buf = '';
-        $cnt = 0;
+        $e     = array_keys($props);
+        $buf   = '';
+        $cnt   = 0;
 
         $used = [];
 
@@ -85,7 +85,7 @@ class PropertySelector extends AbstractPropertySetterTask
             if ($regex->matches($key)) {
                 $output = $this->select;
                 $groups = $regex->getGroups();
-                $sz = count($groups);
+                $sz     = count($groups);
                 for ($i = 0; $i < $sz; $i++) {
                     $s = $groups[$i];
 

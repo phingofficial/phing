@@ -29,8 +29,8 @@ class ProgressLogger extends AnsiColorLogger
 
     private $numTargets = 0;
     private $remTargets = 0;
-    private $numTasks = 0;
-    private $remTasks = 0;
+    private $numTasks   = 0;
+    private $remTasks   = 0;
 
     public function __construct()
     {
@@ -153,7 +153,7 @@ class ProgressLogger extends AnsiColorLogger
     protected function determineDepth(BuildEvent $event)
     {
         if ($this->numTargets == 0) {
-            $this->numTasks = 0;
+            $this->numTasks   = 0;
             $this->numTargets = 0;
 
             $project = $event->getProject();
@@ -168,14 +168,14 @@ class ProgressLogger extends AnsiColorLogger
                         continue;
                     }
 
-                    $tasks = $target->getTasks();
+                    $tasks           = $target->getTasks();
                     $this->numTasks += count($tasks);
                     $this->numTargets++;
                 }
             }
 
             $this->remTargets = $this->numTargets;
-            $this->remTasks = $this->numTasks;
+            $this->remTasks   = $this->numTasks;
             $this->bar->start($this->numTasks);
         }
     }

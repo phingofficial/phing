@@ -59,7 +59,7 @@ class HgCloneTask extends HgBaseTask
      */
     public function main()
     {
-        $clone = $this->getFactoryInstance('clone');
+        $clone      = $this->getFactoryInstance('clone');
         $repository = $this->getRepository();
         if ($repository === '') {
             throw new BuildException('"repository" is a required parameter');
@@ -92,7 +92,7 @@ class HgCloneTask extends HgBaseTask
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            $p = strpos($msg, 'hg returned:');
+            $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {
                 $msg = substr($msg, $p + 13);
             }

@@ -143,21 +143,21 @@ class ImportTask extends Task
 
         // Filesets.
         $total_files = 0;
-        $total_dirs = 0;
+        $total_dirs  = 0;
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->project);
+            $ds      = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
             $srcFiles = $ds->getIncludedFiles();
-            $srcDirs = $ds->getIncludedDirectories();
+            $srcDirs  = $ds->getIncludedDirectories();
 
-            $filecount = count($srcFiles);
+            $filecount    = count($srcFiles);
             $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
                 $this->importFile(new PhingFile($fromDir, $srcFiles[$j]));
             }
 
-            $dircount = count($srcDirs);
+            $dircount    = count($srcDirs);
             $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
                 $this->importFile(new PhingFile($fromDir, $srcDirs[$j]));

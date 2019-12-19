@@ -45,7 +45,7 @@ class PearPkgMapping
      */
     public function createElement()
     {
-        $e = new PearPkgMappingElement();
+        $e                = new PearPkgMappingElement();
         $this->elements[] = $e;
 
         return $e;

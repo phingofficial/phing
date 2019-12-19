@@ -206,14 +206,14 @@ class Variable extends PropertyTask
             // system.  The biggest problem is the fact that a resolution may require
             // multiple passes.
 
-            $value = $props->getProperty($name);
-            $resolved = false;
+            $value        = $props->getProperty($name);
+            $resolved     = false;
             $resolveStack = [];
 
             $ih = PropertyHelper::getPropertyHelper($this->project);
 
             while (!$resolved) {
-                $fragments = [];
+                $fragments    = [];
                 $propertyRefs = [];
 
                 // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
@@ -251,7 +251,7 @@ class Variable extends PropertyTask
                         $fragment = $props->getProperty($propertyName);
                         if (strpos($fragment, '${') !== false) {
                             $resolveStack[] = $propertyName;
-                            $resolved = false; // parse again (could have been replaced w/ another var)
+                            $resolved       = false; // parse again (could have been replaced w/ another var)
                         }
                     } else {
                         $fragment = "\${" . $propertyName . "}";

@@ -28,12 +28,12 @@ class IoncubeLicenseTask extends Task
 {
     private $ioncubePath = "/usr/local/ioncube";
 
-    private $licensePath = "";
-    private $passPhrase = "";
+    private $licensePath   = "";
+    private $passPhrase    = "";
     private $allowedServer = "";
-    private $expireOn = "";
-    private $expireIn = "";
-    private $comments = [];
+    private $expireOn      = "";
+    private $expireIn      = "";
+    private $comments      = [];
 
     /**
      * Sets the path to the ionCube encoder

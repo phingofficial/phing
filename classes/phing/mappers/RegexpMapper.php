@@ -39,7 +39,7 @@ class RegexpMapper implements FileNameMapper
      */
     private $reg;
 
-    private $handleDirSep = false;
+    private $handleDirSep  = false;
     private $caseSensitive = true;
 
     /**

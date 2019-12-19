@@ -30,7 +30,7 @@
 class SvnLogTask extends SvnBaseTask
 {
     private $propertyName = "svn.log";
-    private $limit = null;
+    private $limit        = null;
 
     /**
      * Sets the name of the property to use

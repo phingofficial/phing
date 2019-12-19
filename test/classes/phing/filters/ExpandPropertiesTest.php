@@ -41,7 +41,7 @@ class ExpandPropertiesTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/expandproperties.test");
-        $result = $this->getProject()->resolveFile("result/expandproperties.test");
+        $result   = $this->getProject()->resolveFile("result/expandproperties.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

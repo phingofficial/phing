@@ -60,7 +60,7 @@ class PhingFile
             if ($arg1 === null) {
                 throw new NullPointerException("Argument1 to function must not be null");
             }
-            $this->path = (string) $arg1;
+            $this->path         = (string) $arg1;
             $this->prefixLength = (int) $arg2;
         }
     }
@@ -86,7 +86,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
 
-        $this->path = (string) $fs->normalize($pathname);
+        $this->path         = (string) $fs->normalize($pathname);
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 

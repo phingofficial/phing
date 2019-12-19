@@ -54,7 +54,7 @@ class AvailableTask extends Task implements Condition
      */
     private $extension;
 
-    private $type = null;
+    private $type     = null;
     private $filepath = null;
 
     private $followSymlinks = false;
@@ -233,7 +233,7 @@ class AvailableTask extends Task implements Condition
             if ($linkTarget->isAbsolute()) {
                 $file = $linkTarget;
             } else {
-                $fs = FileSystem::getFileSystem();
+                $fs   = FileSystem::getFileSystem();
                 $file = new PhingFile(
                     $fs->resolve(
                         $fs->normalize($file->getParent()),

@@ -37,7 +37,7 @@ class LogWriter extends Writer
      */
     public function __construct(Task $task, $level = Project::MSG_INFO)
     {
-        $this->task = $task;
+        $this->task  = $task;
         $this->level = $level;
     }
 

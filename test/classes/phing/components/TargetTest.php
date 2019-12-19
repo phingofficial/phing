@@ -44,10 +44,10 @@ class TargetTest extends BuildFileTest
     public function testHiddenTargets()
     {
         $phingExecutable = '"' . PHING_TEST_BASE . '/../bin/phing"';
-        $buildFile = '"' . PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml"';
-        $cmd = $phingExecutable . ' -l -f ' . $buildFile;
+        $buildFile       = '"' . PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml"';
+        $cmd             = $phingExecutable . ' -l -f ' . $buildFile;
         exec($cmd, $out);
-        $out = implode("\n", $out);
+        $out    = implode("\n", $out);
         $offset = strpos($out, 'Subtargets:');
         $this->assertFalse(strpos($out, 'HideInListTarget', $offset));
         $this->assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);

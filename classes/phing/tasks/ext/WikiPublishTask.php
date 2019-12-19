@@ -369,7 +369,7 @@ class WikiPublishTask extends Task
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
 
-        $response = curl_exec($this->curl);
+        $response     = curl_exec($this->curl);
         $responseCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
         if (200 !== $responseCode) {

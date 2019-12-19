@@ -66,8 +66,8 @@ class VersionTask extends Task
     private $property;
 
     /* Allowed Releastypes */
-    public const RELEASETYPE_MAJOR = 'MAJOR';
-    public const RELEASETYPE_MINOR = 'MINOR';
+    public const RELEASETYPE_MAJOR  = 'MAJOR';
+    public const RELEASETYPE_MINOR  = 'MINOR';
     public const RELEASETYPE_BUGFIX = 'BUGFIX';
 
     private $propFile = false;
@@ -136,7 +136,7 @@ class VersionTask extends Task
         try {
             if ($this->propFile) {
                 $properties = $this->loadProperties();
-                $content = $properties->getProperty($this->property);
+                $content    = $properties->getProperty($this->property);
             } else {
                 $content = trim($this->file->contents());
             }
@@ -198,9 +198,9 @@ class VersionTask extends Task
         preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion, $version);
 
         // Setting values if not captured
-        $version['PREFIX'] = $version['PREFIX'] ?? '';
-        $version[self::RELEASETYPE_MAJOR] = $version[self::RELEASETYPE_MAJOR] ?? '0';
-        $version[self::RELEASETYPE_MINOR] = $version[self::RELEASETYPE_MINOR] ?? '0';
+        $version['PREFIX']                 = $version['PREFIX'] ?? '';
+        $version[self::RELEASETYPE_MAJOR]  = $version[self::RELEASETYPE_MAJOR] ?? '0';
+        $version[self::RELEASETYPE_MINOR]  = $version[self::RELEASETYPE_MINOR] ?? '0';
         $version[self::RELEASETYPE_BUGFIX] = $version[self::RELEASETYPE_BUGFIX] ?? '0';
 
         // Resetting Minor and/or Bugfix number according to release type

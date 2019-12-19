@@ -48,7 +48,7 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         }
 
         $element = new IHProjectComponent();
-        $ih = IntrospectionHelper::getHelper('IHProjectComponent');
+        $ih      = IntrospectionHelper::getHelper('IHProjectComponent');
         $ih->addText($this->p, $element, "test");
 
         $this->assertSame('test', $element->text);

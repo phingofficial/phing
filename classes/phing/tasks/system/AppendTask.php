@@ -160,7 +160,7 @@ class AppendTask extends Task
 
     public function createPath()
     {
-        $path = new Path($this->getProject());
+        $path             = new Path($this->getProject());
         $this->filesets[] = $path;
         return $path;
     }
@@ -236,7 +236,7 @@ class AppendTask extends Task
 
                 $text = $this->text;
                 if ($this->filtering) {
-                    $fr = $this->getFilteredReader(new StringReader($text));
+                    $fr   = $this->getFilteredReader(new StringReader($text));
                     $text = $fr->read();
                 }
 
@@ -278,7 +278,7 @@ class AppendTask extends Task
                 }
 
                 foreach ($this->filelists as $list) {
-                    $dir = $list->getDir($this->project);
+                    $dir   = $list->getDir($this->project);
                     $files = $list->getFiles($this->project);
                     foreach ($files as $file) {
                         $this->appendFile($writer, new PhingFile($dir, $file));
@@ -298,7 +298,7 @@ class AppendTask extends Task
         if ($this->header !== null) {
             $header = $this->header->getValue();
             if ($this->header->filtering) {
-                $fr = $this->getFilteredReader(new StringReader($header));
+                $fr     = $this->getFilteredReader(new StringReader($header));
                 $header = $fr->read();
             }
 
@@ -314,7 +314,7 @@ class AppendTask extends Task
         if ($this->footer !== null) {
             $footer = $this->footer->getValue();
             if ($this->footer->filtering) {
-                $fr = $this->getFilteredReader(new StringReader($footer));
+                $fr     = $this->getFilteredReader(new StringReader($footer));
                 $footer = $fr->read();
             }
 
@@ -371,7 +371,7 @@ class AppendTask extends Task
                 ) . " files" . ($dir !== null ? ", using basedir " . $dir->getPath() : "")
             );
             $basenameSlot = Register::getSlot("task.append.current_file");
-            $pathSlot = Register::getSlot("task.append.current_file.path");
+            $pathSlot     = Register::getSlot("task.append.current_file.path");
             foreach ($files as $file) {
                 try {
                     if (!$this->checkFilename($file, $dir)) {

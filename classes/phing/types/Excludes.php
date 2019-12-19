@@ -103,7 +103,7 @@ class Excludes extends DataType
      */
     private function addExcludesNameEntry(&$excludesNameEntryList)
     {
-        $excludesNameEntry = new ExcludesNameEntry();
+        $excludesNameEntry       = new ExcludesNameEntry();
         $excludesNameEntryList[] = $excludesNameEntry;
 
         return $excludesNameEntry;
@@ -125,8 +125,8 @@ class Excludes extends DataType
         $this->directoryScanner->setIncludes($includes);
         $this->directoryScanner->scan();
 
-        $files = $this->directoryScanner->getIncludedFiles();
-        $dir = $this->directoryScanner->getBasedir();
+        $files    = $this->directoryScanner->getIncludedFiles();
+        $dir      = $this->directoryScanner->getBasedir();
         $fileList = [];
 
         foreach ($files as $file) {
@@ -163,8 +163,8 @@ class Excludes extends DataType
 
         foreach ($this->methods as $excludedMethod) {
             $classAndMethod = explode('::', $excludedMethod->getName());
-            $className = $classAndMethod[0];
-            $methodName = $classAndMethod[1];
+            $className      = $classAndMethod[0];
+            $methodName     = $classAndMethod[1];
 
             $excludedMethods[$className][] = $methodName;
         }

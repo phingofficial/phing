@@ -58,7 +58,7 @@ class IniFileConfig
                 ];
             } elseif (preg_match('/^\s?\[(.*)\]/', $line, $match)) {
                 // section
-                $section = $match[1];
+                $section       = $match[1];
                 $this->lines[] = [
                     'type' => 'section',
                     'data' => $line,
@@ -125,7 +125,7 @@ class IniFileConfig
                 continue;
             }
             $line['value'] = $value;
-            $line['data'] = $key . " = " . $value . PHP_EOL;
+            $line['data']  = $key . " = " . $value . PHP_EOL;
             return;
         }
 

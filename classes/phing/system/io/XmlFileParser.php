@@ -25,9 +25,9 @@
  */
 class XmlFileParser implements FileParserInterface
 {
-    private $keepRoot = true;
+    private $keepRoot     = true;
     private $collapseAttr = true;
-    private $delimiter = ',';
+    private $delimiter    = ',';
 
     /**
      * @param bool $keepRoot

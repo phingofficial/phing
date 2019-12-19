@@ -56,7 +56,7 @@ class RootHandler extends AbstractHandler
     public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, PhingXMLContext $context)
     {
         $this->configurator = $configurator;
-        $this->context = $context;
+        $this->context      = $context;
 
         parent::__construct($parser, $this);
     }

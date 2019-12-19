@@ -162,7 +162,7 @@ class PathToFileSet extends Task
      */
     private function getIncludePattern($dirNormal, PhingFile $file)
     {
-        $fileUtils = new FileUtils();
+        $fileUtils  = new FileUtils();
         $fileNormal = $fileUtils->normalize($file->getAbsolutePath());
 
         return rtrim(str_replace('\\', '/', substr($fileNormal, strlen($dirNormal))), '/') . '/';

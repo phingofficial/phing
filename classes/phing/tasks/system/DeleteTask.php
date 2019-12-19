@@ -30,9 +30,9 @@ class DeleteTask extends Task
     protected $dir;
     protected $includeEmpty = false;
 
-    protected $quiet = false;
+    protected $quiet       = false;
     protected $failonerror = false;
-    protected $verbosity = Project::MSG_VERBOSE;
+    protected $verbosity   = Project::MSG_VERBOSE;
 
     /**
      * Set the name of a single file to be removed.
@@ -168,8 +168,8 @@ class DeleteTask extends Task
         }
         foreach ($this->dirsets as $dirset) {
             if (!$dirset instanceof PhingFile) {
-                $ds = $dirset->getDirectoryScanner($this->getProject());
-                $dirs = $ds->getIncludedDirectories();
+                $ds      = $dirset->getDirectoryScanner($this->getProject());
+                $dirs    = $ds->getIncludedDirectories();
                 $baseDir = $ds->getBasedir();
             } else {
                 $dirs[0] = $dirset;
@@ -213,9 +213,9 @@ class DeleteTask extends Task
         // delete the files in the filesets
         foreach ($this->filesets as $fs) {
             try {
-                $ds = $fs->getDirectoryScanner($this->project);
+                $ds    = $fs->getDirectoryScanner($this->project);
                 $files = $ds->getIncludedFiles();
-                $dirs = $ds->getIncludedDirectories();
+                $dirs  = $ds->getIncludedDirectories();
                 $this->removeFiles($fs->getDir($this->project), $files, $dirs);
             } catch (BuildException $be) {
                 // directory doesn't exist or is not readable
@@ -304,7 +304,7 @@ class DeleteTask extends Task
         if (count($dirs) > 0 && $this->includeEmpty) {
             $dirCount = 0;
             for ($j = count($dirs) - 1; $j >= 0; --$j) {
-                $dir = new PhingFile($d, $dirs[$j]);
+                $dir      = new PhingFile($d, $dirs[$j]);
                 $dirFiles = $dir->listDir();
                 if ($dirFiles === null || count($dirFiles) === 0) {
                     $this->log("Deleting " . $dir->__toString(), $this->verbosity);

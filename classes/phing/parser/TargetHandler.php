@@ -69,7 +69,7 @@ class TargetHandler extends AbstractHandler
     ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
-        $this->context = $context;
+        $this->context      = $context;
     }
 
     /**
@@ -93,14 +93,14 @@ class TargetHandler extends AbstractHandler
      */
     public function init($tag, $attrs)
     {
-        $name = null;
-        $depends = "";
-        $ifCond = null;
-        $unlessCond = null;
-        $id = null;
+        $name        = null;
+        $depends     = "";
+        $ifCond      = null;
+        $unlessCond  = null;
+        $id          = null;
         $description = null;
-        $isHidden = false;
-        $logskipped = false;
+        $isHidden    = false;
+        $logskipped  = false;
 
         foreach ($attrs as $key => $value) {
             switch ($key) {

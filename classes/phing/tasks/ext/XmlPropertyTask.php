@@ -27,9 +27,9 @@
  */
 class XmlPropertyTask extends PropertyTask
 {
-    private $keepRoot = true;
+    private $keepRoot     = true;
     private $collapseAttr = false;
-    private $delimiter = ',';
+    private $delimiter    = ',';
 
     /**
      * Keep the xml root tag as the first value in the property name

@@ -32,7 +32,7 @@ class SassTaskUnitTest extends TestCase
 
     public function setUp(): void
     {
-        $this->object = new SassTask();
+        $this->object         = new SassTask();
         $this->sassTaskAssert = new SassTaskAssert();
     }
 

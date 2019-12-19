@@ -47,9 +47,9 @@ class SizeSelector extends BaseExtendSelector
      */
     private $cmp = 2;
 
-    public const SIZE_KEY = "value";
+    public const SIZE_KEY  = "value";
     public const UNITS_KEY = "units";
-    public const WHEN_KEY = "when";
+    public const WHEN_KEY  = "when";
 
     /**
      * @var array $sizeComparisons
@@ -104,7 +104,7 @@ class SizeSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf = "{sizeselector value: ";
+        $buf  = "{sizeselector value: ";
         $buf .= $this->sizelimit;
         $buf .= "compare: ";
         if ($this->cmp === 0) {

@@ -132,7 +132,7 @@ class GitLogTaskTest extends BuildFileTest
     public function testGitWithMostParams()
     {
         $this->executeTarget('gitLogWithMostParams');
-        $lastTwoCommits = array_slice($this->testCommits, -2);
+        $lastTwoCommits  = array_slice($this->testCommits, -2);
         $allOtherCommits = array_slice($this->testCommits, 0, -2);
 
         // test max-count

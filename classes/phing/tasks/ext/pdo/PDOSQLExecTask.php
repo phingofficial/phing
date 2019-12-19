@@ -63,9 +63,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     private $totalSql = 0;
 
-    public const DELIM_ROW = "row";
+    public const DELIM_ROW    = "row";
     public const DELIM_NORMAL = "normal";
-    public const DELIM_NONE = "none";
+    public const DELIM_NONE   = "none";
 
     /**
      * Database connection
@@ -200,7 +200,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     public function createFormatter()
     {
-        $fe = new PDOSQLExecFormatterElement($this);
+        $fe                 = new PDOSQLExecFormatterElement($this);
         $this->formatters[] = $fe;
 
         return $fe;
@@ -211,7 +211,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     public function createTransaction()
     {
-        $t = new PDOSQLExecTransaction($this);
+        $t                    = new PDOSQLExecTransaction($this);
         $this->transactions[] = $t;
 
         return $t;
@@ -356,8 +356,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
             // deal with the filesets
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($this->project);
-                $srcDir = $fs->getDir($this->project);
+                $ds       = $fs->getDirectoryScanner($this->project);
+                $srcDir   = $fs->getDir($this->project);
                 $srcFiles = $ds->getIncludedFiles();
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
@@ -368,7 +368,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
             // process filelists
             foreach ($this->filelists as $fl) {
-                $srcDir = $fl->getDir($this->project);
+                $srcDir   = $fl->getDir($this->project);
                 $srcFiles = $fl->getFiles($this->project);
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
@@ -439,7 +439,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
             throw $e;
         } finally {
             $this->transactions = $savedTransaction;
-            $this->sqlCommand = $savedSqlCommand;
+            $this->sqlCommand   = $savedSqlCommand;
             $this->closeConnection();
         }
     }

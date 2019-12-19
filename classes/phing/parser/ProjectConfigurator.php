@@ -86,10 +86,10 @@ class ProjectConfigurator
      */
     private function __construct(Project $project, PhingFile $buildFile)
     {
-        $this->project = $project;
-        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
+        $this->project         = $project;
+        $this->buildFile       = new PhingFile($buildFile->getAbsolutePath());
         $this->buildFileParent = new PhingFile($this->buildFile->getParent());
-        $this->parseEndTarget = new Target();
+        $this->parseEndTarget  = new Target();
     }
 
     /**
@@ -183,7 +183,7 @@ class ProjectConfigurator
 
             if (count($ctx->getImportStack()) > 1) {
                 $currentImplicit = $ctx->getImplicitTarget();
-                $currentTargets = $ctx->getCurrentTargets();
+                $currentTargets  = $ctx->getCurrentTargets();
 
                 $newCurrent = new Target();
                 $newCurrent->setProject($this->project);
@@ -273,7 +273,7 @@ class ProjectConfigurator
         }
 
         $bean = get_class($target);
-        $ih = IntrospectionHelper::getHelper($bean);
+        $ih   = IntrospectionHelper::getHelper($bean);
 
         foreach ($attrs as $key => $value) {
             if ($key == 'id') {
@@ -304,7 +304,7 @@ class ProjectConfigurator
         if ($text === null || strlen(trim($text)) === 0) {
             return;
         }
-        $ih = IntrospectionHelper::getHelper(get_class($target));
+        $ih   = IntrospectionHelper::getHelper(get_class($target));
         $text = $project->replaceProperties($text);
         $ih->addText($project, $target, $text);
     }

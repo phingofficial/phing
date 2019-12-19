@@ -41,7 +41,7 @@ class ProfileLogger extends DefaultLogger
         if (@date_default_timezone_get() === 'UTC') {
             date_default_timezone_set('Europe/Berlin');
         }
-        $now = Phing::currentTimeMillis();
+        $now  = Phing::currentTimeMillis();
         $name = "Target " . $event->getTarget()->getName();
         $this->logStart($event, $now, $name);
         $this->profileData[] = $now;
@@ -72,7 +72,7 @@ class ProfileLogger extends DefaultLogger
     public function taskStarted(BuildEvent $event)
     {
         $name = $event->getTask()->getTaskName();
-        $now = Phing::currentTimeMillis();
+        $now  = Phing::currentTimeMillis();
         $this->logStart($event, $now, $name);
         $this->profileData[] = $now;
     }
@@ -97,7 +97,7 @@ class ProfileLogger extends DefaultLogger
         $msg = null;
         if ($start != null) {
             $diff = self::formatTime(Phing::currentTimeMillis() - $start);
-            $msg = Phing::getProperty("line.separator") . $name . ": finished "
+            $msg  = Phing::getProperty("line.separator") . $name . ": finished "
                 . date(self::$dateFormat, time()) . " ("
                 . $diff
                 . ")";

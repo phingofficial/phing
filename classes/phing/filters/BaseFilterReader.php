@@ -53,7 +53,7 @@ class BaseFilterReader extends FilterReader
     {
         if ($in === null) {
             $dummy = "";
-            $in = new StringReader($dummy);
+            $in    = new StringReader($dummy);
         }
         parent::__construct($in);
     }

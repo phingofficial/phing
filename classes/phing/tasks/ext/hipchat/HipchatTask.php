@@ -35,13 +35,13 @@
  */
 class HipchatTask extends Task
 {
-    private $domain = 'api.hipchat.com';
-    private $room = null;
+    private $domain    = 'api.hipchat.com';
+    private $room      = null;
     private $authToken = null;
-    private $color = 'yellow';
-    private $notify = false;
-    private $message = null;
-    private $format = 'text';
+    private $color     = 'yellow';
+    private $notify    = false;
+    private $message   = null;
+    private $format    = 'text';
 
     public function main()
     {
@@ -105,7 +105,7 @@ class HipchatTask extends Task
      */
     public function setFormat($format)
     {
-        $format = ($format != 'text' && $format != 'html') ? 'text' : $format;
+        $format       = ($format != 'text' && $format != 'html') ? 'text' : $format;
         $this->format = $format;
     }
 

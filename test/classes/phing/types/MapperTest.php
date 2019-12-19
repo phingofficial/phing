@@ -151,7 +151,7 @@ class MapperTest extends \PHPUnit\Framework\TestCase
         $m = new Mapper($this->project);
         $p = new Path($this->project);
         $m->setClasspath($p);
-        $f = $m->createClasspath();
+        $f     = $m->createClasspath();
         $class = get_class($f);
         $this->assertEquals("Path", $class);
     }

@@ -110,7 +110,7 @@ class HttpGetTask extends HttpTask
             );
         }
 
-        $content = $response->getBody();
+        $content     = $response->getBody();
         $disposition = $response->getHeader('content-disposition');
 
         if ($this->filename) {

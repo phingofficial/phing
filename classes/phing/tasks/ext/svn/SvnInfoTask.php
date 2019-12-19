@@ -31,7 +31,7 @@ class SvnInfoTask extends SvnBaseTask
 {
     private $propertyName = "svn.info";
 
-    private $element = 'url';
+    private $element    = 'url';
     private $subElement = null;
 
     /**

@@ -47,7 +47,7 @@ abstract class AbstractHandler
     protected function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler)
     {
         $this->parentHandler = $parentHandler;
-        $this->parser = $parser;
+        $this->parser        = $parser;
         $this->parser->setHandler($this);
     }
 

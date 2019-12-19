@@ -41,7 +41,7 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/linecontains.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $result   = $this->getProject()->resolveFile("result/linecontains.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
@@ -50,7 +50,7 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/linecontainsregexp-negate.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $result   = $this->getProject()->resolveFile("result/linecontains.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
@@ -59,7 +59,7 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/linecontains.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $result   = $this->getProject()->resolveFile("result/linecontains.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

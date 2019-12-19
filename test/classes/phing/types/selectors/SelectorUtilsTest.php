@@ -89,7 +89,7 @@ class SelectorUtilsTest extends TestCase
     {
         $sourceFile = new PhingFile("doesNotExist");
         $targetFile = new PhingFile(__FILE__);
-        $ret = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
+        $ret        = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
         $this->assertEquals(false, $ret);
     }
 
@@ -97,7 +97,7 @@ class SelectorUtilsTest extends TestCase
     {
         $sourceFile = new PhingFile(__FILE__);
         $targetFile = new PhingFile("doesNotExist");
-        $ret = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
+        $ret        = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
         $this->assertEquals(true, $ret);
     }
 
@@ -111,7 +111,7 @@ class SelectorUtilsTest extends TestCase
         $source = new PhingFile(tempnam(FileUtils::getTempDir(), 'src'));
         sleep(3);
         $target = new PhingFile(tempnam(FileUtils::getTempDir(), 'tgt'));
-        $ret = $this->selectorUtils::isOutOfDate($source, $target, 20);
+        $ret    = $this->selectorUtils::isOutOfDate($source, $target, 20);
         $this->assertEquals(false, $ret);
     }
 }

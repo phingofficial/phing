@@ -42,7 +42,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     // constants for specifying keys to expect
     // when this is called using <filterreader ... />
     public const DOMAIN_KEY = "domain";
-    public const DIR_KEY = "dir";
+    public const DIR_KEY    = "dir";
     public const LOCALE_KEY = "locale";
 
     /**
@@ -197,7 +197,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     private function xlateStringCallback($matches)
     {
         $charbefore = $matches[1];
-        $msgid = $matches[2];
+        $msgid      = $matches[2];
         $translated = gettext($msgid);
         $this->log("Translating \"$msgid\" => \"$translated\"", Project::MSG_DEBUG);
 

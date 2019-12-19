@@ -56,7 +56,7 @@ class Description extends DataType
     {
         foreach (self::findElementInTarget($t, 'description') as $task) {
             if ($task instanceof UnknownElement) {
-                $ue = $task;
+                $ue       = $task;
                 $descComp = $ue->getWrapper()->getText();
                 if ($descComp !== null) {
                     $description .= $project->replaceProperties($descComp);

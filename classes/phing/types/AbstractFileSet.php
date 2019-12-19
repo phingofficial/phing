@@ -60,7 +60,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     public $additionalPatterns = [];
     public $dir;
-    public $isCaseSensitive = true;
+    public $isCaseSensitive    = true;
     private $errorOnMissingDir = false;
     private $directoryScanner;
 
@@ -72,13 +72,13 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         parent::__construct();
 
         if ($fileset !== null && ($fileset instanceof FileSet)) {
-            $this->dir = $fileset->dir;
-            $this->additionalPatterns = $fileset->additionalPatterns;
-            $this->useDefaultExcludes = $fileset->useDefaultExcludes;
-            $this->isCaseSensitive = $fileset->isCaseSensitive;
-            $this->selectorsList = $fileset->selectorsList;
+            $this->dir                 = $fileset->dir;
+            $this->additionalPatterns  = $fileset->additionalPatterns;
+            $this->useDefaultExcludes  = $fileset->useDefaultExcludes;
+            $this->isCaseSensitive     = $fileset->isCaseSensitive;
+            $this->selectorsList       = $fileset->selectorsList;
             $this->expandSymbolicLinks = $fileset->expandSymbolicLinks;
-            $this->errorOnMissingDir = $fileset->errorOnMissingDir;
+            $this->errorOnMissingDir   = $fileset->errorOnMissingDir;
             $this->setProject($fileset->getProject());
         }
 
@@ -134,7 +134,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($dir instanceof PhingFile) {
             $dir = $dir->getPath();
         }
-        $this->dir = new PhingFile((string) $dir);
+        $this->dir              = new PhingFile((string) $dir);
         $this->directoryScanner = null;
     }
 
@@ -554,7 +554,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
-        $this->selectorsList[] = $selector;
+        $this->selectorsList[]  = $selector;
         $this->directoryScanner = null;
         $this->setChecked(false);
     }
@@ -581,8 +581,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             }
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->getProject());
-            $ds = $this->getDirectoryScanner($this->getProject());
-            $files = $ds->getIncludedFiles();
+            $ds     = $this->getDirectoryScanner($this->getProject());
+            $files  = $ds->getIncludedFiles();
             $result = implode(';', $files);
         } catch (BuildException $e) {
             $result = '';

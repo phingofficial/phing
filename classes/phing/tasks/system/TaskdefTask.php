@@ -112,7 +112,7 @@ class TaskdefTask extends Task
         } else {
             try { // try to load taskdefs given in file
                 $props = new Properties();
-                $in = new PhingFile((string) $this->typeFile);
+                $in    = new PhingFile((string) $this->typeFile);
 
                 if ($in === null) {
                     throw new BuildException("Can't load task list {$this->typeFile}");

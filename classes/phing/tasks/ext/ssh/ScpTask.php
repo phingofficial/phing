@@ -29,26 +29,26 @@ class ScpTask extends Task
     use FileSetAware;
     use LogLevelAware;
 
-    protected $file = "";
+    protected $file  = "";
     protected $todir = "";
-    protected $mode = null;
+    protected $mode  = null;
 
-    protected $host = "";
-    protected $port = 22;
-    protected $methods = null;
-    protected $username = "";
-    protected $password = "";
-    protected $autocreate = true;
-    protected $fetch = false;
-    protected $localEndpoint = "";
+    protected $host           = "";
+    protected $port           = 22;
+    protected $methods        = null;
+    protected $username       = "";
+    protected $password       = "";
+    protected $autocreate     = true;
+    protected $fetch          = false;
+    protected $localEndpoint  = "";
     protected $remoteEndpoint = "";
 
-    protected $pubkeyfile = '';
-    protected $privkeyfile = '';
+    protected $pubkeyfile            = '';
+    protected $privkeyfile           = '';
     protected $privkeyfilepassphrase = '';
 
     protected $connection = null;
-    protected $sftp = null;
+    protected $sftp       = null;
 
     protected $counter = 0;
 
@@ -342,7 +342,7 @@ class ScpTask extends Task
             throw new BuildException("Attribute 'host' and 'username' must be set");
         }
 
-        $methods = !empty($this->methods) ? $this->methods->toArray($p) : [];
+        $methods          = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
@@ -377,9 +377,9 @@ class ScpTask extends Task
             }
 
             foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($this->project);
+                $ds    = $fs->getDirectoryScanner($this->project);
                 $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getPath();
+                $dir   = $fs->getDir($this->project)->getPath();
                 foreach ($files as $file) {
                     $path = $dir . DIRECTORY_SEPARATOR . $file;
 
@@ -407,7 +407,7 @@ class ScpTask extends Task
         $path = rtrim($this->todir, "/") . "/";
 
         if ($this->fetch) {
-            $localEndpoint = $path . $remote;
+            $localEndpoint  = $path . $remote;
             $remoteEndpoint = $local;
 
             $this->log('Will fetch ' . $remoteEndpoint . ' to ' . $localEndpoint, $this->logLevel);
@@ -418,7 +418,7 @@ class ScpTask extends Task
                 throw new BuildException("Could not fetch remote file '" . $remoteEndpoint . "'");
             }
         } else {
-            $localEndpoint = $local;
+            $localEndpoint  = $local;
             $remoteEndpoint = $path . $remote;
 
             if ($this->autocreate) {

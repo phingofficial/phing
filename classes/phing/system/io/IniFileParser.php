@@ -42,7 +42,7 @@ class IniFileParser implements FileParserInterface
         for ($i = 0; $i < $linesCount; $i++) {
             if (substr($lines[$i], -1, 1) === '\\') {
                 $lines[$i + 1] = substr($lines[$i], 0, -1) . ltrim($lines[$i + 1]);
-                $lines[$i] = '';
+                $lines[$i]     = '';
             }
         }
 
@@ -55,9 +55,9 @@ class IniFileParser implements FileParserInterface
                 continue;
             }
 
-            $pos = strpos($line, '=');
-            $property = trim(substr($line, 0, $pos));
-            $value = trim(substr($line, $pos + 1));
+            $pos                   = strpos($line, '=');
+            $property              = trim(substr($line, 0, $pos));
+            $value                 = trim(substr($line, $pos + 1));
             $properties[$property] = $this->inVal($value);
         } // for each line
 

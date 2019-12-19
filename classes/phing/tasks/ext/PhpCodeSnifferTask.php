@@ -35,23 +35,23 @@ class PhpCodeSnifferTask extends Task
     protected $file;
 
     // parameters for php code sniffer
-    protected $standards = ['Generic'];
-    protected $sniffs = [];
-    protected $showWarnings = true;
-    protected $showSources = false;
-    protected $reportWidth = 80;
-    protected $verbosity = 0;
-    protected $tabWidth = 0;
+    protected $standards             = ['Generic'];
+    protected $sniffs                = [];
+    protected $showWarnings          = true;
+    protected $showSources           = false;
+    protected $reportWidth           = 80;
+    protected $verbosity             = 0;
+    protected $tabWidth              = 0;
     protected $allowedFileExtensions = ['php', 'inc', 'js', 'css'];
-    protected $allowedTypes = [];
-    protected $ignorePatterns = false;
-    protected $noSubdirectories = false;
-    protected $configData = [];
-    protected $encoding = 'iso-8859-1';
+    protected $allowedTypes          = [];
+    protected $ignorePatterns        = false;
+    protected $noSubdirectories      = false;
+    protected $configData            = [];
+    protected $encoding              = 'iso-8859-1';
 
     // parameters to customize output
     protected $showSniffs = false;
-    protected $format = 'full';
+    protected $format     = 'full';
 
     /**
      * @var PhpCodeSnifferTaskFormatterElement[]
@@ -72,10 +72,10 @@ class PhpCodeSnifferTask extends Task
      */
     protected $docFile = null;
 
-    private $haltonerror = false;
-    private $haltonwarning = false;
+    private $haltonerror      = false;
+    private $haltonwarning    = false;
     private $skipversioncheck = false;
-    private $propertyName = null;
+    private $propertyName     = null;
 
     /**
      * Cache data storage
@@ -113,11 +113,11 @@ class PhpCodeSnifferTask extends Task
     public function setStandard($standards)
     {
         $this->standards = [];
-        $token = ' ,;';
-        $ext = strtok($standards, $token);
+        $token           = ' ,;';
+        $ext             = strtok($standards, $token);
         while ($ext !== false) {
             $this->standards[] = $ext;
-            $ext = strtok($token);
+            $ext               = strtok($token);
         }
     }
 
@@ -132,7 +132,7 @@ class PhpCodeSnifferTask extends Task
         $sniff = strtok($sniffs, $token);
         while ($sniff !== false) {
             $this->sniffs[] = $sniff;
-            $sniff = strtok($token);
+            $sniff          = strtok($token);
         }
     }
 
@@ -232,11 +232,11 @@ class PhpCodeSnifferTask extends Task
     public function setAllowedFileExtensions($extensions)
     {
         $this->allowedFileExtensions = [];
-        $token = ' ,;';
-        $ext = strtok($extensions, $token);
+        $token                       = ' ,;';
+        $ext                         = strtok($extensions, $token);
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
-            $ext = strtok($token);
+            $ext                           = strtok($token);
         }
     }
 
@@ -248,11 +248,11 @@ class PhpCodeSnifferTask extends Task
     public function setAllowedTypes($types)
     {
         $this->allowedTypes = [];
-        $token = ' ,;';
-        $type = strtok($types, $token);
+        $token              = ' ,;';
+        $type               = strtok($types, $token);
         while ($type !== false) {
             $this->allowedTypes[] = $type;
-            $type = strtok($token);
+            $type                 = strtok($token);
         }
     }
 
@@ -265,11 +265,11 @@ class PhpCodeSnifferTask extends Task
     public function setIgnorePatterns($patterns)
     {
         $this->ignorePatterns = [];
-        $token = ' ,;';
-        $pattern = strtok($patterns, $token);
+        $token                = ' ,;';
+        $pattern              = strtok($patterns, $token);
         while ($pattern !== false) {
             $this->ignorePatterns[$pattern] = 'relative';
-            $pattern = strtok($token);
+            $pattern                        = strtok($token);
         }
     }
 
@@ -406,7 +406,7 @@ class PhpCodeSnifferTask extends Task
                 foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
                     $fileAbsolutePath = $dir . DIRECTORY_SEPARATOR . $filename;
                     if ($this->cache) {
-                        $lastMTime = $this->cache->get($fileAbsolutePath);
+                        $lastMTime    = $this->cache->get($fileAbsolutePath);
                         $currentMTime = filemtime($fileAbsolutePath);
                         if ($lastMTime >= $currentMTime) {
                             continue;
@@ -472,7 +472,7 @@ class PhpCodeSnifferTask extends Task
         $cwd = getcwd();
 
         // Save command line arguments because it confuses PHPCS (version 1.3.0)
-        $oldArgs = $_SERVER['argv'];
+        $oldArgs         = $_SERVER['argv'];
         $_SERVER['argv'] = [];
         $_SERVER['argc'] = 0;
 
@@ -497,8 +497,8 @@ class PhpCodeSnifferTask extends Task
                 // They didn't select a valid coding standard, so help them
                 // out by letting them know which standards are installed.
                 $installedStandards = PHP_CodeSniffer::getInstalledStandards();
-                $numStandards = count($installedStandards);
-                $errMsg = '';
+                $numStandards       = count($installedStandards);
+                $errMsg             = '';
 
                 if ($numStandards === 0) {
                     $errMsg = 'No coding standards are installed.';
@@ -508,9 +508,9 @@ class PhpCodeSnifferTask extends Task
                     if ($numStandards === 1) {
                         $errMsg = 'The only coding standard installed is ' . $lastStandard;
                     } else {
-                        $standardList = implode(', ', $installedStandards);
+                        $standardList  = implode(', ', $installedStandards);
                         $standardList .= ' and ' . $lastStandard;
-                        $errMsg = 'The installed coding standards are ' . $standardList;
+                        $errMsg        = 'The installed coding standards are ' . $standardList;
                     }
                 }
 
@@ -526,7 +526,7 @@ class PhpCodeSnifferTask extends Task
         }
 
         // nasty integration hack
-        $values = $codeSniffer->cli->getDefaults();
+        $values          = $codeSniffer->cli->getDefaults();
         $_SERVER['argv'] = ['t'];
         $_SERVER['argc'] = 1;
         foreach ($this->formatters as $fe) {
@@ -568,7 +568,7 @@ class PhpCodeSnifferTask extends Task
 
             // write to file
             $outputFile = $this->docFile->getPath();
-            $check = file_put_contents($outputFile, $output);
+            $check      = file_put_contents($outputFile, $output);
 
             if ($check === false) {
                 throw new BuildException('Error writing doc to ' . $outputFile);
@@ -598,7 +598,7 @@ class PhpCodeSnifferTask extends Task
      */
     protected function printErrorReport($phpcs)
     {
-        $sniffs = $phpcs->getSniffs();
+        $sniffs   = $phpcs->getSniffs();
         $sniffStr = '';
         foreach ($sniffs as $sniff) {
             if (is_string($sniff)) {
@@ -660,7 +660,7 @@ class PhpCodeSnifferTask extends Task
     {
         $files = $report['files'];
         foreach ($files as $file => $attributes) {
-            $errors = $attributes['errors'];
+            $errors   = $attributes['errors'];
             $warnings = $attributes['warnings'];
             $messages = $attributes['messages'];
             if ($errors > 0) {
@@ -681,7 +681,7 @@ class PhpCodeSnifferTask extends Task
             }
         }
 
-        $totalErrors = $report['totals']['errors'];
+        $totalErrors   = $report['totals']['errors'];
         $totalWarnings = $report['totals']['warnings'];
         $this->log(count($files) . ' files were checked', Project::MSG_INFO);
         if ($totalErrors > 0) {
@@ -715,7 +715,7 @@ class PhpCodeSnifferTask extends Task
                                 $logLevel = Project::MSG_WARN;
                             }
                         }
-                        $text = $message['message'];
+                        $text   = $message['message'];
                         $string = $msgType . ' in line ' . $line . ' column ' . $column . ': ' . $text;
                         $this->log($string, $logLevel);
                     }

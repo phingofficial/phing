@@ -33,7 +33,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
     private function initParser($fileName)
     {
         $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
-        $parser = new SonarConfigurationFileParser($fullFileName, $this->getProject());
+        $parser       = new SonarConfigurationFileParser($fullFileName, $this->getProject());
 
         return $parser;
     }
@@ -58,7 +58,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
     public function testConstructFileDoesNotExistThrowsException()
     {
-        $file = 'ThisFileDoesNotExist';
+        $file   = 'ThisFileDoesNotExist';
         $parser = new SonarConfigurationFileParser($file, $this->getProject());
 
         $this->expectException(BuildException::class);

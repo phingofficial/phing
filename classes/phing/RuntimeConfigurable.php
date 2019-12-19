@@ -64,7 +64,7 @@ class RuntimeConfigurable
     public function __construct($proxy, $elementTag)
     {
         $this->wrappedObject = $proxy;
-        $this->elementTag = $elementTag;
+        $this->elementTag    = $elementTag;
 
         if ($proxy instanceof Task) {
             $proxy->setRuntimeConfigurableWrapper($this);
@@ -86,7 +86,7 @@ class RuntimeConfigurable
      */
     public function setProxy($proxy)
     {
-        $this->wrappedObject = $proxy;
+        $this->wrappedObject   = $proxy;
         $this->proxyConfigured = false;
     }
 

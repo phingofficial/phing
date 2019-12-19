@@ -501,7 +501,7 @@ class ApplyTaskTest extends BuildFileTest
     protected function getConfiguredTask($target, $task)
     {
         $target = $this->getTargetByName($target);
-        $task = $this->getTaskFromTarget($target, $task);
+        $task   = $this->getTaskFromTarget($target, $task);
         $task->maybeConfigure();
 
         if ($task instanceof UnknownElement) {
@@ -521,7 +521,7 @@ class ApplyTaskTest extends BuildFileTest
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), 'ApplyTask');
 
         $propertyName = ($propertyName === null) ? $property : $propertyName;
-        $rprop = new ReflectionProperty('ApplyTask', $propertyName);
+        $rprop        = new ReflectionProperty('ApplyTask', $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }

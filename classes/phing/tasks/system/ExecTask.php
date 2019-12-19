@@ -129,7 +129,7 @@ class ExecTask extends Task
     private $osFamily;
     private $executable;
     private $resolveExecutable = false;
-    private $searchPath = false;
+    private $searchPath        = false;
     private $env;
 
     /**
@@ -139,7 +139,7 @@ class ExecTask extends Task
     {
         parent::__construct();
         $this->commandline = new Commandline();
-        $this->env = new Environment();
+        $this->env         = new Environment();
     }
 
     /**
@@ -368,7 +368,7 @@ class ExecTask extends Task
             Project::MSG_WARN
         );
         $this->commandline = new Commandline($command);
-        $this->executable = $this->commandline->getExecutable();
+        $this->executable  = $this->commandline->getExecutable();
     }
 
     /**
@@ -680,7 +680,7 @@ class ExecTask extends Task
         }
         // couldn't find it - must be on path
         if ($mustSearchPath) {
-            $p = null;
+            $p           = null;
             $environment = $this->env->getVariables();
             if ($environment !== null) {
                 foreach ($environment as $env) {

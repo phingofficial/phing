@@ -96,7 +96,7 @@ class GitCheckoutTask extends GitBaseTask
             throw new BuildException('"branchname" is required parameter');
         }
 
-        $client = $this->getGitClient(false, $this->getRepository());
+        $client  = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('checkout');
         $command
             ->setOption('no-track', $this->isNoTrack())

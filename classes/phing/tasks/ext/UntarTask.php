@@ -95,7 +95,7 @@ class UntarTask extends ExtractBaseTask
     {
         $compression = null;
         $tarfileName = $tarfile->getName();
-        $mode = strtolower(substr($tarfileName, strrpos($tarfileName, '.')));
+        $mode        = strtolower(substr($tarfileName, strrpos($tarfileName, '.')));
 
         $compressions = [
             'gz' => ['.gz', '.tgz',],

@@ -73,7 +73,7 @@ class MailLogger extends DefaultLogger
     {
         parent::buildFinished($event);
 
-        $project = $event->getProject();
+        $project    = $event->getProject();
         $properties = $project->getProperties();
 
         $filename = $properties['phing.log.mail.properties.file'];
@@ -81,7 +81,7 @@ class MailLogger extends DefaultLogger
         // overlay specified properties file (if any), which overrides project
         // settings
         $fileProperties = new Properties();
-        $file = new PhingFile($filename);
+        $file           = new PhingFile($filename);
 
         try {
             $fileProperties->load($file);
@@ -94,7 +94,7 @@ class MailLogger extends DefaultLogger
         }
 
         $success = $event->getException() === null;
-        $prefix = $success ? 'success' : 'failure';
+        $prefix  = $success ? 'success' : 'failure';
 
         try {
             $notify = StringHelper::booleanValue($this->getValue($properties, $prefix . '.notify', 'on'));
@@ -107,14 +107,14 @@ class MailLogger extends DefaultLogger
             } else {
                 $defaultSubject = ($success) ? 'Build Success' : 'Build Failure';
             }
-            $hdrs = [];
-            $hdrs['From'] = $this->getValue($properties, 'from', $this->from);
+            $hdrs             = [];
+            $hdrs['From']     = $this->getValue($properties, 'from', $this->from);
             $hdrs['Reply-To'] = $this->getValue($properties, 'replyto', '');
-            $hdrs['Cc'] = $this->getValue($properties, $prefix . '.cc', '');
-            $hdrs['Bcc'] = $this->getValue($properties, $prefix . '.bcc', '');
-            $hdrs['Body'] = $this->getValue($properties, $prefix . '.body', '');
-            $hdrs['Subject'] = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
-            $tolist = $this->getValue($properties, $prefix . '.to', $this->tolist);
+            $hdrs['Cc']       = $this->getValue($properties, $prefix . '.cc', '');
+            $hdrs['Bcc']      = $this->getValue($properties, $prefix . '.bcc', '');
+            $hdrs['Body']     = $this->getValue($properties, $prefix . '.body', '');
+            $hdrs['Subject']  = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
+            $tolist           = $this->getValue($properties, $prefix . '.to', $this->tolist);
         } catch (BadMethodCallException $e) {
             $project->log($e->getMessage(), Project::MSG_WARN);
         }
@@ -139,7 +139,7 @@ class MailLogger extends DefaultLogger
     private function getValue(array $properties, $name, $defaultValue)
     {
         $propertyName = 'phing.log.mail.' . $name;
-        $value = $properties[$propertyName];
+        $value        = $properties[$propertyName];
         if ($value === null) {
             $value = $defaultValue;
         }

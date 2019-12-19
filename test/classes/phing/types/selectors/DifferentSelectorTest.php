@@ -41,7 +41,7 @@ class DifferentSelectorTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
-        $result = $project->getProperty('result');
+        $result  = $project->getProperty('result');
         $this->assertFileNotExists($result . '/a.txt');
     }
 
@@ -49,7 +49,7 @@ class DifferentSelectorTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
-        $result = $project->getProperty('result');
+        $result  = $project->getProperty('result');
         $this->assertFileExists($result . '/b.txt');
     }
 }

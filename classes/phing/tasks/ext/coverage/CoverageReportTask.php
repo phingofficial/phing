@@ -69,8 +69,8 @@ class CoverageReportTask extends Task
     public function __construct()
     {
         parent::__construct();
-        $this->doc = new DOMDocument();
-        $this->doc->encoding = 'UTF-8';
+        $this->doc               = new DOMDocument();
+        $this->doc->encoding     = 'UTF-8';
         $this->doc->formatOutput = true;
         $this->doc->appendChild($this->doc->createElement('snapshot'));
     }
@@ -88,7 +88,7 @@ class CoverageReportTask extends Task
      */
     public function createReport()
     {
-        $transformer = new CoverageReportTransformer($this);
+        $transformer          = new CoverageReportTransformer($this);
         $this->transformers[] = $transformer;
 
         return $transformer;
@@ -140,7 +140,7 @@ class CoverageReportTask extends Task
      */
     protected function addSubpackageToPackage($packageName, $subpackageName)
     {
-        $package = $this->getPackageElement($packageName);
+        $package    = $this->getPackageElement($packageName);
         $subpackage = $this->getSubpackageElement($subpackageName);
 
         if ($package === null) {
@@ -208,7 +208,7 @@ class CoverageReportTask extends Task
      */
     protected function stripDiv($source)
     {
-        $openpos = strpos($source, "<div");
+        $openpos  = strpos($source, "<div");
         $closepos = strpos($source, ">", $openpos);
 
         $line = substr($source, $closepos + 1);
@@ -256,7 +256,7 @@ class CoverageReportTask extends Task
             return $lines;
         }
 
-        $lines = file($filename);
+        $lines    = file($filename);
         $numLines = count($lines);
 
         for ($i = 0; $i < $numLines; $i++) {
@@ -337,7 +337,7 @@ class CoverageReportTask extends Task
         if (is_array($classes)) {
             foreach ($classes as $classname) {
                 $reflection = new ReflectionClass($classname);
-                $methods = $reflection->getMethods();
+                $methods    = $reflection->getMethods();
 
                 if (method_exists($reflection, 'getShortName')) {
                     $className = $reflection->getShortName();
@@ -348,7 +348,7 @@ class CoverageReportTask extends Task
                 $classElement = $this->doc->createElement('class');
                 $classElement->setAttribute('name', $className);
 
-                $packageName = PHPUnitUtil::getPackageName($reflection->getName());
+                $packageName    = PHPUnitUtil::getPackageName($reflection->getName());
                 $subpackageName = PHPUnitUtil::getSubpackageName($reflection->getName());
 
                 if ($subpackageName !== null) {
@@ -361,7 +361,7 @@ class CoverageReportTask extends Task
                 $classStartLine = $reflection->getStartLine();
 
                 $methodscovered = 0;
-                $methodcount = 0;
+                $methodcount    = 0;
 
                 // Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
                 if ($reflection->getParentClass() == null && count($reflection->getInterfaces()) == 0) {
@@ -402,7 +402,7 @@ class CoverageReportTask extends Task
                     }
 
                     $methodCoveredCount = 0;
-                    $methodTotalCount = 0;
+                    $methodTotalCount   = 0;
 
                     $methodHasCoveredLine = false;
 
@@ -462,35 +462,35 @@ class CoverageReportTask extends Task
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
-        $totalmethodcount = 0;
+        $totalmethodcount    = 0;
         $totalmethodscovered = 0;
 
-        $totalstatementcount = 0;
+        $totalstatementcount    = 0;
         $totalstatementscovered = 0;
 
         foreach ($packages as $package) {
-            $methodcount = 0;
+            $methodcount    = 0;
             $methodscovered = 0;
 
-            $statementcount = 0;
+            $statementcount    = 0;
             $statementscovered = 0;
 
             $subpackages = $package->getElementsByTagName('subpackage');
 
             foreach ($subpackages as $subpackage) {
-                $subpackageMethodCount = 0;
+                $subpackageMethodCount    = 0;
                 $subpackageMethodsCovered = 0;
 
-                $subpackageStatementCount = 0;
+                $subpackageStatementCount    = 0;
                 $subpackageStatementsCovered = 0;
 
                 $subpackageClasses = $subpackage->getElementsByTagName('class');
 
                 foreach ($subpackageClasses as $subpackageClass) {
-                    $subpackageMethodCount += $subpackageClass->getAttribute('methodcount');
+                    $subpackageMethodCount    += $subpackageClass->getAttribute('methodcount');
                     $subpackageMethodsCovered += $subpackageClass->getAttribute('methodscovered');
 
-                    $subpackageStatementCount += $subpackageClass->getAttribute('statementcount');
+                    $subpackageStatementCount    += $subpackageClass->getAttribute('statementcount');
                     $subpackageStatementsCovered += $subpackageClass->getAttribute('statementscovered');
                 }
 
@@ -507,10 +507,10 @@ class CoverageReportTask extends Task
             $classes = $package->getElementsByTagName('class');
 
             foreach ($classes as $class) {
-                $methodcount += $class->getAttribute('methodcount');
+                $methodcount    += $class->getAttribute('methodcount');
                 $methodscovered += $class->getAttribute('methodscovered');
 
-                $statementcount += $class->getAttribute('statementcount');
+                $statementcount    += $class->getAttribute('statementcount');
                 $statementscovered += $class->getAttribute('statementscovered');
             }
 
@@ -523,10 +523,10 @@ class CoverageReportTask extends Task
             $package->setAttribute('totalcount', $methodcount + $statementcount);
             $package->setAttribute('totalcovered', $methodscovered + $statementscovered);
 
-            $totalmethodcount += $methodcount;
+            $totalmethodcount    += $methodcount;
             $totalmethodscovered += $methodscovered;
 
-            $totalstatementcount += $statementcount;
+            $totalstatementcount    += $statementcount;
             $totalstatementscovered += $statementscovered;
         }
 

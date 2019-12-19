@@ -88,7 +88,7 @@ class Timer
      */
     public function getElapsedTime($places = 5)
     {
-        $etime = $this->etime - $this->stime;
+        $etime  = $this->etime - $this->stime;
         $format = "%0." . $places . "f";
 
         return (sprintf($format, $etime));

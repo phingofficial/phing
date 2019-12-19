@@ -74,8 +74,8 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         $coverage = $this->result->getCodeCoverage();
         if (!empty($coverage)) {
             $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
-            $crap = new $crapClass();
-            $contents = $crap->process($coverage);
+            $crap      = new $crapClass();
+            $contents  = $crap->process($coverage);
             if ($this->out) {
                 $this->out->write($contents);
                 $this->out->close();

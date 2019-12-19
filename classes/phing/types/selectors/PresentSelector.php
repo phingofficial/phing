@@ -30,10 +30,10 @@
  */
 class PresentSelector extends BaseSelector
 {
-    private $targetdir = null;
-    private $mapperElement = null;
-    private $map = null;
-    private $destmustexist = true;
+    private $targetdir           = null;
+    private $mapperElement       = null;
+    private $map                 = null;
+    private $destmustexist       = true;
     private static $filePresence = ["srconly", "both"];
 
     /**

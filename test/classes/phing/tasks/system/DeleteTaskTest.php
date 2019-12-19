@@ -61,9 +61,9 @@ class DeleteTaskTest extends BuildFileTest
     public function testDirset()
     {
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
-        $dir1 = $tmpDir . '/test-one';
-        $dir2 = $tmpDir . '/test-two';
-        $dir3 = $tmpDir . '/test-three';
+        $dir1   = $tmpDir . '/test-one';
+        $dir2   = $tmpDir . '/test-two';
+        $dir3   = $tmpDir . '/test-three';
 
         $this->executeTarget(__FUNCTION__);
         $this->assertDirectoryNotExists($dir1);

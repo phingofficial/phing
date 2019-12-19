@@ -89,7 +89,7 @@ class TarTask extends MatchingTask
      */
     public function createTarFileSet()
     {
-        $this->fileset = new TarFileSet();
+        $this->fileset    = new TarFileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -103,7 +103,7 @@ class TarTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new TarFileSet();
+        $this->fileset    = new TarFileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -261,7 +261,7 @@ class TarTask extends MatchingTask
 
             $this->log("Building tar: " . $this->tarFile->__toString(), Project::MSG_INFO);
 
-            $tar = new Archive_Tar($this->tarFile->getAbsolutePath(), $this->compression);
+            $tar  = new Archive_Tar($this->tarFile->getAbsolutePath(), $this->compression);
             $pear = new PEAR();
 
             if ($pear::isError($tar->error_object)) {
@@ -278,10 +278,10 @@ class TarTask extends MatchingTask
                         . "single file."
                     );
                 }
-                $fsBasedir = $fs->getDir($this->project);
+                $fsBasedir  = $fs->getDir($this->project);
                 $filesToTar = [];
                 for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                    $f = new PhingFile($fsBasedir, $files[$i]);
+                    $f            = new PhingFile($fsBasedir, $files[$i]);
                     $filesToTar[] = $f->getAbsolutePath();
                     $this->log("Adding file " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
                 }
@@ -292,7 +292,7 @@ class TarTask extends MatchingTask
                 }
             }
         } catch (IOException $ioe) {
-            $msg = "Problem creating TAR: " . $ioe->getMessage();
+            $msg            = "Problem creating TAR: " . $ioe->getMessage();
             $this->filesets = $savedFileSets;
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
@@ -309,7 +309,7 @@ class TarTask extends MatchingTask
     protected function areFilesUpToDate($files, $dir)
     {
         $sfs = new SourceFileScanner($this);
-        $mm = new MergeMapper();
+        $mm  = new MergeMapper();
         $mm->setTo($this->tarFile->getAbsolutePath());
 
         return count($sfs->restrict($files, $dir, null, $mm)) == 0;

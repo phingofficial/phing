@@ -38,7 +38,7 @@ class TailFilterTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/tailfilter.test");
-        $result = $this->getProject()->resolveFile("result/tailfilter.test");
+        $result   = $this->getProject()->resolveFile("result/tailfilter.test");
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
@@ -48,7 +48,7 @@ class TailFilterTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         $expected = $this->getProject()->resolveFile("expected/tailheadfilter.test");
-        $result = $this->getProject()->resolveFile("result/tailfilter.test");
+        $result   = $this->getProject()->resolveFile("result/tailfilter.test");
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }

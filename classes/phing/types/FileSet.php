@@ -39,7 +39,7 @@ class FileSet extends AbstractFileSet
     protected function getFiles(...$options)
     {
         $directoryScanner = $this->getDirectoryScanner($this->getProject());
-        $files = $directoryScanner->getIncludedFiles();
+        $files            = $directoryScanner->getIncludedFiles();
 
         $baseDirectory = $directoryScanner->getBasedir();
         foreach ($files as $index => $file) {

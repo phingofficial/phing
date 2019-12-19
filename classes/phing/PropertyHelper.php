@@ -174,7 +174,7 @@ class PropertyHelper
 
         if ($this->project !== null && StringHelper::startsWith('toString:', $name)) {
             $name = StringHelper::substring($name, strlen('toString:'));
-            $v = $this->project->getReference($name);
+            $v    = $this->project->getReference($name);
             return ($v === null) ? null : (string) $v;
         }
 
@@ -217,7 +217,7 @@ class PropertyHelper
         // the old parsePropertyString() method, since it has more stringent
         // requirements.
 
-        $sb = $value;
+        $sb        = $value;
         $iteration = 0;
         // loop to recursively replace tokens
         while (strpos($sb, '${') !== false) {
@@ -554,7 +554,7 @@ class PropertyHelper
     public function parsePropertyString($value, &$fragments, &$propertyRefs)
     {
         $prev = 0;
-        $pos = 0;
+        $pos  = 0;
 
         while (($pos = strpos($value, '$', $prev)) !== false) {
             if ($pos > $prev) {
@@ -562,21 +562,21 @@ class PropertyHelper
             }
             if ($pos === (strlen($value) - 1)) {
                 $fragments[] = '$';
-                $prev = $pos + 1;
+                $prev        = $pos + 1;
             } elseif ($value[$pos + 1] !== '{') {
                 // the string positions were changed to value-1 to correct
                 // a fatal error coming from function substring()
                 $fragments[] = StringHelper::substring($value, $pos, $pos + 1);
-                $prev = $pos + 2;
+                $prev        = $pos + 2;
             } else {
                 $endName = strpos($value, '}', $pos);
                 if ($endName === false) {
                     throw new BuildException("Syntax error in property: $value");
                 }
-                $propertyName = StringHelper::substring($value, $pos + 2, $endName - 1);
-                $fragments[] = null;
+                $propertyName   = StringHelper::substring($value, $pos + 2, $endName - 1);
+                $fragments[]    = null;
                 $propertyRefs[] = $propertyName;
-                $prev = $endName + 1;
+                $prev           = $endName + 1;
             }
         }
 

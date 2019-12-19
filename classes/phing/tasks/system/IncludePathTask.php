@@ -79,8 +79,8 @@ class IncludePathTask extends Task
         }
 
         $curr_parts = Phing::explodeIncludePath();
-        $add_parts = Phing::explodeIncludePath($classpath);
-        $new_parts = array_diff($add_parts, $curr_parts);
+        $add_parts  = Phing::explodeIncludePath($classpath);
+        $new_parts  = array_diff($add_parts, $curr_parts);
 
         if ($new_parts) {
             $this->updateIncludePath($new_parts, $curr_parts);
@@ -94,22 +94,22 @@ class IncludePathTask extends Task
     private function updateIncludePath($new_parts, $curr_parts)
     {
         $includePath = [];
-        $verb = "";
+        $verb        = "";
 
         switch ($this->mode) {
             case "append":
                 $includePath = array_merge($curr_parts, $new_parts);
-                $verb = "Appending";
+                $verb        = "Appending";
                 break;
 
             case "replace":
                 $includePath = $new_parts;
-                $verb = "Replacing";
+                $verb        = "Replacing";
                 break;
 
             case "prepend":
                 $includePath = array_merge($new_parts, $curr_parts);
-                $verb = "Prepending";
+                $verb        = "Prepending";
                 break;
         }
 

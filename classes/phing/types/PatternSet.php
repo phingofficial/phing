@@ -26,8 +26,8 @@
  */
 class PatternSet extends DataType
 {
-    private $includeList = [];
-    private $excludeList = [];
+    private $includeList      = [];
+    private $excludeList      = [];
     private $includesFileList = [];
     private $excludesFileList = [];
 

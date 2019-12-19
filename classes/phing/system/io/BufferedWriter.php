@@ -42,7 +42,7 @@ class BufferedWriter extends Writer
      */
     public function __construct(Writer $writer, $buffsize = 8192)
     {
-        $this->out = $writer;
+        $this->out        = $writer;
         $this->bufferSize = $buffsize;
     }
 
