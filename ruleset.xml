@@ -38,9 +38,7 @@
     <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
 
     <!-- Forbid useless empty method overrides -->
-    <!--
     <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
-    -->
 
     <!-- Braces should always be used, even when they are not required. -->
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
@@ -478,9 +476,7 @@
     -->
 
     <!-- Forbid useless alias for classes, constants and functions -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
-    -->
 
     <!-- Forbid weak comparisons -->
     <!--
@@ -536,9 +532,7 @@
     -->
 
     <!-- Forbid useless semicolon `;` -->
-    <!--
     <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
-    -->
 
     <!-- Require use of short versions of scalar types (i.e. int instead of integer) -->
     <!--
