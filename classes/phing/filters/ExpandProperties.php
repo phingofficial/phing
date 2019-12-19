@@ -36,7 +36,7 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and the Phing properties are expanded.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
      * @throws IOException if the underlying stream throws an IOException

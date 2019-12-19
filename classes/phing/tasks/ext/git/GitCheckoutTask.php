@@ -278,6 +278,7 @@ class GitCheckoutTask extends GitBaseTask
 
     // -B flag is not found in all versions of git
     // --force is present everywhere
+
     /**
      * @param $flag
      */

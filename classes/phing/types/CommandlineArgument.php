@@ -57,7 +57,7 @@ class CommandlineArgument
     /**
      * Line to split into several commandline arguments.
      *
-     * @param  string $line line to split into several commandline arguments
+     * @param string $line line to split into several commandline arguments
      * @throws \BuildException
      */
     public function setLine($line)
@@ -84,7 +84,7 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param    PhingFile $value
+     * @param PhingFile $value
      * @internal param a $value single commandline argument.
      */
     public function setFile(PhingFile $value): void

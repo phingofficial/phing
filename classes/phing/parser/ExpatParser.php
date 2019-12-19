@@ -63,8 +63,8 @@ class ExpatParser extends AbstractSAXParser
      * for the file to be parsed. It sets up php's internal expat parser
      * and options.
      *
-     * @param  Reader $reader The Reader Object that is to be read from.
-     * @param  string $filename Filename to read.
+     * @param Reader $reader The Reader Object that is to be read from.
+     * @param string $filename Filename to read.
      * @throws Exception if the given argument is not a PhingFile object
      */
     public function __construct(Reader $reader, $filename = null)
@@ -84,10 +84,10 @@ class ExpatParser extends AbstractSAXParser
     /**
      * Override PHP's parser default settings, created in the constructor.
      *
-     * @param    $opt
-     * @param    $val
+     * @param $opt
+     * @param $val
      * @internal param the $string option to set
-     * @return   boolean true if the option could be set, otherwise false
+     * @return boolean true if the option could be set, otherwise false
      */
     public function parserSetOption($opt, $val)
     {

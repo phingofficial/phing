@@ -29,7 +29,6 @@
  */
 class OrCondition extends ConditionBase implements Condition
 {
-
     /**
      * @return bool
      */

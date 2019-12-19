@@ -52,7 +52,7 @@ class TouchTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param  PhingFile $file
+     * @param PhingFile $file
      * @return void
      */
     public function setFile(PhingFile $file)
@@ -65,7 +65,7 @@ class TouchTask extends Task
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
      *
-     * @param  $millis
+     * @param $millis
      * @return void
      */
     public function setMillis($millis)
@@ -78,7 +78,7 @@ class TouchTask extends Task
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
      *
-     * @param  $dateTime
+     * @param $dateTime
      * @return void
      */
     public function setDatetime($dateTime)

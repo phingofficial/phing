@@ -222,7 +222,6 @@ class UpToDateTask extends Task implements Condition
         return $upToDate;
     }
 
-
     /**
      * Sets property to true if target file(s) have a more recent timestamp
      * than (each of) the corresponding source file(s).

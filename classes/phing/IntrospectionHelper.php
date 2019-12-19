@@ -98,7 +98,7 @@ class IntrospectionHelper
     /**
      * Factory method for helper objects.
      *
-     * @param  string $class The class to create a Helper for
+     * @param string $class The class to create a Helper for
      * @return IntrospectionHelper
      */
     public static function getHelper($class)
@@ -118,7 +118,7 @@ class IntrospectionHelper
      * need to perform any introspection -- either the requested attribute setter/creator
      * exists or it does not & a BuildException is thrown.
      *
-     * @param  string $class The classname for this IH.
+     * @param string $class The classname for this IH.
      * @throws BuildException
      */
     public function __construct($class)
@@ -272,10 +272,10 @@ class IntrospectionHelper
     /**
      * Sets the named attribute.
      *
-     * @param  Project $project
-     * @param  object $element
-     * @param  string $attributeName
-     * @param  mixed $value
+     * @param Project $project
+     * @param object $element
+     * @param string $attributeName
+     * @param mixed $value
      * @throws BuildException
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
@@ -371,9 +371,9 @@ class IntrospectionHelper
     /**
      * Adds PCDATA areas.
      *
-     * @param  Project $project
-     * @param  string $element
-     * @param  string $text
+     * @param Project $project
+     * @param string $element
+     * @param string $text
      * @throws BuildException
      */
     public function addText(Project $project, $element, $text)
@@ -395,10 +395,10 @@ class IntrospectionHelper
      *
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
-     * @param  Project $project
-     * @param  object $element Object the XML tag is child of.
+     * @param Project $project
+     * @param object $element Object the XML tag is child of.
      *                              Often a task object.
-     * @param  string $elementName XML tag name
+     * @param string $elementName XML tag name
      * @return object         Returns the nested element.
      * @throws BuildException
      */
@@ -502,10 +502,10 @@ class IntrospectionHelper
     /**
      * Creates a named nested element.
      *
-     * @param  Project $project
-     * @param  string $element
-     * @param  string $child
-     * @param  string|null $elementName
+     * @param Project $project
+     * @param string $element
+     * @param string $child
+     * @param string|null $elementName
      * @return void
      * @throws BuildException
      */
@@ -573,8 +573,8 @@ class IntrospectionHelper
      * be returned.  If not available (loaded in taskdefs or typedefs) then the
      * XML element name will be returned.
      *
-     * @param  Project $project
-     * @param  object $element The Task or type element.
+     * @param Project $project
+     * @param object $element The Task or type element.
      * @return string  Fully qualified class name of element when possible.
      */
     public function getElementName(Project $project, $element)
@@ -614,8 +614,8 @@ class IntrospectionHelper
     /**
      * Extract the name of a property from a method name - subtracting  a given prefix.
      *
-     * @param  string $methodName
-     * @param  string $prefix
+     * @param string $methodName
+     * @param string $prefix
      * @return string
      */
     public function getPropertyName($methodName, $prefix)

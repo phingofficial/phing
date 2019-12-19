@@ -512,8 +512,6 @@ abstract class BuildFileTest extends TestCase
         return $returndate;
     }
 
-
-
     public function assertFileSizeAtLeast(string $filepath, int $bytes)
     {
         $actualSize = filesize($filepath);

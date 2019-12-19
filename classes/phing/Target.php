@@ -115,7 +115,7 @@ class Target implements TaskContainer
     /**
      * Sets the target dependencies from xml
      *
-     * @param  string $depends Comma separated list of targetnames that depend on
+     * @param string $depends Comma separated list of targetnames that depend on
      *                         this target
      * @throws BuildException
      */
@@ -177,7 +177,7 @@ class Target implements TaskContainer
     /**
      * Set target status. If true, target does not come in phing -list
      *
-     * @param  boolean $flag
+     * @param boolean $flag
      * @return Target
      */
     public function setHidden($flag)

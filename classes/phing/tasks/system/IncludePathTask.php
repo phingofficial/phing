@@ -68,7 +68,6 @@ class IncludePathTask extends Task
      */
     public function main()
     {
-
         // Apparently casting to (string) no longer invokes __toString() automatically.
         if (is_object($this->classpath)) {
             $classpath = $this->classpath->__toString();

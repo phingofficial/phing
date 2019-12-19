@@ -128,7 +128,7 @@ class PropertyTask extends Task
     /**
      * Sets value of property to CDATA tag contents.
      *
-     * @param    $value
+     * @param $value
      * @internal param string $values
      * @since    2.2.0
      */
@@ -183,7 +183,7 @@ class PropertyTask extends Task
      * Prefix to apply to properties loaded using <code>file</code>.
      * A "." is appended to the prefix if not specified.
      *
-     * @param  string $prefix prefix string
+     * @param string $prefix prefix string
      * @return void
      * @since  2.0
      */
@@ -416,7 +416,7 @@ class PropertyTask extends Task
      * iterate through a set of properties,
      * resolve them then assign them
      *
-     * @param  $props
+     * @param $props
      * @throws BuildException
      */
     protected function addProperties($props)
@@ -464,7 +464,7 @@ class PropertyTask extends Task
     /**
      * load properties from a file.
      *
-     * @param  PhingFile $file
+     * @param PhingFile $file
      * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
@@ -491,7 +491,7 @@ class PropertyTask extends Task
      * Given a Properties object, this method goes through and resolves
      * any references to properties within the object.
      *
-     * @param  Properties $props The collection of Properties that need to be resolved.
+     * @param Properties $props The collection of Properties that need to be resolved.
      * @throws BuildException
      * @return void
      */

@@ -26,7 +26,7 @@ class StringFormatter
     public function center($value, $fixedLength)
     {
         $spacesBeforeValue = $this->calculateSpaceBeforeValue($value, $fixedLength);
-        return $this->toSpaces($spacesBeforeValue) .  $value;
+        return $this->toSpaces($spacesBeforeValue) . $value;
     }
 
     public function left($value, $fixedLength)

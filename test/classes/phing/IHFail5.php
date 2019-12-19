@@ -26,7 +26,6 @@
  */
 class IHFail5
 {
-
     /**
      * no params!
      */

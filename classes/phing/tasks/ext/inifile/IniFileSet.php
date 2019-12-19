@@ -129,6 +129,7 @@ class IniFileSet
     {
         return $this->value;
     }
+
     /**
      * Get Section
      *

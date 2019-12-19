@@ -43,7 +43,7 @@ trait SelectorAware
     /**
      * Returns a copy of the selectors as an array.
      *
-     * @param  Project $p
+     * @param Project $p
      * @return array
      */
     public function getSelectors(Project $p)

@@ -24,7 +24,6 @@
  */
 abstract class Writer
 {
-
     /**
      * Writes data to output stream.
      *

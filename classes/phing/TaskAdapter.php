@@ -77,7 +77,7 @@ class TaskAdapter extends Task
     /**
      * Set the target object.
      *
-     * @param  object $o
+     * @param object $o
      * @return void
      */
     public function setProxy($o)

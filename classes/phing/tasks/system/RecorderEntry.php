@@ -224,7 +224,6 @@ class RecorderEntry implements BuildLogger, SubBuildListener
         $this->log($buf, $event->getPriority());
     }
 
-
     /**
      * The thing that actually sends the information to the output.
      *
@@ -314,7 +313,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * Initially opens the file associated with this recorder.
      * Used by Recorder.
      *
-     * @param  bool $append Indicates if output must be appended to the logfile or that
+     * @param bool $append Indicates if output must be appended to the logfile or that
      * the logfile should be overwritten.
      * @throws BuildException
      */

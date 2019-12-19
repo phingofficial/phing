@@ -297,8 +297,8 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     }
 
     /**
-     * @param  string $elementName
-     * @param  Project $project
+     * @param string $elementName
+     * @param Project $project
      * @throws BuildException
      * @return Condition
      */

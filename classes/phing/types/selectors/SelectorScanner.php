@@ -27,7 +27,6 @@
  */
 interface SelectorScanner
 {
-
     /**
      * Sets the selectors the scanner should use.
      *

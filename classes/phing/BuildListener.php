@@ -31,7 +31,6 @@
  */
 interface BuildListener
 {
-
     /**
      * Fired before any targets are started.
      *

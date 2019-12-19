@@ -29,7 +29,7 @@ interface FileParserFactoryInterface
     /**
      * Based on the $name a parser will be returned.
      *
-     * @param  string $fileExtension
+     * @param string $fileExtension
      * @return FileParserInterface
      */
     public function createParser($fileExtension);

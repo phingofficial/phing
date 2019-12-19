@@ -229,7 +229,7 @@ class HttpRequestTask extends HttpTask
     /**
      * Checks whether response body or status-code matches the given regexp
      *
-     * @param  HTTP_Request2_Response $response
+     * @param HTTP_Request2_Response $response
      * @return void
      * @throws BuildException
      * @throws HTTP_Request2_Exception

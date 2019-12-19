@@ -68,7 +68,7 @@ class IniFileParser implements FileParserInterface
      * Process values when being read in from properties file.
      * does things like convert "true" => true
      *
-     * @param  string $val Trimmed value.
+     * @param string $val Trimmed value.
      * @return mixed The new property value (may be boolean, etc.)
      */
     protected function inVal($val)

@@ -78,6 +78,7 @@ class ChainReaderHelper
     /*
      * Sets the primary reader
     */
+
     /**
      * @param Reader $reader
      */
@@ -89,6 +90,7 @@ class ChainReaderHelper
     /*
      * Set the project to work with
     */
+
     /**
      * @param Project $project
      */
@@ -109,6 +111,7 @@ class ChainReaderHelper
      * Sets the buffer size to be used.  Defaults to 8192,
      * if this method is not invoked.
     */
+
     /**
      * @param $size
      */
@@ -120,6 +123,7 @@ class ChainReaderHelper
     /*
      * Sets the collection of filter reader sets
     */
+
     /**
      * @param $fchain
      */
@@ -131,6 +135,7 @@ class ChainReaderHelper
     /*
      * Assemble the reader
     */
+
     /**
      * @return FilterReader|null|Parameterizable|Reader
      * @throws Exception

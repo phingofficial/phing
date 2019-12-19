@@ -30,7 +30,6 @@
  */
 class AndCondition extends ConditionBase implements Condition
 {
-
     /**
      * @return bool
      */

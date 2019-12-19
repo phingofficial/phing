@@ -44,7 +44,7 @@ class PregEngine implements RegexpEngine
      * Pattern modifiers
      *
      * @link http://php.net/manual/en/reference.pcre.pattern.modifiers.php
-     * @var  string
+     * @var string
      */
     private $modifiers = null;
 
@@ -63,7 +63,7 @@ class PregEngine implements RegexpEngine
     /**
      * Sets pattern modifiers for regex engine
      *
-     * @param  string $mods Modifiers to be applied to a given regex
+     * @param string $mods Modifiers to be applied to a given regex
      * @return void
      */
     public function setModifiers($mods)
@@ -99,7 +99,7 @@ class PregEngine implements RegexpEngine
     /**
      * Sets whether or not regex operation is case sensitive.
      *
-     * @param  boolean $bit
+     * @param boolean $bit
      * @return void
      */
     public function setIgnoreCase($bit)
@@ -160,7 +160,7 @@ class PregEngine implements RegexpEngine
     /**
      * The pattern needs to be converted into PREG style -- which includes adding expression delims & any flags, etc.
      *
-     * @param  string $pattern
+     * @param string $pattern
      * @return string prepared pattern.
      */
     private function preparePattern($pattern)
@@ -189,9 +189,9 @@ class PregEngine implements RegexpEngine
     /**
      * Matches pattern against source string and sets the matches array.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source The source string.
-     * @param  array $matches The array in which to store matches.
+     * @param string $pattern The regex pattern to match.
+     * @param string $source The source string.
+     * @param array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function match($pattern, $source, &$matches)
@@ -202,9 +202,9 @@ class PregEngine implements RegexpEngine
     /**
      * Matches all patterns in source string and sets the matches array.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source The source string.
-     * @param  array $matches The array in which to store matches.
+     * @param string $pattern The regex pattern to match.
+     * @param string $source The source string.
+     * @param array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches)
@@ -217,9 +217,9 @@ class PregEngine implements RegexpEngine
      * References to \1 group matches will be replaced with more preg-friendly
      * $1.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $replace The string with which to replace matches.
-     * @param  string $source The source string.
+     * @param string $pattern The regex pattern to match.
+     * @param string $replace The string with which to replace matches.
+     * @param string $source The source string.
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source)

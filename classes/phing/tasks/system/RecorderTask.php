@@ -102,7 +102,6 @@ class RecorderTask extends Task implements SubBuildListener
         $this->start = strtolower($action) === "start";
     }
 
-
     /**
      * Whether or not the logger should append to a previous file.
      *
@@ -112,7 +111,6 @@ class RecorderTask extends Task implements SubBuildListener
     {
         $this->append = $append;
     }
-
 
     /**
      * Set emacs mode.
@@ -174,8 +172,8 @@ class RecorderTask extends Task implements SubBuildListener
      * Gets the recorder that's associated with the passed in name. If the
      * recorder doesn't exist, then a new one is created.
      *
-     * @param  string $name the name of the recorder
-     * @param  Project $proj the current project
+     * @param string $name the name of the recorder
+     * @param Project $proj the current project
      * @return RecorderEntry a recorder
      * @throws BuildException on error
      */

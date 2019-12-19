@@ -53,7 +53,6 @@ class PathTokenizer
      */
     private $dosStyleFilesystem;
 
-
     /**
      * Constructs a path tokenizer for the specified path.
      *
@@ -61,7 +60,6 @@ class PathTokenizer
      */
     public function __construct($path)
     {
-
         // on Windows and Unix, we can ignore delimiters and still have
 
         // enough information to tokenize correctly.
@@ -70,7 +68,6 @@ class PathTokenizer
 
         $this->dosStyleFilesystem = (PATH_SEPARATOR == ';');
     }
-
 
     /**
      * Tests if there are more path elements available from this tokenizer's
@@ -105,7 +102,6 @@ class PathTokenizer
         } else {
             $token = trim(array_shift($this->tokens));
         }
-
 
         if (
             strlen($token) === 1

@@ -81,7 +81,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * the next call to <code>read()</code> should read the original stream
      * to find the next matching line.
      *
-     * @param  int|int $len
+     * @param int|int $len
      *
      * @return int|string  the next character in the resulting stream, or -1
      *                     if the end of the resulting stream has been reached
@@ -180,7 +180,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Sets the array of words which must be contained within a line read
      * from the original stream in order for it to match this filter.
      *
-     * @param  array $contains An array of words which must be contained
+     * @param array $contains An array of words which must be contained
      *                        within a line in order for it to match in this filter.
      *                        Must not be <code>null</code>.
      * @throws Exception

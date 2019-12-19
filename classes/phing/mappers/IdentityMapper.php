@@ -29,7 +29,7 @@ class IdentityMapper implements FileNameMapper
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param  string $sourceFileName The data the mapper works on.
+     * @param string $sourceFileName The data the mapper works on.
      * @return array  The data after the mapper has been applied
      */
     public function main($sourceFileName)
@@ -41,7 +41,7 @@ class IdentityMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param  string $to
+     * @param string $to
      * @return void
      */
     public function setTo($to)
@@ -52,7 +52,7 @@ class IdentityMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param  string $from
+     * @param string $from
      * @return void
      */
     public function setFrom($from)

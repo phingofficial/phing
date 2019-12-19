@@ -61,7 +61,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream, only including
      * characters not in the set of line-breaking characters.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      *

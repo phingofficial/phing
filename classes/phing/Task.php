@@ -139,7 +139,7 @@ abstract class Task extends ProjectComponent
     /**
      * Returns a name
      *
-     * @param  string $slotName
+     * @param string $slotName
      * @return \RegisterSlot
      */
     protected function getRegisterSlot($slotName)

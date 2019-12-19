@@ -118,7 +118,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  string $includes the string containing the include patterns
+     * @param string $includes the string containing the include patterns
      * @return void
      */
     public function setIncludes($includes)
@@ -152,7 +152,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the directory scanner needed to access the files to process.
      *
-     * @param  PhingFile $baseDir
+     * @param PhingFile $baseDir
      * @throws BuildException
      * @return DirectoryScanner
      */
@@ -167,7 +167,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $includesfile A string containing the filename to fetch
+     * @param PhingFile $includesfile A string containing the filename to fetch
      *                                 the include patterns from.
      * @return void
      */
@@ -179,7 +179,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $excludesfile A string containing the filename to fetch
+     * @param PhingFile $excludesfile A string containing the filename to fetch
      *                                 the include patterns from.
      * @return void
      */
@@ -191,7 +191,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets case sensitivity of the file system
      *
-     * @param  boolean $isCaseSensitive "true"|"on"|"yes" if file system is case
+     * @param boolean $isCaseSensitive "true"|"on"|"yes" if file system is case
      *                                  sensitive, "false"|"off"|"no" when not.
      * @return void
      */
@@ -203,7 +203,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets whether or not symbolic links should be followed.
      *
-     * @param  boolean $followSymlinks whether or not symbolic links should be followed
+     * @param boolean $followSymlinks whether or not symbolic links should be followed
      * @return void
      */
     public function setFollowSymlinks($followSymlinks)
@@ -234,7 +234,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the set of selectors as an array.
      *
-     * @param  Project $p
+     * @param Project $p
      * @return array FileSelector[] An array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -255,7 +255,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Add a new selector into this container.
      *
-     * @param  FileSelector $selector the new selector to add
+     * @param FileSelector $selector the new selector to add
      */
     public function appendSelector(FileSelector $selector)
     {

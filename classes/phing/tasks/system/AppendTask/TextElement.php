@@ -55,7 +55,7 @@ class TextElement extends ProjectComponent
     /**
      * set the text using a file
      *
-     * @param  PhingFile $file the file to use
+     * @param PhingFile $file the file to use
      * @throws BuildException if the file does not exist, or cannot be
      *                        read
      */

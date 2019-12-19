@@ -51,7 +51,6 @@ class IniFileGet
      */
     protected $output = null;
 
-
     /**
      * Set the default value, for if key or section is not present in .ini file
      *

@@ -117,7 +117,6 @@ abstract class MappingSelector extends BaseSelector
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         // throw BuildException on error
         $this->validate();
 
@@ -145,8 +144,8 @@ abstract class MappingSelector extends BaseSelector
     /**
      * this test is our selection test that compared the file with the destfile
      *
-     * @param  PhingFile $srcfile file to test; may be null
-     * @param  PhingFile $destfile destination file
+     * @param PhingFile $srcfile file to test; may be null
+     * @param PhingFile $destfile destination file
      * @return true if source file compares with destination file
      */
     abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile);

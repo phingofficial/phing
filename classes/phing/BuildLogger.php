@@ -33,7 +33,6 @@
  */
 interface BuildLogger extends BuildListener
 {
-
     /**
      * Sets the min log level that this logger should respect.
      *

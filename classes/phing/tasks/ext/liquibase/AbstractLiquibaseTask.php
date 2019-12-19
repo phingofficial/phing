@@ -159,7 +159,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Whether to check the liquibase return code.
      *
-     * @param    $passthru
+     * @param $passthru
      * @internal param bool $checkreturn
      */
     public function setPassthru($passthru)
@@ -244,8 +244,8 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Executes the given command and returns the output.
      *
-     * @param  $lbcommand
-     * @param  string $lbparams the command to execute
+     * @param $lbcommand
+     * @param string $lbparams the command to execute
      * @throws BuildException
      * @return string the output of the executed command
      */

@@ -96,7 +96,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Performs lookup on key and returns appropriate replacement string.
      *
-     * @param  array $matches Array of 1 el containing key to search for.
+     * @param array $matches Array of 1 el containing key to search for.
      * @return string Text with which to replace key or value of key if none is found.
      */
     private function replaceTokenCallback($matches)
@@ -147,7 +147,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
-     * @param  int $len
+     * @param int $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -243,8 +243,8 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Sets the map of tokens to replace.
      * ; used by ReplaceTokens::chain()
      *
-     * @param    $tokens
-     * @throws   Exception
+     * @param $tokens
+     * @throws Exception
      * @internal param A $array map (String->String) of token keys to replacement
      *              values. Must not be <code>null</code>.
      */
@@ -272,8 +272,8 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the tokensources to use; used by ReplaceTokens::chain()
      *
-     * @param    $sources
-     * @throws   Exception
+     * @param $sources
+     * @throws Exception
      * @internal param An $array array of token sources.
      */
     public function setTokensources($sources)

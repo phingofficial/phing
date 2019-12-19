@@ -108,7 +108,7 @@ abstract class S3 extends Amazon
     /**
      * Check if the object already exists in the current bucket
      *
-     * @param  mixed $object
+     * @param mixed $object
      * @return bool
      */
     public function isObjectAvailable($object)

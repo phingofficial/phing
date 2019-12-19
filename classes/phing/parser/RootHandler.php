@@ -69,8 +69,8 @@ class RootHandler extends AbstractHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
      * and calls init.
      *
-     * @param  string $tag The xml tagname
-     * @param  array $attrs The attributes of the tag
+     * @param string $tag The xml tagname
+     * @param array $attrs The attributes of the tag
      * @throws ExpatParseException if the first element within our build file
      *                                   is not the &gt;project&lt; element
      */

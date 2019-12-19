@@ -187,8 +187,8 @@ class Phing
      *
      * This method encapsulates the complete build lifecycle.
      *
-     * @param  array $args The commandline args passed to phing shell script.
-     * @param  array $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
+     * @param array $args The commandline args passed to phing shell script.
+     * @param array $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
      *                                         These additional properties will be available using the getDefinedProperty() method and will
      *                                         be added to the project's "user" properties
      * @see    execute()
@@ -843,7 +843,7 @@ class Phing
      * This means adding the logger and any build listeners that were specified
      * with -listener arg.
      *
-     * @param  Project $project
+     * @param Project $project
      * @throws BuildException
      * @throws ConfigurationException
      * @return void
@@ -984,7 +984,6 @@ class Phing
      */
     public static function handlePhpError($level, $message, $file, $line)
     {
-
         // don't want to print suppressed errors
         if (error_reporting() > 0) {
             if (self::$phpErrorCapture) {
@@ -1115,7 +1114,6 @@ class Phing
         }
     }
 
-
     /**
      * Returns buildfile's path
      *
@@ -1150,7 +1148,6 @@ class Phing
 
         throw new ConfigurationException('Invalid path for sample buildfile.');
     }
-
 
     /**
      * Writes sample buildfile
@@ -1512,8 +1509,8 @@ class Phing
      *
      * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
      * @license   http://framework.zend.com/license/new-bsd New BSD License
-     * @param     string|null $path
-     * @return    array
+     * @param string|null $path
+     * @return array
      */
     public static function explodeIncludePath($path = null)
     {
@@ -1544,7 +1541,6 @@ class Phing
      */
     private static function setSystemConstants()
     {
-
         /*
          * PHP_OS returns on
          *   WindowsNT4.0sp6  => WINNT
@@ -1629,7 +1625,7 @@ class Phing
      * scripts.  E.g. to specify which logfile to use, PearLogger needs to be able to access
      * the pear.log.name property.
      *
-     * @param  string $name
+     * @param string $name
      * @return string value of found property (or null, if none found).
      */
     public static function getDefinedProperty($name)
@@ -1640,8 +1636,8 @@ class Phing
     /**
      * This sets a property that was set via command line or otherwise passed into Phing.
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @param string $name
+     * @param mixed $value
      * @return mixed value of found property (or null, if none found).
      */
     public static function setDefinedProperty($name, $value)
@@ -1655,12 +1651,11 @@ class Phing
      * and user.dir.  Many of these correspond to similar properties in Java
      * or Ant.
      *
-     * @param  string $propName
+     * @param string $propName
      * @return string Value of found property (or null, if none found).
      */
     public static function getProperty($propName)
     {
-
         // some properties are detemined on each access
         // some are cached, see below
 
@@ -1730,7 +1725,7 @@ class Phing
      * Converts shorthand notation values as returned by ini_get()
      *
      * @see    http://www.php.net/ini_get
-     * @param  string|int $val
+     * @param string|int $val
      * @return int
      */
     public static function convertShorthand($val): int
@@ -1826,7 +1821,6 @@ class Phing
      */
     public static function startup(): void
     {
-
         // setup STDOUT and STDERR defaults
         self::initializeOutputStreams();
 

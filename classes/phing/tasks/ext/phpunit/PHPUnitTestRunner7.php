@@ -113,7 +113,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
     /**
      * Run a test
      *
-     * @param  PHPUnit\Framework\TestSuite $suite
+     * @param PHPUnit\Framework\TestSuite $suite
      * @throws \BuildException
      */
     public function run(PHPUnit\Framework\TestSuite $suite)
@@ -414,7 +414,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      * Override to define how to handle a failed loading of
      * a test suite.
      *
-     * @param  string $message
+     * @param string $message
      * @throws BuildException
      */
     protected function runFailed($message)

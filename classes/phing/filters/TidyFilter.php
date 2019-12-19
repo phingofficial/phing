@@ -96,7 +96,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads input and returns Tidy-filtered output.
      *
-     * @param  int $len
+     * @param int $len
      * @throws BuildException
      * @return string Characters read, or -1 if the end of the stream has been reached
      */

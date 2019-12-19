@@ -534,7 +534,7 @@ class ZendGuardLicenseTask extends Task
      * @param array $valueArray Array to which the values will be added
      * @param string $keyPrefix Prefix to use when adding the key
      *
-     * @param  string $pairSeparator
+     * @param string $pairSeparator
      * @return void
      */
     protected function parseAndAddUserDefinedValues(

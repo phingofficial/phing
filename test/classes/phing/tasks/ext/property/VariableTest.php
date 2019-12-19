@@ -25,7 +25,6 @@
  */
 class VariableTest extends BuildFileTest
 {
-
     public function setUp(): void
     {
         $this->configureProject(

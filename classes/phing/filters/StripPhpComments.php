@@ -48,7 +48,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
     /**
      * Returns the  stream without Php comments.
      *
-     * @param  int $len
+     * @param int $len
      * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      */

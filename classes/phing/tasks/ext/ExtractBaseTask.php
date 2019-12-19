@@ -49,7 +49,7 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * Set the name of the zip file to extract.
      *
-     * @param  PhingFile $file zip file to extract
+     * @param PhingFile $file zip file to extract
      * @return void
      */
     public function setFile(PhingFile $file)
@@ -60,7 +60,7 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * This is the base directory to look in for things to zip.
      *
-     * @param  PhingFile $todir
+     * @param PhingFile $todir
      * @return void
      */
     public function setToDir(PhingFile $todir)
@@ -80,7 +80,7 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * Sets the forceExtract attribute
      *
-     * @param  boolean $forceExtract
+     * @param boolean $forceExtract
      * @return void
      */
     public function setForceExtract(bool $forceExtract)
