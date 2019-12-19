@@ -116,10 +116,10 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         }
 
         $request = new HTTP_Request2(null, 'GET', [
-                'proxy' => 'socks5://localhost:1080/',
-                'ssl_verify_peer' => false,
-                'follow_redirects' => true
-            ]);
+            'proxy' => 'socks5://localhost:1080/',
+            'ssl_verify_peer' => false,
+            'follow_redirects' => true
+        ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
@@ -168,10 +168,10 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         }
 
         $request = new HTTP_Request2(null, 'GET', [
-                'proxy' => 'http://localhost:8080/',
-                'timeout' => 20,
-                'max_redirects' => 9
-            ]);
+            'proxy' => 'http://localhost:8080/',
+            'timeout' => 20,
+            'max_redirects' => 9
+        ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }

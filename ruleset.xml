@@ -17,9 +17,7 @@
     </rule>
 
     <!-- Force array element indentation with 4 spaces -->
-    <!--
     <rule ref="Generic.Arrays.ArrayIndent"/>
-    -->
 
     <!-- Forbid `array(...)` -->
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
