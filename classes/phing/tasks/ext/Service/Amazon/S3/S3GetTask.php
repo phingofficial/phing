@@ -116,7 +116,7 @@ class S3GetTask extends S3
             [
                 'Bucket' => $this->getBucket(),
                 'Key' => $this->getObject(),
-                'SaveAs' => $target
+                'SaveAs' => $target,
             ]
         );
     }

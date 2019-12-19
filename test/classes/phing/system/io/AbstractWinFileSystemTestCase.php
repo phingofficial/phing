@@ -160,7 +160,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             // Not sure if an issue in phpunit
             //'unc' => array('\\\\files\\file.txt', '\\\\files\\file.txt', 2)
             'relative' => [$cwd . '\\files\file.txt', 'files\\file.txt', 0],
-            'driveRelative' => [$driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1]
+            'driveRelative' => [$driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1],
         ];
     }
 
@@ -203,7 +203,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             'driveLetter' => ['c:/foo', '/c:/foo'],
             'driveLetter' => ['c:/foo', '/c:/foo'],
             'slashPath' => ['c:/foo', 'c:/foo/'],
-            'slashPathRootDrive' => ['c:/', '/c:/']
+            'slashPathRootDrive' => ['c:/', '/c:/'],
         ];
     }
 

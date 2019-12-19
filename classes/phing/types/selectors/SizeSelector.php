@@ -96,7 +96,7 @@ class SizeSelector extends BaseExtendSelector
         "TI",
         "ti",
         "tebi",
-        "TEBI"
+        "TEBI",
     ];
 
     /**

@@ -580,27 +580,23 @@
     -->
 
     <!-- Forbid spaces around square brackets -->
-    <!--
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
-    -->
 
     <!-- Force array declaration structure -->
-    <!--
     <rule ref="Squiz.Arrays.ArrayDeclaration">
-        <!- Disable arrow alignment ->
+        <!-- Disable arrow alignment -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned"/>
-        <!- Uses indentation of only single space ->
+        <!-- Uses indentation of only single space -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.KeyNotAligned"/>
-        <!- Allow multiple values on a single line ->
+        <!-- Allow multiple values on a single line -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed"/>
-        <!- Disable alignment of braces ->
+        <!-- Disable alignment of braces -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned"/>
-        <!- Disable alignment of values with opening brace ->
+        <!-- Disable alignment of values with opening brace -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/>
-        <!- Allow muti-line arrays with a single value ->
+        <!-- Allow muti-line arrays with a single value -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>
     </rule>
-    -->
 
     <!-- Forbid class being in a file with different name -->
     <!--

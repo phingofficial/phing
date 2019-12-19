@@ -98,8 +98,8 @@ class UntarTask extends ExtractBaseTask
         $mode        = strtolower(substr($tarfileName, strrpos($tarfileName, '.')));
 
         $compressions = [
-            'gz' => ['.gz', '.tgz',],
-            'bz2' => ['.bz2',],
+            'gz' => ['.gz', '.tgz'],
+            'bz2' => ['.bz2'],
         ];
         foreach ($compressions as $algo => $ext) {
             if (in_array($mode, $ext)) {

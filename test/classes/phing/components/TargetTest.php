@@ -69,7 +69,7 @@ class TargetTest extends BuildFileTest
     {
         return [
             [['target1'], 'target1'],
-            [['target1', 'target2'], 'target1,target2']
+            [['target1', 'target2'], 'target1,target2'],
         ];
     }
 
@@ -89,7 +89,7 @@ class TargetTest extends BuildFileTest
     {
         return [
             [''],
-            ['target1,']
+            ['target1,'],
         ];
     }
 

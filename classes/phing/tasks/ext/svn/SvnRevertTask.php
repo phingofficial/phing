@@ -40,7 +40,7 @@ class SvnRevertTask extends SvnBaseTask
         $this->log('Reverts SVN repository');
 
         $switches = [
-            'R' => $this->recursive
+            'R' => $this->recursive,
         ];
 
         $this->run([$this->getToDir()], $switches);

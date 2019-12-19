@@ -112,7 +112,7 @@ class PEARPackageFileManagerFileset
                     'file' => basename($file),
                     'ext' => $ext,
                     'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
-                    'fullpath' => $f->getAbsolutePath()
+                    'fullpath' => $f->getAbsolutePath(),
                 ];
             }
         }
