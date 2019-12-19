@@ -264,7 +264,7 @@ class DbDeployTask extends Task
                 $split = preg_split('/--[\t ]*\/\/@UNDO[^\r\n]*/', $contents);
 
                 if ($split === false) {
-                    $split = array($contents);
+                    $split = [$contents];
                 }
 
                 $deploySql = $split[0];
