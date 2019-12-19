@@ -599,9 +599,7 @@
     </rule>
 
     <!-- Forbid class being in a file with different name -->
-    <!--
     <rule ref="Squiz.Classes.ClassFileName"/>
-    -->
 
     <!-- Force `self::` for self-reference, force lower-case self, forbid spaces around `::` -->
     <!--
