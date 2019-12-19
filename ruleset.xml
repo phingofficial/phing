@@ -1,73 +1,12 @@
 <?xml version="1.0"?>
-<ruleset name="phing">
-    <description>
-        PSR12 style with no namespace.
-    </description>
+<ruleset
+    name="PHPCS Coding Standards for phing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>Check the code of phing in phing coding-standards.</description>
 
-    <!-- inherit rules from: -->
-    <!-- <rule ref="Generic.Arrays.DisallowLongArraySyntax"/> -->
-
-    <!-- Code MUST use an indent of 4 spaces, and MUST NOT use tabs for indenting. -->
-    <rule ref="Generic.WhiteSpace.ScopeIndent"/>
-    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
-
-    <!-- PHP code MUST use only UTF-8 without BOM. -->
-    <rule ref="Generic.Files.ByteOrderMark"/>
-
-    <!-- PHP code MUST NOT contain any character before the opening tag -->
-    <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
-
-    <!-- Never use shorthand PHP start tags. Always use full PHP tags. -->
-    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
-    <rule ref="Generic.PHP.DisallowAlternativePHPTags"/>
-
-    <!-- PHP keywords MUST be in lower case. -->
-    <rule ref="Generic.PHP.LowerCaseKeyword"/>
-
-    <!-- The PHP constants true, false, and null MUST be in lower case. -->
-    <rule ref="Generic.PHP.LowerCaseConstant"/>
-
-    <!-- PHP files should contain an empty line at the end of the file -->
-    <rule ref="Generic.Files.EndFileNewline"/>
-
-    <!-- Allow only unix file endings (newlines) -->
-    <rule ref="Generic.Files.LineEndings">
-        <properties>
-            <property name="eolChar" value="\n"/>
-        </properties>
-    </rule>
-
-    <rule ref="Generic.Strings.UnnecessaryStringConcat">
-        <properties>
-            <property name="allowMultiline" value="true"/>
-        </properties>
-    </rule>
-    <rule ref="Generic.PHP.DeprecatedFunctions" />
-    <rule ref="Generic.PHP.ForbiddenFunctions" />
-
-    <!-- Braces should always be used, even when they are not required. -->
-    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
-
-    <!-- When type casting, do it like so: $foo = (boolean) $bar; -->
-    <rule ref="Generic.Formatting.SpaceAfterCast"/>
-
-    <!-- Rule: In general, readability is more important than cleverness or brevity. -->
-    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
-
-    <rule ref="Generic.Classes.DuplicateClassName"/>
-    <rule ref="Generic.CodeAnalysis.EmptyStatement">
-        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/><!-- empty catch statements are allowed -->
-    </rule>
-    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
-    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
-    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
-    <rule ref="Generic.Files.InlineHTML"/>
-    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman">
-        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine"/>
-    </rule>
-    <rule ref="Generic.NamingConventions.ConstructorName">
-        <exclude name="Generic.NamingConventions.ConstructorName.OldStyle"/>
-    </rule>
+    <arg name="basepath" value="."/>
 
     <rule ref="PSR12">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
@@ -76,6 +15,86 @@
         <exclude name="Squiz.Functions.LowercaseFunctionKeywords"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
         <exclude name="Squiz.ControlStructures.LowercaseDeclaration"/><!-- checked by more generic Generic.PHP.LowerCaseKeyword -->
     </rule>
+
+    <!-- Forbid `array(...)` -->
+    <!-- <rule ref="Generic.Arrays.DisallowLongArraySyntax"/> -->
+
+    <!-- Forbid duplicate classes -->
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+
+    <!-- Forbid empty statements -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement">
+        <!-- But allow empty catch -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+    </rule>
+
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+
+    <!-- Forbid final methods in final classes -->
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+
+    <!-- Braces should always be used, even when they are not required. -->
+    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+
+    <!-- PHP code MUST use only UTF-8 without BOM. -->
+    <rule ref="Generic.Files.ByteOrderMark"/>
+
+    <!-- PHP files should contain an empty line at the end of the file -->
+    <rule ref="Generic.Files.EndFileNewline"/>
+
+    <!-- Forbid inline HTML in PHP code -->
+    <rule ref="Generic.Files.InlineHTML"/>
+
+    <!-- Allow only unix file endings (newlines) -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <!-- When type casting, do it like so: $foo = (boolean) $bar; -->
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+
+    <!-- Rule: In general, readability is more important than cleverness or brevity. -->
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman">
+        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine"/>
+    </rule>
+
+    <!-- Forbid PHP 4 constructors -->
+    <rule ref="Generic.NamingConventions.ConstructorName">
+        <exclude name="Generic.NamingConventions.ConstructorName.OldStyle"/>
+    </rule>
+
+    <!-- PHP code MUST NOT contain any character before the opening tag -->
+    <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
+
+    <!-- Forbid deprecated functions -->
+    <rule ref="Generic.PHP.DeprecatedFunctions" />
+
+    <!-- Never use shorthand PHP start tags. Always use full PHP tags. -->
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+    <rule ref="Generic.PHP.DisallowAlternativePHPTags"/>
+
+    <!-- Forbid alias functions, i.e. `sizeof()`, `delete()` -->
+    <rule ref="Generic.PHP.ForbiddenFunctions" />
+
+    <!-- PHP keywords MUST be in lower case. -->
+    <rule ref="Generic.PHP.LowerCaseKeyword"/>
+
+    <!-- The PHP constants true, false, and null MUST be in lower case. -->
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <properties>
+            <property name="allowMultiline" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Code MUST use an indent of 4 spaces, and MUST NOT use tabs for indenting. -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent"/>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
 
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
         <properties>
