@@ -32,7 +32,7 @@ class Table
     public function __construct(array $header = [], $rows = 0)
     {
         $this->header     = $header;
-        $columnSize       = ($rows >= 0) ? $rows + 1 : 1;
+        $columnSize       = $rows >= 0 ? $rows + 1 : 1;
         $this->output     = array_fill(0, $columnSize, array_fill(0, count($this->header), null));
         $this->output[0]  = $this->header;
         $this->maxLengths = $this->getHeaderLengths();
@@ -59,7 +59,7 @@ class Table
         $max   = $length;
         $total = count($this->output);
         for ($i = 0; $i < $total; $i++) {
-            $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
+            $valueLength = $this->output[$i][$column] !== null ? strlen($this->output[$i][$column]) : 0;
             $max         = max([$max, $valueLength]);
         }
         return $max;

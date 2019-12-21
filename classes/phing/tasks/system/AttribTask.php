@@ -202,7 +202,7 @@ class AttribTask extends ApplyTask
 
     private static function getSignString($attr)
     {
-        return ($attr ? self::$SET : self::$UNSET);
+        return $attr ? self::$SET : self::$UNSET;
     }
 
     private function addArg($sign, $attribute)

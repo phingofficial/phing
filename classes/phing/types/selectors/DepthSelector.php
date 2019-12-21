@@ -183,10 +183,6 @@ class DepthSelector extends BaseExtendSelector
                 " is outside of " . $abs_base . "directory tree"
             );
         }
-        if ($this->min > -1 && $depth < $this->min) {
-            return false;
-        }
-
-        return true;
+        return $this->min <= -1 || $depth >= $this->min;
     }
 }

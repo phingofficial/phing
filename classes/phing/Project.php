@@ -768,7 +768,7 @@ class Project
                 $curTarget = $sortedTargets[$curIndex++];
                 $curTarget->performTasks();
             } catch (BuildException $exc) {
-                if (!($this->keepGoingMode)) {
+                if (!$this->keepGoingMode) {
                     throw $exc;
                 }
                 $thrownException = $exc;
@@ -836,13 +836,11 @@ class Project
      */
     public static function toBoolean($s)
     {
-        return (
-            strcasecmp($s, 'on') === 0
+        return strcasecmp($s, 'on') === 0
             || strcasecmp($s, 'true') === 0
             || strcasecmp($s, 'yes') === 0
             // FIXME next condition should be removed if the boolean behavior for properties will be solved
-            || strcasecmp($s, 1) === 0
-        );
+            || strcasecmp($s, 1) === 0;
     }
 
     /**
@@ -1014,7 +1012,7 @@ class Project
         if ($ref !== null && !$ref instanceof UnknownElement) {
             $this->log("Overriding previous definition of reference to $name", self::MSG_VERBOSE);
         }
-        $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string) $object : get_class($object);
+        $refName = is_scalar($object) || $object instanceof PropertyValue ? (string) $object : get_class($object);
         $this->log("Adding reference: $name -> " . $refName, self::MSG_DEBUG);
         $this->references[$name] = $object;
     }
@@ -1064,7 +1062,7 @@ class Project
 
         // Checking whether the strict-mode is On, then consider all the warnings
         // as errors.
-        if (($this->strictMode) && (self::MSG_WARN == $level)) {
+        if ($this->strictMode && (self::MSG_WARN == $level)) {
             throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
         }
     }

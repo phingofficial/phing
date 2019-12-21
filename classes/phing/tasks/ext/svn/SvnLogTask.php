@@ -80,12 +80,12 @@ class SvnLogTask extends SvnBaseTask
 
         if ($this->oldVersion) {
             foreach ($output as $line) {
-                $result .= (!empty($result)) ? "\n" : '';
+                $result .= !empty($result) ? "\n" : '';
                 $result .= "{$line['REVISION']} | {$line['AUTHOR']}  | {$line['DATE']}  | {$line['MSG']}";
             }
         } else {
             foreach ($output['logentry'] as $line) {
-                $result .= (!empty($result)) ? "\n" : '';
+                $result .= !empty($result) ? "\n" : '';
                 $result .= "{$line['revision']} | {$line['author']}  | {$line['date']}  | {$line['msg']}";
             }
         }

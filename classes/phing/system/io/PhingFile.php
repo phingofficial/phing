@@ -143,7 +143,7 @@ class PhingFile
     public function getName()
     {
         // that's a lastIndexOf
-        $index = ((($res = strrpos($this->path, FileUtils::$separator)) === false) ? -1 : $res);
+        $index = ($res = strrpos($this->path, FileUtils::$separator)) === false ? -1 : $res;
         if ($index < $this->prefixLength) {
             return substr($this->path, $this->prefixLength);
         }
@@ -166,7 +166,7 @@ class PhingFile
     public function getParent()
     {
         // that's a lastIndexOf
-        $index = ((($res = strrpos($this->path, FileUtils::$separator)) === false) ? -1 : $res);
+        $index = ($res = strrpos($this->path, FileUtils::$separator)) === false ? -1 : $res;
         if ($index < $this->prefixLength) {
             if (($this->prefixLength > 0) && (strlen($this->path) > $this->prefixLength)) {
                 return substr($this->path, 0, $this->prefixLength);
@@ -247,7 +247,7 @@ class PhingFile
      */
     public function isAbsolute()
     {
-        return ($this->prefixLength !== 0);
+        return $this->prefixLength !== 0;
     }
 
     /**
@@ -670,7 +670,7 @@ class PhingFile
         }
         $parentFile = $this->getParentFile();
 
-        return (($parentFile !== null) && ($parentFile->mkdirs($mode) && $this->mkdir($mode)));
+        return ($parentFile !== null) && ($parentFile->mkdirs($mode) && $this->mkdir($mode));
     }
 
     /**
@@ -852,7 +852,7 @@ class PhingFile
     public function equals($obj)
     {
         if (($obj !== null) && ($obj instanceof PhingFile)) {
-            return ($this->compareTo($obj) === 0);
+            return $this->compareTo($obj) === 0;
         }
 
         return false;

@@ -415,7 +415,7 @@ class ApplyTask extends ExecTask
     protected function restrict($s, PhingFile $baseDir)
     {
         $sfs = new SourceFileScanner($this);
-        return ($this->mapper === null || $this->force)
+        return $this->mapper === null || $this->force
             ? $s
             : $sfs->restrict($s, $baseDir, $this->destDir, $this->mapper);
     }
@@ -423,13 +423,13 @@ class ApplyTask extends ExecTask
     private function logSkippingFileset($currentType, DirectoryScanner $ds, PhingFile $base)
     {
         $includedCount = (
-            ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
+            $currentType !== self::$types['DIR'] ? $ds->getIncludedFilesCount() : 0
             ) + (
-            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
+            $currentType !== self::$types['FILES'] ? $ds->getIncludedDirectoriesCount() : 0
             );
         $this->log(
             "Skipping fileset for directory " . $base . ". It is "
-            . (($includedCount > 0) ? "up to date." : "empty."),
+            . ($includedCount > 0 ? "up to date." : "empty."),
             $this->loglevel
         );
     }
@@ -784,7 +784,7 @@ class ApplyTask extends ExecTask
 
         // Processing the file information
         foreach ($files as $index => $file) {
-            $absolutefilename  = (($relative === false) ? ($basedir . FileUtils::$separator) : '');
+            $absolutefilename  = ($relative === false ? ($basedir . FileUtils::$separator) : '');
             $absolutefilename .= $file;
             if ($relative === false) {
                 $files[$index] = (new FileUtils())->normalize($absolutefilename);
@@ -793,7 +793,7 @@ class ApplyTask extends ExecTask
             }
         }
 
-        return (is_array($filename) ? $files : $files[0]);
+        return is_array($filename) ? $files : $files[0];
     }
 
     /**

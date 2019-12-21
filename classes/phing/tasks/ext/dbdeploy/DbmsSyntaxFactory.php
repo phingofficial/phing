@@ -38,21 +38,21 @@ class DbmsSyntaxFactory
     public function getDbmsSyntax()
     {
         switch ($this->dbms) {
-            case ('sqlite'):
+            case 'sqlite':
                 include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
 
                 return new DbmsSyntaxSQLite();
-            case ('mysql'):
+            case 'mysql':
                 include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
 
                 return new DbmsSyntaxMysql();
             case 'odbc':
-            case ('mssql'):
+            case 'mssql':
             case 'dblib':
                 include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
 
                 return new DbmsSyntaxMsSql();
-            case ('pgsql'):
+            case 'pgsql':
                 include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
 
                 return new DbmsSyntaxPgSQL();

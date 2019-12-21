@@ -570,7 +570,7 @@ class CopyTask extends Task
         }
 
         $this->log(
-            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath()
+            "Copying " . $mapSize . " file" . ($mapSize === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath()
         );
         // walks the map and actually copies the files
         $count = 0;

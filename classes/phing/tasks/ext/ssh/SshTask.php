@@ -371,7 +371,7 @@ class SshTask extends Task
         $result_error = stream_get_contents($stderr_stream);
 
         if ($this->display) {
-            print($result);
+            print $result;
         }
 
         if (!empty($this->property)) {

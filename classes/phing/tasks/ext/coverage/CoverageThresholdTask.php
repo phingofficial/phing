@@ -157,7 +157,7 @@ class CoverageThresholdTask extends Task
      */
     protected function filterCovered($var)
     {
-        return ($var >= 0 || $var === -2);
+        return $var >= 0 || $var === -2;
     }
 
     /**
@@ -272,8 +272,8 @@ class CoverageThresholdTask extends Task
                     }
 
                     if ($methodStatementCount > 0) {
-                        $methodCoverage = ($methodStatementsCovered
-                                / $methodStatementCount) * 100;
+                        $methodCoverage = $methodStatementsCovered
+                                / $methodStatementCount * 100;
                     } else {
                         $methodCoverage = 0;
                     }
@@ -318,8 +318,8 @@ class CoverageThresholdTask extends Task
                 );
 
                 if ($classStatementCount > 0) {
-                    $classCoverage = ($classStatementsCovered
-                            / $classStatementCount) * 100;
+                    $classCoverage = $classStatementsCovered
+                            / $classStatementCount * 100;
                 } else {
                     $classCoverage = 0;
                 }
@@ -404,8 +404,8 @@ class CoverageThresholdTask extends Task
         }
 
         if ($this->projectStatementCount > 0) {
-            $coverage = ($this->projectStatementsCovered
-                    / $this->projectStatementCount) * 100;
+            $coverage = $this->projectStatementsCovered
+                    / $this->projectStatementCount * 100;
         } else {
             $coverage = 0;
         }

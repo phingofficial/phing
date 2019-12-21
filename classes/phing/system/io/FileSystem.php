@@ -857,7 +857,7 @@ abstract class FileSystem
             return 0;
         }
 
-        return ($mtime1 < $mtime2) ? -1 : 1; // end compare
+        return $mtime1 < $mtime2 ? -1 : 1; // end compare
     }
 
     /**

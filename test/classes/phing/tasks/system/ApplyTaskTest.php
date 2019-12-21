@@ -277,7 +277,7 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertInLogs(
             $this->windows
                 ? (escapeshellarg('echo') . ' ' . escapeshellarg('foo') . " " . escapeshellarg('|') . " " . escapeshellarg('cat'))
-            : ("'echo' 'foo' '|' 'cat'")
+            : "'echo' 'foo' '|' 'cat'"
         );
     }
 
@@ -518,7 +518,7 @@ class ApplyTaskTest extends BuildFileTest
     {
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), 'ApplyTask');
 
-        $propertyName = ($propertyName === null) ? $property : $propertyName;
+        $propertyName = $propertyName === null ? $property : $propertyName;
         $rprop        = new ReflectionProperty('ApplyTask', $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));

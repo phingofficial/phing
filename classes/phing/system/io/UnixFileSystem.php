@@ -171,7 +171,7 @@ class UnixFileSystem extends FileSystem
             }
         }
 
-        return (($pathname[0] === '/') ? 1 : 0);
+        return $pathname[0] === '/' ? 1 : 0;
     }
 
     /**
@@ -220,7 +220,7 @@ class UnixFileSystem extends FileSystem
      */
     public function isAbsolute(PhingFile $f)
     {
-        return ($f->getPrefixLength() !== 0);
+        return $f->getPrefixLength() !== 0;
     }
 
     /**

@@ -547,7 +547,7 @@ class IntrospectionHelper
      */
     public function supportsCharacters()
     {
-        return ($this->methodAddText !== null);
+        return $this->methodAddText !== null;
     }
 
     /**
@@ -643,7 +643,7 @@ class IntrospectionHelper
     public function warn($msg)
     {
         if (Phing::getMsgOutputLevel() === Project::MSG_DEBUG) {
-            print("[IntrospectionHelper] " . $msg . "\n");
+            print "[IntrospectionHelper] " . $msg . "\n";
         }
     }
 }

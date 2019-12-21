@@ -280,6 +280,6 @@ class UpToDateTask extends Task implements Condition
             $mapper = $this->mapperElement->getImplementation();
         }
 
-        return (count($sfs->restrict($files, $srcDir, $dir, $mapper)) === 0);
+        return count($sfs->restrict($files, $srcDir, $dir, $mapper)) === 0;
     }
 }

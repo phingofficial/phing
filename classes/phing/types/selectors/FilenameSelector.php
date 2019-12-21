@@ -196,8 +196,8 @@ class FilenameSelector extends BaseExtendSelector
         $this->validate();
 
         if ($this->pattern !== null) {
-            return (SelectorUtils::matchPath($this->pattern, $filename, $this->casesensitive)
-                === !($this->negated));
+            return SelectorUtils::matchPath($this->pattern, $filename, $this->casesensitive)
+                === !$this->negated;
         }
         if ($this->reg === null) {
             $this->reg = new RegularExpression();

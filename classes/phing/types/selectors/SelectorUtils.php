@@ -106,14 +106,7 @@ class SelectorUtils
             return true;
         }
 
-        if ($patIdxStart > $patIdxEnd) {
-            // String not exhausted, but pattern is. Failure.
-            return false;
-        }
-
-        // pattern now holds ** while string is not exhausted
-        // this will generate false positives but we can live with that.
-        return true;
+        return $patIdxStart <= $patIdxEnd;
     }
 
     /**
@@ -197,11 +190,7 @@ class SelectorUtils
         if (!$target->exists()) {
             return true;
         }
-        if (($src->lastModified() - $granularity) > $target->lastModified()) {
-            return true;
-        }
-
-        return false;
+        return ($src->lastModified() - $granularity) > $target->lastModified();
     }
 
     /**

@@ -119,7 +119,7 @@ class SvnListTask extends SvnBaseTask
                 break;
             }
 
-            $result .= (!empty($result)) ? "\n" : '';
+            $result .= !empty($result) ? "\n" : '';
             $result .= $entry['commit']['revision'] . ' | ' . $entry['commit']['author'] . ' | ' . $entry['commit']['date'] . ' | ' . $entry['name'];
             $count++;
         }

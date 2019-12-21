@@ -33,7 +33,7 @@ class PhkPackageWebAccess
      */
     public function createPath()
     {
-        return ($this->paths[] = new PhkPackageWebAccessPath());
+        return $this->paths[] = new PhkPackageWebAccessPath();
     }
 
     /**
