@@ -34,9 +34,10 @@
  *
  * This will fetch all those lines that contain the pattern <code>foo</code>
  *
+ * @see     FilterReader
+ *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @see     FilterReader
  * @package phing.filters
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
@@ -44,8 +45,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Parameter name for regular expression.
-     *
-     * @var string
      */
     public const REGEXP_KEY = "regexp";
     public const NEGATE_KEY = 'negate';
@@ -72,7 +71,9 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Returns all lines in a buffer that contain specified strings.
      *
      * @param int $len
+     *
      * @return mixed buffer, -1 on EOF
+     *
      * @throws IOException
      * @throws RegexpException
      */
@@ -119,6 +120,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Whether to match casesensitevly.
+     *
      * @param bool $b
      */
     public function setCaseSensitive(bool $b)
@@ -129,7 +131,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Find out whether we match casesensitevly.
      *
-     * @return boolean negation flag.
+     * @return bool negation flag.
      */
     public function isCaseSensitive()
     {
@@ -139,7 +141,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Set the negation mode.  Default false (no negation).
      *
-     * @param boolean $b the boolean negation mode to set.
+     * @param bool $b the boolean negation mode to set.
      */
     public function setNegate(bool $b)
     {
@@ -149,7 +151,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Find out whether we have been negated.
      *
-     * @return boolean negation flag.
+     * @return bool negation flag.
      */
     public function isNegated()
     {
@@ -173,11 +175,11 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * a line read from the original stream in order for it to match this
      * filter.
      *
-     * @param array $regexps
+     * @param array $regexps An array of regular expressions which must be contained
+     *                       within a line in order for it to match in this filter. Must not be
+     *                       <code>null</code>.
+     *
      * @throws Exception
-     * @internal param An $regexps array of regular expressions which must be contained
-     *                within a line in order for it to match in this filter. Must not be
-     *                <code>null</code>.
      */
     public function setRegexps($regexps)
     {
@@ -217,12 +219,13 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
+     *
      * @return LineContainsRegexp A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                            the specified reader
+     *
      * @throws Exception
-     * @internal param A $object Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
      */
     public function chain(Reader $reader): Reader
     {

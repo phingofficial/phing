@@ -57,10 +57,9 @@
  * will be in ascendant order.
  * </p>
  *
- * @author Siad.ardroumli <siad.ardroumli@gmail.com>
- *
  * @see BaseParamFilterReader
  *
+ * @author Siad.ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class SortFilter extends BaseParamFilterReader implements ChainableReader
@@ -102,12 +101,13 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * and returned.
      *
      * @param int $len
-     * @return string the next character in the resulting stream, or -1 if the end of
-     *         the resulting stream has been reached
+     *
+     * @return string The next character in the resulting stream, or -1 if the end of
+     *                the resulting stream has been reached
+     *
      * @throws BuildException
-     * @throws IOException
-     *                if the underlying stream throws an IOException during
-     *                reading
+     * @throws IOException If the underlying stream throws an IOException during
+     *                     reading
      */
     public function read($len = null)
     {
@@ -126,20 +126,17 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
 
         $this->sort();
 
-        $filtered_buffer = implode("\n", $this->lines);
-
-        return $filtered_buffer;
+        return implode("\n", $this->lines);
     }
 
     /**
      * Creates a new SortReader using the passed in Reader for instantiation.
      *
-     * @param Reader $reader
-     *            A Reader object providing the underlying stream. Must not be
-     *            <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream. Must not be
+     *                       <code>null</code>.
      *
-     * @return SortFilter a new filter based on this configuration, but filtering the
-     *         specified reader
+     * @return SortFilter A new filter based on this configuration, but filtering the
+     *                    specified reader
      */
     public function chain(Reader $reader): Reader
     {
@@ -153,8 +150,8 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * Returns <code>true</code> if the sorting process will be in reverse
      * order, otherwise the sorting process will be in ascendant order.
      *
-     * @return boolean <code>true</code> if the sorting process will be in reverse
-     *                 order, otherwise the sorting process will be in ascendant order.
+     * @return bool <code>true</code> if the sorting process will be in reverse
+     *              order, otherwise the sorting process will be in ascendant order.
      */
     public function isReverse()
     {
@@ -165,8 +162,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * Sets the sorting process will be in ascendant (<code>reverse=false</code>)
      * or to descendant (<code>reverse=true</code>).
      *
-     * @param boolean $reverse
-     *            Boolean representing reverse ordering process.
+     * @param bool $reverse Boolean representing reverse ordering process.
      */
     public function setReverse($reverse)
     {

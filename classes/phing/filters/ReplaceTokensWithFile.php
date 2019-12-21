@@ -41,8 +41,9 @@
  *   <param name="postfix" value=".php" />
  * </filterreader></pre>
  *
- * @author  johan persson, johanp@aditus.nu
  * @see     ReplaceTokensWithFile
+ *
+ * @author  johan persson, johanp@aditus.nu
  * @package phing.filters
  */
 class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReader
@@ -50,15 +51,11 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
 
     /**
      * Default "begin token" character.
-     *
-     * @var string
      */
     public const DEFAULT_BEGIN_TOKEN = "#@#";
 
     /**
      * Default "end token" character.
-     *
-     * @var string
      */
     public const DEFAULT_END_TOKEN = "#@#";
 
@@ -113,7 +110,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * entities before it is used as replacements. For example all '<'
      * will be translated to &lt; before the content is inserted.
      *
-     * @var boolean
+     * @var bool
      */
     private $translatehtml = true;
 
@@ -164,6 +161,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Returns the prefix that is prepended to the token in order to create the file
      * name. For example if the token is 01 and the prefix is "example" then
      * the filename to look for will be "example01"
+     *
      * @return string
      */
     public function getPrefix()
@@ -237,6 +235,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Replace the token found with the appropriate file contents
      *
      * @param array $matches Array of 1 el containing key to search for.
+     *
      * @return string Text with which to replace key or value of key if none is found.
      */
     private function replaceTokenCallback($matches)
@@ -286,6 +285,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * If a replacement value is not found for a token, the token is left in the stream.
      *
      * @param int $len
+     *
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -316,11 +316,11 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Creates a new ReplaceTokensWithFile using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
+     *
      * @return ReplaceTokensWithFile A new filter based on this configuration, but filtering
-     *                the specified reader
-     * @internal param A $object Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     *                               the specified reader
      */
     public function chain(Reader $reader): Reader
     {

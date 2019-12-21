@@ -22,7 +22,6 @@
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
- *
  * @package phing.types.selectors
  */
 class SizeSelector extends BaseExtendSelector
@@ -283,9 +282,9 @@ class SizeSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param PhingFile $basedir A PhingFile object for the base directory
-     * @param string $filename The name of the file to check
-     * @param PhingFile $file A PhingFile object for this filename
+     * @param PhingFile $basedir  A PhingFile object for the base directory
+     * @param string    $filename The name of the file to check
+     * @param PhingFile $file     A PhingFile object for this filename
      *
      * @return bool whether the file should be selected or not
      */

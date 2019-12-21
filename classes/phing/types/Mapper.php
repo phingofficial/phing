@@ -65,6 +65,7 @@ class Mapper extends DataType
      * Set the classpath to be used when searching for component being defined
      *
      * @param Path $classpath An Path object containing the classpath.
+     *
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)
@@ -98,6 +99,7 @@ class Mapper extends DataType
      * Reference to a classpath to use when loading the files.
      *
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
@@ -112,7 +114,8 @@ class Mapper extends DataType
     /**
      * Set the type of FileNameMapper to use.
      *
-     * @param $type
+     * @param string $type
+     *
      * @throws BuildException
      */
     public function setType($type)
@@ -127,6 +130,7 @@ class Mapper extends DataType
      * Add a nested <code>FileNameMapper</code>.
      *
      * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
+     *
      * @throws BuildException
      */
     public function add(Mapper $fileNameMapper)
@@ -164,6 +168,7 @@ class Mapper extends DataType
      * Set the class name of the FileNameMapper to use.
      *
      * @param string $classname
+     *
      * @throws BuildException
      */
     public function setClassname($classname)
@@ -177,7 +182,8 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setFrom
      *
-     * @param $from
+     * @param string $from
+     *
      * @throws BuildException
      */
     public function setFrom($from)
@@ -191,7 +197,8 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setTo
      *
-     * @param $to
+     * @param string $to
+     *
      * @throws BuildException
      */
     public function setTo($to)
@@ -208,6 +215,7 @@ class Mapper extends DataType
      * You must not set any other attribute if you make it a reference.
      *
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)

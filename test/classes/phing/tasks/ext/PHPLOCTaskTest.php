@@ -22,7 +22,6 @@
  *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
- *
  * @requires PHP < 7.3
  */
 class PHPLOCTaskTest extends BuildFileTest

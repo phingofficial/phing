@@ -29,16 +29,15 @@
  *  <param name="suffix" value="Foo"/>
  * </filterreader></pre>
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @see     FilterReader
+ *
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class SuffixLines extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the suffix.
-     *
-     * @var string
      */
     public const SUFFIX_KEY = "suffix";
 
@@ -56,6 +55,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
      * @param int $len
+     *
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -123,11 +123,11 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
+     *
      * @return SuffixLines A new filter based on this configuration, but filtering
-     *                the specified reader
-     * @internal param A $object Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     *                     the specified reader
      */
     public function chain(Reader $reader): Reader
     {

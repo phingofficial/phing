@@ -95,7 +95,7 @@ class S3PutTask extends S3
     /**
      * Content is gzipped.
      *
-     * @var boolean
+     * @var bool
      */
     protected $gzipped = false;
 
@@ -217,7 +217,8 @@ class S3PutTask extends S3
     }
 
     /**
-     * @param $permission
+     * @param string $permission
+     *
      * @throws BuildException
      */
     public function setAcl($permission)
@@ -247,6 +248,7 @@ class S3PutTask extends S3
 
     /**
      * @return string
+     *
      * @throws BuildException
      */
     public function getContentType()
@@ -295,7 +297,7 @@ class S3PutTask extends S3
     /**
      * Set if content is gzipped.
      *
-     * @param boolean $gzipped
+     * @param bool $gzipped
      */
     public function setGzip($gzipped)
     {
@@ -305,7 +307,7 @@ class S3PutTask extends S3
     /**
      * Return if content is gzipped.
      *
-     * @return boolean Indicate if content is gzipped.
+     * @return bool Indicate if content is gzipped.
      */
     public function getGzip()
     {
@@ -381,8 +383,9 @@ class S3PutTask extends S3
     /**
      * Store the object on S3
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function execute()
     {
@@ -435,6 +438,7 @@ class S3PutTask extends S3
     /**
      * @param string $key
      * @param string $sourceFile
+     *
      * @throws \BuildException
      */
     protected function saveObject($key, $sourceFile)

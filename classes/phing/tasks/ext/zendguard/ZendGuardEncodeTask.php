@@ -179,7 +179,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * TASK PROPERTIES SETTERS
      *
-     * @param $value
+     * @param string $value
      */
     public function setZendEncoderPath($value)
     {
@@ -187,7 +187,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setPrivateKeyPath($value)
     {
@@ -195,7 +195,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setShortTags(bool $value)
     {
@@ -203,7 +203,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setAspTags(bool $value)
     {
@@ -211,7 +211,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setDeleteSource(bool $value)
     {
@@ -219,7 +219,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setUseCrypto(bool $value)
     {
@@ -227,7 +227,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param int $value
      */
     public function setObfuscationLevel($value)
     {
@@ -235,7 +235,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setLicenseProduct(bool $value)
     {
@@ -243,7 +243,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setPrologFile($value)
     {
@@ -251,7 +251,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setSignProduct(bool $value)
     {
@@ -259,7 +259,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setForceEncode(bool $value)
     {
@@ -267,7 +267,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setEncodedOnly(bool $value)
     {
@@ -275,7 +275,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setIgnoreFileModes(bool $value)
     {
@@ -283,7 +283,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setExpires($value)
     {
@@ -291,7 +291,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setProductName($value)
     {
@@ -299,7 +299,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param int $value
      */
     public function setOptMask($value)
     {
@@ -307,7 +307,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setRenameSourceExt($value)
     {
@@ -315,7 +315,7 @@ class ZendGuardEncodeTask extends MatchingTask
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setNoHeader(bool $value)
     {
@@ -395,9 +395,9 @@ class ZendGuardEncodeTask extends MatchingTask
             $encodedFilesCounter = 0;
 
             foreach ($this->filesets as $fs) {
-                /* @var $fs FileSet */
+                /** @var FileSet $fs */
 
-                /* @var $fsBasedir PhingFile */
+                /** @var PhingFile $fsBasedir */
                 $fsBasedir = $fs->getDir($this->project)->getAbsolutePath();
 
                 $files = $fs->getIterator(false);
@@ -504,8 +504,10 @@ class ZendGuardEncodeTask extends MatchingTask
      * Encodes a file using currently defined Zend Guard settings
      *
      * @param string $filePath Path to the encoded file
-     * @throws BuildException
+     *
      * @return bool
+     *
+     * @throws BuildException
      */
     protected function encodeFile($filePath)
     {

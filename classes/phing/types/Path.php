@@ -65,7 +65,7 @@ class Path extends DataType
      * Constructor for internally instantiated objects sets project.
      *
      * @param Project $project
-     * @param string $path (for use by IntrospectionHelper)
+     * @param string  $path    (for use by IntrospectionHelper)
      */
     public function __construct($project = null, $path = null)
     {
@@ -99,7 +99,7 @@ class Path extends DataType
     /**
      * Parses a path definition and creates single PathElements.
      *
-     * @param $path the path definition.
+     * @param string $path the path definition.
      *
      * @throws BuildException
      */
@@ -279,7 +279,9 @@ class Path extends DataType
      * Returns all path elements defined by this and nested path objects.
      *
      * @param bool $preserveDuplicates
+     *
      * @return array List of path elements.
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -381,7 +383,7 @@ class Path extends DataType
      * Splits a PATH (with : or ; as separators) into its parts.
      *
      * @param Project $project
-     * @param string $source
+     * @param string  $source
      *
      * @return array
      */
@@ -441,7 +443,7 @@ class Path extends DataType
      * replacements.
      *
      * @param string $buffer
-     * @param int $pos
+     * @param int    $pos
      *
      * @return bool
      */
@@ -472,7 +474,7 @@ class Path extends DataType
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *
-     * @param $stk
+     * @param array   $stk
      * @param Project $p
      *
      * @return void
@@ -511,7 +513,7 @@ class Path extends DataType
      * <p>Assume the filename is absolute if project is null.</p>
      *
      * @param Project $project
-     * @param $relativeName
+     * @param string  $relativeName
      *
      * @return string
      */

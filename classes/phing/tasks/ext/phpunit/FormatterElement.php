@@ -64,7 +64,7 @@ class FormatterElement
     /**
      * Loads a specific formatter class
      *
-     * @param $className
+     * @param string $className
      */
     public function setClassName($className)
     {
@@ -76,7 +76,7 @@ class FormatterElement
     /**
      * Sets whether to store formatting results in a file
      *
-     * @param $useFile
+     * @param bool $useFile
      */
     public function setUseFile($useFile)
     {
@@ -95,6 +95,7 @@ class FormatterElement
      * Sets output directory
      *
      * @param string $toDir
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -155,8 +156,9 @@ class FormatterElement
     /**
      * Returns formatter object
      *
-     * @throws BuildException
      * @return PHPUnitResultFormatter7
+     *
+     * @throws BuildException
      */
     public function getFormatter()
     {

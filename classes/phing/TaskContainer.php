@@ -23,7 +23,6 @@
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- *
  * @package phing
  */
 interface TaskContainer

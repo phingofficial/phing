@@ -54,6 +54,7 @@ class PhingVersion extends Task implements Condition
      * Evaluate the condition.
      *
      * @return true if the condition is true.
+     *
      * @throws BuildException if an error occurs.
      */
     public function evaluate()

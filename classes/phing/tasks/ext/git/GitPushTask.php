@@ -20,11 +20,12 @@
 /**
  * Wrapper aroung git-push
  *
+ * @link    http://www.kernel.org/pub/software/scm/git/docs/git-push.html
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
- * @link    http://www.kernel.org/pub/software/scm/git/docs/git-push.html
  */
 class GitPushTask extends GitBaseTask
 {
@@ -32,7 +33,7 @@ class GitPushTask extends GitBaseTask
      * Instead of naming each ref to push, specifies that all refs
      * --all key to git-push
      *
-     * @var boolean
+     * @var bool
      */
     private $allRemotes = false;
 
@@ -40,7 +41,7 @@ class GitPushTask extends GitBaseTask
      * Mirror to remote repository
      * --mirror key to git-push
      *
-     * @var boolean
+     * @var bool
      */
     private $mirror = false;
 
@@ -56,7 +57,7 @@ class GitPushTask extends GitBaseTask
      * Push all refs under refs/tags
      * --tags key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $tags = false;
 
@@ -77,14 +78,14 @@ class GitPushTask extends GitBaseTask
     /**
      * --force, -f key to git-push
      *
-     * @var boolean
+     * @var bool
      */
     private $force = false;
 
     /**
      * --quiet, -q key to git-push
      *
-     * @var boolean
+     * @var bool
      */
     private $quiet = true;
 
@@ -146,7 +147,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAll($flag)
     {
@@ -170,7 +171,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setMirror($flag)
     {
@@ -194,7 +195,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setDelete($flag)
     {
@@ -218,7 +219,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setTags($flag)
     {
@@ -242,7 +243,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $destination
+     * @param string $destination
      */
     public function setDestination($destination)
     {
@@ -258,7 +259,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $spec
+     * @param string $spec
      */
     public function setRefspec($spec)
     {
@@ -274,7 +275,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForce($flag)
     {
@@ -298,7 +299,7 @@ class GitPushTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setQuiet($flag)
     {

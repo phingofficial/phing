@@ -23,7 +23,6 @@
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Nico Seessle <nico@seessle.de> (Ant)
- *
  * @package phing.tasks.system
  */
 class FailTask extends Task
@@ -49,7 +48,7 @@ class FailTask extends Task
     protected $nestedCondition;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $status;
 
@@ -162,6 +161,7 @@ class FailTask extends Task
      * Add a condition element.
      *
      * @return NestedCondition
+     *
      * @throws BuildException
      */
     public function createCondition()
@@ -189,7 +189,7 @@ class FailTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     protected function testIfCondition()
     {
@@ -201,7 +201,7 @@ class FailTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     protected function testUnlessCondition()
     {
@@ -216,6 +216,7 @@ class FailTask extends Task
      * test the nested condition
      *
      * @return bool true if there is none, or it evaluates to true
+     *
      * @throws BuildException
      */
     private function testNestedCondition()
@@ -232,7 +233,7 @@ class FailTask extends Task
     /**
      * test whether there is a nested condition.
      *
-     * @return boolean
+     * @return bool
      */
     private function nestedConditionPresent()
     {

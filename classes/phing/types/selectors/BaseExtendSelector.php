@@ -39,6 +39,7 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      * the ExtendSelector class.
      *
      * @param array $parameters the complete set of parameters for this selector
+     *
      * @return mixed|void
      */
     public function setParameters(array $parameters): void

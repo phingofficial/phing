@@ -31,8 +31,10 @@ class PHPUnitUtil
     /**
      * Returns the package of a class as defined in the docblock of the class using {@package}
      *
-     * @param string the name of the class
+     * @param string $classname the name of the class
+     *
      * @return string the name of the package
+     *
      * @throws ReflectionException
      */
     public static function getPackageName($classname)
@@ -61,7 +63,9 @@ class PHPUnitUtil
      * @param string $classname the name of the class
      *
      * @return string|null the name of the subpackage
+     *
      * @throws ReflectionException
+     *
      * @author Benjamin Schultz <bschultz@proqrent.de>
      */
     public static function getSubpackageName($classname)
@@ -80,7 +84,8 @@ class PHPUnitUtil
      * Assumes that there is only one class defined in that particular file, and that
      * the naming follows the dot-path (Java) notation scheme.
      *
-     * @param string the filename
+     * @param string $filename the filename
+     *
      * @return string the name fo the class
      */
     public static function getClassFromFileName($filename)
@@ -97,12 +102,12 @@ class PHPUnitUtil
     }
 
     /**
-     * @param $filename
-     * @param null $classpath
-     * @throws Exception
-     * @internal param the $string filename
-     * @internal param optional $Path classpath
+     * @param string    $filename  The filename
+     * @param Path|null $classpath Optional classpath
+     *
      * @return array list of classes defined in the file
+     *
+     * @throws Exception
      */
     public static function getDefinedClasses($filename, $classpath = null)
     {

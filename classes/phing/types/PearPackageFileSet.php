@@ -4,11 +4,12 @@
  *
  * PHP version 5
  *
+ * @link     http://www.phing.info/
+ *
  * @category Types
  * @package  phing.types
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 
 /**
@@ -30,11 +31,12 @@
  *  $ds->scan()
  * </code>
  *
+ * @link     http://www.phing.info/
+ *
  * @category Types
  * @package  phing.types
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 class PearPackageFileSet extends FileSet
 {
@@ -147,7 +149,8 @@ class PearPackageFileSet extends FileSet
      * Sets the package.xml filename.
      * If it is not set, the local pear installation is queried for the package.
      *
-     * @param $descFile
+     * @param string $descFile
+     *
      * @return void
      */
     public function setDescFile($descFile)
@@ -161,8 +164,9 @@ class PearPackageFileSet extends FileSet
      *
      * @param string $package Single package name, or "channel/name" combination
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function setPackage($package)
     {

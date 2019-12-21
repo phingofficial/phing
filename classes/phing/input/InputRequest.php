@@ -53,6 +53,7 @@ class InputRequest
 
     /**
      * @param string $prompt The prompt to show to the user.  Must not be null.
+     *
      * @throws BuildException
      */
     public function __construct($prompt)
@@ -74,7 +75,7 @@ class InputRequest
     /**
      * Sets the user provided input.
      *
-     * @param $input
+     * @param string $input
      */
     public function setInput($input)
     {

@@ -28,7 +28,7 @@ class DbmsSyntaxFactory
     private $dbms;
 
     /**
-     * @param $dbms
+     * @param string $dbms
      */
     public function __construct($dbms)
     {

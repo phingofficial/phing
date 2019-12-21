@@ -23,7 +23,6 @@
  * This class is based on Knut Urdalen's PhpLintTask.
  *
  * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
- *
  * @package phing.tasks.ext
  */
 class JslLintTask extends Task
@@ -88,7 +87,7 @@ class JslLintTask extends Task
     /**
      * Sets the flag if warnings should be shown
      *
-     * @param boolean $show
+     * @param bool $show
      */
     public function setShowWarnings($show)
     {
@@ -98,7 +97,7 @@ class JslLintTask extends Task
     /**
      * The haltonfailure property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnFailure($aValue)
     {
@@ -108,7 +107,7 @@ class JslLintTask extends Task
     /**
      * The haltonwarning property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnWarning($aValue)
     {
@@ -240,9 +239,9 @@ class JslLintTask extends Task
      *
      * @param string $file
      *
-     * @throws BuildException
-     *
      * @return bool|void
+     *
+     * @throws BuildException
      */
     protected function lint($file)
     {

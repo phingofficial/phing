@@ -42,7 +42,7 @@ class PHPUnitReportTask extends Task
      * Whether to use the sorttable JavaScript library, defaults to false
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
-     * @var boolean
+     * @var bool
      */
     private $useSortTable = false;
 
@@ -55,6 +55,7 @@ class PHPUnitReportTask extends Task
      * Set the filename of the XML results file to use.
      *
      * @param PhingFile $inFile
+     *
      * @return void
      */
     public function setInFile(PhingFile $inFile)
@@ -65,7 +66,8 @@ class PHPUnitReportTask extends Task
     /**
      * Set the format of the generated report. Must be noframes or frames.
      *
-     * @param $format
+     * @param string $format
+     *
      * @return void
      */
     public function setFormat($format)
@@ -76,7 +78,8 @@ class PHPUnitReportTask extends Task
     /**
      * Set the directory where the stylesheets are located.
      *
-     * @param $styleDir
+     * @param string $styleDir
+     *
      * @return void
      */
     public function setStyleDir($styleDir)
@@ -89,6 +92,7 @@ class PHPUnitReportTask extends Task
      * transformation should be written to.
      *
      * @param PhingFile $toDir
+     *
      * @return void
      */
     public function setToDir(PhingFile $toDir)
@@ -100,7 +104,8 @@ class PHPUnitReportTask extends Task
      * Sets whether to use the sorttable JavaScript library, defaults to false
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
-     * @param boolean $useSortTable
+     * @param bool $useSortTable
+     *
      * @return void
      */
     public function setUseSortTable($useSortTable)
@@ -112,6 +117,7 @@ class PHPUnitReportTask extends Task
      * Returns the path to the XSL stylesheet
      *
      * @return PhingFile
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -146,6 +152,7 @@ class PHPUnitReportTask extends Task
      * Transforms the DOM document
      *
      * @param DOMDocument $document
+     *
      * @throws BuildException
      * @throws IOException
      * @throws NullPointerException

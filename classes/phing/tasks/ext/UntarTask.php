@@ -53,7 +53,9 @@ class UntarTask extends ExtractBaseTask
 
     /**
      * @param PhingFile $tarfile
+     *
      * @return mixed|void
+     *
      * @throws BuildException
      */
     protected function extractArchive(PhingFile $tarfile)
@@ -76,6 +78,7 @@ class UntarTask extends ExtractBaseTask
 
     /**
      * @param PhingFile $tarfile
+     *
      * @return array|int
      */
     protected function listArchiveContent(PhingFile $tarfile)
@@ -89,6 +92,7 @@ class UntarTask extends ExtractBaseTask
      * Init a Archive_Tar class with correct compression for the given file.
      *
      * @param PhingFile $tarfile
+     *
      * @return Archive_Tar the tar class instance
      */
     private function initTar(PhingFile $tarfile)

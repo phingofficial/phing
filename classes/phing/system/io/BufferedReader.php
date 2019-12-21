@@ -20,10 +20,9 @@
 /**
  * Convenience class for reading files.
  *
- * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- *
  * @see FilterReader
  *
+ * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @package phing.system.io
  */
 class BufferedReader extends Reader
@@ -40,9 +39,8 @@ class BufferedReader extends Reader
     private $in;
 
     /**
-     *
-     * @param InputStreamReader $reader The reader (e.g. FileReader).
-     * @param integer $buffsize The size of the buffer we should use for reading files.
+     * @param InputStreamReader $reader   The reader (e.g. FileReader).
+     * @param int               $buffsize The size of the buffer we should use for reading files.
      *                                    A large buffer ensures that most files (all scripts?)
      *                                    are parsed in 1 buffer.
      */
@@ -56,6 +54,7 @@ class BufferedReader extends Reader
      * Reads and returns a chunk of data.
      *
      * @param int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
+     *
      * @return mixed buffer or -1 if EOF.
      */
     public function read($len = null)
@@ -90,6 +89,7 @@ class BufferedReader extends Reader
 
     /**
      * @param int $n
+     *
      * @return int
      */
     public function skip($n)
@@ -165,7 +165,7 @@ class BufferedReader extends Reader
      * This is important, because filters may want to know if the end of the file (and not just buffer)
      * has been reached.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

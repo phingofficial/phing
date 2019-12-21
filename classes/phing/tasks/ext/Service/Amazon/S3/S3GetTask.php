@@ -45,7 +45,8 @@ class S3GetTask extends S3
     protected $object = null;
 
     /**
-     * @param $object
+     * @param string $object
+     *
      * @throws BuildException
      */
     public function setObject($object)
@@ -59,6 +60,7 @@ class S3GetTask extends S3
 
     /**
      * @return mixed
+     *
      * @throws BuildException
      */
     public function getObject()
@@ -71,7 +73,8 @@ class S3GetTask extends S3
     }
 
     /**
-     * @param $target
+     * @param string $target
+     *
      * @throws BuildException
      */
     public function setTarget($target)
@@ -91,6 +94,7 @@ class S3GetTask extends S3
 
     /**
      * @return mixed
+     *
      * @throws BuildException
      */
     public function getTarget()

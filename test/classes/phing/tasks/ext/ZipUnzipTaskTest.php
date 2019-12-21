@@ -22,7 +22,6 @@
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
- *
  * @requires extension zip
  */
 class ZipUnzipTaskTest extends BuildFileTest

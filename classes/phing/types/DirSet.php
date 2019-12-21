@@ -27,6 +27,7 @@ class DirSet extends AbstractFileSet
 {
     /**
      * @param array $options
+     *
      * @return array
      */
     protected function getFiles(...$options)

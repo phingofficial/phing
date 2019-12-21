@@ -20,10 +20,11 @@
 /**
  * Task for setting properties from an XML file in buildfiles.
  *
+ * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
+ *
  * @author  Jonathan Bond-Caron <jbondc@openmv.com>
  * @package phing.tasks.ext
  * @since   2.4.0
- * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
  */
 class XmlPropertyTask extends PropertyTask
 {
@@ -104,8 +105,10 @@ class XmlPropertyTask extends PropertyTask
      * load properties from an XML file.
      *
      * @param PhingFile $file
-     * @throws BuildException
+     *
      * @return Properties
+     *
+     * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
     {

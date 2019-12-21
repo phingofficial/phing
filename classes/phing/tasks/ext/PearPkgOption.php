@@ -28,7 +28,7 @@ class PearPkgOption
     private $value;
 
     /**
-     * @param $v
+     * @param string $v
      */
     public function setName($v)
     {
@@ -41,7 +41,7 @@ class PearPkgOption
     }
 
     /**
-     * @param $v
+     * @param mixed $v
      */
     public function setValue($v)
     {
@@ -54,7 +54,7 @@ class PearPkgOption
     }
 
     /**
-     * @param $txt
+     * @param string $txt
      */
     public function addText($txt)
     {

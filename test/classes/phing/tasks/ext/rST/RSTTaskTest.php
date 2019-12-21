@@ -22,11 +22,12 @@
  *
  * PHP version 5
  *
+ * @link       http://www.phing.info/
+ *
  * @category   Tasks
  * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       http://www.phing.info/
  */
 class RSTTaskTest extends BuildFileTest
 {
@@ -125,6 +126,7 @@ class RSTTaskTest extends BuildFileTest
 
     /**
      * @throws ReflectionException
+     *
      * @requires function ReflectionMethod::setAccessible
      */
     public function testGetToolPathHtmlFormat()

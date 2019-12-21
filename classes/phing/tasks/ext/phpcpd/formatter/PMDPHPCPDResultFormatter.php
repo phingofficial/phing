@@ -21,7 +21,6 @@
  * Prints PMD-XML output of phpcpd run
  *
  * @author Benjamin Schultz <bschultz@proqrent.de>
- *
  * @package phing.tasks.ext.phpcpd.formatter
  */
 class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
@@ -30,9 +29,9 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
      * Processes a list of clones.
      *
      * @param PHPCPD_CloneMap|CodeCloneMap $clones
-     * @param Project $project
-     * @param boolean $useFile
-     * @param PhingFile|null $outFile
+     * @param Project                      $project
+     * @param bool                         $useFile
+     * @param PhingFile|null               $outFile
      *
      * @throws BuildException
      */

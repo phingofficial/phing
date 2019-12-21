@@ -21,10 +21,11 @@
  * Stores the output of a log command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
  *
+ * @see     VersionControl_SVN
+ *
  * @author  Anton Stöckl <anton@stoeckl.de>
  * @author  Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
  * @package phing.tasks.ext.svn
- * @see     VersionControl_SVN
  * @since   2.1.0
  */
 class SvnLogTask extends SvnBaseTask
@@ -35,7 +36,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -53,7 +54,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * Sets the max num of log entries to get from svn
      *
-     * @param $limit
+     * @param int $limit
      */
     public function setLimit($limit)
     {

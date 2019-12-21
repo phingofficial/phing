@@ -30,7 +30,6 @@ class SvnSwitchTask extends SvnBaseTask
      * Which Revision to Export
      *
      * @todo check if version_control_svn supports constants
-     *
      * @var string
      */
     private $revision = 'HEAD';
@@ -58,7 +57,7 @@ class SvnSwitchTask extends SvnBaseTask
     }
 
     /**
-     * @param $revision
+     * @param string $revision
      */
     public function setRevision($revision)
     {

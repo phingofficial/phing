@@ -62,6 +62,7 @@ class ResolvePathTask extends Task
      * Set the name of the property to set.
      *
      * @param string $v Property name
+     *
      * @return void
      */
     public function setPropertyName($v)
@@ -84,8 +85,9 @@ class ResolvePathTask extends Task
      * This is the same as setFile() -- just more generic name so that it's
      * clear that you can also use it to set directory.
      *
-     * @param string $f
      * @see   setFile()
+     *
+     * @param string $f
      */
     public function setPath($f)
     {

@@ -26,7 +26,7 @@
 class DbmsSyntaxOracle extends DbmsSyntax
 {
     /**
-     * @param $db
+     * @param PDO $db
      */
     public function applyAttributes($db)
     {

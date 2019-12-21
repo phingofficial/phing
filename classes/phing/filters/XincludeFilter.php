@@ -22,8 +22,9 @@
  *
  * Uses PHP DOM XML support
  *
- * @author  Bill Karwin <bill@karwin.com>
  * @see     FilterReader
+ *
+ * @author  Bill Karwin <bill@karwin.com>
  * @package phing.filters
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
@@ -40,7 +41,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * Whether to resolve entities.
      *
      * @var bool
-     *
      * @since 2.4
      */
     private $resolveExternals = false;
@@ -48,7 +48,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether to resolve entities.
      *
-     * @param $resolveExternals
+     * @param bool $resolveExternals
      *
      * @since 2.4
      */
@@ -87,7 +87,9 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * Reads stream, applies XSLT and returns resulting stream.
      *
      * @param int $len
+     *
      * @return string         transformed buffer.
+     *
      * @throws IOException
      * @throws BuildException
      */
@@ -133,7 +135,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Try to process the Xinclude transformation
      *
-     * @param string  XML to process.
+     * @param string $xml XML to process.
      *
      * @return string
      */
@@ -163,11 +165,11 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new XincludeFilter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
      * @return XincludeFilter A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                        the specified reader
      */
     public function chain(Reader $reader): Reader
     {

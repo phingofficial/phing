@@ -102,9 +102,7 @@ class JUnit extends Printer implements TestListener
     protected $currentTestCase;
 
     /**
-     * Constructor.
-     *
-     * @param null|mixed $out
+     * @param mixed|null $out
      *
      * @throws \PHPUnit\Framework\Exception
      */

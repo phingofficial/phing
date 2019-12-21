@@ -28,7 +28,7 @@ class SvnPropsetTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $svnPropertyName
+     * @param string $svnPropertyName
      */
     public function setSvnPropertyName($svnPropertyName)
     {
@@ -44,9 +44,9 @@ class SvnPropsetTask extends SvnBaseTask
     }
 
     /**
-     * Sets the name of the property to use
+     * Sets the value of the property to use
      *
-     * @param $svnPropertyValue
+     * @param mixed $svnPropertyValue
      */
     public function setSvnPropertyValue($svnPropertyValue)
     {
@@ -54,7 +54,7 @@ class SvnPropsetTask extends SvnBaseTask
     }
 
     /**
-     * Returns the name of the property to use
+     * Returns the value of the property to use
      */
     public function getSvnPropertyValue()
     {

@@ -18,17 +18,15 @@
  */
 
 /**
- * Class ZendServerDeploymentToolTask
- *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
 class ZsdtValidateTask extends ZsdtBaseTask
 {
     /**
-     * @inheritdoc}
-     *
      * @return void
+     *
+     * @inheritdoc}
      */
     public function init()
     {
@@ -38,9 +36,9 @@ class ZsdtValidateTask extends ZsdtBaseTask
     /**
      * {@inheritdoc}
      *
-     * @throws BuildException
-     *
      * @return void
+     *
+     * @throws BuildException
      */
     protected function validate()
     {

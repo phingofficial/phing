@@ -161,7 +161,9 @@ abstract class HttpTask extends Task
      * Processes the server's response
      *
      * @param HTTP_Request2_Response $response
+     *
      * @return void
+     *
      * @throws BuildException
      */
     abstract protected function processResponse(HTTP_Request2_Response $response);

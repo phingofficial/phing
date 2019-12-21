@@ -39,9 +39,6 @@ class TouchTask extends Task
     private $mkdirs  = false;
     private $verbose = true;
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -53,6 +50,7 @@ class TouchTask extends Task
      * an empty file will be created.
      *
      * @param PhingFile $file
+     *
      * @return void
      */
     public function setFile(PhingFile $file)
@@ -65,7 +63,8 @@ class TouchTask extends Task
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
      *
-     * @param $millis
+     * @param int $millis
+     *
      * @return void
      */
     public function setMillis($millis)
@@ -78,7 +77,8 @@ class TouchTask extends Task
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
      *
-     * @param $dateTime
+     * @param string $dateTime
+     *
      * @return void
      */
     public function setDatetime($dateTime)
@@ -90,7 +90,7 @@ class TouchTask extends Task
      * Set whether nonexistent parent directories should be created
      * when touching new files.
      *
-     * @param boolean $mkdirs whether to create parent directories.
+     * @param bool $mkdirs whether to create parent directories.
      */
     public function setMkdirs($mkdirs)
     {
@@ -101,7 +101,7 @@ class TouchTask extends Task
      * Set whether the touch task will report every file it creates;
      * defaults to <code>true</code>.
      *
-     * @param boolean $verbose flag.
+     * @param bool $verbose flag.
      */
     public function setVerbose($verbose)
     {
@@ -208,7 +208,8 @@ class TouchTask extends Task
     }
 
     /**
-     * @param $file
+     * @param PhingFile $file
+     *
      * @throws BuildException
      */
     private function touchFile($file)

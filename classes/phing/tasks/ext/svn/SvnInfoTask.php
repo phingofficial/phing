@@ -20,11 +20,10 @@
 /**
  * Parses the output of 'svn info --xml' and
  *
- * @author Michiel Rook <mrook@php.net>
- *
- * @package phing.tasks.ext.svn
- *
  * @see   VersionControl_SVN
+ *
+ * @author Michiel Rook <mrook@php.net>
+ * @package phing.tasks.ext.svn
  * @since 2.4.9
  */
 class SvnInfoTask extends SvnBaseTask
@@ -37,7 +36,7 @@ class SvnInfoTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -77,7 +76,7 @@ class SvnInfoTask extends SvnBaseTask
     /**
      * Sets the name of the xml sub element to use.
      *
-     * @param $subElement
+     * @param string $subElement
      *
      * @return void
      */

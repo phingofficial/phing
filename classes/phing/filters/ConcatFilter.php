@@ -82,6 +82,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * underlying stream is read and returned.
      *
      * @param int $len
+     *
      * @return int|string the next character in the resulting stream, or -1
      * if the end of the resulting stream has been reached
      *
@@ -175,6 +176,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return ConcatFilter a new filter based on this configuration, but filtering
      *                      the specified reader
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -202,6 +204,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * Sets `prepend` attribute.
      *
      * @param PhingFile|string $prepend prepend new value
+     *
      * @throws IOException
      * @throws NullPointerException
      */

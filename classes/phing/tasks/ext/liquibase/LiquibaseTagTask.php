@@ -34,7 +34,7 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
      * Sets the name of tag which is used to mark the database state for
      * possible future rollback.
      *
-     * @param string the name to tag the database with
+     * @param string $tag the name to tag the database with
      */
     public function setTag($tag)
     {

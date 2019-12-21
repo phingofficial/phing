@@ -245,7 +245,7 @@ class PhpDocumentor2Task extends Task
     /**
      * Find the correct php documentor path
      *
-     * @return null|string
+     * @return string|null
      */
     private function findPhpDocumentorPath()
     {

@@ -34,6 +34,7 @@ class FileSet extends AbstractFileSet
 {
     /**
      * @return array
+     *
      * @throws Exception
      */
     protected function getFiles(...$options)

@@ -55,7 +55,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * Sets the current regexps.
      * (Used when, e.g., cloning/chaining the method.)
      *
-     * @param array RegularExpression[]
+     * @param RegularExpression[] $regexps
      */
     public function setRegexps($regexps)
     {

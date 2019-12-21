@@ -55,7 +55,8 @@ class FileSizeTask extends Task
     /**
      * Set the name of the property to store the file size
      *
-     * @param $property
+     * @param string $property
+     *
      * @return void
      */
     public function setPropertyName($property)
@@ -67,6 +68,7 @@ class FileSizeTask extends Task
      * Main-Method for the Task
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function main()
@@ -88,6 +90,7 @@ class FileSizeTask extends Task
      * checks file attribute
      *
      * @return void
+     *
      * @throws BuildException
      */
     private function checkFile()
@@ -114,6 +117,7 @@ class FileSizeTask extends Task
      * checks property attribute
      *
      * @return void
+     *
      * @throws BuildException
      */
     private function checkPropertyName()

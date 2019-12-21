@@ -38,15 +38,13 @@ class ConsoleReader extends Reader
     }
 
     /**
-     *
      * @param int $len Num chars to read.
+     *
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)
     {
-        $out = fread(STDIN, $len);
-
-        return $out;
+        return fread(STDIN, $len);
         // FIXME
         // read by chars doesn't work (yet?) with PHP stdin.  Maybe
         // this is just a language feature, maybe there's a way to get
@@ -66,7 +64,7 @@ class ConsoleReader extends Reader
     /**
      * Whether eof has been reached with stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

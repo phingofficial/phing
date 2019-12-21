@@ -79,14 +79,14 @@ class SymlinkTask extends Task
      *
      * (default value: false)
      *
-     * @var boolean
+     * @var bool
      */
     private $overwrite = false;
 
     /**
      * Whether to create relative symlinks
      *
-     * @var boolean
+     * @var bool
      */
     private $relative = false;
 
@@ -94,6 +94,7 @@ class SymlinkTask extends Task
      * setter for linkTarget
      *
      * @param string $linkTarget
+     *
      * @return void
      */
     public function setTarget($linkTarget)
@@ -105,6 +106,7 @@ class SymlinkTask extends Task
      * setter for _link
      *
      * @param string $link
+     *
      * @return void
      */
     public function setLink($link)
@@ -127,7 +129,8 @@ class SymlinkTask extends Task
     /**
      * setter for _overwrite
      *
-     * @param boolean $overwrite
+     * @param bool $overwrite
+     *
      * @return void
      */
     public function setOverwrite($overwrite)
@@ -136,7 +139,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * @param boolean $relative
+     * @param bool $relative
      */
     public function setRelative($relative)
     {
@@ -146,8 +149,9 @@ class SymlinkTask extends Task
     /**
      * getter for linkTarget
      *
-     * @throws BuildException
      * @return string
+     *
+     * @throws BuildException
      */
     public function getTarget()
     {
@@ -161,8 +165,9 @@ class SymlinkTask extends Task
     /**
      * getter for _link
      *
-     * @throws BuildException
      * @return string
+     *
+     * @throws BuildException
      */
     public function getLink()
     {
@@ -186,7 +191,7 @@ class SymlinkTask extends Task
     /**
      * getter for _overwrite
      *
-     * @return boolean
+     * @return bool
      */
     public function getOverwrite()
     {
@@ -194,7 +199,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRelative()
     {
@@ -204,7 +209,7 @@ class SymlinkTask extends Task
     /**
      * Given an existing path, convert it to a path relative to a given starting path.
      *
-     * @param string $endPath Absolute path of target
+     * @param string $endPath   Absolute path of target
      * @param string $startPath Absolute path where traversal begins
      *
      * @return string Path of target relative to starting path
@@ -245,8 +250,9 @@ class SymlinkTask extends Task
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
      *
-     * @throws BuildException
      * @return array|string
+     *
+     * @throws BuildException
      */
     protected function getMap()
     {
@@ -325,6 +331,7 @@ class SymlinkTask extends Task
      *
      * @param string $target
      * @param string $link
+     *
      * @return bool
      */
     protected function symlink($target, $link)

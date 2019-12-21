@@ -56,9 +56,6 @@ class ComposerTask extends Task
      */
     private $composer = 'composer.phar';
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -129,6 +126,7 @@ class ComposerTask extends Task
      * If the filepath is non existent, try to find it on the system.
      *
      * @return string
+     *
      * @throws IOException
      */
     public function getComposer()
@@ -152,7 +150,6 @@ class ComposerTask extends Task
      *
      * @return CommandlineArgument
      */
-
     public function createArg()
     {
         return $this->commandLine->createArgument();
@@ -162,6 +159,7 @@ class ComposerTask extends Task
      * Prepares the command string to be executed.
      *
      * @return string
+     *
      * @throws IOException
      */
     private function prepareCommandLine()

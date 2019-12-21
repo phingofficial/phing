@@ -28,12 +28,13 @@
  *
  * If the sass executable is not available, but scssphp is, then use that instead.
  *
+ * @link     SassTask.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Paul Stuart <pstuart2@gmail.com>
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     SassTask.php
  */
 class SassTask extends Task
 {
@@ -228,8 +229,9 @@ class SassTask extends Task
      *
      * @param string $failonerror Jenkins style boolean value
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function setFailonerror($failonerror)
     {
@@ -267,8 +269,9 @@ class SassTask extends Task
      *
      * @param string $extfilter Extension to filter for.
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function setExtfilter($extfilter)
     {
@@ -316,8 +319,9 @@ class SassTask extends Task
      *
      * @param string $removeoldext Jenkins style boolean value
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function setRemoveoldext($removeoldext)
     {
@@ -374,8 +378,9 @@ class SassTask extends Task
      *
      * @param string $newext New extension to use, e.g. css
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function setNewext($newext)
     {
@@ -400,8 +405,9 @@ class SassTask extends Task
      *
      * @param string $outputpath Path name
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function setOutputpath($outputpath)
     {
@@ -428,8 +434,9 @@ class SassTask extends Task
      *
      * @param bool $keepsubdirectories Jenkins style boolean
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function setKeepsubdirectories($keepsubdirectories)
     {
@@ -478,7 +485,7 @@ class SassTask extends Task
     /**
      * Indicate if just a syntax check is required.
      *
-     * @return boolean
+     * @return bool
      */
     public function getCheck()
     {
@@ -505,8 +512,9 @@ class SassTask extends Task
     /**
      * Indicate whether style is set to 'coompact'.
      *
-     * @return bool
      * @see    setCompact
+     *
+     * @return bool
      */
     public function getCompact()
     {
@@ -533,8 +541,9 @@ class SassTask extends Task
     /**
      * Indicate whether style is set to 'compressed'.
      *
-     * @return bool
      * @see    setCompressed
+     *
+     * @return bool
      */
     public function getCompressed()
     {
@@ -559,8 +568,9 @@ class SassTask extends Task
     /**
      * Indicate whether style is set to 'crunched'.
      *
-     * @return bool
      * @see    setCrunched
+     *
+     * @return bool
      */
     public function getCrunched()
     {
@@ -587,8 +597,9 @@ class SassTask extends Task
     /**
      * Indicate whether style is set to 'expanded'.
      *
-     * @return bool
      * @see    setExpand
+     *
+     * @return bool
      */
     public function getExpand()
     {
@@ -615,8 +626,9 @@ class SassTask extends Task
     /**
      * Indicate whether style is set to 'nested'.
      *
-     * @return bool
      * @see    setNested
+     *
+     * @return bool
      */
     public function getNested()
     {
@@ -817,10 +829,11 @@ class SassTask extends Task
     /**
      * Whether to use the 'sass' command line tool.
      *
+     * @link   http://sass-lang.com/install
+     *
      * @param string $value Jenkins style boolean value.
      *
      * @return void
-     * @link   http://sass-lang.com/install
      */
     public function setUseSass($value)
     {
@@ -840,10 +853,11 @@ class SassTask extends Task
     /**
      * Whether to use the scssphp compiler.
      *
+     * @link   https://scssphp.github.io/scssphp/
+     *
      * @param string $value Jenkins style boolean value.
      *
      * @return void
-     * @link   https://scssphp.github.io/scssphp/
      */
     public function setUseScssphp($value)
     {
@@ -875,8 +889,9 @@ class SassTask extends Task
     /**
      * Init: pull in the PEAR System class
      *
-     * @access public
      * @return void
+     *
+     * @access public
      */
     public function init()
     {
@@ -886,11 +901,12 @@ class SassTask extends Task
     /**
      * Our main execution of the task.
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws Exception
      *
      * @access public
-     * @return void
      */
     public function main()
     {

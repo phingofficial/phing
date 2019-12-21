@@ -33,6 +33,7 @@ class OutputStream
      * Construct a new OutputStream.
      *
      * @param resource $stream Configured PHP stream for writing.
+     *
      * @throws IOException
      */
     public function __construct($stream)
@@ -46,8 +47,9 @@ class OutputStream
     /**
      * Closes attached stream, flushing output first.
      *
-     * @throws IOException if cannot close stream (note that attempting to close an already closed stream will not raise an IOException)
      * @return void
+     *
+     * @throws IOException if cannot close stream (note that attempting to close an already closed stream will not raise an IOException)
      */
     public function close()
     {
@@ -86,9 +88,11 @@ class OutputStream
      * Writes data to stream.
      *
      * @param string $buf Binary/character data to write.
-     * @param int $off (Optional) offset.
-     * @param int $len (Optional) number of bytes/chars to write.
+     * @param int    $off (Optional) offset.
+     * @param int    $len (Optional) number of bytes/chars to write.
+     *
      * @return void
+     *
      * @throws IOException - if there is an error writing to stream
      */
     public function write($buf, $off = null, $len = null)

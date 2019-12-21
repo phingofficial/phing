@@ -21,10 +21,11 @@
  * Stores the output of a list command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
  *
+ * @see     VersionControl_SVN
+ *
  * @author  Anton Stöckl <anton@stoeckl.de>
  * @author  Michiel Rook <mrook@php.net> (SvnLastRevisionTask)
  * @package phing.tasks.ext.svn
- * @see     VersionControl_SVN
  * @since   2.1.0
  */
 class SvnListTask extends SvnBaseTask
@@ -36,7 +37,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -54,7 +55,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets the max num of tags to display
      *
-     * @param $limit
+     * @param int $limit
      */
     public function setLimit($limit)
     {
@@ -64,7 +65,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets whether to sort tags in descending order
      *
-     * @param $orderDescending
+     * @param bool $orderDescending
      */
     public function setOrderDescending($orderDescending)
     {

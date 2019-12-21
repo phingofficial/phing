@@ -29,10 +29,14 @@ class PDOSQLExecTransaction
 {
     private $tSrcFile    = null;
     private $tSqlCommand = "";
+
+    /**
+     * @var PDOSQLExecTask
+     */
     private $parent;
 
     /**
-     * @param $parent
+     * @param PDOSQLExecTask $parent
      */
     public function __construct($parent)
     {
@@ -49,7 +53,7 @@ class PDOSQLExecTransaction
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      */
     public function addText($sql)
     {

@@ -18,9 +18,8 @@
  */
 
 /**
- * Class ExecutableTest
- *
  * Test cases for isExecutable selectors.
+ *
  * @requires OS Linux
  */
 class ExecutableTest extends BuildFileTest

@@ -19,6 +19,7 @@
 
 /**
  * WikiPublish task test
+ *
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  * @package phing.tasks.ext
  */
@@ -94,6 +95,7 @@ class WikiPublishTaskTest extends BuildFileTest
 
     /**
      * Creates WikiPublishTask mock
+     *
      * @return \PHPUnit\Framework\MockObject\MockObject|WikiPublishTask
      */
     private function getWikiPublishMock()

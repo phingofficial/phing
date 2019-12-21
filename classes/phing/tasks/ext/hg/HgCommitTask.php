@@ -4,21 +4,23 @@
  *
  * PHP Version 5.4
  *
+ * @link     https://github.com/kenguest/Phing-HG
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     https://github.com/kenguest/Phing-HG
  */
 
 /**
  * Integration/Wrapper for hg commit
  *
+ * @link     HgCommitTask.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext.hg
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     HgCommitTask.php
  */
 class HgCommitTask extends HgBaseTask
 {
@@ -54,9 +56,10 @@ class HgCommitTask extends HgBaseTask
     /**
      * The main entry point method.
      *
+     * @return void
+     *
      * @throws BuildException If message is not set
      * @throws BuildException If error occurs during commit
-     * @return void
      */
     public function main()
     {

@@ -22,11 +22,11 @@
  *
  * Uses PHP XSLT support (libxslt).
  *
+ * @see     FilterReader
+ *
  * @author Hans Lellelid <hans@velum.net>
  * @author Yannick Lecaillez <yl@seasonfive.com>
  * @author Andreas Aderhold <andi@binarycloud.com>
- *
- * @see     FilterReader
  * @package phing.filters
  */
 class XsltFilter extends BaseParamFilterReader implements ChainableReader
@@ -42,7 +42,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether XML file has been transformed.
      *
-     * @var boolean
+     * @var bool
      */
     private $processed = false;
 
@@ -64,7 +64,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * for more details).
      *
      * @var bool
-     *
      * @since 2.4
      */
     private $resolveDocumentExternals = false;
@@ -73,7 +72,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Whether to resolve entities in the stylesheet.
      *
      * @var bool
-     *
      * @since 2.4
      */
     private $resolveStylesheetExternals = false;
@@ -126,7 +124,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Whether to use HTML parser for the XML.
      * This is supported in libxml2 -- Yay!
      *
-     * @return boolean
+     * @return bool
      */
     public function getHtml()
     {
@@ -136,7 +134,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether to use HTML parser for XML.
      *
-     * @param boolean $b
+     * @param bool $b
      */
     public function setHtml($b)
     {
@@ -201,8 +199,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Reads stream, applies XSLT and returns resulting stream.
      *
      * @param int $len
-     * @throws BuildException
+     *
      * @return string         transformed buffer.
+     *
+     * @throws BuildException
      */
     public function read($len = null)
     {
@@ -322,8 +322,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new XsltFilter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
      * @return XsltFilter A new filter based on this configuration, but filtering
      *                    the specified reader

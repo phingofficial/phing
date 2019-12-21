@@ -18,8 +18,6 @@
  */
 
 /**
- * Class ZendServerDeploymentToolTask
- *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
@@ -70,7 +68,7 @@ class ZsdtPackTask extends ZsdtBaseTask
     /**
      * Performs a PHP lint test on the deployment scripts before creating the package.
      *
-     * @param boolean $lint
+     * @param bool $lint
      *
      * @return void
      */

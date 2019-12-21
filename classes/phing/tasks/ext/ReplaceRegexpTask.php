@@ -29,11 +29,10 @@
  *                        byline="true"/>
  * </code>
  *
- * @author Jonathan Bond-Caron <jbondc@openmv.com>
- *
- * @package phing.tasks.system
- *
  * @link http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
+ *
+ * @author Jonathan Bond-Caron <jbondc@openmv.com>
+ * @package phing.tasks.system
  */
 class ReplaceRegexpTask extends Task
 {
@@ -78,7 +77,7 @@ class ReplaceRegexpTask extends Task
     /**
      * @see setMatch()
      *
-     * @param $regexp
+     * @param string $regexp
      *
      * @return void
      */

@@ -20,9 +20,10 @@
 /**
  * Wrapper aroung git-branch
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitBranchTask extends GitBaseTask
@@ -51,28 +52,28 @@ class GitBranchTask extends GitBaseTask
     /**
      * --set-upstream key to git-branch
      *
-     * @var boolean
+     * @var bool
      */
     private $setUpstream = false;
 
     /**
      * --track key to git-branch
      *
-     * @var boolean
+     * @var bool
      */
     private $track = false;
 
     /**
      * --no-track key to git-branch
      *
-     * @var boolean
+     * @var bool
      */
     private $noTrack = false;
 
     /**
      * --force, -f key to git-branch
      *
-     * @var boolean
+     * @var bool
      */
     private $force = false;
 
@@ -167,7 +168,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setSetUpstream($flag)
     {
@@ -215,7 +216,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setTrack($flag)
     {
@@ -239,7 +240,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoTrack($flag)
     {
@@ -263,7 +264,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForce($flag)
     {
@@ -287,7 +288,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $branchname
+     * @param string $branchname
      */
     public function setBranchname($branchname)
     {
@@ -303,7 +304,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $startPoint
+     * @param string $startPoint
      */
     public function setStartPoint($startPoint)
     {
@@ -319,7 +320,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setDelete($flag)
     {
@@ -337,7 +338,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForceDelete($flag)
     {
@@ -350,7 +351,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setMove($flag)
     {
@@ -368,7 +369,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForceMove($flag)
     {
@@ -386,7 +387,7 @@ class GitBranchTask extends GitBaseTask
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setNewBranch($name)
     {

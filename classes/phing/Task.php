@@ -22,9 +22,10 @@
  *
  * Use {@link Project#createTask} to register a new Task.
  *
+ * @see       Project#createTask()
+ *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @see       Project#createTask()
  * @package   phing
  */
 abstract class Task extends ProjectComponent
@@ -61,7 +62,7 @@ abstract class Task extends ProjectComponent
     /**
      * Sets the owning target this task belongs to.
      *
-     * @param Target Reference to owning target
+     * @param Target $target Reference to owning target
      */
     public function setOwningTarget(Target $target)
     {
@@ -140,6 +141,7 @@ abstract class Task extends ProjectComponent
      * Returns a name
      *
      * @param string $slotName
+     *
      * @return \RegisterSlot
      */
     protected function getRegisterSlot($slotName)
@@ -150,11 +152,12 @@ abstract class Task extends ProjectComponent
     /**
      * Provides a project level log event to the task.
      *
-     * @param string $msg The message to log
-     * @param int $level The priority of the message
-     * @param Exception|null $t
      * @see   BuildEvent
      * @see   BuildListener
+     *
+     * @param string         $msg   The message to log
+     * @param int            $level The priority of the message
+     * @param Exception|null $t
      */
     public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
     {

@@ -92,7 +92,7 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param float $time
+     * @param float                  $time
      */
     public function endTest(PHPUnit\Framework\Test $test, float $time): void
     {
@@ -103,8 +103,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -114,9 +114,9 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addFailure(
         PHPUnit\Framework\Test $test,
@@ -129,9 +129,9 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
     {
@@ -142,8 +142,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {

@@ -22,7 +22,6 @@
  * - Excluded files may be included in Zip/Tar tasks
  *
  * @package phing.regression
- *
  * @requires extension zip
  */
 class ExcludeZipTest extends BuildFileTest

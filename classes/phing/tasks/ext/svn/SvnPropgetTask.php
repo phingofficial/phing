@@ -29,7 +29,7 @@ class SvnPropgetTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -47,7 +47,7 @@ class SvnPropgetTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $fromDir
+     * @param string $fromDir
      */
     public function setFromDir($fromDir)
     {
@@ -65,7 +65,7 @@ class SvnPropgetTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      *
-     * @param $svnPropertyName
+     * @param string $svnPropertyName
      */
     public function setSvnPropertyName($svnPropertyName)
     {

@@ -20,9 +20,10 @@
 /**
  * Runs PHPUnit tests.
  *
+ * @see     BatchTest
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
- * @see     BatchTest
  * @since   2.1.0
  */
 class PHPUnitTask extends Task
@@ -49,7 +50,11 @@ class PHPUnitTask extends Task
     private $excludeGroups         = [];
     private $processIsolation      = false;
     private $usecustomerrorhandler = true;
-    private $listeners             = [];
+
+    /**
+     * @var \PHPUnit\Framework\TestListener[]
+     */
+    private $listeners = [];
 
     /**
      * @var string
@@ -106,7 +111,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setErrorproperty($value)
     {
@@ -114,7 +119,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setFailureproperty($value)
     {
@@ -122,7 +127,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setIncompleteproperty($value)
     {
@@ -130,7 +135,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setSkippedproperty($value)
     {
@@ -138,7 +143,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setHaltonerror($value)
     {
@@ -146,7 +151,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setHaltonfailure($value)
     {
@@ -162,7 +167,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setHaltonincomplete($value)
     {
@@ -178,7 +183,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $value
+     * @param bool $value
      */
     public function setHaltonskipped($value)
     {
@@ -194,7 +199,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $printsummary
+     * @param bool $printsummary
      */
     public function setPrintsummary($printsummary)
     {
@@ -202,7 +207,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $codecoverage
+     * @param bool $codecoverage
      */
     public function setCodecoverage($codecoverage)
     {
@@ -210,7 +215,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $processIsolation
+     * @param bool $processIsolation
      */
     public function setProcessIsolation($processIsolation)
     {
@@ -218,7 +223,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $usecustomerrorhandler
+     * @param bool $usecustomerrorhandler
      */
     public function setUseCustomErrorHandler($usecustomerrorhandler)
     {
@@ -226,7 +231,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $groups
+     * @param string $groups
      */
     public function setGroups($groups)
     {
@@ -240,7 +245,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $excludeGroups
+     * @param string $excludeGroups
      */
     public function setExcludeGroups($excludeGroups)
     {
@@ -267,7 +272,7 @@ class PHPUnitTask extends Task
     /**
      * Add a new listener to all tests of this taks
      *
-     * @param $listener
+     * @param \PHPUnit\Framework\TestListener $listener
      */
     private function addListener($listener)
     {
@@ -293,8 +298,10 @@ class PHPUnitTask extends Task
     /**
      * Load and processes the PHPUnit configuration
      *
-     * @param $configuration
+     * @param PhingFile $configuration
+     *
      * @return array
+     *
      * @throws ReflectionException
      * @throws BuildException
      */
@@ -446,7 +453,8 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param $suite
+     * @param \PHPUnit\Framework\TestSuite $suite
+     *
      * @throws BuildException
      * @throws ReflectionException
      */
@@ -572,8 +580,9 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest $batchTest
+     * @param BatchTest                   $batchTest
      * @param PHPUnit\Framework\TestSuite $suite
+     *
      * @throws BuildException
      * @throws ReflectionException
      */

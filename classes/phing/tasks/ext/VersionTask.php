@@ -103,7 +103,8 @@ class VersionTask extends Task
     /**
      * Set name of property to be set
      *
-     * @param $property
+     * @param string $property
+     *
      * @return void
      */
     public function setProperty($property)
@@ -123,6 +124,7 @@ class VersionTask extends Task
      * Main-Method for the Task
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function main()
@@ -174,6 +176,7 @@ class VersionTask extends Task
      * Utility method to load properties from file.
      *
      * @return Properties the loaded properties
+     *
      * @throws BuildException
      */
     private function loadProperties()
@@ -191,6 +194,7 @@ class VersionTask extends Task
      * Returns new version number corresponding to Release type
      *
      * @param string $oldVersion
+     *
      * @return string
      */
     private function getVersion($oldVersion)
@@ -228,6 +232,7 @@ class VersionTask extends Task
      * checks releasetype attribute
      *
      * @return void
+     *
      * @throws BuildException
      */
     private function checkReleasetype()
@@ -258,6 +263,7 @@ class VersionTask extends Task
      * checks file attribute
      *
      * @return void
+     *
      * @throws BuildException
      */
     private function checkFile()

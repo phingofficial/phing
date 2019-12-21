@@ -41,8 +41,10 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
      * characters to unicode escapes.
      *
      * @param int $len optional
+     *
      * @return string      the converted lines in the resulting stream, or -1
      *                     if the end of the resulting stream has been reached
+     *
      * @throws IOException if the underlying stream throws
      *                     an IOException during reading
      */

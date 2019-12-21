@@ -89,6 +89,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
     /**
      * @param AvailableTask $a
+     *
      * @return void
      */
     public function addAvailable(AvailableTask $a)
@@ -297,10 +298,12 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     }
 
     /**
-     * @param string $elementName
+     * @param string  $elementName
      * @param Project $project
-     * @throws BuildException
+     *
      * @return Condition
+     *
+     * @throws BuildException
      */
     public function customChildCreator($elementName, Project $project)
     {

@@ -32,8 +32,9 @@
  * <translategettext locale="en_US" domain="messages" dir="${webroot}/local"/>
  * </pre>
  *
- * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BaseFilterReader
+ *
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.filters
  */
 class TranslateGettext extends BaseParamFilterReader implements ChainableReader
@@ -148,9 +149,11 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * This method will change some env vars and locale settings; the
      * restoreEnvironment should put them all back :)
      *
-     * @return void
-     * @throws BuildException - if locale cannot be set.
      * @see    restoreEnvironment()
+     *
+     * @return void
+     *
+     * @throws BuildException - if locale cannot be set.
      */
     protected function initEnvironment()
     {
@@ -192,6 +195,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * would probably be faster, but no ability to debug/log.)
      *
      * @param array $matches Array of matches; we're interested in $matches[2].
+     *
      * @return string Translated text
      */
     private function xlateStringCallback($matches)
@@ -209,8 +213,10 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * The original stream is first read in fully, and then translation is performed.
      *
      * @param int $len
-     * @throws BuildException
+     *
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
+     *
+     * @throws BuildException
      */
     public function read($len = null)
     {

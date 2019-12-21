@@ -41,14 +41,14 @@ class JsHintTask extends Task
     /**
      * Should the build fail on JSHint errors
      *
-     * @var boolean
+     * @var bool
      */
     private $haltOnError = false;
 
     /**
      * Should the build fail on JSHint warnings
      *
-     * @var boolean
+     * @var bool
      */
     private $haltOnWarning = false;
 
@@ -99,7 +99,7 @@ class JsHintTask extends Task
     }
 
     /**
-     * @param $haltOnError
+     * @param bool $haltOnError
      */
     public function setHaltOnError($haltOnError)
     {
@@ -107,7 +107,7 @@ class JsHintTask extends Task
     }
 
     /**
-     * @param $haltOnWarning
+     * @param bool $haltOnWarning
      */
     public function setHaltOnWarning($haltOnWarning)
     {
@@ -115,7 +115,7 @@ class JsHintTask extends Task
     }
 
     /**
-     * @param $checkstyleReportPath
+     * @param string $checkstyleReportPath
      */
     public function setCheckstyleReportPath($checkstyleReportPath)
     {
@@ -245,6 +245,7 @@ class JsHintTask extends Task
 
     /**
      * @return string Path to the project basedir
+     *
      * @throws \BuildException
      */
     private function _getProjectBasedir()

@@ -36,8 +36,6 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the function.
-     *
-     * @var string
      */
     public const FUNCTION_KEY = "function";
 
@@ -52,6 +50,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      * Applies a native php function to the original input and returns resulting stream.
      *
      * @param int $len
+     *
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -72,9 +71,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 
         $filtered = array_map($this->function, $lines);
 
-        $filtered_buffer = implode("\n", $filtered);
-
-        return $filtered_buffer;
+        return implode("\n", $filtered);
     }
 
     /**

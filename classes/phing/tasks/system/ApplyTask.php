@@ -23,7 +23,6 @@
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
  * @package phing.tasks.system
- *
  * @todo Add support for mapper, targetfile expressions
  */
 class ApplyTask extends ExecTask
@@ -36,7 +35,7 @@ class ApplyTask extends ExecTask
     /**
      * Whether output should be appended to or overwrite an existing file
      *
-     * @var boolean
+     * @var bool
      */
     protected $appendoutput = false;
 
@@ -44,21 +43,21 @@ class ApplyTask extends ExecTask
      * Runs the command only once, appending all files as arguments
      * else command will be executed once for every file.
      *
-     * @var boolean
+     * @var bool
      */
     protected $parallel = false;
 
     /**
      * Whether source file name should be added to the end of command automatically
      *
-     * @var boolean
+     * @var bool
      */
     protected $addsourcefile = true;
 
     /**
      * Whether the filenames should be passed on the command line as relative pathnames (relative to the base directory of the corresponding fileset/list)
      *
-     * @var boolean
+     * @var bool
      */
     protected $relative = false;
 
@@ -68,14 +67,14 @@ class ApplyTask extends ExecTask
     /**
      * Logging level for status messages
      *
-     * @var integer
+     * @var int
      */
     protected $loglevel = null;
 
     /**
      * Whether to use forward-slash as file-separator on the file names
      *
-     * @var boolean
+     * @var bool
      */
     protected $forwardslash = false;
 
@@ -83,7 +82,7 @@ class ApplyTask extends ExecTask
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
      * (Set it to <= 0 for unlimited)
      *
-     * @var integer
+     * @var int
      */
     protected $maxparallel = 0;
 
@@ -120,7 +119,7 @@ class ApplyTask extends ExecTask
      * no source files have been found or are newer than their
      * corresponding target files, the command will not be run.
      *
-     * @param boolean $skip whether to skip empty filesets.
+     * @param bool $skip whether to skip empty filesets.
      */
     public function setSkipEmptyFilesets(bool $skip)
     {
@@ -140,8 +139,7 @@ class ApplyTask extends ExecTask
     /**
      * File to which output should be written
      *
-     * @param $append
-     * @internal param PhingFile $outputfile Output log file
+     * @param bool $append
      *
      * @return void
      */
@@ -153,7 +151,7 @@ class ApplyTask extends ExecTask
     /**
      * Run the command only once, appending all files as arguments
      *
-     * @param Boolean $parallel Identifier for files as arguments appending
+     * @param bool $parallel Identifier for files as arguments appending
      *
      * @return void
      */
@@ -165,7 +163,7 @@ class ApplyTask extends ExecTask
     /**
      * To add the source filename at the end of command of automatically
      *
-     * @param Boolean $addsourcefile Identifier for adding source file at the end of command
+     * @param bool $addsourcefile Identifier for adding source file at the end of command
      *
      * @return void
      */
@@ -178,8 +176,7 @@ class ApplyTask extends ExecTask
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list)
      *
-     * @param $relative
-     * @internal param bool $escape Escape command before execution
+     * @param bool $relative
      *
      * @return void
      */
@@ -191,7 +188,7 @@ class ApplyTask extends ExecTask
     /**
      * Fail on command exits with a returncode other than zero
      *
-     * @param boolean $failonerror Indicator to fail on error
+     * @param bool $failonerror Indicator to fail on error
      *
      * @return void
      */
@@ -203,7 +200,7 @@ class ApplyTask extends ExecTask
     /**
      * Whether to use forward-slash as file-separator on the file names
      *
-     * @param boolean $forwardslash Indicator to use forward-slash
+     * @param bool $forwardslash Indicator to use forward-slash
      *
      * @return void
      */
@@ -215,8 +212,7 @@ class ApplyTask extends ExecTask
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
      *
-     * @param $max
-     * @internal param bool $forwardslash Indicator to use forward-slash
+     * @param int $max
      *
      * @return void
      */
@@ -244,6 +240,7 @@ class ApplyTask extends ExecTask
      * Supports embedded <targetfile> element.
      *
      * @return CommandlineMarker
+     *
      * @throws \BuildException
      */
     public function createTargetfile()
@@ -266,6 +263,7 @@ class ApplyTask extends ExecTask
      * Supports embedded <srcfile> element.
      *
      * @return CommandlineMarker
+     *
      * @throws \BuildException
      */
     public function createSrcfile()
@@ -284,6 +282,7 @@ class ApplyTask extends ExecTask
 
     /**
      * @return Mapper
+     *
      * @throws \BuildException
      */
     public function createMapper()
@@ -298,9 +297,7 @@ class ApplyTask extends ExecTask
         return $this->mapperElement;
     }
 
-    /**********************************************************************************/
     /**************************** T A S K  M E T H O D S ******************************/
-    /**********************************************************************************/
 
     /**
      * Do work
@@ -397,10 +394,14 @@ class ApplyTask extends ExecTask
         }
     }
 
-    /**********************************************************************************/
     /********************** T A S K  C O R E  M E T H O D S ***************************/
-    /**********************************************************************************/
 
+    /**
+     * @param \PhingFile        $baseDir
+     * @param \DirectoryScanner $ds
+     *
+     * @return array
+     */
     protected function getFiles(PhingFile $baseDir, DirectoryScanner $ds)
     {
         return $this->restrict($ds->getIncludedFiles(), $baseDir);
@@ -439,6 +440,7 @@ class ApplyTask extends ExecTask
      * - Working directory
      *
      * @return void
+     *
      * @throws \BuildException
      * @throws IOException
      */
@@ -595,10 +597,11 @@ class ApplyTask extends ExecTask
     /**
      * Processes the files list with provided information for execution
      *
-     * @param array $srcFiles File list for processing
-     * @param string $basedir Base directory of the file list
+     * @param array  $srcFiles File list for processing
+     * @param string $basedir  Base directory of the file list
      *
      * @return void
+     *
      * @throws \BuildException
      * @throws IOException
      * @throws NullPointerException
@@ -767,8 +770,8 @@ class ApplyTask extends ExecTask
      * Prepares the filename per base directory and relative path information
      *
      * @param array|string $filename
-     * @param $basedir
-     * @param $relative
+     * @param string       $basedir
+     * @param bool         $relative
      *
      * @return mixed processed filenames
      *
@@ -798,9 +801,9 @@ class ApplyTask extends ExecTask
      *
      * @param string $information Exception information
      *
-     * @throws BuildException
-     *
      * @return void
+     *
+     * @throws BuildException
      */
     private function throwBuildException($information): void
     {

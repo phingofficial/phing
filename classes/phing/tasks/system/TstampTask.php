@@ -29,6 +29,9 @@
  */
 class TstampTask extends Task
 {
+    /**
+     * @var TstampCustomFormat[]
+     */
     private $customFormats = [];
 
     private $prefix = "";
@@ -51,7 +54,7 @@ class TstampTask extends Task
     /**
      * Adds a custom format
      *
-     * @param TstampCustomFormat custom format
+     * @param TstampCustomFormat $cf custom format
      */
     public function addFormat(TstampCustomFormat $cf)
     {
@@ -86,8 +89,8 @@ class TstampTask extends Task
      * helper that encapsulates prefix logic and property setting
      * policy (i.e. we use setNewProperty instead of setProperty).
      *
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $value
      */
     public function prefixProperty($name, $value)
     {

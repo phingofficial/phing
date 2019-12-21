@@ -56,6 +56,7 @@ class Environment
      * get the variable list as an array
      *
      * @return array of key=value assignment strings
+     *
      * @throws BuildException if any variable is misconfigured
      */
     public function getVariables()

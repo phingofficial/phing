@@ -42,7 +42,7 @@ class PHPCPDFormatterElement
     /**
      * Whether to use file (or write output to phing log).
      *
-     * @var boolean
+     * @var bool
      */
     protected $useFile = true;
 
@@ -116,7 +116,7 @@ class PHPCPDFormatterElement
     /**
      * Set whether to write formatter results to file or not.
      *
-     * @param boolean $useFile True or false.
+     * @param bool $useFile True or false.
      */
     public function setUseFile($useFile)
     {
@@ -126,7 +126,7 @@ class PHPCPDFormatterElement
     /**
      * Return whether to write formatter results to file or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseFile()
     {

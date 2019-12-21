@@ -59,14 +59,14 @@ class PhingCallTask extends Task
     /**
      * Whether to inherit all properties from current project.
      *
-     * @var boolean
+     * @var bool
      */
     private $inheritAll = true;
 
     /**
      * Whether to inherit refs from current project.
      *
-     * @var boolean
+     * @var bool
      */
     private $inheritRefs = false;
 
@@ -74,7 +74,7 @@ class PhingCallTask extends Task
      *  If true, pass all properties to the new Phing project.
      *  Defaults to true. Future use.
      *
-     * @param boolean new value
+     * @param bool $inherit new value
      */
     public function setInheritAll($inherit)
     {
@@ -85,7 +85,7 @@ class PhingCallTask extends Task
      *  If true, pass all references to the new Phing project.
      *  Defaults to false. Future use.
      *
-     * @param boolean new value
+     * @param bool $inheritRefs new value
      */
     public function setInheritRefs($inheritRefs)
     {
@@ -121,7 +121,7 @@ class PhingCallTask extends Task
     /**
      * Target to execute, required.
      *
-     * @param $target
+     * @param string $target
      */
     public function setTarget($target)
     {

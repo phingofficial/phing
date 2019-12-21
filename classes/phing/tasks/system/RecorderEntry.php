@@ -90,7 +90,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * Turns off or on this recorder.
      *
-     * @param bool|null state true for on, false for off, null for no change.
+     * @param bool|null $state True for on, false for off, null for no change.
      */
     public function setRecordState($state)
     {
@@ -227,8 +227,8 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * The thing that actually sends the information to the output.
      *
-     * @param string $mesg The message to log.
-     * @param int $level The verbosity level of the message.
+     * @param string $mesg  The message to log.
+     * @param int    $level The verbosity level of the message.
      */
     private function log($mesg, $level)
     {
@@ -315,6 +315,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      *
      * @param bool $append Indicates if output must be appended to the logfile or that
      * the logfile should be overwritten.
+     *
      * @throws BuildException
      */
     public function openFile($append)

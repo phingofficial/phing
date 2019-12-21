@@ -133,8 +133,9 @@ class DbDeployTask extends Task
     /**
      * The main function for the task
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {
@@ -211,7 +212,8 @@ class DbDeployTask extends Task
      * Generate the sql for doing/undoing the deployment and write it to a file
      *
      * @param string $file
-     * @param bool $undo
+     * @param bool   $undo
+     *
      * @return void
      */
     protected function createOutputFile($file, $undo = false)
@@ -225,6 +227,7 @@ class DbDeployTask extends Task
      * Generate the sql for doing/undoing this deployment
      *
      * @param bool $undo
+     *
      * @return string The sql
      */
     protected function generateSql($undo = false)
@@ -323,7 +326,8 @@ class DbDeployTask extends Task
      * Sort files in the patch files directory (ascending or descending depending on $undo boolean)
      *
      * @param array $files
-     * @param bool $undo
+     * @param bool  $undo
+     *
      * @return void
      */
     protected function sortFiles(&$files, $undo)
@@ -339,8 +343,9 @@ class DbDeployTask extends Task
      * Determine if this patch file need to be deployed
      * (using fileChangeNumber, lastChangeAppliedInDb and $this->checkall)
      *
-     * @param int $fileChangeNumber
+     * @param int    $fileChangeNumber
      * @param string $lastChangeAppliedInDb
+     *
      * @return bool   True or false if patch file needs to be deployed
      */
     protected function fileNeedsToBeRead($fileChangeNumber, $lastChangeAppliedInDb)
@@ -356,6 +361,7 @@ class DbDeployTask extends Task
      * Set the url for the database connection
      *
      * @param string $url
+     *
      * @return void
      */
     public function setUrl($url)
@@ -367,6 +373,7 @@ class DbDeployTask extends Task
      * Set the userid for the database connection
      *
      * @param string $userid
+     *
      * @return void
      */
     public function setUserId($userid)
@@ -378,6 +385,7 @@ class DbDeployTask extends Task
      * Set the password for the database connection
      *
      * @param string $password
+     *
      * @return void
      */
     public function setPassword($password)
@@ -389,6 +397,7 @@ class DbDeployTask extends Task
      * Set the directory where to find the patchfiles
      *
      * @param string $dir
+     *
      * @return void
      */
     public function setDir($dir)
@@ -400,6 +409,7 @@ class DbDeployTask extends Task
      * Set the outputfile which contains all patch sql statements for this deployment
      *
      * @param string $outputFile
+     *
      * @return void
      */
     public function setOutputFile($outputFile)
@@ -411,6 +421,7 @@ class DbDeployTask extends Task
      * Set the undo outputfile which contains all undo statements for this deployment
      *
      * @param string $undoOutputFile
+     *
      * @return void
      */
     public function setUndoOutputFile($undoOutputFile)
@@ -422,6 +433,7 @@ class DbDeployTask extends Task
      * Set the lastchangetoapply property
      *
      * @param int $lastChangeToApply
+     *
      * @return void
      */
     public function setLastChangeToApply($lastChangeToApply)
@@ -433,6 +445,7 @@ class DbDeployTask extends Task
      * Set the deltaset property
      *
      * @param string $deltaSet
+     *
      * @return void
      */
     public function setDeltaSet($deltaSet)
@@ -444,6 +457,7 @@ class DbDeployTask extends Task
      * Set the checkall property
      *
      * @param bool $checkall
+     *
      * @return void
      */
     public function setCheckAll($checkall)
@@ -455,6 +469,7 @@ class DbDeployTask extends Task
      * Set the appliedBy property
      *
      * @param string $appliedBy
+     *
      * @return void
      */
     public function setAppliedBy($appliedBy)

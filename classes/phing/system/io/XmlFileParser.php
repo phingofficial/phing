@@ -68,8 +68,9 @@ class XmlFileParser implements FileParserInterface
      *
      * @param PhingFile $file
      *
-     * @throws IOException
      * @return Properties
+     *
+     * @throws IOException
      */
     private function getProperties(PhingFile $file)
     {
@@ -119,8 +120,8 @@ class XmlFileParser implements FileParserInterface
      * Adds an XML node
      *
      * @param SimpleXMLElement $node
-     * @param array $path Path to this node
-     * @param Properties $prop Properties will be added as they are found (by reference here)
+     * @param array            $path Path to this node
+     * @param Properties       $prop Properties will be added as they are found (by reference here)
      *
      * @return void
      */

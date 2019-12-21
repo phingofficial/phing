@@ -46,10 +46,10 @@ interface SubBuildListener extends BuildListener
      * Signals that the last target has finished. This event
      * will still be fired if an error occurred during the build.
      *
+     * @see BuildEvent::getException()
+     *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Must not be <code>null</code>.
-     *
-     * @see BuildEvent::getException()
      */
     public function subBuildFinished(BuildEvent $event);
 }

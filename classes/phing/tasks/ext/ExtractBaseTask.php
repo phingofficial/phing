@@ -42,7 +42,7 @@ abstract class ExtractBaseTask extends MatchingTask
      * Set to true to always extract (and possibly overwrite)
      * all files from the archive
      *
-     * @var boolean
+     * @var bool
      */
     protected $forceExtract = false;
 
@@ -50,6 +50,7 @@ abstract class ExtractBaseTask extends MatchingTask
      * Set the name of the zip file to extract.
      *
      * @param PhingFile $file zip file to extract
+     *
      * @return void
      */
     public function setFile(PhingFile $file)
@@ -61,6 +62,7 @@ abstract class ExtractBaseTask extends MatchingTask
      * This is the base directory to look in for things to zip.
      *
      * @param PhingFile $todir
+     *
      * @return void
      */
     public function setToDir(PhingFile $todir)
@@ -69,7 +71,8 @@ abstract class ExtractBaseTask extends MatchingTask
     }
 
     /**
-     * @param $removepath
+     * @param string $removepath
+     *
      * @return void
      */
     public function setRemovePath($removepath)
@@ -80,7 +83,8 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * Sets the forceExtract attribute
      *
-     * @param boolean $forceExtract
+     * @param bool $forceExtract
+     *
      * @return void
      */
     public function setForceExtract(bool $forceExtract)
@@ -140,16 +144,17 @@ abstract class ExtractBaseTask extends MatchingTask
 
     /**
      * @param PhingFile $compressedArchiveFile
+     *
      * @return mixed
      */
     abstract protected function extractArchive(PhingFile $compressedArchiveFile);
 
     /**
      * @param PhingFile $compressedArchiveFile
+     *
+     * @return bool
+     *
      * @throws BuildException
-     * @internal param array $files array of filenames
-     * @internal param PhingFile $dir
-     * @return boolean
      */
     protected function isDestinationUpToDate(PhingFile $compressedArchiveFile)
     {
@@ -188,6 +193,7 @@ abstract class ExtractBaseTask extends MatchingTask
 
     /**
      * @param PhingFile $compressedArchiveFile
+     *
      * @return mixed
      */
     abstract protected function listArchiveContent(PhingFile $compressedArchiveFile);
@@ -196,6 +202,7 @@ abstract class ExtractBaseTask extends MatchingTask
      * Validates attributes coming in from XML
      *
      * @return void
+     *
      * @throws BuildException
      */
     protected function validateAttributes()

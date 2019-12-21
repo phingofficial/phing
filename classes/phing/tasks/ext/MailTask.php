@@ -91,7 +91,7 @@ class MailTask extends Task
     /**
      * Setter for message
      *
-     * @param $msg
+     * @param string $msg
      */
     public function setMsg($msg)
     {
@@ -101,7 +101,7 @@ class MailTask extends Task
     /**
      * Alias setter
      *
-     * @param $msg
+     * @param string $msg
      */
     public function setMessage($msg)
     {
@@ -111,7 +111,7 @@ class MailTask extends Task
     /**
      * Setter for subject
      *
-     * @param $subject
+     * @param string $subject
      */
     public function setSubject($subject)
     {
@@ -121,7 +121,7 @@ class MailTask extends Task
     /**
      * Setter for tolist
      *
-     * @param $tolist
+     * @param string $tolist
      */
     public function setToList($tolist)
     {
@@ -131,7 +131,7 @@ class MailTask extends Task
     /**
      * Alias for (deprecated) recipient
      *
-     * @param $recipient
+     * @param string $recipient
      */
     public function setRecipient($recipient)
     {
@@ -141,7 +141,7 @@ class MailTask extends Task
     /**
      * Alias for to
      *
-     * @param $to
+     * @param string $to
      */
     public function setTo($to)
     {
@@ -151,7 +151,7 @@ class MailTask extends Task
     /**
      * Supports the <mail>Message</mail> syntax.
      *
-     * @param $msg
+     * @param string $msg
      */
     public function addText($msg)
     {
@@ -161,7 +161,7 @@ class MailTask extends Task
     /**
      * Sets email address of sender
      *
-     * @param $from
+     * @param string $from
      */
     public function setFrom($from)
     {
@@ -171,7 +171,7 @@ class MailTask extends Task
     /**
      * Sets PEAR Mail backend to use
      *
-     * @param $backend
+     * @param string $backend
      */
     public function setBackend($backend)
     {
@@ -181,7 +181,7 @@ class MailTask extends Task
     /**
      * Sets PEAR Mail backend params to use
      *
-     * @param $backendParams
+     * @param string $backendParams
      */
     public function setBackendParams($backendParams)
     {

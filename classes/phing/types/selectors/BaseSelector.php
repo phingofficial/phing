@@ -26,7 +26,6 @@
  * {@inheritdoc}
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
- *
  * @package phing.types.selectors
  */
 abstract class BaseSelector extends DataType implements FileSelector
@@ -45,7 +44,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param string $msg The error message any BuildException should throw.
+     * @param string    $msg   The error message any BuildException should throw.
      * @param Exception $cause
      */
     public function setError($msg, Exception $cause = null)

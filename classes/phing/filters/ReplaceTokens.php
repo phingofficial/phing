@@ -34,9 +34,10 @@
  *   <param type="token" name="DATE" value="${TODAY}"/>
  * </filterreader></pre>
  *
+ * @see     BaseParamFilterReader
+ *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
- * @see     BaseParamFilterReader
  * @package phing.filters
  */
 class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
@@ -44,15 +45,11 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Default "begin token" character.
-     *
-     * @var string
      */
     public const DEFAULT_BEGIN_TOKEN = "@";
 
     /**
      * Default "end token" character.
-     *
-     * @var string
      */
     public const DEFAULT_END_TOKEN = "@";
 
@@ -97,6 +94,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Performs lookup on key and returns appropriate replacement string.
      *
      * @param array $matches Array of 1 el containing key to search for.
+     *
      * @return string Text with which to replace key or value of key if none is found.
      */
     private function replaceTokenCallback($matches)
@@ -148,6 +146,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * If a replacement value is not found for a token, the token is left in the stream.
      *
      * @param int $len
+     *
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -243,10 +242,10 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Sets the map of tokens to replace.
      * ; used by ReplaceTokens::chain()
      *
-     * @param $tokens
+     * @param array $tokens A $array map (String->String) of token keys to replacement
+     *                      values. Must not be <code>null</code>.
+     *
      * @throws Exception
-     * @internal param A $array map (String->String) of token keys to replacement
-     *              values. Must not be <code>null</code>.
      */
     public function setTokens($tokens)
     {
@@ -272,9 +271,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the tokensources to use; used by ReplaceTokens::chain()
      *
-     * @param $sources
+     * @param array $sources An array of token sources.
+     *
      * @throws Exception
-     * @internal param An $array array of token sources.
      */
     public function setTokensources($sources)
     {
@@ -299,12 +298,13 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
+     *
      * @return ReplaceTokens A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                       the specified reader
+     *
      * @throws Exception
-     * @internal param A $object Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
      */
     public function chain(Reader $reader): Reader
     {

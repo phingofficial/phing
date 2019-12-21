@@ -46,7 +46,7 @@ class PHPMDFormatterElement
     /**
      * Whether to use file (or write output to phing log).
      *
-     * @var boolean
+     * @var bool
      */
     protected $useFile = true;
 
@@ -98,7 +98,7 @@ class PHPMDFormatterElement
     /**
      * Set whether to write formatter results to file or not.
      *
-     * @param boolean $useFile True or false.
+     * @param bool $useFile True or false.
      */
     public function setUseFile($useFile)
     {
@@ -108,7 +108,7 @@ class PHPMDFormatterElement
     /**
      * Return whether to write formatter results to file or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseFile()
     {
@@ -139,6 +139,7 @@ class PHPMDFormatterElement
      * Creates a report renderer instance based on the formatter type.
      *
      * @return PHP_PMD_AbstractRenderer
+     *
      * @throws BuildException           When the specified renderer does not exist.
      */
     public function getRenderer()

@@ -93,6 +93,7 @@ class PhingFile
     /**
      * @param string $parent
      * @param string $child
+     *
      * @throws IOException
      */
     protected function constructStringParentStringChild(string $parent, string $child): void
@@ -110,7 +111,8 @@ class PhingFile
 
     /**
      * @param PhingFile $parent
-     * @param string $child
+     * @param string    $child
+     *
      * @throws IOException
      */
     protected function constructFileParentStringChild(PhingFile $parent, string $child): void
@@ -186,8 +188,8 @@ class PhingFile
      * a parent directory.
      *
      * @return PhingFile|null The abstract pathname of the parent directory named by this
-     *             abstract pathname, or null if this pathname
-     *             does not name a parent
+     *                        abstract pathname, or null if this pathname
+     *                        does not name a parent
      */
     public function getParentFile()
     {
@@ -214,11 +216,11 @@ class PhingFile
     /**
      * Returns path without leading basedir.
      *
+     * @uses getPath()
+     *
      * @param string $basedir Base directory to strip
      *
      * @return string Path without basedir
-     *
-     * @uses getPath()
      */
     public function getPathWithoutBase($basedir)
     {
@@ -241,7 +243,7 @@ class PhingFile
      * if its prefix is a drive specifier followed by "\\", or if its prefix
      * is "\\".
      *
-     * @return boolean true if this abstract pathname is absolute, false otherwise
+     * @return bool true if this abstract pathname is absolute, false otherwise
      */
     public function isAbsolute()
     {
@@ -273,9 +275,10 @@ class PhingFile
      * pathname, if any; if not, it is resolved against the current user
      * directory.
      *
+     * @see    #isAbsolute()
+     *
      * @return string The absolute pathname string denoting the same file or
      *                directory as this abstract pathname
-     * @see    #isAbsolute()
      */
     public function getAbsolutePath()
     {
@@ -289,7 +292,7 @@ class PhingFile
      * getAbsolutePath.
      *
      * @return PhingFile The absolute abstract pathname denoting the same file or
-     *                directory as this abstract pathname
+     *                   directory as this abstract pathname
      */
     public function getAbsoluteFile()
     {
@@ -345,9 +348,9 @@ class PhingFile
      * Tests whether the application can read the file denoted by this
      * abstract pathname.
      *
-     * @return boolean true if and only if the file specified by this
-     *                 abstract pathname exists and can be read by the
-     *                 application; false otherwise
+     * @return bool True if and only if the file specified by this
+     *              abstract pathname exists and can be read by the
+     *              application; false otherwise
      */
     public function canRead()
     {
@@ -364,10 +367,10 @@ class PhingFile
      * Tests whether the application can modify to the file denoted by this
      * abstract pathname.
      *
-     * @return boolean true if and only if the file system actually
-     *                 contains a file denoted by this abstract pathname and
-     *                 the application is allowed to write to the file;
-     *                 false otherwise.
+     * @return bool True if and only if the file system actually
+     *              contains a file denoted by this abstract pathname and
+     *              the application is allowed to write to the file;
+     *              false otherwise.
      */
     public function canWrite()
     {
@@ -379,8 +382,8 @@ class PhingFile
     /**
      * Tests whether the file denoted by this abstract pathname exists.
      *
-     * @return boolean true if and only if the file denoted by this
-     *                 abstract pathname exists; false otherwise
+     * @return bool True if and only if the file denoted by this
+     *              abstract pathname exists; false otherwise
      */
     public function exists()
     {
@@ -401,10 +404,11 @@ class PhingFile
      * Tests whether the file denoted by this abstract pathname is a
      * directory.
      *
+     * @return bool True if and only if the file denoted by this
+     *              abstract pathname exists and is a directory;
+     *              false otherwise
+     *
      * @throws IOException
-     * @return boolean true if and only if the file denoted by this
-     *                 abstract pathname exists and is a directory;
-     *                 false otherwise
      */
     public function isDirectory()
     {
@@ -423,9 +427,9 @@ class PhingFile
      * addition, satisfies other system-dependent criteria.  Any non-directory
      * file created by a Java application is guaranteed to be a normal file.
      *
-     * @return boolean true if and only if the file denoted by this
-     *                 abstract pathname exists and is a normal file;
-     *                 false otherwise
+     * @return bool True if and only if the file denoted by this
+     *              abstract pathname exists and is a normal file;
+     *              false otherwise
      */
     public function isFile()
     {
@@ -437,10 +441,11 @@ class PhingFile
     /**
      * Tests whether the file denoted by this abstract pathname is a symbolic link.
      *
+     * @return bool True if and only if the file denoted by this
+     *              abstract pathname exists and is a symbolic link;
+     *              false otherwise
+     *
      * @throws IOException
-     * @return boolean true if and only if the file denoted by this
-     *                 abstract pathname exists and is a symbolic link;
-     *                 false otherwise
      */
     public function isLink()
     {
@@ -456,10 +461,11 @@ class PhingFile
     /**
      * Tests whether the file denoted by this abstract pathname is executable.
      *
+     * @return bool True if and only if the file denoted by this
+     *              abstract pathname exists and is a symbolic link;
+     *              false otherwise
+     *
      * @throws IOException
-     * @return boolean true if and only if the file denoted by this
-     *                 abstract pathname exists and is a symbolic link;
-     *                 false otherwise
      */
     public function isExecutable()
     {
@@ -486,11 +492,12 @@ class PhingFile
      * Returns the time that the file denoted by this abstract pathname was
      * last modified.
      *
-     * @throws IOException
      * @return int An integer value representing the time the file was
      *             last modified, measured in seconds since the epoch
      *             (00:00:00 GMT, January 1, 1970), or 0 if the
      *             file does not exist or if an I/O error occurs
+     *
+     * @throws IOException
      */
     public function lastModified()
     {
@@ -506,9 +513,10 @@ class PhingFile
      * Returns the length of the file denoted by this abstract pathname.
      * The return value is unspecified if this pathname denotes a directory.
      *
-     * @throws IOException
      * @return int The length, in bytes, of the file denoted by this abstract
      *             pathname, or 0 if the file does not exist
+     *
+     * @throws IOException
      */
     public function length()
     {
@@ -525,6 +533,7 @@ class PhingFile
      * This method uses file_get_contents() to read file in an optimized way.
      *
      * @return string
+     *
      * @throws Exception - if file cannot be read
      */
     public function contents()
@@ -546,11 +555,13 @@ class PhingFile
      * filesystem activities that might affect the file.
      *
      * @param bool $parents
-     * @param int $mode
+     * @param int  $mode
+     *
+     * @return bool True if the named file does not exist and was
+     *              successfully created; <code>false</code> if the named file
+     *              already exists
+     *
      * @throws IOException
-     * @return boolean     true if the named file does not exist and was
-     *                     successfully created; <code>false</code> if the named file
-     *                     already exists
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
@@ -562,9 +573,7 @@ class PhingFile
             $parent->mkdirs();
         }
 
-        $file = FileSystem::getFileSystem()->createNewFile($this->path);
-
-        return $file;
+        return FileSystem::getFileSystem()->createNewFile($this->path);
     }
 
     /**
@@ -573,6 +582,7 @@ class PhingFile
      * order to be deleted.
      *
      * @param bool $recursive
+     *
      * @throws IOException
      */
     public function delete($recursive = false)
@@ -639,10 +649,12 @@ class PhingFile
      * parent directories.
      *
      * @param int $mode
+     *
+     * @return bool True if and only if the directory was created,
+     *              along with all necessary parent directories; false
+     *              otherwise
+     *
      * @throws IOException
-     * @return boolean     true if and only if the directory was created,
-     *                     along with all necessary parent directories; false
-     *                     otherwise
      */
     public function mkdirs($mode = 0755)
     {
@@ -665,8 +677,10 @@ class PhingFile
      * Creates the directory named by this abstract pathname.
      *
      * @param int $mode
+     *
+     * @return bool true if and only if the directory was created; false otherwise
+     *
      * @throws IOException
-     * @return boolean     true if and only if the directory was created; false otherwise
      */
     public function mkdir($mode = 0755)
     {
@@ -683,6 +697,7 @@ class PhingFile
      * Renames the file denoted by this abstract pathname.
      *
      * @param PhingFile $destFile The new abstract pathname for the named file
+     *
      * @throws IOException
      */
     public function renameTo(PhingFile $destFile)
@@ -700,6 +715,7 @@ class PhingFile
      * PhingFile
      *
      * @param PhingFile $destFile The new abstract pathname for the named file
+     *
      * @throws IOException
      */
     public function copyTo(PhingFile $destFile)
@@ -729,7 +745,8 @@ class PhingFile
      * that was passed to this method.
      *
      * @param int $time The new last-modified time, measured in milliseconds since
-     *                       the epoch (00:00:00 GMT, January 1, 1970)
+     *                  the epoch (00:00:00 GMT, January 1, 1970)
+     *
      * @throws Exception
      */
     public function setLastModified($time)
@@ -776,6 +793,7 @@ class PhingFile
      * Sets the mode of the file
      *
      * @param int $mode Octal mode.
+     *
      * @throws IOException
      */
     public function setMode($mode)
@@ -829,7 +847,7 @@ class PhingFile
      *
      * @param PhingFile $obj
      *
-     * @return boolean
+     * @return bool
      */
     public function equals($obj)
     {

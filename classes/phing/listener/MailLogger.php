@@ -52,9 +52,10 @@ class MailLogger extends DefaultLogger
 
     /**
      * @see DefaultLogger::printMessage
-     * @param string $message
+     *
+     * @param string       $message
      * @param OutputStream $stream
-     * @param int $priority
+     * @param int          $priority
      */
     final protected function printMessage($message, OutputStream $stream, $priority)
     {
@@ -67,6 +68,7 @@ class MailLogger extends DefaultLogger
      * Sends the mail
      *
      * @see   DefaultLogger#buildFinished
+     *
      * @param BuildEvent $event
      */
     public function buildFinished(BuildEvent $event)
@@ -128,9 +130,9 @@ class MailLogger extends DefaultLogger
     }
 
     /**
-     * @param array $properties
+     * @param array  $properties
      * @param string $name
-     * @param mixed $defaultValue
+     * @param mixed  $defaultValue
      *
      * @return mixed
      *

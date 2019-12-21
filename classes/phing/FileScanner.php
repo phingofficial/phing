@@ -117,10 +117,10 @@ interface FileScanner
     /**
      * Sets the list of exclude patterns to use.
      *
-     * @param $excludes A list of exclude patterns.
-     *                 May be <code>null</code>, indicating that no files
-     *                 should be excluded. If a non-<code>null</code> list is
-     *                 given, all elements must be non-<code>null</code>.
+     * @param string[] $excludes A list of exclude patterns.
+     *                           May be <code>null</code>, indicating that no files
+     *                           should be excluded. If a non-<code>null</code> list is
+     *                           given, all elements must be non-<code>null</code>.
      */
     public function setExcludes($excludes);
 

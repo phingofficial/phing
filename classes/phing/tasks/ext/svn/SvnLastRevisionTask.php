@@ -20,9 +20,10 @@
 /**
  * Stores the number of the last revision of a workingcopy in a property
  *
+ * @see     VersionControl_SVN
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.svn
- * @see     VersionControl_SVN
  * @since   2.1.0
  */
 class SvnLastRevisionTask extends SvnBaseTask

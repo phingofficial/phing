@@ -32,7 +32,7 @@ class ZipFileSet extends FileSet
     /**
      *  Get a list of files and directories specified in the fileset.
      *
-     * @param bool $includeEmpty
+     * @param bool  $includeEmpty
      * @param array ...$options
      *
      * @return array a list of file and directory names, relative to

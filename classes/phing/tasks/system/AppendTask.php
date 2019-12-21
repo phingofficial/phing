@@ -349,16 +349,15 @@ class AppendTask extends Task
 
     private function getFilteredReader(Reader $r)
     {
-        $helper = FileUtils::getChainedReader($r, $this->filterChains, $this->getProject());
-        return $helper;
+        return FileUtils::getChainedReader($r, $this->filterChains, $this->getProject());
     }
 
     /**
      * Append an array of files in a directory.
      *
-     * @param Writer $writer The FileWriter that is appending to target file.
-     * @param array $files array of files to delete; can be of zero length
-     * @param PhingFile $dir directory to work from
+     * @param Writer    $writer The FileWriter that is appending to target file.
+     * @param array     $files  array of files to delete; can be of zero length
+     * @param PhingFile $dir    directory to work from
      *
      * @return void
      */
@@ -436,7 +435,7 @@ class AppendTask extends Task
 
     /**
      * @param FileWriter $writer
-     * @param PhingFile $f
+     * @param PhingFile  $f
      *
      * @return void
      */

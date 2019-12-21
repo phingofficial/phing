@@ -30,7 +30,7 @@ class CaseTask extends SequentialTask
     private $value = null;
 
     /**
-     * @param $value
+     * @param mixed $value
      *
      * @return void
      */

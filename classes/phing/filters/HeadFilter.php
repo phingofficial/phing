@@ -28,11 +28,10 @@
  *    <param name="lines" value="3"/>
  * </filterreader></pre>
  *
- * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @author hans lellelid, hans@velum.net
- *
  * @see FilterReader
  *
+ * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ * @author hans lellelid, hans@velum.net
  * @package phing.filters
  */
 class HeadFilter extends BaseParamFilterReader implements ChainableReader
@@ -50,14 +49,14 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Number of lines currently read in.
      *
-     * @var integer
+     * @var int
      */
     private $linesRead = 0;
 
     /**
      * Number of lines to be returned in the filtered stream.
      *
-     * @var integer
+     * @var int
      */
     private $lines = 10;
 
@@ -70,6 +69,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * Returns first n lines of stream.
      *
      * @param int $len
+     *
      * @return string|int the resulting stream, or -1
      *                    if the end of the resulting stream has been reached
      */
@@ -111,7 +111,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the number of lines to be returned in the filtered stream.
      *
-     * @param integer $lines the number of lines to be returned in the filtered stream.
+     * @param int $lines the number of lines to be returned in the filtered stream.
      *
      * @return void
      */
@@ -123,7 +123,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the number of lines to be returned in the filtered stream.
      *
-     * @return integer The number of lines to be returned in the filtered stream.
+     * @return int The number of lines to be returned in the filtered stream.
      */
     public function getLines()
     {

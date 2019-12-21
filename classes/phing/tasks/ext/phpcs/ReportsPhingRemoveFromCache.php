@@ -46,12 +46,12 @@ class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
     /**
      * Remove file from cache if contains errors
      *
-     * @param array $report Prepared report data.
-     * @param PHP_CodeSniffer_File $phpcsFile The file being reported on.
-     * @param boolean $showSources Show sources?
-     * @param int $width Maximum allowed line width.
+     * @param array                $report      Prepared report data.
+     * @param PHP_CodeSniffer_File $phpcsFile   The file being reported on.
+     * @param bool                 $showSources Show sources?
+     * @param int                  $width       Maximum allowed line width.
      *
-     * @return boolean
+     * @return bool
      */
     public function generateFileReport(
         $report,
@@ -71,15 +71,15 @@ class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
     /**
      * Do nothing
      *
-     * @param string $cachedData Any partial report data that was returned from
-     *                               generateFileReport during the run.
-     * @param int $totalFiles Total number of files processed during the run.
-     * @param int $totalErrors Total number of errors found during the run.
-     * @param int $totalWarnings Total number of warnings found during the run.
-     * @param int $totalFixable Total number of problems that can be fixed.
-     * @param boolean $showSources Show sources?
-     * @param int $width Maximum allowed line width.
-     * @param boolean $toScreen Is the report being printed to screen?
+     * @param string $cachedData    Any partial report data that was returned from
+     *                              generateFileReport during the run.
+     * @param int    $totalFiles    Total number of files processed during the run.
+     * @param int    $totalErrors   Total number of errors found during the run.
+     * @param int    $totalWarnings Total number of warnings found during the run.
+     * @param int    $totalFixable  Total number of problems that can be fixed.
+     * @param bool   $showSources   Show sources?
+     * @param int    $width         Maximum allowed line width.
+     * @param bool   $toScreen      Is the report being printed to screen?
      *
      * @return void
      */

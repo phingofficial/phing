@@ -22,8 +22,6 @@ declare(strict_types=1);
 use function Jawira\PlantUml\encodep;
 
 /**
- * Class VisualizerTask
- *
  * VisualizerTask creates diagrams using buildfiles, these diagrams represents calls and depends among targets.
  *
  * @author Jawira Portugal
@@ -82,7 +80,7 @@ class VisualizerTask extends HttpTask
     /**
      * Verifies that provided $class exists
      *
-     * @param string $class Name of the class to verify
+     * @param string $class   Name of the class to verify
      * @param string $message Error message to display when class don't exists
      */
     protected function classExists(string $class, string $message): void
@@ -159,9 +157,7 @@ class VisualizerTask extends HttpTask
         $xmlContext  = $this->getProject()
             ->getReference("phing.parsing.context");
         $importStack = $xmlContext->getImportStack();
-        $pumlDiagram = $this->generatePuml($importStack);
-
-        return $pumlDiagram;
+        return $this->generatePuml($importStack);
     }
 
     /**
@@ -195,7 +191,7 @@ class VisualizerTask extends HttpTask
      * Transforms buildfile using provided xsl file
      *
      * @param \PhingFile $buildfile Path to buildfile
-     * @param string $xslFile XSLT file
+     * @param string     $xslFile   XSLT file
      *
      * @return string
      */
@@ -235,6 +231,7 @@ class VisualizerTask extends HttpTask
      * Get the image's final location
      *
      * @return \PhingFile
+     *
      * @throws \IOException
      * @throws \NullPointerException
      */
@@ -283,7 +280,7 @@ class VisualizerTask extends HttpTask
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDestination(): ?string
     {
@@ -305,9 +302,9 @@ class VisualizerTask extends HttpTask
     /**
      * Figure diagram's file path
      *
-     * @param string $buildfilePath Path to main buildfile
-     * @param string $format Extension to use
-     * @param null|string $destination Desired destination provided by user
+     * @param string      $buildfilePath Path to main buildfile
+     * @param string      $format        Extension to use
+     * @param string|null $destination   Desired destination provided by user
      *
      * @return string
      */
@@ -342,6 +339,7 @@ class VisualizerTask extends HttpTask
      * @param string $format
      *
      * @return string
+     *
      * @throws \HTTP_Request2_Exception
      */
     protected function generateImage(string $pumlDiagram, string $format): string
@@ -431,7 +429,7 @@ class VisualizerTask extends HttpTask
     /**
      * Save provided $content string into $destination file
      *
-     * @param string $content Content to save
+     * @param string     $content     Content to save
      * @param \PhingFile $destination Location where $content is saved
      *
      * @return void

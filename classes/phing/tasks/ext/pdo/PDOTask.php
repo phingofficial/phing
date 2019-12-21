@@ -69,7 +69,7 @@ abstract class PDOTask extends Task
      * getting an OutOfMemoryError when calling this task
      * multiple times in a row; default: true
      *
-     * @param $enable
+     * @param bool $enable
      */
     public function setCaching($enable)
     {
@@ -79,7 +79,7 @@ abstract class PDOTask extends Task
     /**
      * Sets the database connection URL; required.
      *
-     * @param string The url to set
+     * @param string $url The url to set
      */
     public function setUrl($url)
     {
@@ -112,6 +112,7 @@ abstract class PDOTask extends Task
      * The calling method is responsible for closing the connection.
      *
      * @return PDO     the newly created connection.
+     *
      * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
      */
     protected function getConnection()
@@ -153,11 +154,11 @@ abstract class PDOTask extends Task
     }
 
     /**
-     * @param $value
+     * @return bool
      */
-    public function isCaching($value)
+    public function isCaching()
     {
-        $this->caching = $value;
+        return $this->caching;
     }
 
     /**

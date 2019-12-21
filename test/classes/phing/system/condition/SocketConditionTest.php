@@ -21,7 +21,6 @@
  * Tests for the <socket> condition
  *
  * @package phing.tasks.system.condition
- *
  * @requires extension sockets
  */
 class SocketConditionTest extends \PHPUnit\Framework\TestCase

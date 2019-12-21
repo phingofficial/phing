@@ -25,9 +25,10 @@
  * Or:
  * <pre><filterreader classname="phing.filters.ExpandProperties'/></pre>
  *
+ * @see     BaseFilterReader
+ *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @see     BaseFilterReader
  * @package phing.filters
  */
 class ExpandProperties extends BaseFilterReader implements ChainableReader
@@ -37,6 +38,7 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * The original stream is first read in fully, and the Phing properties are expanded.
      *
      * @param int $len
+     *
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
      * @throws IOException if the underlying stream throws an IOException

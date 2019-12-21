@@ -39,7 +39,6 @@
  * </code>
  *
  * @author Hans Lellelid <hans@xmpl.org>
- *
  * @package phing.tasks.system
  */
 class ReflexiveTask extends Task

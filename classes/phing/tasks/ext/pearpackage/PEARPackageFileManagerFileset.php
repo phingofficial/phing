@@ -49,8 +49,7 @@ class PEARPackageFileManagerFileset
      *
      * 'project' and 'filesets' are the only options that this class uses.
      *
-     * @param PEAR_PackageFileManager
-     * @param array
+     * @param PEAR_PackageFileManager|array $options
      */
     public function __construct($options)
     {
@@ -144,13 +143,12 @@ class PEARPackageFileManagerFileset
      * This function converts them to
      * array('dir' => array('subdir' => array('subdir2')))
      *
-     * @param array $struc is array('dir' => array of files in dir,
-     *                        'dir/subdir' => array of files in
-     *                        dir/subdir,...)
-     * @param $dir
-     * @param $contents
-     * @internal param array $array form of 'dir/subdir/subdir2' array('dir','subdir','subdir2')
-     * @return array same as struc but with array('dir' =>
+     * @param array $struc    Is array('dir' => array of files in dir,
+     *                        'dir/subdir' => array of files in dir/subdir,...)
+     * @param array $dir
+     * @param array $contents
+     *
+     * @return array Same as struc but with array('dir' =>
      *               array(file1,file2,'subdir' => array(file1,...)))
      */
     private function setupDirs($struc, $dir, $contents)
@@ -188,8 +186,9 @@ class PEARPackageFileManagerFileset
      * Recursively add all the subdirectories of $contents to $dir without erasing anything in
      * $dir
      *
-     * @param array
-     * @param array
+     * @param array $dir
+     * @param array $contents
+     *
      * @return array processed $dir
      */
     public function setDir($dir, $contents)
@@ -208,8 +207,9 @@ class PEARPackageFileManagerFileset
     /**
      * Sorting functions for the file list
      *
-     * @param string
-     * @param string
+     * @param array $a
+     * @param array $b
+     *
      * @return int
      */
     private function sortfiles($a, $b)
@@ -218,8 +218,9 @@ class PEARPackageFileManagerFileset
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param mixed $a
+     * @param mixed $b
+     *
      * @return int
      */
     private function mystrucsort($a, $b)

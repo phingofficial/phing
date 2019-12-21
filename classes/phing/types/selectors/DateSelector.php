@@ -40,9 +40,6 @@ class DateSelector extends BaseExtendSelector
     public const WHEN_KEY           = "when";
     private static $timeComparisons = ["before", "after", "equal"];
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -124,7 +121,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * Should we be checking dates on directories?
      *
-     * @param boolean $includeDirs whether to check the timestamp on directories
+     * @param bool $includeDirs whether to check the timestamp on directories
      */
     public function setCheckdirs($includeDirs)
     {
@@ -163,6 +160,7 @@ class DateSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     *
      * @return mixed|void
      */
     public function setParameters(array $parameters): void
@@ -218,10 +216,11 @@ class DateSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a PhingFile object the selector can use
-     * @return boolean   Whether the file should be selected or not
+     * @param PhingFile $basedir  the base directory the scan is being done from
+     * @param string    $filename is the name of the file to check
+     * @param PhingFile $file     is a PhingFile object the selector can use
+     *
+     * @return bool Whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

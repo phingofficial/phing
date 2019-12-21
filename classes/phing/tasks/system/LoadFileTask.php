@@ -80,8 +80,7 @@ class LoadFileTask extends Task
     /**
      * Convenience setter to maintain Ant compatibility (@see setFile())
      *
-     * @param $srcFile
-     * @internal param PhingFile $file
+     * @param PhingFile $srcFile
      */
     public function setSrcFile($srcFile)
     {
@@ -91,7 +90,8 @@ class LoadFileTask extends Task
     /**
      * Set name of property to be set
      *
-     * @param $property
+     * @param string $property
+     *
      * @return void
      */
     public function setProperty($property)
@@ -103,6 +103,7 @@ class LoadFileTask extends Task
      * Main method
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function main()

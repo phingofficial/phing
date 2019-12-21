@@ -90,7 +90,7 @@ class PhingTask extends Task
      *  If true, abort the build process if there is a problem with or in the target build file.
      *  Defaults to false.
      *
-     * @param boolean $hof new value
+     * @param bool $hof new value
      */
     public function setHaltOnFailure($hof)
     {
@@ -217,8 +217,9 @@ class PhingTask extends Task
     /**
      * Execute phing file.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     private function processFile()
     {
@@ -406,6 +407,7 @@ class PhingTask extends Task
      * explicitly defined as nested elements here.
      *
      * @return void
+     *
      * @throws BuildException
      */
     private function overrideProperties()
@@ -425,6 +427,7 @@ class PhingTask extends Task
      * requested.
      *
      * @return void
+     *
      * @throws BuildException
      */
     private function addReferences()
@@ -491,8 +494,10 @@ class PhingTask extends Task
      *
      * @param string $oldKey
      * @param string $newKey
-     * @throws BuildException
+     *
      * @return void
+     *
+     * @throws BuildException
      */
     private function copyReference($oldKey, $newKey)
     {
@@ -527,7 +532,7 @@ class PhingTask extends Task
      * If true, pass all properties to the new phing project.
      * Defaults to true.
      *
-     * @param $value
+     * @param bool $value
      */
     public function setInheritAll($value)
     {
@@ -538,7 +543,7 @@ class PhingTask extends Task
      * If true, pass all references to the new phing project.
      * Defaults to false.
      *
-     * @param $value
+     * @param bool $value
      */
     public function setInheritRefs($value)
     {
@@ -551,7 +556,7 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @param $d
+     * @param PhingFile|string $d
      */
     public function setDir($d)
     {
@@ -567,7 +572,7 @@ class PhingTask extends Task
      * Defaults to "build.xml". This file is expected to be a filename relative
      * to the dir attribute given.
      *
-     * @param $s
+     * @param string $s
      */
     public function setPhingFile($s)
     {
@@ -580,7 +585,7 @@ class PhingTask extends Task
     /**
      * Alias function for setPhingfile
      *
-     * @param $s
+     * @param string $s
      */
     public function setBuildfile($s)
     {

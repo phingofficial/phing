@@ -18,8 +18,6 @@
  */
 
 /**
- * Class DifferentSelectorTest
- *
  * Test cases for different selectors.
  */
 class DifferentSelectorTest extends BuildFileTest

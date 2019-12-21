@@ -18,7 +18,6 @@
  */
 
 /**
- *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
  */
@@ -33,9 +32,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
     private function initParser($fileName)
     {
         $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
-        $parser       = new SonarConfigurationFileParser($fullFileName, $this->getProject());
-
-        return $parser;
+        return new SonarConfigurationFileParser($fullFileName, $this->getProject());
     }
 
     public function testConstructFileIsNullThrowsException()

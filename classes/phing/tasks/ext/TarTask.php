@@ -24,7 +24,6 @@
  * @author Stefano Mazzocchi <stefano@apache.org> (Ant)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author Magesh Umasankar
- *
  * @package phing.tasks.ext
  */
 class TarTask extends MatchingTask
@@ -98,8 +97,9 @@ class TarTask extends MatchingTask
     /**
      * Add a new fileset.  Alias to createTarFileSet() for backwards compatibility.
      *
-     * @return FileSet
      * @see    createTarFileSet()
+     *
+     * @return FileSet
      */
     public function createFileSet()
     {
@@ -132,7 +132,7 @@ class TarTask extends MatchingTask
     /**
      * Set the include empty dirs flag.
      *
-     * @param boolean $bool Flag if empty dirs should be tarred too
+     * @param bool $bool Flag if empty dirs should be tarred too
      *
      * @return void
      */
@@ -154,7 +154,7 @@ class TarTask extends MatchingTask
      * <li>  omit - paths greater than the maximum are omitted from the archive
      * </ul>
      *
-     * @param $mode
+     * @param string $mode
      */
     public function setLongfile($mode)
     {
@@ -302,9 +302,9 @@ class TarTask extends MatchingTask
 
     /**
      * @param ArrayIterator $files array of filenames
-     * @param PhingFile $dir
+     * @param PhingFile     $dir
      *
-     * @return boolean
+     * @return bool
      */
     protected function areFilesUpToDate($files, $dir)
     {
@@ -317,6 +317,7 @@ class TarTask extends MatchingTask
 
     /**
      * @return bool
+     *
      * @throws BuildException
      */
     private function isArchiveUpToDate()

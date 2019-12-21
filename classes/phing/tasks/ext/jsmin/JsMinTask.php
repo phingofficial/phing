@@ -35,14 +35,14 @@ class JsMinTask extends Task
      * Whether the build should fail, if
      * errors occurred
      *
-     * @var boolean
+     * @var bool
      */
     protected $failonerror = false;
 
     /**
      * Define if the target should use or not a suffix -min
      *
-     * @var boolean
+     * @var bool
      */
     protected $suffix = '-min';
 
@@ -56,7 +56,7 @@ class JsMinTask extends Task
     /**
      * Whether the build should fail, if an error occurred.
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setFailonerror($value)
     {
@@ -125,6 +125,7 @@ class JsMinTask extends Task
 
     /**
      * @param FileSet $fs
+     *
      * @throws BuildException
      */
     protected function processFileSet(FileSet $fs)

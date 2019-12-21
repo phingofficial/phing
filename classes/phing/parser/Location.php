@@ -27,7 +27,7 @@
 class Location
 {
     /**
-     * @var null|string $fileName
+     * @var string|null $fileName
      */
     private $fileName;
 
@@ -44,9 +44,9 @@ class Location
     /**
      * Constructs the location consisting of a file name and line number
      *
-     * @param string $fileName the filename
-     * @param integer $lineNumber the line number
-     * @param integer $columnNumber the column number
+     * @param string $fileName     the filename
+     * @param int    $lineNumber   the line number
+     * @param int    $columnNumber the column number
      */
     public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
     {
@@ -56,7 +56,7 @@ class Location
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFileName()
     {
@@ -64,7 +64,7 @@ class Location
     }
 
     /**
-     * @return null|int
+     * @return int|null
      */
     public function getLineNumber()
     {
@@ -72,7 +72,7 @@ class Location
     }
 
     /**
-     * @return null|int
+     * @return int|null
      */
     public function getColumnNumber()
     {

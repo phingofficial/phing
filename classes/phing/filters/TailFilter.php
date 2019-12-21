@@ -30,20 +30,17 @@
  *   <param name="lines" value="3">
  * </filterreader></pre>
  *
+ * @see BaseParamFilterReader
+ *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
  * @copyright 2003 seasonfive. All rights reserved
- *
- * @see BaseParamFilterReader
- *
  * @package phing.filters
  */
 class TailFilter extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the number of lines to be returned.
-     *
-     * @var string
      */
     public const LINES_KEY = "lines";
 
@@ -55,7 +52,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Number of lines to be returned in the filtered stream.
      *
-     * @var integer
+     * @var int
      */
     private $lines = 10;
 
@@ -75,6 +72,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
      * Returns the last n lines of a file.
      *
      * @param int $len Num chars to read.
+     *
      * @return mixed The filtered buffer or -1 if EOF.
      */
     public function read($len = null)
@@ -123,7 +121,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the number of lines to be returned in the filtered stream.
      *
-     * @param integer $lines the number of lines to be returned in the filtered stream.
+     * @param int $lines the number of lines to be returned in the filtered stream.
      */
     public function setLines($lines)
     {
@@ -133,7 +131,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the number of lines to be returned in the filtered stream.
      *
-     * @return integer The number of lines to be returned in the filtered stream.
+     * @return int The number of lines to be returned in the filtered stream.
      */
     public function getLines()
     {

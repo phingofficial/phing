@@ -113,31 +113,28 @@ class ChainReaderHelper
     */
 
     /**
-     * @param $size
+     * @param int $size
      */
     public function setBufferSize($size)
     {
         $this->bufferSize = $size;
     }
 
-    /*
-     * Sets the collection of filter reader sets
-    */
-
     /**
-     * @param $fchain
+     * Sets the collection of filter reader sets
+     *
+     * @param array $fchain
      */
     public function setFilterChains(&$fchain)
     {
         $this->filterChains = &$fchain;
     }
 
-    /*
-     * Assemble the reader
-    */
-
     /**
-     * @return FilterReader|null|Parameterizable|Reader
+     * Assemble the reader
+     *
+     * @return FilterReader|Parameterizable|Reader|null
+     *
      * @throws Exception
      */
     public function getAssembledReader()

@@ -20,8 +20,6 @@
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class SelectorUtilsTest
- *
  * Test cases for SelectorUtils
  */
 class SelectorUtilsTest extends TestCase

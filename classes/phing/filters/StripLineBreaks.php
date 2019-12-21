@@ -28,9 +28,10 @@
  *
  * <pre><filterreader classname="phing.filters.StripLineBreaks"/></pre>
  *
+ * @see     BaseParamFilterReader
+ *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
- * @see     BaseParamFilterReader
  * @package phing.filters
  */
 class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
@@ -38,15 +39,11 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Default line-breaking characters.
-     *
-     * @var string
      */
     public const DEFAULT_LINE_BREAKS = "\r\n";
 
     /**
      * Parameter name for the line-breaking characters parameter.
-     *
-     * @var string
      */
     public const LINES_BREAKS_KEY = "linebreaks";
 
@@ -62,11 +59,12 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * characters not in the set of line-breaking characters.
      *
      * @param int $len
-     * @return mixed the resulting stream, or -1
+     *
+     * @return mixed The resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      *
-     * @throws IOException if the underlying stream throws an IOException
-     *            during reading
+     * @throws IOException If the underlying stream throws an IOException
+     *                     during reading
      */
     public function read($len = null)
     {
@@ -110,11 +108,11 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Creates a new StripLineBreaks using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
+     *
      * @return StripLineBreaks A new filter based on this configuration, but filtering
-     *                the specified reader
-     * @internal param A $object Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     *                         the specified reader
      */
     public function chain(Reader $reader): Reader
     {
