@@ -20,10 +20,11 @@
 /**
  * Wrapper aroung git-log
  *
+ * @see     VersionControl_Git
+ *
  * @author  Evan Kaufman <evan@digitalflophouse.com>
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.5
  */
 class GitLogTask extends GitBaseTask
@@ -31,28 +32,28 @@ class GitLogTask extends GitBaseTask
     /**
      * Generate a diffstat. See --stat of git-log
      *
-     * @var string|boolean
+     * @var string|bool
      */
     private $stat = false;
 
     /**
      * Names + status of changed files. See --name-status of git-log
      *
-     * @var boolean
+     * @var bool
      */
     private $nameStatus = false;
 
     /**
      * Number of commits to show. See -<n>|-n|--max-count of git-log
      *
-     * @var integer
+     * @var int
      */
     private $maxCount;
 
     /**
      * Don't show commits with more than one parent. See --no-merges of git-log
      *
-     * @var boolean
+     * @var bool
      */
     private $noMerges = false;
 
@@ -161,7 +162,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $stat
+     * @param bool|string $stat
      */
     public function setStat($stat)
     {
@@ -177,7 +178,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNameStatus($flag)
     {
@@ -201,7 +202,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $count
+     * @param int $count
      */
     public function setMaxCount($count)
     {
@@ -217,7 +218,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoMerges(bool $flag)
     {
@@ -241,7 +242,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $format
+     * @param string $format
      */
     public function setFormat($format)
     {
@@ -257,7 +258,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $date
+     * @param string $date
      */
     public function setDate($date)
     {
@@ -273,7 +274,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $since
+     * @param string $since
      */
     public function setSince($since)
     {
@@ -289,7 +290,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $after
+     * @param string $after
      */
     public function setAfter($after)
     {
@@ -297,7 +298,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $until
+     * @param string $until
      */
     public function setUntil($until)
     {
@@ -313,7 +314,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $before
+     * @param string $before
      */
     public function setBefore($before)
     {
@@ -321,7 +322,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $paths
+     * @param string $paths
      */
     public function setPaths($paths)
     {
@@ -337,7 +338,7 @@ class GitLogTask extends GitBaseTask
     }
 
     /**
-     * @param $prop
+     * @param string $prop
      */
     public function setOutputProperty($prop)
     {

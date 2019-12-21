@@ -36,7 +36,7 @@ class LiquibaseTask extends AbstractLiquibaseTask
     private $command;
 
     /**
-     * @param $command
+     * @param string $command
      */
     public function setCommand($command)
     {

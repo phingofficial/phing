@@ -38,9 +38,9 @@ class HasFreeSpaceCondition implements Condition
     /**
      * {@inheritdoc}
      *
-     * @throws BuildException
+     * @return bool
      *
-     * @return boolean
+     * @throws BuildException
      */
     public function evaluate()
     {
@@ -68,7 +68,7 @@ class HasFreeSpaceCondition implements Condition
     /**
      * Set the partition/device to check.
      *
-     * @param $partition
+     * @param string $partition
      *
      * @return void
      */

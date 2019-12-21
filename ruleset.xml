@@ -240,7 +240,6 @@
     -->
 
     <!-- Require specific order of phpDoc annotations with empty newline between specific groups -->
-    <!--
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <properties>
             <property name="linesCountBeforeFirstContent" value="0"/>
@@ -267,7 +266,6 @@
             </property>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid useless annotations - Git and LICENCE file provide more accurate information -->
     <!--
@@ -290,12 +288,9 @@
     -->
 
     <!-- Forbid empty comments -->
-    <!--
     <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
-    -->
 
     <!-- Forbid useless comments -->
-    <!--
     <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments">
         <properties>
             <property name="forbiddenCommentPatterns" type="array">
@@ -307,12 +302,9 @@
             </property>
         </properties>
     </rule>
-    -->
 
     <!-- report invalid format of inline phpDocs with @var -->
-    <!--
     <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
-    -->
 
     <!-- Require comments with single line written as one-liners -->
     <!--
@@ -488,9 +480,7 @@
     <rule ref="SlevomatCodingStandard.PHP.ShortList"/>
 
     <!-- Forbid use of longhand cast operators -->
-    <!--
     <rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
-    -->
 
     <!-- Require presence of declare(strict_types=1) -->
     <!--
@@ -521,14 +511,10 @@
     <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
 
     <!-- Require use of short versions of scalar types (i.e. int instead of integer) -->
-    <!--
     <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints"/>
-    -->
 
     <!-- Require the `null` type hint to be in the last position of annotations -->
-    <!--
     <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
-    -->
 
     <!-- Require ? when default value is null -->
     <!--
@@ -565,19 +551,13 @@
     -->
 
     <!-- Forbid useless @var for constants -->
-    <!--
     <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
-    -->
 
     <!-- Forbid duplicated variables assignments -->
-    <!--
     <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable"/>
-    -->
 
     <!-- Forbid useless variables -->
-    <!--
     <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
-    -->
 
     <!-- Forbid spaces around square brackets -->
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
@@ -605,54 +585,50 @@
     <rule ref="Squiz.Classes.SelfMemberReference"/>
 
     <!-- Force phpDoc alignment -->
-    <!--
     <rule ref="Squiz.Commenting.DocCommentAlignment">
-        <!- Allow extra spaces after star, i.e. for indented annotations ->
+        <!-- Allow extra spaces after star, i.e. for indented annotations -->
         <exclude name="Squiz.Commenting.DocCommentAlignment.SpaceAfterStar"/>
     </rule>
-    -->
 
     <!-- Force rules for function phpDoc -->
-    <!--
     <rule ref="Squiz.Commenting.FunctionComment">
-        <!- Allow `@throws` without description ->
+        <!-- Allow `@throws` without description -->
         <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
-        <!- Does not work properly with PHP 7 / short-named types ->
+        <!-- Does not work properly with PHP 7 / short-named types -->
         <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName"/>
-        <!- Does not support collections, i.e. `string[]` ->
+        <!-- Does not support collections, i.e. `string[]` -->
         <exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
-        <!- Forces incorrect types ->
+        <!-- Forces incorrect types -->
         <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn"/>
-        <!- Breaks with compound return types, i.e. `string|null` ->
+        <!-- Breaks with compound return types, i.e. `string|null` -->
         <exclude name="Squiz.Commenting.FunctionComment.InvalidReturnNotVoid"/>
-        <!- Breaks when all params are not documented ->
+        <!-- Breaks when all params are not documented -->
         <exclude name="Squiz.Commenting.FunctionComment.InvalidTypeHint"/>
-        <!- Doc comment is not required for every method ->
+        <!-- Doc comment is not required for every method -->
         <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
-        <!- Do not require comments for `@param` ->
+        <!-- Do not require comments for `@param` -->
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
-        <!- Do not require `@param` for all parameters ->
+        <!-- Do not require `@param` for all parameters -->
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
-        <!- Do not require `@return` for void methods ->
+        <!-- Do not require `@return` for void methods -->
         <exclude name="Squiz.Commenting.FunctionComment.MissingReturn"/>
-        <!- Comments don't have to be sentences ->
+        <!-- Comments don't have to be sentences -->
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
-        <!- Comments don't have to be sentences ->
+        <!-- Comments don't have to be sentences -->
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
-        <!- Breaks when all params are not documented ->
+        <!-- Breaks when all params are not documented -->
         <exclude name="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
-        <!- Doesn't respect inheritance ->
+        <!-- Doesn't respect inheritance -->
         <exclude name="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing"/>
-        <!- `@throws` lines can often be read as a sentence,
-             i.e. `@throws RuntimeException if the file could not be written.` ->
+        <!-- `@throws` lines can often be read as a sentence,
+             i.e. `@throws RuntimeException if the file could not be written.` -->
         <exclude name="Squiz.Commenting.FunctionComment.ThrowsNotCapital"/>
         <exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop"/>
-        <!- Doesn't work with self as typehint ->
+        <!-- Doesn't work with self as typehint -->
         <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
 
         <exclude name="Squiz.Commenting.FunctionComment.WrongStyle"/>
     </rule>
-    -->
 
     <!-- Forbid global functions -->
     <!--

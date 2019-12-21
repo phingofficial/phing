@@ -37,7 +37,7 @@ class IoncubeComment
     }
 
     /**
-     * @param $txt
+     * @param string $txt
      */
     public function addText($txt)
     {

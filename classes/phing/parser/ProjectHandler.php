@@ -43,10 +43,10 @@ class ProjectHandler extends AbstractHandler
     /**
      * Constructs a new ProjectHandler
      *
-     * @param ExpatParser $parser the ExpatParser object
-     * @param AbstractHandler $parentHandler the parent handler that invoked this handler
-     * @param ProjectConfigurator $configurator the ProjectConfigurator object
-     * @param PhingXMLContext $context
+     * @param ExpatParser         $parser        the ExpatParser object
+     * @param AbstractHandler     $parentHandler the parent handler that invoked this handler
+     * @param ProjectConfigurator $configurator  the ProjectConfigurator object
+     * @param PhingXMLContext     $context
      */
     public function __construct(
         ExpatParser $parser,
@@ -64,8 +64,9 @@ class ProjectHandler extends AbstractHandler
      * Executes initialization actions required to setup the project. Usually
      * this method handles the attributes of a tag.
      *
-     * @param string $tag the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $tag   the tag that comes in
+     * @param array  $attrs attributes the tag carries
+     *
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -168,8 +169,9 @@ class ProjectHandler extends AbstractHandler
      * Handles start elements within the <project> tag by creating and
      * calling the required handlers for the detected element.
      *
-     * @param string $name the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $name  the tag that comes in
+     * @param array  $attrs attributes the tag carries
+     *
      * @throws ExpatParseException if a unxepected element occurs
      */
     public function startElement($name, $attrs)
@@ -194,7 +196,8 @@ class ProjectHandler extends AbstractHandler
     }
 
     /**
-     * @param $name
+     * @param string $name
+     *
      * @return mixed
      */
     public static function canonicalName($name)

@@ -58,7 +58,7 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
     }
 
     /**
-     * @param $type
+     * @param string $type
      */
     public function setType($type)
     {
@@ -74,7 +74,7 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
     }
 
     /**
-     * @param $useFile
+     * @param bool $useFile
      */
     public function setUseFile($useFile)
     {
@@ -90,7 +90,7 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
     }
 
     /**
-     * @param $outfile
+     * @param string $outfile
      */
     public function setOutfile($outfile)
     {

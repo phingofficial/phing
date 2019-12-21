@@ -20,9 +20,10 @@
 /**
  * Wrapper around git-clone
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitCloneTask extends GitBaseTask
@@ -174,6 +175,7 @@ class GitCloneTask extends GitBaseTask
      * Set path to source repo
      *
      * @param string $targetPath Path to repository used as source
+     *
      * @return void
      */
     public function setTargetPath($targetPath)
@@ -208,7 +210,7 @@ class GitCloneTask extends GitBaseTask
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSingleBranch()
     {
@@ -216,7 +218,7 @@ class GitCloneTask extends GitBaseTask
     }
 
     /**
-     * @param boolean $singleBranch
+     * @param bool $singleBranch
      */
     public function setSingleBranch($singleBranch)
     {

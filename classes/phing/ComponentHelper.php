@@ -21,7 +21,6 @@
  * Component creation and configuration
  *
  * @author Michiel Rook <mrook@php.net>
- *
  * @package phing
  */
 class ComponentHelper
@@ -48,8 +47,6 @@ class ComponentHelper
     private $typedefs = [];
 
     /**
-     * ComponentHelper constructor.
-     *
      * @param Project $project
      */
     public function __construct(Project $project)
@@ -59,6 +56,7 @@ class ComponentHelper
 
     /**
      * @param Project $project
+     *
      * @return ComponentHelper
      */
     public static function getComponentHelper(Project $project)
@@ -95,8 +93,8 @@ class ComponentHelper
     /**
      * Adds a task definition.
      *
-     * @param string $name Name of tag.
-     * @param string $class The class path to use.
+     * @param string $name      Name of tag.
+     * @param string $class     The class path to use.
      * @param string $classpath The classpat to use.
      */
     public function addTaskDefinition($name, $class, $classpath = null)
@@ -125,7 +123,7 @@ class ComponentHelper
     /**
      * Adds a data type definition.
      *
-     * @param string $typeName Name of the type.
+     * @param string $typeName  Name of the type.
      * @param string $typeClass The class to use.
      * @param string $classpath The classpath to use.
      */
@@ -177,7 +175,9 @@ class ComponentHelper
      * Create a new task instance and return reference to it.
      *
      * @param string $taskType Task name
+     *
      * @return Task           A task object
+     *
      * @throws BuildException
      */
     public function createTask($taskType)
@@ -223,7 +223,9 @@ class ComponentHelper
      * Creates a new condition and returns the reference to it
      *
      * @param string $conditionType
+     *
      * @return Condition
+     *
      * @throws BuildException
      */
     public function createCondition($conditionType)
@@ -276,7 +278,9 @@ class ComponentHelper
      * See createTask() for explanation how this works
      *
      * @param string $typeName Type name
+     *
      * @return object         A datatype object
+     *
      * @throws BuildException
      *                                 Exception
      */

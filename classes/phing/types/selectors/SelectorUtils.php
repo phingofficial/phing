@@ -55,16 +55,12 @@ class SelectorUtils
      * can live with false positives. For example, <code>pattern=**\a</code>
      * and <code>str=b</code> will yield <code>true</code>.
      *
-     * @param string $pattern
-     * @param string $str
-     * @param bool $isCaseSensitive
-     *
-     * @internal param The $pattern pattern to match against. Must not be
-     *                <code>null</code>.
-     * @internal param The $str path to match, as a String. Must not be
-     *                <code>null</code>.
-     * @internal param Whether $isCaseSensitive or not matching should be performed
-     *                        case sensitively.
+     * @param string $pattern         The pattern to match against. Must not be
+     *                                <code>null</code>.
+     * @param string $str             The path to match, as a String. Must not be
+     *                                <code>null</code>.
+     * @param bool   $isCaseSensitive Whether isCaseSensitive or not matching should be performed
+     *                                case sensitively.
      *
      * @return bool whether or not a given path matches the start of a given
      *                 pattern up to the first "**".
@@ -115,7 +111,7 @@ class SelectorUtils
             return false;
         }
 
-// pattern now holds ** while string is not exhausted
+        // pattern now holds ** while string is not exhausted
         // this will generate false positives but we can live with that.
         return true;
     }
@@ -123,9 +119,9 @@ class SelectorUtils
     /**
      * Tests whether or not a given path matches a given pattern.
      *
-     * @param string $pattern The pattern to match against. Must not be <code>null</code>.
-     * @param string $str The path to match, as a String. Must not be <code>null</code>.
-     * @param bool $isCaseSensitive Whether or not matching should be performed case sensitively.
+     * @param string $pattern         The pattern to match against. Must not be <code>null</code>.
+     * @param string $str             The path to match, as a String. Must not be <code>null</code>.
+     * @param bool   $isCaseSensitive Whether or not matching should be performed case sensitively.
      *
      * @return bool <code>true</code> if the pattern matches against the string,
      */
@@ -159,12 +155,11 @@ class SelectorUtils
      * '*' means zero or more characters<br>
      * '?' means one and only one character
      *
-     * @param string $pattern The pattern to match against.
-     *                                Must not be
-     *                                <code>null</code>.
-     * @param string $str The string which must be matched against the pattern.
+     * @param string $pattern         The pattern to match against.
      *                                Must not be <code>null</code>.
-     * @param bool $isCaseSensitive Whether or not matching should be performed
+     * @param string $str             The string which must be matched against the pattern.
+     *                                Must not be <code>null</code>.
+     * @param bool   $isCaseSensitive Whether or not matching should be performed
      *                                case sensitively.case sensitively.
      *
      * @return bool <code>true</code> if the string matches against the pattern,
@@ -187,10 +182,11 @@ class SelectorUtils
      * false if the src file doesn't even exist, since how could the
      * target then be out of date.
      *
-     * @param PhingFile $src the original file
-     * @param PhingFile $target the file being compared against
-     * @param int $granularity the amount in seconds of slack we will give in
-     *                                determining out of dateness
+     * @param PhingFile $src         the original file
+     * @param PhingFile $target      the file being compared against
+     * @param int       $granularity The amount in seconds of slack we will give in
+     *                               determining out of dateness
+     *
      * @return bool whether   the target is out of date
      */
     public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity)
@@ -210,6 +206,7 @@ class SelectorUtils
 
     /**
      * @param string $string
+     *
      * @return string
      */
     public static function removeWhitespace($string)

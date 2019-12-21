@@ -46,7 +46,7 @@ class DataType extends ProjectComponent
      * if we'd need to investigate this condition (usually because a
      * child element has been added that is a subclass of DataType).
      *
-     * @var boolean
+     * @var bool
      */
     protected $checked = true;
 
@@ -107,8 +107,8 @@ class DataType extends ProjectComponent
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      *
-     * @param $stk
-     * @param Project $p
+     * @param DataType[] $stk
+     * @param Project    $p
      *
      * @return void
      *
@@ -156,12 +156,12 @@ class DataType extends ProjectComponent
     /**
      * Performs the check for circular references and returns the referenced object.
      *
-     * @param $requiredClass
-     * @param $dataTypeName
-     *
-     * @throws BuildException
+     * @param string $requiredClass
+     * @param string $dataTypeName
      *
      * @return mixed
+     *
+     * @throws BuildException
      */
     public function getCheckedRef($requiredClass, $dataTypeName)
     {

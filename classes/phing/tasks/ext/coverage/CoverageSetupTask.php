@@ -38,7 +38,7 @@ class CoverageSetupTask extends Task
     /**
      * Sets the filename of the coverage database to use
      *
-     * @param string the filename of the database
+     * @param string $database the filename of the database
      */
     public function setDatabase($database)
     {

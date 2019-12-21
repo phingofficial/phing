@@ -22,7 +22,6 @@
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.system
- *
  * @requires OS ^(?:(?!Win).)*$
  */
 class ChownTaskTest extends BuildFileTest

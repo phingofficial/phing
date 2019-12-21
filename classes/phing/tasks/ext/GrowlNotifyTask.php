@@ -31,11 +31,12 @@
  *
  * PHP version 5
  *
+ * @link     https://github.com/llaville/phing-GrowlNotifyTask
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Laurent Laville <pear@laurent-laville.org>
  * @license  http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link     https://github.com/llaville/phing-GrowlNotifyTask
  */
 
 
@@ -44,11 +45,12 @@
  *
  * PHP version 5
  *
+ * @link     https://github.com/llaville/phing-GrowlNotifyTask
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Laurent Laville <pear@laurent-laville.org>
  * @license  http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link     https://github.com/llaville/phing-GrowlNotifyTask
  */
 class GrowlNotifyTask extends Task
 {
@@ -82,6 +84,7 @@ class GrowlNotifyTask extends Task
      * (exists and can be loaded)
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function init()
@@ -119,6 +122,7 @@ class GrowlNotifyTask extends Task
      *                     Default: "Growl for Phing"
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setName($name = '')
@@ -156,6 +160,7 @@ class GrowlNotifyTask extends Task
      * @param string $message Notification's text
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setMessage($message = '')
@@ -178,6 +183,7 @@ class GrowlNotifyTask extends Task
      *                      Default: GrowlNotify
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setTitle($title = '')
@@ -203,6 +209,7 @@ class GrowlNotifyTask extends Task
      *                             Default: "General Notification"
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setNotification($notification = '')
@@ -234,6 +241,7 @@ class GrowlNotifyTask extends Task
      * @param string $icon Icon of the application
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setAppicon($icon = '')
@@ -266,6 +274,7 @@ class GrowlNotifyTask extends Task
      *                     Default: 127.0.0.1
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setHost($host = '127.0.0.1')
@@ -291,6 +300,7 @@ class GrowlNotifyTask extends Task
      * @param string $password Password to send request to a remote host
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setPassword($password = '')
@@ -315,6 +325,7 @@ class GrowlNotifyTask extends Task
      *                         Default: normal
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setPriority($priority = '')
@@ -359,6 +370,7 @@ class GrowlNotifyTask extends Task
      *                         Default: gntp
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setProtocol($protocol = '')
@@ -394,6 +406,7 @@ class GrowlNotifyTask extends Task
      * @param string $icon Icon of the message
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function setIcon($icon = '')
@@ -419,6 +432,7 @@ class GrowlNotifyTask extends Task
      * The main entry point method
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function main()

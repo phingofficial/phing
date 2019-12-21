@@ -62,21 +62,21 @@ class PhpDependTask extends Task
     /**
      * Should the parse ignore doc comment annotations?
      *
-     * @var boolean
+     * @var bool
      */
     protected $withoutAnnotations = false;
 
     /**
      * Should PHP_Depend treat <b>+global</b> as a regular project package?
      *
-     * @var boolean
+     * @var bool
      */
     protected $supportBadDocumentation = false;
 
     /**
      * Flag for enable/disable debugging
      *
-     * @var boolean
+     * @var bool
      */
     protected $debug = false;
 
@@ -111,7 +111,7 @@ class PhpDependTask extends Task
     /**
      * Flag that determines whether to halt on error
      *
-     * @var boolean
+     * @var bool
      */
     protected $haltonerror = false;
 
@@ -233,7 +233,7 @@ class PhpDependTask extends Task
     /**
      * Should the parser ignore doc comment annotations?
      *
-     * @param boolean $withoutAnnotations
+     * @param bool $withoutAnnotations
      */
     public function setWithoutAnnotations($withoutAnnotations)
     {
@@ -245,7 +245,7 @@ class PhpDependTask extends Task
      * option is set to <b>true</b>, PHP_Depend will treat the default package
      * <b>+global</b> as a regular project package.
      *
-     * @param boolean $supportBadDocumentation
+     * @param bool $supportBadDocumentation
      */
     public function setSupportBadDocumentation($supportBadDocumentation)
     {
@@ -255,7 +255,7 @@ class PhpDependTask extends Task
     /**
      * Set debugging On/Off
      *
-     * @param boolean $debug
+     * @param bool $debug
      */
     public function setDebug($debug)
     {
@@ -265,7 +265,7 @@ class PhpDependTask extends Task
     /**
      * Set halt on error
      *
-     * @param boolean $haltonerror
+     * @param bool $haltonerror
      */
     public function setHaltonerror($haltonerror)
     {
@@ -522,7 +522,8 @@ class PhpDependTask extends Task
     /**
      * Loads configuration file
      *
-     * @return null|PHP_Depend_Util_Configuration
+     * @return PHP_Depend_Util_Configuration|null
+     *
      * @throws BuildException
      */
     private function getConfiguration()

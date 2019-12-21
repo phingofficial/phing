@@ -6,11 +6,12 @@
  *
  * PHP version 5
  *
+ * @link     http://www.phing.info/
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 
 /**
@@ -20,11 +21,12 @@
  * a solution provided at:
  * stackoverflow.com/questions/9594238/good-php-classes-that-manipulate-ini-files
  *
+ * @link     http://www.phing.info/
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 class IniFileConfig
 {
@@ -83,7 +85,7 @@ class IniFileConfig
      * @param string $section Section
      * @param string $key     Key
      *
-     * @return void
+     * @return string
      */
     public function get($section, $key)
     {

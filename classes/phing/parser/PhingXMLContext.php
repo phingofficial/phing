@@ -68,7 +68,7 @@ class PhingXMLContext
     private $configurators = [];
 
     /**
-     * @param $cfg
+     * @param string $cfg
      */
     public function startConfigure($cfg)
     {
@@ -99,7 +99,7 @@ class PhingXMLContext
     private $importStack = [];
 
     /**
-     * @param $file
+     * @param string $file
      */
     public function addImport($file)
     {

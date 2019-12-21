@@ -60,21 +60,21 @@ class PHPCPDTask extends Task
     /**
      * Minimum number of identical lines.
      *
-     * @var integer
+     * @var int
      */
     protected $minLines = 5;
 
     /**
      * Minimum number of identical tokens.
      *
-     * @var integer
+     * @var int
      */
     protected $minTokens = 70;
 
     /**
      * Allow for fuzzy matches.
      *
-     * @var boolean
+     * @var bool
      */
     protected $fuzzy = false;
 
@@ -129,7 +129,7 @@ class PHPCPDTask extends Task
     /**
      * Sets the minimum number of identical lines (default: 5).
      *
-     * @param integer $minLines Minimum number of identical lines
+     * @param int $minLines Minimum number of identical lines
      */
     public function setMinLines($minLines)
     {
@@ -139,7 +139,7 @@ class PHPCPDTask extends Task
     /**
      * Sets the minimum number of identical tokens (default: 70).
      *
-     * @param integer $minTokens Minimum number of identical tokens
+     * @param int $minTokens Minimum number of identical tokens
      */
     public function setMinTokens($minTokens)
     {
@@ -149,7 +149,7 @@ class PHPCPDTask extends Task
     /**
      * Sets the fuzzy match (default: false).
      *
-     * @param boolean $fuzzy fuzzy match
+     * @param bool $fuzzy fuzzy match
      */
     public function setFuzzy($fuzzy)
     {

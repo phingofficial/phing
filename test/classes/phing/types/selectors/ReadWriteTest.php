@@ -18,8 +18,6 @@
  */
 
 /**
- * Class ReadWriteTest
- *
  * Test cases for isReadable/isWritable selectors.
  */
 class ReadWriteTest extends BuildFileTest

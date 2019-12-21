@@ -36,7 +36,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 {
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $useDefaultExcludes = true;
 
@@ -56,6 +56,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * @see ProjectComponent::setProject()
+     *
      * @param Project $project
      */
     public function setProject($project)
@@ -119,6 +120,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * or a space.
      *
      * @param string $includes the string containing the include patterns
+     *
      * @return void
      */
     public function setIncludes($includes)
@@ -140,9 +142,9 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets whether default exclusions should be used or not.
      *
-     * @param boolean $useDefaultExcludes "true"|"on"|"yes" when default exclusions
-     *                                    should be used, "false"|"off"|"no" when they
-     *                                    shouldn't be used.
+     * @param bool $useDefaultExcludes "true"|"on"|"yes" when default exclusions
+     *                                 should be used, "false"|"off"|"no" when they
+     *                                 shouldn't be used.
      */
     public function setDefaultexcludes(bool $useDefaultExcludes)
     {
@@ -153,8 +155,10 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * Returns the directory scanner needed to access the files to process.
      *
      * @param PhingFile $baseDir
-     * @throws BuildException
+     *
      * @return DirectoryScanner
+     *
+     * @throws BuildException
      */
     protected function getDirectoryScanner(PhingFile $baseDir)
     {
@@ -169,6 +173,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @param PhingFile $includesfile A string containing the filename to fetch
      *                                 the include patterns from.
+     *
      * @return void
      */
     public function setIncludesfile(PhingFile $includesfile)
@@ -181,6 +186,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @param PhingFile $excludesfile A string containing the filename to fetch
      *                                 the include patterns from.
+     *
      * @return void
      */
     public function setExcludesfile(PhingFile $excludesfile)
@@ -191,8 +197,9 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets case sensitivity of the file system
      *
-     * @param boolean $isCaseSensitive "true"|"on"|"yes" if file system is case
-     *                                  sensitive, "false"|"off"|"no" when not.
+     * @param bool $isCaseSensitive "true"|"on"|"yes" if file system is case
+     *                              sensitive, "false"|"off"|"no" when not.
+     *
      * @return void
      */
     public function setCaseSensitive($isCaseSensitive)
@@ -203,7 +210,8 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets whether or not symbolic links should be followed.
      *
-     * @param boolean $followSymlinks whether or not symbolic links should be followed
+     * @param bool $followSymlinks whether or not symbolic links should be followed
+     *
      * @return void
      */
     public function setFollowSymlinks($followSymlinks)
@@ -214,7 +222,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {
@@ -235,6 +243,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * Returns the set of selectors as an array.
      *
      * @param Project $p
+     *
      * @return array FileSelector[] An array of selectors in this container
      */
     public function getSelectors(Project $p)

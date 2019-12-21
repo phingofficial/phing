@@ -92,7 +92,7 @@ class EchoProperties extends Task
      * build errors, and if false, then such errors will be logged, but not
      * thrown.
      *
-     * @var boolean
+     * @var bool
      */
     private $failonerror = true;
 
@@ -144,8 +144,8 @@ class EchoProperties extends Task
      * If true, the task will fail if an error occurs writing the properties
      * file, otherwise errors are just logged.
      *
-     * @param failonerror <tt>true</tt> if IO exceptions are reported as build
-     *      exceptions, or <tt>false</tt> if IO exceptions are ignored.
+     * @param bool $failonerror <tt>true</tt> if IO exceptions are reported as build
+     *                          exceptions, or <tt>false</tt> if IO exceptions are ignored.
      */
     public function setFailOnError($failonerror)
     {
@@ -272,8 +272,9 @@ class EchoProperties extends Task
 
     /**
      * @param Exception $exception
-     * @param string $message
-     * @param int $level
+     * @param string    $message
+     * @param int       $level
+     *
      * @throws BuildException
      */
     private function failOnErrorAction(Exception $exception = null, $message = '', $level = Project::MSG_INFO)
@@ -299,8 +300,9 @@ class EchoProperties extends Task
      *  sent to the output stream.
      *  The output stream will be closed when this method returns.
      *
-     * @param array $allProps propfile to save
-     * @param OutputStream $os output stream
+     * @param array        $allProps propfile to save
+     * @param OutputStream $os       output stream
+     *
      * @throws IOException      on output errors
      * @throws BuildException   on other errors
      */
@@ -339,8 +341,9 @@ class EchoProperties extends Task
     /**
      * Output the properties as xml output.
      *
-     * @param Properties $props the properties to save
-     * @param OutputStream $os the output stream to write to (Note this gets closed)
+     * @param Properties   $props the properties to save
+     * @param OutputStream $os    the output stream to write to (Note this gets closed)
+     *
      * @throws BuildException
      */
     protected function xmlSaveProperties(Properties $props, OutputStream $os)
@@ -367,9 +370,10 @@ class EchoProperties extends Task
     }
 
     /**
-     * @param Properties $props the properties to record
-     * @param OutputStream $os record the properties to this output stream
-     * @param string $header prepend this header to the property output
+     * @param Properties   $props  the properties to record
+     * @param OutputStream $os     record the properties to this output stream
+     * @param string       $header prepend this header to the property output
+     *
      * @throws BuildException on an I/O error during a write.
      */
     protected function textSaveProperties(Properties $props, OutputStream $os, $header)

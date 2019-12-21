@@ -45,7 +45,7 @@ class HttpRequestTask extends HttpTask
     /**
      * Whether to enable detailed logging
      *
-     * @var boolean
+     * @var bool
      */
     protected $verbose = false;
 
@@ -105,7 +105,7 @@ class HttpRequestTask extends HttpTask
     /**
      * Sets whether to enable detailed logging
      *
-     * @param boolean $verbose
+     * @param bool $verbose
      */
     public function setVerbose($verbose)
     {
@@ -133,7 +133,7 @@ class HttpRequestTask extends HttpTask
     /**
      * The setter for the method
      *
-     * @param $method
+     * @param string $method
      */
     public function setMethod($method)
     {
@@ -173,6 +173,7 @@ class HttpRequestTask extends HttpTask
      * Creates and configures an instance of HTTP_Request2
      *
      * @return HTTP_Request2
+     *
      * @throws HTTP_Request2_Exception
      * @throws HTTP_Request2_LogicException
      */
@@ -230,7 +231,9 @@ class HttpRequestTask extends HttpTask
      * Checks whether response body or status-code matches the given regexp
      *
      * @param HTTP_Request2_Response $response
+     *
      * @return void
+     *
      * @throws BuildException
      * @throws HTTP_Request2_Exception
      * @throws RegexpException

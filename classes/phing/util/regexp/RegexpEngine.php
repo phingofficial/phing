@@ -29,7 +29,8 @@ interface RegexpEngine
     /**
      * Sets whether or not regex operation should ingore case.
      *
-     * @param boolean $bit
+     * @param bool $bit
+     *
      * @return void
      */
     public function setIgnoreCase($bit);
@@ -37,21 +38,21 @@ interface RegexpEngine
     /**
      * Returns status of ignore case flag.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIgnoreCase();
 
     /**
      * Sets whether regexp should be applied in multiline mode.
      *
-     * @param boolean $bit
+     * @param bool $bit
      */
     public function setMultiline($bit);
 
     /**
      * Gets whether regexp is to be applied in multiline mode.
      *
-     * @return boolean
+     * @return bool
      */
     public function getMultiline();
 
@@ -73,9 +74,10 @@ interface RegexpEngine
      * Matches pattern against source string and sets the matches array.
      *
      * @param string $pattern The regex pattern to match.
-     * @param string $source The source string.
-     * @param array $matches The array in which to store matches.
-     * @return boolean Success of matching operation.
+     * @param string $source  The source string.
+     * @param array  $matches The array in which to store matches.
+     *
+     * @return bool Success of matching operation.
      */
     public function match($pattern, $source, &$matches);
 
@@ -83,9 +85,10 @@ interface RegexpEngine
      * Matches all patterns in source string and sets the matches array.
      *
      * @param string $pattern The regex pattern to match.
-     * @param string $source The source string.
-     * @param array $matches The array in which to store matches.
-     * @return boolean Success of matching operation.
+     * @param string $source  The source string.
+     * @param array  $matches The array in which to store matches.
+     *
+     * @return bool Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches);
 
@@ -94,7 +97,8 @@ interface RegexpEngine
      *
      * @param string $pattern The regex pattern to match.
      * @param string $replace The string with which to replace matches.
-     * @param string $source The source string.
+     * @param string $source  The source string.
+     *
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source);

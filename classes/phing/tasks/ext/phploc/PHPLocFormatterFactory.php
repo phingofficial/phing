@@ -29,8 +29,10 @@ class PHPLocFormatterFactory
      * Returns formatter object
      *
      * @param PHPLocFormatterElement $formatterElement
-     * @throws BuildException
+     *
      * @return AbstractPHPLocFormatter
+     *
+     * @throws BuildException
      */
     public static function createFormatter($formatterElement)
     {

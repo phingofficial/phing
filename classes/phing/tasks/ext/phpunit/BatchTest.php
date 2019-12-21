@@ -21,9 +21,7 @@
  * Scans a list of files given by the fileset attribute, extracts valid test cases
  *
  * @author Michiel Rook <mrook@php.net>
- *
  * @package phing.tasks.ext.phpunit
- *
  * @since 2.1.0
  */
 class BatchTest
@@ -59,7 +57,7 @@ class BatchTest
     /**
      * Sets the name of the batchtest/suite
      *
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -104,7 +102,7 @@ class BatchTest
     /**
      * Checks wheter $input is a PHPUnit Test.
      *
-     * @param $input
+     * @param \PHPUnit\Framework\TestCase|\PHPUnit\Framework\TestSuite $input
      *
      * @return bool
      */
@@ -121,6 +119,7 @@ class BatchTest
      * @param object $input
      *
      * @return bool
+     *
      * @throws ReflectionException
      */
     private function filterTests($input)
@@ -135,6 +134,7 @@ class BatchTest
      * by the files included by the filesets
      *
      * @return array an array of tests.
+     *
      * @throws Exception
      */
     public function elements()
@@ -153,8 +153,6 @@ class BatchTest
             $declaredClasses = array_merge($declaredClasses, $definedClasses);
         }
 
-        $elements = array_filter($declaredClasses, [$this, "filterTests"]);
-
-        return $elements;
+        return array_filter($declaredClasses, [$this, "filterTests"]);
     }
 }

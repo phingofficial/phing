@@ -59,7 +59,7 @@ class RuntimeConfigurable
 
     /**
      * @param Task|object $proxy
-     * @param mixed $elementTag The element to wrap.
+     * @param mixed       $elementTag The element to wrap.
      */
     public function __construct($proxy, $elementTag)
     {

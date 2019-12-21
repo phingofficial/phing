@@ -22,7 +22,6 @@
  * format. The resulting formatted path is placed into the specified property.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- *
  * @package phing.tasks.system
  */
 class PathConvert extends Task
@@ -306,6 +305,7 @@ class PathConvert extends Task
      * then the input string is returned unchanged.
      *
      * @param string $elem The path element to apply the map to
+     *
      * @return string Updated element
      */
     private function mapElement($elem)
@@ -407,7 +407,7 @@ class PathConvert extends Task
     /**
      * Get the preserveDuplicates.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPreserveDuplicates(): bool
     {

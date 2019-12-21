@@ -73,7 +73,7 @@ class Arg extends DataType
     /**
      * Should the argument value be enclosed in double quotes
      *
-     * @return boolean
+     * @return bool
      */
     public function getQuotes()
     {
@@ -83,7 +83,7 @@ class Arg extends DataType
     /**
      * Should the argument value be enclosed in double quotes
      *
-     * @param boolean $quotes
+     * @param bool $quotes
      */
     public function setQuotes($quotes)
     {

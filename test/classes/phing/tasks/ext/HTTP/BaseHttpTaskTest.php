@@ -25,7 +25,7 @@ abstract class BaseHttpTaskTest extends BuildFileTest
 {
     protected function copyTasksAddingCustomRequest($fromTarget, $toTarget, HTTP_Request2 $request)
     {
-        /* @var Target[] $targets */
+        /** @var Target[] $targets */
         $targets = $this->project->getTargets();
         foreach ($targets[$fromTarget]->getTasks() as $task) {
             if ($task instanceof UnknownElement) {

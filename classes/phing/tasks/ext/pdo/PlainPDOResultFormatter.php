@@ -29,14 +29,14 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Have column headers been printed?
      *
-     * @var boolean
+     * @var bool
      */
     private $colsprinted = false;
 
     /**
      * Whether to show headers.
      *
-     * @var boolean
+     * @var bool
      */
     private $showheaders = true;
 
@@ -59,7 +59,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Set the showheaders attribute.
      *
-     * @param boolean $v
+     * @param bool $v
      */
     public function setShowheaders($v)
     {

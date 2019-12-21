@@ -87,8 +87,10 @@ class WaitForTask extends ConditionBase
      * Convert the unit to a multipler.
      *
      * @param string $unit
-     * @throws BuildException
+     *
      * @return int
+     *
+     * @throws BuildException
      */
     protected function _convertUnit($unit)
     {
@@ -133,6 +135,7 @@ class WaitForTask extends ConditionBase
      * Set the check every time unit
      *
      * @param string $checkEveryUnit
+     *
      * @return void
      */
     public function setCheckEveryUnit($checkEveryUnit)
@@ -144,6 +147,7 @@ class WaitForTask extends ConditionBase
      * Name of the property to set after a timeout.
      *
      * @param string $timeoutProperty
+     *
      * @return void
      */
     public function setTimeoutProperty($timeoutProperty)

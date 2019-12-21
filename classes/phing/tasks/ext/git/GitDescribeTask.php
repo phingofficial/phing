@@ -20,51 +20,52 @@
 /**
  * Wrapper around git-describe
  *
+ * @see     VersionControl_Git
+ *
  * @package phing.tasks.ext.git
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @see     VersionControl_Git
  */
 class GitDescribeTask extends GitBaseTask
 {
     /**
      * Use any ref found in .git/refs/. See --all of git-describe
      *
-     * @var boolean
+     * @var bool
      */
     private $all = false;
 
     /**
      * Use any tag found in .git/refs/tags. See --tags of git-describe
      *
-     * @var boolean
+     * @var bool
      */
     private $tags = false;
 
     /**
      * Find tag that contains the commit. See --contains of git-describe
      *
-     * @var boolean
+     * @var bool
      */
     private $contains = false;
 
     /**
      * Use <n> digit object name. See --abbrev of git-describe
      *
-     * @var integer
+     * @var int
      */
     private $abbrev;
 
     /**
      * Consider up to <n> most recent tags. See --candidates of git-describe
      *
-     * @var integer
+     * @var int
      */
     private $candidates;
 
     /**
      * Always output the long format. See --long of git-describe
      *
-     * @var boolean
+     * @var bool
      */
     private $long = false;
 
@@ -78,7 +79,7 @@ class GitDescribeTask extends GitBaseTask
     /**
      * Show uniquely abbreviated commit object as fallback. See --always of git-describe
      *
-     * @var boolean
+     * @var bool
      */
     private $always = false;
 
@@ -145,7 +146,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAll(bool $flag)
     {
@@ -169,7 +170,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setTags(bool $flag)
     {
@@ -193,7 +194,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setContains(bool $flag)
     {
@@ -217,7 +218,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $length
+     * @param int $length
      */
     public function setAbbrev($length)
     {
@@ -233,7 +234,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $count
+     * @param int $count
      */
     public function setCandidates($count)
     {
@@ -249,7 +250,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setLong(bool $flag)
     {
@@ -273,7 +274,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $pattern
+     * @param string $pattern
      */
     public function setMatch($pattern)
     {
@@ -289,7 +290,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAlways(bool $flag)
     {
@@ -313,7 +314,7 @@ class GitDescribeTask extends GitBaseTask
     }
 
     /**
-     * @param $object
+     * @param string $object
      */
     public function setCommittish($object)
     {

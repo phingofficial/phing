@@ -26,7 +26,6 @@
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.system
- *
  * @todo Add support for evaluating expressions
  */
 class PhpEvalTask extends Task
@@ -77,7 +76,7 @@ class PhpEvalTask extends Task
     /**
      * Calls function and returns results.
      *
-     * @return mixed
+     * @return void
      */
     protected function callFunction()
     {
@@ -144,7 +143,7 @@ class PhpEvalTask extends Task
     /**
      * Evaluates expression and returns resulting value.
      *
-     * @return mixed
+     * @return void
      */
     protected function evalExpression()
     {
@@ -165,7 +164,7 @@ class PhpEvalTask extends Task
     /**
      * Set function to execute
      *
-     * @param $f
+     * @param string $f
      */
     public function setFunction($f)
     {
@@ -175,7 +174,7 @@ class PhpEvalTask extends Task
     /**
      * Set [static] class which contains function to execute
      *
-     * @param $c
+     * @param string $c
      */
     public function setClass($c)
     {
@@ -185,7 +184,7 @@ class PhpEvalTask extends Task
     /**
      * Sets property name to set with return value of function or expression.
      *
-     * @param $r
+     * @param string $r
      */
     public function setReturnProperty($r)
     {
@@ -195,7 +194,7 @@ class PhpEvalTask extends Task
     /**
      * Set PHP expression to evaluate.
      *
-     * @param $expression
+     * @param string $expression
      */
     public function addText($expression)
     {
@@ -205,7 +204,7 @@ class PhpEvalTask extends Task
     /**
      * Set PHP expression to evaluate.
      *
-     * @param $expression
+     * @param string $expression
      */
     public function setExpression($expression)
     {

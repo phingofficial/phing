@@ -25,6 +25,7 @@
  * Based on org.apache.tools.ant.DirectoryScannerTest
  *
  * @see     http://svn.apache.org/viewvc/ant/core/trunk/src/tests/junit/org/apache/tools/ant/DirectoryScannerTest.java
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.util
  */

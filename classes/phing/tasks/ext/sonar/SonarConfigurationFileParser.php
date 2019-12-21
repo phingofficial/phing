@@ -18,7 +18,6 @@
  */
 
 /**
- *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
  */
@@ -26,13 +25,11 @@ class SonarConfigurationFileParser
 {
 
     /**
-     *
      * @var Project
      */
     private $project;
 
     /**
-     *
      * @var string
      */
     private $file;
@@ -59,7 +56,6 @@ class SonarConfigurationFileParser
     private $value;
 
     /**
-     *
      * @param string $file
      *            The properties file.
      */
@@ -74,9 +70,9 @@ class SonarConfigurationFileParser
     }
 
     /**
+     * @return array
      *
      * @throws BuildException
-     * @return array
      */
     public function parse()
     {
@@ -131,9 +127,9 @@ class SonarConfigurationFileParser
     }
 
     /**
-     *
      * @param string $line
-     * @return boolean
+     *
+     * @return bool
      */
     private function extractNameAndValue($line)
     {
@@ -157,9 +153,9 @@ class SonarConfigurationFileParser
     }
 
     /**
-     *
      * @param string $line
-     * @return boolean
+     *
+     * @return bool
      */
     private function extractContinuedValue($line)
     {
@@ -182,8 +178,7 @@ class SonarConfigurationFileParser
     }
 
     /**
-     *
-     * @return boolean
+     * @return bool
      */
     private function checkMultiLine()
     {
@@ -200,9 +195,9 @@ class SonarConfigurationFileParser
     }
 
     /**
-     *
      * @param string $line
-     * @return boolean
+     *
+     * @return bool
      */
     private function isCommentLine($line)
     {

@@ -48,14 +48,14 @@ abstract class AbstractLiquibaseTask extends Task
      * Whether to display the output of the command.
      * True by default to preserve old behaviour
      *
-     * @var boolean
+     * @var bool
      */
     protected $display = true;
 
     /**
      * Whether liquibase return code can cause a Phing failure.
      *
-     * @var boolean
+     * @var bool
      */
     protected $checkreturn = false;
 
@@ -75,7 +75,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Sets the absolute path to liquibase jar.
      *
-     * @param string the absolute path to the liquibase jar.
+     * @param string $jar the absolute path to the liquibase jar.
      */
     public function setJar($jar)
     {
@@ -85,7 +85,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Sets the absolute path to the changelog file to use.
      *
-     * @param string the absolute path to the changelog file
+     * @param string $changelogFile the absolute path to the changelog file
      */
     public function setChangeLogFile($changelogFile)
     {
@@ -95,7 +95,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Sets the username to connect to the database.
      *
-     * @param string the username
+     * @param string $username the username
      */
     public function setUsername($username)
     {
@@ -105,7 +105,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Sets the password to connect to the database.
      *
-     * @param string the password
+     * @param string $password the password
      */
     public function setPassword($password)
     {
@@ -118,7 +118,7 @@ abstract class AbstractLiquibaseTask extends Task
      * jdbc:postgresql://psqlhost/mydatabase
      * </code>
      *
-     * @param string jdbc connection string
+     * @param string $url jdbc connection string
      */
     public function setUrl($url)
     {
@@ -128,8 +128,8 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Sets the Java classpathref.
      *
-     * @param string A reference to the classpath that contains the database
-     *                    driver, liquibase.jar, and the changelog.xml file
+     * @param string $classpathref A reference to the classpath that contains the database
+     *                             driver, liquibase.jar, and the changelog.xml file
      */
     public function setclasspathref($classpathref)
     {
@@ -139,7 +139,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Sets whether to display the output of the command
      *
-     * @param boolean $display
+     * @param bool $display
      */
     public function setDisplay($display)
     {
@@ -149,7 +149,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Whether to check the liquibase return code.
      *
-     * @param boolean $checkreturn
+     * @param bool $checkreturn
      */
     public function setCheckreturn($checkreturn)
     {
@@ -159,8 +159,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Whether to check the liquibase return code.
      *
-     * @param $passthru
-     * @internal param bool $checkreturn
+     * @param bool $passthru
      */
     public function setPassthru($passthru)
     {
@@ -208,8 +207,9 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Ensure that correct parameters were passed in.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     protected function checkParams()
     {
@@ -244,10 +244,12 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Executes the given command and returns the output.
      *
-     * @param $lbcommand
-     * @param string $lbparams the command to execute
-     * @throws BuildException
+     * @param string $lbcommand
+     * @param string $lbparams  the command to execute
+     *
      * @return string the output of the executed command
+     *
+     * @throws BuildException
      */
     protected function execute($lbcommand, $lbparams = '')
     {

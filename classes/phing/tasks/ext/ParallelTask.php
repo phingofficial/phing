@@ -24,9 +24,10 @@
  *
  * WARNING: this task is highly experimental!
  *
+ * @see     https://github.com/phpdocumentor/Parallel
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
- * @see     https://github.com/phpdocumentor/Parallel
  * @since   2.4.10
  */
 class ParallelTask extends SequentialTask

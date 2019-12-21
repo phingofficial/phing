@@ -32,6 +32,7 @@ class SeriesMap
 
     /**
      * @param string $name
+     *
      * @return Series
      */
     public function get($name)

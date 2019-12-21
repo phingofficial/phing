@@ -38,7 +38,7 @@ class IoncubeLicenseTask extends Task
     /**
      * Sets the path to the ionCube encoder
      *
-     * @param $ioncubePath
+     * @param string $ioncubePath
      */
     public function setIoncubePath($ioncubePath)
     {
@@ -56,7 +56,7 @@ class IoncubeLicenseTask extends Task
     /**
      * Sets the path to the license file to use
      *
-     * @param $licensePath
+     * @param string $licensePath
      */
     public function setLicensePath($licensePath)
     {
@@ -74,7 +74,7 @@ class IoncubeLicenseTask extends Task
     /**
      * Sets the passphrase to use when encoding files
      *
-     * @param $passPhrase
+     * @param string $passPhrase
      */
     public function setPassPhrase($passPhrase)
     {
@@ -102,7 +102,7 @@ class IoncubeLicenseTask extends Task
     /**
      * Sets the --allowed-server option to use when generating the license
      *
-     * @param $allowedServer
+     * @param string $allowedServer
      */
     public function setAllowedServer($allowedServer)
     {
@@ -120,7 +120,7 @@ class IoncubeLicenseTask extends Task
     /**
      * Sets the --expire-on option to use when generating the license
      *
-     * @param $expireOn
+     * @param string $expireOn
      */
     public function setExpireOn($expireOn)
     {
@@ -138,7 +138,7 @@ class IoncubeLicenseTask extends Task
     /**
      * Sets the --expire-in option to use when generating the license
      *
-     * @param $expireIn
+     * @param string $expireIn
      */
     public function setExpireIn($expireIn)
     {

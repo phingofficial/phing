@@ -56,6 +56,7 @@ abstract class MappingSelector extends BaseSelector
      * Defines the FileNameMapper to use (nested mapper element).
      *
      * @return Mapper a mapper to be configured
+     *
      * @throws BuildException if more than one mapper defined
      */
     public function createMapper()
@@ -107,9 +108,9 @@ abstract class MappingSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a java.io.File object the selector can use
+     * @param PhingFile $basedir  the base directory the scan is being done from
+     * @param string    $filename is the name of the file to check
+     * @param PhingFile $file     is a java.io.File object the selector can use
      *
      * @return bool whether the file should be selected or not
      *
@@ -144,8 +145,9 @@ abstract class MappingSelector extends BaseSelector
     /**
      * this test is our selection test that compared the file with the destfile
      *
-     * @param PhingFile $srcfile file to test; may be null
+     * @param PhingFile $srcfile  file to test; may be null
      * @param PhingFile $destfile destination file
+     *
      * @return true if source file compares with destination file
      */
     abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile);

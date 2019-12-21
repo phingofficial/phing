@@ -256,7 +256,7 @@ class ApiGenTask extends Task
     /**
      * Sets if documentation for elements marked as internal and internal documentation parts should be generated.
      *
-     * @param boolean $internal
+     * @param bool $internal
      */
     public function setInternal(bool $internal)
     {
@@ -268,7 +268,7 @@ class ApiGenTask extends Task
     /**
      * Sets if documentation for PHP internal classes should be generated.
      *
-     * @param boolean $php
+     * @param bool $php
      */
     public function setPhp(bool $php)
     {
@@ -280,7 +280,7 @@ class ApiGenTask extends Task
     /**
      * Sets if tree view of classes, interfaces, traits and exceptions should be generated.
      *
-     * @param boolean $tree
+     * @param bool $tree
      */
     public function setTree(bool $tree)
     {
@@ -292,7 +292,7 @@ class ApiGenTask extends Task
     /**
      * Sets if documentation for deprecated elements should be generated.
      *
-     * @param boolean $deprecated
+     * @param bool $deprecated
      */
     public function setDeprecated(bool $deprecated)
     {
@@ -304,7 +304,7 @@ class ApiGenTask extends Task
     /**
      * Sets if documentation of tasks should be generated.
      *
-     * @param boolean $todo
+     * @param bool $todo
      */
     public function setTodo(bool $todo)
     {
@@ -316,7 +316,7 @@ class ApiGenTask extends Task
     /**
      * Sets if highlighted source code files should be generated.
      *
-     * @param boolean $noSourceCode
+     * @param bool $noSourceCode
      */
     public function setSourceCode(bool $noSourceCode)
     {
@@ -329,7 +329,8 @@ class ApiGenTask extends Task
      * Sets if highlighted source code files should not be generated.
      *
      * @deprecated
-     * @param boolean $noSourceCode
+     *
+     * @param bool $noSourceCode
      */
     public function setNoSourceCode(bool $noSourceCode)
     {
@@ -339,7 +340,7 @@ class ApiGenTask extends Task
     /**
      * Sets if a link to download documentation as a ZIP archive should be generated.
      *
-     * @param boolean $download
+     * @param bool $download
      */
     public function setDownload(bool $download)
     {
@@ -351,7 +352,7 @@ class ApiGenTask extends Task
     /**
      * Enables/disables the debug mode.
      *
-     * @param boolean $debug
+     * @param bool $debug
      */
     public function setDebug(bool $debug)
     {
@@ -363,8 +364,9 @@ class ApiGenTask extends Task
     /**
      * Runs ApiGen.
      *
-     * @throws BuildException If something is wrong.
      * @see    Task::main()
+     *
+     * @throws BuildException If something is wrong.
      */
     public function main()
     {

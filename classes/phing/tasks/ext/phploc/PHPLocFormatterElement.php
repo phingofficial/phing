@@ -64,7 +64,7 @@ class PHPLocFormatterElement
     /**
      * Sets whether to store formatting results in a file
      *
-     * @param $useFile
+     * @param bool $useFile
      */
     public function setUseFile($useFile)
     {

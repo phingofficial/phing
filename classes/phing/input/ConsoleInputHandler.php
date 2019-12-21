@@ -43,9 +43,7 @@ class ConsoleInputHandler implements InputHandler
     private $output;
 
     /**
-     * ConsoleInputHandler constructor.
-     *
-     * @param resource $inputStream
+     * @param resource        $inputStream
      * @param OutputInterface $output
      */
     public function __construct($inputStream, OutputInterface $output)
@@ -64,6 +62,7 @@ class ConsoleInputHandler implements InputHandler
      * value, request.isInputValid will return true.</p>
      *
      * @param InputRequest $request
+     *
      * @return void
      */
     public function handleInput(InputRequest $request)
@@ -91,6 +90,7 @@ class ConsoleInputHandler implements InputHandler
 
     /**
      * @param InputRequest $inputRequest
+     *
      * @return Question
      */
     protected function getQuestion(InputRequest $inputRequest)
@@ -110,6 +110,7 @@ class ConsoleInputHandler implements InputHandler
 
     /**
      * @param InputRequest $inputRequest
+     *
      * @return string
      */
     protected function getPrompt(InputRequest $inputRequest)

@@ -23,10 +23,11 @@
  * Classes that implement a listener must extend this class and (faux)implement
  * all methods that are decleard as dummies below.
  *
- * @author  Andreas Aderhold <andi@binarycloud.com>
- * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BuildEvent
  * @see     Project::addBuildListener()
+ *
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing
  */
 interface BuildListener
@@ -41,48 +42,54 @@ interface BuildListener
     /**
      * Fired after the last target has finished.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getException()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function buildFinished(BuildEvent $event);
 
     /**
      * Fired when a target is started.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getTarget()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function targetStarted(BuildEvent $event);
 
     /**
      * Fired when a target has finished.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent#getException()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function targetFinished(BuildEvent $event);
 
     /**
      * Fired when a task is started.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getTask()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function taskStarted(BuildEvent $event);
 
     /**
      * Fired when a task has finished.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getException()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function taskFinished(BuildEvent $event);
 
     /**
      * Fired whenever a message is logged.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getMessage()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function messageLogged(BuildEvent $event);
 }

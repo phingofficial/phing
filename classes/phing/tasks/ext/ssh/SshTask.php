@@ -90,7 +90,7 @@ class SshTask extends Task
     /**
      * Whether to display the output of the command
      *
-     * @var boolean
+     * @var bool
      */
     private $display = true;
 
@@ -100,7 +100,7 @@ class SshTask extends Task
     private $connection;
 
     /**
-     * @param $host
+     * @param string $host
      */
     public function setHost($host)
     {
@@ -116,7 +116,7 @@ class SshTask extends Task
     }
 
     /**
-     * @param $port
+     * @param int $port
      */
     public function setPort($port)
     {
@@ -132,7 +132,7 @@ class SshTask extends Task
     }
 
     /**
-     * @param $username
+     * @param string $username
      */
     public function setUsername($username)
     {
@@ -148,7 +148,7 @@ class SshTask extends Task
     }
 
     /**
-     * @param $password
+     * @param string $password
      */
     public function setPassword($password)
     {
@@ -166,7 +166,7 @@ class SshTask extends Task
     /**
      * Sets the public key file of the user to scp
      *
-     * @param $pubkeyfile
+     * @param string $pubkeyfile
      */
     public function setPubkeyfile($pubkeyfile)
     {
@@ -184,7 +184,7 @@ class SshTask extends Task
     /**
      * Sets the private key file of the user to scp
      *
-     * @param $privkeyfile
+     * @param string $privkeyfile
      */
     public function setPrivkeyfile($privkeyfile)
     {
@@ -202,7 +202,7 @@ class SshTask extends Task
     /**
      * Sets the private key file passphrase of the user to scp
      *
-     * @param $privkeyfilepassphrase
+     * @param string $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
     {
@@ -212,16 +212,15 @@ class SshTask extends Task
     /**
      * Returns the private keyfile passphrase
      *
-     * @param $privkeyfilepassphrase
      * @return string
      */
-    public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
+    public function getPrivkeyfilepassphrase()
     {
         return $this->privkeyfilepassphrase;
     }
 
     /**
-     * @param $command
+     * @param string $command
      */
     public function setCommand($command)
     {
@@ -237,7 +236,7 @@ class SshTask extends Task
     }
 
     /**
-     * @param $pty
+     * @param string $pty
      */
     public function setPty($pty)
     {
@@ -265,7 +264,7 @@ class SshTask extends Task
     /**
      * Sets whether to display the output of the command
      *
-     * @param boolean $display
+     * @param bool $display
      */
     public function setDisplay($display)
     {
@@ -275,8 +274,7 @@ class SshTask extends Task
     /**
      * Sets whether to fail the task on any error
      *
-     * @param $failonerror
-     * @internal param bool $failOnError
+     * @param bool $failonerror
      */
     public function setFailonerror($failonerror)
     {
@@ -352,7 +350,8 @@ class SshTask extends Task
      * command, stores output data, checks for errors and
      * closes the streams properly.
      *
-     * @param $stream
+     * @param resource $stream
+     *
      * @throws BuildException
      */
     protected function handleStream($stream)

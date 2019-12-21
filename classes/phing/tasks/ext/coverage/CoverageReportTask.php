@@ -48,7 +48,7 @@ class CoverageReportTask extends Task
     private $doc;
 
     /**
-     * @param $path
+     * @param string $path
      */
     public function setGeshiPath($path)
     {
@@ -56,16 +56,13 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $path
+     * @param string $path
      */
     public function setGeshiLanguagesPath($path)
     {
         $this->geshilanguagespath = $path;
     }
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -76,7 +73,7 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $outfile
+     * @param string $outfile
      */
     public function setOutfile($outfile)
     {
@@ -96,6 +93,7 @@ class CoverageReportTask extends Task
 
     /**
      * @param string $packageName
+     *
      * @return DOMElement|null
      */
     protected function getPackageElement($packageName): ?DOMNode
@@ -113,8 +111,8 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $packageName
-     * @param $element
+     * @param string  $packageName
+     * @param DOMNode $element
      */
     protected function addClassToPackage($packageName, $element)
     {
@@ -132,11 +130,12 @@ class CoverageReportTask extends Task
     /**
      * Adds a subpackage to their package
      *
-     * @param string $packageName The name of the package
+     * @param string $packageName    The name of the package
      * @param string $subpackageName The name of the subpackage
      *
-     * @author Benjamin Schultz <bschultz@proqrent.de>
      * @return void
+     *
+     * @author Benjamin Schultz <bschultz@proqrent.de>
      */
     protected function addSubpackageToPackage($packageName, $subpackageName)
     {
@@ -162,8 +161,9 @@ class CoverageReportTask extends Task
      *
      * @param string $subpackageName The name of the subpackage
      *
-     * @author Benjamin Schultz <bschultz@proqrent.de>
      * @return DOMNode|null null when no DOMNode with the given name exists
+     *
+     * @author Benjamin Schultz <bschultz@proqrent.de>
      */
     protected function getSubpackageElement($subpackageName)
     {
@@ -181,11 +181,12 @@ class CoverageReportTask extends Task
     /**
      * Adds a class to their subpackage
      *
-     * @param string $classname The name of the class
-     * @param DOMNode $element The dom node to append to the subpackage element
+     * @param string  $classname The name of the class
+     * @param DOMNode $element   The dom node to append to the subpackage element
+     *
+     * @return void
      *
      * @author Benjamin Schultz <bschultz@proqrent.de>
-     * @return void
      */
     protected function addClassToSubpackage($classname, $element)
     {
@@ -203,7 +204,8 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $source
+     * @param string $source
+     *
      * @return string
      */
     protected function stripDiv($source)
@@ -221,7 +223,8 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $filename
+     * @param string $filename
+     *
      * @return array
      */
     protected function highlightSourceFile($filename)
@@ -279,9 +282,10 @@ class CoverageReportTask extends Task
     }
 
     /**
-     * @param $filename
-     * @param $coverageInformation
-     * @param int $classStartLine
+     * @param string $filename
+     * @param array  $coverageInformation
+     * @param int    $classStartLine
+     *
      * @return DOMElement
      */
     protected function transformSourceFile($filename, $coverageInformation, $classStartLine = 1)
@@ -323,12 +327,13 @@ class CoverageReportTask extends Task
     /**
      * Transforms the coverage information
      *
-     * @param string $filename The filename
-     * @param array $coverageInformation Array with covergae information
+     * @param string $filename            The filename
+     * @param array  $coverageInformation Array with covergae information
+     *
+     * @return void
      *
      * @author Michiel Rook <mrook@php.net>
      * @author Benjamin Schultz <bschultz@proqrent.de>
-     * @return void
      */
     protected function transformCoverageInformation($filename, $coverageInformation)
     {

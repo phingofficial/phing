@@ -20,9 +20,10 @@
 /**
  * Repository archive task
  *
+ * @see     VersionControl_Git
+ *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  */
 class GitArchiveTask extends GitBaseTask
 {

@@ -31,7 +31,7 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
     /**
      * Sets the name of the tag to roll back to.
      *
-     * @param string the name to roll back to
+     * @param string $rollbackTag the name to roll back to
      */
     public function setRollbackTag($rollbackTag)
     {

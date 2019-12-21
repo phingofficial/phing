@@ -71,7 +71,7 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * Whether to ignore case in the string being searched.
      *
-     * @param boolean $casesensitive whether to pay attention to case sensitivity
+     * @param bool $casesensitive whether to pay attention to case sensitivity
      */
     public function setCasesensitive($casesensitive)
     {
@@ -79,7 +79,7 @@ class ContainsSelector extends BaseExtendSelector
     }
 
     /**
-     * @param boolean $ignoreWhitespace
+     * @param bool $ignoreWhitespace
      */
     public function setIgnoreWhitespace($ignoreWhitespace)
     {
@@ -91,6 +91,7 @@ class ContainsSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     *
      * @return mixed|void
      */
     public function setParameters(array $parameters): void
@@ -131,17 +132,13 @@ class ContainsSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir
-     * @param string $filename
-     * @param PhingFile $file
-     *
-     * @throws BuildException
-     *
-     * @internal param the $basedir base directory the scan is being done from
-     * @internal param is $filename the name of the file to check
-     * @internal param a $file PhingFile object the selector can use
+     * @param PhingFile $basedir  The base directory the scan is being done from
+     * @param string    $filename Is the name of the file to check
+     * @param PhingFile $file     A PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
+     *
+     * @throws BuildException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

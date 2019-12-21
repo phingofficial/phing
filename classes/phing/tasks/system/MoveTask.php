@@ -177,11 +177,11 @@ class MoveTask extends CopyTask
     /**
      * Its only ok to delete a dir tree if there are no files in it.
      *
-     * @param $d
-     *
-     * @throws IOException
+     * @param PhingFile $d
      *
      * @return bool
+     *
+     * @throws IOException
      */
     private function okToDelete(PhingFile $d)
     {
@@ -208,7 +208,7 @@ class MoveTask extends CopyTask
     /**
      * Go and delete the directory tree.
      *
-     * @param $d
+     * @param PhingFile $d
      *
      * @throws BuildException
      * @throws IOException

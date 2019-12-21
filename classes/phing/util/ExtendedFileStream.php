@@ -40,7 +40,7 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path
+     * @param string $path
      */
     private function createDirectories($path)
     {
@@ -50,13 +50,16 @@ class ExtendedFileStream
         }
     }
 
-    // @codingStandardsIgnoreStart
+    // @codingStandardsIgnoreStart PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     /**
-     * @param $path
-     * @param $mode
-     * @param $options
-     * @param $opened_path
+     * @param string $path
+     * @param int    $mode
+     * @param mixed  $options
+     * @param mixed  $opened_path
+     *
      * @return bool
+     *
      * @throws IOException
      */
     public function stream_open($path, $mode, $options, &$opened_path)
@@ -86,7 +89,8 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $count
+     * @param int $count
+     *
      * @return string
      */
     public function stream_read($count)
@@ -95,7 +99,8 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $data
+     * @param string $data
+     *
      * @return int
      */
     public function stream_write($data)
@@ -120,8 +125,9 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $offset
-     * @param $whence
+     * @param int $offset
+     * @param int $whence
+     *
      * @return int
      */
     public function stream_seek($offset, $whence)
@@ -145,9 +151,11 @@ class ExtendedFileStream
         return fstat($this->fp);
     }
     // @codingStandardsIgnoreEnd
+    // phpcs:enable
 
     /**
-     * @param $path
+     * @param string $path
+     *
      * @return bool
      */
     public function unlink($path)
@@ -156,8 +164,9 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path_from
-     * @param $path_to
+     * @param string $path_from
+     * @param string $path_to
+     *
      * @return bool
      */
     public function rename($path_from, $path_to)
@@ -166,9 +175,10 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path
-     * @param $mode
-     * @param $options
+     * @param string $path
+     * @param int    $mode
+     * @param mixed  $options
+     *
      * @return bool
      */
     public function mkdir($path, $mode, $options)
@@ -177,8 +187,9 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path
-     * @param $options
+     * @param string $path
+     * @param mixed  $options
+     *
      * @return bool
      */
     public function rmdir($path, $options)

@@ -25,7 +25,6 @@
  * classpaths.  (e.g. "phing.util.StringHelper").
  *
  * @author Hans Lellelid <hans@xmpl.org>
- *
  * @package phing.system.util
  */
 class StringHelper
@@ -45,7 +44,7 @@ class StringHelper
      * E.g. eg.Cat -> Cat
      *
      * @param string $qualifiedName
-     * @param string $separator Character used to separate.
+     * @param string $separator     Character used to separate.
      *
      * @return string
      */
@@ -63,7 +62,7 @@ class StringHelper
     /**
      * @param bool|string $s
      *
-     * @return boolean
+     * @return bool
      */
     public static function booleanValue($s)
     {
@@ -101,8 +100,8 @@ class StringHelper
     /**
      * tests if a string starts with a given string
      *
-     * @param $check
-     * @param $string
+     * @param string $check
+     * @param string $string
      *
      * @return bool
      */
@@ -118,8 +117,8 @@ class StringHelper
     /**
      * tests if a string ends with a given string
      *
-     * @param $check
-     * @param $string
+     * @param string $check
+     * @param string $string
      *
      * @return bool
      */
@@ -137,8 +136,8 @@ class StringHelper
      * return values suck if you want to program strict as of C or friends
      *
      * @param string $string
-     * @param int $startpos
-     * @param int $endpos
+     * @param int    $startpos
+     * @param int    $endpos
      *
      * @return string
      */

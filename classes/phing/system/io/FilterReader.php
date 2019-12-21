@@ -60,7 +60,9 @@ class FilterReader extends Reader
      * and b) it doesn't make much sense.
      *
      * @param int $len
+     *
      * @return string
+     *
      * @throws IOException
      */
     public function read($len = null)

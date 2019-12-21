@@ -46,7 +46,7 @@ class CoverageReportTransformer
      * Whether to use the sorttable JavaScript library, defaults to false
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
-     * @var boolean
+     * @var bool
      */
     private $useSortTable = false;
 
@@ -59,7 +59,7 @@ class CoverageReportTransformer
     }
 
     /**
-     * @param $styleDir
+     * @param string $styleDir
      */
     public function setStyleDir($styleDir)
     {
@@ -75,7 +75,7 @@ class CoverageReportTransformer
     }
 
     /**
-     * @param $document
+     * @param DOMDocument|SimpleXMLElement $document
      */
     public function setXmlDocument($document)
     {
@@ -85,7 +85,7 @@ class CoverageReportTransformer
     /**
      * Setter for title parameter
      *
-     * @param $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -96,7 +96,7 @@ class CoverageReportTransformer
      * Sets whether to use the sorttable JavaScript library, defaults to false
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
-     * @param boolean $useSortTable
+     * @param bool $useSortTable
      */
     public function setUseSortTable($useSortTable)
     {
@@ -144,6 +144,7 @@ class CoverageReportTransformer
 
     /**
      * @return PhingFile
+     *
      * @throws BuildException
      */
     private function getStyleSheet()

@@ -171,7 +171,7 @@ class ZendGuardLicenseTask extends Task
     protected $xUserDefinedValues;
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setLicenseTemplate($value)
     {
@@ -179,7 +179,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $productName
+     * @param string $productName
      */
     public function setProductName($productName)
     {
@@ -187,7 +187,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $registeredTo
+     * @param string $registeredTo
      */
     public function setRegisteredTo($registeredTo)
     {
@@ -202,8 +202,9 @@ class ZendGuardLicenseTask extends Task
      *
      * @param mixed $expires
      *
+     * @return void
+     *
      * @throws BuildException
-     * @return string
      */
     public function setExpires($expires)
     {
@@ -220,7 +221,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $iprange
+     * @param string $iprange
      */
     public function setIpRange($iprange)
     {
@@ -228,7 +229,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $hostID
+     * @param string $hostID
      */
     public function setHostID($hostID)
     {
@@ -236,7 +237,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $hardwareLocked
+     * @param bool $hardwareLocked
      */
     public function setHardwareLocked(bool $hardwareLocked)
     {
@@ -244,7 +245,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $userDefinedValues
+     * @param string $userDefinedValues
      */
     public function setUserDefinedValues($userDefinedValues)
     {
@@ -252,7 +253,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $xUserDefinedValues
+     * @param string $xUserDefinedValues
      */
     public function setXUserDefinedValues($xUserDefinedValues)
     {
@@ -260,7 +261,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $zendsignPath
+     * @param string $zendsignPath
      */
     public function setZendsignPath($zendsignPath)
     {
@@ -268,7 +269,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $privateKeyPath
+     * @param string $privateKeyPath
      */
     public function setPrivateKeyPath($privateKeyPath)
     {
@@ -276,7 +277,7 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * @param $outputFile
+     * @param string $outputFile
      */
     public function setOutputFile($outputFile)
     {
@@ -431,8 +432,9 @@ class ZendGuardLicenseTask extends Task
     /**
      * Creates the signed license at the defined output path
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     protected function generateLicense()
     {
@@ -457,8 +459,9 @@ class ZendGuardLicenseTask extends Task
      * It will generate a temporary license template
      * based on the properties defined.
      *
-     * @throws BuildException
      * @return string Path of the temporary license template file
+     *
+     * @throws BuildException
      */
     protected function generateLicenseTemplate()
     {
@@ -530,11 +533,11 @@ class ZendGuardLicenseTask extends Task
      * converts it to array
      *   (key1=>value1, key2=value2, ...)
      *
-     * @param string $valueString Semi-colon separated value pairs
-     * @param array $valueArray Array to which the values will be added
-     * @param string $keyPrefix Prefix to use when adding the key
-     *
+     * @param string $valueString   Semi-colon separated value pairs
+     * @param array  $valueArray    Array to which the values will be added
+     * @param string $keyPrefix     Prefix to use when adding the key
      * @param string $pairSeparator
+     *
      * @return void
      */
     protected function parseAndAddUserDefinedValues(

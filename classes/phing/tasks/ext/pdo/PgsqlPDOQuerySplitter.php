@@ -26,10 +26,11 @@
  * expressions. This allows handling complex constructs like C-style comments
  * (including nested ones) and dollar-quoted strings.
  *
- * @author  Alexey Borzov <avb@php.net>
- * @package phing.tasks.ext.pdo
  * @link    http://www.phing.info/trac/ticket/499
  * @link    http://www.postgresql.org/docs/current/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
+ *
+ * @author  Alexey Borzov <avb@php.net>
+ * @package phing.tasks.ext.pdo
  */
 class PgsqlPDOQuerySplitter extends PDOQuerySplitter
 {
@@ -156,7 +157,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function nextQuery()
     {

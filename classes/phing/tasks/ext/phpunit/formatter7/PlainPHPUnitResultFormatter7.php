@@ -81,8 +81,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -92,9 +92,9 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addFailure(
         PHPUnit\Framework\Test $test,
@@ -106,9 +106,9 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addWarning(PHPUnit\Framework\Test $test, PHPUnit\Framework\Warning $e, float $time): void
     {
@@ -118,8 +118,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -130,8 +130,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -140,9 +140,9 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param $type
+     * @param string                 $type
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
+     * @param Exception              $e
      */
     private function formatError($type, PHPUnit\Framework\Test $test, Exception $e = null)
     {

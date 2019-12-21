@@ -35,7 +35,7 @@ class OsCondition implements Condition
     private $family;
 
     /**
-     * @param $f
+     * @param string $f
      */
     public function setFamily($f)
     {
@@ -52,6 +52,7 @@ class OsCondition implements Condition
      * given OS family.
      *
      * @param string $family the family to check for
+     *
      * @return true if the OS matches
      */
     public static function isFamily($family)
@@ -61,7 +62,9 @@ class OsCondition implements Condition
 
     /**
      * @param string $family
+     *
      * @return bool
+     *
      * @throws \BuildException
      */
     public static function isOS($family)

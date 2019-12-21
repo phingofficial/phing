@@ -76,7 +76,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param boolean $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -96,7 +96,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param boolean $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false.
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -107,6 +107,7 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param mixed $sourceFileName
+     *
      * @return array|null
      */
     public function main($sourceFileName)
@@ -136,6 +137,7 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $from
+     *
      * @return void
      */
     public function setFrom($from)
@@ -163,6 +165,7 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $to
+     *
      * @return void
      */
     public function setTo($to)
@@ -186,6 +189,7 @@ class GlobMapper implements FileNameMapper
      * Extracts the variable part.
      *
      * @param string $name
+     *
      * @return string
      */
     private function extractVariablePart($name)
@@ -197,6 +201,7 @@ class GlobMapper implements FileNameMapper
      * modify string based on dir char mapping and case sensitivity
      *
      * @param string $name the name to convert
+     *
      * @return string the converted name
      */
     private function modifyName($name)

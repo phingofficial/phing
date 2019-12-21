@@ -69,7 +69,8 @@ class AdhocTask extends Task
     /**
      * Load the adhoc class, and perform any core validation.
      *
-     * @return string         The classname of the ProjectComponent class.
+     * @return void
+     *
      * @throws BuildException - if more than one class is defined.
      */
     protected function execute()

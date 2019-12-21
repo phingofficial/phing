@@ -23,7 +23,8 @@
 class Character
 {
     /**
-     * @param $char
+     * @param string $char
+     *
      * @return bool
      */
     public static function isLetter($char)

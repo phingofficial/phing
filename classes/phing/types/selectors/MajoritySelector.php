@@ -50,7 +50,7 @@ class MajoritySelector extends BaseSelectorContainer
     }
 
     /**
-     * @param $tiebreaker
+     * @param bool $tiebreaker
      */
     public function setAllowtie($tiebreaker)
     {
@@ -62,10 +62,10 @@ class MajoritySelector extends BaseSelectorContainer
      * agree. In case of a tie, go by the allowtie setting. That defaults
      * to true, meaning in case of a tie, the file is selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a PhingFile object for the filename that the selector
-     *                            can use
+     * @param PhingFile $basedir  the base directory the scan is being done from
+     * @param string    $filename is the name of the file to check
+     * @param PhingFile $file     Is a PhingFile object for the filename that the selector can use
+     *
      * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

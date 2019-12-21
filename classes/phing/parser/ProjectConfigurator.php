@@ -62,7 +62,7 @@ class ProjectConfigurator
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
      *
-     * @param Project $project the Project instance this configurator should use
+     * @param Project   $project   the Project instance this configurator should use
      * @param PhingFile $buildFile the buildfile object the parser should use
      *
      * @throws \IOException
@@ -79,8 +79,9 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param Project $project the Project instance this configurator should use
+     * @param Project   $project   the Project instance this configurator should use
      * @param PhingFile $buildFile the buildfile object the parser should use
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -212,6 +213,7 @@ class ProjectConfigurator
 
     /**
      * @param PhingXMLContext $ctx
+     *
      * @throws ExpatParseException
      */
     protected function _parse(PhingXMLContext $ctx)
@@ -249,9 +251,10 @@ class ProjectConfigurator
     /**
      * Configures an element and resolves eventually given properties.
      *
-     * @param mixed $target element to configure
-     * @param array $attrs element's attributes
+     * @param mixed   $target  element to configure
+     * @param array   $attrs   element's attributes
      * @param Project $project project this element belongs to
+     *
      * @throws BuildException
      * @throws Exception
      */
@@ -296,8 +299,8 @@ class ProjectConfigurator
      * Configures the #CDATA of an element.
      *
      * @param Project $project the project this element belongs to
-     * @param object  the element to configure
-     * @param string $text the element's #CDATA
+     * @param object  $target  the element to configure
+     * @param string  $text    the element's #CDATA
      */
     public static function addText($project, $target, $text = null)
     {
@@ -312,10 +315,10 @@ class ProjectConfigurator
     /**
      * Stores a configured child element into its parent object
      *
-     * @param object  the project this element belongs to
-     * @param object  the parent element
-     * @param object  the child element
-     * @param string  the XML tagname
+     * @param object $project the project this element belongs to
+     * @param object $parent  the parent element
+     * @param object $child   the child element
+     * @param string $tag     the XML tagname
      */
     public static function storeChild($project, $parent, $child, $tag)
     {
@@ -328,7 +331,7 @@ class ProjectConfigurator
      * project.
      *
      * @param object $target the element's object
-     * @param array $attr the element's attributes
+     * @param array  $attr   the element's attributes
      */
     public function configureId($target, $attr)
     {
@@ -340,12 +343,12 @@ class ProjectConfigurator
     /**
      * Add location to build exception.
      *
-     * @param BuildException $ex the build exception, if the build exception
-     *                                    does not include
-     * @param Location $newLocation the location of the calling task (may be null)
-     * @return BuildException a new build exception based in the build exception with
-     *         location set to newLocation. If the original exception
-     *         did not have a location, just return the build exception
+     * @param BuildException $ex          The build exception, if the build exception does not include
+     * @param Location       $newLocation The location of the calling task (may be null)
+     *
+     * @return BuildException A new build exception based in the build exception with
+     *                        location set to newLocation. If the original exception
+     *                        did not have a location, just return the build exception
      */
     public static function addLocationToBuildException(BuildException $ex, Location $newLocation)
     {

@@ -30,6 +30,7 @@ interface FileNameMapper
      * The mapper implementation.
      *
      * @param mixed $sourceFileName The data the mapper works on.
+     *
      * @return array The data after the mapper has been applied; must be in array format (for some reason).
      */
     public function main($sourceFileName);
@@ -39,6 +40,7 @@ interface FileNameMapper
      * depends on the child class.
      *
      * @param string $to To what this mapper should convert the from string
+     *
      * @return void
      */
     public function setTo($to);
@@ -49,6 +51,7 @@ interface FileNameMapper
      * child class
      *
      * @param string $from On what this mapper should work
+     *
      * @return void
      */
     public function setFrom($from);

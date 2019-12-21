@@ -59,6 +59,7 @@ class Commandline implements Countable
 
     /**
      * @param null $to_process
+     *
      * @throws BuildException
      */
     public function __construct($to_process = null)
@@ -80,9 +81,10 @@ class Commandline implements Countable
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
-     * @param boolean $insertAtStart if true, the argument is inserted at the
-     *                                beginning of the list of args, otherwise
-     *                                it is appended.
+     * @param bool $insertAtStart If true, the argument is inserted at the
+     *                            beginning of the list of args, otherwise
+     *                            it is appended.
+     *
      * @return CommandlineArgument
      */
     public function createArgument($insertAtStart = false)
@@ -101,7 +103,7 @@ class Commandline implements Countable
      * Sets the executable to run.
      *
      * @param string $executable
-     * @param bool $translateFileSeparator
+     * @param bool   $translateFileSeparator
      */
     public function setExecutable($executable, $translateFileSeparator = true): void
     {
@@ -191,12 +193,12 @@ class Commandline implements Countable
      * as is. If it contains double quotes, use single quotes - else
      * surround the argument by double quotes.</p>
      *
-     * @param $argument
+     * @param string $argument
      *
      * @return string
      *
-     * @throws BuildException if the argument contains both, single
-     *                           and double quotes.
+     * @throws BuildException If the argument contains both, single
+     *                        and double quotes.
      */
     public static function quoteArgument($argument, $escape = false)
     {
@@ -229,7 +231,7 @@ class Commandline implements Countable
      * Quotes the parts of the given array in way that makes them
      * usable as command line arguments.
      *
-     * @param $lines
+     * @param array|null $lines
      *
      * @return string
      *
@@ -368,6 +370,7 @@ class Commandline implements Countable
      * executable to run.</p>
      *
      * @param array|Commandline $args CommandlineArgument[] to use
+     *
      * @return string
      */
     public function describeCommand($args = null)
@@ -400,8 +403,9 @@ class Commandline implements Countable
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>
      *
-     * @param array $args arguments to use (default is to use current class args)
-     * @param int $offset ignore entries before this index
+     * @param array $args   arguments to use (default is to use current class args)
+     * @param int   $offset ignore entries before this index
+     *
      * @return string
      */
     public function describeArguments(array $args = null, $offset = 0)

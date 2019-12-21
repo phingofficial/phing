@@ -20,10 +20,11 @@
 /**
  * Wrapper around git-tag
  *
+ * @see     VersionControl_Git
+ *
  * @author  Evan Kaufman <evan@digitalflophouse.com>
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.5
  */
 class GitTagTask extends GitBaseTask
@@ -31,14 +32,14 @@ class GitTagTask extends GitBaseTask
     /**
      * Make unsigned, annotated tag object. See -a of git-tag
      *
-     * @var boolean
+     * @var bool
      */
     private $annotate = false;
 
     /**
      * Make GPG-signed tag. See -s of git-tag
      *
-     * @var boolean
+     * @var bool
      */
     private $sign = false;
 
@@ -52,28 +53,28 @@ class GitTagTask extends GitBaseTask
     /**
      * Replace existing tag with given name. See -f of git-tag
      *
-     * @var boolean
+     * @var bool
      */
     private $replace = false;
 
     /**
      * Delete existing tags with given names. See -d of git-tag
      *
-     * @var boolean
+     * @var bool
      */
     private $delete = false;
 
     /**
      * Verify gpg signature of given tag names. See -v of git-tag
      *
-     * @var boolean
+     * @var bool
      */
     private $verify = false;
 
     /**
      * List tags with names matching given pattern. See -l of git-tag
      *
-     * @var boolean
+     * @var bool
      */
     private $list = false;
 
@@ -227,7 +228,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAnnotate(bool $flag)
     {
@@ -251,7 +252,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setSign(bool $flag)
     {
@@ -275,7 +276,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $keyId
+     * @param string $keyId
      */
     public function setKeySign($keyId)
     {
@@ -291,7 +292,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setReplace(bool $flag)
     {
@@ -315,7 +316,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForce(bool $flag)
     {
@@ -323,7 +324,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setDelete(bool $flag)
     {
@@ -347,7 +348,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setVerify(bool $flag)
     {
@@ -371,7 +372,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setList(bool $flag)
     {
@@ -395,7 +396,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $num
+     * @param int $num
      */
     public function setNum($num)
     {
@@ -411,7 +412,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $commit
+     * @param string $commit
      */
     public function setContains($commit)
     {
@@ -427,7 +428,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $msg
+     * @param string $msg
      */
     public function setMessage($msg)
     {
@@ -443,7 +444,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $file
+     * @param string $file
      */
     public function setFile($file)
     {
@@ -459,7 +460,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -475,7 +476,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $commit
+     * @param string $commit
      */
     public function setCommit($commit)
     {
@@ -491,7 +492,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $object
+     * @param string $object
      */
     public function setObject($object)
     {
@@ -507,7 +508,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $pattern
+     * @param string $pattern
      */
     public function setPattern($pattern)
     {
@@ -523,7 +524,7 @@ class GitTagTask extends GitBaseTask
     }
 
     /**
-     * @param $prop
+     * @param string $prop
      */
     public function setOutputProperty($prop)
     {

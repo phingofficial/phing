@@ -103,7 +103,6 @@
  * @author Arnout J. Kuiper, ajkuiper@wxs.nl
  * @author Magesh Umasankar, umagesh@rediffmail.com
  * @author Andreas Aderhold, andi@binarycloud.com
- *
  * @package phing.util
  */
 class DirectoryScanner implements FileScanner, SelectorScanner
@@ -251,10 +250,11 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * pattern=**\a and str=b will yield true.
      *
-     * @param string $pattern the pattern to match against
-     * @param string $str the string (path) to match
-     * @param bool $isCaseSensitive must matches be case sensitive?
-     * @return boolean true if matches, otherwise false
+     * @param string $pattern         the pattern to match against
+     * @param string $str             the string (path) to match
+     * @param bool   $isCaseSensitive must matches be case sensitive?
+     *
+     * @return bool true if matches, otherwise false
      */
     public function matchPatternStart($pattern, $str, $isCaseSensitive = true)
     {
@@ -264,9 +264,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Matches a path against a pattern.
      *
-     * @param string $pattern the (non-null) pattern to match against
-     * @param string $str the (non-null) string (path) to match
-     * @param bool $isCaseSensitive must a case sensitive match be done?
+     * @param string $pattern         the (non-null) pattern to match against
+     * @param string $str             the (non-null) string (path) to match
+     * @param bool   $isCaseSensitive must a case sensitive match be done?
      *
      * @return bool true when the pattern matches against the string.
      *              false otherwise.
@@ -282,13 +282,12 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * '*' which means zero or more characters,
      * '?' which means one and only one character.
      *
-     * @param string $pattern pattern to match against
-     * @param string $str string that must be matched against the
-     *                                pattern
-     * @param bool $isCaseSensitive
+     * @param string $pattern         pattern to match against
+     * @param string $str             string that must be matched against the pattern
+     * @param bool   $isCaseSensitive
      *
-     * @return boolean true when the string matches against the pattern,
-     *                 false otherwise.
+     * @return bool true when the string matches against the pattern,
+     *              false otherwise.
      */
     public function match($pattern, $str, $isCaseSensitive = true)
     {
@@ -312,8 +311,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * default exclude.
      *
      * @param string $s A string to add as an exclude pattern.
-     * @return boolean   <code>true</code> if the string was added;
-     *                   <code>false</code> if it already existed.
+     *
+     * @return bool <code>true</code> if the string was added;
+     *              <code>false</code> if it already existed.
      */
     public static function addDefaultExclude($s)
     {
@@ -331,10 +331,11 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * Remove a string if it is a default exclude.
      *
      * @param string $s The string to attempt to remove.
-     * @return boolean    <code>true</code> if <code>s</code> was a default
-     *                    exclude (and thus was removed);
-     *                    <code>false</code> if <code>s</code> was not
-     *                    in the default excludes list to begin with.
+     *
+     * @return bool <code>true</code> if <code>s</code> was a default
+     *              exclude (and thus was removed);
+     *              <code>false</code> if <code>s</code> was not
+     *              in the default excludes list to begin with.
      */
     public static function removeDefaultExclude($s)
     {
@@ -455,7 +456,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Sets whether to expand/dereference symbolic links
      *
-     * @param boolean $expandSymbolicLinks
+     * @param bool $expandSymbolicLinks
      */
     public function setExpandSymbolicLinks($expandSymbolicLinks)
     {
@@ -563,6 +564,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * @param string $_dir directory to list contents for
      *
      * @return array directory entries
+     *
      * @author Albert Lash, alash@plateauinnovation.com
      */
     public function listDir($_dir)
@@ -576,17 +578,17 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * matching of includes and excludes. When a directory is found, it is
      * scanned recursively.
      *
-     * @param string $_rootdir the directory to scan
-     * @param string $_vpath the path relative to the basedir (needed to prevent
-     *                         problems with an absolute path when using dir)
-     * @param bool $_fast
-     *
      * @see #filesIncluded
      * @see #filesNotIncluded
      * @see #filesExcluded
      * @see #dirsIncluded
      * @see #dirsNotIncluded
      * @see #dirsExcluded
+     *
+     * @param string $_rootdir the directory to scan
+     * @param string $_vpath   the path relative to the basedir (needed to prevent
+     *                         problems with an absolute path when using dir)
+     * @param bool   $_fast
      */
     private function scandir($_rootdir, $_vpath, $_fast)
     {
@@ -677,6 +679,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * Tests whether a name matches against at least one include pattern.
      *
      * @param string $_name the name to match
+     *
      * @return bool <code>true</code> when the name matches against at least one
      */
     protected function isIncluded($_name)
@@ -694,8 +697,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * Tests whether a name matches the start of at least one include pattern.
      *
      * @param string $_name the name to match
+     *
      * @return bool <code>true</code> when the name matches against at least one
-     *                           include pattern, <code>false</code> otherwise.
+     *              include pattern, <code>false</code> otherwise.
      */
     protected function couldHoldIncluded($_name)
     {
@@ -712,6 +716,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * Tests whether a name matches against at least one exclude pattern.
      *
      * @param string $_name the name to match
+     *
      * @return bool <code>true</code> when the name matches against at least one
      *                           exclude pattern, <code>false</code> otherwise.
      */
@@ -747,6 +752,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * The names are relative to the basedir.
      *
      * @return array names of the files
+     *
      * @throws \UnexpectedValueException
      */
     public function getIncludedFiles(): array
@@ -780,7 +786,6 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @return array the names of the files
      */
-
     public function getExcludedFiles()
     {
         $this->slowScan();
@@ -795,9 +800,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * <p>The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.</p>
      *
-     * @return array the names of the files which were deselected.
-     *
      * @see #slowScan
+     *
+     * @return array the names of the files which were deselected.
      */
     public function getDeselectedFiles()
     {
@@ -812,9 +817,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * The names are relative to the basedir.
      *
      * @return array the names of the directories
+     *
      * @throws \UnexpectedValueException
      */
-
     public function getIncludedDirectories()
     {
         if ($this->dirsIncluded === null) {
@@ -862,9 +867,9 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * <p>The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.</p>
      *
-     * @return array the names of the directories which were deselected.
-     *
      * @see #slowScan
+     *
+     * @return array the names of the directories which were deselected.
      */
     public function getDeselectedDirectories()
     {
@@ -926,8 +931,10 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @param string $name The filename to check for selecting.
      * @param string $file The full file path.
-     * @return boolean False when the selectors says that the file
-     *                      should not be selected, True otherwise.
+     *
+     * @return bool False when the selectors says that the file
+     *              should not be selected, True otherwise.
+     *
      * @throws \BuildException
      * @throws \IOException
      * @throws NullPointerException

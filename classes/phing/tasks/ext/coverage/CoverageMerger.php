@@ -27,8 +27,9 @@
 class CoverageMerger
 {
     /**
-     * @param $left
-     * @param $right
+     * @param array $left
+     * @param array $right
+     *
      * @return array
      */
     private static function mergeCodeCoverage($left, $right)
@@ -75,7 +76,9 @@ class CoverageMerger
 
     /**
      * @param Project $project
+     *
      * @return Properties
+     *
      * @throws BuildException
      */
     protected static function _getDatabase($project)
@@ -95,8 +98,10 @@ class CoverageMerger
     }
 
     /**
-     * @param $project
+     * @param Project $project
+     *
      * @return array
+     *
      * @throws BuildException
      */
     public static function getWhiteList($project)
@@ -113,8 +118,9 @@ class CoverageMerger
     }
 
     /**
-     * @param $project
-     * @param $codeCoverageInformation
+     * @param Project $project
+     * @param array   $codeCoverageInformation
+     *
      * @throws BuildException
      * @throws IOException
      */

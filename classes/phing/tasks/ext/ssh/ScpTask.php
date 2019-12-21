@@ -67,14 +67,14 @@ class ScpTask extends Task
      * - If number is positive - scp failed & sftp succeed
      * - If number is 0 - scp succeed
      *
-     * @var integer
+     * @var int
      */
     protected $heuristicScpSftp = 0;
 
     /**
      * Sets the remote host
      *
-     * @param $h
+     * @param string $h
      */
     public function setHost($h)
     {
@@ -92,7 +92,7 @@ class ScpTask extends Task
     /**
      * Sets the remote host port
      *
-     * @param $p
+     * @param int $p
      */
     public function setPort($p)
     {
@@ -110,7 +110,7 @@ class ScpTask extends Task
     /**
      * Sets the mode value
      *
-     * @param $value
+     * @param int $value
      */
     public function setMode($value)
     {
@@ -128,7 +128,7 @@ class ScpTask extends Task
     /**
      * Sets the username of the user to scp
      *
-     * @param $username
+     * @param string $username
      */
     public function setUsername($username)
     {
@@ -146,7 +146,7 @@ class ScpTask extends Task
     /**
      * Sets the password of the user to scp
      *
-     * @param $password
+     * @param string $password
      */
     public function setPassword($password)
     {
@@ -164,7 +164,7 @@ class ScpTask extends Task
     /**
      * Sets the public key file of the user to scp
      *
-     * @param $pubkeyfile
+     * @param string $pubkeyfile
      */
     public function setPubkeyfile($pubkeyfile)
     {
@@ -182,7 +182,7 @@ class ScpTask extends Task
     /**
      * Sets the private key file of the user to scp
      *
-     * @param $privkeyfile
+     * @param string $privkeyfile
      */
     public function setPrivkeyfile($privkeyfile)
     {
@@ -200,7 +200,7 @@ class ScpTask extends Task
     /**
      * Sets the private key file passphrase of the user to scp
      *
-     * @param $privkeyfilepassphrase
+     * @param string $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
     {
@@ -210,10 +210,9 @@ class ScpTask extends Task
     /**
      * Returns the private keyfile passphrase
      *
-     * @param $privkeyfilepassphrase
      * @return string
      */
-    public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
+    public function getPrivkeyfilepassphrase()
     {
         return $this->privkeyfilepassphrase;
     }
@@ -239,7 +238,7 @@ class ScpTask extends Task
     /**
      * Set destination directory
      *
-     * @param $todir
+     * @param string $todir
      */
     public function setTodir($todir)
     {
@@ -257,7 +256,7 @@ class ScpTask extends Task
     /**
      * Sets local filename
      *
-     * @param $file
+     * @param string $file
      */
     public function setFile($file)
     {
@@ -398,8 +397,9 @@ class ScpTask extends Task
     }
 
     /**
-     * @param $local
-     * @param $remote
+     * @param string $local
+     * @param string $remote
+     *
      * @throws BuildException
      */
     protected function copyFile($local, $remote)

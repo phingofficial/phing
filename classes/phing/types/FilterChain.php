@@ -267,6 +267,7 @@ class FilterChain extends DataType
 
     /**
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)

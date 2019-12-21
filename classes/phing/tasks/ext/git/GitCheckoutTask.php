@@ -20,9 +20,10 @@
 /**
  * Wrapper around git-checkout
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitCheckoutTask extends GitBaseTask
@@ -44,14 +45,14 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * --force, -f key to git-checkout
      *
-     * @var boolean
+     * @var bool
      */
     private $force = false;
 
     /**
      * --quiet, -q key to git-checkout
      *
-     * @var boolean
+     * @var bool
      */
     private $quiet = false;
 
@@ -59,7 +60,7 @@ class GitCheckoutTask extends GitBaseTask
      * When creating a new branch, set up "upstream" configuration.
      * --track key to git-checkout
      *
-     * @var boolean
+     * @var bool
      */
     private $track = false;
 
@@ -67,7 +68,7 @@ class GitCheckoutTask extends GitBaseTask
      * Do not set up "upstream" configuration
      * --no-track key to git-checkout
      *
-     * @var boolean
+     * @var bool
      */
     private $noTrack = false;
 
@@ -131,7 +132,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $branchname
+     * @param string $branchname
      */
     public function setBranchname($branchname)
     {
@@ -147,7 +148,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $startPoint
+     * @param string $startPoint
      */
     public function setStartPoint($startPoint)
     {
@@ -163,7 +164,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForce($flag)
     {
@@ -187,7 +188,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setQuiet($flag)
     {
@@ -211,7 +212,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setTrack($flag)
     {
@@ -235,7 +236,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoTrack($flag)
     {
@@ -259,7 +260,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setCreate($flag)
     {
@@ -280,7 +281,7 @@ class GitCheckoutTask extends GitBaseTask
     // --force is present everywhere
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForceCreate($flag)
     {
@@ -298,7 +299,7 @@ class GitCheckoutTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setMerge($flag)
     {

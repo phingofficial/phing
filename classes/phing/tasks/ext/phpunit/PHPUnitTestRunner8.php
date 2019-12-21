@@ -37,13 +37,20 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     private $lastIncompleteMessage = '';
     private $lastSkippedMessage    = '';
     private $lastRiskyMessage      = '';
-    private $formatters            = [];
 
     /**
-     * @var \PHPUnit\Runner\TestHook[]
+     * @var PHPUnitResultFormatter7[]
+     */
+    private $formatters = [];
+
+    /**
+     * @var \PHPUnit\Framework\TestListener[]
      */
     private $listeners = [];
 
+    /**
+     * @var \SebastianBergmann\CodeCoverage\CodeCoverage|null
+     */
     private $codecoverage;
 
     /**
@@ -60,9 +67,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
 
     /**
      * @param Project $project
-     * @param array $groups
-     * @param array $excludeGroups
-     * @param bool $processIsolation
+     * @param array   $groups
+     * @param array   $excludeGroups
+     * @param bool    $processIsolation
      */
     public function __construct(
         Project $project,
@@ -77,7 +84,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param $codecoverage
+     * @param \SebastianBergmann\CodeCoverage\CodeCoverage $codecoverage
      */
     public function setCodecoverage($codecoverage): void
     {
@@ -85,7 +92,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param $useCustomErrorHandler
+     * @param bool $useCustomErrorHandler
      */
     public function setUseCustomErrorHandler($useCustomErrorHandler): void
     {
@@ -93,7 +100,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param $formatter
+     * @param PHPUnitResultFormatter7 $formatter
      */
     public function addFormatter($formatter): void
     {
@@ -101,16 +108,20 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         $this->formatters[] = $formatter;
     }
 
+    /**
+     * @param \PHPUnit\Framework\TestListener $listener
+     */
     public function addListener($listener): void
     {
         $this->listeners[] = $listener;
     }
 
     /**
-     * @param $level
-     * @param $message
-     * @param $file
-     * @param $line
+     * @param int    $level
+     * @param string $message
+     * @param string $file
+     * @param int    $line
+     *
      * @return bool
      */
     public function handleError($level, $message, $file, $line): bool
@@ -122,11 +133,12 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * Run a test
      *
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param \PHPUnit\Framework\TestSuite $suite
+     *
      * @throws \BuildException
      * @throws ReflectionException
      */
-    public function run(PHPUnit\Framework\TestSuite $suite)
+    public function run(\PHPUnit\Framework\TestSuite $suite)
     {
         $res = new PHPUnit\Framework\TestResult();
 
@@ -174,6 +186,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
 
     /**
      * @param PHPUnit\Framework\TestSuite $suite
+     *
      * @throws ReflectionException
      */
     private function injectFilters(PHPUnit\Framework\TestSuite $suite): void
@@ -232,7 +245,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasErrors(): bool
     {
@@ -240,7 +253,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasFailures(): bool
     {
@@ -248,7 +261,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasWarnings(): bool
     {
@@ -256,7 +269,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasIncomplete(): bool
     {
@@ -264,7 +277,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasSkipped(): bool
     {
@@ -272,7 +285,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasRisky(): bool
     {
@@ -331,8 +344,8 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * An error occurred.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Throwable $e
-     * @param float $time
+     * @param Throwable              $e
+     * @param float                  $time
      */
     public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -340,9 +353,10 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param string $message
+     * @param string                 $message
      * @param PHPUnit\Framework\Test $test
-     * @param Throwable $e
+     * @param Throwable              $e
+     *
      * @return string
      */
     protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
@@ -360,9 +374,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * A failure occurred.
      *
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addFailure(
         PHPUnit\Framework\Test $test,
@@ -375,9 +389,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * A failure occurred.
      *
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
     {
@@ -388,8 +402,8 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * Incomplete test.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -400,8 +414,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * Skipped test.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
+     *
      * @since Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
@@ -413,8 +428,8 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * Risky test
      *
      * @param PHPUnit\Framework\Test $test
-     * @param Throwable $e
-     * @param float $time
+     * @param Throwable              $e
+     * @param float                  $time
      */
     public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -442,8 +457,8 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * A test failed.
      *
-     * @param integer $status
-     * @param PHPUnit\Framework\Test $test
+     * @param int                                    $status
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
      */
     public function testFailed($status, PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e): void
@@ -481,7 +496,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * A test ended.
      *
      * @param PHPUnit\Framework\Test $test
-     * @param float $time
+     * @param float                  $time
      */
     public function endTest(PHPUnit\Framework\Test $test, float $time): void
     {
@@ -495,6 +510,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * a test suite.
      *
      * @param string $message
+     *
      * @throws BuildException
      */
     protected function runFailed($message): void

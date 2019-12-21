@@ -33,7 +33,7 @@ class EqualsCondition implements Condition
     private $caseSensitive = true;
 
     /**
-     * @param $a1
+     * @param string $a1
      */
     public function setArg1($a1)
     {
@@ -41,7 +41,7 @@ class EqualsCondition implements Condition
     }
 
     /**
-     * @param $a2
+     * @param string $a2
      */
     public function setArg2($a2)
     {
@@ -51,7 +51,7 @@ class EqualsCondition implements Condition
     /**
      * Should we want to trim the arguments before comparing them?
      *
-     * @param boolean $b
+     * @param bool $b
      */
     public function setTrim($b)
     {
@@ -61,7 +61,7 @@ class EqualsCondition implements Condition
     /**
      * Should the comparison be case sensitive?
      *
-     * @param boolean $b
+     * @param bool $b
      */
     public function setCaseSensitive($b)
     {
@@ -70,6 +70,7 @@ class EqualsCondition implements Condition
 
     /**
      * @return bool
+     *
      * @throws BuildException
      */
     public function evaluate()

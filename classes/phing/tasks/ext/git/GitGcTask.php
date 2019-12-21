@@ -20,9 +20,10 @@
 /**
  * Wrapper around git-gc
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitGcTask extends GitBaseTask
@@ -30,21 +31,21 @@ class GitGcTask extends GitBaseTask
     /**
      * --aggressive key to git-gc
      *
-     * @var boolean
+     * @var bool
      */
     private $isAggressive = false;
 
     /**
      * --auto key to git-gc
      *
-     * @var boolean
+     * @var bool
      */
     private $isAuto = false;
 
     /**
      * --no-prune key to git-gc
      *
-     * @var boolean
+     * @var bool
      */
     private $noPrune = false;
 
@@ -108,7 +109,7 @@ class GitGcTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAggressive(bool $flag)
     {
@@ -132,7 +133,7 @@ class GitGcTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAuto(bool $flag)
     {
@@ -156,7 +157,7 @@ class GitGcTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoPrune(bool $flag)
     {
@@ -172,7 +173,7 @@ class GitGcTask extends GitBaseTask
     }
 
     /**
-     * @param $date
+     * @param string $date
      */
     public function setPrune($date)
     {

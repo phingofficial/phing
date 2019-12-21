@@ -43,7 +43,7 @@ class PDOSQLExecFormatterElement
     /**
      * Whether to use file (or write output to phing log).
      *
-     * @var boolean
+     * @var bool
      */
     private $useFile = true;
 
@@ -57,14 +57,14 @@ class PDOSQLExecFormatterElement
     /**
      * Print header columns.
      *
-     * @var boolean
+     * @var bool
      */
     private $showheaders = true;
 
     /**
      * Whether to format XML output.
      *
-     * @var boolean
+     * @var bool
      */
     private $formatoutput = true;
 
@@ -94,7 +94,7 @@ class PDOSQLExecFormatterElement
     /**
      * Append to an existing file or overwrite it?
      *
-     * @var boolean
+     * @var bool
      */
     private $append = false;
 
@@ -207,6 +207,7 @@ class PDOSQLExecFormatterElement
      * Sets the formatter type.
      *
      * @param string $type
+     *
      * @throws BuildException
      */
     public function setType($type)
@@ -235,7 +236,7 @@ class PDOSQLExecFormatterElement
     /**
      * Set whether to write formatter results to file.
      *
-     * @param boolean $useFile
+     * @param bool $useFile
      */
     public function setUseFile($useFile)
     {
@@ -245,7 +246,7 @@ class PDOSQLExecFormatterElement
     /**
      * Return whether to write formatter results to file.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseFile()
     {
@@ -256,7 +257,6 @@ class PDOSQLExecFormatterElement
      * Sets the output file for the formatter results.
      *
      * @param PhingFile $outfile
-     * @internal param PhingFile $outFile
      */
     public function setOutfile(PhingFile $outfile)
     {
@@ -277,7 +277,7 @@ class PDOSQLExecFormatterElement
      * whether output should be appended to or overwrite
      * an existing file.  Defaults to false.
      *
-     * @param boolean $append
+     * @param bool $append
      */
     public function setAppend($append)
     {
@@ -287,7 +287,7 @@ class PDOSQLExecFormatterElement
     /**
      * Whether output should be appended to file.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAppend()
     {
@@ -298,7 +298,7 @@ class PDOSQLExecFormatterElement
      * Print headers for result sets from the
      * statements; optional, default true.
      *
-     * @param boolean $showheaders
+     * @param bool $showheaders
      */
     public function setShowheaders($showheaders)
     {
@@ -336,7 +336,7 @@ class PDOSQLExecFormatterElement
     }
 
     /**
-     * @param boolean $v
+     * @param bool $v
      */
     public function setFormatOutput($v)
     {

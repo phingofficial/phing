@@ -39,9 +39,7 @@
  * </manifest>
  *
  * @author David Persson <davidpersson at qeweurope dot org>
- *
  * @package phing.tasks.ext
- *
  * @since 2.3.1
  */
 class ManifestTask extends Task
@@ -240,7 +238,7 @@ class ManifestTask extends Task
      * @link http://www.php.net/mhash
      * @link http://www.php.net/hash
      *
-     * @param string $msg The string that should be hashed
+     * @param string $msg  The string that should be hashed
      * @param string $algo Algorithm
      *
      * @return mixed  String on success, false if $algo is not available

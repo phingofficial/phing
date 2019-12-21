@@ -20,9 +20,10 @@
 /**
  * Repository initialization task
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitInitTask extends GitBaseTask
@@ -72,7 +73,7 @@ class GitInitTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setBare(bool $flag)
     {

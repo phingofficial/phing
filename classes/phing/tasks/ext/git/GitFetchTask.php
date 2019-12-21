@@ -20,9 +20,10 @@
 /**
  * Wrapper aroung git-fetch
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitFetchTask extends GitBaseTask
@@ -30,14 +31,14 @@ class GitFetchTask extends GitBaseTask
     /**
      * --force, -f key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $force = false;
 
     /**
      * --quiet, -q key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $quiet = false;
 
@@ -45,7 +46,7 @@ class GitFetchTask extends GitBaseTask
      * Fetch all remotes
      * --all key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $allRemotes = false;
 
@@ -53,7 +54,7 @@ class GitFetchTask extends GitBaseTask
      * Keep downloaded pack
      * --keep key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $keepFiles = false;
 
@@ -62,7 +63,7 @@ class GitFetchTask extends GitBaseTask
      * exist on the remote.
      * --prune key to git fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $prune = false;
 
@@ -70,7 +71,7 @@ class GitFetchTask extends GitBaseTask
      * Disable/enable automatic tag following
      * --no-tags key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $noTags = false;
 
@@ -78,7 +79,7 @@ class GitFetchTask extends GitBaseTask
      * Fetch all tags (even not reachable from branch heads)
      * --tags key to git-fetch
      *
-     * @var boolean
+     * @var bool
      */
     private $tags = false;
 
@@ -152,7 +153,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForce($flag)
     {
@@ -176,7 +177,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setQuiet($flag)
     {
@@ -200,7 +201,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAll($flag)
     {
@@ -224,7 +225,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setKeep($flag)
     {
@@ -248,7 +249,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setPrune($flag)
     {
@@ -272,7 +273,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoTags($flag)
     {
@@ -296,7 +297,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setTags($flag)
     {
@@ -320,7 +321,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $source
+     * @param string $source
      */
     public function setSource($source)
     {
@@ -336,7 +337,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $spec
+     * @param string $spec
      */
     public function setRefspec($spec)
     {
@@ -352,7 +353,7 @@ class GitFetchTask extends GitBaseTask
     }
 
     /**
-     * @param $group
+     * @param string $group
      */
     public function setGroup($group)
     {

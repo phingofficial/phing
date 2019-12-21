@@ -60,7 +60,7 @@ class AvailableTask extends Task implements Condition
     private $followSymlinks = false;
 
     /**
-     * @param $property
+     * @param string $property
      */
     public function setProperty($property)
     {
@@ -68,7 +68,7 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -84,7 +84,7 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $resource
+     * @param string $resource
      */
     public function setResource($resource)
     {
@@ -92,7 +92,7 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $extension
+     * @param string $extension
      */
     public function setExtension($extension)
     {
@@ -100,7 +100,7 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $type
+     * @param string $type
      */
     public function setType($type)
     {
@@ -108,7 +108,7 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $followSymlinks
+     * @param bool $followSymlinks
      */
     public function setFollowSymlinks(bool $followSymlinks)
     {
@@ -155,6 +155,7 @@ class AvailableTask extends Task implements Condition
 
     /**
      * @return bool
+     *
      * @throws BuildException
      */
     public function evaluate()
@@ -222,7 +223,9 @@ class AvailableTask extends Task implements Condition
 
     /**
      * @param PhingFile $file
+     *
      * @return bool
+     *
      * @throws IOException
      */
     private function _checkFile1(PhingFile $file)
@@ -257,7 +260,8 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $resource
+     * @param string $resource
+     *
      * @return bool
      */
     private function _checkResource($resource)

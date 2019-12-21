@@ -30,9 +30,10 @@
  *            that perhaps they should use common utility class if there really
  *            is that much shared functionality
  *
+ * @see     ProjectComponent
+ *
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @see     ProjectComponent
  * @package phing.types
  */
 abstract class AbstractFileSet extends DataType implements SelectorContainer, IteratorAggregate
@@ -42,14 +43,14 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     // These vars are public for cloning purposes
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $useDefaultExcludes = true;
 
     /**
      * Whether to expand/dereference symbolic links, default is false
      *
-     * @var boolean
+     * @var bool
      */
     protected $expandSymbolicLinks = false;
 
@@ -88,7 +89,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets whether to expand/dereference symbolic links, default is false
      *
-     * @var boolean
+     * @var bool
      */
     public function setExpandSymbolicLinks(bool $expandSymbolicLinks)
     {
@@ -105,6 +106,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * this element if you make it a reference.
      *
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -122,7 +124,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * @param $dir
+     * @param PhingFile|string $dir
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -140,7 +143,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param Project $p
+     *
      * @return mixed
+     *
      * @throws BuildException
      */
     public function getDir(Project $p = null)
@@ -158,6 +163,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @return mixed
+     *
      * @throws BuildException
      */
     public function createPatternSet()
@@ -231,7 +237,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param $includes
+     * @param string $includes
+     *
      * @throws BuildException
      */
     public function setIncludes($includes)
@@ -246,7 +253,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param $excludes
+     * @param string $excludes
+     *
      * @throws BuildException
      */
     public function setExcludes($excludes)
@@ -261,6 +269,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the name of the file containing the includes patterns.
      *
      * @param PhingFile $incl The file to fetch the include patterns from.
+     *
      * @throws BuildException
      */
     public function setIncludesfile(PhingFile $incl)
@@ -275,6 +284,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the name of the file containing the includes patterns.
      *
      * @param PhingFile $excl The file to fetch the exclude patterns from.
+     *
      * @throws BuildException
      */
     public function setExcludesfile($excl)
@@ -288,11 +298,13 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets whether default exclusions should be used or not.
      *
-     * @param $useDefaultExcludes "true"|"on"|"yes" when default exclusions
-     *                           should be used, "false"|"off"|"no" when they
-     *                           shouldn't be used.
-     * @throws BuildException
+     * @param bool $useDefaultExcludes "true"|"on"|"yes" when default exclusions
+     *                                 should be used, "false"|"off"|"no" when they
+     *                                 shouldn't be used.
+     *
      * @return void
+     *
+     * @throws BuildException
      */
     public function setDefaultexcludes($useDefaultExcludes)
     {
@@ -305,7 +317,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets case sensitivity of the file system
      *
-     * @param $isCaseSensitive
+     * @param bool $isCaseSensitive
      */
     public function setCaseSensitive($isCaseSensitive)
     {
@@ -319,8 +331,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * returns a reference to the dirscanner object belonging to this fileset
      *
      * @param Project $p
-     * @throws BuildException
+     *
      * @return \DirectoryScanner
+     *
+     * @throws BuildException
      */
     public function getDirectoryScanner(Project $p = null)
     {
@@ -358,7 +372,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * feed dirscanner with infos defined by this fileset
      *
      * @param DirectoryScanner $ds
-     * @param Project $p
+     * @param Project          $p
+     *
      * @throws BuildException
      */
     protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
@@ -431,9 +446,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @param Project $p
      *
-     * @throws BuildException
-     *
      * @return FileSet
+     *
+     * @throws BuildException
      */
     public function getRef(Project $p)
     {
@@ -445,7 +460,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {
@@ -461,7 +476,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Indicates whether there are any patterns here.
      *
-     * @return boolean Whether any patterns are in this container.
+     * @return bool Whether any patterns are in this container.
      */
     public function hasPatterns()
     {
@@ -488,8 +503,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Gives the count of the number of selectors in this container
      *
-     * @throws Exception
      * @return int The number of selectors in this container
+     *
+     * @throws Exception
      */
     public function count()
     {
@@ -508,8 +524,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Returns the set of selectors as an array.
      *
      * @param Project $p
-     * @throws BuildException
+     *
      * @return array of selectors in this container
+     *
+     * @throws BuildException
      */
     public function getSelectors(Project $p)
     {
@@ -545,9 +563,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @param FileSelector $selector new selector to add
      *
-     * @throws BuildException
-     *
      * @return void
+     *
+     * @throws BuildException
      */
     public function appendSelector(FileSelector $selector)
     {
@@ -561,6 +579,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param array ...$options
+     *
      * @return ArrayIterator
      */
     public function getIterator(...$options): \ArrayIterator

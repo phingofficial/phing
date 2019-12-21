@@ -27,19 +27,16 @@ class SonarProperty
 {
 
     /**
-     *
      * @var string
      */
     private $name;
 
     /**
-     *
      * @var string
      */
     private $value;
 
     /**
-     *
      * @return string
      */
     public function getName()
@@ -48,8 +45,8 @@ class SonarProperty
     }
 
     /**
-     *
      * @param string $name
+     *
      * @return void
      */
     public function setName($name)
@@ -58,7 +55,6 @@ class SonarProperty
     }
 
     /**
-     *
      * @return string
      */
     public function getValue()
@@ -67,8 +63,8 @@ class SonarProperty
     }
 
     /**
-     *
      * @param string $value
+     *
      * @return void
      */
     public function setValue($value)

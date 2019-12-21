@@ -61,12 +61,14 @@ class SassCompiler implements SassTaskCompiler
     /**
      * Executes the command and returns return code and output.
      *
-     * @param string $inputFile Input file
+     * @param string $inputFile  Input file
      * @param string $outputFile Output file
      *
-     * @access protected
-     * @throws BuildException
      * @return array array(return code, array with output)
+     *
+     * @throws BuildException
+     *
+     * @access protected
      */
     private function executeCommand($inputFile, $outputFile)
     {

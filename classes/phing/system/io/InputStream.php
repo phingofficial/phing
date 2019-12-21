@@ -44,6 +44,7 @@ class InputStream
      * Construct a new InputStream.
      *
      * @param resource $stream Configured PHP stream for writing.
+     *
      * @throws IOException
      */
     public function __construct($stream)
@@ -58,6 +59,7 @@ class InputStream
      * Skip over $n bytes.
      *
      * @param int $n
+     *
      * @return int
      */
     public function skip($n)
@@ -84,6 +86,7 @@ class InputStream
      * Read data from stream until $len chars or EOF.
      *
      * @param int $len Num chars to read.  If not specified this stream will read until EOF.
+     *
      * @return mixed chars read or -1 if eof.
      */
     public function read($len = null)
@@ -122,7 +125,7 @@ class InputStream
     /**
      * Whether the input stream supports mark and reset methods.
      *
-     * @return boolean
+     * @return bool
      */
     public function markSupported()
     {
@@ -168,7 +171,7 @@ class InputStream
     /**
      * Whether eof has been reached with stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

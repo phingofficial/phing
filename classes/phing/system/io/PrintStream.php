@@ -36,7 +36,7 @@ class PrintStream
 
     /**
      * @param OutputStream $out
-     * @param bool $autoFlush
+     * @param bool         $autoFlush
      */
     public function __construct(OutputStream $out, $autoFlush = false)
     {
@@ -67,9 +67,6 @@ class PrintStream
         $this->write((string) $value);
     }
 
-    /**
-     *
-     */
     private function newLine()
     {
         $this->textOut->newLine();
@@ -81,8 +78,8 @@ class PrintStream
 
     /**
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
      */
     private function write($buf, $off = null, $len = null)
     {

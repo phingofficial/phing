@@ -34,6 +34,7 @@ class JsonLogger extends XmlLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
      * @throws BuildException
      */
     public function buildFinished(BuildEvent $event)

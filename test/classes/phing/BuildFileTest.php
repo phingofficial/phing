@@ -47,9 +47,10 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * Asserts that the log buffer contains specified message at specified priority.
+     *
      * @param string $expected Message subsctring
-     * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
@@ -78,9 +79,10 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * Asserts that the log buffer contains specified message at specified priority.
+     *
      * @param string $expected Message subsctring
-     * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
      */
     protected function assertLogLineContaining(
         $expected,
@@ -112,9 +114,10 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
+     *
      * @param string $expected Message subsctring
-     * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
      */
     protected function assertNotInLogs(
         $message,
@@ -138,7 +141,7 @@ abstract class BuildFileTest extends TestCase
      *  run a target, expect for any build exception
      *
      * @param string $target target to run
-     * @param string $cause information string to reader of report
+     * @param string $cause  information string to reader of report
      */
     protected function expectBuildException($target, $cause)
     {
@@ -191,11 +194,11 @@ abstract class BuildFileTest extends TestCase
     /**
      *  execute the target, verify output matches expectations
      *  and that we got the named error at the end
+     *
      * @param string $target target to execute
      * @param string $output output to look for
-     * @param string $error Description of Parameter
+     * @param string $error  Description of Parameter
      */
-
     protected function expectOutputAndError($target, $output, $error)
     {
         $this->executeTarget($target);
@@ -249,6 +252,7 @@ abstract class BuildFileTest extends TestCase
      *  set up to run the named project
      *
      * @param string $filename name of project file to run
+     *
      * @throws BuildException
      */
     protected function configureProject($filename)
@@ -266,8 +270,10 @@ abstract class BuildFileTest extends TestCase
 
     /**
      *  execute a target we have set up
-     * @pre configureProject has been called
+     *
      * @param string $targetName target to run
+     *
+     * @pre configureProject has been called
      */
     protected function executeTarget($targetName)
     {
@@ -295,6 +301,7 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * get the directory of the project
+     *
      * @return PhingFile the base dir of the project
      */
     protected function getProjectDir()
@@ -306,9 +313,9 @@ abstract class BuildFileTest extends TestCase
      *  run a target, wait for a build exception
      *
      * @param string $target target to run
-     * @param string $cause information string to reader of report
-     * @param string $msg the message value of the build exception we are waiting for
-     * set to null for any build exception to be valid
+     * @param string $cause  information string to reader of report
+     * @param string $msg    the message value of the build exception we are waiting for
+     *                       set to null for any build exception to be valid
      */
     protected function expectSpecificBuildException($target, $cause, $msg)
     {
@@ -334,9 +341,8 @@ abstract class BuildFileTest extends TestCase
      *  run a target, expect an exception string
      *  containing the substring we look for (case sensitive match)
      *
-     * @param string $target target to run
-     * @param string $cause information string to reader of report
-     * @param string $msg the message value of the build exception we are waiting for
+     * @param string $target   target to run
+     * @param string $cause    information string to reader of report
      * @param string $contains substring of the build exception to look for
      */
     protected function expectBuildExceptionContaining($target, $cause, $contains)
@@ -370,11 +376,10 @@ abstract class BuildFileTest extends TestCase
     /**
      * call a target, verify property is as expected
      *
-     * @param string $target build file target
+     * @param string $target   build file target
      * @param string $property property name
-     * @param string $value expected value
+     * @param string $value    expected value
      */
-
     protected function expectPropertySet($target, $property, $value = "true")
     {
         $this->executeTarget($target);
@@ -383,8 +388,9 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * assert that a property equals a value; comparison is case sensitive.
+     *
      * @param string $property property name
-     * @param string $value expected value
+     * @param string $value    expected value
      */
     protected function assertPropertyEquals($property, $value)
     {
@@ -394,6 +400,7 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * assert that a property equals &quot;true&quot;
+     *
      * @param string $property property name
      */
     protected function assertPropertySet($property)
@@ -403,6 +410,7 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * assert that a property is null
+     *
      * @param string $property property name
      */
     protected function assertPropertyUnset($property)
@@ -412,7 +420,8 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * call a target, verify property is null
-     * @param string $target build file target
+     *
+     * @param string $target   build file target
      * @param string $property property name
      */
     protected function expectPropertyUnset($target, $property)
@@ -424,7 +433,9 @@ abstract class BuildFileTest extends TestCase
      * Retrieve a resource from the caller classloader to avoid
      * assuming a vm working directory. The resource path must be
      * relative to the package name or absolute from the root path.
+     *
      * @param resource $resource the resource to retrieve its url.
+     *
      * @throws BuildException if resource is not found.
      */
     protected function getResource($resource)
@@ -458,8 +469,9 @@ abstract class BuildFileTest extends TestCase
     /**
      * Get relative date
      *
-     * @param int $timestamp Timestamp to us as pin-point
-     * @param string $type Whether 'fulldate' or 'time'
+     * @param int    $timestamp Timestamp to us as pin-point
+     * @param string $type      Whether 'fulldate' or 'time'
+     *
      * @return string
      */
     protected function getRelativeDate($timestamp, $type = 'fulldate')

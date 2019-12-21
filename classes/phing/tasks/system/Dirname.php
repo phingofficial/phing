@@ -46,7 +46,7 @@ class Dirname extends Task
     /**
      * Path to take the dirname of.
      *
-     * @param string|PhingFile file a <code>File</code> value
+     * @param string|PhingFile $file a <code>File</code> value
      */
     public function setFile($file)
     {

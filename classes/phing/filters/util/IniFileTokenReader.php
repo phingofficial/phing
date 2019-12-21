@@ -48,8 +48,9 @@ class IniFileTokenReader extends TokenReader
     /**
      * Reads the next token from the INI file
      *
-     * @throws BuildException
      * @return Token
+     *
+     * @throws BuildException
      */
     public function readToken()
     {
@@ -117,6 +118,7 @@ class IniFileTokenReader extends TokenReader
 
     /**
      * @param string|PhingFile $file
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -138,7 +140,7 @@ class IniFileTokenReader extends TokenReader
     }
 
     /**
-     * @param $str
+     * @param string $str
      */
     public function setSection($str)
     {

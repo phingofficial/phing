@@ -38,8 +38,9 @@ class TryCatchTask extends Task
     /**
      * Main method
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {

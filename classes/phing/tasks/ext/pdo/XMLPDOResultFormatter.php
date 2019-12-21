@@ -63,7 +63,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
     private $encoding;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $formatOutput = true;
 
@@ -78,7 +78,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
     }
 
     /**
-     * @param boolean $v
+     * @param bool $v
      */
     public function setFormatOutput($v)
     {

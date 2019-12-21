@@ -4,21 +4,23 @@
  *
  * PHP Version 5
  *
- * @category Tasks
- * @package  phing.tasks.ext
- * @author   Ken Guest <ken@linux.ie>
- * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     https://github.com/kenguest/Phing-NotifySendTask
- */
-
-/**
- * NotifySendTask
  *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
+ */
+
+/**
+ * NotifySendTask
+ *
  * @link     NotifySendTask.php
+ *
+ * @category Tasks
+ * @package  phing.tasks.ext
+ * @author   Ken Guest <ken@linux.ie>
+ * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 class NotifySendTask extends Task
 {
@@ -128,8 +130,9 @@ class NotifySendTask extends Task
     /**
      * The main entry point method.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {

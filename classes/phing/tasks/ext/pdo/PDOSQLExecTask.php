@@ -166,7 +166,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Set an inline SQL command to execute.
      * NB: Properties are not expanded in this text.
      *
-     * @param $sql
+     * @param string $sql
      */
     public function addText($sql)
     {
@@ -278,6 +278,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Sets the fetch mode to use for the PDO resultset.
      *
      * @param mixed $mode The PDO fetchmode integer or constant name.
+     *
      * @throws BuildException
      */
     public function setFetchmode($mode): void
@@ -447,6 +448,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * read in lines and execute them
      *
      * @param Reader $reader
+     *
      * @throws BuildException
      */
     public function runStatements(Reader $reader)
@@ -476,7 +478,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $sql
      *
-     * @return boolean Whether specified SQL looks like a SELECT query.
+     * @return bool Whether specified SQL looks like a SELECT query.
      */
     protected function isSelectSql($sql)
     {
@@ -488,7 +490,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Exec the sql statement.
      *
-     * @param $sql
+     * @param string $sql
      *
      * @throws BuildException
      * @throws Exception
@@ -609,9 +611,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * The database connection is not stored in a variable, this allow to
      * immediately close the connections since there's no reference to it.
      *
-     * @author Jawira Portugal <dev@tugal.be>
-     *
      * @return bool
+     *
+     * @author Jawira Portugal <dev@tugal.be>
      */
     public function evaluate(): bool
     {

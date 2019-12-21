@@ -21,7 +21,6 @@
  * Encapsulates an input request.
  *
  * @author Stefan Bodewig <stefan.bodewig@epost.de>
- *
  * @package phing.input
  */
 class MultipleChoiceInputRequest extends InputRequest
@@ -32,9 +31,9 @@ class MultipleChoiceInputRequest extends InputRequest
     protected $choices = [];
 
     /**
-     * @param string $prompt The prompt to show to the user.  Must not be null.
-     * @param array $choices holds all input values that are allowed.
-     *                        Must not be null.
+     * @param string $prompt  The prompt to show to the user.  Must not be null.
+     * @param array  $choices holds all input values that are allowed.
+     *                         Must not be null.
      */
     public function __construct($prompt, $choices)
     {

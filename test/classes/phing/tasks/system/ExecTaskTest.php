@@ -27,6 +27,7 @@ class ExecTaskTest extends BuildFileTest
 {
     /**
      * Whether test is being run on windows
+     *
      * @var bool
      */
     protected $windows;

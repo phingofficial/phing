@@ -21,7 +21,6 @@
  * This is the interface for selectors that can contain other selectors.
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
- *
  * @package phing.types.selectors
  */
 interface SelectorContainer

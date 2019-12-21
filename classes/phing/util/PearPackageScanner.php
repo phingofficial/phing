@@ -4,21 +4,23 @@
  *
  * PHP version 5
  *
- * @category Util
- * @package  phing.util
- * @author   Christian Weiske <cweiske@cweiske.de>
- * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link     http://www.phing.info/
- */
-
-/**
- * Scans for files in a PEAR package.
  *
  * @category Util
  * @package  phing.util
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
+ */
+
+/**
+ * Scans for files in a PEAR package.
+ *
  * @link     http://www.phing.info/
+ *
+ * @category Util
+ * @package  phing.util
+ * @author   Christian Weiske <cweiske@cweiske.de>
+ * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 class PearPackageScanner extends DirectoryScanner
 {
@@ -50,8 +52,9 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $descfile Name of package xml file
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function setDescFile($descfile)
     {
@@ -93,8 +96,9 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $config Configuration file
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function setConfig($config)
     {
@@ -125,14 +129,15 @@ class PearPackageScanner extends DirectoryScanner
      * Sets the role of files that should be included.
      * Examples are php,doc,script
      *
-     * @param string $role PEAR file role
-     *
-     * @throws BuildException
-     * @return void
-     *
      * @internal
      * We do not verify the role against a hardcoded list since that
      * would break packages with additional roles.
+     *
+     * @param string $role PEAR file role
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
     public function setRole($role)
     {
@@ -146,9 +151,9 @@ class PearPackageScanner extends DirectoryScanner
     /**
      * Loads the package information.
      *
-     * @return void
-     *
      * @uses $packageInfo
+     *
+     * @return void
      */
     protected function init()
     {
@@ -198,8 +203,6 @@ class PearPackageScanner extends DirectoryScanner
     /**
      * Generates the list of included files and directories
      *
-     * @return boolean True if all went well, false if something was wrong
-     *
      * @uses $filesIncluded
      * @uses $filesDeselected
      * @uses $filesNotIncluded
@@ -209,6 +212,8 @@ class PearPackageScanner extends DirectoryScanner
      * @uses $dirsDeselected
      * @uses $dirsNotIncluded
      * @uses $dirsExcluded
+     *
+     * @return bool True if all went well, false if something was wrong
      */
     public function scan()
     {

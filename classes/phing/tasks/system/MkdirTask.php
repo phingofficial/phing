@@ -36,7 +36,7 @@ class MkdirTask extends Task
     /**
      * Mode to create directory with
      *
-     * @var integer
+     * @var int
      */
     private $mode = 0;
 
@@ -88,6 +88,7 @@ class MkdirTask extends Task
      * The directory to create; required.
      *
      * @param PhingFile $dir
+     *
      * @return void
      */
     public function setDir(PhingFile $dir)
@@ -99,6 +100,7 @@ class MkdirTask extends Task
      * Sets mode to create directory with
      *
      * @param mixed $mode
+     *
      * @return void
      */
     public function setMode($mode)

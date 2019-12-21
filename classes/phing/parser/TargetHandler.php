@@ -53,13 +53,10 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param AbstractSAXParser $parser
-     * @param AbstractHandler $parentHandler
-     * @param ProjectConfigurator $configurator
-     * @param PhingXMLContext $context
-     * @internal param the $object ExpatParser object
-     * @internal param the $object parent handler that invoked this handler
-     * @internal param the $object ProjectConfigurator object
+     * @param AbstractSAXParser   $parser        The ExpatParser object
+     * @param AbstractHandler     $parentHandler The parent handler that invoked this handler
+     * @param ProjectConfigurator $configurator  The ProjectConfigurator object
+     * @param PhingXMLContext     $context
      */
     public function __construct(
         AbstractSAXParser $parser,
@@ -84,12 +81,11 @@ class TargetHandler extends AbstractHandler
      * <li>adding a reference to the target (if id attribute is given)</li>
      * </ul>
      *
-     * @param $tag
-     * @param $attrs
+     * @param string $tag   The tag that comes in
+     * @param array  $attrs Attributes the tag carries
+     *
      * @throws BuildException
      * @throws ExpatParseException
-     * @internal param the $string tag that comes in
-     * @internal param attributes $array the tag carries
      */
     public function init($tag, $attrs)
     {
@@ -203,8 +199,8 @@ class TargetHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param string $name the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $name  the tag that comes in
+     * @param array  $attrs attributes the tag carries
      */
     public function startElement($name, $attrs)
     {

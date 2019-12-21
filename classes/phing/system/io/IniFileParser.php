@@ -69,6 +69,7 @@ class IniFileParser implements FileParserInterface
      * does things like convert "true" => true
      *
      * @param string $val Trimmed value.
+     *
      * @return mixed The new property value (may be boolean, etc.)
      */
     protected function inVal($val)

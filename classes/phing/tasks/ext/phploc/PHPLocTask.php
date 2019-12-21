@@ -58,7 +58,7 @@ class PHPLocTask extends Task
     protected $countTests = false;
 
     /**
-     * @var null|PhingFile
+     * @var PhingFile|null
      */
     protected $fileToCheck = null;
 
@@ -99,7 +99,7 @@ class PHPLocTask extends Task
     }
 
     /**
-     * @param boolean $countTests
+     * @param bool $countTests
      */
     public function setCountTests($countTests)
     {
@@ -267,7 +267,7 @@ class Application
     /**
      * @param string $filename
      *
-     * @return boolean
+     * @return bool
      */
     protected function isFileSuffixSet($filename)
     {

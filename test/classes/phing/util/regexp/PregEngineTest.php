@@ -20,8 +20,6 @@
  */
 
 /**
- * Class PregEngineTest
- *
  * Test cases for phing/util/regexp/PregEngine
  */
 class PregEngineTest extends \PHPUnit\Framework\TestCase
@@ -122,6 +120,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test setting ignore-case through the modifier.
+     *
      * @todo This is a new test that fails due to a pre-existing condition.
      */
 //    public function testModifiersSetIgnoreCase()
@@ -134,6 +133,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test setting multi-line through the modifier.
+     *
      * @todo This is a new test that fails due to a pre-existing conditions.
      */
 //    public function testModifiersSetMultiline()

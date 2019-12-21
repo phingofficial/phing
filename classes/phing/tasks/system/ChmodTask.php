@@ -41,7 +41,8 @@ class ChmodTask extends Task
      * This flag means 'note errors to the output, but keep going'
      *
      * @see   setQuiet()
-     * @param $bool
+     *
+     * @param bool $bool
      */
     public function setFailonerror($bool)
     {
@@ -52,7 +53,8 @@ class ChmodTask extends Task
      * Set quiet mode, which suppresses warnings if chmod() fails.
      *
      * @see   setFailonerror()
-     * @param $bool
+     *
+     * @param bool $bool
      */
     public function setQuiet($bool)
     {
@@ -66,7 +68,7 @@ class ChmodTask extends Task
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
      *
-     * @param $bool
+     * @param bool $bool
      */
     public function setVerbose(bool $bool)
     {
@@ -85,7 +87,7 @@ class ChmodTask extends Task
     }
 
     /**
-     * @param $str
+     * @param string $str
      */
     public function setMode($str)
     {
@@ -107,8 +109,9 @@ class ChmodTask extends Task
     /**
      * Ensure that correct parameters were passed in.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     private function checkParams()
     {
@@ -185,7 +188,8 @@ class ChmodTask extends Task
      * Actually change the mode for the file.
      *
      * @param PhingFile $file
-     * @param int $mode
+     * @param int       $mode
+     *
      * @throws BuildException
      * @throws Exception
      */

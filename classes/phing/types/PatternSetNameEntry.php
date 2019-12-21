@@ -50,6 +50,7 @@ class PatternSetNameEntry
      * An alias for the setName() method.
      *
      * @see   setName()
+     *
      * @param string $pattern
      */
     public function setPattern($pattern)
@@ -101,6 +102,7 @@ class PatternSetNameEntry
      * Evaluates the pattern.
      *
      * @param Project $project
+     *
      * @return string The pattern or null if it is ruled out by a condition.
      */
     public function evalName(Project $project)
@@ -113,7 +115,8 @@ class PatternSetNameEntry
      * properties are set in project.
      *
      * @param Project $project
-     * @return boolean
+     *
+     * @return bool
      */
     public function valid(Project $project)
     {

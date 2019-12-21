@@ -86,7 +86,6 @@ class VersionTaskTest extends BuildFileTest
      * Testing \VersionTask::getVersion
      *
      * @dataProvider versionProvider
-     *
      */
     public function testGetVersionMethod($releaseType, $version, $expectedVersion)
     {

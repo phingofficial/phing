@@ -41,7 +41,7 @@ class TarFileSet extends FileSet
      * Get a list of files and directories specified in the fileset.
      *
      * @param Project $p
-     * @param bool $includeEmpty
+     * @param bool    $includeEmpty
      *
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
@@ -118,7 +118,7 @@ class TarFileSet extends FileSet
      * This is not the same as the UID, which is
      * not currently set by the task.
      *
-     * @param $userName
+     * @param string $userName
      */
     public function setUserName($userName)
     {
@@ -138,7 +138,7 @@ class TarFileSet extends FileSet
      * This is not the same as the GID, which is
      * not currently set by the task.
      *
-     * @param $groupName
+     * @param string $groupName
      */
     public function setGroup($groupName)
     {
@@ -179,7 +179,7 @@ class TarFileSet extends FileSet
      * if specified, is ignored. It is an error to have more than one file specified in
      * such a fileset.
      *
-     * @param $fullpath
+     * @param string $fullpath
      */
     public function setFullpath($fullpath)
     {

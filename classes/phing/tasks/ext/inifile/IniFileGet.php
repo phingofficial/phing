@@ -4,22 +4,24 @@
  *
  * PHP Version 5
  *
+ * @link     http://www.phing.info/
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 
 
 /**
  * InifileGet
  *
+ * @link     InifileGet.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     InifileGet.php
  */
 class IniFileGet
 {

@@ -35,6 +35,7 @@ interface InputHandler
      * value, request.isInputValid will return true.</p>
      *
      * @param InputRequest $request
+     *
      * @return void
      */
     public function handleInput(InputRequest $request);

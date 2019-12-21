@@ -84,6 +84,7 @@ class FileList extends DataType implements IteratorAggregate
      * instance.
      *
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -98,6 +99,7 @@ class FileList extends DataType implements IteratorAggregate
      * Base directory for files in list.
      *
      * @param PhingFile $dir
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -113,8 +115,10 @@ class FileList extends DataType implements IteratorAggregate
      * Get the basedir for files in list.
      *
      * @param Project $p
-     * @throws BuildException
+     *
      * @return PhingFile
+     *
+     * @throws BuildException
      */
     public function getDir(Project $p)
     {
@@ -131,6 +135,7 @@ class FileList extends DataType implements IteratorAggregate
      * Set the array of files in list.
      *
      * @param array $filenames
+     *
      * @throws BuildException
      */
     public function setFiles($filenames)
@@ -154,6 +159,7 @@ class FileList extends DataType implements IteratorAggregate
      * Sets a source "list" file that contains filenames to add -- one per line.
      *
      * @param string $file
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -172,6 +178,7 @@ class FileList extends DataType implements IteratorAggregate
      * Get the source "list" file that contains file names.
      *
      * @param Project $p
+     *
      * @return PhingFile
      */
     public function getListFile(Project $p)
@@ -189,7 +196,9 @@ class FileList extends DataType implements IteratorAggregate
      * Returns the list of files represented by this FileList.
      *
      * @param Project $p
+     *
      * @return array
+     *
      * @throws IOException
      * @throws BuildException
      */
@@ -223,9 +232,9 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @param Project $p
      *
-     * @throws BuildException
-     *
      * @return FileList
+     *
+     * @throws BuildException
      */
     public function getRef(Project $p)
     {

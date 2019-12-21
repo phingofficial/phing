@@ -100,7 +100,7 @@ class PropertyTask extends Task
     /**
      * Sets a the name of current property component
      *
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -128,8 +128,8 @@ class PropertyTask extends Task
     /**
      * Sets value of property to CDATA tag contents.
      *
-     * @param $value
-     * @internal param string $values
+     * @param mixed $value
+     *
      * @since    2.2.0
      */
     public function addText($value)
@@ -148,7 +148,7 @@ class PropertyTask extends Task
     /**
      * Set a file to use as the source for properties.
      *
-     * @param $file
+     * @param PhingFile|string $file
      */
     public function setFile($file)
     {
@@ -184,7 +184,9 @@ class PropertyTask extends Task
      * A "." is appended to the prefix if not specified.
      *
      * @param string $prefix prefix string
+     *
      * @return void
+     *
      * @since  2.0
      */
     public function setPrefix($prefix)
@@ -197,6 +199,7 @@ class PropertyTask extends Task
 
     /**
      * @return string
+     *
      * @since 2.0
      */
     public function getPrefix()
@@ -239,7 +242,7 @@ class PropertyTask extends Task
      * of the class is still being set via constructor, so Phing will
      * allow this method to function.
      *
-     * @param boolean $v
+     * @param bool $v
      */
     public function setUserProperty($v)
     {
@@ -255,7 +258,7 @@ class PropertyTask extends Task
     }
 
     /**
-     * @param $v
+     * @param string $v
      */
     public function setOverride($v)
     {
@@ -292,7 +295,7 @@ class PropertyTask extends Task
     }
 
     /**
-     * @param $logOutput
+     * @param bool $logOutput
      */
     public function setLogoutput(bool $logOutput)
     {
@@ -311,7 +314,8 @@ class PropertyTask extends Task
      * Set quiet mode, which suppresses warnings if chmod() fails.
      *
      * @see   setFailonerror()
-     * @param $bool
+     *
+     * @param bool $bool
      */
     public function setQuiet($bool)
     {
@@ -416,7 +420,8 @@ class PropertyTask extends Task
      * iterate through a set of properties,
      * resolve them then assign them
      *
-     * @param $props
+     * @param Properties $props
+     *
      * @throws BuildException
      */
     protected function addProperties($props)
@@ -435,7 +440,7 @@ class PropertyTask extends Task
     /**
      * add a name value pair to the project property set
      *
-     * @param string $name name of property
+     * @param string $name  name of property
      * @param string $value value to set
      */
     protected function addProperty($name, $value)
@@ -465,6 +470,7 @@ class PropertyTask extends Task
      * load properties from a file.
      *
      * @param PhingFile $file
+     *
      * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
@@ -492,8 +498,10 @@ class PropertyTask extends Task
      * any references to properties within the object.
      *
      * @param Properties $props The collection of Properties that need to be resolved.
-     * @throws BuildException
+     *
      * @return void
+     *
+     * @throws BuildException
      */
     protected function resolveAllProperties(Properties $props)
     {

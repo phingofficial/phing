@@ -54,9 +54,10 @@ class PhpLintTask extends Task
     /**
      * Override default php interpreter
      *
+     * @param string $sPhp
+     *
      * @todo  Do some sort of checking if the path is correct but would
      *          require traversing the systems executeable path too
-     * @param string $sPhp
      */
     public function setInterpreter($sPhp)
     {
@@ -69,7 +70,7 @@ class PhpLintTask extends Task
     /**
      * The haltonfailure property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnFailure($aValue)
     {
@@ -110,7 +111,6 @@ class PhpLintTask extends Task
      * File to save error messages to
      *
      * @param PhingFile $tofile
-     * @internal param PhingFile $file
      */
     public function setToFile(PhingFile $tofile)
     {
@@ -120,7 +120,7 @@ class PhpLintTask extends Task
     /**
      * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
      *
-     * @param boolean $deprecatedAsError
+     * @param bool $deprecatedAsError
      */
     public function setDeprecatedAsError($deprecatedAsError)
     {
@@ -188,6 +188,7 @@ class PhpLintTask extends Task
      * Performs the actual syntax check
      *
      * @param string $file
+     *
      * @throws BuildException
      */
     protected function lint($file)

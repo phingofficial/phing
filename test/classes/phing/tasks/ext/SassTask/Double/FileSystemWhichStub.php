@@ -36,4 +36,17 @@ class FileSystemWhichStub extends UnixFileSystem
         }
         return $fallback;
     }
+
+    /**
+     * Compare two abstract pathnames lexicographically.
+     *
+     * @param PhingFile $f1
+     * @param PhingFile $f2
+     *
+     * @throws IOException
+     */
+    public function compare(PhingFile $f1, PhingFile $f2)
+    {
+        throw new IOException("compare() not implemented by local fs driver");
+    }
 }

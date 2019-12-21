@@ -18,7 +18,6 @@
  */
 
 /**
- *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
  */
@@ -45,10 +44,7 @@ class SonarTaskTest extends BuildFileTest
         }
     }
 
-    //
     // Test "executable" attribute ...
-    //
-
     public function testExecutableAttributeIsMissingThrowsException()
     {
         $this->expectBuildExceptionContaining(
@@ -78,6 +74,7 @@ class SonarTaskTest extends BuildFileTest
 
     /**
      * the return code of the exec command is always 0 under windows
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
     public function testExecutableFileIsNotExecutableThrowsException()
@@ -107,10 +104,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    //
     // Test "errors" attribute ...
-    //
-
     public function testErrorsAttributeIsMissing()
     {
         try {
@@ -138,10 +132,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    //
     // Test "debug" attribute ...
-    //
-
     public function testDebugAttributeIsMissing()
     {
         try {
@@ -169,10 +160,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    //
     // Test "configuration" attribute ...
-    //
-
     public function testConfigurationAttributeIsMissing()
     {
         try {
@@ -200,10 +188,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    //
     // Test "property" elements ...
-    //
-
     public function testPropertyAttributesAreMissing()
     {
         $this->expectBuildExceptionContaining(

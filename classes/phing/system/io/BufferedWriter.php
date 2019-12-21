@@ -38,7 +38,7 @@ class BufferedWriter extends Writer
 
     /**
      * @param Writer $writer
-     * @param int $buffsize
+     * @param int    $buffsize
      */
     public function __construct(Writer $writer, $buffsize = 8192)
     {
@@ -48,8 +48,9 @@ class BufferedWriter extends Writer
 
     /**
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
+     *
      * @return mixed
      */
     public function write($buf, $off = null, $len = null)

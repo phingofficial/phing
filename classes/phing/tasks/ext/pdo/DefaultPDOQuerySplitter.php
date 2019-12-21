@@ -48,8 +48,8 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      * Constructor, sets the parent task, reader with SQL source and delimiter type
      *
      * @param PDOSQLExecTask $parent
-     * @param Reader $reader
-     * @param string $delimiterType
+     * @param Reader         $reader
+     * @param string         $delimiterType
      */
     public function __construct(PDOSQLExecTask $parent, Reader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
     {
