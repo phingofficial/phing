@@ -54,8 +54,9 @@ class XsltParam
     /**
      * Sets expression value (alias to the setExpression()) method.
      *
-     * @param string $v
      * @see   setExpression()
+     *
+     * @param string $v
      */
     public function setValue($v)
     {
@@ -65,8 +66,9 @@ class XsltParam
     /**
      * Gets expression value (alias to the getExpression()) method.
      *
-     * @return string
      * @see    getExpression()
+     *
+     * @return string
      */
     public function getValue()
     {

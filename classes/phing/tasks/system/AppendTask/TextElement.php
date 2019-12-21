@@ -34,8 +34,8 @@ class TextElement extends ProjectComponent
      * whether to filter the text in this element
      * or not.
      *
-     * @param filtering true if the text should be filtered.
-     *                  the default value is true.
+     * @param bool $filtering True if the text should be filtered.
+     *                        the default value is true.
      */
     public function setFiltering($filtering)
     {
@@ -56,6 +56,7 @@ class TextElement extends ProjectComponent
      * set the text using a file
      *
      * @param PhingFile $file the file to use
+     *
      * @throws BuildException if the file does not exist, or cannot be
      *                        read
      */

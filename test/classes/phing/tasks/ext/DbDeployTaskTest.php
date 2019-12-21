@@ -20,7 +20,6 @@
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
- *
  * @requires extension sqlite
  */
 class DbDeployTaskTest extends BuildFileTest

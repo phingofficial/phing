@@ -68,7 +68,7 @@ class RegisterSlot
     /**
      * Sets the value for this slot.
      *
-     * @param mixed
+     * @param mixed $v
      */
     public function setValue($v)
     {
@@ -89,6 +89,7 @@ class RegisterSlot
      * Recursively implodes an array to a comma-separated string
      *
      * @param array $arr
+     *
      * @return string
      */
     private function implodeArray(array $arr)

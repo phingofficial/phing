@@ -45,10 +45,10 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
      * Returns first n lines of stream.
      *
      * @param int $len
+     *
      * @return string Characters read, or -1 if the end of the stream has been reached
      *
-     * @throws IOException if the underlying stream throws an IOException
-     * during reading
+     * @throws IOException if the underlying stream throws an IOException during reading
      */
     public function read($len = null)
     {
@@ -74,7 +74,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
      * @param string $encoding Input encoding.
      */
     public function setInputEncoding($encoding)
@@ -83,7 +82,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
      * @return string
      */
     public function getInputEncoding()
@@ -92,7 +90,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
      * @param string $encoding Output encoding.
      */
     public function setOutputEncoding($encoding)
@@ -101,7 +98,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
      * @return string
      */
     public function getOutputEncoding()
@@ -112,9 +108,9 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new IconvFilter using the passed in Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream. Must not be <code>null</code>.
+     *
      * @return self A new filter based on this configuration, but filtering the specified reader.
-     * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      */
     public function chain(Reader $reader): Reader
     {

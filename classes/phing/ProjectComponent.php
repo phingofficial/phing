@@ -23,7 +23,6 @@
  *
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@xmpl.org>
- *
  * @package phing
  */
 abstract class ProjectComponent
@@ -122,8 +121,8 @@ abstract class ProjectComponent
     /**
      * Logs a message with the given priority.
      *
-     * @param string $msg The message to be logged.
-     * @param integer $level The message's priority at this message should have
+     * @param string $msg   The message to be logged.
+     * @param int    $level The message's priority at this message should have
      *
      * @return void
      */

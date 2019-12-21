@@ -34,6 +34,7 @@ class TruncateTask extends Task
      * Set a single target File.
      *
      * @param PhingFile|string $f the single File
+     *
      * @throws \IOException
      * @throws \NullPointerException
      */
@@ -49,7 +50,7 @@ class TruncateTask extends Task
      * Set the amount by which files' lengths should be adjusted.
      * It is permissible to append K / M / G / T / P.
      *
-     * @param $adjust (positive or negative) adjustment amount.
+     * @param int $adjust (positive or negative) adjustment amount.
      */
     public function setAdjust($adjust)
     {
@@ -60,7 +61,7 @@ class TruncateTask extends Task
      * Set the length to which files should be set.
      * It is permissible to append K / M / G / T / P.
      *
-     * @param $length (positive) adjustment amount.
+     * @param int $length (positive) adjustment amount.
      *
      * @throws \BuildException
      */
@@ -75,7 +76,7 @@ class TruncateTask extends Task
     /**
      * Set whether to create nonexistent files.
      *
-     * @param boolean $create default <code>true</code>.
+     * @param bool $create default <code>true</code>.
      */
     public function setCreate($create)
     {
@@ -86,7 +87,7 @@ class TruncateTask extends Task
      * Set whether, when creating nonexistent files, nonexistent directories
      * should also be created.
      *
-     * @param boolean $mkdirs default <code>false</code>.
+     * @param bool $mkdirs default <code>false</code>.
      */
     public function setMkdirs($mkdirs)
     {
@@ -119,7 +120,9 @@ class TruncateTask extends Task
 
     /**
      * @param PhingFile $f
+     *
      * @return bool
+     *
      * @throws \BuildException
      */
     private function shouldProcess(PhingFile $f)

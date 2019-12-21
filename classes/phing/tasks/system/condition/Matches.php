@@ -51,7 +51,7 @@ class Matches extends ProjectComponent implements Condition
     private $modifiers;
 
     /**
-     * @param boolean $caseSensitive
+     * @param bool $caseSensitive
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -61,7 +61,7 @@ class Matches extends ProjectComponent implements Condition
     /**
      * Whether to match should be multiline.
      *
-     * @param boolean $multiLine
+     * @param bool $multiLine
      */
     public function setMultiLine($multiLine)
     {
@@ -70,6 +70,7 @@ class Matches extends ProjectComponent implements Condition
 
     /**
      * @param string $pattern
+     *
      * @throws \BuildException
      */
     public function setPattern($pattern)

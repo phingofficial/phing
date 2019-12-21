@@ -125,6 +125,7 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @param string $pattern
+     *
      * @throws BuildException
      */
     public function setPattern($pattern)
@@ -141,7 +142,8 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $replace
+     * @param string $replace
+     *
      * @throws BuildException
      */
     public function setReplace($replace)
@@ -163,7 +165,8 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $match
+     * @param string $match
+     *
      * @throws BuildException
      */
     public function setMatch($match)
@@ -180,7 +183,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $caseSensitive
+     * @param bool $caseSensitive
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -191,6 +194,7 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @return mixed|string
+     *
      * @throws BuildException
      */
     protected function doReplace()

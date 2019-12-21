@@ -33,9 +33,9 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @param Project $p
      *
-     * @throws BuildException
-     *
      * @return FileSet
+     *
+     * @throws BuildException
      */
     public function getRef(Project $p)
     {
@@ -46,7 +46,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {
@@ -103,8 +103,9 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Gives the count of the number of selectors in this container
      *
-     * @throws Exception
      * @return int The number of selectors in this container
+     *
+     * @throws Exception
      */
     public function count()
     {
@@ -123,8 +124,10 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * Returns the set of selectors as an array.
      *
      * @param Project $p
-     * @throws BuildException
+     *
      * @return array of selectors in this container
+     *
+     * @throws BuildException
      */
     public function getSelectors(Project $p)
     {
@@ -160,9 +163,9 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @param FileSelector $selector new selector to add
      *
-     * @throws BuildException
-     *
      * @return void
+     *
+     * @throws BuildException
      */
     public function appendSelector(FileSelector $selector)
     {

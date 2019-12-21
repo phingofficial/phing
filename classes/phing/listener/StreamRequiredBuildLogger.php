@@ -24,9 +24,10 @@
  * graceful errors when classes like phing.listener.DefaultLogger are being used as
  * -listener.
  *
- * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BuildEvent
  * @see     Project::addBuildListener()
+ *
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing
  */
 interface StreamRequiredBuildLogger extends BuildLogger

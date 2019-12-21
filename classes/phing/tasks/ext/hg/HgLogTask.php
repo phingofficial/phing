@@ -4,21 +4,23 @@
  *
  * PHP Version 5.4
  *
+ * @link     https://github.com/kenguest/Phing-HG
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     https://github.com/kenguest/Phing-HG
  */
 
 /**
  * Integration/Wrapper for hg log
  *
+ * @link     HgLogTask.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext.hg
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     HgLogTask.php
  */
 class HgLogTask extends HgBaseTask
 {
@@ -77,7 +79,7 @@ class HgLogTask extends HgBaseTask
      *
      * @param string $format Log format
      *
-     * @return string
+     * @return void
      */
     public function setFormat($format)
     {

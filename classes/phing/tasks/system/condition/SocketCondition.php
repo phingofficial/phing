@@ -55,7 +55,8 @@ class SocketCondition implements Condition
     }
 
     /**
-     * @return boolean
+     * @return bool
+     *
      * @throws BuildException
      */
     public function evaluate()

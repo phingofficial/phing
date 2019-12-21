@@ -34,7 +34,6 @@
  *
  * @author Charles Killian
  * @author Hans Lellelid <hans@xmpl.org>
- *
  * @package phing.system.util
  */
 class Timer

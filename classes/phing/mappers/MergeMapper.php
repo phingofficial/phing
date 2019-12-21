@@ -36,8 +36,11 @@ class MergeMapper implements FileNameMapper
      * The mapper implementation. Basically does nothing in this case.
      *
      * @param mixed $sourceFileName The data the mapper works on
-     * @throws BuildException
+     *
      * @return mixed The data after the mapper has been applied
+     *
+     * @throws BuildException
+     *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function main($sourceFileName)
@@ -52,8 +55,10 @@ class MergeMapper implements FileNameMapper
     /**
      * Accessor. Sets the to property
      *
-     * @param string     To what this mapper should convert the from string
-     * @return boolean True
+     * @param string $to To what this mapper should convert the from string
+     *
+     * @return void
+     *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setTo($to)

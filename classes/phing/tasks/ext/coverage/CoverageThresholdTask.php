@@ -45,63 +45,63 @@ class CoverageThresholdTask extends Task
     /**
      * Holds the coverage threshold for the entire project
      *
-     * @var integer
+     * @var int
      */
     private $perProject = 25;
 
     /**
      * Holds the coverage threshold for any class
      *
-     * @var integer
+     * @var int
      */
     private $perClass = 25;
 
     /**
      * Holds the coverage threshold for any method
      *
-     * @var integer
+     * @var int
      */
     private $perMethod = 25;
 
     /**
      * Holds the minimum found coverage value for a class
      *
-     * @var integer
+     * @var int
      */
     private $minClassCoverageFound = null;
 
     /**
      * Holds the minimum found coverage value for a method
      *
-     * @var integer
+     * @var int
      */
     private $minMethodCoverageFound = null;
 
     /**
      * Number of statements in the entire project
      *
-     * @var integer
+     * @var int
      */
     private $projectStatementCount = 0;
 
     /**
      * Number of covered statements in the entire project
      *
-     * @var integer
+     * @var int
      */
     private $projectStatementsCovered = 0;
 
     /**
      * Whether to enable detailed logging
      *
-     * @var boolean
+     * @var bool
      */
     private $verbose = false;
 
     /**
      * Sets the optional coverage database to use
      *
-     * @param PhingFile The database file
+     * @param PhingFile $database The database file
      */
     public function setDatabase(PhingFile $database)
     {
@@ -111,7 +111,7 @@ class CoverageThresholdTask extends Task
     /**
      * Sets the coverage threshold for entire project
      *
-     * @param integer $threshold Coverage threshold for entire project
+     * @param int $threshold Coverage threshold for entire project
      */
     public function setPerProject($threshold)
     {
@@ -121,7 +121,7 @@ class CoverageThresholdTask extends Task
     /**
      * Sets the coverage threshold for any class
      *
-     * @param integer $threshold Coverage threshold for any class
+     * @param int $threshold Coverage threshold for any class
      */
     public function setPerClass($threshold)
     {
@@ -131,7 +131,7 @@ class CoverageThresholdTask extends Task
     /**
      * Sets the coverage threshold for any method
      *
-     * @param integer $threshold Coverage threshold for any method
+     * @param int $threshold Coverage threshold for any method
      */
     public function setPerMethod($threshold)
     {
@@ -141,7 +141,7 @@ class CoverageThresholdTask extends Task
     /**
      * Sets whether to enable detailed logging or not
      *
-     * @param boolean $verbose
+     * @param bool $verbose
      */
     public function setVerbose($verbose)
     {
@@ -151,8 +151,9 @@ class CoverageThresholdTask extends Task
     /**
      * Filter covered statements
      *
-     * @param integer $var Coverage CODE/count
-     * @return boolean
+     * @param int $var Coverage CODE/count
+     *
+     * @return bool
      */
     protected function filterCovered($var)
     {
@@ -174,8 +175,9 @@ class CoverageThresholdTask extends Task
     /**
      * Calculates the coverage threshold
      *
-     * @param string $filename The filename to analyse
-     * @param array $coverageInformation Array with coverage information
+     * @param string $filename            The filename to analyse
+     * @param array  $coverageInformation Array with coverage information
+     *
      * @throws BuildException
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)

@@ -21,8 +21,9 @@
  * A PhingFilterReader is a wrapper class that encloses the className
  * and configuration of a Configurable FilterReader.
  *
- * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @see     FilterReader
+ *
+ * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @package phing.types
  */
 class PhingFilterReader extends DataType
@@ -34,13 +35,16 @@ class PhingFilterReader extends DataType
     private $classPath;
 
     /**
-     * @param $className
+     * @param string $className
      */
     public function setClassName($className)
     {
         $this->className = $className;
     }
 
+    /**
+     * @return string
+     */
     public function getClassName()
     {
         return $this->className;
@@ -50,6 +54,7 @@ class PhingFilterReader extends DataType
      * Set the classpath to load the FilterReader through (attribute).
      *
      * @param Path $classpath
+     *
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)
@@ -70,6 +75,7 @@ class PhingFilterReader extends DataType
 
     /**
      * @return Path
+     *
      * @throws BuildException
      */
     public function createClasspath()
@@ -91,6 +97,7 @@ class PhingFilterReader extends DataType
 
     /**
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
@@ -144,6 +151,7 @@ class PhingFilterReader extends DataType
 
     /**
      * @param Reference $r
+     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)

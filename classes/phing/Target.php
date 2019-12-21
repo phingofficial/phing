@@ -21,9 +21,10 @@
  * The Target component. Carries all required target data. Implements the
  * abstract class {@link TaskContainer}
  *
+ * @see       TaskContainer
+ *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @see       TaskContainer
  * @package   phing
  */
 class Target implements TaskContainer
@@ -74,14 +75,14 @@ class Target implements TaskContainer
     /**
      * Whether to hide target in targets list (-list -p switches)
      *
-     * @var boolean
+     * @var bool
      */
     private $hidden = false;
 
     /**
      * Whether to log message as INFO or VERBOSE if target skipped
      *
-     * @var boolean
+     * @var bool
      */
     private $logSkipped = false;
 
@@ -117,6 +118,7 @@ class Target implements TaskContainer
      *
      * @param string $depends Comma separated list of targetnames that depend on
      *                         this target
+     *
      * @throws BuildException
      */
     public function setDepends($depends)
@@ -177,7 +179,8 @@ class Target implements TaskContainer
     /**
      * Set target status. If true, target does not come in phing -list
      *
-     * @param boolean $flag
+     * @param bool $flag
+     *
      * @return Target
      */
     public function setHidden($flag)
@@ -190,7 +193,7 @@ class Target implements TaskContainer
     /**
      * Get target status. If true, target does not come in phing -list
      *
-     * @return boolean
+     * @return bool
      */
     public function getHidden()
     {
@@ -200,7 +203,7 @@ class Target implements TaskContainer
     /**
      * Alias for getHidden()
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden()
     {
@@ -373,9 +376,9 @@ class Target implements TaskContainer
     /**
      * Tests if the property set in ifConfiditon exists.
      *
-     * @return boolean <code>true</code> if the property specified
-     *                 in <code>$this->ifCondition</code> exists;
-     *                 <code>false</code> otherwise
+     * @return bool <code>true</code> if the property specified
+     *              in <code>$this->ifCondition</code> exists;
+     *              <code>false</code> otherwise
      */
     private function testIfCondition()
     {
@@ -397,9 +400,9 @@ class Target implements TaskContainer
     /**
      * Tests if the property set in unlessCondition exists.
      *
-     * @return boolean <code>true</code> if the property specified
-     *                 in <code>$this->unlessCondition</code> exists;
-     *                 <code>false</code> otherwise
+     * @return bool <code>true</code> if the property specified
+     *              in <code>$this->unlessCondition</code> exists;
+     *              <code>false</code> otherwise
      */
     private function testUnlessCondition()
     {

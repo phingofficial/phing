@@ -36,7 +36,7 @@ class CommandlineMarker
 
     /**
      * @param Commandline $outer
-     * @param $position
+     * @param int         $position
      */
     public function __construct(Commandline $outer, $position)
     {

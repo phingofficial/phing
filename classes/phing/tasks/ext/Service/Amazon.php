@@ -43,7 +43,7 @@ abstract class Amazon extends Task
 
     /**
      * @param string $var
-     * @param mixed $val
+     * @param mixed  $val
      */
     public function __set($var, $val)
     {
@@ -59,6 +59,7 @@ abstract class Amazon extends Task
      * This way, we can define global properties for the "Amazon" service, like key and secret
      *
      * @param mixed $var
+     *
      * @return mixed
      */
     public function __get($var)
@@ -76,6 +77,7 @@ abstract class Amazon extends Task
 
     /**
      * @param string $var
+     *
      * @return bool
      */
     public function __isset($var)
@@ -85,6 +87,7 @@ abstract class Amazon extends Task
 
     /**
      * @param string $key
+     *
      * @throws BuildException if $key is an empty string
      */
     public function setKey($key)
@@ -112,6 +115,7 @@ abstract class Amazon extends Task
 
     /**
      * @param string $secret
+     *
      * @throws BuildException if $secret is a empty string
      */
     public function setSecret($secret)

@@ -20,9 +20,6 @@
 use PHPUnit\Framework\TestCase;
 use OsCondition as Os;
 
-/**
- * Class PosixPermissionsSelectorTest
- */
 class PosixPermissionsSelectorTest extends TestCase
 {
     /** @var PosixPermissionsSelector $selector */
@@ -70,11 +67,12 @@ class PosixPermissionsSelectorTest extends TestCase
     }
 
     /**
+     * @param string $permission
+     * @param bool   $throws
+     *
      * @test
      * @dataProvider illegalArgumentProvider
      * @dataProvider legalArgumentProvider
-     * @param string $permission
-     * @param bool $throws
      */
     public function argument(string $permission, $throws = false): void
     {

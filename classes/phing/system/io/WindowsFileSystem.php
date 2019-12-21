@@ -28,9 +28,6 @@ class WindowsFileSystem extends FileSystem
 
     private static $driveDirCache = [];
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->slash     = self::getSeparator();
@@ -39,7 +36,8 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * @param $c
+     * @param string $c
+     *
      * @return bool
      */
     public function isSlash($c)
@@ -48,7 +46,8 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * @param $c
+     * @param string $c
+     *
      * @return bool
      */
     public function isLetter($c)
@@ -58,7 +57,8 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * @param $p
+     * @param string $p
+     *
      * @return string
      */
     public function slashify($p)
@@ -101,9 +101,10 @@ class WindowsFileSystem extends FileSystem
      *    2  absolute UNC (if first char is '\\'), else directory-relative (has form "z:foo")
      *    3  absolute local pathname (begins with "z:\\")
      *
-     * @param $strPath
-     * @param $len
-     * @param $sb
+     * @param string $strPath
+     * @param int    $len
+     * @param string $sb
+     *
      * @return int
      */
     public function normalizePrefix($strPath, $len, &$sb)
@@ -149,9 +150,10 @@ class WindowsFileSystem extends FileSystem
      * Normalize the given pathname, whose length is len, starting at the given
      * offset; everything before this offset is already normal.
      *
-     * @param $strPath
-     * @param $len
-     * @param $offset
+     * @param string $strPath
+     * @param int    $len
+     * @param int    $offset
+     *
      * @return string
      */
     protected function normalizer($strPath, $len, $offset)
@@ -217,9 +219,8 @@ class WindowsFileSystem extends FileSystem
                 $sb .= $c;
             }
         }
-        $rv = (string) $sb;
 
-        return $rv;
+        return (string) $sb;
     }
 
     /**
@@ -228,6 +229,7 @@ class WindowsFileSystem extends FileSystem
      * This way we iterate through the whole pathname string only once.
      *
      * @param string $strPath
+     *
      * @return string
      */
     public function normalize($strPath)
@@ -264,6 +266,7 @@ class WindowsFileSystem extends FileSystem
 
     /**
      * @param string $strPath
+     *
      * @return int
      */
     public function prefixLength($strPath)
@@ -303,6 +306,7 @@ class WindowsFileSystem extends FileSystem
     /**
      * @param string $parent
      * @param string $child
+     *
      * @return string
      */
     public function resolve($parent, $child)
@@ -349,6 +353,7 @@ class WindowsFileSystem extends FileSystem
 
     /**
      * @param string $strPath
+     *
      * @return string
      */
     public function fromURIPath($strPath)
@@ -374,6 +379,7 @@ class WindowsFileSystem extends FileSystem
 
     /**
      * @param PhingFile $f
+     *
      * @return bool
      */
     public function isAbsolute(PhingFile $f)
@@ -387,7 +393,8 @@ class WindowsFileSystem extends FileSystem
     /**
      * private
      *
-     * @param $d
+     * @param string $d
+     *
      * @return int
      */
     public function _driveIndex($d)
@@ -406,7 +413,8 @@ class WindowsFileSystem extends FileSystem
     /**
      * private
      *
-     * @param $strPath
+     * @param string $strPath
+     *
      * @return bool
      */
     public function _isPharArchive($strPath)
@@ -415,7 +423,8 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * @param $drive
+     * @param string $drive
+     *
      * @return null
      */
     public function _getDriveDirectory($drive)
@@ -448,8 +457,9 @@ class WindowsFileSystem extends FileSystem
     }
 
     /**
-     * @param $path
-     * @return null|string
+     * @param string $path
+     *
+     * @return string|null
      */
     public function _getDrive($path)
     {
@@ -530,6 +540,7 @@ class WindowsFileSystem extends FileSystem
      *
      * @param PhingFile $f1
      * @param PhingFile $f2
+     *
      * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
@@ -543,7 +554,8 @@ class WindowsFileSystem extends FileSystem
     /**
      * On Windows platforms, PHP will mangle non-ASCII characters, see http://bugs.php.net/bug.php?id=47096
      *
-     * @param $strPath
+     * @param string $strPath
+     *
      * @return mixed|string
      */
     private function fixEncoding($strPath)

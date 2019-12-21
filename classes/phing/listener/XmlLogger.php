@@ -137,7 +137,7 @@ class XmlLogger implements BuildLogger
      * Fired when the build starts, this builds the top-level element for the
      * document and remembers the time of the start of the build.
      *
-     * @param BuildEvent Ignored.
+     * @param BuildEvent $event
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -153,6 +153,7 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
      * @throws BuildException
      */
     public function buildFinished(BuildEvent $event)
@@ -290,8 +291,8 @@ class XmlLogger implements BuildLogger
      * most appropriate parent element (task, target or build) and records
      * the priority and text of the message.
      *
-     * @param BuildEvent An event with any relevant extra information.
-     *              Will not be <code>null</code>.
+     * @param BuildEvent $event An event with any relevant extra information.
+     *                          Will not be <code>null</code>.
      */
     public function messageLogged(BuildEvent $event)
     {
@@ -354,8 +355,9 @@ class XmlLogger implements BuildLogger
      *
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
-     * @param int $level The logging level for the logger.
      * @see   BuildLogger#setMessageOutputLevel()
+     *
+     * @param int $level The logging level for the logger.
      */
     public function setMessageOutputLevel($level)
     {
@@ -365,8 +367,9 @@ class XmlLogger implements BuildLogger
     /**
      * Sets the output stream.
      *
-     * @param OutputStream $output
      * @see   BuildLogger#setOutputStream()
+     *
+     * @param OutputStream $output
      */
     public function setOutputStream(OutputStream $output)
     {
@@ -376,8 +379,9 @@ class XmlLogger implements BuildLogger
     /**
      * Sets the error stream.
      *
-     * @param OutputStream $err
      * @see   BuildLogger#setErrorStream()
+     *
+     * @param OutputStream $err
      */
     public function setErrorStream(OutputStream $err)
     {

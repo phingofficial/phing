@@ -163,7 +163,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the flag if warnings should be shown
      *
-     * @param boolean $show
+     * @param bool $show
      */
     public function setShowWarnings($show)
     {
@@ -173,7 +173,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the flag if sources should be shown
      *
-     * @param boolean $show Whether to show sources or not
+     * @param bool $show Whether to show sources or not
      *
      * @return void
      */
@@ -259,8 +259,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the ignore patterns to skip files when using directories instead of specific files
      *
-     * @param $patterns
-     * @internal param array $extensions
+     * @param string $patterns
      */
     public function setIgnorePatterns($patterns)
     {
@@ -276,7 +275,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the flag if subdirectories should be skipped
      *
-     * @param boolean $subdirectories
+     * @param bool $subdirectories
      */
     public function setNoSubdirectories($subdirectories)
     {
@@ -298,7 +297,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the flag if the used sniffs should be listed
      *
-     * @param boolean $show
+     * @param bool $show
      */
     public function setShowSniffs($show)
     {
@@ -333,7 +332,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the haltonerror flag
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setHaltonerror($value)
     {
@@ -343,7 +342,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the haltonwarning flag
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setHaltonwarning($value)
     {
@@ -353,7 +352,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the skipversioncheck flag
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setSkipVersionCheck($value)
     {
@@ -363,7 +362,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the name of the property to use
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -697,7 +696,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Outputs the messages of a specific type for one file
      *
-     * @param array $messages
+     * @param array  $messages
      * @param string $type
      */
     protected function outputCustomFormatMessages($messages, $type)

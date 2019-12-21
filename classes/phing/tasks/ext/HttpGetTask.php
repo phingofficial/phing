@@ -44,14 +44,14 @@ class HttpGetTask extends HttpTask
     /**
      * Holds value for "ssl_verify_peer" option
      *
-     * @var boolean
+     * @var bool
      */
     protected $sslVerifyPeer = true;
 
     /**
      * Holds value for "follow_redirects" option
      *
-     * @var null|bool
+     * @var bool|null
      */
     protected $followRedirects = null;
 
@@ -66,6 +66,7 @@ class HttpGetTask extends HttpTask
 
     /**
      * @return HTTP_Request2
+     *
      * @throws BuildException
      * @throws HTTP_Request2_LogicException
      */
@@ -97,7 +98,9 @@ class HttpGetTask extends HttpTask
      * Saves the response body to a specified directory
      *
      * @param HTTP_Request2_Response $response
+     *
      * @return void
+     *
      * @throws BuildException
      */
     protected function processResponse(HTTP_Request2_Response $response)
@@ -188,7 +191,7 @@ class HttpGetTask extends HttpTask
     /**
      * If true, set default log level to Project.MSG_ERR.
      *
-     * @param boolean $v if "true" then be quiet
+     * @param bool $v if "true" then be quiet
      */
     public function setQuiet($v)
     {

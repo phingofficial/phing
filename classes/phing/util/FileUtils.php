@@ -59,7 +59,7 @@ class FileUtils
      * Returns the default file/dir creation mask value
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
-     * @param boolean $dirmode Directory creation mask to select
+     * @param bool $dirmode Directory creation mask to select
      *
      * @return int  Creation Mask in octal representation
      */
@@ -78,9 +78,10 @@ class FileUtils
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
      *
-     * @param Reader $in Reader to modify (if appropriate).
+     * @param Reader  $in            Reader to modify (if appropriate).
      * @param array   &$filterChains filter chains to apply.
      * @param Project $project
+     *
      * @return Reader  Assembled Reader (w/ filter chains).
      */
     public static function getChainedReader(Reader $in, &$filterChains, Project $project)
@@ -91,9 +92,7 @@ class FileUtils
             $crh->setPrimaryReader($in);
             $crh->setFilterChains($filterChains);
             $crh->setProject($project);
-            $rdr = $crh->getAssembledReader();
-
-            return $rdr;
+            return $crh->getAssembledReader();
         }
 
         return $in;
@@ -104,15 +103,17 @@ class FileUtils
      *
      * @param PhingFile $sourceFile
      * @param PhingFile $destFile
-     * @param boolean $overwrite
-     * @param boolean $preserveLastModified
-     * @param array $filterChains
-     * @param Project $project
-     * @param integer $mode
-     * @param bool $preservePermissions
+     * @param bool      $overwrite
+     * @param bool      $preserveLastModified
+     * @param array     $filterChains
+     * @param Project   $project
+     * @param int       $mode
+     * @param bool      $preservePermissions
+     *
+     * @return void
+     *
      * @throws Exception
      * @throws IOException
-     * @return void
      */
     public function copyFile(
         PhingFile $sourceFile,
@@ -185,6 +186,7 @@ class FileUtils
      *
      * @param PhingFile $sourceFile
      * @param PhingFile $destFile
+     *
      * @return void
      */
     public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
@@ -216,16 +218,16 @@ class FileUtils
      * Interpret the filename as a file relative to the given file -
      * unless the filename already represents an absolute filename.
      *
-     * @param PhingFile $file the "reference" file for relative paths. This
-     *                             instance must be an absolute file and must
-     *                             not contain ./ or ../ sequences (same for \
-     *                             instead of /).
-     * @param string $filename a file name
-     *
-     * @throws IOException
+     * @param PhingFile $file     the "reference" file for relative paths. This
+     *                            instance must be an absolute file and must
+     *                            not contain ./ or ../ sequences (same for \
+     *                            instead of /).
+     * @param string    $filename a file name
      *
      * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *                   and uses the correct separator for the current platform.
+     *
+     * @throws IOException
      */
     public function resolveFile($file, $filename)
     {
@@ -282,9 +284,9 @@ class FileUtils
      *
      * @param string $path Path to normalize.
      *
-     * @throws IOException
-     *
      * @return string
+     *
+     * @throws IOException
      */
     public function normalize($path)
     {
@@ -398,18 +400,20 @@ class FileUtils
      * exist before this method was invoked, any subsequent invocation
      * of this method will yield a different file name.</p>
      *
-     * @param string $prefix prefix before the random number.
-     * @param string $suffix file extension; include the '.'.
-     * @param PhingFile $parentDir Directory to create the temporary file in;
+     * @param string    $prefix       prefix before the random number.
+     * @param string    $suffix       file extension; include the '.'.
+     * @param PhingFile $parentDir    Directory to create the temporary file in;
      *                                sys_get_temp_dir() used if not specified.
-     * @param boolean $deleteOnExit whether to set the tempfile for deletion on
+     * @param bool      $deleteOnExit whether to set the tempfile for deletion on
      *                                normal exit.
-     * @param boolean $createFile true if the file must actually be created. If false
+     * @param bool      $createFile   true if the file must actually be created. If false
      *                                chances exist that a file with the same name is
      *                                created in the time between invoking this method
      *                                and the moment the file is actually created. If
      *                                possible set to true.
-     * @return PhingFile            a File reference to the new temporary file.
+     *
+     * @return PhingFile a File reference to the new temporary file.
+     *
      * @throws BuildException
      */
     public function createTempFile(
@@ -454,7 +458,7 @@ class FileUtils
      * @param PhingFile $file1
      * @param PhingFile $file2
      *
-     * @return boolean Whether contents of two files is the same.
+     * @return bool Whether contents of two files is the same.
      */
     public function contentEquals(PhingFile $file1, PhingFile $file2)
     {

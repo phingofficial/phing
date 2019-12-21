@@ -117,7 +117,7 @@ class SwitchTask extends Task
     }
 
     /**
-     * @param $bool
+     * @param bool $bool
      *
      * @return void
      */

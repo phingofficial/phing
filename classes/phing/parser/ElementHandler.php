@@ -76,12 +76,12 @@ class ElementHandler extends AbstractHandler
     /**
      *  Constructs a new NestedElement handler and sets up everything.
      *
-     * @param AbstractSAXParser $parser the ExpatParser object
-     * @param AbstractHandler $parentHandler the parent handler that invoked this handler
-     * @param ProjectConfigurator $configurator the ProjectConfigurator object
-     * @param UnknownElement $parent the parent object this element is contained in
+     * @param AbstractSAXParser   $parser        the ExpatParser object
+     * @param AbstractHandler     $parentHandler the parent handler that invoked this handler
+     * @param ProjectConfigurator $configurator  the ProjectConfigurator object
+     * @param UnknownElement      $parent        the parent object this element is contained in
      * @param RuntimeConfigurable $parentWrapper the parent wrapper object
-     * @param Target $target the target object this task is contained in
+     * @param Target              $target        the target object this task is contained in
      */
     public function __construct(
         AbstractSAXParser $parser,
@@ -114,8 +114,9 @@ class ElementHandler extends AbstractHandler
      * <li>adding a reference to the element (if id attribute is given)</li>
      * </ul>
      *
-     * @param string $tag the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $tag   the tag that comes in
+     * @param array  $attrs attributes the tag carries
+     *
      * @throws ExpatParseException if the setup process fails
      */
     public function init($tag, $attrs)
@@ -161,6 +162,7 @@ class ElementHandler extends AbstractHandler
      * Handles character data.
      *
      * @param string $data the CDATA that comes in
+     *
      * @throws ExpatParseException if the CDATA could not be set-up properly
      */
     public function characters($data)
@@ -172,8 +174,8 @@ class ElementHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param string $name the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $name  the tag that comes in
+     * @param array  $attrs attributes the tag carries
      */
     public function startElement($name, $attrs)
     {

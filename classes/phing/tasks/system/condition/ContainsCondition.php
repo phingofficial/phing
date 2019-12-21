@@ -53,7 +53,7 @@ class ContainsCondition implements Condition
     /**
      * Whether to search ignoring case or not.
      *
-     * @param $b
+     * @param bool $b
      */
     public function setCaseSensitive($b)
     {

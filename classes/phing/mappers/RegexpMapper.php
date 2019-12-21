@@ -22,7 +22,6 @@
  *
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@velum.net>
- *
  * @package phing.mappers
  */
 class RegexpMapper implements FileNameMapper
@@ -55,7 +54,7 @@ class RegexpMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param boolean $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -75,7 +74,7 @@ class RegexpMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param boolean $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false.
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -147,7 +146,7 @@ class RegexpMapper implements FileNameMapper
      *
      * @param string $source The source filename.
      *
-     * @return array|null|string
+     * @return array|string|null
      *
      * FIXME Can't we just use engine->replace() to handle this?  the Preg engine will automatically convert \1 references to $1
      *

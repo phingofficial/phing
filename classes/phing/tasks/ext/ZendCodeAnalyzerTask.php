@@ -112,7 +112,7 @@ class ZendCodeAnalyzerTask extends Task
     /**
      * Sets the haltonwarning flag
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setHaltonwarning($value)
     {
@@ -155,8 +155,10 @@ class ZendCodeAnalyzerTask extends Task
      * Analyze file
      *
      * @param string $file
-     * @throws BuildException
+     *
      * @return void
+     *
+     * @throws BuildException
      */
     protected function analyze($file)
     {

@@ -41,7 +41,7 @@ class TstampCustomFormat
      * The date/time pattern to be used. The values are as
      * defined by the PHP strftime() function.
      *
-     * @param pattern
+     * @param string $pattern
      */
     public function setPattern($pattern)
     {
@@ -70,6 +70,7 @@ class TstampCustomFormat
      * validate parameter and execute the format.
      *
      * @param TstampTask $tstamp reference to task
+     *
      * @throws BuildException
      */
     public function execute(TstampTask $tstamp, $d, $location)

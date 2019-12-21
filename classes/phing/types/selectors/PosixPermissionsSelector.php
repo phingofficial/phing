@@ -30,6 +30,7 @@ class PosixPermissionsSelector implements FileSelector
 
     /**
      * Sets the permissions to look for.
+     *
      * @param string $permissions the permissions string (rwxrwxrwx or octal)
      */
     public function setPermissions(string $permissions): void

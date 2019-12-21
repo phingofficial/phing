@@ -34,7 +34,7 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
     /**
      * Sets the username to connect to the reference database.
      *
-     * @param string the username
+     * @param string $username the username
      */
     public function setReferenceUsername($username)
     {
@@ -44,7 +44,7 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
     /**
      * Sets the password to connect to the reference database.
      *
-     * @param string the password
+     * @param string $password the password
      */
     public function setReferencePassword($password)
     {
@@ -57,7 +57,7 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
      * jdbc:postgresql://psqlhost/myrefdatabase
      * </code>
      *
-     * @param string jdbc connection string
+     * @param string $url jdbc connection string
      */
     public function setReferenceUrl($url)
     {

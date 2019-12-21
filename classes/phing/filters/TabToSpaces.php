@@ -30,9 +30,10 @@
  *   <param name="tablength" value="8">
  * </filterreader></pre>
  *
+ * @see     BaseParamFilterReader
+ *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @see     BaseParamFilterReader
  * @package phing.filters
  */
 class TabToSpaces extends BaseParamFilterReader implements ChainableReader
@@ -40,15 +41,11 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
 
     /**
      * The default tab length.
-     *
-     * @var int
      */
     public const DEFAULT_TAB_LENGTH = 8;
 
     /**
      * Parameter name for the length of a tab.
-     *
-     * @var string
      */
     public const TAB_LENGTH_KEY = "tablength";
 
@@ -63,6 +60,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * Returns stream after converting tabs to the specified number of spaces.
      *
      * @param int $len
+     *
      * @return int the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *

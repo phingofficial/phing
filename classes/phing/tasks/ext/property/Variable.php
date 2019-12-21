@@ -32,7 +32,7 @@ class Variable extends PropertyTask
      * Default is false. Once  removed, conditions that check for property
      * existence will find this property does not exist.
      *
-     * @param boolean $b set to true to remove the property from the project.
+     * @param bool $b set to true to remove the property from the project.
      */
     public function setUnset($b)
     {
@@ -116,9 +116,11 @@ class Variable extends PropertyTask
     /**
      * Get a private property of a class
      *
-     * @param mixed $thisClass The class
+     * @param mixed  $thisClass The class
      * @param string $fieldName The property to get
+     *
      * @return ReflectionProperty               The property value
+     *
      * @throws Exception
      */
     private function getField($thisClass, $fieldName)
@@ -134,9 +136,11 @@ class Variable extends PropertyTask
     /**
      * Get a private property of an object
      *
-     * @param mixed $instance the object instance
+     * @param mixed  $instance  the object instance
      * @param string $fieldName the name of the field
+     *
      * @return mixed an object representing the value of the field
+     *
      * @throws Exception
      */
     private function getPropValue($instance, $fieldName)
@@ -157,6 +161,7 @@ class Variable extends PropertyTask
      * load variables from a file
      *
      * @param PhingFile $file file to load
+     *
      * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
@@ -195,6 +200,7 @@ class Variable extends PropertyTask
      * resolve properties inside a properties hashtable
      *
      * @param Properties $props properties object to resolve
+     *
      * @throws BuildException  Description of the Exception
      */
     protected function resolveAllProperties(Properties $props)

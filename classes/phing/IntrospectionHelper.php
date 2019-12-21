@@ -22,10 +22,10 @@
  * holds to set attributes, create nested elements or hold PCDATA
  * elements.
  *
- *<ul>
+ * <ul>
  * <li><strong>SMART-UP INLINE DOCS</strong></li>
  * <li><strong>POLISH-UP THIS CLASS</strong></li>
- *</ul>
+ * </ul>
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
@@ -99,6 +99,7 @@ class IntrospectionHelper
      * Factory method for helper objects.
      *
      * @param string $class The class to create a Helper for
+     *
      * @return IntrospectionHelper
      */
     public static function getHelper($class)
@@ -119,6 +120,7 @@ class IntrospectionHelper
      * exists or it does not & a BuildException is thrown.
      *
      * @param string $class The classname for this IH.
+     *
      * @throws BuildException
      */
     public function __construct($class)
@@ -273,9 +275,10 @@ class IntrospectionHelper
      * Sets the named attribute.
      *
      * @param Project $project
-     * @param object $element
-     * @param string $attributeName
-     * @param mixed $value
+     * @param object  $element
+     * @param string  $attributeName
+     * @param mixed   $value
+     *
      * @throws BuildException
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
@@ -372,8 +375,9 @@ class IntrospectionHelper
      * Adds PCDATA areas.
      *
      * @param Project $project
-     * @param string $element
-     * @param string $text
+     * @param string  $element
+     * @param string  $text
+     *
      * @throws BuildException
      */
     public function addText(Project $project, $element, $text)
@@ -396,10 +400,12 @@ class IntrospectionHelper
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
      * @param Project $project
-     * @param object $element Object the XML tag is child of.
-     *                              Often a task object.
-     * @param string $elementName XML tag name
+     * @param object  $element     Object the XML tag is child of.
+     *                                   Often a task object.
+     * @param string  $elementName XML tag name
+     *
      * @return object         Returns the nested element.
+     *
      * @throws BuildException
      */
     public function createElement(Project $project, $element, $elementName)
@@ -502,11 +508,13 @@ class IntrospectionHelper
     /**
      * Creates a named nested element.
      *
-     * @param Project $project
-     * @param string $element
-     * @param string $child
+     * @param Project     $project
+     * @param string      $element
+     * @param string      $child
      * @param string|null $elementName
+     *
      * @return void
+     *
      * @throws BuildException
      */
     public function storeElement($project, $element, $child, $elementName = null)
@@ -535,7 +543,7 @@ class IntrospectionHelper
     /**
      * Does the introspected class support PCDATA?
      *
-     * @return boolean
+     * @return bool
      */
     public function supportsCharacters()
     {
@@ -574,7 +582,8 @@ class IntrospectionHelper
      * XML element name will be returned.
      *
      * @param Project $project
-     * @param object $element The Task or type element.
+     * @param object  $element The Task or type element.
+     *
      * @return string  Fully qualified class name of element when possible.
      */
     public function getElementName(Project $project, $element)
@@ -616,6 +625,7 @@ class IntrospectionHelper
      *
      * @param string $methodName
      * @param string $prefix
+     *
      * @return string
      */
     public function getPropertyName($methodName, $prefix)

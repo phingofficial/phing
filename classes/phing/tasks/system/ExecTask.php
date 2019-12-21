@@ -66,7 +66,7 @@ class ExecTask extends Task
     /**
      * Whether to escape shell command using escapeshellcmd().
      *
-     * @var boolean
+     * @var bool
      */
     protected $escape = false;
 
@@ -80,14 +80,14 @@ class ExecTask extends Task
     /**
      * Whether to use PHP's passthru() function instead of exec()
      *
-     * @var boolean
+     * @var bool
      */
     protected $passthru = false;
 
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
      *
-     * @var boolean
+     * @var bool
      */
     protected $logOutput = false;
 
@@ -101,7 +101,7 @@ class ExecTask extends Task
     /**
      * If spawn is set then [unix] programs will redirect stdout and add '&'.
      *
-     * @var boolean
+     * @var bool
      */
     protected $spawn = false;
 
@@ -122,7 +122,7 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @var boolean
+     * @var bool
      */
     protected $checkreturn = false;
 
@@ -171,8 +171,9 @@ class ExecTask extends Task
      * Prepares the command building and execution, i.e.
      * changes to the specified directory.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     protected function prepare()
     {
@@ -211,6 +212,7 @@ class ExecTask extends Task
 
     /**
      * @param int $exitValue
+     *
      * @return bool
      */
     public function isFailure($exitValue = null)
@@ -225,9 +227,11 @@ class ExecTask extends Task
     /**
      * Builds the full command to execute and stores it in $command.
      *
-     * @throws BuildException
-     * @return void
      * @uses   $command
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
     protected function buildCommand()
     {
@@ -270,6 +274,7 @@ class ExecTask extends Task
      * Executes the command and returns return code and output.
      *
      * @return array array(return code, array with output)
+     *
      * @throws \BuildException
      */
     protected function executeCommand()
@@ -296,11 +301,12 @@ class ExecTask extends Task
      * - log output
      * - verify return value
      *
-     * @param integer $return Return code
+     * @param int   $return Return code
      * @param array $output Array with command output
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     protected function cleanup($return, $output): void
     {
@@ -359,6 +365,7 @@ class ExecTask extends Task
      * @param string $command String or string-compatible (e.g. w/ __toString()).
      *
      * @return void
+     *
      * @throws \BuildException
      */
     public function setCommand($command): void
@@ -390,7 +397,7 @@ class ExecTask extends Task
     /**
      * Whether to use escapeshellcmd() to escape command.
      *
-     * @param boolean $escape If the command shall be escaped or not
+     * @param bool $escape If the command shall be escaped or not
      *
      * @return void
      */
@@ -476,7 +483,7 @@ class ExecTask extends Task
     /**
      * Whether to use PHP's passthru() function instead of exec()
      *
-     * @param boolean $passthru If passthru shall be used
+     * @param bool $passthru If passthru shall be used
      *
      * @return void
      */
@@ -488,7 +495,7 @@ class ExecTask extends Task
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
      *
-     * @param boolean $logOutput If output shall be logged visibly
+     * @param bool $logOutput If output shall be logged visibly
      *
      * @return void
      */
@@ -500,7 +507,7 @@ class ExecTask extends Task
     /**
      * Whether to suppress all output and run in the background.
      *
-     * @param boolean $spawn If the command is to be run in the background
+     * @param bool $spawn If the command is to be run in the background
      *
      * @return void
      */
@@ -512,7 +519,7 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param boolean $checkreturn If the return code shall be checked
+     * @param bool $checkreturn If the return code shall be checked
      *
      * @return void
      */
@@ -575,7 +582,7 @@ class ExecTask extends Task
     /**
      * Is this the OS the user wanted?
      *
-     * @return boolean.
+     * @return bool .
      * <ul>
      * <li>
      * <li><code>true</code> if the os and osfamily attributes are null.</li>
@@ -651,12 +658,13 @@ class ExecTask extends Task
      * the full path. We first try basedir, then the exec dir, and then
      * fallback to the straight executable name (i.e. on the path).
      *
-     * @param string $exec the name of the executable.
-     * @param bool $mustSearchPath if true, the executable will be looked up in
+     * @param string $exec           The name of the executable.
+     * @param bool   $mustSearchPath If true, the executable will be looked up in
      *                               the PATH environment and the absolute path
      *                               is returned.
      *
      * @return string the executable as a full path if it can be determined.
+     *
      * @throws \BuildException
      * @throws IOException
      * @throws NullPointerException

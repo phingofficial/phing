@@ -31,7 +31,7 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
     /**
      * The file to check.
      *
-     * @param file the file to check if if passes the embedded selector.
+     * @param PhingFile $file the file to check if if passes the embedded selector.
      */
     public function setFile(PhingFile $file)
     {
@@ -41,8 +41,7 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
     /**
      * The base directory to use.
      *
-     * @param baseDir the base directory to use, if null use the project's
-     *                basedir.
+     * @param PhingFile $baseDir the base directory to use, if null use the project's basedir.
      */
     public function setBaseDir(PhingFile $baseDir)
     {

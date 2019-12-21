@@ -24,7 +24,6 @@
  * exist. It is possible to explicitly overwrite existing files.
  *
  * @author Andreas Aderhold, andi@binarycloud.com
- *
  * @package phing.tasks.system
  */
 class CopyTask extends Task
@@ -97,7 +96,7 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param boolean $bool Overwrite the destination file(s) if it/they already exist
+     * @param bool $bool Overwrite the destination file(s) if it/they already exist
      *
      * @return void
      */
@@ -124,7 +123,7 @@ class CopyTask extends Task
     /**
      * Used to force listing of all names of copied files.
      *
-     * @param boolean $verbosity
+     * @param bool $verbosity
      */
     public function setVerbose($verbosity)
     {
@@ -137,7 +136,8 @@ class CopyTask extends Task
 
     /**
      * @see CopyTask::setPreserveLastModified
-     * @param $bool
+     *
+     * @param bool $bool
      */
     public function setTstamp($bool)
     {
@@ -149,7 +149,8 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param boolean $bool Preserve the timestamp on the destination file
+     * @param bool $bool Preserve the timestamp on the destination file
+     *
      * @return void
      */
     public function setPreserveLastModified($bool)
@@ -162,7 +163,8 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param boolean $bool Preserve the timestamp on the destination file
+     * @param bool $bool Preserve the timestamp on the destination file
+     *
      * @return void
      */
     public function setPreservepermissions($bool)
@@ -171,7 +173,7 @@ class CopyTask extends Task
     }
 
     /**
-     * @param $bool
+     * @param bool $bool
      */
     public function setPreservemode($bool)
     {
@@ -183,7 +185,8 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param boolean $bool Flag if empty dirs should be cpoied too
+     * @param bool $bool Flag if empty dirs should be cpoied too
+     *
      * @return void
      */
     public function setIncludeEmptyDirs($bool)
@@ -223,7 +226,7 @@ class CopyTask extends Task
      * Sets the mode to create destination directories with (ignored on Windows).
      * Default mode is taken from umask()
      *
-     * @param integer $mode Octal mode
+     * @param int $mode Octal mode
      *
      * @return void
      */
@@ -260,7 +263,7 @@ class CopyTask extends Task
      * Set the haltonerror attribute - when true, will
      * make the build fail when errors are detected.
      *
-     * @param boolean $haltonerror Flag if the build should be stopped on errors
+     * @param bool $haltonerror Flag if the build should be stopped on errors
      *
      * @return void
      */
@@ -273,6 +276,7 @@ class CopyTask extends Task
      * Nested creator, creates one Mapper for this task
      *
      * @return Mapper         The created Mapper type object
+     *
      * @throws BuildException
      */
     public function createMapper()
@@ -288,7 +292,8 @@ class CopyTask extends Task
     /**
      * The main entry point where everything gets in motion.
      *
-     * @return true           on success
+     * @return void
+     *
      * @throws BuildException
      */
     public function main()
@@ -393,6 +398,7 @@ class CopyTask extends Task
      * Validates attributes coming in from XML
      *
      * @return void
+     *
      * @throws BuildException
      */
     protected function validateAttributes()
@@ -426,17 +432,17 @@ class CopyTask extends Task
      * Compares source files to destination files to see if they
      * should be copied.
      *
-     * @param $fromDir
-     * @param $toDir
-     * @param $files
-     * @param $dirs
+     * @param PhingFile $fromDir
+     * @param PhingFile $toDir
+     * @param iterable  $files
+     * @param iterable  $dirs
      *
      * @return void
      */
     private function _scan(&$fromDir, &$toDir, &$files, &$dirs)
     {
         /* mappers should be generic, so we get the mappers here and
-        pass them on to builMap. This method is not redundan like it seems */
+        pass them on to buildMap. This method is not redundant like it seems */
         $mapper = $this->getMapper();
 
         $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
@@ -462,11 +468,11 @@ class CopyTask extends Task
     /**
      * Builds a map of filenames (from->to) that should be copied
      *
-     * @param $fromDir
-     * @param $toDir
-     * @param $names
+     * @param PhingFile      $fromDir
+     * @param PhingFile      $toDir
+     * @param iterable       $names
      * @param FileNameMapper $mapper
-     * @param $map
+     * @param array          $map
      *
      * @return void
      */
@@ -512,6 +518,7 @@ class CopyTask extends Task
      * Actually copies the files
      *
      * @return void
+     *
      * @throws BuildException
      */
     protected function doWork()
@@ -597,14 +604,14 @@ class CopyTask extends Task
     }
 
     /**
-     * @param $from
-     * @param $to
+     * @param string       $from
+     * @param string       $to
      * @param RegisterSlot $fromSlot
      * @param RegisterSlot $fromBasenameSlot
      * @param RegisterSlot $toSlot
      * @param RegisterSlot $toBasenameSlot
-     * @param $count
-     * @param $total
+     * @param int          $count
+     * @param int          $total
      */
     private function copyToSingleDestination(
         $from,
@@ -651,7 +658,7 @@ class CopyTask extends Task
 
     /**
      * @param string $message
-     * @param null $location
+     * @param null   $location
      *
      * @throws BuildException
      */

@@ -50,7 +50,7 @@ class VersionCompareCondition implements Condition
     private $debug = false;
 
     /**
-     * @param $version
+     * @param string $version
      */
     public function setVersion($version)
     {
@@ -58,7 +58,7 @@ class VersionCompareCondition implements Condition
     }
 
     /**
-     * @param $desiredVersion
+     * @param string $desiredVersion
      */
     public function setDesiredVersion($desiredVersion)
     {
@@ -66,7 +66,8 @@ class VersionCompareCondition implements Condition
     }
 
     /**
-     * @param $operator
+     * @param string $operator
+     *
      * @throws BuildException
      */
     public function setOperator($operator)
@@ -91,6 +92,7 @@ class VersionCompareCondition implements Condition
 
     /**
      * @return mixed
+     *
      * @throws BuildException
      */
     public function evaluate()

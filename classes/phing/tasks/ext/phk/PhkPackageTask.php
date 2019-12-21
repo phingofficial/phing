@@ -176,9 +176,6 @@ class PhkPackageTask extends Task
         $this->phkCreatorPath = $path;
     }
 
-    /**
-     *
-     */
     public function init()
     {
     }

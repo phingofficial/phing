@@ -26,9 +26,10 @@
  *
  * Classes that implement a listener must implement this interface.
  *
- * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BuildEvent
  * @see     Project::addBuildListener()
+ *
+ * @author  Hans Lellelid <hans@xmpl.org>
  * @package phing
  */
 interface BuildLogger extends BuildListener

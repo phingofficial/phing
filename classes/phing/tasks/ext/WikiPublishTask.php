@@ -162,6 +162,7 @@ class WikiPublishTask extends Task
 
     /**
      * @param string $mode
+     *
      * @throws BuildException
      */
     public function setMode($mode)
@@ -355,10 +356,11 @@ class WikiPublishTask extends Task
     /**
      * Call Wiki webapi
      *
-     * @param string $queryString
+     * @param string     $queryString
      * @param array|null $postData
      *
      * @return array
+     *
      * @throws BuildException
      */
     protected function callApi($queryString, $postData = null)
@@ -410,7 +412,7 @@ class WikiPublishTask extends Task
      * Validate Wiki webapi response
      *
      * @param string $action
-     * @param array $response
+     * @param array  $response
      * @param string $expect
      *
      * @throws BuildException

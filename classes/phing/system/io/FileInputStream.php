@@ -36,6 +36,7 @@ class FileInputStream extends InputStream
      * Construct a new FileInputStream.
      *
      * @param PhingFile|string $file Path to the file
+     *
      * @throws Exception        - if invalid argument specified.
      * @throws IOException      - if unable to open file.
      */
@@ -79,7 +80,7 @@ class FileInputStream extends InputStream
     /**
      * Mark is supported by FileInputStream.
      *
-     * @return boolean TRUE
+     * @return bool TRUE
      */
     public function markSupported()
     {

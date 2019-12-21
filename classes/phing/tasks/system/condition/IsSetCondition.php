@@ -29,7 +29,7 @@ class IsSetCondition extends ProjectComponent implements Condition
     private $property;
 
     /**
-     * @param $p
+     * @param string $p
      */
     public function setProperty($p)
     {

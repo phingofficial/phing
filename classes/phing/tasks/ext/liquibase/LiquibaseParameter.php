@@ -28,7 +28,7 @@ class LiquibaseParameter extends DataType
     private $value;
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -36,7 +36,7 @@ class LiquibaseParameter extends DataType
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -45,7 +45,9 @@ class LiquibaseParameter extends DataType
 
     /**
      * @param Project $p
+     *
      * @return string
+     *
      * @throws BuildException
      */
     public function getCommandline(Project $p)
@@ -59,7 +61,9 @@ class LiquibaseParameter extends DataType
 
     /**
      * @param Project $p
+     *
      * @return mixed
+     *
      * @throws BuildException
      */
     public function getRef(Project $p)

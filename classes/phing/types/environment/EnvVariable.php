@@ -100,6 +100,7 @@ class EnvVariable
      * the escaping rules of the properties class.
      *
      * @return string of the form key=value.
+     *
      * @throws BuildException if key or value are unassigned
      */
     public function getContent()

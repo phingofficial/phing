@@ -27,6 +27,7 @@ class ApplyTaskTest extends BuildFileTest
 {
     /**
      * Whether test is being run on windows
+     *
      * @var bool
      */
     protected $windows;
@@ -43,9 +44,7 @@ class ApplyTaskTest extends BuildFileTest
         $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
     }
 
-    /**********************************************************************************/
     /************************************** T E S T S *********************************/
-    /**********************************************************************************/
 
     /**
      * Tests the OS configuration setting
@@ -449,13 +448,13 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
     }
 
-    /**********************************************************************************/
     /************************** H E L P E R  M E T H O D S ****************************/
-    /**********************************************************************************/
 
     /**
      * @param string $name
+     *
      * @return Target
+     *
      * @throws Exception
      */
     protected function getTargetByName($name)
@@ -471,8 +470,10 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * @param string $target
      * @param string $taskName
-     * @param int $pos
+     * @param int    $pos
+     *
      * @return Task
+     *
      * @throws Exception
      */
     protected function getTaskFromTarget($target, $taskName, $pos = 0)
@@ -492,6 +493,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * @param string $target
      * @param string $task
+     *
      * @return Task
      */
     protected function getConfiguredTask($target, $task)

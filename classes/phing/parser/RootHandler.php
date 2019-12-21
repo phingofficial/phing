@@ -49,9 +49,9 @@ class RootHandler extends AbstractHandler
      * It receives the expat parse object ref and a reference to the
      * configurator
      *
-     * @param AbstractSAXParser $parser The ExpatParser object.
+     * @param AbstractSAXParser   $parser       The ExpatParser object.
      * @param ProjectConfigurator $configurator The ProjectConfigurator object.
-     * @param PhingXMLContext $context
+     * @param PhingXMLContext     $context
      */
     public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, PhingXMLContext $context)
     {
@@ -69,8 +69,9 @@ class RootHandler extends AbstractHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
      * and calls init.
      *
-     * @param string $tag The xml tagname
-     * @param array $attrs The attributes of the tag
+     * @param string $tag   The xml tagname
+     * @param array  $attrs The attributes of the tag
+     *
      * @throws ExpatParseException if the first element within our build file
      *                                   is not the &gt;project&lt; element
      */

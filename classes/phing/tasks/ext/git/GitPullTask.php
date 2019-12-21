@@ -20,9 +20,10 @@
 /**
  * Wrapper aroung git-pull
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitPullTask extends GitBaseTask
@@ -44,7 +45,7 @@ class GitPullTask extends GitBaseTask
     /**
      * --rebase key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $rebase = false;
 
@@ -52,7 +53,7 @@ class GitPullTask extends GitBaseTask
      * --no-rebase key to git-pull
      * Allow to override --rebase (if set to default true in configuration)
      *
-     * @var boolean
+     * @var bool
      */
     private $noRebase = false;
 
@@ -74,14 +75,14 @@ class GitPullTask extends GitBaseTask
      * Fetch all remotes
      * --all key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $allRemotes = false;
 
     /**
      * --append key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $append = false;
 
@@ -89,7 +90,7 @@ class GitPullTask extends GitBaseTask
      * Keep downloaded pack
      * --keep key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $keepFiles = false;
 
@@ -97,7 +98,7 @@ class GitPullTask extends GitBaseTask
      * Disable/enable automatic tag following
      * --no-tags key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $noTags = false;
 
@@ -105,21 +106,21 @@ class GitPullTask extends GitBaseTask
      * Fetch all tags (even not reachable from branch heads)
      * --tags key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $tags = false;
 
     /**
      * --quiet, -q key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $quiet = true;
 
     /**
      * --force, -f key to git-pull
      *
-     * @var boolean
+     * @var bool
      */
     private $force = false;
 
@@ -215,7 +216,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $strategy
+     * @param string $strategy
      */
     public function setStrategy($strategy)
     {
@@ -231,7 +232,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $strategyOption
+     * @param string $strategyOption
      */
     public function setStrategyOption($strategyOption)
     {
@@ -247,7 +248,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $source
+     * @param string $source
      */
     public function setSource($source)
     {
@@ -263,7 +264,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $spec
+     * @param string $spec
      */
     public function setRefspec($spec)
     {
@@ -279,7 +280,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAll($flag)
     {
@@ -303,7 +304,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAppend($flag)
     {
@@ -327,7 +328,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setKeep($flag)
     {
@@ -351,7 +352,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoTags($flag)
     {
@@ -375,7 +376,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setTags($flag)
     {
@@ -399,7 +400,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setQuiet($flag)
     {
@@ -423,7 +424,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setRebase($flag)
     {
@@ -447,7 +448,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoRebase($flag)
     {
@@ -471,7 +472,7 @@ class GitPullTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setForce($flag)
     {

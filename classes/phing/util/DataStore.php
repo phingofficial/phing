@@ -69,10 +69,10 @@ class DataStore
     /**
      * Adds a value to the data store
      *
-     * @param string $key the key
-     * @param mixed $value the value
-     * @param boolean $autocommit whether to auto-commit (write)
-     *                            the data store to disk
+     * @param string $key        the key
+     * @param mixed  $value      the value
+     * @param bool   $autocommit Whether to auto-commit (write)
+     *                           the data store to disk
      *
      * @return void
      */
@@ -88,9 +88,9 @@ class DataStore
     /**
      * Remove a value from the data store
      *
-     * @param string $key the key
-     * @param boolean $autocommit whether to auto-commit (write)
-     *                            the data store to disk
+     * @param string $key        the key
+     * @param bool   $autocommit Whether to auto-commit (write)
+     *                           the data store to disk
      */
     public function remove($key, $autocommit = false)
     {
@@ -114,8 +114,9 @@ class DataStore
     /**
      * Internal function to read data store from file
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     private function read()
     {
@@ -134,8 +135,9 @@ class DataStore
     /**
      * Internal function to write data store to file
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     private function write()
     {

@@ -21,6 +21,7 @@
  * Reads input from the InputHandler.
  *
  * @see     Project::getInputHandler()
+ *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Ulrich Schmidt <usch@usch.net> (Ant)
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)

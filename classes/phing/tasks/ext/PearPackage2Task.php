@@ -259,8 +259,9 @@ class PearPackage2Task extends PearPackageTask
     /**
      * Main entry point.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {

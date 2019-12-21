@@ -74,7 +74,6 @@ class PearPackageTask extends MatchingTask
 {
     use FileSetAware;
 
-    /** */
     protected $package;
 
     /**
@@ -122,8 +121,9 @@ class PearPackageTask extends MatchingTask
     /**
      * Sets PEAR package.xml options, based on class properties.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     protected function setOptions()
     {
@@ -170,8 +170,9 @@ class PearPackageTask extends MatchingTask
     /**
      * Fixes the boolean in optional dependencies
      *
-     * @param $deps
-     * @return
+     * @param array $deps
+     *
+     * @return array
      */
     private function fixDeps($deps)
     {
@@ -225,8 +226,9 @@ class PearPackageTask extends MatchingTask
     /**
      * Main entry point.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {
@@ -266,7 +268,9 @@ class PearPackageTask extends MatchingTask
      * Set "package" property from XML.
      *
      * @see    setName()
+     *
      * @param string $v
+     *
      * @return void
      */
     public function setPackage($v)
@@ -278,6 +282,7 @@ class PearPackageTask extends MatchingTask
      * Sets "dir" property from XML.
      *
      * @param PhingFile $f
+     *
      * @return void
      */
     public function setDir(PhingFile $f)
@@ -289,6 +294,7 @@ class PearPackageTask extends MatchingTask
      * Sets "name" property from XML.
      *
      * @param string $v
+     *
      * @return void
      */
     public function setName($v)

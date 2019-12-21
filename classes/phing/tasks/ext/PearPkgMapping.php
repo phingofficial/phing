@@ -28,7 +28,7 @@ class PearPkgMapping
     private $elements = [];
 
     /**
-     * @param $v
+     * @param string $v
      */
     public function setName($v)
     {

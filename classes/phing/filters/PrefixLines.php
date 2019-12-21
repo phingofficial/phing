@@ -29,9 +29,10 @@
  *  <param name="prefix" value="Foo"/>
  * </filterreader></pre>
  *
+ * @see     FilterReader
+ *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
- * @see     FilterReader
  * @package phing.filters
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
@@ -39,8 +40,6 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Parameter name for the prefix.
-     *
-     * @var string
      */
     public const PREFIX_KEY = "lines";
 
@@ -58,7 +57,9 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * Adds a prefix to each line of input stream and returns resulting stream.
      *
      * @param int $len
+     *
      * @return mixed buffer, -1 on EOF
+     *
      * @throws IOException
      */
     public function read($len = null)
@@ -121,11 +122,11 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
+     *
      * @return PrefixLines A new filter based on this configuration, but filtering
-     *                the specified reader
-     * @internal param A $object Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     *                     the specified reader
      */
     public function chain(Reader $reader): Reader
     {

@@ -29,7 +29,7 @@ class ReadableSelector implements FileSelector
      * {@inheritdoc}
      *
      * @param PhingFile $basedir
-     * @param string $filename
+     * @param string    $filename
      * @param PhingFile $file
      *
      * @return bool

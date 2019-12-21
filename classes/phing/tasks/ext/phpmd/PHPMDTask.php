@@ -46,7 +46,7 @@ class PHPMDTask extends Task
     /**
      * The minimum priority for rules to load.
      *
-     * @var integer
+     * @var int
      */
     protected $minimumPriority = 0;
 
@@ -108,7 +108,7 @@ class PHPMDTask extends Task
     /**
      * Sets the minimum rule priority.
      *
-     * @param integer $minimumPriority Minimum rule priority.
+     * @param int $minimumPriority Minimum rule priority.
      */
     public function setMinimumPriority($minimumPriority)
     {
@@ -203,6 +203,7 @@ class PHPMDTask extends Task
      * Find PHPMD
      *
      * @return string
+     *
      * @throws BuildException
      */
     protected function loadDependencies()

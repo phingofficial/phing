@@ -20,11 +20,12 @@
 /**
  * Wrapper aroung git-merge
  *
+ * @link    http://www.kernel.org/pub/software/scm/git/docs/git-merge.html
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
- * @link    http://www.kernel.org/pub/software/scm/git/docs/git-merge.html
  */
 class GitMergeTask extends GitBaseTask
 {
@@ -60,28 +61,28 @@ class GitMergeTask extends GitBaseTask
     /**
      * --commit key of git-merge
      *
-     * @var boolean
+     * @var bool
      */
     private $commit = false;
 
     /**
      * --no-commit key of git-merge
      *
-     * @var boolean
+     * @var bool
      */
     private $noCommit = false;
 
     /**
      * --ff --no-ff keys to git-merge
      *
-     * @var boolean
+     * @var bool
      */
     private $fastForwardCommit = false;
 
     /**
      * --quiet, -q key to git-merge
      *
-     * @var boolean
+     * @var bool
      */
     private $quiet = false;
 
@@ -169,7 +170,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $remote
+     * @param string $remote
      */
     public function setRemote($remote)
     {
@@ -185,7 +186,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $message
+     * @param string $message
      */
     public function setMessage($message)
     {
@@ -201,7 +202,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $strategy
+     * @param string $strategy
      */
     public function setStrategy($strategy)
     {
@@ -217,7 +218,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $strategyOption
+     * @param string $strategyOption
      */
     public function setStrategyOption($strategyOption)
     {
@@ -233,7 +234,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setQuiet($flag)
     {
@@ -257,7 +258,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setCommit($flag)
     {
@@ -281,7 +282,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setNoCommit($flag)
     {
@@ -305,7 +306,7 @@ class GitMergeTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setFastForwardCommit($flag)
     {

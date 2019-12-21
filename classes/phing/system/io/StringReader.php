@@ -41,7 +41,7 @@ class StringReader extends InputStreamReader
     private $currPos = 0;
 
     /**
-     * @param $string
+     * @param string $string
      */
     public function __construct($string)
     {
@@ -57,6 +57,7 @@ class StringReader extends InputStreamReader
 
     /**
      * @param null $len
+     *
      * @return int|string
      */
     public function read($len = null)

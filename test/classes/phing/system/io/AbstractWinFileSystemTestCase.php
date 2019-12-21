@@ -47,9 +47,10 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider normaliseDataProvider
      * @param string $expected
      * @param string $path
+     *
+     * @dataProvider normaliseDataProvider
      */
     public function testNormalise($expected, $path)
     {
@@ -74,9 +75,10 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider prefixLengthDataPRovider
      * @param type $expected
      * @param type $pathname
+     *
+     * @dataProvider prefixLengthDataPRovider
      */
     public function testPrefixLength($expected, $pathname)
     {
@@ -100,10 +102,11 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider resolveDataProvider
      * @param string $expected
      * @param string $parent
      * @param string $child
+     *
+     * @dataProvider resolveDataProvider
      */
     public function testResolve($expected, $parent, $child)
     {
@@ -125,10 +128,11 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider resolveFileDataProvider
      * @param string $expected
      * @param string $path
      * @param string $prefix
+     *
+     * @dataProvider resolveFileDataProvider
      */
     public function testResolveFile($expected, $path, $prefix)
     {
@@ -184,9 +188,10 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider fromURIPathDataProvider
      * @param type $expected
      * @param type $path
+     *
+     * @dataProvider fromURIPathDataProvider
      */
     public function testFromURIPath($expected, $path)
     {
@@ -208,10 +213,11 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider isAbsoluteDataProvider
-     * @param boolean $expected
+     * @param bool   $expected
      * @param string $path
-     * @param int $prefix
+     * @param int    $prefix
+     *
+     * @dataProvider isAbsoluteDataProvider
      */
     public function testIsAbsolute($expected, $path, $prefix)
     {

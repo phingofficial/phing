@@ -4,21 +4,23 @@
  *
  * PHP Version 5.4
  *
+ * @link     https://github.com/kenguest/Phing-HG
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     https://github.com/kenguest/Phing-HG
  */
 
 /**
  * Integration/Wrapper for hg clone
  *
+ * @link     HgCloneTask.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext.hg
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     HgCloneTask.php
  */
 class HgCloneTask extends HgBaseTask
 {
@@ -55,6 +57,7 @@ class HgCloneTask extends HgBaseTask
      * The main entry point.
      *
      * @return void
+     *
      * @throws BuildException
      */
     public function main()

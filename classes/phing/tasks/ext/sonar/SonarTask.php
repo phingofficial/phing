@@ -20,42 +20,39 @@
 /**
  * Runs SonarQube Scanner.
  *
+ * @see     http://www.sonarqube.org
+ *
  * @author  Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
- * @see     http://www.sonarqube.org
  */
 class SonarTask extends Task
 {
     public const EXIT_SUCCESS = 0;
 
     /**
-     *
      * @var string|null
      */
     private $executable = null;
 
     /**
-     *
      * @var string
      */
     private $errors = 'false';
 
     /**
-     *
      * @var string
      */
     private $debug = 'false';
 
     /**
-     *
      * @var string|null
      */
     private $configuration = null;
 
     /**
+     * @see Property
      *
      * @var array Nested *Property* elements.
-     * @see Property
      */
     private $propertyElements = [];
 
@@ -83,6 +80,7 @@ class SonarTask extends Task
      * the file name is sufficient.
      *
      * @param string $executable
+     *
      * @return void
      */
     public function setExecutable($executable)
@@ -98,6 +96,7 @@ class SonarTask extends Task
      *
      * @param string $errors
      *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
+     *
      * @return void
      */
     public function setErrors($errors)
@@ -113,6 +112,7 @@ class SonarTask extends Task
      *
      * @param string $debug
      *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
+     *
      * @return void
      */
     public function setDebug($debug)
@@ -127,6 +127,7 @@ class SonarTask extends Task
      * Sets the path of a configuration file for SonarQube Scanner.
      *
      * @param string $configuration
+     *
      * @return void
      */
     public function setConfiguration($configuration)
@@ -141,6 +142,7 @@ class SonarTask extends Task
      * Adds a nested Property element.
      *
      * @param SonarProperty $property
+     *
      * @return void
      */
     public function addProperty(SonarProperty $property)
@@ -210,8 +212,9 @@ class SonarTask extends Task
     /**
      * Check whether PHP function 'exec()' is available.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     private function checkExecAllowed()
     {
@@ -222,9 +225,9 @@ class SonarTask extends Task
     }
 
     /**
+     * @return void
      *
      * @throws BuildException
-     * @return void
      */
     private function validateExecutable()
     {
@@ -287,9 +290,9 @@ class SonarTask extends Task
     }
 
     /**
+     * @return void
      *
      * @throws BuildException
-     * @return void
      */
     private function validateErrors()
     {
@@ -307,9 +310,9 @@ class SonarTask extends Task
     }
 
     /**
+     * @return void
      *
      * @throws BuildException
-     * @return void
      */
     private function validateDebug()
     {
@@ -327,9 +330,9 @@ class SonarTask extends Task
     }
 
     /**
+     * @return void
      *
      * @throws BuildException
-     * @return void
      */
     private function validateConfiguration()
     {
@@ -354,9 +357,9 @@ class SonarTask extends Task
     }
 
     /**
+     * @return void
      *
      * @throws BuildException
-     * @return void
      */
     private function validateProperties()
     {
@@ -401,7 +404,6 @@ class SonarTask extends Task
     }
 
     /**
-     *
      * @return array
      */
     private function parseConfigurationFile()
@@ -415,8 +417,7 @@ class SonarTask extends Task
     }
 
     /**
-     *
-     * @return boolean
+     * @return bool
      */
     private function isWindows()
     {

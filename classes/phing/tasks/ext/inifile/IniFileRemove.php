@@ -6,21 +6,23 @@
  *
  * PHP version 5
  *
- * @category Tasks
- * @package  phing.tasks.ext
- * @author   Ken Guest <kguest@php.net>
- * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link     http://www.phing.info/
- */
-
-/**
- * Class for collecting details for removing keys or sections from an ini file
  *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
+ */
+
+/**
+ * Class for collecting details for removing keys or sections from an ini file
+ *
  * @link     http://www.phing.info/
+ *
+ * @category Tasks
+ * @package  phing.tasks.ext
+ * @author   Ken Guest <kguest@php.net>
+ * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 class IniFileRemove
 {

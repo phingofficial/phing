@@ -21,7 +21,6 @@
  * Abstract class for TokenReaders.
  *
  * @author Manuel Holtgewe
- *
  * @package phing.filters.util
  */
 abstract class TokenReader
@@ -34,8 +33,6 @@ abstract class TokenReader
     protected $project;
 
     /**
-     * Constructor.
-     *
      * @param Project $project Reference to the project the TokenReader is used in.
      */
     public function __construct(Project $project)
@@ -46,8 +43,8 @@ abstract class TokenReader
     /**
      * Utility function for logging.
      *
-     * @param $level
-     * @param $msg
+     * @param string $level
+     * @param int    $msg
      *
      * @return void
      */
@@ -59,9 +56,9 @@ abstract class TokenReader
     /**
      * Reads the next token from the Reader.
      *
-     * @throws IOException - On error
-     *
      * @return string
+     *
+     * @throws IOException - On error
      */
     abstract public function readToken();
 }

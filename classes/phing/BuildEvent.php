@@ -69,8 +69,9 @@ class BuildEvent extends EventObject
     /**
      * The priority of the message
      *
-     * @var int
      * @see $message
+     *
+     * @var int
      */
     protected $priority = Project::MSG_VERBOSE;
 
@@ -111,8 +112,8 @@ class BuildEvent extends EventObject
     /**
      * Sets the message with details and the message priority for this event.
      *
-     * @param string   The string message of the event
-     * @param integer  The priority this message should have
+     * @param string $message  The string message of the event
+     * @param int    $priority The priority this message should have
      */
     public function setMessage($message, $priority)
     {
@@ -123,7 +124,7 @@ class BuildEvent extends EventObject
     /**
      * Set the exception that was the cause of this event.
      *
-     * @param Exception The exception that caused the event
+     * @param Exception $exception The exception that caused the event
      */
     public function setException($exception)
     {
@@ -184,7 +185,7 @@ class BuildEvent extends EventObject
      * Returns the priority of the logging message. This field will only
      * be set for "messageLogged" events.
      *
-     * @return integer The message priority
+     * @return int The message priority
      */
     public function getPriority()
     {
@@ -199,6 +200,7 @@ class BuildEvent extends EventObject
      * @see    BuildListener::taskFinished()
      * @see    BuildListener::targetFinished()
      * @see    BuildListener::buildFinished()
+     *
      * @return Exception
      */
     public function getException()

@@ -35,7 +35,6 @@
  *  - Error handling reduced to min, error are handled by PhingFile mainly
  *
  * @author Andreas Aderhold, andi@binarycloud.com
- *
  * @package phing.system.io
  */
 class UnixFileSystem extends FileSystem
@@ -110,8 +109,8 @@ class UnixFileSystem extends FileSystem
      * $offset; everything before this offset is already normal.
      *
      * @param string $pathname
-     * @param int $len
-     * @param int $offset
+     * @param int    $len
+     * @param int    $offset
      *
      * @return string
      */
@@ -250,6 +249,7 @@ class UnixFileSystem extends FileSystem
      *
      * @param PhingFile $f1
      * @param PhingFile $f2
+     *
      * @return int
      */
     public function compare(PhingFile $f1, PhingFile $f2)
@@ -263,10 +263,11 @@ class UnixFileSystem extends FileSystem
     /**
      * Copy a file, takes care of symbolic links
      *
-     * @param PhingFile $src Source path and name file to copy.
+     * @param PhingFile $src  Source path and name file to copy.
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void
+     *
      * @throws Exception if file cannot be copied.
      */
     public function copy(PhingFile $src, PhingFile $dest)
@@ -288,6 +289,7 @@ class UnixFileSystem extends FileSystem
 
     /**
      * @param string $p
+     *
      * @return string
      */
     public function fromURIPath($p)
@@ -304,7 +306,8 @@ class UnixFileSystem extends FileSystem
      * Whether file can be deleted.
      *
      * @param PhingFile $f
-     * @return boolean
+     *
+     * @return bool
      */
     public function canDelete(PhingFile $f)
     {

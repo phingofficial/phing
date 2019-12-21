@@ -70,7 +70,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -78,7 +78,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $pathRefId
+     * @param string $pathRefId
      */
     public function setPathRefId($pathRefId)
     {
@@ -86,7 +86,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $ignoreNonRelative
+     * @param bool $ignoreNonRelative
      */
     public function setIgnoreNonRelative($ignoreNonRelative)
     {
@@ -155,9 +155,11 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param string $dirNormal
+     * @param string    $dirNormal
      * @param PhingFile $file
+     *
      * @return string|false
+     *
      * @throws IOException
      */
     private function getIncludePattern($dirNormal, PhingFile $file)

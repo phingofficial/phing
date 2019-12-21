@@ -65,7 +65,7 @@ class IsFailure implements Condition
     /**
      * Fulfill the condition interface.
      *
-     * @return boolean the result of evaluating the specified return code.
+     * @return bool the result of evaluating the specified return code.
      */
     public function evaluate()
     {

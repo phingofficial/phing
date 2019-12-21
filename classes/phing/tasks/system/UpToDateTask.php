@@ -142,8 +142,9 @@ class UpToDateTask extends Task implements Condition
      * Evaluate (all) target and source file(s) to
      * see if the target(s) is/are up-to-date.
      *
+     * @return bool
+     *
      * @throws BuildException
-     * @return boolean
      */
     public function evaluate()
     {
@@ -261,7 +262,8 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * @param PhingFile $srcDir
-     * @param $files
+     * @param iterable  $files
+     *
      * @return bool
      */
     protected function scanDir(PhingFile $srcDir, $files)

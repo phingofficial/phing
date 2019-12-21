@@ -4,21 +4,23 @@
  *
  * PHP Version 5.4
  *
+ * @link     https://github.com/kenguest/Phing-HG
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     https://github.com/kenguest/Phing-HG
  */
 
 /**
  * Integration/Wrapper for hg revert
  *
+ * @link     HgRevertTask.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext.hg
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     HgRevertTask.php
  */
 class HgRevertTask extends HgBaseTask
 {
@@ -92,8 +94,9 @@ class HgRevertTask extends HgBaseTask
     /**
      * The main entry point method.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {

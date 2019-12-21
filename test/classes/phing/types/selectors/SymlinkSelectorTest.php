@@ -18,8 +18,6 @@
  */
 
 /**
- * Class SymlinkSelectorTest
- *
  * Test cases for symlink selectors.
  *
  * @requires OS Linux

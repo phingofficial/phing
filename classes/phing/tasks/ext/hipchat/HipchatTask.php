@@ -101,7 +101,7 @@ class HipchatTask extends Task
     }
 
     /**
-     * @param $format
+     * @param string $format
      */
     public function setFormat($format)
     {
@@ -166,7 +166,7 @@ class HipchatTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isNotify()
     {
@@ -174,7 +174,7 @@ class HipchatTask extends Task
     }
 
     /**
-     * @param boolean $notify
+     * @param bool $notify
      */
     public function setNotify($notify)
     {
@@ -182,7 +182,7 @@ class HipchatTask extends Task
     }
 
     /**
-     * @param $message
+     * @param string $message
      */
     public function addText($message)
     {

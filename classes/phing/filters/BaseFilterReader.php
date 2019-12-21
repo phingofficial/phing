@@ -20,8 +20,9 @@
 /**
  * Base class for core filter readers.
  *
- * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @see     FilterReader
+ *
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @package phing.filters
  */
 class BaseFilterReader extends FilterReader
@@ -61,7 +62,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Returns the initialized status.
      *
-     * @return boolean whether or not the filter is initialized
+     * @return bool whether or not the filter is initialized
      */
     public function getInitialized()
     {
@@ -71,7 +72,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Sets the initialized status.
      *
-     * @param boolean $initialized Whether or not the filter is initialized.
+     * @param bool $initialized Whether or not the filter is initialized.
      */
     public function setInitialized($initialized)
     {
@@ -142,7 +143,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Returns whether the end of file has been reached with input stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {
@@ -152,8 +153,8 @@ class BaseFilterReader extends FilterReader
     /**
      * Convenience method to support logging in filters.
      *
-     * @param string $msg Message to log.
-     * @param int $level Priority level.
+     * @param string $msg   Message to log.
+     * @param int    $level Priority level.
      *
      * @return void
      */

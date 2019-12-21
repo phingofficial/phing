@@ -40,9 +40,10 @@
  *   <param type="comment" value="//"/>
  * </filterreader></pre>
  *
+ * @see     BaseParamFilterReader
+ *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
- * @see     BaseParamFilterReader
  * @package phing.filters
  */
 class StripLineComments extends BaseParamFilterReader implements ChainableReader
@@ -64,6 +65,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * specified comment prefixes.
      *
      * @param int $len
+     *
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      */
@@ -98,9 +100,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
             }
         }
 
-        $filtered_buffer = implode("\n", $filtered);
-
-        return $filtered_buffer;
+        return implode("\n", $filtered);
     }
 
     /*
@@ -116,15 +116,9 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
         return $this->comments[$num - 1];
     }
 
-    /*
-     * Sets the list of comment prefixes to strip.
-     *
-     * @param comments A list of strings, each of which is a prefix
-     *                 for a comment line. Must not be <code>null</code>.
-    */
-
     /**
-     * @param $lineBreaks
+     * @param array $lineBreaks
+     *
      * @throws Exception
      */
     public function setComments($lineBreaks)
@@ -162,7 +156,9 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
 
     /**
      * @param Reader $reader
+     *
      * @return StripLineComments
+     *
      * @throws Exception
      */
     public function chain(Reader $reader): Reader

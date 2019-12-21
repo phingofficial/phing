@@ -32,30 +32,17 @@
  *
  * @author Charlie Killian <charlie@tizac.com>
  * @author Hans Lellelid <hans@xmpl.org>
- *
  * @package phing.system.io
  */
 abstract class FileSystem
 {
 
-    /**
-     * @var int
-     */
     public const BA_EXISTS = 0x01;
 
-    /**
-     * @var int
-     */
     public const BA_REGULAR = 0x02;
 
-    /**
-     * @var int
-     */
     public const BA_DIRECTORY = 0x04;
 
-    /**
-     * @var int
-     */
     public const BA_HIDDEN = 0x08;
 
     /**
@@ -75,6 +62,7 @@ abstract class FileSystem
      * this platform's local filesystem driver.
      *
      * @return FileSystem
+     *
      * @throws IOException
      */
     public static function getFileSystem()
@@ -171,6 +159,7 @@ abstract class FileSystem
      * canonicalize filename by checking on disk
      *
      * @param string $strPath
+     *
      * @return mixed  Canonical path or false if the file doesn't exist.
      */
     public function canonicalize($strPath)
@@ -189,7 +178,8 @@ abstract class FileSystem
      * occurs.
      *
      * @param PhingFile $f
-     * @param boolean $write
+     * @param bool      $write
+     *
      * @return bool
      */
     public function checkAccess(PhingFile $f, $write = false)
@@ -225,7 +215,8 @@ abstract class FileSystem
      * Whether file can be deleted.
      *
      * @param PhingFile $f
-     * @return boolean
+     *
+     * @return bool
      */
     public function canDelete(PhingFile $f)
     {
@@ -241,7 +232,9 @@ abstract class FileSystem
      * some other I/O error occurs.
      *
      * @param PhingFile $f
+     *
      * @return int
+     *
      * @throws IOException
      */
     public function getLastModifiedTime(PhingFile $f)
@@ -282,8 +275,10 @@ abstract class FileSystem
      * I/O error occurs.
      *
      * @param PhingFile $f
-     * @throws IOException
+     *
      * @return int
+     *
+     * @throws IOException
      */
     public function getLength(PhingFile $f)
     {
@@ -309,8 +304,10 @@ abstract class FileSystem
      * IOException if an I/O error occurs.
      *
      * @param string $strPathname Path of the file to be created.
+     *
+     * @return bool
+     *
      * @throws IOException
-     * @return boolean
      */
     public function createNewFile($strPathname)
     {
@@ -334,7 +331,8 @@ abstract class FileSystem
      * returning true if and only if the operation succeeds.
      *
      * @param PhingFile $f
-     * @param boolean $recursive
+     * @param bool      $recursive
+     *
      * @throws IOException
      */
     public function delete(PhingFile $f, $recursive = false)
@@ -352,6 +350,7 @@ abstract class FileSystem
      * true if and only if the operation succeeds.
      *
      * @param PhingFile $f
+     *
      * @throws IOException
      */
     public function deleteOnExit(PhingFile $f)
@@ -373,8 +372,9 @@ abstract class FileSystem
      * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
      *
      * @param PhingFile $f
-     * @param int $mode
-     * @return boolean
+     * @param int       $mode
+     *
+     * @return bool
      */
     public function createDirectory(&$f, $mode = 0755)
     {
@@ -392,7 +392,9 @@ abstract class FileSystem
      *
      * @param PhingFile $f1 abstract source file
      * @param PhingFile $f2 abstract destination file
+     *
      * @return void
+     *
      * @throws IOException if rename cannot be performed
      */
     public function rename(PhingFile $f1, PhingFile $f2)
@@ -415,8 +417,10 @@ abstract class FileSystem
      * operation succeeds.
      *
      * @param PhingFile $f
-     * @param int $time
+     * @param int       $time
+     *
      * @return void
+     *
      * @throws IOException
      */
     public function setLastModifiedTime(PhingFile $f, $time)
@@ -438,18 +442,17 @@ abstract class FileSystem
      *
      * @param PhingFile $f1
      * @param PhingFile $f2
-     * @throws IOException
+     *
      * @return int
+     *
+     * @throws IOException
      */
-    public function compare(PhingFile $f1, PhingFile $f2)
-    {
-        throw new IOException("compare() not implemented by local fs driver");
-    }
+    abstract public function compare(PhingFile $f1, PhingFile $f2);
 
     /**
      * Copy a file.
      *
-     * @param PhingFile $src Source path and name file to copy.
+     * @param PhingFile $src  Source path and name file to copy.
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void
@@ -481,14 +484,15 @@ abstract class FileSystem
     /**
      * Copy a file, or recursively copy a folder and its contents
      *
-     * @author  Aidan Lister <aidan@php.net>
-     * @version 1.0.1
      * @link    http://aidanlister.com/repos/v/function.copyr.php
      *
      * @param string $source Source path
-     * @param string $dest Destination path
+     * @param string $dest   Destination path
      *
      * @return bool   Returns TRUE on success, FALSE on failure
+     *
+     * @author  Aidan Lister <aidan@php.net>
+     * @version 1.0.1
      */
     public function copyr($source, $dest)
     {
@@ -529,7 +533,7 @@ abstract class FileSystem
      * Change the ownership on a file or directory.
      *
      * @param string $pathname Path and name of file or directory.
-     * @param string $user The user name or number of the file or directory. See http://us.php.net/chown
+     * @param string $user     The user name or number of the file or directory. See http://us.php.net/chown
      *
      * @return void
      *
@@ -550,9 +554,10 @@ abstract class FileSystem
      * Change the group on a file or directory.
      *
      * @param string $pathname Path and name of file or directory.
-     * @param string $group The group of the file or directory. See http://us.php.net/chgrp
+     * @param string $group    The group of the file or directory. See http://us.php.net/chgrp
      *
      * @return void
+     *
      * @throws IOException if operation failed.
      */
     public function chgrp($pathname, $group)
@@ -570,11 +575,12 @@ abstract class FileSystem
      * Change the permissions on a file or directory.
      *
      * @param string $pathname Path and name of file or directory.
-     * @param int $mode The mode (permissions) of the file or
+     * @param int    $mode     The mode (permissions) of the file or
      *                         directory. If using octal add leading 0. eg. 0777.
      *                         Mode is affected by the umask system setting.
      *
      * @return void
+     *
      * @throws IOException if operation failed.
      */
     public function chmod($pathname, $mode)
@@ -593,7 +599,9 @@ abstract class FileSystem
      * Locks a file and throws an Exception if this is not possible.
      *
      * @param PhingFile $f
+     *
      * @return void
+     *
      * @throws IOException
      */
     public function lock(PhingFile $f)
@@ -611,8 +619,10 @@ abstract class FileSystem
      * Unlocks a file and throws an IO Error if this is not possible.
      *
      * @param PhingFile $f
-     * @throws IOException
+     *
      * @return void
+     *
+     * @throws IOException
      */
     public function unlock(PhingFile $f)
     {
@@ -631,6 +641,7 @@ abstract class FileSystem
      * @param string $file Path and/or name of file to delete.
      *
      * @return void
+     *
      * @throws IOException - if an error is encountered.
      */
     public function unlink($file)
@@ -650,9 +661,11 @@ abstract class FileSystem
      * Currently symlink is not implemented on Windows. Don't use if the application is to be portable.
      *
      * @param string $target Path and/or name of file to link.
-     * @param string $link Path and/or name of link to be created.
-     * @throws IOException
+     * @param string $link   Path and/or name of link to be created.
+     *
      * @return void
+     *
+     * @throws IOException
      */
     public function symlink($target, $link)
     {
@@ -673,9 +686,11 @@ abstract class FileSystem
      * Set the modification and access time on a file to the present time.
      *
      * @param string $file Path and/or name of file to touch.
-     * @param int $time
-     * @throws Exception
+     * @param int    $time
+     *
      * @return void
+     *
+     * @throws Exception
      */
     public function touch($file, $time = null)
     {
@@ -698,13 +713,13 @@ abstract class FileSystem
     /**
      * Delete an empty directory OR a directory and all of its contents.
      *
-     * @param string $dir Path and/or name of directory to delete.
-     * @param bool $children False: don't delete directory contents.
+     * @param string $dir      Path and/or name of directory to delete.
+     * @param bool   $children False: don't delete directory contents.
      *                         True: delete directory contents.
      *
-     * @throws Exception
-     *
      * @return void
+     *
+     * @throws Exception
      */
     public function rmdir($dir, $children = false)
     {
@@ -781,12 +796,12 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param int $mode
-     * @throws Exception
-     * @internal param Int $mode . Permissions usually in ocatal. Use leading 0 for
-     *                    octal. Number between 0 and 0777.
+     * @param int $mode Permissions usually in ocatal. Use leading 0 for
+     *                  octal. Number between 0 and 0777.
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function umask($mode)
     {
@@ -849,6 +864,7 @@ abstract class FileSystem
      * returns the contents of a directory in an array
      *
      * @param PhingFile $f
+     *
      * @return string[]
      */
     public function listContents(PhingFile $f)
@@ -869,7 +885,7 @@ abstract class FileSystem
      * Used to retrieve/determine the full path for a command.
      *
      * @param string $executable Executable file to search for
-     * @param mixed $fallback Default to fallback to.
+     * @param mixed  $fallback   Default to fallback to.
      *
      * @return string Full path for the specified executable/command.
      */

@@ -27,7 +27,8 @@ class FileReader extends InputStreamReader
     /**
      * Construct a new FileReader.
      *
-     * @param mixed $file PhingFile or string pathname.
+     * @param PhingFile|string $file PhingFile or string pathname.
+     *
      * @throws IOException
      */
     public function __construct($file)

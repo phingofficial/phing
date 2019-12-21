@@ -91,14 +91,14 @@ class ForeachTask extends Task
     /**
      * Total number of files processed
      *
-     * @var integer
+     * @var int
      */
     private $total_files = 0;
 
     /**
      * Total number of directories processed
      *
-     * @var integer
+     * @var int
      */
     private $total_dirs = 0;
 
@@ -135,8 +135,9 @@ class ForeachTask extends Task
     /**
      * This method does the work.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {
@@ -241,9 +242,9 @@ class ForeachTask extends Task
      * Processes a list of files & directories
      *
      * @param PhingCallTask $callee
-     * @param PhingFile $fromDir
-     * @param array $srcFiles
-     * @param array $srcDirs
+     * @param PhingFile     $fromDir
+     * @param array         $srcFiles
+     * @param array         $srcDirs
      */
     protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
     {
@@ -265,11 +266,12 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param int $rescount
-     * @param array $srcRes
-     * @param $callee
-     * @param $fromDir
-     * @param $mapper
+     * @param int           $rescount
+     * @param array         $srcRes
+     * @param PhingCallTask $callee
+     * @param string        $fromDir
+     * @param Mapper        $mapper
+     *
      * @throws IOException
      */
     private function processResources(int $rescount, array $srcRes, $callee, $fromDir, $mapper)
@@ -315,7 +317,7 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param $list
+     * @param string $list
      */
     public function setList($list)
     {
@@ -323,7 +325,7 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param $target
+     * @param string $target
      */
     public function setTarget($target)
     {
@@ -348,7 +350,7 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param $absparam
+     * @param string $absparam
      */
     public function setAbsparam($absparam)
     {
@@ -356,7 +358,7 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param $delimiter
+     * @param string $delimiter
      */
     public function setDelimiter($delimiter)
     {
@@ -381,6 +383,7 @@ class ForeachTask extends Task
      * Nested creator, creates one Mapper for this task
      *
      * @return object         The created Mapper type object
+     *
      * @throws BuildException
      */
     public function createMapper()

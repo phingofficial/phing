@@ -108,7 +108,8 @@ class Ssh2MethodConnectionParam
     }
 
     /**
-     * @param $var
+     * @param mixed $var
+     *
      * @return bool
      */
     protected function _filterParam($var)

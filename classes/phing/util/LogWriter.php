@@ -33,7 +33,7 @@ class LogWriter extends Writer
      * Constructs a new LogWriter object
      *
      * @param Task $task
-     * @param int $level
+     * @param int  $level
      */
     public function __construct(Task $task, $level = Project::MSG_INFO)
     {
@@ -43,9 +43,10 @@ class LogWriter extends Writer
 
     /**
      * @see Writer::write()
+     *
      * @param string $buf
-     * @param null $off
-     * @param null $len
+     * @param null   $off
+     * @param null   $len
      */
     public function write($buf, $off = null, $len = null)
     {

@@ -61,9 +61,6 @@ class FtpDeployTask extends Task
     private $rawDataFallback = false;
     private $skipOnSameSize  = false;
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -72,7 +69,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $host
+     * @param string $host
      */
     public function setHost($host)
     {
@@ -80,7 +77,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $port
+     * @param int $port
      */
     public function setPort($port)
     {
@@ -88,7 +85,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $ssl
+     * @param bool $ssl
      */
     public function setSsl(bool $ssl)
     {
@@ -96,7 +93,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $username
+     * @param string $username
      */
     public function setUsername($username)
     {
@@ -104,7 +101,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $password
+     * @param string $password
      */
     public function setPassword($password)
     {
@@ -112,7 +109,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $dir
+     * @param string $dir
      */
     public function setDir($dir)
     {
@@ -120,7 +117,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $mode
+     * @param string $mode
      */
     public function setMode($mode)
     {
@@ -136,7 +133,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $passive
+     * @param bool $passive
      */
     public function setPassive(bool $passive)
     {
@@ -144,7 +141,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $clearFirst
+     * @param bool $clearFirst
      */
     public function setClearFirst(bool $clearFirst)
     {
@@ -152,7 +149,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $depends
+     * @param bool $depends
      */
     public function setDepends(bool $depends)
     {
@@ -160,7 +157,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $filemode
+     * @param string $filemode
      */
     public function setFilemode($filemode)
     {
@@ -168,7 +165,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $dirmode
+     * @param string $dirmode
      */
     public function setDirmode($dirmode)
     {
@@ -176,7 +173,7 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $fallback
+     * @param bool $fallback
      */
     public function setRawdatafallback(bool $fallback)
     {
@@ -352,9 +349,10 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param Net_FTP $ftp
-     * @param $remoteFileInformations
-     * @param $directory
+     * @param Net_FTP     $ftp
+     * @param array       $remoteFileInformations
+     * @param string|null $directory
+     *
      * @return bool
      */
     private function _directoryInformations(Net_FTP $ftp, &$remoteFileInformations, $directory)
@@ -387,8 +385,9 @@ class FtpDeployTask extends Task
     }
 
     /**
-     * @param $content
-     * @param null $directory
+     * @param array       $content
+     * @param string|null $directory
+     *
      * @return array
      */
     private function parseRawFtpContent($content, $directory = null)

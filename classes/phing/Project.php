@@ -25,7 +25,6 @@
  *
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@xmpl.org>
- *
  * @package phing
  */
 class Project
@@ -174,10 +173,10 @@ class Project
      * Sets a property. Any existing property of the same name
      * is overwritten, unless it is a user property.
      *
-     * @param string $name The name of property to set.
-     *                       Must not be <code>null</code>.
+     * @param string $name  The name of property to set.
+     *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
-     *                       Must not be <code>null</code>.
+     *                      Must not be <code>null</code>.
      */
     public function setProperty($name, $value)
     {
@@ -189,10 +188,11 @@ class Project
      * exists already, a message is logged and the method returns with
      * no other effect.
      *
-     * @param string $name The name of property to set.
+     * @param string $name  The name of property to set.
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
+     *
      * @since 2.0
      */
     public function setNewProperty($name, $value)
@@ -204,11 +204,12 @@ class Project
      * Sets a user property, which cannot be overwritten by
      * set/unset property calls. Any previous value is overwritten.
      *
-     * @param string $name The name of property to set.
+     * @see   setProperty()
+     *
+     * @param string $name  The name of property to set.
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
-     * @see   setProperty()
      */
     public function setUserProperty($name, $value)
     {
@@ -221,11 +222,12 @@ class Project
      * these properties as properties that have not come from the
      * command line.
      *
-     * @param string $name The name of property to set.
+     * @see   setProperty()
+     *
+     * @param string $name  The name of property to set.
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
-     * @see   setProperty()
      */
     public function setInheritedProperty($name, $value)
     {
@@ -236,9 +238,8 @@ class Project
      * Sets a property unless it is already defined as a user property
      * (in which case the method returns silently).
      *
-     * @param string $name The name of the property.
-     *                      Must not be
-     *                      <code>null</code>.
+     * @param string $name  The name of the property.
+     *                      Must not be <code>null</code>.
      * @param string $value The property value. Must not be <code>null</code>.
      */
     private function setPropertyInternal($name, $value)
@@ -250,10 +251,11 @@ class Project
      * Returns the value of a property, if it is set.
      *
      * @param string $name The name of the property.
-     *                      May be <code>null</code>, in which case
-     *                      the return value is also <code>null</code>.
+     *                     May be <code>null</code>, in which case
+     *                     the return value is also <code>null</code>.
+     *
      * @return string The property value, or <code>null</code> for no match
-     *                     or if a <code>null</code> name is provided.
+     *                or if a <code>null</code> name is provided.
      */
     public function getProperty($name)
     {
@@ -272,7 +274,7 @@ class Project
      *                <code>null</code>.
      *
      * @throws BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
+     *                        property name, e.g. <code>${xxx</code>
      */
     public function replaceProperties($value)
     {
@@ -283,10 +285,11 @@ class Project
      * Returns the value of a user property, if it is set.
      *
      * @param string $name The name of the property.
-     *                      May be <code>null</code>, in which case
-     *                      the return value is also <code>null</code>.
+     *                     May be <code>null</code>, in which case
+     *                     the return value is also <code>null</code>.
+     *
      * @return string The property value, or <code>null</code> for no match
-     *                     or if a <code>null</code> name is provided.
+     *                or if a <code>null</code> name is provided.
      */
     public function getUserProperty($name)
     {
@@ -323,7 +326,9 @@ class Project
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
      * @param Project $other the project to copy the properties to.  Must not be null.
+     *
      * @return void
+     *
      * @since  phing 2.0
      */
     public function copyUserProperties(Project $other)
@@ -376,7 +381,9 @@ class Project
      * Sets the name of the current project
      *
      * @param string $name name of project
+     *
      * @return void
+     *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setName($name)
@@ -389,6 +396,7 @@ class Project
      * Returns the name of this project
      *
      * @return string projectname
+     *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function getName()
@@ -450,7 +458,9 @@ class Project
      * (and the build will be stopped/aborted)
      *
      * @param bool $strictmode
+     *
      * @return void
+     *
      * @access public
      * @author Utsav Handa, handautsav@hotmail.com
      */
@@ -463,7 +473,7 @@ class Project
     /**
      * Get the strict-mode status for the project
      *
-     * @return boolean
+     * @return bool
      */
     public function getStrictmode()
     {
@@ -474,6 +484,7 @@ class Project
      * Set basedir object from xm
      *
      * @param PhingFile|string $dir
+     *
      * @throws BuildException
      */
     public function setBasedir($dir)
@@ -574,8 +585,8 @@ class Project
     /**
      * Adds a task definition.
      *
-     * @param string $name Name of tag.
-     * @param string $class The class path to use.
+     * @param string $name      Name of tag.
+     * @param string $class     The class path to use.
      * @param string $classpath The classpat to use.
      */
     public function addTaskDefinition($name, $class, $classpath = null)
@@ -596,7 +607,7 @@ class Project
     /**
      * Adds a data type definition.
      *
-     * @param string $typeName Name of the type.
+     * @param string $typeName  Name of the type.
      * @param string $typeClass The class to use.
      * @param string $classpath The classpath to use.
      */
@@ -620,6 +631,7 @@ class Project
      *
      * @param string $targetName
      * @param Target $target
+     *
      * @throws BuildException
      */
     public function addTarget($targetName, $target)
@@ -669,7 +681,9 @@ class Project
      * Create a new task instance and return reference to it.
      *
      * @param string $taskType Task name
+     *
      * @return Task           A task object
+     *
      * @throws BuildException
      */
     public function createTask($taskType)
@@ -681,7 +695,9 @@ class Project
      * Creates a new condition and returns the reference to it
      *
      * @param string $conditionType
+     *
      * @return Condition
+     *
      * @throws BuildException
      */
     public function createCondition($conditionType)
@@ -694,7 +710,9 @@ class Project
      * See createTask() for explanation how this works
      *
      * @param string $typeName Type name
+     *
      * @return object         A datatype object
+     *
      * @throws BuildException
      *                                 Exception
      */
@@ -707,7 +725,9 @@ class Project
      * Executes a list of targets
      *
      * @param array $targetNames List of target names to execute
+     *
      * @return void
+     *
      * @throws BuildException
      */
     public function executeTargets($targetNames)
@@ -723,7 +743,9 @@ class Project
      * Executes a target
      *
      * @param string $targetName Name of Target to execute
+     *
      * @return void
+     *
      * @throws BuildException
      */
     public function executeTarget($targetName)
@@ -786,10 +808,12 @@ class Project
     /**
      * Helper function
      *
-     * @param string $fileName
+     * @param string    $fileName
      * @param PhingFile $rootDir
-     * @throws IOException
+     *
      * @return \PhingFile
+     *
+     * @throws IOException
      */
     public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
@@ -824,12 +848,14 @@ class Project
     /**
      * Topologically sort a set of Targets.
      *
-     * @param string $rootTarget is the (String) name of the root Target. The sort is
-     *                         created in such a way that the sequence of Targets until the root
-     *                         target is the minimum possible such sequence.
+     * @param string $rootTarget Is the (string) name of the root Target. The sort is
+     *                           created in such a way that the sequence of Targets until the root
+     *                           target is the minimum possible such sequence.
+     *
+     * @return Target[] targets in sorted order
+     *
      * @throws BuildException
      * @throws Exception
-     * @return Target[] targets in sorted order
      */
     public function topoSort($rootTarget)
     {
@@ -897,10 +923,11 @@ class Project
     //    Target.
 
     /**
-     * @param $root
-     * @param $state
-     * @param $visiting
-     * @param $ret
+     * @param string $root
+     * @param array  $state
+     * @param array  $visiting
+     * @param array  $ret
+     *
      * @throws BuildException
      * @throws Exception
      */
@@ -955,7 +982,8 @@ class Project
 
     /**
      * @param string $end
-     * @param array $stk
+     * @param array  $stk
+     *
      * @return BuildException
      */
     public function _makeCircularException($end, $stk)
@@ -1005,6 +1033,7 @@ class Project
      * Returns a specific reference.
      *
      * @param string $key The reference id/key.
+     *
      * @return object Reference or null if not defined
      */
     public function getReference($key)
@@ -1016,7 +1045,7 @@ class Project
      * Abstracting and simplifyling Logger calls for project messages
      *
      * @param string $msg
-     * @param int $level
+     * @param int    $level
      */
     public function log($msg, $level = self::MSG_INFO)
     {
@@ -1024,9 +1053,9 @@ class Project
     }
 
     /**
-     * @param mixed $obj
-     * @param string $msg
-     * @param int $level
+     * @param mixed          $obj
+     * @param string         $msg
+     * @param int            $level
      * @param Exception|null $t
      */
     public function logObject($obj, $msg, $level, Exception $t = null)
@@ -1095,7 +1124,7 @@ class Project
     }
 
     /**
-     * @param $target
+     * @param Target $target
      */
     public function fireTargetStarted($target)
     {
@@ -1108,8 +1137,8 @@ class Project
     }
 
     /**
-     * @param $target
-     * @param $exception
+     * @param Target    $target
+     * @param Exception $exception
      */
     public function fireTargetFinished($target, $exception)
     {
@@ -1123,7 +1152,7 @@ class Project
     }
 
     /**
-     * @param $task
+     * @param Task $task
      */
     public function fireTaskStarted($task)
     {
@@ -1136,8 +1165,8 @@ class Project
     }
 
     /**
-     * @param $task
-     * @param $exception
+     * @param Task      $task
+     * @param Exception $exception
      */
     public function fireTaskFinished($task, $exception)
     {
@@ -1151,9 +1180,9 @@ class Project
     }
 
     /**
-     * @param $event
-     * @param $message
-     * @param $priority
+     * @param BuildEvent $event
+     * @param string     $message
+     * @param int        $priority
      */
     public function fireMessageLoggedEvent(BuildEvent $event, $message, $priority)
     {
@@ -1164,10 +1193,11 @@ class Project
     }
 
     /**
-     * @param mixed $object
-     * @param string $message
-     * @param int $priority
+     * @param mixed     $object
+     * @param string    $message
+     * @param int       $priority
      * @param Exception $t
+     *
      * @throws \Exception
      */
     public function fireMessageLogged($object, $message, $priority, Exception $t = null)

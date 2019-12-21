@@ -20,9 +20,10 @@
 /**
  * Wrapper around git-commit
  *
+ * @see     VersionControl_Git
+ *
  * @package phing.tasks.ext.git
  * @author  Jonathan Creasy <jonathan.creasy@gmail.com>
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 class GitCommitTask extends GitBaseTask
@@ -30,7 +31,7 @@ class GitCommitTask extends GitBaseTask
     use FileSetAware;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $allFiles = false;
 
@@ -116,7 +117,7 @@ class GitCommitTask extends GitBaseTask
     }
 
     /**
-     * @param $flag
+     * @param bool $flag
      */
     public function setAllFiles(bool $flag)
     {
@@ -132,7 +133,7 @@ class GitCommitTask extends GitBaseTask
     }
 
     /**
-     * @param $message
+     * @param string $message
      */
     public function setMessage($message)
     {

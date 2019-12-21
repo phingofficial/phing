@@ -47,10 +47,10 @@ class NoneSelector extends BaseSelectorContainer
      * Returns true (the file is selected) only if all other selectors
      * agree that the file should not be selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a java.io.File object for the filename that the selector
-     *                            can use
+     * @param PhingFile $basedir  the base directory the scan is being done from
+     * @param string    $filename is the name of the file to check
+     * @param PhingFile $file     Is a File object for the filename that the selector can use
+     *
      * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

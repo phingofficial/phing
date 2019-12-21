@@ -28,25 +28,21 @@ class SymfonyConsoleTask extends Task
 {
 
     /**
-     *
      * @var Arg[] a collection of Arg objects
      */
     private $args = [];
 
     /**
-     *
      * @var string the Symfony console command to execute
      */
     private $command = null;
 
     /**
-     *
      * @var string path to symfony console application
      */
     private $console = 'app/console';
 
     /**
-     *
      * @var string property to be set
      */
     private $propertyName = null;
@@ -54,14 +50,14 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @var boolean
+     * @var bool
      */
     private $checkreturn = false;
 
     /**
      * Is the symfony cli debug mode set? (true by default)
      *
-     * @var boolean
+     * @var bool
      */
     private $debug = true;
 
@@ -113,7 +109,8 @@ class SymfonyConsoleTask extends Task
     /**
      * Set the name of the property to store the application output in
      *
-     * @param $property
+     * @param string $property
+     *
      * @return void
      */
     public function setPropertyName($property)
@@ -124,7 +121,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param boolean $checkreturn If the return code shall be checked
+     * @param bool $checkreturn If the return code shall be checked
      *
      * @return void
      */
@@ -136,7 +133,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to set the symfony cli debug mode
      *
-     * @param boolean $debug If the symfony cli debug mode is set
+     * @param bool $debug If the symfony cli debug mode is set
      *
      * @return void
      */
@@ -148,7 +145,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Get if the symfony cli debug mode is set
      *
-     * @return boolean
+     * @return bool
      */
     public function getDebug()
     {
@@ -170,7 +167,6 @@ class SymfonyConsoleTask extends Task
      *
      * @return Arg Argument object
      */
-
     public function createArg()
     {
         $num = array_push($this->args, new Arg());
@@ -191,7 +187,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Check if the no-debug option was added via args
      *
-     * @return boolean
+     * @return bool
      */
     private function isNoDebugArgPresent()
     {

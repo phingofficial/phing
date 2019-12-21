@@ -4,21 +4,23 @@
  *
  * PHP Version 5.4
  *
+ * @link     https://github.com/kenguest/Phing-HG
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     https://github.com/kenguest/Phing-HG
  */
 
 /**
  * Base task for integrating phing and mercurial.
  *
+ * @link     HgBaseTask.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext.hg
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     HgBaseTask.php
  */
 abstract class HgBaseTask extends Task
 {
@@ -146,6 +148,7 @@ abstract class HgBaseTask extends Task
      * @param string $dir Repository directory
      *
      * @return bool
+     *
      * @throws BuildException
      */
     public function checkRepositoryIsDirAndExists($dir)

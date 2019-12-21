@@ -32,7 +32,7 @@ class LiquibaseDbDocTask extends AbstractLiquibaseTask
     /**
      * Sets the output directory where the documentation gets generated to.
      *
-     * @param string the output directory
+     * @param string $outputDir the output directory
      */
     public function setOutputDir($outputDir)
     {

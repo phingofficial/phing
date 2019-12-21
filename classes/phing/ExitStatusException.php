@@ -33,9 +33,9 @@ class ExitStatusException extends BuildException
     /**
      * Constructs an <code>ExitStatusException</code>.
      *
-     * @param null|int|string $arg1
-     * @param int $arg2
-     * @param Location $arg3
+     * @param int|string|null $arg1
+     * @param int             $arg2
+     * @param Location        $arg3
      */
     public function __construct($arg1 = null, $arg2 = 0, Location $arg3 = null)
     {

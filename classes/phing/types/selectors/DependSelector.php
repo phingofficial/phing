@@ -63,8 +63,7 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param PhingFile|the $targetdir
-     * @internal param the $targetdir directory to scan looking for files.
+     * @param PhingFile $targetdir the directory to scan looking for files.
      */
     public function setTargetdir(PhingFile $targetdir)
     {
@@ -75,7 +74,7 @@ class DependSelector extends BaseSelector
      * Sets the number of milliseconds leeway we will give before we consider
      * a file out of date.
      *
-     * @param $granularity
+     * @param int $granularity
      */
     public function setGranularity($granularity)
     {
@@ -120,13 +119,13 @@ class DependSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir base directory the scan is being done from
-     * @param string $filename the name of the file to check
-     * @param PhingFile $file a PhingFile object the selector can use
-     *
-     * @throws BuildException
+     * @param PhingFile $basedir  base directory the scan is being done from
+     * @param string    $filename the name of the file to check
+     * @param PhingFile $file     a PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
+     *
+     * @throws BuildException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

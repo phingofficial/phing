@@ -29,7 +29,7 @@ class PearPkgMappingElement
     private $elements = [];
 
     /**
-     * @param $v
+     * @param string $v
      */
     public function setKey($v)
     {
@@ -42,7 +42,7 @@ class PearPkgMappingElement
     }
 
     /**
-     * @param $v
+     * @param mixed $v
      */
     public function setValue($v)
     {

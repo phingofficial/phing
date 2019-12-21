@@ -47,7 +47,7 @@ class FileHashTask extends Task
      *   0 = MD5
      *   1 = SHA1
      *
-     * @var integer $hashtype
+     * @var int $hashtype
      */
     private $hashtype = 0;
 
@@ -57,7 +57,7 @@ class FileHashTask extends Task
     /**
      * Specify if MD5 or SHA1 hash should be used
      *
-     * @param integer $type 0=MD5, 1=SHA1
+     * @param int $type 0=MD5, 1=SHA1
      */
     public function setHashtype($type): void
     {
@@ -82,7 +82,8 @@ class FileHashTask extends Task
     /**
      * Set the name of the property to store the hash value in
      *
-     * @param $property
+     * @param string $property
+     *
      * @return void
      */
     public function setPropertyName($property): void

@@ -53,15 +53,15 @@ class SourceFileScanner
      * Restrict the given set of files to those that are newer than
      * their corresponding target files.
      *
-     * @param iterable $files the original set of files
-     * @param PhingFile $srcDir all files are relative to this directory
-     * @param PhingFile $destDir target files live here. if null file names
-     *                                returned by the mapper are assumed to be
-     *                                absolute.
-     * @param FilenameMapper $mapper knows how to construct a target file names from
-     *                source file names.
-     * @param bool $force Boolean that determines if the files should be
+     * @param iterable       $files   the original set of files
+     * @param PhingFile      $srcDir  all files are relative to this directory
+     * @param PhingFile      $destDir target files live here. if null file names
+     *                                returned by the mapper are assumed to be absolute.
+     * @param FilenameMapper $mapper  knows how to construct a target file names from
+     *                                source file names.
+     * @param bool           $force   Boolean that determines if the files should be
      *                                forced to be copied.
+     *
      * @return array
      */
     public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
@@ -168,10 +168,11 @@ class SourceFileScanner
      * files as PhingFile objects (containing absolute paths if srcDir is
      * absolute).
      *
-     * @param $files
-     * @param $srcDir
-     * @param $destDir
-     * @param $mapper
+     * @param iterable       $files
+     * @param PhingFile      $srcDir
+     * @param PhingFile      $destDir
+     * @param FilenameMapper $mapper
+     *
      * @return array
      */
     public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)

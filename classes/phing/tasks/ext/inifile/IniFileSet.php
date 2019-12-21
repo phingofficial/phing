@@ -6,21 +6,23 @@
  *
  * PHP version 5
  *
+ * @link     http://www.phing.info/
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 
 /**
  * InifileSet
  *
+ * @link     InifileSet.php
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     InifileSet.php
  */
 class IniFileSet
 {
@@ -67,7 +69,7 @@ class IniFileSet
     /**
      * Get Operation
      *
-     * @return void
+     * @return string
      */
     public function getOperation()
     {

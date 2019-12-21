@@ -25,7 +25,8 @@ abstract class AbstractPHPLocFormatter
 {
     /**
      * @param array $count
-     * @param bool $countTests
+     * @param bool  $countTests
+     *
      * @return mixed
      */
     abstract public function printResult(array $count, $countTests = false);
@@ -48,7 +49,7 @@ abstract class AbstractPHPLocFormatter
     /**
      * Sets whether to store formatting results in a file
      *
-     * @param $useFile
+     * @param bool $useFile
      */
     public function setUseFile($useFile)
     {

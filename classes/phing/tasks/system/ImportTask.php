@@ -71,6 +71,7 @@ class ImportTask extends Task
      * Set the file to import.
      *
      * @param string $f Path to file
+     *
      * @return void
      */
     public function setFile($f)
@@ -95,6 +96,7 @@ class ImportTask extends Task
      *
      * @param bool $opt If true, do not stop the build if the file does not
      *                   exist
+     *
      * @return void
      */
     public function setOptional($opt)
@@ -106,8 +108,9 @@ class ImportTask extends Task
      * Parse a Phing build file and copy the properties, tasks, data types and
      * targets it defines into the current project.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {
@@ -169,8 +172,9 @@ class ImportTask extends Task
      * Parse a Phing build file and copy the properties, tasks, data types and
      * targets it defines into the current project.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     protected function importFile(PhingFile $file)
     {

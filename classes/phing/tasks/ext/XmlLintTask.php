@@ -80,9 +80,9 @@ class XmlLintTask extends Task
      *
      * {@inheritdoc}
      *
-     * @throws BuildException
-     *
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {
@@ -111,7 +111,7 @@ class XmlLintTask extends Task
     }
 
     /**
-     * @param $message
+     * @param string $message
      *
      * @return void
      *
@@ -174,11 +174,11 @@ class XmlLintTask extends Task
     /**
      * Local error handler to catch validation errors and log them through Phing
      *
-     * @param int $level
+     * @param int    $level
      * @param string $message
      * @param string $file
-     * @param int $line
-     * @param mixed $context
+     * @param int    $line
+     * @param mixed  $context
      *
      * @return void
      */

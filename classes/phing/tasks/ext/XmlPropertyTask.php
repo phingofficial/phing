@@ -20,10 +20,11 @@
 /**
  * Task for setting properties from an XML file in buildfiles.
  *
+ * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
+ *
  * @author  Jonathan Bond-Caron <jbondc@openmv.com>
  * @package phing.tasks.ext
  * @since   2.4.0
- * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
  */
 class XmlPropertyTask extends PropertyTask
 {
@@ -35,7 +36,7 @@ class XmlPropertyTask extends PropertyTask
     /**
      * Set a file to use as the source for properties.
      *
-     * @param $file
+     * @param PhingFile|string $file
      */
     public function setFile($file)
     {
@@ -58,7 +59,9 @@ class XmlPropertyTask extends PropertyTask
      * A "." is appended to the prefix if not specified.
      *
      * @param string $prefix prefix string
+     *
      * @return void
+     *
      * @since  2.0
      */
     public function setPrefix($prefix)
@@ -71,6 +74,7 @@ class XmlPropertyTask extends PropertyTask
 
     /**
      * @return string
+     *
      * @since 2.0
      */
     public function getPrefix()
@@ -169,8 +173,10 @@ class XmlPropertyTask extends PropertyTask
      * load properties from an XML file.
      *
      * @param PhingFile $file
-     * @throws BuildException
+     *
      * @return Properties
+     *
+     * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
     {

@@ -31,7 +31,8 @@ class EventObject
     /**
      * Constructs a prototypical Event.
      *
-     * @param $source
+     * @param object|null $source
+     *
      * @throws Exception
      */
     public function __construct($source)

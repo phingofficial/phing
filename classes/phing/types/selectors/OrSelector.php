@@ -46,11 +46,11 @@ class OrSelector extends BaseSelectorContainer
      * Returns true (the file is selected) if any of the other selectors
      * agree that the file should be selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
-     * @param string filename the name of the file to check
-     * @param PhingFile $file a PhingFile object for the filename that the selector
-     *                                                                can use
-     * @return boolean Whether the file should be selected or not
+     * @param PhingFile $basedir  the base directory the scan is being done from
+     * @param string    $filename the name of the file to check
+     * @param PhingFile $file     A PhingFile object for the filename that the selector can use
+     *
+     * @return bool Whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

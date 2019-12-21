@@ -20,9 +20,10 @@
 /**
  * Base class for Git tasks
  *
+ * @see     VersionControl_Git
+ *
  * @author  Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext.git
- * @see     VersionControl_Git
  * @since   2.4.3
  */
 abstract class GitBaseTask extends Task
@@ -66,6 +67,7 @@ abstract class GitBaseTask extends Task
      * Set repository directory
      *
      * @param string $repository Repo directory
+     *
      * @return GitBaseTask
      */
     public function setRepository($repository)
@@ -89,6 +91,7 @@ abstract class GitBaseTask extends Task
      * Set path to git executable
      *
      * @param string $gitPath New path to git repository
+     *
      * @return GitBaseTask
      */
     public function setGitPath($gitPath)
@@ -111,7 +114,9 @@ abstract class GitBaseTask extends Task
     /**
      * @param bool $reset
      * @param null $repository
-     * @return null|VersionControl_Git
+     *
+     * @return VersionControl_Git|null
+     *
      * @throws BuildException
      */
     protected function getGitClient($reset = false, $repository = null)

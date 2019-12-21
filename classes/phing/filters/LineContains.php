@@ -38,9 +38,10 @@
  * This will include only those lines that contain <code>foo</code> and
  * <code>bar</code>.
  *
+ * @see     PhingFilterReader
+ *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@velum.net>
- * @see     PhingFilterReader
  * @package phing.filters
  */
 class LineContains extends BaseParamFilterReader implements ChainableReader
@@ -146,7 +147,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Set the negation mode.  Default false (no negation).
      *
-     * @param boolean $b the boolean negation mode to set.
+     * @param bool $b the boolean negation mode to set.
      */
     public function setNegate(bool $b)
     {
@@ -156,7 +157,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Find out whether we have been negated.
      *
-     * @return boolean negation flag.
+     * @return bool negation flag.
      */
     public function isNegated(): bool
     {
@@ -183,6 +184,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @param array $contains An array of words which must be contained
      *                        within a line in order for it to match in this filter.
      *                        Must not be <code>null</code>.
+     *
      * @throws Exception
      */
     private function setContains(array $contains)
@@ -213,6 +215,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *
      * @return LineContains A new filter based on this configuration, but filtering
      *                      the specified reader
+     *
      * @throws Exception
      */
     public function chain(Reader $reader): Reader

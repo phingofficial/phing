@@ -37,6 +37,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test a PSR-0 support of class loading
+     *
      * @link http://groups.google.com/group/php-standards/web/psr-0-final-proposal
      */
     public function testImportPSR0()

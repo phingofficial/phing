@@ -54,9 +54,10 @@ class TargetTest extends BuildFileTest
     }
 
     /**
-     * @dataProvider setDependsValidDataProvider
-     * @param array $expectedDepends
+     * @param array  $expectedDepends
      * @param string $depends
+     *
+     * @dataProvider setDependsValidDataProvider
      */
     public function testSetDependsValid(array $expectedDepends, $depends)
     {
@@ -74,8 +75,9 @@ class TargetTest extends BuildFileTest
     }
 
     /**
-     * @dataProvider setDependsInvalidDataProvider
      * @param string $depends
+     *
+     * @dataProvider setDependsInvalidDataProvider
      */
     public function testSetDependsInvalid($depends)
     {

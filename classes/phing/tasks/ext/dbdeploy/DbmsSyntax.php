@@ -26,7 +26,7 @@
 abstract class DbmsSyntax
 {
     /**
-     * @param $db
+     * @param PDO $db
      */
     public function applyAttributes($db)
     {

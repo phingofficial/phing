@@ -40,7 +40,7 @@ class SvnCommitTask extends SvnBaseTask
     /**
      * Sets the commit message
      *
-     * @param $message
+     * @param string $message
      */
     public function setMessage($message)
     {
@@ -58,7 +58,7 @@ class SvnCommitTask extends SvnBaseTask
     /**
      * Sets the name of the property to use for returned revision
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {

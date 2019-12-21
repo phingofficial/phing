@@ -171,7 +171,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param float $time
+     * @param float                  $time
      */
     public function endTest(PHPUnit\Framework\Test $test, float $time): void
     {
@@ -179,8 +179,8 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -188,9 +188,9 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test                 $test
      * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float $time
+     * @param float                                  $time
      */
     public function addFailure(
         PHPUnit\Framework\Test $test,
@@ -201,9 +201,9 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\Test    $test
      * @param PHPUnit\Framework\Warning $e
-     * @param float $time
+     * @param float                     $time
      */
     public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
     {
@@ -212,8 +212,8 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -222,8 +222,8 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
@@ -232,8 +232,8 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
     /**
      * @param PHPUnit\Framework\Test $test
-     * @param Exception $e
-     * @param float $time
+     * @param Exception              $e
+     * @param float                  $time
      */
     public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {

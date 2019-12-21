@@ -24,8 +24,9 @@
  * time it is needed).  The syntax is the dependent on which
  * regular expression type you are using.
  *
- * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @see     phing.util.regex.RegexMatcher
+ *
+ * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @package phing.types
  */
 class RegularExpression extends DataType
@@ -40,9 +41,6 @@ class RegularExpression extends DataType
     private $ignoreCase = false;
     private $multiline  = false;
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -50,7 +48,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $pattern
+     * @param string $pattern
      */
     public function setPattern($pattern)
     {
@@ -58,7 +56,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $replace
+     * @param string $replace
      */
     public function setReplace($replace)
     {
@@ -66,8 +64,10 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $p
+     * @param Project $p
+     *
      * @return string
+     *
      * @throws BuildException
      */
     public function getPattern($p)
@@ -83,7 +83,9 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
+     *
      * @return string
+     *
      * @throws BuildException
      */
     public function getReplace($p)
@@ -98,7 +100,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $modifiers
+     * @param string $modifiers
      */
     public function setModifiers($modifiers)
     {
@@ -114,7 +116,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $bit
+     * @param bool $bit
      */
     public function setIgnoreCase($bit)
     {
@@ -130,7 +132,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $multiline
+     * @param bool $multiline
      */
     public function setMultiline($multiline)
     {
@@ -147,7 +149,9 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
-     * @return null|Regexp
+     *
+     * @return Regexp|null
+     *
      * @throws BuildException
      */
     public function getRegexp(Project $p)
@@ -163,7 +167,9 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
+     *
      * @return mixed
+     *
      * @throws BuildException
      */
     public function getRef(Project $p)

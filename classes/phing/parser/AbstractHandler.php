@@ -41,7 +41,7 @@ abstract class AbstractHandler
      *
      * The constructor must be called by all derived classes.
      *
-     * @param ExpatParser $parser the parser object
+     * @param ExpatParser     $parser        the parser object
      * @param AbstractHandler $parentHandler the parent handler of this handler
      */
     protected function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler)
@@ -57,8 +57,9 @@ abstract class AbstractHandler
      * Must be overloaded by the child class. Throws an ExpatParseException
      * if there is no handler registered for an element.
      *
-     * @param string $name name of the XML element
-     * @param array $attribs attributes of the XML element
+     * @param string $name    name of the XML element
+     * @param array  $attribs attributes of the XML element
+     *
      * @throws ExpatParseException
      */
     public function startElement($name, $attribs)
@@ -91,6 +92,7 @@ abstract class AbstractHandler
      * Invoked by occurrence of #PCDATA.
      *
      * @param string $data contents
+     *
      * @throws ExpatParseException
      * @throws ExpatParseException if there is no CDATA but method
      *            was called

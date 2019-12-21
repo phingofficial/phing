@@ -132,7 +132,7 @@ class SmartyTask extends Task
      * to be *sure* that the template will be compiled (of course it will
      * be slower if you do).
      *
-     * @var boolean
+     * @var bool
      */
     protected $forceCompile = false;
 
@@ -182,6 +182,7 @@ class SmartyTask extends Task
      * generating process.
      *
      * @param string $controlTemplate
+     *
      * @return void
      */
     public function setControlTemplate($controlTemplate)
@@ -205,7 +206,8 @@ class SmartyTask extends Task
      * for templates using the file template
      * loader.
      *
-     * @param $templatePath
+     * @param string $templatePath
+     *
      * @return void
      */
     public function setTemplatePath($templatePath)
@@ -247,7 +249,9 @@ class SmartyTask extends Task
      * created if it doesn't exist.
      *
      * @param PhingFile $outputDirectory
+     *
      * @return void
+     *
      * @throws Exception
      */
     public function setOutputDirectory(PhingFile $outputDirectory)
@@ -282,7 +286,8 @@ class SmartyTask extends Task
      * [REQUIRED] Set the output file for the
      * generation process.
      *
-     * @param $outputFile
+     * @param string $outputFile
+     *
      * @return void
      */
     public function setOutputFile($outputFile)
@@ -324,7 +329,8 @@ class SmartyTask extends Task
     /**
      * Set whether Smarty should always recompile templates.
      *
-     * @param boolean $force
+     * @param bool $force
+     *
      * @return void
      */
     public function setForceCompile($force)
@@ -335,7 +341,7 @@ class SmartyTask extends Task
     /**
      * Get whether Smarty should always recompile template.
      *
-     * @return boolean
+     * @return bool
      */
     public function getForceCompile()
     {
@@ -346,6 +352,7 @@ class SmartyTask extends Task
      * Set where Smarty looks for config files.
      *
      * @param string $configPath
+     *
      * @return void
      */
     public function setConfigPath($configPath)
@@ -367,6 +374,7 @@ class SmartyTask extends Task
      * Set Smarty template left delimiter.
      *
      * @param string $delim
+     *
      * @return void
      */
     public function setLeftDelimiter($delim)
@@ -388,6 +396,7 @@ class SmartyTask extends Task
      * Set Smarty template right delimiter.
      *
      * @param string $delim
+     *
      * @return void
      */
     public function setRightDelimiter($delim)
@@ -411,8 +420,10 @@ class SmartyTask extends Task
      * generating process starts.
      *
      * @param string $file
-     * @throws BuildException
+     *
      * @return void
+     *
+     * @throws BuildException
      */
     public function setContextProperties($file)
     {
@@ -471,6 +482,7 @@ class SmartyTask extends Task
      * Creates a Smarty object.
      *
      * @return Smarty    initialized (cleared) Smarty context.
+     *
      * @throws Exception the execute method will catch
      *                   and rethrow as a <code>BuildException</code>
      */
@@ -644,9 +656,10 @@ class SmartyTask extends Task
      * <p><code>$generator</code> is not put into the context in this
      * method.</p>
      *
-     * @param Smarty|The $context
-     * @internal param The $context context to populate, as retrieved from
      * {@link #initControlContext()}.
+     *
+     * @param Smarty $context The context to populate, as retrieved from
+     *
      * @return void
      */
     protected function populateInitialContext(Smarty $context)
@@ -660,6 +673,7 @@ class SmartyTask extends Task
      * does nothing.
      *
      * @return void
+     *
      * @throws Exception Problem cleaning up.
      */
     protected function cleanup()

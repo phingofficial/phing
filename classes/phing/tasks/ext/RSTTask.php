@@ -4,11 +4,12 @@
  *
  * PHP version 5
  *
+ * @link     http://www.phing.info/
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 
 /**
@@ -16,11 +17,12 @@
  *
  * PHP version 5
  *
+ * @link     http://www.phing.info/
+ *
  * @category Tasks
  * @package  phing.tasks.ext
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
  */
 class RSTTask extends Task
 {
@@ -44,9 +46,10 @@ class RSTTask extends Task
     /**
      * Array of supported output formats
      *
-     * @var array
      * @see $format
      * @see $targetExt
+     *
+     * @var array
      */
     protected static $supportedFormats = [
         'html',
@@ -106,7 +109,7 @@ class RSTTask extends Task
     /**
      * mode to create directories with
      *
-     * @var integer
+     * @var int
      */
     protected $mode = 0;
 
@@ -114,7 +117,7 @@ class RSTTask extends Task
      * Only render files whole source files are newer than the
      * target files
      *
-     * @var boolean
+     * @var bool
      */
     protected $uptodate = false;
 
@@ -135,8 +138,9 @@ class RSTTask extends Task
     /**
      * The main entry point method.
      *
-     * @throws BuildException
      * @return void
+     *
+     * @throws BuildException
      */
     public function main()
     {
@@ -195,8 +199,8 @@ class RSTTask extends Task
     /**
      * Renders a single file and applies filters on it
      *
-     * @param string $tool conversion tool to use
-     * @param string $source rST source file
+     * @param string $tool       conversion tool to use
+     * @param string $source     rST source file
      * @param string $targetFile target file name
      *
      * @return void
@@ -226,8 +230,8 @@ class RSTTask extends Task
     /**
      * Renders a single file with the rST tool.
      *
-     * @param string $tool conversion tool to use
-     * @param string $source rST source file
+     * @param string $tool       conversion tool to use
+     * @param string $source     rST source file
      * @param string $targetFile target file name
      *
      * @return void
@@ -298,14 +302,14 @@ class RSTTask extends Task
      * Determines and returns the target file name from the
      * input file and the configured destination name.
      *
-     * @param string $file Input file
+     * @uses $format
+     * @uses $targetExt
+     *
+     * @param string $file        Input file
      * @param string $destination Destination file or directory name,
      *                            may be null
      *
      * @return string Target file name
-     *
-     * @uses $format
-     * @uses $targetExt
      */
     public function getTargetFile($file, $destination = null)
     {
@@ -387,11 +391,11 @@ class RSTTask extends Task
     /**
      * The setter for the attribute "toolpath"
      *
-     * @param $path
-     * @throws BuildException
-     * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
+     * @param string $path Full path to tool path, i.e. /usr/local/bin/rst2html
      *
      * @return void
+     *
+     * @throws BuildException
      */
     public function setToolpath($path)
     {

@@ -44,7 +44,7 @@ class Reference
     }
 
     /**
-     * @param $id
+     * @param string $id
      */
     public function setRefId($id)
     {

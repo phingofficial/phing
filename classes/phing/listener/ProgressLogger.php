@@ -62,8 +62,9 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * Fired after the last target has finished.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getException()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function buildFinished(BuildEvent $event)
     {
@@ -76,8 +77,9 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * Fired when a target is started.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getTarget()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function targetStarted(BuildEvent $event)
     {
@@ -88,8 +90,9 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * Fired when a target has finished.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent#getException()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function targetFinished(BuildEvent $event)
     {
@@ -99,8 +102,9 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * Fired when a task is started.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getTask()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function taskStarted(BuildEvent $event)
     {
@@ -117,8 +121,9 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * Fired when a task has finished.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getException()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function taskFinished(BuildEvent $event)
     {
@@ -134,8 +139,9 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * Fired whenever a message is logged.
      *
-     * @param BuildEvent $event The BuildEvent
      * @see   BuildEvent::getMessage()
+     *
+     * @param BuildEvent $event The BuildEvent
      */
     public function messageLogged(BuildEvent $event)
     {
@@ -148,6 +154,7 @@ class ProgressLogger extends AnsiColorLogger
 
     /**
      * @param BuildEvent $event
+     *
      * @throws Exception
      */
     protected function determineDepth(BuildEvent $event)

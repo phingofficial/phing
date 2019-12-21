@@ -27,7 +27,6 @@
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Conor MacNeill (Ant)
  * @author Jeff Tulley <jtulley@novell.com>  (Ant)
- *
  * @package phing.util
  */
 class PathTokenizer
@@ -49,7 +48,7 @@ class PathTokenizer
      * Flag to indicate whether or not we are running on a platform with a
      * DOS style filesystem
      *
-     * @var boolean
+     * @var bool
      */
     private $dosStyleFilesystem;
 
@@ -139,7 +138,7 @@ class PathTokenizer
      *
      * @param string $path path to search for.
      *
-     * @return boolean
+     * @return bool
      */
     public function contains($path)
     {

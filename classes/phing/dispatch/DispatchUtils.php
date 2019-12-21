@@ -29,6 +29,7 @@ class DispatchUtils
      * Determines and Executes the action method for the task.
      *
      * @param object $task the task to execute.
+     *
      * @throws BuildException on error.
      */
     public static function main($task)

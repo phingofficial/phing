@@ -89,7 +89,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * Whether to ignore case in the regex match.
      *
-     * @param boolean $casesensitive whether to pay attention to case sensitivity
+     * @param bool $casesensitive whether to pay attention to case sensitivity
      */
     public function setCasesensitive($casesensitive)
     {
@@ -150,11 +150,12 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir base directory the scan is being done from
-     * @param string $filename the name of the file to check
-     * @param PhingFile $file PhingFile object the selector can use
+     * @param PhingFile $basedir  base directory the scan is being done from
+     * @param string    $filename the name of the file to check
+     * @param PhingFile $file     PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
+     *
      * @throws IOException
      * @throws RegexpException
      */

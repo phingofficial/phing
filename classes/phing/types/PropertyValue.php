@@ -34,7 +34,7 @@ class PropertyValue
     /**
      * Constructor optionaly sets a the value of property component.
      *
-     * @param mixed      Value of name, all scalars allowed
+     * @param mixed $value Value of name, all scalars allowed
      */
     public function __construct($value = null)
     {
@@ -46,7 +46,7 @@ class PropertyValue
     /**
      * Sets a the value of property component.
      *
-     * @param mixed      Value of name, all scalars allowed
+     * @param mixed $value Value of name, all scalars allowed
      */
     public function setValue($value)
     {

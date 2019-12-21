@@ -56,6 +56,7 @@ class FilesMatch implements Condition
      * comparison method of the interface
      *
      * @return bool if the files are equal
+     *
      * @throws BuildException if it all went pear-shaped
      */
     public function evaluate()

@@ -33,7 +33,7 @@ class IsPropertyTrueCondition extends ConditionBase implements Condition
     private $property = null;
 
     /**
-     * @param $property
+     * @param string $property
      *
      * @return void
      */
