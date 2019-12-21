@@ -77,7 +77,7 @@ class SourceFileScanner
         $osname = strtolower(Phing::getProperty('os.name'));
 
         // indexOf()
-        $index = ((($res = strpos($osname, 'win')) === false) ? -1 : $res);
+        $index = ($res = strpos($osname, 'win')) === false ? -1 : $res;
         if ($index >= 0) {
             $now += 2000;
         }

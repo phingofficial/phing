@@ -338,14 +338,10 @@
     -->
 
     <!-- Require language constructs without parentheses -->
-    <!--
     <rule ref="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses"/>
-    -->
 
     <!-- Require new instances with parentheses -->
-    <!--
     <rule ref="SlevomatCodingStandard.ControlStructures.NewWithParentheses"/>
-    -->
 
     <!-- Require usage of null coalesce operator when possible -->
     <!--
@@ -353,14 +349,10 @@
     -->
 
     <!-- Forbid usage of conditions when a simple return can be used -->
-    <!--
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
-    -->
 
     <!-- Forbid usage of boolean-only ternary operator usage (e.g. $foo ? true : false) -->
-    <!--
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
-    -->
 
     <!-- Forbid useless unreachable catch blocks -->
     <!--
@@ -503,9 +495,7 @@
     -->
 
     <!-- Forbid useless parentheses -->
-    <!--
     <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
-    -->
 
     <!-- Forbid useless semicolon `;` -->
     <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
@@ -631,29 +621,19 @@
     </rule>
 
     <!-- Forbid global functions -->
-    <!--
     <rule ref="Squiz.Functions.GlobalFunction"/>
-    -->
 
     <!-- Forbid `AND` and `OR`, require `&&` and `||` -->
-    <!--
     <rule ref="Squiz.Operators.ValidLogicalOperators"/>
-    -->
 
     <!-- Forbid `global` -->
-    <!--
     <rule ref="Squiz.PHP.GlobalKeyword"/>
-    -->
 
     <!-- Forbid functions inside functions -->
-    <!--
     <rule ref="Squiz.PHP.InnerFunctions"/>
-    -->
 
     <!-- Require PHP function calls in lowercase -->
-    <!--
     <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
-    -->
 
     <!-- Forbid dead code -->
     <!--

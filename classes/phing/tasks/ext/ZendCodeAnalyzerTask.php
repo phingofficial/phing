@@ -128,7 +128,7 @@ class ZendCodeAnalyzerTask extends Task
             throw new BuildException("Missing attribute 'analyzerPath'");
         }
 
-        if (!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) && count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 

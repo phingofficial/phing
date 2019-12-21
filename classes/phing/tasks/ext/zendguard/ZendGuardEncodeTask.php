@@ -439,10 +439,10 @@ class ZendGuardEncodeTask extends MatchingTask
         }
 
         // short tags
-        $command .= " --short-tags " . (($this->shortTags) ? 'on' : 'off') . " ";
+        $command .= " --short-tags " . ($this->shortTags ? 'on' : 'off') . " ";
 
         // asp tags
-        $command .= " --asp-tags " . (($this->aspTags) ? 'on' : 'off') . " ";
+        $command .= " --asp-tags " . ($this->aspTags ? 'on' : 'off') . " ";
 
         // use crypto
         if ($this->useCrypto) {

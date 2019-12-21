@@ -78,7 +78,7 @@ class XmlFileParser implements FileParserInterface
         // but we'll double check that when reading the file into
         // an array
 
-        if ((@file($file)) === false) {
+        if (@file($file) === false) {
             throw new IOException("Unable to parse contents of $file");
         }
 

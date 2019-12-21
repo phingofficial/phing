@@ -107,7 +107,7 @@ class MailLogger extends DefaultLogger
             if (is_string(Phing::getDefinedProperty('phing.log.mail.subject'))) {
                 $defaultSubject = Phing::getDefinedProperty('phing.log.mail.subject');
             } else {
-                $defaultSubject = ($success) ? 'Build Success' : 'Build Failure';
+                $defaultSubject = $success ? 'Build Success' : 'Build Failure';
             }
             $hdrs             = [];
             $hdrs['From']     = $this->getValue($properties, 'from', $this->from);

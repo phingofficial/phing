@@ -276,7 +276,7 @@ class ZipTask extends MatchingTask
     private function addFilesetsToArchive($zip)
     {
         foreach ($this->filesets as $fs) {
-            $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
+            $fsBasedir = null != $this->baseDir ? $this->baseDir :
                 $fs->getDir($this->project);
 
             $files = $fs->getIterator($this->includeEmpty);

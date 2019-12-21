@@ -124,11 +124,7 @@ class PatternSetNameEntry
             return false;
         }
 
-        if ($this->unlessCond !== null && $project->getProperty($this->unlessCond) !== null) {
-            return false;
-        }
-
-        return true;
+        return $this->unlessCond === null || $project->getProperty($this->unlessCond) === null;
     }
 
     /**

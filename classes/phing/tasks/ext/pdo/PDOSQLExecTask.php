@@ -484,7 +484,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     {
         $sql = trim($sql);
 
-        return (stripos($sql, 'select') === 0 && stripos($sql, 'select into ') !== 0);
+        return stripos($sql, 'select') === 0 && stripos($sql, 'select into ') !== 0;
     }
 
     /**

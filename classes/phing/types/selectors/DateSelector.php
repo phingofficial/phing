@@ -229,13 +229,13 @@ class DateSelector extends BaseExtendSelector
             return true;
         }
         if ($this->cmp === 0) {
-            return (($file->lastModified() - $this->granularity) < $this->seconds);
+            return ($file->lastModified() - $this->granularity) < $this->seconds;
         }
 
         if ($this->cmp === 1) {
-            return (($file->lastModified() - $this->granularity) > $this->seconds);
+            return ($file->lastModified() - $this->granularity) > $this->seconds;
         }
 
-        return (abs($file->lastModified() - $this->seconds) <= $this->granularity);
+        return abs($file->lastModified() - $this->seconds) <= $this->granularity;
     }
 }

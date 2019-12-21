@@ -167,7 +167,7 @@ class PhingTask extends Task
     public function main()
     {
         // Call Phing on the file set with the attribute "phingfile"
-        if ($this->phingFile !== null or $this->dir !== null) {
+        if ($this->phingFile !== null || $this->dir !== null) {
             $this->processFile();
         }
 

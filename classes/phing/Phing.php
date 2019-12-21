@@ -659,7 +659,7 @@ class Phing
         $file     = new PhingFile($filename);
         $filename = $file->getParent();
 
-        return ($filename === null) ? null : new PhingFile($filename);
+        return $filename === null ? null : new PhingFile($filename);
     }
 
     /**
@@ -1711,7 +1711,7 @@ class Phing
     {
         [$usec, $sec] = explode(" ", microtime());
 
-        return ((float) $usec + (float) $sec);
+        return (float) $usec + (float) $sec;
     }
 
     /**

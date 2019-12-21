@@ -90,6 +90,6 @@ class Timer
         $etime  = $this->etime - $this->stime;
         $format = "%0." . $places . "f";
 
-        return (sprintf($format, $etime));
+        return sprintf($format, $etime);
     }
 }

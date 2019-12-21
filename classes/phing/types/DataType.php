@@ -57,7 +57,7 @@ class DataType extends ProjectComponent
      */
     public function isReference()
     {
-        return ($this->ref !== null);
+        return $this->ref !== null;
     }
 
     /**
@@ -65,7 +65,7 @@ class DataType extends ProjectComponent
      */
     public function getRefId()
     {
-        return ($this->ref !== null ? $this->ref->getRefId() : null);
+        return $this->ref !== null ? $this->ref->getRefId() : null;
     }
 
     /**

@@ -435,7 +435,7 @@ class CoverageReportTask extends Task
                     array_filter(
                         $coverageInformation,
                         function ($var) {
-                            return ($var != -2);
+                            return $var != -2;
                         }
                     )
                 );
@@ -444,7 +444,7 @@ class CoverageReportTask extends Task
                     array_filter(
                         $coverageInformation,
                         function ($var) {
-                            return ($var >= 0);
+                            return $var >= 0;
                         }
                     )
                 );

@@ -87,17 +87,15 @@ class OsCondition implements Condition
             }
 
             if ($family === self::FAMILY_MAC) {
-                return (strpos($osName, self::FAMILY_MAC) !== false || strpos($osName, self::DARWIN) !== false);
+                return strpos($osName, self::FAMILY_MAC) !== false || strpos($osName, self::DARWIN) !== false;
             }
 
             if ($family === self::FAMILY_UNIX) {
-                return (
-                    StringHelper::endsWith('ix', $osName) ||
+                return StringHelper::endsWith('ix', $osName) ||
                     StringHelper::endsWith('ux', $osName) ||
                     StringHelper::endsWith('bsd', $osName) ||
                     StringHelper::startsWith('sunos', $osName) ||
-                    StringHelper::startsWith(self::DARWIN, $osName)
-                );
+                    StringHelper::startsWith(self::DARWIN, $osName);
             }
             throw new BuildException("Don't know how to detect os family '" . $family . "'");
         }

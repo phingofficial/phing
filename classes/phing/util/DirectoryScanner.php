@@ -389,7 +389,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function setCaseSensitive($isCaseSensitive)
     {
-        $this->isCaseSensitive = ($isCaseSensitive) ? true : false;
+        $this->isCaseSensitive = (bool) $isCaseSensitive;
     }
 
     /**
