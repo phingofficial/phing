@@ -190,7 +190,7 @@ class DbDeployTask extends Task
      */
     protected function getLastChangeAppliedInDb()
     {
-        return (count($this->appliedChangeNumbers) > 0)
+        return count($this->appliedChangeNumbers) > 0
             ? max($this->appliedChangeNumbers) : 0;
     }
 
@@ -351,10 +351,10 @@ class DbDeployTask extends Task
     protected function fileNeedsToBeRead($fileChangeNumber, $lastChangeAppliedInDb)
     {
         if ($this->checkall) {
-            return (!in_array($fileChangeNumber, $this->appliedChangeNumbers));
+            return !in_array($fileChangeNumber, $this->appliedChangeNumbers);
         }
 
-        return ($fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply);
+        return $fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply;
     }
 
     /**

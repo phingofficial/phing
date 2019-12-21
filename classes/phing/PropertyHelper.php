@@ -174,7 +174,7 @@ class PropertyHelper
         if ($this->project !== null && StringHelper::startsWith('toString:', $name)) {
             $name = StringHelper::substring($name, strlen('toString:'));
             $v    = $this->project->getReference($name);
-            return ($v === null) ? null : (string) $v;
+            return $v === null ? null : (string) $v;
         }
 
         return null;

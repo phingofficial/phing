@@ -68,7 +68,7 @@ class PharMetadataElement extends PharMetadata
          * Elements first!
          */
 
-        return (empty($this->elements) ? $this->value : $this->elements);
+        return empty($this->elements) ? $this->value : $this->elements;
     }
 
     /**
@@ -76,6 +76,6 @@ class PharMetadataElement extends PharMetadata
      */
     public function toArray()
     {
-        return (empty($this->elements) ? $this->value : parent::toArray());
+        return empty($this->elements) ? $this->value : parent::toArray();
     }
 }

@@ -97,7 +97,7 @@ class PharPackageTask extends MatchingTask
      */
     public function createMetadata()
     {
-        return ($this->metadata = new PharMetadata());
+        return $this->metadata = new PharMetadata();
     }
 
     /**

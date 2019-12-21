@@ -213,7 +213,7 @@ abstract class AbstractLiquibaseTask extends Task
      */
     protected function checkParams()
     {
-        if ((null === $this->jar) or !file_exists($this->jar)) {
+        if ((null === $this->jar) || !file_exists($this->jar)) {
             throw new BuildException(
                 sprintf(
                     'Specify the name of the LiquiBase.jar. "%s" does not exist!',

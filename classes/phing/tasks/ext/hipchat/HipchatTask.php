@@ -105,7 +105,7 @@ class HipchatTask extends Task
      */
     public function setFormat($format)
     {
-        $format       = ($format != 'text' && $format != 'html') ? 'text' : $format;
+        $format       = $format != 'text' && $format != 'html' ? 'text' : $format;
         $this->format = $format;
     }
 

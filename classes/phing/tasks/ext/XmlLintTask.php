@@ -89,7 +89,7 @@ class XmlLintTask extends Task
         if (isset($this->schema) && !file_exists($this->schema->getPath())) {
             throw new BuildException("Schema file not found: " . $this->schema->getPath());
         }
-        if (!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) && count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 

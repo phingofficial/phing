@@ -66,7 +66,7 @@ class FileUtils
     public static function getDefaultFileCreationMask($dirmode = false)
     {
         // Preparing the creation mask base permission
-        $permission = ($dirmode === true) ? 0777 : 0666;
+        $permission = $dirmode === true ? 0777 : 0666;
 
         // Default mask information
         $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
@@ -142,7 +142,7 @@ class FileUtils
                 $parent->mkdirs($dirMode);
             }
 
-            if ((is_array($filterChains)) && (!empty($filterChains))) {
+            if (is_array($filterChains) && (!empty($filterChains))) {
                 $in  = self::getChainedReader(new BufferedReader(new FileReader($sourceFile)), $filterChains, $project);
                 $out = new BufferedWriter(new FileWriter($destFile));
 
@@ -424,7 +424,7 @@ class FileUtils
         $createFile = false
     ) {
         $result = null;
-        $parent = ($parentDir === null) ? self::getTempDir() : $parentDir->getPath();
+        $parent = $parentDir === null ? self::getTempDir() : $parentDir->getPath();
 
         if ($createFile) {
             try {

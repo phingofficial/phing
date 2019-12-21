@@ -32,7 +32,7 @@ class WindowsFileSystem extends FileSystem
     {
         $this->slash     = self::getSeparator();
         $this->semicolon = self::getPathSeparator();
-        $this->altSlash  = ($this->slash === '\\') ? '/' : '\\';
+        $this->altSlash  = $this->slash === '\\' ? '/' : '\\';
     }
 
     /**
@@ -247,7 +247,7 @@ class WindowsFileSystem extends FileSystem
         for ($i = 0; $i < $n; $i++) {
             $c = $strPath[$i];
             if ($c === $altSlash) {
-                return $this->normalizer($strPath, $n, ($prev === $slash) ? $i - 1 : $i);
+                return $this->normalizer($strPath, $n, $prev === $slash ? $i - 1 : $i);
             }
             if (($c === $slash) && ($prev === $slash) && ($i > 1)) {
                 return $this->normalizer($strPath, $n, $i - 1);
@@ -282,7 +282,7 @@ class WindowsFileSystem extends FileSystem
             return 0;
         }
         $c0 = $path[0];
-        $c1 = ($n > 1) ? $path[1] :
+        $c1 = $n > 1 ? $path[1] :
             0;
         if ($c0 === $slash) {
             if ($c1 === $slash) {
@@ -387,7 +387,7 @@ class WindowsFileSystem extends FileSystem
         $pl = (int) $f->getPrefixLength();
         $p  = (string) $f->getPath();
 
-        return ((($pl === 2) && ($p[0] === $this->slash)) || ($pl === 3) || ($pl === 1 && $p[0] === $this->slash));
+        return ($pl === 2) && ($p[0] === $this->slash) || ($pl === 3) || ($pl === 1 && $p[0] === $this->slash);
     }
 
     /**
@@ -419,7 +419,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function _isPharArchive($strPath)
     {
-        return (strpos($strPath, 'phar://') === 0);
+        return strpos($strPath, 'phar://') === 0;
     }
 
     /**
@@ -466,7 +466,7 @@ class WindowsFileSystem extends FileSystem
         $path = (string) $path;
         $pl   = $this->prefixLength($path);
 
-        return ($pl === 3) ? substr($path, 0, 2) : null;
+        return $pl === 3 ? substr($path, 0, 2) : null;
     }
 
     /**

@@ -145,9 +145,9 @@ class StatisticsReport
                 $sb .= $this->createTaskStatistics($projectTimer);
                 $sb .= PHP_EOL;
             }
-            print(PHP_EOL);
-            print($this->create("Project Statistics", $projectSeriesMap));
-            print(PHP_EOL . $sb);
+            print PHP_EOL;
+            print $this->create("Project Statistics", $projectSeriesMap);
+            print PHP_EOL . $sb;
         }
     }
 

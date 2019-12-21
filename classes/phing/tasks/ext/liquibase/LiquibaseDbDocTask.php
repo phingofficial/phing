@@ -46,7 +46,7 @@ class LiquibaseDbDocTask extends AbstractLiquibaseTask
     {
         parent::checkParams();
 
-        if ((null === $this->outputDir) or !is_dir($this->outputDir)) {
+        if ((null === $this->outputDir) || !is_dir($this->outputDir)) {
             if (!mkdir($this->outputDir, 0777, true)) {
                 throw new BuildException(
                     sprintf(

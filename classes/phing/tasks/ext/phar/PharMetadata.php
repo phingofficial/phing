@@ -34,7 +34,7 @@ class PharMetadata
      */
     public function createElement()
     {
-        return ($this->elements[] = new PharMetadataElement());
+        return $this->elements[] = new PharMetadataElement();
     }
 
     /**
