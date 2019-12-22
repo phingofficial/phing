@@ -25,7 +25,6 @@
  */
 class VersionCompareCondition implements Condition
 {
-
     /**
      * Actual version
      *

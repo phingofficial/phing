@@ -26,7 +26,6 @@
  */
 class UntarTask extends ExtractBaseTask
 {
-
     /**
      * @var bool
      */

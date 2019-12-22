@@ -34,7 +34,6 @@
  */
 class IntrospectionHelper
 {
-
     /**
      * Holds the attribute setter methods.
      *

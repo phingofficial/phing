@@ -36,7 +36,6 @@
  */
 class ImportTask extends Task
 {
-
     /**
      * @var FileSystem
      */

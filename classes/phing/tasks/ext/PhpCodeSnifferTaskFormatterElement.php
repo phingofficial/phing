@@ -22,7 +22,6 @@
  */
 class PhpCodeSnifferTaskFormatterElement extends DataType
 {
-
     /**
      * Type of output to generate
      *

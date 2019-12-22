@@ -1,4 +1,10 @@
 <?php
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -61,9 +67,9 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    public function startTestSuite(PHPUnit\Framework\TestSuite $suite): void
+    public function startTestSuite(TestSuite $suite): void
     {
         parent::startTestSuite($suite);
 
@@ -71,9 +77,9 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    public function endTestSuite(PHPUnit\Framework\TestSuite $suite): void
+    public function endTestSuite(TestSuite $suite): void
     {
         parent::endTestSuite($suite);
 
@@ -81,9 +87,9 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param Test $test
      */
-    public function startTest(PHPUnit\Framework\Test $test): void
+    public function startTest(Test $test): void
     {
         parent::startTest($test);
 
@@ -91,10 +97,10 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param float                  $time
+     * @param Test  $test
+     * @param float $time
      */
-    public function endTest(PHPUnit\Framework\Test $test, float $time): void
+    public function endTest(Test $test, float $time): void
     {
         parent::endTest($test, $time);
 
@@ -102,11 +108,11 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addError(Test $test, Throwable $e, float $time): void
     {
         parent::addError($test, $e, $time);
 
@@ -114,13 +120,13 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test                 $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param Test                 $test
+     * @param AssertionFailedError $e
+     * @param float                $time
      */
     public function addFailure(
-        PHPUnit\Framework\Test $test,
-        PHPUnit\Framework\AssertionFailedError $e,
+        Test $test,
+        AssertionFailedError $e,
         float $time
     ): void {
         parent::addFailure($test, $e, $time);
@@ -129,11 +135,11 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test                 $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param Test                 $test
+     * @param AssertionFailedError $e
+     * @param float                $time
      */
-    public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
+    public function addWarning(Test $test, Warning $e, float $time): void
     {
         parent::addWarning($test, $e, $time);
 
@@ -141,11 +147,11 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
         parent::addIncompleteTest($test, $e, $time);
 

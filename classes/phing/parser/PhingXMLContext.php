@@ -25,7 +25,6 @@
  */
 class PhingXMLContext
 {
-
     /**
      * Target that will hold all tasks/types placed outside of targets
      *

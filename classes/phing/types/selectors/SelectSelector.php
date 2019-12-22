@@ -45,7 +45,7 @@ class SelectSelector extends AndSelector
      */
     private function getRef()
     {
-        return $this->getCheckedRef(get_class($this), 'SelectSelector');
+        return $this->getCheckedRef(static::class, 'SelectSelector');
     }
 
     /**

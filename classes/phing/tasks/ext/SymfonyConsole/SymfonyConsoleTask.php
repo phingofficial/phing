@@ -26,7 +26,6 @@
  */
 class SymfonyConsoleTask extends Task
 {
-
     /**
      * @var Arg[] a collection of Arg objects
      */

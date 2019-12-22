@@ -69,7 +69,7 @@ class Reference
      *
      * @return Project the associated project
      */
-    public function getProject(): \Project
+    public function getProject(): Project
     {
         return $this->project;
     }
@@ -81,7 +81,7 @@ class Reference
      *
      * @return object
      */
-    public function getReferencedObject(Project $fallback = null)
+    public function getReferencedObject(?Project $fallback = null)
     {
         $project = $fallback ?? $this->project;
 

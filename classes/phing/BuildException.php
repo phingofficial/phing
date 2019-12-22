@@ -25,7 +25,6 @@
  */
 class BuildException extends RuntimeException
 {
-
     /**
      * Location in the xml file.
      *

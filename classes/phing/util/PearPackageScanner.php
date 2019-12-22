@@ -42,7 +42,7 @@ class PearPackageScanner extends DirectoryScanner
         @include_once 'PEAR/PackageFile.php';
 
         if (!class_exists('PEAR_Config')) {
-            throw new BuildException(__CLASS__ . ' requires PEAR to be installed');
+            throw new BuildException(self::class . ' requires PEAR to be installed');
         }
     }
 

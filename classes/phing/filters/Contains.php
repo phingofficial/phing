@@ -24,7 +24,6 @@
  */
 class Contains
 {
-
     /**
      * @var string
      */

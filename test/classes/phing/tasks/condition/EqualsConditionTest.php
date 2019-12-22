@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +27,7 @@
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.tasks.system.condition
  */
-class EqualsConditionTest extends \PHPUnit\Framework\TestCase
+class EqualsConditionTest extends TestCase
 {
     public function testTrim()
     {

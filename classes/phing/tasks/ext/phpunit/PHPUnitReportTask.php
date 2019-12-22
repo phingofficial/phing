@@ -270,7 +270,7 @@ class PHPUnitReportTask extends Task
                         $package = $namespace;
                     }
                 }
-            } catch (\ReflectionException $e) {
+            } catch (ReflectionException $e) {
                 // do nothing
             }
 
@@ -281,7 +281,7 @@ class PHPUnitReportTask extends Task
     /**
      * Initialize the task
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function init()
     {

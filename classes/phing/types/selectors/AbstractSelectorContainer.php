@@ -39,8 +39,8 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      */
     public function getRef(Project $p)
     {
-        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
-        return $this->getCheckedRef(__CLASS__, $dataTypeName);
+        $dataTypeName = StringHelper::substring(self::class, strrpos(self::class, '\\') + 1);
+        return $this->getCheckedRef(self::class, $dataTypeName);
     }
 
     /**
@@ -88,8 +88,8 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     public function validate()
     {
         if ($this->isReference()) {
-            $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
-            $this->getCheckedRef(__CLASS__, $dataTypeName)->validate();
+            $dataTypeName = StringHelper::substring(self::class, strrpos(self::class, '\\') + 1);
+            $this->getCheckedRef(self::class, $dataTypeName)->validate();
         }
         $selectorElements = $this->selectorElements();
         $this->dieOnCircularReference($selectorElements, $this->getProject());
@@ -175,7 +175,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
         $this->selectorsList[] = $selector;
     }
 
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked) {
             return;

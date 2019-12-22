@@ -1,4 +1,8 @@
 <?php
+
+use SebastianBergmann\PHPLOC\Log\Csv;
+use SebastianBergmann\PHPLOC\Log\CSV\Single;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,10 +29,10 @@ class PHPLocCSVFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single')) {
-            $printer = new SebastianBergmann\PHPLOC\Log\CSV\Single();
-        } elseif (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Csv')) {
-            $printer = new \SebastianBergmann\PHPLOC\Log\Csv();
+        if (class_exists(Single::class)) {
+            $printer = new Single();
+        } elseif (class_exists(Csv::class)) {
+            $printer = new Csv();
         } else {
             throw new BuildException('Not supported PHPLOC version used.');
         }

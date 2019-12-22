@@ -148,7 +148,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @throws BuildException
      */
-    public function getDir(Project $p = null)
+    public function getDir(?Project $p = null)
     {
         if ($p === null) {
             $p = $this->getProject();
@@ -332,11 +332,11 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @param Project $p
      *
-     * @return \DirectoryScanner
+     * @return DirectoryScanner
      *
      * @throws BuildException
      */
-    public function getDirectoryScanner(Project $p = null)
+    public function getDirectoryScanner(?Project $p = null)
     {
         if ($p === null) {
             $p = $this->getProject();
@@ -376,7 +376,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @throws BuildException
      */
-    protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
+    protected function setupDirectoryScanner(DirectoryScanner $ds, ?Project $p = null)
     {
         if ($p === null) {
             $p = $this->getProject();
@@ -420,7 +420,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setCaseSensitive($this->isCaseSensitive);
     }
 
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked) {
             return;
@@ -452,7 +452,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function getRef(Project $p)
     {
-        return $this->getCheckedRef(__CLASS__, $this->getDataTypeName());
+        return $this->getCheckedRef(self::class, $this->getDataTypeName());
     }
 
     // SelectorContainer methods
@@ -582,7 +582,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @return ArrayIterator
      */
-    public function getIterator(...$options): \ArrayIterator
+    public function getIterator(...$options): ArrayIterator
     {
         if ($this->isReference()) {
             return $this->getRef($this->getProject())->getIterator($options);

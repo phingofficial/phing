@@ -31,7 +31,6 @@
  */
 class XsltFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Path to XSL stylesheet.
      *

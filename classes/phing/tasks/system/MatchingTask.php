@@ -34,7 +34,6 @@
  */
 abstract class MatchingTask extends Task implements SelectorContainer
 {
-
     /**
      * @var bool
      */

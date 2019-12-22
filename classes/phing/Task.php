@@ -30,7 +30,6 @@
  */
 abstract class Task extends ProjectComponent
 {
-
     /**
      * Owning Target object
      *
@@ -100,7 +99,7 @@ abstract class Task extends ProjectComponent
             // therefore know the XML tag name for this task, so we'll just
             // use the class name stripped of "task" suffix.  This is only
             // for log messages, so we don't have to worry much about accuracy.
-            return preg_replace('/task$/i', '', get_class($this));
+            return preg_replace('/task$/i', '', static::class);
         }
 
         return $this->taskName;
@@ -142,7 +141,7 @@ abstract class Task extends ProjectComponent
      *
      * @param string $slotName
      *
-     * @return \RegisterSlot
+     * @return RegisterSlot
      */
     protected function getRegisterSlot($slotName)
     {
@@ -159,7 +158,7 @@ abstract class Task extends ProjectComponent
      * @param int            $level The priority of the message
      * @param Exception|null $t
      */
-    public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
+    public function log($msg, $level = Project::MSG_INFO, ?Exception $t = null)
     {
         if ($this->getProject() !== null) {
             $this->getProject()->logObject($this, $msg, $level, $t);
@@ -242,19 +241,19 @@ abstract class Task extends ProjectComponent
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
             DispatchUtils::main($this);
-        } catch (\BuildException $ex) {
+        } catch (BuildException $ex) {
             $loc = $ex->getLocation();
             if ($loc === null || (string) $loc === '') {
                 $ex->setLocation($this->getLocation());
             }
             $reason = $ex;
             throw $ex;
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             $reason = $ex;
-            $be     = new \BuildException($ex);
+            $be     = new BuildException($ex);
             $be->setLocation($this->getLocation());
             throw $be;
-        } catch (\Error $ex) {
+        } catch (Error $ex) {
             $reason = $ex;
             throw $ex;
         } finally {

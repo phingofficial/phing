@@ -1,4 +1,8 @@
 <?php
+
+use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +26,7 @@
  * @package phing.system.io
  * @requires OS ^(?:(?!Win).)*$
  */
-class IniFileParserTest extends \PHPUnit\Framework\TestCase
+class IniFileParserTest extends TestCase
 {
     private $parser;
     private $root;
@@ -30,7 +34,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     protected function setUp(): void
     {
         $this->parser = new IniFileParser();
-        $this->root   = \org\bovigo\vfs\vfsStream::setUp();
+        $this->root   = vfsStream::setUp();
     }
 
     /**

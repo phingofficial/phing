@@ -24,7 +24,6 @@
  */
 class PatternSetNameEntry
 {
-
     /**
      * The pattern.
      *

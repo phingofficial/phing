@@ -56,7 +56,6 @@
  */
 class Register
 {
-
     /**
      * Slots that have been registered
      */

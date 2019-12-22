@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\MockObject\MockObject;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -96,7 +99,7 @@ class WikiPublishTaskTest extends BuildFileTest
     /**
      * Creates WikiPublishTask mock
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|WikiPublishTask
+     * @return MockObject|WikiPublishTask
      */
     private function getWikiPublishMock()
     {

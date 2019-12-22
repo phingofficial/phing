@@ -1,4 +1,9 @@
 <?php
+
+use SebastianBergmann\PHPCPD\Log\Text;
+use SebastianBergmann\PHPCPD\TextUI\ResultPrinter;
+use Symfony\Component\Console\Output\StreamOutput;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,7 +47,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
                 return;
             }
 
-            $logger = new \SebastianBergmann\PHPCPD\TextUI\ResultPrinter();
+            $logger = new ResultPrinter();
         } else {
             $logger = new PHPCPD_TextUI_ResultPrinter();
         }
@@ -75,8 +80,8 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
             $resource = fopen('php://output', 'w');
         }
 
-        $output = new \Symfony\Component\Console\Output\StreamOutput($resource);
-        $logger = new \SebastianBergmann\PHPCPD\Log\Text();
+        $output = new StreamOutput($resource);
+        $logger = new Text();
         $logger->printResult($output, $clones);
     }
 }

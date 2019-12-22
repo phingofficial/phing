@@ -17,8 +17,8 @@
  * <http://phing.info>.
  */
 
-use PHPUnit\Framework\TestCase;
 use OsCondition as Os;
+use PHPUnit\Framework\TestCase;
 
 class PosixPermissionsSelectorTest extends TestCase
 {

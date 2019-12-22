@@ -1,4 +1,8 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Yaml\Parser;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +27,7 @@
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class YamlFileParserTest extends \PHPUnit\Framework\TestCase
+class YamlFileParserTest extends TestCase
 {
     /**
      * @var FileParserInterface
@@ -45,7 +49,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function setUp(): void
     {
-        if (!class_exists('\Symfony\Component\Yaml\Parser')) {
+        if (!class_exists(Parser::class)) {
             $this->markTestSkipped('Yaml parser is not installed.');
             exit;
         }

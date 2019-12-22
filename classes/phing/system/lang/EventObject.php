@@ -22,7 +22,6 @@
  */
 class EventObject
 {
-
     /**
      * The object on which the Event initially occurred.
      */
@@ -57,13 +56,13 @@ class EventObject
     public function __toString()
     {
         if (method_exists($this->getSource(), 'toString')) {
-            return get_class($this) . '[source=' . $this->getSource()->toString() . ']';
+            return static::class . '[source=' . $this->getSource()->toString() . ']';
         }
 
         if (method_exists($this->getSource(), '__toString')) {
-            return get_class($this) . '[source=' . $this->getSource() . ']';
+            return static::class . '[source=' . $this->getSource() . ']';
         }
 
-        return get_class($this) . '[source=' . get_class($this->getSource()) . ']';
+        return static::class . '[source=' . get_class($this->getSource()) . ']';
     }
 }

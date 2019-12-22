@@ -361,7 +361,7 @@ class AppendTask extends Task
      *
      * @return void
      */
-    private function appendFiles(Writer $writer, $files, PhingFile $dir = null)
+    private function appendFiles(Writer $writer, $files, ?PhingFile $dir = null)
     {
         if (!empty($files)) {
             $this->log(

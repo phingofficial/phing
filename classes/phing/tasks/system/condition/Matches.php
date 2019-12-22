@@ -71,7 +71,7 @@ class Matches extends ProjectComponent implements Condition
     /**
      * @param string $pattern
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function setPattern($pattern)
     {

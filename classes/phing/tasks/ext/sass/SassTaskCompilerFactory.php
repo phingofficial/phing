@@ -19,9 +19,10 @@
 
 declare(strict_types=1);
 
+use ScssPhp\ScssPhp\Compiler;
+
 class SassTaskCompilerFactory
 {
-
     /**
      * @var FileSystem
      */
@@ -92,6 +93,6 @@ class SassTaskCompilerFactory
 
     private function isScssPhpLoaded(): bool
     {
-        return class_exists('\ScssPhp\ScssPhp\Compiler');
+        return class_exists(Compiler::class);
     }
 }

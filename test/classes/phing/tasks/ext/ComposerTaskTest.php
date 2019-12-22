@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +26,7 @@
  * @author  Nuno Costa <nuno@francodacosta.com>
  * @package phing.tasks.ext
  */
-class ComposerTaskTest extends \PHPUnit\Framework\TestCase
+class ComposerTaskTest extends TestCase
 {
     /**
      * @var ComposerTask

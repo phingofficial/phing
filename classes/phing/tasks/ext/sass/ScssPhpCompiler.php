@@ -23,7 +23,6 @@ use ScssPhp\ScssPhp\Compiler;
 
 class ScssPhpCompiler implements SassTaskCompiler
 {
-
     /**
      * @var Compiler
      */

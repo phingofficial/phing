@@ -27,7 +27,6 @@
  */
 class SocketCondition implements Condition
 {
-
     /**
      * @var string
      */

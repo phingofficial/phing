@@ -35,8 +35,8 @@ class TruncateTask extends Task
      *
      * @param PhingFile|string $f the single File
      *
-     * @throws \IOException
-     * @throws \NullPointerException
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setFile($f)
     {
@@ -63,7 +63,7 @@ class TruncateTask extends Task
      *
      * @param int $length (positive) adjustment amount.
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function setLength($length)
     {
@@ -97,7 +97,7 @@ class TruncateTask extends Task
     /**
      * {@inheritDoc}.
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -123,7 +123,7 @@ class TruncateTask extends Task
      *
      * @return bool
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     private function shouldProcess(PhingFile $f)
     {

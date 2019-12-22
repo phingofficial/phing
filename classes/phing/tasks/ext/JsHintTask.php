@@ -246,7 +246,7 @@ class JsHintTask extends Task
     /**
      * @return string Path to the project basedir
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     private function _getProjectBasedir()
     {
@@ -256,7 +256,7 @@ class JsHintTask extends Task
     /**
      * Checks, wheter the JSHint can be executed
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     private function _checkJsHintIsInstalled()
     {

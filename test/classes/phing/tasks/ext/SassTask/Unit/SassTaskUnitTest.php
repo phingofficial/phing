@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class SassTaskUnitTest extends TestCase
 {
-
     /** @var SassTask */
     private $object;
 

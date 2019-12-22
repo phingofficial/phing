@@ -98,7 +98,7 @@ class PhpEvalTask extends Task
                 $value = $p->getParams();
                 array_walk_recursive(
                     $value,
-                    function (&$item) {
+                    static function (&$item) {
                         if ($item instanceof Parameter) {
                             $item = $item->getValue();
                         }

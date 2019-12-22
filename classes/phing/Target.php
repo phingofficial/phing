@@ -29,7 +29,6 @@
  */
 class Target implements TaskContainer
 {
-
     /**
      * Name of target
      *

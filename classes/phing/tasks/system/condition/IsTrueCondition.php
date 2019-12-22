@@ -26,7 +26,6 @@
  */
 class IsTrueCondition extends ProjectComponent implements Condition
 {
-
     /**
      * what we eval
      */

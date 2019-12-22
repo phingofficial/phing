@@ -29,7 +29,6 @@
  */
 class PEARPackageFileManagerFileset
 {
-
     /**
      * Current Phing Project.
      *

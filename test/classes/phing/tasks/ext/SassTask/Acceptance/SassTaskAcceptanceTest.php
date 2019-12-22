@@ -1,4 +1,7 @@
 <?php
+
+use ScssPhp\ScssPhp\Compiler;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -76,7 +79,7 @@ class SassTaskAcceptanceTest extends BuildFileTest
 
     public function testItCompilesWithScssPhp(): void
     {
-        if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
+        if (!class_exists(Compiler::class)) {
             $this->markTestSkipped('ScssPhp not found');
         }
         $this->executeTarget('testItCompilesWithScssPhp');

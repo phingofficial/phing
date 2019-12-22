@@ -88,7 +88,7 @@ abstract class HttpTask extends Task
 
         if (!class_exists('HTTP_Request2')) {
             throw new BuildException(
-                get_class($this) . ' depends on HTTP_Request2 being installed '
+                static::class . ' depends on HTTP_Request2 being installed '
                 . 'and on include_path.',
                 $this->getLocation()
             );

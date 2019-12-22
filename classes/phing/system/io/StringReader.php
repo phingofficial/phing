@@ -24,7 +24,6 @@
  */
 class StringReader extends InputStreamReader
 {
-
     /**
      * @var string
      */

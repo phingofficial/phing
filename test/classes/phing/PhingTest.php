@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +29,7 @@
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @package phing
  */
-class PhingTest extends \PHPUnit\Framework\TestCase
+class PhingTest extends TestCase
 {
     private const NAMESPACED_CLASS      = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
     private const SEPARATED_CLASS       = 'Vendor_Package_SeparatedClass';

@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +26,8 @@
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.io
  */
-class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
+class UnixFileSystemTest extends TestCase
 {
-
     /**
      * @var FileSystem
      */
