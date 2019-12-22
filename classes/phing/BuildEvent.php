@@ -37,7 +37,6 @@
  */
 class BuildEvent extends EventObject
 {
-
     /**
      * A reference to the project
      *

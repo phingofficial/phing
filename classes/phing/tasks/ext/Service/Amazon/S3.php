@@ -1,4 +1,7 @@
 <?php
+
+use Aws\S3\S3Client;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,22 +36,22 @@ abstract class S3 extends Amazon
      *
      * (default value: null)
      *
-     * @var Aws\S3\S3Client
+     * @var S3Client
      */
     protected $client = null;
 
     /**
      * We only instantiate the client once per task call
      *
-     * @return Aws\S3\S3Client
+     * @return S3Client
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function getClient()
     {
         if ($this->client === null) {
             try {
-                $s3Client = new Aws\S3\S3Client(
+                $s3Client = new S3Client(
                     [
                         'key' => $this->getKey(),
                         'secret' => $this->getSecret(),
@@ -99,7 +102,7 @@ abstract class S3 extends Amazon
      *
      * @return Aws\Result
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function getObjectInstance($object)
     {
@@ -121,7 +124,7 @@ abstract class S3 extends Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Bucket
      *
-     * @return \Aws\S3\S3Client
+     * @return S3Client
      */
     public function getClientInstance()
     {
@@ -133,7 +136,7 @@ abstract class S3 extends Amazon
      *
      * @return bool
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function isBucketAvailable()
     {
@@ -145,7 +148,7 @@ abstract class S3 extends Amazon
      *
      * @return bool
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function createBucket()
     {

@@ -31,7 +31,6 @@
  */
 class VersionTask extends Task
 {
-
     /**
      * The name of the property in which the build number is stored.
      */

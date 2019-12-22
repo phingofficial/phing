@@ -40,7 +40,6 @@
  */
 class FileList extends DataType implements IteratorAggregate
 {
-
     // public for "cloning" purposes
 
     /**
@@ -238,7 +237,7 @@ class FileList extends DataType implements IteratorAggregate
      */
     public function getRef(Project $p)
     {
-        return $this->getCheckedRef(__CLASS__, $this->getDataTypeName());
+        return $this->getCheckedRef(self::class, $this->getDataTypeName());
     }
 
     /**

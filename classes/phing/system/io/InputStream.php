@@ -24,7 +24,6 @@
  */
 class InputStream
 {
-
     /**
      * @var resource The attached PHP stream.
      */
@@ -117,7 +116,7 @@ class InputStream
     public function mark()
     {
         if (!$this->markSupported()) {
-            throw new IOException(get_class($this) . ' does not support mark() and reset() methods.');
+            throw new IOException(static::class . ' does not support mark() and reset() methods.');
         }
         $this->mark = $this->currentPosition;
     }
@@ -140,7 +139,7 @@ class InputStream
     public function reset()
     {
         if (!$this->markSupported()) {
-            throw new IOException(get_class($this) . ' does not support mark() and reset() methods.');
+            throw new IOException(static::class . ' does not support mark() and reset() methods.');
         }
         // goes back to last mark, by default this would be 0 (i.e. rewind file).
         fseek($this->stream, SEEK_SET, $this->mark);

@@ -129,7 +129,7 @@ class StatisticsReport
         $this->stack->push($projectTimer);
     }
 
-    public function write(ProjectTimer $projectTimer = null)
+    public function write(?ProjectTimer $projectTimer = null)
     {
         if ($projectTimer !== null) {
             $this->create('Target Statistics', $projectTimer->toTargetSeriesMap());

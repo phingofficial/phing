@@ -29,7 +29,6 @@
  */
 class LiquibaseTask extends AbstractLiquibaseTask
 {
-
     /**
      * What liquibase command you wish to run.
      */

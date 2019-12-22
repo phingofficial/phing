@@ -27,7 +27,6 @@
  */
 class TaskAdapter extends Task
 {
-
     /**
      * target object
      */

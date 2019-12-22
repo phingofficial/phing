@@ -131,9 +131,9 @@ class VisualizerTask extends HttpTask
     /**
      * The main entry point method.
      *
-     * @throws \HTTP_Request2_Exception
-     * @throws \IOException
-     * @throws \NullPointerException
+     * @throws HTTP_Request2_Exception
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function main(): void
     {
@@ -152,7 +152,7 @@ class VisualizerTask extends HttpTask
     protected function generatePumlDiagram(): string
     {
         /**
-         * @var \PhingXMLContext $xmlContext
+         * @var PhingXMLContext $xmlContext
          */
         $xmlContext  = $this->getProject()
             ->getReference('phing.parsing.context');
@@ -163,7 +163,7 @@ class VisualizerTask extends HttpTask
     /**
      * Read through provided buildfiles and generates a PlantUML diagram
      *
-     * @param \PhingFile[] $buildFiles
+     * @param PhingFile[] $buildFiles
      *
      * @return string
      */
@@ -172,7 +172,7 @@ class VisualizerTask extends HttpTask
         $puml = $this->transformToPuml(reset($buildFiles), self::XSL_HEADER);
 
         /**
-         * @var \PhingFile $buildFile
+         * @var PhingFile $buildFile
          */
         foreach ($buildFiles as $buildFile) {
             $puml .= $this->transformToPuml($buildFile, self::XSL_TARGETS);
@@ -190,8 +190,8 @@ class VisualizerTask extends HttpTask
     /**
      * Transforms buildfile using provided xsl file
      *
-     * @param \PhingFile $buildfile Path to buildfile
-     * @param string     $xslFile   XSLT file
+     * @param PhingFile $buildfile Path to buildfile
+     * @param string    $xslFile   XSLT file
      *
      * @return string
      */
@@ -211,7 +211,7 @@ class VisualizerTask extends HttpTask
      *
      * @param string $xmlFile XML or XSLT file
      *
-     * @return \SimpleXMLElement
+     * @return SimpleXMLElement
      */
     protected function loadXmlFile(string $xmlFile): SimpleXMLElement
     {
@@ -230,10 +230,10 @@ class VisualizerTask extends HttpTask
     /**
      * Get the image's final location
      *
-     * @return \PhingFile
+     * @return PhingFile
      *
-     * @throws \IOException
-     * @throws \NullPointerException
+     * @throws IOException
+     * @throws NullPointerException
      */
     protected function resolveImageDestination(): PhingFile
     {
@@ -340,7 +340,7 @@ class VisualizerTask extends HttpTask
      *
      * @return string
      *
-     * @throws \HTTP_Request2_Exception
+     * @throws HTTP_Request2_Exception
      */
     protected function generateImage(string $pumlDiagram, string $format): string
     {
@@ -429,8 +429,8 @@ class VisualizerTask extends HttpTask
     /**
      * Save provided $content string into $destination file
      *
-     * @param string     $content     Content to save
-     * @param \PhingFile $destination Location where $content is saved
+     * @param string    $content     Content to save
+     * @param PhingFile $destination Location where $content is saved
      *
      * @return void
      */

@@ -25,7 +25,6 @@
  */
 class ConfigurationException extends Exception
 {
-
     /**
      * Location in the xml file.
      *

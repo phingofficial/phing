@@ -1,4 +1,20 @@
 <?php
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
+use PHPUnit\Runner\Filter\ExcludeGroupFilterIterator;
+use PHPUnit\Runner\Filter\Factory;
+use PHPUnit\Runner\Filter\IncludeGroupFilterIterator;
+use PHPUnit\Runner\TestHook;
+use PHPUnit\Util\ErrorHandler;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +39,7 @@
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
  */
-class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework\TestListener
+class PHPUnitTestRunner8 implements TestHook, TestListener
 {
     private $hasErrors             = false;
     private $hasFailures           = false;
@@ -44,12 +60,12 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     private $formatters = [];
 
     /**
-     * @var \PHPUnit\Framework\TestListener[]
+     * @var TestListener[]
      */
     private $listeners = [];
 
     /**
-     * @var \SebastianBergmann\CodeCoverage\CodeCoverage|null
+     * @var CodeCoverage|null
      */
     private $codecoverage;
 
@@ -84,7 +100,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param \SebastianBergmann\CodeCoverage\CodeCoverage $codecoverage
+     * @param CodeCoverage $codecoverage
      */
     public function setCodecoverage($codecoverage): void
     {
@@ -109,7 +125,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param \PHPUnit\Framework\TestListener $listener
+     * @param TestListener $listener
      */
     public function addListener($listener): void
     {
@@ -126,21 +142,21 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function handleError($level, $message, $file, $line): bool
     {
-        $invoke = new PHPUnit\Util\ErrorHandler(true, true, true, true);
+        $invoke = new ErrorHandler(true, true, true, true);
         return $invoke($level, $message, $file, $line);
     }
 
     /**
      * Run a test
      *
-     * @param \PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      *
-     * @throws \BuildException
+     * @throws BuildException
      * @throws ReflectionException
      */
-    public function run(\PHPUnit\Framework\TestSuite $suite)
+    public function run(TestSuite $suite)
     {
-        $res = new PHPUnit\Framework\TestResult();
+        $res = new TestResult();
 
         if ($this->codecoverage) {
             $whitelist = CoverageMerger::getWhiteList($this->project);
@@ -185,13 +201,13 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      *
      * @throws ReflectionException
      */
-    private function injectFilters(PHPUnit\Framework\TestSuite $suite): void
+    private function injectFilters(TestSuite $suite): void
     {
-        $filterFactory = new PHPUnit\Runner\Filter\Factory();
+        $filterFactory = new Factory();
 
         if (empty($this->excludeGroups) && empty($this->groups)) {
             return;
@@ -199,14 +215,14 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
 
         if (!empty($this->excludeGroups)) {
             $filterFactory->addFilter(
-                new ReflectionClass(\PHPUnit\Runner\Filter\ExcludeGroupFilterIterator::class),
+                new ReflectionClass(ExcludeGroupFilterIterator::class),
                 $this->excludeGroups
             );
         }
 
         if (!empty($this->groups)) {
             $filterFactory->addFilter(
-                new ReflectionClass(\PHPUnit\Runner\Filter\IncludeGroupFilterIterator::class),
+                new ReflectionClass(IncludeGroupFilterIterator::class),
                 $this->groups
             );
         }
@@ -215,9 +231,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     }
 
     /**
-     * @param \PHPUnit\Framework\TestResult $res
+     * @param TestResult $res
      */
-    private function checkResult(\PHPUnit\Framework\TestResult $res): void
+    private function checkResult(TestResult $res): void
     {
         if ($res->skippedCount() > 0) {
             $this->hasSkipped = true;
@@ -343,28 +359,28 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * An error occurred.
      *
-     * @param PHPUnit\Framework\Test $test
-     * @param Throwable              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addError(Test $test, Throwable $e, float $time): void
     {
         $this->lastErrorMessage = $this->composeMessage('ERROR', $test, $e);
     }
 
     /**
-     * @param string                 $message
-     * @param PHPUnit\Framework\Test $test
-     * @param Throwable              $e
+     * @param string    $message
+     * @param Test      $test
+     * @param Throwable $e
      *
      * @return string
      */
-    protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
+    protected function composeMessage($message, Test $test, Throwable $e)
     {
-        $name    = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
+        $name    = ($test instanceof TestCase ? $test->getName() : '');
         $message = 'Test ' . $message . ' (' . $name . ' in class ' . get_class($test) . '): ' . $e->getMessage();
 
-        if ($e instanceof PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
+        if ($e instanceof ExpectationFailedException && $e->getComparisonFailure()) {
             $message .= "\n" . $e->getComparisonFailure()->getDiff();
         }
 
@@ -374,13 +390,13 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * A failure occurred.
      *
-     * @param PHPUnit\Framework\Test                 $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param Test                 $test
+     * @param AssertionFailedError $e
+     * @param float                $time
      */
     public function addFailure(
-        PHPUnit\Framework\Test $test,
-        PHPUnit\Framework\AssertionFailedError $e,
+        Test $test,
+        AssertionFailedError $e,
         float $time
     ): void {
         $this->lastFailureMessage = $this->composeMessage('FAILURE', $test, $e);
@@ -389,11 +405,11 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * A failure occurred.
      *
-     * @param PHPUnit\Framework\Test                 $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param Test                 $test
+     * @param AssertionFailedError $e
+     * @param float                $time
      */
-    public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
+    public function addWarning(Test $test, Warning $e, float $time): void
     {
         $this->lastWarningMessage = $this->composeMessage('WARNING', $test, $e);
     }
@@ -401,11 +417,11 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * Incomplete test.
      *
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
         $this->lastIncompleteMessage = $this->composeMessage('INCOMPLETE', $test, $e);
     }
@@ -413,13 +429,13 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * Skipped test.
      *
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      *
      * @since Method available since Release 3.0.0
      */
-    public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addSkippedTest(Test $test, Throwable $e, float $time): void
     {
         $this->lastSkippedMessage = $this->composeMessage('SKIPPED', $test, $e);
     }
@@ -427,11 +443,11 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * Risky test
      *
-     * @param PHPUnit\Framework\Test $test
-     * @param Throwable              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addRiskyTest(Test $test, Throwable $e, float $time): void
     {
         $this->lastRiskyMessage = $this->composeMessage('RISKY', $test, $e);
     }
@@ -457,50 +473,50 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * A test failed.
      *
-     * @param int                                    $status
-     * @param PHPUnit\Framework\Test                 $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
+     * @param int                  $status
+     * @param Test                 $test
+     * @param AssertionFailedError $e
      */
-    public function testFailed($status, PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e): void
+    public function testFailed($status, Test $test, AssertionFailedError $e): void
     {
     }
 
     /**
      * A test suite started.
      *
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    public function startTestSuite(PHPUnit\Framework\TestSuite $suite): void
+    public function startTestSuite(TestSuite $suite): void
     {
     }
 
     /**
      * A test suite ended.
      *
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    public function endTestSuite(PHPUnit\Framework\TestSuite $suite): void
+    public function endTestSuite(TestSuite $suite): void
     {
     }
 
     /**
      * A test started.
      *
-     * @param PHPUnit\Framework\Test $test
+     * @param Test $test
      */
-    public function startTest(PHPUnit\Framework\Test $test): void
+    public function startTest(Test $test): void
     {
     }
 
     /**
      * A test ended.
      *
-     * @param PHPUnit\Framework\Test $test
-     * @param float                  $time
+     * @param Test  $test
+     * @param float $time
      */
-    public function endTest(PHPUnit\Framework\Test $test, float $time): void
+    public function endTest(Test $test, float $time): void
     {
-        if (($test instanceof PHPUnit\Framework\TestCase) && !$test->hasExpectationOnOutput()) {
+        if (($test instanceof TestCase) && !$test->hasExpectationOnOutput()) {
             echo $test->getActualOutput();
         }
     }

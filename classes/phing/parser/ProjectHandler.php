@@ -27,7 +27,6 @@
  */
 class ProjectHandler extends AbstractHandler
 {
-
     /**
      * The phing project configurator object.
      *

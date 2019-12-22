@@ -24,7 +24,6 @@
  */
 class RegisterSlot
 {
-
     /**
      * The name of this slot.
      */

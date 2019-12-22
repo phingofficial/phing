@@ -1,4 +1,9 @@
 <?php
+
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Runner\Version;
+use SebastianBergmann\CodeCoverage\Report\Clover;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +31,7 @@
 class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     /**
-     * @var PHPUnit\Framework\TestResult
+     * @var TestResult
      */
     private $result = null;
 
@@ -44,7 +49,7 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         parent::__construct($parentTask);
 
-        $this->version = PHPUnit\Runner\Version::id();
+        $this->version = Version::id();
     }
 
     /**
@@ -64,9 +69,9 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\TestResult $result
+     * @param TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(TestResult $result)
     {
         $this->result = $result;
     }
@@ -76,7 +81,7 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         $coverage = $this->result->getCodeCoverage();
 
         if (!empty($coverage)) {
-            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
+            $cloverClass = Clover::class;
             $clover      = new $cloverClass();
 
             $contents = $clover->process($coverage);

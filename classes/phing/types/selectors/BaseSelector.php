@@ -47,7 +47,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * @param string    $msg   The error message any BuildException should throw.
      * @param Exception $cause
      */
-    public function setError($msg, Exception $cause = null)
+    public function setError($msg, ?Exception $cause = null)
     {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
@@ -72,12 +72,12 @@ abstract class BaseSelector extends DataType implements FileSelector
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function verifySettings()
     {
         if ($this->isReference()) {
-            $this->getCheckedRef(__CLASS__, StringHelper::unqualify(__CLASS__))->verifySettings();
+            $this->getCheckedRef(self::class, StringHelper::unqualify(self::class))->verifySettings();
         }
     }
 

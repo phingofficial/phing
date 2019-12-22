@@ -29,7 +29,6 @@
  */
 class SequentialTask extends Task implements TaskContainer
 {
-
     /**
      * Optional Vector holding the nested tasks
      */

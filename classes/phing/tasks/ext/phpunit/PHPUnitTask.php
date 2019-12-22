@@ -1,4 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Runner\Version;
+use PHPUnit\Util\Configuration;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Filter;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -52,7 +60,7 @@ class PHPUnitTask extends Task
     private $usecustomerrorhandler = true;
 
     /**
-     * @var \PHPUnit\Framework\TestListener[]
+     * @var TestListener[]
      */
     private $listeners = [];
 
@@ -94,7 +102,7 @@ class PHPUnitTask extends Task
         }
 
         @include_once 'PHPUnit/Autoload.php';
-        if (!class_exists('PHPUnit\Runner\Version')) {
+        if (!class_exists(Version::class)) {
             throw new BuildException('PHPUnitTask requires PHPUnit to be installed', $this->getLocation());
         }
     }
@@ -272,7 +280,7 @@ class PHPUnitTask extends Task
     /**
      * Add a new listener to all tests of this taks
      *
-     * @param \PHPUnit\Framework\TestListener $listener
+     * @param TestListener $listener
      */
     private function addListener($listener)
     {
@@ -311,7 +319,7 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        $config = \PHPUnit\Util\Configuration::getInstance($configuration->getAbsolutePath());
+        $config = Configuration::getInstance($configuration->getAbsolutePath());
 
         if (empty($config)) {
             return [];
@@ -369,7 +377,7 @@ class PHPUnitTask extends Task
                     );
                 }
 
-                if ($listener instanceof \PHPUnit\Framework\TestListener) {
+                if ($listener instanceof TestListener) {
                     $this->addListener($listener);
                 }
             }
@@ -401,7 +409,7 @@ class PHPUnitTask extends Task
         }
 
         $this->loadPHPUnit();
-        $suite        = new \PHPUnit\Framework\TestSuite('AllTests');
+        $suite        = new TestSuite('AllTests');
         $autoloadSave = spl_autoload_functions();
 
         if ($this->bootstrap) {
@@ -453,7 +461,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param \PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      *
      * @throws BuildException
      * @throws ReflectionException
@@ -461,8 +469,8 @@ class PHPUnitTask extends Task
     protected function execute($suite)
     {
         if (
-            class_exists('\PHPUnit\Runner\Version', false) &&
-            version_compare(\PHPUnit\Runner\Version::id(), '8.0.0', '<')
+            class_exists(Version::class, false) &&
+            version_compare(Version::id(), '8.0.0', '<')
         ) {
             $runner = new PHPUnitTestRunner7(
                 $this->project,
@@ -486,13 +494,13 @@ class PHPUnitTask extends Task
             $pwd  = __DIR__;
             $path = realpath($pwd . '/../../../');
 
-            if (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
-                $filter = new \SebastianBergmann\CodeCoverage\Filter();
+            if (class_exists(Filter::class)) {
+                $filter = new Filter();
                 if (method_exists($filter, 'addDirectoryToBlacklist')) {
                     $filter->addDirectoryToBlacklist($path);
                 }
-                if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
-                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(null, $filter);
+                if (class_exists(CodeCoverage::class)) {
+                    $codeCoverage = new CodeCoverage(null, $filter);
                     $runner->setCodecoverage($codeCoverage);
                 }
             }
@@ -580,8 +588,8 @@ class PHPUnitTask extends Task
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest                   $batchTest
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param BatchTest $batchTest
+     * @param TestSuite $suite
      *
      * @throws BuildException
      * @throws ReflectionException
@@ -590,7 +598,7 @@ class PHPUnitTask extends Task
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
-            if (!($testClass instanceof PHPUnit\Framework\TestSuite)) {
+            if (!($testClass instanceof TestSuite)) {
                 $testClass = new ReflectionClass($element);
             }
             try {

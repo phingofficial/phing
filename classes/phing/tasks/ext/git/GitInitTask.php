@@ -28,7 +28,6 @@
  */
 class GitInitTask extends GitBaseTask
 {
-
     /**
      * Whether --bare key should be set for git-init
      *

@@ -25,7 +25,6 @@
  */
 class ConditionEnumeration implements Iterator
 {
-
     /**
      * Current element number
      */

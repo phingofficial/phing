@@ -1,4 +1,7 @@
 <?php
+
+use SebastianBergmann\PHPCPD\Log\PMD;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,7 +47,7 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
         if (get_class($clones) == 'PHPCPD_CloneMap') {
             $logger = new PHPCPD_Log_XML_PMD($outFile);
         } else {
-            $logger = new \SebastianBergmann\PHPCPD\Log\PMD($outFile);
+            $logger = new PMD($outFile);
         }
 
         $logger->processClones($clones);

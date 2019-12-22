@@ -65,7 +65,7 @@ class OsCondition implements Condition
      *
      * @return bool
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public static function isOS($family)
     {

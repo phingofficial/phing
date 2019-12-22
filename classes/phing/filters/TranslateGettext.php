@@ -39,7 +39,6 @@
  */
 class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 {
-
     // constants for specifying keys to expect
     // when this is called using <filterreader ... />
     public const DOMAIN_KEY = 'domain';

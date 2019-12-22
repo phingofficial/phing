@@ -33,7 +33,6 @@
  */
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 {
-
     /**
      * @var array RegularExpression[]
      */

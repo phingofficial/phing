@@ -29,7 +29,6 @@
  */
 class TargetHandler extends AbstractHandler
 {
-
     /**
      * Reference to the target object that represents the currently parsed
      * target.

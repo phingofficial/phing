@@ -65,8 +65,8 @@ class ProjectConfigurator
      * @param Project   $project   the Project instance this configurator should use
      * @param PhingFile $buildFile the buildfile object the parser should use
      *
-     * @throws \IOException
-     * @throws \BuildException
+     * @throws IOException
+     * @throws BuildException
      * @throws NullPointerException
      */
     public static function configureProject(Project $project, PhingFile $buildFile): void

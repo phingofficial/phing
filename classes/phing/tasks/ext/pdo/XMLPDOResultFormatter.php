@@ -42,7 +42,6 @@
  */
 class XMLPDOResultFormatter extends PDOResultFormatter
 {
-
     /**
      * The XML document being created.
      *

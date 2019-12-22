@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHPStanAnalyseCommandBuilderTest extends TestCase
 {
-
     /** @var PHPStanAnalyseCommandBuilder */
     private $builder;
 

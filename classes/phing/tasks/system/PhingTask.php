@@ -334,7 +334,7 @@ class PhingTask extends Task
      *
      * @return Project
      */
-    protected function getNewProject(): \Project
+    protected function getNewProject(): Project
     {
         if ($this->newProject === null) {
             $this->reinit();

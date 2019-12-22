@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +26,7 @@
  * @package phing.tasks.system.condition
  * @requires extension sockets
  */
-class SocketConditionTest extends \PHPUnit\Framework\TestCase
+class SocketConditionTest extends TestCase
 {
     public function testShouldReturnFalseForNonExistingListener()
     {

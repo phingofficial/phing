@@ -38,7 +38,6 @@
  */
 class SassTask extends Task
 {
-
     /**
      * Style to generate to.
      *

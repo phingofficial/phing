@@ -25,7 +25,6 @@
  */
 class MkdirTask extends Task
 {
-
     /**
      * Directory to create.
      *

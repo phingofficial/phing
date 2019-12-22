@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +25,7 @@
 /**
  * Test cases for phing/util/regexp/PregEngine
  */
-class PregEngineTest extends \PHPUnit\Framework\TestCase
+class PregEngineTest extends TestCase
 {
     /**
      * Test the default ignore-case value.

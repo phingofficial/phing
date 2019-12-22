@@ -59,7 +59,7 @@ class CommandlineArgument
      *
      * @param string $line line to split into several commandline arguments
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function setLine($line)
     {

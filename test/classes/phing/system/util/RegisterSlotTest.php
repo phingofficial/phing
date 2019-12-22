@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +26,7 @@
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.util
  */
-class RegisterSlotTest extends \PHPUnit\Framework\TestCase
+class RegisterSlotTest extends TestCase
 {
     private $slot = null;
 

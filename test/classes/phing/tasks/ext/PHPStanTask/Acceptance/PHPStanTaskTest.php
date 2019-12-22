@@ -21,7 +21,6 @@ declare(strict_types=1);
 
 class PHPStanTaskTest extends BuildFileTest
 {
-
     private const PHPSTAN_TEST_BASE = PHING_TEST_BASE . '/etc/tasks/ext/phpstan/';
 
     public function setUp(): void

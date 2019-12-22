@@ -34,7 +34,7 @@ trait ClasspathAware
      *
      * @return Path|null
      */
-    public function getClasspath(): ?\Path
+    public function getClasspath(): ?Path
     {
         return $this->classpath;
     }
@@ -42,7 +42,7 @@ trait ClasspathAware
     /**
      * @param Path $classpath
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function setClasspath(Path $classpath): void
     {
@@ -56,9 +56,9 @@ trait ClasspathAware
     /**
      * @return Path
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
-    public function createClasspath(): \Path
+    public function createClasspath(): Path
     {
         if ($this->classpath === null) {
             $this->classpath = new Path();

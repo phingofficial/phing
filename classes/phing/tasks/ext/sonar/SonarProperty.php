@@ -25,7 +25,6 @@
  */
 class SonarProperty
 {
-
     /**
      * @var string
      */

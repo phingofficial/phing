@@ -65,7 +65,7 @@ class Environment
             return null;
         }
         return array_map(
-            function ($env) {
+            static function ($env) {
                 return $env->getContent();
             },
             $this->variables->getArrayCopy()
@@ -78,7 +78,7 @@ class Environment
      * @return ArrayObject a potentially empty (but never null) vector of elements of type
      * Variable
      */
-    public function getVariablesObject(): \ArrayObject
+    public function getVariablesObject(): ArrayObject
     {
         return $this->variables;
     }

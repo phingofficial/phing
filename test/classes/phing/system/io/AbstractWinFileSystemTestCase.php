@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,9 +24,8 @@
  * @author Daniel Holmes
  * @package phing.system.io
  */
-abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
+abstract class AbstractWinFileSystemTestCase extends TestCase
 {
-
     /**
      * @var FileSystem
      */

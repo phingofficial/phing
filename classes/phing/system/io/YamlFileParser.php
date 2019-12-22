@@ -1,4 +1,8 @@
 <?php
+
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Parser;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,19 +39,19 @@ class YamlFileParser implements FileParserInterface
         }
 
         try {
-            if (!class_exists('\Symfony\Component\Yaml\Parser')) {
+            if (!class_exists(Parser::class)) {
                 throw new BuildException(
-                    get_class($this)
+                    static::class
                     . ' depends on \Symfony\Component\Yaml\Parser '
                     . 'being installed and on include_path.'
                 );
             }
 
-            $parser = new \Symfony\Component\Yaml\Parser();
+            $parser = new Parser();
             // Cast properties to array in case parse() returns null.
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
         } catch (Exception $e) {
-            if (is_a($e, '\Symfony\Component\Yaml\Exception\ParseException')) {
+            if (is_a($e, ParseException::class)) {
                 throw new IOException('Unable to parse contents of ' . $file . ': ' . $e->getMessage());
             }
             throw $e;

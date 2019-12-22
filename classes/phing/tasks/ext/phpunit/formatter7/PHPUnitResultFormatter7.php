@@ -1,4 +1,12 @@
 <?php
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +31,7 @@
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
+abstract class PHPUnitResultFormatter7 implements TestListener
 {
     protected $out;
 
@@ -104,9 +112,9 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\TestResult $result
+     * @param TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(TestResult $result)
     {
     }
 
@@ -126,9 +134,9 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    public function startTestSuite(PHPUnit\Framework\TestSuite $suite): void
+    public function startTestSuite(TestSuite $suite): void
     {
         $this->timers[]           = $this->getMicrotime();
         $this->runCounts[]        = 0;
@@ -139,9 +147,9 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    public function endTestSuite(PHPUnit\Framework\TestSuite $suite): void
+    public function endTestSuite(TestSuite $suite): void
     {
         $lastRunCount                                  = array_pop($this->runCounts);
         $this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
@@ -162,80 +170,80 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
+     * @param Test $test
      */
-    public function startTest(PHPUnit\Framework\Test $test): void
+    public function startTest(Test $test): void
     {
         $this->runCounts[count($this->runCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param float                  $time
+     * @param Test  $test
+     * @param float $time
      */
-    public function endTest(PHPUnit\Framework\Test $test, float $time): void
+    public function endTest(Test $test, float $time): void
     {
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addError(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addError(Test $test, Throwable $e, float $time): void
     {
         $this->errorCounts[count($this->errorCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test                 $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     * @param float                                  $time
+     * @param Test                 $test
+     * @param AssertionFailedError $e
+     * @param float                $time
      */
     public function addFailure(
-        PHPUnit\Framework\Test $test,
-        PHPUnit\Framework\AssertionFailedError $e,
+        Test $test,
+        AssertionFailedError $e,
         float $time
     ): void {
         $this->failureCounts[count($this->failureCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test    $test
-     * @param PHPUnit\Framework\Warning $e
-     * @param float                     $time
+     * @param Test    $test
+     * @param Warning $e
+     * @param float   $time
      */
-    public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
+    public function addWarning(Test $test, Warning $e, float $time): void
     {
         $this->warningCounts[count($this->warningCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
         $this->incompleteCounts[count($this->incompleteCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addSkippedTest(Test $test, Throwable $e, float $time): void
     {
         $this->skipCounts[count($this->skipCounts) - 1]++;
     }
 
     /**
-     * @param PHPUnit\Framework\Test $test
-     * @param Exception              $e
-     * @param float                  $time
+     * @param Test      $test
+     * @param Throwable $e
+     * @param float     $time
      */
-    public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    public function addRiskyTest(Test $test, Throwable $e, float $time): void
     {
     }
 

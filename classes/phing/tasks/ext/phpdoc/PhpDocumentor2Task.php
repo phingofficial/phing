@@ -1,4 +1,10 @@
 <?php
+
+use phpDocumentor\Application;
+use phpDocumentor\Bootstrap;
+use phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper;
+use phpDocumentor\Fileset\Collection;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -72,7 +78,7 @@ class PhpDocumentor2Task extends Task
     private $phpDocumentorPath = '';
 
     /**
-     * @var \phpDocumentor\Application
+     * @var Application
      */
     private $app = null;
 
@@ -165,7 +171,7 @@ class PhpDocumentor2Task extends Task
             include_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
         }
 
-        $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
+        $this->app = Bootstrap::createInstance()->initialize();
 
         $this->phpDocumentorPath = $phpDocumentorPath;
     }
@@ -200,10 +206,10 @@ class PhpDocumentor2Task extends Task
 
         $this->project->log('Will parse ' . count($paths) . ' file(s)', Project::MSG_VERBOSE);
 
-        $files = new \phpDocumentor\Fileset\Collection();
+        $files = new Collection();
         $files->addFiles($paths);
 
-        $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
+        $mapper = new ProjectDescriptorMapper($this->app['descriptor.cache']);
         $mapper->garbageCollect($files);
         $mapper->populate($projectDescriptor);
 

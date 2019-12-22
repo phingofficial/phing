@@ -48,7 +48,6 @@
  */
 class StripLineComments extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the comment prefix.
      */

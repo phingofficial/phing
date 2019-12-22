@@ -21,7 +21,6 @@ declare(strict_types=1);
 
 class SassCompiler implements SassTaskCompiler
 {
-
     /**
      * @var string
      */

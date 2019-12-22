@@ -133,7 +133,7 @@ class ExecTask extends Task
     private $env;
 
     /**
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function __construct()
     {
@@ -145,7 +145,7 @@ class ExecTask extends Task
     /**
      * Main method: wraps execute() command.
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -275,7 +275,7 @@ class ExecTask extends Task
      *
      * @return array array(return code, array with output)
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function executeCommand()
     {
@@ -366,7 +366,7 @@ class ExecTask extends Task
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function setCommand($command): void
     {
@@ -665,7 +665,7 @@ class ExecTask extends Task
      *
      * @return string the executable as a full path if it can be determined.
      *
-     * @throws \BuildException
+     * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
      */

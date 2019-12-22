@@ -30,7 +30,6 @@
  */
 abstract class AbstractSAXParser
 {
-
     /**
      * @var AbstractHandler
      */

@@ -197,7 +197,7 @@ class Phing
      *
      * @throws Exception If there is an error during build
      */
-    public static function start($args, array $additionalUserProperties = null)
+    public static function start($args, ?array $additionalUserProperties = null)
     {
         try {
             $m = new self();

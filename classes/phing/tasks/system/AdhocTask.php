@@ -31,7 +31,6 @@
  */
 class AdhocTask extends Task
 {
-
     /**
      * The PHP script
      *

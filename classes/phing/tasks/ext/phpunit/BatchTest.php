@@ -1,4 +1,8 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestSuite;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -102,14 +106,14 @@ class BatchTest
     /**
      * Checks wheter $input is a PHPUnit Test.
      *
-     * @param \PHPUnit\Framework\TestCase|\PHPUnit\Framework\TestSuite $input
+     * @param TestCase|TestSuite $input
      *
      * @return bool
      */
     private function isTestCase($input)
     {
-        return is_subclass_of($input, '\PHPUnit\Framework\TestCase') ||
-            is_subclass_of($input, '\PHPUnit\Framework\TestSuite');
+        return is_subclass_of($input, TestCase::class) ||
+            is_subclass_of($input, TestSuite::class);
     }
 
     /**

@@ -28,7 +28,6 @@
  */
 class InputStreamReader extends Reader
 {
-
     /**
      * @var InputStream
      */
