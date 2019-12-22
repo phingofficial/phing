@@ -346,9 +346,7 @@
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
 
     <!-- Require using Throwable instead of Exception -->
-    <!--
     <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
-    -->
 
     <!-- Require closures not referencing $this be static -->
     <rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
@@ -468,9 +466,7 @@
     <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
 
     <!-- Require one space between typehint and variable, require no space between nullability sign and typehint -->
-    <!--
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
-    -->
 
     <!-- Require space around colon in return types -->
     <!--

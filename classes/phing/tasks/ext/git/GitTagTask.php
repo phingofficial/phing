@@ -211,7 +211,7 @@ class GitTagTask extends GitBaseTask
 
         try {
             $output = $command->execute();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->log($e->getMessage(), Project::MSG_ERR);
             throw new BuildException('Task execution failed. ' . $e->getMessage());
         }

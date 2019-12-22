@@ -50,7 +50,7 @@ class YamlFileParser implements FileParserInterface
             $parser = new Parser();
             // Cast properties to array in case parse() returns null.
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if (is_a($e, ParseException::class)) {
                 throw new IOException('Unable to parse contents of ' . $file . ': ' . $e->getMessage());
             }

@@ -295,7 +295,7 @@ class PhingTask extends Task
 
             $this->addReferences();
             $this->newProject->executeTarget($this->newTarget);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $buildFailed = true;
             $this->log($e->getMessage(), Project::MSG_ERR);
             if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) {

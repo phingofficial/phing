@@ -194,7 +194,7 @@ class IniFileTask extends Task
             try {
                 $this->ini->write($writeFile);
                 $this->log('Wrote to ' . $writeFile);
-            } catch (Exception $ex) {
+            } catch (Throwable $ex) {
                 $msg = $ex->getMessage();
                 if ($this->haltonerror) {
                     throw new BuildException($msg);
@@ -273,7 +273,7 @@ class IniFileTask extends Task
                 try {
                     $this->ini->set($section, $key, $value);
                     $this->logDebugOrMore(sprintf('[%s] %s set to %s', $section, $key, $value));
-                } catch (Exception $ex) {
+                } catch (Throwable $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key . "'",
@@ -310,7 +310,7 @@ class IniFileTask extends Task
                 try {
                     $this->ini->set($section, $key, $v);
                     $this->logDebugOrMore(sprintf('[%s] %s set to %s', $section, $key, $v));
-                } catch (Exception $ex) {
+                } catch (Throwable $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key . "'"

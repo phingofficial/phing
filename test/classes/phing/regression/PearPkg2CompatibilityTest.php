@@ -53,7 +53,7 @@ class PearPkg2CompatibilityTest extends BuildFileTest
     {
         try {
             $this->executeTarget('inactive');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if (strpos($e->getMessage(), 'Unknown channel') !== false) {
                 $this->markTestSkipped($e->getMessage());
             }

@@ -133,7 +133,7 @@ class MapperTest extends TestCase
             $t->setUp();
             $t->test1();
             $t->tearDown();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $t->tearDown();
             throw $e;
         }

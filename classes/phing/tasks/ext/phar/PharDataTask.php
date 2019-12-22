@@ -143,7 +143,7 @@ class PharDataTask extends MatchingTask
 
                 unset($pharData);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException(
                 'Problem creating archive: ' . $e->getMessage(),
                 $e,

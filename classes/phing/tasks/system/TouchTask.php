@@ -134,7 +134,7 @@ class TouchTask extends Task
                 }
             }
             $this->_touch();
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
             throw new BuildException('Error touch()ing file', $ex, $this->getLocation());
         }
 

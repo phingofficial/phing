@@ -88,7 +88,7 @@ class GitCloneTask extends GitBaseTask
 
         try {
             $this->doClone($this->getGitClient(false, getcwd()));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
 

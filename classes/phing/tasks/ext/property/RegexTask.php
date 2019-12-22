@@ -210,7 +210,7 @@ class RegexTask extends AbstractPropertySetterTask
 
         try {
             $output = $this->reg->replace($this->subject);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $output = $this->defaultValue;
         }
 
@@ -234,7 +234,7 @@ class RegexTask extends AbstractPropertySetterTask
             if ($this->reg->matches($this->subject)) {
                 $output = $this->reg->getGroup((int) ltrim($this->match, '$'));
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException($e);
         }
 

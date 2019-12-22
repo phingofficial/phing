@@ -231,7 +231,7 @@ class MoveTask extends CopyTask
         $this->log('Deleting directory ' . $d->getPath(), $this->verbosity);
         try {
             $d->delete();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->logError('Unable to delete directory ' . $d->__toString() . ': ' . $e->getMessage());
         }
     }

@@ -50,7 +50,7 @@ class SassCompiler implements SassTaskCompiler
                     Project::MSG_INFO
                 );
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($failOnError) {
                 throw new BuildException($e);
             }

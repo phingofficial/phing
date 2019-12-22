@@ -199,7 +199,7 @@ class ReplaceRegexpTask extends Task
                     $contents .= $buffer;
                 }
                 $in->close();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 if ($in) {
                     $in->close();
                 }
@@ -212,7 +212,7 @@ class ReplaceRegexpTask extends Task
                 $out->write($contents);
                 $out->close();
                 $this->log('Applying regexp processing to ' . $file->getPath(), Project::MSG_VERBOSE);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 if ($out) {
                     $out->close();
                 }

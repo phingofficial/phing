@@ -212,7 +212,7 @@ class ComponentHelper
             // set default value, can be changed by the user
             $task->setTaskName($taskType);
             $this->project->log('  +Task: ' . $taskType, Project::MSG_DEBUG);
-        } catch (Exception $t) {
+        } catch (Throwable $t) {
             throw new BuildException('Could not create task of type: ' . $taskType, $t);
         }
         // everything fine return reference
@@ -251,7 +251,7 @@ class ComponentHelper
             }
 
             throw new BuildException('Not actually a condition');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException('Could not create condition of type: ' . $conditionType, $e);
         }
     }
@@ -314,7 +314,7 @@ class ComponentHelper
             if ($type instanceof ProjectComponent) {
                 $type->setProject($this->project);
             }
-        } catch (Exception $t) {
+        } catch (Throwable $t) {
             throw new BuildException('Could not create type: ' . $typeName, $t);
         }
         // everything fine return reference

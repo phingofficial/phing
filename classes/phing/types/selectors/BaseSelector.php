@@ -47,7 +47,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * @param string    $msg   The error message any BuildException should throw.
      * @param Exception $cause
      */
-    public function setError($msg, ?Exception $cause = null)
+    public function setError($msg, ?Throwable $cause = null)
     {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
