@@ -28,7 +28,6 @@
  */
 class AvailableTask extends Task implements Condition
 {
-
     /**
      * Property to check for.
      */

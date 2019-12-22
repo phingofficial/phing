@@ -42,7 +42,6 @@
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for regular expression.
      */

@@ -33,7 +33,6 @@
  */
 class ExpatParser extends AbstractSAXParser
 {
-
     /**
      * @var resource
      */

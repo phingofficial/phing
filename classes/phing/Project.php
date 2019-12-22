@@ -29,7 +29,6 @@
  */
 class Project
 {
-
     // Logging level constants.
     public const MSG_DEBUG   = 4;
     public const MSG_VERBOSE = 3;
@@ -811,11 +810,11 @@ class Project
      * @param string    $fileName
      * @param PhingFile $rootDir
      *
-     * @return \PhingFile
+     * @return PhingFile
      *
      * @throws IOException
      */
-    public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
+    public function resolveFile(string $fileName, ?PhingFile $rootDir = null): PhingFile
     {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
@@ -1056,7 +1055,7 @@ class Project
      * @param int            $level
      * @param Exception|null $t
      */
-    public function logObject($obj, $msg, $level, Exception $t = null)
+    public function logObject($obj, $msg, $level, ?Exception $t = null)
     {
         $this->fireMessageLogged($obj, $msg, $level, $t);
 
@@ -1196,9 +1195,9 @@ class Project
      * @param int       $priority
      * @param Exception $t
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function fireMessageLogged($object, $message, $priority, Exception $t = null)
+    public function fireMessageLogged($object, $message, $priority, ?Exception $t = null)
     {
         $event = new BuildEvent($object);
         if ($t !== null) {

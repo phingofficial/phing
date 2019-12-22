@@ -36,7 +36,6 @@
  */
 abstract class FileSystem
 {
-
     public const BA_EXISTS = 0x01;
 
     public const BA_REGULAR = 0x02;

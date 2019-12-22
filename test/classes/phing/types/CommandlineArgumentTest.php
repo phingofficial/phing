@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +20,7 @@
  * <http://phing.info>.
  */
 
-class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
+class CommandlineArgumentTest extends TestCase
 {
     /**
      * Test the one 'getter' method of the CommandlineArgument class

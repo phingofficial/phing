@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +26,7 @@
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
  */
-class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
+class FileParserFactoryTest extends TestCase
 {
     /**
      * @var FileParserInterface

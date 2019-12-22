@@ -24,7 +24,6 @@
  */
 class FileOutputStream extends OutputStream
 {
-
     /**
      * @var PhingFile The associated file.
      */

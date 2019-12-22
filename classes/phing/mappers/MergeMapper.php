@@ -26,7 +26,6 @@
  */
 class MergeMapper implements FileNameMapper
 {
-
     /**
      * the merge
      */

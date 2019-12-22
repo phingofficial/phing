@@ -1,4 +1,7 @@
 <?php
+
+use Siad007\VersionControl\HG\Factory;
+
 /**
  * Utilise Mercurial from within Phing.
  *
@@ -175,7 +178,7 @@ abstract class HgBaseTask extends Task
 
     public function getFactoryInstance($command, $options = [])
     {
-        $vchq          = '\\Siad007\\VersionControl\\HG\\Factory';
+        $vchq          = Factory::class;
         self::$factory = $vchq::getInstance($command, $options);
         return self::$factory;
     }

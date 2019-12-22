@@ -21,7 +21,6 @@ declare(strict_types=1);
 
 class FileSystemWhichStub extends UnixFileSystem
 {
-
     private $isWhichSuccessful;
 
     public function __construct(bool $isWhichSuccessful)

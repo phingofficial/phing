@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +26,7 @@
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.types
  */
-abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractFileSetTest extends TestCase
 {
     /** @var Project */
     private $project;

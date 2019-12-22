@@ -188,7 +188,7 @@ class HttpRequestTask extends HttpTask
                 $request->setBody(
                     json_encode(
                         array_map(
-                            function (Parameter $postParameter) {
+                            static function (Parameter $postParameter) {
                                 return [$postParameter->getName() => $postParameter->getValue()];
                             },
                             $this->postParameters

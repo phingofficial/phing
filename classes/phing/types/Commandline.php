@@ -263,9 +263,9 @@ class Commandline implements Countable
      * @return string[] the command line broken into strings.
      *                  An empty or null toProcess parameter results in a zero sized array.
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
-    public static function translateCommandline(string $toProcess = null): array
+    public static function translateCommandline(?string $toProcess = null): array
     {
         if ($toProcess === null || $toProcess === '') {
             return [];
@@ -339,7 +339,7 @@ class Commandline implements Countable
     }
 
     /**
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function __clone()
     {
@@ -408,7 +408,7 @@ class Commandline implements Countable
      *
      * @return string
      */
-    public function describeArguments(array $args = null, $offset = 0)
+    public function describeArguments(?array $args = null, $offset = 0)
     {
         if ($args === null) {
             $args = $this->getArguments();

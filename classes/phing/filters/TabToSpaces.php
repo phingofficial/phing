@@ -38,7 +38,6 @@
  */
 class TabToSpaces extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * The default tab length.
      */

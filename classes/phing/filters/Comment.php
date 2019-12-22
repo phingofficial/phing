@@ -24,7 +24,6 @@
  */
 class Comment
 {
-
     /**
      * The prefix for a line comment.
      */

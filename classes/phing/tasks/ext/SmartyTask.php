@@ -34,7 +34,6 @@
  */
 class SmartyTask extends Task
 {
-
     /**
      * Smarty template engine.
      *

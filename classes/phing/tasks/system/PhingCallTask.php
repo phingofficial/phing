@@ -41,7 +41,6 @@
  */
 class PhingCallTask extends Task
 {
-
     /**
      * The called Phing task.
      *

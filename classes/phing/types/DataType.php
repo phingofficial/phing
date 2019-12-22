@@ -114,7 +114,7 @@ class DataType extends ProjectComponent
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked || !$this->isReference()) {
             return;

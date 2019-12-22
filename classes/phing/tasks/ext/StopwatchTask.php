@@ -55,7 +55,7 @@ class StopwatchTask extends DispatchTask
      */
     public function init()
     {
-        if (!class_exists('\\Symfony\\Component\\Stopwatch\\Stopwatch')) {
+        if (!class_exists(Stopwatch::class)) {
             throw new BuildException('StopwatchTask requires symfony/stopwatch to be installed.');
         }
 

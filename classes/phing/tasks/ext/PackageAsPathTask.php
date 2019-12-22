@@ -25,7 +25,6 @@
  */
 class PackageAsPathTask extends Task
 {
-
     /**
      * The package to convert.
      */

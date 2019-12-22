@@ -25,7 +25,6 @@
  */
 class Regexp
 {
-
     /**
      * Matching groups found.
      *

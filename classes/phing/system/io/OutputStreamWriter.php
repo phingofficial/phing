@@ -28,7 +28,6 @@
  */
 class OutputStreamWriter extends Writer
 {
-
     /**
      * @var OutputStream
      */

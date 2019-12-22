@@ -54,7 +54,6 @@
  */
 class ChainReaderHelper
 {
-
     /**
      * Primary reader to wich the reader chain is to be attached
      */

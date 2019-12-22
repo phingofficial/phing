@@ -29,7 +29,6 @@
  */
 class SourceFileScanner
 {
-
     /**
      * Instance of FileUtils
      */

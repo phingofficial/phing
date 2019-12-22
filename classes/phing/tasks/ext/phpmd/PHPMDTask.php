@@ -1,4 +1,9 @@
 <?php
+
+use PHPMD\AbstractRule;
+use PHPMD\PHPMD;
+use PHPMD\RuleSetFactory;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -212,7 +217,7 @@ class PHPMDTask extends Task
             include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
         }
 
-        $className = '\PHPMD\PHPMD';
+        $className = PHPMD::class;
 
         if (!class_exists($className)) {
             @include_once 'PHP/PMD.php';
@@ -228,7 +233,7 @@ class PHPMDTask extends Task
         }
 
         if ($this->newVersion) {
-            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
+            $minPriority = AbstractRule::LOWEST_PRIORITY;
             include_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
         } else {
             include_once 'PHP/PMD/AbstractRule.php';
@@ -319,7 +324,7 @@ class PHPMDTask extends Task
 
         // Create a rule set factory
         if ($this->newVersion) {
-            $ruleSetFactory = new \PHPMD\RuleSetFactory();
+            $ruleSetFactory = new RuleSetFactory();
         } else {
             if (!class_exists('PHP_PMD_RuleSetFactory')) {
                 @include 'PHP/PMD/RuleSetFactory.php';

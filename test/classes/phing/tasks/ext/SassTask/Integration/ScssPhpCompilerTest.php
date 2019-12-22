@@ -20,10 +20,10 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use ScssPhp\ScssPhp\Compiler;
 
 class ScssPhpCompilerTest extends TestCase
 {
-
     private const SASS_TEST_BASE = PHING_TEST_BASE . '/etc/tasks/ext/sass/';
 
     /** @var ScssPhpCompiler */
@@ -31,7 +31,7 @@ class ScssPhpCompilerTest extends TestCase
 
     public function setUp(): void
     {
-        if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
+        if (!class_exists(Compiler::class)) {
             $this->markTestSkipped('ScssPhp not found');
         }
 

@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +25,7 @@
  *
  * @package phing.types
  */
-class DataTypeTest extends \PHPUnit\Framework\TestCase
+class DataTypeTest extends TestCase
 {
     private $datatype;
 

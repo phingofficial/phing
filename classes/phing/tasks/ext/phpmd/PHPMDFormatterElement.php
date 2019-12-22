@@ -1,4 +1,7 @@
 <?php
+
+use PHPMD\Writer\StreamWriter;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -144,14 +147,14 @@ class PHPMDFormatterElement
      */
     public function getRenderer()
     {
-        if (!class_exists('\\PHPMD\\Writer\\StreamWriter')) {
+        if (!class_exists(StreamWriter::class)) {
             $renderClass = 'PHP_PMD_RENDERER_' . $this->className;
             $writerClass = 'PHP_PMD_Writer_Stream';
             include_once 'PHP/PMD/Renderer/' . $this->className . '.php';
             include_once 'PHP/PMD/Writer/Stream.php';
         } else {
             $renderClass = 'PHPMD\Renderer\\' . $this->className;
-            $writerClass = '\PHPMD\Writer\StreamWriter';
+            $writerClass = StreamWriter::class;
         }
 
         $renderer = new $renderClass();

@@ -24,7 +24,6 @@
  */
 class FileInputStream extends InputStream
 {
-
     /**
      * The associated file.
      *

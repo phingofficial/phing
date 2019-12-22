@@ -170,7 +170,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @return Contains The <code>contains</code> element added.
      *                  Must not be <code>null</code>.
      */
-    public function createContains(): \Contains
+    public function createContains(): Contains
     {
         $num = array_push($this->contains, new Contains());
 

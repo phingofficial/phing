@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHPStanListCommandBuilderTest extends TestCase
 {
-
     /** @var PHPStanListCommandBuilder */
     private $builder;
 

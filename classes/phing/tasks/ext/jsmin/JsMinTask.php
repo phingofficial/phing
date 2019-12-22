@@ -1,4 +1,7 @@
 <?php
+
+use JShrink\Minifier;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -98,7 +101,7 @@ class JsMinTask extends Task
     {
         // if composer autoloader is not yet loaded, load it here
         @include_once 'vendor/autoload.php';
-        if (!class_exists('\\JShrink\\Minifier')) {
+        if (!class_exists(Minifier::class)) {
             throw new BuildException(
                 'JsMinTask depends on JShrink being installed and on include_path.',
                 $this->getLocation()
@@ -146,7 +149,7 @@ class JsMinTask extends Task
 
                 $contents = file_get_contents($fullPath . '/' . $file);
 
-                $minified = \JShrink\Minifier::minify($contents);
+                $minified = Minifier::minify($contents);
 
                 file_put_contents($target, $minified);
             } catch (Exception $jsme) {

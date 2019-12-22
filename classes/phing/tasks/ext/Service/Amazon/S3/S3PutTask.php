@@ -205,7 +205,7 @@ class S3PutTask extends S3
     /**
      * @return string
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function getObject()
     {
@@ -439,7 +439,7 @@ class S3PutTask extends S3
      * @param string $key
      * @param string $sourceFile
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function saveObject($key, $sourceFile)
     {

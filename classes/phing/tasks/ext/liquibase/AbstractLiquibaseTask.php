@@ -26,7 +26,6 @@
  */
 abstract class AbstractLiquibaseTask extends Task
 {
-
     /**
      * Used for liquibase -Dname=value properties.
      */

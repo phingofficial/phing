@@ -24,7 +24,6 @@
  */
 class Token
 {
-
     /**
      * Token key.
      *

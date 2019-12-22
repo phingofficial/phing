@@ -31,7 +31,6 @@
  */
 class DefaultLogger implements StreamRequiredBuildLogger
 {
-
     /**
      *  Size of the left column in output. The default char width is 12.
      */

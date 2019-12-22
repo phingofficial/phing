@@ -241,7 +241,7 @@ class ApplyTask extends ExecTask
      *
      * @return CommandlineMarker
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function createTargetfile()
     {
@@ -264,7 +264,7 @@ class ApplyTask extends ExecTask
      *
      * @return CommandlineMarker
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function createSrcfile()
     {
@@ -283,7 +283,7 @@ class ApplyTask extends ExecTask
     /**
      * @return Mapper
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function createMapper()
     {
@@ -302,7 +302,7 @@ class ApplyTask extends ExecTask
     /**
      * Do work
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -397,8 +397,8 @@ class ApplyTask extends ExecTask
     /********************** T A S K  C O R E  M E T H O D S ***************************/
 
     /**
-     * @param \PhingFile        $baseDir
-     * @param \DirectoryScanner $ds
+     * @param PhingFile        $baseDir
+     * @param DirectoryScanner $ds
      *
      * @return array
      */
@@ -441,7 +441,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws BuildException
      * @throws IOException
      */
     protected function prepare()
@@ -535,7 +535,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function buildCommand()
     {
@@ -602,7 +602,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
      */
@@ -659,7 +659,7 @@ class ApplyTask extends ExecTask
 
                 $result[] = $orig;
                 $result[] = $targetFiles;
-                $result   = array_merge(... $result);
+                $result   = array_merge(...$result);
 
                 // targetIndex --> end
                 $result = array_merge(
@@ -675,7 +675,7 @@ class ApplyTask extends ExecTask
                 // 0 --> targetIndex
                 $result[] = $orig;
                 $result[] = $targetFiles;
-                $result   = array_merge(... $result);
+                $result   = array_merge(...$result);
 
                 // targetIndex --> srcIndex
                 $result = array_merge(

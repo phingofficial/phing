@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +26,7 @@
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.types
  */
-class DirSetTest extends \PHPUnit\Framework\TestCase
+class DirSetTest extends TestCase
 {
     /** @var DirSet */
     private $dirset;

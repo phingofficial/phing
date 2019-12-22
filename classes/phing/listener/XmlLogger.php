@@ -28,7 +28,6 @@
  */
 class XmlLogger implements BuildLogger
 {
-
     /**
      * XML element name for a build.
      */

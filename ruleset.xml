@@ -165,41 +165,30 @@
     </rule>
 
     <!-- Require presence of constant visibility -->
-    <!--
     <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility">
         <properties>
             <property name="fixable" value="true"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid LSB for constants (static::FOO) -->
-    <!--
     <rule ref="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants"/>
-    -->
 
     <!-- Forbid empty lines around type declarations -->
-    <!--
     <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
         <properties>
             <property name="linesCountAfterOpeningBrace" value="0"/>
             <property name="linesCountBeforeClosingBrace" value="0"/>
         </properties>
     </rule>
-    -->
 
     <!-- Require usage of ::class instead of __CLASS__, get_class(), get_class($this), get_called_class() and get_parent_class() -->
-    <!--
     <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
-    -->
 
     <!-- Forbid uses of multiple traits separated by comma -->
-    <!--
     <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
-    -->
 
     <!-- Require no spaces before trait use, between trait uses and one space after trait uses -->
-    <!--
     <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
         <properties>
             <property name="linesCountAfterLastUse" value="1"/>
@@ -208,7 +197,6 @@
             <property name="linesCountBetweenUses" value="0"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid dead code -->
     <!--
@@ -355,9 +343,7 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
 
     <!-- Forbid useless unreachable catch blocks -->
-    <!--
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
-    -->
 
     <!-- Require using Throwable instead of Exception -->
     <!--
@@ -365,41 +351,28 @@
     -->
 
     <!-- Require closures not referencing $this be static -->
-    <!--
     <rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
-    -->
 
     <!-- Forbid unused variables passed to closures via `use` -->
-    <!--
     <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
-    -->
 
     <!-- Require use statements to be alphabetically sorted -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
         <properties>
             <property name="psr12Compatible" value="false"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid fancy group uses -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
-    -->
 
     <!-- Forbid multiple use statements on same line -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
-    -->
 
     <!-- Require newlines around namespace declaration -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
-    -->
 
     <!-- Forbid using absolute class name references (except global ones) -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
         <properties>
             <property name="allowFallbackGlobalConstants" value="false"/>
@@ -413,29 +386,21 @@
             <property name="searchAnnotations" value="true"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid unused use statements -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
         <properties>
             <property name="searchAnnotations" value="true"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid superfluous leading backslash in use statements -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
-    -->
 
     <!-- Forbid useless uses of the same namespace -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
-    -->
 
     <!-- Require empty newlines before and after uses -->
-    <!--
     <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
         <properties>
             <property name="linesCountAfterLastUse" value="1"/>
@@ -443,7 +408,6 @@
             <property name="linesCountBetweenUseTypes" value="0"/>
         </properties>
     </rule>
-    -->
 
     <!-- Forbid useless alias for classes, constants and functions -->
     <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
@@ -454,19 +418,13 @@
     -->
 
     <!-- Require the usage of assignment operators, eg `+=`, `.=` when possible -->
-    <!--
     <rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
-    -->
 
     <!-- Require no spacing after spread operator -->
-    <!--
     <rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing"/>
-    -->
 
     <!-- forbid argument unpacking for functions specialized by PHP VM -->
-    <!--
     <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>
-    -->
 
     <!-- Forbid `list(...)` syntax -->
     <rule ref="SlevomatCodingStandard.PHP.ShortList"/>
@@ -507,9 +465,7 @@
     <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
 
     <!-- Require ? when default value is null -->
-    <!--
     <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
-    -->
 
     <!-- Require one space between typehint and variable, require no space between nullability sign and typehint -->
     <!--

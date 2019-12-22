@@ -1,4 +1,7 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +26,8 @@
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.system
  */
-class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
+class FileOutputStreamTest extends TestCase
 {
-
     /**
      * @var FileOutputStream
      */
@@ -33,7 +35,7 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->tmpFile   = new PhingFile(PHING_TEST_BASE . '/tmp/' . get_class($this) . '.txt');
+        $this->tmpFile   = new PhingFile(PHING_TEST_BASE . '/tmp/' . static::class . '.txt');
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
 

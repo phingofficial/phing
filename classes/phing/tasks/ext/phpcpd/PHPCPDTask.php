@@ -17,8 +17,9 @@
  * <http://phing.info>.
  */
 
-use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use Composer\Autoload\ClassLoader;
+use SebastianBergmann\PHPCPD\Detector\Detector;
+use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -241,7 +242,7 @@ class Application
             include $this->pharLocation;
             ob_end_clean();
 
-            if (class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy')) {
+            if (class_exists(DefaultStrategy::class)) {
                 return;
             }
         }
@@ -321,8 +322,8 @@ class Application
             $detectorClass = 'PHPCPD_Detector';
             $strategyClass = 'PHPCPD_Detector_Strategy_Default';
         } else {
-            $detectorClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Detector';
-            $strategyClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy';
+            $detectorClass = Detector::class;
+            $strategyClass = DefaultStrategy::class;
         }
 
         $detector = new $detectorClass(new $strategyClass());

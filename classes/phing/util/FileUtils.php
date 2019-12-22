@@ -419,7 +419,7 @@ class FileUtils
     public function createTempFile(
         $prefix,
         $suffix,
-        PhingFile $parentDir = null,
+        ?PhingFile $parentDir = null,
         $deleteOnExit = false,
         $createFile = false
     ) {

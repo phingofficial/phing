@@ -37,7 +37,6 @@
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the prefix.
      */

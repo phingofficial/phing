@@ -753,7 +753,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @return array names of the files
      *
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public function getIncludedFiles(): array
     {
@@ -818,7 +818,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @return array the names of the directories
      *
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public function getIncludedDirectories()
     {
@@ -935,8 +935,8 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * @return bool False when the selectors says that the file
      *              should not be selected, True otherwise.
      *
-     * @throws \BuildException
-     * @throws \IOException
+     * @throws BuildException
+     * @throws IOException
      * @throws NullPointerException
      */
     protected function isSelected($name, $file)

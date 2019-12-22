@@ -1,4 +1,9 @@
 <?php
+
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Runner\Version;
+use SebastianBergmann\CodeCoverage\Report\Crap4j;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +31,7 @@
 class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
     /**
-     * @var PHPUnit\Framework\TestResult
+     * @var TestResult
      */
     private $result = null;
     /**
@@ -42,7 +47,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
-        $this->version = PHPUnit\Runner\Version::id();
+        $this->version = Version::id();
     }
 
     /**
@@ -62,9 +67,9 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param PHPUnit\Framework\TestResult $result
+     * @param TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(TestResult $result)
     {
         $this->result = $result;
     }
@@ -73,7 +78,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         $coverage = $this->result->getCodeCoverage();
         if (!empty($coverage)) {
-            $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
+            $crapClass = Crap4j::class;
             $crap      = new $crapClass();
             $contents  = $crap->process($coverage);
             if ($this->out) {

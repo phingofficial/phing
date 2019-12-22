@@ -45,7 +45,7 @@ class Properties
      * @param array               $properties
      * @param FileParserInterface $fileParser
      */
-    public function __construct($properties = null, FileParserInterface $fileParser = null)
+    public function __construct($properties = null, ?FileParserInterface $fileParser = null)
     {
         $this->fileParser = $fileParser == null ? new IniFileParser() : $fileParser;
 
@@ -133,7 +133,7 @@ class Properties
      *
      * @throws IOException - on error writing properties file.
      */
-    public function store(PhingFile $file = null, $header = null)
+    public function store(?PhingFile $file = null, $header = null)
     {
         if ($file == null) {
             $file = $this->file;

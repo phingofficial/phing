@@ -1,4 +1,7 @@
 <?php
+
+use SebastianBergmann\PHPLOC\Analyser;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -166,7 +169,7 @@ class Application
             ob_end_clean();
         }
 
-        if (!class_exists('\SebastianBergmann\PHPLOC\Analyser')) {
+        if (!class_exists(Analyser::class)) {
             if (!@include_once 'SebastianBergmann/PHPLOC/autoload.php') {
                 throw new BuildException(
                     'PHPLocTask depends on PHPLoc being installed and on include_path.',
@@ -318,7 +321,7 @@ class Application
      */
     protected function getCountForFiles(array $files)
     {
-        $analyserClass = '\\SebastianBergmann\\PHPLOC\\Analyser';
+        $analyserClass = Analyser::class;
         $analyser      = new $analyserClass();
 
         return $analyser->countFiles($files, $this->countTests);

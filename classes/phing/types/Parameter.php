@@ -28,7 +28,6 @@
  */
 class Parameter extends DataType
 {
-
     /**
      * Parameter name
      */

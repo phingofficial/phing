@@ -50,7 +50,7 @@ class Series
     public function getTimes()
     {
         return array_map(
-            function (Duration $elem) {
+            static function (Duration $elem) {
                 return $elem->getTime();
             },
             $this->list
