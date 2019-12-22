@@ -62,11 +62,11 @@ class HgInitTask extends HgBaseTask
             $dir = $this->repository;
         }
         if (!is_dir($dir)) {
-            throw new BuildException("$dir is not a directory.");
+            throw new BuildException($dir . ' is not a directory.');
         }
         chdir($dir);
         try {
-            $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
             $output = $clone->execute();
             if ($output !== '') {
                 $this->log($output);

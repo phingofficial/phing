@@ -33,12 +33,12 @@ class DateSelector extends BaseExtendSelector
     private $includeDirs            = false;
     private $granularity            = 0;
     private $cmp                    = 2;
-    public const MILLIS_KEY         = "millis";
-    public const DATETIME_KEY       = "datetime";
-    public const CHECKDIRS_KEY      = "checkdirs";
-    public const GRANULARITY_KEY    = "granularity";
-    public const WHEN_KEY           = "when";
-    private static $timeComparisons = ["before", "after", "equal"];
+    public const MILLIS_KEY         = 'millis';
+    public const DATETIME_KEY       = 'datetime';
+    public const CHECKDIRS_KEY      = 'checkdirs';
+    public const GRANULARITY_KEY    = 'granularity';
+    public const WHEN_KEY           = 'when';
+    private static $timeComparisons = ['before', 'after', 'equal'];
 
     public function __construct()
     {
@@ -53,19 +53,19 @@ class DateSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf  = "{dateselector date: ";
+        $buf  = '{dateselector date: ';
         $buf .= $this->dateTime;
-        $buf .= " compare: ";
+        $buf .= ' compare: ';
         if ($this->cmp === 0) {
-            $buf .= "before";
+            $buf .= 'before';
         } elseif ($this->cmp === 1) {
-            $buf .= "after";
+            $buf .= 'after';
         } else {
-            $buf .= "equal";
+            $buf .= 'equal';
         }
-        $buf .= " granularity: ";
+        $buf .= ' granularity: ';
         $buf .= $this->granularity;
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -108,8 +108,8 @@ class DateSelector extends BaseExtendSelector
         $dt = strtotime($dateTime);
         if ($dt == -1) {
             $this->setError(
-                "Date of " . $dateTime
-                . " Cannot be parsed correctly. It should be in"
+                'Date of ' . $dateTime
+                . ' Cannot be parsed correctly. It should be in'
                 . " a format parsable by PHP's strtotime() function."
             );
         } else {
@@ -149,7 +149,7 @@ class DateSelector extends BaseExtendSelector
     {
         $idx = array_search($cmp, self::$timeComparisons, true);
         if ($idx === null) {
-            $this->setError("Invalid value for " . self::WHEN_KEY . ": " . $cmp);
+            $this->setError('Invalid value for ' . self::WHEN_KEY . ': ' . $cmp);
         } else {
             $this->cmp = $idx;
         }
@@ -186,7 +186,7 @@ class DateSelector extends BaseExtendSelector
                         $this->setWhen($parameters[$i]->getValue());
                         break;
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 } // switch
             }
         }
@@ -200,14 +200,14 @@ class DateSelector extends BaseExtendSelector
     {
         if ($this->dateTime === null && $this->seconds < 0) {
             $this->setError(
-                "You must provide a datetime or the number of "
-                . "seconds."
+                'You must provide a datetime or the number of '
+                . 'seconds.'
             );
         } elseif ($this->seconds < 0) {
             $this->setError(
-                "Date of " . $this->dateTime
-                . " results in negative seconds"
-                . " value relative to epoch (January 1, 1970, 00:00:00 GMT)."
+                'Date of ' . $this->dateTime
+                . ' results in negative seconds'
+                . ' value relative to epoch (January 1, 1970, 00:00:00 GMT).'
             );
         }
     }

@@ -89,7 +89,7 @@ class PearPackage2Task extends PearPackageTask
     {
         include_once 'PEAR/PackageFileManager2.php';
         if (!class_exists('PEAR_PackageFileManager2')) {
-            throw new BuildException("You must have installed PEAR_PackageFileManager in order to create a PEAR package.xml version 2.0 file.");
+            throw new BuildException('You must have installed PEAR_PackageFileManager in order to create a PEAR package.xml version 2.0 file.');
         }
     }
 
@@ -266,11 +266,11 @@ class PearPackage2Task extends PearPackageTask
     public function main()
     {
         if ($this->dir === null) {
-            throw new BuildException("You must specify the \"dir\" attribute for PEAR package 2 task.");
+            throw new BuildException('You must specify the "dir" attribute for PEAR package 2 task.');
         }
 
         if ($this->package === null) {
-            throw new BuildException("You must specify the \"name\" attribute for PEAR package 2 task.");
+            throw new BuildException('You must specify the "name" attribute for PEAR package 2 task.');
         }
 
         $this->pkg = new PEAR_PackageFileManager2();
@@ -282,7 +282,7 @@ class PearPackage2Task extends PearPackageTask
         $this->pkg->generateContents();
         $e = $this->pkg->writePackageFile();
         if (@PEAR::isError($e)) {
-            throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
+            throw new BuildException('Unable to write package file.', new Exception($e->getMessage()));
         }
     }
 }

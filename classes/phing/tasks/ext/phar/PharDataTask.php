@@ -117,9 +117,9 @@ class PharDataTask extends MatchingTask
              * Delete old archive, if exists.
              */
             if ($this->destinationFile->exists()) {
-                $isDeleted = $this->destinationFile->delete();
-                if (!$isDeleted) {
-                    $this->log("Could not delete destination file $this->destinationFile", Project::MSG_WARN);
+                $this->destinationFile->delete();
+                if ($this->destinationFile->exists()) {
+                    $this->log('Could not delete destination file ' . $this->destinationFile, Project::MSG_WARN);
                 }
             }
 
@@ -164,19 +164,19 @@ class PharDataTask extends MatchingTask
         }
 
         if (null === $this->destinationFile) {
-            throw new BuildException("destfile attribute must be set!", $this->getLocation());
+            throw new BuildException('destfile attribute must be set!', $this->getLocation());
         }
 
         if ($this->destinationFile->exists() && $this->destinationFile->isDirectory()) {
-            throw new BuildException("destfile is a directory!", $this->getLocation());
+            throw new BuildException('destfile is a directory!', $this->getLocation());
         }
 
         if (!$this->destinationFile->canWrite()) {
-            throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
+            throw new BuildException('Can not write to the specified destfile!', $this->getLocation());
         }
 
         if (null === $this->baseDirectory) {
-            throw new BuildException("basedir cattribute must be set", $this->getLocation());
+            throw new BuildException('basedir cattribute must be set', $this->getLocation());
         }
 
         if (!$this->baseDirectory->exists()) {

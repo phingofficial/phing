@@ -77,12 +77,12 @@ class RootHandler extends AbstractHandler
      */
     public function startElement($tag, $attrs)
     {
-        if ($tag === "project") {
+        if ($tag === 'project') {
             $ph = new ProjectHandler($this->parser, $this, $this->configurator, $this->context);
             $ph->init($tag, $attrs);
         } else {
             throw new ExpatParseException(
-                "Unexpected tag <$tag> in top-level of build file.",
+                sprintf('Unexpected tag <%s> in top-level of build file.', $tag),
                 $this->parser->getLocation()
             );
         }

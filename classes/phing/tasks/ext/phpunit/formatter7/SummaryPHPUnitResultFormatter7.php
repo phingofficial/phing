@@ -30,13 +30,13 @@ class SummaryPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         parent::endTestRun();
 
-        $sb  = "Total tests run: " . $this->getRunCount();
-        $sb .= ", Warnings: " . $this->getWarningCount();
-        $sb .= ", Failures: " . $this->getFailureCount();
-        $sb .= ", Errors: " . $this->getErrorCount();
-        $sb .= ", Incomplete: " . $this->getIncompleteCount();
-        $sb .= ", Skipped: " . $this->getSkippedCount();
-        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+        $sb  = 'Total tests run: ' . $this->getRunCount();
+        $sb .= ', Warnings: ' . $this->getWarningCount();
+        $sb .= ', Failures: ' . $this->getFailureCount();
+        $sb .= ', Errors: ' . $this->getErrorCount();
+        $sb .= ', Incomplete: ' . $this->getIncompleteCount();
+        $sb .= ', Skipped: ' . $this->getSkippedCount();
+        $sb .= ', Time elapsed: ' . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 
         if ($this->out != null) {
             $this->out->write($sb);

@@ -117,17 +117,17 @@ class ChmodTask extends Task
     {
         if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
             throw new BuildException(
-                "Specify at least one source - a file, dirset or a fileset."
+                'Specify at least one source - a file, dirset or a fileset.'
             );
         }
 
         if ($this->mode === null) {
-            throw new BuildException("You have to specify an octal mode for chmod.");
+            throw new BuildException('You have to specify an octal mode for chmod.');
         }
 
         // check for mode to be in the correct format
         if (!preg_match('/^([0-7]){3,4}$/', $this->mode)) {
-            throw new BuildException("You have specified an invalid mode.");
+            throw new BuildException('You have specified an invalid mode.');
         }
     }
 
@@ -142,7 +142,7 @@ class ChmodTask extends Task
             $mode = octdec($this->mode);
         } else {
             // we need to prepend the 0 before converting
-            $mode = octdec("0" . $this->mode);
+            $mode = octdec('0' . $this->mode);
         }
 
         // counters for non-verbose output
@@ -196,13 +196,13 @@ class ChmodTask extends Task
     private function chmodFile(PhingFile $file, $mode)
     {
         if (!$file->exists()) {
-            throw new BuildException("The file " . $file->__toString() . " does not exist");
+            throw new BuildException('The file ' . $file->__toString() . ' does not exist');
         }
 
         try {
             $file->setMode($mode);
             if ($this->verbose) {
-                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
+                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf('%o', [$mode]));
             }
         } catch (Exception $e) {
             if ($this->failonerror) {

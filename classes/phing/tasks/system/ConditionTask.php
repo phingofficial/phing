@@ -40,7 +40,7 @@ class ConditionTask extends ConditionBase
     /**
      * @var string $value
      */
-    private $value = "true";
+    private $value = 'true';
 
     /**
      * @var string $alternative
@@ -101,12 +101,12 @@ class ConditionTask extends ConditionBase
     {
         if ($this->countConditions() > 1) {
             throw new BuildException(
-                "You must not nest more than one condition into <condition>"
+                'You must not nest more than one condition into <condition>'
             );
         }
         if ($this->countConditions() < 1) {
             throw new BuildException(
-                "You must nest a condition into <condition>"
+                'You must nest a condition into <condition>'
             );
         }
         if ($this->property === null) {
@@ -114,10 +114,10 @@ class ConditionTask extends ConditionBase
         }
         $cs = $this->getIterator();
         if ($cs->current()->evaluate()) {
-            $this->log("Condition true; setting " . $this->property . " to " . $this->value, Project::MSG_DEBUG);
+            $this->log('Condition true; setting ' . $this->property . ' to ' . $this->value, Project::MSG_DEBUG);
             $this->project->setNewProperty($this->property, $this->value);
         } elseif ($this->alternative !== null) {
-            $this->log("Condition false; setting " . $this->property . " to " . $this->alternative, Project::MSG_DEBUG);
+            $this->log('Condition false; setting ' . $this->property . ' to ' . $this->alternative, Project::MSG_DEBUG);
             $this->project->setNewProperty($this->property, $this->alternative);
         } else {
             $this->log('Condition false; not setting ' . $this->property, Project::MSG_DEBUG);

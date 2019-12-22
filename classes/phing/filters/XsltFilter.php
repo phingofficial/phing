@@ -207,7 +207,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!class_exists('XSLTProcessor')) {
-            throw new BuildException("Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.");
+            throw new BuildException('Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.');
         }
 
         if ($this->processed === true) {
@@ -230,7 +230,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if (empty($_xml)) {
-            $this->log("XML file is empty!", Project::MSG_WARN);
+            $this->log('XML file is empty!', Project::MSG_WARN);
 
             return ''; // return empty string, don't attempt to apply XSLT
         }
@@ -241,7 +241,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         $_xsl = $br->read();
 
         $this->log(
-            "Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(),
+            'Tranforming XML ' . $this->in->getResource() . ' using style ' . $this->xslFile->getPath(),
             Project::MSG_VERBOSE
         );
 
@@ -300,7 +300,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         // ignoring param "type" attrib, because
         // we're only supporting direct XSL params right now
         foreach ($this->xsltParams as $param) {
-            $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), Project::MSG_DEBUG);
+            $this->log('Setting XSLT param: ' . $param->getName() . '=>' . $param->getExpression(), Project::MSG_DEBUG);
             $processor->setParameter(null, $param->getName(), $param->getExpression());
         }
 
@@ -312,7 +312,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         if (false === $result) {
             //$errno = xslt_errno($processor);
             //$err   = xslt_error($processor);
-            throw new BuildException("XSLT Error");
+            throw new BuildException('XSLT Error');
         }
 
         return $result;
@@ -349,10 +349,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if ($params[$i]->getType() === null) {
-                    if ($params[$i]->getName() === "style") {
+                    if ($params[$i]->getName() === 'style') {
                         $this->setStyle($params[$i]->getValue());
                     }
-                } elseif ($params[$i]->getType() == "param") {
+                } elseif ($params[$i]->getType() == 'param') {
                     $xp = new XsltParam();
                     $xp->setName($params[$i]->getName());
                     $xp->setExpression($params[$i]->getValue());

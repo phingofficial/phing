@@ -80,7 +80,7 @@ class ParallelTask extends SequentialTask
          * @var MehrAlsNix\Parallel\Worker $nestedTask
          */
         foreach ($mgr as $nestedTask) {
-            if ($nestedTask->getError() === "") {
+            if ($nestedTask->getError() === '') {
                 continue;
             }
 

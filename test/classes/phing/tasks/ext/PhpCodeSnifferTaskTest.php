@@ -31,7 +31,7 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
             $this->markTestSkipped('PHP CodeSniffer package not available.');
         }
 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/build.xml');
     }
 
     public function testNestedFormatters()
@@ -39,7 +39,7 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertStringContainsString("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        $this->assertStringContainsString('PHP CODE SNIFFER REPORT SUMMARY', $output);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
         );
@@ -51,7 +51,7 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertStringContainsString("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        $this->assertStringContainsString('PHP CODE SNIFFER REPORT SUMMARY', $output);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
         );
@@ -64,8 +64,8 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
         $this->assertPropertyEquals(
-            "PhpCodeSnifferTaskTest.testPropertyOutput",
-            "- Generic_Sniffs_PHP_DisallowShortOpenTagSniff" . PHP_EOL
+            'PhpCodeSnifferTaskTest.testPropertyOutput',
+            '- Generic_Sniffs_PHP_DisallowShortOpenTagSniff' . PHP_EOL
         );
     }
 }

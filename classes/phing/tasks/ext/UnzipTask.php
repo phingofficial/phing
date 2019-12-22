@@ -36,7 +36,7 @@ class UnzipTask extends ExtractBaseTask
     protected function extractArchive(PhingFile $zipfile)
     {
         $this->log(
-            "Extracting zip: " . $zipfile->__toString() . ' to ' . $this->todir->__toString(),
+            'Extracting zip: ' . $zipfile->__toString() . ' to ' . $this->todir->__toString(),
             Project::MSG_INFO
         );
 
@@ -44,14 +44,14 @@ class UnzipTask extends ExtractBaseTask
 
         $result = $zip->open($zipfile->getAbsolutePath());
         if (!$result) {
-            $this->log("Unable to open zipfile " . $zipfile->__toString(), Project::MSG_ERR);
+            $this->log('Unable to open zipfile ' . $zipfile->__toString(), Project::MSG_ERR);
 
             return false;
         }
 
         $result = $zip->extractTo($this->todir->getAbsolutePath());
         if (!$result) {
-            $this->log("Unable to extract zipfile " . $zipfile->__toString(), Project::MSG_ERR);
+            $this->log('Unable to extract zipfile ' . $zipfile->__toString(), Project::MSG_ERR);
 
             return false;
         }

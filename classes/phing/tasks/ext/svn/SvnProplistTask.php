@@ -22,7 +22,7 @@
  */
 class SvnProplistTask extends SvnBaseTask
 {
-    private $propertyName = "svn.proplist";
+    private $propertyName = 'svn.proplist';
     private $recursive    = false;
 
     /**

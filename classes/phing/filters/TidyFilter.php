@@ -155,10 +155,10 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
         $params = $this->getParameters();
         if (!empty($params)) {
             foreach ($params as $param) {
-                if ($param->getType() == "config") {
+                if ($param->getType() == 'config') {
                     $this->configParameters[] = $param;
                 } else {
-                    if ($param->getName() == "encoding") {
+                    if ($param->getName() == 'encoding') {
                         $this->setEncoding($param->getValue());
                     }
                 }

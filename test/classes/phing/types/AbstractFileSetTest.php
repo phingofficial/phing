@@ -45,18 +45,18 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
     {
         /** @var FileSet $f */
         $f = $this->getInstance();
-        $f->setIncludes("**/*.php");
+        $f->setIncludes('**/*.php');
         try {
-            $f->setRefid(new Reference($this->getProject(), "dummyref"));
+            $f->setRefid(new Reference($this->getProject(), 'dummyref'));
             $this->fail(
-                "Can add reference to "
+                'Can add reference to '
                 . $f
-                . " with elements from setIncludes"
+                . ' with elements from setIncludes'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
@@ -64,16 +64,16 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         $f = $this->getInstance();
         $f->createPatternSet();
         try {
-            $f->setRefid(new Reference($this->getProject(), "dummyref"));
+            $f->setRefid(new Reference($this->getProject(), 'dummyref'));
             $this->fail(
-                "Can add reference to "
+                'Can add reference to '
                 . $f
-                . " with nested patternset element."
+                . ' with nested patternset element.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify nested elements when "
-                . "using refid",
+                'You must not specify nested elements when '
+                . 'using refid',
                 $be->getMessage()
             );
         }
@@ -81,93 +81,93 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         $f = $this->getInstance();
         $f->createInclude();
         try {
-            $f->setRefid(new Reference($this->getProject(), "dummyref"));
+            $f->setRefid(new Reference($this->getProject(), 'dummyref'));
             $this->fail(
-                "Can add reference to "
+                'Can add reference to '
                 . $f
-                . " with nested include element."
+                . ' with nested include element.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
 
         $f = $this->getInstance();
-        $f->setRefid(new Reference($this->getProject(), "dummyref"));
+        $f->setRefid(new Reference($this->getProject(), 'dummyref'));
         try {
-            $f->setIncludes("**/*.java");
+            $f->setIncludes('**/*.java');
             $this->fail(
-                "Can set includes in "
+                'Can set includes in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
 
         try {
-            $f->setIncludesfile(new PhingFile("/a"));
+            $f->setIncludesfile(new PhingFile('/a'));
             $this->fail(
-                "Can set includesfile in "
+                'Can set includesfile in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
 
         try {
-            $f->setExcludes("**/*.java");
+            $f->setExcludes('**/*.java');
             $this->fail(
-                "Can set excludes in "
+                'Can set excludes in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
 
         try {
-            $f->setExcludesfile(new PhingFile("/a"));
+            $f->setExcludesfile(new PhingFile('/a'));
             $this->fail(
-                "Can set excludesfile in "
+                'Can set excludesfile in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
 
         try {
-            $f->setDir($this->project->resolveFile("."));
+            $f->setDir($this->project->resolveFile('.'));
             $this->fail(
-                "Can set dir in "
+                'Can set dir in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
@@ -175,14 +175,14 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         try {
             $f->setExpandSymbolicLinks(true);
             $this->fail(
-                "Can expand symbolic links in "
+                'Can expand symbolic links in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
@@ -190,14 +190,14 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         try {
             $f->setFile($this->project->resolveFile(__FILE__));
             $this->fail(
-                "Can set file in "
+                'Can set file in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
@@ -205,14 +205,14 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         try {
             $f->setCaseSensitive(true);
             $this->fail(
-                "Can set case sensitive in "
+                'Can set case sensitive in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify more than one attribute "
-                . "when using refid",
+                'You must not specify more than one attribute '
+                . 'when using refid',
                 $be->getMessage()
             );
         }
@@ -220,14 +220,14 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         try {
             $f->createInclude();
             $this->fail(
-                "Can add nested include in "
+                'Can add nested include in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify nested elements when using "
-                . "refid",
+                'You must not specify nested elements when using '
+                . 'refid',
                 $be->getMessage()
             );
         }
@@ -235,14 +235,14 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         try {
             $f->createExclude();
             $this->fail(
-                "Can add nested exclude in "
+                'Can add nested exclude in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify nested elements when using "
-                . "refid",
+                'You must not specify nested elements when using '
+                . 'refid',
                 $be->getMessage()
             );
         }
@@ -250,42 +250,42 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         try {
             $f->createIncludesFile();
             $this->fail(
-                "Can add nested includesfile in "
+                'Can add nested includesfile in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify nested elements when using "
-                . "refid",
+                'You must not specify nested elements when using '
+                . 'refid',
                 $be->getMessage()
             );
         }
         try {
             $f->createExcludesFile();
             $this->fail(
-                "Can add nested excludesfile in "
+                'Can add nested excludesfile in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify nested elements when using "
-                . "refid",
+                'You must not specify nested elements when using '
+                . 'refid',
                 $be->getMessage()
             );
         }
         try {
             $f->createPatternSet();
             $this->fail(
-                "Can add nested patternset in "
+                'Can add nested patternset in '
                 . $f
-                . " that is a reference."
+                . ' that is a reference.'
             );
         } catch (BuildException $be) {
             $this->assertEquals(
-                "You must not specify nested elements when using "
-                . "refid",
+                'You must not specify nested elements when using '
+                . 'refid',
                 $be->getMessage()
             );
         }

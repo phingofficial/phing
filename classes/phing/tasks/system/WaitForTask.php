@@ -118,7 +118,7 @@ class WaitForTask extends ConditionBase
             return self::ONE_MILLISECOND;
         }
 
-        throw new BuildException("Illegal unit '$unit'");
+        throw new BuildException(sprintf("Illegal unit '%s'", $unit));
     }
 
     /**
@@ -164,11 +164,11 @@ class WaitForTask extends ConditionBase
     public function main()
     {
         if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <waitfor>");
+            throw new BuildException('You must not nest more than one condition into <waitfor>');
         }
 
         if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <waitfor>");
+            throw new BuildException('You must nest a condition into <waitfor>');
         }
 
         $cs        = $this->getIterator();
@@ -194,15 +194,15 @@ class WaitForTask extends ConditionBase
 
     protected function processSuccess()
     {
-        $this->log($this->getTaskName() . ": condition was met", Project::MSG_VERBOSE);
+        $this->log($this->getTaskName() . ': condition was met', Project::MSG_VERBOSE);
     }
 
     protected function processTimeout()
     {
-        $this->log($this->getTaskName() . ": timeout", Project::MSG_VERBOSE);
+        $this->log($this->getTaskName() . ': timeout', Project::MSG_VERBOSE);
 
         if ($this->timeoutProperty != null) {
-            $this->project->setNewProperty($this->timeoutProperty, "true");
+            $this->project->setNewProperty($this->timeoutProperty, 'true');
         }
     }
 }

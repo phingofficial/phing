@@ -282,7 +282,7 @@ class CopyTask extends Task
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+            throw new BuildException('Cannot define more than one mapper', $this->getLocation());
         }
         $this->mapperElement = new Mapper($this->project);
 
@@ -308,11 +308,11 @@ class CopyTask extends Task
                 if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
                 } else {
-                    $this->log($this->file->getName() . " omitted, " . $this->destFile->getName() . " is up to date");
+                    $this->log($this->file->getName() . ' omitted, ' . $this->destFile->getName() . ' is up to date');
                 }
             } else {
                 // terminate build
-                $this->logError("Could not find file " . $this->file->__toString() . " to copy.");
+                $this->logError('Could not find file ' . $this->file->__toString() . ' to copy.');
             }
         }
 
@@ -404,23 +404,23 @@ class CopyTask extends Task
     protected function validateAttributes()
     {
         if ($this->file === null && count($this->dirsets) === 0 && count($this->filesets) === 0 && count($this->filelists) === 0) {
-            throw new BuildException("CopyTask. Specify at least one source - a file, fileset or filelist.");
+            throw new BuildException('CopyTask. Specify at least one source - a file, fileset or filelist.');
         }
 
         if ($this->destFile !== null && $this->destDir !== null) {
-            throw new BuildException("Only one of destfile and destdir may be set.");
+            throw new BuildException('Only one of destfile and destdir may be set.');
         }
 
         if ($this->destFile === null && $this->destDir === null) {
-            throw new BuildException("One of destfile or destdir must be set.");
+            throw new BuildException('One of destfile or destdir must be set.');
         }
 
         if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
-            throw new BuildException("Use a fileset to copy directories.");
+            throw new BuildException('Use a fileset to copy directories.');
         }
 
         if ($this->destFile !== null && (count($this->filesets) > 0 || count($this->dirsets) > 0)) {
-            throw new BuildException("Cannot concatenate multiple files into a single file.");
+            throw new BuildException('Cannot concatenate multiple files into a single file.');
         }
 
         if ($this->destFile !== null) {
@@ -524,11 +524,11 @@ class CopyTask extends Task
     protected function doWork()
     {
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $fromSlot         = $this->getRegisterSlot("currentFromFile");
-        $fromBasenameSlot = $this->getRegisterSlot("currentFromFile.basename");
+        $fromSlot         = $this->getRegisterSlot('currentFromFile');
+        $fromBasenameSlot = $this->getRegisterSlot('currentFromFile.basename');
 
-        $toSlot         = $this->getRegisterSlot("currentToFile");
-        $toBasenameSlot = $this->getRegisterSlot("currentToFile.basename");
+        $toSlot         = $this->getRegisterSlot('currentToFile');
+        $toBasenameSlot = $this->getRegisterSlot('currentToFile.basename');
 
         $mapSize = count($this->fileCopyMap);
         $total   = $mapSize;
@@ -548,7 +548,7 @@ class CopyTask extends Task
 
                     // Directory creation with specific permission mode
                     if (!$d->mkdirs($dirMode)) {
-                        $this->logError("Unable to create directory " . $d->__toString());
+                        $this->logError('Unable to create directory ' . $d->__toString());
                     } else {
                         if ($this->preserveLMT) {
                             $d->setLastModified($s->lastModified());
@@ -560,7 +560,7 @@ class CopyTask extends Task
             }
             if ($count > 0) {
                 $this->log(
-                    "Created " . $count . " empty director" . ($count == 1 ? "y" : "ies") . " in " . $this->destDir->getAbsolutePath()
+                    'Created ' . $count . ' empty director' . ($count == 1 ? 'y' : 'ies') . ' in ' . $this->destDir->getAbsolutePath()
                 );
             }
         }
@@ -570,7 +570,7 @@ class CopyTask extends Task
         }
 
         $this->log(
-            "Copying " . $mapSize . " file" . ($mapSize === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath()
+            'Copying ' . $mapSize . ' file' . ($mapSize === 1 ? '' : 's') . ' to ' . $this->destDir->getAbsolutePath()
         );
         // walks the map and actually copies the files
         $count = 0;
@@ -624,11 +624,11 @@ class CopyTask extends Task
         &$total
     ) {
         if ($from === $to) {
-            $this->log("Skipping self-copy of " . $from, $this->verbosity);
+            $this->log('Skipping self-copy of ' . $from, $this->verbosity);
             $total--;
             return;
         }
-        $this->log("From " . $from . " to " . $to, $this->verbosity);
+        $this->log('From ' . $from . ' to ' . $to, $this->verbosity);
         try { // try to copy file
             $fromFile = new PhingFile($from);
             $toFile   = new PhingFile($to);
@@ -652,7 +652,7 @@ class CopyTask extends Task
 
             $count++;
         } catch (IOException $ioe) {
-            $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
+            $this->logError('Failed to copy ' . $from . ' to ' . $to . ': ' . $ioe->getMessage());
         }
     }
 

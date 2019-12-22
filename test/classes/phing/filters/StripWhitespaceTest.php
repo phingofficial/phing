@@ -25,19 +25,19 @@ class StripWhitespaceTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/stripwhitespace.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/stripwhitespace.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testStripWhitespace()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $resultFile = $this->getProject()->resolveFile("result/stripwhitespace.test");
+        $resultFile = $this->getProject()->resolveFile('result/stripwhitespace.test');
 
         $expected = <<<EXPECTED
 <?php

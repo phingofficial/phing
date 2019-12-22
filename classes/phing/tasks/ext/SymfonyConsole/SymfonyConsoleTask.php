@@ -192,7 +192,7 @@ class SymfonyConsoleTask extends Task
     private function isNoDebugArgPresent()
     {
         foreach ($this->args as $arg) {
-            if ($arg->getName() == "no-debug") {
+            if ($arg->getName() == 'no-debug') {
                 return true;
             }
         }
@@ -209,7 +209,7 @@ class SymfonyConsoleTask extends Task
     {
         // Add no-debug arg if it isn't already present
         if (!$this->debug && !$this->isNoDebugArgPresent()) {
-            $this->createArg()->setName("no-debug");
+            $this->createArg()->setName('no-debug');
         }
         $cmd = [
             Commandline::quoteArgument($this->console),
@@ -228,7 +228,7 @@ class SymfonyConsoleTask extends Task
     {
         $cmd = $this->getCmdString();
 
-        $this->silent ?: $this->log("executing $cmd");
+        $this->silent ?: $this->log('executing ' . $cmd);
         $return = null;
         $output = [];
         exec($cmd, $output, $return);
@@ -243,7 +243,7 @@ class SymfonyConsoleTask extends Task
 
         if ($return != 0 && $this->checkreturn) {
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
-            throw new BuildException("SymfonyConsole execution failed");
+            throw new BuildException('SymfonyConsole execution failed');
         }
     }
 }

@@ -83,18 +83,18 @@ class HtmlColorLogger extends DefaultLogger
      */
     final private function setColors()
     {
-        $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new PhingFile(Phing::getResourcePath('phing/listener/defaults.properties'));
 
         try {
             $prop = new Properties();
 
             $prop->load($systemColorFile);
 
-            $err     = $prop->getProperty("HtmlColorLogger.ERROR_CLASS");
-            $warn    = $prop->getProperty("HtmlColorLogger.WARNING_CLASS");
-            $info    = $prop->getProperty("HtmlColorLogger.INFO_CLASS");
-            $verbose = $prop->getProperty("HtmlColorLogger.VERBOSE_CLASS");
-            $debug   = $prop->getProperty("HtmlColorLogger.DEBUG_CLASS");
+            $err     = $prop->getProperty('HtmlColorLogger.ERROR_CLASS');
+            $warn    = $prop->getProperty('HtmlColorLogger.WARNING_CLASS');
+            $info    = $prop->getProperty('HtmlColorLogger.INFO_CLASS');
+            $verbose = $prop->getProperty('HtmlColorLogger.VERBOSE_CLASS');
+            $debug   = $prop->getProperty('HtmlColorLogger.DEBUG_CLASS');
             if ($err !== null) {
                 $this->errColor = self::PREFIX . $err . self::SUFFIX;
             }

@@ -26,13 +26,13 @@
  */
 class IoncubeLicenseTask extends Task
 {
-    private $ioncubePath = "/usr/local/ioncube";
+    private $ioncubePath = '/usr/local/ioncube';
 
-    private $licensePath   = "";
-    private $passPhrase    = "";
-    private $allowedServer = "";
-    private $expireOn      = "";
-    private $expireIn      = "";
+    private $licensePath   = '';
+    private $passPhrase    = '';
+    private $allowedServer = '';
+    private $expireOn      = '';
+    private $expireIn      = '';
     private $comments      = [];
 
     /**
@@ -164,12 +164,12 @@ class IoncubeLicenseTask extends Task
 
         $makelicense = new PhingFile($this->ioncubePath, 'make_license');
 
-        $this->log("Running ionCube make_license...");
+        $this->log('Running ionCube make_license...');
 
-        exec($makelicense->__toString() . " " . $arguments . " 2>&1", $output, $return);
+        exec($makelicense->__toString() . ' ' . $arguments . ' 2>&1', $output, $return);
 
         if ($return != 0) {
-            throw new BuildException("Could not execute ionCube make_license: " . implode(' ', $output));
+            throw new BuildException('Could not execute ionCube make_license: ' . implode(' ', $output));
         }
     }
 
@@ -178,7 +178,7 @@ class IoncubeLicenseTask extends Task
      */
     private function constructArguments()
     {
-        $arguments = "";
+        $arguments = '';
 
         if (!empty($this->passPhrase)) {
             $arguments .= "--passphrase '" . $this->passPhrase . "' ";
@@ -193,15 +193,15 @@ class IoncubeLicenseTask extends Task
         }
 
         if (!empty($this->allowedServer)) {
-            $arguments .= "--allowed-server {" . $this->allowedServer . "} ";
+            $arguments .= '--allowed-server {' . $this->allowedServer . '} ';
         }
 
         if (!empty($this->expireOn)) {
-            $arguments .= "--expire-on " . $this->expireOn . " ";
+            $arguments .= '--expire-on ' . $this->expireOn . ' ';
         }
 
         if (!empty($this->expireIn)) {
-            $arguments .= "--expire-in " . $this->expireIn . " ";
+            $arguments .= '--expire-in ' . $this->expireIn . ' ';
         }
 
         return $arguments;

@@ -27,21 +27,21 @@ class SortFilterTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/sortfilter.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/sortfilter.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testSortFilter()
     {
-        $this->executeTarget("testSortFilter");
+        $this->executeTarget('testSortFilter');
 
-        $expected = $this->getProject()->resolveFile("expected/sortfilter.test");
-        $result   = $this->getProject()->resolveFile("result/sortfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/sortfilter.test');
+        $result   = $this->getProject()->resolveFile('result/sortfilter.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

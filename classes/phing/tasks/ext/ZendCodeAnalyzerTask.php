@@ -61,8 +61,8 @@ class ZendCodeAnalyzerTask extends Task
 {
     use FileSetAware;
 
-    protected $analyzerPath = ""; // Path to ZendCodeAnalyzer binary
-    protected $file         = ""; // the source file (from xml attribute)
+    protected $analyzerPath = ''; // Path to ZendCodeAnalyzer binary
+    protected $file         = ''; // the source file (from xml attribute)
     protected $counter      = 0;
     protected $disable      = [];
     protected $enable       = [];
@@ -96,7 +96,7 @@ class ZendCodeAnalyzerTask extends Task
      */
     public function setDisable($disable)
     {
-        $this->disable = explode(",", $disable);
+        $this->disable = explode(',', $disable);
     }
 
     /**
@@ -106,7 +106,7 @@ class ZendCodeAnalyzerTask extends Task
      */
     public function setEnable($enable)
     {
-        $this->enable = explode(",", $enable);
+        $this->enable = explode(',', $enable);
     }
 
     /**
@@ -148,7 +148,7 @@ class ZendCodeAnalyzerTask extends Task
             }
         }
 
-        $this->log("Number of findings: " . $this->counter, Project::MSG_INFO);
+        $this->log('Number of findings: ' . $this->counter, Project::MSG_INFO);
     }
 
     /**
@@ -165,17 +165,17 @@ class ZendCodeAnalyzerTask extends Task
         if (file_exists($file)) {
             if (is_readable($file)) {
                 // Construct shell command
-                $cmd = $this->analyzerPath . " ";
+                $cmd = $this->analyzerPath . ' ';
 
                 foreach ($this->enable as $enable) { // Enable warning levels
-                    $cmd .= " --enable $enable ";
+                    $cmd .= ' --enable ' . $enable . ' ';
                 }
 
                 foreach ($this->disable as $disable) { // Disable warning levels
-                    $cmd .= " --disable $disable ";
+                    $cmd .= ' --disable ' . $disable . ' ';
                 }
 
-                $cmd .= "$file 2>&1";
+                $cmd .= $file . ' 2>&1';
 
                 // Execute command
                 $result = shell_exec($cmd);

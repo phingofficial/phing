@@ -245,7 +245,7 @@ class FileSyncTask extends Task
         }
 
         if ($this->backupDir !== null && $this->backupDir == $this->destinationDir) {
-            throw new BuildException("Invalid backup directory: " . $this->backupDir);
+            throw new BuildException('Invalid backup directory: ' . $this->backupDir);
         }
 
         $command = $this->getCommand();

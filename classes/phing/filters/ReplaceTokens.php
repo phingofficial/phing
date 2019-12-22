@@ -46,12 +46,12 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Default "begin token" character.
      */
-    public const DEFAULT_BEGIN_TOKEN = "@";
+    public const DEFAULT_BEGIN_TOKEN = '@';
 
     /**
      * Default "end token" character.
      */
-    public const DEFAULT_END_TOKEN = "@";
+    public const DEFAULT_END_TOKEN = '@';
 
     /**
      * Array to hold the replacee-replacer pairs (String to String).
@@ -81,14 +81,14 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    private $beginToken = "@"; // self::DEFAULT_BEGIN_TOKEN;
+    private $beginToken = '@'; // self::DEFAULT_BEGIN_TOKEN;
 
     /**
      * Character marking the end of a token.
      *
      * @var string
      */
-    private $endToken = "@"; //self::DEFAULT_END_TOKEN;
+    private $endToken = '@'; //self::DEFAULT_END_TOKEN;
 
     /**
      * Performs lookup on key and returns appropriate replacement string.
@@ -130,10 +130,10 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
         if ($replaceWith === null) {
             $replaceWith = $this->beginToken . $key . $this->endToken;
-            $this->log("No token defined for key \"" . $this->beginToken . $key . $this->endToken . "\"");
+            $this->log('No token defined for key "' . $this->beginToken . $key . $this->endToken . '"');
         } else {
             $this->log(
-                "Replaced \"" . $this->beginToken . $key . $this->endToken . "\" with \"" . $replaceWith . "\"",
+                'Replaced "' . $this->beginToken . $key . $this->endToken . '" with "' . $replaceWith . '"',
                 Project::MSG_VERBOSE
             );
         }
@@ -165,7 +165,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
         // filter buffer
         $buffer = preg_replace_callback(
-            "/" . preg_quote($this->beginToken, '/') . "([\w\.\-:]+?)" . preg_quote($this->endToken, '/') . "/",
+            '/' . preg_quote($this->beginToken, '/') . '([\w\.\-:]+?)' . preg_quote($this->endToken, '/') . '/',
             [$this, 'replaceTokenCallback'],
             $buffer
         );
@@ -331,17 +331,17 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
             for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
                 if ($params[$i] !== null) {
                     $type = $params[$i]->getType();
-                    if ($type === "tokenchar") {
+                    if ($type === 'tokenchar') {
                         $name = $params[$i]->getName();
-                        if ($name === "begintoken") {
+                        if ($name === 'begintoken') {
                             $this->beginToken = substr($params[$i]->getValue(), 0, strlen($params[$i]->getValue()));
                         } else {
-                            if ($name === "endtoken") {
+                            if ($name === 'endtoken') {
                                 $this->endToken = substr($params[$i]->getValue(), 0, strlen($params[$i]->getValue()));
                             }
                         }
                     } else {
-                        if ($type === "token") {
+                        if ($type === 'token') {
                             $name  = $params[$i]->getName();
                             $value = $params[$i]->getValue();
 
@@ -351,7 +351,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
                             $this->tokens[] = $tok;
                         } else {
-                            if ($type === "tokensource") {
+                            if ($type === 'tokensource') {
                                 // Store data from nested tags in local array
                                 $arr = [];
 
@@ -362,13 +362,13 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
                                 // Create TokenSource
                                 $tokensource = new TokenSource();
-                                if (isset($arr["classname"])) {
-                                    $tokensource->setClassname($arr["classname"]);
+                                if (isset($arr['classname'])) {
+                                    $tokensource->setClassname($arr['classname']);
                                 }
 
                                 // Copy other parameters 1:1 to freshly created TokenSource
                                 foreach ($arr as $key => $value) {
-                                    if (strtolower($key) === "classname") {
+                                    if (strtolower($key) === 'classname') {
                                         continue;
                                     }
                                     $param = $tokensource->createParam();

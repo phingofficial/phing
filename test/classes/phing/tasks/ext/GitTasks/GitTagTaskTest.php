@@ -177,7 +177,7 @@ class GitTagTaskTest extends BuildFileTest
         fclose($fp);
 
         $this->executeTarget('gitTagFileSet');
-        $this->assertInLogs("LC_ALL=C && git tag -F'{$msgFile}' 'ver1.0'");
+        $this->assertInLogs(sprintf("LC_ALL=C && git tag -F'%s' 'ver1.0'", $msgFile));
 
         unlink($msgFile);
     }

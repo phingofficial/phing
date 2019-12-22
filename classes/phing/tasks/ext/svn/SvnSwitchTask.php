@@ -45,7 +45,7 @@ class SvnSwitchTask extends SvnBaseTask
 
         $this->log(
             "Switching SVN repository at '" . $this->getToDir() . "' to '" . $this->getRepositoryUrl() . "' "
-            . ($this->getRevision() == 'HEAD' ? '' : " (revision: {$this->getRevision()})")
+            . ($this->getRevision() == 'HEAD' ? '' : ' (revision: ' . $this->getRevision() . ')')
         );
 
         // revision

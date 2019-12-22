@@ -24,7 +24,7 @@
  */
 class TextElement extends ProjectComponent
 {
-    public $value       = "";
+    public $value       = '';
     public $trimLeading = false;
     public $trim        = false;
     public $filtering   = true;
@@ -64,7 +64,7 @@ class TextElement extends ProjectComponent
     {
         // non-existing files are not allowed
         if (!$file->exists()) {
-            throw new BuildException("File " . $file . " does not exist.");
+            throw new BuildException('File ' . $file . ' does not exist.');
         }
 
         $reader = null;
@@ -120,10 +120,10 @@ class TextElement extends ProjectComponent
     public function getValue()
     {
         if ($this->value == null) {
-            $this->value = "";
+            $this->value = '';
         }
         if (trim($this->value) === '') {
-            $this->value = "";
+            $this->value = '';
         }
         if ($this->trimLeading) {
             $current     = str_split($this->value);

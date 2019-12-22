@@ -78,7 +78,7 @@ class TokenSource extends DataType
     {
         // Create new Reader
         if ($this->classname === null) {
-            throw new BuildException("No Classname given to TokenSource.");
+            throw new BuildException('No Classname given to TokenSource.');
         }
 
         $classname    = Phing::import($this->classname);
@@ -93,9 +93,9 @@ class TokenSource extends DataType
                 $this->tokens[] = $token;
             }
         } catch (BuildException $e) {
-            $this->log("Error reading TokenSource: " . $e->getMessage(), Project::MSG_WARN);
+            $this->log('Error reading TokenSource: ' . $e->getMessage(), Project::MSG_WARN);
         } catch (IOException $e) {
-            $this->log("Error reading TokenSource: " . $e->getMessage(), Project::MSG_WARN);
+            $this->log('Error reading TokenSource: ' . $e->getMessage(), Project::MSG_WARN);
         }
     }
 
@@ -122,7 +122,7 @@ class TokenSource extends DataType
     {
         $count = count($this->parameters);
         for ($i = 0; $i < $count; $i++) {
-            $method_name = "Set" . $this->parameters[$i]->getName();
+            $method_name = 'Set' . $this->parameters[$i]->getName();
             $value       = $this->parameters[$i]->getValue();
             $reader->$method_name($value);
         }

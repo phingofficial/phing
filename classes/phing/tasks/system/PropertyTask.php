@@ -192,8 +192,8 @@ class PropertyTask extends Task
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
-        if (!StringHelper::endsWith(".", $prefix)) {
-            $this->prefix .= ".";
+        if (!StringHelper::endsWith('.', $prefix)) {
+            $this->prefix .= '.';
         }
     }
 
@@ -340,21 +340,21 @@ class PropertyTask extends Task
         if ($this->name !== null) {
             if ($this->value === null && $this->reference === null) {
                 throw new BuildException(
-                    "You must specify value or refid with the name attribute",
+                    'You must specify value or refid with the name attribute',
                     $this->getLocation()
                 );
             }
         } else {
             if ($this->file === null && $this->env === null) {
                 throw new BuildException(
-                    "You must specify file or environment when not using the name attribute",
+                    'You must specify file or environment when not using the name attribute',
                     $this->getLocation()
                 );
             }
         }
 
         if ($this->file === null && $this->prefix !== null) {
-            throw new BuildException("Prefix is only valid when loading from a file.", $this->getLocation());
+            throw new BuildException('Prefix is only valid when loading from a file.', $this->getLocation());
         }
 
         if (($this->name !== null) && ($this->value !== null)) {
@@ -407,9 +407,9 @@ class PropertyTask extends Task
     {
         $props = new Properties();
         if (substr($prefix, strlen($prefix) - 1) == '.') {
-            $prefix .= ".";
+            $prefix .= '.';
         }
-        $this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
+        $this->log('Loading Environment ' . $prefix, Project::MSG_VERBOSE);
         foreach ($_ENV as $key => $value) {
             $props->setProperty($prefix . '.' . $key, $value);
         }
@@ -477,19 +477,19 @@ class PropertyTask extends Task
     {
         $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
         $props      = new Properties(null, $fileParser);
-        $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
+        $this->log('Loading ' . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
                 $props->load($file);
                 $this->addProperties($props);
             } else {
                 $this->log(
-                    "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
+                    'Unable to find property file: ' . $file->getAbsolutePath() . '... skipped',
                     $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN
                 );
             }
         } catch (IOException $ioe) {
-            throw new BuildException("Could not load properties from file.", $ioe);
+            throw new BuildException('Could not load properties from file.', $ioe);
         }
     }
 
@@ -531,7 +531,7 @@ class PropertyTask extends Task
                     continue;
                 }
 
-                $sb = "";
+                $sb = '';
 
                 $j = $propertyRefs;
 
@@ -545,7 +545,7 @@ class PropertyTask extends Task
                     if (in_array($propertyName, $resolveStack)) {
                         // Should we maybe just log this as an error & move on?
                         // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
-                        throw new BuildException("Property " . $propertyName . " was circularly defined.");
+                        throw new BuildException('Property ' . $propertyName . ' was circularly defined.');
                     }
 
                     $fragment = $this->getProject()->getProperty($propertyName);
@@ -561,13 +561,13 @@ class PropertyTask extends Task
                             $resolved       = false; // parse again (could have been replaced w/ another var)
                         }
                     } else {
-                        $fragment = "\${" . $propertyName . "}";
+                        $fragment = '${' . $propertyName . '}';
                     }
 
                     $sb .= $fragment;
                 }
 
-                $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
+                $this->log(sprintf('Resolved Property "%s" to "%s"', $value, $sb), Project::MSG_DEBUG);
                 $value = $sb;
                 $props->setProperty($name, $value);
             } // while (!$resolved)

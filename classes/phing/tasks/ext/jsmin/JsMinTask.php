@@ -51,7 +51,7 @@ class JsMinTask extends Task
      *
      * @var string
      */
-    protected $targetDir = "";
+    protected $targetDir = '';
 
     /**
      * Whether the build should fail, if an error occurred.
@@ -150,7 +150,7 @@ class JsMinTask extends Task
 
                 file_put_contents($target, $minified);
             } catch (Exception $jsme) {
-                $this->log("Could not minify file $file: " . $jsme->getMessage(), Project::MSG_ERR);
+                $this->log('Could not minify file ' . $file . ': ' . $jsme->getMessage(), Project::MSG_ERR);
             }
         }
     }

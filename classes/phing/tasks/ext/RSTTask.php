@@ -251,7 +251,7 @@ class RSTTask extends Task
         //work around a bug in php by replacing /./ with /
         $targetDir = str_replace('/./', '/', dirname($targetFile));
         if (!is_dir($targetDir)) {
-            $this->log("Creating directory '$targetDir'", Project::MSG_VERBOSE);
+            $this->log(sprintf("Creating directory '%s'", $targetDir), Project::MSG_VERBOSE);
             mkdir($targetDir, $this->mode, true);
         }
 

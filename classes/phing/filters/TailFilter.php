@@ -42,12 +42,12 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the number of lines to be returned.
      */
-    public const LINES_KEY = "lines";
+    public const LINES_KEY = 'lines';
 
     /**
      * Parameter name for the number of lines to be skipped.
      */
-    public const SKIP_KEY = "skip";
+    public const SKIP_KEY = 'skip';
 
     /**
      * Number of lines to be returned in the filtered stream.

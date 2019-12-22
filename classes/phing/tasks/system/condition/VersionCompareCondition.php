@@ -98,7 +98,7 @@ class VersionCompareCondition implements Condition
     public function evaluate()
     {
         if ($this->version === null || $this->desiredVersion === null) {
-            throw new BuildException("Missing one version parameter for version compare");
+            throw new BuildException('Missing one version parameter for version compare');
         }
         $isValid = version_compare($this->version, $this->desiredVersion, $this->operator);
         if ($this->debug) {

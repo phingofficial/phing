@@ -54,8 +54,8 @@ class ContainsRegexpSelector extends BaseExtendSelector
      */
     private $myRegExp;
 
-    public const EXPRESSION_KEY = "expression";
-    public const CASE_KEY       = "casesensitive";
+    public const EXPRESSION_KEY = 'expression';
+    public const CASE_KEY       = 'casesensitive';
     public const ML_KEY         = 'multiline';
 
     /**
@@ -63,15 +63,15 @@ class ContainsRegexpSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf  = "{containsregexpselector expression: ";
+        $buf  = '{containsregexpselector expression: ';
         $buf .= $this->userProvidedExpression;
-        $buf .= " casesensitive: ";
+        $buf .= ' casesensitive: ';
         if ($this->casesensitive) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -129,7 +129,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
                         $this->setMultiLine(Project::toBoolean($parameters[$i]->getValue()));
                         break;
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 }
             } // for each param
         } // if params
@@ -142,7 +142,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
     public function verifySettings()
     {
         if ($this->userProvidedExpression === null) {
-            $this->setError("The expression attribute is required");
+            $this->setError('The expression attribute is required');
         }
     }
 
@@ -201,7 +201,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
             if ($in) {
                 $in->close();
             }
-            throw new BuildException("Could not read file " . $filename);
+            throw new BuildException('Could not read file ' . $filename);
         }
     }
 }

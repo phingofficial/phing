@@ -605,16 +605,16 @@ class IoncubeEncoderTask extends Task
 
         $encoder = new PhingFile($this->ioncubePath, $this->encoderName . $this->phpVersion);
 
-        $this->log("Running ionCube Encoder...");
+        $this->log('Running ionCube Encoder...');
 
         if ($this->showCommandLine) {
-            $this->log("Command line: " . $encoder->__toString() . ' ' . $arguments);
+            $this->log('Command line: ' . $encoder->__toString() . ' ' . $arguments);
         }
 
-        exec($encoder->__toString() . ' ' . $arguments . " 2>&1", $output, $return);
+        exec($encoder->__toString() . ' ' . $arguments . ' 2>&1', $output, $return);
 
         if ($return != 0) {
-            throw new BuildException("Could not execute ionCube Encoder: " . implode(' ', $output));
+            throw new BuildException('Could not execute ionCube Encoder: ' . implode(' ', $output));
         }
     }
 
@@ -627,7 +627,7 @@ class IoncubeEncoderTask extends Task
 
         foreach ($this->ionSwitches as $name => $value) {
             if ($value) {
-                $arguments .= "--$name ";
+                $arguments .= sprintf('--%s ', $name);
             }
         }
 
@@ -637,15 +637,15 @@ class IoncubeEncoderTask extends Task
              * better to handle it this way to prevent quote problems!
              */
             if ($name == 'action-if-no-loader') {
-                $arguments .= "--$name \"$value\" ";
+                $arguments .= sprintf('--%s "%s" ', $name, $value);
             } else {
-                $arguments .= "--$name '$value' ";
+                $arguments .= sprintf("--%s '%s' ", $name, $value);
             }
         }
 
         foreach ($this->ionOptionsXS as $name => $value) {
             foreach (explode(' ', $value) as $arg) {
-                $arguments .= "--$name '$arg' ";
+                $arguments .= sprintf("--%s '%s' ", $name, $arg);
             }
         }
 
@@ -655,11 +655,11 @@ class IoncubeEncoderTask extends Task
 
         if (!empty($this->targetOption)) {
             switch ($this->targetOption) {
-                case "replace":
-                case "merge":
-                case "update":
-                case "rename":
-                    $arguments .= "--" . $this->targetOption . "-target ";
+                case 'replace':
+                case 'merge':
+                case 'update':
+                case 'rename':
+                    $arguments .= '--' . $this->targetOption . '-target ';
                     break;
                 default:
                     throw new BuildException("Unknown target option '" . $this->targetOption . "'");
@@ -671,7 +671,7 @@ class IoncubeEncoderTask extends Task
         }
 
         if ($this->toDir != '') {
-            $arguments .= "-o " . $this->toDir . ' ';
+            $arguments .= '-o ' . $this->toDir . ' ';
         }
 
         return $arguments;

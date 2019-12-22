@@ -33,7 +33,7 @@ class FileUtilsTest extends BuildFileTest
     public function setUp(): void
     {
         $this->fu = new FileUtils();
-        $this->configureProject(PHING_TEST_BASE . "/etc/util/fileutils.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/util/fileutils.xml');
         $this->executeTarget('dummy');
     }
 

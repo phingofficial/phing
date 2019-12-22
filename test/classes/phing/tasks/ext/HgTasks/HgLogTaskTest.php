@@ -30,7 +30,7 @@ class HgLogTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testMaxCountShouldBeAnInteger()
@@ -38,7 +38,7 @@ class HgLogTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'maxCountShouldBeAnInteger',
             'maxCountShouldBeAnInteger',
-            "maxcount should be a positive integer."
+            'maxcount should be a positive integer.'
         );
     }
 
@@ -47,7 +47,7 @@ class HgLogTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'maxCountShouldBeAnInteger2',
             'maxCountShouldBeAnInteger',
-            "maxcount should be a positive integer."
+            'maxcount should be a positive integer.'
         );
     }
 }

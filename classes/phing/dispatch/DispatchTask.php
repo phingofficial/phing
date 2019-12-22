@@ -42,7 +42,7 @@ abstract class DispatchTask extends Task implements Dispatchable
      */
     public function getActionParameterName()
     {
-        return "action";
+        return 'action';
     }
 
     /**

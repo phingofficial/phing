@@ -46,18 +46,18 @@ class FileOutputStream extends OutputStream
         } elseif (is_string($file)) {
             $this->file = new PhingFile($file);
         } else {
-            throw new Exception("Invalid argument type for \$file.");
+            throw new Exception('Invalid argument type for $file.');
         }
         error_clear_last();
         if ($append) {
-            $stream = @fopen($this->file->getAbsolutePath(), "ab");
+            $stream = @fopen($this->file->getAbsolutePath(), 'ab');
         } else {
-            $stream = @fopen($this->file->getAbsolutePath(), "wb");
+            $stream = @fopen($this->file->getAbsolutePath(), 'wb');
         }
         if ($stream === false) {
             $lastError = error_get_last();
             $errormsg  = $lastError['message'];
-            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $errormsg);
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for writing: ' . $errormsg);
         }
         parent::__construct($stream);
     }

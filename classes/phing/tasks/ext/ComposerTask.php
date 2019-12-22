@@ -187,11 +187,11 @@ class ComposerTask extends Task
     public function main()
     {
         $commandLine = $this->prepareCommandLine();
-        $this->log("Executing " . $commandLine);
+        $this->log('Executing ' . $commandLine);
         passthru($commandLine, $returnCode);
 
         if ($returnCode > 0) {
-            throw new BuildException("Composer execution failed");
+            throw new BuildException('Composer execution failed');
         }
     }
 }

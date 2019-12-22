@@ -35,7 +35,7 @@ class ElseIfTask extends ConditionBase
     public function addThen(SequentialTask $t)
     {
         if ($this->thenTasks != null) {
-            throw new BuildException("You must not nest more than one <then> into <elseif>");
+            throw new BuildException('You must not nest more than one <then> into <elseif>');
         }
         $this->thenTasks = $t;
     }
@@ -48,10 +48,10 @@ class ElseIfTask extends ConditionBase
     public function evaluate()
     {
         if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <elseif>");
+            throw new BuildException('You must not nest more than one condition into <elseif>');
         }
         if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <elseif>");
+            throw new BuildException('You must nest a condition into <elseif>');
         }
 
         $conditions = $this->getConditions();

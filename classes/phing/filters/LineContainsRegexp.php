@@ -46,7 +46,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Parameter name for regular expression.
      */
-    public const REGEXP_KEY = "regexp";
+    public const REGEXP_KEY = 'regexp';
     public const NEGATE_KEY = 'negate';
     public const CS_KEY     = 'casesensitive';
 

@@ -47,7 +47,7 @@ class UntarTask extends ExtractBaseTask
     {
         include_once 'Archive/Tar.php';
         if (!class_exists('Archive_Tar')) {
-            throw new BuildException("You must have installed the PEAR Archive_Tar class in order to use UntarTask.");
+            throw new BuildException('You must have installed the PEAR Archive_Tar class in order to use UntarTask.');
         }
     }
 
@@ -61,7 +61,7 @@ class UntarTask extends ExtractBaseTask
     protected function extractArchive(PhingFile $tarfile)
     {
         $this->log(
-            "Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->todir->__toString(),
+            'Extracting tar file: ' . $tarfile->__toString() . ' to ' . $this->todir->__toString(),
             Project::MSG_INFO
         );
 
@@ -71,7 +71,7 @@ class UntarTask extends ExtractBaseTask
                 throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath() . '. Error: ' . $tar->error_object->getMessage());
             }
         } catch (IOException $ioe) {
-            $msg = "Could not extract tar file: " . $ioe->getMessage();
+            $msg = 'Could not extract tar file: ' . $ioe->getMessage();
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
     }

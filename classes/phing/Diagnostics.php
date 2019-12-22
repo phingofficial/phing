@@ -61,33 +61,33 @@ class Diagnostics
      */
     public static function doReport(PrintStream $out)
     {
-        $out->println(str_pad('Phing diagnostics report', 79, "-", STR_PAD_BOTH));
-        self::header($out, "Version");
+        $out->println(str_pad('Phing diagnostics report', 79, '-', STR_PAD_BOTH));
+        self::header($out, 'Version');
         $out->println(Phing::getPhingVersion());
 
-        self::header($out, "Project properties");
+        self::header($out, 'Project properties');
         self::doReportProjectProperties($out);
 
-        self::header($out, "System properties");
+        self::header($out, 'System properties');
         self::doReportSystemProperties($out);
 
-        self::header($out, "PHING_HOME/vendor package listing");
+        self::header($out, 'PHING_HOME/vendor package listing');
         self::doReportPhingVendorLibraries($out);
 
-        self::header($out, "COMPOSER_HOME/vendor package listing");
+        self::header($out, 'COMPOSER_HOME/vendor package listing');
         self::doReportComposerSystemLibraries($out);
 
-        self::header($out, "Tasks availability");
+        self::header($out, 'Tasks availability');
         self::doReportTasksAvailability($out);
 
-        self::header($out, "Temp dir");
+        self::header($out, 'Temp dir');
         self::doReportTempDir($out);
     }
 
     private static function header(PrintStream $out, $section)
     {
         $out->println(str_repeat('-', 79));
-        $out->prints(" ");
+        $out->prints(' ');
         $out->println($section);
         $out->println(str_repeat('-', 79));
     }
@@ -104,7 +104,7 @@ class Diagnostics
         $phingprops = $phing->getProperties();
 
         foreach ($phingprops as $key => $value) {
-            $out->println($key . " : " . $value);
+            $out->println($key . ' : ' . $value);
         }
     }
 
@@ -121,7 +121,7 @@ class Diagnostics
         $sysprops = $project->getProperties();
 
         foreach ($sysprops as $key => $value) {
-            $out->println($key . " : " . $value);
+            $out->println($key . ' : ' . $value);
         }
     }
 
@@ -156,7 +156,7 @@ class Diagnostics
     private static function printLibraries($libs, PrintStream $out)
     {
         if ($libs == null) {
-            $out->println("No such directory.");
+            $out->println('No such directory.');
             return;
         }
 
@@ -193,14 +193,14 @@ class Diagnostics
     {
         $tempdir = FileUtils::getTempDir();
         if ($tempdir == null) {
-            $out->println("Warning: php.tmpdir is undefined");
+            $out->println('Warning: php.tmpdir is undefined');
             return;
         }
-        $out->println("Temp dir is " . $tempdir);
+        $out->println('Temp dir is ' . $tempdir);
         $tempDirectory = new PhingFile($tempdir);
 
         if (!$tempDirectory->exists()) {
-            $out->println("Warning, php.tmpdir directory does not exist: " . $tempdir);
+            $out->println('Warning, php.tmpdir directory does not exist: ' . $tempdir);
             return;
         }
 
@@ -212,11 +212,11 @@ class Diagnostics
 
         $filetime = $tempFile->lastModified();
 
-        $out->println("Temp dir is writeable");
+        $out->println('Temp dir is writeable');
         $drift = $filetime - $now;
-        $out->println("Temp dir alignment with system clock is " . $drift . " s");
+        $out->println('Temp dir alignment with system clock is ' . $drift . ' s');
         if (abs($drift) > 10) {
-            $out->println("Warning: big clock drift -maybe a network filesystem");
+            $out->println('Warning: big clock drift -maybe a network filesystem');
         }
     }
 }

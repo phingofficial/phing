@@ -35,7 +35,7 @@ class VersionTask extends Task
     /**
      * The name of the property in which the build number is stored.
      */
-    public const DEFAULT_PROPERTY_NAME = "build.version";
+    public const DEFAULT_PROPERTY_NAME = 'build.version';
 
     /**
      * The default filename to use if no file specified.
@@ -150,17 +150,17 @@ class VersionTask extends Task
         }
 
         // get new version
-        $this->log("Old version: $content", Project::MSG_INFO);
+        $this->log('Old version: ' . $content, Project::MSG_INFO);
         $newVersion = $this->getVersion($content);
-        $this->log("New version: $newVersion", Project::MSG_INFO);
+        $this->log('New version: ' . $newVersion, Project::MSG_INFO);
 
         if ($this->propFile) {
             $properties->put($this->property, $newVersion);
             try {
-                $header = "Build Number for PHING. Do not edit!";
+                $header = 'Build Number for PHING. Do not edit!';
                 $properties->store($this->file, $header);
             } catch (IOException $ioe) {
-                $message = "Error while writing " . $this->file;
+                $message = 'Error while writing ' . $this->file;
                 throw new BuildException($message, $ioe);
             }
         } else {
@@ -287,11 +287,11 @@ class VersionTask extends Task
         }
 
         if (!$this->file->canRead()) {
-            $message = "Unable to read from " . $this->file . ".";
+            $message = 'Unable to read from ' . $this->file . '.';
             throw new BuildException($message);
         }
         if (!$this->file->canWrite()) {
-            $message = "Unable to write to " . $this->file . ".";
+            $message = 'Unable to write to ' . $this->file . '.';
             throw new BuildException($message);
         }
     }

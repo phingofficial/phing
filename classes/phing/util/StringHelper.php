@@ -32,12 +32,12 @@ class StringHelper
     /**
      * @var array
      */
-    private static $TRUE_VALUES = ["on", "true", "t", "yes", "1"];
+    private static $TRUE_VALUES = ['on', 'true', 't', 'yes', '1'];
 
     /**
      * @var array
      */
-    private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
+    private static $FALSE_VALUES = ['off', 'false', 'f', 'no', '0'];
 
     /**
      * Remove qualification to name.
@@ -88,7 +88,7 @@ class StringHelper
             return true; // it already is boolean
         }
 
-        if ($s === "" || $s === null || !is_string($s)) {
+        if ($s === '' || $s === null || !is_string($s)) {
             return false; // not a valid string for testing
         }
 
@@ -107,7 +107,7 @@ class StringHelper
      */
     public static function startsWith($check, $string)
     {
-        if ($check === "" || $check === $string) {
+        if ($check === '' || $check === $string) {
             return true;
         }
 
@@ -124,7 +124,7 @@ class StringHelper
      */
     public static function endsWith($check, $string)
     {
-        if ($check === "" || $check === $string) {
+        if ($check === '' || $check === $string) {
             return true;
         }
 
@@ -146,10 +146,10 @@ class StringHelper
         $len    = strlen($string);
         $endpos = (int) ($endpos === -1 ? $len - 1 : $endpos);
         if ($startpos > $len - 1 || $startpos < 0) {
-            trigger_error("substring(), Startindex out of bounds must be 0<n<$len", E_USER_ERROR);
+            trigger_error(sprintf('substring(), Startindex out of bounds must be 0<n<%d', $len), E_USER_ERROR);
         }
         if ($endpos > $len - 1 || $endpos < $startpos) {
-            trigger_error("substring(), Endindex out of bounds must be $startpos<n<" . ($len - 1), E_USER_ERROR);
+            trigger_error(sprintf('substring(), Endindex out of bounds must be %d<n<%d', $startpos, ($len - 1)), E_USER_ERROR);
         }
         if ($startpos === $endpos) {
             return (string) $string[$startpos];
@@ -170,7 +170,7 @@ class StringHelper
     public static function isSlotVar($value)
     {
         $value = trim($value);
-        if ($value === "") {
+        if ($value === '') {
             return false;
         }
 

@@ -72,7 +72,7 @@ class Properties
 
             $this->file = $file;
         } else {
-            throw new IOException("Can not read file " . $file->getPath());
+            throw new IOException('Can not read file ' . $file->getPath());
         }
     }
 
@@ -97,9 +97,9 @@ class Properties
     protected function outVal($val)
     {
         if ($val === true) {
-            $val = "true";
+            $val = 'true';
         } elseif ($val === false) {
-            $val = "false";
+            $val = 'false';
         }
 
         return $val;
@@ -115,9 +115,9 @@ class Properties
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         foreach ($this->properties as $key => $item) {
-            $buf .= $key . "=" . $this->outVal($item) . PHP_EOL;
+            $buf .= $key . '=' . $this->outVal($item) . PHP_EOL;
         }
 
         return $buf;
@@ -140,7 +140,7 @@ class Properties
         }
 
         if ($file == null) {
-            throw new IOException("Unable to write to empty filename");
+            throw new IOException('Unable to write to empty filename');
         }
 
         // stores the properties in this object in the file denoted
@@ -149,12 +149,12 @@ class Properties
         try {
             $fw = new FileWriter($file);
             if ($header !== null) {
-                $fw->write("# " . $header . PHP_EOL);
+                $fw->write('# ' . $header . PHP_EOL);
             }
             $fw->write((string) $this);
             $fw->close();
         } catch (IOException $e) {
-            throw new IOException("Error writing property file: " . $e->getMessage());
+            throw new IOException('Error writing property file: ' . $e->getMessage());
         }
     }
 
@@ -168,10 +168,10 @@ class Properties
         if ($comments != null) {
             self::writeComments($bw, $comments);
         }
-        $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        $bw->write('#' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
         $bw->newLine();
         foreach ($this->getProperties() as $key => $value) {
-            $bw->write($key . "=" . $value);
+            $bw->write($key . '=' . $value);
             $bw->newLine();
         }
         $bw->flush();
@@ -180,11 +180,11 @@ class Properties
     private static function writeComments(BufferedWriter $bw, $comments)
     {
         $rows = explode("\n", $comments);
-        $bw->write("#" . PHP_EOL);
+        $bw->write('#' . PHP_EOL);
         foreach ($rows as $row) {
-            $bw->write(sprintf("#%s%s", trim($row), PHP_EOL));
+            $bw->write(sprintf('#%s%s', trim($row), PHP_EOL));
         }
-        $bw->write("#");
+        $bw->write('#');
         $bw->newLine();
     }
 

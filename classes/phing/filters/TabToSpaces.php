@@ -47,7 +47,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the length of a tab.
      */
-    public const TAB_LENGTH_KEY = "tablength";
+    public const TAB_LENGTH_KEY = 'tablength';
 
     /**
      * Tab length in this filter.

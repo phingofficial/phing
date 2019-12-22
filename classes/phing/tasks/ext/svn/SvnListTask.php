@@ -30,7 +30,7 @@
  */
 class SvnListTask extends SvnBaseTask
 {
-    private $propertyName    = "svn.list";
+    private $propertyName    = 'svn.list';
     private $limit           = null;
     private $orderDescending = false;
 

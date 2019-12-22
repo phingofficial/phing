@@ -28,19 +28,19 @@
 class CoverageReportTransformer
 {
     private $task     = null;
-    private $styleDir = "";
+    private $styleDir = '';
 
     /**
      * @var PhingFile
      */
-    private $toDir = "";
+    private $toDir = '';
 
     private $document = null;
 
     /**
      * title of the project, used in the coverage report
      */
-    private $title = "";
+    private $title = '';
 
     /**
      * Whether to use the sorttable JavaScript library, defaults to false
@@ -149,18 +149,18 @@ class CoverageReportTransformer
      */
     private function getStyleSheet()
     {
-        $xslname = "coverage-frames.xsl";
+        $xslname = 'coverage-frames.xsl';
 
         if ($this->styleDir) {
             $file = new PhingFile($this->styleDir, $xslname);
         } else {
-            $path = Phing::getResourcePath("phing/etc/$xslname");
+            $path = Phing::getResourcePath('phing/etc/' . $xslname);
 
             if ($path === null) {
-                $path = Phing::getResourcePath("etc/$xslname");
+                $path = Phing::getResourcePath('etc/' . $xslname);
 
                 if ($path === null) {
-                    throw new BuildException("Could not find $xslname in resource path");
+                    throw new BuildException('Could not find ' . $xslname . ' in resource path');
                 }
             }
 
@@ -168,7 +168,7 @@ class CoverageReportTransformer
         }
 
         if (!$file->exists()) {
-            throw new BuildException("Could not find file " . $file->getPath());
+            throw new BuildException('Could not find file ' . $file->getPath());
         }
 
         return $file;

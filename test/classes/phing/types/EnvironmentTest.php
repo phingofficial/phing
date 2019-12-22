@@ -35,7 +35,7 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     public function testVariablesObjectIsArrayObject()
     {
         $variablesObj = $this->environment->getVariablesObject();
-        $this->assertEquals("ArrayObject", get_class($variablesObj));
+        $this->assertEquals('ArrayObject', get_class($variablesObj));
     }
 
     public function testValidateWithoutKeyAndValueSetRaisesException()
@@ -51,10 +51,10 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     public function testValuesAgainstGetContent()
     {
         $ev = new EnvVariable();
-        $ev->setKey(" key ");
-        $ev->setValue(" value ");
+        $ev->setKey(' key ');
+        $ev->setValue(' value ');
         $ev->validate();
         $content = $ev->getContent();
-        $this->assertEquals("key=value", $content);
+        $this->assertEquals('key=value', $content);
     }
 }

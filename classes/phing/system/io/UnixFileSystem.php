@@ -126,7 +126,7 @@ class UnixFileSystem extends FileSystem
         if ($n === 0) {
             return '/';
         }
-        $sb = "";
+        $sb = '';
 
         if ($offset > 0) {
             $sb .= substr($pathname, 0, $offset);
@@ -186,7 +186,7 @@ class UnixFileSystem extends FileSystem
      */
     public function resolve($parent, $child)
     {
-        if ($child === "") {
+        if ($child === '') {
             return $parent;
         }
 
@@ -237,7 +237,7 @@ class UnixFileSystem extends FileSystem
             return $f->getPath();
         }
 
-        return $this->resolve(Phing::getProperty("user.dir"), $f->getPath());
+        return $this->resolve(Phing::getProperty('user.dir'), $f->getPath());
     }
 
     /* -- most of the following is mapped to the php natives wrapped by FileSystem */
@@ -282,7 +282,7 @@ class UnixFileSystem extends FileSystem
 
         $linkTarget = $src->getLinkTarget();
         if (false === @symlink($linkTarget, $destPath)) {
-            $msg = "FileSystem::copy() FAILED. Cannot create symlink from $destPath to $linkTarget.";
+            $msg = sprintf('FileSystem::copy() FAILED. Cannot create symlink from %s to %s.', $destPath, $linkTarget);
             throw new Exception($msg);
         }
     }
@@ -294,7 +294,7 @@ class UnixFileSystem extends FileSystem
      */
     public function fromURIPath($p)
     {
-        if (StringHelper::endsWith("/", $p) && (strlen($p) > 1)) {
+        if (StringHelper::endsWith('/', $p) && (strlen($p) > 1)) {
             // "/foo/" --> "/foo", but "/" --> "/"
             $p = substr($p, 0, strlen($p) - 1);
         }

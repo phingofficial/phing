@@ -87,11 +87,11 @@ class Reference
 
         // setRefId casts its argument to a string, so compare strictly against ''
         if ($this->refid === '') {
-            throw new BuildException("No reference specified");
+            throw new BuildException('No reference specified');
         }
         $o = $project->getReference($this->refid);
         if ($o === null) {
-            throw new BuildException("Reference {$this->refid} not found.");
+            throw new BuildException(sprintf('Reference %s not found.', $this->refid));
         }
 
         return $o;

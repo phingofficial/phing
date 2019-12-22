@@ -29,14 +29,14 @@ class ExtendedFileStream
 
     public static function registerStream()
     {
-        if (!in_array("efile", stream_get_wrappers())) {
-            stream_wrapper_register("efile", "ExtendedFileStream");
+        if (!in_array('efile', stream_get_wrappers())) {
+            stream_wrapper_register('efile', 'ExtendedFileStream');
         }
     }
 
     public static function unregisterStream()
     {
-        stream_wrapper_unregister("efile");
+        stream_wrapper_unregister('efile');
     }
 
     /**

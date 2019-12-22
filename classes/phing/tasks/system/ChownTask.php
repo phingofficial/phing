@@ -128,11 +128,11 @@ class ChownTask extends Task
     private function checkParams()
     {
         if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
-            throw new BuildException("Specify at least one source - a file or a fileset.");
+            throw new BuildException('Specify at least one source - a file or a fileset.');
         }
 
         if ($this->user === null && $this->group === null) {
-            throw new BuildException("You have to specify either an owner or a group for chown.");
+            throw new BuildException('You have to specify either an owner or a group for chown.');
         }
     }
 
@@ -187,8 +187,8 @@ class ChownTask extends Task
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_files);
-            $this->log('Total directories changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . $user . ($group ? '.' . $group : '') . ': ' . $total_files);
+            $this->log('Total directories changed to ' . $user . ($group ? '.' . $group : '') . ': ' . $total_dirs);
         }
     }
 
@@ -202,10 +202,10 @@ class ChownTask extends Task
      * @throws BuildException
      * @throws Exception
      */
-    private function chownFile(PhingFile $file, $user, $group = "")
+    private function chownFile(PhingFile $file, $user, $group = '')
     {
         if (!$file->exists()) {
-            throw new BuildException("The file " . $file->__toString() . " does not exist");
+            throw new BuildException('The file ' . $file->__toString() . ' does not exist');
         }
 
         try {
@@ -219,7 +219,7 @@ class ChownTask extends Task
 
             if ($this->verbose) {
                 $this->log(
-                    "Changed file owner on '" . $file->__toString() . "' to " . $user . ($group ? "." . $group : "")
+                    "Changed file owner on '" . $file->__toString() . "' to " . $user . ($group ? '.' . $group : '')
                 );
             }
         } catch (Exception $e) {

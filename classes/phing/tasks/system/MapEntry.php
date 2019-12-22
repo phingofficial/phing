@@ -66,7 +66,7 @@ class MapEntry
         if ($this->outer->from === null || $this->outer->to === null) {
             throw new BuildException(
                 "Both 'from' and 'to' must be set "
-                . "in a map entry"
+                . 'in a map entry'
             );
         }
 

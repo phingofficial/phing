@@ -25,14 +25,14 @@
  */
 class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
-    private $inner = "";
+    private $inner = '';
 
     /**
      * @return string
      */
     public function getExtension()
     {
-        return ".txt";
+        return '.txt';
     }
 
     /**
@@ -40,7 +40,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getPreferredOutfile()
     {
-        return "testresults";
+        return 'testresults';
     }
 
     /**
@@ -50,7 +50,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         parent::startTestSuite($suite);
 
-        $this->inner = "";
+        $this->inner = '';
     }
 
     /**
@@ -62,14 +62,14 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
             return;
         }
 
-        $sb  = "Testsuite: " . $suite->getName() . "\n";
-        $sb .= "Tests run: " . $this->getRunCount();
-        $sb .= ", Warnings: " . $this->getWarningCount();
-        $sb .= ", Failures: " . $this->getFailureCount();
-        $sb .= ", Errors: " . $this->getErrorCount();
-        $sb .= ", Incomplete: " . $this->getIncompleteCount();
-        $sb .= ", Skipped: " . $this->getSkippedCount();
-        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+        $sb  = 'Testsuite: ' . $suite->getName() . "\n";
+        $sb .= 'Tests run: ' . $this->getRunCount();
+        $sb .= ', Warnings: ' . $this->getWarningCount();
+        $sb .= ', Failures: ' . $this->getFailureCount();
+        $sb .= ', Errors: ' . $this->getErrorCount();
+        $sb .= ', Incomplete: ' . $this->getIncompleteCount();
+        $sb .= ', Skipped: ' . $this->getSkippedCount();
+        $sb .= ', Time elapsed: ' . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 
         if ($this->out !== null) {
             $this->out->write($sb);
@@ -88,7 +88,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         parent::addError($test, $e, $time);
 
-        $this->formatError("ERROR", $test, $e);
+        $this->formatError('ERROR', $test, $e);
     }
 
     /**
@@ -102,7 +102,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         float $time
     ): void {
         parent::addFailure($test, $e, $time);
-        $this->formatError("FAILED", $test, $e);
+        $this->formatError('FAILED', $test, $e);
     }
 
     /**
@@ -113,7 +113,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     public function addWarning(PHPUnit\Framework\Test $test, PHPUnit\Framework\Warning $e, float $time): void
     {
         parent::addWarning($test, $e, $time);
-        $this->formatError("WARNING", $test, $e);
+        $this->formatError('WARNING', $test, $e);
     }
 
     /**
@@ -125,7 +125,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         parent::addIncompleteTest($test, $e, $time);
 
-        $this->formatError("INCOMPLETE", $test);
+        $this->formatError('INCOMPLETE', $test);
     }
 
     /**
@@ -136,7 +136,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
         parent::addSkippedTest($test, $e, $time);
-        $this->formatError("SKIPPED", $test);
+        $this->formatError('SKIPPED', $test);
     }
 
     /**
@@ -150,7 +150,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
             $this->endTest($test, time());
         }
 
-        $this->inner .= $test->getName() . " " . $type . "\n";
+        $this->inner .= $test->getName() . ' ' . $type . "\n";
 
         if ($e !== null) {
             if ($e instanceof PHPUnit\Framework\ExceptionWrapper) {

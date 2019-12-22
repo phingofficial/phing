@@ -188,7 +188,7 @@ class DataType extends ProjectComponent
      */
     public function tooManyAttributes()
     {
-        return new BuildException("You must not specify more than one attribute when using refid");
+        return new BuildException('You must not specify more than one attribute when using refid');
     }
 
     /**
@@ -199,7 +199,7 @@ class DataType extends ProjectComponent
      */
     public function noChildrenAllowed()
     {
-        return new BuildException("You must not specify nested elements when using refid");
+        return new BuildException('You must not specify nested elements when using refid');
     }
 
     /**
@@ -210,7 +210,7 @@ class DataType extends ProjectComponent
      */
     public function circularReference()
     {
-        return new BuildException("This data type contains a circular reference.");
+        return new BuildException('This data type contains a circular reference.');
     }
 
     /**
@@ -243,6 +243,6 @@ class DataType extends ProjectComponent
     public function __toString()
     {
         $d = $this->getDescription();
-        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;
+        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . ' ' . $d;
     }
 }

@@ -22,10 +22,10 @@
  */
 class TstampCustomFormat
 {
-    private $propertyName = "";
-    private $pattern      = "";
-    private $locale       = "";
-    private $timezone     = "";
+    private $propertyName = '';
+    private $pattern      = '';
+    private $locale       = '';
+    private $timezone     = '';
 
     /**
      * The property to receive the date/time string in the given pattern
@@ -76,14 +76,14 @@ class TstampCustomFormat
     public function execute(TstampTask $tstamp, $d, $location)
     {
         if (empty($this->propertyName)) {
-            throw new BuildException("property attribute must be provided", $location);
+            throw new BuildException('property attribute must be provided', $location);
         }
 
         if (empty($this->pattern)) {
-            throw new BuildException("pattern attribute must be provided", $location);
+            throw new BuildException('pattern attribute must be provided', $location);
         }
 
-        $oldlocale = "";
+        $oldlocale = '';
         if (!empty($this->locale)) {
             $oldlocale = setlocale(LC_ALL, 0);
             setlocale(LC_ALL, $this->locale);

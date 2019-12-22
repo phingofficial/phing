@@ -53,9 +53,9 @@ class JsonLogger extends XmlLogger
 
         $this->getDoc()->appendChild($this->getBuildElement());
 
-        $outFilename = $event->getProject()->getProperty("JsonLogger.file");
+        $outFilename = $event->getProject()->getProperty('JsonLogger.file');
         if ($outFilename == null) {
-            $outFilename = "log.json";
+            $outFilename = 'log.json';
         }
 
         try {
@@ -72,7 +72,7 @@ class JsonLogger extends XmlLogger
                 $stream->close(); // in case there is a stream open still ...
             } catch (Exception $x) {
             }
-            throw new BuildException("Unable to write log file.", $exc);
+            throw new BuildException('Unable to write log file.', $exc);
         }
 
         // cleanup:remove the buildElement
@@ -88,9 +88,9 @@ class JsonLogger extends XmlLogger
 
         if (!$isRoot) {
             if (count($xmlnode->attributes()) > 0) {
-                $jsnode["@attribute"] = [];
+                $jsnode['@attribute'] = [];
                 foreach ($xmlnode->attributes() as $key => $value) {
-                    $jsnode["@attribute"][$key] = (string) $value;
+                    $jsnode['@attribute'][$key] = (string) $value;
                 }
             }
 

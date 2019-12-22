@@ -49,8 +49,8 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped('Yaml parser is not installed.');
             exit;
         }
-        $this->yamlFileStub          = PHING_TEST_BASE . "/etc/system/io/config.yml";
-        $this->incorrectYamlFileStub = PHING_TEST_BASE . "/etc/system/io/config_wrong.yml";
+        $this->yamlFileStub          = PHING_TEST_BASE . '/etc/system/io/config.yml';
+        $this->incorrectYamlFileStub = PHING_TEST_BASE . '/etc/system/io/config_wrong.yml';
         $this->objectToTest          = new YamlFileParser();
     }
 
@@ -67,7 +67,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileFileNotReadable()
     {
-        $tmpFile = tempnam(FileUtils::getTempDir(), "test");
+        $tmpFile = tempnam(FileUtils::getTempDir(), 'test');
         touch($tmpFile);
         $file = new PhingFile($tmpFile);
         unlink($tmpFile);

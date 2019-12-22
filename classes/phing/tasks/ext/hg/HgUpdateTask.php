@@ -97,7 +97,7 @@ class HgUpdateTask extends HgBaseTask
         try {
             $pull->setBranch($this->getBranch());
         } catch (Exception $ex) {
-            $this->log("Caught: " . $ex->getMessage(), Project::MSG_DEBUG);
+            $this->log('Caught: ' . $ex->getMessage(), Project::MSG_DEBUG);
         }
         $pull->setClean($this->getClean());
         $pull->setQuiet($this->getQuiet());
@@ -114,7 +114,7 @@ class HgUpdateTask extends HgBaseTask
         $this->checkRepositoryIsDirAndExists($dir);
         chdir($dir);
         try {
-            $this->log("Executing: " . $pull->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $pull->asString(), Project::MSG_INFO);
             $output = $pull->execute();
             if ($output !== '') {
                 $this->log($output);

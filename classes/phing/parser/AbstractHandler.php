@@ -64,7 +64,7 @@ abstract class AbstractHandler
      */
     public function startElement($name, $attribs)
     {
-        throw new ExpatParseException("Unexpected element $name");
+        throw new ExpatParseException('Unexpected element ' . $name);
     }
 
     /**
@@ -101,7 +101,7 @@ abstract class AbstractHandler
     {
         $s = trim($data);
         if (strlen($s) > 0) {
-            throw new ExpatParseException("Unexpected text '$s'", $this->parser->getLocation());
+            throw new ExpatParseException(sprintf("Unexpected text '%s'", $s), $this->parser->getLocation());
         }
     }
 }

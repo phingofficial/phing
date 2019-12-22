@@ -79,7 +79,7 @@ class XmlFileParser implements FileParserInterface
         // an array
 
         if (@file($file) === false) {
-            throw new IOException("Unable to parse contents of $file");
+            throw new IOException('Unable to parse contents of ' . $file);
         }
 
         $prop = new Properties();
@@ -87,7 +87,7 @@ class XmlFileParser implements FileParserInterface
         $xml = simplexml_load_string(file_get_contents($file));
 
         if ($xml === false) {
-            throw new IOException("Unable to parse XML file $file");
+            throw new IOException('Unable to parse XML file ' . $file);
         }
 
         $path = [];
@@ -106,7 +106,7 @@ class XmlFileParser implements FileParserInterface
                 if ($this->collapseAttr) {
                     $prop->setProperty($prefix . (string) $attribute, (string) $val);
                 } else {
-                    $prop->setProperty($prefix . "($attribute)", (string) $val);
+                    $prop->setProperty(sprintf('%s(%s)', $prefix, (string) $attribute), (string) $val);
                 }
             }
         }
@@ -137,9 +137,9 @@ class XmlFileParser implements FileParserInterface
             // Check for attributes
             foreach ($value->attributes() as $attribute => $val) {
                 if ($this->collapseAttr) {
-                    $prop->setProperty($prefix . "$tag.$attribute", (string) $val);
+                    $prop->setProperty(sprintf('%s%s.%s', $prefix, $tag, $attribute), (string) $val);
                 } else {
-                    $prop->setProperty($prefix . "$tag($attribute)", (string) $val);
+                    $prop->setProperty(sprintf('%s%s(%s)', $prefix, $tag, $attribute), (string) $val);
                 }
             }
 

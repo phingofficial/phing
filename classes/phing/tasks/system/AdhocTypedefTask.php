@@ -47,14 +47,14 @@ class AdhocTypedefTask extends AdhocTask
     public function main()
     {
         if ($this->name === null) {
-            throw new BuildException("The name attribute is required for adhoc task definition.", $this->getLocation());
+            throw new BuildException('The name attribute is required for adhoc task definition.', $this->getLocation());
         }
 
         $this->execute();
 
         $classes = $this->getNewClasses();
         if (count($classes) !== 1) {
-            throw new BuildException("You must define one (and only one) class for AdhocTypedefTask.");
+            throw new BuildException('You must define one (and only one) class for AdhocTypedefTask.');
         }
         $classname = array_shift($classes);
 
@@ -62,12 +62,12 @@ class AdhocTypedefTask extends AdhocTask
         $t = new $classname();
         if (!($t instanceof ProjectComponent)) {
             throw new BuildException(
-                "The adhoc class you defined must be an instance of phing.ProjectComponent",
+                'The adhoc class you defined must be an instance of phing.ProjectComponent',
                 $this->getLocation()
             );
         }
 
-        $this->log("Datatype " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
+        $this->log('Datatype ' . $this->name . ' will be handled by class ' . $classname, Project::MSG_VERBOSE);
         $this->project->addDataTypeDefinition($this->name, $classname);
     }
 }

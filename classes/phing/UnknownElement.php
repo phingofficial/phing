@@ -85,7 +85,7 @@ class UnknownElement extends Task
         if ($this->realThing === null) {
             // plain impossible to get here, maybeConfigure should
             // have thrown an exception.
-            throw new BuildException("Should not be executing UnknownElement::main() -- task/type: {$this->elementName}");
+            throw new BuildException('Should not be executing UnknownElement::main() -- task/type: ' . $this->elementName);
         }
 
         if ($this->realThing instanceof Task) {

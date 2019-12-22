@@ -78,8 +78,8 @@ class ExpatParser extends AbstractSAXParser
         $this->buffer   = 4096;
         $this->location = new Location();
         xml_set_object($this->parser, $this);
-        xml_set_element_handler($this->parser, [$this, "startElement"], [$this, "endElement"]);
-        xml_set_character_data_handler($this->parser, [$this, "characters"]);
+        xml_set_element_handler($this->parser, [$this, 'startElement'], [$this, 'endElement']);
+        xml_set_character_data_handler($this->parser, [$this, 'characters']);
     }
 
     /**

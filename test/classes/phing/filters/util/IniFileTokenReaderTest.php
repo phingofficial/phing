@@ -29,20 +29,20 @@ class IniFileTokenReaderTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/filters/util/IniFileTokenReaderTest.xml"
+            . '/etc/filters/util/IniFileTokenReaderTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testFileParameterString()
     {
         $filename = PHING_TEST_BASE .
-            "/etc/filters/util/tmp/test.txt";
+            '/etc/filters/util/tmp/test.txt';
 
         $this->executeTarget(__FUNCTION__);
 

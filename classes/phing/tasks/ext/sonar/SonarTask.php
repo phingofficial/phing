@@ -87,7 +87,7 @@ class SonarTask extends Task
     {
         $this->executable = (string) $executable;
 
-        $message = sprintf("Set executable to [%s].", $this->executable);
+        $message = sprintf('Set executable to [%s].', $this->executable);
         $this->log($message, Project::MSG_DEBUG);
     }
 
@@ -103,7 +103,7 @@ class SonarTask extends Task
     {
         $this->errors = strtolower((string) $errors);
 
-        $message = sprintf("Set errors flag to [%s].", $this->errors);
+        $message = sprintf('Set errors flag to [%s].', $this->errors);
         $this->log($message, Project::MSG_DEBUG);
     }
 
@@ -119,7 +119,7 @@ class SonarTask extends Task
     {
         $this->debug = strtolower((string) $debug);
 
-        $message = sprintf("Set debug flag to [%s].", $this->debug);
+        $message = sprintf('Set debug flag to [%s].', $this->debug);
         $this->log($message, Project::MSG_DEBUG);
     }
 
@@ -134,7 +134,7 @@ class SonarTask extends Task
     {
         $this->configuration = (string) $configuration;
 
-        $message = sprintf("Set configuration to [%s].", $this->configuration);
+        $message = sprintf('Set configuration to [%s].', $this->configuration);
         $this->log($message, Project::MSG_DEBUG);
     }
 
@@ -149,7 +149,7 @@ class SonarTask extends Task
     {
         $this->propertyElements[] = $property;
 
-        $message = sprintf("Added property: [%s] = [%s].", $property->getName(), $property->getValue());
+        $message = sprintf('Added property: [%s] = [%s].', $property->getName(), $property->getValue());
         $this->log($message, Project::MSG_DEBUG);
     }
 

@@ -67,7 +67,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for reverse order.
      */
-    private static $REVERSE_KEY = "reverse";
+    private static $REVERSE_KEY = 'reverse';
 
     /**
      * Controls if the sorting process will be in ascendant/descendant order. If

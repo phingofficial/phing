@@ -58,7 +58,7 @@ class PhingFile
             $this->constructStringParentStringChild($arg1, $arg2);
         } else {
             if ($arg1 === null) {
-                throw new NullPointerException("Argument1 to function must not be null");
+                throw new NullPointerException('Argument1 to function must not be null');
             }
             $this->path         = (string) $arg1;
             $this->prefixLength = (int) $arg2;
@@ -100,7 +100,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
 
-        if ($parent === "") {
+        if ($parent === '') {
             $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
         } else {
             $this->path = $fs->resolve($fs->normalize($parent), $fs->normalize($child));
@@ -119,7 +119,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
 
-        if ($parent->path === "") {
+        if ($parent->path === '') {
             $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
         } else {
             $this->path = $fs->resolve($parent->path, $fs->normalize($child));
@@ -415,7 +415,7 @@ class PhingFile
         clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->path);
+            throw new IOException('No read access to ' . $this->path);
         }
 
         return @is_dir($this->path) && !@is_link($this->path);
@@ -452,7 +452,7 @@ class PhingFile
         clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->path);
+            throw new IOException('No read access to ' . $this->path);
         }
 
         return @is_link($this->path);
@@ -472,7 +472,7 @@ class PhingFile
         clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->path);
+            throw new IOException('No read access to ' . $this->path);
         }
 
         return @is_executable($this->path);
@@ -503,7 +503,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->path);
+            throw new IOException('No read access to ' . $this->path);
         }
 
         return $fs->getLastModifiedTime($this);
@@ -522,7 +522,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->path . "\n");
+            throw new IOException('No read access to ' . $this->path . "\n");
         }
 
         return $fs->getLength($this);
@@ -539,7 +539,7 @@ class PhingFile
     public function contents()
     {
         if (!$this->canRead() || !$this->isFile()) {
-            throw new IOException("Cannot read file contents!");
+            throw new IOException('Cannot read file contents!');
         }
 
         return file_get_contents($this->getAbsolutePath());
@@ -589,7 +589,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
         if ($fs->canDelete($this) !== true) {
-            throw new IOException("Cannot delete " . $this->path . "\n");
+            throw new IOException('Cannot delete ' . $this->path . "\n");
         }
 
         $fs->delete($this, $recursive);
@@ -687,7 +687,7 @@ class PhingFile
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess(new PhingFile($this->path), true) !== true) {
-            throw new IOException("No write access to " . $this->getPath());
+            throw new IOException('No write access to ' . $this->getPath());
         }
 
         return $fs->createDirectory($this, $mode);
@@ -704,7 +704,7 @@ class PhingFile
     {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No write access to " . $this->getPath());
+            throw new IOException('No write access to ' . $this->getPath());
         }
 
         $fs->rename($this, $destFile);
@@ -723,11 +723,11 @@ class PhingFile
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this) !== true) {
-            throw new IOException("No read access to " . $this->getPath() . "\n");
+            throw new IOException('No read access to ' . $this->getPath() . "\n");
         }
 
         if ($fs->checkAccess($destFile, true) !== true) {
-            throw new IOException("File::copyTo() No write access to " . $destFile->getPath());
+            throw new IOException('File::copyTo() No write access to ' . $destFile->getPath());
         }
 
         $fs->copy($this, $destFile);
@@ -753,7 +753,7 @@ class PhingFile
     {
         $time = (int) $time;
         if ($time < 0) {
-            throw new Exception("IllegalArgumentException, Negative $time\n");
+            throw new Exception(sprintf("IllegalArgumentException, Negative %s\n", $time));
         }
 
         $fs = FileSystem::getFileSystem();

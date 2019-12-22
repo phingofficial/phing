@@ -47,7 +47,7 @@ class Variable extends PropertyTask
     public function main()
     {
         if ($this->remove) {
-            if ($this->name === null || $this->name === "") {
+            if ($this->name === null || $this->name === '') {
                 throw new BuildException("The 'name' attribute is required with 'unset'.");
             }
             $this->removeProperty($this->name);
@@ -67,7 +67,7 @@ class Variable extends PropertyTask
             $this->forceProperty($this->name, $this->value);
         } else {
             if (!$this->file->exists()) {
-                throw new BuildException($this->file->getAbsolutePath() . " does not exists.");
+                throw new BuildException($this->file->getAbsolutePath() . ' does not exists.');
             }
             $this->loadFile($this->file);
         }
@@ -127,7 +127,7 @@ class Variable extends PropertyTask
     {
         $refClazz = new ReflectionObject($thisClass);
         if (!$refClazz->hasProperty($fieldName)) {
-            throw new Exception("Invalid field : $fieldName");
+            throw new Exception('Invalid field : ' . $fieldName);
         }
 
         return $refClazz->getProperty($fieldName);
@@ -230,7 +230,7 @@ class Variable extends PropertyTask
                     continue;
                 }
 
-                $sb = "";
+                $sb = '';
 
                 $j = $propertyRefs;
 
@@ -244,7 +244,7 @@ class Variable extends PropertyTask
                     if (in_array($propertyName, $resolveStack)) {
                         // Should we maybe just log this as an error & move on?
                         // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
-                        throw new BuildException("Property " . $propertyName . " was circularly defined.");
+                        throw new BuildException('Property ' . $propertyName . ' was circularly defined.');
                     }
 
                     $fragment = $this->getProject()->getProperty($propertyName);
@@ -260,13 +260,13 @@ class Variable extends PropertyTask
                             $resolved       = false; // parse again (could have been replaced w/ another var)
                         }
                     } else {
-                        $fragment = "\${" . $propertyName . "}";
+                        $fragment = '${' . $propertyName . '}';
                     }
 
                     $sb .= $fragment;
                 }
 
-                $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
+                $this->log(sprintf('Resolved Property "%s" to "%s"', $value, $sb), Project::MSG_DEBUG);
                 $value = $sb;
                 $props->setProperty($name, $value);
 

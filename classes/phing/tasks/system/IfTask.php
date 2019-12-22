@@ -130,7 +130,7 @@ class IfTask extends ConditionBase
     public function addThen(SequentialTask $t)
     {
         if ($this->thenTasks != null) {
-            throw new BuildException("You must not nest more than one <then> into <if>");
+            throw new BuildException('You must not nest more than one <then> into <if>');
         }
         $this->thenTasks = $t;
     }
@@ -148,7 +148,7 @@ class IfTask extends ConditionBase
     public function addElse(SequentialTask $e)
     {
         if ($this->elseTasks != null) {
-            throw new BuildException("You must not nest more than one <else> into <if>");
+            throw new BuildException('You must not nest more than one <else> into <if>');
         }
         $this->elseTasks = $e;
     }
@@ -156,10 +156,10 @@ class IfTask extends ConditionBase
     public function main()
     {
         if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <if>");
+            throw new BuildException('You must not nest more than one condition into <if>');
         }
         if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <if>");
+            throw new BuildException('You must nest a condition into <if>');
         }
         $conditions = $this->getConditions();
         $c          = $conditions[0];

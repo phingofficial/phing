@@ -248,7 +248,7 @@ class ApplyTask extends ExecTask
         if ($this->targetFilePos !== null) {
             throw new BuildException(
                 $this->getTaskType() . " doesn\'t support multiple "
-                . "targetfile elements.",
+                . 'targetfile elements.',
                 $this->getLocation()
             );
         }
@@ -271,7 +271,7 @@ class ApplyTask extends ExecTask
         if ($this->srcFilePos !== null) {
             throw new BuildException(
                 $this->getTaskType() . " doesn\'t support multiple "
-                . "srcfile elements.",
+                . 'srcfile elements.',
                 $this->getLocation()
             );
         }
@@ -326,10 +326,10 @@ class ApplyTask extends ExecTask
                     if ($fs instanceof DirSet) {
                         if ($this->type !== self::$types['DIR']) {
                             $this->log(
-                                "Found a nested dirset but type is $this->type . "
-                                . "Temporarily switching to type=\"dir\" on the"
-                                . " assumption that you really did mean"
-                                . " <dirset> not <fileset>.",
+                                'Found a nested dirset but type is ' . $this->type . ' .'
+                                . ' Temporarily switching to type="dir" on the'
+                                . ' assumption that you really did mean'
+                                . ' <dirset> not <fileset>.',
                                 Project::MSG_DEBUG
                             );
                             $currentType = 'dir';
@@ -377,11 +377,11 @@ class ApplyTask extends ExecTask
             }
             if ($haveExecuted) {
                 $this->log(
-                    "Applied " . $this->commandline->getExecutable() . " to "
-                    . $totalFiles . " file"
-                    . ($totalFiles !== 1 ? "s" : "") . " and "
-                    . $totalDirs . " director"
-                    . ($totalDirs !== 1 ? "ies" : "y") . ".",
+                    'Applied ' . $this->commandline->getExecutable() . ' to '
+                    . $totalFiles . ' file'
+                    . ($totalFiles !== 1 ? 's' : '') . ' and '
+                    . $totalDirs . ' director'
+                    . ($totalDirs !== 1 ? 'ies' : 'y') . '.',
                     $this->loglevel
                 );
             }
@@ -428,8 +428,8 @@ class ApplyTask extends ExecTask
             $currentType !== self::$types['FILES'] ? $ds->getIncludedDirectoriesCount() : 0
             );
         $this->log(
-            "Skipping fileset for directory " . $base . ". It is "
-            . ($includedCount > 0 ? "up to date." : "empty."),
+            'Skipping fileset for directory ' . $base . '. It is '
+            . ($includedCount > 0 ? 'up to date.' : 'empty.'),
             $this->loglevel
         );
     }
@@ -502,19 +502,19 @@ class ApplyTask extends ExecTask
 
         if (count($this->filesets) === 0 && count($this->filelists) === 0 && count($this->getDirSets()) === 0) {
             throw new BuildException(
-                "no resources specified",
+                'no resources specified',
                 $this->getLocation()
             );
         }
         if ($this->targetFilePos !== null && $this->mapperElement === null) {
             throw new BuildException(
-                "targetfile specified without mapper",
+                'targetfile specified without mapper',
                 $this->getLocation()
             );
         }
         if ($this->destDir !== null && $this->mapperElement === null) {
             throw new BuildException(
-                "dest specified without mapper",
+                'dest specified without mapper',
                 $this->getLocation()
             );
         }
@@ -563,7 +563,7 @@ class ApplyTask extends ExecTask
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
             $this->additionalCmds .= sprintf(' %s', 'WIN' === $this->osvariant ? '> NUL' : '1>/dev/null');
 
-            $this->log("For process spawning, setting Output nullification ", $this->loglevel);
+            $this->log('For process spawning, setting Output nullification ', $this->loglevel);
         }
 
         // Setting command error redirection with content appending
@@ -609,7 +609,7 @@ class ApplyTask extends ExecTask
     private function process($srcFiles, $basedir)
     {
         // Log
-        $this->log("Processing files with base directory ($basedir) ", $this->loglevel);
+        $this->log(sprintf('Processing files with base directory (%s) ', $basedir), $this->loglevel);
         $targets = [];
         if ($this->targetFilePos !== null) {
             $addedFiles = [];
@@ -748,7 +748,7 @@ class ApplyTask extends ExecTask
 
         // Validating the 'return-code'
         if ($this->checkreturn && ($returncode !== 0)) {
-            $this->throwBuildException("Task exited with code ($returncode)");
+            $this->throwBuildException(sprintf('Task exited with code (%d)', $returncode));
         }
     }
 

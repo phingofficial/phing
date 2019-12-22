@@ -29,7 +29,7 @@ class NestedCondition extends ConditionBase implements Condition
     {
         if ($this->countConditions() != 1) {
             throw new BuildException(
-                "A single nested condition is required."
+                'A single nested condition is required.'
             );
         }
         $cond = $this->getConditions();

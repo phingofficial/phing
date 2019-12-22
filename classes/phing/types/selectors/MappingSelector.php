@@ -90,7 +90,7 @@ abstract class MappingSelector extends BaseSelector
     public function verifySettings()
     {
         if ($this->targetdir === null) {
-            $this->setError("The targetdir attribute is required.");
+            $this->setError('The targetdir attribute is required.');
         }
         if ($this->map === null) {
             if ($this->mapperElement === null) {
@@ -98,7 +98,7 @@ abstract class MappingSelector extends BaseSelector
             } else {
                 $this->map = $this->mapperElement->getImplementation();
                 if ($this->map === null) {
-                    $this->setError("Could not set <mapper> element.");
+                    $this->setError('Could not set <mapper> element.');
                 }
             }
         }

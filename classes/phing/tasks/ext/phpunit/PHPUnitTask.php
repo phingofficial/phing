@@ -33,7 +33,7 @@ class PHPUnitTask extends Task
      * @var FormatterElement[] $formatters
      */
     private $formatters       = [];
-    private $bootstrap        = "";
+    private $bootstrap        = '';
     private $haltonerror      = false;
     private $haltonfailure    = false;
     private $haltonincomplete = false;
@@ -44,7 +44,7 @@ class PHPUnitTask extends Task
     private $skippedproperty;
     private $printsummary          = false;
     private $testfailed            = false;
-    private $testfailuremessage    = "";
+    private $testfailuremessage    = '';
     private $codecoverage          = null;
     private $groups                = [];
     private $excludeGroups         = [];
@@ -59,7 +59,7 @@ class PHPUnitTask extends Task
     /**
      * @var string
      */
-    private $pharLocation = "";
+    private $pharLocation = '';
 
     /**
      * @var PhingFile
@@ -95,7 +95,7 @@ class PHPUnitTask extends Task
 
         @include_once 'PHPUnit/Autoload.php';
         if (!class_exists('PHPUnit\Runner\Version')) {
-            throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
+            throw new BuildException('PHPUnitTask requires PHPUnit to be installed', $this->getLocation());
         }
     }
 
@@ -397,7 +397,7 @@ class PHPUnitTask extends Task
     public function main()
     {
         if ($this->codecoverage && !extension_loaded('xdebug')) {
-            throw new BuildException("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
+            throw new BuildException('PHPUnitTask depends on Xdebug being installed to gather code coverage information.');
         }
 
         $this->loadPHPUnit();
@@ -423,7 +423,7 @@ class PHPUnitTask extends Task
         if ($this->printsummary) {
             $fe = new FormatterElement();
             $fe->setParent($this);
-            $fe->setType("summary");
+            $fe->setType('summary');
             $fe->setUseFile(false);
             $this->formatters[] = $fe;
         }

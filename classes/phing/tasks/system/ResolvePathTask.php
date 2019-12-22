@@ -110,12 +110,12 @@ class ResolvePathTask extends Task
     public function main()
     {
         if (!$this->propertyName) {
-            throw new BuildException("You must specify the propertyName attribute", $this->getLocation());
+            throw new BuildException('You must specify the propertyName attribute', $this->getLocation());
         }
 
         // Currently only files are supported
         if ($this->file === null) {
-            throw new BuildException("You must specify a path to resolve", $this->getLocation());
+            throw new BuildException('You must specify a path to resolve', $this->getLocation());
         }
 
         $fs = FileSystem::getFileSystem();
@@ -129,7 +129,7 @@ class ResolvePathTask extends Task
 
         $resolved = $this->project->resolveFile($this->file);
 
-        $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), $this->logLevel);
+        $this->log('Resolved ' . $this->file . ' to ' . $resolved->getAbsolutePath(), $this->logLevel);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());
     }
 }

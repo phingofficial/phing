@@ -27,21 +27,21 @@ class ExpandPropertiesTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/expandproperties.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/expandproperties.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testExpandProperties()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/expandproperties.test");
-        $result   = $this->getProject()->resolveFile("result/expandproperties.test");
+        $expected = $this->getProject()->resolveFile('expected/expandproperties.test');
+        $result   = $this->getProject()->resolveFile('result/expandproperties.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

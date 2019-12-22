@@ -146,7 +146,7 @@ class Mapper extends DataType
                 if ($m instanceof ContainerMapper) {
                     $this->container = $m;
                 } else {
-                    throw new BuildException("$m mapper implementation does not support nested mappers!");
+                    throw new BuildException($m . ' mapper implementation does not support nested mappers!');
                 }
             }
         }
@@ -240,12 +240,12 @@ class Mapper extends DataType
                 return $o->getImplementation();
             }
 
-            $od = $o == null ? "null" : get_class($o);
+            $od = $o == null ? 'null' : get_class($o);
             throw new BuildException($od . " at reference '" . $this->getRefId() . "' is not a valid mapper reference.");
         }
 
         if ($this->type === null && $this->classname === null && $this->container == null) {
-            throw new BuildException("either type or classname attribute must be set for <mapper>");
+            throw new BuildException('either type or classname attribute must be set for <mapper>');
         }
 
         if ($this->container != null) {
@@ -283,7 +283,7 @@ class Mapper extends DataType
                     $this->classname = 'phing.mappers.MergeMapper';
                     break;
                 default:
-                    throw new BuildException("Mapper type {$this->type} not known");
+                    throw new BuildException(sprintf('Mapper type %s not known', $this->type));
                     break;
             }
         }

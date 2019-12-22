@@ -51,7 +51,7 @@ class NotifySendTask extends Task
                     if (isset($this->log)) {
                         $this->log(
                             sprintf(
-                                "%s is not a file. Using default icon instead.",
+                                '%s is not a file. Using default icon instead.',
                                 $icon
                             ),
                             Project::MSG_WARN
@@ -154,19 +154,19 @@ class NotifySendTask extends Task
         $this->log(sprintf("Message: '%s'", $msg), Project::MSG_DEBUG);
         $this->log($msg, Project::MSG_INFO);
 
-        $this->log(sprintf("cmd: %s", $cmd), Project::MSG_DEBUG);
+        $this->log(sprintf('cmd: %s', $cmd), Project::MSG_DEBUG);
         if (!$this->silent) {
             $fs = FileSystem::getFileSystem();
             if ($fs->which($executable) !== false) {
                 exec(escapeshellcmd($cmd), $output, $return);
                 if ($return !== 0) {
-                    throw new BuildException("Notify task failed.");
+                    throw new BuildException('Notify task failed.');
                 }
             } else {
-                $this->log("Executable ($executable) not found", Project::MSG_DEBUG);
+                $this->log(sprintf('Executable (%s) not found', $executable), Project::MSG_DEBUG);
             }
         } else {
-            $this->log("Silent flag set; not executing", Project::MSG_DEBUG);
+            $this->log('Silent flag set; not executing', Project::MSG_DEBUG);
         }
     }
 }

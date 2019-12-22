@@ -60,7 +60,7 @@ abstract class PDOTask extends Task
     public function init()
     {
         if (!class_exists('PDO')) {
-            throw new Exception("PDOTask depends on PDO feature being included in PHP.");
+            throw new Exception('PDOTask depends on PDO feature being included in PHP.');
         }
     }
 
@@ -118,11 +118,11 @@ abstract class PDOTask extends Task
     protected function getConnection()
     {
         if ($this->url === null) {
-            throw new BuildException("Url attribute must be set!", $this->getLocation());
+            throw new BuildException('Url attribute must be set!', $this->getLocation());
         }
 
         try {
-            $this->log("Connecting to " . $this->getUrl(), Project::MSG_VERBOSE);
+            $this->log('Connecting to ' . $this->getUrl(), Project::MSG_VERBOSE);
 
             $user = null;
             $pass = null;
@@ -142,7 +142,7 @@ abstract class PDOTask extends Task
                 $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
             } catch (PDOException $pe) {
                 $this->log(
-                    "Unable to enable auto-commit for this database: " . $pe->getMessage(),
+                    'Unable to enable auto-commit for this database: ' . $pe->getMessage(),
                     Project::MSG_VERBOSE
                 );
             }

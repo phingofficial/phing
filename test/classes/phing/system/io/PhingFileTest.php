@@ -36,6 +36,6 @@ class PhingFileTest extends \PHPUnit\Framework\TestCase
 
     public function testPathOutsideBasedir()
     {
-        $this->assertEquals(__FILE__, $this->file->getPathWithoutBase("/foo/bar"));
+        $this->assertEquals(__FILE__, $this->file->getPathWithoutBase('/foo/bar'));
     }
 }

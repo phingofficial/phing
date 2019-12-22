@@ -120,7 +120,7 @@ class AnsiColorLogger extends DefaultLogger
     public const BG_WHITE   = 47;
 
     public const PREFIX    = "\x1b[";
-    public const SUFFIX    = "m";
+    public const SUFFIX    = 'm';
     public const SEPARATOR = ';';
     public const END_COLOR = "\x1b[0m"; // self::PREFIX . self::SUFFIX;
 
@@ -152,8 +152,8 @@ class AnsiColorLogger extends DefaultLogger
      */
     final private function setColors()
     {
-        $userColorFile   = Phing::getProperty("phing.logger.defaults");
-        $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $userColorFile   = Phing::getProperty('phing.logger.defaults');
+        $systemColorFile = new PhingFile(Phing::getResourcePath('phing/listener/defaults.properties'));
 
         $in = null;
 
@@ -166,11 +166,11 @@ class AnsiColorLogger extends DefaultLogger
                 $prop->load($systemColorFile);
             }
 
-            $err     = $prop->getProperty("AnsiColorLogger.ERROR_COLOR");
-            $warn    = $prop->getProperty("AnsiColorLogger.WARNING_COLOR");
-            $info    = $prop->getProperty("AnsiColorLogger.INFO_COLOR");
-            $verbose = $prop->getProperty("AnsiColorLogger.VERBOSE_COLOR");
-            $debug   = $prop->getProperty("AnsiColorLogger.DEBUG_COLOR");
+            $err     = $prop->getProperty('AnsiColorLogger.ERROR_COLOR');
+            $warn    = $prop->getProperty('AnsiColorLogger.WARNING_COLOR');
+            $info    = $prop->getProperty('AnsiColorLogger.INFO_COLOR');
+            $verbose = $prop->getProperty('AnsiColorLogger.VERBOSE_COLOR');
+            $debug   = $prop->getProperty('AnsiColorLogger.DEBUG_COLOR');
             if ($err !== null) {
                 $this->errColor = self::PREFIX . $err . self::SUFFIX;
             }

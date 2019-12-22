@@ -42,14 +42,14 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     {
         $ih = IntrospectionHelper::getHelper('Exception');
         try {
-            $ih->addText($this->p, new Exception(), "test");
+            $ih->addText($this->p, new Exception(), 'test');
             $this->fail("Exception doesn\'t support addText");
         } catch (BuildException $be) {
         }
 
         $element = new IHProjectComponent();
         $ih      = IntrospectionHelper::getHelper('IHProjectComponent');
-        $ih->addText($this->p, $element, "test");
+        $ih->addText($this->p, $element, 'test');
 
         $this->assertSame('test', $element->text);
     }
@@ -59,36 +59,36 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
         $ih = IntrospectionHelper::getHelper('Exception');
         $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
-        $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
+        $this->assertTrue($ih->supportsCharacters(), 'IHProjectComponent supports addText');
     }
 
     public function testElementCreators()
     {
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
-            $this->fail("create cannot take param");
+            $this->fail('create cannot take param');
         } catch (BuildException $be) {
         }
 
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail2');
-            $this->fail("no class hint for add");
+            $this->fail('no class hint for add');
         } catch (BuildException $be) {
         }
 
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail3');
-            $this->fail("no class hint for addconfigured");
+            $this->fail('no class hint for addconfigured');
         } catch (BuildException $be) {
         }
 
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
-        $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
+        $this->assertEquals('test', $ih->createElement($this->p, new IHProjectComponent(), 'one'));
 
         $fs = new FileSet();
         $fs->setProject($this->p);
 
-        $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), "FileSet"));
+        $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), 'FileSet'));
     }
     /*
     public function testGetNestedElements()

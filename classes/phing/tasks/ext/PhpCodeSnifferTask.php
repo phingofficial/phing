@@ -430,7 +430,7 @@ class PhpCodeSnifferTask extends Task
 
             if (!class_exists('PHP_CodeSniffer')) {
                 throw new BuildException(
-                    "This task requires the PHP_CodeSniffer package installed and available on the include path",
+                    'This task requires the PHP_CodeSniffer package installed and available on the include path',
                     $this->getLocation()
                 );
             }

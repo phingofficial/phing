@@ -30,8 +30,8 @@
  */
 class PHPUnitReportTask extends Task
 {
-    private $format   = "noframes";
-    private $styleDir = "";
+    private $format   = 'noframes';
+    private $styleDir = '';
 
     /**
      * @var PhingFile
@@ -49,7 +49,7 @@ class PHPUnitReportTask extends Task
     /**
      * the directory where the results XML can be found
      */
-    private $inFile = "testsuites.xml";
+    private $inFile = 'testsuites.xml';
 
     /**
      * Set the filename of the XML results file to use.
@@ -123,18 +123,18 @@ class PHPUnitReportTask extends Task
      */
     protected function getStyleSheet()
     {
-        $xslname = "phpunit-" . $this->format . ".xsl";
+        $xslname = 'phpunit-' . $this->format . '.xsl';
 
         if ($this->styleDir) {
             $file = new PhingFile($this->styleDir, $xslname);
         } else {
-            $path = Phing::getResourcePath("phing/etc/$xslname");
+            $path = Phing::getResourcePath('phing/etc/' . $xslname);
 
             if ($path === null) {
-                $path = Phing::getResourcePath("etc/$xslname");
+                $path = Phing::getResourcePath('etc/' . $xslname);
 
                 if ($path === null) {
-                    throw new BuildException("Could not find $xslname in resource path");
+                    throw new BuildException(sprintf('Could not find %s in resource path', $xslname));
                 }
             }
 
@@ -142,7 +142,7 @@ class PHPUnitReportTask extends Task
         }
 
         if (!$file->exists()) {
-            throw new BuildException("Could not find file " . $file->getPath());
+            throw new BuildException('Could not find file ' . $file->getPath());
         }
 
         return $file;
@@ -176,8 +176,8 @@ class PHPUnitReportTask extends Task
         $proc->importStylesheet($xsl);
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
-        if ($this->format === "noframes") {
-            $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
+        if ($this->format === 'noframes') {
+            $writer = new FileWriter(new PhingFile($this->toDir, 'phpunit-noframes.html'));
             $writer->write($proc->transformToXml($document));
             $writer->close();
         } else {
@@ -213,13 +213,13 @@ class PHPUnitReportTask extends Task
 
         $xp = new DOMXPath($document);
 
-        $nodes = $xp->query("/testsuites/testsuite/testsuite/testsuite");
+        $nodes = $xp->query('/testsuites/testsuite/testsuite/testsuite');
 
         if ($nodes->length === 0) {
-            $nodes = $xp->query("/testsuites/testsuite");
+            $nodes = $xp->query('/testsuites/testsuite');
 
             foreach ($nodes as $node) {
-                $children = $xp->query("./testsuite", $node);
+                $children = $xp->query('./testsuite', $node);
 
                 if ($children->length) {
                     $this->handleChildren($rootElement, $children);
@@ -227,10 +227,10 @@ class PHPUnitReportTask extends Task
                 }
             }
         } else {
-            $nodes = $xp->query("/testsuites/testsuite/testsuite");
+            $nodes = $xp->query('/testsuites/testsuite/testsuite');
 
             foreach ($nodes as $node) {
-                $children = $xp->query("./testsuite", $node);
+                $children = $xp->query('./testsuite', $node);
 
                 if ($children->length) {
                     $this->handleChildren($rootElement, $children);
@@ -286,7 +286,7 @@ class PHPUnitReportTask extends Task
     public function init()
     {
         if (!class_exists('XSLTProcessor')) {
-            throw new BuildException("PHPUnitReportTask requires the XSL extension");
+            throw new BuildException('PHPUnitReportTask requires the XSL extension');
         }
     }
 

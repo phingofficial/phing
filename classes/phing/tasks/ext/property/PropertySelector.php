@@ -64,7 +64,7 @@ class PropertySelector extends AbstractPropertySetterTask
     {
         parent::validate();
         if ($this->match == null) {
-            throw new BuildException("No match expression specified.");
+            throw new BuildException('No match expression specified.');
         }
     }
 
@@ -90,7 +90,7 @@ class PropertySelector extends AbstractPropertySetterTask
                     $s = $groups[$i];
 
                     $result = new RegularExpression();
-                    $result->setPattern("\\\\" . $i);
+                    $result->setPattern('\\\\' . $i);
                     $sregex = $result->getRegexp($this->project);
                     $sregex->setReplace($output);
                     $output = $sregex->replace($s);

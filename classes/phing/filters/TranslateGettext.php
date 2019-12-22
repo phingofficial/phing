@@ -42,9 +42,9 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     // constants for specifying keys to expect
     // when this is called using <filterreader ... />
-    public const DOMAIN_KEY = "domain";
-    public const DIR_KEY    = "dir";
-    public const LOCALE_KEY = "locale";
+    public const DOMAIN_KEY = 'domain';
+    public const DIR_KEY    = 'dir';
+    public const LOCALE_KEY = 'locale';
 
     /**
      * The domain to use
@@ -140,7 +140,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     protected function checkAttributes()
     {
         if (!$this->domain || !$this->locale || !$this->dir) {
-            throw new BuildException("You must specify values for domain, locale, and dir attributes.");
+            throw new BuildException('You must specify values for domain, locale, and dir attributes.');
         }
     }
 
@@ -157,15 +157,15 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      */
     protected function initEnvironment()
     {
-        $this->storedLocale = getenv("LANG");
+        $this->storedLocale = getenv('LANG');
 
-        $this->log("Setting locale to " . $this->locale, Project::MSG_DEBUG);
-        putenv("LANG=" . $this->locale);
+        $this->log('Setting locale to ' . $this->locale, Project::MSG_DEBUG);
+        putenv('LANG=' . $this->locale);
         $ret = setlocale(LC_ALL, $this->locale);
         if ($ret === false) {
-            $msg = "Could not set locale to " . $this->locale
-                . ". You may need to use fully qualified name"
-                . " (e.g. en_US instead of en).";
+            $msg = 'Could not set locale to ' . $this->locale
+                . '. You may need to use fully qualified name'
+                . ' (e.g. en_US instead of en).';
             throw new BuildException($msg);
         }
 
@@ -183,7 +183,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      */
     protected function restoreEnvironment()
     {
-        putenv("LANG=" . $this->storedLocale);
+        putenv('LANG=' . $this->storedLocale);
         setlocale(LC_ALL, $this->storedLocale);
     }
 
@@ -203,7 +203,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
         $charbefore = $matches[1];
         $msgid      = $matches[2];
         $translated = gettext($msgid);
-        $this->log("Translating \"$msgid\" => \"$translated\"", Project::MSG_DEBUG);
+        $this->log(sprintf('Translating "%s" => "%s"', $msgid, $translated), Project::MSG_DEBUG);
 
         return $charbefore . '"' . $translated . '"';
     }
@@ -262,7 +262,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         $matches = [];
         if (preg_match('/(\W|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
-            $this->log("Unable to perform translation on: " . $matches[2], Project::MSG_WARN);
+            $this->log('Unable to perform translation on: ' . $matches[2], Project::MSG_WARN);
         }
 
         $this->restoreEnvironment();

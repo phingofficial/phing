@@ -31,7 +31,7 @@ class TypeSelector extends BaseExtendSelector
     /**
      * Key to used for parameterized custom selector
      */
-    public const TYPE_KEY = "type";
+    public const TYPE_KEY = 'type';
 
     /**
      * Valid types
@@ -43,7 +43,7 @@ class TypeSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        return "{typeselector type: " . $this->type . "}";
+        return '{typeselector type: ' . $this->type . '}';
     }
 
     /**
@@ -73,7 +73,7 @@ class TypeSelector extends BaseExtendSelector
                 if (self::TYPE_KEY == strtolower($paramname)) {
                     $this->setType($parameters[$i]->getValue());
                 } else {
-                    $this->setError("Invalid parameter " . $paramname);
+                    $this->setError('Invalid parameter ' . $paramname);
                 }
             }
         }
@@ -86,9 +86,9 @@ class TypeSelector extends BaseExtendSelector
     public function verifySettings()
     {
         if ($this->type === null) {
-            $this->setError("The type attribute is required");
+            $this->setError('The type attribute is required');
         } elseif (!in_array($this->type, self::$types, true)) {
-            $this->setError("Invalid type specified; must be one of (" . implode(self::$types) . ")");
+            $this->setError('Invalid type specified; must be one of (' . implode(self::$types) . ')');
         }
     }
 
@@ -113,7 +113,7 @@ class TypeSelector extends BaseExtendSelector
             }
 
             $this->log(
-                $file->getAbsolutePath() . " is a link, proceeding with " . $file->getCanonicalPath() . " instead.",
+                $file->getAbsolutePath() . ' is a link, proceeding with ' . $file->getCanonicalPath() . ' instead.',
                 Project::MSG_DEBUG
             );
             $file = new PhingFile($file->getCanonicalPath());

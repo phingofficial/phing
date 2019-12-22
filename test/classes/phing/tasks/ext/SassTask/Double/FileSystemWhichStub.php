@@ -47,6 +47,6 @@ class FileSystemWhichStub extends UnixFileSystem
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
-        throw new IOException("compare() not implemented by local fs driver");
+        throw new IOException('compare() not implemented by local fs driver');
     }
 }

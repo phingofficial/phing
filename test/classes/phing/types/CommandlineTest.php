@@ -41,12 +41,12 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
     public function testTranslateCommandline()
     {
         // This should work fine; we expect 5 args
-        $cmd1 = "cvs -d:pserver:hans@xmpl.org:/cvs commit -m \"added a new test file\" Test.php";
+        $cmd1 = 'cvs -d:pserver:hans@xmpl.org:/cvs commit -m "added a new test file" Test.php';
         $c    = new Commandline($cmd1);
         $this->assertEquals(5, count($c->getArguments()));
 
         // This has some extra space, but we expect same number of args
-        $cmd2 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file\"    Test.php";
+        $cmd2 = 'cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m "added a new test file"    Test.php';
         $c2   = new Commandline($cmd2);
         $this->assertEquals(5, count($c2->getArguments()));
 

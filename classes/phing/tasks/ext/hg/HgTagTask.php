@@ -112,7 +112,7 @@ class HgTagTask extends HgBaseTask
         $cwd   = getcwd();
 
         if ($this->name === '') {
-            throw new BuildException("Tag name must be set.");
+            throw new BuildException('Tag name must be set.');
         }
         if ($this->repository === '') {
             $prog = $this->getProject();
@@ -131,7 +131,7 @@ class HgTagTask extends HgBaseTask
         $clone->setMessage($message);
         $name = $this->getName();
         if ($name == '') {
-            throw new BuildException("Name attribute must be set.");
+            throw new BuildException('Name attribute must be set.');
         }
         $clone->addName($name);
 
@@ -139,7 +139,7 @@ class HgTagTask extends HgBaseTask
         chdir($dir);
 
         try {
-            $this->log("Executing: " . $clone, Project::MSG_INFO);
+            $this->log('Executing: ' . $clone, Project::MSG_INFO);
             $output = $clone->execute();
             if ($output !== '') {
                 $this->log($output);

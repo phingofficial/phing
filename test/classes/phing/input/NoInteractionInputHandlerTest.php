@@ -46,7 +46,7 @@ class NoInteractionInputHandlerTest extends TestCase
 
     public function testYesNoQuestion()
     {
-        $request = new YesNoInputRequest("Enter a choice", ['yes', 'no']);
+        $request = new YesNoInputRequest('Enter a choice', ['yes', 'no']);
         $handler = new NoInteractionInputHandler();
 
         $handler->handleInput($request);

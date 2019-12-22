@@ -46,56 +46,56 @@ class SizeSelector extends BaseExtendSelector
      */
     private $cmp = 2;
 
-    public const SIZE_KEY  = "value";
-    public const UNITS_KEY = "units";
-    public const WHEN_KEY  = "when";
+    public const SIZE_KEY  = 'value';
+    public const UNITS_KEY = 'units';
+    public const WHEN_KEY  = 'when';
 
     /**
      * @var array $sizeComparisons
      */
-    private static $sizeComparisons = ["less", "more", "equal"];
+    private static $sizeComparisons = ['less', 'more', 'equal'];
 
     /**
      * @var array $byteUnits
      */
     private static $byteUnits = [
-        "K",
-        "k",
-        "kilo",
-        "KILO",
-        "Ki",
-        "KI",
-        "ki",
-        "kibi",
-        "KIBI",
-        "M",
-        "m",
-        "mega",
-        "MEGA",
-        "Mi",
-        "MI",
-        "mi",
-        "mebi",
-        "MEBI",
-        "G",
-        "g",
-        "giga",
-        "GIGA",
-        "Gi",
-        "GI",
-        "gi",
-        "gibi",
-        "GIBI",
-        "T",
-        "t",
-        "tera",
-        "TERA",
+        'K',
+        'k',
+        'kilo',
+        'KILO',
+        'Ki',
+        'KI',
+        'ki',
+        'kibi',
+        'KIBI',
+        'M',
+        'm',
+        'mega',
+        'MEGA',
+        'Mi',
+        'MI',
+        'mi',
+        'mebi',
+        'MEBI',
+        'G',
+        'g',
+        'giga',
+        'GIGA',
+        'Gi',
+        'GI',
+        'gi',
+        'gibi',
+        'GIBI',
+        'T',
+        't',
+        'tera',
+        'TERA',
         /* You wish! */
-        "Ti",
-        "TI",
-        "ti",
-        "tebi",
-        "TEBI",
+        'Ti',
+        'TI',
+        'ti',
+        'tebi',
+        'TEBI',
     ];
 
     /**
@@ -103,17 +103,17 @@ class SizeSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf  = "{sizeselector value: ";
+        $buf  = '{sizeselector value: ';
         $buf .= $this->sizelimit;
-        $buf .= "compare: ";
+        $buf .= 'compare: ';
         if ($this->cmp === 0) {
-            $buf .= "less";
+            $buf .= 'less';
         } elseif ($this->cmp === 1) {
-            $buf .= "more";
+            $buf .= 'more';
         } else {
-            $buf .= "equal";
+            $buf .= 'equal';
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -233,7 +233,7 @@ class SizeSelector extends BaseExtendSelector
                             $this->setValue($parameters[$i]->getValue());
                         } catch (Exception $nfe) {
                             $this->setError(
-                                "Invalid size setting "
+                                'Invalid size setting '
                                 . $parameters[$i]->getValue()
                             );
                         }
@@ -245,7 +245,7 @@ class SizeSelector extends BaseExtendSelector
                         $this->setWhen($parameters[$i]->getValue());
                         break;
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 }
             }
         }
@@ -268,11 +268,11 @@ class SizeSelector extends BaseExtendSelector
     public function verifySettings()
     {
         if ($this->size < 0) {
-            $this->setError("The value attribute is required, and must be positive");
+            $this->setError('The value attribute is required, and must be positive');
         } elseif ($this->multiplier < 1) {
-            $this->setError("Invalid Units supplied, must be K,Ki,M,Mi,G,Gi,T,or Ti");
+            $this->setError('Invalid Units supplied, must be K,Ki,M,Mi,G,Gi,T,or Ti');
         } elseif ($this->sizelimit < 0) {
-            $this->setError("Internal error: Code is not setting sizelimit correctly");
+            $this->setError('Internal error: Code is not setting sizelimit correctly');
         }
     }
 

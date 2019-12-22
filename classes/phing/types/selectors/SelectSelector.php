@@ -45,7 +45,7 @@ class SelectSelector extends AndSelector
      */
     private function getRef()
     {
-        return $this->getCheckedRef(get_class($this), "SelectSelector");
+        return $this->getCheckedRef(get_class($this), 'SelectSelector');
     }
 
     /**
@@ -113,8 +113,8 @@ class SelectSelector extends AndSelector
     {
         if ($this->count() != 1) {
             $this->setError(
-                "One and only one selector is allowed within the "
-                . "<selector> tag"
+                'One and only one selector is allowed within the '
+                . '<selector> tag'
             );
         }
     }

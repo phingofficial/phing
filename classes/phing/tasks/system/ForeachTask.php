@@ -142,13 +142,13 @@ class ForeachTask extends Task
     public function main()
     {
         if ($this->list === null && $this->currPath === null && count($this->dirsets) === 0 && count($this->filesets) == 0 && count($this->filelists) == 0) {
-            throw new BuildException("Need either list, path, nested dirset, nested fileset or nested filelist to iterate through");
+            throw new BuildException('Need either list, path, nested dirset, nested fileset or nested filelist to iterate through');
         }
         if ($this->param === null) {
-            throw new BuildException("You must supply a property name to set on each iteration in param");
+            throw new BuildException('You must supply a property name to set on each iteration in param');
         }
         if ($this->calleeTarget === null) {
-            throw new BuildException("You must supply a target to perform");
+            throw new BuildException('You must supply a target to perform');
         }
 
         $callee = $this->createCallTarget();
@@ -175,10 +175,14 @@ class ForeachTask extends Task
                     }
                     $value = array_shift($value);
                 }
-                $this->log(
-                    "Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''),
-                    Project::MSG_VERBOSE
-                );
+
+                $message = sprintf("Setting param '%s' to value '%s'", $this->param, $value);
+
+                if ($premapped) {
+                    $message .= sprintf(" (mapped from '%s')", $premapped);
+                }
+
+                $this->log($message, Project::MSG_VERBOSE);
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->param);
@@ -227,12 +231,12 @@ class ForeachTask extends Task
 
         if ($this->list === null) {
             $this->log(
-                "Processed {$this->total_dirs} directories and {$this->total_files} files",
+                sprintf('Processed %d directories and %d files', $this->total_dirs, $this->total_files),
                 Project::MSG_VERBOSE
             );
         } else {
             $this->log(
-                "Processed $total_entries entr" . ($total_entries > 1 ? 'ies' : 'y') . " in list",
+                sprintf('Processed %d entr%s in list', $total_entries, ($total_entries > 1 ? 'ies' : 'y')),
                 Project::MSG_VERBOSE
             );
         }
@@ -278,7 +282,7 @@ class ForeachTask extends Task
     {
         for ($j = 0; $j < $rescount; $j++) {
             $value     = $srcRes[$j];
-            $premapped = "";
+            $premapped = '';
 
             if ($this->absparam) {
                 $prop = $callee->createProperty();
@@ -297,10 +301,13 @@ class ForeachTask extends Task
             }
 
             if ($this->param) {
-                $this->log(
-                    "Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''),
-                    Project::MSG_VERBOSE
-                );
+                $message = sprintf("Setting param '%s' to value '%s'", $this->param, $value);
+
+                if ($premapped) {
+                    $message .= sprintf(" (mapped from '%s')", $premapped);
+                }
+
+                $this->log($message, Project::MSG_VERBOSE);
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->param);
@@ -389,7 +396,7 @@ class ForeachTask extends Task
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+            throw new BuildException('Cannot define more than one mapper', $this->getLocation());
         }
         $this->mapperElement = new Mapper($this->project);
 
@@ -443,7 +450,7 @@ class ForeachTask extends Task
         /**
          * @var PhingCallTask $ct
          */
-        $ct = $this->getProject()->createTask("phingcall");
+        $ct = $this->getProject()->createTask('phingcall');
         $ct->setOwningTarget($this->getOwningTarget());
         $ct->setTaskName($this->getTaskName());
         $ct->setLocation($this->getLocation());

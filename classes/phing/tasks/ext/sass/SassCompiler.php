@@ -47,7 +47,7 @@ class SassCompiler implements SassTaskCompiler
             $output = $this->executeCommand($inputFilePath, $outputFilePath);
             if ($failOnError && $output[0] !== 0) {
                 throw new BuildException(
-                    "Result returned as not 0. Result: {$output[0]}",
+                    'Result returned as not 0. Result: ' . $output[0],
                     Project::MSG_INFO
                 );
             }
@@ -83,10 +83,10 @@ class SassCompiler implements SassTaskCompiler
         $fullCommand = $this->executable;
 
         if (strlen($this->flags) > 0) {
-            $fullCommand .= " {$this->flags}";
+            $fullCommand .= ' ' . $this->flags;
         }
 
-        $fullCommand .= " {$inputFile} {$outputFile}";
+        $fullCommand .= ' ' . $inputFile . ' ' . $outputFile;
 
         exec($fullCommand, $output, $return);
 

@@ -96,7 +96,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     public function read($len = null)
     {
         if (!class_exists('DOMDocument')) {
-            throw new BuildException("Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
+            throw new BuildException('Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.');
         }
 
         if ($this->processed === true) {
@@ -114,12 +114,12 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         if (empty($_xml)) {
-            $this->log("XML file is empty!", Project::MSG_WARN);
+            $this->log('XML file is empty!', Project::MSG_WARN);
 
             return '';
         }
 
-        $this->log("Transforming XML " . $this->in->getResource() . " using Xinclude ", Project::MSG_VERBOSE);
+        $this->log('Transforming XML ' . $this->in->getResource() . ' using Xinclude ', Project::MSG_VERBOSE);
 
         $out = '';
         try {

@@ -27,14 +27,14 @@ class MkdirTaskModeTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/745/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/745/build.xml');
     }
 
     public function testCorrectModeSet()
     {
-        $this->executeTarget("test");
+        $this->executeTarget('test');
 
-        $dir = new PhingFile(PHING_TEST_BASE . "/etc/regression/745/testdir");
+        $dir = new PhingFile(PHING_TEST_BASE . '/etc/regression/745/testdir');
 
         $mode = $dir->getMode() & 511;
 

@@ -312,7 +312,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      */
     protected function composeMessage($message, PHPUnit\Framework\Test $test, \Throwable $e)
     {
-        $message = "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
+        $message = 'Test ' . $message . ' (' . $test->getName() . ' in class ' . get_class($test) . '): ' . $e->getMessage();
 
         if ($e instanceof PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
             $message .= "\n" . $e->getComparisonFailure()->getDiff();
@@ -330,7 +330,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      */
     public function addError(PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
     {
-        $this->lastErrorMessage = $this->composeMessage("ERROR", $test, $e);
+        $this->lastErrorMessage = $this->composeMessage('ERROR', $test, $e);
     }
 
     /**
@@ -345,7 +345,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
         PHPUnit\Framework\AssertionFailedError $e,
         float $time
     ): void {
-        $this->lastFailureMessage = $this->composeMessage("FAILURE", $test, $e);
+        $this->lastFailureMessage = $this->composeMessage('FAILURE', $test, $e);
     }
 
     /**
@@ -357,7 +357,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      */
     public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
     {
-        $this->lastWarningMessage = $this->composeMessage("WARNING", $test, $e);
+        $this->lastWarningMessage = $this->composeMessage('WARNING', $test, $e);
     }
 
     /**
@@ -369,7 +369,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
-        $this->lastIncompleteMessage = $this->composeMessage("INCOMPLETE", $test, $e);
+        $this->lastIncompleteMessage = $this->composeMessage('INCOMPLETE', $test, $e);
     }
 
     /**
@@ -383,7 +383,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      */
     public function addSkippedTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
-        $this->lastSkippedMessage = $this->composeMessage("SKIPPED", $test, $e);
+        $this->lastSkippedMessage = $this->composeMessage('SKIPPED', $test, $e);
     }
 
     /**

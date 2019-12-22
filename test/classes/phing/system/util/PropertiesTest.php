@@ -42,7 +42,7 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
 
     public function testComments()
     {
-        $file = new PhingFile(PHING_TEST_BASE . "/etc/system/util/comments.properties");
+        $file = new PhingFile(PHING_TEST_BASE . '/etc/system/util/comments.properties');
         $this->props->load($file);
 
         $this->assertEquals(
@@ -71,12 +71,12 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
     {
         $this->props->put('a', 'b');
 
-        $this->assertEquals("a=b" . PHP_EOL, (string) $this->props);
+        $this->assertEquals('a=b' . PHP_EOL, (string) $this->props);
     }
 
     public function testStore()
     {
-        $file = new PhingFile(PHING_TEST_BASE . "/tmp/props");
+        $file = new PhingFile(PHING_TEST_BASE . '/tmp/props');
         $this->props->put('t', 'a');
         $this->props->store($file, 'header');
         $this->assertFileExists($file->getPath());

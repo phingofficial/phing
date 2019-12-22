@@ -24,7 +24,7 @@ class SvnPropgetTask extends SvnBaseTask
 {
     private $fromDir;
     private $svnPropertyName;
-    private $propertyName = "svn.propget";
+    private $propertyName = 'svn.propget';
 
     /**
      * Sets the name of the property to use

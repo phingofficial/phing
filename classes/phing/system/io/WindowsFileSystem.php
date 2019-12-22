@@ -113,7 +113,7 @@ class WindowsFileSystem extends FileSystem
         while (($src < $len) && $this->isSlash($strPath[$src])) {
             $src++;
         }
-        $c = "";
+        $c = '';
         if (
             ($len - $src >= 2)
             && $this->isLetter($c = $strPath[$src])
@@ -166,7 +166,7 @@ class WindowsFileSystem extends FileSystem
         }
         $src   = 0;
         $slash = $this->slash;
-        $sb    = "";
+        $sb    = '';
 
         if ($offset == 0) {
             // Complete normalization, including prefix
@@ -348,7 +348,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function getDefaultParent()
     {
-        return (string) ("" . $this->slash);
+        return (string) ('' . $this->slash);
     }
 
     /**
@@ -453,7 +453,7 @@ class WindowsFileSystem extends FileSystem
     public function _getUserPath()
     {
         //For both compatibility and security, we must look this up every time
-        return (string) $this->normalize(Phing::getProperty("user.dir"));
+        return (string) $this->normalize(Phing::getProperty('user.dir'));
     }
 
     /**
@@ -519,7 +519,7 @@ class WindowsFileSystem extends FileSystem
                 $p = (string) $drive . (':' . $dir . $this->slashify(substr($path, 2)));
 
                 if (!$this->checkAccess(new PhingFile($p), false)) {
-                    throw new IOException("Can't resolve path $p");
+                    throw new IOException("Can't resolve path " . $p);
                 }
 
                 return $p;
@@ -528,7 +528,7 @@ class WindowsFileSystem extends FileSystem
             return (string) $drive . ':' . $this->slashify(substr($path, 2)); //fake it
         }
 
-        throw new InvalidArgumentException("Unresolvable path: " . $path);
+        throw new InvalidArgumentException('Unresolvable path: ' . $path);
     }
 
     /* -- most of the following is mapped to the functions mapped th php natives in FileSystem */

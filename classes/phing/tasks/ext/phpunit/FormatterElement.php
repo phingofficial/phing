@@ -31,13 +31,13 @@ class FormatterElement
      */
     protected $formatter;
 
-    protected $type = "";
+    protected $type = '';
 
     protected $useFile = true;
 
-    protected $toDir = ".";
+    protected $toDir = '.';
 
-    protected $outfile = "";
+    protected $outfile = '';
 
     protected $parent;
 
@@ -166,15 +166,15 @@ class FormatterElement
             return $this->formatter;
         }
 
-        if ($this->type === "summary") {
+        if ($this->type === 'summary') {
             $this->formatter = new SummaryPHPUnitResultFormatter7($this->parent);
-        } elseif ($this->type === "clover") {
+        } elseif ($this->type === 'clover') {
             $this->formatter = new CloverPHPUnitResultFormatter7($this->parent);
-        } elseif ($this->type === "xml") {
+        } elseif ($this->type === 'xml') {
             $this->formatter = new XMLPHPUnitResultFormatter7($this->parent);
-        } elseif ($this->type === "plain") {
+        } elseif ($this->type === 'plain') {
             $this->formatter = new PlainPHPUnitResultFormatter7($this->parent);
-        } elseif ($this->type === "crap4j") {
+        } elseif ($this->type === 'crap4j') {
             $this->formatter = new Crap4JPHPUnitResultFormatter7($this->parent);
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");

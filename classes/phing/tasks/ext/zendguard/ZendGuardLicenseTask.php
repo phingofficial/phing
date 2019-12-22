@@ -214,7 +214,7 @@ class ZendGuardLicenseTask extends Task
         } else {
             $time = strtotime($expires);
             if (!$time) {
-                throw new BuildException("Unsupported expires format: " . $expires);
+                throw new BuildException('Unsupported expires format: ' . $expires);
             }
             $this->expires = date('d-M-Y', $time);
         }
@@ -293,60 +293,60 @@ class ZendGuardLicenseTask extends Task
     {
         // Check that the zend encoder path is specified
         if (empty($this->zendsignPath)) {
-            throw new BuildException("Zendenc_sign path must be specified");
+            throw new BuildException('Zendenc_sign path must be specified');
         }
         // verify that the zend encoder binary exists
         if (!file_exists($this->zendsignPath)) {
-            throw new BuildException("Zendenc_sign not found on path " . $this->zendsignPath);
+            throw new BuildException('Zendenc_sign not found on path ' . $this->zendsignPath);
         }
 
         // verify that the private key path is defined
         if (empty($this->privateKeyPath)) {
-            throw new BuildException("You must define privateKeyPath.");
+            throw new BuildException('You must define privateKeyPath.');
         }
         // verify that the private key file is readable
         if (!is_readable($this->privateKeyPath)) {
-            throw new BuildException("Private key file is not readable: " . $this->privateKeyPath);
+            throw new BuildException('Private key file is not readable: ' . $this->privateKeyPath);
         }
 
         // if template is passed, verify that it is readable
         if (!empty($this->licenseTemplate)) {
             if (!is_readable($this->licenseTemplate)) {
-                throw new BuildException("License template file is not readable " . $this->licenseTemplate);
+                throw new BuildException('License template file is not readable ' . $this->licenseTemplate);
             }
         }
 
         // check that output file path is defined
         if (empty($this->outputFile)) {
-            throw new BuildException("Path where to store the result file needs to be defined in outputFile property");
+            throw new BuildException('Path where to store the result file needs to be defined in outputFile property');
         }
 
         // if license template is NOT provided check that all required parameters are defined
         if (empty($this->licenseTemplate)) {
             // check productName
             if (empty($this->productName)) {
-                throw new BuildException("Property must be defined: productName");
+                throw new BuildException('Property must be defined: productName');
             }
 
             // check expires
             if (null === $this->expires) {
-                throw new BuildException("Property must be defined: expires");
+                throw new BuildException('Property must be defined: expires');
             }
 
             // check registeredTo
             if (empty($this->registeredTo)) {
-                throw new BuildException("Property must be defined: registeredTo");
+                throw new BuildException('Property must be defined: registeredTo');
             }
 
             // check hardwareLocked
             if (null === $this->hardwareLocked) {
-                throw new BuildException("Property must be defined: hardwareLocked");
+                throw new BuildException('Property must be defined: hardwareLocked');
             }
 
             // if hardwareLocked is set to true, check that Host-ID is set
             if ($this->hardwareLocked) {
                 if (empty($this->hostID)) {
-                    throw new BuildException("If you set hardwareLocked to true hostID must be provided");
+                    throw new BuildException('If you set hardwareLocked to true hostID must be provided');
                 }
             }
         }
@@ -381,7 +381,7 @@ class ZendGuardLicenseTask extends Task
     private function cleanupTmpFiles()
     {
         if (!empty($this->tmpLicensePath) && file_exists($this->tmpLicensePath)) {
-            $this->log("Deleting temporary license template " . $this->tmpLicensePath, Project::MSG_VERBOSE);
+            $this->log('Deleting temporary license template ' . $this->tmpLicensePath, Project::MSG_VERBOSE);
 
             unlink($this->tmpLicensePath);
         }
@@ -467,9 +467,9 @@ class ZendGuardLicenseTask extends Task
     {
         $this->tmpLicensePath = tempnam(FileUtils::getTempDir(), 'zendlicense');
 
-        $this->log("Creating temporary license template " . $this->tmpLicensePath, Project::MSG_VERBOSE);
+        $this->log('Creating temporary license template ' . $this->tmpLicensePath, Project::MSG_VERBOSE);
         if (file_put_contents($this->tmpLicensePath, $this->generateLicenseTemplateContent()) === false) {
-            throw new BuildException("Unable to create temporary template license file: " . $this->tmpLicensePath);
+            throw new BuildException('Unable to create temporary template license file: ' . $this->tmpLicensePath);
         }
 
         return $this->tmpLicensePath;
@@ -522,7 +522,7 @@ class ZendGuardLicenseTask extends Task
         foreach ($contentArr as $valuePair) {
             [$key, $value] = $valuePair;
 
-            $content .= $key . " = " . $value . "\n";
+            $content .= $key . ' = ' . $value . "\n";
         }
 
         return $content;

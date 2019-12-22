@@ -60,7 +60,7 @@ class ScssPhpCompiler implements SassTaskCompiler
                 $success = file_put_contents($outputFilePath, $out);
                 if (!$success && $failOnError) {
                     throw new BuildException(
-                        "Cannot write to output file " . var_export($outputFilePath, true),
+                        'Cannot write to output file ' . var_export($outputFilePath, true),
                         Project::MSG_INFO
                     );
                 }
@@ -80,7 +80,7 @@ class ScssPhpCompiler implements SassTaskCompiler
 
         if ($failOnError) {
             throw new BuildException(
-                "Cannot read from input file " . var_export($inputFilePath, true),
+                'Cannot read from input file ' . var_export($inputFilePath, true),
                 Project::MSG_INFO
             );
         }

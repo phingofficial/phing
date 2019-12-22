@@ -120,7 +120,7 @@ class HgRevertTask extends HgBaseTask
         }
 
         try {
-            $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
             $output = $clone->execute();
             if ($output !== '') {
                 $this->log(PHP_EOL . $output);

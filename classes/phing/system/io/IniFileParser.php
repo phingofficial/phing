@@ -34,7 +34,7 @@ class IniFileParser implements FileParserInterface
     public function parseFile(PhingFile $file)
     {
         if (($lines = @file($file, FILE_IGNORE_NEW_LINES)) === false) {
-            throw new IOException("Unable to parse contents of $file");
+            throw new IOException('Unable to parse contents of ' . $file);
         }
 
         // concatenate lines ending with backslash
@@ -49,7 +49,7 @@ class IniFileParser implements FileParserInterface
         $properties = [];
         foreach ($lines as $line) {
             // strip comments and leading/trailing spaces
-            $line = trim(preg_replace("/\s+[;#]\s.+$/", "", $line));
+            $line = trim(preg_replace('/\s+[;#]\s.+$/', '', $line));
 
             if (empty($line) || $line[0] == ';' || $line[0] == '#') {
                 continue;
@@ -74,9 +74,9 @@ class IniFileParser implements FileParserInterface
      */
     protected function inVal($val)
     {
-        if ($val === "true") {
+        if ($val === 'true') {
             $val = true;
-        } elseif ($val === "false") {
+        } elseif ($val === 'false') {
             $val = false;
         }
         return $val;

@@ -178,13 +178,13 @@ class ManifestTask extends Task
         $project = $this->getProject();
 
         if (!touch($this->file->getPath())) {
-            throw new BuildException("Unable to write to " . $this->file->getPath() . ".");
+            throw new BuildException('Unable to write to ' . $this->file->getPath() . '.');
         }
 
-        $this->log("Writing to " . $this->file->__toString(), Project::MSG_INFO);
+        $this->log('Writing to ' . $this->file->__toString(), Project::MSG_INFO);
 
         if (is_array($this->checksum)) {
-            $this->log("Using " . implode(', ', $this->checksum) . " for checksuming.", Project::MSG_INFO);
+            $this->log('Using ' . implode(', ', $this->checksum) . ' for checksuming.', Project::MSG_INFO);
         }
 
         foreach ($this->filesets as $fs) {
@@ -200,7 +200,7 @@ class ManifestTask extends Task
                 if ($this->checksum) {
                     foreach ($this->checksum as $algo) {
                         if (!$hash = $this->hashFile($dir . '/' . $file_path, $algo)) {
-                            throw new BuildException("Hashing $dir/$file_path with $algo failed!");
+                            throw new BuildException(sprintf('Hashing %s/%s with %s failed!', $dir, $file_path, $algo));
                         }
 
                         $line .= "\t" . $hash;
@@ -208,7 +208,7 @@ class ManifestTask extends Task
                 }
                 $line      .= "\n";
                 $manifest[] = $line;
-                $this->log("Adding file " . $file_path, Project::MSG_VERBOSE);
+                $this->log('Adding file ' . $file_path, Project::MSG_VERBOSE);
                 $this->meta['totalFileCount']++;
                 $this->meta['totalFileSize'] += filesize($dir . '/' . $file_path);
             }
@@ -217,7 +217,7 @@ class ManifestTask extends Task
         file_put_contents($this->file, $manifest);
 
         $this->log(
-            "Done. Total files: " . $this->meta['totalFileCount'] . ". Total file size: " . $this->meta['totalFileSize'] . " bytes.",
+            'Done. Total files: ' . $this->meta['totalFileCount'] . '. Total file size: ' . $this->meta['totalFileSize'] . ' bytes.',
             Project::MSG_INFO
         );
     }
@@ -227,7 +227,7 @@ class ManifestTask extends Task
      */
     private function read()
     {
-        throw new BuildException("Checking against manifest not yet supported.");
+        throw new BuildException('Checking against manifest not yet supported.');
     }
 
     /**
@@ -308,11 +308,11 @@ class ManifestTask extends Task
         }
 
         if (null === $this->file && count($this->filesets) === 0) {
-            throw new BuildException("Specify at least sources and destination - a file or a fileset.");
+            throw new BuildException('Specify at least sources and destination - a file or a fileset.');
         }
 
         if (null !== $this->file && $this->file->exists() && $this->file->isDirectory()) {
-            throw new BuildException("Destination file cannot be a directory.");
+            throw new BuildException('Destination file cannot be a directory.');
         }
     }
 }

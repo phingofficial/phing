@@ -69,8 +69,8 @@ class ContainsCondition implements Condition
     {
         if ($this->string === null || $this->subString === null) {
             throw new BuildException(
-                "both string and substring are required "
-                . "in contains"
+                'both string and substring are required '
+                . 'in contains'
             );
         }
 

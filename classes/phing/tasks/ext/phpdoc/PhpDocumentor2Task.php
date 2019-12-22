@@ -41,21 +41,21 @@ class PhpDocumentor2Task extends Task
      *
      * @var string
      */
-    private $template = "responsive-twig";
+    private $template = 'responsive-twig';
 
     /**
      * Title of the project
      *
      * @var string
      */
-    private $title = "API Documentation";
+    private $title = 'API Documentation';
 
     /**
      * Name of default package
      *
      * @var string
      */
-    private $defaultPackageName = "Default";
+    private $defaultPackageName = 'Default';
 
     /**
      * Path to the phpDocumentor .phar
@@ -69,7 +69,7 @@ class PhpDocumentor2Task extends Task
      *
      * @var string
      */
-    private $phpDocumentorPath = "";
+    private $phpDocumentorPath = '';
 
     /**
      * @var \phpDocumentor\Application
@@ -157,7 +157,7 @@ class PhpDocumentor2Task extends Task
             $phpDocumentorPath = $this->findPhpDocumentorPath();
 
             if (empty($phpDocumentorPath)) {
-                throw new BuildException("Please make sure phpDocumentor 2 is installed and on the include_path.");
+                throw new BuildException('Please make sure phpDocumentor 2 is installed and on the include_path.');
             }
 
             set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
@@ -198,7 +198,7 @@ class PhpDocumentor2Task extends Task
             }
         }
 
-        $this->project->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
+        $this->project->log('Will parse ' . count($paths) . ' file(s)', Project::MSG_VERBOSE);
 
         $files = new \phpDocumentor\Fileset\Collection();
         $files->addFiles($paths);
@@ -275,7 +275,7 @@ class PhpDocumentor2Task extends Task
         }
 
         if (empty($this->filesets)) {
-            throw new BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
+            throw new BuildException('You have not specified any files to include (<fileset>)', $this->getLocation());
         }
 
         $this->initializePhpDocumentor();
@@ -285,7 +285,7 @@ class PhpDocumentor2Task extends Task
 
         $this->parseFiles();
 
-        $this->project->log("Transforming...", Project::MSG_VERBOSE);
+        $this->project->log('Transforming...', Project::MSG_VERBOSE);
 
         $this->transformFiles();
     }

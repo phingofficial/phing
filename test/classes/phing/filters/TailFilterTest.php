@@ -25,20 +25,20 @@ class TailFilterTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/tailfilter.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/tailfilter.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testTailFilter()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/tailfilter.test");
-        $result   = $this->getProject()->resolveFile("result/tailfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/tailfilter.test');
+        $result   = $this->getProject()->resolveFile('result/tailfilter.test');
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
@@ -47,8 +47,8 @@ class TailFilterTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/tailheadfilter.test");
-        $result   = $this->getProject()->resolveFile("result/tailfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/tailheadfilter.test');
+        $result   = $this->getProject()->resolveFile('result/tailfilter.test');
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
