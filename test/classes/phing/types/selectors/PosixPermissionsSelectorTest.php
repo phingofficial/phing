@@ -58,7 +58,7 @@ class PosixPermissionsSelectorTest extends TestCase
      */
     public function isSelected()
     {
-        $this->selector->setPermissions('rw-r--r--');
+        $this->selector->setPermissions('rw-rw-r--');
         $this->assertTrue(
             $this->selector->isSelected(
                 new PhingFile(__DIR__),
