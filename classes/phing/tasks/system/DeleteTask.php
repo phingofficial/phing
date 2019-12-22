@@ -146,7 +146,7 @@ class DeleteTask extends Task
                     $this->log('Deleting: ' . $this->file->__toString());
                     try {
                         $this->file->delete();
-                    } catch (Exception $e) {
+                    } catch (Throwable $e) {
                         $message = 'Unable to delete file ' . $this->file->__toString() . ': ' . $e->getMessage();
                         if ($this->failonerror) {
                             throw new BuildException($message);
@@ -253,7 +253,7 @@ class DeleteTask extends Task
                 $this->log('Deleting ' . $f->__toString(), $this->verbosity);
                 try {
                     $f->delete();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $message = 'Unable to delete file ' . $f->__toString() . ': ' . $e->getMessage();
                     if ($this->failonerror) {
                         throw new BuildException($message);
@@ -266,7 +266,7 @@ class DeleteTask extends Task
         $this->log('Deleting directory ' . $d->getAbsolutePath(), $this->verbosity);
         try {
             $d->delete();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $message = 'Unable to delete directory ' . $d->__toString() . ': ' . $e->getMessage();
             if ($this->failonerror) {
                 throw new BuildException($message);
@@ -295,7 +295,7 @@ class DeleteTask extends Task
                 $this->log('Deleting ' . $f->getAbsolutePath(), $this->verbosity);
                 try {
                     $f->delete();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $message = 'Unable to delete file ' . $f->__toString() . ': ' . $e->getMessage();
                     if ($this->failonerror) {
                         throw new BuildException($message);
@@ -316,7 +316,7 @@ class DeleteTask extends Task
                     try {
                         $dir->delete();
                         $dirCount++;
-                    } catch (Exception $e) {
+                    } catch (Throwable $e) {
                         $message = 'Unable to delete directory ' . $dir->__toString();
                         if ($this->failonerror) {
                             throw new BuildException($message);

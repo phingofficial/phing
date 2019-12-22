@@ -64,7 +64,7 @@ class ScssPhpCompiler implements SassTaskCompiler
                     );
                 }
             }
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
             if ($failOnError) {
                 throw new BuildException($ex->getMessage());
             }

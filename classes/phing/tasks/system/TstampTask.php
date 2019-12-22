@@ -104,7 +104,7 @@ class TstampTask extends Task
         if ($property !== null && $property !== '') {
             try {
                 $dateTime = new DateTime($property);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->log('magic property phing.tstamp.now.iso ignored as ' . $property . ' is not a valid number');
                 $dateTime = new DateTime();
             }

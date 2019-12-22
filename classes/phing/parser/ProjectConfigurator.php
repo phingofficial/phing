@@ -205,7 +205,7 @@ class ProjectConfigurator
                 $this->_parse($ctx);
                 $ctx->getImplicitTarget()->main();
             }
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             //throw new BuildException("Error reading project file", $exc);
             throw $exc;
         }

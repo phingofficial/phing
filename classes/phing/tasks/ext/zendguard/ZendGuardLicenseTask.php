@@ -363,7 +363,7 @@ class ZendGuardLicenseTask extends Task
             $this->verifyConfiguration();
 
             $this->generateLicense();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // remove the license temp file if it was created
             $this->cleanupTmpFiles();
 

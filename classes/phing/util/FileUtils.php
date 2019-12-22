@@ -203,7 +203,7 @@ class FileUtils
             if ($destFile->exists()) {
                 try {
                     $destFile->delete();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw new BuildException(
                         'Unable to remove existing file ' . $destFile->__toString() . ': ' . $e->getMessage()
                     );

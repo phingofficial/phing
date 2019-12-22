@@ -152,7 +152,7 @@ class JsMinTask extends Task
                 $minified = Minifier::minify($contents);
 
                 file_put_contents($target, $minified);
-            } catch (Exception $jsme) {
+            } catch (Throwable $jsme) {
                 $this->log('Could not minify file ' . $file . ': ' . $jsme->getMessage(), Project::MSG_ERR);
             }
         }

@@ -29,7 +29,7 @@ class SonarTaskTest extends BuildFileTest
         $this->configureProject($buildXmlFile);
     }
 
-    private function ignoreFailureIfDueToMissingParameters(Exception $e)
+    private function ignoreFailureIfDueToMissingParameters(Throwable $e)
     {
         // NOTE: Execution will finally fail due to missing properties.
         // We ignore this failure, but pass ary failures that are

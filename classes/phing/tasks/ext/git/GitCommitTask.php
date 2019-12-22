@@ -83,7 +83,7 @@ class GitCommitTask extends GitBaseTask
             $command->setArguments($arguments);
             $command->setOptions($options);
             $command->execute();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
 

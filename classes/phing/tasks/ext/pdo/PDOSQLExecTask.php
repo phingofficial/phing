@@ -404,7 +404,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                             $this->conn->commit();
                         }
                     }
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->closeConnection();
                     throw $e;
                 }
@@ -435,7 +435,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->goodSql . ' of ' . $this->totalSql .
                 ' SQL statements executed successfully'
             );
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw $e;
         } finally {
             $this->transactions = $savedTransaction;
@@ -581,7 +581,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                     $formatter->processRow($row);
                 }
             }
-        } catch (Exception $x) {
+        } catch (Throwable $x) {
             $this->log('Error processing reults: ' . $x->getMessage(), Project::MSG_ERR);
             foreach ($formatters as $formatter) {
                 $formatter->close();

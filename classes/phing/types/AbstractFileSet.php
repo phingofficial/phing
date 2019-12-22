@@ -512,7 +512,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference() && $this->getProject() !== null) {
             try {
                 return $this->getRef($this->getProject())->count();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw $e;
             }
         }

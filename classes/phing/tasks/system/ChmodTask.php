@@ -204,7 +204,7 @@ class ChmodTask extends Task
             if ($this->verbose) {
                 $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf('%o', [$mode]));
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($this->failonerror) {
                 throw $e;
             }

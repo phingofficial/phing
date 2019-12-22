@@ -318,7 +318,7 @@ class PharPackageTask extends MatchingTask
             } else {
                 $phar->setSignatureAlgorithm($this->signatureAlgorithm);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException(
                 'Problem creating package: ' . $e->getMessage(),
                 $e,

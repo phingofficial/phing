@@ -120,7 +120,7 @@ class GitCheckoutTask extends GitBaseTask
 
         try {
             $output = $command->execute();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException('Task execution failed.', $e);
         }
 

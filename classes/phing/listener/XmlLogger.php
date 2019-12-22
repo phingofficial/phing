@@ -200,7 +200,7 @@ class XmlLogger implements BuildLogger
         } catch (IOException $exc) {
             try {
                 $stream->close(); // in case there is a stream open still ...
-            } catch (Exception $x) {
+            } catch (Throwable $x) {
             }
             throw new BuildException('Unable to write log file.', $exc);
         }
