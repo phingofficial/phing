@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Runner\Version;
@@ -518,7 +519,7 @@ class PHPUnitTask extends Task
             if ($fe->getUseFile()) {
                 try {
                     $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw new BuildException('Unable to create destination.', $e);
                 }
 
@@ -603,7 +604,7 @@ class PHPUnitTask extends Task
             }
             try {
                 $suite->addTestSuite($testClass);
-            } catch (\PHPUnit\Framework\Exception $e) {
+            } catch (Exception $e) {
                 throw new BuildException('Unable to add TestSuite ' . get_class($testClass), $e);
             }
         }

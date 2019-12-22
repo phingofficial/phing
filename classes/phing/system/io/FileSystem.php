@@ -775,14 +775,14 @@ abstract class FileSystem
                     if (false == @is_dir($next_entry)) { // Is file.
                         try {
                             $this->unlink($next_entry); // Delete.
-                        } catch (Exception $e) {
+                        } catch (Throwable $e) {
                             $msg = sprintf('FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() %s. %s', $next_entry, $e->getMessage());
                             throw new Exception($msg);
                         }
                     } else { // Is directory.
                         try {
                             $this->rmdir($next_entry, true); // Delete
-                        } catch (Exception $e) {
+                        } catch (Throwable $e) {
                             $msg = sprintf('FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() %s. %s', $next_entry, $e->getMessage());
                             throw new Exception($msg);
                         }

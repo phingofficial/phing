@@ -158,7 +158,7 @@ abstract class Task extends ProjectComponent
      * @param int            $level The priority of the message
      * @param Exception|null $t
      */
-    public function log($msg, $level = Project::MSG_INFO, ?Exception $t = null)
+    public function log($msg, $level = Project::MSG_INFO, ?Throwable $t = null)
     {
         if ($this->getProject() !== null) {
             $this->getProject()->logObject($this, $msg, $level, $t);
@@ -248,14 +248,14 @@ abstract class Task extends ProjectComponent
             }
             $reason = $ex;
             throw $ex;
-        } catch (Exception $ex) {
+        } catch (Error $ex) {
+            $reason = $ex;
+            throw $ex;
+        } catch (Throwable $ex) {
             $reason = $ex;
             $be     = new BuildException($ex);
             $be->setLocation($this->getLocation());
             throw $be;
-        } catch (Error $ex) {
-            $reason = $ex;
-            throw $ex;
         } finally {
             $this->project->fireTaskFinished($this, $reason);
         }

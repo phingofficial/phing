@@ -365,7 +365,7 @@ class IntrospectionHelper
                 Project::MSG_DEBUG
             );
             $method->invoke($element, $value);
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             throw new BuildException($exc->getMessage(), $exc);
         }
     }
@@ -388,7 +388,7 @@ class IntrospectionHelper
         try {
             $method = $this->methodAddText;
             $method->invoke($element, $text);
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             throw new BuildException($exc->getMessage(), $exc);
         }
     }
@@ -421,7 +421,7 @@ class IntrospectionHelper
                     Project::MSG_DEBUG
                 );
                 $nestedElement = $method->invoke($element);
-            } catch (Exception $exc) {
+            } catch (Throwable $exc) {
                 throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif (isset($this->nestedCreators[$addMethod])) {
@@ -457,7 +457,7 @@ class IntrospectionHelper
                 }
 
                 $method->invoke($element, $nestedElement);
-            } catch (Exception $exc) {
+            } catch (Throwable $exc) {
                 throw new BuildException($exc->getMessage(), $exc);
             }
         } elseif ($this->bean->implementsInterface('CustomChildCreator')) {
@@ -465,7 +465,7 @@ class IntrospectionHelper
 
             try {
                 $nestedElement = $method->invoke($element, strtolower($elementName), $project);
-            } catch (Exception $exc) {
+            } catch (Throwable $exc) {
                 throw new BuildException($exc->getMessage(), $exc);
             }
         } else {
@@ -486,7 +486,7 @@ class IntrospectionHelper
                         );
                         $nestedElement = new $elementClass();
                         $method->invoke($element, $nestedElement);
-                    } catch (Exception $exc) {
+                    } catch (Throwable $exc) {
                         throw new BuildException($exc->getMessage(), $exc);
                     }
                 }
@@ -533,7 +533,7 @@ class IntrospectionHelper
                     Project::MSG_DEBUG
                 );
                 $method->invoke($element, $child);
-            } catch (Exception $exc) {
+            } catch (Throwable $exc) {
                 throw new BuildException($exc->getMessage(), $exc);
             }
         }

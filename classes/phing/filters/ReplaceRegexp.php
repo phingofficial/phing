@@ -100,7 +100,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
                     'Performing regexp replace: /' . $regexp->getPattern() . '/' . $regexp->getReplace() . '/g' . $regexp->getModifiers(),
                     Project::MSG_VERBOSE
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // perhaps mismatch in params (e.g. no replace or pattern specified)
                 $this->log('Error performing regexp replace: ' . $e->getMessage(), Project::MSG_WARN);
             }

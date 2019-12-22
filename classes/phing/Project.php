@@ -1055,7 +1055,7 @@ class Project
      * @param int            $level
      * @param Exception|null $t
      */
-    public function logObject($obj, $msg, $level, ?Exception $t = null)
+    public function logObject($obj, $msg, $level, ?Throwable $t = null)
     {
         $this->fireMessageLogged($obj, $msg, $level, $t);
 
@@ -1197,7 +1197,7 @@ class Project
      *
      * @throws Exception
      */
-    public function fireMessageLogged($object, $message, $priority, ?Exception $t = null)
+    public function fireMessageLogged($object, $message, $priority, ?Throwable $t = null)
     {
         $event = new BuildEvent($object);
         if ($t !== null) {

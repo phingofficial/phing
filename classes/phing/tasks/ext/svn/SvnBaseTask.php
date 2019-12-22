@@ -360,7 +360,7 @@ abstract class SvnBaseTask extends Task
         } else {
             try {
                 return $this->svn->run($tempArgs, $tempSwitches);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $e->getMessage());
             }
         }

@@ -144,7 +144,7 @@ class HgTagTask extends HgBaseTask
             if ($output !== '') {
                 $this->log($output);
             }
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
             $msg = $ex->getMessage();
             $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {

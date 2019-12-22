@@ -263,7 +263,7 @@ class FileList extends DataType implements IteratorAggregate
                 }
                 $line = $listReader->readLine();
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($listReader) {
                 $listReader->close();
             }

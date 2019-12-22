@@ -144,7 +144,7 @@ class VersionTask extends Task
             if (empty($content)) {
                 $content = $this->startingVersion;
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException($e);
         }
 

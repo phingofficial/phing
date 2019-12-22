@@ -248,7 +248,7 @@ class AppendTask extends Task
                 if ($this->file !== null) {
                     try {
                         $this->appendFile($writer, $this->file);
-                    } catch (Exception $ioe) {
+                    } catch (Throwable $ioe) {
                         $this->log(
                             'Unable to append contents of file ' . $this->file->getAbsolutePath() . ': ' . $ioe->getMessage(),
                             Project::MSG_WARN
@@ -285,7 +285,7 @@ class AppendTask extends Task
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BuildException($e);
         }
 

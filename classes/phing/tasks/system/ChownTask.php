@@ -222,7 +222,7 @@ class ChownTask extends Task
                     "Changed file owner on '" . $file->__toString() . "' to " . $user . ($group ? '.' . $group : '')
                 );
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($this->failonerror) {
                 throw $e;
             }

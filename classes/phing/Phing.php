@@ -202,7 +202,7 @@ class Phing
         try {
             $m = new self();
             $m->execute($args);
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             self::handleLogfile();
             self::printMessage($exc);
             self::statusExit(1);
@@ -731,7 +731,7 @@ class Phing
         try {
             $project->fireBuildStarted();
             $project->init();
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             $project->fireBuildFinished($exc);
             throw $exc;
         }
@@ -755,7 +755,7 @@ class Phing
 
         try {
             ProjectConfigurator::configureProject($project, $this->buildFile);
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             $project->fireBuildFinished($exc);
             restore_error_handler();
             self::unsetCurrentProject();
@@ -773,7 +773,7 @@ class Phing
         // make sure that minimum required phing version is satisfied
         try {
             $this->comparePhingVersion($project->getPhingVersion());
-        } catch (Exception $exc) {
+        } catch (Throwable $exc) {
             $project->fireBuildFinished($exc);
             restore_error_handler();
             self::unsetCurrentProject();
@@ -784,7 +784,7 @@ class Phing
         if (!$this->projectHelp) {
             try {
                 $project->executeTargets($this->targets);
-            } catch (Exception $exc) {
+            } catch (Throwable $exc) {
                 $project->fireBuildFinished($exc);
                 restore_error_handler();
                 self::unsetCurrentProject();
@@ -796,7 +796,7 @@ class Phing
             try {
                 $this->printDescription($project);
                 $this->printTargets($project);
-            } catch (Exception $exc) {
+            } catch (Throwable $exc) {
                 $project->fireBuildFinished($exc);
                 restore_error_handler();
                 self::unsetCurrentProject();
@@ -859,7 +859,7 @@ class Phing
         foreach ($this->listeners as $listenerClassname) {
             try {
                 $clz = self::import($listenerClassname);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $msg = 'Unable to instantiate specified listener '
                     . 'class ' . $listenerClassname . ' : '
                     . $e->getMessage();
@@ -893,7 +893,7 @@ class Phing
                 if ($project !== null && method_exists($handler, 'setProject')) {
                     $handler->setProject($project);
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $msg = 'Unable to instantiate specified input handler '
                     . 'class ' . $this->inputHandlerClassname . ' : '
                     . $e->getMessage();

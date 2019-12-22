@@ -151,7 +151,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test      $test
      * @param Exception $e
      */
-    private function formatError($type, Test $test, ?Exception $e = null)
+    private function formatError($type, Test $test, ?Throwable $e = null)
     {
         if ($test != null) {
             $this->endTest($test, time());

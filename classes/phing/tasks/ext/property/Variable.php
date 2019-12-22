@@ -86,7 +86,7 @@ class Variable extends PropertyTask
                 unset($properties[$name]);
                 $this->setPropValue($properties, $this->getProject(), 'properties');
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
         }
         try {
             $properties = $this->getPropValue($this->getProject(), 'userProperties');
@@ -94,7 +94,7 @@ class Variable extends PropertyTask
                 unset($properties[$name]);
                 $this->setPropValue($properties, $this->getProject(), 'userProperties');
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
         }
     }
 
@@ -108,7 +108,7 @@ class Variable extends PropertyTask
                 $properties[$name] = $value;
                 $this->setPropValue($properties, $this->getProject(), 'properties');
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->getProject()->setUserProperty($name, $value);
         }
     }

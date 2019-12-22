@@ -112,7 +112,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
         if ($this->isReference() && $this->getProject() !== null) {
             try {
                 return $this->getRef($this->getProject())->count();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw $e;
             }
         }

@@ -85,7 +85,7 @@ class HgArchiveTask extends HgBaseTask
             if ($output !== '') {
                 $this->log(PHP_EOL . $output);
             }
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
             $msg = $ex->getMessage();
             $p   = strpos($msg, 'hg returned:');
             if ($p !== false) {

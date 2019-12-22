@@ -444,7 +444,7 @@ class SmartyTask extends Task
                 $fullPath = $this->project->resolveFile($sources[$i]);
                 $this->log('Using contextProperties file: ' . $fullPath->__toString());
                 $source->load($fullPath);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 throw new BuildException(
                     'Context properties file ' . $sources[$i] .
                     ' could not be found in the file system!'
@@ -619,7 +619,7 @@ class SmartyTask extends Task
                         try {
                             $br    = new BufferedReader(new FileReader($f));
                             $value = $br->read();
-                        } catch (Exception $e) {
+                        } catch (Throwable $e) {
                             throw $e;
                         }
                     }

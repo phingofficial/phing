@@ -49,7 +49,7 @@ class EventObjectTest extends TestCase
 
     public function testEventObjectThrowsExceptionOnNull()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(Throwable::class);
         $this->expectExceptionMessage('Null source');
 
         new EventObject(null);
