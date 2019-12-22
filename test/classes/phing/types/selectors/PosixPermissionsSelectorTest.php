@@ -64,7 +64,8 @@ class PosixPermissionsSelectorTest extends TestCase
                 new PhingFile(__DIR__),
                 (new PhingFile(__FILE__))->getName(),
                 new PhingFile(__FILE__)
-            )
+            ),
+            'File permission is wrong. Actual ' . decoct(fileperms(__FILE__) & 0777)
         );
     }
 
