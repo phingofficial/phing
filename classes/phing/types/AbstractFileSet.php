@@ -349,14 +349,14 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         }
 
         if ($this->dir === null) {
-            throw new BuildException(sprintf("No directory specified for <%s>.", $this->getDataTypeName()));
+            throw new BuildException(sprintf('No directory specified for <%s>.', $this->getDataTypeName()));
         }
         if (!$this->dir->exists() && $this->errorOnMissingDir) {
-            throw new BuildException("Directory " . $this->dir->getAbsolutePath() . " not found.");
+            throw new BuildException('Directory ' . $this->dir->getAbsolutePath() . ' not found.');
         }
         if (!$this->dir->isLink() || !$this->expandSymbolicLinks) {
             if (!$this->dir->isDirectory()) {
-                throw new BuildException($this->dir->getAbsolutePath() . " is not a directory.");
+                throw new BuildException($this->dir->getAbsolutePath() . ' is not a directory.');
             }
         }
         $ds = new DirectoryScanner();
@@ -402,7 +402,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
 
         $p->log(
-            $this->getDataTypeName() . ": Setup file scanner in dir " . (string) $this->dir . " with " . (string) $this->defaultPatterns,
+            $this->getDataTypeName() . ': Setup file scanner in dir ' . (string) $this->dir . ' with ' . (string) $this->defaultPatterns,
             Project::MSG_DEBUG
         );
 

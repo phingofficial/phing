@@ -33,31 +33,31 @@ class PresentSelector extends BaseSelector
     private $mapperElement       = null;
     private $map                 = null;
     private $destmustexist       = true;
-    private static $filePresence = ["srconly", "both"];
+    private static $filePresence = ['srconly', 'both'];
 
     /**
      * @return string
      */
     public function __toString()
     {
-        $buf = "{presentselector targetdir: ";
+        $buf = '{presentselector targetdir: ';
         if ($this->targetdir === null) {
-            $buf .= "NOT YET SET";
+            $buf .= 'NOT YET SET';
         } else {
             $buf .= $this->targetdir->getName();
         }
-        $buf .= " present: ";
+        $buf .= ' present: ';
         if ($this->destmustexist) {
-            $buf .= "both";
+            $buf .= 'both';
         } else {
-            $buf .= "srconly";
+            $buf .= 'srconly';
         }
         if ($this->map !== null) {
             $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
             $buf .= (string) $this->mapperElement;
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -85,7 +85,7 @@ class PresentSelector extends BaseSelector
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper");
+            throw new BuildException('Cannot define more than one mapper');
         }
         $this->mapperElement = new Mapper($this->getProject());
 
@@ -123,7 +123,7 @@ class PresentSelector extends BaseSelector
     public function verifySettings()
     {
         if ($this->targetdir === null) {
-            $this->setError("The targetdir attribute is required.");
+            $this->setError('The targetdir attribute is required.');
         }
         if ($this->mapperElement === null) {
             $this->map = new IdentityMapper();
@@ -131,7 +131,7 @@ class PresentSelector extends BaseSelector
             $this->map = $this->mapperElement->getImplementation();
         }
         if ($this->map === null) {
-            $this->setError("Could not set <mapper> element.");
+            $this->setError('Could not set <mapper> element.');
         }
     }
 
@@ -161,8 +161,8 @@ class PresentSelector extends BaseSelector
         // Sanity check
         if (count($destfiles) !== 1 || $destfiles[0] === null) {
             throw new BuildException(
-                "Invalid destination file results for "
-                . $this->targetdir . " with filename " . $filename
+                'Invalid destination file results for '
+                . $this->targetdir . ' with filename ' . $filename
             );
         }
         $destname = $destfiles[0];

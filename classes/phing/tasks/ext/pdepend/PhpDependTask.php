@@ -123,7 +123,7 @@ class PhpDependTask extends Task
     /**
      * @var string
      */
-    protected $pharLocation = "";
+    protected $pharLocation = '';
 
     /**
      * Load the necessary environment for running PHP_Depend
@@ -147,7 +147,7 @@ class PhpDependTask extends Task
         if (class_exists('PHP_Depend_TextUI_Runner')) {
             // include_path hack for PHP_Depend 1.1.3
             $rc = new ReflectionClass('PHP_Depend');
-            set_include_path(get_include_path() . ":" . realpath(dirname($rc->getFileName()) . "/../"));
+            set_include_path(get_include_path() . ':' . realpath(dirname($rc->getFileName()) . '/../'));
 
             return;
         }

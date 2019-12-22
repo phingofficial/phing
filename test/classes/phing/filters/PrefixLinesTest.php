@@ -25,19 +25,19 @@ class PrefixLinesTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/prefixlines.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/prefixlines.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testPrefixLines()
     {
-        $this->executeTarget("testPrefixLines");
+        $this->executeTarget('testPrefixLines');
 
-        $result = $this->getProject()->resolveFile("result/prefixlines.test");
+        $result = $this->getProject()->resolveFile('result/prefixlines.test');
 
         $this->assertStringEqualsFile(
             $result->getAbsolutePath(),

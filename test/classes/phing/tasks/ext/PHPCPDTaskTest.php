@@ -27,7 +27,7 @@ class PHPCPDTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/build.xml');
     }
 
     public function testFormatterOutfile()

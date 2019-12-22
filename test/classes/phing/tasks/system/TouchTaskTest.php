@@ -29,14 +29,14 @@ class TouchTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/TouchTaskTest.xml"
+            . '/etc/tasks/system/TouchTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testSimpleTouch()
@@ -44,7 +44,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
@@ -53,7 +53,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/this/is/a/test/file"
+            . '/etc/tasks/system/tmp/this/is/a/test/file'
         );
     }
 
@@ -66,7 +66,7 @@ class TouchTaskTest extends BuildFileTest
 
         $this->assertFileNotExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/this/is/a/test/file"
+            . '/etc/tasks/system/tmp/this/is/a/test/file'
         );
     }
 
@@ -75,7 +75,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
@@ -84,7 +84,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 }

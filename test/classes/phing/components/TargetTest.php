@@ -33,7 +33,7 @@ class TargetTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/components/Target/Target.xml"
+            . '/etc/components/Target/Target.xml'
         );
 
         $this->target = new Target();

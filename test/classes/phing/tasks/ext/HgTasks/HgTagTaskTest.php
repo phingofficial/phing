@@ -32,7 +32,7 @@ class HgTagTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testRepoDoesntExist()
@@ -61,8 +61,8 @@ class HgTagTaskTest extends BuildFileTest
         $this->markTestAsSkippedWhenHgNotInstalled();
 
         $this->expectBuildExceptionContaining(
-            "testRevision",
-            "testRevision",
+            'testRevision',
+            'testRevision',
             "abort: unknown revision 'deadbeef'"
         );
         $this->assertInLogs(

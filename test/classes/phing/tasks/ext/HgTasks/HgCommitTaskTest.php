@@ -30,14 +30,14 @@ class HgCommitTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testMessageNotSpecified()
     {
         $this->expectBuildExceptionContaining(
             'messageNotSpecified',
-            "message is not specified",
+            'message is not specified',
             '"message" is a required parameter'
         );
     }

@@ -38,7 +38,7 @@ class SortList extends AbstractPropertySetterTask
     /**
      * @var string $delimiter
      */
-    private $delimiter = ",";
+    private $delimiter = ',';
 
     /**
      * @var array $flags
@@ -55,7 +55,7 @@ class SortList extends AbstractPropertySetterTask
     /**
      * @var string $flags
      */
-    private $flags = "";
+    private $flags = '';
 
     public function setValue($value)
     {

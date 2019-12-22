@@ -72,7 +72,7 @@ abstract class BuildFileTest extends TestCase
         }
         $representation = [];
         foreach ($this->logBuffer as $log) {
-            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+            $representation[] = sprintf('[msg="%s",priority=%s]', $log['message'], $log['priority']);
         }
         $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
@@ -107,7 +107,7 @@ abstract class BuildFileTest extends TestCase
         }
         $representation = [];
         foreach ($this->logBuffer as $log) {
-            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+            $representation[] = sprintf('[msg="%s",priority=%s]', $log['message'], $log['priority']);
         }
         $this->fail(sprintf($errormsg, $expected, var_export($representation, true)));
     }
@@ -128,7 +128,7 @@ abstract class BuildFileTest extends TestCase
             if (false !== stripos($log['message'], $message)) {
                 $representation = [];
                 foreach ($this->logBuffer as $log) {
-                    $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+                    $representation[] = sprintf('[msg="%s",priority=%s]', $log['message'], $log['priority']);
                 }
                 $this->fail(sprintf($errormsg, $message, var_export($representation, true)));
             }
@@ -225,7 +225,7 @@ abstract class BuildFileTest extends TestCase
 
     private function cleanBuffer($buffer)
     {
-        $cleanedBuffer = "";
+        $cleanedBuffer = '';
         $cr            = false;
         for ($i = 0, $bufflen = strlen($buffer); $i < $bufflen; $i++) {
             $ch = $buffer[$i];
@@ -258,12 +258,12 @@ abstract class BuildFileTest extends TestCase
     protected function configureProject($filename)
     {
         $this->logBuffer     = [];
-        $this->fullLogBuffer = "";
+        $this->fullLogBuffer = '';
         $this->project       = new Project();
         $this->project->init();
         $f = new PhingFile($filename);
-        $this->project->setUserProperty("phing.file", $f->getAbsolutePath());
-        $this->project->setUserProperty("phing.dir", dirname($f->getAbsolutePath()));
+        $this->project->setUserProperty('phing.file', $f->getAbsolutePath());
+        $this->project->setUserProperty('phing.dir', dirname($f->getAbsolutePath()));
         $this->project->addBuildListener(new PhingTestListener($this));
         ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
     }
@@ -281,10 +281,10 @@ abstract class BuildFileTest extends TestCase
             return;
         }
 
-        $this->outBuffer      = "";
-        $this->errBuffer      = "";
+        $this->outBuffer      = '';
+        $this->errBuffer      = '';
         $this->logBuffer      = [];
-        $this->fullLogBuffer  = "";
+        $this->fullLogBuffer  = '';
         $this->buildException = null;
         $this->project->executeTarget($targetName);
     }
@@ -334,7 +334,7 @@ abstract class BuildFileTest extends TestCase
 
             return;
         }
-        $this->fail("Should throw BuildException because: " . $cause);
+        $this->fail('Should throw BuildException because: ' . $cause);
     }
 
     /**
@@ -370,7 +370,7 @@ abstract class BuildFileTest extends TestCase
             $this->assertEquals(1, 1); // increase number of positive assertions
             return;
         }
-        $this->fail("Should throw BuildException because: " . $cause);
+        $this->fail('Should throw BuildException because: ' . $cause);
     }
 
     /**
@@ -380,7 +380,7 @@ abstract class BuildFileTest extends TestCase
      * @param string $property property name
      * @param string $value    expected value
      */
-    protected function expectPropertySet($target, $property, $value = "true")
+    protected function expectPropertySet($target, $property, $value = 'true')
     {
         $this->executeTarget($target);
         $this->assertPropertyEquals($property, $value);
@@ -395,7 +395,7 @@ abstract class BuildFileTest extends TestCase
     protected function assertPropertyEquals($property, $value)
     {
         $result = $this->project->getProperty($property);
-        $this->assertEquals($value, $result, "property " . $property);
+        $this->assertEquals($value, $result, 'property ' . $property);
     }
 
     /**
@@ -405,7 +405,7 @@ abstract class BuildFileTest extends TestCase
      */
     protected function assertPropertySet($property)
     {
-        $this->assertPropertyEquals($property, "true");
+        $this->assertPropertyEquals($property, 'true');
     }
 
     /**
@@ -440,7 +440,7 @@ abstract class BuildFileTest extends TestCase
      */
     protected function getResource($resource)
     {
-        throw new BuildException("getResource() not yet implemented");
+        throw new BuildException('getResource() not yet implemented');
         //$url = ggetClass().getResource(resource);
         //assertNotNull("Could not find resource :" + resource, url);
         //return url;
@@ -481,36 +481,36 @@ abstract class BuildFileTest extends TestCase
 
         if ($timediff < 3600) {
             if ($timediff < 120) {
-                $returndate = "1 minute ago";
+                $returndate = '1 minute ago';
             } else {
-                $returndate = ceil($timediff / 60) . " minutes ago";
+                $returndate = ceil($timediff / 60) . ' minutes ago';
             }
         } else {
             if ($timediff < 7200) {
-                $returndate = "1 hour ago.";
+                $returndate = '1 hour ago.';
             } else {
                 if ($timediff < 86400) {
-                    $returndate = ceil($timediff / 3600) . " hours ago";
+                    $returndate = ceil($timediff / 3600) . ' hours ago';
                 } else {
                     if ($timediff < 172800) {
-                        $returndate = "1 day ago.";
+                        $returndate = '1 day ago.';
                     } else {
                         if ($timediff < 604800) {
-                            $returndate = ceil($timediff / 86400) . " days ago";
+                            $returndate = ceil($timediff / 86400) . ' days ago';
                         } else {
                             if ($timediff < 1209600) {
-                                $returndate = ceil($timediff / 86400) . " days ago";
+                                $returndate = ceil($timediff / 86400) . ' days ago';
                             } else {
                                 if ($timediff < 2629744) {
-                                    $returndate = ceil($timediff / 86400) . " days ago";
+                                    $returndate = ceil($timediff / 86400) . ' days ago';
                                 } else {
                                     if ($timediff < 3024000) {
-                                        $returndate = ceil($timediff / 604900) . " weeks ago";
+                                        $returndate = ceil($timediff / 604900) . ' weeks ago';
                                     } else {
                                         if ($timediff > 5259486) {
-                                            $returndate = ceil($timediff / 2629744) . " months ago";
+                                            $returndate = ceil($timediff / 2629744) . ' months ago';
                                         } else {
-                                            $returndate = ceil($timediff / 604900) . " weeks ago";
+                                            $returndate = ceil($timediff / 604900) . ' weeks ago';
                                         }
                                     }
                                 }
@@ -529,7 +529,7 @@ abstract class BuildFileTest extends TestCase
         $actualSize = filesize($filepath);
 
         if (!is_int($actualSize)) {
-            $this->fail("Error while reading file '$filepath'");
+            $this->fail(sprintf("Error while reading file '%s'", $filepath));
         }
 
         $this->assertGreaterThanOrEqual($bytes, $actualSize);

@@ -165,19 +165,19 @@ class ZsdtPackTask extends ZsdtBaseTask
         }
 
         if ($this->source !== null) {
-            $this->arguments .= "--src-dir=$this->source ";
+            $this->arguments .= '--src-dir=' . $this->source . ' ';
         }
 
         if ($this->output !== null) {
-            $this->arguments .= "--output-dir=$this->output ";
+            $this->arguments .= '--output-dir=' . $this->output . ' ';
         }
 
         if ($this->phpbin !== null) {
-            $this->arguments .= "--php-exe=$this->phpbin ";
+            $this->arguments .= '--php-exe=' . $this->phpbin . ' ';
         }
 
-        $this->arguments .= "--scripts-dir=$this->scripts ";
-        $this->arguments .= "--package-descriptor=$this->descriptor ";
+        $this->arguments .= '--scripts-dir=' . $this->scripts . ' ';
+        $this->arguments .= '--package-descriptor=' . $this->descriptor . ' ';
         $this->arguments .= $this->package;
     }
 }

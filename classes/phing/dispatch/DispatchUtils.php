@@ -34,7 +34,7 @@ class DispatchUtils
      */
     public static function main($task)
     {
-        $methodName   = "main";
+        $methodName   = 'main';
         $dispatchable = null;
         try {
             if ($task instanceof Dispatchable) {
@@ -52,10 +52,10 @@ class DispatchUtils
                 $name = trim($dispatchable->getActionParameterName());
                 if (empty($name)) {
                     throw new BuildException(
-                        "Action Parameter Name must not be empty for Dispatchable Task."
+                        'Action Parameter Name must not be empty for Dispatchable Task.'
                     );
                 }
-                $mName = "get" . ucfirst($name);
+                $mName = 'get' . ucfirst($name);
                 try {
                     $c          = new ReflectionClass($dispatchable);
                     $actionM    = $c->getMethod($mName);
@@ -80,7 +80,7 @@ class DispatchUtils
                     $refl     = new ReflectionClass($task);
                     $executeM = $refl->getMethod($methodName);
                 } catch (ReflectionException $re) {
-                    throw new BuildException("No public " . $methodName . "() in " . get_class($task));
+                    throw new BuildException('No public ' . $methodName . '() in ' . get_class($task));
                 }
                 $executeM->invoke($task);
                 if ($task instanceof UnknownElement) {

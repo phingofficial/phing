@@ -27,7 +27,7 @@ class PhpDependTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdepend/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdepend/build.xml');
     }
 
     public function testLoggerSummary()

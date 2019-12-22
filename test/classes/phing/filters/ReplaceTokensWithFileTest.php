@@ -25,7 +25,7 @@ class ReplaceTokensWithFileTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/ReplaceTokensWithFile/build.xml');
     }
 
     /**

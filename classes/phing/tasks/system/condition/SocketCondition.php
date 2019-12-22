@@ -62,17 +62,17 @@ class SocketCondition implements Condition
     public function evaluate()
     {
         if (empty($this->server)) {
-            throw new BuildException("No server specified");
+            throw new BuildException('No server specified');
         }
 
         if (empty($this->port)) {
-            throw new BuildException("No port specified");
+            throw new BuildException('No port specified');
         }
 
         $socket = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
         if ($socket === false) {
-            throw new BuildException("Unable to create socket: " . socket_last_error($socket));
+            throw new BuildException('Unable to create socket: ' . socket_last_error($socket));
         }
 
         return @socket_connect($socket, $this->server, $this->port);

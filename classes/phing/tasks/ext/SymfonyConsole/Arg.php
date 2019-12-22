@@ -98,8 +98,8 @@ class Arg extends DataType
      */
     public function __toString()
     {
-        $name  = "";
-        $value = "";
+        $name  = '';
+        $value = '';
         $quote = $this->getQuotes() ? '"' : '';
 
         if (null !== $this->getValue()) {

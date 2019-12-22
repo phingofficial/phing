@@ -70,9 +70,9 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
     private function processClonesNew($clones, $useFile = false, $outFile = null)
     {
         if ($useFile) {
-            $resource = fopen($outFile->getPath(), "w");
+            $resource = fopen($outFile->getPath(), 'w');
         } else {
-            $resource = fopen("php://output", "w");
+            $resource = fopen('php://output', 'w');
         }
 
         $output = new \Symfony\Component\Console\Output\StreamOutput($resource);

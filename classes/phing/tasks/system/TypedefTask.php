@@ -65,7 +65,7 @@ class TypedefTask extends Task
     public function main()
     {
         if ($this->name === null || $this->classname === null) {
-            throw new BuildException("You must specify name and class attributes for <typedef>.");
+            throw new BuildException('You must specify name and class attributes for <typedef>.');
         }
         $this->project->addDataTypeDefinition($this->name, $this->classname, $this->classpath);
     }

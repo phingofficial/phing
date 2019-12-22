@@ -33,11 +33,11 @@ class NoneSelector extends BaseSelectorContainer
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         if ($this->hasSelectors()) {
-            $buf .= "{noneselect: ";
+            $buf .= '{noneselect: ';
             $buf .= parent::__toString();
-            $buf .= "}";
+            $buf .= '}';
         }
 
         return $buf;

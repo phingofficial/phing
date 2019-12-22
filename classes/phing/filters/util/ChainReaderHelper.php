@@ -171,7 +171,7 @@ class ChainReaderHelper
                     }
 
                     if (!($impl instanceof FilterReader)) {
-                        throw new Exception($className . " does not extend phing.system.io.FilterReader");
+                        throw new Exception($className . ' does not extend phing.system.io.FilterReader');
                     }
 
                     $impl->setReader($instream); // chain
@@ -188,7 +188,7 @@ class ChainReaderHelper
                     }
                     $instream = $filter->chain($instream);
                 } else {
-                    throw new Exception("Cannot chain invalid filter: " . get_class($filter));
+                    throw new Exception('Cannot chain invalid filter: ' . get_class($filter));
                 }
             }
         }

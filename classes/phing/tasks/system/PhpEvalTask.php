@@ -50,18 +50,18 @@ class PhpEvalTask extends Task
     {
         if ($this->function === null && $this->expression === null) {
             throw new BuildException(
-                "You must specify a function to execute or PHP expression to evalute.",
+                'You must specify a function to execute or PHP expression to evalute.',
                 $this->getLocation()
             );
         }
 
         if ($this->function !== null && $this->expression !== null) {
-            throw new BuildException("You can specify function or expression, but not both.", $this->getLocation());
+            throw new BuildException('You can specify function or expression, but not both.', $this->getLocation());
         }
 
         if ($this->expression !== null && !empty($this->params)) {
             throw new BuildException(
-                "You cannot use nested <param> tags when evaluationg a PHP expression.",
+                'You cannot use nested <param> tags when evaluationg a PHP expression.',
                 $this->getLocation()
             );
         }
@@ -113,9 +113,9 @@ class PhpEvalTask extends Task
             }
         }
 
-        $this->log("Calling PHP function: " . $h_func . "()", $this->logLevel);
+        $this->log('Calling PHP function: ' . $h_func . '()', $this->logLevel);
         foreach ($params as $p) {
-            $this->log("  param: " . print_r($p, true), Project::MSG_VERBOSE);
+            $this->log('  param: ' . print_r($p, true), Project::MSG_VERBOSE);
         }
 
         $return = call_user_func_array($user_func, $params);
@@ -147,7 +147,7 @@ class PhpEvalTask extends Task
      */
     protected function evalExpression()
     {
-        $this->log("Evaluating PHP expression: " . $this->expression, $this->logLevel);
+        $this->log('Evaluating PHP expression: ' . $this->expression, $this->logLevel);
         if (!StringHelper::endsWith(';', trim($this->expression))) {
             $this->expression .= ';';
         }

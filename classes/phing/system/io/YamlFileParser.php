@@ -31,7 +31,7 @@ class YamlFileParser implements FileParserInterface
     public function parseFile(PhingFile $file)
     {
         if (!$file->canRead()) {
-            throw new IOException("Unable to read file: " . $file);
+            throw new IOException('Unable to read file: ' . $file);
         }
 
         try {
@@ -48,7 +48,7 @@ class YamlFileParser implements FileParserInterface
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
         } catch (Exception $e) {
             if (is_a($e, '\Symfony\Component\Yaml\Exception\ParseException')) {
-                throw new IOException("Unable to parse contents of " . $file . ": " . $e->getMessage());
+                throw new IOException('Unable to parse contents of ' . $file . ': ' . $e->getMessage());
             }
             throw $e;
         }

@@ -49,10 +49,10 @@ class AdhocTask extends Task
         $this->execute();
         if ($this->newClasses) {
             foreach ($this->newClasses as $classname) {
-                $this->log("Added adhoc class " . $classname, Project::MSG_VERBOSE);
+                $this->log('Added adhoc class ' . $classname, Project::MSG_VERBOSE);
             }
         } else {
-            $this->log("Adhoc task executed but did not result in any new classes.", Project::MSG_VERBOSE);
+            $this->log('Adhoc task executed but did not result in any new classes.', Project::MSG_VERBOSE);
         }
     }
 

@@ -26,13 +26,13 @@ class DbDeployTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
-        $this->executeTarget("prepare");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/dbdeploy/build.xml');
+        $this->executeTarget('prepare');
     }
 
     public function testDeployAndUndo()
     {
-        $this->expectLog("testDeploy", "Current db revision: 1");
-        $this->expectLog("testUndo", "Current db revision: 0");
+        $this->expectLog('testDeploy', 'Current db revision: 1');
+        $this->expectLog('testUndo', 'Current db revision: 0');
     }
 }

@@ -304,7 +304,7 @@ class PropertyHelper
 
         if ($verbose) {
             $this->project->log(
-                'Setting project property: ' . $name . " -> "
+                'Setting project property: ' . $name . ' -> '
                 . $value,
                 Project::MSG_DEBUG
             );
@@ -337,7 +337,7 @@ class PropertyHelper
             return;
         }
 
-        $this->project->log('Setting project property: ' . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->project->log('Setting project property: ' . $name . ' -> ' . $value, Project::MSG_DEBUG);
         if ($name !== null && $value !== null) {
             $this->properties[$name] = $value;
             $this->project->addReference($name, new PropertyValue($value));
@@ -390,7 +390,7 @@ class PropertyHelper
         $this->inheritedProperties[$name] = $value;
 
         $this->project->log(
-            "Setting ro project property: " . $name . " -> "
+            'Setting ro project property: ' . $name . ' -> '
             . $value,
             Project::MSG_DEBUG
         );
@@ -569,7 +569,7 @@ class PropertyHelper
             } else {
                 $endName = strpos($value, '}', $pos);
                 if ($endName === false) {
-                    throw new BuildException("Syntax error in property: $value");
+                    throw new BuildException('Syntax error in property: ' . $value);
                 }
                 $propertyName   = StringHelper::substring($value, $pos + 2, $endName - 1);
                 $fragments[]    = null;

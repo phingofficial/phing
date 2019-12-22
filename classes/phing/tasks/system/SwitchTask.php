@@ -132,7 +132,7 @@ class SwitchTask extends Task
     public function addDefault(SequentialTask $res)
     {
         if ($this->defaultCase !== null) {
-            throw new BuildException("Cannot specify multiple default cases");
+            throw new BuildException('Cannot specify multiple default cases');
         }
 
         $this->defaultCase = $res;
@@ -141,11 +141,11 @@ class SwitchTask extends Task
     public function main()
     {
         if ($this->value === null) {
-            throw new BuildException("Value is missing <switch>");
+            throw new BuildException('Value is missing <switch>');
         }
 
         if (empty($this->cases) && $this->defaultCase === null) {
-            throw new BuildException("No cases supplied <switch>");
+            throw new BuildException('No cases supplied <switch>');
         }
 
         $selectedCase = $this->defaultCase;
@@ -157,7 +157,7 @@ class SwitchTask extends Task
             $cValue = $case->getValue();
 
             if (empty($case)) {
-                throw new BuildException("Value is required for case.");
+                throw new BuildException('Value is required for case.');
             }
 
             $mValue = $this->value;
@@ -172,7 +172,7 @@ class SwitchTask extends Task
         }
 
         if ($selectedCase === null) {
-            throw new BuildException("No case matched the value " . $this->value . " and no default has been specified.");
+            throw new BuildException('No case matched the value ' . $this->value . ' and no default has been specified.');
         }
 
         $selectedCase->perform();

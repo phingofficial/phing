@@ -127,7 +127,7 @@ class IniFileConfig
                 continue;
             }
             $line['value'] = $value;
-            $line['data']  = $key . " = " . $value . PHP_EOL;
+            $line['data']  = $key . ' = ' . $value . PHP_EOL;
             return;
         }
 
@@ -147,7 +147,7 @@ class IniFileConfig
     public function remove($section, $key)
     {
         if ($section == '') {
-            throw new RuntimeException("Section not set.");
+            throw new RuntimeException('Section not set.');
         }
         if (null === $key || ($key == '')) {
             // remove entire section
@@ -179,7 +179,7 @@ class IniFileConfig
     public function write($file)
     {
         if (file_exists($file) && !is_writable($file)) {
-            throw new RuntimeException("$file is not writable");
+            throw new RuntimeException($file . ' is not writable');
         }
         $fp = fopen($file, 'w');
         foreach ($this->lines as $line) {

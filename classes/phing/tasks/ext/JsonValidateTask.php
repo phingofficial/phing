@@ -52,24 +52,24 @@ class JsonValidateTask extends Task
     public function main()
     {
         if (null === $this->getFile()) {
-            $msg = "JsonValidate: file is not defined.";
+            $msg = 'JsonValidate: file is not defined.';
             $this->log($msg, Project::MSG_ERR);
             throw new \BuildException($msg);
         }
 
         if (!file_exists($this->getFile()) || is_dir($this->getFile())) {
-            $msg = "JsonValidate: file not found " . $this->getFile();
+            $msg = 'JsonValidate: file not found ' . $this->getFile();
             $this->log($msg, Project::MSG_ERR);
             throw new \BuildException($msg);
         }
 
         $decoded = json_decode(file_get_contents($this->getFile()));
         if (null === $decoded) {
-            $msg = "JsonValidate: decoding " . $this->getFile() . " failed.";
+            $msg = 'JsonValidate: decoding ' . $this->getFile() . ' failed.';
             $this->log($msg, Project::MSG_ERR);
             throw new \BuildException($msg);
         }
-        $this->log($this->getFile() . " is valid JSON", Project::MSG_INFO);
+        $this->log($this->getFile() . ' is valid JSON', Project::MSG_INFO);
     }
 
     /**

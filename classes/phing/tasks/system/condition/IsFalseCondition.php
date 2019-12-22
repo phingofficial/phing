@@ -50,7 +50,7 @@ class IsFalseCondition extends ProjectComponent implements Condition
     public function evaluate()
     {
         if ($this->value === null) {
-            throw new BuildException("Nothing to test for falsehood");
+            throw new BuildException('Nothing to test for falsehood');
         }
 
         return !$this->value;

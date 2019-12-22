@@ -205,7 +205,7 @@ class FileUtils
                     $destFile->delete();
                 } catch (Exception $e) {
                     throw new BuildException(
-                        "Unable to remove existing file " . $destFile->__toString() . ": " . $e->getMessage()
+                        'Unable to remove existing file ' . $destFile->__toString() . ': ' . $e->getMessage()
                     );
                 }
             }
@@ -259,7 +259,7 @@ class FileUtils
             if ($part === '..') {
                 $parentFile = $helpFile->getParent();
                 if ($parentFile === null) {
-                    $msg = "The file or path you specified ($filename) is invalid relative to " . $file->getPath();
+                    $msg = sprintf('The file or path you specified (%s) is invalid relative to %s', $filename, $file->getPath());
                     throw new IOException($msg);
                 }
                 $helpFile = new PhingFile($parentFile);
@@ -302,7 +302,7 @@ class FileUtils
             && Character::isLetter($path[0])
             && $path[1] === ':')
         ) {
-            throw new IOException("$path is not an absolute path");
+            throw new IOException($path . ' is not an absolute path');
         }
 
         $dosWithDrive = false;
@@ -331,7 +331,7 @@ class FileUtils
 
             if (strlen($path) == 2) {
                 $root = $path;
-                $path = "";
+                $path = '';
             } else {
                 $root = substr($path, 0, 3);
                 $path = substr($path, 3);
@@ -339,7 +339,7 @@ class FileUtils
         } else {
             if (strlen($path) == 1) {
                 $root = DIRECTORY_SEPARATOR;
-                $path = "";
+                $path = '';
             } else {
                 if ($path[1] == DIRECTORY_SEPARATOR) {
                     // UNC drive
@@ -357,15 +357,15 @@ class FileUtils
         $tok = strtok($path, DIRECTORY_SEPARATOR);
         while ($tok !== false) {
             $thisToken = $tok;
-            if ("." === $thisToken) {
+            if ('.' === $thisToken) {
                 $tok = strtok(DIRECTORY_SEPARATOR);
                 continue;
             }
 
-            if (".." === $thisToken) {
+            if ('..' === $thisToken) {
                 if (count($s) < 2) {
                     // using '..' in path that is too short
-                    throw new IOException("Cannot resolve path: $orig");
+                    throw new IOException('Cannot resolve path: ' . $orig);
                 }
 
                 array_pop($s);
@@ -375,7 +375,7 @@ class FileUtils
             $tok = strtok(DIRECTORY_SEPARATOR);
         }
 
-        $sb = "";
+        $sb = '';
         for ($i = 0, $_i = count($s); $i < $_i; $i++) {
             if ($i > 1) {
                 // not before the filesystem root and not after it, since root
@@ -439,7 +439,7 @@ class FileUtils
                 $fs->createNewFile($result->getPath());
                 $fs->lock($result);
             } catch (IOException $e) {
-                throw new BuildException("Could not create tempfile in " . $parent, $e);
+                throw new BuildException('Could not create tempfile in ' . $parent, $e);
             }
         } else {
             do {

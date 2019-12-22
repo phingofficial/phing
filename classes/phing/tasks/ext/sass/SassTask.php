@@ -349,7 +349,7 @@ class SassTask extends Task
     {
         $encoding = trim($encoding);
         if ($encoding !== '') {
-            $this->flags .= " --default-encoding $encoding";
+            $this->flags .= ' --default-encoding ' . $encoding;
         } else {
             $this->flags = str_replace(
                 ' --default-encoding ' . $this->encoding,
@@ -700,7 +700,7 @@ class SassTask extends Task
      */
     public function setPath(string $path): void
     {
-        $this->flags   .= " --load-path $path ";
+        $this->flags   .= ' --load-path ' . $path . ' ';
         $this->loadPath = $path;
     }
 
@@ -728,12 +728,12 @@ class SassTask extends Task
             case 'compressed':
             case 'expanded':
             case 'crunched':
-                $this->flags  = str_replace(" --style $this->style", '', $this->flags);
+                $this->flags  = str_replace(' --style ' . $this->style, '', $this->flags);
                 $this->style  = $style;
-                $this->flags .= " --style $style ";
+                $this->flags .= ' --style ' . $style . ' ';
                 break;
             default:
-                $this->log("Style $style ignored", Project::MSG_INFO);
+                $this->log('Style ' . $style . ' ignored', Project::MSG_INFO);
         }
     }
 
@@ -952,7 +952,7 @@ class SassTask extends Task
      */
     public function processFile(SassTaskCompiler $compiler)
     {
-        $this->log("Process file", Project::MSG_INFO);
+        $this->log('Process file', Project::MSG_INFO);
         if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
             if ($specifiedOutputPath === false) {

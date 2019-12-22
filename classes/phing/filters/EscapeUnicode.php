@@ -66,15 +66,15 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
             return -1;
         }
 
-        $textArray = preg_split("~\R~", $text);
+        $textArray = preg_split('~\R~', $text);
 
         $lines = [];
         foreach ($textArray as $offset => $line) {
             $lines[] = trim(json_encode($line), '"');
             if (strlen($line) !== strlen($lines[$offset])) {
                 $this->log(
-                    "Escape unicode chars on line " . ($offset + 1)
-                    . " from " . $line . " to " . $lines[$offset],
+                    'Escape unicode chars on line ' . ($offset + 1)
+                    . ' from ' . $line . ' to ' . $lines[$offset],
                     Project::MSG_VERBOSE
                 );
             }

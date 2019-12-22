@@ -105,7 +105,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function buildStarted(BuildEvent $event)
     {
-        $this->log("> BUILD STARTED", Project::MSG_DEBUG);
+        $this->log('> BUILD STARTED', Project::MSG_DEBUG);
     }
 
     /**
@@ -113,16 +113,16 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function buildFinished(BuildEvent $event)
     {
-        $this->log("< BUILD FINISHED", Project::MSG_DEBUG);
+        $this->log('< BUILD FINISHED', Project::MSG_DEBUG);
 
         if ($this->record && $this->out != null) {
             $error = $event->getException();
 
             if ($error == null) {
-                $this->out->write(Phing::getProperty('line.separator') . "BUILD SUCCESSFUL" . PHP_EOL);
+                $this->out->write(Phing::getProperty('line.separator') . 'BUILD SUCCESSFUL' . PHP_EOL);
             } else {
                 $this->out->write(
-                    Phing::getProperty('line.separator') . "BUILD FAILED"
+                    Phing::getProperty('line.separator') . 'BUILD FAILED'
                     . Phing::getProperty('line.separator') . PHP_EOL
                 );
                 $this->out->write($error->getTraceAsString());
@@ -159,9 +159,9 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function targetStarted(BuildEvent $event)
     {
-        $this->log(">> TARGET STARTED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
+        $this->log('>> TARGET STARTED -- ' . $event->getTarget()->getName(), Project::MSG_DEBUG);
         $this->log(
-            Phing::getProperty('line.separator') . $event->getTarget()->getName() . ":",
+            Phing::getProperty('line.separator') . $event->getTarget()->getName() . ':',
             Project::MSG_INFO
         );
         $this->targetStartTime = Phing::currentTimeMillis();
@@ -172,11 +172,11 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function targetFinished(BuildEvent $event)
     {
-        $this->log("<< TARGET FINISHED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
+        $this->log('<< TARGET FINISHED -- ' . $event->getTarget()->getName(), Project::MSG_DEBUG);
 
         $time = DefaultLogger::formatTime(Phing::currentTimeMillis() - $this->targetStartTime);
 
-        $this->log($event->getTarget()->getName() . ":  duration " . $time, Project::MSG_VERBOSE);
+        $this->log($event->getTarget()->getName() . ':  duration ' . $time, Project::MSG_VERBOSE);
         flush();
     }
 
@@ -185,7 +185,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function taskStarted(BuildEvent $event)
     {
-        $this->log(">>> TASK STARTED -- " . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
+        $this->log('>>> TASK STARTED -- ' . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
     }
 
     /**
@@ -193,7 +193,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function taskFinished(BuildEvent $event)
     {
-        $this->log("<<< TASK FINISHED -- " . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
+        $this->log('<<< TASK FINISHED -- ' . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
         $this->flush();
     }
 
@@ -202,7 +202,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function messageLogged(BuildEvent $event)
     {
-        $this->log("--- MESSAGE LOGGED", Project::MSG_DEBUG);
+        $this->log('--- MESSAGE LOGGED', Project::MSG_DEBUG);
 
         $buf = '';
 
@@ -210,11 +210,11 @@ class RecorderEntry implements BuildLogger, SubBuildListener
             $name = $event->getTask()->getTaskName();
 
             if (!$this->emacsMode) {
-                $label = "[" . $name . "] ";
+                $label = '[' . $name . '] ';
                 $size  = DefaultLogger::LEFT_COLUMN_SIZE - strlen($label);
 
                 for ($i = 0; $i < $size; $i++) {
-                    $buf .= " ";
+                    $buf .= ' ';
                 }
                 $buf .= $label;
             }
@@ -352,7 +352,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
             try {
                 $this->out = new FileOutputStream($this->filename, $append);
             } catch (IOException $ioe) {
-                throw new BuildException("Problems opening file using a recorder entry", $ioe);
+                throw new BuildException('Problems opening file using a recorder entry', $ioe);
             }
         }
     }

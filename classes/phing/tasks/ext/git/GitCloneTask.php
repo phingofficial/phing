@@ -54,7 +54,7 @@ class GitCloneTask extends GitBaseTask
      *
      * @var string
      */
-    private $branch = "";
+    private $branch = '';
 
     /**
      * Path to target directory

@@ -30,7 +30,7 @@ class PearPackageFileSetTest extends BuildFileTest
     public function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
-            $this->markTestSkipped("This test requires PEAR to be installed");
+            $this->markTestSkipped('This test requires PEAR to be installed');
         }
 
         //needed for PEAR's Config and Registry classes

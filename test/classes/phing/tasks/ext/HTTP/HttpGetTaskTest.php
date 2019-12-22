@@ -25,7 +25,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httpget.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httpget.xml');
     }
 
     public function testMissingDir()
@@ -47,7 +47,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                         "HTTP/1.1 404 Not Found\r\n" .
                         "Content-Type: text/plain; charset=iso-8859-1\r\n" .
                         "\r\n" .
-                        "The file you seek is not here"
+                        'The file you seek is not here'
                     ]
                 )
             )
@@ -72,16 +72,16 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                         "HTTP/1.1 200 OK\r\n" .
                         "Content-Type: text/plain; charset=iso-8859-1\r\n" .
                         "\r\n" .
-                        "This file is named explicitly",
+                        'This file is named explicitly',
                         "HTTP/1.1 200 OK\r\n" .
                         "Content-Type: text/plain; charset=iso-8859-1\r\n" .
                         "Content-Disposition: attachment; filename=\"disposition.txt\"\r\n" .
                         "\r\n" .
-                        "This file is named according to Content-Disposition header",
+                        'This file is named according to Content-Disposition header',
                         "HTTP/1.1 200 OK\r\n" .
                         "Content-Type: text/plain; charset=iso-8859-1\r\n" .
                         "\r\n" .
-                        "This file is named according to an URL part",
+                        'This file is named according to an URL part',
                     ]
                 )
             )
@@ -98,7 +98,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
         $this->assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foo.bar',
-            "This file is named according to an URL part"
+            'This file is named according to an URL part'
         );
 
         $this->executeTarget('rmdir');

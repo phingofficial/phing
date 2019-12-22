@@ -32,7 +32,7 @@ class HgUpdateTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testWrongRepositoryDirDoesntExist()
@@ -51,8 +51,8 @@ class HgUpdateTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'wrongRepository',
             'wrong repository',
-            "abort"
+            'abort'
         );
-        $this->assertInLogs("Executing: hg update");
+        $this->assertInLogs('Executing: hg update');
     }
 }

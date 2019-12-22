@@ -30,7 +30,7 @@
  */
 class SvnLogTask extends SvnBaseTask
 {
-    private $propertyName = "svn.log";
+    private $propertyName = 'svn.log';
     private $limit        = null;
 
     /**
@@ -81,12 +81,12 @@ class SvnLogTask extends SvnBaseTask
         if ($this->oldVersion) {
             foreach ($output as $line) {
                 $result .= !empty($result) ? "\n" : '';
-                $result .= "{$line['REVISION']} | {$line['AUTHOR']}  | {$line['DATE']}  | {$line['MSG']}";
+                $result .= sprintf('%s | %s  | %s  | %s', $line['REVISION'], $line['AUTHOR'], $line['DATE'], $line['MSG']);
             }
         } else {
             foreach ($output['logentry'] as $line) {
                 $result .= !empty($result) ? "\n" : '';
-                $result .= "{$line['revision']} | {$line['author']}  | {$line['date']}  | {$line['msg']}";
+                $result .= sprintf('%s | %s  | %s  | %s', $line['revision'], $line['author'], $line['date'], $line['msg']);
             }
         }
 

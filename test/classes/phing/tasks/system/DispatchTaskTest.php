@@ -29,7 +29,7 @@ class DispatchTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/DispatchTaskTest.xml"
+            . '/etc/tasks/system/DispatchTaskTest.xml'
         );
     }
 

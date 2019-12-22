@@ -105,7 +105,7 @@ class BuildEvent extends EventObject
             $this->target  = $source->getOwningTarget();
             $this->task    = $source;
         } else {
-            throw new Exception("Can not construct BuildEvent, unknown source given.");
+            throw new Exception('Can not construct BuildEvent, unknown source given.');
         }
     }
 

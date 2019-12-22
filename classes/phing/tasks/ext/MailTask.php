@@ -52,7 +52,7 @@ class MailTask extends Task
             return;
         }
 
-        mail($this->tolist, $this->subject, $this->msg, "From: {$this->from}\n");
+        mail($this->tolist, $this->subject, $this->msg, sprintf("From: %s\n", $this->from));
     }
 
     protected function sendFilesets()

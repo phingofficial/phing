@@ -59,7 +59,7 @@ class InputRequest
     public function __construct($prompt)
     {
         if ($prompt === null) {
-            throw new BuildException("prompt must not be null");
+            throw new BuildException('prompt must not be null');
         }
         $this->prompt = $prompt;
     }

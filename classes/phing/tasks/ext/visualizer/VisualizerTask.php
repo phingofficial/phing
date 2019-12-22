@@ -155,7 +155,7 @@ class VisualizerTask extends HttpTask
          * @var \PhingXMLContext $xmlContext
          */
         $xmlContext  = $this->getProject()
-            ->getReference("phing.parsing.context");
+            ->getReference('phing.parsing.context');
         $importStack = $xmlContext->getImportStack();
         return $this->generatePuml($importStack);
     }
@@ -219,7 +219,7 @@ class VisualizerTask extends HttpTask
         $xml        = simplexml_load_string($xmlContent);
 
         if (!($xml instanceof SimpleXMLElement)) {
-            $message = "Error loading XML file: $xmlFile";
+            $message = 'Error loading XML file: ' . $xmlFile;
             $this->log($message, Project::MSG_ERR);
             throw new BuildException($message);
         }
@@ -270,7 +270,7 @@ class VisualizerTask extends HttpTask
                 $this->format = $format;
                 break;
             default:
-                $message = "'$format' is not a valid format";
+                $message = sprintf("'%s' is not a valid format", $format);
                 $this->log($message, Project::MSG_ERR);
                 throw new BuildException($message);
                 break;
@@ -324,7 +324,7 @@ class VisualizerTask extends HttpTask
 
         // Check if path is available
         if (!is_dir(dirname($destination))) {
-            $message = "Directory '$destination' is invalid";
+            $message = sprintf("Directory '%s' is invalid", $destination);
             $this->log($message, Project::MSG_ERR);
             throw new BuildException(sprintf($message, $destination));
         }
@@ -369,7 +369,7 @@ class VisualizerTask extends HttpTask
     protected function prepareImageUrl(string $format, string $encodedPuml): void
     {
         $server = $this->getServer();
-        $this->log("Server: $server", Project::MSG_VERBOSE);
+        $this->log('Server: ' . $server, Project::MSG_VERBOSE);
 
         $server = filter_var($server, FILTER_VALIDATE_URL);
         if ($server === false) {
@@ -416,11 +416,11 @@ class VisualizerTask extends HttpTask
     {
         $status       = $response->getStatus();
         $reasonPhrase = $response->getReasonPhrase();
-        $this->log("Response status: $status", Project::MSG_DEBUG);
-        $this->log("Response reason: $reasonPhrase", Project::MSG_DEBUG);
+        $this->log('Response status: ' . $status, Project::MSG_DEBUG);
+        $this->log('Response reason: ' . $reasonPhrase, Project::MSG_DEBUG);
 
         if ($status !== self::STATUS_OK) {
-            $message = "Request unsuccessful. Response from server: $status $reasonPhrase";
+            $message = 'Request unsuccessful. Response from server: ' . $status . ' ' . $reasonPhrase;
             $this->log($message, Project::MSG_ERR);
             throw new BuildException($message);
         }
@@ -437,7 +437,7 @@ class VisualizerTask extends HttpTask
     protected function saveToFile(string $content, PhingFile $destination): void
     {
         $path = $destination->getPath();
-        $this->log("Writing: $path", Project::MSG_INFO);
+        $this->log('Writing: ' . $path, Project::MSG_INFO);
 
         (new FileWriter($destination))->write($content);
     }

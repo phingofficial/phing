@@ -27,14 +27,14 @@ class FilesetFoldersTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/654/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/654/build.xml');
     }
 
     public function testFilesetNotSelectingFolders()
     {
-        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/654/build.xml");
-        $this->executeTarget("main");
-        $this->assertInLogs("Property \${test.msg} => data");
-        $this->assertInLogs("Property \${test.msg} => files");
+        $f = new PhingFile(PHING_TEST_BASE . '/etc/regression/654/build.xml');
+        $this->executeTarget('main');
+        $this->assertInLogs('Property ${test.msg} => data');
+        $this->assertInLogs('Property ${test.msg} => files');
     }
 }

@@ -28,19 +28,19 @@ class CoverageReportTask extends Task
 {
     use ClasspathAware;
 
-    private $outfile = "coverage.xml";
+    private $outfile = 'coverage.xml';
 
     private $transformers = [];
 
     /**
      * the path to the GeSHi library (optional)
      */
-    private $geshipath = "";
+    private $geshipath = '';
 
     /**
      * the path to the GeSHi language files (optional)
      */
-    private $geshilanguagespath = "";
+    private $geshilanguagespath = '';
 
     /**
      * @var DOMDocument
@@ -210,12 +210,12 @@ class CoverageReportTask extends Task
      */
     protected function stripDiv($source)
     {
-        $openpos  = strpos($source, "<div");
-        $closepos = strpos($source, ">", $openpos);
+        $openpos  = strpos($source, '<div');
+        $closepos = strpos($source, '>', $openpos);
 
         $line = substr($source, $closepos + 1);
 
-        $tagclosepos = strpos($line, "</div>");
+        $tagclosepos = strpos($line, '</div>');
 
         $line = substr($line, 0, $tagclosepos);
 
@@ -246,7 +246,7 @@ class CoverageReportTask extends Task
 
             $html = $geshi->parse_code();
 
-            $lines = preg_split("#</?li>#", $html);
+            $lines = preg_split('#</?li>#', $html);
 
             // skip first and last line
             array_pop($lines);
@@ -550,12 +550,12 @@ class CoverageReportTask extends Task
         $coverageDatabase = $this->project->getProperty('coverage.database');
 
         if (!$coverageDatabase) {
-            throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+            throw new BuildException('Property coverage.database is not set - please include coverage-setup in your build file');
         }
 
         $database = new PhingFile($coverageDatabase);
 
-        $this->log("Transforming coverage report");
+        $this->log('Transforming coverage report');
 
         $props = new Properties();
         $props->load($database);

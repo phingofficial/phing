@@ -45,8 +45,8 @@ class IsSetCondition extends ProjectComponent implements Condition
     {
         if ($this->property === null) {
             throw new BuildException(
-                "No property specified for isset "
-                . "condition"
+                'No property specified for isset '
+                . 'condition'
             );
         }
 

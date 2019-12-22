@@ -39,7 +39,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the number of lines to be returned.
      */
-    public const LINES_KEY = "lines";
+    public const LINES_KEY = 'lines';
 
     /**
      * Parameter name for the number of lines to be skipped.

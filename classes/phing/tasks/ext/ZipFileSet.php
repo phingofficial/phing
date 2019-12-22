@@ -74,7 +74,7 @@ class ZipFileSet extends FileSet
                 // to the files array.
 
                 foreach ($incDirs as $dir) { // we cannot simply use array_diff() since we want to disregard empty/. dirs
-                    if ($dir != "" && $dir !== "." && !in_array($dir, $implicitDirs)) {
+                    if ($dir != '' && $dir !== '.' && !in_array($dir, $implicitDirs)) {
                         // it's an empty dir, so we'll add it.
                         $emptyDirectories[] = $dir;
                     }

@@ -26,7 +26,7 @@ class PHPLocFormatterElement
     /**
      * @var string
      */
-    protected $type = "";
+    protected $type = '';
 
     /**
      * @var bool
@@ -36,12 +36,12 @@ class PHPLocFormatterElement
     /**
      * @var string
      */
-    protected $toDir = ".";
+    protected $toDir = '.';
 
     /**
      * @var string
      */
-    protected $outfile = "phploc-report";
+    protected $outfile = 'phploc-report';
 
     /**
      * Loads a specific formatter type

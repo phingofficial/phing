@@ -99,7 +99,7 @@ class RecorderTask extends Task implements SubBuildListener
      */
     public function setAction($action)
     {
-        $this->start = strtolower($action) === "start";
+        $this->start = strtolower($action) === 'start';
     }
 
     /**
@@ -140,10 +140,10 @@ class RecorderTask extends Task implements SubBuildListener
     public function main()
     {
         if ($this->filename == null) {
-            throw new BuildException("No filename specified");
+            throw new BuildException('No filename specified');
         }
 
-        $this->getProject()->log("setting a recorder for name " . $this->filename, Project::MSG_DEBUG);
+        $this->getProject()->log('setting a recorder for name ' . $this->filename, Project::MSG_DEBUG);
 
         // get the recorder entry
         $recorder = $this->getRecorder($this->filename, $this->getProject());

@@ -111,7 +111,7 @@ class ExecTaskTest extends BuildFileTest
 
     public function testPropertySetOs()
     {
-        $this->assertAttributeIsSetTo('os', "linux");
+        $this->assertAttributeIsSetTo('os', 'linux');
     }
 
     public function testPropertySetEscape()
@@ -302,7 +302,7 @@ class ExecTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $out = ob_get_clean();
-        $this->assertEquals("foo", rtrim($out, " \r\n"));
+        $this->assertEquals('foo', rtrim($out, " \r\n"));
         //foo should not be in logs, except for the logged command
         $this->assertInLogs('echo foo');
         $this->assertNotContains('foo', $this->logBuffer);

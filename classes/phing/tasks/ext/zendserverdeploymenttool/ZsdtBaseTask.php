@@ -112,7 +112,7 @@ abstract class ZsdtBaseTask extends Task
     protected function validate()
     {
         if ($this->schema !== null) {
-            $this->arguments .= "--schema=$this->schema ";
+            $this->arguments .= '--schema=' . $this->schema . ' ';
         }
     }
 }

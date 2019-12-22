@@ -48,7 +48,7 @@ class IncludePathTask extends Task
      *
      * @var string
      */
-    private $mode = "prepend";
+    private $mode = 'prepend';
 
     /**
      * @param string $mode
@@ -58,7 +58,7 @@ class IncludePathTask extends Task
     public function setMode($mode)
     {
         if (!in_array($mode, ['append', 'prepend', 'replace'])) {
-            throw new BuildException("Illegal mode: needs to be either append, prepend or replace");
+            throw new BuildException('Illegal mode: needs to be either append, prepend or replace');
         }
 
         $this->mode = $mode;
@@ -75,7 +75,7 @@ class IncludePathTask extends Task
         }
 
         if (empty($classpath)) {
-            throw new BuildException("Provided classpath was empty.");
+            throw new BuildException('Provided classpath was empty.');
         }
 
         $curr_parts = Phing::explodeIncludePath();
@@ -94,27 +94,27 @@ class IncludePathTask extends Task
     private function updateIncludePath($new_parts, $curr_parts)
     {
         $includePath = [];
-        $verb        = "";
+        $verb        = '';
 
         switch ($this->mode) {
-            case "append":
+            case 'append':
                 $includePath = array_merge($curr_parts, $new_parts);
-                $verb        = "Appending";
+                $verb        = 'Appending';
                 break;
 
-            case "replace":
+            case 'replace':
                 $includePath = $new_parts;
-                $verb        = "Replacing";
+                $verb        = 'Replacing';
                 break;
 
-            case "prepend":
+            case 'prepend':
                 $includePath = array_merge($new_parts, $curr_parts);
-                $verb        = "Prepending";
+                $verb        = 'Prepending';
                 break;
         }
 
         $this->log(
-            $verb . " new include_path components: " . implode(PATH_SEPARATOR, $new_parts),
+            $verb . ' new include_path components: ' . implode(PATH_SEPARATOR, $new_parts),
             Project::MSG_VERBOSE
         );
 

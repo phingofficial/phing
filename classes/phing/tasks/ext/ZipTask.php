@@ -158,19 +158,19 @@ class ZipTask extends MatchingTask
     public function main()
     {
         if (!extension_loaded('zip')) {
-            throw new BuildException("Zip extension is required");
+            throw new BuildException('Zip extension is required');
         }
 
         if ($this->zipFile === null) {
-            throw new BuildException("zipfile attribute must be set!", $this->getLocation());
+            throw new BuildException('zipfile attribute must be set!', $this->getLocation());
         }
 
         if ($this->zipFile->exists() && $this->zipFile->isDirectory()) {
-            throw new BuildException("zipfile is a directory!", $this->getLocation());
+            throw new BuildException('zipfile is a directory!', $this->getLocation());
         }
 
         if ($this->zipFile->exists() && !$this->zipFile->canWrite()) {
-            throw new BuildException("Can not write to the specified zipfile!", $this->getLocation());
+            throw new BuildException('Can not write to the specified zipfile!', $this->getLocation());
         }
 
         try {
@@ -192,8 +192,8 @@ class ZipTask extends MatchingTask
 
             if (empty($this->filesets)) {
                 throw new BuildException(
-                    "You must supply either a basedir "
-                    . "attribute or some nested filesets.",
+                    'You must supply either a basedir '
+                    . 'attribute or some nested filesets.',
                     $this->getLocation()
                 );
             }
@@ -201,24 +201,24 @@ class ZipTask extends MatchingTask
             // check if zip is out of date with respect to each
             // fileset
             if ($this->areFilesetsUpToDate()) {
-                $this->log("Nothing to do: " . $this->zipFile->__toString() . " is up to date.", Project::MSG_INFO);
+                $this->log('Nothing to do: ' . $this->zipFile->__toString() . ' is up to date.', Project::MSG_INFO);
 
                 return;
             }
 
-            $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
+            $this->log('Building zip: ' . $this->zipFile->__toString(), Project::MSG_INFO);
 
             $zip = new ZipArchive();
             $res = $zip->open($this->zipFile->getAbsolutePath(), ZipArchive::CREATE);
 
             if ($res !== true) {
-                throw new Exception("ZipArchive::open() failed with code " . $res);
+                throw new Exception('ZipArchive::open() failed with code ' . $res);
             }
 
             if ($this->comment !== '') {
                 $isCommented = $zip->setArchiveComment($this->comment);
                 if ($isCommented === false) {
-                    $this->log("Could not add a comment for the Archive.", Project::MSG_INFO);
+                    $this->log('Could not add a comment for the Archive.', Project::MSG_INFO);
                 }
             }
 
@@ -226,7 +226,7 @@ class ZipTask extends MatchingTask
 
             $zip->close();
         } catch (IOException $ioe) {
-            $msg = "Problem creating ZIP: " . $ioe->getMessage();
+            $msg = 'Problem creating ZIP: ' . $ioe->getMessage();
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
     }
@@ -263,7 +263,7 @@ class ZipTask extends MatchingTask
             }
             for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
                 if ($this->zipFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
-                    throw new BuildException("A zip file cannot include itself", $this->getLocation());
+                    throw new BuildException('A zip file cannot include itself', $this->getLocation());
                 }
             }
         }
@@ -300,7 +300,7 @@ class ZipTask extends MatchingTask
                 } else {
                     $zip->addFile($f->getAbsolutePath(), $pathInZip);
                 }
-                $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
+                $this->log('Adding ' . $f->getPath() . ' as ' . $pathInZip . ' to archive.', Project::MSG_VERBOSE);
             }
         }
     }

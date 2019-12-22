@@ -106,7 +106,7 @@ class PhingTask extends Task
     {
         $this->newProject = new Project();
         $tdf              = $this->project->getTaskDefinitions();
-        $this->newProject->addTaskDefinition("property", $tdf["property"]);
+        $this->newProject->addTaskDefinition('property', $tdf['property']);
     }
 
     /**
@@ -131,7 +131,7 @@ class PhingTask extends Task
             /**
              * @var PropertyTask $newP
              */
-            $newP = $this->newProject->createTask("property");
+            $newP = $this->newProject->createTask('property');
             $newP->setName($p->getName());
             if ($p->getValue() !== null) {
                 $newP->setValue($p->getValue());
@@ -253,7 +253,7 @@ class PhingTask extends Task
                 $this->dir = new PhingFile($dirAbsPath);
 
                 if ($savedDir !== null) { // has been set explicitly
-                    $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
+                    $this->newProject->setInheritedProperty('project.basedir', $this->dir->getAbsolutePath());
                 }
             } else {
                 // Since we're not changing the basedir here (for file resolution),
@@ -263,7 +263,7 @@ class PhingTask extends Task
 
             $this->overrideProperties();
             if ($this->phingFile === null) {
-                $this->phingFile = "build.xml";
+                $this->phingFile = 'build.xml';
             }
 
             $fu              = new FileUtils();
@@ -275,7 +275,7 @@ class PhingTask extends Task
                 Project::MSG_VERBOSE
             );
 
-            $this->newProject->setUserProperty("phing.file", $this->phingFile);
+            $this->newProject->setUserProperty('phing.file', $this->phingFile);
 
             ProjectConfigurator::configureProject($this->newProject, new PhingFile($this->phingFile));
 
@@ -286,11 +286,11 @@ class PhingTask extends Task
             // Are we trying to call the target in which we are defined?
             if (
                 $this->newProject->getBaseDir() == $this->project->getBaseDir()
-                && $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file")
+                && $this->newProject->getProperty('phing.file') == $this->project->getProperty('phing.file')
                 && $this->getOwningTarget() !== null
                 && $this->newTarget == $this->getOwningTarget()->getName()
             ) {
-                throw new BuildException("phing task calling its own parent target");
+                throw new BuildException('phing task calling its own parent target');
             }
 
             $this->addReferences();
@@ -325,7 +325,7 @@ class PhingTask extends Task
         }
 
         if ($this->haltOnFailure && $buildFailed) {
-            throw new BuildException("Execution of the target buildfile failed. Aborting.");
+            throw new BuildException('Execution of the target buildfile failed. Aborting.');
         }
     }
 
@@ -371,7 +371,7 @@ class PhingTask extends Task
 
         // Add Task definitions
         foreach ($this->project->getTaskDefinitions() as $taskName => $taskClass) {
-            if ($taskClass == "propertytask") {
+            if ($taskClass == 'propertytask') {
                 // we have already added this taskdef in init()
                 continue;
             }
@@ -389,7 +389,7 @@ class PhingTask extends Task
             // set all properties from calling project
             $properties = $this->project->getProperties();
             foreach ($properties as $name => $value) {
-                if ($name == "basedir" || $name == "phing.file" || $name == "phing.version") {
+                if ($name == 'basedir' || $name == 'phing.file' || $name == 'phing.version') {
                     // basedir and phing.file get special treatment in main()
                     continue;
                 }
@@ -446,8 +446,8 @@ class PhingTask extends Task
 
                 if ($refid === null) {
                     throw new BuildException(
-                        "the refid attribute is required"
-                        . " for reference elements"
+                        'the refid attribute is required'
+                        . ' for reference elements'
                     );
                 }
                 if (!isset($projReferences[$refid])) {
@@ -504,7 +504,7 @@ class PhingTask extends Task
         $orig = $this->project->getReference($oldKey);
         if ($orig === null) {
             $this->log(
-                "No object referenced by " . $oldKey . ". Can't copy to "
+                'No object referenced by ' . $oldKey . ". Can't copy to "
                 . $newKey,
                 Project::MSG_WARN
             );
@@ -520,8 +520,8 @@ class PhingTask extends Task
             $copy->setProject($this->newProject);
         } elseif (!($copy instanceof Project)) {
             // don't copy the old "Project" itself
-            $msg = "Error setting new project instance for "
-                . "reference with id " . $oldKey;
+            $msg = 'Error setting new project instance for '
+                . 'reference with id ' . $oldKey;
             throw new BuildException($msg);
         }
 
@@ -601,7 +601,7 @@ class PhingTask extends Task
     public function setTarget(string $s)
     {
         if ('' === $s) {
-            throw new BuildException("target attribute must not be empty");
+            throw new BuildException('target attribute must not be empty');
         }
 
         $this->newTarget = $s;

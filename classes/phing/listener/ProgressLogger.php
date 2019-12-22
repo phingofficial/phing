@@ -41,7 +41,7 @@ class ProgressLogger extends AnsiColorLogger
         $this->bar->setFormat(
             "<fg=cyan>Buildfile: %buildfile%</>\n" .
             "  <fg=green>%current%/%max% [%bar%] %percent:3s%% %elapsed:6s%</>\n" .
-            "<fg=cyan>[%target% %task%] %message%</>"
+            '<fg=cyan>[%target% %task%] %message%</>'
         );
         $this->bar->setProgressCharacter('|');
         $this->bar->setMessage('', 'target');
@@ -56,7 +56,7 @@ class ProgressLogger extends AnsiColorLogger
     public function buildStarted(BuildEvent $event)
     {
         $this->startTime = Phing::currentTimeMillis();
-        $this->bar->setMessage($event->getProject()->getProperty("phing.file"), 'buildfile');
+        $this->bar->setMessage($event->getProject()->getProperty('phing.file'), 'buildfile');
     }
 
     /**
@@ -109,7 +109,7 @@ class ProgressLogger extends AnsiColorLogger
     public function taskStarted(BuildEvent $event)
     {
         // ignore tasks in root
-        if ($event->getTarget()->getName() == "") {
+        if ($event->getTarget()->getName() == '') {
             return;
         }
 
@@ -128,7 +128,7 @@ class ProgressLogger extends AnsiColorLogger
     public function taskFinished(BuildEvent $event)
     {
         // ignore tasks in root
-        if ($event->getTarget()->getName() == "") {
+        if ($event->getTarget()->getName() == '') {
             return;
         }
 
@@ -147,7 +147,7 @@ class ProgressLogger extends AnsiColorLogger
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $this->bar->setMessage(str_replace(["\n", "\r"], ["", ""], $event->getMessage()));
+            $this->bar->setMessage(str_replace(["\n", "\r"], ['', ''], $event->getMessage()));
             $this->bar->display();
         }
     }
@@ -171,7 +171,7 @@ class ProgressLogger extends AnsiColorLogger
                 $targets = $project->topoSort($targetName);
 
                 foreach ($targets as $target) {
-                    if ($target->getName() == "") {
+                    if ($target->getName() == '') {
                         continue;
                     }
 

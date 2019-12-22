@@ -214,7 +214,7 @@ class ApplyTaskTest extends BuildFileTest
         return $this->expectBuildExceptionContaining(
             __FUNCTION__,
             __FUNCTION__,
-            "'$nonExistentDir' is not a valid directory"
+            sprintf("'%s' is not a valid directory", $nonExistentDir)
         );
     }
 
@@ -276,7 +276,7 @@ class ApplyTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs(
             $this->windows
-                ? (escapeshellarg('echo') . ' ' . escapeshellarg('foo') . " " . escapeshellarg('|') . " " . escapeshellarg('cat'))
+                ? (escapeshellarg('echo') . ' ' . escapeshellarg('foo') . ' ' . escapeshellarg('|') . ' ' . escapeshellarg('cat'))
             : "'echo' 'foo' '|' 'cat'"
         );
     }
@@ -318,8 +318,8 @@ class ApplyTaskTest extends BuildFileTest
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
 
-        $scriptFile = getcwd() . "/error_output.sh";
-        file_put_contents($scriptFile, "echo errfoo 1>&2");
+        $scriptFile = getcwd() . '/error_output.sh';
+        file_put_contents($scriptFile, 'echo errfoo 1>&2');
         chmod($scriptFile, 0744);
 
         // Setting the property
@@ -331,7 +331,7 @@ class ApplyTaskTest extends BuildFileTest
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
         @unlink($scriptFile);
-        $this->assertEquals("errfoo", rtrim($output));
+        $this->assertEquals('errfoo', rtrim($output));
     }
 
     /**

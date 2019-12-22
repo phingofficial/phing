@@ -108,7 +108,7 @@ class DifferentSelector extends MappingSelector
                 return !$fu->contentEquals($srcfile, $destfile);
             }
         } catch (IOException $e) {
-            throw new BuildException("while comparing $srcfile and $destfile", $e);
+            throw new BuildException(sprintf('while comparing %s and %s', $srcfile, $destfile), $e);
         }
 
         return false;

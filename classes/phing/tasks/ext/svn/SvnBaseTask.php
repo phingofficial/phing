@@ -32,27 +32,27 @@ abstract class SvnBaseTask extends Task
     /**
      * @var string
      */
-    private $workingCopy = "";
+    private $workingCopy = '';
 
     /**
      * @var string
      */
-    private $repositoryUrl = "";
+    private $repositoryUrl = '';
 
     /**
      * @var string
      */
-    private $svnPath = "/usr/bin/svn";
+    private $svnPath = '/usr/bin/svn';
 
     protected $svn = null;
 
-    private $mode = "";
+    private $mode = '';
 
     private $svnArgs = [];
 
     private $svnSwitches = [];
 
-    private $toDir = "";
+    private $toDir = '';
 
     protected $fetchMode;
 
@@ -69,7 +69,7 @@ abstract class SvnBaseTask extends Task
         include_once 'VersionControl/SVN.php';
         $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
         if (!class_exists('VersionControl_SVN')) {
-            throw new Exception("The SVN tasks depend on PEAR VersionControl_SVN package being installed.");
+            throw new Exception('The SVN tasks depend on PEAR VersionControl_SVN package being installed.');
         }
     }
 

@@ -29,9 +29,9 @@ class ContainsSelector extends BaseExtendSelector
 {
     private $contains           = null;
     private $casesensitive      = true;
-    public const CONTAINS_KEY   = "text";
-    public const CASE_KEY       = "casesensitive";
-    public const WHITESPACE_KEY = "ignorewhitespace";
+    public const CONTAINS_KEY   = 'text';
+    public const CASE_KEY       = 'casesensitive';
+    public const WHITESPACE_KEY = 'ignorewhitespace';
     private $ignorewhitespace   = false;
 
     /**
@@ -39,21 +39,21 @@ class ContainsSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf  = "{containsselector text: ";
+        $buf  = '{containsselector text: ';
         $buf .= $this->contains;
-        $buf .= " casesensitive: ";
+        $buf .= ' casesensitive: ';
         if ($this->casesensitive) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= " ignorewhitespace: ";
+        $buf .= ' ignorewhitespace: ';
         if ($this->ignorewhitespace) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -111,7 +111,7 @@ class ContainsSelector extends BaseExtendSelector
                         $this->setIgnoreWhitespace($parameters[$i]->getValue());
                         break;
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 }
             } // for each param
         } // if params
@@ -124,7 +124,7 @@ class ContainsSelector extends BaseExtendSelector
     public function verifySettings()
     {
         if ($this->contains === null) {
-            $this->setError("The text attribute is required");
+            $this->setError('The text attribute is required');
         }
     }
 
@@ -188,7 +188,7 @@ class ContainsSelector extends BaseExtendSelector
             if ($in) {
                 $in->close();
             }
-            throw new BuildException("Could not read file " . $filename);
+            throw new BuildException('Could not read file ' . $filename);
         }
     }
 }

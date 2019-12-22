@@ -52,12 +52,12 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     /**
      * Default "begin token" character.
      */
-    public const DEFAULT_BEGIN_TOKEN = "#@#";
+    public const DEFAULT_BEGIN_TOKEN = '#@#';
 
     /**
      * Default "end token" character.
      */
-    public const DEFAULT_END_TOKEN = "#@#";
+    public const DEFAULT_END_TOKEN = '#@#';
 
     /**
      * Array to hold the token sources that make tokens from
@@ -256,11 +256,11 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
 
         if (!is_readable($file) || $n >= $ndirs) {
             $this->log(
-                "Can not read or find file \"$file\". Searched in directories: {$this->dir}",
+                'Can not read or find file "' . $file . '". Searched in directories: ' . $this->dir,
                 Project::MSG_WARN
             );
             //return $this->_beginToken  . $filetoken . $this->_endToken;
-            return "[Phing::Filters::ReplaceTokensWithFile: Can not find file " . '"' . $filetoken . $this->postfix . '"' . "]";
+            return '[Phing::Filters::ReplaceTokensWithFile: Can not find file "' . $filetoken . $this->postfix . '"]';
         }
 
         $buffer = file_get_contents($file);
@@ -270,10 +270,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
 
         if ($buffer === null) {
             $buffer = $this->beginToken . $filetoken . $this->endToken;
-            $this->log("No corresponding file found for key \"$buffer\"", Project::MSG_WARN);
+            $this->log('No corresponding file found for key "' . $buffer . '"', Project::MSG_WARN);
         } else {
             $this->log(
-                "Replaced \"" . $this->beginToken . $filetoken . $this->endToken . "\" with content from file \"$file\""
+                'Replaced "' . $this->beginToken . $filetoken . $this->endToken . '" with content from file "' . $file . '"'
             );
         }
 
@@ -304,7 +304,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
 
         // filter buffer
         $buffer = preg_replace_callback(
-            "$" . preg_quote($this->beginToken) . "([\w\.\-:\/]+?)" . preg_quote($this->endToken) . "$",
+            '$' . preg_quote($this->beginToken) . '([\w\.\-:\/]+?)' . preg_quote($this->endToken) . '$',
             [$this, 'replaceTokenCallback'],
             $buffer
         );

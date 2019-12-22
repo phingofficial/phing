@@ -56,7 +56,7 @@ class LiquibaseParameter extends DataType
             return $this->getRef($p)->getCommandline($p);
         }
 
-        return sprintf("--%s=%s", $this->name, escapeshellarg($this->value));
+        return sprintf('--%s=%s', $this->name, escapeshellarg($this->value));
     }
 
     /**

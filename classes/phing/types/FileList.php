@@ -147,7 +147,7 @@ class FileList extends DataType implements IteratorAggregate
             $tok = strtok($filenames, ", \t\n\r");
             while ($tok !== false) {
                 $fname = trim($tok);
-                if ($fname !== "") {
+                if ($fname !== '') {
                     $this->filenames[] = $tok;
                 }
                 $tok = strtok(", \t\n\r");
@@ -212,7 +212,7 @@ class FileList extends DataType implements IteratorAggregate
         }
 
         if ($this->dir === null) {
-            throw new BuildException("No directory specified for filelist.");
+            throw new BuildException('No directory specified for filelist.');
         }
 
         if ($this->listfile !== null) {
@@ -220,7 +220,7 @@ class FileList extends DataType implements IteratorAggregate
         }
 
         if (empty($this->filenames)) {
-            throw new BuildException("No files specified for filelist.");
+            throw new BuildException('No files specified for filelist.');
         }
 
         return $this->filenames;
@@ -269,7 +269,7 @@ class FileList extends DataType implements IteratorAggregate
                 $listReader->close();
             }
             throw new BuildException(
-                "An error occurred while reading from list file " . $this->listfile->__toString() . ": " . $e->getMessage()
+                'An error occurred while reading from list file ' . $this->listfile->__toString() . ': ' . $e->getMessage()
             );
         }
 

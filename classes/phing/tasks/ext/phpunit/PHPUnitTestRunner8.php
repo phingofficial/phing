@@ -362,7 +362,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
     {
         $name    = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
-        $message = "Test {$message} ({$name} in class " . get_class($test) . ' ' . $e->getFile()
+        $message = 'Test ' . $message . ' (' . $name . ' in class ' . get_class($test) . ' ' . $e->getFile()
             . ' on line ' . $e->getLine() . '): ' . $e->getMessage();
 
         if ($e instanceof PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
@@ -396,7 +396,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function addWarning(PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
     {
-        $this->lastWarningMessage = $this->composeMessage("WARNING", $test, $e);
+        $this->lastWarningMessage = $this->composeMessage('WARNING', $test, $e);
     }
 
     /**
@@ -408,7 +408,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function addIncompleteTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
-        $this->lastIncompleteMessage = $this->composeMessage("INCOMPLETE", $test, $e);
+        $this->lastIncompleteMessage = $this->composeMessage('INCOMPLETE', $test, $e);
     }
 
     /**

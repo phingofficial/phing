@@ -136,15 +136,15 @@ class PatternSetNameEntry
     {
         $buf = $this->name;
         if (($this->ifCond !== null) || ($this->unlessCond !== null)) {
-            $buf      .= ":";
-            $connector = "";
+            $buf      .= ':';
+            $connector = '';
 
             if ($this->ifCond !== null) {
-                $buf      .= "if->{$this->ifCond}";
-                $connector = ";";
+                $buf      .= 'if->' . $this->ifCond;
+                $connector = ';';
             }
             if ($this->unlessCond !== null) {
-                $buf .= "$connector unless->{$this->unlessCond}";
+                $buf .= $connector . ' unless->' . $this->unlessCond;
             }
         }
 

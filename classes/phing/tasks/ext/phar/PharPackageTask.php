@@ -332,9 +332,9 @@ class PharPackageTask extends MatchingTask
      */
     private function checkPreconditions()
     {
-        if (ini_get('phar.readonly') == "1") {
+        if (ini_get('phar.readonly') == '1') {
             throw new BuildException(
-                "PharPackageTask require phar.readonly php.ini setting to be disabled"
+                'PharPackageTask require phar.readonly php.ini setting to be disabled'
             );
         }
 
@@ -345,15 +345,15 @@ class PharPackageTask extends MatchingTask
         }
 
         if (null === $this->destinationFile) {
-            throw new BuildException("destfile attribute must be set!", $this->getLocation());
+            throw new BuildException('destfile attribute must be set!', $this->getLocation());
         }
 
         if ($this->destinationFile->exists() && $this->destinationFile->isDirectory()) {
-            throw new BuildException("destfile is a directory!", $this->getLocation());
+            throw new BuildException('destfile is a directory!', $this->getLocation());
         }
 
         if (!$this->destinationFile->canWrite()) {
-            throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
+            throw new BuildException('Can not write to the specified destfile!', $this->getLocation());
         }
         if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
@@ -366,13 +366,13 @@ class PharPackageTask extends MatchingTask
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
             if (!extension_loaded('openssl')) {
                 throw new BuildException(
-                    "PHP OpenSSL extension is required for OpenSSL signing of Phars!",
+                    'PHP OpenSSL extension is required for OpenSSL signing of Phars!',
                     $this->getLocation()
                 );
             }
 
             if (null === $this->key) {
-                throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
+                throw new BuildException('key attribute must be set for OpenSSL signing!', $this->getLocation());
             }
 
             if (!$this->key->exists()) {

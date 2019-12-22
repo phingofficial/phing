@@ -29,19 +29,19 @@ class LoadFileTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/LoadFileTest.xml"
+            . '/etc/tasks/system/LoadFileTest.xml'
         );
     }
 
     public function testVersionPropertySet()
     {
-        $this->executeTarget("test-version");
+        $this->executeTarget('test-version');
         $this->assertInLogs('Property ${version} => 1.0.1');
     }
 
     public function testFilterChain()
     {
-        $this->executeTarget("test-filterchain");
+        $this->executeTarget('test-filterchain');
         $this->assertInLogs('<property>filterchain-test-123</property');
     }
 }

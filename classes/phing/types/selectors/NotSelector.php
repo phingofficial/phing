@@ -34,11 +34,11 @@ class NotSelector extends NoneSelector
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         if ($this->hasSelectors()) {
-            $buf .= "{notselect: ";
+            $buf .= '{notselect: ';
             $buf .= parent::__toString();
-            $buf .= "}";
+            $buf .= '}';
         }
 
         return $buf;
@@ -52,8 +52,8 @@ class NotSelector extends NoneSelector
     {
         if ($this->count() !== 1) {
             $this->setError(
-                "One and only one selector is allowed within the " .
-                "<not> tag"
+                'One and only one selector is allowed within the ' .
+                '<not> tag'
             );
         }
     }

@@ -279,7 +279,7 @@ class Commandline implements Countable
 
         $state                  = $normal;
         $args                   = [];
-        $current                = "";
+        $current                = '';
         $lastTokenHasBeenQuoted = false;
 
         $tokens = preg_split('/(["\' ])/', $toProcess, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -294,7 +294,7 @@ class Commandline implements Countable
                     }
                     break;
                 case $inDoubleQuote:
-                    if ("\"" === $nextTok) {
+                    if ('"' === $nextTok) {
                         $lastTokenHasBeenQuoted = true;
                         $state                  = $normal;
                     } else {
@@ -304,12 +304,12 @@ class Commandline implements Countable
                 default:
                     if ("'" === $nextTok) {
                         $state = $inQuote;
-                    } elseif ("\"" === $nextTok) {
+                    } elseif ('"' === $nextTok) {
                         $state = $inDoubleQuote;
-                    } elseif (" " === $nextTok) {
+                    } elseif (' ' === $nextTok) {
                         if ($lastTokenHasBeenQuoted || $current !== '') {
                             $args[]  = $current;
-                            $current = "";
+                            $current = '';
                         }
                     } else {
                         $current .= $nextTok;
@@ -418,11 +418,11 @@ class Commandline implements Countable
             return '';
         }
 
-        $buf = "argument";
+        $buf = 'argument';
         if (count($args) > $offset) {
-            $buf .= "s";
+            $buf .= 's';
         }
-        $buf .= ":" . PHP_EOL;
+        $buf .= ':' . PHP_EOL;
         for ($i = $offset, $alen = count($args); $i < $alen; $i++) {
             $buf .= "'" . $args[$i] . "'" . PHP_EOL;
         }

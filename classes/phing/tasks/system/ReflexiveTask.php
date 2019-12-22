@@ -67,7 +67,7 @@ class ReflexiveTask extends Task
     public function main()
     {
         if ($this->file === null && empty($this->filesets)) {
-            throw new BuildException("You must specify a file or fileset(s) for the <reflexive> task.");
+            throw new BuildException('You must specify a file or fileset(s) for the <reflexive> task.');
         }
 
         // compile a list of all files to modify, both file attrib and fileset elements
@@ -94,11 +94,11 @@ class ReflexiveTask extends Task
             }
         }
 
-        $this->log("Applying reflexive processing to " . count($files) . " files.");
+        $this->log('Applying reflexive processing to ' . count($files) . ' files.');
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $slot         = $this->getRegisterSlot("currentFile");
-        $basenameSlot = $this->getRegisterSlot("currentFile.basename");
+        $slot         = $this->getRegisterSlot('currentFile');
+        $basenameSlot = $this->getRegisterSlot('currentFile.basename');
 
         foreach ($files as $file) {
             // set the register slots
@@ -109,7 +109,7 @@ class ReflexiveTask extends Task
             // 1) read contents of file, pulling through any filters
             $in = null;
             try {
-                $contents = "";
+                $contents = '';
                 $in       = FileUtils::getChainedReader(new FileReader($file), $this->filterChains, $this->project);
                 while (-1 !== ($buffer = $in->read())) {
                     $contents .= $buffer;
@@ -119,7 +119,7 @@ class ReflexiveTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log("Erorr reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Erorr reading file: ' . $e->getMessage(), Project::MSG_WARN);
             }
 
             try {
@@ -127,12 +127,12 @@ class ReflexiveTask extends Task
                 $out = new FileWriter($file);
                 $out->write($contents);
                 $out->close();
-                $this->log("Applying reflexive processing to " . $file->getPath(), Project::MSG_VERBOSE);
+                $this->log('Applying reflexive processing to ' . $file->getPath(), Project::MSG_VERBOSE);
             } catch (Exception $e) {
                 if ($out) {
                     $out->close();
                 }
-                $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error writing file back: ' . $e->getMessage(), Project::MSG_WARN);
             }
         }
     }

@@ -162,7 +162,7 @@ class PatchTask extends Task
             throw new BuildException('strip has to be >= 0');
         }
 
-        $this->cmd->createArgument()->setValue("--strip $num");
+        $this->cmd->createArgument()->setValue('--strip ' . $num);
     }
 
     /**
@@ -236,7 +236,7 @@ class PatchTask extends Task
      */
     public function setFuzz($value)
     {
-        $this->cmd->createArgument()->setValue("-F $value");
+        $this->cmd->createArgument()->setValue('-F ' . $value);
     }
 
     /**

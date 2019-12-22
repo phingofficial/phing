@@ -39,7 +39,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the suffix.
      */
-    public const SUFFIX_KEY = "suffix";
+    public const SUFFIX_KEY = 'suffix';
 
     /**
      * The suffix to be used.

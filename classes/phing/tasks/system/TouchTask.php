@@ -119,23 +119,23 @@ class TouchTask extends Task
         $savedMillis = $this->millis;
 
         if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
-            throw new BuildException("Specify at least one source - a file, a fileset or a filelist.");
+            throw new BuildException('Specify at least one source - a file, a fileset or a filelist.');
         }
 
         if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
-            throw new BuildException("Use a fileset to touch directories.");
+            throw new BuildException('Use a fileset to touch directories.');
         }
 
         try { // try to touch file
             if ($this->dateTime !== null) {
                 $this->setMillis(strtotime($this->dateTime));
                 if ($this->millis < 0) {
-                    throw new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).");
+                    throw new BuildException(sprintf('Date of %s results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).', $this->dateTime));
                 }
             }
             $this->_touch();
         } catch (Exception $ex) {
-            throw new BuildException("Error touch()ing file", $ex, $this->getLocation());
+            throw new BuildException('Error touch()ing file', $ex, $this->getLocation());
         }
 
         $this->millis = $savedMillis;
@@ -149,14 +149,14 @@ class TouchTask extends Task
         if ($this->file !== null) {
             if (!$this->file->exists()) {
                 $this->log(
-                    "Creating " . $this->file->__toString(),
+                    'Creating ' . $this->file->__toString(),
                     $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE
                 );
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
                     throw new BuildException(
-                        "Error creating new file " . $this->file->__toString(),
+                        'Error creating new file ' . $this->file->__toString(),
                         $ioe,
                         $this->getLocation()
                     );
@@ -215,7 +215,7 @@ class TouchTask extends Task
     private function touchFile($file)
     {
         if (!$file->canWrite()) {
-            throw new BuildException("Can not change modification date of read-only file " . $file->__toString());
+            throw new BuildException('Can not change modification date of read-only file ' . $file->__toString());
         }
         $file->setLastModified($this->millis);
     }

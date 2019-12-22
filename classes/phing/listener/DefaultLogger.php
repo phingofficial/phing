@@ -145,7 +145,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $this->startTime = Phing::currentTimeMillis();
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
             $this->printMessage(
-                "Buildfile: " . $event->getProject()->getProperty("phing.file"),
+                'Buildfile: ' . $event->getProject()->getProperty('phing.file'),
                 $this->out,
                 Project::MSG_INFO
             );
@@ -170,7 +170,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: " . static::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
+        $msg .= PHP_EOL . 'Total time: ' . static::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
 
         $error === null
             ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)
@@ -205,7 +205,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     protected function getBuildFailedMessage()
     {
-        return "BUILD FAILED";
+        return 'BUILD FAILED';
     }
 
     /**
@@ -215,7 +215,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     protected function getBuildSuccessfulMessage()
     {
-        return "BUILD FINISHED";
+        return 'BUILD FINISHED';
     }
 
     /**
@@ -231,7 +231,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             Project::MSG_INFO <= $this->msgOutputLevel
             && $event->getTarget()->getName() != ''
         ) {
-            $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
+            $showLongTargets = $event->getProject()->getProperty('phing.showlongtargets');
             $msg             = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
         }
@@ -284,11 +284,11 @@ class DefaultLogger implements StreamRequiredBuildLogger
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $msg = "";
+            $msg = '';
             if ($event->getTask() !== null && !$this->emacsMode) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
-                $msg  = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
+                $msg  = str_pad('[' . $name . '] ', self::LEFT_COLUMN_SIZE, ' ', STR_PAD_LEFT);
             }
 
             $msg .= $event->getMessage();
@@ -314,15 +314,15 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $minutes = (int) floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
-                "%1.0f minute%s %0.2f second%s",
+                '%1.0f minute%s %0.2f second%s',
                 $minutes,
-                ($minutes === 1 ? " " : "s "),
+                ($minutes === 1 ? ' ' : 's '),
                 $seconds - floor($seconds / 60) * 60,
-                ($seconds % 60 === 1 ? "" : "s")
+                ($seconds % 60 === 1 ? '' : 's')
             );
         }
 
-        return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
+        return sprintf('%0.4f second%s', $seconds, ($seconds % 60 === 1 ? '' : 's'));
     }
 
     /**

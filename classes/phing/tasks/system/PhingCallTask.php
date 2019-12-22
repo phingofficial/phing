@@ -148,7 +148,7 @@ class PhingCallTask extends Task
      */
     public function init()
     {
-        $this->callee = $this->project->createTask("phing");
+        $this->callee = $this->project->createTask('phing');
         $this->callee->setOwningTarget($this->getOwningTarget());
         $this->callee->setTaskName($this->getTaskName());
         $this->callee->setHaltOnFailure(true);
@@ -164,8 +164,8 @@ class PhingCallTask extends Task
      */
     public function main()
     {
-        if ($this->getOwningTarget()->getName() === "") {
-            $this->log("Cowardly refusing to call target '{$this->subTarget}' from the root", Project::MSG_WARN);
+        if ($this->getOwningTarget()->getName() === '') {
+            $this->log("Cowardly refusing to call target '" . $this->subTarget . "' from the root", Project::MSG_WARN);
             return;
         }
 
@@ -175,10 +175,10 @@ class PhingCallTask extends Task
         }
 
         if ($this->subTarget === null) {
-            throw new BuildException("Attribute target is required.", $this->getLocation());
+            throw new BuildException('Attribute target is required.', $this->getLocation());
         }
 
-        $this->callee->setPhingFile($this->project->getProperty("phing.file"));
+        $this->callee->setPhingFile($this->project->getProperty('phing.file'));
         $this->callee->setTarget($this->subTarget);
         $this->callee->setInheritAll($this->inheritAll);
         $this->callee->setInheritRefs($this->inheritRefs);

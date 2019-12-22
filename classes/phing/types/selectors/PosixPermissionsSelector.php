@@ -68,7 +68,7 @@ class PosixPermissionsSelector implements FileSelector
             preg_match('/^[0-7]{3}$/', $permissions) !== 1 &&
             preg_match('/^[r-][w-][x-][r-][w-][x-][r-][w-][x-]$/', $permissions) !== 1
         ) {
-            throw new BuildException("the permissions attribute {$permissions} is invalid");
+            throw new BuildException('the permissions attribute ' . $permissions . ' is invalid');
         }
     }
 

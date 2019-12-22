@@ -75,10 +75,10 @@ class HgCloneTask extends HgBaseTask
         if (file_exists($target)) {
             $files = scandir($target);
             if (is_array($files) && count($files) > 2) {
-                throw new BuildException("Directory \"$target\" is not empty");
+                throw new BuildException(sprintf('Directory "%s" is not empty', $target));
             }
             if (!is_dir($target)) {
-                throw new BuildException("\"$target\" is not a directory");
+                throw new BuildException(sprintf('"%s" is not a directory', $target));
             }
         }
         $msg = sprintf('hg cloning %s to %s', $repository, $target);
@@ -88,7 +88,7 @@ class HgCloneTask extends HgBaseTask
         $clone->setInsecure($this->getInsecure());
         $clone->setQuiet($this->getQuiet());
         try {
-            $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
             $output = $clone->execute();
             if ($output !== '') {
                 $this->log($output);

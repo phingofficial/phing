@@ -114,7 +114,7 @@ class PearPackageTask extends MatchingTask
     {
         include_once 'PEAR/PackageFileManager.php';
         if (!class_exists('PEAR_PackageFileManager')) {
-            throw new BuildException("You must have installed PEAR_PackageFileManager in order to create a PEAR package.xml file.");
+            throw new BuildException('You must have installed PEAR_PackageFileManager in order to create a PEAR package.xml file.');
         }
     }
 
@@ -140,7 +140,7 @@ class PearPackageTask extends MatchingTask
         // unless filelistgenerator has been overridden, we use Phing FileSet generator
         if (!isset($this->preparedOptions['filelistgenerator'])) {
             if (empty($this->filesets)) {
-                throw new BuildException("You must use a <fileset> tag to specify the files to include in the package.xml");
+                throw new BuildException('You must use a <fileset> tag to specify the files to include in the package.xml');
             }
             $this->preparedOptions['filelistgenerator'] = 'Fileset';
             $this->preparedOptions['usergeneratordir']  = __DIR__ . DIRECTORY_SEPARATOR . 'pearpackage';
@@ -148,7 +148,7 @@ class PearPackageTask extends MatchingTask
             $this->preparedOptions['phing_project']  = $this->project;
             $this->preparedOptions['phing_filesets'] = $this->filesets;
         } elseif ($this->preparedOptions['filelistgenerator'] != 'Fileset' && !empty($this->filesets)) {
-            throw new BuildException("You cannot use <fileset> element if you have specified the \"filelistgenerator\" option.");
+            throw new BuildException('You cannot use <fileset> element if you have specified the "filelistgenerator" option.');
         }
 
         // 3) Set the options
@@ -158,7 +158,7 @@ class PearPackageTask extends MatchingTask
         $e = $this->pkg->setOptions($this->preparedOptions);
 
         if (@PEAR::isError($e)) {
-            throw new BuildException("Unable to set options.", new Exception($e->getMessage()));
+            throw new BuildException('Unable to set options.', new Exception($e->getMessage()));
         }
 
         // convert roles
@@ -178,7 +178,7 @@ class PearPackageTask extends MatchingTask
     {
         foreach (array_keys($deps) as $dep) {
             if (isset($deps[$dep]['optional']) && $deps[$dep]['optional']) {
-                $deps[$dep]['optional'] = "yes";
+                $deps[$dep]['optional'] = 'yes';
             }
         }
 
@@ -200,9 +200,9 @@ class PearPackageTask extends MatchingTask
             $this->preparedOptions['packagefile'] = $f->getName();
             // must end in trailing slash
             $this->preparedOptions['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
-            $this->log("Creating package file: " . $f->__toString(), Project::MSG_INFO);
+            $this->log('Creating package file: ' . $f->__toString(), Project::MSG_INFO);
         } else {
-            $this->log("Creating [default] package.xml file in base directory.", Project::MSG_INFO);
+            $this->log('Creating [default] package.xml file in base directory.', Project::MSG_INFO);
         }
 
         // converts option objects and mapping objects into
@@ -233,11 +233,11 @@ class PearPackageTask extends MatchingTask
     public function main()
     {
         if ($this->dir === null) {
-            throw new BuildException("You must specify the \"dir\" attribute for PEAR package task.");
+            throw new BuildException('You must specify the "dir" attribute for PEAR package task.');
         }
 
         if ($this->package === null) {
-            throw new BuildException("You must specify the \"name\" attribute for PEAR package task.");
+            throw new BuildException('You must specify the "name" attribute for PEAR package task.');
         }
 
         $this->pkg = new PEAR_PackageFileManager();
@@ -246,7 +246,7 @@ class PearPackageTask extends MatchingTask
 
         $e = $this->pkg->writePackageFile();
         if (@PEAR::isError($e)) {
-            throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
+            throw new BuildException('Unable to write package file.', new Exception($e->getMessage()));
         }
     }
 

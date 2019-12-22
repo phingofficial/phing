@@ -45,7 +45,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the line-breaking characters parameter.
      */
-    public const LINES_BREAKS_KEY = "linebreaks";
+    public const LINES_BREAKS_KEY = 'linebreaks';
 
     /**
      * The characters that are recognized as line breaks.
@@ -78,7 +78,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
             return -1;
         }
 
-        $buffer = preg_replace("/[" . $this->lineBreaks . "]/", '', $buffer);
+        $buffer = preg_replace('/[' . $this->lineBreaks . ']/', '', $buffer);
 
         return $buffer;
     }

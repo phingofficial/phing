@@ -25,7 +25,7 @@
  */
 class ComponentHelper
 {
-    public const COMPONENT_HELPER_REFERENCE = "phing.ComponentHelper";
+    public const COMPONENT_HELPER_REFERENCE = 'phing.ComponentHelper';
 
     /**
      * @var Project
@@ -99,14 +99,14 @@ class ComponentHelper
      */
     public function addTaskDefinition($name, $class, $classpath = null)
     {
-        if ($class === "") {
-            $this->project->log("Task $name has no class defined.", Project::MSG_ERR);
+        if ($class === '') {
+            $this->project->log(sprintf('Task %s has no class defined.', $name), Project::MSG_ERR);
         } elseif (!isset($this->taskdefs[$name])) {
             Phing::import($class, $classpath);
             $this->taskdefs[$name] = $class;
-            $this->project->log("  +Task definition: $name ($class)", Project::MSG_DEBUG);
+            $this->project->log(sprintf('  +Task definition: %s (%s)', $name, $class), Project::MSG_DEBUG);
         } else {
-            $this->project->log("Task $name ($class) already registered, skipping", Project::MSG_VERBOSE);
+            $this->project->log(sprintf('Task %s (%s) already registered, skipping', $name, $class), Project::MSG_VERBOSE);
         }
     }
 
@@ -132,9 +132,9 @@ class ComponentHelper
         if (!isset($this->typedefs[$typeName])) {
             Phing::import($typeClass, $classpath);
             $this->typedefs[$typeName] = $typeClass;
-            $this->project->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
+            $this->project->log(sprintf('  +User datatype: %s (%s)', $typeName, $typeClass), Project::MSG_DEBUG);
         } else {
-            $this->project->log("Type $typeName ($typeClass) already registered, skipping", Project::MSG_VERBOSE);
+            $this->project->log(sprintf('Type %s (%s) already registered, skipping', $typeName, $typeClass), Project::MSG_VERBOSE);
         }
     }
 
@@ -183,7 +183,7 @@ class ComponentHelper
     public function createTask($taskType)
     {
         try {
-            $classname = "";
+            $classname = '';
             $tasklwr   = strtolower($taskType);
             foreach ($this->taskdefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
@@ -192,7 +192,7 @@ class ComponentHelper
                 }
             }
 
-            if ($classname === "") {
+            if ($classname === '') {
                 return null;
             }
 
@@ -201,7 +201,7 @@ class ComponentHelper
             if ($o instanceof Task) {
                 $task = $o;
             } else {
-                $this->project->log("  (Using TaskAdapter for: $taskType)", Project::MSG_DEBUG);
+                $this->project->log(sprintf('  (Using TaskAdapter for: %s)', $taskType), Project::MSG_DEBUG);
                 // not a real task, try adapter
                 $taskA = new TaskAdapter();
                 $taskA->setProxy($o);
@@ -211,9 +211,9 @@ class ComponentHelper
             $task->setTaskType($taskType);
             // set default value, can be changed by the user
             $task->setTaskName($taskType);
-            $this->project->log("  +Task: " . $taskType, Project::MSG_DEBUG);
+            $this->project->log('  +Task: ' . $taskType, Project::MSG_DEBUG);
         } catch (Exception $t) {
-            throw new BuildException("Could not create task of type: " . $taskType, $t);
+            throw new BuildException('Could not create task of type: ' . $taskType, $t);
         }
         // everything fine return reference
         return $task;
@@ -231,7 +231,7 @@ class ComponentHelper
     public function createCondition($conditionType)
     {
         try {
-            $classname = "";
+            $classname = '';
             $tasklwr   = strtolower($conditionType);
             foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
@@ -240,7 +240,7 @@ class ComponentHelper
                 }
             }
 
-            if ($classname === "") {
+            if ($classname === '') {
                 return null;
             }
 
@@ -250,15 +250,15 @@ class ComponentHelper
                 return $o;
             }
 
-            throw new BuildException("Not actually a condition");
+            throw new BuildException('Not actually a condition');
         } catch (Exception $e) {
-            throw new BuildException("Could not create condition of type: " . $conditionType, $e);
+            throw new BuildException('Could not create condition of type: ' . $conditionType, $e);
         }
     }
 
     private function createObject(string $classname)
     {
-        if ($classname === "") {
+        if ($classname === '') {
             return null;
         }
 
@@ -266,7 +266,7 @@ class ComponentHelper
 
         if (!class_exists($cls)) {
             throw new BuildException(
-                "Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)"
+                sprintf('Could not instantiate class %s, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)', $cls)
             );
         }
 
@@ -287,7 +287,7 @@ class ComponentHelper
     public function createDataType($typeName)
     {
         try {
-            $cls     = "";
+            $cls     = '';
             $typelwr = strtolower($typeName);
             foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $typelwr) {
@@ -296,26 +296,26 @@ class ComponentHelper
                 }
             }
 
-            if ($cls === "") {
+            if ($cls === '') {
                 return null;
             }
 
             if (!class_exists($cls)) {
                 throw new BuildException(
-                    "Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)"
+                    sprintf('Could not instantiate class %s, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)', $cls)
                 );
             }
 
             $type = new $cls();
-            $this->project->log("  +Type: $typeName", Project::MSG_DEBUG);
+            $this->project->log('  +Type: ' . $typeName, Project::MSG_DEBUG);
             if (!($type instanceof DataType)) {
-                throw new Exception("$class is not an instance of phing.types.DataType");
+                throw new Exception($class . ' is not an instance of phing.types.DataType');
             }
             if ($type instanceof ProjectComponent) {
                 $type->setProject($this->project);
             }
         } catch (Exception $t) {
-            throw new BuildException("Could not create type: $typeName", $t);
+            throw new BuildException('Could not create type: ' . $typeName, $t);
         }
         // everything fine return reference
         return $type;
@@ -323,7 +323,7 @@ class ComponentHelper
 
     private function initDefaultTasks()
     {
-        $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
+        $taskdefs = Phing::getResourcePath('phing/tasks/defaults.properties');
 
         try { // try to load taskdefs
             $props = new Properties();
@@ -346,7 +346,7 @@ class ComponentHelper
 
     private function initDefaultDataTypes()
     {
-        $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
+        $typedefs = Phing::getResourcePath('phing/types/defaults.properties');
 
         try { // try to load typedefs
             $props = new Properties();

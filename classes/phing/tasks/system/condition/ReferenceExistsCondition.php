@@ -44,8 +44,8 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
     {
         if ($this->refid === null) {
             throw new BuildException(
-                "No ref attribute specified for reference-exists "
-                . "condition"
+                'No ref attribute specified for reference-exists '
+                . 'condition'
             );
         }
         $refs = $this->project->getReferences();

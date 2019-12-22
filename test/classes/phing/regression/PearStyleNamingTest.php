@@ -27,12 +27,12 @@ class PearStyleNamingTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/204/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/204/build.xml');
     }
 
     public function testPhingCallTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("SampleTask executed!");
+        $this->executeTarget('main');
+        $this->assertInLogs('SampleTask executed!');
     }
 }

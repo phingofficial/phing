@@ -50,7 +50,7 @@ class InputStream
     public function __construct($stream)
     {
         if (!is_resource($stream)) {
-            throw new IOException("Passed argument is not a valid stream.");
+            throw new IOException('Passed argument is not a valid stream.');
         }
         $this->stream = $stream;
     }
@@ -96,7 +96,7 @@ class InputStream
         }
 
         if ($len === null) { // we want to keep reading until we get an eof
-            $out = "";
+            $out = '';
             while (!$this->eof()) {
                 $out                  .= fread($this->stream, 8192);
                 $this->currentPosition = ftell($this->stream);
@@ -117,7 +117,7 @@ class InputStream
     public function mark()
     {
         if (!$this->markSupported()) {
-            throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
+            throw new IOException(get_class($this) . ' does not support mark() and reset() methods.');
         }
         $this->mark = $this->currentPosition;
     }
@@ -140,7 +140,7 @@ class InputStream
     public function reset()
     {
         if (!$this->markSupported()) {
-            throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
+            throw new IOException(get_class($this) . ' does not support mark() and reset() methods.');
         }
         // goes back to last mark, by default this would be 0 (i.e. rewind file).
         fseek($this->stream, SEEK_SET, $this->mark);
@@ -162,7 +162,7 @@ class InputStream
             $lastError = error_get_last();
             $errormsg  = $lastError['message'];
             // FAILED.
-            $msg = "Cannot fclose " . $this->__toString() . " $errormsg";
+            $msg = 'Cannot fclose ' . $this->__toString() . ' ' . $errormsg;
             throw new IOException($msg);
         }
         $this->stream = null;

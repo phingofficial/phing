@@ -156,7 +156,7 @@ class PhpLintTask extends Task
 
             foreach ($this->badFiles as $file => $messages) {
                 foreach ($messages as $msg) {
-                    $writer->write($file . "=" . $msg . PHP_EOL);
+                    $writer->write($file . '=' . $msg . PHP_EOL);
                 }
             }
 
@@ -166,7 +166,7 @@ class PhpLintTask extends Task
         $message = '';
         foreach ($this->badFiles as $file => $messages) {
             foreach ($messages as $msg) {
-                $message .= $file . "=" . $msg . PHP_EOL;
+                $message .= $file . '=' . $msg . PHP_EOL;
             }
         }
 

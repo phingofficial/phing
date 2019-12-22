@@ -26,7 +26,7 @@ class DescriptionTest extends BuildFileTest
      */
     public function test($fileName, $outcome)
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/types/{$fileName}.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/types/' . $fileName . '.xml');
         $this->assertEquals($outcome, $this->getProject()->getDescription());
     }
 

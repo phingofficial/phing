@@ -344,25 +344,25 @@ class ZendGuardEncodeTask extends MatchingTask
     {
         // Check that the zend encoder path is specified
         if (empty($this->zendEncoderPath)) {
-            throw new BuildException("Zend Encoder path must be specified");
+            throw new BuildException('Zend Encoder path must be specified');
         }
 
         // verify that the zend encoder binary exists
         if (!file_exists($this->zendEncoderPath)) {
-            throw new BuildException("Zend Encoder not found on path " . $this->zendEncoderPath);
+            throw new BuildException('Zend Encoder not found on path ' . $this->zendEncoderPath);
         }
 
         // if either sign or license is required the private key path needs to be defined
         // and the file has to exist and product name has to be specified
         if ($this->signProduct || $this->licenseProduct) {
             if (empty($this->privateKeyPath)) {
-                throw new BuildException("Licensing or signing requested but privateKeyPath not provided.");
+                throw new BuildException('Licensing or signing requested but privateKeyPath not provided.');
             }
             if (!is_readable($this->privateKeyPath)) {
                 throw new BuildException("Licensing or signing requested but private key path doesn't exist or is unreadable.");
             }
             if (empty($this->productName)) {
-                throw new BuildException("Licensing or signing requested but product name not provided.");
+                throw new BuildException('Licensing or signing requested but product name not provided.');
             }
         }
 
@@ -387,7 +387,7 @@ class ZendGuardEncodeTask extends MatchingTask
         try {
             if (empty($this->filesets)) {
                 throw new BuildException(
-                    "You must supply nested fileset.",
+                    'You must supply nested fileset.',
                     $this->getLocation()
                 );
             }
@@ -408,7 +408,7 @@ class ZendGuardEncodeTask extends MatchingTask
                     if ($f->isFile()) {
                         $path = $f->getAbsolutePath();
 
-                        $this->log("Encoding " . $path, Project::MSG_VERBOSE);
+                        $this->log('Encoding ' . $path, Project::MSG_VERBOSE);
                         $this->encodeFile($path);
 
                         $encodedFilesCounter++;
@@ -416,9 +416,9 @@ class ZendGuardEncodeTask extends MatchingTask
                 }
             }
 
-            $this->log("Encoded files: " . $encodedFilesCounter);
+            $this->log('Encoded files: ' . $encodedFilesCounter);
         } catch (IOException $ioe) {
-            $msg = "Problem encoding files: " . $ioe->getMessage();
+            $msg = 'Problem encoding files: ' . $ioe->getMessage();
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
     }
@@ -429,73 +429,73 @@ class ZendGuardEncodeTask extends MatchingTask
      */
     protected function prepareEncoderCommand()
     {
-        $command = $this->zendEncoderPath . " ";
+        $command = $this->zendEncoderPath . ' ';
 
         if (!empty($this->renameSourceExt)) {
-            $command .= " --rename-source " . $this->renameSourceExt . " ";
+            $command .= ' --rename-source ' . $this->renameSourceExt . ' ';
         } elseif ($this->deleteSource) {
             // delete source
-            $command .= " --delete-source ";
+            $command .= ' --delete-source ';
         }
 
         // short tags
-        $command .= " --short-tags " . ($this->shortTags ? 'on' : 'off') . " ";
+        $command .= ' --short-tags ' . ($this->shortTags ? 'on' : 'off') . ' ';
 
         // asp tags
-        $command .= " --asp-tags " . ($this->aspTags ? 'on' : 'off') . " ";
+        $command .= ' --asp-tags ' . ($this->aspTags ? 'on' : 'off') . ' ';
 
         // use crypto
         if ($this->useCrypto) {
-            $command .= " --use-crypto ";
+            $command .= ' --use-crypto ';
         }
 
         // ignore file modes
         if ($this->ignoreFileModes) {
-            $command .= " --ignore-file-modes ";
+            $command .= ' --ignore-file-modes ';
         }
 
         // force encode
         if ($this->forceEncode) {
-            $command .= " --force-encode ";
+            $command .= ' --force-encode ';
         }
 
         // expires
         if (!empty($this->expires)) {
-            $command .= " --expires " . $this->expires . " ";
+            $command .= ' --expires ' . $this->expires . ' ';
         }
 
         // insert prolog file name or no-header
         if (!empty($this->prologFile)) {
-            $command .= " --prolog-filename " . $this->prologFile . " ";
+            $command .= ' --prolog-filename ' . $this->prologFile . ' ';
         } elseif ($this->noHeader) {
             // no-header
-            $command .= " --no-header ";
+            $command .= ' --no-header ';
         }
 
         // obfuscation level
         if ($this->obfuscationLevel > 0) {
-            $command .= " --obfuscation-level " . $this->obfuscationLevel . " ";
+            $command .= ' --obfuscation-level ' . $this->obfuscationLevel . ' ';
         }
 
         // encoded only
         if ($this->encodedOnly) {
-            $command .= " --encoded-only ";
+            $command .= ' --encoded-only ';
         }
 
         // opt mask
         if (null !== $this->optMask) {
-            $command .= " --optimizations " . $this->optMask . " ";
+            $command .= ' --optimizations ' . $this->optMask . ' ';
         }
 
         // Signing or licensing
         if ($this->signProduct) {
-            $command .= " --sign-product " . $this->productName . " --private-key " . $this->privateKeyPath . " ";
+            $command .= ' --sign-product ' . $this->productName . ' --private-key ' . $this->privateKeyPath . ' ';
         } elseif ($this->licenseProduct) {
-            $command .= " --license-product " . $this->productName . " --private-key " . $this->privateKeyPath . " ";
+            $command .= ' --license-product ' . $this->productName . ' --private-key ' . $this->privateKeyPath . ' ';
         }
 
         // add a blank space
-        $command .= " ";
+        $command .= ' ';
 
         $this->encodeCommand = $command;
     }

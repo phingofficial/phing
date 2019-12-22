@@ -56,14 +56,14 @@ class Target implements TaskContainer
      *
      * @var string
      */
-    private $ifCondition = "";
+    private $ifCondition = '';
 
     /**
      * The unless condition from xml
      *
      * @var string
      */
-    private $unlessCondition = "";
+    private $unlessCondition = '';
 
     /**
      * Description of this target
@@ -127,9 +127,9 @@ class Target implements TaskContainer
         $deps = explode(',', $depends);
         for ($i = 0, $size = count($deps); $i < $size; $i++) {
             $trimmed = trim($deps[$i]);
-            if ($trimmed === "") {
+            if ($trimmed === '') {
                 throw new BuildException(
-                    "Syntax Error: Depend attribute for target " . $this->getName() . " is malformed."
+                    'Syntax Error: Depend attribute for target ' . $this->getName() . ' is malformed.'
                 );
             }
             $this->addDependency($trimmed);
@@ -261,7 +261,7 @@ class Target implements TaskContainer
      */
     public function setIf($property)
     {
-        $this->ifCondition = $property ?? "";
+        $this->ifCondition = $property ?? '';
     }
 
     /**
@@ -273,7 +273,7 @@ class Target implements TaskContainer
      */
     public function setUnless($property)
     {
-        $this->unlessCondition = $property ?? "";
+        $this->unlessCondition = $property ?? '';
     }
 
     /**
@@ -382,11 +382,11 @@ class Target implements TaskContainer
      */
     private function testIfCondition()
     {
-        if ($this->ifCondition === "") {
+        if ($this->ifCondition === '') {
             return true;
         }
 
-        $properties = explode(",", $this->ifCondition);
+        $properties = explode(',', $this->ifCondition);
 
         $result = true;
         foreach ($properties as $property) {
@@ -406,11 +406,11 @@ class Target implements TaskContainer
      */
     private function testUnlessCondition()
     {
-        if ($this->unlessCondition === "") {
+        if ($this->unlessCondition === '') {
             return true;
         }
 
-        $properties = explode(",", $this->unlessCondition);
+        $properties = explode(',', $this->unlessCondition);
 
         $result = true;
         foreach ($properties as $property) {

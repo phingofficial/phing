@@ -129,11 +129,11 @@ class PatternSet extends DataType
             throw $this->tooManyAttributes();
         }
         if ($includes !== null && strlen($includes) > 0) {
-            $tok = strtok($includes, ", ");
+            $tok = strtok($includes, ', ');
             while ($tok !== false) {
                 $o = $this->createInclude();
                 $o->setName($tok);
-                $tok = strtok(", ");
+                $tok = strtok(', ');
             }
         }
     }
@@ -154,11 +154,11 @@ class PatternSet extends DataType
             throw $this->tooManyAttributes();
         }
         if ($excludes !== null && strlen($excludes) > 0) {
-            $tok = strtok($excludes, ", ");
+            $tok = strtok($excludes, ', ');
             while ($tok !== false) {
                 $o = $this->createExclude();
                 $o->setName($tok);
-                $tok = strtok(", ");
+                $tok = strtok(', ');
             }
         }
     }
@@ -243,7 +243,7 @@ class PatternSet extends DataType
                 $line = $patternReader->readLine();
             }
         } catch (IOException $ioe) {
-            $msg = "An error occurred while reading from pattern file: " . $patternfile->__toString();
+            $msg = 'An error occurred while reading from pattern file: ' . $patternfile->__toString();
             if ($patternReader) {
                 $patternReader->close();
             }
@@ -264,7 +264,7 @@ class PatternSet extends DataType
     public function append($other, $p)
     {
         if ($this->isReference()) {
-            throw new BuildException("Cannot append to a reference");
+            throw new BuildException('Cannot append to a reference');
         }
 
         $incl = $other->getIncludePatterns($p);
@@ -395,7 +395,7 @@ class PatternSet extends DataType
                 if ($fileName !== null) {
                     $inclFile = $p->resolveFile($fileName);
                     if (!$inclFile->exists()) {
-                        throw new BuildException("Includesfile " . $inclFile->getAbsolutePath() . " not found.");
+                        throw new BuildException('Includesfile ' . $inclFile->getAbsolutePath() . ' not found.');
                     }
                     $this->readPatterns($inclFile, $this->includeList, $p);
                 }
@@ -409,7 +409,7 @@ class PatternSet extends DataType
                 if ($fileName !== null) {
                     $exclFile = $p->resolveFile($fileName);
                     if (!$exclFile->exists()) {
-                        throw new BuildException("Excludesfile " . $exclFile->getAbsolutePath() . " not found.");
+                        throw new BuildException('Excludesfile ' . $exclFile->getAbsolutePath() . ' not found.');
                     }
                     $this->readPatterns($exclFile, $this->excludeList, $p);
                 }
@@ -430,25 +430,25 @@ class PatternSet extends DataType
         // $excludes = $this->makeArray($this->excludeList, $this->project);
 
         if (empty($this->includeList)) {
-            $includes = "empty";
+            $includes = 'empty';
         } else {
-            $includes = "";
+            $includes = '';
             foreach ($this->includeList as $ne) {
-                $includes .= (string) $ne . ",";
+                $includes .= (string) $ne . ',';
             }
-            $includes = rtrim($includes, ",");
+            $includes = rtrim($includes, ',');
         }
 
         if (empty($this->excludeList)) {
-            $excludes = "empty";
+            $excludes = 'empty';
         } else {
-            $excludes = "";
+            $excludes = '';
             foreach ($this->excludeList as $ne) {
-                $excludes .= (string) $ne . ",";
+                $excludes .= (string) $ne . ',';
             }
-            $excludes = rtrim($excludes, ",");
+            $excludes = rtrim($excludes, ',');
         }
 
-        return "patternSet{ includes: $includes  excludes: $excludes }";
+        return sprintf('patternSet{ includes: %s  excludes: %s }', $includes, $excludes);
     }
 }

@@ -161,7 +161,7 @@ class GitPullTask extends GitBaseTask
             if (false === in_array($strategy, $this->validStrategies)) {
                 throw new BuildException(
                     "Could not find merge strategy '" . $strategy . "'\n" .
-                    "Available strategies are: " . implode(', ', $this->validStrategies)
+                    'Available strategies are: ' . implode(', ', $this->validStrategies)
                 );
             }
             $command->setOption('strategy', $strategy);

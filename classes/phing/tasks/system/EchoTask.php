@@ -29,30 +29,30 @@ class EchoTask extends Task
     use DirSetAware;
     use FileSetAware;
 
-    protected $msg = "";
+    protected $msg = '';
 
-    protected $file = "";
+    protected $file = '';
 
     protected $append = false;
 
-    protected $level = "info";
+    protected $level = 'info';
 
     public function main()
     {
         switch ($this->level) {
-            case "error":
+            case 'error':
                 $loglevel = Project::MSG_ERR;
                 break;
-            case "warning":
+            case 'warning':
                 $loglevel = Project::MSG_WARN;
                 break;
-            case "verbose":
+            case 'verbose':
                 $loglevel = Project::MSG_VERBOSE;
                 break;
-            case "debug":
+            case 'debug':
                 $loglevel = Project::MSG_DEBUG;
                 break;
-            case "info":
+            case 'info':
             default:
                 $loglevel = Project::MSG_INFO;
                 break;
@@ -71,9 +71,9 @@ class EchoTask extends Task
             $this->log($this->msg, $loglevel);
         } else {
             if ($this->append) {
-                $handle = fopen($this->file, "a");
+                $handle = fopen($this->file, 'a');
             } else {
-                $handle = fopen($this->file, "w");
+                $handle = fopen($this->file, 'w');
             }
 
             fwrite($handle, $this->msg);

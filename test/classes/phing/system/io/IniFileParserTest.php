@@ -94,31 +94,31 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             [
-                'data' => "# property = test",
+                'data' => '# property = test',
                 'expected' => [],
             ],
             [
-                'data' => "   # property = test",
+                'data' => '   # property = test',
                 'expected' => [],
             ],
             [
-                'data' => "; property = test",
+                'data' => '; property = test',
                 'expected' => [],
             ],
             [
-                'data' => "property=test",
+                'data' => 'property=test',
                 'expected' => [
                     'property' => 'test',
                 ],
             ],
             [
-                'data' => "property = true",
+                'data' => 'property = true',
                 'expected' => [
                     'property' => true,
                 ],
             ],
             [
-                'data' => "property = false",
+                'data' => 'property = false',
                 'expected' => [
                     'property' => false,
                 ],

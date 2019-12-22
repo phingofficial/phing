@@ -40,7 +40,7 @@ class FileSizeTask extends Task
      *
      * @var string $property
      */
-    private $propertyName = "filesize";
+    private $propertyName = 'filesize';
 
     /**
      * Which file to calculate the file size of

@@ -39,7 +39,7 @@ class OutputStream
     public function __construct($stream)
     {
         if (!is_resource($stream)) {
-            throw new IOException("Passed argument is not a valid stream.");
+            throw new IOException('Passed argument is not a valid stream.');
         }
         $this->stream = $stream;
     }
@@ -62,8 +62,8 @@ class OutputStream
             $lastError = error_get_last();
             $errormsg  = $lastError['message'];
             $metaData  = stream_get_meta_data($this->stream);
-            $resource  = $metaData["uri"];
-            $msg       = "Cannot close " . $resource . ": $errormsg";
+            $resource  = $metaData['uri'];
+            $msg       = 'Cannot close ' . $resource . ': ' . $errormsg;
             throw new IOException($msg);
         }
         $this->stream = null;
@@ -80,7 +80,7 @@ class OutputStream
         if (false === @fflush($this->stream)) {
             $lastError = error_get_last();
             $errormsg  = $lastError['message'];
-            throw new IOException("Could not flush stream: " . $errormsg);
+            throw new IOException('Could not flush stream: ' . $errormsg);
         }
     }
 
@@ -110,7 +110,7 @@ class OutputStream
         $result = @fwrite($this->stream, $to_write);
 
         if ($result === false) {
-            throw new IOException("Error writing to stream.");
+            throw new IOException('Error writing to stream.');
         }
     }
 

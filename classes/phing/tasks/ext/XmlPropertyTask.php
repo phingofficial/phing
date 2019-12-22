@@ -67,8 +67,8 @@ class XmlPropertyTask extends PropertyTask
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
-        if (!StringHelper::endsWith(".", $prefix)) {
-            $this->prefix .= ".";
+        if (!StringHelper::endsWith('.', $prefix)) {
+            $this->prefix .= '.';
         }
     }
 
@@ -162,7 +162,7 @@ class XmlPropertyTask extends PropertyTask
     public function main()
     {
         if ($this->file === null) {
-            throw new BuildException("You must specify file to load properties from", $this->getLocation());
+            throw new BuildException('You must specify file to load properties from', $this->getLocation());
         }
 
         $props = $this->loadFile($this->file);
@@ -180,7 +180,7 @@ class XmlPropertyTask extends PropertyTask
      */
     protected function loadFile(PhingFile $file)
     {
-        $this->log("Loading " . $file->getAbsolutePath(), Project::MSG_INFO);
+        $this->log('Loading ' . $file->getAbsolutePath(), Project::MSG_INFO);
         try { // try to load file
             if ($file->exists()) {
                 $parser = new XmlFileParser();
@@ -194,15 +194,15 @@ class XmlPropertyTask extends PropertyTask
             }
 
             if ($this->getRequired()) {
-                throw new BuildException("Could not load required properties file.");
+                throw new BuildException('Could not load required properties file.');
             }
 
             $this->log(
-                "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
+                'Unable to find property file: ' . $file->getAbsolutePath() . '... skipped',
                 Project::MSG_WARN
             );
         } catch (IOException $ioe) {
-            throw new BuildException("Could not load properties from file.", $ioe);
+            throw new BuildException('Could not load properties from file.', $ioe);
         }
     }
 }

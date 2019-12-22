@@ -47,18 +47,18 @@ class FileInputStream extends InputStream
         } elseif (is_string($file)) {
             $this->file = new PhingFile($file);
         } else {
-            throw new Exception("Invalid argument type for \$file.");
+            throw new Exception('Invalid argument type for $file.');
         }
 
         if (!$this->file->exists()) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File does not exists.");
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for reading. File does not exists.');
         }
         if (!$this->file->canRead()) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File not readable.");
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for reading. File not readable.');
         }
-        $stream = @fopen($this->file->getAbsolutePath(), "rb");
+        $stream = @fopen($this->file->getAbsolutePath(), 'rb');
         if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for reading: ' . print_r(
                 error_get_last(),
                 true
             ));

@@ -52,7 +52,7 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getExtension()
     {
-        return ".xml";
+        return '.xml';
     }
 
     /**
@@ -60,7 +60,7 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getPreferredOutfile()
     {
-        return "clover-coverage";
+        return 'clover-coverage';
     }
 
     /**

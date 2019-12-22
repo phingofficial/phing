@@ -149,7 +149,7 @@ class TruncateTask extends Task
         } catch (IOException $e) {
             $exception = $e;
         }
-        $msg = "Unable to create " . $f;
+        $msg = 'Unable to create ' . $f;
         if ($exception === null) {
             $this->log($msg, Project::MSG_WARN);
             return false;
@@ -170,7 +170,7 @@ class TruncateTask extends Task
         $splFile = new SplFileObject($f->getPath(), 'a+');
 
         if (!$splFile->ftruncate((int) $newLength)) {
-            throw new BuildException("Exception working with " . (string) $splFile);
+            throw new BuildException('Exception working with ' . (string) $splFile);
         }
 
         $splFile->rewind();

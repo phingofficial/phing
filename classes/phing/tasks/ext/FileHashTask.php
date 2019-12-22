@@ -40,7 +40,7 @@ class FileHashTask extends Task
      *
      * @var string $property
      */
-    private $propertyName = "filehashvalue";
+    private $propertyName = 'filehashvalue';
 
     /**
      * Specify which hash algorithm to use.
@@ -103,14 +103,14 @@ class FileHashTask extends Task
 
         // read file
         if ($this->algorithm !== '' && in_array($this->algorithm, hash_algos())) {
-            $this->log("Calculating $this->algorithm hash from: " . $this->file);
+            $this->log('Calculating ' . $this->algorithm . ' hash from: ' . $this->file);
             $hashValue = hash_file($this->algorithm, $this->file);
         } elseif ((int) $this->hashtype === 0) {
-            $this->log("Calculating MD5 hash from: " . $this->file);
+            $this->log('Calculating MD5 hash from: ' . $this->file);
             $hashValue       = md5_file($this->file, false);
             $this->algorithm = 'md5';
         } elseif ((int) $this->hashtype === 1) {
-            $this->log("Calculating SHA1 hash from: " . $this->file);
+            $this->log('Calculating SHA1 hash from: ' . $this->file);
             $hashValue       = sha1_file($this->file, false);
             $this->algorithm = 'sha1';
         } else {

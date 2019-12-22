@@ -36,12 +36,12 @@ class PHPMDFormatterElement
      *
      * @var string
      */
-    protected $type = "";
+    protected $type = '';
 
     /**
      * @var string
      */
-    protected $className = "";
+    protected $className = '';
 
     /**
      * Whether to use file (or write output to phing log).

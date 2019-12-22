@@ -87,7 +87,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
 
     public function initialize()
     {
-        $this->doc      = new DOMDocument("1.0", $this->encoding);
+        $this->doc      = new DOMDocument('1.0', $this->encoding);
         $this->rootNode = $this->doc->createElement('results');
         $this->doc->appendChild($this->rootNode);
         $this->doc->formatOutput = $this->formatOutput;

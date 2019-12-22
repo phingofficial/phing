@@ -83,7 +83,7 @@ class AppendTaskTest extends BuildFileTest
         $file     = new PhingFile($this->getProject()->getBasedir(), $this->tempFile);
         $origSize = $file->length();
 
-        $this->executeTarget("testPath");
+        $this->executeTarget('testPath');
 
         $file2   = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
@@ -98,7 +98,7 @@ class AppendTaskTest extends BuildFileTest
         $file     = new PhingFile($this->getProject()->getBasedir(), $this->tempFile);
         $origSize = $file->length();
 
-        $this->executeTarget("testAppend");
+        $this->executeTarget('testAppend');
 
         $file2   = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
@@ -108,12 +108,12 @@ class AppendTaskTest extends BuildFileTest
 
     public function testFilter()
     {
-        $this->expectLog("testfilter", 'REPLACED');
+        $this->expectLog('testfilter', 'REPLACED');
     }
 
     public function testNoOverwrite()
     {
-        $this->executeTarget("testnooverwrite");
+        $this->executeTarget('testnooverwrite');
         $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
         $size  = $file2->length();
         $this->assertEquals($size, 0);
@@ -122,13 +122,13 @@ class AppendTaskTest extends BuildFileTest
     public function testheaderfooter()
     {
         $this->test3();
-        $this->expectLog("testheaderfooter", 'headerHello, World!footer');
+        $this->expectLog('testheaderfooter', 'headerHello, World!footer');
     }
 
     public function testfileheader()
     {
         $this->test3();
-        $this->expectLog("testfileheader", 'Hello, World!Hello, World!');
+        $this->expectLog('testfileheader', 'Hello, World!Hello, World!');
     }
 
     /**
@@ -138,7 +138,7 @@ class AppendTaskTest extends BuildFileTest
     {
         $this->expectException(BuildException::class);
 
-        $this->executeTarget("samefile");
+        $this->executeTarget('samefile');
     }
 
     public function testfilterinline()
@@ -148,19 +148,19 @@ class AppendTaskTest extends BuildFileTest
 
     public function testfixlastline()
     {
-        $this->executeTarget("testfixlastline");
+        $this->executeTarget('testfixlastline');
         $this->assertStringContainsString(
-            "end of line" . $this->getProject()->getProperty("line.separator") . "This has",
-            file_get_contents($this->getProject()->getProperty("basedir") . 'concat.line4')
+            'end of line' . $this->getProject()->getProperty('line.separator') . 'This has',
+            file_get_contents($this->getProject()->getProperty('basedir') . 'concat.line4')
         );
     }
 
     public function testfixlastlineeol()
     {
-        $this->executeTarget("testfixlastlineeol");
+        $this->executeTarget('testfixlastlineeol');
         $this->assertStringContainsString(
             "end of line\rThis has",
-            file_get_contents($this->getProject()->getProperty("basedir") . 'concat.linecr')
+            file_get_contents($this->getProject()->getProperty('basedir') . 'concat.linecr')
         );
     }
 }

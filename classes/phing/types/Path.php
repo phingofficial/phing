@@ -268,7 +268,7 @@ class Path extends DataType
                 $this->setDir($f);
             } else {
                 $this->log(
-                    "dropping " . $f->__toString() . " from path as it doesn't exist",
+                    'dropping ' . $f->__toString() . " from path as it doesn't exist",
                     Project::MSG_VERBOSE
                 );
             }
@@ -313,8 +313,8 @@ class Path extends DataType
                 $parts = $o->getParts();
                 if ($parts === null) {
                     throw new BuildException(
-                        "You must either set location or"
-                        . " path on <pathelement>"
+                        'You must either set location or'
+                        . ' path on <pathelement>'
                     );
                 }
                 foreach ($parts as $part) {
@@ -373,7 +373,7 @@ class Path extends DataType
 
         // empty path return empty string
         if (empty($list)) {
-            return "";
+            return '';
         }
 
         return implode(PATH_SEPARATOR, $list);
@@ -391,7 +391,7 @@ class Path extends DataType
     {
         $result = [];
         if ($source == null) {
-            return "";
+            return '';
         }
 
         $tok = new PathTokenizer($source);
@@ -405,8 +405,8 @@ class Path extends DataType
                 $result[] = $element;
             } catch (BuildException $e) {
                 $project->log(
-                    "Dropping path element " . $pathElement
-                    . " as it is not valid relative to the project",
+                    'Dropping path element ' . $pathElement
+                    . ' as it is not valid relative to the project',
                     Project::MSG_VERBOSE
                 );
             }
@@ -426,7 +426,7 @@ class Path extends DataType
     public static function translateFile($source)
     {
         if ($source == null) {
-            return "";
+            return '';
         }
 
         $result = $source;

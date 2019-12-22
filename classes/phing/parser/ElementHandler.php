@@ -151,7 +151,7 @@ class ElementHandler extends AbstractHandler
             }
         } catch (BuildException $exc) {
             throw new ExpatParseException(
-                "Error initializing nested element <$tag>",
+                sprintf('Error initializing nested element <%s>', $tag),
                 $exc,
                 $this->parser->getLocation()
             );

@@ -89,7 +89,7 @@ class HttpGetTask extends HttpTask
         $request = parent::createRequest();
         $request->setConfig($config);
 
-        $this->log("Fetching " . $this->url);
+        $this->log('Fetching ' . $this->url);
 
         return $request;
     }
@@ -107,8 +107,8 @@ class HttpGetTask extends HttpTask
     {
         if ($response->getStatus() != 200) {
             throw new BuildException(
-                "Request unsuccessful. Response from server: " . $response->getStatus()
-                . " " . $response->getReasonPhrase(),
+                'Request unsuccessful. Response from server: ' . $response->getStatus()
+                . ' ' . $response->getReasonPhrase(),
                 $this->getLocation()
             );
         }
@@ -129,13 +129,13 @@ class HttpGetTask extends HttpTask
         }
 
         if (!is_writable($this->dir)) {
-            throw new BuildException("Cannot write to directory: " . $this->dir, $this->getLocation());
+            throw new BuildException('Cannot write to directory: ' . $this->dir, $this->getLocation());
         }
 
-        $filename = $this->dir . "/" . $filename;
+        $filename = $this->dir . '/' . $filename;
         file_put_contents($filename, $content);
 
-        $this->log("Contents from " . $this->url . " saved to $filename");
+        $this->log('Contents from ' . $this->url . ' saved to ' . $filename);
     }
 
     /**

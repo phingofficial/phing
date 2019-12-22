@@ -57,25 +57,25 @@ class MkdirTask extends Task
     public function main()
     {
         if ($this->dir === null) {
-            throw new BuildException("dir attribute is required", $this->getLocation());
+            throw new BuildException('dir attribute is required', $this->getLocation());
         }
         if ($this->dir->isFile()) {
             throw new BuildException(
-                "Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath()
+                'Unable to create directory as a file already exists with that name: ' . $this->dir->getAbsolutePath()
             );
         }
         if (!$this->dir->exists()) {
             $result = $this->dir->mkdirs($this->mode);
             if (!$result) {
                 if ($this->dir->exists()) {
-                    $this->log("A different process or task has already created " . $this->dir->getAbsolutePath());
+                    $this->log('A different process or task has already created ' . $this->dir->getAbsolutePath());
 
                     return;
                 }
-                $msg = "Directory " . $this->dir->getAbsolutePath() . " creation was not successful for an unknown reason";
+                $msg = 'Directory ' . $this->dir->getAbsolutePath() . ' creation was not successful for an unknown reason';
                 throw new BuildException($msg, $this->getLocation());
             }
-            $this->log("Created dir: " . $this->dir->getAbsolutePath());
+            $this->log('Created dir: ' . $this->dir->getAbsolutePath());
         } else {
             $this->log(
                 'Skipping ' . $this->dir->getAbsolutePath() . ' because it already exists.',

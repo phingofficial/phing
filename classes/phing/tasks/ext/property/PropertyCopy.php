@@ -76,7 +76,7 @@ class PropertyCopy extends AbstractPropertySetterTask
         $value = $this->getProject()->getProperty($this->from);
 
         if ($value === null && !$this->silent) {
-            throw new BuildException("Property '{$this->from}' is not defined.");
+            throw new BuildException("Property '" . $this->from . "' is not defined.");
         }
 
         if ($value !== null) {

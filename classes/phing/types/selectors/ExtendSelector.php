@@ -48,7 +48,7 @@ class ExtendSelector extends BaseSelector
      */
     public function selectorCreate()
     {
-        if ($this->classname !== null && $this->classname !== "") {
+        if ($this->classname !== null && $this->classname !== '') {
             try {
                 // assume it's fully qualified, import it
                 $cls = Phing::import($this->classname);
@@ -57,16 +57,16 @@ class ExtendSelector extends BaseSelector
                 if (class_exists($cls)) {
                     $this->dynselector = new $cls();
                 } else {
-                    $this->setError("Selector " . $this->classname . " not initialized, no such class");
+                    $this->setError('Selector ' . $this->classname . ' not initialized, no such class');
                 }
             } catch (Exception $e) {
                 $this->setError(
-                    "Selector " . $this->classname . " not initialized, could not create class.",
+                    'Selector ' . $this->classname . ' not initialized, could not create class.',
                     $e
                 );
             }
         } else {
-            $this->setError("There is no classname specified");
+            $this->setError('There is no classname specified');
         }
     }
 
@@ -97,13 +97,13 @@ class ExtendSelector extends BaseSelector
         }
 
         if (empty($this->classname)) {
-            $this->setError("The classname attribute is required");
+            $this->setError('The classname attribute is required');
         } elseif ($this->dynselector === null) {
-            $this->setError("Internal Error: The custom selector was not created");
+            $this->setError('Internal Error: The custom selector was not created');
         } elseif (!($this->dynselector instanceof ExtendFileSelector) && (count($this->parameters) > 0)) {
             $this->setError(
-                "Cannot set parameters on custom selector that does not "
-                . "implement ExtendFileSelector."
+                'Cannot set parameters on custom selector that does not '
+                . 'implement ExtendFileSelector.'
             );
         }
     }

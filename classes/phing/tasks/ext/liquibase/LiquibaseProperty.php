@@ -56,7 +56,7 @@ class LiquibaseProperty extends DataType
             return $this->getRef($p)->getCommandline($p);
         }
 
-        return sprintf("-D%s=%s", $this->name, escapeshellarg($this->value));
+        return sprintf('-D%s=%s', $this->name, escapeshellarg($this->value));
     }
 
     /**
