@@ -403,7 +403,7 @@ class Project
      */
     public function setDescription($description)
     {
-        $this->description = (string) trim($description);
+        $this->description = $description;
     }
 
     /**
@@ -413,6 +413,9 @@ class Project
      */
     public function getDescription()
     {
+        if ($this->description === null) {
+            $this->description = Description::getAll($this);
+        }
         return $this->description;
     }
 
