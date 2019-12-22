@@ -28,7 +28,7 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
      *
      * @var string
      */
-    protected $type = "";
+    protected $type = '';
 
     /**
      * Output to file?
@@ -42,7 +42,7 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
      *
      * @var string
      */
-    protected $outfile = "";
+    protected $outfile = '';
 
     /**
      * Validate config.

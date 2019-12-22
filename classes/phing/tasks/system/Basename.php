@@ -79,11 +79,11 @@ class Basename extends Task
     public function main()
     {
         if ($this->property === null) {
-            throw new BuildException("property attribute required", $this->getLocation());
+            throw new BuildException('property attribute required', $this->getLocation());
         }
 
         if ($this->file === null) {
-            throw new BuildException("file attribute required", $this->getLocation());
+            throw new BuildException('file attribute required', $this->getLocation());
         }
 
         $this->getProject()->setNewProperty(

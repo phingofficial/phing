@@ -30,7 +30,7 @@ class PhpCSTaskTest extends BuildFileTest
         if (class_exists('PHP_CodeSniffer')) {
             $this->markTestSkipped('PHP CodeSniffer 2 package available.');
         }
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/build.xml');
     }
 
     public function testPhpCs()

@@ -29,14 +29,14 @@ class CopyTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/CopyTaskTest.xml"
+            . '/etc/tasks/system/CopyTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     /**
@@ -44,8 +44,8 @@ class CopyTaskTest extends BuildFileTest
      */
     public function testCopyDanglingSymlink()
     {
-        $this->executeTarget("testCopyDanglingSymlink");
-        $this->assertInLogs("Copying 1 file to");
+        $this->executeTarget('testCopyDanglingSymlink');
+        $this->assertInLogs('Copying 1 file to');
     }
 
     /**
@@ -58,7 +58,7 @@ class CopyTaskTest extends BuildFileTest
     public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+        $this->assertInLogs('Copying 2 files to');
         $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
     }
 
@@ -69,7 +69,7 @@ class CopyTaskTest extends BuildFileTest
     public function testCopyFileList()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+        $this->assertInLogs('Copying 2 files to');
     }
 
     /**
@@ -78,7 +78,7 @@ class CopyTaskTest extends BuildFileTest
     public function testCopyDirSet()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+        $this->assertInLogs('Copying 2 files to');
     }
 
     /**
@@ -90,7 +90,7 @@ class CopyTaskTest extends BuildFileTest
     public function testOverwriteExistingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 1 file to");
-        $this->assertEquals("tmp/target-a", readlink(PHING_TEST_BASE . "/etc/tasks/system/tmp/link-b"));
+        $this->assertInLogs('Copying 1 file to');
+        $this->assertEquals('tmp/target-a', readlink(PHING_TEST_BASE . '/etc/tasks/system/tmp/link-b'));
     }
 }

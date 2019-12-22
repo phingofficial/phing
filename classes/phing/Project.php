@@ -389,7 +389,7 @@ class Project
     public function setName($name)
     {
         $this->name = (string) trim($name);
-        $this->setUserProperty("phing.project.name", $this->name);
+        $this->setUserProperty('phing.project.name', $this->name);
     }
 
     /**
@@ -467,7 +467,7 @@ class Project
     public function setStrictMode(bool $strictmode)
     {
         $this->strictMode = $strictmode;
-        $this->setProperty("phing.project.strictmode", $this->strictMode);
+        $this->setProperty('phing.project.strictmode', $this->strictMode);
     }
 
     /**
@@ -498,14 +498,14 @@ class Project
 
         $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {
-            throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
+            throw new BuildException('Basedir ' . $dir->getAbsolutePath() . ' does not exist');
         }
         if (!$dir->isDirectory()) {
-            throw new BuildException("Basedir " . $dir->getAbsolutePath() . " is not a directory");
+            throw new BuildException('Basedir ' . $dir->getAbsolutePath() . ' is not a directory');
         }
         $this->basedir = $dir;
-        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
-        $this->log("Project base dir set to: " . $this->basedir->getPath(), self::MSG_VERBOSE);
+        $this->setPropertyInternal('project.basedir', $this->basedir->getAbsolutePath());
+        $this->log('Project base dir set to: ' . $this->basedir->getPath(), self::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
         chdir($dir->getAbsolutePath());
@@ -524,9 +524,9 @@ class Project
     {
         if ($this->basedir === null) {
             try { // try to set it
-                $this->setBasedir(".");
+                $this->setBasedir('.');
             } catch (BuildException $exc) {
-                throw new BuildException("Can not set default basedir. " . $exc->getMessage());
+                throw new BuildException('Can not set default basedir. ' . $exc->getMessage());
             }
         }
 
@@ -637,7 +637,7 @@ class Project
     public function addTarget($targetName, $target)
     {
         if (isset($this->targets[$targetName])) {
-            throw new BuildException("Duplicate target: $targetName");
+            throw new BuildException('Duplicate target: ' . $targetName);
         }
         $this->addOrReplaceTarget($targetName, $target);
     }
@@ -650,7 +650,7 @@ class Project
      */
     public function addOrReplaceTarget($targetName, &$target)
     {
-        $this->log("  +Target: $targetName", self::MSG_DEBUG);
+        $this->log('  +Target: ' . $targetName, self::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
 
@@ -752,7 +752,7 @@ class Project
     {
         // complain about executing void
         if ($targetName === null) {
-            throw new BuildException("No target specified");
+            throw new BuildException('No target specified');
         }
 
         // invoke topological sort of the target tree and run all targets
@@ -872,11 +872,11 @@ class Project
 
         $this->_tsort($rootTarget, $state, $visiting, $ret);
 
-        $retHuman = "";
+        $retHuman = '';
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= (string) $ret[$i] . " ";
+            $retHuman .= (string) $ret[$i] . ' ';
         }
-        $this->log("Build sequence for target '$rootTarget' is: $retHuman", self::MSG_VERBOSE);
+        $this->log(sprintf("Build sequence for target '%s' is: %s", $rootTarget, $retHuman), self::MSG_VERBOSE);
 
         $keys = array_keys($this->targets);
         while ($keys) {
@@ -889,16 +889,16 @@ class Project
 
             if ($st === null) {
                 $this->_tsort($curTargetName, $state, $visiting, $ret);
-            } elseif ($st === "VISITING") {
-                throw new Exception("Unexpected node in visiting state: $curTargetName");
+            } elseif ($st === 'VISITING') {
+                throw new Exception('Unexpected node in visiting state: ' . $curTargetName);
             }
         }
 
-        $retHuman = "";
+        $retHuman = '';
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= (string) $ret[$i] . " ";
+            $retHuman .= (string) $ret[$i] . ' ';
         }
-        $this->log("Complete build sequence is: $retHuman", self::MSG_VERBOSE);
+        $this->log('Complete build sequence is: ' . $retHuman, self::MSG_VERBOSE);
 
         return $ret;
     }
@@ -931,7 +931,7 @@ class Project
      */
     public function _tsort($root, &$state, &$visiting, &$ret)
     {
-        $state[$root] = "VISITING";
+        $state[$root] = 'VISITING';
         $visiting[]   = $root;
 
         if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
@@ -942,11 +942,11 @@ class Project
 
         // make sure we exist
         if ($target === null) {
-            $sb = "Target '$root' does not exist in this project.";
+            $sb = sprintf("Target '%s' does not exist in this project.", $root);
             array_pop($visiting);
             if (!empty($visiting)) {
                 $parent = (string) $visiting[count($visiting) - 1];
-                $sb    .= " It is a dependency of target '$parent'.";
+                $sb    .= sprintf(" It is a dependency of target '%s'.", $parent);
             }
             throw new BuildException($sb);
         }
@@ -963,7 +963,7 @@ class Project
             if ($m === null) {
                 // not been visited
                 $this->_tsort($cur, $state, $visiting, $ret);
-            } elseif ($m == "VISITING") {
+            } elseif ($m == 'VISITING') {
                 // currently visiting this node, so have a cycle
                 throw $this->_makeCircularException($cur, $visiting);
             }
@@ -971,10 +971,10 @@ class Project
 
         $p = (string) array_pop($visiting);
         if ($root !== $p) {
-            throw new Exception("Unexpected internal error: expected to pop $root but got $p");
+            throw new Exception(sprintf('Unexpected internal error: expected to pop %s but got %s', $root, $p));
         }
 
-        $state[$root] = "VISITED";
+        $state[$root] = 'VISITED';
         $ret[]        = $target;
     }
 
@@ -986,10 +986,10 @@ class Project
      */
     public function _makeCircularException($end, $stk)
     {
-        $sb = "Circular dependency: $end";
+        $sb = 'Circular dependency: ' . $end;
         do {
             $c   = (string) array_pop($stk);
-            $sb .= " <- " . $c;
+            $sb .= ' <- ' . $c;
         } while ($c != $end);
 
         return new BuildException($sb);
@@ -1010,10 +1010,10 @@ class Project
             return;
         }
         if ($ref !== null && !$ref instanceof UnknownElement) {
-            $this->log("Overriding previous definition of reference to $name", self::MSG_VERBOSE);
+            $this->log('Overriding previous definition of reference to ' . $name, self::MSG_VERBOSE);
         }
         $refName = is_scalar($object) || $object instanceof PropertyValue ? (string) $object : get_class($object);
-        $this->log("Adding reference: $name -> " . $refName, self::MSG_DEBUG);
+        $this->log('Adding reference: ' . $name . ' -> ' . $refName, self::MSG_DEBUG);
         $this->references[$name] = $object;
     }
 

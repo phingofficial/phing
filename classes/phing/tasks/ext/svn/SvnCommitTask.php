@@ -35,7 +35,7 @@ class SvnCommitTask extends SvnBaseTask
      * Property name where we store the revision number of the just
      * committed version.
      */
-    private $propertyName = "svn.committedrevision";
+    private $propertyName = 'svn.committedrevision';
 
     /**
      * Sets the commit message

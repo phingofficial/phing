@@ -29,7 +29,7 @@
  */
 class ProjectConfigurator
 {
-    public const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
+    public const PARSING_CONTEXT_REFERENCE = 'phing.parsing.context';
 
     /**
      * @var Project $project
@@ -225,7 +225,7 @@ class ProjectConfigurator
         $parser = new ExpatParser($reader);
         $parser->parserSetOption(XML_OPTION_CASE_FOLDING, 0);
         $parser->setHandler(new RootHandler($parser, $this, $ctx));
-        $this->project->log("parsing buildfile " . $this->buildFile->getName(), Project::MSG_VERBOSE);
+        $this->project->log('parsing buildfile ' . $this->buildFile->getName(), Project::MSG_VERBOSE);
         $parser->parse();
         $reader->close();
 
@@ -288,7 +288,7 @@ class ProjectConfigurator
                 $ih->setAttribute($project, $target, strtolower($key), $value);
             } catch (BuildException $be) {
                 // id attribute must be set externally
-                if ($key !== "id") {
+                if ($key !== 'id') {
                     throw $be;
                 }
             }
@@ -356,7 +356,7 @@ class ProjectConfigurator
             return $ex;
         }
         $errorMessage = sprintf(
-            "The following error occurred while executing this line:%s%s %s%s",
+            'The following error occurred while executing this line:%s%s %s%s',
             PHP_EOL,
             $ex->getLocation(),
             $ex->getMessage(),

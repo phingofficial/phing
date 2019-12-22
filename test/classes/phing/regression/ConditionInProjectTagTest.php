@@ -27,12 +27,12 @@ class ConditionInProjectTagTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/943/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/943/build.xml');
     }
 
     public function testConditionInProjectTag()
     {
-        $this->executeTarget("test");
-        $this->assertInLogs("Message");
+        $this->executeTarget('test');
+        $this->assertInLogs('Message');
     }
 }

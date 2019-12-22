@@ -91,7 +91,7 @@ class UpToDateTask extends Task implements Condition
      */
     private function getValue()
     {
-        return $this->value ?? "true";
+        return $this->value ?? 'true';
     }
 
     /**
@@ -129,7 +129,7 @@ class UpToDateTask extends Task implements Condition
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
-                "Cannot define more than one mapper",
+                'Cannot define more than one mapper',
                 $this->getLocation()
             );
         }
@@ -150,23 +150,23 @@ class UpToDateTask extends Task implements Condition
     {
         if (count($this->filesets) == 0 && count($this->filelists) == 0 && $this->sourceFile === null) {
             throw new BuildException(
-                "At least one srcfile or a nested "
-                . "<fileset> or <filelist> element must be set."
+                'At least one srcfile or a nested '
+                . '<fileset> or <filelist> element must be set.'
             );
         }
 
         if ((count($this->filesets) > 0 || count($this->filelists) > 0) && $this->sourceFile !== null) {
             throw new BuildException(
-                "Cannot specify both the srcfile "
-                . "attribute and a nested <fileset> "
-                . "or <filelist> element."
+                'Cannot specify both the srcfile '
+                . 'attribute and a nested <fileset> '
+                . 'or <filelist> element.'
             );
         }
 
         if ($this->targetFile === null && $this->mapperElement === null) {
             throw new BuildException(
-                "The targetfile attribute or a nested "
-                . "mapper element must be set."
+                'The targetfile attribute or a nested '
+                . 'mapper element must be set.'
             );
         }
 
@@ -179,7 +179,7 @@ class UpToDateTask extends Task implements Condition
         if ($this->sourceFile !== null && !$this->sourceFile->exists()) {
             throw new BuildException(
                 $this->sourceFile->getAbsolutePath()
-                . " not found."
+                . ' not found.'
             );
         }
 
@@ -233,7 +233,7 @@ class UpToDateTask extends Task implements Condition
     {
         if ($this->property === null) {
             throw new BuildException(
-                "property attribute is required.",
+                'property attribute is required.',
                 $this->getLocation()
             );
         }
@@ -247,13 +247,13 @@ class UpToDateTask extends Task implements Condition
 
             if ($this->mapperElement === null) {
                 $this->log(
-                    "File \"" . $this->targetFile->getAbsolutePath()
-                    . "\" is up-to-date.",
+                    'File "' . $this->targetFile->getAbsolutePath()
+                    . '" is up-to-date.',
                     Project::MSG_VERBOSE
                 );
             } else {
                 $this->log(
-                    "All target files are up-to-date.",
+                    'All target files are up-to-date.',
                     Project::MSG_VERBOSE
                 );
             }

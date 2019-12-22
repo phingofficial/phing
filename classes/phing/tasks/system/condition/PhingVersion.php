@@ -75,10 +75,10 @@ class PhingVersion extends Task implements Condition
     private function validate()
     {
         if ($this->atLeast != null && $this->exactly != null) {
-            throw new BuildException("Only one of atleast or exactly may be set.");
+            throw new BuildException('Only one of atleast or exactly may be set.');
         }
         if (null == $this->atLeast && null == $this->exactly) {
-            throw new BuildException("One of atleast or exactly must be set.");
+            throw new BuildException('One of atleast or exactly must be set.');
         }
     }
 

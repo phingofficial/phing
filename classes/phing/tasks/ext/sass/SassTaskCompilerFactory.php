@@ -65,7 +65,7 @@ class SassTaskCompilerFactory
     private function assertCompilerIsSet(SassTask $sassTask): void
     {
         if (!$sassTask->getUseSass() && !$sassTask->getUseScssPhp()) {
-            throw new BuildException("Neither sass nor scssphp are to be used.");
+            throw new BuildException('Neither sass nor scssphp are to be used.');
         }
     }
 
@@ -73,7 +73,7 @@ class SassTaskCompilerFactory
     {
         if (!$this->isScssPhpLoaded()) {
             $msg = sprintf(
-                "Install scssphp/scssphp."
+                'Install scssphp/scssphp.'
             );
             throw new BuildException($msg);
         }
@@ -83,7 +83,7 @@ class SassTaskCompilerFactory
     {
         if ($this->fs->which($sassTask->getExecutable()) === false) {
             $msg = sprintf(
-                "%s not found. Install sass.",
+                '%s not found. Install sass.',
                 $sassTask->getExecutable()
             );
             throw new BuildException($msg);

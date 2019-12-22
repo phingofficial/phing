@@ -26,7 +26,7 @@ class ConsoleInputHandlerTest extends TestCase
     {
         $inputStream = $this->createStream([' ']);
         $output      = new NullOutput();
-        $request     = new InputRequest("Enter a value");
+        $request     = new InputRequest('Enter a value');
         $request->setDefaultValue('default');
         $handler = new ConsoleInputHandler($inputStream, $output);
 
@@ -39,7 +39,7 @@ class ConsoleInputHandlerTest extends TestCase
     {
         $inputStream = $this->createStream(['choice1']);
         $output      = new NullOutput();
-        $request     = new MultipleChoiceInputRequest("Enter a choice", ['choice1', 'choice2']);
+        $request     = new MultipleChoiceInputRequest('Enter a choice', ['choice1', 'choice2']);
         $handler     = new ConsoleInputHandler($inputStream, $output);
 
         $handler->handleInput($request);
@@ -51,7 +51,7 @@ class ConsoleInputHandlerTest extends TestCase
     {
         $inputStream = $this->createStream(['no']);
         $output      = new NullOutput();
-        $request     = new YesNoInputRequest("Enter a choice", ['yes', 'no']);
+        $request     = new YesNoInputRequest('Enter a choice', ['yes', 'no']);
         $handler     = new ConsoleInputHandler($inputStream, $output);
 
         $handler->handleInput($request);

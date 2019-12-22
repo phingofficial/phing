@@ -123,7 +123,7 @@ class ImportTask extends Task
             throw new BuildException('import only allowed as a top-level task');
         }
         if ($this->getLocation() === null || $this->getLocation()->getFileName() === null) {
-            throw new BuildException("Unable to get location of import task");
+            throw new BuildException('Unable to get location of import task');
         }
 
         // Single file.
@@ -133,7 +133,7 @@ class ImportTask extends Task
                 $file = new PhingFile($this->project->getBasedir(), $this->file);
             }
             if (!$file->exists()) {
-                $msg = "Unable to find build file: {$file->getPath()}";
+                $msg = 'Unable to find build file: ' . $file->getPath();
                 if ($this->optional) {
                     $this->log($msg . '... skipped');
                     return;
@@ -185,8 +185,7 @@ class ImportTask extends Task
         // processed, the properties and targets of this new file may not take
         // effect if they have alreday been defined in the outer scope.
         $this->log(
-            "Importing file {$file->getAbsolutePath()} from "
-            . $this->getLocation()->getFileName(),
+            sprintf('Importing file %s from %s', $file->getAbsolutePath(), $this->getLocation()->getFileName()),
             Project::MSG_VERBOSE
         );
         ProjectConfigurator::configureProject($this->project, $file);

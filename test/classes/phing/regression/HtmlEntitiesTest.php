@@ -27,12 +27,12 @@ class HtmlEntitiesTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/360/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/360/build.xml');
     }
 
     public function testCopyTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("&amp;");
+        $this->executeTarget('main');
+        $this->assertInLogs('&amp;');
     }
 }

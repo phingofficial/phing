@@ -98,12 +98,12 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
             try {
                 $buffer = $regexp->replace($buffer);
                 $this->log(
-                    "Performing regexp replace: /" . $regexp->getPattern() . "/" . $regexp->getReplace() . "/g" . $regexp->getModifiers(),
+                    'Performing regexp replace: /' . $regexp->getPattern() . '/' . $regexp->getReplace() . '/g' . $regexp->getModifiers(),
                     Project::MSG_VERBOSE
                 );
             } catch (Exception $e) {
                 // perhaps mismatch in params (e.g. no replace or pattern specified)
-                $this->log("Error performing regexp replace: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error performing regexp replace: ' . $e->getMessage(), Project::MSG_WARN);
             }
         }
 

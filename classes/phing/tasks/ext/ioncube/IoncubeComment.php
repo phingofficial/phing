@@ -26,7 +26,7 @@
  */
 class IoncubeComment
 {
-    private $value = "";
+    private $value = '';
 
     /**
      * @return string

@@ -27,14 +27,14 @@ class PhingCallAdhocTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/299/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/299/build.xml');
     }
 
     public function testPhingCallTask()
     {
         ob_start();
-        $this->executeTarget("main");
+        $this->executeTarget('main');
         ob_end_clean();
-        $this->assertInLogs("foo: success!");
+        $this->assertInLogs('foo: success!');
     }
 }

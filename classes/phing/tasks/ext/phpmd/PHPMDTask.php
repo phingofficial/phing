@@ -86,7 +86,7 @@ class PHPMDTask extends Task
     /**
      * @var string
      */
-    protected $pharLocation = "";
+    protected $pharLocation = '';
 
     /**
      * Cache data storage
@@ -216,7 +216,7 @@ class PHPMDTask extends Task
 
         if (!class_exists($className)) {
             @include_once 'PHP/PMD.php';
-            $className        = "PHP_PMD";
+            $className        = 'PHP_PMD';
             $this->newVersion = false;
         }
 
@@ -321,7 +321,7 @@ class PHPMDTask extends Task
         if ($this->newVersion) {
             $ruleSetFactory = new \PHPMD\RuleSetFactory();
         } else {
-            if (!class_exists("PHP_PMD_RuleSetFactory")) {
+            if (!class_exists('PHP_PMD_RuleSetFactory')) {
                 @include 'PHP/PMD/RuleSetFactory.php';
             }
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();

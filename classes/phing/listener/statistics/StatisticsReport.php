@@ -34,11 +34,11 @@ class StatisticsReport
     private static $IDX_PERCENTAGE = 4;
 
     private static $HEADERS = [
-        "name",
-        "count",
-        "average",
-        "total",
-        "%",
+        'name',
+        'count',
+        'average',
+        'total',
+        '%',
     ];
 
     private static $TIME_FORMATTER;
@@ -132,8 +132,8 @@ class StatisticsReport
     public function write(ProjectTimer $projectTimer = null)
     {
         if ($projectTimer !== null) {
-            $this->create("Target Statistics", $projectTimer->toTargetSeriesMap());
-            $this->create("Task Statistics", $projectTimer->toTaskSeriesMap());
+            $this->create('Target Statistics', $projectTimer->toTargetSeriesMap());
+            $this->create('Task Statistics', $projectTimer->toTaskSeriesMap());
         } else {
             $projectSeriesMap = new SeriesMap();
             $sb               = '';
@@ -146,18 +146,18 @@ class StatisticsReport
                 $sb .= PHP_EOL;
             }
             print PHP_EOL;
-            print $this->create("Project Statistics", $projectSeriesMap);
+            print $this->create('Project Statistics', $projectSeriesMap);
             print PHP_EOL . $sb;
         }
     }
 
     private function createTaskStatistics(ProjectTimer $projectTimer)
     {
-        return $this->create("Task Statistics - " . $projectTimer->getName(), $projectTimer->toTaskSeriesMap());
+        return $this->create('Task Statistics - ' . $projectTimer->getName(), $projectTimer->toTaskSeriesMap());
     }
 
     private function createTargetStatistics(ProjectTimer $projectTimer)
     {
-        return $this->create("Target Statistics - " . $projectTimer->getName(), $projectTimer->toTargetSeriesMap());
+        return $this->create('Target Statistics - ' . $projectTimer->getName(), $projectTimer->toTargetSeriesMap());
     }
 }

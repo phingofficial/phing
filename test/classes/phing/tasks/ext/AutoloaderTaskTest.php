@@ -25,20 +25,20 @@ class AutoloaderTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/autoloader/autoloader.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/autoloader/autoloader.xml');
     }
 
     public function testDefault()
     {
         $this->expectBuildException(
-            "testDefault",
+            'testDefault',
             sprintf('Provided autoloader file "%s" is not a readable file', AutoloaderTask::DEFAULT_AUTOLOAD_PATH)
         );
     }
 
     public function testExisting()
     {
-        $this->expectLog("testExisting", 'Loading autoloader from autoload.php');
+        $this->expectLog('testExisting', 'Loading autoloader from autoload.php');
         $this->assertTrue(class_exists('Phing_Autoload_Stub', false));
     }
 }

@@ -170,9 +170,9 @@ class DbDeployTask extends Task
             $dbh                  = new PDO($this->url, $this->userid, $this->password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->dbmsSyntax->applyAttributes($dbh);
-            $sql = "SELECT *
-                    FROM " . self::$TABLE_NAME . "
-                    WHERE delta_set = '$this->deltaSet'
+            $sql = 'SELECT *
+                    FROM ' . self::$TABLE_NAME . "
+                    WHERE delta_set = '" . $this->deltaSet . "'
                     ORDER BY change_number";
             foreach ($dbh->query($sql) as $change) {
                 $appliedChangeNumbers[] = $change['change_number'];
@@ -218,7 +218,7 @@ class DbDeployTask extends Task
      */
     protected function createOutputFile($file, $undo = false)
     {
-        $fileHandle = fopen($file, "w+");
+        $fileHandle = fopen($file, 'w+');
         $sql        = $this->generateSql($undo);
         fwrite($fileHandle, $sql);
     }

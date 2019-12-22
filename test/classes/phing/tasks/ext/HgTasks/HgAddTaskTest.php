@@ -30,7 +30,7 @@ class HgAddTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testWrongRepository()
@@ -38,7 +38,7 @@ class HgAddTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'wrongRepository',
             'is not a directory',
-            "does not exist"
+            'does not exist'
         );
     }
 }

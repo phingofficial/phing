@@ -21,14 +21,14 @@ class IniFileTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/inifile/inifile.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/inifile/inifile.xml');
         $this->inifiletestdir = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'inifile';
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testNoSourceOrDestSet()
@@ -64,8 +64,8 @@ class IniFileTaskTest extends BuildFileTest
     public function testExistingSource()
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
-        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
-        $this->executeTarget("existingSource");
+        file_put_contents($this->inifiletestdir . '/source.ini', $fill);
+        $this->executeTarget('existingSource');
 
         $this->assertInLogs('Read from ./../../../../tmp/inifile/source.ini');
         $this->assertInLogs('[test] foo set to qux');
@@ -75,8 +75,8 @@ class IniFileTaskTest extends BuildFileTest
     public function testExistingSourceWithVerbose()
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
-        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
-        $this->executeTarget("existingSourceWithVerbose");
+        file_put_contents($this->inifiletestdir . '/source.ini', $fill);
+        $this->executeTarget('existingSourceWithVerbose');
 
         $this->assertInLogs('Read from ./../../../../tmp/inifile/source.ini');
         $this->assertInLogs('[test] foo set to qux', Project::MSG_INFO);
@@ -86,34 +86,34 @@ class IniFileTaskTest extends BuildFileTest
     public function testRemoveKeyFromSectionInSourceFile()
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
-        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
-        $this->executeTarget("removeKeyFromSectionInSourceFile");
+        file_put_contents($this->inifiletestdir . '/source.ini', $fill);
+        $this->executeTarget('removeKeyFromSectionInSourceFile');
 
         $this->assertInLogs('Read from ./../../../../tmp/inifile/source.ini');
         $this->assertInLogs('foo in section [test] has been removed.');
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
-        $result = file_get_contents($this->inifiletestdir . "/destination.ini");
+        $result = file_get_contents($this->inifiletestdir . '/destination.ini');
         $this->assertEquals($result, "[test]\n; a comment\n");
     }
 
     public function testRemoveSectionFromSourceFile()
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
-        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
-        $this->executeTarget("removeSectionFromSourceFile");
+        file_put_contents($this->inifiletestdir . '/source.ini', $fill);
+        $this->executeTarget('removeSectionFromSourceFile');
 
         $this->assertInLogs('Read from ./../../../../tmp/inifile/source.ini');
         $this->assertInLogs('[test] has been removed.');
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
-        $result = file_get_contents($this->inifiletestdir . "/destination.ini");
-        $this->assertEquals($result, "");
+        $result = file_get_contents($this->inifiletestdir . '/destination.ini');
+        $this->assertEquals($result, '');
     }
 
     public function testDefaultValueInSecondSection()
     {
         $fill = ["[test]\n", "foo=bar\n", "[test2]\n", "foo=\n"];
-        file_put_contents($this->inifiletestdir . "/source.ini", $fill);
-        $this->executeTarget("defaultValueInSecondSection");
+        file_put_contents($this->inifiletestdir . '/source.ini', $fill);
+        $this->executeTarget('defaultValueInSecondSection');
         $this->assertInLogs("Set property qux to value 'bar' read from key foo in section test");
         $this->assertInLogs("Set property qux to value 'notSet' read from key foo in section test2");
     }

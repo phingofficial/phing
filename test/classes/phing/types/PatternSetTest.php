@@ -28,8 +28,8 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
 
     public function testBothEmpty()
     {
-        $s = "" . $this->patternset;
-        $this->assertEquals($s, "patternSet{ includes: empty  excludes: empty }");
+        $s = '' . $this->patternset;
+        $this->assertEquals($s, 'patternSet{ includes: empty  excludes: empty }');
         $this->assertEquals(false, $this->patternset->hasPatterns());
     }
 

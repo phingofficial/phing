@@ -28,7 +28,7 @@ class PHPUnitTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpunit/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpunit/build.xml');
     }
 
     /**
@@ -38,7 +38,7 @@ class PHPUnitTaskTest extends BuildFileTest
     public function testPlainFormatterDataProvider()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Tests run: 2, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
+        $this->assertInLogs('Tests run: 2, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:');
     }
 
     /**
@@ -48,7 +48,7 @@ class PHPUnitTaskTest extends BuildFileTest
     public function testXmlFormatter()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
+        $this->assertInLogs('<testcase name="testSayHello" class="HelloWorldTest"');
     }
 
     /**
@@ -64,7 +64,7 @@ class PHPUnitTaskTest extends BuildFileTest
      */
     public function testShouldNotIgnoreFailuresAfterError()
     {
-        $this->expectBuildException(__FUNCTION__, "Fail");
+        $this->expectBuildException(__FUNCTION__, 'Fail');
     }
 
     /**

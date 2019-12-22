@@ -78,6 +78,6 @@ class ConsoleReader extends Reader
      */
     public function getResource()
     {
-        return "console";
+        return 'console';
     }
 }

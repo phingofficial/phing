@@ -44,7 +44,7 @@ class SvnUpdateTask extends SvnBaseTask
         $this->setup('update');
 
         $this->log(
-            "Updating SVN repository at '" . $this->getToDir() . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+            "Updating SVN repository at '" . $this->getToDir() . "'" . ($this->revision == 'HEAD' ? '' : ' (revision: ' . $this->revision . ')')
         );
 
         // revision

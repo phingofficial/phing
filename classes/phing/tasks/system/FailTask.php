@@ -128,27 +128,27 @@ class FailTask extends Task
             if ($this->message !== null && strlen(trim($this->message)) > 0) {
                 $text = trim($this->message);
             } else {
-                if ($this->ifCondition !== null && $this->ifCondition !== "" && $this->testIfCondition()) {
-                    $text = "if=" . $this->ifCondition;
+                if ($this->ifCondition !== null && $this->ifCondition !== '' && $this->testIfCondition()) {
+                    $text = 'if=' . $this->ifCondition;
                 }
-                if ($this->unlessCondition !== null && $this->unlessCondition !== "" && $this->testUnlessCondition()) {
+                if ($this->unlessCondition !== null && $this->unlessCondition !== '' && $this->testUnlessCondition()) {
                     if ($text === null) {
-                        $text = "";
+                        $text = '';
                     } else {
-                        $text .= " and ";
+                        $text .= ' and ';
                     }
-                    $text .= "unless=" . $this->unlessCondition;
+                    $text .= 'unless=' . $this->unlessCondition;
                 }
                 if ($this->nestedConditionPresent()) {
-                    $text = "condition satisfied";
+                    $text = 'condition satisfied';
                 } else {
                     if ($text === null) {
-                        $text = "No message";
+                        $text = 'No message';
                     }
                 }
             }
 
-            $this->log("failing due to " . $text, Project::MSG_DEBUG);
+            $this->log('failing due to ' . $text, Project::MSG_DEBUG);
             if ($this->status === null) {
                 throw new BuildException($text);
             }
@@ -167,7 +167,7 @@ class FailTask extends Task
     public function createCondition()
     {
         if ($this->nestedCondition !== null) {
-            throw new BuildException("Only one nested condition is allowed.");
+            throw new BuildException('Only one nested condition is allowed.');
         }
         $this->nestedCondition = new NestedCondition();
         return $this->nestedCondition;
@@ -183,7 +183,7 @@ class FailTask extends Task
     public function addText($msg)
     {
         if ($this->message === null) {
-            $this->message = "";
+            $this->message = '';
         }
         $this->message .= $this->project->replaceProperties($msg);
     }
@@ -193,7 +193,7 @@ class FailTask extends Task
      */
     protected function testIfCondition()
     {
-        if ($this->ifCondition === null || $this->ifCondition === "") {
+        if ($this->ifCondition === null || $this->ifCondition === '') {
             return true;
         }
 
@@ -205,7 +205,7 @@ class FailTask extends Task
      */
     protected function testUnlessCondition()
     {
-        if ($this->unlessCondition === null || $this->unlessCondition === "") {
+        if ($this->unlessCondition === null || $this->unlessCondition === '') {
             return true;
         }
 
@@ -224,7 +224,7 @@ class FailTask extends Task
         $result = $this->nestedConditionPresent();
 
         if ($result && ($this->ifCondition !== null || $this->unlessCondition !== null)) {
-            throw new BuildException("Nested conditions not permitted in conjunction with if/unless attributes");
+            throw new BuildException('Nested conditions not permitted in conjunction with if/unless attributes');
         }
 
         return $result && $this->nestedCondition->evaluate();

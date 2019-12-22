@@ -57,7 +57,7 @@ class CoverageMergerTask extends Task
     {
         $files = $this->getFilenames();
 
-        $this->log("Merging " . count($files) . " coverage files");
+        $this->log('Merging ' . count($files) . ' coverage files');
 
         foreach ($files as $file) {
             $coverageInformation = unserialize(file_get_contents($file));

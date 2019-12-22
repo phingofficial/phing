@@ -230,8 +230,8 @@ class PathConvert extends Task
                 } else {
                     throw new BuildException(
                         "'refid' does not refer to a "
-                        . "path, fileset, dirset, or "
-                        . "filelist."
+                        . 'path, fileset, dirset, or '
+                        . 'filelist.'
                     );
                 }
             }
@@ -246,7 +246,7 @@ class PathConvert extends Task
             // in the apply code, the same assumptions can be made as with
             // windows - that \\ is an OK separator, and do comparisons
             // case-insensitive.
-            $fromDirSep = $this->onWindows ? "\\" : "/";
+            $fromDirSep = $this->onWindows ? '\\' : '/';
 
             $rslt = '';
 
@@ -279,14 +279,14 @@ class PathConvert extends Task
             $value = $rslt;
             if ($this->setonempty) {
                 $this->log(
-                    "Set property " . $this->property . " = " . $value,
+                    'Set property ' . $this->property . ' = ' . $value,
                     Project::MSG_VERBOSE
                 );
                 $this->getProject()->setNewProperty($this->property, $value);
             } else {
                 if ($rslt !== '') {
                     $this->log(
-                        "Set property " . $this->property . " = " . $value,
+                        'Set property ' . $this->property . ' = ' . $value,
                         Project::MSG_VERBOSE
                     );
                     $this->getProject()->setNewProperty($this->property, $value);
@@ -339,7 +339,7 @@ class PathConvert extends Task
     public function createMapper()
     {
         if ($this->mapper !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+            throw new BuildException('Cannot define more than one mapper', $this->getLocation());
         }
         $this->mapper = new Mapper($this->project);
 
@@ -354,19 +354,19 @@ class PathConvert extends Task
     private function validateSetup()
     {
         if ($this->path === null) {
-            throw new BuildException("You must specify a path to convert");
+            throw new BuildException('You must specify a path to convert');
         }
 
         if ($this->property === null) {
-            throw new BuildException("You must specify a property");
+            throw new BuildException('You must specify a property');
         }
 
         // Must either have a target OS or both a dirSep and pathSep
 
         if ($this->targetOS == null && $this->pathSep == null && $this->dirSep == null) {
             throw new BuildException(
-                "You must specify at least one of "
-                . "targetOS, dirSep, or pathSep"
+                'You must specify at least one of '
+                . 'targetOS, dirSep, or pathSep'
             );
         }
 
@@ -376,8 +376,8 @@ class PathConvert extends Task
         $psep = FileUtils::$pathSeparator;
 
         if ($this->targetOS !== null) {
-            $psep = $this->targetWindows ? ";" : ":";
-            $dsep = $this->targetWindows ? "\\" : "/";
+            $psep = $this->targetWindows ? ';' : ':';
+            $dsep = $this->targetWindows ? '\\' : '/';
         }
 
         if ($this->pathSep !== null) {// override with pathsep=
@@ -399,8 +399,8 @@ class PathConvert extends Task
     private function noChildrenAllowed()
     {
         return new BuildException(
-            "You must not specify nested <path> "
-            . "elements when using the refid attribute."
+            'You must not specify nested <path> '
+            . 'elements when using the refid attribute.'
         );
     }
 

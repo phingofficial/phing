@@ -127,7 +127,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $o->setCommand('command');
         $o->setConsole('console');
 
-        $ret = "console command --name=value";
+        $ret = 'console command --name=value';
 
         $this->assertEquals($ret, $o->getCmdString());
     }
@@ -146,7 +146,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $o->setConsole('console');
         $o->setDebug(false);
 
-        $ret = "console command --name=value --no-debug";
+        $ret = 'console command --name=value --no-debug';
 
         $this->assertEquals($ret, $o->getCmdString());
     }
@@ -164,7 +164,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $o->setConsole('console');
         $o->setDebug(false);
 
-        $ret = "console command --no-debug";
+        $ret = 'console command --no-debug';
 
         $this->assertEquals($ret, $o->getCmdString());
     }

@@ -58,10 +58,10 @@ class HasFreeSpaceCondition implements Condition
     private function validate()
     {
         if (null == $this->partition) {
-            throw new BuildException("Please set the partition attribute.");
+            throw new BuildException('Please set the partition attribute.');
         }
         if (null == $this->needed) {
-            throw new BuildException("Please set the needed attribute.");
+            throw new BuildException('Please set the needed attribute.');
         }
     }
 

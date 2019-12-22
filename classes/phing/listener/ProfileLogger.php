@@ -42,7 +42,7 @@ class ProfileLogger extends DefaultLogger
             date_default_timezone_set('Europe/Berlin');
         }
         $now  = Phing::currentTimeMillis();
-        $name = "Target " . $event->getTarget()->getName();
+        $name = 'Target ' . $event->getTarget()->getName();
         $this->logStart($event, $now, $name);
         $this->profileData[] = $now;
     }
@@ -58,7 +58,7 @@ class ProfileLogger extends DefaultLogger
     {
         $start = array_pop($this->profileData);
 
-        $name = "Target " . $event->getTarget()->getName();
+        $name = 'Target ' . $event->getTarget()->getName();
         $this->logFinish($event, $start, $name);
     }
 
@@ -97,20 +97,20 @@ class ProfileLogger extends DefaultLogger
         $msg = null;
         if ($start != null) {
             $diff = self::formatTime(Phing::currentTimeMillis() - $start);
-            $msg  = Phing::getProperty("line.separator") . $name . ": finished "
-                . date(self::$dateFormat, time()) . " ("
+            $msg  = Phing::getProperty('line.separator') . $name . ': finished '
+                . date(self::$dateFormat, time()) . ' ('
                 . $diff
-                . ")";
+                . ')';
         } else {
-            $msg = Phing::getProperty("line.separator") . $name . ": finished " . date(self::$dateFormat, time())
-                . " (unknown duration, start not detected)";
+            $msg = Phing::getProperty('line.separator') . $name . ': finished ' . date(self::$dateFormat, time())
+                . ' (unknown duration, start not detected)';
         }
         $this->printMessage($msg, $this->out, $event->getPriority());
     }
 
     private function logStart(BuildEvent $event, $start, $name)
     {
-        $msg = Phing::getProperty("line.separator") . $name . ": started " . date(self::$dateFormat, $start);
+        $msg = Phing::getProperty('line.separator') . $name . ': started ' . date(self::$dateFormat, $start);
         $this->printMessage($msg, $this->out, $event->getPriority());
     }
 }

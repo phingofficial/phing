@@ -39,22 +39,22 @@ class DependSelector extends BaseSelector
      */
     public function __toString()
     {
-        $buf = "{dependselector targetdir: ";
+        $buf = '{dependselector targetdir: ';
         if ($this->targetdir === null) {
-            $buf .= "NOT YET SET";
+            $buf .= 'NOT YET SET';
         } else {
             $buf .= $this->targetdir->getName();
         }
-        $buf .= " granularity: ";
+        $buf .= ' granularity: ';
         $buf .= $this->granularity;
         if ($this->map !== null) {
-            $buf .= " mapper: ";
+            $buf .= ' mapper: ';
             $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
-            $buf .= " mapper: ";
+            $buf .= ' mapper: ';
             $buf .= (string) $this->mapperElement;
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -89,7 +89,7 @@ class DependSelector extends BaseSelector
     public function createMapper()
     {
         if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper");
+            throw new BuildException('Cannot define more than one mapper');
         }
         $this->mapperElement = new Mapper($this->project);
 
@@ -103,7 +103,7 @@ class DependSelector extends BaseSelector
     public function verifySettings()
     {
         if ($this->targetdir === null) {
-            $this->setError("The targetdir attribute is required.");
+            $this->setError('The targetdir attribute is required.');
         }
         if ($this->mapperElement === null) {
             $this->map = new IdentityMapper();
@@ -111,7 +111,7 @@ class DependSelector extends BaseSelector
             $this->map = $this->mapperElement->getImplementation();
         }
         if ($this->map === null) {
-            $this->setError("Could not set <mapper> element.");
+            $this->setError('Could not set <mapper> element.');
         }
     }
 
@@ -141,7 +141,7 @@ class DependSelector extends BaseSelector
         }
         // Sanity check
         if (count($destfiles) !== 1 || $destfiles[0] === null) {
-            throw new BuildException("Invalid destination file results for " . $this->targetdir . " with filename " . $filename);
+            throw new BuildException('Invalid destination file results for ' . $this->targetdir . ' with filename ' . $filename);
         }
         $destname = $destfiles[0];
         $destfile = new PhingFile($this->targetdir, $destname);

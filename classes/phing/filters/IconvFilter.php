@@ -66,7 +66,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         $this->log(
-            "Encoding " . $this->in->getResource() . " from " . $this->getInputEncoding() . " to " . $this->getOutputEncoding(),
+            'Encoding ' . $this->in->getResource() . ' from ' . $this->getInputEncoding() . ' to ' . $this->getOutputEncoding(),
             Project::MSG_VERBOSE
         );
 

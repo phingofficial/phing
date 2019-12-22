@@ -31,7 +31,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
     public function testGetProject()
     {
         $project     = new Project();
-        $description = "desc" . rand();
+        $description = 'desc' . rand();
         $project->setDescription($description);
         $reference = new Reference($project);
         $retrieved = $reference->getProject();
@@ -41,7 +41,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
     public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
     {
         $project   = new Project();
-        $reference = new Reference($project, "refOne");
+        $reference = new Reference($project, 'refOne');
 
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Reference refOne not found.');

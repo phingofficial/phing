@@ -92,7 +92,7 @@ class ExportPropertiesTask extends Task
      */
     public function setDisallowedPropertyPrefixes($prefixes)
     {
-        $this->disallowedPropertyPrefixes = explode(",", $prefixes);
+        $this->disallowedPropertyPrefixes = explode(',', $prefixes);
 
         return true;
     }
@@ -106,7 +106,7 @@ class ExportPropertiesTask extends Task
             $propertiesString = '';
             foreach ($this->properties as $propertyName => $propertyValue) {
                 if (!$this->isDisallowedPropery($propertyName)) {
-                    $propertiesString .= $propertyName . "=" . $propertyValue . PHP_EOL;
+                    $propertiesString .= $propertyName . '=' . $propertyValue . PHP_EOL;
                 }
             }
 

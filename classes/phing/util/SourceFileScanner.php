@@ -67,7 +67,7 @@ class SourceFileScanner
     public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
     {
         $now        = time();
-        $targetList = "";
+        $targetList = '';
 
         /*
           If we're on Windows, we have to munge the time up to 2 secs to
@@ -101,17 +101,17 @@ class SourceFileScanner
 
                 if ($src->lastModified() > $now) {
                     $this->task->log(
-                        "Warning: " . $files[$i] . " modified in the future (" . $src->lastModified() . " > " . $now . ")",
+                        'Warning: ' . $files[$i] . ' modified in the future (' . $src->lastModified() . ' > ' . $now . ')',
                         Project::MSG_WARN
                     );
                 }
             } catch (IOException $ioe) {
-                $this->task->log("Unable to read file " . $files[$i] . " (skipping): " . $ioe->getMessage());
+                $this->task->log('Unable to read file ' . $files[$i] . ' (skipping): ' . $ioe->getMessage());
                 continue;
             }
 
             $added      = false;
-            $targetList = "";
+            $targetList = '';
 
             for ($j = 0, $_j = count($targets); (!$added && $j < $_j); $j++) {
                 $dest = null;
@@ -123,28 +123,28 @@ class SourceFileScanner
 
                 if (!$dest->exists()) {
                     $this->task->log(
-                        ($files[$i] ?: ".") . " added as " . $dest->__toString() . " doesn't exist.",
+                        ($files[$i] ?: '.') . ' added as ' . $dest->__toString() . " doesn't exist.",
                         Project::MSG_VERBOSE
                     );
                     $v[]   = $files[$i];
                     $added = true;
                 } elseif ($src->lastModified() > $dest->lastModified()) {
                     $this->task->log(
-                        $files[$i] . " added as " . $dest->__toString() . " is outdated.",
+                        $files[$i] . ' added as ' . $dest->__toString() . ' is outdated.',
                         Project::MSG_VERBOSE
                     );
                     $v[]   = $files[$i];
                     $added = true;
                 } elseif ($force === true) {
                     $this->task->log(
-                        $files[$i] . " added as " . $dest->__toString() . " is forced to be overwritten.",
+                        $files[$i] . ' added as ' . $dest->__toString() . ' is forced to be overwritten.',
                         Project::MSG_VERBOSE
                     );
                     $v[]   = $files[$i];
                     $added = true;
                 } else {
                     if (strlen($targetList) > 0) {
-                        $targetList .= ", ";
+                        $targetList .= ', ';
                     }
                     $targetList .= $dest->getAbsolutePath();
                 }
@@ -152,9 +152,9 @@ class SourceFileScanner
 
             if (!$added) {
                 $this->task->log(
-                    $files[$i] . " omitted as " . $targetList . " " . (count(
+                    $files[$i] . ' omitted as ' . $targetList . ' ' . (count(
                         $targets
-                    ) === 1 ? " is " : " are ") . "up to date.",
+                    ) === 1 ? ' is ' : ' are ') . 'up to date.',
                     Project::MSG_VERBOSE
                 );
             }

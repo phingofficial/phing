@@ -102,7 +102,7 @@ class IniFileTask extends Task
             return false;
         }
         if (!file_exists($readFile)) {
-            $msg = "$readFile does not exist.";
+            $msg = $readFile . ' does not exist.';
             if ($this->haltonerror) {
                 throw new BuildException($msg);
             }
@@ -110,7 +110,7 @@ class IniFileTask extends Task
             return false;
         }
         if (!is_readable($readFile)) {
-            $msg = "$readFile is not readable.";
+            $msg = $readFile . ' is not readable.';
             if ($this->haltonerror) {
                 throw new BuildException($msg);
             }
@@ -118,7 +118,7 @@ class IniFileTask extends Task
             return false;
         }
         $this->ini->read($readFile);
-        $this->log("Read from $readFile");
+        $this->log('Read from ' . $readFile);
         return true;
     }
 
@@ -132,7 +132,7 @@ class IniFileTask extends Task
     public function checkWriteFile($writeFile)
     {
         if (file_exists($writeFile) && !is_writable($writeFile)) {
-            $msg = "$writeFile is not writable";
+            $msg = $writeFile . ' is not writable';
             if ($this->haltonerror) {
                 throw new BuildException($msg);
             }
@@ -170,7 +170,7 @@ class IniFileTask extends Task
         }
 
         if ($readFile === null && $writeFile === null) {
-            $msg = "Neither source nor dest is set";
+            $msg = 'Neither source nor dest is set';
             if ($this->haltonerror) {
                 throw new BuildException($msg);
             }
@@ -193,7 +193,7 @@ class IniFileTask extends Task
         if (count($this->sets) || count($this->removals)) {
             try {
                 $this->ini->write($writeFile);
-                $this->log("Wrote to $writeFile");
+                $this->log('Wrote to ' . $writeFile);
             } catch (Exception $ex) {
                 $msg = $ex->getMessage();
                 if ($this->haltonerror) {
@@ -218,13 +218,13 @@ class IniFileTask extends Task
             $value       = '';
 
             if ($property === null) {
-                throw new BuildException("property must be set");
+                throw new BuildException('property must be set');
             }
             if ($outProperty === null) {
-                throw new BuildException("outputproperty must be set");
+                throw new BuildException('outputproperty must be set');
             }
             if ($section === null) {
-                throw new BuildException("section must be set");
+                throw new BuildException('section must be set');
             }
             try {
                 $value = $this->ini->get($section, $property);
@@ -272,7 +272,7 @@ class IniFileTask extends Task
             if ($value !== null) {
                 try {
                     $this->ini->set($section, $key, $value);
-                    $this->logDebugOrMore("[$section] $key set to $value");
+                    $this->logDebugOrMore(sprintf('[%s] %s set to %s', $section, $key, $value));
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
@@ -291,7 +291,7 @@ class IniFileTask extends Task
                         $v = $match[1];
                     } else {
                         $this->log(
-                            "Value $v is not numeric. Skipping $operation operation."
+                            sprintf('Value %s is not numeric. Skipping %s operation.', $v, $operation)
                         );
                         continue;
                     }
@@ -300,18 +300,16 @@ class IniFileTask extends Task
                     ++$v;
                 } elseif ($operation == '-') {
                     --$v;
-                } else {
-                    if (($operation != '-') && ($operation != '+')) {
-                        $msg = "Unrecognised operation $operation";
-                        if ($this->haltonerror) {
-                            throw new BuildException($msg);
-                        }
-                        $this->log($msg, Project::MSG_ERR);
+                } elseif (($operation != '-') && ($operation != '+')) {
+                    $msg = 'Unrecognised operation ' . $operation;
+                    if ($this->haltonerror) {
+                        throw new BuildException($msg);
                     }
+                    $this->log($msg, Project::MSG_ERR);
                 }
                 try {
                     $this->ini->set($section, $key, $v);
-                    $this->logDebugOrMore("[$section] $key set to $v");
+                    $this->logDebugOrMore(sprintf('[%s] %s set to %s', $section, $key, $v));
                 } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
@@ -321,7 +319,7 @@ class IniFileTask extends Task
                 }
             } else {
                 $this->log(
-                    "Set: value and operation are both not set",
+                    'Set: value and operation are both not set',
                     Project::MSG_ERR
                 );
             }
@@ -340,7 +338,7 @@ class IniFileTask extends Task
             $section = $remove->getSection();
             if ($section == '') {
                 $this->log(
-                    "Remove: section must be set",
+                    'Remove: section must be set',
                     Project::MSG_ERR
                 );
                 continue;
@@ -348,10 +346,10 @@ class IniFileTask extends Task
             $this->ini->remove($section, $key);
             if (($section != '') && ($key != '')) {
                 $this->logDebugOrMore(
-                    "$key in section [$section] has been removed."
+                    sprintf('%s in section [%s] has been removed.', $key, $section)
                 );
             } elseif (($section != '') && ($key == '')) {
-                $this->logDebugOrMore("[$section] has been removed.");
+                $this->logDebugOrMore(sprintf('[%s] has been removed.', $section));
             }
         }
     }

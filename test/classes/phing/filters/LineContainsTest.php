@@ -27,21 +27,21 @@ class LineContainsTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/linecontains.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/linecontains.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testLineContains()
     {
-        $this->executeTarget("testLineContains");
+        $this->executeTarget('testLineContains');
 
-        $expected = $this->getProject()->resolveFile("expected/linecontains.test");
-        $result   = $this->getProject()->resolveFile("result/linecontains.test");
+        $expected = $this->getProject()->resolveFile('expected/linecontains.test');
+        $result   = $this->getProject()->resolveFile('result/linecontains.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
@@ -49,8 +49,8 @@ class LineContainsTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/linecontains-negate.test");
-        $result   = $this->getProject()->resolveFile("result/linecontains.test");
+        $expected = $this->getProject()->resolveFile('expected/linecontains-negate.test');
+        $result   = $this->getProject()->resolveFile('result/linecontains.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
@@ -58,8 +58,8 @@ class LineContainsTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/linecontains-matchany.test");
-        $result   = $this->getProject()->resolveFile("result/linecontains.test");
+        $expected = $this->getProject()->resolveFile('expected/linecontains-matchany.test');
+        $result   = $this->getProject()->resolveFile('result/linecontains.test');
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
 }

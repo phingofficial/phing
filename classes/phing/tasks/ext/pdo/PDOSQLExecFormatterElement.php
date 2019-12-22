@@ -38,7 +38,7 @@ class PDOSQLExecFormatterElement
      *
      * @var string
      */
-    private $type = "";
+    private $type = '';
 
     /**
      * Whether to use file (or write output to phing log).
@@ -81,7 +81,7 @@ class PDOSQLExecFormatterElement
      *
      * @var string
      */
-    private $coldelimiter = ",";
+    private $coldelimiter = ',';
 
     /**
      * Row delimiter.
@@ -169,12 +169,12 @@ class PDOSQLExecFormatterElement
     public function prepare(Location $location)
     {
         if (!$this->formatter) {
-            throw new BuildException("No formatter specified (use type or classname attribute)", $location);
+            throw new BuildException('No formatter specified (use type or classname attribute)', $location);
         }
 
         $out = $this->getOutputWriter();
 
-        $this->parentTask->log("Setting output writer to: " . get_class($out), Project::MSG_VERBOSE);
+        $this->parentTask->log('Setting output writer to: ' . get_class($out), Project::MSG_VERBOSE);
         $this->formatter->setOutput($out);
 
         if ($this->formatter instanceof PlainPDOResultFormatter) {
@@ -193,9 +193,7 @@ class PDOSQLExecFormatterElement
             $method = 'set' . $param->getName();
             if (!method_exists($this->formatter, $param->getName())) {
                 throw new BuildException(
-                    "Formatter " . get_class(
-                        $this->formatter
-                    ) . " does not have a $method method.",
+                    sprintf('Formatter %s does not have a %s method.', get_class($this->formatter), $method),
                     $location
                 );
             }
@@ -213,9 +211,9 @@ class PDOSQLExecFormatterElement
     public function setType($type)
     {
         $this->type = $type;
-        if ($this->type == "xml") {
+        if ($this->type == 'xml') {
             $this->formatter = new XMLPDOResultFormatter();
-        } elseif ($this->type == "plain") {
+        } elseif ($this->type == 'plain') {
             $this->formatter = new PlainPDOResultFormatter();
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");

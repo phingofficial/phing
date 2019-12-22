@@ -29,19 +29,19 @@ class ScpTask extends Task
     use FileSetAware;
     use LogLevelAware;
 
-    protected $file  = "";
-    protected $todir = "";
+    protected $file  = '';
+    protected $todir = '';
     protected $mode  = null;
 
-    protected $host           = "";
+    protected $host           = '';
     protected $port           = 22;
     protected $methods        = null;
-    protected $username       = "";
-    protected $password       = "";
+    protected $username       = '';
+    protected $password       = '';
     protected $autocreate     = true;
     protected $fetch          = false;
-    protected $localEndpoint  = "";
-    protected $remoteEndpoint = "";
+    protected $localEndpoint  = '';
+    protected $remoteEndpoint = '';
 
     protected $pubkeyfile            = '';
     protected $privkeyfile           = '';
@@ -330,21 +330,21 @@ class ScpTask extends Task
         $p = $this->getProject();
 
         if (!function_exists('ssh2_connect')) {
-            throw new BuildException("To use ScpTask, you need to install the PHP SSH2 extension.");
+            throw new BuildException('To use ScpTask, you need to install the PHP SSH2 extension.');
         }
 
-        if ($this->file == "" && empty($this->filesets)) {
+        if ($this->file == '' && empty($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file'");
         }
 
-        if ($this->host == "" || $this->username == "") {
+        if ($this->host == '' || $this->username == '') {
             throw new BuildException("Attribute 'host' and 'username' must be set");
         }
 
         $methods          = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
-            throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
+            throw new BuildException('Could not establish connection to ' . $this->host . ':' . $this->port . '!');
         }
 
         $could_auth = null;
@@ -360,7 +360,7 @@ class ScpTask extends Task
             $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
         }
         if (!$could_auth) {
-            throw new BuildException("Could not authenticate connection!");
+            throw new BuildException('Could not authenticate connection!');
         }
 
         // prepare sftp resource
@@ -368,11 +368,11 @@ class ScpTask extends Task
             $this->sftp = ssh2_sftp($this->connection);
         }
 
-        if ($this->file != "") {
+        if ($this->file != '') {
             $this->copyFile($this->file, basename($this->file));
         } else {
             if ($this->fetch) {
-                throw new BuildException("Unable to use filesets to retrieve files from remote server");
+                throw new BuildException('Unable to use filesets to retrieve files from remote server');
             }
 
             foreach ($this->filesets as $fs) {
@@ -389,7 +389,7 @@ class ScpTask extends Task
         }
 
         $this->log(
-            "Copied " . $this->counter . " file(s) " . ($this->fetch ? "from" : "to") . " '" . $this->host . "'"
+            'Copied ' . $this->counter . ' file(s) ' . ($this->fetch ? 'from' : 'to') . " '" . $this->host . "'"
         );
 
         // explicitly close ssh connection
@@ -404,7 +404,7 @@ class ScpTask extends Task
      */
     protected function copyFile($local, $remote)
     {
-        $path = rtrim($this->todir, "/") . "/";
+        $path = rtrim($this->todir, '/') . '/';
 
         if ($this->fetch) {
             $localEndpoint  = $path . $remote;
@@ -449,7 +449,7 @@ class ScpTask extends Task
                 --$this->heuristicScpSftp;
 
                 // try create file via ssh2.sftp://file wrapper
-                $fh = @fopen("ssh2.sftp://$this->sftp/$remoteEndpoint", 'wb');
+                $fh = @fopen('ssh2.sftp://' . $this->sftp . '/' . $remoteEndpoint, 'wb');
                 if (is_resource($fh)) {
                     $ret = fwrite($fh, file_get_contents($localEndpoint));
                     fclose($fh);

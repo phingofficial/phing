@@ -76,7 +76,7 @@ class MonologListener implements BuildListener
     public function targetStarted(BuildEvent $event)
     {
         $log = $this->log->withName(Target::class);
-        $log->info("Target \"{$event->getTarget()->getName()}\" started.");
+        $log->info(sprintf('Target "%s" started.', $event->getTarget()->getName()));
     }
 
     /**
@@ -88,9 +88,9 @@ class MonologListener implements BuildListener
         $targetName = $event->getTarget()->getName();
         $cat        = $this->log->withName(Target::class);
         if ($event->getException() === null) {
-            $cat->info("Target \"{$targetName}\" finished.");
+            $cat->info(sprintf('Target "%s" finished.', $targetName));
         } else {
-            $cat->error("Target \"{$targetName}\" finished with error. " . $event->getException());
+            $cat->error(sprintf('Target "%s" finished with error. %s', $targetName, $event->getException()));
         }
     }
 
@@ -102,7 +102,7 @@ class MonologListener implements BuildListener
     {
         $task = $event->getTask();
         $log  = $this->log->withName(get_class($task));
-        $log->info("Task \"{$task->getTaskName()}\" started.");
+        $log->info(sprintf('Task "%s" started.', $task->getTaskName()));
     }
 
     /**
@@ -114,9 +114,9 @@ class MonologListener implements BuildListener
         $task = $event->getTask();
         $log  = $this->log->withName(get_class($task));
         if ($event->getException() === null) {
-            $log->info("Task \"{$task->getTaskName()}\" finished.");
+            $log->info(sprintf('Task "%s" finished.', $task->getTaskName()));
         } else {
-            $log->error("Task \"{$task->getTaskName()}\" finished with error. {$event->getException()}");
+            $log->error(sprintf('Task "%s" finished with error. %s', $task->getTaskName(), $event->getException()));
         }
     }
 

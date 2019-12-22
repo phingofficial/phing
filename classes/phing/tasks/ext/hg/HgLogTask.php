@@ -143,7 +143,7 @@ class HgLogTask extends HgBaseTask
                 $max = (int) $this->maxCount;
             }
             if (!$max || (int) $this->maxCount <= 0) {
-                throw new BuildException("maxcount should be a positive integer.");
+                throw new BuildException('maxcount should be a positive integer.');
             }
             $clone->setLimit('' . $this->maxCount);
         }
@@ -157,7 +157,7 @@ class HgLogTask extends HgBaseTask
         }
 
         try {
-            $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
             $output = $clone->execute();
             if ($this->outputProperty !== null) {
                 $this->project->setProperty($this->outputProperty, $output);

@@ -41,7 +41,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the prefix.
      */
-    public const PREFIX_KEY = "lines";
+    public const PREFIX_KEY = 'lines';
 
     /**
      * The prefix to be used.

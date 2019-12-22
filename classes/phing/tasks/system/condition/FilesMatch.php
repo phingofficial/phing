@@ -62,7 +62,7 @@ class FilesMatch implements Condition
     public function evaluate()
     {
         if ($this->file1 == null || $this->file2 == null) {
-            throw new BuildException("both file1 and file2 are required in filesmatch");
+            throw new BuildException('both file1 and file2 are required in filesmatch');
         }
 
         $fu = new FileUtils();

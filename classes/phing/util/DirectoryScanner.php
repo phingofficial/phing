@@ -111,36 +111,36 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * default set of excludes
      */
     protected static $DEFAULTEXCLUDES = [
-        "**/*~",
-        "**/#*#",
-        "**/.#*",
-        "**/%*%",
-        "**/CVS",
-        "**/CVS/**",
-        "**/.cvsignore",
-        "**/SCCS",
-        "**/SCCS/**",
-        "**/vssver.scc",
-        "**/.svn",
-        "**/.svn/**",
-        "**/._*",
-        "**/.DS_Store",
-        "**/.darcs",
-        "**/.darcs/**",
-        "**/.git",
-        "**/.git/**",
-        "**/.gitattributes",
-        "**/.gitignore",
-        "**/.gitmodules",
-        "**/.hg",
-        "**/.hg/**",
-        "**/.hgignore",
-        "**/.hgsub",
-        "**/.hgsubstate",
-        "**/.hgtags",
-        "**/.bzr",
-        "**/.bzr/**",
-        "**/.bzrignore",
+        '**/*~',
+        '**/#*#',
+        '**/.#*',
+        '**/%*%',
+        '**/CVS',
+        '**/CVS/**',
+        '**/.cvsignore',
+        '**/SCCS',
+        '**/SCCS/**',
+        '**/vssver.scc',
+        '**/.svn',
+        '**/.svn/**',
+        '**/._*',
+        '**/.DS_Store',
+        '**/.darcs',
+        '**/.darcs/**',
+        '**/.git',
+        '**/.git/**',
+        '**/.gitattributes',
+        '**/.gitignore',
+        '**/.gitmodules',
+        '**/.hg',
+        '**/.hg/**',
+        '**/.hgignore',
+        '**/.hgsub',
+        '**/.hgsubstate',
+        '**/.hgtags',
+        '**/.bzr',
+        '**/.bzr/**',
+        '**/.bzrignore',
     ];
 
     private static $defaultExcludeList = [];
@@ -421,7 +421,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
             for ($i = 0; $i < $numIncludes; $i++) {
                 $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $includes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
+                    $pattern .= '**';
                 }
                 $this->includes[] = $pattern;
             }
@@ -446,7 +446,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
             for ($i = 0; $i < $numExcludes; $i++) {
                 $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $excludes[$i]);
                 if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
+                    $pattern .= '**';
                 }
                 $this->excludes[] = $pattern;
             }
@@ -478,14 +478,14 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         if (!@file_exists($this->basedir)) {
             if ($this->errorOnMissingDir) {
                 $exception = new BuildException(
-                    "basedir  $this->basedir does not exist."
+                    sprintf('basedir %s does not exist.', $this->basedir)
                 );
             } else {
                 return false;
             }
         } elseif (!@is_dir($this->basedir)) {
             $exception = new BuildException(
-                "basedir $this->basedir is not a directory."
+                sprintf('basedir %s is not a directory.', $this->basedir)
             );
         }
         if ($exception !== null) {
@@ -494,7 +494,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
 
         if ($this->includes === null) {
             // No includes supplied, so set it to 'matches all'
-            $this->includes = ["**"];
+            $this->includes = ['**'];
         }
         if (null === $this->excludes) {
             $this->excludes = [];
@@ -509,21 +509,21 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         $this->dirsDeselected   = [];
         $this->filesDeselected  = [];
 
-        if ($this->isIncluded("")) {
-            if (!$this->isExcluded("")) {
-                if ($this->isSelected("", $this->basedir)) {
-                    $this->dirsIncluded[] = "";
+        if ($this->isIncluded('')) {
+            if (!$this->isExcluded('')) {
+                if ($this->isSelected('', $this->basedir)) {
+                    $this->dirsIncluded[] = '';
                 } else {
-                    $this->dirsDeselected[] = "";
+                    $this->dirsDeselected[] = '';
                 }
             } else {
-                $this->dirsExcluded[] = "";
+                $this->dirsExcluded[] = '';
             }
         } else {
-            $this->dirsNotIncluded[] = "";
+            $this->dirsNotIncluded[] = '';
         }
 
-        $this->scandir($this->basedir, "", true);
+        $this->scandir($this->basedir, '', true);
 
         return true;
     }

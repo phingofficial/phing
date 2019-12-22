@@ -50,7 +50,7 @@ class RuntimeConfigurable
     /**
      * @var string $characters
      */
-    private $characters = "";
+    private $characters = '';
 
     /**
      * @var bool $proxyConfigured
@@ -190,8 +190,8 @@ class RuntimeConfigurable
         if ($this->attributes || (isset($this->characters) && $this->characters != '')) {
             ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
-            if (isset($this->attributes["id"])) {
-                $id = $this->attributes["id"];
+            if (isset($this->attributes['id'])) {
+                $id = $this->attributes['id'];
             }
 
             if (isset($this->characters) && $this->characters != '') {

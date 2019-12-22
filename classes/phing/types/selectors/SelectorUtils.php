@@ -91,7 +91,7 @@ class SelectorUtils
         // up to first '**'
         while ($patIdxStart <= $patIdxEnd && $strIdxStart <= $strIdxEnd) {
             $patDir = $patDirs[$patIdxStart];
-            if ($patDir == "**") {
+            if ($patDir == '**') {
                 break;
             }
             if (!self::match($patDir, $strDirs[$strIdxStart], $isCaseSensitive)) {
@@ -161,7 +161,7 @@ class SelectorUtils
     public static function match($pattern, $str, $isCaseSensitive = true)
     {
         $rePattern = preg_quote($pattern, '/');
-        $rePattern = str_replace(["\*", "\?"], ['.*', '.'], $rePattern);
+        $rePattern = str_replace(['\*', '\?'], ['.*', '.'], $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
         return (bool) preg_match($rePattern, $str);

@@ -150,7 +150,7 @@ class GlobMapper implements FileNameMapper
 
         if ($index === false) {
             $this->fromPrefix  = $from;
-            $this->fromPostfix = "";
+            $this->fromPostfix = '';
         } else {
             $this->fromPrefix       = substr($from, 0, $index);
             $this->fromPostfix      = substr($from, $index + 1);
@@ -177,7 +177,7 @@ class GlobMapper implements FileNameMapper
         $index = strrpos($to, '*');
         if ($index === false) {
             $this->toPrefix  = $to;
-            $this->toPostfix = "";
+            $this->toPostfix = '';
         } else {
             $this->toPrefix       = substr($to, 0, $index);
             $this->toPostfix      = substr($to, $index + 1);

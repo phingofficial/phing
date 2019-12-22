@@ -36,7 +36,7 @@ class IHProjectComponent
 
     public function createOne()
     {
-        return "test";
+        return 'test';
     }
 
     public function addFileSet(FileSet $fs): void

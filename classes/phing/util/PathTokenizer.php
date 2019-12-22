@@ -63,7 +63,7 @@ class PathTokenizer
 
         // enough information to tokenize correctly.
 
-        $this->tokens = preg_split("/[;:]/", $path, -1, PREG_SPLIT_NO_EMPTY);
+        $this->tokens = preg_split('/[;:]/', $path, -1, PREG_SPLIT_NO_EMPTY);
 
         $this->dosStyleFilesystem = (PATH_SEPARATOR == ';');
     }

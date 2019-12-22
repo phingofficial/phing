@@ -29,14 +29,14 @@ class FileSyncTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/ext/FileSyncTaskTest.xml"
+            . '/etc/tasks/ext/FileSyncTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testNoSourceSpecified()

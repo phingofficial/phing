@@ -606,13 +606,13 @@ class ExecTask extends Task
         //the Exec OS check is different from Os.isOs(), which
         //probes for a specific OS. Instead it searches the os field
         //for the current os.name
-        $myos = Phing::getProperty("os.name");
-        $this->log("Current OS is " . $myos, Project::MSG_VERBOSE);
+        $myos = Phing::getProperty('os.name');
+        $this->log('Current OS is ' . $myos, Project::MSG_VERBOSE);
         if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
             // this command will be executed only on the specified OS
             $this->log(
-                "This OS, " . $myos
-                . " was not found in the specified list of valid OSes: " . $this->os,
+                'This OS, ' . $myos
+                . ' was not found in the specified list of valid OSes: ' . $this->os,
                 Project::MSG_VERBOSE
             );
             return false;
@@ -723,7 +723,7 @@ class ExecTask extends Task
     private function getPath($value)
     {
         if (is_string($value)) {
-            return StringHelper::substring($value, strlen("PATH="));
+            return StringHelper::substring($value, strlen('PATH='));
         }
 
         if (is_array($value)) {

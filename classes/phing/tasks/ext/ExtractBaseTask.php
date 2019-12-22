@@ -159,7 +159,7 @@ abstract class ExtractBaseTask extends MatchingTask
     protected function isDestinationUpToDate(PhingFile $compressedArchiveFile)
     {
         if (!$compressedArchiveFile->exists()) {
-            throw new BuildException("Could not find file " . $compressedArchiveFile->__toString() . " to extract.");
+            throw new BuildException('Could not find file ' . $compressedArchiveFile->__toString() . ' to extract.');
         }
 
         $compressedArchiveContent = $this->listArchiveContent($compressedArchiveFile);
@@ -208,24 +208,24 @@ abstract class ExtractBaseTask extends MatchingTask
     protected function validateAttributes()
     {
         if ($this->file === null && count($this->filesets) === 0) {
-            throw new BuildException("Specify at least one source compressed archive - a file or a fileset.");
+            throw new BuildException('Specify at least one source compressed archive - a file or a fileset.');
         }
 
         if ($this->todir === null) {
-            throw new BuildException("todir must be set.");
+            throw new BuildException('todir must be set.');
         }
 
         if ($this->todir !== null && $this->todir->exists() && !$this->todir->isDirectory()) {
-            throw new BuildException("todir must be a directory.");
+            throw new BuildException('todir must be a directory.');
         }
 
         if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
-            throw new BuildException("Compressed archive file cannot be a directory.");
+            throw new BuildException('Compressed archive file cannot be a directory.');
         }
 
         if ($this->file !== null && !$this->file->exists()) {
             throw new BuildException(
-                "Could not find compressed archive file " . $this->file->__toString() . " to extract."
+                'Could not find compressed archive file ' . $this->file->__toString() . ' to extract.'
             );
         }
     }

@@ -28,7 +28,7 @@ class PHPLOCTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phploc/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phploc/build.xml');
     }
 
     public function testReportText()

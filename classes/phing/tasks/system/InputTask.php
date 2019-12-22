@@ -37,7 +37,7 @@ class InputTask extends Task
     /**
      * @var string
      */
-    private $message = ""; // required
+    private $message = ''; // required
 
     /**
      * @var string
@@ -138,11 +138,11 @@ class InputTask extends Task
     public function main()
     {
         if ($this->propertyName === null) {
-            throw new BuildException("You must specify a value for propertyName attribute.");
+            throw new BuildException('You must specify a value for propertyName attribute.');
         }
 
-        if ($this->message === "") {
-            throw new BuildException("You must specify a message for input task.");
+        if ($this->message === '') {
+            throw new BuildException('You must specify a message for input task.');
         }
 
         if ($this->validargs !== null) {

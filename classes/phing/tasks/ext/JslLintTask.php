@@ -77,7 +77,7 @@ class JslLintTask extends Task
     /**
      * @var string
      */
-    private $executable = "jsl";
+    private $executable = 'jsl';
 
     /**
      * @var PhingFile
@@ -154,7 +154,7 @@ class JslLintTask extends Task
         $this->executable = $path;
 
         if (!@file_exists($path)) {
-            throw new BuildException("JavaScript Lint executable '{$path}' not found");
+            throw new BuildException(sprintf("JavaScript Lint executable '%s' not found", $path));
         }
     }
 
@@ -209,7 +209,7 @@ class JslLintTask extends Task
 
             foreach ($this->badFiles as $file => $messages) {
                 foreach ($messages as $msg) {
-                    $writer->write($file . "=" . $msg . PHP_EOL);
+                    $writer->write($file . '=' . $msg . PHP_EOL);
                 }
             }
 
@@ -271,7 +271,7 @@ class JslLintTask extends Task
                 exec($command . '"' . $file . '"', $messages, $return);
 
                 if ($return > 100) {
-                    throw new BuildException("Could not execute Javascript Lint executable '{$this->executable}'");
+                    throw new BuildException(sprintf("Could not execute Javascript Lint executable '%s'", $this->executable));
                 }
 
                 $summary = $messages[count($messages) - 1];

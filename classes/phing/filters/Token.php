@@ -59,9 +59,9 @@ class Token
         // special case for boolean values
         if (is_bool($value)) {
             if ($value) {
-                $this->value = "true";
+                $this->value = 'true';
             } else {
-                $this->value = "false";
+                $this->value = 'false';
             }
         } else {
             $this->value = (string) $value;

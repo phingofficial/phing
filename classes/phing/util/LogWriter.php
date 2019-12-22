@@ -53,7 +53,7 @@ class LogWriter extends Writer
         $lines = explode("\n", $buf);
 
         foreach ($lines as $line) {
-            if ($line == "") {
+            if ($line == '') {
                 continue;
             }
 

@@ -37,7 +37,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the function.
      */
-    public const FUNCTION_KEY = "function";
+    public const FUNCTION_KEY = 'function';
 
     /**
      * The function to be used.

@@ -90,7 +90,7 @@ class TargetHandler extends AbstractHandler
     public function init($tag, $attrs)
     {
         $name        = null;
-        $depends     = "";
+        $depends     = '';
         $ifCond      = null;
         $unlessCond  = null;
         $id          = null;
@@ -100,38 +100,38 @@ class TargetHandler extends AbstractHandler
 
         foreach ($attrs as $key => $value) {
             switch ($key) {
-                case "name":
+                case 'name':
                     $name = (string) $value;
                     break;
-                case "depends":
+                case 'depends':
                     $depends = (string) $value;
                     break;
-                case "if":
+                case 'if':
                     $ifCond = (string) $value;
                     break;
-                case "unless":
+                case 'unless':
                     $unlessCond = (string) $value;
                     break;
-                case "id":
+                case 'id':
                     $id = (string) $value;
                     break;
-                case "hidden":
+                case 'hidden':
                     $isHidden = ($value === 'true' || $value === '1');
                     break;
-                case "description":
+                case 'description':
                     $description = (string) $value;
                     break;
-                case "logskipped":
+                case 'logskipped':
                     $logskipped = $value;
                     break;
                 default:
-                    throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation());
+                    throw new ExpatParseException(sprintf("Unexpected attribute '%s'", $key), $this->parser->getLocation());
             }
         }
 
         if ($name === null) {
             throw new ExpatParseException(
-                "target element appears without a name attribute",
+                'target element appears without a name attribute',
                 $this->parser->getLocation()
             );
         }
@@ -142,7 +142,7 @@ class TargetHandler extends AbstractHandler
         // check to see if this target is a dup within the same file
         if (isset($this->context->getCurrentTargets()[$name])) {
             throw new BuildException(
-                "Duplicate target: $name",
+                'Duplicate target: ' . $name,
                 $this->parser->getLocation()
             );
         }
@@ -169,17 +169,15 @@ class TargetHandler extends AbstractHandler
             ) {
                 // In an impored file (and not completely
                 // ignoring the project tag)
-                $newName = $this->configurator->getCurrentProjectName() . "." . $name;
+                $newName = $this->configurator->getCurrentProjectName() . '.' . $name;
                 $project->log(
-                    "Already defined in main or a previous import, " .
-                    "define {$name} as {$newName}",
+                    sprintf('Already defined in main or a previous import, define %s as %s', $name, $newName),
                     Project::MSG_VERBOSE
                 );
                 $name = $newName;
             } else {
                 $project->log(
-                    "Already defined in main or a previous import, " .
-                    "ignore {$name}",
+                    'Already defined in main or a previous import, ignore ' . $name,
                     Project::MSG_VERBOSE
                 );
                 $name = null;
@@ -189,7 +187,7 @@ class TargetHandler extends AbstractHandler
         if ($name != null) {
             $this->target->setName($name);
             $project->addOrReplaceTarget($name, $this->target);
-            if ($id !== null && $id !== "") {
+            if ($id !== null && $id !== '') {
                 $project->addReference($id, $this->target);
             }
         }

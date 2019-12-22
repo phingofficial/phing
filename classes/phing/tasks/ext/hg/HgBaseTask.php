@@ -153,12 +153,12 @@ abstract class HgBaseTask extends Task
      */
     public function checkRepositoryIsDirAndExists($dir)
     {
-        if (file_exists($dir)) {
-            if (!is_dir($dir)) {
-                throw new BuildException("Repository '$dir' is not a directory.");
-            }
-        } else {
-            throw new BuildException("Repository directory '$dir' does not exist.");
+        if (!file_exists($dir)) {
+            throw new BuildException(sprintf("Repository directory '%s' does not exist.", $dir));
+        }
+
+        if (!is_dir($dir)) {
+            throw new BuildException(sprintf("Repository '%s' is not a directory.", $dir));
         }
         return true;
     }

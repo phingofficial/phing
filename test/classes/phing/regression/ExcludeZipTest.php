@@ -28,17 +28,17 @@ class ExcludeZipTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/137/build.xml');
     }
 
     public function testZipTask()
     {
-        $this->executeTarget("main");
+        $this->executeTarget('main');
 
-        $expected       = "Adding ./.git to archive.";
+        $expected       = 'Adding ./.git to archive.';
         $representation = [];
         foreach ($this->logBuffer as $log) {
-            $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
+            $representation[] = sprintf('[msg="%s",priority=%s]', $log['message'], $log['priority']);
         }
 
         foreach ($this->logBuffer as $log) {

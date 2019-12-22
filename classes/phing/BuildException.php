@@ -47,11 +47,11 @@ class BuildException extends RuntimeException
      * @param Location|Exception|null $p2
      * @param Location|null           $p3
      */
-    public function __construct($p1 = "", $p2 = null, $p3 = null)
+    public function __construct($p1 = '', $p2 = null, $p3 = null)
     {
         $cause = null;
         $loc   = null;
-        $msg   = "";
+        $msg   = '';
 
         if ($p3 !== null) {
             if ($p2 instanceof Throwable) {

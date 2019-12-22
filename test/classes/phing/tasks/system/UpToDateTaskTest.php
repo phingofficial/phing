@@ -27,7 +27,7 @@ class UpToDateTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/UpToDateTest.xml"
+            . '/etc/tasks/system/UpToDateTest.xml'
         );
     }
 
@@ -36,7 +36,7 @@ class UpToDateTaskTest extends BuildFileTest
      */
     public function testOverrideNoPropertySet()
     {
-        $this->executeTarget("overrideNoPropertySet");
+        $this->executeTarget('overrideNoPropertySet');
         $this->assertInLogs('Property ${prop} has not been set.');
         $this->assertInLogs('Property ${prop} => updated');
         $this->assertInLogs('echo = ${prop}');
@@ -48,7 +48,7 @@ class UpToDateTaskTest extends BuildFileTest
      */
     public function testOverridePropertySet()
     {
-        $this->executeTarget("overridePropertySet");
+        $this->executeTarget('overridePropertySet');
         $this->assertInLogs('Setting project property: prop -> value exists');
         $this->assertInLogs('Property ${prop} => value exists');
         $this->assertInLogs('Property ${prop} => updated');

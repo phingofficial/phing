@@ -30,9 +30,9 @@ class TarTask extends MatchingTask
 {
     public const TAR_NAMELEN = 100;
 
-    public const WARN = "warn";
-    public const FAIL = "fail";
-    public const OMIT = "omit";
+    public const WARN = 'warn';
+    public const FAIL = 'fail';
+    public const OMIT = 'omit';
 
     /**
      * @var PhingFile
@@ -46,7 +46,7 @@ class TarTask extends MatchingTask
 
     private $includeEmpty = true; // Whether to include empty dirs in the TAR
 
-    private $longFileMode = "warn";
+    private $longFileMode = 'warn';
 
     /**
      * @var TarFileSet[]
@@ -77,7 +77,7 @@ class TarTask extends MatchingTask
     {
         include_once 'Archive/Tar.php';
         if (!class_exists('Archive_Tar')) {
-            throw new BuildException("You must have installed the PEAR Archive_Tar class in order to use TarTask.");
+            throw new BuildException('You must have installed the PEAR Archive_Tar class in order to use TarTask.');
         }
     }
 
@@ -175,20 +175,20 @@ class TarTask extends MatchingTask
     public function setCompression($mode)
     {
         switch ($mode) {
-            case "gzip":
-                $this->compression = "gz";
+            case 'gzip':
+                $this->compression = 'gz';
                 break;
-            case "bzip2":
-                $this->compression = "bz2";
+            case 'bzip2':
+                $this->compression = 'bz2';
                 break;
-            case "lzma2":
-                $this->compression = "lzma2";
+            case 'lzma2':
+                $this->compression = 'lzma2';
                 break;
-            case "none":
+            case 'none':
                 $this->compression = null;
                 break;
             default:
-                $this->log("Ignoring unknown compression mode: " . $mode, Project::MSG_WARN);
+                $this->log('Ignoring unknown compression mode: ' . $mode, Project::MSG_WARN);
                 $this->compression = null;
         }
     }
@@ -213,15 +213,15 @@ class TarTask extends MatchingTask
     public function main()
     {
         if ($this->tarFile === null) {
-            throw new BuildException("tarfile attribute must be set!", $this->getLocation());
+            throw new BuildException('tarfile attribute must be set!', $this->getLocation());
         }
 
         if ($this->tarFile->exists() && $this->tarFile->isDirectory()) {
-            throw new BuildException("tarfile is a directory!", $this->getLocation());
+            throw new BuildException('tarfile is a directory!', $this->getLocation());
         }
 
         if ($this->tarFile->exists() && !$this->tarFile->canWrite()) {
-            throw new BuildException("Can not write to the specified tarfile!", $this->getLocation());
+            throw new BuildException('Can not write to the specified tarfile!', $this->getLocation());
         }
 
         // shouldn't need to clone, since the entries in filesets
@@ -247,19 +247,19 @@ class TarTask extends MatchingTask
 
             if (empty($this->filesets)) {
                 throw new BuildException(
-                    "You must supply either a basedir "
-                    . "attribute or some nested filesets.",
+                    'You must supply either a basedir '
+                    . 'attribute or some nested filesets.',
                     $this->getLocation()
                 );
             }
 
             // check if tar is out of date with respect to each fileset
             if ($this->tarFile->exists() && $this->isArchiveUpToDate()) {
-                $this->log("Nothing to do: " . $this->tarFile->__toString() . " is up to date.", Project::MSG_INFO);
+                $this->log('Nothing to do: ' . $this->tarFile->__toString() . ' is up to date.', Project::MSG_INFO);
                 return;
             }
 
-            $this->log("Building tar: " . $this->tarFile->__toString(), Project::MSG_INFO);
+            $this->log('Building tar: ' . $this->tarFile->__toString(), Project::MSG_INFO);
 
             $tar  = new Archive_Tar($this->tarFile->getAbsolutePath(), $this->compression);
             $pear = new PEAR();
@@ -272,10 +272,10 @@ class TarTask extends MatchingTask
                 $files = $fs->getIterator($this->includeEmpty);
                 if (count($files) > 1 && strlen($fs->getFullpath()) > 0) {
                     throw new BuildException(
-                        "fullpath attribute may only "
-                        . "be specified for "
-                        . "filesets that specify a "
-                        . "single file."
+                        'fullpath attribute may only '
+                        . 'be specified for '
+                        . 'filesets that specify a '
+                        . 'single file.'
                     );
                 }
                 $fsBasedir  = $fs->getDir($this->project);
@@ -283,7 +283,7 @@ class TarTask extends MatchingTask
                 for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
                     $f            = new PhingFile($fsBasedir, $files[$i]);
                     $filesToTar[] = $f->getAbsolutePath();
-                    $this->log("Adding file " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
+                    $this->log('Adding file ' . $f->getPath() . ' to archive.', Project::MSG_VERBOSE);
                 }
                 $tar->addModify($filesToTar, $this->prefix, $fsBasedir->getAbsolutePath());
 
@@ -292,7 +292,7 @@ class TarTask extends MatchingTask
                 }
             }
         } catch (IOException $ioe) {
-            $msg            = "Problem creating TAR: " . $ioe->getMessage();
+            $msg            = 'Problem creating TAR: ' . $ioe->getMessage();
             $this->filesets = $savedFileSets;
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
@@ -329,7 +329,7 @@ class TarTask extends MatchingTask
             }
             for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
                 if ($this->tarFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
-                    throw new BuildException("A tar file cannot include itself", $this->getLocation());
+                    throw new BuildException('A tar file cannot include itself', $this->getLocation());
                 }
             }
         }

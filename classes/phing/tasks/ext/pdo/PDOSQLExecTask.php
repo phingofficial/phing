@@ -63,9 +63,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     private $totalSql = 0;
 
-    public const DELIM_ROW    = "row";
-    public const DELIM_NORMAL = "normal";
-    public const DELIM_NONE   = "none";
+    public const DELIM_ROW    = 'row';
+    public const DELIM_NORMAL = 'normal';
+    public const DELIM_NONE   = 'none';
 
     /**
      * Database connection
@@ -114,7 +114,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @var string
      */
-    private $sqlCommand = "";
+    private $sqlCommand = '';
 
     /**
      * SQL transactions to perform
@@ -126,7 +126,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @var string
      */
-    private $delimiter = ";";
+    private $delimiter = ';';
 
     /**
      * The delimiter type indicating whether the delimiter will
@@ -137,7 +137,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Action to perform if an error is found
      **/
-    private $onError = "abort";
+    private $onError = 'abort';
 
     /**
      * Encoding to use when reading SQL statements from a file
@@ -289,7 +289,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
             if (defined($mode)) {
                 $this->fetchMode = constant($mode);
             } else {
-                throw new BuildException("Invalid PDO fetch mode specified: " . $mode, $this->getLocation());
+                throw new BuildException('Invalid PDO fetch mode specified: ' . $mode, $this->getLocation());
             }
         }
     }
@@ -337,21 +337,21 @@ class PDOSQLExecTask extends PDOTask implements Condition
         try {
             if (
                 $this->srcFile === null
-                && $this->sqlCommand === ""
+                && $this->sqlCommand === ''
                 && empty($this->filesets)
                 && empty($this->filelists)
                 && count($this->transactions) === 0
             ) {
                 throw new BuildException(
-                    "Source file or fileset/filelist, "
-                    . "transactions or sql statement "
-                    . "must be set!",
+                    'Source file or fileset/filelist, '
+                    . 'transactions or sql statement '
+                    . 'must be set!',
                     $this->getLocation()
                 );
             }
 
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
-                throw new BuildException("Source file does not exist!", $this->getLocation());
+                throw new BuildException('Source file does not exist!', $this->getLocation());
             }
 
             // deal with the filesets
@@ -395,12 +395,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
                     // Process all transactions
                     for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
                         if (!$this->isAutocommit()) {
-                            $this->log("Beginning transaction", Project::MSG_VERBOSE);
+                            $this->log('Beginning transaction', Project::MSG_VERBOSE);
                             $this->conn->beginTransaction();
                         }
                         $this->transactions[$i]->runTransaction();
                         if (!$this->isAutocommit()) {
-                            $this->log("Committing transaction", Project::MSG_VERBOSE);
+                            $this->log('Committing transaction', Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
                     }
@@ -409,7 +409,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                     throw $e;
                 }
             } catch (IOException $e) {
-                if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
+                if (!$this->isAutocommit() && $this->conn !== null && $this->onError == 'abort') {
                     try {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {
@@ -418,7 +418,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->closeConnection();
                 throw new BuildException($e->getMessage(), $this->getLocation());
             } catch (PDOException $e) {
-                if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
+                if (!$this->isAutocommit() && $this->conn !== null && $this->onError == 'abort') {
                     try {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {
@@ -432,8 +432,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
             $this->closeFormatters();
 
             $this->log(
-                $this->goodSql . " of " . $this->totalSql .
-                " SQL statements executed successfully"
+                $this->goodSql . ' of ' . $this->totalSql .
+                ' SQL statements executed successfully'
             );
         } catch (Exception $e) {
             throw $e;
@@ -463,7 +463,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
         try {
             while (null !== ($query = $splitter->nextQuery())) {
-                $this->log("SQL: " . $query, Project::MSG_VERBOSE);
+                $this->log('SQL: ' . $query, Project::MSG_VERBOSE);
                 $this->execSQL($query);
             }
         } catch (PDOException $e) {
@@ -498,7 +498,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     protected function execSQL($sql)
     {
         // Check and ignore empty statements
-        if (trim($sql) == "") {
+        if (trim($sql) == '') {
             return;
         }
 
@@ -506,7 +506,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
             $this->totalSql++;
 
             $this->statement = $this->conn->query($sql);
-            $this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
+            $this->log($this->statement->rowCount() . ' rows affected', Project::MSG_VERBOSE);
 
             // only call processResults() for statements that return actual data (such as 'select')
             if ($this->statement->columnCount() > 0) {
@@ -518,9 +518,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
             $this->goodSql++;
         } catch (PDOException $e) {
-            $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
-            if ($this->onError != "continue") {
-                throw new BuildException("Failed to execute SQL", $e);
+            $this->log('Failed to execute: ' . $sql, Project::MSG_ERR);
+            if ($this->onError != 'continue') {
+                throw new BuildException('Failed to execute SQL', $e);
             }
             $this->log($e->getMessage(), Project::MSG_ERR);
         }
@@ -572,7 +572,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     protected function processResults()
     {
         try {
-            $this->log("Processing new result set.", Project::MSG_VERBOSE);
+            $this->log('Processing new result set.', Project::MSG_VERBOSE);
 
             $formatters = $this->getConfiguredFormatters();
 
@@ -582,7 +582,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 }
             }
         } catch (Exception $x) {
-            $this->log("Error processing reults: " . $x->getMessage(), Project::MSG_ERR);
+            $this->log('Error processing reults: ' . $x->getMessage(), Project::MSG_ERR);
             foreach ($formatters as $formatter) {
                 $formatter->close();
             }

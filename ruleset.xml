@@ -636,14 +636,10 @@
     <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
 
     <!-- Forbid dead code -->
-    <!--
     <rule ref="Squiz.PHP.NonExecutableCode"/>
-    -->
 
     <!-- Forbid `$this` inside static function -->
-    <!--
     <rule ref="Squiz.Scope.StaticThisUsage"/>
-    -->
 
     <!-- Force whitespace before and after concatenation -->
     <rule ref="Squiz.Strings.ConcatenationSpacing">
@@ -654,17 +650,13 @@
     </rule>
 
     <!-- Forbid strings in `"` unless necessary -->
-    <!--
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
         <message>Variable "%s" not allowed in double quoted string; use sprintf() or concatenation instead</message>
     </rule>
-    -->
 
     <!-- Forbid braces around string in `echo` -->
-    <!--
     <rule ref="Squiz.Strings.EchoedStrings"/>
-    -->
 
     <!-- Forbid spaces in type casts -->
     <rule ref="Squiz.WhiteSpace.CastSpacing"/>

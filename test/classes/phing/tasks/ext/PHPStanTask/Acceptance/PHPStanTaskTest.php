@@ -26,12 +26,12 @@ class PHPStanTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(self::PHPSTAN_TEST_BASE . "/PHPStanTaskTest.xml");
+        $this->configureProject(self::PHPSTAN_TEST_BASE . '/PHPStanTaskTest.xml');
     }
 
     public function testItRun(): void
     {
-        $this->executeTarget("testRun");
+        $this->executeTarget('testRun');
 
         $expectedCommand = 'phpstan analyse';
 
@@ -40,7 +40,7 @@ class PHPStanTaskTest extends BuildFileTest
 
     public function testItRunWithFileset(): void
     {
-        $this->executeTarget("testRunFileset");
+        $this->executeTarget('testRunFileset');
 
         $this->assertExpectedCommandInLogs('phpstan analyse');
     }
@@ -55,7 +55,7 @@ class PHPStanTaskTest extends BuildFileTest
      */
     public function testExecutableCanBeSet(): void
     {
-        $this->executeTarget("testExecutableChange");
+        $this->executeTarget('testExecutableChange');
 
         $expectedCommand  = str_replace(
             '/',
@@ -74,7 +74,7 @@ class PHPStanTaskTest extends BuildFileTest
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('unknown command');
-        $this->executeTarget("testInvalidCommand");
+        $this->executeTarget('testInvalidCommand');
     }
 
     /**
@@ -82,7 +82,7 @@ class PHPStanTaskTest extends BuildFileTest
      */
     public function testAnalyseOptionsCanBeSet(): void
     {
-        $this->executeTarget("testAnalyseOptions");
+        $this->executeTarget('testAnalyseOptions');
 
         $expectedCommand  = 'phpstan analyse';
         $expectedCommand .= ' --configuration=anyConfiguration';
@@ -102,7 +102,7 @@ class PHPStanTaskTest extends BuildFileTest
      */
     public function testHelpOptionsCanBeSet(): void
     {
-        $this->executeTarget("testHelpOptions");
+        $this->executeTarget('testHelpOptions');
 
         $expectedCommand  = 'phpstan help';
         $expectedCommand .= ' --format=anyFormat';
@@ -117,7 +117,7 @@ class PHPStanTaskTest extends BuildFileTest
      */
     public function testListOptionsCanBeSet(): void
     {
-        $this->executeTarget("testListOptions");
+        $this->executeTarget('testListOptions');
 
         $expectedCommand  = 'phpstan list';
         $expectedCommand .= ' --format=anyFormat';
@@ -132,7 +132,7 @@ class PHPStanTaskTest extends BuildFileTest
      */
     public function testCommonOptionsCanBeSet(): void
     {
-        $this->executeTarget("testCommonOptions");
+        $this->executeTarget('testCommonOptions');
 
         $expectedCommand  = 'phpstan analyse';
         $expectedCommand .= ' --help';

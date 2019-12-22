@@ -32,11 +32,11 @@ class AndSelector extends BaseSelectorContainer
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         if ($this->hasSelectors()) {
-            $buf .= "{andselect: ";
+            $buf .= '{andselect: ';
             $buf .= parent::__toString();
-            $buf .= "}";
+            $buf .= '}';
         }
 
         return $buf;

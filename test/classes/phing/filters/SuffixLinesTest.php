@@ -28,21 +28,21 @@ class SuffixLinesTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/suffixlines.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/suffixlines.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testSuffixLines()
     {
-        $this->executeTarget("testSuffixLines");
+        $this->executeTarget('testSuffixLines');
 
-        $expected = $this->getProject()->resolveFile("expected/suffixlines.test");
-        $result   = $this->getProject()->resolveFile("result/suffixlines.test");
+        $expected = $this->getProject()->resolveFile('expected/suffixlines.test');
+        $result   = $this->getProject()->resolveFile('result/suffixlines.test');
 
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }

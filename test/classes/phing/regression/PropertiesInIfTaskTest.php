@@ -27,12 +27,12 @@ class PropertiesInIfTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/1041/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/1041/build.xml');
     }
 
     public function testCopyTask()
     {
-        $this->executeTarget("test");
+        $this->executeTarget('test');
 
         $this->assertNotInLogs('Property ${outp} has not been set.');
         $this->assertInLogs('Property ${outp} => test');

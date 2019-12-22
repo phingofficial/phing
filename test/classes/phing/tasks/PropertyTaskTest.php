@@ -26,29 +26,29 @@ class PropertyTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/property.xml');
     }
 
     public function test1()
     {
         // should get no output at all
-        $this->expectOutputAndError("test1", "", "");
+        $this->expectOutputAndError('test1', '', '');
     }
 
     public function test2()
     {
-        $this->expectLog("test2", "testprop1=aa, testprop3=xxyy, testprop4=aazz");
+        $this->expectLog('test2', 'testprop1=aa, testprop3=xxyy, testprop4=aazz');
     }
 
     public function test4()
     {
-        $this->expectLog("test4", "http.url is http://localhost:999");
+        $this->expectLog('test4', 'http.url is http://localhost:999');
     }
 
     public function testPrefixSuccess()
     {
-        $this->executeTarget("prefix.success");
-        $this->assertEquals("80", $this->project->getProperty("server1.http.port"));
+        $this->executeTarget('prefix.success');
+        $this->assertEquals('80', $this->project->getProperty('server1.http.port'));
     }
 
     public function testPrefixFailure()
@@ -65,13 +65,13 @@ class PropertyTaskTest extends BuildFileTest
 //        }
 //        $this->fail("Did not throw exception on invalid use of prefix");
 
-        $this->executeTarget("prefix.fail");
+        $this->executeTarget('prefix.fail');
     }
 
     public function testFilterChain()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
+        $this->assertEquals('World', $this->project->getProperty('filterchain.test'));
     }
 
     public function circularDefinitionTargets()

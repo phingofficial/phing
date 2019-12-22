@@ -24,7 +24,7 @@
  */
 class FileSystemTest extends \PHPUnit\Framework\TestCase
 {
-    private $oldFsType = "";
+    private $oldFsType = '';
 
     public function setUp(): void
     {

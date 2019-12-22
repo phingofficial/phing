@@ -55,7 +55,7 @@ class IniFileTokenReader extends TokenReader
     public function readToken()
     {
         if ($this->file === null) {
-            throw new BuildException("No File set for IniFileTokenReader");
+            throw new BuildException('No File set for IniFileTokenReader');
         }
 
         if ($this->tokens === null) {
@@ -136,7 +136,7 @@ class IniFileTokenReader extends TokenReader
             return;
         }
 
-        throw new BuildException("Unsupported value " . (string) $file);
+        throw new BuildException('Unsupported value ' . (string) $file);
     }
 
     /**

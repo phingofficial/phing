@@ -55,11 +55,11 @@ class HgAddTask extends HgBaseTask
         }
 
         if (!file_exists($dir)) {
-            throw new BuildException("\"$dir\" does not exist.");
+            throw new BuildException(sprintf('"%s" does not exist.', $dir));
         }
 
         if (!is_dir($dir)) {
-            throw new BuildException("\"$dir\" is not a directory.");
+            throw new BuildException(sprintf('"%s" is not a directory.', $dir));
         }
 
         chdir($dir);
@@ -98,14 +98,14 @@ class HgAddTask extends HgBaseTask
 
         if ($filesAdded) {
             try {
-                $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+                $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
                 $output = $clone->execute();
                 if ($output !== '') {
                     $this->log($output);
                 }
             } catch (Exception $ex) {
                 $msg = $ex->getMessage();
-                $this->log("Exception: $msg", Project::MSG_INFO);
+                $this->log('Exception: ' . $msg, Project::MSG_INFO);
                 $p = strpos($msg, 'hg returned:');
                 if ($p !== false) {
                     $msg = substr($msg, $p + 13);

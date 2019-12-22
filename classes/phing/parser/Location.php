@@ -89,13 +89,13 @@ class Location
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         if ($this->fileName !== null) {
             $buf .= $this->fileName;
             if ($this->lineNumber !== null) {
-                $buf .= ":" . $this->lineNumber;
+                $buf .= ':' . $this->lineNumber;
             }
-            $buf .= ":" . $this->columnNumber;
+            $buf .= ':' . $this->columnNumber;
         }
 
         return (string) $buf;

@@ -25,7 +25,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httprequest.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httprequest.xml');
     }
 
     protected function createRequestWithMockAdapter()

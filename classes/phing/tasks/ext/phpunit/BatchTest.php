@@ -42,7 +42,7 @@ class BatchTest
     /**
      * name of the batchtest/suite
      */
-    protected $name = "Phing Batchtest";
+    protected $name = 'Phing Batchtest';
 
     /**
      * Create a new batchtest instance
@@ -73,7 +73,7 @@ class BatchTest
      */
     public function setExclude($exclude)
     {
-        $this->excludeClasses = explode(" ", $exclude);
+        $this->excludeClasses = explode(' ', $exclude);
     }
 
     /**
@@ -92,7 +92,7 @@ class BatchTest
             $files = $ds->getIncludedFiles();
 
             foreach ($files as $file) {
-                $filenames[] = $ds->getBaseDir() . "/" . $file;
+                $filenames[] = $ds->getBaseDir() . '/' . $file;
             }
         }
 
@@ -147,12 +147,12 @@ class BatchTest
             $definedClasses = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
             foreach ($definedClasses as $definedClass) {
-                $this->project->log("(PHPUnit) Adding $definedClass (from $filename) to tests.", Project::MSG_DEBUG);
+                $this->project->log('(PHPUnit) Adding ' . $definedClass . ' (from ' . $filename . ') to tests.', Project::MSG_DEBUG);
             }
 
             $declaredClasses = array_merge($declaredClasses, $definedClasses);
         }
 
-        return array_filter($declaredClasses, [$this, "filterTests"]);
+        return array_filter($declaredClasses, [$this, 'filterTests']);
     }
 }

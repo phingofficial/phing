@@ -26,22 +26,22 @@ class TypedefTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/typedef.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/typedef.xml');
     }
 
     public function testEmpty()
     {
-        $this->expectBuildException("empty", "required argument not specified");
+        $this->expectBuildException('empty', 'required argument not specified');
     }
 
     public function testNoName()
     {
-        $this->expectBuildException("noName", "required argument not specified");
+        $this->expectBuildException('noName', 'required argument not specified');
     }
 
     public function testNoClassname()
     {
-        $this->expectBuildException("noClassname", "required argument not specified");
+        $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
     public function testClassNotFound()
@@ -49,9 +49,9 @@ class TypedefTaskTest extends BuildFileTest
         $this->expectException(BuildException::class);
 
         try {
-            $this->executeTarget("classNotFound");
+            $this->executeTarget('classNotFound');
             $this->fail(
-                "Should throw ConfigurationException because: " .
+                'Should throw ConfigurationException because: ' .
                 "classname specified doesn't exist"
             );
         } catch (ConfigurationException $ignored) {
@@ -60,19 +60,19 @@ class TypedefTaskTest extends BuildFileTest
 
     public function testGlobal()
     {
-        $this->expectLog("testGlobal", "Adding reference: global -> TypedefTestType");
+        $this->expectLog('testGlobal', 'Adding reference: global -> TypedefTestType');
         $refs = $this->project->getReferences();
-        $ref  = $refs["global"];
-        $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TypedefTestType", get_class($ref));
+        $ref  = $refs['global'];
+        $this->assertNotNull('ref is not null', $ref);
+        $this->assertEquals('TypedefTestType', get_class($ref));
     }
 
     public function testLocal()
     {
-        $this->expectLog("testLocal", "Adding reference: local -> TypedefTestType");
+        $this->expectLog('testLocal', 'Adding reference: local -> TypedefTestType');
         $refs = $this->project->getReferences();
-        $ref  = $refs["local"];
-        $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TypedefTestType", get_class($ref));
+        $ref  = $refs['local'];
+        $this->assertNotNull('ref is not null', $ref);
+        $this->assertEquals('TypedefTestType', get_class($ref));
     }
 }

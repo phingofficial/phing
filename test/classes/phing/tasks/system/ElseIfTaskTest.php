@@ -58,7 +58,7 @@ class ElseIfTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         // check the output for the expected value
-        $this->assertInLogs("Elseif: The value of property foo is foo");
+        $this->assertInLogs('Elseif: The value of property foo is foo');
     }
 
     /**

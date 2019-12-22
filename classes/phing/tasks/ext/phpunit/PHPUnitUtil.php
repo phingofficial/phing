@@ -53,7 +53,7 @@ class PHPUnitUtil
             return $matches[1];
         }
 
-        return "default";
+        return 'default';
     }
 
     /**

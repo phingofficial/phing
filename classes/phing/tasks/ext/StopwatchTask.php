@@ -56,7 +56,7 @@ class StopwatchTask extends DispatchTask
     public function init()
     {
         if (!class_exists('\\Symfony\\Component\\Stopwatch\\Stopwatch')) {
-            throw new BuildException("StopwatchTask requires symfony/stopwatch to be installed.");
+            throw new BuildException('StopwatchTask requires symfony/stopwatch to be installed.');
         }
 
         $this->setAction('start');
@@ -158,13 +158,13 @@ class StopwatchTask extends DispatchTask
     public function main()
     {
         switch ($this->getAction()) {
-            case "start":
+            case 'start':
                 $this->start();
                 break;
-            case "stop":
+            case 'stop':
                 $this->stop();
                 break;
-            case "lap":
+            case 'lap':
                 $this->lap();
                 break;
             default:

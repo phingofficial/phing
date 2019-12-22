@@ -28,7 +28,7 @@
 class PDOSQLExecTransaction
 {
     private $tSrcFile    = null;
-    private $tSqlCommand = "";
+    private $tSqlCommand = '';
 
     /**
      * @var PDOSQLExecTask
@@ -66,13 +66,13 @@ class PDOSQLExecTransaction
     public function runTransaction()
     {
         if (!empty($this->tSqlCommand)) {
-            $this->parent->log("Executing commands", Project::MSG_INFO);
+            $this->parent->log('Executing commands', Project::MSG_INFO);
             $this->parent->runStatements(new StringReader($this->tSqlCommand));
         }
 
         if ($this->tSrcFile !== null) {
             $this->parent->log(
-                "Executing file: " . $this->tSrcFile->getAbsolutePath(),
+                'Executing file: ' . $this->tSrcFile->getAbsolutePath(),
                 Project::MSG_INFO
             );
             $reader = new FileReader($this->tSrcFile);

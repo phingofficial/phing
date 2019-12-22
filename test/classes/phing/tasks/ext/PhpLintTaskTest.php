@@ -26,7 +26,7 @@ class PhpLintTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phplint/build.xml');
     }
 
     public function tearDown(): void
@@ -39,7 +39,7 @@ class PhpLintTaskTest extends BuildFileTest
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world'; ?>");
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("phplint_file.php: No syntax errors detected");
+        $this->assertInLogs('phplint_file.php: No syntax errors detected');
     }
 
     public function testSyntaxError()
@@ -47,7 +47,7 @@ class PhpLintTaskTest extends BuildFileTest
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("syntax error, unexpected");
+        $this->assertInLogs('syntax error, unexpected');
     }
 
     /**
@@ -63,7 +63,7 @@ class PhpLintTaskTest extends BuildFileTest
         );
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Assigning the return value of new by reference is deprecated in");
+        $this->assertInLogs('Assigning the return value of new by reference is deprecated in');
     }
 
     public function testHaltOnFailure()
@@ -72,8 +72,8 @@ class PhpLintTaskTest extends BuildFileTest
 
         $this->expectBuildException(
             __FUNCTION__,
-            " Syntax error(s) in PHP files: " . PHING_TEST_BASE . "/tmp/phplint_file.php" .
-            "=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in " . PHING_TEST_BASE . "/tmp/phplint_file.php on line 2"
+            ' Syntax error(s) in PHP files: ' . PHING_TEST_BASE . '/tmp/phplint_file.php' .
+            '=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ' . PHING_TEST_BASE . '/tmp/phplint_file.php on line 2'
         );
     }
 }

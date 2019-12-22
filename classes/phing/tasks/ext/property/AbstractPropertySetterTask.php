@@ -35,7 +35,7 @@ abstract class AbstractPropertySetterTask extends Task
     protected function validate()
     {
         if ($this->property == null) {
-            throw new BuildException("You must specify a property to set.");
+            throw new BuildException('You must specify a property to set.');
         }
     }
 
@@ -49,7 +49,7 @@ abstract class AbstractPropertySetterTask extends Task
                     $this->getProject()->setUserProperty($this->property, $value);
                 }
             } else {
-                $p = $this->project->createTask("property");
+                $p = $this->project->createTask('property');
                 $p->setName($this->property);
                 $p->setValue($value);
                 $p->main();

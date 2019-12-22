@@ -104,10 +104,10 @@ class TaskdefTask extends Task
             && ($this->name === null
             || $this->classname === null)
         ) {
-            throw new BuildException("You must specify name and class attributes for <taskdef>.");
+            throw new BuildException('You must specify name and class attributes for <taskdef>.');
         }
         if ($this->typeFile == null) {
-            $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
+            $this->log('Task ' . $this->name . ' will be handled by class ' . $this->classname, Project::MSG_VERBOSE);
             $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
         } else {
             try { // try to load taskdefs given in file
@@ -115,7 +115,7 @@ class TaskdefTask extends Task
                 $in    = new PhingFile((string) $this->typeFile);
 
                 if ($in === null) {
-                    throw new BuildException("Can't load task list {$this->typeFile}");
+                    throw new BuildException("Can't load task list " . $this->typeFile);
                 }
                 $props->load($in);
 
@@ -125,7 +125,7 @@ class TaskdefTask extends Task
                     $this->project->addTaskDefinition($key, $value, $this->classpath);
                 }
             } catch (IOException $ioe) {
-                throw new BuildException("Can't load task list {$this->typeFile}");
+                throw new BuildException("Can't load task list " . $this->typeFile);
             }
         }
     }

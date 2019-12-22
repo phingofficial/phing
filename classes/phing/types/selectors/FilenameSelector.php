@@ -30,10 +30,10 @@ class FilenameSelector extends BaseExtendSelector
     private $regex          = null;
     private $casesensitive  = true;
     private $negated        = false;
-    public const NAME_KEY   = "name";
-    public const CASE_KEY   = "casesensitive";
-    public const NEGATE_KEY = "negate";
-    public const REGEX_KEY  = "regex";
+    public const NAME_KEY   = 'name';
+    public const CASE_KEY   = 'casesensitive';
+    public const NEGATE_KEY = 'negate';
+    public const REGEX_KEY  = 'regex';
 
     private $reg;
     private $expression;
@@ -43,26 +43,26 @@ class FilenameSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf = "{filenameselector name: ";
+        $buf = '{filenameselector name: ';
         if ($this->pattern !== null) {
             $buf .= $this->pattern;
         }
         if ($this->regex != null) {
-            $buf .= $this->regex . " [as regular expression]";
+            $buf .= $this->regex . ' [as regular expression]';
         }
-        $buf .= " negate: ";
+        $buf .= ' negate: ';
         if ($this->negated) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= " casesensitive: ";
+        $buf .= ' casesensitive: ';
         if ($this->casesensitive) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -81,7 +81,7 @@ class FilenameSelector extends BaseExtendSelector
         $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $pattern);
 
         if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-            $pattern .= "**";
+            $pattern .= '**';
         }
         $this->pattern = $pattern;
     }
@@ -153,7 +153,7 @@ class FilenameSelector extends BaseExtendSelector
                         $this->setRegex($parameters[$i]->getValue());
                         break;
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 }
             } // for each param
         } // if params
@@ -170,9 +170,9 @@ class FilenameSelector extends BaseExtendSelector
     public function verifySettings()
     {
         if ($this->pattern === null && $this->regex === null) {
-            $this->setError("The name or regex attribute is required");
+            $this->setError('The name or regex attribute is required');
         } elseif ($this->pattern !== null && $this->regex !== null) {
-            $this->setError("Only one of name and regex attribute is allowed");
+            $this->setError('Only one of name and regex attribute is allowed');
         }
     }
 

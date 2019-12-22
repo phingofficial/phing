@@ -58,7 +58,7 @@ class XsltTask extends CopyTask
      */
     public function main()
     {
-        $this->log("Doing XSLT transformation using stylesheet " . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
+        $this->log('Doing XSLT transformation using stylesheet ' . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
         $this->xsltFilter->setParams($this->parameters);
         parent::main();
     }

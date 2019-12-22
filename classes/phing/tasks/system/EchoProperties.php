@@ -56,22 +56,22 @@ class EchoProperties extends Task
     /**
      * the properties element.
      */
-    private static $PROPERTIES = "properties";
+    private static $PROPERTIES = 'properties';
 
     /**
      * the property element.
      */
-    private static $PROPERTY = "property";
+    private static $PROPERTY = 'property';
 
     /**
      * name attribute for property, testcase and testsuite elements.
      */
-    private static $ATTR_NAME = "name";
+    private static $ATTR_NAME = 'name';
 
     /**
      * value attribute for property elements.
      */
-    private static $ATTR_VALUE = "value";
+    private static $ATTR_VALUE = 'value';
     /**
      * the input file.
      *
@@ -99,7 +99,7 @@ class EchoProperties extends Task
     /**
      * @var string $format
      */
-    private $format = "text";
+    private $format = 'text';
 
     /**
      * @var string $prefix
@@ -210,7 +210,7 @@ class EchoProperties extends Task
     public function main()
     {
         if ($this->prefix != null && $this->regex != null) {
-            throw new BuildException("Please specify either prefix or regex, but not both", $this->getLocation());
+            throw new BuildException('Please specify either prefix or regex, but not both', $this->getLocation());
         }
 
         //copy the properties file
@@ -222,13 +222,13 @@ class EchoProperties extends Task
             $allProps = $this->getProject()->getProperties();
         } elseif ($this->inFile != null) {
             if ($this->inFile->exists() && $this->inFile->isDirectory()) {
-                $message = "srcfile is a directory!";
+                $message = 'srcfile is a directory!';
                 $this->failOnErrorAction(null, $message, Project::MSG_ERR);
                 return;
             }
 
             if ($this->inFile->exists() && !$this->inFile->canRead()) {
-                $message = "Can not read from the specified srcfile!";
+                $message = 'Can not read from the specified srcfile!';
                 $this->failOnErrorAction(null, $message, Project::MSG_ERR);
                 return;
             }
@@ -238,7 +238,7 @@ class EchoProperties extends Task
                 $props->load(new PhingFile($this->inFile));
                 $allProps = $props->getProperties();
             } catch (IOException $ioe) {
-                $message = "Could not read file " . $this->inFile->getAbsolutePath();
+                $message = 'Could not read file ' . $this->inFile->getAbsolutePath();
                 $this->failOnErrorAction($ioe, $message, Project::MSG_WARN);
                 return;
             }
@@ -252,13 +252,13 @@ class EchoProperties extends Task
                 $this->log($os, Project::MSG_INFO);
             } else {
                 if ($this->destfile->exists() && $this->destfile->isDirectory()) {
-                    $message = "destfile is a directory!";
+                    $message = 'destfile is a directory!';
                     $this->failOnErrorAction(null, $message, Project::MSG_ERR);
                     return;
                 }
 
                 if ($this->destfile->exists() && !$this->destfile->canWrite()) {
-                    $message = "Can not write to the specified destfile!";
+                    $message = 'Can not write to the specified destfile!';
                     $this->failOnErrorAction(null, $message, Project::MSG_ERR);
                     return;
                 }
@@ -331,9 +331,9 @@ class EchoProperties extends Task
             $props->setProperty($name, $value);
         }
 
-        if ($this->format === "text") {
-            $this->textSaveProperties($props, $os, "Phing properties");
-        } elseif ($this->format === "xml") {
+        if ($this->format === 'text') {
+            $this->textSaveProperties($props, $os, 'Phing properties');
+        } elseif ($this->format === 'xml') {
             $this->xmlSaveProperties($props, $os);
         }
     }
@@ -365,7 +365,7 @@ class EchoProperties extends Task
             $doc->appendChild($rootElement);
             $os->write($doc->saveXML());
         } catch (IOException $ioe) {
-            throw new BuildException("Unable to write XML file", $ioe);
+            throw new BuildException('Unable to write XML file', $ioe);
         }
     }
 

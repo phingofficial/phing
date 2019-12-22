@@ -28,12 +28,12 @@ class DefaultExcludes extends Task
     /**
      * @var string $add
      */
-    private $add = "";
+    private $add = '';
 
     /**
      * @var string $remove
      */
-    private $remove = "";
+    private $remove = '';
 
     /**
      * @var bool $defaultrequested
@@ -59,28 +59,28 @@ class DefaultExcludes extends Task
      */
     public function main()
     {
-        if (!$this->defaultrequested && $this->add === "" && $this->remove === "" && !$this->echo) {
+        if (!$this->defaultrequested && $this->add === '' && $this->remove === '' && !$this->echo) {
             throw new BuildException(
-                "<defaultexcludes> task must set at least one attribute (echo=\"false\")"
+                '<defaultexcludes> task must set at least one attribute (echo="false")'
                 . " doesn't count since that is the default"
             );
         }
         if ($this->defaultrequested) {
             DirectoryScanner::resetDefaultExcludes();
         }
-        if ($this->add !== "") {
+        if ($this->add !== '') {
             DirectoryScanner::addDefaultExclude($this->add);
         }
-        if ($this->remove !== "") {
+        if ($this->remove !== '') {
             DirectoryScanner::removeDefaultExclude($this->remove);
         }
         if ($this->echo) {
             $lineSep  = Phing::getProperty('line.separator');
-            $message  = "Current Default Excludes:";
+            $message  = 'Current Default Excludes:';
             $message .= $lineSep;
             $excludes = DirectoryScanner::getDefaultExcludes();
-            $message .= "  ";
-            $message .= implode($lineSep . "  ", $excludes);
+            $message .= '  ';
+            $message .= implode($lineSep . '  ', $excludes);
             $this->log($message, $this->logLevel);
         }
     }

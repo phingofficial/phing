@@ -66,7 +66,7 @@ class Regexp
         if ($engineType == 'preg') {
             $this->engine = new PregEngine();
         } else {
-            throw new BuildException("Invalid engine type for Regexp: " . $engineType);
+            throw new BuildException('Invalid engine type for Regexp: ' . $engineType);
         }
     }
 
@@ -126,7 +126,7 @@ class Regexp
     public function matches($subject)
     {
         if ($this->pattern === null) {
-            throw new RegexpException("No pattern specified for regexp match().");
+            throw new RegexpException('No pattern specified for regexp match().');
         }
 
         return $this->engine->match($this->pattern, $subject, $this->groups);
@@ -144,7 +144,7 @@ class Regexp
     public function replace($subject)
     {
         if ($this->pattern === null || $this->replace === null) {
-            throw new RegexpException("Missing pattern or replacement string regexp replace().");
+            throw new RegexpException('Missing pattern or replacement string regexp replace().');
         }
 
         return $this->engine->replace($this->pattern, $this->replace, $subject);

@@ -29,11 +29,11 @@ class PharPackageTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (ini_get('phar.readonly') == "1") {
-            $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
+        if (ini_get('phar.readonly') == '1') {
+            $this->markTestSkipped('This test require phar.readonly php.ini setting to be disabled');
         }
 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/build.xml');
     }
 
     /**

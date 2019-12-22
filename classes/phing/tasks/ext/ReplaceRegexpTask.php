@@ -143,7 +143,7 @@ class ReplaceRegexpTask extends Task
     public function main()
     {
         if ($this->file === null && empty($this->filesets)) {
-            throw new BuildException("You must specify a file or fileset(s) for the <ReplaceRegexp> task.");
+            throw new BuildException('You must specify a file or fileset(s) for the <ReplaceRegexp> task.');
         }
 
         // compile a list of all files to modify, both file attrib and fileset elements
@@ -170,11 +170,11 @@ class ReplaceRegexpTask extends Task
             }
         }
 
-        $this->log("Applying Regexp processing to " . count($files) . " files.");
+        $this->log('Applying Regexp processing to ' . count($files) . ' files.');
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $slot         = $this->getRegisterSlot("currentFile");
-        $basenameSlot = $this->getRegisterSlot("currentFile.basename");
+        $slot         = $this->getRegisterSlot('currentFile');
+        $basenameSlot = $this->getRegisterSlot('currentFile.basename');
 
         $filter = new FilterChain($this->project);
 
@@ -193,7 +193,7 @@ class ReplaceRegexpTask extends Task
             // 1) read contents of file, pulling through any filters
             $in = null;
             try {
-                $contents = "";
+                $contents = '';
                 $in       = FileUtils::getChainedReader(new FileReader($file), $filters, $this->project);
                 while (-1 !== ($buffer = $in->read())) {
                     $contents .= $buffer;
@@ -203,7 +203,7 @@ class ReplaceRegexpTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log("Error reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error reading file: ' . $e->getMessage(), Project::MSG_WARN);
             }
 
             try {
@@ -211,12 +211,12 @@ class ReplaceRegexpTask extends Task
                 $out = new FileWriter($file);
                 $out->write($contents);
                 $out->close();
-                $this->log("Applying regexp processing to " . $file->getPath(), Project::MSG_VERBOSE);
+                $this->log('Applying regexp processing to ' . $file->getPath(), Project::MSG_VERBOSE);
             } catch (Exception $e) {
                 if ($out) {
                     $out->close();
                 }
-                $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error writing file back: ' . $e->getMessage(), Project::MSG_WARN);
             }
         }
     }

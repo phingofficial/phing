@@ -34,7 +34,7 @@ class TstampTask extends Task
      */
     private $customFormats = [];
 
-    private $prefix = "";
+    private $prefix = '';
 
     /**
      * Set a prefix for the properties. If the prefix does not end with a "."
@@ -47,7 +47,7 @@ class TstampTask extends Task
         $this->prefix = $prefix;
 
         if (!empty($this->prefix)) {
-            $this->prefix .= ".";
+            $this->prefix .= '.';
         }
     }
 

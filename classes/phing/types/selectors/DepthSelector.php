@@ -37,19 +37,19 @@ class DepthSelector extends BaseExtendSelector
      */
     public $max = -1;
 
-    public const MIN_KEY = "min";
-    public const MAX_KEY = "max";
+    public const MIN_KEY = 'min';
+    public const MAX_KEY = 'max';
 
     /**
      * @return string
      */
     public function __toString()
     {
-        $buf  = "{depthselector min: ";
+        $buf  = '{depthselector min: ';
         $buf .= $this->min;
-        $buf .= " max: ";
+        $buf .= ' max: ';
         $buf .= $this->max;
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -103,7 +103,7 @@ class DepthSelector extends BaseExtendSelector
                         break;
 
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 } // switch
             }
         }
@@ -121,12 +121,12 @@ class DepthSelector extends BaseExtendSelector
     {
         if ($this->min < 0 && $this->max < 0) {
             $this->setError(
-                "You must set at least one of the min or the " .
-                "max levels."
+                'You must set at least one of the min or the ' .
+                'max levels.'
             );
         }
         if ($this->max < $this->min && $this->max > -1) {
-            $this->setError("The maximum depth is lower than the minimum.");
+            $this->setError('The maximum depth is lower than the minimum.');
         }
     }
 
@@ -166,8 +166,8 @@ class DepthSelector extends BaseExtendSelector
                 // Sanity check. Ditch it if you want faster performance
                 if ($basetoken !== $filetoken) {
                     throw new BuildException(
-                        "File " . $filename .
-                        " does not appear within " . $abs_base . "directory"
+                        'File ' . $filename .
+                        ' does not appear within ' . $abs_base . 'directory'
                     );
                 }
             } else { // no more basepath tokens
@@ -179,8 +179,8 @@ class DepthSelector extends BaseExtendSelector
         }
         if (isset($tok_base[$i + 1])) {
             throw new BuildException(
-                "File " . $filename .
-                " is outside of " . $abs_base . "directory tree"
+                'File ' . $filename .
+                ' is outside of ' . $abs_base . 'directory tree'
             );
         }
         return $this->min <= -1 || $depth >= $this->min;

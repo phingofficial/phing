@@ -75,12 +75,12 @@ class HgArchiveTask extends HgBaseTask
         }
 
         if ($this->destination === null) {
-            throw new BuildException("Destination must be set.");
+            throw new BuildException('Destination must be set.');
         }
         $clone->setDestination($this->destination);
 
         try {
-            $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
             $output = $clone->execute();
             if ($output !== '') {
                 $this->log(PHP_EOL . $output);

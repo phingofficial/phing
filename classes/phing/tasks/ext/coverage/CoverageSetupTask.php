@@ -33,7 +33,7 @@ class CoverageSetupTask extends Task
     /**
      * the filename of the coverage database
      */
-    private $database = "coverage.db";
+    private $database = 'coverage.db';
 
     /**
      * Sets the filename of the coverage database to use
@@ -90,7 +90,7 @@ class CoverageSetupTask extends Task
     {
         $files = $this->getFilenames();
 
-        $this->log("Setting up coverage database for " . count($files) . " files");
+        $this->log('Setting up coverage database for ' . count($files) . ' files');
 
         $props = new Properties();
 

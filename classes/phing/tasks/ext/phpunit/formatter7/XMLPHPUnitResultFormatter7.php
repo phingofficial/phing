@@ -49,7 +49,7 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getExtension()
     {
-        return ".xml";
+        return '.xml';
     }
 
     /**
@@ -57,7 +57,7 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getPreferredOutfile()
     {
-        return "testsuites";
+        return 'testsuites';
     }
 
     /**

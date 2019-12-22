@@ -253,11 +253,11 @@ abstract class AbstractLiquibaseTask extends Task
      */
     protected function execute($lbcommand, $lbparams = '')
     {
-        $nestedparams = "";
+        $nestedparams = '';
         foreach ($this->parameters as $p) {
             $nestedparams .= $p->getCommandline($this->project) . ' ';
         }
-        $nestedprops = "";
+        $nestedprops = '';
         foreach ($this->properties as $p) {
             $nestedprops .= $p->getCommandline($this->project) . ' ';
         }
@@ -293,7 +293,7 @@ abstract class AbstractLiquibaseTask extends Task
             }
 
             if ($this->checkreturn && $return != 0) {
-                throw new BuildException("Liquibase exited with code $return");
+                throw new BuildException('Liquibase exited with code ' . $return);
             }
         }
 
@@ -306,7 +306,7 @@ abstract class AbstractLiquibaseTask extends Task
             throw new BuildException('Specify the name of the changelog file.');
         }
 
-        foreach (explode(":", $this->classpathref) as $path) {
+        foreach (explode(':', $this->classpathref) as $path) {
             if (file_exists($path . DIRECTORY_SEPARATOR . $this->changeLogFile)) {
                 return;
             }

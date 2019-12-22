@@ -39,12 +39,12 @@ abstract class AbstractPHPLocFormatter
     /**
      * @var string
      */
-    protected $toDir = ".";
+    protected $toDir = '.';
 
     /**
      * @var string
      */
-    protected $outfile = "";
+    protected $outfile = '';
 
     /**
      * Sets whether to store formatting results in a file

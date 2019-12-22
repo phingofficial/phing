@@ -44,14 +44,14 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
 
             if (
                 ($line != $delimiter)
-                && (StringHelper::startsWith("//", $line)
-                    || StringHelper::startsWith("--", $line)
-                    || StringHelper::startsWith("#", $line))
+                && (StringHelper::startsWith('//', $line)
+                    || StringHelper::startsWith('--', $line)
+                    || StringHelper::startsWith('#', $line))
             ) {
                 continue;
             }
 
-            $sql .= " " . $line . "\n";
+            $sql .= ' ' . $line . "\n";
 
             /**
              * fix issue with PDO and wrong formated multistatements

@@ -76,12 +76,12 @@ class HgCommitTask extends HgBaseTask
         $clone->setQuiet($this->getQuiet());
         $clone->setMessage($message);
 
-        if (trim($user) === "") {
+        if (trim($user) === '') {
             throw new BuildException('"user" parameter can not be set to ""');
         }
         if ($user !== null) {
             $clone->setUser($user);
-            $this->log("Commit: user = '$user'", Project::MSG_VERBOSE);
+            $this->log(sprintf("Commit: user = '%s'", $user), Project::MSG_VERBOSE);
         }
 
         if ($this->repository === '') {
@@ -96,14 +96,14 @@ class HgCommitTask extends HgBaseTask
         chdir($dir);
 
         try {
-            $this->log("Executing: " . $clone->asString(), Project::MSG_INFO);
+            $this->log('Executing: ' . $clone->asString(), Project::MSG_INFO);
             $output = $clone->execute();
             if ($output !== '') {
                 $this->log($output);
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            $this->log("Exception: $msg", Project::MSG_INFO);
+            $this->log('Exception: ' . $msg, Project::MSG_INFO);
             $p = strpos($msg, 'hg returned:');
             if ($p !== false) {
                 $msg = substr($msg, $p + 13);

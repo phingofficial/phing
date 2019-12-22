@@ -31,11 +31,11 @@ class PearPackageTest extends BuildFileTest
     {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
-        $buildFile = PHING_TEST_BASE . "/etc/tasks/ext/pearpackage.xml";
+        $buildFile = PHING_TEST_BASE . '/etc/tasks/ext/pearpackage.xml';
         $this->configureProject($buildFile);
 
         if (!class_exists('PEAR_PackageFileManager', false)) {
-            $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
+            $this->markTestSkipped('This test requires PEAR_PackageFileManager to be installed');
         }
 
         $GLOBALS['_PEAR_Common_file_roles'] = ['php', 'ext', 'test', 'doc', 'data', 'src', 'script'];
@@ -49,7 +49,7 @@ class PearPackageTest extends BuildFileTest
 
     public function testRoleSet()
     {
-        $this->executeTarget("main");
+        $this->executeTarget('main');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
         $this->assertStringContainsString('<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>', $content);
     }

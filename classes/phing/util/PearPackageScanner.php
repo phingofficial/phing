@@ -42,7 +42,7 @@ class PearPackageScanner extends DirectoryScanner
         @include_once 'PEAR/PackageFile.php';
 
         if (!class_exists('PEAR_Config')) {
-            throw new BuildException(__CLASS__ . " requires PEAR to be installed");
+            throw new BuildException(__CLASS__ . ' requires PEAR to be installed');
         }
     }
 
@@ -193,7 +193,7 @@ class PearPackageScanner extends DirectoryScanner
             $packageInfo = $pkg->fromPackageFile($this->packageFile, PEAR_VALIDATE_NORMAL);
             PEAR::staticPopErrorHandling();
             if (@PEAR::isError($packageInfo)) {
-                throw new BuildException("Errors in package file: " . $packageInfo->getMessage());
+                throw new BuildException('Errors in package file: ' . $packageInfo->getMessage());
             }
         }
 
@@ -222,7 +222,7 @@ class PearPackageScanner extends DirectoryScanner
 
         if ($this->includes === null) {
             // No includes supplied, so set it to 'matches all'
-            $this->includes = ["**"];
+            $this->includes = ['**'];
         }
         if ($this->excludes === null) {
             $this->excludes = [];

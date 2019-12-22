@@ -84,22 +84,22 @@ class ProjectHandler extends AbstractHandler
         $buildFileParent = $this->configurator->buildFileParent;
 
         foreach ($attrs as $key => $value) {
-            if ($key === "default") {
+            if ($key === 'default') {
                 $def = $value;
-            } elseif ($key === "name") {
+            } elseif ($key === 'name') {
                 $name = $value;
-            } elseif ($key === "id") {
+            } elseif ($key === 'id') {
                 $id = $value;
-            } elseif ($key === "basedir") {
+            } elseif ($key === 'basedir') {
                 $baseDir = $value;
-            } elseif ($key === "description") {
+            } elseif ($key === 'description') {
                 $desc = $value;
-            } elseif ($key === "phingVersion") {
+            } elseif ($key === 'phingVersion') {
                 $ver = $value;
             } elseif ($key === 'strict') {
                 $strict = $value;
             } else {
-                throw new ExpatParseException("Unexpected attribute '$key'");
+                throw new ExpatParseException(sprintf("Unexpected attribute '%s'", $key));
             }
         }
         // these things get done no matter what
@@ -110,8 +110,8 @@ class ProjectHandler extends AbstractHandler
         $canonicalName = self::canonicalName($name);
         $this->configurator->setCurrentProjectName($canonicalName);
         $path = (string) $this->configurator->getBuildFile();
-        $project->setUserProperty("phing.file.{$canonicalName}", $path);
-        $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
+        $project->setUserProperty('phing.file.' . $canonicalName, $path);
+        $project->setUserProperty('phing.dir.' . $canonicalName, dirname($path));
 
         if ($this->configurator->isIgnoringProjectTag()) {
             return;
@@ -119,7 +119,7 @@ class ProjectHandler extends AbstractHandler
 
         if ($def === null) {
             throw new ExpatParseException(
-                "The default attribute of project is required"
+                'The default attribute of project is required'
             );
         }
 
@@ -146,8 +146,8 @@ class ProjectHandler extends AbstractHandler
             $project->setStrictMode(StringHelper::booleanValue($strict));
         }
 
-        if ($project->getProperty("project.basedir") !== null) {
-            $project->setBasedir($project->getProperty("project.basedir"));
+        if ($project->getProperty('project.basedir') !== null) {
+            $project->setBasedir($project->getProperty('project.basedir'));
         } else {
             if ($baseDir === null) {
                 $project->setBasedir($buildFileParent->getAbsolutePath());
@@ -162,7 +162,7 @@ class ProjectHandler extends AbstractHandler
             }
         }
 
-        $project->addTarget("", $this->context->getImplicitTarget());
+        $project->addTarget('', $this->context->getImplicitTarget());
     }
 
     /**
@@ -179,7 +179,7 @@ class ProjectHandler extends AbstractHandler
         $project = $this->configurator->project;
         $types   = $project->getDataTypeDefinitions();
 
-        if ($name === "target") {
+        if ($name === 'target') {
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {

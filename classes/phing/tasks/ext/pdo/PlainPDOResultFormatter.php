@@ -46,7 +46,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      *
      * @var string
      */
-    private $coldelimiter = ",";
+    private $coldelimiter = ',';
 
     /**
      * Row delimiter.
@@ -99,7 +99,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
                 if ($first) {
                     $first = false;
                 } else {
-                    $line .= ",";
+                    $line .= ',';
                 }
                 $line .= $fieldName;
             }
@@ -107,7 +107,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             $this->out->write($line);
             $this->out->write(PHP_EOL);
 
-            $line        = "";
+            $line        = '';
             $colsprinted = true;
         } // if show headers
 

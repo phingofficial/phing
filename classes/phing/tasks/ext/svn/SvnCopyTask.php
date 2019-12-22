@@ -25,7 +25,7 @@
  */
 class SvnCopyTask extends SvnBaseTask
 {
-    private $message = "";
+    private $message = '';
 
     /**
      * Sets the message
