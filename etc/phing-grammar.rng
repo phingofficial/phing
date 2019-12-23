@@ -360,6 +360,7 @@
                 <ref name="none_selector"/>
                 <ref name="not_selector"/>
                 <ref name="or_selector"/>
+                <ref name="posixpermissions_selector"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -626,6 +627,14 @@
 
     <define name="or_selector">
         <element name="or">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="posixpermissions_selector">
+        <element name="posixpermissions">
             <oneOrMore>
                 <ref name="selectors"/>
             </oneOrMore>
