@@ -431,6 +431,7 @@
     <rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
 
     <!-- Require presence of declare(strict_types=1) -->
+    <!-- conflicts with PSR12.Files.FileHeader.IncorrectOrder -->
     <!--
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
         <properties>
@@ -538,13 +539,15 @@
         <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName"/>
         <!-- Does not support collections, i.e. `string[]` -->
         <exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+        <!-- Fails if a function only throws an exception -->
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidNoReturn"/>
         <!-- Forces incorrect types -->
         <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn"/>
         <!-- Breaks with compound return types, i.e. `string|null` -->
         <exclude name="Squiz.Commenting.FunctionComment.InvalidReturnNotVoid"/>
         <!-- Breaks when all params are not documented -->
         <exclude name="Squiz.Commenting.FunctionComment.InvalidTypeHint"/>
-        <!-- Doc comment is not required for every method -->
+        <!-- Doc comment is not required for every method and may conflict with SlevomatCodingStandard.Commenting.ForbiddenComments.CommentForbidden -->
         <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
         <!-- Do not require comments for `@param` -->
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>

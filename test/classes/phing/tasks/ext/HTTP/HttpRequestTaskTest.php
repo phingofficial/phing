@@ -17,18 +17,29 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
  */
 class HttpRequestTaskTest extends BaseHttpTaskTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httprequest.xml');
     }
 
-    protected function createRequestWithMockAdapter()
+    /**
+     * @return HTTP_Request2
+     */
+    protected function createRequestWithMockAdapter(): HTTP_Request2
     {
         return $this->createRequest(
             $this->createMockAdapter(
@@ -42,21 +53,30 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         );
     }
 
-    public function testMatchesRegexp()
+    /**
+     * @return void
+     */
+    public function testMatchesRegexp(): void
     {
         $this->copyTasksAddingCustomRequest('matchesRegexp', 'recipient', $this->createRequestWithMockAdapter());
 
         $this->expectLog('recipient', 'The response body matched the provided regex.');
     }
 
-    public function testMatchesCodeRegexp()
+    /**
+     * @return void
+     */
+    public function testMatchesCodeRegexp(): void
     {
         $this->copyTasksAddingCustomRequest('matchesCodeRegexp', 'recipient', $this->createRequestWithMockAdapter());
 
         $this->expectLog('recipient', 'The response status-code matched the provided regex.');
     }
 
-    public function testDoesntMatchRegexp()
+    /**
+     * @return void
+     */
+    public function testDoesntMatchRegexp(): void
     {
         $this->copyTasksAddingCustomRequest('doesNotMatchRegexp', 'recipient', $this->createRequestWithMockAdapter());
 
@@ -66,42 +86,56 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->executeTarget('recipient');
     }
 
-    public function testPostRequest()
+    /**
+     * @return void
+     */
+    public function testPostRequest(): void
     {
         $trace = new TraceHttpAdapter();
 
         $this->copyTasksAddingCustomRequest('post', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $this->assertEquals('POST', $trace->requests[0]['method']);
-        $this->assertEquals('foo=bar&baz=quux', $trace->requests[0]['body']);
+        self::assertEquals('POST', $trace->requests[0]['method']);
+        self::assertEquals('foo=bar&baz=quux', $trace->requests[0]['body']);
     }
 
-    public function testAuthentication()
+    /**
+     * @return void
+     */
+    public function testAuthentication(): void
     {
         $trace = new TraceHttpAdapter();
 
         $this->copyTasksAddingCustomRequest('authentication', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $this->assertEquals(
+        self::assertEquals(
             ['user' => 'luser', 'password' => 'secret', 'scheme' => 'digest'],
             $trace->requests[0]['auth']
         );
     }
 
-    public function testConfigAndHeaderTags()
+    /**
+     * @return void
+     */
+    public function testConfigAndHeaderTags(): void
     {
         $trace = new TraceHttpAdapter();
 
         $this->copyTasksAddingCustomRequest('nested-tags', 'recipient', $this->createRequest($trace));
         $this->executeTarget('recipient');
 
-        $this->assertEquals(10, $trace->requests[0]['config']['timeout']);
-        $this->assertEquals('Phing HttpRequestTask', $trace->requests[0]['headers']['user-agent']);
+        self::assertEquals(10, $trace->requests[0]['config']['timeout']);
+        self::assertEquals('Phing HttpRequestTask', $trace->requests[0]['headers']['user-agent']);
     }
 
-    public function testConfigurationViaProperties()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testConfigurationViaProperties(): void
     {
         $trace = new TraceHttpAdapter();
 
@@ -113,6 +147,6 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
             'max_redirects' => 9,
         ]);
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        self::assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 }

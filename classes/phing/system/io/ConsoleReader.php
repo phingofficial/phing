@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convenience class for reading console input.
  *
@@ -27,9 +29,9 @@
 class ConsoleReader extends Reader
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function readLine()
+    public function readLine(): ?string
     {
         $out = fgets(STDIN); // note: default maxlen is 1kb
         $out = rtrim($out);
@@ -38,11 +40,11 @@ class ConsoleReader extends Reader
     }
 
     /**
-     * @param int $len Num chars to read.
+     * @param int|null $len Num chars to read.
      *
      * @return string chars read or -1 if eof.
      */
-    public function read($len = null)
+    public function read(?int $len = null): string
     {
         return fread(STDIN, $len);
         // FIXME
@@ -51,12 +53,18 @@ class ConsoleReader extends Reader
         // ability to read chars w/o <enter> ?
     }
 
-    public function close()
+    /**
+     * @return void
+     */
+    public function close(): void
     {
         // STDIN is always open
     }
 
-    public function open()
+    /**
+     * @return void
+     */
+    public function open(): void
     {
         // STDIN is always open
     }
@@ -66,7 +74,7 @@ class ConsoleReader extends Reader
      *
      * @return bool
      */
-    public function eof()
+    public function eof(): bool
     {
         return feof(STDIN);
     }
@@ -76,7 +84,7 @@ class ConsoleReader extends Reader
      *
      * @return string
      */
-    public function getResource()
+    public function getResource(): string
     {
         return 'console';
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the client_to_server and server_to_client keys of the optional $methods parameter
@@ -47,8 +49,10 @@ class Ssh2MethodConnectionParam
 
     /**
      * @param string $comp
+     *
+     * @return void
      */
-    public function setComp($comp)
+    public function setComp(string $comp): void
     {
         $this->comp = $comp;
     }
@@ -56,15 +60,17 @@ class Ssh2MethodConnectionParam
     /**
      * @return string
      */
-    public function getComp()
+    public function getComp(): string
     {
         return $this->comp;
     }
 
     /**
      * @param string $crypt
+     *
+     * @return void
      */
-    public function setCrypt($crypt)
+    public function setCrypt(string $crypt): void
     {
         $this->crypt = $crypt;
     }
@@ -72,15 +78,17 @@ class Ssh2MethodConnectionParam
     /**
      * @return string
      */
-    public function getCrypt()
+    public function getCrypt(): string
     {
         return $this->crypt;
     }
 
     /**
      * @param string $mac
+     *
+     * @return void
      */
-    public function setMac($mac)
+    public function setMac(string $mac): void
     {
         $this->mac = $mac;
     }
@@ -88,7 +96,7 @@ class Ssh2MethodConnectionParam
     /**
      * @return string
      */
-    public function getMac()
+    public function getMac(): string
     {
         return $this->mac;
     }
@@ -99,7 +107,7 @@ class Ssh2MethodConnectionParam
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return array_filter(
             get_object_vars($this),
@@ -112,7 +120,7 @@ class Ssh2MethodConnectionParam
      *
      * @return bool
      */
-    protected function _filterParam($var)
+    protected function _filterParam($var): bool
     {
         return null !== $var;
     }

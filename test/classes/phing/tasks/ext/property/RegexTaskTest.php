@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the PropertyRegexTask Task
  *
@@ -25,26 +27,41 @@
  */
 class RegexTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/RegExTaskTest.xml'
         );
     }
 
-    public function testPropertyRegex()
+    /**
+     * @return void
+     */
+    public function testPropertyRegex(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test.name', 'ABC');
     }
 
-    public function testPropertyRegexReplace()
+    /**
+     * @return void
+     */
+    public function testPropertyRegexReplace(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test.name', 'test.DEF.name');
     }
 
-    public function testBackslash()
+    /**
+     * @return void
+     */
+    public function testBackslash(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('pack.name', '123');

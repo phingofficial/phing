@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,37 +17,59 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 class VersionCompareConditionTest extends TestCase
 {
-    protected $condition;
+    /**
+     * @var VersionCompareCondition
+     */
+    private $condition;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->condition = new VersionCompareCondition();
     }
 
-    public function testDefaultCompareIsFalseForSmallerRevision()
+    /**
+     * @return void
+     */
+    public function testDefaultCompareIsFalseForSmallerRevision(): void
     {
         $this->condition->setVersion('1.2.7');
         $this->condition->setDesiredVersion('1.3');
         $this->assertFalse($this->condition->evaluate());
     }
 
-    public function testDefaultCompareIsTrueForBiggerRevision()
+    /**
+     * @return void
+     */
+    public function testDefaultCompareIsTrueForBiggerRevision(): void
     {
         $this->condition->setVersion('1.6.2');
         $this->condition->setDesiredVersion('1.3');
         $this->assertTrue($this->condition->evaluate());
     }
 
-    public function testDefaultCompareIsTrueForSameRevision()
+    /**
+     * @return void
+     */
+    public function testDefaultCompareIsTrueForSameRevision(): void
     {
         $this->condition->setVersion('1.3');
         $this->condition->setDesiredVersion('1.3');
         $this->assertTrue($this->condition->evaluate());
     }
 
-    public function testCanUseDifferentOperator()
+    /**
+     * @return void
+     */
+    public function testCanUseDifferentOperator(): void
     {
         $this->condition->setVersion('1.2.7');
         $this->condition->setDesiredVersion('1.3');
@@ -58,7 +77,10 @@ class VersionCompareConditionTest extends TestCase
         $this->assertTrue($this->condition->evaluate());
     }
 
-    public function testUseDebugMode()
+    /**
+     * @return void
+     */
+    public function testUseDebugMode(): void
     {
         $this->condition->setVersion('1.2.7');
         $this->condition->setDesiredVersion('1.3');
@@ -67,7 +89,10 @@ class VersionCompareConditionTest extends TestCase
         $this->condition->evaluate();
     }
 
-    public function testCanNotUseUnsupportedOperator()
+    /**
+     * @return void
+     */
+    public function testCanNotUseUnsupportedOperator(): void
     {
         $this->expectException(BuildException::class);
 

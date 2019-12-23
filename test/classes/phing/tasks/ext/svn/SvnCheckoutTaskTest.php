@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
@@ -25,20 +27,32 @@ class SvnCheckoutTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnCheckoutTest.xml');
     }
 
-    public function testCheckoutSimple()
+    /**
+     * @return void
+     */
+    public function testCheckoutSimple(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('checkoutSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

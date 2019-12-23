@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Abstract class providing properties and methods common to all
  *  the project components
@@ -31,7 +33,7 @@ abstract class ProjectComponent
      * Holds a reference to the project that a project component
      * (a task, a target, etc.) belongs to
      *
-     * @var Project $project A reference to the current project instance
+     * @var Project|null $project A reference to the current project instance
      */
     protected $project = null;
 
@@ -53,11 +55,11 @@ abstract class ProjectComponent
     /**
      * References the project to the current component.
      *
-     * @param Project $project The reference to the current project
+     * @param Project|null $project The reference to the current project
      *
      * @return void
      */
-    public function setProject($project)
+    public function setProject(?Project $project): void
     {
         $this->project = $project;
     }
@@ -65,9 +67,9 @@ abstract class ProjectComponent
     /**
      * Returns a reference to current project
      *
-     * @return Project Reference to current porject object
+     * @return Project|null Reference to current porject object
      */
-    public function getProject()
+    public function getProject(): ?Project
     {
         return $this->project;
     }
@@ -78,7 +80,7 @@ abstract class ProjectComponent
      * @return Location the file/location where this task was defined.
      *         Should not return <code>null</code>.
      */
-    public function getLocation()
+    public function getLocation(): Location
     {
         return $this->location;
     }
@@ -88,8 +90,10 @@ abstract class ProjectComponent
      *
      * @param Location $location The file/location where this task was defined.
      *                 Should not be <code>null</code>
+     *
+     * @return void
      */
-    public function setLocation(Location $location)
+    public function setLocation(Location $location): void
     {
         $this->location = $location;
     }
@@ -101,8 +105,10 @@ abstract class ProjectComponent
      * @param string $desc Description of the current action.
      *             May be <code>null</code>, indicating that no description is
      *             available.
+     *
+     * @return void
      */
-    public function setDescription($desc)
+    public function setDescription(string $desc): void
     {
         $this->description = $desc;
     }
@@ -110,10 +116,10 @@ abstract class ProjectComponent
     /**
      * Returns the description of the current action.
      *
-     * @return string the description of the current action, or <code>null</code> if
+     * @return string|null the description of the current action, or <code>null</code> if
      *         no description is available.
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -121,12 +127,14 @@ abstract class ProjectComponent
     /**
      * Logs a message with the given priority.
      *
-     * @param string $msg   The message to be logged.
-     * @param int    $level The message's priority at this message should have
+     * @param string   $msg   The message to be logged.
+     * @param int|null $level The message's priority at this message should have
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function log($msg, $level = Project::MSG_INFO)
+    public function log(string $msg, ?int $level = Project::MSG_INFO): void
     {
         if ($this->project !== null) {
             $this->project->log($msg, $level);

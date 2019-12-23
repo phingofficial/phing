@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Datatype which handles excluded files, classes and methods.
  *
@@ -56,6 +58,9 @@ class Excludes extends DataType
 
     /**
      * @param Project $project
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function __construct(Project $project)
     {
@@ -69,7 +74,7 @@ class Excludes extends DataType
      *
      * @return ExcludesNameEntry Reference to object
      */
-    public function createFile()
+    public function createFile(): ExcludesNameEntry
     {
         return $this->addExcludesNameEntry($this->files);
     }
@@ -79,7 +84,7 @@ class Excludes extends DataType
      *
      * @return ExcludesNameEntry Reference to object
      */
-    public function createClass()
+    public function createClass(): ExcludesNameEntry
     {
         return $this->addExcludesNameEntry($this->classes);
     }
@@ -89,7 +94,7 @@ class Excludes extends DataType
      *
      * @return ExcludesNameEntry Reference to object
      */
-    public function createMethod()
+    public function createMethod(): ExcludesNameEntry
     {
         return $this->addExcludesNameEntry($this->methods);
     }
@@ -101,7 +106,7 @@ class Excludes extends DataType
      *
      * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance
      */
-    private function addExcludesNameEntry(&$excludesNameEntryList)
+    private function addExcludesNameEntry(array &$excludesNameEntryList): ExcludesNameEntry
     {
         $excludesNameEntry       = new ExcludesNameEntry();
         $excludesNameEntryList[] = $excludesNameEntry;
@@ -113,8 +118,11 @@ class Excludes extends DataType
      * Returns the excluded files
      *
      * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function getExcludedFiles()
+    public function getExcludedFiles(): array
     {
         $includes = [];
 
@@ -141,7 +149,7 @@ class Excludes extends DataType
      *
      * @return array
      */
-    public function getExcludedClasses()
+    public function getExcludedClasses(): array
     {
         $excludedClasses = [];
 
@@ -157,7 +165,7 @@ class Excludes extends DataType
      *
      * @return array
      */
-    public function getExcludedMethods()
+    public function getExcludedMethods(): array
     {
         $excludedMethods = [];
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Factory for generating dbms-specific syntax-generating objects
  *
@@ -25,40 +27,38 @@
  */
 class DbmsSyntaxFactory
 {
+    /**
+     * @var string
+     */
     private $dbms;
 
     /**
      * @param string $dbms
      */
-    public function __construct($dbms)
+    public function __construct(string $dbms)
     {
         $this->dbms = $dbms;
     }
 
-    public function getDbmsSyntax()
+    /**
+     * @return DbmsSyntax
+     *
+     * @throws Exception
+     */
+    public function getDbmsSyntax(): DbmsSyntax
     {
         switch ($this->dbms) {
             case 'sqlite':
-                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
-
                 return new DbmsSyntaxSQLite();
             case 'mysql':
-                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
-
                 return new DbmsSyntaxMysql();
             case 'odbc':
             case 'mssql':
             case 'dblib':
-                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
-
                 return new DbmsSyntaxMsSql();
             case 'pgsql':
-                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
-
                 return new DbmsSyntaxPgSQL();
             case 'oci':
-                include_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxOracle.php';
-
                 return new DbmsSyntaxOracle();
             default:
                 throw new Exception($this->dbms . ' is not supported by dbdeploy task.');

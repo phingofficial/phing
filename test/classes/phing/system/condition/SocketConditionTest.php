@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Tests for the <socket> condition
  *
@@ -28,11 +29,14 @@ use PHPUnit\Framework\TestCase;
  */
 class SocketConditionTest extends TestCase
 {
-    public function testShouldReturnFalseForNonExistingListener()
+    /**
+     * @return void
+     */
+    public function testShouldReturnFalseForNonExistingListener(): void
     {
         $condition = new SocketCondition();
         $condition->setServer('localhost');
         $condition->setPort(1337);
-        $this->assertFalse($condition->evaluate());
+        self::assertFalse($condition->evaluate());
     }
 }

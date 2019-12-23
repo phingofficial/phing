@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that filters files based on whether they contain a
  * particular string using regexp.
@@ -61,7 +63,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf  = '{containsregexpselector expression: ';
         $buf .= $this->userProvidedExpression;
@@ -80,8 +82,10 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * The expression to match on within a file.
      *
      * @param string $exp the string that a file must contain to be selected.
+     *
+     * @return void
      */
-    public function setExpression($exp)
+    public function setExpression(string $exp): void
     {
         $this->userProvidedExpression = $exp;
     }
@@ -90,14 +94,18 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * Whether to ignore case in the regex match.
      *
      * @param bool $casesensitive whether to pay attention to case sensitivity
+     *
+     * @return void
      */
-    public function setCasesensitive($casesensitive)
+    public function setCasesensitive(bool $casesensitive): void
     {
         $this->casesensitive = $casesensitive;
     }
 
     /**
      * @param bool $multiline
+     *
+     * @return void
      */
     public function setMultiline(bool $multiline): void
     {
@@ -138,8 +146,10 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the pattern attribute has been set.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->userProvidedExpression === null) {
             $this->setError('The expression attribute is required');
@@ -159,7 +169,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * @throws IOException
      * @throws RegexpException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

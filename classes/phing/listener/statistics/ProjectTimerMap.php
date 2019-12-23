@@ -17,12 +17,19 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class ProjectTimerMap extends TimerMap
 {
+    /**
+     * @param mixed $project
+     *
+     * @return mixed
+     */
     public function get($project)
     {
         $name = $project instanceof Project ? $project->getName() : '';
@@ -30,14 +37,26 @@ class ProjectTimerMap extends TimerMap
         return parent::get($name);
     }
 
-    public function find($project, Clock $clock)
+    /**
+     * @param mixed $project
+     * @param Clock $clock
+     *
+     * @return StatsTimer
+     */
+    public function find($project, Clock $clock): StatsTimer
     {
         $name = $project instanceof Project ? $project->getName() : '';
 
         return parent::find($name, $clock);
     }
 
-    protected function createTimer($name, Clock $clock)
+    /**
+     * @param mixed $name
+     * @param Clock $clock
+     *
+     * @return ProjectTimer
+     */
+    protected function createTimer($name, Clock $clock): StatsTimer
     {
         return new ProjectTimer($name, $clock);
     }

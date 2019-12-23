@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.
  *
@@ -30,14 +32,14 @@ class ConfigurationException extends Exception
      *
      * @var Location
      */
-    protected $location;
+    private $location;
 
     /**
      * The nested "cause" exception.
      *
-     * @var Exception
+     * @var Throwable
      */
-    protected $cause;
+    private $cause;
 
     /**
      * Construct a ConfigurationException.
@@ -46,20 +48,18 @@ class ConfigurationException extends Exception
      *         throw new BuildException($msg);
      *         throw new BuildException($msg, $causeExc);
      *
-     * @param Exception|string $p1
-     * @param Exception|null   $p2
+     * @param Throwable|string $p1
+     * @param Throwable|null   $p2
      */
     public function __construct($p1, $p2 = null)
     {
         $cause = null;
         $msg   = '';
 
-        if ($p2 !== null) {
-            if ($p2 instanceof Exception) {
-                $cause = $p2;
-                $msg   = $p1;
-            }
-        } elseif ($p1 instanceof Exception) {
+        if ($p2 instanceof Throwable) {
+            $cause = $p2;
+            $msg   = $p1;
+        } elseif ($p1 instanceof Throwable) {
             $cause = $p1;
         } else {
             $msg = $p1;
@@ -76,9 +76,9 @@ class ConfigurationException extends Exception
     /**
      * Gets the cause exception.
      *
-     * @return Exception
+     * @return Throwable
      */
-    public function getCause()
+    public function getCause(): Throwable
     {
         return $this->cause;
     }

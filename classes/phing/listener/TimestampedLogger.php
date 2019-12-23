@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Like a normal logger, except with timed outputs.
  *
@@ -36,7 +38,7 @@ class TimestampedLogger extends DefaultLogger
      *
      * @return string The classic "BUILD FAILED" plus a timestamp
      */
-    protected function getBuildFailedMessage()
+    protected function getBuildFailedMessage(): string
     {
         return parent::getBuildFailedMessage() . self::$SPACER . date('n/d/Y h:m a');
     }
@@ -47,7 +49,7 @@ class TimestampedLogger extends DefaultLogger
      *
      * @return string The classic "BUILD SUCCESSFUL" plus a timestamp
      */
-    protected function getBuildSuccessfulMessage()
+    protected function getBuildSuccessfulMessage(): string
     {
         return parent::getBuildSuccessfulMessage() . self::$SPACER . date('n/d/Y h:m a');
     }

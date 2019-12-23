@@ -17,16 +17,29 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class ExcludesNameEntryTest extends TestCase
 {
+    /**
+     * @var ExcludesNameEntry
+     */
+    private $entry;
+
+    /**
+     * @return void
+     */
     public function setUp(): void
     {
         $this->entry = new ExcludesNameEntry();
     }
 
-    public function testSetName()
+    /**
+     * @return void
+     */
+    public function testSetName(): void
     {
         $this->entry->setName('test');
         $this->assertEquals($this->entry->getName(), 'test');
@@ -34,7 +47,10 @@ class ExcludesNameEntryTest extends TestCase
         $this->assertEquals($this->entry->getName(), 'test2');
     }
 
-    public function testAddText()
+    /**
+     * @return void
+     */
+    public function testAddText(): void
     {
         $this->entry->addText('test');
         $this->assertEquals($this->entry->getName(), 'test');
@@ -42,7 +58,10 @@ class ExcludesNameEntryTest extends TestCase
         $this->assertEquals($this->entry->getName(), 'test2');
     }
 
-    public function testToString()
+    /**
+     * @return void
+     */
+    public function testToString(): void
     {
         $this->entry->addText('test');
         $this->assertEquals('' . $this->entry, 'test');

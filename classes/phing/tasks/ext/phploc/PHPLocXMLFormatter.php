@@ -1,7 +1,4 @@
 <?php
-
-use SebastianBergmann\PHPLOC\Log\XML;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,13 +17,23 @@ use SebastianBergmann\PHPLOC\Log\XML;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use SebastianBergmann\PHPLOC\Log\XML;
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc
  */
 class PHPLocXMLFormatter extends AbstractPHPLocFormatter
 {
-    public function printResult(array $count, $countTests = false)
+    /**
+     * @param array $count
+     * @param bool  $countTests
+     *
+     * @return void
+     */
+    public function printResult(array $count, bool $countTests = false): void
     {
         if (class_exists(XML::class)) {
             $printer = new XML();

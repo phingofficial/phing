@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Parameterizable objects take genric key value pairs.
  *
@@ -29,7 +31,7 @@ interface Parameterizable
     /**
      * @param array $parameters
      *
-     * @return mixed
+     * @return void
      */
     public function setParameters(array $parameters): void;
 }

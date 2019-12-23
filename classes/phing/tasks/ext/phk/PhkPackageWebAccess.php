@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Alexey Shockov <alexey@shockov.com>
  * @package phing.tasks.ext.phk
@@ -24,14 +26,14 @@
 class PhkPackageWebAccess
 {
     /**
-     * @var array
+     * @var PhkPackageWebAccessPath[]
      */
     private $paths = [];
 
     /**
      * @return PhkPackageWebAccessPath
      */
-    public function createPath()
+    public function createPath(): PhkPackageWebAccessPath
     {
         return $this->paths[] = new PhkPackageWebAccessPath();
     }
@@ -39,7 +41,7 @@ class PhkPackageWebAccess
     /**
      * @return array
      */
-    public function getPaths()
+    public function getPaths(): array
     {
         /*
          * Get real paths...

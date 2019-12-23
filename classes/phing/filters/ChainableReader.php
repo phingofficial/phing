@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Interface indicating that a reader may be chained to another one.
  *
@@ -34,5 +36,5 @@ interface ChainableReader
      * @return Reader A reader with the same configuration as this one, but
      *                filtering input from the specified reader
      */
-    public function chain(Reader $reader): Reader;
+    public function chain(Reader $reader): BaseFilterReader;
 }

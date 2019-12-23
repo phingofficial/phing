@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * String helper utility class.
  *
@@ -48,7 +50,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function unqualify($qualifiedName, $separator = '.')
+    public static function unqualify(string $qualifiedName, string $separator = '.'): string
     {
         // if false, then will be 0
         $pos = strrpos($qualifiedName, $separator);
@@ -60,15 +62,20 @@ class StringHelper
     }
 
     /**
-     * @param bool|string $s
+     * @param bool|string|null $s
      *
      * @return bool
      */
-    public static function booleanValue($s)
+    public static function booleanValue($s): bool
     {
         if (is_bool($s)) {
             return $s; // it's already boolean (not a string)
         }
+
+        if ($s === null) {
+            return false;
+        }
+
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));
 
@@ -82,7 +89,7 @@ class StringHelper
      *
      * @return bool
      */
-    public static function isBoolean($s)
+    public static function isBoolean($s): bool
     {
         if (is_bool($s)) {
             return true; // it already is boolean
@@ -105,7 +112,7 @@ class StringHelper
      *
      * @return bool
      */
-    public static function startsWith($check, $string)
+    public static function startsWith(string $check, string $string): bool
     {
         if ($check === '' || $check === $string) {
             return true;
@@ -122,7 +129,7 @@ class StringHelper
      *
      * @return bool
      */
-    public static function endsWith($check, $string)
+    public static function endsWith(string $check, string $string): bool
     {
         if ($check === '' || $check === $string) {
             return true;
@@ -141,7 +148,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function substring($string, $startpos, $endpos = -1)
+    public static function substring(string $string, int $startpos, int $endpos = -1): string
     {
         $len    = strlen($string);
         $endpos = (int) ($endpos === -1 ? $len - 1 : $endpos);
@@ -167,7 +174,7 @@ class StringHelper
      *
      * @return bool|int
      */
-    public static function isSlotVar($value)
+    public static function isSlotVar(string $value)
     {
         $value = trim($value);
         if ($value === '') {
@@ -184,7 +191,7 @@ class StringHelper
      *
      * @return string Extracted name part.
      */
-    public static function slotVar($var)
+    public static function slotVar(string $var): string
     {
         return trim($var, '%{} ');
     }

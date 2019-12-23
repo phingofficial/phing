@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convert dot-notation packages to relative paths.
  *
@@ -27,35 +29,45 @@ class PackageAsPathTask extends Task
 {
     /**
      * The package to convert.
+     *
+     * @var string
      */
     protected $pckg;
 
     /**
      * The property to store the conversion in.
+     *
+     * @var string
      */
     protected $name;
 
     /**
      * Executes the package to patch converstion and stores it
      * in the user property <code>name</code>.
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->project->setUserProperty($this->name, strtr($this->pckg, '.', '/'));
     }
 
     /**
      * @param string $pckg the package to convert
+     *
+     * @return void
      */
-    public function setPackage($pckg)
+    public function setPackage(string $pckg): void
     {
         $this->pckg = $pckg;
     }
 
     /**
      * @param string $name the property to store the path in
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }

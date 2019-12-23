@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests for PhpDependTask
  *
@@ -25,28 +27,40 @@
  */
 class PhpDependTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdepend/build.xml');
     }
 
-    public function testLoggerSummary()
+    /**
+     * @return void
+     */
+    public function testLoggerSummary(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
         ob_end_clean();
         $filename = PHING_TEST_BASE . '/etc/tasks/ext/pdepend/tempoutput';
-        $this->assertFileExists($filename);
+        self::assertFileExists($filename);
         unlink($filename);
     }
 
-    public function testAnalyzer()
+    /**
+     * @return void
+     */
+    public function testAnalyzer(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
         ob_end_clean();
         $filename = PHING_TEST_BASE . '/etc/tasks/ext/pdepend/tempoutput';
-        $this->assertFileExists($filename);
+        self::assertFileExists($filename);
         unlink($filename);
     }
 }

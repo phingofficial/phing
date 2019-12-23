@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
@@ -53,7 +55,7 @@ abstract class ZsdtBaseTask extends Task
      *
      * @return void
      */
-    public function setDescriptor($descriptor)
+    public function setDescriptor(string $descriptor): void
     {
         $this->descriptor = escapeshellarg($descriptor);
     }
@@ -65,7 +67,7 @@ abstract class ZsdtBaseTask extends Task
      *
      * @return void
      */
-    public function setSchema($schema)
+    public function setSchema(string $schema): void
     {
         $this->schema = escapeshellarg($schema);
     }
@@ -75,15 +77,17 @@ abstract class ZsdtBaseTask extends Task
      *
      * @return void
      */
-    public function setPath($path)
+    public function setPath(string $path): void
     {
         $this->path['USR'] = $path;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->validate();
 
@@ -109,7 +113,7 @@ abstract class ZsdtBaseTask extends Task
      *
      * @return void
      */
-    protected function validate()
+    protected function validate(): void
     {
         if ($this->schema !== null) {
             $this->arguments .= '--schema=' . $this->schema . ' ';

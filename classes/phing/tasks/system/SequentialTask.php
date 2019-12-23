@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Sequential is a container task that contains other Phing Task objects.
  *
@@ -31,6 +33,8 @@ class SequentialTask extends Task implements TaskContainer
 {
     /**
      * Optional Vector holding the nested tasks
+     *
+     * @var Task[]
      */
     protected $nestedTasks = [];
 
@@ -38,8 +42,10 @@ class SequentialTask extends Task implements TaskContainer
      * Add a nested task to Sequential.
      *
      * @param Task $nestedTask Nested task to execute Sequential
+     *
+     * @return void
      */
-    public function addTask(Task $nestedTask)
+    public function addTask(Task $nestedTask): void
     {
         $this->nestedTasks[] = $nestedTask;
     }
@@ -47,9 +53,12 @@ class SequentialTask extends Task implements TaskContainer
     /**
      * Execute all nestedTasks.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException if one of the nested tasks fails.
      */
-    public function main()
+    public function main(): void
     {
         foreach ($this->nestedTasks as $task) {
             $task->perform();

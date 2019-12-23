@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
@@ -24,9 +26,19 @@
  */
 class HangDetectorProperties extends Properties
 {
+    /**
+     * @var int
+     */
     private $accesses = 0;
 
-    public function getProperty($prop)
+    /**
+     * @param string $prop
+     *
+     * @return mixed
+     *
+     * @throws Exception
+     */
+    public function getProperty(string $prop)
     {
         $this->accesses++;
         if ($this->accesses > 100) {

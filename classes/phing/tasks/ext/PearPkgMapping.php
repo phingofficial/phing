@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Handles complex options <mapping> elements which are hashes (assoc arrays).
  *
@@ -24,17 +26,29 @@
  */
 class PearPkgMapping
 {
+    /**
+     * @var mixed
+     */
     private $name;
+
+    /**
+     * @var PearPkgMappingElement[]
+     */
     private $elements = [];
 
     /**
      * @param string $v
+     *
+     * @return void
      */
-    public function setName($v)
+    public function setName(string $v): void
     {
         $this->name = $v;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
@@ -43,7 +57,7 @@ class PearPkgMapping
     /**
      * @return PearPkgMappingElement
      */
-    public function createElement()
+    public function createElement(): PearPkgMappingElement
     {
         $e                = new PearPkgMappingElement();
         $this->elements[] = $e;
@@ -52,9 +66,9 @@ class PearPkgMapping
     }
 
     /**
-     * @return array
+     * @return PearPkgMappingElement[]
      */
-    public function getElements()
+    public function getElements(): array
     {
         return $this->elements;
     }
@@ -64,7 +78,7 @@ class PearPkgMapping
      *
      * @return array
      */
-    public function getValue()
+    public function getValue(): array
     {
         $value = [];
         foreach ($this->getElements() as $el) {

@@ -17,39 +17,66 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class StringFormatter
 {
-    public function center($value, $fixedLength)
+    /**
+     * @param string $value
+     * @param int    $fixedLength
+     *
+     * @return string
+     */
+    public function center(string $value, int $fixedLength): string
     {
         $spacesBeforeValue = $this->calculateSpaceBeforeValue($value, $fixedLength);
-        return $this->toSpaces($spacesBeforeValue) . $value;
+        return $this->toSpaces((int) $spacesBeforeValue) . $value;
     }
 
-    public function left($value, $fixedLength)
+    /**
+     * @param string $value
+     * @param int    $fixedLength
+     *
+     * @return string
+     */
+    public function left(string $value, int $fixedLength): string
     {
         return $value . $this->toSpaces($fixedLength - strlen($value) + 4);
     }
 
-    private function calculateSpaceBeforeValue($value, $fixedLength)
+    /**
+     * @param string $value
+     * @param int    $fixedLength
+     *
+     * @return float
+     */
+    private function calculateSpaceBeforeValue(string $value, int $fixedLength): float
     {
         return $fixedLength / 2 - strlen($value) / 2;
     }
 
-    public function toSpaces($size)
+    /**
+     * @param int $size
+     *
+     * @return string
+     */
+    public function toSpaces(int $size): string
     {
         return $this->toChars(' ', $size);
     }
 
-    public function toChars($ch, $size)
+    /**
+     * @param string $ch
+     * @param int    $size
+     *
+     * @return string
+     */
+    public function toChars(string $ch, int $size): string
     {
-        $sb = '';
-        for ($i = 0; $i < $size; $i++) {
-            $sb .= $ch;
-        }
-        return $sb;
+        return str_repeat($ch, $size);
     }
 }

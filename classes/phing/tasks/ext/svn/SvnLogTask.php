@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Stores the output of a log command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
@@ -30,23 +32,34 @@
  */
 class SvnLogTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $propertyName = 'svn.log';
-    private $limit        = null;
+
+    /**
+     * @var int|null
+     */
+    private $limit = null;
 
     /**
      * Sets the name of the property to use
      *
      * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
@@ -55,8 +68,10 @@ class SvnLogTask extends SvnBaseTask
      * Sets the max num of log entries to get from svn
      *
      * @param int $limit
+     *
+     * @return void
      */
-    public function setLimit($limit)
+    public function setLimit(int $limit): void
     {
         $this->limit = (int) $limit;
     }
@@ -64,9 +79,12 @@ class SvnLogTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws VersionControl_SVN_Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('log');
 

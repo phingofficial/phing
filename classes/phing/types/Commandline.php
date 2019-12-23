@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Commandline objects help handling command lines specifying processes to
  * execute.
@@ -50,7 +52,7 @@ class Commandline implements Countable
     /**
      * Full path (if not on %PATH% env var) to executable program.
      *
-     * @var string
+     * @var string|null
      */
     public $executable; // public so "inner" class can access
 
@@ -58,11 +60,11 @@ class Commandline implements Countable
     private $escape         = false;
 
     /**
-     * @param null $to_process
+     * @param string|null $to_process
      *
      * @throws BuildException
      */
-    public function __construct($to_process = null)
+    public function __construct(?string $to_process = null)
     {
         if ($to_process !== null) {
             $tmp = static::translateCommandline($to_process);
@@ -87,7 +89,7 @@ class Commandline implements Countable
      *
      * @return CommandlineArgument
      */
-    public function createArgument($insertAtStart = false)
+    public function createArgument(bool $insertAtStart = false): CommandlineArgument
     {
         $argument = new CommandlineArgument($this);
         if ($insertAtStart) {
@@ -102,10 +104,12 @@ class Commandline implements Countable
     /**
      * Sets the executable to run.
      *
-     * @param string $executable
-     * @param bool   $translateFileSeparator
+     * @param string|null $executable
+     * @param bool        $translateFileSeparator
+     *
+     * @return void
      */
-    public function setExecutable($executable, $translateFileSeparator = true): void
+    public function setExecutable(?string $executable, bool $translateFileSeparator = true): void
     {
         if ($executable === null || $executable === '') {
             return;
@@ -116,17 +120,19 @@ class Commandline implements Countable
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExecutable()
+    public function getExecutable(): ?string
     {
         return $this->executable;
     }
 
     /**
      * @param array $arguments
+     *
+     * @return void
      */
-    public function addArguments(array $arguments)
+    public function addArguments(array $arguments): void
     {
         foreach ($arguments as $arg) {
             $this->createArgument()->setValue($arg);
@@ -151,6 +157,8 @@ class Commandline implements Countable
     /**
      * Returns all arguments defined by <code>addLine</code>,
      * <code>addValue</code> or the argument object.
+     *
+     * @return array
      */
     public function getArguments(): array
     {
@@ -167,7 +175,12 @@ class Commandline implements Countable
         return $result;
     }
 
-    public function setEscape($flag)
+    /**
+     * @param bool $flag
+     *
+     * @return void
+     */
+    public function setEscape(bool $flag): void
     {
         $this->escape = $flag;
     }
@@ -175,7 +188,7 @@ class Commandline implements Countable
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         try {
             $cmd = $this->toString($this->getCommandline());
@@ -188,19 +201,19 @@ class Commandline implements Countable
 
     /**
      * Put quotes around the given String if necessary.
-     *
      * <p>If the argument doesn't include spaces or quotes, return it
      * as is. If it contains double quotes, use single quotes - else
      * surround the argument by double quotes.</p>
      *
      * @param string $argument
+     * @param bool   $escape
      *
      * @return string
      *
      * @throws BuildException If the argument contains both, single
      *                        and double quotes.
      */
-    public static function quoteArgument($argument, $escape = false)
+    public static function quoteArgument(string $argument, bool $escape = false): string
     {
         if ($escape) {
             return escapeshellarg($argument);
@@ -237,7 +250,7 @@ class Commandline implements Countable
      *
      * @throws BuildException
      */
-    private function toString($lines = null): string
+    private function toString(?array $lines = null): string
     {
         // empty path return empty string
         if ($lines === null || count($lines) === 0) {
@@ -258,7 +271,7 @@ class Commandline implements Countable
     /**
      * Crack a command line.
      *
-     * @param string $toProcess the command line to process.
+     * @param string|null $toProcess the command line to process.
      *
      * @return string[] the command line broken into strings.
      *                  An empty or null toProcess parameter results in a zero sized array.
@@ -282,7 +295,7 @@ class Commandline implements Countable
         $current                = '';
         $lastTokenHasBeenQuoted = false;
 
-        $tokens = preg_split('/(["\' ])/', $toProcess, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $tokens = preg_split('/(["\' ])/', (string) $toProcess, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         while (($nextTok = array_shift($tokens)) !== null) {
             switch ($state) {
                 case $inQuote:
@@ -339,6 +352,8 @@ class Commandline implements Countable
     }
 
     /**
+     * @return void
+     *
      * @throws BuildException
      */
     public function __clone()
@@ -356,7 +371,7 @@ class Commandline implements Countable
      *
      * @return CommandlineMarker
      */
-    public function createMarker()
+    public function createMarker(): CommandlineMarker
     {
         return new CommandlineMarker($this, count($this->arguments));
     }
@@ -369,11 +384,11 @@ class Commandline implements Countable
      * <p>This method assumes that the first entry in the array is the
      * executable to run.</p>
      *
-     * @param array|Commandline $args CommandlineArgument[] to use
+     * @param array|Commandline|null $args CommandlineArgument[] to use
      *
      * @return string
      */
-    public function describeCommand($args = null)
+    public function describeCommand($args = null): string
     {
         if ($args === null) {
             $args = $this->getCommandline();
@@ -408,7 +423,7 @@ class Commandline implements Countable
      *
      * @return string
      */
-    public function describeArguments(?array $args = null, $offset = 0)
+    public function describeArguments(?array $args = null, int $offset = 0): string
     {
         if ($args === null) {
             $args = $this->getArguments();

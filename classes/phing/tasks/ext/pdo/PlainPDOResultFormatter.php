@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Plain text formatter for PDO results.
  *
@@ -60,8 +62,10 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Set the showheaders attribute.
      *
      * @param bool $v
+     *
+     * @return void
      */
-    public function setShowheaders($v)
+    public function setShowheaders(bool $v): void
     {
         $this->showheaders = StringHelper::booleanValue($v);
     }
@@ -70,8 +74,10 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Sets the column delimiter.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setColdelim($v)
+    public function setColdelim(string $v): void
     {
         $this->coldelimiter = $v;
     }
@@ -80,8 +86,10 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Sets the row delimiter.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setRowdelim($v)
+    public function setRowdelim(string $v): void
     {
         $this->rowdelimiter = $v;
     }
@@ -90,11 +98,14 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Processes a specific row from PDO result set.
      *
      * @param array $row Row of PDO result set.
+     *
+     * @return void
      */
-    public function processRow($row)
+    public function processRow(array $row): void
     {
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
+            $line  = '';
             foreach ($row as $fieldName => $ignore) {
                 if ($first) {
                     $first = false;
@@ -107,14 +118,14 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             $this->out->write($line);
             $this->out->write(PHP_EOL);
 
-            $line        = '';
-            $colsprinted = true;
+            $line              = '';
+            $this->colsprinted = true;
         } // if show headers
 
         $first = true;
         foreach ($row as $columnValue) {
             if ($columnValue != null) {
-                $columnValue = trim($columnValue);
+                $columnValue = trim((string) $columnValue);
             }
 
             if ($first) {
@@ -131,8 +142,11 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
     /**
      * @return PhingFile
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): PhingFile
     {
         return new PhingFile('results.txt');
     }

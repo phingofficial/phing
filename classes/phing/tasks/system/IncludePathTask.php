@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Adds a normalized path to the PHP include_path.
  *
@@ -53,9 +55,11 @@ class IncludePathTask extends Task
     /**
      * @param string $mode
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setMode($mode)
+    public function setMode(string $mode): void
     {
         if (!in_array($mode, ['append', 'prepend', 'replace'])) {
             throw new BuildException('Illegal mode: needs to be either append, prepend or replace');
@@ -66,8 +70,12 @@ class IncludePathTask extends Task
 
     /**
      * Main entry point
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         // Apparently casting to (string) no longer invokes __toString() automatically.
         if (is_object($this->classpath)) {
@@ -90,8 +98,12 @@ class IncludePathTask extends Task
     /**
      * @param array $new_parts
      * @param array $curr_parts
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    private function updateIncludePath($new_parts, $curr_parts)
+    private function updateIncludePath(array $new_parts, array $curr_parts): void
     {
         $includePath = [];
         $verb        = '';

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Displays all the current properties in the build. The output can be sent to
  *  a file if desired.
@@ -115,8 +117,13 @@ class EchoProperties extends Task
      * Sets the input file.
      *
      * @param string|PhingFile $file the input file
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setSrcfile($file)
+    public function setSrcfile($file): void
     {
         if (is_string($file)) {
             $this->inFile = new PhingFile($file);
@@ -130,8 +137,13 @@ class EchoProperties extends Task
      *  then the output will be sent to the Phing log.
      *
      * @param string|PhingFile $destfile file to store the property output
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setDestfile($destfile)
+    public function setDestfile($destfile): void
     {
         if (is_string($destfile)) {
             $this->destfile = new PhingFile($destfile);
@@ -146,8 +158,10 @@ class EchoProperties extends Task
      *
      * @param bool $failonerror <tt>true</tt> if IO exceptions are reported as build
      *                          exceptions, or <tt>false</tt> if IO exceptions are ignored.
+     *
+     * @return void
      */
-    public function setFailOnError($failonerror)
+    public function setFailOnError(bool $failonerror): void
     {
         $this->failonerror = $failonerror;
     }
@@ -164,10 +178,12 @@ class EchoProperties extends Task
      *  will not.
      *
      * @param string $prefix The new prefix value
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
-        if ($prefix != null && strlen($prefix) != 0) {
+        if ($prefix !== null && strlen($prefix) !== 0) {
             $this->prefix = $prefix;
         }
     }
@@ -184,10 +200,12 @@ class EchoProperties extends Task
      *  but "phing-example" will not.
      *
      * @param string $regex The new regex value
+     *
+     * @return void
      */
-    public function setRegex($regex)
+    public function setRegex(string $regex): void
     {
-        if ($regex != null && strlen($regex) != 0) {
+        if ($regex !== null && strlen($regex) !== 0) {
             $this->regex = $regex;
         }
     }
@@ -196,8 +214,10 @@ class EchoProperties extends Task
      * Set the output format - xml or text.
      *
      * @param string $ea an enumerated <code>FormatAttribute</code> value
+     *
+     * @return void
      */
-    public function setFormat($ea)
+    public function setFormat(string $ea): void
     {
         $this->format = $ea;
     }
@@ -205,9 +225,13 @@ class EchoProperties extends Task
     /**
      *  Run the task.
      *
-     * @throws BuildException  trouble, probably file IO
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->prefix != null && $this->regex != null) {
             throw new BuildException('Please specify either prefix or regex, but not both', $this->getLocation());
@@ -271,13 +295,16 @@ class EchoProperties extends Task
     }
 
     /**
-     * @param Exception $exception
-     * @param string    $message
-     * @param int       $level
+     * @param Throwable|null $exception
+     * @param string         $message
+     * @param int            $level
+     *
+     * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    private function failOnErrorAction(?Throwable $exception = null, $message = '', $level = Project::MSG_INFO)
+    private function failOnErrorAction(?Throwable $exception = null, string $message = '', int $level = Project::MSG_INFO): void
     {
         if ($this->failonerror) {
             throw new BuildException(
@@ -303,10 +330,12 @@ class EchoProperties extends Task
      * @param array        $allProps propfile to save
      * @param OutputStream $os       output stream
      *
+     * @return void
+     *
      * @throws IOException      on output errors
      * @throws BuildException   on other errors
      */
-    protected function saveProperties($allProps, $os)
+    protected function saveProperties(array $allProps, OutputStream $os): void
     {
         ksort($allProps);
         $props = new Properties();
@@ -344,9 +373,11 @@ class EchoProperties extends Task
      * @param Properties   $props the properties to save
      * @param OutputStream $os    the output stream to write to (Note this gets closed)
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function xmlSaveProperties(Properties $props, OutputStream $os)
+    protected function xmlSaveProperties(Properties $props, OutputStream $os): void
     {
         $doc               = new DOMDocument('1.0', 'UTF-8');
         $doc->formatOutput = true;
@@ -374,9 +405,11 @@ class EchoProperties extends Task
      * @param OutputStream $os     record the properties to this output stream
      * @param string       $header prepend this header to the property output
      *
+     * @return void
+     *
      * @throws BuildException on an I/O error during a write.
      */
-    protected function textSaveProperties(Properties $props, OutputStream $os, $header)
+    protected function textSaveProperties(Properties $props, OutputStream $os, string $header): void
     {
         try {
             $props->storeOutputStream($os, $header);

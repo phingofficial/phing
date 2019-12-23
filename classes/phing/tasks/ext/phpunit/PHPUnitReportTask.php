@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
@@ -30,7 +32,14 @@
  */
 class PHPUnitReportTask extends Task
 {
-    private $format   = 'noframes';
+    /**
+     * @var string
+     */
+    private $format = 'noframes';
+
+    /**
+     * @var string
+     */
     private $styleDir = '';
 
     /**
@@ -48,6 +57,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * the directory where the results XML can be found
+     *
+     * @var string
      */
     private $inFile = 'testsuites.xml';
 
@@ -58,7 +69,7 @@ class PHPUnitReportTask extends Task
      *
      * @return void
      */
-    public function setInFile(PhingFile $inFile)
+    public function setInFile(PhingFile $inFile): void
     {
         $this->inFile = $inFile;
     }
@@ -70,7 +81,7 @@ class PHPUnitReportTask extends Task
      *
      * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
@@ -82,7 +93,7 @@ class PHPUnitReportTask extends Task
      *
      * @return void
      */
-    public function setStyleDir($styleDir)
+    public function setStyleDir(string $styleDir): void
     {
         $this->styleDir = $styleDir;
     }
@@ -95,7 +106,7 @@ class PHPUnitReportTask extends Task
      *
      * @return void
      */
-    public function setToDir(PhingFile $toDir)
+    public function setToDir(PhingFile $toDir): void
     {
         $this->toDir = $toDir;
     }
@@ -108,7 +119,7 @@ class PHPUnitReportTask extends Task
      *
      * @return void
      */
-    public function setUseSortTable($useSortTable)
+    public function setUseSortTable(bool $useSortTable): void
     {
         $this->useSortTable = (bool) $useSortTable;
     }
@@ -121,7 +132,7 @@ class PHPUnitReportTask extends Task
      * @throws IOException
      * @throws NullPointerException
      */
-    protected function getStyleSheet()
+    protected function getStyleSheet(): PhingFile
     {
         $xslname = 'phpunit-' . $this->format . '.xsl';
 
@@ -153,11 +164,13 @@ class PHPUnitReportTask extends Task
      *
      * @param DOMDocument $document
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
      */
-    protected function transform(DOMDocument $document)
+    protected function transform(DOMDocument $document): void
     {
         if (!$this->toDir->exists()) {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
@@ -206,8 +219,10 @@ class PHPUnitReportTask extends Task
      *   - removes outer 'testsuite' container(s)
      *
      * @param DOMDocument $document
+     *
+     * @return void
      */
-    protected function fixDocument(DOMDocument $document)
+    protected function fixDocument(DOMDocument $document): void
     {
         $rootElement = $document->firstChild;
 
@@ -240,7 +255,13 @@ class PHPUnitReportTask extends Task
         }
     }
 
-    private function handleChildren($rootElement, $children)
+    /**
+     * @param DOMNode     $rootElement
+     * @param DOMNodeList $children
+     *
+     * @return void
+     */
+    private function handleChildren(DOMNode $rootElement, DOMNodeList $children): void
     {
         /**
          * @var $child DOMElement
@@ -261,7 +282,7 @@ class PHPUnitReportTask extends Task
             try {
                 $refClass = new ReflectionClass($child->getAttribute('name'));
 
-                if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
+                if (preg_match('/@package\s+(.*)\r?\n/m', (string) $refClass->getDocComment(), $matches)) {
                     $package = end($matches);
                 } elseif (method_exists($refClass, 'getNamespaceName')) {
                     $namespace = $refClass->getNamespaceName();
@@ -274,16 +295,18 @@ class PHPUnitReportTask extends Task
                 // do nothing
             }
 
-            $child->setAttribute('package', trim($package));
+            $child->setAttribute('package', trim((string) $package));
         }
     }
 
     /**
      * Initialize the task
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function init()
+    public function init(): void
     {
         if (!class_exists('XSLTProcessor')) {
             throw new BuildException('PHPUnitReportTask requires the XSL extension');
@@ -293,10 +316,12 @@ class PHPUnitReportTask extends Task
     /**
      * The main entry point
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws NullPointerException
      */
-    public function main()
+    public function main(): void
     {
         $testSuitesDoc = new DOMDocument();
         $testSuitesDoc->load((string) $this->inFile);

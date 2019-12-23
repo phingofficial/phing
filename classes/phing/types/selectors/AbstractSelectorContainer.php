@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is the base class for selectors that can contain other selectors.
  *
@@ -47,8 +49,10 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * Indicates whether there are any selectors here.
      *
      * @return bool Whether any selectors are in this container
+     *
+     * @throws ReflectionException
      */
-    public function hasSelectors()
+    public function hasSelectors(): bool
     {
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->hasSelectors();
@@ -64,9 +68,13 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @return string comma separated list of Selectors contained in this one
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return implode(', ', $this->selectorElements());
+        try {
+            return implode(', ', $this->selectorElements());
+        } catch (ReflectionException $e) {
+            return '';
+        }
     }
 
     /**
@@ -84,8 +92,12 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * error conditions are not detected if their isSelected() call
      * is never made.
      * </ul>
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function validate()
+    public function validate(): void
     {
         if ($this->isReference()) {
             $dataTypeName = StringHelper::substring(self::class, strrpos(self::class, '\\') + 1);
@@ -107,7 +119,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @throws Exception
      */
-    public function count()
+    public function count(): int
     {
         if ($this->isReference() && $this->getProject() !== null) {
             try {
@@ -125,11 +137,12 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @param Project $p
      *
-     * @return array of selectors in this container
+     * @return BaseSelectorContainer[] of selectors in this container
      *
+     * @throws ReflectionException
      * @throws BuildException
      */
-    public function getSelectors(Project $p)
+    public function getSelectors(Project $p): array
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getSelectors($p);
@@ -147,9 +160,11 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Returns an array for accessing the set of selectors.
      *
-     * @return array The array of selectors
+     * @return BaseSelectorContainer[] The array of selectors
+     *
+     * @throws ReflectionException
      */
-    public function selectorElements()
+    public function selectorElements(): array
     {
         if ($this->isReference() && $this->getProject() !== null) {
             return $this->getRef($this->getProject())->selectorElements();
@@ -167,7 +182,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @throws BuildException
      */
-    public function appendSelector(FileSelector $selector)
+    public function appendSelector(FileSelector $selector): void
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -175,7 +190,13 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
         $this->selectorsList[] = $selector;
     }
 
-    public function dieOnCircularReference(&$stk, ?Project $p = null)
+    /**
+     * @param array        $stk
+     * @param Project|null $p
+     *
+     * @return void
+     */
+    public function dieOnCircularReference(array &$stk, ?Project $p = null): void
     {
         if ($this->checked) {
             return;

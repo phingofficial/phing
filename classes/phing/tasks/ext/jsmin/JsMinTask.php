@@ -1,7 +1,4 @@
 <?php
-
-use JShrink\Minifier;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,6 +16,10 @@ use JShrink\Minifier;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use JShrink\Minifier;
 
 /**
  * Task to minify javascript files.
@@ -60,8 +61,10 @@ class JsMinTask extends Task
      * Whether the build should fail, if an error occurred.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setFailonerror($value)
+    public function setFailonerror(bool $value): void
     {
         $this->failonerror = $value;
     }
@@ -70,8 +73,10 @@ class JsMinTask extends Task
      * Define if the task should or not use a suffix (-min is the default)
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setSuffix($value)
+    public function setSuffix(string $value): void
     {
         $this->suffix = $value;
     }
@@ -80,24 +85,31 @@ class JsMinTask extends Task
      * sets the directory where minified javascript files should be put into
      *
      * @param string $targetDir
+     *
+     * @return void
      */
-    public function setTargetDir($targetDir)
+    public function setTargetDir(string $targetDir): void
     {
         $this->targetDir = $targetDir;
     }
 
     /**
      * The init method: Do init steps.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
-        return true;
     }
 
     /**
      * The main entry point method.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         // if composer autoloader is not yet loaded, load it here
         @include_once 'vendor/autoload.php';
@@ -129,12 +141,18 @@ class JsMinTask extends Task
     /**
      * @param FileSet $fs
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    protected function processFileSet(FileSet $fs)
+    protected function processFileSet(FileSet $fs): void
     {
         $files    = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-        $fullPath = realpath($fs->getDir($this->project));
+        $fullPath = realpath((string) $fs->getDir($this->project));
         foreach ($files as $file) {
             $this->log('Minifying file ' . $file);
             try {

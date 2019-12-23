@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition that tests whether a given reference exists.
  *
@@ -25,12 +27,17 @@
  */
 class ReferenceExistsCondition extends ProjectComponent implements Condition
 {
+    /**
+     * @var string
+     */
     private $refid;
 
     /**
      * @param string $id
+     *
+     * @return void
      */
-    public function setRef($id)
+    public function setRef(string $id): void
     {
         $this->refid = (string) $id;
     }
@@ -38,9 +45,11 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
     /**
      * Check whether the reference exists.
      *
+     * @return bool
+     *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->refid === null) {
             throw new BuildException(

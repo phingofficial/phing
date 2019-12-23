@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
@@ -24,10 +26,16 @@
  */
 class GitCloneTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,12 +43,19 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testWrongRepository()
+    /**
+     * @return void
+     */
+    public function testWrongRepository(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepository',
@@ -49,7 +64,10 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testGitClone()
+    /**
+     * @return void
+     */
+    public function testGitClone(): void
     {
         $bundle      = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
         $repository  = PHING_TEST_BASE . '/tmp/git';
@@ -63,11 +81,13 @@ class GitCloneTaskTest extends BuildFileTest
         $this->assertIsReadable($repository . '/README');
     }
 
-    public function testGitCloneBare()
+    /**
+     * @return void
+     */
+    public function testGitCloneBare(): void
     {
-        $bundle      = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
-        $repository  = PHING_TEST_BASE . '/tmp/git';
-        $gitFilesDir = $repository . '/.git';
+        $bundle     = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
+        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('gitCloneBare');
         $this->assertInLogs(
             'git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory'
@@ -79,7 +99,10 @@ class GitCloneTaskTest extends BuildFileTest
         $this->assertDirectoryExists($repository . '/refs');
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -88,7 +111,10 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTargetPathSpecified()
+    /**
+     * @return void
+     */
+    public function testNoTargetPathSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTargetPath',

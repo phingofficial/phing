@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Interface for filename mapper classes.
  *
@@ -29,30 +31,30 @@ interface FileNameMapper
     /**
      * The mapper implementation.
      *
-     * @param mixed $sourceFileName The data the mapper works on.
+     * @param string $sourceFileName The data the mapper works on.
      *
-     * @return array The data after the mapper has been applied; must be in array format (for some reason).
+     * @return array|null The data after the mapper has been applied; must be in array format (for some reason).
      */
-    public function main($sourceFileName);
+    public function main(string $sourceFileName): ?array;
 
     /**
      * Accessor. Sets the to property. The actual implementation
      * depends on the child class.
      *
-     * @param string $to To what this mapper should convert the from string
+     * @param string|null $to To what this mapper should convert the from string
      *
      * @return void
      */
-    public function setTo($to);
+    public function setTo(?string $to): void;
 
     /**
      * Accessor. Sets the from property. What this mapper should
      * recognize. The actual implementation is dependent upon the
      * child class
      *
-     * @param string $from On what this mapper should work
+     * @param string|null $from On what this mapper should work
      *
      * @return void
      */
-    public function setFrom($from);
+    public function setFrom(?string $from): void;
 }

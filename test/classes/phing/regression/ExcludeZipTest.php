@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/137
  * - Excluded files may be included in Zip/Tar tasks
@@ -26,12 +28,21 @@
  */
 class ExcludeZipTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/137/build.xml');
     }
 
-    public function testZipTask()
+    /**
+     * @return void
+     */
+    public function testZipTask(): void
     {
         $this->executeTarget('main');
 
@@ -41,12 +52,11 @@ class ExcludeZipTest extends BuildFileTest
             $representation[] = sprintf('[msg="%s",priority=%s]', $log['message'], $log['priority']);
         }
 
+        $this->assertIsArray($this->logBuffer);
+        $this->assertGreaterThanOrEqual(1, count($this->logBuffer));
+
         foreach ($this->logBuffer as $log) {
-            if (stripos($log['message'], $expected) !== false) {
-                $this->fail(
-                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true))
-                );
-            }
+            $this->assertStringNotContainsString($expected, $log['message'], sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true)));
         }
     }
 }

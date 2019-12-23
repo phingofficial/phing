@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Moves a file or directory to a new file or directory.
  *
@@ -38,9 +40,10 @@ class MoveTask extends CopyTask
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    protected function validateAttributes()
+    protected function validateAttributes(): void
     {
         if ($this->file !== null && $this->file->isDirectory()) {
             if (
@@ -68,7 +71,14 @@ class MoveTask extends CopyTask
         }
     }
 
-    protected function doWork()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws Exception
+     * @throws IOException
+     */
+    protected function doWork(): void
     {
         if (count($this->completeDirMap) > 0) {
             foreach ($this->completeDirMap as $from => $to) {
@@ -180,9 +190,10 @@ class MoveTask extends CopyTask
      *
      * @return bool
      *
+     * @throws NullPointerException
      * @throws IOException
      */
-    private function okToDelete(PhingFile $d)
+    private function okToDelete(PhingFile $d): bool
     {
         $list = $d->listDir();
         if ($list === null) {
@@ -209,10 +220,14 @@ class MoveTask extends CopyTask
      *
      * @param PhingFile $d
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function deleteDir(PhingFile $d)
+    private function deleteDir(PhingFile $d): void
     {
         $list = $d->listDir();
         if ($list === null) {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Symlink Task
  *
@@ -26,7 +28,10 @@
  */
 class SymlinkTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,12 +40,18 @@ class SymlinkTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testSymlinkExists()
+    /**
+     * @return void
+     */
+    public function testSymlinkExists(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -50,7 +61,10 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Link exists: ');
     }
 
-    public function testOverwritingSymlink()
+    /**
+     * @return void
+     */
+    public function testOverwritingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -60,7 +74,10 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Link removed: ');
     }
 
-    public function testOverwritingDirectory()
+    /**
+     * @return void
+     */
+    public function testOverwritingDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -70,7 +87,10 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Directory removed: ');
     }
 
-    public function testNotOverwritingSymlink()
+    /**
+     * @return void
+     */
+    public function testNotOverwritingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -80,7 +100,10 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Not overwriting existing link');
     }
 
-    public function testOverwriteDanglingSymlink()
+    /**
+     * @return void
+     */
+    public function testOverwriteDanglingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Link removed: ');

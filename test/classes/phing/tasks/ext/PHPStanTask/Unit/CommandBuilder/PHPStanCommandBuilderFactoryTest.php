@@ -26,11 +26,17 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
     /** @var PHPStanCommandBuilderFactory */
     private $factory;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->factory = new PHPStanCommandBuilderFactory();
     }
 
+    /**
+     * @return void
+     */
     public function testItCanCreateAnalyseCommandBuilder(): void
     {
         $task = new PHPStanTask();
@@ -38,9 +44,12 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
     }
 
+    /**
+     * @return void
+     */
     public function testItCanCreateAnalyzeCommandBuilder(): void
     {
         $task = new PHPStanTask();
@@ -48,9 +57,12 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanAnalyseCommandBuilder::class, $builder);
     }
 
+    /**
+     * @return void
+     */
     public function testItCanCreateListCommandBuilder(): void
     {
         $task = new PHPStanTask();
@@ -58,9 +70,12 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanListCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanListCommandBuilder::class, $builder);
     }
 
+    /**
+     * @return void
+     */
     public function testItCanCreateHelpCommandBuilder(): void
     {
         $task = new PHPStanTask();
@@ -68,9 +83,12 @@ class PHPStanCommandBuilderFactoryTest extends TestCase
 
         $builder = $this->factory->createBuilder($task);
 
-        $this->assertInstanceOf(PHPStanHelpCommandBuilder::class, $builder);
+        self::assertInstanceOf(PHPStanHelpCommandBuilder::class, $builder);
     }
 
+    /**
+     * @return void
+     */
     public function testItThrowsExceptionWhenCommandIsUnknown(): void
     {
         $task = new PHPStanTask();

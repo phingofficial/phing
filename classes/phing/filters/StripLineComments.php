@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This filter strips line comments.
  *
@@ -63,12 +65,14 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * lines from the original stream which don't start with any of the
      * specified comment prefixes.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
+     *
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -105,10 +109,10 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     /*
      * Adds a <code>comment</code> element to the list of prefixes.
      *
-     * @return comment The <code>comment</code> element added to the
+     * @return Comment The <code>comment</code> element added to the
      *                 list of comment prefixes to strip.
     */
-    public function createComment()
+    public function createComment(): Comment
     {
         $num = array_push($this->comments, new Comment());
 
@@ -118,9 +122,11 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     /**
      * @param array $lineBreaks
      *
+     * @return void
+     *
      * @throws Exception
      */
-    public function setComments($lineBreaks)
+    public function setComments(array $lineBreaks): void
     {
         if (!is_array($lineBreaks)) {
             throw new Exception("Expected 'array', got something else");
@@ -128,39 +134,29 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
         $this->comments = $lineBreaks;
     }
 
-    /*
+    /**
      * Returns the list of comment prefixes to strip.
      *
      * @return array The list of comment prefixes to strip.
-    */
-
-    /**
-     * @return array
      */
-    public function getComments()
+    public function getComments(): array
     {
         return $this->comments;
     }
 
-    /*
+    /**
      * Creates a new StripLineComments using the passed in
      * Reader for instantiation.
      *
-     * @param reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
-     * @return a new filter based on this configuration, but filtering
-     *           the specified reader
-     */
-
-    /**
-     * @param Reader $reader
-     *
-     * @return StripLineComments
+     * @return StripLineComments A new filter based on this configuration, but filtering
+     *                           the specified reader
      *
      * @throws Exception
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new StripLineComments($reader);
         $newFilter->setComments($this->getComments());
@@ -170,10 +166,12 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
         return $newFilter;
     }
 
-    /*
+    /**
      * Parses the parameters to set the comment prefixes.
-    */
-    private function initialize()
+     *
+     * @return void
+     */
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

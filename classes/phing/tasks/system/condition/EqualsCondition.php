@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A simple string comparator.  Compares two strings for eqiality in a
  * binary safe manner. Implements the condition interface specification.
@@ -27,23 +29,42 @@
  */
 class EqualsCondition implements Condition
 {
+    /**
+     * @var string
+     */
     private $arg1;
+
+    /**
+     * @var string
+     */
     private $arg2;
-    private $trim          = false;
+
+    /**
+     * @var bool
+     */
+    private $trim = false;
+
+    /**
+     * @var bool
+     */
     private $caseSensitive = true;
 
     /**
      * @param string $a1
+     *
+     * @return void
      */
-    public function setArg1($a1)
+    public function setArg1(string $a1): void
     {
         $this->arg1 = $a1;
     }
 
     /**
      * @param string $a2
+     *
+     * @return void
      */
-    public function setArg2($a2)
+    public function setArg2(string $a2): void
     {
         $this->arg2 = $a2;
     }
@@ -52,8 +73,10 @@ class EqualsCondition implements Condition
      * Should we want to trim the arguments before comparing them?
      *
      * @param bool $b
+     *
+     * @return void
      */
-    public function setTrim($b)
+    public function setTrim(bool $b): void
     {
         $this->trim = (bool) $b;
     }
@@ -62,8 +85,10 @@ class EqualsCondition implements Condition
      * Should the comparison be case sensitive?
      *
      * @param bool $b
+     *
+     * @return void
      */
-    public function setCaseSensitive($b)
+    public function setCaseSensitive(bool $b): void
     {
         $this->caseSensitive = (bool) $b;
     }
@@ -73,7 +98,7 @@ class EqualsCondition implements Condition
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->arg1 === null || $this->arg2 === null) {
             throw new BuildException('Both arg1 and arg2 are required in equals.');

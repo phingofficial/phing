@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for HTTP_Request2-backed tasks
  *
@@ -80,9 +82,11 @@ abstract class HttpTask extends Task
     /**
      * Load the necessary environment for running this task.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function init()
+    public function init(): void
     {
         @include_once 'HTTP/Request2.php';
 
@@ -99,8 +103,10 @@ abstract class HttpTask extends Task
      * Sets the request URL
      *
      * @param string $url
+     *
+     * @return void
      */
-    public function setUrl($url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -111,8 +117,10 @@ abstract class HttpTask extends Task
      * Used in tests to inject an instance of HTTP_Request2 containing a custom adapter
      *
      * @param HTTP_Request2 $request
+     *
+     * @return void
      */
-    public function setRequestPrototype(HTTP_Request2 $request)
+    public function setRequestPrototype(HTTP_Request2 $request): void
     {
         $this->requestPrototype = $request;
     }
@@ -121,8 +129,10 @@ abstract class HttpTask extends Task
      * Creates and configures an instance of HTTP_Request2
      *
      * @return HTTP_Request2
+     *
+     * @throws HTTP_Request2_LogicException
      */
-    protected function createRequest()
+    protected function createRequest(): HTTP_Request2
     {
         if (!$this->requestPrototype) {
             $request = new HTTP_Request2($this->url);
@@ -171,9 +181,13 @@ abstract class HttpTask extends Task
     /**
      * Makes a HTTP request and processes its response
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws HTTP_Request2_LogicException
+     * @throws HTTP_Request2_Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!isset($this->url)) {
             throw new BuildException("Required attribute 'url' is missing");
@@ -191,7 +205,7 @@ abstract class HttpTask extends Task
      *
      * @return Parameter The created header
      */
-    public function createHeader()
+    public function createHeader(): Parameter
     {
         $num = array_push($this->headers, new Parameter());
 
@@ -203,7 +217,7 @@ abstract class HttpTask extends Task
      *
      * @return Parameter The created config parameter
      */
-    public function createConfig()
+    public function createConfig(): Parameter
     {
         $num = array_push($this->configData, new Parameter());
 
@@ -214,8 +228,10 @@ abstract class HttpTask extends Task
      * Sets the authentication user name
      *
      * @param string $user
+     *
+     * @return void
      */
-    public function setAuthUser($user)
+    public function setAuthUser(string $user): void
     {
         $this->authUser = $user;
     }
@@ -224,8 +240,10 @@ abstract class HttpTask extends Task
      * Sets the authentication password
      *
      * @param string $password
+     *
+     * @return void
      */
-    public function setAuthPassword($password)
+    public function setAuthPassword(string $password): void
     {
         $this->authPassword = $password;
     }
@@ -234,8 +252,10 @@ abstract class HttpTask extends Task
      * Sets the authentication scheme
      *
      * @param string $scheme
+     *
+     * @return void
      */
-    public function setAuthScheme($scheme)
+    public function setAuthScheme(string $scheme): void
     {
         $this->authScheme = $scheme;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a special logger that is designed to profile builds.
  *
@@ -35,8 +37,12 @@ class ProfileLogger extends DefaultLogger
      * @param BuildEvent $event
      *            An event with any relevant extra information. Must not be
      *            <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         if (@date_default_timezone_get() === 'UTC') {
             date_default_timezone_set('Europe/Berlin');
@@ -53,8 +59,12 @@ class ProfileLogger extends DefaultLogger
      * @param BuildEvent $event
      *            An event with any relevant extra information. Must not be
      *            <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         $start = array_pop($this->profileData);
 
@@ -68,8 +78,12 @@ class ProfileLogger extends DefaultLogger
      * @param BuildEvent $event
      *            An event with any relevant extra information. Must not be
      *            <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
         $name = $event->getTask()->getTaskName();
         $now  = Phing::currentTimeMillis();
@@ -83,8 +97,12 @@ class ProfileLogger extends DefaultLogger
      * @param BuildEvent $event
      *            An event with any relevant extra information. Must not be
      *            <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
         $start = array_pop($this->profileData);
 
@@ -92,7 +110,16 @@ class ProfileLogger extends DefaultLogger
         $this->logFinish($event, $start, $name);
     }
 
-    private function logFinish(BuildEvent $event, $start, $name)
+    /**
+     * @param BuildEvent $event
+     * @param float      $start
+     * @param string     $name
+     *
+     * @return void
+     *
+     * @throws IOException
+     */
+    private function logFinish(BuildEvent $event, float $start, string $name): void
     {
         $msg = null;
         if ($start != null) {
@@ -108,7 +135,16 @@ class ProfileLogger extends DefaultLogger
         $this->printMessage($msg, $this->out, $event->getPriority());
     }
 
-    private function logStart(BuildEvent $event, $start, $name)
+    /**
+     * @param BuildEvent $event
+     * @param int        $start
+     * @param string     $name
+     *
+     * @return void
+     *
+     * @throws IOException
+     */
+    private function logStart(BuildEvent $event, int $start, string $name): void
     {
         $msg = Phing::getProperty('line.separator') . $name . ': started ' . date(self::$dateFormat, $start);
         $this->printMessage($msg, $this->out, $event->getPriority());

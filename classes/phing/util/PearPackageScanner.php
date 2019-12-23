@@ -12,6 +12,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * Scans for files in a PEAR package.
  *
@@ -25,6 +27,10 @@
 class PearPackageScanner extends DirectoryScanner
 {
     protected $packageInfo;
+
+    /**
+     * @var string|null
+     */
     protected $role = 'php';
     protected $config;
     protected $package;
@@ -56,7 +62,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @throws BuildException
      */
-    public function setDescFile($descfile)
+    public function setDescFile(string $descfile): void
     {
         if ($descfile != '' && !file_exists($descfile)) {
             throw new BuildException(
@@ -74,7 +80,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @return void
      */
-    public function setPackage($package)
+    public function setPackage(string $package): void
     {
         $this->package = $package;
     }
@@ -86,7 +92,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @return void
      */
-    public function setChannel($channel)
+    public function setChannel(string $channel): void
     {
         $this->channel = $channel;
     }
@@ -94,15 +100,15 @@ class PearPackageScanner extends DirectoryScanner
     /**
      * Sets the full path to the PEAR configuration file
      *
-     * @param string $config Configuration file
+     * @param string|null $config Configuration file
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function setConfig($config)
+    public function setConfig(?string $config): void
     {
-        if ($config != '') {
+        if ($config !== null && $config !== '') {
             if (!file_exists($config)) {
                 throw new BuildException(
                     'PEAR configuration file "' . $config . '" does not exist'
@@ -133,13 +139,13 @@ class PearPackageScanner extends DirectoryScanner
      * We do not verify the role against a hardcoded list since that
      * would break packages with additional roles.
      *
-     * @param string $role PEAR file role
+     * @param string|null $role PEAR file role
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function setRole($role)
+    public function setRole(?string $role): void
     {
         if ($role == '' && $this->packageFile == '') {
             throw new BuildException('A non-empty role is required');
@@ -155,7 +161,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @return void
      */
-    protected function init()
+    protected function init(): void
     {
         if (!$this->packageInfo) {
             $this->packageInfo = $this->loadPackageInfo();
@@ -169,7 +175,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @throws BuildException When the package does not exist
      */
-    protected function loadPackageInfo()
+    protected function loadPackageInfo(): PEAR_PackageFile_v2
     {
         $config = PEAR_Config::singleton($this->config);
 
@@ -215,7 +221,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @return bool True if all went well, false if something was wrong
      */
-    public function scan()
+    public function scan(): bool
     {
         $this->init();
         $list = $this->packageInfo->getFilelist();

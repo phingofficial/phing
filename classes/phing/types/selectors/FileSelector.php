@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is the interface to be used by all selectors.
  *
@@ -40,5 +42,5 @@ interface FileSelector
      *
      * @throws BuildException if the selector was not configured correctly
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file);
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool;
 }

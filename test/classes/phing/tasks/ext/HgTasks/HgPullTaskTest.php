@@ -17,11 +17,19 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgPullTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -30,12 +38,18 @@ class HgPullTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testWrongRepositoryDirDoesntExist()
+    /**
+     * @return void
+     */
+    public function testWrongRepositoryDirDoesntExist(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepositoryDirDoesntExist',
@@ -44,7 +58,10 @@ class HgPullTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongRepository()
+    /**
+     * @return void
+     */
+    public function testWrongRepository(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 

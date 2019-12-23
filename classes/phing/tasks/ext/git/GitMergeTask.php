@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper aroung git-merge
  *
@@ -102,8 +104,13 @@ class GitMergeTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -171,8 +178,10 @@ class GitMergeTask extends GitBaseTask
 
     /**
      * @param string $remote
+     *
+     * @return void
      */
-    public function setRemote($remote)
+    public function setRemote(string $remote): void
     {
         $this->remote = $remote;
     }
@@ -180,15 +189,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getRemote()
+    public function getRemote(): string
     {
         return $this->remote;
     }
 
     /**
      * @param string $message
+     *
+     * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
@@ -196,15 +207,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
      * @param string $strategy
+     *
+     * @return void
      */
-    public function setStrategy($strategy)
+    public function setStrategy(string $strategy): void
     {
         $this->strategy = $strategy;
     }
@@ -212,15 +225,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getStrategy()
+    public function getStrategy(): string
     {
         return $this->strategy;
     }
 
     /**
      * @param string $strategyOption
+     *
+     * @return void
      */
-    public function setStrategyOption($strategyOption)
+    public function setStrategyOption(string $strategyOption): void
     {
         $this->strategyOption = $strategyOption;
     }
@@ -228,15 +243,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getStrategyOption()
+    public function getStrategyOption(): string
     {
         return $this->strategyOption;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setQuiet($flag)
+    public function setQuiet(bool $flag): void
     {
         $this->quiet = $flag;
     }
@@ -244,7 +261,7 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getQuiet()
+    public function getQuiet(): bool
     {
         return $this->quiet;
     }
@@ -252,15 +269,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isQuiet()
+    public function isQuiet(): bool
     {
         return $this->getQuiet();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setCommit($flag)
+    public function setCommit(bool $flag): void
     {
         $this->commit = (bool) $flag;
     }
@@ -268,7 +287,7 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getCommit()
+    public function getCommit(): bool
     {
         return $this->commit;
     }
@@ -276,15 +295,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isCommit()
+    public function isCommit(): bool
     {
         return $this->getCommit();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoCommit($flag)
+    public function setNoCommit(bool $flag): void
     {
         $this->noCommit = (bool) $flag;
     }
@@ -292,7 +313,7 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoCommit()
+    public function getNoCommit(): bool
     {
         return $this->noCommit;
     }
@@ -300,15 +321,17 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNoCommit()
+    public function isNoCommit(): bool
     {
         return $this->getNoCommit();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setFastForwardCommit($flag)
+    public function setFastForwardCommit(bool $flag): void
     {
         $this->fastForwardCommit = $flag;
     }
@@ -316,7 +339,7 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getFastForwardCommit()
+    public function getFastForwardCommit(): bool
     {
         return $this->fastForwardCommit;
     }
@@ -324,7 +347,7 @@ class GitMergeTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isFastForwardCommit()
+    public function isFastForwardCommit(): bool
     {
         return $this->getFastForwardCommit();
     }

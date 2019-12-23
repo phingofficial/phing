@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 class PhingFileTest extends TestCase
 {
     /**
@@ -27,17 +28,29 @@ class PhingFileTest extends TestCase
      */
     private $file;
 
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
     protected function setUp(): void
     {
         $this->file = new PhingFile(__FILE__);
     }
 
-    public function testPathInsideBasedir()
+    /**
+     * @return void
+     */
+    public function testPathInsideBasedir(): void
     {
-        $this->assertEquals(basename(__FILE__), $this->file->getPathWithoutBase(__DIR__));
+        self::assertEquals(basename(__FILE__), $this->file->getPathWithoutBase(__DIR__));
     }
 
-    public function testPathOutsideBasedir()
+    /**
+     * @return void
+     */
+    public function testPathOutsideBasedir(): void
     {
         $this->assertEquals(__FILE__, $this->file->getPathWithoutBase('/foo/bar'));
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Composer Task
  *
@@ -64,8 +66,10 @@ class ComposerTask extends Task
 
     /**
      * Initialize the interpreter with the Phing property php.interpreter.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->setPhp($this->project->getProperty('php.interpreter'));
     }
@@ -74,8 +78,10 @@ class ComposerTask extends Task
      * Sets the path to php executable.
      *
      * @param string $php
+     *
+     * @return void
      */
-    public function setPhp($php)
+    public function setPhp(string $php): void
     {
         $this->php = $php;
     }
@@ -85,7 +91,7 @@ class ComposerTask extends Task
      *
      * @return string
      */
-    public function getPhp()
+    public function getPhp(): string
     {
         return $this->php;
     }
@@ -94,8 +100,10 @@ class ComposerTask extends Task
      * Sets the Composer command to execute.
      *
      * @param string $command
+     *
+     * @return void
      */
-    public function setCommand($command)
+    public function setCommand(string $command): void
     {
         $this->command = $command;
     }
@@ -105,7 +113,7 @@ class ComposerTask extends Task
      *
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): string
     {
         return $this->command;
     }
@@ -114,8 +122,10 @@ class ComposerTask extends Task
      * Sets the path to Composer application.
      *
      * @param string $console
+     *
+     * @return void
      */
-    public function setComposer($console)
+    public function setComposer(string $console): void
     {
         $this->composer = $console;
     }
@@ -128,8 +138,9 @@ class ComposerTask extends Task
      * @return string
      *
      * @throws IOException
+     * @throws Exception
      */
-    public function getComposer()
+    public function getComposer(): string
     {
         $composerFile = new SplFileInfo($this->composer);
         if (false === $composerFile->isFile()) {
@@ -150,7 +161,7 @@ class ComposerTask extends Task
      *
      * @return CommandlineArgument
      */
-    public function createArg()
+    public function createArg(): CommandlineArgument
     {
         return $this->commandLine->createArgument();
     }
@@ -162,7 +173,7 @@ class ComposerTask extends Task
      *
      * @throws IOException
      */
-    private function prepareCommandLine()
+    private function prepareCommandLine(): string
     {
         $this->commandLine->setExecutable($this->getPhp());
         $command = $this->getCommand();
@@ -182,9 +193,12 @@ class ComposerTask extends Task
     /**
      * Executes the Composer task.
      *
+     * @return void
+     *
      * @throws IOException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $commandLine = $this->prepareCommandLine();
         $this->log('Executing ' . $commandLine);

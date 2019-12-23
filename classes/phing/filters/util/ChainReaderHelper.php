@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Process a FilterReader chain.
  *
@@ -56,11 +58,15 @@ class ChainReaderHelper
 {
     /**
      * Primary reader to wich the reader chain is to be attached
+     *
+     * @var Reader
      */
     private $primaryReader = null;
 
     /**
      * The site of the buffer to be used.
+     *
+     * @var int
      */
     private $bufferSize = 8192;
 
@@ -71,6 +77,8 @@ class ChainReaderHelper
 
     /**
      * The Phing project
+     *
+     * @var Project
      */
     private $project;
 
@@ -80,8 +88,10 @@ class ChainReaderHelper
 
     /**
      * @param Reader $reader
+     *
+     * @return void
      */
-    public function setPrimaryReader(Reader $reader)
+    public function setPrimaryReader(Reader $reader): void
     {
         $this->primaryReader = $reader;
     }
@@ -92,8 +102,10 @@ class ChainReaderHelper
 
     /**
      * @param Project $project
+     *
+     * @return void
      */
-    public function setProject(Project $project)
+    public function setProject(Project $project): void
     {
         $this->project = $project;
     }
@@ -101,7 +113,7 @@ class ChainReaderHelper
     /*
      * Get the project
     */
-    public function getProject()
+    public function getProject(): Project
     {
         return $this->project;
     }
@@ -109,12 +121,10 @@ class ChainReaderHelper
     /*
      * Sets the buffer size to be used.  Defaults to 8192,
      * if this method is not invoked.
-    */
-
-    /**
      * @param int $size
+     * @return void
      */
-    public function setBufferSize($size)
+    public function setBufferSize(int $size): void
     {
         $this->bufferSize = $size;
     }
@@ -123,8 +133,10 @@ class ChainReaderHelper
      * Sets the collection of filter reader sets
      *
      * @param array $fchain
+     *
+     * @return void
      */
-    public function setFilterChains(&$fchain)
+    public function setFilterChains(array &$fchain): void
     {
         $this->filterChains = &$fchain;
     }

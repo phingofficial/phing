@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.
  *
@@ -48,6 +50,8 @@ class ReflexiveTask extends Task
 
     /**
      * Single file to process.
+     *
+     * @var PhingFile
      */
     private $file;
 
@@ -55,16 +59,25 @@ class ReflexiveTask extends Task
      * Alias for setFrom()
      *
      * @param PhingFile $f
+     *
+     * @return void
      */
-    public function setFile(PhingFile $f)
+    public function setFile(PhingFile $f): void
     {
         $this->file = $f;
     }
 
     /**
      * Append the file(s).
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException('You must specify a file or fileset(s) for the <reflexive> task.');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Filter to flatten the stream to a single line.
  *
@@ -57,7 +59,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream, only including
      * characters not in the set of line-breaking characters.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed The resulting stream, or -1
      *               if the end of the resulting stream has been reached.
@@ -65,7 +67,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * @throws IOException If the underlying stream throws an IOException
      *                     during reading
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -87,8 +89,10 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      *
      * @param string $lineBreaks A String containing all the characters to be
      *                           considered as line-breaking.
+     *
+     * @return void
      */
-    public function setLineBreaks($lineBreaks)
+    public function setLineBreaks(string $lineBreaks): void
     {
         $this->lineBreaks = (string) $lineBreaks;
     }
@@ -98,7 +102,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      *
      * @return string A String containing all the characters that are considered as line-breaking.
      */
-    public function getLineBreaks()
+    public function getLineBreaks(): string
     {
         return $this->lineBreaks;
     }
@@ -113,7 +117,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * @return StripLineBreaks A new filter based on this configuration, but filtering
      *                         the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new StripLineBreaks($reader);
         $newFilter->setLineBreaks($this->getLineBreaks());
@@ -125,8 +129,10 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Parses the parameters to set the line-breaking characters.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $userDefinedLineBreaks = null;
         $params                = $this->getParameters();

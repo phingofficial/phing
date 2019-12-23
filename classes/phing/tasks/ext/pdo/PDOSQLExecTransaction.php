@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * "Inner" class that contains the definition of a new transaction element.
  * Transactions allow several files or blocks of statements
@@ -46,24 +48,31 @@ class PDOSQLExecTransaction
 
     /**
      * @param PhingFile $src
+     *
+     * @return void
      */
-    public function setSrc(PhingFile $src)
+    public function setSrc(PhingFile $src): void
     {
         $this->tSrcFile = $src;
     }
 
     /**
      * @param string $sql
+     *
+     * @return void
      */
-    public function addText($sql)
+    public function addText(string $sql): void
     {
         $this->tSqlCommand .= $sql;
     }
 
     /**
-     * @throws IOException, PDOException
+     * @return void
+     *
+     * @throws IOException
+     * @throws PDOException
      */
-    public function runTransaction()
+    public function runTransaction(): void
     {
         if (!empty($this->tSqlCommand)) {
             $this->parent->log('Executing commands', Project::MSG_INFO);

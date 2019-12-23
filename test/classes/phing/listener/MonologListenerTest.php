@@ -17,16 +17,23 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class MonologListenerTest extends TestCase
 {
     /**
+     * @return void
+     *
+     * @throws Exception
+     *
      * @test
      */
-    public function buildStarted()
+    public function buildStarted(): void
     {
         $listener = new MonologListener();
-        $this->assertNull($listener->buildStarted(new BuildEvent(new Project())));
+        $listener->buildStarted(new BuildEvent(new Project()));
+        $this->assertNull(null);
     }
 }

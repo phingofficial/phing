@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Copy Task
  *
@@ -25,7 +27,10 @@
  */
 class CopyTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,15 +39,22 @@ class CopyTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
     /**
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testCopyDanglingSymlink()
+    public function testCopyDanglingSymlink(): void
     {
         $this->executeTarget('testCopyDanglingSymlink');
         $this->assertInLogs('Copying 1 file to');
@@ -53,9 +65,11 @@ class CopyTaskTest extends BuildFileTest
      * FileUtil::copyFile(): preserveLastModified causes
      * empty symlink target file
      *
+     * @return void
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
+    public function testCopySymlinkPreserveLastModifiedShouldCopyTarget(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 2 files to');
@@ -65,8 +79,10 @@ class CopyTaskTest extends BuildFileTest
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/229}
      * - CopyTask should accept filelist subelement
+     *
+     * @return void
      */
-    public function testCopyFileList()
+    public function testCopyFileList(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 2 files to');
@@ -74,8 +90,10 @@ class CopyTaskTest extends BuildFileTest
 
     /**
      * - CopyTask should accept dirset subelement
+     *
+     * @return void
      */
-    public function testCopyDirSet()
+    public function testCopyDirSet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 2 files to');
@@ -85,9 +103,11 @@ class CopyTaskTest extends BuildFileTest
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
      * - Error overwriting symlinks on copy or move
      *
+     * @return void
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testOverwriteExistingSymlink()
+    public function testOverwriteExistingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 1 file to');

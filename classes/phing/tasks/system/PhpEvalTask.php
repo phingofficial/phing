@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.
  *
@@ -38,15 +40,22 @@ class PhpEvalTask extends Task
     protected $returnProperty = null; // name of property to set to return value
     protected $params         = []; // parameters for function calls
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
         $this->logLevel = Project::MSG_INFO;
     }
 
     /**
      * Main entry point.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->function === null && $this->expression === null) {
             throw new BuildException(
@@ -77,8 +86,11 @@ class PhpEvalTask extends Task
      * Calls function and returns results.
      *
      * @return void
+     *
+     * @throws ConfigurationException
+     * @throws Exception
      */
-    protected function callFunction()
+    protected function callFunction(): void
     {
         if ($this->class !== null) {
             // import the classname & unqualify it, if necessary
@@ -125,7 +137,12 @@ class PhpEvalTask extends Task
         }
     }
 
-    private function resolveParams(&$iterator)
+    /**
+     * @param iterable $iterator
+     *
+     * @return iterable
+     */
+    private function resolveParams(iterable &$iterator): iterable
     {
         foreach ($iterator as &$value) {
             if (is_string($value)) {
@@ -144,8 +161,10 @@ class PhpEvalTask extends Task
      * Evaluates expression and returns resulting value.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    protected function evalExpression()
+    protected function evalExpression(): void
     {
         $this->log('Evaluating PHP expression: ' . $this->expression, $this->logLevel);
         if (!StringHelper::endsWith(';', trim($this->expression))) {
@@ -165,8 +184,10 @@ class PhpEvalTask extends Task
      * Set function to execute
      *
      * @param string $f
+     *
+     * @return void
      */
-    public function setFunction($f)
+    public function setFunction($f): void
     {
         $this->function = $f;
     }
@@ -175,8 +196,10 @@ class PhpEvalTask extends Task
      * Set [static] class which contains function to execute
      *
      * @param string $c
+     *
+     * @return void
      */
-    public function setClass($c)
+    public function setClass($c): void
     {
         $this->class = $c;
     }
@@ -185,8 +208,10 @@ class PhpEvalTask extends Task
      * Sets property name to set with return value of function or expression.
      *
      * @param string $r
+     *
+     * @return void
      */
-    public function setReturnProperty($r)
+    public function setReturnProperty($r): void
     {
         $this->returnProperty = $r;
     }
@@ -195,8 +220,10 @@ class PhpEvalTask extends Task
      * Set PHP expression to evaluate.
      *
      * @param string $expression
+     *
+     * @return void
      */
-    public function addText($expression)
+    public function addText($expression): void
     {
         $this->expression = $expression;
     }
@@ -205,16 +232,22 @@ class PhpEvalTask extends Task
      * Set PHP expression to evaluate.
      *
      * @param string $expression
+     *
+     * @return void
      */
-    public function setExpression($expression)
+    public function setExpression($expression): void
     {
         $this->expression = $expression;
     }
 
     /**
      * Add a nested <param> tag.
+     *
+     * @param Parameter $p
+     *
+     * @return void
      */
-    public function addParam(Parameter $p)
+    public function addParam(Parameter $p): void
     {
         $this->params[] = $p;
     }

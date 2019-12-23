@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * UTs for Target component
  *
@@ -29,7 +31,13 @@ class TargetTest extends BuildFileTest
     /** @var Target */
     private $target;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -41,7 +49,10 @@ class TargetTest extends BuildFileTest
         $this->target->setName('MyTarget');
     }
 
-    public function testHiddenTargets()
+    /**
+     * @return void
+     */
+    public function testHiddenTargets(): void
     {
         $phingExecutable = '"' . PHING_TEST_BASE . '/../bin/phing"';
         $buildFile       = '"' . PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml"';
@@ -49,24 +60,29 @@ class TargetTest extends BuildFileTest
         exec($cmd, $out);
         $out    = implode("\n", $out);
         $offset = strpos($out, 'Subtargets:');
-        $this->assertFalse(strpos($out, 'HideInListTarget', $offset));
-        $this->assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
+        self::assertFalse(strpos($out, 'HideInListTarget', $offset));
+        self::assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
     }
 
     /**
      * @param array  $expectedDepends
      * @param string $depends
      *
+     * @return void
+     *
      * @dataProvider setDependsValidDataProvider
      */
-    public function testSetDependsValid(array $expectedDepends, $depends)
+    public function testSetDependsValid(array $expectedDepends, string $depends): void
     {
         $this->target->setDepends($depends);
 
-        $this->assertEquals($expectedDepends, $this->target->getDependencies());
+        self::assertEquals($expectedDepends, $this->target->getDependencies());
     }
 
-    public function setDependsValidDataProvider()
+    /**
+     * @return array[]
+     */
+    public function setDependsValidDataProvider(): array
     {
         return [
             [['target1'], 'target1'],
@@ -77,9 +93,11 @@ class TargetTest extends BuildFileTest
     /**
      * @param string $depends
      *
+     * @return void
+     *
      * @dataProvider setDependsInvalidDataProvider
      */
-    public function testSetDependsInvalid($depends)
+    public function testSetDependsInvalid(string $depends): void
     {
         $this->expectException('BuildException');
         $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
@@ -87,7 +105,10 @@ class TargetTest extends BuildFileTest
         $this->target->setDepends($depends);
     }
 
-    public function setDependsInvalidDataProvider()
+    /**
+     * @return array[]
+     */
+    public function setDependsInvalidDataProvider(): array
     {
         return [
             [''],
@@ -95,7 +116,10 @@ class TargetTest extends BuildFileTest
         ];
     }
 
-    public function testGetTasksReturnsCorrectTasks()
+    /**
+     * @return void
+     */
+    public function testGetTasksReturnsCorrectTasks(): void
     {
         $task = new EchoTask();
         $task->setMessage('Hello World');
@@ -104,10 +128,13 @@ class TargetTest extends BuildFileTest
 
         $tasks = $this->target->getTasks();
 
-        $this->assertEquals([$task], $tasks);
+        self::assertEquals([$task], $tasks);
     }
 
-    public function testGetTasksClonesTasks()
+    /**
+     * @return void
+     */
+    public function testGetTasksClonesTasks(): void
     {
         $task = new EchoTask();
         $task->setMessage('Hello World');
@@ -118,18 +145,25 @@ class TargetTest extends BuildFileTest
         $this->assertNotSame($task, $tasks[0]);
     }
 
-    public function testMainAppliesConfigurables()
+    /**
+     * @return void
+     */
+    public function testMainAppliesConfigurables(): void
     {
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->once())->method('maybeConfigure')->with($this->project);
+        /** @var RuntimeConfigurable $configurable */
         $this->target->addDataType($configurable);
 
         $this->target->main();
     }
 
-    public function testMainFalseIfDoesntApplyConfigurable()
+    /**
+     * @return void
+     */
+    public function testMainFalseIfDoesntApplyConfigurable(): void
     {
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
@@ -143,7 +177,10 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainTrueUnlessDoesntApplyConfigurable()
+    /**
+     * @return void
+     */
+    public function testMainTrueUnlessDoesntApplyConfigurable(): void
     {
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
@@ -157,7 +194,10 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainPerformsTasks()
+    /**
+     * @return void
+     */
+    public function testMainPerformsTasks(): void
     {
         $task = $this->createMock('Task');
         $task->expects($this->once())->method('perform');
@@ -166,7 +206,10 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainFalseIfDoesntPerformTasks()
+    /**
+     * @return void
+     */
+    public function testMainFalseIfDoesntPerformTasks(): void
     {
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
@@ -178,7 +221,10 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainTrueUnlessDoesntPerformTasks()
+    /**
+     * @return void
+     */
+    public function testMainTrueUnlessDoesntPerformTasks(): void
     {
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');

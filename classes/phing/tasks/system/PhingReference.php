@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Helper class that implements the nested <reference>
  * element of <phing> and <phingcall>.
@@ -32,8 +34,10 @@ class PhingReference extends Reference
      * new project.
      *
      * @param string $targetid The id under which this reference will be passed to the new project
+     *
+     * @return void
      */
-    public function setToRefid($targetid)
+    public function setToRefid(string $targetid): void
     {
         $this->targetid = $targetid;
     }
@@ -44,7 +48,7 @@ class PhingReference extends Reference
      *
      * @return string the id of the reference in the new project.
      */
-    public function getToRefid()
+    public function getToRefid(): string
     {
         return $this->targetid;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Helper class that collects the methods that a task or nested element
  * holds to set attributes, create nested elements or hold PCDATA
@@ -100,8 +102,10 @@ class IntrospectionHelper
      * @param string $class The class to create a Helper for
      *
      * @return IntrospectionHelper
+     *
+     * @throws ReflectionException
      */
-    public static function getHelper($class)
+    public static function getHelper(string $class): IntrospectionHelper
     {
         if (!isset(self::$helpers[$class])) {
             self::$helpers[$class] = new IntrospectionHelper($class);
@@ -112,7 +116,6 @@ class IntrospectionHelper
 
     /**
      * This function constructs a new introspection helper for a specific class.
-     *
      * This method loads all methods for the specified class and categorizes them
      * as setters, creators, slot listeners, etc.  This way, the setAttribue() doesn't
      * need to perform any introspection -- either the requested attribute setter/creator
@@ -121,8 +124,9 @@ class IntrospectionHelper
      * @param string $class The classname for this IH.
      *
      * @throws BuildException
+     * @throws ReflectionException
      */
-    public function __construct($class)
+    public function __construct(string $class)
     {
         $this->bean = new ReflectionClass($class);
 
@@ -179,7 +183,13 @@ class IntrospectionHelper
                     if ($method->hasReturnType()) {
                         $this->nestedTypes[$name] = $method->getReturnType();
                     } else {
-                        preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
+                        $docComment = $method->getDocComment();
+                        $matches    = [];
+
+                        if (false !== $docComment) {
+                            preg_match('/@return[\s]+([\w]+)/', (string) $docComment, $matches);
+                        }
+
                         if (!empty($matches[1]) && class_exists($matches[1], false)) {
                             $this->nestedTypes[$name] = $matches[1];
                         } else {
@@ -265,7 +275,7 @@ class IntrospectionHelper
      *
      * @return bool true if the introspected class is a container; false otherwise.
      */
-    public function isContainer()
+    public function isContainer(): bool
     {
         return $this->bean->implementsInterface(TaskContainer::class);
     }
@@ -278,9 +288,12 @@ class IntrospectionHelper
      * @param string  $attributeName
      * @param mixed   $value
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
      */
-    public function setAttribute(Project $project, $element, $attributeName, &$value)
+    public function setAttribute(Project $project, $element, string $attributeName, &$value): void
     {
         // we want to check whether the value we are setting looks like
         // a slot-listener variable:  %{task.current_file}
@@ -374,12 +387,14 @@ class IntrospectionHelper
      * Adds PCDATA areas.
      *
      * @param Project $project
-     * @param string  $element
+     * @param object  $element
      * @param string  $text
+     *
+     * @return void
      *
      * @throws BuildException
      */
-    public function addText(Project $project, $element, $text)
+    public function addText(Project $project, $element, string $text): void
     {
         if ($this->methodAddText === null) {
             $msg = $this->getElementName($project, $element) . " doesn't support nested text data.";
@@ -395,19 +410,20 @@ class IntrospectionHelper
 
     /**
      * Creates a named nested element.
-     *
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
      * @param Project $project
      * @param object  $element     Object the XML tag is child of.
-     *                                   Often a task object.
+     *                             Often a task object.
      * @param string  $elementName XML tag name
      *
      * @return object         Returns the nested element.
      *
+     * @throws ConfigurationException
+     * @throws ReflectionException
      * @throws BuildException
      */
-    public function createElement(Project $project, $element, $elementName)
+    public function createElement(Project $project, $element, string $elementName)
     {
         $addMethod     = 'add' . strtolower($elementName);
         $createMethod  = 'create' . strtolower($elementName);
@@ -516,7 +532,7 @@ class IntrospectionHelper
      *
      * @throws BuildException
      */
-    public function storeElement($project, $element, $child, $elementName = null)
+    public function storeElement(Project $project, string $element, string $child, ?string $elementName = null): void
     {
         if ($elementName === null) {
             return;
@@ -544,7 +560,7 @@ class IntrospectionHelper
      *
      * @return bool
      */
-    public function supportsCharacters()
+    public function supportsCharacters(): bool
     {
         return $this->methodAddText !== null;
     }
@@ -554,7 +570,7 @@ class IntrospectionHelper
      *
      * @return string[]
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         $attribs = [];
         foreach (array_keys($this->attributeSetters) as $setter) {
@@ -569,7 +585,7 @@ class IntrospectionHelper
      *
      * @return string[]
      */
-    public function getNestedElements()
+    public function getNestedElements(): array
     {
         return $this->nestedTypes;
     }
@@ -585,14 +601,18 @@ class IntrospectionHelper
      *
      * @return string  Fully qualified class name of element when possible.
      */
-    public function getElementName(Project $project, $element)
+    public function getElementName(Project $project, $element): string
     {
         $taskdefs = $project->getTaskDefinitions();
         $typedefs = $project->getDataTypeDefinitions();
 
-        // check if class of element is registered with project (tasks & types)
-        // most element types don't have a getTag() method
-        $elClass = get_class($element);
+        if (is_string($element)) {
+            $elClass = $element;
+        } else {
+            // check if class of element is registered with project (tasks & types)
+            // most element types don't have a getTag() method
+            $elClass = get_class($element);
+        }
 
         if (!in_array('getTag', get_class_methods($elClass))) {
             // loop through taskdefs and typesdefs and see if the class name
@@ -627,7 +647,7 @@ class IntrospectionHelper
      *
      * @return string
      */
-    public function getPropertyName($methodName, $prefix)
+    public function getPropertyName(string $methodName, string $prefix): string
     {
         $start = strlen($prefix);
 
@@ -638,8 +658,10 @@ class IntrospectionHelper
      * Prints warning message to screen if -debug was used.
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function warn($msg)
+    public function warn(string $msg): void
     {
         if (Phing::getMsgOutputLevel() === Project::MSG_DEBUG) {
             print '[IntrospectionHelper] ' . $msg . "\n";

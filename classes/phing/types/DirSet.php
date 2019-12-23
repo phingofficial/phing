@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Subclass as hint for supporting tasks that the included directories
  * instead of files should be used.
@@ -26,11 +28,13 @@
 class DirSet extends AbstractFileSet
 {
     /**
-     * @param array $options
-     *
      * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    protected function getFiles(...$options)
+    protected function getFiles(): array
     {
         return $this->getDirectoryScanner($this->getProject())->getIncludedDirectories();
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition that compare versions
  *
@@ -46,20 +48,27 @@ class VersionCompareCondition implements Condition
      */
     private $operator = '>=';
 
+    /**
+     * @var bool
+     */
     private $debug = false;
 
     /**
      * @param string $version
+     *
+     * @return void
      */
-    public function setVersion($version)
+    public function setVersion(string $version): void
     {
         $this->version = $version;
     }
 
     /**
      * @param string $desiredVersion
+     *
+     * @return void
      */
-    public function setDesiredVersion($desiredVersion)
+    public function setDesiredVersion(string $desiredVersion): void
     {
         $this->desiredVersion = $desiredVersion;
     }
@@ -67,9 +76,11 @@ class VersionCompareCondition implements Condition
     /**
      * @param string $operator
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setOperator($operator)
+    public function setOperator(string $operator): void
     {
         $allowed = ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne'];
         if (!in_array($operator, $allowed)) { // allowed operators for php's version_comapare()
@@ -84,17 +95,22 @@ class VersionCompareCondition implements Condition
         $this->operator = $operator;
     }
 
-    public function setDebug(bool $debug)
+    /**
+     * @param bool $debug
+     *
+     * @return void
+     */
+    public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
     }
 
     /**
-     * @return mixed
+     * @return bool
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->version === null || $this->desiredVersion === null) {
             throw new BuildException('Missing one version parameter for version compare');

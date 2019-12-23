@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Determines the directory name of the specified file.
  *
@@ -41,14 +43,23 @@ class Dirname extends Task
      * @var PhingFile $file
      */
     private $file;
+
+    /**
+     * @var string
+     */
     private $property;
 
     /**
      * Path to take the dirname of.
      *
      * @param string|PhingFile $file a <code>File</code> value
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setFile($file)
+    public function setFile($file): void
     {
         if ($file instanceof PhingFile) {
             $this->file = $file;
@@ -61,8 +72,10 @@ class Dirname extends Task
      * The name of the property to set.
      *
      * @param string $property the name of the property
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -70,9 +83,12 @@ class Dirname extends Task
     /**
      * Execute this task.
      *
-     * @throws BuildException on error
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->property == null) {
             throw new BuildException('property attribute required', $this->getLocation());

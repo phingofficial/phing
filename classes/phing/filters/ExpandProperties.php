@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Expands Phing Properties, if any, in the data.
  * <p>
@@ -37,14 +39,14 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and the Phing properties are expanded.
      *
-     * @param int $len
+     * @param int|null $len
      *
-     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
+     * @return string|int the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
      * @throws IOException if the underlying stream throws an IOException
      * during reading
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         $buffer = $this->in->read($len);
 
@@ -71,7 +73,7 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * @return ExpandProperties A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new self($reader);
         $newFilter->setProject($this->getProject());

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class FileListTest extends TestCase
@@ -26,13 +28,21 @@ class FileListTest extends TestCase
      */
     private $project;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->project = new Project();
         $this->project->setBasedir(PHING_TEST_BASE);
     }
 
-    public function testGetFilesWithEmptyDir()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testGetFilesWithEmptyDir(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('No directory specified for filelist.');
@@ -41,7 +51,13 @@ class FileListTest extends TestCase
         $f->getFiles($this->project);
     }
 
-    public function testGetFilesWithNoFilenames()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testGetFilesWithNoFilenames(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('No files specified for filelist.');
@@ -51,7 +67,13 @@ class FileListTest extends TestCase
         $f->getFiles($this->project);
     }
 
-    public function testSetRefidWithDirSet()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testSetRefidWithDirSet(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
@@ -63,7 +85,10 @@ class FileListTest extends TestCase
         $f->setRefid(new Reference($this->project, 'dummy'));
     }
 
-    public function testSetRefidWithFileListSet()
+    /**
+     * @return void
+     */
+    public function testSetRefidWithFileListSet(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
@@ -75,7 +100,13 @@ class FileListTest extends TestCase
         $f->setRefid(new Reference($this->project, 'dummy'));
     }
 
-    public function testSetListfile()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testSetListfile(): void
     {
         $f = new FileList();
         $f->setListFile('foo.php');

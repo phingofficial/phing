@@ -1,9 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestResult;
-use PHPUnit\Runner\Version;
-use SebastianBergmann\CodeCoverage\Report\Clover;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +16,11 @@ use SebastianBergmann\CodeCoverage\Report\Clover;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Runner\Version;
 
 /**
  * Prints Clover XML output of the test
@@ -55,7 +55,7 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         return '.xml';
     }
@@ -63,26 +63,35 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): string
     {
         return 'clover-coverage';
     }
 
     /**
      * @param TestResult $result
+     *
+     * @return void
      */
-    public function processResult(TestResult $result)
+    public function processResult(TestResult $result): void
     {
         $this->result = $result;
     }
 
-    public function endTestRun()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function endTestRun(): void
     {
         $coverage = $this->result->getCodeCoverage();
 
         if (!empty($coverage)) {
             $cloverClass = Clover::class;
-            $clover      = new $cloverClass();
+
+            /** @var Clover $clover */
+            $clover = new $cloverClass();
 
             $contents = $clover->process($coverage);
 

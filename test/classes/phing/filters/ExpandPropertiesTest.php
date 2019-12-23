@@ -17,26 +17,45 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class ExpandPropertiesTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/expandproperties.xml');
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testExpandProperties()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testExpandProperties(): void
     {
         $this->executeTarget(__FUNCTION__);
 

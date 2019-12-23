@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a
  * given regular expression with a substitution pattern in a selected file or
@@ -40,6 +42,8 @@ class ReplaceRegexpTask extends Task
 
     /**
      * Single file to process.
+     *
+     * @var PhingFile
      */
     private $file;
 
@@ -57,7 +61,7 @@ class ReplaceRegexpTask extends Task
      *
      * @return void
      */
-    public function setFile(PhingFile $path)
+    public function setFile(PhingFile $path): void
     {
         $this->file = $path;
     }
@@ -69,7 +73,7 @@ class ReplaceRegexpTask extends Task
      *
      * @return void
      */
-    public function setMatch($regexp)
+    public function setMatch(string $regexp): void
     {
         $this->regexp->setPattern($regexp);
     }
@@ -81,7 +85,7 @@ class ReplaceRegexpTask extends Task
      *
      * @return void
      */
-    public function setPattern($regexp)
+    public function setPattern(string $regexp): void
     {
         $this->setMatch($regexp);
     }
@@ -93,7 +97,7 @@ class ReplaceRegexpTask extends Task
      *
      * @return void
      */
-    public function setReplace($string)
+    public function setReplace(string $string): void
     {
         $this->regexp->setReplace($string);
     }
@@ -107,7 +111,7 @@ class ReplaceRegexpTask extends Task
      *
      * todo ... `$this->_regexp->setFlags( $flags );`
      */
-    public function setFlags($flags)
+    public function setFlags(string $flags): void
     {
     }
 
@@ -118,7 +122,7 @@ class ReplaceRegexpTask extends Task
      *
      * @return void
      */
-    public function setByline($yesNo)
+    public function setByline(bool $yesNo): void
     {
         // TODO... $this->_regexp->
     }
@@ -128,7 +132,7 @@ class ReplaceRegexpTask extends Task
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->regexp = new RegularExpression();
     }
@@ -139,8 +143,9 @@ class ReplaceRegexpTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException('You must specify a file or fileset(s) for the <ReplaceRegexp> task.');

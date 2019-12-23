@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * ApiGen task (http://apigen.org).
  *
@@ -45,7 +47,7 @@ class ApiGenTask extends Task
     /**
      * Default ApiGen options.
      *
-     * @var string
+     * @var array
      */
     private $options = [];
 
@@ -53,8 +55,10 @@ class ApiGenTask extends Task
      * Sets the ApiGen executable name.
      *
      * @param string $executable
+     *
+     * @return void
      */
-    public function setExecutable($executable)
+    public function setExecutable(string $executable): void
     {
         $this->executable = (string) $executable;
     }
@@ -63,8 +67,10 @@ class ApiGenTask extends Task
      * Sets the ApiGen action to be executed.
      *
      * @param string $action
+     *
+     * @return void
      */
-    public function setAction($action)
+    public function setAction(string $action): void
     {
         $this->action = (string) $action;
     }
@@ -73,8 +79,10 @@ class ApiGenTask extends Task
      * Sets the config file name.
      *
      * @param string $config
+     *
+     * @return void
      */
-    public function setConfig($config)
+    public function setConfig(string $config): void
     {
         $this->options['config'] = (string) $config;
     }
@@ -83,8 +91,10 @@ class ApiGenTask extends Task
      * Sets source files or directories.
      *
      * @param string $source
+     *
+     * @return void
      */
-    public function setSource($source)
+    public function setSource(string $source): void
     {
         $this->options['source'] = explode(',', $source);
     }
@@ -93,8 +103,10 @@ class ApiGenTask extends Task
      * Sets the destination directory.
      *
      * @param string $destination
+     *
+     * @return void
      */
-    public function setDestination($destination)
+    public function setDestination(string $destination): void
     {
         $this->options['destination'] = (string) $destination;
     }
@@ -103,8 +115,10 @@ class ApiGenTask extends Task
      * Sets list of allowed file extensions.
      *
      * @param string $extensions
+     *
+     * @return void
      */
-    public function setExtensions($extensions)
+    public function setExtensions(string $extensions): void
     {
         $this->options['extensions'] = explode(',', $extensions);
     }
@@ -113,8 +127,10 @@ class ApiGenTask extends Task
      * Sets masks (case sensitive) to exclude files or directories from processing.
      *
      * @param string $exclude
+     *
+     * @return void
      */
-    public function setExclude($exclude)
+    public function setExclude(string $exclude): void
     {
         $this->options['exclude'] = explode(',', $exclude);
     }
@@ -123,8 +139,10 @@ class ApiGenTask extends Task
      * Sets masks to exclude elements from documentation generating.
      *
      * @param string $skipDocPath
+     *
+     * @return void
      */
-    public function setSkipDocPath($skipDocPath)
+    public function setSkipDocPath(string $skipDocPath): void
     {
         $this->options['skip-doc-path'] = explode(',', $skipDocPath);
     }
@@ -133,8 +151,10 @@ class ApiGenTask extends Task
      * Sets the character set of source files.
      *
      * @param string $charset
+     *
+     * @return void
      */
-    public function setCharset($charset)
+    public function setCharset(string $charset): void
     {
         $this->options['charset'] = explode(',', $charset);
     }
@@ -143,8 +163,10 @@ class ApiGenTask extends Task
      * Sets the main project name prefix.
      *
      * @param string $main
+     *
+     * @return void
      */
-    public function setMain($main)
+    public function setMain(string $main): void
     {
         $this->options['main'] = (string) $main;
     }
@@ -153,8 +175,10 @@ class ApiGenTask extends Task
      * Sets the title of generated documentation.
      *
      * @param string $title
+     *
+     * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->options['title'] = (string) $title;
     }
@@ -163,8 +187,10 @@ class ApiGenTask extends Task
      * Sets the documentation base URL.
      *
      * @param string $baseUrl
+     *
+     * @return void
      */
-    public function setBaseUrl($baseUrl)
+    public function setBaseUrl(string $baseUrl): void
     {
         $this->options['base-url'] = (string) $baseUrl;
     }
@@ -173,8 +199,10 @@ class ApiGenTask extends Task
      * Sets the Google Custom Search ID.
      *
      * @param string $googleCseId
+     *
+     * @return void
      */
-    public function setGoogleCseId($googleCseId)
+    public function setGoogleCseId(string $googleCseId): void
     {
         $this->options['google-cse-id'] = (string) $googleCseId;
     }
@@ -183,8 +211,10 @@ class ApiGenTask extends Task
      * Sets the Google Custom Search label.
      *
      * @param string $googleCseLabel
+     *
+     * @return void
      */
-    public function setGoogleCseLabel($googleCseLabel)
+    public function setGoogleCseLabel(string $googleCseLabel): void
     {
         $this->options['google-cse-label'] = (string) $googleCseLabel;
     }
@@ -193,8 +223,10 @@ class ApiGenTask extends Task
      * Sets the Google Analytics tracking code.
      *
      * @param string $googleAnalytics
+     *
+     * @return void
      */
-    public function setGoogleAnalytics($googleAnalytics)
+    public function setGoogleAnalytics(string $googleAnalytics): void
     {
         $this->options['google-analytics'] = (string) $googleAnalytics;
     }
@@ -203,8 +235,10 @@ class ApiGenTask extends Task
      * Sets the template config file name.
      *
      * @param string $templateConfig
+     *
+     * @return void
      */
-    public function setTemplateConfig($templateConfig)
+    public function setTemplateConfig(string $templateConfig): void
     {
         $this->options['template-config'] = (string) $templateConfig;
     }
@@ -213,8 +247,10 @@ class ApiGenTask extends Task
      * Sets the template config file name.
      *
      * @param string $templateTheme
+     *
+     * @return void
      */
-    public function setTemplateTheme($templateTheme)
+    public function setTemplateTheme(string $templateTheme): void
     {
         $this->options['template-theme'] = (string) $templateTheme;
     }
@@ -223,8 +259,10 @@ class ApiGenTask extends Task
      * Sets how elements should be grouped in the menu.
      *
      * @param string $groups
+     *
+     * @return void
      */
-    public function setGroups($groups)
+    public function setGroups(string $groups): void
     {
         $this->options['groups'] = (string) $groups;
     }
@@ -235,8 +273,10 @@ class ApiGenTask extends Task
      * Documentation only for methods and properties with the given access level will be generated.
      *
      * @param string $accessLevels
+     *
+     * @return void
      */
-    public function setAccessLevels($accessLevels)
+    public function setAccessLevels(string $accessLevels): void
     {
         $this->options['access-levels'] = (string) $accessLevels;
     }
@@ -247,8 +287,10 @@ class ApiGenTask extends Task
      * Documentation only for methods and properties with the given access level will be generated.
      *
      * @param string $annotationGroups
+     *
+     * @return void
      */
-    public function setAnnotationGroups($annotationGroups)
+    public function setAnnotationGroups(string $annotationGroups): void
     {
         $this->options['annotation-groups'] = (string) $annotationGroups;
     }
@@ -257,8 +299,10 @@ class ApiGenTask extends Task
      * Sets if documentation for elements marked as internal and internal documentation parts should be generated.
      *
      * @param bool $internal
+     *
+     * @return void
      */
-    public function setInternal(bool $internal)
+    public function setInternal(bool $internal): void
     {
         if ($internal) {
             $this->options['internal'] = null;
@@ -269,8 +313,10 @@ class ApiGenTask extends Task
      * Sets if documentation for PHP internal classes should be generated.
      *
      * @param bool $php
+     *
+     * @return void
      */
-    public function setPhp(bool $php)
+    public function setPhp(bool $php): void
     {
         if ($php) {
             $this->options['php'] = null;
@@ -281,8 +327,10 @@ class ApiGenTask extends Task
      * Sets if tree view of classes, interfaces, traits and exceptions should be generated.
      *
      * @param bool $tree
+     *
+     * @return void
      */
-    public function setTree(bool $tree)
+    public function setTree(bool $tree): void
     {
         if ($tree) {
             $this->options['tree'] = null;
@@ -293,8 +341,10 @@ class ApiGenTask extends Task
      * Sets if documentation for deprecated elements should be generated.
      *
      * @param bool $deprecated
+     *
+     * @return void
      */
-    public function setDeprecated(bool $deprecated)
+    public function setDeprecated(bool $deprecated): void
     {
         if ($deprecated) {
             $this->options['deprecated'] = null;
@@ -305,8 +355,10 @@ class ApiGenTask extends Task
      * Sets if documentation of tasks should be generated.
      *
      * @param bool $todo
+     *
+     * @return void
      */
-    public function setTodo(bool $todo)
+    public function setTodo(bool $todo): void
     {
         if ($todo) {
             $this->options['todo'] = null;
@@ -317,8 +369,10 @@ class ApiGenTask extends Task
      * Sets if highlighted source code files should be generated.
      *
      * @param bool $noSourceCode
+     *
+     * @return void
      */
-    public function setSourceCode(bool $noSourceCode)
+    public function setSourceCode(bool $noSourceCode): void
     {
         if (!$noSourceCode) {
             $this->options['no-source-code'] = null;
@@ -328,11 +382,13 @@ class ApiGenTask extends Task
     /**
      * Sets if highlighted source code files should not be generated.
      *
-     * @deprecated
+     * @deprecated use {@link setSourceCode} instead
      *
      * @param bool $noSourceCode
+     *
+     * @return void
      */
-    public function setNoSourceCode(bool $noSourceCode)
+    public function setNoSourceCode(bool $noSourceCode): void
     {
         $this->setSourceCode(!$noSourceCode);
     }
@@ -341,8 +397,10 @@ class ApiGenTask extends Task
      * Sets if a link to download documentation as a ZIP archive should be generated.
      *
      * @param bool $download
+     *
+     * @return void
      */
-    public function setDownload(bool $download)
+    public function setDownload(bool $download): void
     {
         if ($download) {
             $this->options['download'] = null;
@@ -353,8 +411,10 @@ class ApiGenTask extends Task
      * Enables/disables the debug mode.
      *
      * @param bool $debug
+     *
+     * @return void
      */
-    public function setDebug(bool $debug)
+    public function setDebug(bool $debug): void
     {
         if ($debug) {
             $this->options['debug'] = null;
@@ -366,9 +426,11 @@ class ApiGenTask extends Task
      *
      * @see    Task::main()
      *
+     * @return void
+     *
      * @throws BuildException If something is wrong.
      */
-    public function main()
+    public function main(): void
     {
         if ('apigen' !== $this->executable && !is_file($this->executable)) {
             throw new BuildException(sprintf('Executable %s not found', $this->executable), $this->getLocation());
@@ -423,7 +485,7 @@ class ApiGenTask extends Task
      *
      * @return string
      */
-    protected function constructArguments()
+    protected function constructArguments(): string
     {
         $args = [];
         foreach ($this->options as $option => $value) {

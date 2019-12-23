@@ -31,6 +31,10 @@ class SassCompiler implements SassTaskCompiler
      */
     private $flags;
 
+    /**
+     * @param string $executable
+     * @param string $flags
+     */
     public function __construct(string $executable, string $flags)
     {
         $this->executable = $executable;
@@ -38,7 +42,11 @@ class SassCompiler implements SassTaskCompiler
     }
 
     /**
-     * @throws BuildException
+     * @param string $inputFilePath
+     * @param string $outputFilePath
+     * @param bool   $failOnError
+     *
+     * @return void
      */
     public function compile(string $inputFilePath, string $outputFilePath, bool $failOnError): void
     {
@@ -69,7 +77,7 @@ class SassCompiler implements SassTaskCompiler
      *
      * @access protected
      */
-    private function executeCommand($inputFile, $outputFile)
+    private function executeCommand(string $inputFile, string $outputFile): array
     {
         // Prevent over-writing existing file.
         if ($inputFile == $outputFile) {

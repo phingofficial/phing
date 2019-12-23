@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper for environment variables.
  *
@@ -46,8 +48,10 @@ class Environment
      * are not caught either.
      *
      * @param EnvVariable $var new variable.
+     *
+     * @return void
      */
-    public function addVariable(EnvVariable $var)
+    public function addVariable(EnvVariable $var): void
     {
         $this->variables->append($var);
     }
@@ -55,17 +59,17 @@ class Environment
     /**
      * get the variable list as an array
      *
-     * @return array of key=value assignment strings
+     * @return array|null of key=value assignment strings
      *
      * @throws BuildException if any variable is misconfigured
      */
-    public function getVariables()
+    public function getVariables(): ?array
     {
         if ($this->variables->count() === 0) {
             return null;
         }
         return array_map(
-            static function ($env) {
+            static function (EnvVariable $env): string {
                 return $env->getContent();
             },
             $this->variables->getArrayCopy()

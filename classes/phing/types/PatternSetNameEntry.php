@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * "Internal" class for holding an include/exclude pattern.
  *
@@ -51,8 +53,10 @@ class PatternSetNameEntry
      * @see   setName()
      *
      * @param string $pattern
+     *
+     * @return void
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         $this->setName($pattern);
     }
@@ -61,8 +65,10 @@ class PatternSetNameEntry
      * Set the pattern text.
      *
      * @param string $name The pattern
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = (string) $name;
     }
@@ -71,8 +77,10 @@ class PatternSetNameEntry
      * Sets an if-condition property for this pattern to match.
      *
      * @param string $cond
+     *
+     * @return void
      */
-    public function setIf($cond)
+    public function setIf(string $cond): void
     {
         $this->ifCond = (string) $cond;
     }
@@ -81,8 +89,10 @@ class PatternSetNameEntry
      * Sets an unless-condition property for this pattern to match.
      *
      * @param string $cond
+     *
+     * @return void
      */
-    public function setUnless($cond)
+    public function setUnless(string $cond): void
     {
         $this->unlessCond = (string) $cond;
     }
@@ -92,7 +102,7 @@ class PatternSetNameEntry
      *
      * @return string The pattern.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -102,9 +112,9 @@ class PatternSetNameEntry
      *
      * @param Project $project
      *
-     * @return string The pattern or null if it is ruled out by a condition.
+     * @return string|null The pattern or null if it is ruled out by a condition.
      */
-    public function evalName(Project $project)
+    public function evalName(Project $project): ?string
     {
         return $this->valid($project) ? $this->name : null;
     }
@@ -117,7 +127,7 @@ class PatternSetNameEntry
      *
      * @return bool
      */
-    public function valid(Project $project)
+    public function valid(Project $project): bool
     {
         if ($this->ifCond !== null && $project->getProperty($this->ifCond) === null) {
             return false;
@@ -131,7 +141,7 @@ class PatternSetNameEntry
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = $this->name;
         if (($this->ifCond !== null) || ($this->unlessCond !== null)) {

@@ -1,12 +1,4 @@
 <?php
-
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\TestListener;
-use PHPUnit\Framework\TestResult;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\Warning;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +17,15 @@ use PHPUnit\Framework\Warning;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
+
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.
  *
@@ -33,6 +34,9 @@ use PHPUnit\Framework\Warning;
  */
 abstract class PHPUnitResultFormatter7 implements TestListener
 {
+    /**
+     * @var Writer
+     */
     protected $out;
 
     /** @var Project */
@@ -87,8 +91,10 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * Sets the writer the formatter is supposed to write its results to.
      *
      * @param Writer $out
+     *
+     * @return void
      */
-    public function setOutput(Writer $out)
+    public function setOutput(Writer $out): void
     {
         $this->out = $out;
     }
@@ -96,9 +102,9 @@ abstract class PHPUnitResultFormatter7 implements TestListener
     /**
      * Returns the extension used for this formatter
      *
-     * @return string the extension
+     * @return string|null the extension
      */
-    public function getExtension()
+    public function getExtension(): ?string
     {
         return '';
     }
@@ -106,19 +112,24 @@ abstract class PHPUnitResultFormatter7 implements TestListener
     /**
      * @return string
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): string
     {
         return '';
     }
 
     /**
      * @param TestResult $result
+     *
+     * @return void
      */
-    public function processResult(TestResult $result)
+    public function processResult(TestResult $result): void
     {
     }
 
-    public function startTestRun()
+    /**
+     * @return void
+     */
+    public function startTestRun(): void
     {
         $this->timers           = [$this->getMicrotime()];
         $this->runCounts        = [0];
@@ -129,12 +140,17 @@ abstract class PHPUnitResultFormatter7 implements TestListener
         $this->skipCounts       = [0];
     }
 
-    public function endTestRun()
+    /**
+     * @return void
+     */
+    public function endTestRun(): void
     {
     }
 
     /**
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -148,6 +164,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
 
     /**
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -171,6 +189,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
 
     /**
      * @param Test $test
+     *
+     * @return void
      */
     public function startTest(Test $test): void
     {
@@ -180,6 +200,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
     /**
      * @param Test  $test
      * @param float $time
+     *
+     * @return void
      */
     public function endTest(Test $test, float $time): void
     {
@@ -189,6 +211,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addError(Test $test, Throwable $e, float $time): void
     {
@@ -199,6 +223,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addFailure(
         Test $test,
@@ -212,6 +238,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * @param Test    $test
      * @param Warning $e
      * @param float   $time
+     *
+     * @return void
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -222,6 +250,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
@@ -232,6 +262,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addSkippedTest(Test $test, Throwable $e, float $time): void
     {
@@ -242,6 +274,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addRiskyTest(Test $test, Throwable $e, float $time): void
     {
@@ -310,10 +344,8 @@ abstract class PHPUnitResultFormatter7 implements TestListener
     /**
      * @return float
      */
-    private function getMicrotime()
+    private function getMicrotime(): float
     {
-        [$usec, $sec] = explode(' ', microtime());
-
-        return (float) $usec + (float) $sec;
+        return microtime(true);
     }
 }

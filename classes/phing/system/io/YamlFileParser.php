@@ -1,8 +1,4 @@
 <?php
-
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Parser;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +17,11 @@ use Symfony\Component\Yaml\Parser;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Parser;
+
 /**
  * Implements a YamlFileParser to parse yaml-files as array.
  *
@@ -31,8 +32,14 @@ class YamlFileParser implements FileParserInterface
 {
     /**
      * {@inheritDoc}
+     *
+     * @param PhingFile $file
+     *
+     * @return array
+     *
+     * @throws Exception
      */
-    public function parseFile(PhingFile $file)
+    public function parseFile(PhingFile $file): array
     {
         if (!$file->canRead()) {
             throw new IOException('Unable to read file: ' . $file);
@@ -70,12 +77,16 @@ class YamlFileParser implements FileParserInterface
     /**
      * Flattens an array to key => value.
      *
-     * @param array $arrayToFlatten
+     * @param array  $arrayToFlatten
+     * @param string $separator
+     * @param string $flattenedKey
+     *
+     * @return array
      *
      * @todo: milo - 20142901 - If you plan to extend phing and add a new fileparser, please move this to an abstract
-     * class.
+     *                          class.
      */
-    private function flattenArray(array $arrayToFlatten, $separator = '.', $flattenedKey = '')
+    private function flattenArray(array $arrayToFlatten, string $separator = '.', string $flattenedKey = ''): array
     {
         $flattenedArray = [];
         foreach ($arrayToFlatten as $key => $value) {

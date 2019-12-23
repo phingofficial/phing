@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -65,7 +67,7 @@ class ConsoleInputHandler implements InputHandler
      *
      * @return void
      */
-    public function handleInput(InputRequest $request)
+    public function handleInput(InputRequest $request): void
     {
         $questionHelper = new QuestionHelper();
         if (method_exists($questionHelper, 'setInputStream')) {
@@ -85,7 +87,7 @@ class ConsoleInputHandler implements InputHandler
 
         $result = $questionHelper->ask($input, $this->output, $question);
 
-        $request->setInput($result);
+        $request->setInput((string) $result);
     }
 
     /**
@@ -93,7 +95,7 @@ class ConsoleInputHandler implements InputHandler
      *
      * @return Question
      */
-    protected function getQuestion(InputRequest $inputRequest)
+    protected function getQuestion(InputRequest $inputRequest): Question
     {
         $prompt = $this->getPrompt($inputRequest);
 
@@ -113,7 +115,7 @@ class ConsoleInputHandler implements InputHandler
      *
      * @return string
      */
-    protected function getPrompt(InputRequest $inputRequest)
+    protected function getPrompt(InputRequest $inputRequest): string
     {
         $prompt       = $inputRequest->getPrompt();
         $defaultValue = $inputRequest->getDefaultValue();

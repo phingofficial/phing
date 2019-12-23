@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Based on Apache Ant Wait For:
  *
@@ -58,7 +60,10 @@ class WaitForTask extends ConditionBase
 
     protected $timeoutProperty = null;
 
-    public function __construct($taskName = 'waitfor')
+    /**
+     * @param string $taskName
+     */
+    public function __construct(string $taskName = 'waitfor')
     {
         parent::__construct($taskName);
     }
@@ -67,8 +72,10 @@ class WaitForTask extends ConditionBase
      * Set the maximum length of time to wait.
      *
      * @param int $maxWait
+     *
+     * @return void
      */
-    public function setMaxWait($maxWait)
+    public function setMaxWait(int $maxWait): void
     {
         $this->maxWait = (int) $maxWait;
     }
@@ -77,8 +84,10 @@ class WaitForTask extends ConditionBase
      * Set the max wait time unit
      *
      * @param string $maxWaitUnit
+     *
+     * @return void
      */
-    public function setMaxWaitUnit($maxWaitUnit)
+    public function setMaxWaitUnit(string $maxWaitUnit): void
     {
         $this->maxWaitMultiplier = $this->_convertUnit($maxWaitUnit);
     }
@@ -92,7 +101,7 @@ class WaitForTask extends ConditionBase
      *
      * @throws BuildException
      */
-    protected function _convertUnit($unit)
+    protected function _convertUnit(string $unit): int
     {
         if ($unit === 'week') {
             return self::ONE_WEEK;
@@ -125,8 +134,10 @@ class WaitForTask extends ConditionBase
      * Set the time between each check
      *
      * @param int $checkEvery
+     *
+     * @return void
      */
-    public function setCheckEvery($checkEvery)
+    public function setCheckEvery(int $checkEvery): void
     {
         $this->checkEvery = (int) $checkEvery;
     }
@@ -138,7 +149,7 @@ class WaitForTask extends ConditionBase
      *
      * @return void
      */
-    public function setCheckEveryUnit($checkEveryUnit)
+    public function setCheckEveryUnit(string $checkEveryUnit): void
     {
         $this->checkEveryMultiplier = $this->_convertUnit($checkEveryUnit);
     }
@@ -150,7 +161,7 @@ class WaitForTask extends ConditionBase
      *
      * @return void
      */
-    public function setTimeoutProperty($timeoutProperty)
+    public function setTimeoutProperty(string $timeoutProperty): void
     {
         $this->timeoutProperty = $timeoutProperty;
     }
@@ -159,9 +170,11 @@ class WaitForTask extends ConditionBase
      * Check repeatedly for the specified conditions until they become
      * true or the timeout expires.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->countConditions() > 1) {
             throw new BuildException('You must not nest more than one condition into <waitfor>');
@@ -192,12 +205,18 @@ class WaitForTask extends ConditionBase
         $this->processTimeout();
     }
 
-    protected function processSuccess()
+    /**
+     * @return void
+     */
+    protected function processSuccess(): void
     {
         $this->log($this->getTaskName() . ': condition was met', Project::MSG_VERBOSE);
     }
 
-    protected function processTimeout()
+    /**
+     * @return void
+     */
+    protected function processTimeout(): void
     {
         $this->log($this->getTaskName() . ': timeout', Project::MSG_VERBOSE);
 

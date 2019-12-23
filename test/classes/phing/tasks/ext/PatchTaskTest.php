@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Patch Task
  *
@@ -25,7 +27,13 @@
  */
 class PatchTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,16 +42,22 @@ class PatchTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testPatch()
+    /**
+     * @return void
+     */
+    public function testPatch(): void
     {
         $this->executeTarget(__FUNCTION__);
 
         $fileA = $this->getProject()->getProperty('patch-test') . '/b';
-        $this->assertStringEqualsFile($fileA, 'BBB');
+        self::assertStringEqualsFile($fileA, 'BBB');
     }
 }

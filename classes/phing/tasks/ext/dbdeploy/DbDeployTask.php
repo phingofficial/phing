@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Generate SQL script for db using dbdeploy schema version table
  * and delta scripts
@@ -100,7 +102,7 @@ class DbDeployTask extends Task
     /**
      * Contains the object for the DBMS that is used
      *
-     * @var object
+     * @var DbmsSyntax
      */
     protected $dbmsSyntax = null;
 
@@ -118,7 +120,7 @@ class DbDeployTask extends Task
      * True means dbdeploy will apply all changes that aren't applied
      * already (in ascending order)
      *
-     * @var int
+     * @var bool
      */
     protected $checkall = false;
 
@@ -137,7 +139,7 @@ class DbDeployTask extends Task
      *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         try {
             // get correct DbmsSyntax object
@@ -161,8 +163,10 @@ class DbDeployTask extends Task
      * the changelog table in the database
      *
      * @return array
+     *
+     * @throws Exception
      */
-    protected function getAppliedChangeNumbers()
+    protected function getAppliedChangeNumbers(): array
     {
         if (count($this->appliedChangeNumbers) == 0) {
             $this->log('Getting applied changed numbers from DB: ' . $this->url);
@@ -198,8 +202,10 @@ class DbDeployTask extends Task
      * Create the deploy and undo deploy outputfiles
      *
      * @return void
+     *
+     * @throws Exception
      */
-    protected function deploy()
+    protected function deploy(): void
     {
         // create deploy outputfile
         $this->createOutputFile($this->outputFile, false);
@@ -215,8 +221,10 @@ class DbDeployTask extends Task
      * @param bool   $undo
      *
      * @return void
+     *
+     * @throws Exception
      */
-    protected function createOutputFile($file, $undo = false)
+    protected function createOutputFile(string $file, bool $undo = false): void
     {
         $fileHandle = fopen($file, 'w+');
         $sql        = $this->generateSql($undo);
@@ -229,8 +237,10 @@ class DbDeployTask extends Task
      * @param bool $undo
      *
      * @return string The sql
+     *
+     * @throws Exception
      */
-    protected function generateSql($undo = false)
+    protected function generateSql(bool $undo = false): string
     {
         $sql                   = '';
         $lastChangeAppliedInDb = $this->getLastChangeAppliedInDb();
@@ -264,7 +274,7 @@ class DbDeployTask extends Task
                 }
 
                 // ignore tabs and spaces before @UNDO and any characters after in that line
-                $split = preg_split('/--[\t ]*\/\/@UNDO[^\r\n]*/', $contents);
+                $split = preg_split('/--[\t ]*\/\/@UNDO[^\r\n]*/', (string) $contents);
 
                 if ($split === false) {
                     $split = [$contents];
@@ -301,11 +311,11 @@ class DbDeployTask extends Task
      *
      * @return array
      */
-    protected function getDeltasFilesArray()
+    protected function getDeltasFilesArray(): array
     {
         $files = [];
 
-        $baseDir = realpath($this->dir);
+        $baseDir = realpath((string) $this->dir);
         $dh      = opendir($baseDir);
 
         if ($dh === false) {
@@ -330,7 +340,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    protected function sortFiles(&$files, $undo)
+    protected function sortFiles(array &$files, bool $undo): void
     {
         if ($undo) {
             krsort($files);
@@ -348,7 +358,7 @@ class DbDeployTask extends Task
      *
      * @return bool   True or false if patch file needs to be deployed
      */
-    protected function fileNeedsToBeRead($fileChangeNumber, $lastChangeAppliedInDb)
+    protected function fileNeedsToBeRead(int $fileChangeNumber, string $lastChangeAppliedInDb): bool
     {
         if ($this->checkall) {
             return !in_array($fileChangeNumber, $this->appliedChangeNumbers);
@@ -364,7 +374,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setUrl($url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -376,7 +386,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setUserId($userid)
+    public function setUserId(string $userid): void
     {
         $this->userid = $userid;
     }
@@ -388,7 +398,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -400,7 +410,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setDir($dir)
+    public function setDir(string $dir): void
     {
         $this->dir = $dir;
     }
@@ -412,7 +422,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setOutputFile($outputFile)
+    public function setOutputFile(string $outputFile): void
     {
         $this->outputFile = $outputFile;
     }
@@ -424,7 +434,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setUndoOutputFile($undoOutputFile)
+    public function setUndoOutputFile(string $undoOutputFile): void
     {
         $this->undoOutputFile = $undoOutputFile;
     }
@@ -436,7 +446,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setLastChangeToApply($lastChangeToApply)
+    public function setLastChangeToApply(int $lastChangeToApply): void
     {
         $this->lastChangeToApply = $lastChangeToApply;
     }
@@ -448,7 +458,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setDeltaSet($deltaSet)
+    public function setDeltaSet(string $deltaSet): void
     {
         $this->deltaSet = $deltaSet;
     }
@@ -460,9 +470,9 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setCheckAll($checkall)
+    public function setCheckAll(bool $checkall): void
     {
-        $this->checkall = (int) $checkall;
+        $this->checkall = $checkall;
     }
 
     /**
@@ -472,7 +482,7 @@ class DbDeployTask extends Task
      *
      * @return void
      */
-    public function setAppliedBy($appliedBy)
+    public function setAppliedBy(string $appliedBy): void
     {
         $this->appliedBy = $appliedBy;
     }

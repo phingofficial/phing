@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for Character
  *
@@ -31,24 +32,38 @@ class CharacterTest extends TestCase
     /** @var Character */
     private $char;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->char = new Character();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->char = null;
     }
 
     /**
+     * @param string $elem
+     * @param bool   $expected
+     *
+     * @return void
+     *
      * @dataProvider getChars
      */
-    public function testIsChar($elem, bool $expected)
+    public function testIsChar(string $elem, bool $expected): void
     {
         $this->assertSame($this->char::isLetter($elem), $expected);
     }
 
+    /**
+     * @return array[]
+     */
     public function getChars(): array
     {
         return [

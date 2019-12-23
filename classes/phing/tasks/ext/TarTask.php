@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Creates a tar archive using PEAR Archive_Tar.
  *
@@ -44,8 +46,14 @@ class TarTask extends MatchingTask
      */
     private $baseDir;
 
+    /**
+     * @var bool
+     */
     private $includeEmpty = true; // Whether to include empty dirs in the TAR
 
+    /**
+     * @var string
+     */
     private $longFileMode = 'warn';
 
     /**
@@ -55,11 +63,15 @@ class TarTask extends MatchingTask
 
     /**
      * Indicates whether the user has been warned about long files already.
+     *
+     * @var bool
      */
     private $longWarningGiven = false;
 
     /**
      * Compression mode.  Available options "gzip", "bzip2", "none" (null).
+     *
+     * @var string
      */
     private $compression = null;
 
@@ -72,8 +84,10 @@ class TarTask extends MatchingTask
 
     /**
      * Ensures that PEAR lib exists.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         include_once 'Archive/Tar.php';
         if (!class_exists('Archive_Tar')) {
@@ -84,9 +98,9 @@ class TarTask extends MatchingTask
     /**
      * Add a new fileset
      *
-     * @return FileSet
+     * @return TarFileSet
      */
-    public function createTarFileSet()
+    public function createTarFileSet(): TarFileSet
     {
         $this->fileset    = new TarFileSet();
         $this->filesets[] = $this->fileset;
@@ -99,22 +113,21 @@ class TarTask extends MatchingTask
      *
      * @see    createTarFileSet()
      *
-     * @return FileSet
+     * @return TarFileSet
      */
-    public function createFileSet()
+    public function createFileSet(): TarFileSet
     {
-        $this->fileset    = new TarFileSet();
-        $this->filesets[] = $this->fileset;
-
-        return $this->fileset;
+        return $this->createTarFileSet();
     }
 
     /**
      * Set is the name/location of where to create the tar file.
      *
      * @param PhingFile $destFile The output of the tar
+     *
+     * @return void
      */
-    public function setDestFile(PhingFile $destFile)
+    public function setDestFile(PhingFile $destFile): void
     {
         $this->tarFile = $destFile;
     }
@@ -123,8 +136,10 @@ class TarTask extends MatchingTask
      * This is the base directory to look in for things to tar.
      *
      * @param PhingFile $baseDir
+     *
+     * @return void
      */
-    public function setBasedir(PhingFile $baseDir)
+    public function setBasedir(PhingFile $baseDir): void
     {
         $this->baseDir = $baseDir;
     }
@@ -136,7 +151,7 @@ class TarTask extends MatchingTask
      *
      * @return void
      */
-    public function setIncludeEmptyDirs($bool)
+    public function setIncludeEmptyDirs(bool $bool): void
     {
         $this->includeEmpty = (bool) $bool;
     }
@@ -155,8 +170,10 @@ class TarTask extends MatchingTask
      * </ul>
      *
      * @param string $mode
+     *
+     * @return void
      */
-    public function setLongfile($mode)
+    public function setLongfile(string $mode): void
     {
         $this->longFileMode = $mode;
     }
@@ -171,8 +188,12 @@ class TarTask extends MatchingTask
      * </ul>
      *
      * @param string $mode
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setCompression($mode)
+    public function setCompression(string $mode): void
     {
         switch ($mode) {
             case 'gzip':
@@ -200,7 +221,7 @@ class TarTask extends MatchingTask
      *
      * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
     }
@@ -208,9 +229,14 @@ class TarTask extends MatchingTask
     /**
      * do the work
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->tarFile === null) {
             throw new BuildException('tarfile attribute must be set!', $this->getLocation());
@@ -301,12 +327,15 @@ class TarTask extends MatchingTask
     }
 
     /**
-     * @param ArrayIterator $files array of filenames
-     * @param PhingFile     $dir
+     * @param iterable  $files array of filenames
+     * @param PhingFile $dir
      *
      * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    protected function areFilesUpToDate($files, $dir)
+    protected function areFilesUpToDate(iterable $files, PhingFile $dir): bool
     {
         $sfs = new SourceFileScanner($this);
         $mm  = new MergeMapper();
@@ -319,6 +348,9 @@ class TarTask extends MatchingTask
      * @return bool
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
     private function isArchiveUpToDate()
     {

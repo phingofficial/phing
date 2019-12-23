@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -29,6 +31,9 @@ class SelectorUtilsTest extends TestCase
      */
     private $selectorUtils;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->selectorUtils = SelectorUtils::getInstance();
@@ -36,8 +41,10 @@ class SelectorUtilsTest extends TestCase
 
     /**
      * Inspired by @link https://www.phing.info/trac/ticket/796
+     *
+     * @return void
      */
-    public function testDoNotIncludeSelfWhenMatchingSubdirectoriesAndFiles()
+    public function testDoNotIncludeSelfWhenMatchingSubdirectoriesAndFiles(): void
     {
         $result = $this->selectorUtils->matchPath('**/*', '');
         $this->assertFalse($result);
@@ -45,8 +52,10 @@ class SelectorUtilsTest extends TestCase
 
     /**
      * Inspired by @link https://www.phing.info/trac/ticket/1264
+     *
+     * @return void
      */
-    public function testDoNotIncludePrefix()
+    public function testDoNotIncludePrefix(): void
     {
         $this->assertFalse($this->selectorUtils->matchPath(
             '**/example.php',
@@ -56,8 +65,10 @@ class SelectorUtilsTest extends TestCase
 
     /**
      * Inspired by @link https://github.com/phingofficial/phing/issues/593
+     *
+     * @return void
      */
-    public function testIncludePathsInBase()
+    public function testIncludePathsInBase(): void
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $this->assertTrue($this->selectorUtils->matchPath('**\domain.ext\**', 'domain.ext\foo'));
@@ -66,7 +77,10 @@ class SelectorUtilsTest extends TestCase
         }
     }
 
-    public function testRemoveWhitespace()
+    /**
+     * @return void
+     */
+    public function testRemoveWhitespace(): void
     {
         $ret = $this->selectorUtils::removeWhitespace(' foo ');
         $this->assertEquals('foo', $ret);
@@ -82,8 +96,11 @@ class SelectorUtilsTest extends TestCase
      * Non Existing Source File Causes Out Of Date To Return False
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function testNonExistingSourceFileCausesOutOfDateToReturnFalse()
+    public function testNonExistingSourceFileCausesOutOfDateToReturnFalse(): void
     {
         $sourceFile = new PhingFile('doesNotExist');
         $targetFile = new PhingFile(__FILE__);
@@ -91,7 +108,13 @@ class SelectorUtilsTest extends TestCase
         $this->assertEquals(false, $ret);
     }
 
-    public function testNonExistingTargetFileCausesOutOfDateToReturnTrue()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testNonExistingTargetFileCausesOutOfDateToReturnTrue(): void
     {
         $sourceFile = new PhingFile(__FILE__);
         $targetFile = new PhingFile('doesNotExist');
@@ -103,8 +126,11 @@ class SelectorUtilsTest extends TestCase
      * Test Granularity of isOutOfDate
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function testOutOfDate()
+    public function testOutOfDate(): void
     {
         $source = new PhingFile(tempnam(FileUtils::getTempDir(), 'src'));
         sleep(3);

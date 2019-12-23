@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.svn
@@ -31,9 +33,12 @@ class SvnRevertTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('revert');
 
@@ -48,8 +53,10 @@ class SvnRevertTask extends SvnBaseTask
 
     /**
      * @param bool $recursive
+     *
+     * @return void
      */
-    public function setRecursive($recursive)
+    public function setRecursive(bool $recursive): void
     {
         $this->recursive = $recursive;
     }

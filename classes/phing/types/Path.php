@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This object represents a path as used by include_path or PATH
  * environment variable.
@@ -64,10 +66,12 @@ class Path extends DataType
     /**
      * Constructor for internally instantiated objects sets project.
      *
-     * @param Project $project
-     * @param string  $path    (for use by IntrospectionHelper)
+     * @param Project|null $project
+     * @param string|null  $path    (for use by IntrospectionHelper)
+     *
+     * @throws Exception
      */
-    public function __construct($project = null, $path = null)
+    public function __construct(?Project $project = null, ?string $path = null)
     {
         parent::__construct();
         if ($project !== null) {
@@ -85,10 +89,10 @@ class Path extends DataType
      *                            <code>null</code> nor empty.
      *
      * @return void
-     *
      * @throws BuildException
+     * @throws \IOException
      */
-    public function setDir(PhingFile $location)
+    public function setDir(PhingFile $location): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -99,11 +103,14 @@ class Path extends DataType
     /**
      * Parses a path definition and creates single PathElements.
      *
-     * @param string $path the path definition.
+     * @param string|null $path the path definition.
+     *
+     * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function setPath($path)
+    public function setPath(?string $path): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -123,7 +130,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         if (!empty($this->elements)) {
             throw $this->tooManyAttributes();
@@ -139,7 +146,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function createPathElement()
+    public function createPathElement(): PathElement
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -159,7 +166,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function addFilelist(FileList $fl)
+    public function addFilelist(FileList $fl): void
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -177,7 +184,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function addFileset(FileSet $fs)
+    public function addFileset(FileSet $fs): void
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -195,7 +202,7 @@ class Path extends DataType
      *
      * @throws BuildException
      */
-    public function addDirset(DirSet $dset)
+    public function addDirset(DirSet $dset): void
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -210,8 +217,9 @@ class Path extends DataType
      * @return Path
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function createPath()
+    public function createPath(): Path
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -230,9 +238,11 @@ class Path extends DataType
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function append(Path $other)
+    public function append(Path $other): void
     {
         if ($other === null) {
             return;
@@ -252,8 +262,12 @@ class Path extends DataType
      * @param Path $source - Source path whose components are examined for existence.
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function addExisting(Path $source)
+    public function addExisting(Path $source): void
     {
         $list = $source->listPaths();
         foreach ($list as $el) {
@@ -284,8 +298,9 @@ class Path extends DataType
      *
      * @throws IOException
      * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function listPaths($preserveDuplicates = false)
+    public function listPaths(bool $preserveDuplicates = false): array
     {
         if (!$this->checked) {
             // make sure we don't have a circular reference here
@@ -366,10 +381,16 @@ class Path extends DataType
      * CLASSPATH or PATH environment variable definition.
      *
      * @return string A textual representation of the path.
+     *
+     * @throws ReflectionException
      */
-    public function __toString()
+    public function __toString(): string
     {
-        $list = $this->listPaths();
+        try {
+            $list = $this->listPaths();
+        } catch (IOException | NullPointerException $e) {
+            return '';
+        }
 
         // empty path return empty string
         if (empty($list)) {
@@ -382,16 +403,18 @@ class Path extends DataType
     /**
      * Splits a PATH (with : or ; as separators) into its parts.
      *
-     * @param Project $project
-     * @param string  $source
+     * @param Project     $project
+     * @param string|null $source
      *
      * @return array
+     *
+     * @throws Exception
      */
-    public static function translatePath(Project $project, $source)
+    public static function translatePath(Project $project, ?string $source): array
     {
         $result = [];
         if ($source == null) {
-            return '';
+            return [];
         }
 
         $tok = new PathTokenizer($source);
@@ -423,7 +446,7 @@ class Path extends DataType
      *
      * @return string
      */
-    public static function translateFile($source)
+    public static function translateFile(string $source): string
     {
         if ($source == null) {
             return '';
@@ -447,7 +470,7 @@ class Path extends DataType
      *
      * @return bool
      */
-    protected static function translateFileSep(&$buffer, $pos)
+    protected static function translateFileSep(string &$buffer, int $pos): bool
     {
         if ($buffer[$pos] == '/' || $buffer[$pos] == '\\') {
             $buffer[$pos] = DIRECTORY_SEPARATOR;
@@ -464,8 +487,12 @@ class Path extends DataType
      * discareded.
      *
      * @return int
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function size()
+    public function size(): int
     {
         return count($this->listPaths());
     }
@@ -474,14 +501,14 @@ class Path extends DataType
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *
-     * @param array   $stk
-     * @param Project $p
+     * @param array        $stk
+     * @param Project|null $p
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, ?Project $p = null)
+    public function dieOnCircularReference(array &$stk, ?Project $p = null): void
     {
         if ($this->checked) {
             return;
@@ -509,15 +536,17 @@ class Path extends DataType
 
     /**
      * Resolve a filename with Project's help - if we know one that is.
-     *
      * <p>Assume the filename is absolute if project is null.</p>
      *
      * @param Project $project
      * @param string  $relativeName
      *
      * @return string
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private static function resolveFile(Project $project, $relativeName)
+    private static function resolveFile(Project $project, string $relativeName): string
     {
         if ($project !== null) {
             $f = $project->resolveFile($relativeName);

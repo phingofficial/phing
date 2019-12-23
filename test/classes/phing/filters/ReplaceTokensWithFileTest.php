@@ -17,21 +17,31 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.filters
  */
 class ReplaceTokensWithFileTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/ReplaceTokensWithFile/build.xml');
     }
 
     /**
      * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     *
+     * @return void
      */
-    public function testPostfix()
+    public function testPostfix(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -42,8 +52,10 @@ class ReplaceTokensWithFileTest extends BuildFileTest
 
     /**
      * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046
+     *
+     * @return void
      */
-    public function testSlashInToken()
+    public function testSlashInToken(): void
     {
         $this->executeTarget(__FUNCTION__);
 

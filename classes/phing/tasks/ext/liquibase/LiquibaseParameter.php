@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
  * @since 2.4.10
@@ -24,21 +26,32 @@
  */
 class LiquibaseParameter extends DataType
 {
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $value;
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
@@ -50,7 +63,7 @@ class LiquibaseParameter extends DataType
      *
      * @throws BuildException
      */
-    public function getCommandline(Project $p)
+    public function getCommandline(Project $p): string
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getCommandline($p);
@@ -62,7 +75,7 @@ class LiquibaseParameter extends DataType
     /**
      * @param Project $p
      *
-     * @return mixed
+     * @return object
      *
      * @throws BuildException
      */

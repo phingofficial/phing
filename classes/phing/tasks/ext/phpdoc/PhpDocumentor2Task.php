@@ -1,10 +1,4 @@
 <?php
-
-use phpDocumentor\Application;
-use phpDocumentor\Bootstrap;
-use phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper;
-use phpDocumentor\Fileset\Collection;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,6 +16,13 @@ use phpDocumentor\Fileset\Collection;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use phpDocumentor\Application;
+use phpDocumentor\Bootstrap;
+use phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper;
+use phpDocumentor\Fileset\Collection;
 
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
@@ -86,8 +87,10 @@ class PhpDocumentor2Task extends Task
      * Sets destination/target directory
      *
      * @param PhingFile $destDir
+     *
+     * @return void
      */
-    public function setDestDir(PhingFile $destDir)
+    public function setDestDir(PhingFile $destDir): void
     {
         $this->destDir = $destDir;
     }
@@ -96,8 +99,10 @@ class PhpDocumentor2Task extends Task
      * Convenience setter (@see setDestDir)
      *
      * @param PhingFile $output
+     *
+     * @return void
      */
-    public function setOutput(PhingFile $output)
+    public function setOutput(PhingFile $output): void
     {
         $this->destDir = $output;
     }
@@ -106,8 +111,10 @@ class PhpDocumentor2Task extends Task
      * Sets the template to use
      *
      * @param string $template
+     *
+     * @return void
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): void
     {
         $this->template = (string) $template;
     }
@@ -116,8 +123,10 @@ class PhpDocumentor2Task extends Task
      * Sets the title of the project
      *
      * @param string $title
+     *
+     * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = (string) $title;
     }
@@ -126,24 +135,30 @@ class PhpDocumentor2Task extends Task
      * Sets the default package name
      *
      * @param string $defaultPackageName
+     *
+     * @return void
      */
-    public function setDefaultPackageName($defaultPackageName)
+    public function setDefaultPackageName(string $defaultPackageName): void
     {
         $this->defaultPackageName = (string) $defaultPackageName;
     }
 
     /**
      * @param string $pharLocation
+     *
+     * @return void
      */
-    public function setPharLocation($pharLocation)
+    public function setPharLocation(string $pharLocation): void
     {
         $this->pharLocation = $pharLocation;
     }
 
     /**
      * Finds and initializes the phpDocumentor installation
+     *
+     * @return void
      */
-    private function initializePhpDocumentor()
+    private function initializePhpDocumentor(): void
     {
         $phpDocumentorPath = '';
 
@@ -180,9 +195,14 @@ class PhpDocumentor2Task extends Task
      * Build a list of files (from the fileset elements)
      * and call the phpDocumentor parser
      *
-     * @return string
+     * @return ProjectDescriptorMapper
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    private function parseFiles()
+    private function parseFiles(): ProjectDescriptorMapper
     {
         $parser  = $this->app['parser'];
         $builder = $this->app['descriptor.builder'];
@@ -225,8 +245,12 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Transforms the parsed files
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    private function transformFiles()
+    private function transformFiles(): void
     {
         $transformer       = $this->app['transformer'];
         $compiler          = $this->app['compiler'];
@@ -243,8 +267,10 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Runs phpDocumentor 2
+     *
+     * @return void
      */
-    public function run()
+    public function run(): void
     {
     }
 
@@ -253,7 +279,7 @@ class PhpDocumentor2Task extends Task
      *
      * @return string|null
      */
-    private function findPhpDocumentorPath()
+    private function findPhpDocumentorPath(): ?string
     {
         $phpDocumentorPath = null;
         $directories       = ['phpDocumentor', 'phpdocumentor'];
@@ -273,8 +299,15 @@ class PhpDocumentor2Task extends Task
      * Task entry point
      *
      * @see Task::main()
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (empty($this->destDir)) {
             throw new BuildException("You must supply the 'destdir' attribute", $this->getLocation());

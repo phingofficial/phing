@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * VersionTask
  *
@@ -41,6 +43,9 @@ class VersionTask extends Task
      */
     public const DEFAULT_FILENAME = self::DEFAULT_PROPERTY_NAME;
 
+    /**
+     * @var string
+     */
     private $startingVersion = '0.0.0';
 
     /**
@@ -73,8 +78,10 @@ class VersionTask extends Task
 
     /**
      * @param string $startingVersion
+     *
+     * @return void
      */
-    public function setStartingVersion($startingVersion)
+    public function setStartingVersion(string $startingVersion): void
     {
         $this->startingVersion = $startingVersion;
     }
@@ -83,8 +90,10 @@ class VersionTask extends Task
      * Set Property for Releasetype (Minor, Major, Bugfix)
      *
      * @param string $releasetype
+     *
+     * @return void
      */
-    public function setReleasetype($releasetype)
+    public function setReleasetype(string $releasetype): void
     {
         $this->releasetype = strtoupper($releasetype);
     }
@@ -93,8 +102,10 @@ class VersionTask extends Task
      * Set Property for File containing versioninformation
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -106,15 +117,17 @@ class VersionTask extends Task
      *
      * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
 
     /**
      * @param bool $isPropFile
+     *
+     * @return void
      */
-    public function setPropFile($isPropFile)
+    public function setPropFile(bool $isPropFile): void
     {
         $this->propFile = $isPropFile;
     }
@@ -125,8 +138,9 @@ class VersionTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         // check supplied attributes
         $this->checkReleasetype();
@@ -164,7 +178,7 @@ class VersionTask extends Task
             }
         } else {
             // write new Version to file
-            file_put_contents($this->file, $newVersion . $this->getProject()->getProperty('line.separator'));
+            file_put_contents((string) $this->file, $newVersion . $this->getProject()->getProperty('line.separator'));
         }
 
         //Finally set the property
@@ -178,7 +192,7 @@ class VersionTask extends Task
      *
      * @throws BuildException
      */
-    private function loadProperties()
+    private function loadProperties(): Properties
     {
         try {
             $properties = new Properties();
@@ -192,13 +206,13 @@ class VersionTask extends Task
     /**
      * Returns new version number corresponding to Release type
      *
-     * @param string $oldVersion
+     * @param string|null $oldVersion
      *
      * @return string
      */
-    private function getVersion($oldVersion)
+    private function getVersion(?string $oldVersion): string
     {
-        preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion, $version);
+        preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', (string) $oldVersion, $version);
 
         // Setting values if not captured
         $version['PREFIX']                 = $version['PREFIX'] ?? '';
@@ -234,7 +248,7 @@ class VersionTask extends Task
      *
      * @throws BuildException
      */
-    private function checkReleasetype()
+    private function checkReleasetype(): void
     {
         // check Releasetype
         if (null === $this->releasetype) {
@@ -264,8 +278,10 @@ class VersionTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function checkFile()
+    private function checkFile(): void
     {
         $fileUtils = new FileUtils();
         // check File
@@ -295,7 +311,10 @@ class VersionTask extends Task
         }
     }
 
-    private function checkProperty()
+    /**
+     * @return void
+     */
+    private function checkProperty(): void
     {
         if ($this->property === null) {
             $this->property = self::DEFAULT_PROPERTY_NAME;

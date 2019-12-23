@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class for holding nested excludes elements (file, class, method).
  *
@@ -40,8 +42,10 @@ class ExcludesNameEntry
      * @see setName()
      *
      * @param string $pattern The file pattern
+     *
+     * @return void
      */
-    public function addText($pattern)
+    public function addText(string $pattern): void
     {
         $this->setName($pattern);
     }
@@ -50,8 +54,10 @@ class ExcludesNameEntry
      * Set the name of a file, class or method
      *
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = (string) $name;
     }
@@ -61,7 +67,7 @@ class ExcludesNameEntry
      *
      * @return string The name of a file, class or method or the file pattern
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -71,7 +77,7 @@ class ExcludesNameEntry
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name;
     }

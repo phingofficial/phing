@@ -17,20 +17,36 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class TimerMap
 {
+    /**
+     * @var SeriesTimer[]
+     */
     protected $map = [];
 
+    /**
+     * @param mixed $name
+     *
+     * @return mixed
+     */
     public function get($name)
     {
         return $this->map[$name];
     }
 
-    public function find($name, Clock $clock)
+    /**
+     * @param mixed $name
+     * @param Clock $clock
+     *
+     * @return StatsTimer
+     */
+    public function find($name, Clock $clock): StatsTimer
     {
         $timer = $this->map[$name] ?? null;
         if ($timer === null) {
@@ -41,12 +57,21 @@ class TimerMap
         return $timer;
     }
 
-    protected function createTimer($name, Clock $clock)
+    /**
+     * @param mixed $name
+     * @param Clock $clock
+     *
+     * @return StatsTimer
+     */
+    protected function createTimer($name, Clock $clock): StatsTimer
     {
-        return new SeriesTimer($name, $clock);
+        return new StatsTimer($name, $clock);
     }
 
-    public function toSeriesMap()
+    /**
+     * @return SeriesMap
+     */
+    public function toSeriesMap(): SeriesMap
     {
         $seriesMap = new SeriesMap();
         foreach ($this->map as $key => $timer) {

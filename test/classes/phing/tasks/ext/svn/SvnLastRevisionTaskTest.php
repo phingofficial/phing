@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
@@ -25,16 +27,24 @@ class SvnLastRevisionTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnLastRevisionTest.xml');
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testGetLastRevision()
+    /**
+     * @return void
+     */
+    public function testGetLastRevision(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getLastRevision');
         $this->assertPropertyEquals('svn.lastrevision', '1560');
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * "Inner" class for SwitchTask.
  *
@@ -34,7 +36,7 @@ class CaseTask extends SequentialTask
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -49,8 +51,10 @@ class CaseTask extends SequentialTask
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         /**
          * @var Task $task

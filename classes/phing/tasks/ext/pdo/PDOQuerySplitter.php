@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for classes that split SQL source into separate queries
  *
@@ -58,5 +60,5 @@ abstract class PDOQuerySplitter
      *
      * @return string|null
      */
-    abstract public function nextQuery();
+    abstract public function nextQuery(): ?string;
 }

@@ -1,7 +1,4 @@
 <?php
-
-use SebastianBergmann\PHPLOC\Analyser;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,6 +16,10 @@ use SebastianBergmann\PHPLOC\Analyser;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use SebastianBergmann\PHPLOC\Analyser;
 
 /**
  * Runs phploc a tool for quickly measuring the size of PHP projects.
@@ -82,8 +83,10 @@ class PHPLocTask extends Task
 
     /**
      * @param string $suffixListOrSingleSuffix
+     *
+     * @return void
      */
-    public function setSuffixes($suffixListOrSingleSuffix)
+    public function setSuffixes(string $suffixListOrSingleSuffix): void
     {
         if (strpos($suffixListOrSingleSuffix, ',')) {
             $suffixes              = explode(',', $suffixListOrSingleSuffix);
@@ -95,64 +98,80 @@ class PHPLocTask extends Task
 
     /**
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
-        $this->fileToCheck = trim($file);
+        $this->fileToCheck = trim((string) $file);
     }
 
     /**
      * @param bool $countTests
+     *
+     * @return void
      */
-    public function setCountTests($countTests)
+    public function setCountTests(bool $countTests): void
     {
         $this->countTests = StringHelper::booleanValue($countTests);
     }
 
     /**
      * @param string $type
+     *
+     * @return void
      */
-    public function setReportType($type)
+    public function setReportType(string $type): void
     {
         $this->reportType = trim($type);
     }
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setReportName($name)
+    public function setReportName(string $name): void
     {
         $this->reportFileName = trim($name);
     }
 
     /**
      * @param string $directory
+     *
+     * @return void
      */
-    public function setReportDirectory($directory)
+    public function setReportDirectory(string $directory): void
     {
         $this->reportDirectory = trim($directory);
     }
 
     /**
      * @param string $pharLocation
+     *
+     * @return void
      */
-    public function setPharLocation($pharLocation)
+    public function setPharLocation(string $pharLocation): void
     {
         $this->pharLocation = $pharLocation;
     }
 
     /**
      * @param PHPLocFormatterElement $formatterElement
+     *
+     * @return void
      */
-    public function addFormatter(PHPLocFormatterElement $formatterElement)
+    public function addFormatter(PHPLocFormatterElement $formatterElement): void
     {
         $this->formatterElements[] = $formatterElement;
     }
 
     /**
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function loadDependencies()
+    protected function loadDependencies(): void
     {
         if (!empty($this->pharLocation)) {
             // hack to prevent PHPLOC from starting in CLI mode and halting Phing
@@ -179,7 +198,14 @@ class Application
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    public function main(): void
     {
         $this->loadDependencies();
 
@@ -205,9 +231,12 @@ class Application
     }
 
     /**
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function validateProperties()
+    private function validateProperties(): void
     {
         if ($this->fileToCheck === null && count($this->filesets) === 0) {
             throw new BuildException('Missing either a nested fileset or the attribute "file" set.');
@@ -272,12 +301,17 @@ class Application
      *
      * @return bool
      */
-    protected function isFileSuffixSet($filename)
+    protected function isFileSuffixSet(string $filename): bool
     {
         return in_array(pathinfo($filename, PATHINFO_EXTENSION), $this->suffixesToCheck);
     }
 
-    protected function runPhpLocCheck()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    protected function runPhpLocCheck(): void
     {
         $files = $this->getFilesToCheck();
         $count = $this->getCountForFiles($files);
@@ -299,7 +333,7 @@ class Application
     /**
      * @return SplFileInfo[]
      */
-    protected function getFilesToCheck()
+    protected function getFilesToCheck(): array
     {
         $files = [];
 
@@ -319,7 +353,7 @@ class Application
      *
      * @return array
      */
-    protected function getCountForFiles(array $files)
+    protected function getCountForFiles(array $files): array
     {
         $analyserClass = Analyser::class;
         $analyser      = new $analyserClass();

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Parses the output of 'svn info --xml' and
  *
@@ -28,25 +30,39 @@
  */
 class SvnInfoTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $propertyName = 'svn.info';
 
-    private $element    = 'url';
+    /**
+     * @var string
+     */
+    private $element = 'url';
+
+    /**
+     * @var string|null
+     */
     private $subElement = null;
 
     /**
      * Sets the name of the property to use
      *
      * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
@@ -58,7 +74,7 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @return void
      */
-    public function setElement($element)
+    public function setElement(string $element): void
     {
         $this->element = $element;
     }
@@ -68,7 +84,7 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @return string
      */
-    public function getElement()
+    public function getElement(): string
     {
         return $this->element;
     }
@@ -80,7 +96,7 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @return void
      */
-    public function setSubElement($subElement)
+    public function setSubElement(string $subElement): void
     {
         $this->subElement = $subElement;
     }
@@ -88,9 +104,9 @@ class SvnInfoTask extends SvnBaseTask
     /**
      * Returns the name of the xml sub element to use.
      *
-     * @return string
+     * @return string|null
      */
-    public function getSubElement()
+    public function getSubElement(): ?string
     {
         return $this->subElement;
     }
@@ -102,7 +118,7 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('info');
 

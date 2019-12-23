@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A phing sleep task.
  *
@@ -52,6 +54,7 @@ class SleepTask extends Task
      * sleep hours
      */
     private $hours = 0;
+
     /**
      * sleep minutes
      */
@@ -64,8 +67,10 @@ class SleepTask extends Task
 
     /**
      * @param bool $var
+     *
+     * @return void
      */
-    public function setFailOnError(bool $var)
+    public function setFailOnError(bool $var): void
     {
         $this->failOnError = $var;
     }
@@ -73,71 +78,79 @@ class SleepTask extends Task
     /**
      * @return bool
      */
-    public function getFailOnError()
+    public function getFailOnError(): bool
     {
         return $this->failOnError;
     }
 
     /**
-     * @param mixed $hours
+     * @param int $hours
+     *
+     * @return void
      */
-    public function setHours($hours)
+    public function setHours(int $hours): void
     {
         $this->hours = $hours;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getHours()
+    public function getHours(): int
     {
         return $this->hours;
     }
 
     /**
-     * @param mixed $milliseconds
+     * @param int $milliseconds
+     *
+     * @return void
      */
-    public function setMilliseconds($milliseconds)
+    public function setMilliseconds(int $milliseconds): void
     {
         $this->milliseconds = $milliseconds;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getMilliseconds()
+    public function getMilliseconds(): int
     {
         return $this->milliseconds;
     }
 
     /**
-     * @param mixed $minutes
+     * @param int $minutes
+     *
+     * @return void
      */
-    public function setMinutes($minutes)
+    public function setMinutes(int $minutes): void
     {
         $this->minutes = $minutes;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getMinutes()
+    public function getMinutes(): int
     {
         return $this->minutes;
     }
 
     /**
-     * @param mixed $seconds
+     * @param int $seconds
+     *
+     * @return void
      */
-    public function setSeconds($seconds)
+    public function setSeconds(int $seconds): void
     {
         $this->seconds = $seconds;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getSeconds()
+    public function getSeconds(): int
     {
         return $this->seconds;
     }
@@ -147,7 +160,7 @@ class SleepTask extends Task
      *
      * @return int time. if below 0 then there is an error
      */
-    private function getSleepTime()
+    private function getSleepTime(): int
     {
         return ((($this->hours * 60) + $this->minutes) * 60 + $this->seconds) * 1000 + $this->milliseconds;
     }
@@ -155,16 +168,21 @@ class SleepTask extends Task
     /**
      * verify parameters
      *
+     * @return void
+     *
      * @throws BuildException if something is invalid
      */
-    private function validateAttributes()
+    private function validateAttributes(): void
     {
         if ($this->getSleepTime() < 0) {
             throw new BuildException('Negative sleep periods are not supported');
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         try {
             $this->validateAttributes();

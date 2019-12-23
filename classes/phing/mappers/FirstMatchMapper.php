@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A <code>ContainerMapper</code> that returns the results of its
  * first constituent <code>FileNameMapper</code>s that matches.
@@ -28,8 +30,14 @@ class FirstMatchMapper extends ContainerMapper
 {
     /**
      * {@inheritDoc}.
+     *
+     * @param string $sourceFileName
+     *
+     * @return array|null
+     *
+     * @throws ConfigurationException
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         foreach ($this->getMappers() as $mapper) {
             if ($mapper !== null) {

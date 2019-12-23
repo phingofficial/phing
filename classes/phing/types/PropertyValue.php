@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class to hold a property value
  *  Class only required to make it possible to add a property as reference
@@ -46,14 +48,18 @@ class PropertyValue
      * Sets a the value of property component.
      *
      * @param mixed $value Value of name, all scalars allowed
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = (string) $value;
     }
 
     /**
      * Get the value of property component.
+     *
+     * @return mixed
      */
     public function getValue()
     {
@@ -63,7 +69,7 @@ class PropertyValue
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getValue();
     }

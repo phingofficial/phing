@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Perform some tasks based on whether a given condition holds true or
  * not.
@@ -103,16 +105,29 @@
  */
 class IfTask extends ConditionBase
 {
-    private $thenTasks   = null;
+    /**
+     * @var SequentialTask
+     */
+    private $thenTasks = null;
+
+    /**
+     * @var ElseIfTask[]
+     */
     private $elseIfTasks = [];
-    private $elseTasks   = null;
+
+    /**
+     * @var SequentialTask
+     */
+    private $elseTasks = null;
 
     /***
      * A nested Else if task
      *
      * @param ElseIfTask $ei
+     *
+     * @return void
      */
-    public function addElseIf(ElseIfTask $ei)
+    public function addElseIf(ElseIfTask $ei): void
     {
         $this->elseIfTasks[] = $ei;
     }
@@ -125,9 +140,11 @@ class IfTask extends ConditionBase
      *
      * @param SequentialTask $t
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function addThen(SequentialTask $t)
+    public function addThen(SequentialTask $t): void
     {
         if ($this->thenTasks != null) {
             throw new BuildException('You must not nest more than one <then> into <if>');
@@ -143,9 +160,11 @@ class IfTask extends ConditionBase
      *
      * @param SequentialTask $e
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function addElse(SequentialTask $e)
+    public function addElse(SequentialTask $e): void
     {
         if ($this->elseTasks != null) {
             throw new BuildException('You must not nest more than one <else> into <if>');
@@ -153,7 +172,12 @@ class IfTask extends ConditionBase
         $this->elseTasks = $e;
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         if ($this->countConditions() > 1) {
             throw new BuildException('You must not nest more than one condition into <if>');
@@ -165,7 +189,7 @@ class IfTask extends ConditionBase
         $c          = $conditions[0];
 
         if ($c->evaluate()) {
-            if ($this->thenTasks != null) {
+            if ($this->thenTasks !== null) {
                 $this->thenTasks->main();
             }
         } else {
@@ -179,7 +203,7 @@ class IfTask extends ConditionBase
                 }
             }
 
-            if (!$done && $this->elseTasks != null) {
+            if (!$done && $this->elseTasks !== null) {
                 $this->elseTasks->main();
             }
         }

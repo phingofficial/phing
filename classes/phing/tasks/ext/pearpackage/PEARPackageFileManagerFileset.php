@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Builds list of files for PEAR_PackageFileManager using a Phing FileSet.
  *
@@ -39,7 +41,7 @@ class PEARPackageFileManagerFileset
     /**
      * FileSets to use.
      *
-     * @var array FileSet[]
+     * @var FileSet[]
      */
     private $filesets = [];
 
@@ -63,13 +65,16 @@ class PEARPackageFileManagerFileset
     /**
      * Generate the <filelist></filelist> section
      * of the package file.
-     *
      * This function performs the backend generation of the array
      * containing all files in this package
      *
      * @return array structure of all files to include
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function getFileList()
+    public function getFileList(): array
     {
         $allfiles = [];
 
@@ -150,7 +155,7 @@ class PEARPackageFileManagerFileset
      * @return array Same as struc but with array('dir' =>
      *               array(file1,file2,'subdir' => array(file1,...)))
      */
-    private function setupDirs($struc, $dir, $contents)
+    private function setupDirs(array $struc, array $dir, $contents): array
     {
         if (!count($dir)) {
             foreach ($contents as $dir => $files) {
@@ -190,7 +195,7 @@ class PEARPackageFileManagerFileset
      *
      * @return array processed $dir
      */
-    public function setDir($dir, $contents)
+    public function setDir(array $dir, array $contents): array
     {
         foreach ($contents as $one => $two) {
             if (isset($dir[$one])) {
@@ -211,18 +216,18 @@ class PEARPackageFileManagerFileset
      *
      * @return int
      */
-    private function sortfiles($a, $b)
+    private function sortfiles(array $a, array $b): int
     {
         return strnatcasecmp($a['file'], $b['file']);
     }
 
     /**
-     * @param mixed $a
-     * @param mixed $b
+     * @param int|string $a
+     * @param int|string $b
      *
      * @return int
      */
-    private function mystrucsort($a, $b)
+    private function mystrucsort($a, $b): int
     {
         if (is_numeric($a) && is_string($b)) {
             return 1;

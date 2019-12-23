@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the SleepTask
  *
@@ -27,70 +29,99 @@ class SleepTaskTest extends BuildFileTest
 {
     private const ERROR_RANGE = 1000000000;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/SleepTaskTest.xml'
         );
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertGreaterThanOrEqual(0, $timer->time());
+        self::assertGreaterThanOrEqual(0, $timer->time());
     }
 
-    private function timer()
+    /**
+     * @return Timer
+     */
+    private function timer(): Timer
     {
         return new class extends Timer
         {
-            public function time()
+            /**
+             * @return float
+             */
+            public function time(): float
             {
                 return $this->etime - $this->stime;
             }
         };
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertGreaterThanOrEqual(0, $timer->time());
+        self::assertGreaterThanOrEqual(0, $timer->time());
     }
 
-    public function test3()
+    /**
+     * @return void
+     */
+    public function test3(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertGreaterThanOrEqual(2000000000 - self::ERROR_RANGE, $timer->time());
+        self::assertGreaterThanOrEqual(2000000000 - self::ERROR_RANGE, $timer->time());
     }
 
-    public function test4()
+    /**
+     * @return void
+     */
+    public function test4(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertTrue($timer->time() >= (2000000000 - self::ERROR_RANGE) && $timer->time() < 60000000000);
+        self::assertTrue($timer->time() >= (2000000000 - self::ERROR_RANGE) && $timer->time() < 60000000000);
     }
 
     /**
      * Expected failure: negative sleep periods are not supported
+     *
+     * @return void
      */
-    public function test5()
+    public function test5(): void
     {
         $this->expectException(BuildException::class);
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function test6()
+    /**
+     * @return void
+     */
+    public function test6(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
-        $this->assertLessThan(2000000000, $timer->time());
+        self::assertLessThan(2000000000, $timer->time());
     }
 }

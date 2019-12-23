@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.filters
@@ -26,20 +28,34 @@ class StripPhpCommentsTest extends BuildFileTest
     /**
      * @var FileUtils
      */
-    protected $fu;
+    private $fu;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/stripphpcomments.xml');
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testSortFilter()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testSortFilter(): void
     {
         $this->executeTarget('testStripPhpComments');
 
@@ -49,6 +65,6 @@ class StripPhpCommentsTest extends BuildFileTest
         $expected = file_get_contents($expectedFile->getAbsolutePath());
         $result   = file_get_contents($resultFile->getAbsolutePath());
 
-        $this->assertEquals($expected, $result, "Files don't match!");
+        self::assertEquals($expected, $result, "Files don't match!");
     }
 }

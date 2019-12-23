@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Copy files to and from a remote host using scp.
  *
@@ -29,27 +31,73 @@ class ScpTask extends Task
     use FileSetAware;
     use LogLevelAware;
 
-    protected $file  = '';
+    /**
+     * @var string
+     */
+    protected $file = '';
+
+    /**
+     * @var string
+     */
     protected $todir = '';
-    protected $mode  = null;
 
-    protected $host           = '';
-    protected $port           = 22;
-    protected $methods        = null;
-    protected $username       = '';
-    protected $password       = '';
-    protected $autocreate     = true;
-    protected $fetch          = false;
-    protected $localEndpoint  = '';
-    protected $remoteEndpoint = '';
+    /**
+     * @var int|null
+     */
+    protected $mode = null;
 
-    protected $pubkeyfile            = '';
-    protected $privkeyfile           = '';
+    /**
+     * @var string
+     */
+    protected $host = '';
+
+    /**
+     * @var int
+     */
+    protected $port    = 22;
+    protected $methods = null;
+
+    /**
+     * @var string
+     */
+    protected $username = '';
+
+    /**
+     * @var string
+     */
+    protected $password = '';
+
+    /**
+     * @var bool
+     */
+    protected $autocreate = true;
+
+    /**
+     * @var bool
+     */
+    protected $fetch = false;
+
+    /**
+     * @var string
+     */
+    protected $pubkeyfile = '';
+
+    /**
+     * @var string
+     */
+    protected $privkeyfile = '';
+
+    /**
+     * @var string
+     */
     protected $privkeyfilepassphrase = '';
 
     protected $connection = null;
     protected $sftp       = null;
 
+    /**
+     * @var int
+     */
     protected $counter = 0;
 
     /**
@@ -75,16 +123,20 @@ class ScpTask extends Task
      * Sets the remote host
      *
      * @param string $h
+     *
+     * @return void
      */
-    public function setHost($h)
+    public function setHost(string $h): void
     {
         $this->host = $h;
     }
 
     /**
      * Returns the remote host
+     *
+     * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -93,16 +145,20 @@ class ScpTask extends Task
      * Sets the remote host port
      *
      * @param int $p
+     *
+     * @return void
      */
-    public function setPort($p)
+    public function setPort(int $p): void
     {
         $this->port = $p;
     }
 
     /**
      * Returns the remote host port
+     *
+     * @return int
      */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
@@ -111,16 +167,20 @@ class ScpTask extends Task
      * Sets the mode value
      *
      * @param int $value
+     *
+     * @return void
      */
-    public function setMode($value)
+    public function setMode(int $value): void
     {
         $this->mode = $value;
     }
 
     /**
      * Returns the mode value
+     *
+     * @return int|null
      */
-    public function getMode()
+    public function getMode(): ?int
     {
         return $this->mode;
     }
@@ -129,16 +189,20 @@ class ScpTask extends Task
      * Sets the username of the user to scp
      *
      * @param string $username
+     *
+     * @return void
      */
-    public function setUsername($username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
     /**
      * Returns the username
+     *
+     * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -147,16 +211,20 @@ class ScpTask extends Task
      * Sets the password of the user to scp
      *
      * @param string $password
+     *
+     * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
     /**
      * Returns the password
+     *
+     * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -165,16 +233,20 @@ class ScpTask extends Task
      * Sets the public key file of the user to scp
      *
      * @param string $pubkeyfile
+     *
+     * @return void
      */
-    public function setPubkeyfile($pubkeyfile)
+    public function setPubkeyfile(string $pubkeyfile): void
     {
         $this->pubkeyfile = $pubkeyfile;
     }
 
     /**
      * Returns the pubkeyfile
+     *
+     * @return string
      */
-    public function getPubkeyfile()
+    public function getPubkeyfile(): string
     {
         return $this->pubkeyfile;
     }
@@ -183,16 +255,20 @@ class ScpTask extends Task
      * Sets the private key file of the user to scp
      *
      * @param string $privkeyfile
+     *
+     * @return void
      */
-    public function setPrivkeyfile($privkeyfile)
+    public function setPrivkeyfile(string $privkeyfile): void
     {
         $this->privkeyfile = $privkeyfile;
     }
 
     /**
      * Returns the private keyfile
+     *
+     * @return string
      */
-    public function getPrivkeyfile()
+    public function getPrivkeyfile(): string
     {
         return $this->privkeyfile;
     }
@@ -201,8 +277,10 @@ class ScpTask extends Task
      * Sets the private key file passphrase of the user to scp
      *
      * @param string $privkeyfilepassphrase
+     *
+     * @return void
      */
-    public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
+    public function setPrivkeyfilepassphrase(string $privkeyfilepassphrase): void
     {
         $this->privkeyfilepassphrase = $privkeyfilepassphrase;
     }
@@ -212,7 +290,7 @@ class ScpTask extends Task
      *
      * @return string
      */
-    public function getPrivkeyfilepassphrase()
+    public function getPrivkeyfilepassphrase(): string
     {
         return $this->privkeyfilepassphrase;
     }
@@ -221,16 +299,20 @@ class ScpTask extends Task
      * Sets whether to autocreate remote directories
      *
      * @param bool $autocreate
+     *
+     * @return void
      */
-    public function setAutocreate(bool $autocreate)
+    public function setAutocreate(bool $autocreate): void
     {
         $this->autocreate = $autocreate;
     }
 
     /**
      * Returns whether to autocreate remote directories
+     *
+     * @return bool
      */
-    public function getAutocreate()
+    public function getAutocreate(): bool
     {
         return $this->autocreate;
     }
@@ -239,16 +321,20 @@ class ScpTask extends Task
      * Set destination directory
      *
      * @param string $todir
+     *
+     * @return void
      */
-    public function setTodir($todir)
+    public function setTodir(string $todir): void
     {
         $this->todir = $todir;
     }
 
     /**
      * Returns the destination directory
+     *
+     * @return string
      */
-    public function getTodir()
+    public function getTodir(): string
     {
         return $this->todir;
     }
@@ -257,16 +343,20 @@ class ScpTask extends Task
      * Sets local filename
      *
      * @param string $file
+     *
+     * @return void
      */
-    public function setFile($file)
+    public function setFile(string $file): void
     {
         $this->file = $file;
     }
 
     /**
      * Returns local filename
+     *
+     * @return string
      */
-    public function getFile()
+    public function getFile(): string
     {
         return $this->file;
     }
@@ -275,16 +365,20 @@ class ScpTask extends Task
      * Sets whether to send (default) or fetch files
      *
      * @param bool $fetch
+     *
+     * @return void
      */
-    public function setFetch(bool $fetch)
+    public function setFetch(bool $fetch): void
     {
         $this->fetch = $fetch;
     }
 
     /**
      * Returns whether to send (default) or fetch files
+     *
+     * @return bool
      */
-    public function getFetch()
+    public function getFetch(): bool
     {
         return $this->fetch;
     }
@@ -293,8 +387,10 @@ class ScpTask extends Task
      * Declare number of successful operations above which "sftp" will be chosen over "scp".
      *
      * @param int $heuristicDecision Number
+     *
+     * @return void
      */
-    public function setHeuristicDecision($heuristicDecision)
+    public function setHeuristicDecision(int $heuristicDecision): void
     {
         $this->heuristicDecision = (int) $heuristicDecision;
     }
@@ -304,7 +400,7 @@ class ScpTask extends Task
      *
      * @return int
      */
-    public function getHeuristicDecision()
+    public function getHeuristicDecision(): int
     {
         return $this->heuristicDecision;
     }
@@ -314,18 +410,29 @@ class ScpTask extends Task
      *
      * @return Ssh2MethodParam
      */
-    public function createSshconfig()
+    public function createSshconfig(): Ssh2MethodParam
     {
         $this->methods = new Ssh2MethodParam();
 
         return $this->methods;
     }
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
+     * @throws IOException
+     */
+    public function main(): void
     {
         $p = $this->getProject();
 
@@ -400,9 +507,12 @@ class ScpTask extends Task
      * @param string $local
      * @param string $remote
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function copyFile($local, $remote)
+    protected function copyFile(string $local, string $remote): void
     {
         $path = rtrim($this->todir, '/') . '/';
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for those classes that can appear inside the build file
  * as stand alone data types.
@@ -55,7 +57,7 @@ class DataType extends ProjectComponent
      *
      * @return bool
      */
-    public function isReference()
+    public function isReference(): bool
     {
         return $this->ref !== null;
     }
@@ -63,7 +65,7 @@ class DataType extends ProjectComponent
     /**
      * @return string|null
      */
-    public function getRefId()
+    public function getRefId(): ?string
     {
         return $this->ref !== null ? $this->ref->getRefId() : null;
     }
@@ -79,7 +81,7 @@ class DataType extends ProjectComponent
      *
      * @return void
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         $this->ref     = $r;
         $this->checked = false;
@@ -87,8 +89,10 @@ class DataType extends ProjectComponent
 
     /**
      * @param bool $checked
+     *
+     * @return void
      */
-    public function setChecked($checked)
+    public function setChecked(bool $checked): void
     {
         $this->checked = $checked;
     }
@@ -107,14 +111,14 @@ class DataType extends ProjectComponent
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      *
-     * @param DataType[] $stk
-     * @param Project    $p
+     * @param DataType[]   $stk
+     * @param Project|null $p
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, ?Project $p = null)
+    public function dieOnCircularReference(array &$stk, ?Project $p = null): void
     {
         if ($this->checked || !$this->isReference()) {
             return;
@@ -146,7 +150,14 @@ class DataType extends ProjectComponent
         $this->checked = true;
     }
 
-    public static function pushAndInvokeCircularReferenceCheck(DataType $dt, &$stk, Project $p)
+    /**
+     * @param \DataType $dt
+     * @param array     $stk
+     * @param Project   $p
+     *
+     * @return void
+     */
+    public static function pushAndInvokeCircularReferenceCheck(DataType $dt, array &$stk, Project $p): void
     {
         $stk[] = $dt;
         $dt->dieOnCircularReference($stk, $p);
@@ -159,11 +170,11 @@ class DataType extends ProjectComponent
      * @param string $requiredClass
      * @param string $dataTypeName
      *
-     * @return mixed
+     * @return object
      *
      * @throws BuildException
      */
-    public function getCheckedRef($requiredClass, $dataTypeName)
+    public function getCheckedRef(string $requiredClass, string $dataTypeName)
     {
         if (!$this->checked) {
             // should be in stack
@@ -186,7 +197,7 @@ class DataType extends ProjectComponent
      *
      * @return BuildException
      */
-    public function tooManyAttributes()
+    public function tooManyAttributes(): BuildException
     {
         return new BuildException('You must not specify more than one attribute when using refid');
     }
@@ -197,7 +208,7 @@ class DataType extends ProjectComponent
      *
      * @return BuildException
      */
-    public function noChildrenAllowed()
+    public function noChildrenAllowed(): BuildException
     {
         return new BuildException('You must not specify nested elements when using refid');
     }
@@ -208,7 +219,7 @@ class DataType extends ProjectComponent
      *
      * @return BuildException
      */
-    public function circularReference()
+    public function circularReference(): BuildException
     {
         return new BuildException('This data type contains a circular reference.');
     }
@@ -221,7 +232,7 @@ class DataType extends ProjectComponent
      *
      * @return void
      */
-    public function parsingComplete()
+    public function parsingComplete(): void
     {
     }
 
@@ -229,8 +240,10 @@ class DataType extends ProjectComponent
      * Gets as descriptive as possible a name used for this datatype instance.
      *
      * @return string name.
+     *
+     * @throws ReflectionException
      */
-    protected function getDataTypeName()
+    protected function getDataTypeName(): string
     {
         return ComponentHelper::getElementName($this->getProject(), $this, true);
     }
@@ -240,9 +253,13 @@ class DataType extends ProjectComponent
      *
      * @return string this DataType formatted as a String.
      */
-    public function __toString()
+    public function __toString(): string
     {
         $d = $this->getDescription();
-        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . ' ' . $d;
+        try {
+            return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . ' ' . $d;
+        } catch (ReflectionException $e) {
+            return '';
+        }
     }
 }

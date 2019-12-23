@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Executes a command on the (filtered) file list/set.
  * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)
@@ -93,25 +95,38 @@ class ApplyTask extends ExecTask
     ];
 
     protected $type = 'file';
+
     /**
      * @var CommandlineMarker $targetFilePos
      */
     protected $targetFilePos;
+
     /**
      * @var CommandlineMarker $srcFilePos
      */
     protected $srcFilePos;
     protected $srcIsFirst = true;
 
+    /**
+     * @var bool
+     */
     protected $skipEmpty = false;
     private $force       = false;
     private $mapper;
+
+    /**
+     * @var PhingFile
+     */
     private $destDir;
 
     /**
      * @var Mapper $mapperElement
      */
     private $mapperElement;
+
+    /**
+     * @var string
+     */
     private $additionalCmds;
 
     /**
@@ -120,8 +135,10 @@ class ApplyTask extends ExecTask
      * corresponding target files, the command will not be run.
      *
      * @param bool $skip whether to skip empty filesets.
+     *
+     * @return void
      */
-    public function setSkipEmptyFilesets(bool $skip)
+    public function setSkipEmptyFilesets(bool $skip): void
     {
         $this->skipEmpty = $skip;
     }
@@ -130,8 +147,10 @@ class ApplyTask extends ExecTask
      * Specify the directory where target files are to be placed.
      *
      * @param PhingFile $dest the File object representing the destination directory.
+     *
+     * @return void
      */
-    public function setDest(PhingFile $dest)
+    public function setDest(PhingFile $dest): void
     {
         $this->destDir = $dest;
     }
@@ -143,7 +162,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setAppend(bool $append)
+    public function setAppend(bool $append): void
     {
         $this->appendoutput = $append;
     }
@@ -155,7 +174,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setParallel(bool $parallel)
+    public function setParallel(bool $parallel): void
     {
         $this->parallel = $parallel;
     }
@@ -167,7 +186,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setAddsourcefile(bool $addsourcefile)
+    public function setAddsourcefile(bool $addsourcefile): void
     {
         $this->addsourcefile = $addsourcefile;
     }
@@ -180,7 +199,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setRelative(bool $relative)
+    public function setRelative(bool $relative): void
     {
         $this->relative = $relative;
     }
@@ -192,7 +211,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setFailonerror(bool $failonerror)
+    public function setFailonerror(bool $failonerror): void
     {
         $this->checkreturn = $failonerror;
     }
@@ -204,7 +223,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setForwardslash(bool $forwardslash)
+    public function setForwardslash(bool $forwardslash): void
     {
         $this->forwardslash = $forwardslash;
     }
@@ -216,12 +235,17 @@ class ApplyTask extends ExecTask
      *
      * @return void
      */
-    public function setMaxparallel($max)
+    public function setMaxparallel(int $max): void
     {
         $this->maxparallel = (int) $max;
     }
 
-    public function setForce(bool $force)
+    /**
+     * @param bool $force
+     *
+     * @return void
+     */
+    public function setForce(bool $force): void
     {
         $this->force = $force;
     }
@@ -230,8 +254,10 @@ class ApplyTask extends ExecTask
      * Set whether the command works only on files, directories or both.
      *
      * @param string $type a FileDirBoth EnumeratedAttribute.
+     *
+     * @return void
      */
-    public function setType(string $type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -243,7 +269,7 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      */
-    public function createTargetfile()
+    public function createTargetfile(): CommandlineMarker
     {
         if ($this->targetFilePos !== null) {
             throw new BuildException(
@@ -266,7 +292,7 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      */
-    public function createSrcfile()
+    public function createSrcfile(): CommandlineMarker
     {
         if ($this->srcFilePos !== null) {
             throw new BuildException(
@@ -285,7 +311,7 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
@@ -302,9 +328,13 @@ class ApplyTask extends ExecTask
     /**
      * Do work
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         try {
             // Log
@@ -359,7 +389,7 @@ class ApplyTask extends ExecTask
                     }
                     $this->process(
                         $fs->getDirectoryScanner($this->project)->getIncludedFiles(),
-                        $fs->getDir($this->project)
+                        (string) $fs->getDir($this->project)
                     );
                     $haveExecuted = true;
                 }
@@ -370,7 +400,7 @@ class ApplyTask extends ExecTask
                  */
                 foreach ($this->filelists as $fl) {
                     $totalFiles++;
-                    $this->process($fl->getFiles($this->project), $fl->getDir($this->project));
+                    $this->process($fl->getFiles($this->project), (string) $fl->getDir($this->project));
                     $haveExecuted = true;
                 }
                 unset($this->filelists);
@@ -402,17 +432,40 @@ class ApplyTask extends ExecTask
      *
      * @return array
      */
-    protected function getFiles(PhingFile $baseDir, DirectoryScanner $ds)
+    protected function getFiles(PhingFile $baseDir, DirectoryScanner $ds): array
     {
-        return $this->restrict($ds->getIncludedFiles(), $baseDir);
+        try {
+            return $this->restrict($ds->getIncludedFiles(), $baseDir);
+        } catch (IOException | NullPointerException $e) {
+        }
+
+        return [];
     }
 
-    protected function getDirs(PhingFile $baseDir, DirectoryScanner $ds)
+    /**
+     * @param PhingFile        $baseDir
+     * @param DirectoryScanner $ds
+     *
+     * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function getDirs(PhingFile $baseDir, DirectoryScanner $ds): array
     {
         return $this->restrict($ds->getIncludedDirectories(), $baseDir);
     }
 
-    protected function restrict($s, PhingFile $baseDir)
+    /**
+     * @param array     $s
+     * @param PhingFile $baseDir
+     *
+     * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function restrict(array $s, PhingFile $baseDir): array
     {
         $sfs = new SourceFileScanner($this);
         return $this->mapper === null || $this->force
@@ -420,7 +473,16 @@ class ApplyTask extends ExecTask
             : $sfs->restrict($s, $baseDir, $this->destDir, $this->mapper);
     }
 
-    private function logSkippingFileset($currentType, DirectoryScanner $ds, PhingFile $base)
+    /**
+     * @param string           $currentType
+     * @param DirectoryScanner $ds
+     * @param PhingFile        $base
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    private function logSkippingFileset(string $currentType, DirectoryScanner $ds, PhingFile $base): void
     {
         $includedCount = (
             $currentType !== self::$types['DIR'] ? $ds->getIncludedFilesCount() : 0
@@ -443,8 +505,9 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      * @throws IOException
+     * @throws Exception
      */
-    protected function prepare()
+    protected function prepare(): void
     {
         // Log
         $this->log('Initializing started ', $this->loglevel);
@@ -535,9 +598,10 @@ class ApplyTask extends ExecTask
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function buildCommand()
+    protected function buildCommand(): void
     {
         // Log
         $this->log('Command building started ', $this->loglevel);
@@ -605,8 +669,9 @@ class ApplyTask extends ExecTask
      * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
+     * @throws Exception
      */
-    private function process($srcFiles, $basedir)
+    private function process(array $srcFiles, string $basedir): void
     {
         // Log
         $this->log(sprintf('Processing files with base directory (%s) ', $basedir), $this->loglevel);
@@ -756,9 +821,12 @@ class ApplyTask extends ExecTask
      * Runs cleanup tasks post execution
      * - Restore working directory
      *
+     * @param int|null   $return
+     * @param array|null $output
+     *
      * @return void
      */
-    protected function cleanup($return = null, $output = null): void
+    protected function cleanup(?int $return = null, ?array $output = null): void
     {
         // Restore working directory
         if ($this->dir !== null) {
@@ -773,11 +841,11 @@ class ApplyTask extends ExecTask
      * @param string       $basedir
      * @param bool         $relative
      *
-     * @return mixed processed filenames
+     * @return array|string processed filenames
      *
      * @throws IOException
      */
-    public function getFilePath($filename, $basedir, $relative)
+    public function getFilePath($filename, string $basedir, bool $relative)
     {
         // Validating the 'file' information
         $files = (array) $filename;
@@ -805,7 +873,7 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      */
-    private function throwBuildException($information): void
+    private function throwBuildException(string $information): void
     {
         throw new BuildException('ApplyTask: ' . (string) $information);
     }

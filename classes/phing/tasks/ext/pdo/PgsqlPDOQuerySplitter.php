@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+declare(strict_types=1);
+
 /**
  * Splits PostgreSQL's dialect of SQL into separate queries
  *
@@ -112,8 +114,10 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
      *
      * NB: we don't need ungetc() at the start of the line, so this case is
      * not handled.
+     *
+     * @return void
      */
-    public function ungetc()
+    public function ungetc(): void
     {
         $this->inputIndex--;
     }
@@ -154,12 +158,14 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                 return false;
             }
         }
+
+        return false;
     }
 
     /**
      * @return string|null
      */
-    public function nextQuery()
+    public function nextQuery(): ?string
     {
         $sql        = '';
         $delimiter  = $this->parent->getDelimiter();

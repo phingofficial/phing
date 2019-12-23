@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for mappers.
  *
@@ -29,15 +30,24 @@ use PHPUnit\Framework\TestCase;
  */
 class MapperTest extends TestCase
 {
+    /**
+     * @var Project
+     */
     private $project;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->project = new Project();
         $this->project->setBasedir(__DIR__);
     }
 
-    public function testEmptyElementIfIsReference()
+    /**
+     * @return void
+     */
+    public function testEmptyElementIfIsReference(): void
     {
         $m = new Mapper($this->project);
         $m->setFrom('*.java');
@@ -75,7 +85,10 @@ class MapperTest extends TestCase
         }
     }
 
-    public function testCircularReferenceCheck()
+    /**
+     * @return void
+     */
+    public function testCircularReferenceCheck(): void
     {
         $m = new Mapper($this->project);
         $this->project->addReference('dummy', $m);
@@ -126,7 +139,12 @@ class MapperTest extends TestCase
         $this->assertEquals('a.class', $result[0]);
     }
 
-    public function testCopyTaskWithTwoFilesets()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testCopyTaskWithTwoFilesets(): void
     {
         $t = new TaskdefForCopyTest('test1');
         try {
@@ -137,9 +155,14 @@ class MapperTest extends TestCase
             $t->tearDown();
             throw $e;
         }
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 
-    public function testSetClasspathThrowsExceptionIfReferenceSetAlready()
+    /**
+     * @return void
+     */
+    public function testSetClasspathThrowsExceptionIfReferenceSetAlready(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
@@ -149,7 +172,10 @@ class MapperTest extends TestCase
         $m->setClasspath($p);
     }
 
-    public function testSetClasspath()
+    /**
+     * @return void
+     */
+    public function testSetClasspath(): void
     {
         $m = new Mapper($this->project);
         $p = new Path($this->project);
@@ -159,7 +185,10 @@ class MapperTest extends TestCase
         $this->assertEquals('Path', $class);
     }
 
-    public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet()
+    /**
+     * @return void
+     */
+    public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
@@ -169,7 +198,10 @@ class MapperTest extends TestCase
         $f = $m->createClasspath();
     }
 
-    public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet()
+    /**
+     * @return void
+     */
+    public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
@@ -179,7 +211,10 @@ class MapperTest extends TestCase
         $m->setClasspathRef($r2);
     }
 
-    public function testSetClassnameThrowsExceptionIfReferenceIsSet()
+    /**
+     * @return void
+     */
+    public function testSetClassnameThrowsExceptionIfReferenceIsSet(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));

@@ -1,7 +1,4 @@
 <?php
-
-use PHPMD\Writer\StreamWriter;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,6 +16,10 @@ use PHPMD\Writer\StreamWriter;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use PHPMD\Writer\StreamWriter;
 
 /**
  * A wrapper for the implementations of PHPMDResultFormatter.
@@ -65,9 +66,11 @@ class PHPMDFormatterElement
      *
      * @param string $type Type of the formatter
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
         switch ($this->type) {
@@ -93,7 +96,7 @@ class PHPMDFormatterElement
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -102,8 +105,10 @@ class PHPMDFormatterElement
      * Set whether to write formatter results to file or not.
      *
      * @param bool $useFile True or false.
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = StringHelper::booleanValue($useFile);
     }
@@ -113,7 +118,7 @@ class PHPMDFormatterElement
      *
      * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
@@ -122,8 +127,10 @@ class PHPMDFormatterElement
      * Sets the output file for the formatter results.
      *
      * @param PhingFile $outfile The output file
+     *
+     * @return void
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(PhingFile $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -133,7 +140,7 @@ class PHPMDFormatterElement
      *
      * @return PhingFile
      */
-    public function getOutfile()
+    public function getOutfile(): PhingFile
     {
         return $this->outfile;
     }
@@ -141,9 +148,11 @@ class PHPMDFormatterElement
     /**
      * Creates a report renderer instance based on the formatter type.
      *
-     * @return PHP_PMD_AbstractRenderer
+     * @return PHP_PMD_AbstractRenderer|PHPMD\AbstractRenderer
      *
-     * @throws BuildException           When the specified renderer does not exist.
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws BuildException When the specified renderer does not exist.
      */
     public function getRenderer()
     {
@@ -163,7 +172,7 @@ class PHPMDFormatterElement
         if ($this->getUseFile() === false || $this->getOutfile() === null) {
             $stream = STDOUT;
         } else {
-            $stream = fopen($this->getOutfile()->getAbsoluteFile(), 'wb');
+            $stream = fopen((string) $this->getOutfile()->getAbsoluteFile(), 'wb');
         }
 
         $renderer->setWriter(new $writerClass($stream));

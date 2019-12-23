@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Zip and Unzip tasks
  *
@@ -26,7 +28,10 @@
  */
 class ZipUnzipTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,49 +40,61 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testSimpleZipContainsOneFile()
+    /**
+     * @return void
+     */
+    public function testSimpleZipContainsOneFile(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/tasks/ext/tmp/simple-test.zip';
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists($filename);
+        self::assertFileExists($filename);
 
         $archive = new ZipArchive();
         $archive->open($filename);
 
-        $this->assertEquals('test.txt', $archive->getNameIndex(0));
+        self::assertEquals('test.txt', $archive->getNameIndex(0));
     }
 
-    public function testZipFileSet()
+    /**
+     * @return void
+     */
+    public function testZipFileSet(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/tasks/ext/tmp/simple-test.zip';
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists($filename);
+        self::assertFileExists($filename);
 
         $archive = new ZipArchive();
         $archive->open($filename);
 
-        $this->assertEquals('test.txt', $archive->getNameIndex(0));
+        self::assertEquals('test.txt', $archive->getNameIndex(0));
     }
 
-    public function testUnzipSimpleZip()
+    /**
+     * @return void
+     */
+    public function testUnzipSimpleZip(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/tasks/ext/tmp/test.txt';
 
-        $this->assertFileNotExists($filename);
+        self::assertFileNotExists($filename);
 
         $this->executeTarget(__FUNCTION__);
 
-        $this->assertFileExists($filename);
-        $this->assertStringEqualsFile($filename, 'TEST');
+        self::assertFileExists($filename);
+        self::assertStringEqualsFile($filename, 'TEST');
     }
 }

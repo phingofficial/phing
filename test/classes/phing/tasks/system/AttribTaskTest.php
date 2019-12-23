@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Attrib Task
  *
@@ -26,7 +28,10 @@
  */
 class AttribTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,12 +40,20 @@ class AttribTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testAttrib()
+    /**
+     * @return void
+     *
+     * @requires OS WIN32|WINNT
+     */
+    public function testAttrib(): void
     {
         $this->executeTarget(__FUNCTION__);
 

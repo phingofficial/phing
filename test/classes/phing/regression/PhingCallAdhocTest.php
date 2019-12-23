@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/299
  * - PhingCall crashes if an AdhocTask is defined
@@ -25,12 +27,21 @@
  */
 class PhingCallAdhocTest extends BuildFileTest
 {
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
     public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/299/build.xml');
     }
 
-    public function testPhingCallTask()
+    /**
+     * @return void
+     */
+    public function testPhingCallTask(): void
     {
         ob_start();
         $this->executeTarget('main');

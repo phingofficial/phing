@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Replaces tokens in the original input with the contents of a file.
  * The file to be used is controlled by the name of the token which
@@ -113,15 +115,22 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     private $translatehtml = true;
 
-    public function setTranslateHTML(bool $translate)
+    /**
+     * @param bool $translate
+     *
+     * @return void
+     */
+    public function setTranslateHTML(bool $translate): void
     {
         $this->translatehtml = $translate;
     }
 
     /**
      * Returns the drectory where to look for the files to use for token replacement
+     *
+     * @return bool
      */
-    public function getTranslateHTML()
+    public function getTranslateHTML(): bool
     {
         return $this->translatehtml;
     }
@@ -130,16 +139,20 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Sets the drectory where to look for the files to use for token replacement
      *
      * @param string $dir
+     *
+     * @return void
      */
-    public function setDir($dir)
+    public function setDir(string $dir): void
     {
         $this->dir = (string) $dir;
     }
 
     /**
      * Returns the drectory where to look for the files to use for token replacement
+     *
+     * @return string
      */
-    public function getDir()
+    public function getDir(): string
     {
         return $this->dir;
     }
@@ -150,8 +163,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * the filename to look for will be "example01"
      *
      * @param string $prefix
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = (string) $prefix;
     }
@@ -163,7 +178,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return string
      */
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
@@ -174,8 +189,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * the filename to look for will be "01.php"
      *
      * @param string $postfix
+     *
+     * @return void
      */
-    public function setPostfix($postfix)
+    public function setPostfix(string $postfix): void
     {
         $this->postfix = (string) $postfix;
     }
@@ -184,8 +201,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Returns the postfix that is added to the token in order to create the file
      * name. For example if the token is 01 and the postfix is ".php" then
      * the filename to look for will be "01.php"
+     *
+     * @return string
      */
-    public function getPostfix()
+    public function getPostfix(): string
     {
         return $this->postfix;
     }
@@ -194,8 +213,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Sets the "begin token" character.
      *
      * @param string $beginToken the character used to denote the beginning of a token.
+     *
+     * @return void
      */
-    public function setBeginToken($beginToken)
+    public function setBeginToken(string $beginToken): void
     {
         $this->beginToken = (string) $beginToken;
     }
@@ -205,7 +226,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return string The character used to denote the beginning of a token.
      */
-    public function getBeginToken()
+    public function getBeginToken(): string
     {
         return $this->beginToken;
     }
@@ -214,8 +235,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Sets the "end token" character.
      *
      * @param string $endToken the character used to denote the end of a token
+     *
+     * @return void
      */
-    public function setEndToken($endToken)
+    public function setEndToken(string $endToken): void
     {
         $this->endToken = (string) $endToken;
     }
@@ -225,7 +248,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return string the character used to denote the beginning of a token
      */
-    public function getEndToken()
+    public function getEndToken(): string
     {
         return $this->endToken;
     }
@@ -237,7 +260,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return string Text with which to replace key or value of key if none is found.
      */
-    private function replaceTokenCallback($matches)
+    private function replaceTokenCallback(array $matches): string
     {
         $filetoken = $matches[1];
 
@@ -283,11 +306,13 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed filtered stream, -1 on EOF.
+     *
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -321,7 +346,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * @return ReplaceTokensWithFile A new filter based on this configuration, but filtering
      *                               the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new ReplaceTokensWithFile($reader);
         $newFilter->setProject($this->getProject());
@@ -340,8 +365,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Initializes parameters
      * This method is only called when this filter is used through
      * a <filterreader> tag in build file.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         $n      = count($params);

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper around git-checkout
  *
@@ -31,7 +33,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * Branch name
      *
-     * @var string
+     * @var string|null
      */
     private $branchname;
 
@@ -87,8 +89,13 @@ class GitCheckoutTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -133,24 +140,28 @@ class GitCheckoutTask extends GitBaseTask
 
     /**
      * @param string $branchname
+     *
+     * @return void
      */
-    public function setBranchname($branchname)
+    public function setBranchname(string $branchname): void
     {
         $this->branchname = $branchname;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBranchname()
+    public function getBranchname(): ?string
     {
         return $this->branchname;
     }
 
     /**
      * @param string $startPoint
+     *
+     * @return void
      */
-    public function setStartPoint($startPoint)
+    public function setStartPoint(string $startPoint): void
     {
         $this->startPoint = $startPoint;
     }
@@ -158,15 +169,17 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getStartPoint()
+    public function getStartPoint(): string
     {
         return $this->startPoint;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setForce($flag)
+    public function setForce(bool $flag): void
     {
         $this->force = $flag;
     }
@@ -174,7 +187,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getForce()
+    public function getForce(): bool
     {
         return $this->force;
     }
@@ -182,15 +195,17 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isForce()
+    public function isForce(): bool
     {
         return $this->getForce();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setQuiet($flag)
+    public function setQuiet(bool $flag): void
     {
         $this->quiet = $flag;
     }
@@ -198,7 +213,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getQuiet()
+    public function getQuiet(): bool
     {
         return $this->quiet;
     }
@@ -206,15 +221,17 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isQuiet()
+    public function isQuiet(): bool
     {
         return $this->getQuiet();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setTrack($flag)
+    public function setTrack(bool $flag): void
     {
         $this->track = $flag;
     }
@@ -222,7 +239,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getTrack()
+    public function getTrack(): bool
     {
         return $this->track;
     }
@@ -230,15 +247,17 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isTrack()
+    public function isTrack(): bool
     {
         return $this->getTrack();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoTrack($flag)
+    public function setNoTrack(bool $flag): void
     {
         $this->noTrack = $flag;
     }
@@ -246,7 +265,7 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoTrack()
+    public function getNoTrack(): bool
     {
         return $this->noTrack;
     }
@@ -254,25 +273,33 @@ class GitCheckoutTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNoTrack()
+    public function isNoTrack(): bool
     {
         return $this->getNoTrack();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setCreate($flag)
+    public function setCreate(bool $flag): void
     {
         $this->extraOptions['b'] = $flag;
     }
 
-    public function getCreate()
+    /**
+     * @return bool
+     */
+    public function getCreate(): bool
     {
         return $this->extraOptions['b'];
     }
 
-    public function isCreate()
+    /**
+     * @return bool
+     */
+    public function isCreate(): bool
     {
         return $this->getCreate();
     }
@@ -282,36 +309,52 @@ class GitCheckoutTask extends GitBaseTask
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setForceCreate($flag)
+    public function setForceCreate(bool $flag): void
     {
         $this->setForce($flag);
     }
 
-    public function getForceCreate()
+    /**
+     * @return bool
+     */
+    public function getForceCreate(): bool
     {
         return $this->extraOptions['B'];
     }
 
-    public function isForceCreate()
+    /**
+     * @return bool
+     */
+    public function isForceCreate(): bool
     {
         return $this->getForceCreate();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setMerge($flag)
+    public function setMerge(bool $flag): void
     {
         $this->extraOptions['m'] = $flag;
     }
 
-    public function getMerge()
+    /**
+     * @return bool
+     */
+    public function getMerge(): bool
     {
         return $this->extraOptions['m'];
     }
 
-    public function isMerge()
+    /**
+     * @return bool
+     */
+    public function isMerge(): bool
     {
         return $this->getMerge();
     }

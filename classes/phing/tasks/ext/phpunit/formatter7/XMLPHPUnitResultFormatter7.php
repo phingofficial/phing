@@ -1,10 +1,4 @@
 <?php
-
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\Warning;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,6 +16,13 @@ use PHPUnit\Framework\Warning;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
 
 /**
  * Prints XML output of the test to a specified Writer
@@ -53,7 +54,7 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         return '.xml';
     }
@@ -61,13 +62,15 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): string
     {
         return 'testsuites';
     }
 
     /**
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -78,6 +81,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -88,6 +93,10 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param Test $test
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
     public function startTest(Test $test): void
     {
@@ -99,6 +108,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @param Test  $test
      * @param float $time
+     *
+     * @return void
      */
     public function endTest(Test $test, float $time): void
     {
@@ -111,6 +122,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addError(Test $test, Throwable $e, float $time): void
     {
@@ -123,6 +136,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addFailure(
         Test $test,
@@ -138,6 +153,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -150,6 +167,8 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
@@ -158,7 +177,12 @@ class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         $this->logger->addIncompleteTest($test, $e, $time);
     }
 
-    public function endTestRun()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function endTestRun(): void
     {
         parent::endTestRun();
 

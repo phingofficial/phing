@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * See {@link http://phk.tekwire.net/} for more information about PHK.
  *
@@ -53,95 +55,117 @@ class PhkPackageTask extends Task
     /**
      * @return PhkPackageWebAccess
      */
-    public function createWebAccess()
+    public function createWebAccess(): PhkPackageWebAccess
     {
         return $this->webAccess = new PhkPackageWebAccess();
     }
 
     /**
      * @param string $crcCheck
+     *
+     * @return void
      */
-    public function setCrcCheck($crcCheck)
+    public function setCrcCheck(string $crcCheck): void
     {
         $this->options['crc_check'] = 'true' == $crcCheck;
     }
 
     /**
      * @param string $webRunScript
+     *
+     * @return void
      */
-    public function setWebRunScript($webRunScript)
+    public function setWebRunScript(string $webRunScript): void
     {
         $this->options['web_run_script'] = $webRunScript;
     }
 
     /**
      * @param string $cliRunScript
+     *
+     * @return void
      */
-    public function setCliRunScript($cliRunScript)
+    public function setCliRunScript(string $cliRunScript): void
     {
         $this->options['cli_run_script'] = $cliRunScript;
     }
 
     /**
      * @param string $libRunScript
+     *
+     * @return void
      */
-    public function setLibRunScript($libRunScript)
+    public function setLibRunScript(string $libRunScript): void
     {
         $this->options['lib_run_script'] = $libRunScript;
     }
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->options['name'] = $name;
     }
 
     /**
      * @param string $webMainRedirect
+     *
+     * @return void
      */
-    public function setWebMainRedirect($webMainRedirect)
+    public function setWebMainRedirect(string $webMainRedirect): void
     {
         $this->options['web_main_redirect'] = 'true' == $webMainRedirect;
     }
 
     /**
      * @param string $pluginClass
+     *
+     * @return void
      */
-    public function setPluginClass($pluginClass)
+    public function setPluginClass(string $pluginClass): void
     {
         $this->options['plugin_class'] = $pluginClass;
     }
 
     /**
      * @param string $version
+     *
+     * @return void
      */
-    public function setVersion($version)
+    public function setVersion(string $version): void
     {
         $this->options['version'] = $version;
     }
 
     /**
      * @param string $summary
+     *
+     * @return void
      */
-    public function setSummary($summary)
+    public function setSummary(string $summary): void
     {
         $this->options['summary'] = $summary;
     }
 
     /**
      * @param string $inputDirectory
+     *
+     * @return void
      */
-    public function setInputDirectory($inputDirectory)
+    public function setInputDirectory(string $inputDirectory): void
     {
         $this->inputDirectory = $inputDirectory;
     }
 
     /**
      * @param string $outputFile
+     *
+     * @return void
      */
-    public function setOutputFile($outputFile)
+    public function setOutputFile(string $outputFile): void
     {
         $this->outputFile = $outputFile;
     }
@@ -150,8 +174,10 @@ class PhkPackageTask extends Task
      * May be none, gzip or bzip2.
      *
      * @param string $compress
+     *
+     * @return void
      */
-    public function setCompress($compress)
+    public function setCompress(string $compress): void
     {
         $this->modifiers['compress'] = $compress;
     }
@@ -160,8 +186,10 @@ class PhkPackageTask extends Task
      * True or false.
      *
      * @param string $strip
+     *
+     * @return void
      */
-    public function setStrip($strip)
+    public function setStrip(string $strip): void
     {
         $this->modifiers['strip'] = $strip;
     }
@@ -170,20 +198,29 @@ class PhkPackageTask extends Task
      * Path to PHK_Creator.phk file.
      *
      * @param string $path
+     *
+     * @return void
      */
-    public function setPhkCreatorPath($path)
+    public function setPhkCreatorPath(string $path): void
     {
         $this->phkCreatorPath = $path;
     }
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
     }
 
     /**
      * Main method...
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         /*
          * Check for empty first - speed ;)
@@ -231,7 +268,7 @@ class PhkPackageTask extends Task
         /*
          * Print with Phing log...
          */
-        $output = trim(ob_get_clean());
+        $output = trim((string) ob_get_clean());
         $output = explode("\n", $output);
         foreach ($output as $line) {
             /*

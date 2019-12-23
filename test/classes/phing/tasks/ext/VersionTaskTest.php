@@ -17,18 +17,26 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
 class VersionTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/version.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/build.version')) {
             unlink(PHING_TEST_BASE . '/etc/tasks/ext/build.version');
@@ -39,43 +47,64 @@ class VersionTaskTest extends BuildFileTest
         }
     }
 
-    public function testBugfix()
+    /**
+     * @return void
+     */
+    public function testBugfix(): void
     {
         $this->expectLog('testBugfix', '1.0.1');
     }
 
-    public function testMinor()
+    /**
+     * @return void
+     */
+    public function testMinor(): void
     {
         $this->expectLog('testMinor', '1.1.0');
     }
 
-    public function testMajor()
+    /**
+     * @return void
+     */
+    public function testMajor(): void
     {
         $this->expectLog('testMajor', '2.0.0');
     }
 
-    public function testDefault()
+    /**
+     * @return void
+     */
+    public function testDefault(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.0');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/build.version', 'File not found');
     }
 
-    public function testPropFile()
+    /**
+     * @return void
+     */
+    public function testPropFile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('propfile.version', '4.5.5');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/property.version', 'File not found');
     }
 
-    public function testPropFileWithDefaultProperty()
+    /**
+     * @return void
+     */
+    public function testPropFileWithDefaultProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '4.5.5');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/build.version', 'File not found');
     }
 
-    public function testWithStartingVersion()
+    /**
+     * @return void
+     */
+    public function testWithStartingVersion(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.1');
@@ -85,9 +114,17 @@ class VersionTaskTest extends BuildFileTest
     /**
      * Testing \VersionTask::getVersion
      *
+     * @param string      $releaseType
+     * @param string|null $version
+     * @param string      $expectedVersion
+     *
+     * @return void
+     *
+     * @throws ReflectionException
+     *
      * @dataProvider versionProvider
      */
-    public function testGetVersionMethod($releaseType, $version, $expectedVersion)
+    public function testGetVersionMethod(string $releaseType, ?string $version, string $expectedVersion): void
     {
         $versionTask = new VersionTask();
         $versionTask->setReleasetype($releaseType);
@@ -97,10 +134,13 @@ class VersionTaskTest extends BuildFileTest
         $method->setAccessible(true);
 
         $newVersion = $method->invoke($versionTask, $version);
-        $this->assertSame($expectedVersion, $newVersion);
+        self::assertSame($expectedVersion, $newVersion);
     }
 
-    public function versionProvider()
+    /**
+     * @return array[]
+     */
+    public function versionProvider(): array
     {
         return [
             [VersionTask::RELEASETYPE_MAJOR, null, '1.0.0'],

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This selector has one other selectors whose meaning it inverts. It
  * actually relies on NoneSelector for its implementation of the
@@ -32,7 +34,7 @@ class NotSelector extends NoneSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         if ($this->hasSelectors()) {
@@ -47,8 +49,10 @@ class NotSelector extends NoneSelector
     /**
      * Makes sure that there is only one entry, sets an error message if
      * not.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->count() !== 1) {
             $this->setError(

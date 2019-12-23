@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the IniFileTokenReader class
  *
@@ -25,7 +27,13 @@
  */
 class IniFileTokenReaderTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,19 +42,25 @@ class IniFileTokenReaderTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testFileParameterString()
+    /**
+     * @return void
+     */
+    public function testFileParameterString(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/filters/util/tmp/test.txt';
 
         $this->executeTarget(__FUNCTION__);
 
-        $this->assertFileExists($filename);
-        $this->assertEquals('to replace: replaced', file_get_contents($filename));
+        self::assertFileExists($filename);
+        self::assertEquals('to replace: replaced', file_get_contents($filename));
     }
 }

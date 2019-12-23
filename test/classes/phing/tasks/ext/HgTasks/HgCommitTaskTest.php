@@ -17,9 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgCommitTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -28,12 +36,18 @@ class HgCommitTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testMessageNotSpecified()
+    /**
+     * @return void
+     */
+    public function testMessageNotSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'messageNotSpecified',
@@ -42,7 +56,10 @@ class HgCommitTaskTest extends BuildFileTest
         );
     }
 
-    public function testUserNotEmptyString()
+    /**
+     * @return void
+     */
+    public function testUserNotEmptyString(): void
     {
         $this->expectBuildExceptionContaining(
             'userNotEmptyString',

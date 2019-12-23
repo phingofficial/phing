@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This class can be used to obtain the execution time of all of the scripts
  * that are executed in the process of building a page.
@@ -58,7 +60,7 @@ class Timer
      *
      * @return void
      */
-    public function start()
+    public function start(): void
     {
         $this->stime = microtime(true);
     }
@@ -69,7 +71,7 @@ class Timer
      *
      * @return void
      */
-    public function stop()
+    public function stop(): void
     {
         $this->etime = microtime(true);
     }
@@ -85,7 +87,7 @@ class Timer
      *
      * @return string Properly formatted time.
      */
-    public function getElapsedTime($places = 5)
+    public function getElapsedTime(int $places = 5): string
     {
         $etime  = $this->etime - $this->stime;
         $format = '%0.' . $places . 'f';

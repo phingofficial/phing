@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the SortList Task
  *
@@ -25,26 +27,41 @@
  */
 class SortListTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/SortListTest.xml'
         );
     }
 
-    public function testSortList()
+    /**
+     * @return void
+     */
+    public function testSortList(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('my.sorted.list', 't,u,v,w,x,y,z');
     }
 
-    public function testDelimFlags()
+    /**
+     * @return void
+     */
+    public function testDelimFlags(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('my.sorted.list', 't;U;v;w;X;y;z');
     }
 
-    public function testRef()
+    /**
+     * @return void
+     */
+    public function testRef(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('my.sorted.list', 'U;X;t;v;w;y;z');

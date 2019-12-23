@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <or> condition container.
  *
@@ -32,7 +34,7 @@ class OrCondition extends ConditionBase implements Condition
     /**
      * @return bool
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         foreach ($this as $c) { // ConditionBase implements IteratorAggregator
             if ($c->evaluate()) {

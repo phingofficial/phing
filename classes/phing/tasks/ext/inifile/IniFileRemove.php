@@ -14,6 +14,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * Class for collecting details for removing keys or sections from an ini file
  *
@@ -29,14 +31,14 @@ class IniFileRemove
     /**
      * Property
      *
-     * @var string
+     * @var string|null
      */
     protected $property = null;
 
     /**
      * Section
      *
-     * @var string
+     * @var string|null
      */
     protected $section = null;
 
@@ -47,7 +49,7 @@ class IniFileRemove
      *
      * @return void
      */
-    public function setSection($section)
+    public function setSection(string $section): void
     {
         $this->section = $section;
     }
@@ -59,7 +61,7 @@ class IniFileRemove
      *
      * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -67,9 +69,9 @@ class IniFileRemove
     /**
      * Get Property
      *
-     * @return string
+     * @return string|null
      */
-    public function getProperty()
+    public function getProperty(): ?string
     {
         return $this->property;
     }
@@ -77,9 +79,9 @@ class IniFileRemove
     /**
      * Get Section
      *
-     * @return string
+     * @return string|null
      */
-    public function getSection()
+    public function getSection(): ?string
     {
         return $this->section;
     }

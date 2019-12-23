@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Execute commands on a remote host using ssh.
  *
@@ -101,8 +103,10 @@ class SshTask extends Task
 
     /**
      * @param string $host
+     *
+     * @return void
      */
-    public function setHost($host)
+    public function setHost(string $host): void
     {
         $this->host = $host;
     }
@@ -110,15 +114,17 @@ class SshTask extends Task
     /**
      * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
 
     /**
      * @param int $port
+     *
+     * @return void
      */
-    public function setPort($port)
+    public function setPort(int $port): void
     {
         $this->port = $port;
     }
@@ -126,15 +132,17 @@ class SshTask extends Task
     /**
      * @return int
      */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
 
     /**
      * @param string $username
+     *
+     * @return void
      */
-    public function setUsername($username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
@@ -142,15 +150,17 @@ class SshTask extends Task
     /**
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
     /**
      * @param string $password
+     *
+     * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -158,7 +168,7 @@ class SshTask extends Task
     /**
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -167,16 +177,20 @@ class SshTask extends Task
      * Sets the public key file of the user to scp
      *
      * @param string $pubkeyfile
+     *
+     * @return void
      */
-    public function setPubkeyfile($pubkeyfile)
+    public function setPubkeyfile(string $pubkeyfile): void
     {
         $this->pubkeyfile = $pubkeyfile;
     }
 
     /**
      * Returns the pubkeyfile
+     *
+     * @return string
      */
-    public function getPubkeyfile()
+    public function getPubkeyfile(): string
     {
         return $this->pubkeyfile;
     }
@@ -185,16 +199,20 @@ class SshTask extends Task
      * Sets the private key file of the user to scp
      *
      * @param string $privkeyfile
+     *
+     * @return void
      */
-    public function setPrivkeyfile($privkeyfile)
+    public function setPrivkeyfile(string $privkeyfile): void
     {
         $this->privkeyfile = $privkeyfile;
     }
 
     /**
      * Returns the private keyfile
+     *
+     * @return string
      */
-    public function getPrivkeyfile()
+    public function getPrivkeyfile(): string
     {
         return $this->privkeyfile;
     }
@@ -203,8 +221,10 @@ class SshTask extends Task
      * Sets the private key file passphrase of the user to scp
      *
      * @param string $privkeyfilepassphrase
+     *
+     * @return void
      */
-    public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
+    public function setPrivkeyfilepassphrase(string $privkeyfilepassphrase): void
     {
         $this->privkeyfilepassphrase = $privkeyfilepassphrase;
     }
@@ -214,15 +234,17 @@ class SshTask extends Task
      *
      * @return string
      */
-    public function getPrivkeyfilepassphrase()
+    public function getPrivkeyfilepassphrase(): string
     {
         return $this->privkeyfilepassphrase;
     }
 
     /**
      * @param string $command
+     *
+     * @return void
      */
-    public function setCommand($command)
+    public function setCommand(string $command): void
     {
         $this->command = $command;
     }
@@ -230,15 +252,17 @@ class SshTask extends Task
     /**
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): string
     {
         return $this->command;
     }
 
     /**
      * @param string $pty
+     *
+     * @return void
      */
-    public function setPty($pty)
+    public function setPty(string $pty): void
     {
         $this->pty = $pty;
     }
@@ -246,7 +270,7 @@ class SshTask extends Task
     /**
      * @return string
      */
-    public function getPty()
+    public function getPty(): string
     {
         return $this->pty;
     }
@@ -255,8 +279,10 @@ class SshTask extends Task
      * Sets the name of the property to capture (any) output of the command
      *
      * @param string $property
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -265,8 +291,10 @@ class SshTask extends Task
      * Sets whether to display the output of the command
      *
      * @param bool $display
+     *
+     * @return void
      */
-    public function setDisplay($display)
+    public function setDisplay(bool $display): void
     {
         $this->display = (bool) $display;
     }
@@ -275,8 +303,10 @@ class SshTask extends Task
      * Sets whether to fail the task on any error
      *
      * @param bool $failonerror
+     *
+     * @return void
      */
-    public function setFailonerror($failonerror)
+    public function setFailonerror(bool $failonerror): void
     {
         $this->failonerror = (bool) $failonerror;
     }
@@ -286,22 +316,27 @@ class SshTask extends Task
      *
      * @return Ssh2MethodParam
      */
-    public function createSshconfig()
+    public function createSshconfig(): Ssh2MethodParam
     {
         $this->methods = new Ssh2MethodParam();
 
         return $this->methods;
     }
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
     }
 
     /**
      * Initiates a ssh connection and stores
      * it in $this->connection
+     *
+     * @return void
      */
-    protected function setupConnection()
+    protected function setupConnection(): void
     {
         $p = $this->getProject();
 
@@ -332,7 +367,12 @@ class SshTask extends Task
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         $this->setupConnection();
 
@@ -352,9 +392,12 @@ class SshTask extends Task
      *
      * @param resource $stream
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function handleStream($stream)
+    protected function handleStream($stream): void
     {
         if (!$stream) {
             throw new BuildException('Could not execute command!');

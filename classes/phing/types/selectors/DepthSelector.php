@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that filters files based on the how deep in the directory
  * tree they are.
@@ -43,7 +45,7 @@ class DepthSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf  = '{depthselector min: ';
         $buf .= $this->min;
@@ -61,7 +63,7 @@ class DepthSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setMin($min)
+    public function setMin(int $min): void
     {
         $this->min = (int) $min;
     }
@@ -73,7 +75,7 @@ class DepthSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setMax($max)
+    public function setMax(int $max): void
     {
         $this->max = (int) $max;
     }
@@ -86,7 +88,7 @@ class DepthSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return mixed|void
+     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -117,7 +119,7 @@ class DepthSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->min < 0 && $this->max < 0) {
             $this->setError(
@@ -136,7 +138,6 @@ class DepthSelector extends BaseExtendSelector
      * for this selector is offloaded into SelectorUtils, a static class
      * that provides the same services for both FilenameSelector and
      * DirectoryScanner.
-     *
      * {@inheritdoc}
      *
      * @param PhingFile $basedir  base directory the scan is being done from
@@ -145,9 +146,10 @@ class DepthSelector extends BaseExtendSelector
      *
      * @return bool whether the file should be selected or not
      *
+     * @throws IOException
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

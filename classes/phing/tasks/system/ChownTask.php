@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task that changes the permissions on a file/directory.
  *
@@ -28,14 +30,35 @@ class ChownTask extends Task
     use DirSetAware;
     use FileSetAware;
 
+    /**
+     * @var PhingFile
+     */
     private $file;
 
+    /**
+     * @var string
+     */
     private $user;
+
+    /**
+     * @var string
+     */
     private $group;
 
-    private $quiet       = false;
+    /**
+     * @var bool
+     */
+    private $quiet = false;
+
+    /**
+     * @var bool
+     */
     private $failonerror = true;
-    private $verbose     = true;
+
+    /**
+     * @var bool
+     */
+    private $verbose = true;
 
     /**
      * This flag means 'note errors to the output, but keep going'
@@ -43,8 +66,10 @@ class ChownTask extends Task
      * @see   setQuiet()
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setFailonerror($bool)
+    public function setFailonerror(bool $bool): void
     {
         $this->failonerror = $bool;
     }
@@ -55,8 +80,10 @@ class ChownTask extends Task
      * @see   setFailonerror()
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $bool): void
     {
         $this->quiet = $bool;
         if ($this->quiet) {
@@ -69,8 +96,10 @@ class ChownTask extends Task
      * of what happened.
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setVerbose(bool $bool)
+    public function setVerbose(bool $bool): void
     {
         $this->verbose = $bool;
     }
@@ -80,8 +109,10 @@ class ChownTask extends Task
      * an empty file will be created.
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -90,8 +121,10 @@ class ChownTask extends Task
      * Sets the user
      *
      * @param string $user
+     *
+     * @return void
      */
-    public function setUser($user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }
@@ -100,8 +133,10 @@ class ChownTask extends Task
      * Sets the group
      *
      * @param string $group
+     *
+     * @return void
      */
-    public function setGroup($group)
+    public function setGroup(string $group): void
     {
         $this->group = $group;
     }
@@ -110,8 +145,12 @@ class ChownTask extends Task
      * Execute the touch operation.
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         // Check Parameters
         $this->checkParams();
@@ -125,7 +164,7 @@ class ChownTask extends Task
      *
      * @throws BuildException
      */
-    private function checkParams()
+    private function checkParams(): void
     {
         if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
             throw new BuildException('Specify at least one source - a file or a fileset.');
@@ -140,8 +179,13 @@ class ChownTask extends Task
      * Does the actual work.
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    private function chown()
+    private function chown(): void
     {
         $userElements = explode('.', $this->user);
 
@@ -199,10 +243,12 @@ class ChownTask extends Task
      * @param string    $user
      * @param string    $group
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws Exception
      */
-    private function chownFile(PhingFile $file, $user, $group = '')
+    private function chownFile(PhingFile $file, string $user, string $group = ''): void
     {
         if (!$file->exists()) {
             throw new BuildException('The file ' . $file->__toString() . ' does not exist');

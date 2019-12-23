@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+declare(strict_types=1);
+
 /**
  * Testcases for phing.util.PearPackageScanner
  *
@@ -27,7 +29,10 @@
  */
 class PearPackageScannerTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
             $this->markTestSkipped('This test requires PEAR to be installed');
@@ -37,7 +42,12 @@ class PearPackageScannerTest extends BuildFileTest
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
     }
 
-    public function testLoadPackageInfo()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testLoadPackageInfo(): void
     {
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('console_getopt');
@@ -51,7 +61,12 @@ class PearPackageScannerTest extends BuildFileTest
         $this->assertInstanceOf('PEAR_PackageFile_v2', $packageInfo);
     }
 
-    public function testLoadPackageInfoNonexistingPackage()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testLoadPackageInfoNonexistingPackage(): void
     {
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('this_package_does_not_exist');
@@ -66,7 +81,10 @@ class PearPackageScannerTest extends BuildFileTest
         $method->invoke($ppfs);
     }
 
-    public function testSetRoleEmpty()
+    /**
+     * @return void
+     */
+    public function testSetRoleEmpty(): void
     {
         $ppfs = new PearPackageScanner();
 
@@ -75,7 +93,10 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs->setRole(null);
     }
 
-    public function testScanRoleDocCorrectDirectory()
+    /**
+     * @return void
+     */
+    public function testScanRoleDocCorrectDirectory(): void
     {
         $pps = new PearPackageScanner();
         $pps->setChannel('pear.php.net');
@@ -95,7 +116,10 @@ class PearPackageScannerTest extends BuildFileTest
         }
     }
 
-    public function testSetConfigNonexistingFile()
+    /**
+     * @return void
+     */
+    public function testSetConfigNonexistingFile(): void
     {
         $ppfs = new PearPackageScanner();
 
@@ -104,27 +128,42 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs->setConfig('/this/file/does/not/really/exist');
     }
 
-    public function testGetIncludedFiles()
+    /**
+     * @return void
+     */
+    public function testGetIncludedFiles(): void
     {
         $this->markTestIncomplete();
     }
 
-    public function testGetIncludedDirectories()
+    /**
+     * @return void
+     */
+    public function testGetIncludedDirectories(): void
     {
         $this->markTestIncomplete();
     }
 
-    public function testGetBaseDir()
+    /**
+     * @return void
+     */
+    public function testGetBaseDir(): void
     {
         $this->markTestIncomplete();
     }
 
-    public function testScan()
+    /**
+     * @return void
+     */
+    public function testScan(): void
     {
         $this->markTestIncomplete();
     }
 
-    public function testSetDescFileNonexistingFile()
+    /**
+     * @return void
+     */
+    public function testSetDescFileNonexistingFile(): void
     {
         $ppfs = new PearPackageScanner();
 
@@ -135,8 +174,10 @@ class PearPackageScannerTest extends BuildFileTest
 
     /**
      * baseinstalldir attribute needs to be taken into account.
+     *
+     * @return void
      */
-    public function testScanBaseInstallDir()
+    public function testScanBaseInstallDir(): void
     {
         $pps = new PearPackageScanner();
         $pps->setDescFile(
@@ -157,12 +198,15 @@ class PearPackageScannerTest extends BuildFileTest
 
     /**
      * install_as-attribute needs to be taken into account.
-     *
      * We need to use a serialized package info here since some
      * properties we need are only available in the registry,
      * not in the package file itself.
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testScanInstallAs()
+    public function testScanInstallAs(): void
     {
         $pkgInfoFile = __DIR__ . '/../../../etc/types/'
             . 'packageInfo_Services_Linkback-0.2.0.ser.dat';

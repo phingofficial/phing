@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class to hold a reference to another object in the project.
  *
@@ -35,31 +37,39 @@ class Reference
     private $project;
 
     /**
-     * @param string $id
+     * @param Project     $project
+     * @param string|null $id
      */
-    public function __construct(Project $project, $id = null)
+    public function __construct(Project $project, ?string $id = null)
     {
         $this->setRefId($id);
         $this->setProject($project);
     }
 
     /**
-     * @param string $id
+     * @param string|null $id
+     *
+     * @return void
      */
-    public function setRefId($id)
+    public function setRefId(?string $id): void
     {
         $this->refid = (string) $id;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRefId()
+    public function getRefId(): ?string
     {
         return $this->refid;
     }
 
-    public function setProject(Project $project)
+    /**
+     * @param Project $project
+     *
+     * @return void
+     */
+    public function setProject(Project $project): void
     {
         $this->project = $project;
     }
@@ -79,7 +89,7 @@ class Reference
      *
      * @param Project|null $fallback
      *
-     * @return object
+     * @return string|object
      */
     public function getReferencedObject(?Project $fallback = null)
     {
@@ -97,7 +107,10 @@ class Reference
         return $o;
     }
 
-    public function __toString()
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
         return $this->refid;
     }

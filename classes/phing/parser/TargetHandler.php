@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The target handler class.
  *
@@ -33,7 +35,7 @@ class TargetHandler extends AbstractHandler
      * Reference to the target object that represents the currently parsed
      * target.
      *
-     * @var object the target instance
+     * @var Target the target instance
      */
     private $target;
 
@@ -83,10 +85,13 @@ class TargetHandler extends AbstractHandler
      * @param string $tag   The tag that comes in
      * @param array  $attrs Attributes the tag carries
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws ExpatParseException
+     * @throws Exception
      */
-    public function init($tag, $attrs)
+    public function init(string $tag, array $attrs): void
     {
         $name        = null;
         $depends     = '';
@@ -198,8 +203,10 @@ class TargetHandler extends AbstractHandler
      *
      * @param string $name  the tag that comes in
      * @param array  $attrs attributes the tag carries
+     *
+     * @return void
      */
-    public function startElement($name, $attrs)
+    public function startElement(string $name, array $attrs): void
     {
         $tmp = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->target);
         $tmp->init($name, $attrs);
@@ -208,8 +215,12 @@ class TargetHandler extends AbstractHandler
     /**
      * Checks if this target has dependencies and/or nested tasks.
      * If the target has neither, show a warning.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function finished()
+    protected function finished(): void
     {
         if (!count($this->target->getDependencies()) && !count($this->target->getTasks())) {
             $this->configurator->project->log(

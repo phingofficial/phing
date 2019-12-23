@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the If Task
  *
@@ -25,7 +27,10 @@
  */
 class IfTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/IfTest.xml'
@@ -35,9 +40,11 @@ class IfTaskTest extends BuildFileTest
     /**
      * Test the 'elseif' conditional of the if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testAddElseIf()
+    public function testAddElseIf(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -49,9 +56,11 @@ class IfTaskTest extends BuildFileTest
     /**
      * Test the 'then' conditional of the if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testAddThen()
+    public function testAddThen(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -63,9 +72,11 @@ class IfTaskTest extends BuildFileTest
     /**
      * Test the 'else' conditional of the if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testAddElse()
+    public function testAddElse(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -78,9 +89,11 @@ class IfTaskTest extends BuildFileTest
      * test that a buildexception is thrown when we've got two
      * <then> statements in an if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testAddDoubleThen()
+    public function testAddDoubleThen(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
@@ -93,9 +106,11 @@ class IfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got two
      * <else> statements in an if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testAddDoubleElse()
+    public function testAddDoubleElse(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
@@ -108,9 +123,11 @@ class IfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got two
      * <else> statements in an if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testMultipleConditions()
+    public function testMultipleConditions(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;

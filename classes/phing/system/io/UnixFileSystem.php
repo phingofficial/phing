@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * UnixFileSystem class. This class encapsulates the basic file system functions
  * for platforms using the unix (posix)-stylish filesystem. It wraps php native
@@ -44,7 +46,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function getSeparator()
+    public function getSeparator(): string
     {
         return '/';
     }
@@ -54,7 +56,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function getPathSeparator()
+    public function getPathSeparator(): string
     {
         return ':';
     }
@@ -73,7 +75,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function normalize($strPathname)
+    public function normalize(string $strPathname): string
     {
         if (!strlen($strPathname)) {
             return '';
@@ -93,12 +95,12 @@ class UnixFileSystem extends FileSystem
         for (; $i < $n; $i++) {
             $c = $strPathname[$i];
             if (($prevChar === '/') && ($c === '/')) {
-                return self::normalizer($strPathname, $n, $i - 1);
+                return $this->normalizer($strPathname, $n, $i - 1);
             }
             $prevChar = $c;
         }
         if ($prevChar === '/') {
-            return self::normalizer($strPathname, $n, $n - 1);
+            return $this->normalizer($strPathname, $n, $n - 1);
         }
 
         return $strPathname;
@@ -114,7 +116,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    protected function normalizer($pathname, $len, $offset)
+    protected function normalizer(string $pathname, int $len, int $offset): string
     {
         if ($len === 0) {
             return $pathname;
@@ -152,7 +154,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return int
      */
-    public function prefixLength($pathname)
+    public function prefixLength(string $pathname): int
     {
         if (strlen($pathname) === 0) {
             return 0;
@@ -184,7 +186,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function resolve($parent, $child)
+    public function resolve(string $parent, string $child): string
     {
         if ($child === '') {
             return $parent;
@@ -208,7 +210,7 @@ class UnixFileSystem extends FileSystem
     /**
      * @return string
      */
-    public function getDefaultParent()
+    public function getDefaultParent(): string
     {
         return '/';
     }
@@ -218,7 +220,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return bool
      */
-    public function isAbsolute(PhingFile $f)
+    public function isAbsolute(PhingFile $f): bool
     {
         return $f->getPrefixLength() !== 0;
     }
@@ -230,7 +232,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function resolveFile(PhingFile $f)
+    public function resolveFile(PhingFile $f): string
     {
         // resolve if parent is a file oject only
         if ($this->isAbsolute($f)) {
@@ -252,7 +254,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return int
      */
-    public function compare(PhingFile $f1, PhingFile $f2)
+    public function compare(PhingFile $f1, PhingFile $f2): int
     {
         $f1Path = $f1->getPath();
         $f2Path = $f2->getPath();
@@ -270,7 +272,7 @@ class UnixFileSystem extends FileSystem
      *
      * @throws Exception if file cannot be copied.
      */
-    public function copy(PhingFile $src, PhingFile $dest)
+    public function copy(PhingFile $src, PhingFile $dest): void
     {
         if (!$src->isLink()) {
             parent::copy($src, $dest);
@@ -292,7 +294,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function fromURIPath($p)
+    public function fromURIPath(string $p): string
     {
         if (StringHelper::endsWith('/', $p) && (strlen($p) > 1)) {
             // "/foo/" --> "/foo", but "/" --> "/"
@@ -308,8 +310,10 @@ class UnixFileSystem extends FileSystem
      * @param PhingFile $f
      *
      * @return bool
+     *
+     * @throws IOException
      */
-    public function canDelete(PhingFile $f)
+    public function canDelete(PhingFile $f): bool
     {
         @clearstatcache();
         $dir = dirname($f->getAbsolutePath());

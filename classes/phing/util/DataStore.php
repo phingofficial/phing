@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * An abstract representation of file and directory pathnames.
  *
@@ -32,6 +34,8 @@ class DataStore
      * Constructs a new data store
      *
      * @param PhingFile $file object pointing to the data store on disk
+     *
+     * @throws IOException
      */
     public function __construct(PhingFile $file)
     {
@@ -44,6 +48,8 @@ class DataStore
 
     /**
      * Destructor
+     *
+     * @throws IOException
      */
     public function __destruct()
     {
@@ -57,7 +63,7 @@ class DataStore
      *
      * @return mixed the value
      */
-    public function get($key)
+    public function get(string $key): string
     {
         if (!isset($this->data[$key])) {
             return null;
@@ -75,8 +81,10 @@ class DataStore
      *                           the data store to disk
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function put($key, $value, $autocommit = false)
+    public function put(string $key, $value, bool $autocommit = false): void
     {
         $this->data[$key] = $value;
 
@@ -91,8 +99,12 @@ class DataStore
      * @param string $key        the key
      * @param bool   $autocommit Whether to auto-commit (write)
      *                           the data store to disk
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function remove($key, $autocommit = false)
+    public function remove(string $key, bool $autocommit = false): void
     {
         unset($this->data[$key]);
 
@@ -105,8 +117,10 @@ class DataStore
      * Commits data store to disk
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function commit()
+    public function commit(): void
     {
         $this->write();
     }
@@ -116,9 +130,11 @@ class DataStore
      *
      * @return void
      *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    private function read()
+    private function read(): void
     {
         if (!$this->file->canRead()) {
             throw new BuildException(
@@ -137,9 +153,10 @@ class DataStore
      *
      * @return void
      *
+     * @throws IOException
      * @throws BuildException
      */
-    private function write()
+    private function write(): void
     {
         if (!$this->file->canWrite()) {
             throw new BuildException(

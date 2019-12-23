@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task that changes the permissions on a file/directory.
  *
@@ -44,8 +46,10 @@ class Basename extends Task
      * file or directory to get base name from
      *
      * @param PhingFile $file file or directory to get base name from
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -54,8 +58,10 @@ class Basename extends Task
      * Property to set base name to.
      *
      * @param string $property name of property
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -64,8 +70,10 @@ class Basename extends Task
      * Optional suffix to remove from base name.
      *
      * @param string $suffix suffix to remove from base name
+     *
+     * @return void
      */
-    public function setSuffix($suffix)
+    public function setSuffix(string $suffix): void
     {
         $this->suffix = $suffix;
     }
@@ -73,10 +81,12 @@ class Basename extends Task
     /**
      * do the work
      *
+     * @return void
+     *
      * @throws BuildException if required attributes are not supplied
      *                        property and attribute are required attributes
      */
-    public function main()
+    public function main(): void
     {
         if ($this->property === null) {
             throw new BuildException('property attribute required', $this->getLocation());
@@ -92,7 +102,13 @@ class Basename extends Task
         );
     }
 
-    private function removeExtension(?string $s, ?string $ext)
+    /**
+     * @param string|null $s
+     * @param string|null $ext
+     *
+     * @return string|null
+     */
+    private function removeExtension(?string $s, ?string $ext): ?string
     {
         if ($ext === null || !StringHelper::endsWith($ext, $s)) {
             return $s;

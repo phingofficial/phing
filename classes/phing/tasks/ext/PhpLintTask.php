@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
  *
@@ -29,24 +31,49 @@ class PhpLintTask extends Task
     use FileSetAware;
     use LogLevelAware;
 
+    /**
+     * @var PhingFile
+     */
     protected $file; // the source file (from xml attribute)
 
+    /**
+     * @var string
+     */
     protected $errorProperty;
+
+    /**
+     * @var bool
+     */
     protected $haltOnFailure = false;
     protected $hasErrors     = false;
     protected $badFiles      = [];
-    protected $interpreter   = ''; // php interpreter to use for linting
 
+    /**
+     * @var string
+     */
+    protected $interpreter = ''; // php interpreter to use for linting
+
+    /**
+     * @var DataStore|null
+     */
     protected $cache = null;
 
+    /**
+     * @var PhingFile|null
+     */
     protected $tofile = null;
 
+    /**
+     * @var bool
+     */
     protected $deprecatedAsError = false;
 
     /**
      * Initialize the interpreter with the Phing property php.interpreter
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->setInterpreter($this->project->getProperty('php.interpreter'));
     }
@@ -56,10 +83,12 @@ class PhpLintTask extends Task
      *
      * @param string $sPhp
      *
+     * @return void
+     *
      * @todo  Do some sort of checking if the path is correct but would
      *          require traversing the systems executeable path too
      */
-    public function setInterpreter($sPhp)
+    public function setInterpreter(string $sPhp): void
     {
         if (strpos($sPhp, ' ') !== false) {
             $sPhp = escapeshellarg($sPhp);
@@ -71,8 +100,10 @@ class PhpLintTask extends Task
      * The haltonfailure property
      *
      * @param bool $aValue
+     *
+     * @return void
      */
-    public function setHaltOnFailure($aValue)
+    public function setHaltOnFailure(bool $aValue): void
     {
         $this->haltOnFailure = $aValue;
     }
@@ -81,8 +112,10 @@ class PhpLintTask extends Task
      * File to be performed syntax check on
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -91,8 +124,10 @@ class PhpLintTask extends Task
      * Set an property name in which to put any errors.
      *
      * @param string $propname
+     *
+     * @return void
      */
-    public function setErrorproperty($propname)
+    public function setErrorproperty(string $propname): void
     {
         $this->errorProperty = $propname;
     }
@@ -101,8 +136,12 @@ class PhpLintTask extends Task
      * Whether to store last-modified times in cache
      *
      * @param PhingFile $file
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(PhingFile $file): void
     {
         $this->cache = new DataStore($file);
     }
@@ -111,8 +150,10 @@ class PhpLintTask extends Task
      * File to save error messages to
      *
      * @param PhingFile $tofile
+     *
+     * @return void
      */
-    public function setToFile(PhingFile $tofile)
+    public function setToFile(PhingFile $tofile): void
     {
         $this->tofile = $tofile;
     }
@@ -121,16 +162,24 @@ class PhpLintTask extends Task
      * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
      *
      * @param bool $deprecatedAsError
+     *
+     * @return void
      */
-    public function setDeprecatedAsError($deprecatedAsError)
+    public function setDeprecatedAsError(bool $deprecatedAsError): void
     {
         $this->deprecatedAsError = $deprecatedAsError;
     }
 
     /**
      * Execute lint check against PhingFile or a FileSet
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         if (!isset($this->file) && count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
@@ -189,9 +238,13 @@ class PhpLintTask extends Task
      *
      * @param string $file
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    protected function lint($file)
+    protected function lint(string $file): void
     {
         $command = $this->interpreter == ''
             ? 'php'
@@ -232,14 +285,14 @@ class PhpLintTask extends Task
 
         for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; $i++) {
             $message = $messages[$i];
-            if (trim($message) == '') {
+            if (trim((string) $message) == '') {
                 continue;
             }
 
             if (
-                (!preg_match('/^(.*)Deprecated:/', $message) ||
+                (!preg_match('/^(.*)Deprecated:/', (string) $message) ||
                     $this->deprecatedAsError) &&
-                !preg_match('/^No syntax errors detected/', $message)
+                !preg_match('/^No syntax errors detected/', (string) $message)
             ) {
                 $this->log($message, Project::MSG_ERR);
 

@@ -17,11 +17,18 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class TestEcho
 {
     public $message;
 
-    public function setMessage($s)
+    /**
+     * @param mixed $s
+     *
+     * @return void
+     */
+    public function setMessage($s): void
     {
         $this->message = $s;
     }

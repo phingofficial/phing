@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that chooses files based on their last modified date. Ant uses
  * millisecond precision (thanks to Java); PHP is forced to use only seconds
@@ -51,7 +53,7 @@ class DateSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf  = '{dateselector date: ';
         $buf .= $this->dateTime;
@@ -75,24 +77,30 @@ class DateSelector extends BaseExtendSelector
      *
      * @param int $seconds the time to compare file's last modified date to,
      *                     expressed in seconds
+     *
+     * @return void
      */
-    public function setSeconds($seconds)
+    public function setSeconds(int $seconds): void
     {
         $this->seconds = (int) $seconds;
     }
 
     /**
      * Returns the seconds value the selector is set for.
+     *
+     * @return int
      */
-    public function getSeconds()
+    public function getSeconds(): int
     {
         return $this->seconds;
     }
 
     /**
-     * @param int $millis the time to compare file's last modified date to, expressed in milliseconds
+     * @param int|string $millis the time to compare file's last modified date to, expressed in milliseconds
+     *
+     * @return void
      */
-    public function setMillis($millis)
+    public function setMillis($millis): void
     {
         $this->setSeconds((int) $millis * 1000);
     }
@@ -102,8 +110,10 @@ class DateSelector extends BaseExtendSelector
      * format
      *
      * @param string $dateTime a string in MM/DD/YYYY HH:MM AM_PM format
+     *
+     * @return void
      */
-    public function setDatetime($dateTime)
+    public function setDatetime(string $dateTime): void
     {
         $dt = strtotime($dateTime);
         if ($dt == -1) {
@@ -122,8 +132,10 @@ class DateSelector extends BaseExtendSelector
      * Should we be checking dates on directories?
      *
      * @param bool $includeDirs whether to check the timestamp on directories
+     *
+     * @return void
      */
-    public function setCheckdirs($includeDirs)
+    public function setCheckdirs(bool $includeDirs): void
     {
         $this->includeDirs = (bool) $includeDirs;
     }
@@ -133,8 +145,10 @@ class DateSelector extends BaseExtendSelector
      * a file not to have matched a date.
      *
      * @param int $granularity
+     *
+     * @return void
      */
-    public function setGranularity($granularity)
+    public function setGranularity(int $granularity): void
     {
         $this->granularity = (int) $granularity;
     }
@@ -144,8 +158,10 @@ class DateSelector extends BaseExtendSelector
      * date.
      *
      * @param string $cmp The comparison to perform
+     *
+     * @return void
      */
-    public function setWhen($cmp)
+    public function setWhen(string $cmp): void
     {
         $idx = array_search($cmp, self::$timeComparisons, true);
         if ($idx === null) {
@@ -161,7 +177,7 @@ class DateSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return mixed|void
+     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -195,8 +211,10 @@ class DateSelector extends BaseExtendSelector
     /**
      * This is a consistency check to ensure the selector's required
      * values have been set.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->dateTime === null && $this->seconds < 0) {
             $this->setError(
@@ -221,8 +239,10 @@ class DateSelector extends BaseExtendSelector
      * @param PhingFile $file     is a PhingFile object the selector can use
      *
      * @return bool Whether the file should be selected or not
+     *
+     * @throws IOException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
         if ($file->isDirectory() && ($this->includeDirs === false)) {

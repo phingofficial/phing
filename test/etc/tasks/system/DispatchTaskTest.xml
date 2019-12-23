@@ -18,7 +18,7 @@
                     $this->log("second success!", Project::MSG_INFO);
                 }
 
-                public function main()
+                public function main(): void
                 {
                 }
             }

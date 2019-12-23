@@ -2,14 +2,25 @@
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../vendor/phpunit/phpunit/phpunit.xsd"
+    backupGlobals="false"
+    backupStaticAttributes="false"
     beStrictAboutChangesToGlobalState="true"
+    beStrictAboutCoversAnnotation="false"
     beStrictAboutOutputDuringTests="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
     beStrictAboutTodoAnnotatedTests="true"
     failOnWarning="true"
     failOnRisky="true"
     bootstrap="./bootstrap.php"
+    colors="false"
+    convertErrorsToExceptions="true"
     convertNoticesToExceptions="false"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
     verbose="true"
+    enforceTimeLimit="false"
+    executionOrder="default"
     resolveDependencies="true">
 
     <php>

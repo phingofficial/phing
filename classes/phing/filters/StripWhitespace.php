@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
  *
@@ -27,20 +29,22 @@
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {
+    /**
+     * @var bool
+     */
     private $processed = false;
 
     /**
      * Returns the  stream without Php comments and whitespace.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return string The resulting stream, or -1
      *                if the end of the resulting stream has been reached
      *
      * @throws IOException
-     * @throws NullPointerException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if ($this->processed === true) {
             return -1; // EOF
@@ -63,7 +67,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
         }
 
         // write buffer to a temporary file, since php_strip_whitespace() needs a filename
-        $file = new SplFileObject(tempnam(FileUtils::getTempDir(), mt_rand()), 'w+');
+        $file = new SplFileObject(tempnam(FileUtils::getTempDir(), (string) mt_rand()), 'w+');
         $file->fwrite($php);
         $name   = $file->getRealPath();
         $output = php_strip_whitespace($name);
@@ -85,7 +89,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * @return StripWhitespace A new filter based on this configuration, but filtering
      *                         the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new StripWhitespace($reader);
         $newFilter->setProject($this->getProject());

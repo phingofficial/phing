@@ -17,10 +17,12 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 trait ClasspathAware
 {
     /**
-     * @var Path $classpath
+     * @var Path|null $classpath
      */
     protected $classpath;
 
@@ -42,6 +44,10 @@ trait ClasspathAware
     /**
      * @param Path $classpath
      *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
     public function setClasspath(Path $classpath): void
@@ -57,6 +63,7 @@ trait ClasspathAware
      * @return Path
      *
      * @throws BuildException
+     * @throws Exception
      */
     public function createClasspath(): Path
     {
@@ -72,6 +79,9 @@ trait ClasspathAware
      *
      * @param Reference $r
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r): void

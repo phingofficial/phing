@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Applies a native php function to the original input.
  *
@@ -49,11 +51,13 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Applies a native php function to the original input and returns resulting stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed buffer, -1 on EOF
+     *
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -78,8 +82,10 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      * Sets the function used by array_map.
      *
      * @param string $function The function used by array_map.
+     *
+     * @return void
      */
-    public function setFunction($function)
+    public function setFunction(string $function): void
     {
         $this->function = (string) $function;
     }
@@ -89,7 +95,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      *
      * @return string The prefix which will be added at the start of each input line
      */
-    public function getFunction()
+    public function getFunction(): string
     {
         return $this->function;
     }
@@ -97,9 +103,11 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Make sure that required attributes are set.
      *
+     * @return void
+     *
      * @throws BuildException - if any required attribs aren't set.
      */
-    protected function checkAttributes()
+    protected function checkAttributes(): void
     {
         if (!$this->function) {
             throw new BuildException("You must specify a value for the 'function' attribute.");
@@ -116,7 +124,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      * @return PhpArrayMapLines A new filter based on this configuration, but filtering
      *                          the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new PhpArrayMapLines($reader);
         $newFilter->setFunction($this->getFunction());
@@ -128,8 +136,10 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Initializes the function if it is available from the parameters.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

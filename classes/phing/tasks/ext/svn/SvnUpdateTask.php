@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Updates a repository in local directory
  *
@@ -37,9 +39,12 @@ class SvnUpdateTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('update');
 
@@ -57,8 +62,10 @@ class SvnUpdateTask extends SvnBaseTask
 
     /**
      * @param string $revision
+     *
+     * @return void
      */
-    public function setRevision($revision)
+    public function setRevision(string $revision): void
     {
         $this->revision = $revision;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Classes implementing this interface specify the
  * name of the parameter that contains the name
@@ -32,5 +34,5 @@ interface Dispatchable
      *
      * @return string the name of the parameter that contains the name of the method.
      */
-    public function getActionParameterName();
+    public function getActionParameterName(): string;
 }

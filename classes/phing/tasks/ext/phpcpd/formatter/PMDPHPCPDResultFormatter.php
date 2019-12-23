@@ -1,7 +1,4 @@
 <?php
-
-use SebastianBergmann\PHPCPD\Log\PMD;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use SebastianBergmann\PHPCPD\Log\PMD;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use SebastianBergmann\PHPCPD\Log\PMD;
+
 /**
  * Prints PMD-XML output of phpcpd run
  *
@@ -36,18 +37,20 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param bool                         $useFile
      * @param PhingFile|null               $outFile
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function processClones($clones, Project $project, $useFile = false, $outFile = null)
+    public function processClones($clones, Project $project, bool $useFile = false, ?PhingFile $outFile = null): void
     {
         if (!$useFile || empty($outFile)) {
             throw new BuildException('Output filename required for this formatter');
         }
 
         if (get_class($clones) == 'PHPCPD_CloneMap') {
-            $logger = new PHPCPD_Log_XML_PMD($outFile);
+            $logger = new PHPCPD_Log_XML_PMD((string) $outFile);
         } else {
-            $logger = new PMD($outFile);
+            $logger = new PMD((string) $outFile);
         }
 
         $logger->processClones($clones);

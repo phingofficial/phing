@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Apply Task
  *
@@ -27,8 +29,10 @@ class PathConvertTest extends BuildFileTest
 {
     /**
      * Setup the test
+     *
+     * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PathConvertTest.xml');
@@ -36,24 +40,39 @@ class PathConvertTest extends BuildFileTest
 
     /**
      * Tests the OS execution for the unspecified OS
+     *
+     * @return void
      */
-    public function testDirChar()
+    public function testDirChar(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('def|ghi', 'def|ghi');
     }
 
-    public function testMap()
+    /**
+     * @return void
+     */
+    public function testMap(): void
     {
         $this->assertTarget('testmap');
     }
 
-    public function testMapper()
+    /**
+     * @return void
+     */
+    public function testMapper(): void
     {
         $this->assertTarget('testmapper');
     }
 
-    public function testUnique()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
+     */
+    public function testUnique(): void
     {
         $p = new Path($this->project, '/a:/a');
         $p->setPath('\\a;/a');
@@ -69,7 +88,12 @@ class PathConvertTest extends BuildFileTest
         $this->assertCount(6, $l, '6 after preserved duplicates');
     }
 
-    private function assertTarget(string $target)
+    /**
+     * @param string $target
+     *
+     * @return void
+     */
+    private function assertTarget(string $target): void
     {
         $this->executeTarget($target);
         $this->assertEquals('test#PathConvertTest.xml', $this->getProject()->getProperty('result'));

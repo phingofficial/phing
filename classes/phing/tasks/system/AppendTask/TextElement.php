@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Text element points to a file or contains text.
  *
@@ -24,11 +26,30 @@
  */
 class TextElement extends ProjectComponent
 {
-    public $value       = '';
+    /**
+     * @var string
+     */
+    public $value = '';
+
+    /**
+     * @var bool
+     */
     public $trimLeading = false;
-    public $trim        = false;
-    public $filtering   = true;
-    public $encoding    = null;
+
+    /**
+     * @var bool
+     */
+    public $trim = false;
+
+    /**
+     * @var bool
+     */
+    public $filtering = true;
+
+    /**
+     * @var string|null
+     */
+    public $encoding = null;
 
     /**
      * whether to filter the text in this element
@@ -36,8 +57,10 @@ class TextElement extends ProjectComponent
      *
      * @param bool $filtering True if the text should be filtered.
      *                        the default value is true.
+     *
+     * @return void
      */
-    public function setFiltering($filtering)
+    public function setFiltering(bool $filtering): void
     {
         $this->filtering = $filtering;
     }
@@ -46,8 +69,10 @@ class TextElement extends ProjectComponent
      * The encoding of the text element
      *
      * @param string $encoding the name of the charset used to encode
+     *
+     * @return void
      */
-    public function setEncoding($encoding)
+    public function setEncoding(string $encoding): void
     {
         $this->encoding = $encoding;
     }
@@ -57,10 +82,13 @@ class TextElement extends ProjectComponent
      *
      * @param PhingFile $file the file to use
      *
-     * @throws BuildException if the file does not exist, or cannot be
-     *                        read
+     * @return void
+     *
+     * @throws IOException
+     * @throws BuildException if the file does not exist, or cannot be read
+     * @throws Exception
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         // non-existing files are not allowed
         if (!$file->exists()) {
@@ -78,18 +106,20 @@ class TextElement extends ProjectComponent
             }
             $this->value = $reader->read();
         } catch (IOException $ex) {
-            $reader->close();
             throw new BuildException($ex);
+        } finally {
+            $reader->close();
         }
-        $reader->close();
     }
 
     /**
      * set the text using inline
      *
      * @param string $value the text to place inline
+     *
+     * @return void
      */
-    public function addText($value)
+    public function addText(string $value): void
     {
         $this->value .= $this->getProject()->replaceProperties($value);
     }
@@ -98,8 +128,10 @@ class TextElement extends ProjectComponent
      * s:^\s*:: on each line of input
      *
      * @param bool $trimLeading if true do the trim
+     *
+     * @return void
      */
-    public function setTrimLeading($trimLeading)
+    public function setTrimLeading(bool $trimLeading): void
     {
         $this->trimLeading = $trimLeading;
     }
@@ -108,8 +140,10 @@ class TextElement extends ProjectComponent
      * whether to call text.trim()
      *
      * @param bool $trim if true trim the text
+     *
+     * @return void
      */
-    public function setTrim($trim)
+    public function setTrim(bool $trim): void
     {
         $this->trim = $trim;
     }
@@ -117,7 +151,7 @@ class TextElement extends ProjectComponent
     /**
      * @return string the text, after possible trimming
      */
-    public function getValue()
+    public function getValue(): string
     {
         if ($this->value == null) {
             $this->value = '';

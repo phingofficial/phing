@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 trait FilterChainAware
 {
     /**
@@ -26,8 +28,10 @@ trait FilterChainAware
 
     /**
      * @param FilterChain $filterChain
+     *
+     * @return void
      */
-    public function addFilterChain(FilterChain $filterChain)
+    public function addFilterChain(FilterChain $filterChain): void
     {
         $this->filterChains[] = $filterChain;
     }
@@ -35,7 +39,7 @@ trait FilterChainAware
     /**
      * @return FilterChain[]
      */
-    public function getFilterChains()
+    public function getFilterChains(): array
     {
         return $this->filterChains;
     }

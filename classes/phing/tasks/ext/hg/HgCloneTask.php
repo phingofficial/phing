@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg clone
  *
@@ -38,7 +40,7 @@ class HgCloneTask extends HgBaseTask
      *
      * @return void
      */
-    public function setTargetPath($targetPath)
+    public function setTargetPath(string $targetPath): void
     {
         $this->targetPath = $targetPath;
     }
@@ -48,7 +50,7 @@ class HgCloneTask extends HgBaseTask
      *
      * @return string
      */
-    public function getTargetPath()
+    public function getTargetPath(): string
     {
         return $this->targetPath;
     }
@@ -59,12 +61,13 @@ class HgCloneTask extends HgBaseTask
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $clone      = $this->getFactoryInstance('clone');
         $repository = $this->getRepository();
-        if ($repository === '') {
+        if (null === $repository || '' === $repository) {
             throw new BuildException('"repository" is a required parameter');
         }
         $target = $this->getTargetPath();

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A selector that selects executable files.
  *
@@ -25,7 +27,16 @@
  */
 class ExecutableSelector implements FileSelector
 {
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    /**
+     * @param PhingFile $basedir
+     * @param string    $filename
+     * @param PhingFile $file
+     *
+     * @return bool
+     *
+     * @throws IOException
+     */
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         return $file !== null && $file->isExecutable();
     }

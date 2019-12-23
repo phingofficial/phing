@@ -23,11 +23,20 @@ class PHPStanTaskTest extends BuildFileTest
 {
     private const PHPSTAN_TEST_BASE = PHING_TEST_BASE . '/etc/tasks/ext/phpstan/';
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(self::PHPSTAN_TEST_BASE . '/PHPStanTaskTest.xml');
     }
 
+    /**
+     * @return void
+     */
     public function testItRun(): void
     {
         $this->executeTarget('testRun');
@@ -37,6 +46,9 @@ class PHPStanTaskTest extends BuildFileTest
         $this->assertExpectedCommandInLogs($expectedCommand);
     }
 
+    /**
+     * @return void
+     */
     public function testItRunWithFileset(): void
     {
         $this->executeTarget('testRunFileset');
@@ -44,12 +56,19 @@ class PHPStanTaskTest extends BuildFileTest
         $this->assertExpectedCommandInLogs('phpstan analyse');
     }
 
+    /**
+     * @param string $expectedCommand
+     *
+     * @return void
+     */
     private function assertExpectedCommandInLogs(string $expectedCommand): void
     {
         $this->assertInLogs('Executing command: ' . $expectedCommand, Project::MSG_INFO);
     }
 
     /**
+     * @return void
+     *
      * @depends testItRun
      */
     public function testExecutableCanBeSet(): void
@@ -67,6 +86,8 @@ class PHPStanTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @depends testItRun
      */
     public function testTestInvalidCommandCausesBuildError(): void
@@ -77,6 +98,8 @@ class PHPStanTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @depends testItRun
      */
     public function testAnalyseOptionsCanBeSet(): void
@@ -97,6 +120,8 @@ class PHPStanTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @depends testItRun
      */
     public function testHelpOptionsCanBeSet(): void
@@ -112,6 +137,8 @@ class PHPStanTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @depends testItRun
      */
     public function testListOptionsCanBeSet(): void
@@ -127,6 +154,8 @@ class PHPStanTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @depends testItRun
      */
     public function testCommonOptionsCanBeSet(): void

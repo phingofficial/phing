@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper class for readers, which can be used to apply filters.
  *
@@ -25,12 +27,12 @@
 class FilterReader extends Reader
 {
     /**
-     * @var Reader
+     * @var Reader|null
      */
     protected $in;
 
     /**
-     * @param Reader $in
+     * @param Reader|null $in
      */
     public function __construct(?Reader $in = null)
     {
@@ -39,18 +41,22 @@ class FilterReader extends Reader
 
     /**
      * @param Reader $in
+     *
+     * @return void
      */
-    public function setReader(Reader $in)
+    public function setReader(Reader $in): void
     {
         $this->in = $in;
     }
 
     /**
      * @param int $n
+     *
+     * @return int
      */
-    public function skip($n)
+    public function skip(int $n): int
     {
-        $this->in->skip($n);
+        return $this->in->skip($n);
     }
 
     /**
@@ -58,31 +64,39 @@ class FilterReader extends Reader
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
      *
-     * @param int $len
+     * @param int|null $len
      *
-     * @return string
+     * @return mixed
      *
      * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         return $this->in->read($len);
     }
 
-    public function reset()
+    /**
+     * @return void
+     */
+    public function reset(): void
     {
         $this->in->reset();
     }
 
-    public function close()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function close(): void
     {
-        return $this->in->close();
+        $this->in->close();
     }
 
     /**
      * @return string
      */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->in->getResource();
     }

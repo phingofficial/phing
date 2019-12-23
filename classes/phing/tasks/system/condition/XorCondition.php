@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The Xor condition type to exclusive or operations. This does not shortcut stuff.
  *
@@ -30,7 +32,7 @@ class XorCondition extends ConditionBase implements Condition
      *
      * @return bool
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         $conditions = $this->getConditions();
         $state      = false;
@@ -38,6 +40,6 @@ class XorCondition extends ConditionBase implements Condition
             $state ^= $condition->evaluate();
         }
 
-        return $state;
+        return (bool) $state;
     }
 }

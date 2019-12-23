@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Move Task
  *
@@ -25,7 +27,10 @@
  */
 class MoveTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,36 +39,50 @@ class MoveTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testMoveSingleFile()
+    /**
+     * @return void
+     */
+    public function testMoveSingleFile(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/fileB');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/fileB');
     }
 
-    public function testMoveFileSet()
+    /**
+     * @return void
+     */
+    public function testMoveFileSet(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
+        self::assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
-    public function testRenameDirectory()
+    /**
+     * @return void
+     */
+    public function testRenameDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
+        self::assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/582}
      * - Add haltonerror attribute to copy/move tasks
+     *
+     * @return void
      */
-    public function testIgnoreErrors()
+    public function testIgnoreErrors(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Could not find file ');
@@ -72,8 +91,10 @@ class MoveTaskTest extends BuildFileTest
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/307}
      * - Replaceregexp filter works in Copy task but not Move task
+     *
+     * @return void
      */
-    public function testReplaceRegexp()
+    public function testReplaceRegexp(): void
     {
         $this->executeTarget(__FUNCTION__);
 

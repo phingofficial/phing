@@ -39,6 +39,8 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  */
 
+declare(strict_types=1);
+
 /**
  * Tests for GrowlNotifyTask that raised error
  *
@@ -56,14 +58,18 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @var object
      */
-    protected $mockTask;
+    private $mockTask;
 
     /**
      * Sets up the fixture.
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws Net_Growl_Exception
+     * @throws NullPointerException
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         if (!class_exists('Net_Growl')) {
             $this->markTestSkipped('Need Net_Growl installed to test');
@@ -115,7 +121,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyName()
+    public function testEmptyName(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -127,7 +133,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyTitle()
+    public function testEmptyTitle(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -144,7 +150,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyNotification()
+    public function testEmptyNotification(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -161,7 +167,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyAppIcon()
+    public function testEmptyAppIcon(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -178,7 +184,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyPriority()
+    public function testEmptyPriority(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -195,7 +201,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyProtocol()
+    public function testEmptyProtocol(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -204,5 +210,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
                 $e->getMessage() . ' exception has been raised while not expected.'
             );
         }
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 }

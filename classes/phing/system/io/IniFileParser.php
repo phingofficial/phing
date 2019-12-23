@@ -17,8 +17,10 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
- * Implements an IniFileParser. The logic is coming from th Properties.php, but I don't know who's the author.
+ * Implements an IniFileParser. The logic is coming from the Properties.php, but I don't know who's the author.
  *
  * FIXME
  *  - Add support for arrays (separated by ',')
@@ -29,11 +31,23 @@
 class IniFileParser implements FileParserInterface
 {
     /**
-     * {@inheritDoc}
+     * @param PhingFile $file
+     *
+     * @return array
+     *
+     * @throws IOException
      */
-    public function parseFile(PhingFile $file)
+    public function parseFile(PhingFile $file): array
     {
-        if (($lines = @file($file, FILE_IGNORE_NEW_LINES)) === false) {
+        if (!file_exists((string) $file)) {
+            throw new IOException('file ' . $file . ' not found');
+        }
+
+        if (!is_readable((string) $file)) {
+            throw new IOException('file ' . $file . ' not readable');
+        }
+
+        if (($lines = @file((string) $file, FILE_IGNORE_NEW_LINES)) === false) {
             throw new IOException('Unable to parse contents of ' . $file);
         }
 
@@ -49,15 +63,15 @@ class IniFileParser implements FileParserInterface
         $properties = [];
         foreach ($lines as $line) {
             // strip comments and leading/trailing spaces
-            $line = trim(preg_replace('/\s+[;#]\s.+$/', '', $line));
+            $line = trim((string) preg_replace('/\s+[;#]\s.+$/', '', $line));
 
             if (empty($line) || $line[0] == ';' || $line[0] == '#') {
                 continue;
             }
 
             $pos                   = strpos($line, '=');
-            $property              = trim(substr($line, 0, $pos));
-            $value                 = trim(substr($line, $pos + 1));
+            $property              = trim((string) substr($line, 0, $pos));
+            $value                 = trim((string) substr($line, $pos + 1));
             $properties[$property] = $this->inVal($value);
         } // for each line
 
@@ -70,9 +84,9 @@ class IniFileParser implements FileParserInterface
      *
      * @param string $val Trimmed value.
      *
-     * @return mixed The new property value (may be boolean, etc.)
+     * @return string|bool The new property value (may be boolean, etc.)
      */
-    protected function inVal($val)
+    protected function inVal(string $val)
     {
         if ($val === 'true') {
             $val = true;

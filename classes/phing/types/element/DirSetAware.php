@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 trait DirSetAware
 {
     /**
@@ -24,7 +26,12 @@ trait DirSetAware
      */
     protected $dirsets = [];
 
-    public function addDirSet(DirSet $dirSet)
+    /**
+     * @param DirSet $dirSet
+     *
+     * @return void
+     */
+    public function addDirSet(DirSet $dirSet): void
     {
         $this->dirsets[] = $dirSet;
     }
@@ -32,7 +39,7 @@ trait DirSetAware
     /**
      * @return DirSet[]
      */
-    public function getDirSets()
+    public function getDirSets(): array
     {
         return $this->dirsets;
     }

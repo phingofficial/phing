@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg tag
  *
@@ -52,7 +54,7 @@ class HgTagTask extends HgBaseTask
      *
      * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -62,7 +64,7 @@ class HgTagTask extends HgBaseTask
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -74,7 +76,7 @@ class HgTagTask extends HgBaseTask
      *
      * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
@@ -84,7 +86,7 @@ class HgTagTask extends HgBaseTask
      *
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -96,7 +98,7 @@ class HgTagTask extends HgBaseTask
      *
      * @return void
      */
-    public function setRevision($revision)
+    public function setRevision(string $revision): void
     {
         $this->revision = $revision;
     }
@@ -106,7 +108,7 @@ class HgTagTask extends HgBaseTask
      *
      * @return void
      */
-    public function main()
+    public function main(): void
     {
         $clone = $this->getFactoryInstance('tag');
         $cwd   = getcwd();

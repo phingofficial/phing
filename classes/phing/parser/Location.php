@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Stores the file name and line number of a XML file
  *
@@ -44,11 +46,11 @@ class Location
     /**
      * Constructs the location consisting of a file name and line number
      *
-     * @param string $fileName     the filename
-     * @param int    $lineNumber   the line number
-     * @param int    $columnNumber the column number
+     * @param string|null $fileName     the filename
+     * @param int|null    $lineNumber   the line number
+     * @param int|null    $columnNumber the column number
      */
-    public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
+    public function __construct(?string $fileName = null, ?int $lineNumber = null, ?int $columnNumber = null)
     {
         $this->fileName     = $fileName;
         $this->lineNumber   = $lineNumber;
@@ -58,7 +60,7 @@ class Location
     /**
      * @return string|null
      */
-    public function getFileName()
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
@@ -66,7 +68,7 @@ class Location
     /**
      * @return int|null
      */
-    public function getLineNumber()
+    public function getLineNumber(): ?int
     {
         return $this->lineNumber;
     }
@@ -74,7 +76,7 @@ class Location
     /**
      * @return int|null
      */
-    public function getColumnNumber()
+    public function getColumnNumber(): ?int
     {
         return $this->columnNumber;
     }
@@ -87,7 +89,7 @@ class Location
      *
      * @return string the string representation of this Location object
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         if ($this->fileName !== null) {

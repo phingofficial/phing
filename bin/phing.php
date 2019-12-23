@@ -6,6 +6,8 @@
  * line entry point of phing located in phing.Phing
  */
 
+declare(strict_types=1);
+
 // Use composers autoload.php if available
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     require_once __DIR__ . '/../vendor/autoload.php';
@@ -64,7 +66,7 @@ try {
     exit(-1); // This was convention previously for configuration errors.
 } catch (Exception $x) {
     Phing::shutdown();
-    
+
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 

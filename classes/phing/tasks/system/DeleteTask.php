@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  *
@@ -26,20 +28,44 @@ class DeleteTask extends Task
 {
     use ResourceAware;
 
+    /**
+     * @var PhingFile
+     */
     protected $file;
+
+    /**
+     * @var PhingFile
+     */
     protected $dir;
+
+    /**
+     * @var bool
+     */
     protected $includeEmpty = false;
 
-    protected $quiet       = false;
+    /**
+     * @var bool
+     */
+    protected $quiet = false;
+
+    /**
+     * @var bool
+     */
     protected $failonerror = false;
-    protected $verbosity   = Project::MSG_VERBOSE;
+
+    /**
+     * @var int
+     */
+    protected $verbosity = Project::MSG_VERBOSE;
 
     /**
      * Set the name of a single file to be removed.
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -48,8 +74,10 @@ class DeleteTask extends Task
      * Set the directory from which files are to be deleted.
      *
      * @param PhingFile $dir
+     *
+     * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(PhingFile $dir): void
     {
         $this->dir = $dir;
     }
@@ -58,8 +86,10 @@ class DeleteTask extends Task
      * Used to force listing of all names of deleted files.
      *
      * @param bool $verbosity
+     *
+     * @return void
      */
-    public function setVerbose($verbosity)
+    public function setVerbose(bool $verbosity): void
     {
         if ($verbosity) {
             $this->verbosity = Project::MSG_INFO;
@@ -80,7 +110,7 @@ class DeleteTask extends Task
      *
      * @return void
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $bool): void
     {
         $this->quiet = $bool;
         if ($this->quiet) {
@@ -93,9 +123,9 @@ class DeleteTask extends Task
      *
      * @param bool $bool
      *
-     * @retujrn void
+     * @return void
      */
-    public function setFailOnError($bool)
+    public function setFailOnError(bool $bool): void
     {
         $this->failonerror = $bool;
     }
@@ -107,7 +137,7 @@ class DeleteTask extends Task
      *
      * @return void
      */
-    public function setIncludeEmptyDirs($includeEmpty)
+    public function setIncludeEmptyDirs(bool $includeEmpty): void
     {
         $this->includeEmpty = (bool) $includeEmpty;
     }
@@ -115,9 +145,14 @@ class DeleteTask extends Task
     /**
      * Delete the file(s).
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (
             $this->file === null
@@ -236,9 +271,14 @@ class DeleteTask extends Task
      *
      * @param PhingFile $d The directory to remove.
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function removeDir($d)
+    private function removeDir(PhingFile $d): void
     {
         $list = $d->listDir();
         if ($list === null) {
@@ -280,13 +320,18 @@ class DeleteTask extends Task
      * remove an array of files in a directory, and a list of subdirectories
      * which will only be deleted if 'includeEmpty' is true
      *
-     * @param PhingFile $d      directory to work from
-     * @param array     &$files array of files to delete; can be of zero length
-     * @param array     &$dirs  array of directories to delete; can of zero length
+     * @param PhingFile $d     directory to work from
+     * @param array     $files array of files to delete; can be of zero length
+     * @param array     $dirs  array of directories to delete; can of zero length
+     *
+     * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function removeFiles(PhingFile $d, &$files, &$dirs)
+    private function removeFiles(PhingFile $d, array &$files, array &$dirs): void
     {
         if (count($files) > 0) {
             $this->log('Deleting ' . count($files) . ' files from ' . $d->__toString());

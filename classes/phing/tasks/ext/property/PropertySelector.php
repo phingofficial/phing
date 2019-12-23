@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * PropertySelector Task
  *
@@ -29,38 +31,82 @@ class PropertySelector extends AbstractPropertySetterTask
      * @var RegularExpression $match
      */
     private $match;
-    private $select        = "\\0";
-    private $delim         = ',';
-    private $caseSensitive = true;
-    private $distinct      = false;
 
-    public function setMatch($match)
+    /**
+     * @var string
+     */
+    private $select = "\\0";
+
+    /**
+     * @var string
+     */
+    private $delim = ',';
+
+    /**
+     * @var bool
+     */
+    private $caseSensitive = true;
+
+    /**
+     * @var bool
+     */
+    private $distinct = false;
+
+    /**
+     * @param string $match
+     *
+     * @return void
+     */
+    public function setMatch(string $match): void
     {
         $this->match = new RegularExpression();
         $this->match->setPattern($match);
     }
 
-    public function setSelect($select)
+    /**
+     * @param string $select
+     *
+     * @return void
+     */
+    public function setSelect(string $select): void
     {
         $this->select = $select;
     }
 
-    public function setCaseSensitive($caseSensitive)
+    /**
+     * @param bool $caseSensitive
+     *
+     * @return void
+     */
+    public function setCaseSensitive(bool $caseSensitive): void
     {
         $this->caseSensitive = $caseSensitive;
     }
 
-    public function setDelimiter($delim)
+    /**
+     * @param string $delim
+     *
+     * @return void
+     */
+    public function setDelimiter(string $delim): void
     {
         $this->delim = $delim;
     }
 
-    public function setDistinct($distinct)
+    /**
+     * @param bool $distinct
+     *
+     * @return void
+     */
+    public function setDistinct(bool $distinct): void
     {
         $this->distinct = $distinct;
     }
 
-    protected function validate()
+    /**
+     * @return void
+     */
+    protected function validate(): void
     {
         parent::validate();
         if ($this->match == null) {
@@ -68,7 +114,12 @@ class PropertySelector extends AbstractPropertySetterTask
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws RegexpException
+     */
+    public function main(): void
     {
         $this->validate();
 

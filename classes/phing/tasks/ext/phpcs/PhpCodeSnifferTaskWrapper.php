@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper to disable PHPCS's destructor
  *
@@ -25,6 +27,9 @@
  */
 class PhpCodeSnifferTaskWrapper extends PHP_CodeSniffer
 {
+    /**
+     * @return void
+     */
     public function __destruct()
     {
         // override destructor

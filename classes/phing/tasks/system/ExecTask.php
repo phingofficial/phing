@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Executes a command on the shell.
  *
@@ -122,14 +124,21 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @var bool
+     * @var bool|null
      */
     protected $checkreturn = false;
 
+    /**
+     * @var string
+     */
     private $osFamily;
     private $executable;
     private $resolveExecutable = false;
     private $searchPath        = false;
+
+    /**
+     * @var Environment
+     */
     private $env;
 
     /**
@@ -145,12 +154,17 @@ class ExecTask extends Task
     /**
      * Main method: wraps execute() command.
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!$this->isValidOs()) {
-            return null;
+            return;
         }
 
         try {
@@ -163,8 +177,6 @@ class ExecTask extends Task
         $this->buildCommand();
         [$return, $output] = $this->executeCommand();
         $this->cleanup($return, $output);
-
-        return $return;
     }
 
     /**
@@ -173,9 +185,11 @@ class ExecTask extends Task
      *
      * @return void
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    protected function prepare()
+    protected function prepare(): void
     {
         if ($this->dir === null) {
             $this->dir = $this->getProject()->getBasedir();
@@ -211,11 +225,11 @@ class ExecTask extends Task
     }
 
     /**
-     * @param int $exitValue
+     * @param int|null $exitValue
      *
      * @return bool
      */
-    public function isFailure($exitValue = null)
+    public function isFailure(?int $exitValue = null): bool
     {
         if ($exitValue === null) {
             $exitValue = $this->getExitValue();
@@ -231,9 +245,10 @@ class ExecTask extends Task
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function buildCommand()
+    protected function buildCommand(): void
     {
         if ($this->error !== null) {
             $this->realCommand .= ' 2> ' . escapeshellarg($this->error->getPath());
@@ -276,8 +291,9 @@ class ExecTask extends Task
      * @return array array(return code, array with output)
      *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function executeCommand()
+    protected function executeCommand(): array
     {
         $cmdl = $this->realCommand;
 
@@ -301,14 +317,15 @@ class ExecTask extends Task
      * - log output
      * - verify return value
      *
-     * @param int   $return Return code
-     * @param array $output Array with command output
+     * @param int|null   $return Return code
+     * @param array|null $output Array with command output
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function cleanup($return, $output): void
+    protected function cleanup(?int $return = null, ?array $output = null): void
     {
         if ($this->dir !== null) {
             @chdir($this->currdir);
@@ -342,8 +359,10 @@ class ExecTask extends Task
      * Set the exit value.
      *
      * @param int $value exit value of the process.
+     *
+     * @return void
      */
-    protected function setExitValue($value): void
+    protected function setExitValue(int $value): void
     {
         $this->exitValue = $value;
     }
@@ -367,8 +386,9 @@ class ExecTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function setCommand($command): void
+    public function setCommand(string $command): void
     {
         $this->log(
             "The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
@@ -425,13 +445,15 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setOs($os): void
+    public function setOs(string $os): void
     {
         $this->os = (string) $os;
     }
 
     /**
      * List of operating systems on which the command may be executed.
+     *
+     * @return string
      */
     public function getOs(): string
     {
@@ -442,16 +464,20 @@ class ExecTask extends Task
      * Restrict this execution to a single OS Family
      *
      * @param string $osFamily the family to restrict to.
+     *
+     * @return void
      */
-    public function setOsFamily($osFamily): void
+    public function setOsFamily(string $osFamily): void
     {
         $this->osFamily = strtolower($osFamily);
     }
 
     /**
      * Restrict this execution to a single OS Family
+     *
+     * @return string
      */
-    public function getOsFamily()
+    public function getOsFamily(): string
     {
         return $this->osFamily;
     }
@@ -487,7 +513,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setPassthru($passthru): void
+    public function setPassthru(bool $passthru): void
     {
         $this->passthru = $passthru;
     }
@@ -499,7 +525,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setLogoutput($logOutput): void
+    public function setLogoutput(bool $logOutput): void
     {
         $this->logOutput = $logOutput;
     }
@@ -511,7 +537,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setSpawn($spawn): void
+    public function setSpawn(bool $spawn): void
     {
         $this->spawn = $spawn;
     }
@@ -519,11 +545,11 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param bool $checkreturn If the return code shall be checked
+     * @param bool|null $checkreturn If the return code shall be checked
      *
      * @return void
      */
-    public function setCheckreturn($checkreturn): void
+    public function setCheckreturn(?bool $checkreturn): void
     {
         $this->checkreturn = $checkreturn;
     }
@@ -535,12 +561,19 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setReturnProperty($prop): void
+    public function setReturnProperty(string $prop): void
     {
         $this->returnProperty = $prop;
     }
 
-    protected function maybeSetReturnPropertyValue(int $return)
+    /**
+     * @param int $return
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    protected function maybeSetReturnPropertyValue(int $return): void
     {
         if ($this->returnProperty) {
             $this->getProject()->setNewProperty($this->returnProperty, $return);
@@ -554,7 +587,7 @@ class ExecTask extends Task
      *
      * @return void
      */
-    public function setOutputProperty($prop): void
+    public function setOutputProperty(string $prop): void
     {
         $this->outputProperty = $prop;
     }
@@ -563,8 +596,10 @@ class ExecTask extends Task
      * Add an environment variable to the launched process.
      *
      * @param EnvVariable $var new environment variable.
+     *
+     * @return void
      */
-    public function addEnv(EnvVariable $var)
+    public function addEnv(EnvVariable $var): void
     {
         $this->env->addVariable($var);
     }
@@ -574,7 +609,7 @@ class ExecTask extends Task
      *
      * @return CommandlineArgument Argument object
      */
-    public function createArg()
+    public function createArg(): CommandlineArgument
     {
         return $this->commandline->createArgument();
     }
@@ -582,7 +617,7 @@ class ExecTask extends Task
     /**
      * Is this the OS the user wanted?
      *
-     * @return bool .
+     * @return bool
      * <ul>
      * <li>
      * <li><code>true</code> if the os and osfamily attributes are null.</li>
@@ -596,6 +631,8 @@ class ExecTask extends Task
      * is found in the os attribute,</li>
      * <li><code>false</code> otherwise.</li>
      * </ul>
+     *
+     * @throws Exception
      */
     protected function isValidOs(): bool
     {
@@ -625,8 +662,10 @@ class ExecTask extends Task
      *
      * @param bool $resolveExecutable if true, attempt to resolve the
      * path of the executable.
+     *
+     * @return void
      */
-    public function setResolveExecutable($resolveExecutable): void
+    public function setResolveExecutable(bool $resolveExecutable): void
     {
         $this->resolveExecutable = $resolveExecutable;
     }
@@ -636,8 +675,10 @@ class ExecTask extends Task
      * system PATH environment variables for the executable.
      *
      * @param bool $searchPath if true, search PATHs.
+     *
+     * @return void
      */
-    public function setSearchPath($searchPath): void
+    public function setSearchPath(bool $searchPath): void
     {
         $this->searchPath = $searchPath;
     }
@@ -658,18 +699,20 @@ class ExecTask extends Task
      * the full path. We first try basedir, then the exec dir, and then
      * fallback to the straight executable name (i.e. on the path).
      *
-     * @param string $exec           The name of the executable.
-     * @param bool   $mustSearchPath If true, the executable will be looked up in
-     *                               the PATH environment and the absolute path
-     *                               is returned.
+     * @param string|null $exec           The name of the executable.
+     * @param bool        $mustSearchPath If true, the executable will be looked up in
+     *                                    the PATH environment and the absolute path
+     *                                    is returned.
      *
      * @return string the executable as a full path if it can be determined.
      *
      * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    protected function resolveExecutable($exec, $mustSearchPath): ?string
+    protected function resolveExecutable(?string $exec, bool $mustSearchPath): ?string
     {
         if (!$this->resolveExecutable) {
             return $exec;
@@ -715,12 +758,22 @@ class ExecTask extends Task
         return $exec;
     }
 
-    private function isPath($line)
+    /**
+     * @param string $line
+     *
+     * @return bool
+     */
+    private function isPath(string $line): bool
     {
         return StringHelper::startsWith('PATH=', $line) || StringHelper::startsWith('Path=', $line);
     }
 
-    private function getPath($value)
+    /**
+     * @param string|array $value
+     *
+     * @return string
+     */
+    private function getPath($value): string
     {
         if (is_string($value)) {
             return StringHelper::substring($value, strlen('PATH='));

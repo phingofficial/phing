@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/360
  * - &amp;amp; transfers into & in new created task
@@ -25,12 +27,21 @@
  */
 class HtmlEntitiesTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/360/build.xml');
     }
 
-    public function testCopyTask()
+    /**
+     * @return void
+     */
+    public function testCopyTask(): void
     {
         $this->executeTarget('main');
         $this->assertInLogs('&amp;');

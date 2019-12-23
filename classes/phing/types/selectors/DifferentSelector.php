@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This selector selects files against a mapped set of target files, selecting
  * all those files which are different.
@@ -55,8 +57,10 @@ class DifferentSelector extends MappingSelector
      * This flag tells the selector to ignore file times in the comparison
      *
      * @param bool $ignoreFileTimes if true ignore file times
+     *
+     * @return void
      */
-    public function setIgnoreFileTimes($ignoreFileTimes)
+    public function setIgnoreFileTimes(bool $ignoreFileTimes): void
     {
         $this->ignoreFileTimes = $ignoreFileTimes;
     }
@@ -65,8 +69,10 @@ class DifferentSelector extends MappingSelector
      * This flag tells the selector to ignore contents
      *
      * @param bool $ignoreContents if true ignore contents
+     *
+     * @return void
      */
-    public function setIgnoreContents($ignoreContents)
+    public function setIgnoreContents(bool $ignoreContents): void
     {
         $this->ignoreContents = $ignoreContents;
     }
@@ -81,7 +87,7 @@ class DifferentSelector extends MappingSelector
      *
      * @throws BuildException
      */
-    protected function selectionTest(PhingFile $srcfile, PhingFile $destfile)
+    protected function selectionTest(PhingFile $srcfile, PhingFile $destfile): bool
     {
         try {
             // if either of them is missing, they are different

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task to update the database to latest version of the changelog file.
  *
@@ -28,8 +30,10 @@ class LiquibaseUpdateTask extends AbstractLiquibaseTask
 {
     /**
      * @see Task::main()
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->checkParams();
         $this->execute('update');

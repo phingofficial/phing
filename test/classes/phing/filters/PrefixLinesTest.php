@@ -17,29 +17,45 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class PrefixLinesTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/prefixlines.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testPrefixLines()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testPrefixLines(): void
     {
         $this->executeTarget('testPrefixLines');
 
         $result = $this->getProject()->resolveFile('result/prefixlines.test');
 
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             $result->getAbsolutePath(),
             'FooThis is line 1 with alpha.FooThis is line 2 with beta.FooThis is line 3 with gamma.Foo'
         );

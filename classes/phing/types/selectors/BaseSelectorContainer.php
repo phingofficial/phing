@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is the base class for selectors that can contain other selectors.
  *
@@ -34,7 +36,7 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      *
      * @return string comma separated list of Selectors contained in this one
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         $arr = $this->selectorElements();
@@ -60,8 +62,10 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      * error conditions are not detected if their isSelected() call
      * is never made.
      * </ul>
+     *
+     * @return void
      */
-    public function validate()
+    public function validate(): void
     {
         $this->verifySettings();
         $errmsg = $this->getError();

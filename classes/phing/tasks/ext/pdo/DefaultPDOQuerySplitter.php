@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+declare(strict_types=1);
+
 /**
  * Splits SQL source into queries using simple regular expressions
  *
@@ -51,7 +53,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      * @param Reader         $reader
      * @param string         $delimiterType
      */
-    public function __construct(PDOSQLExecTask $parent, Reader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
+    public function __construct(PDOSQLExecTask $parent, Reader $reader, string $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
     {
         parent::__construct($parent, $reader);
         $this->delimiterType = $delimiterType;
@@ -66,7 +68,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      *
      * @return string|null
      */
-    public function nextQuery()
+    public function nextQuery(): ?string
     {
         $sql      = '';
         $hasQuery = false;
@@ -74,7 +76,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project   = $this->parent->getOwningTarget()->getProject();
-            $line      = $project->replaceProperties(trim($line));
+            $line      = $project->replaceProperties(trim((string) $line));
 
             if (
                 ($line != $delimiter)

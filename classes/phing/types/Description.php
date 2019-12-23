@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Description is used to provide a project-wide description element
  * (that is, a description that applies to a buildfile as a whole).
@@ -53,7 +55,16 @@ class Description extends DataType
         return $description;
     }
 
-    private static function concatDescriptions(Project $project, Target $t, &$description)
+    /**
+     * @param Project $project
+     * @param Target  $t
+     * @param string  $description
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    private static function concatDescriptions(Project $project, Target $t, string &$description): void
     {
         foreach (self::findElementInTarget($t, 'description') as $task) {
             if ($task instanceof UnknownElement) {
@@ -66,7 +77,13 @@ class Description extends DataType
         }
     }
 
-    private static function findElementInTarget(Target $t, $name)
+    /**
+     * @param Target $t
+     * @param string $name
+     *
+     * @return array
+     */
+    private static function findElementInTarget(Target $t, string $name): array
     {
         return array_filter($t->getTasks(), static function (Task $task) use ($name) {
             return $task->getTaskName() === $name;
@@ -80,7 +97,7 @@ class Description extends DataType
      *
      * @return void
      */
-    public function addText($text)
+    public function addText(string $text): void
     {
         $currentDescription = $this->getProject()->getDescription();
         if ($currentDescription === null) {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A Path tokenizer takes a path and returns the components that make up
  * that path.
@@ -57,7 +59,7 @@ class PathTokenizer
      *
      * @param string $path The path to tokenize. Must not be <code>null</code>.
      */
-    public function __construct($path)
+    public function __construct(string $path)
     {
         // on Windows and Unix, we can ignore delimiters and still have
 
@@ -76,7 +78,7 @@ class PathTokenizer
      * @return bool <code>true</code> if and only if there is at least one token
      *                                in the string after the current position; <code>false</code> otherwise.
      */
-    public function hasMoreTokens()
+    public function hasMoreTokens(): bool
     {
         if ($this->lookahead !== null) {
             return true;
@@ -92,14 +94,14 @@ class PathTokenizer
      *
      * @throws Exception if there are no more elements in this tokenizer's path.
      */
-    public function nextToken()
+    public function nextToken(): string
     {
         if ($this->lookahead !== null) {
             $token = $this->lookahead;
 
             $this->lookahead = null;
         } else {
-            $token = trim(array_shift($this->tokens));
+            $token = trim((string) array_shift($this->tokens));
         }
 
         if (
@@ -112,7 +114,7 @@ class PathTokenizer
 
             // spec. We look at the next token
 
-            $nextToken = trim(array_shift($this->tokens));
+            $nextToken = trim((string) array_shift($this->tokens));
 
             if (StringHelper::startsWith('\\', $nextToken) || StringHelper::startsWith('/', $nextToken)) {
                 // we know we are on a DOS style platform and the next path
@@ -140,7 +142,7 @@ class PathTokenizer
      *
      * @return bool
      */
-    public function contains($path)
+    public function contains(string $path): bool
     {
         return in_array($path, $this->tokens, true);
     }

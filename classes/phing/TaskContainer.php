@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Abstract interface for objects which can contain tasks (targets)
  *  Used to check if a class can contain tasks (via instanceof)
@@ -32,6 +34,8 @@ interface TaskContainer
      * by derived class
      *
      * @param Task $task The task to be added to the container.
+     *
+     * @return void
      */
-    public function addTask(Task $task);
+    public function addTask(Task $task): void;
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Imports another build file into the current project.
  *
@@ -42,12 +44,12 @@ class ImportTask extends Task
     protected $fs;
 
     /**
-     * @var PhingFile
+     * @var string
      */
     protected $file = null;
 
     /**
-     * @var array
+     * @var FileSet[]
      */
     private $filesets = [];
 
@@ -60,8 +62,10 @@ class ImportTask extends Task
      * Initialize task.
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function init()
+    public function init(): void
     {
         $this->fs = FileSystem::getFileSystem();
     }
@@ -73,7 +77,7 @@ class ImportTask extends Task
      *
      * @return void
      */
-    public function setFile($f)
+    public function setFile(string $f): void
     {
         $this->file = $f;
     }
@@ -84,7 +88,7 @@ class ImportTask extends Task
      *
      * @return FileSet
      */
-    public function createFileSet()
+    public function createFileSet(): FileSet
     {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num - 1];
@@ -98,7 +102,7 @@ class ImportTask extends Task
      *
      * @return void
      */
-    public function setOptional($opt)
+    public function setOptional(bool $opt): void
     {
         $this->optional = $opt;
     }
@@ -109,9 +113,12 @@ class ImportTask extends Task
      *
      * @return void
      *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->file === null && count($this->filesets) === 0) {
             throw new BuildException(
@@ -171,11 +178,16 @@ class ImportTask extends Task
      * Parse a Phing build file and copy the properties, tasks, data types and
      * targets it defines into the current project.
      *
+     * @param PhingFile $file
+     *
      * @return void
      *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      * @throws BuildException
      */
-    protected function importFile(PhingFile $file)
+    protected function importFile(PhingFile $file): void
     {
         $ctx = $this->project->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
         $cfg = $ctx->getConfigurator();

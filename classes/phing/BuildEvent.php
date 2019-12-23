@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encapsulates a build specific event.
  *
@@ -77,7 +79,7 @@ class BuildEvent extends EventObject
     /**
      * The exception that caused the event, if any
      *
-     * @var Exception
+     * @var Throwable
      */
     protected $exception = null;
 
@@ -111,10 +113,12 @@ class BuildEvent extends EventObject
     /**
      * Sets the message with details and the message priority for this event.
      *
-     * @param string $message  The string message of the event
-     * @param int    $priority The priority this message should have
+     * @param string   $message  The string message of the event
+     * @param int|null $priority The priority this message should have
+     *
+     * @return void
      */
-    public function setMessage($message, $priority)
+    public function setMessage(string $message, ?int $priority): void
     {
         $this->message  = (string) $message;
         $this->priority = (int) $priority;
@@ -123,9 +127,11 @@ class BuildEvent extends EventObject
     /**
      * Set the exception that was the cause of this event.
      *
-     * @param Exception $exception The exception that caused the event
+     * @param Throwable|null $exception The exception that caused the event
+     *
+     * @return void
      */
-    public function setException($exception)
+    public function setException(?Throwable $exception): void
     {
         $this->exception = $exception;
     }
@@ -136,9 +142,9 @@ class BuildEvent extends EventObject
      * The reference to the project instance is set by the constructor if this
      * event was fired from the project class.
      *
-     * @return Project The project instance that fired this event
+     * @return Project|null The project instance that fired this event
      */
-    public function getProject()
+    public function getProject(): ?Project
     {
         return $this->project;
     }
@@ -149,9 +155,9 @@ class BuildEvent extends EventObject
      * The reference to the target instance is set by the constructor if this
      * event was fired from the target class.
      *
-     * @return Target The target that fired this event
+     * @return Target|null The target that fired this event
      */
-    public function getTarget()
+    public function getTarget(): ?Target
     {
         return $this->target;
     }
@@ -162,9 +168,9 @@ class BuildEvent extends EventObject
      * The reference to the task instance is set by the constructor if this
      * event was fired within a task.
      *
-     * @return Task The task that fired this event
+     * @return Task|null The task that fired this event
      */
-    public function getTask()
+    public function getTask(): ?Task
     {
         return $this->task;
     }
@@ -173,9 +179,9 @@ class BuildEvent extends EventObject
      * Returns the logging message. This field will only be set for
      * "messageLogged" events.
      *
-     * @return string The log message
+     * @return string|null The log message
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -186,7 +192,7 @@ class BuildEvent extends EventObject
      *
      * @return int The message priority
      */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
@@ -200,9 +206,9 @@ class BuildEvent extends EventObject
      * @see    BuildListener::targetFinished()
      * @see    BuildListener::buildFinished()
      *
-     * @return Exception
+     * @return Throwable|null
      */
-    public function getException()
+    public function getException(): ?Throwable
     {
         return $this->exception;
     }

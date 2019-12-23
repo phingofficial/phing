@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit test for reStructuredText rendering task.
  *
@@ -31,7 +33,13 @@
  */
 class RSTTaskMultipleMappersTest extends BuildFileTest
 {
-    public function testMultipleMappers()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testMultipleMappers(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build-error-multiple-mappers.xml'

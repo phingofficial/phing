@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the TempFile Task
  *
@@ -25,17 +27,23 @@
  */
 class TempFileTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/TempFileTest.xml'
         );
     }
 
-    public function testTempFile()
+    /**
+     * @return void
+     */
+    public function testTempFile(): void
     {
         $this->executeTarget(__FUNCTION__);
-        self::assertStringStartsWith(
+        $this->assertStringStartsWith(
             $this->getProject()->getProperty('php.tmpdir'),
             $this->getProject()->getProperty('test.temp')
         );

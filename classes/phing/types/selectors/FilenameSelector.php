@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that filters files based on the filename.
  *
@@ -41,7 +43,7 @@ class FilenameSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '{filenameselector name: ';
         if ($this->pattern !== null) {
@@ -76,7 +78,7 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setName($pattern)
+    public function setName(string $pattern): void
     {
         $pattern = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $pattern);
 
@@ -91,8 +93,10 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @param string $pattern the regular expression that any filename must match
      *                against in order to be selected.
+     *
+     * @return void
      */
-    public function setRegex($pattern)
+    public function setRegex(string $pattern): void
     {
         $this->regex = $pattern;
         $this->reg   = null;
@@ -105,7 +109,7 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setCasesensitive($casesensitive)
+    public function setCasesensitive(bool $casesensitive): void
     {
         $this->casesensitive = $casesensitive;
     }
@@ -120,7 +124,7 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setNegate($negated)
+    public function setNegate(bool $negated): void
     {
         $this->negated = $negated;
     }
@@ -167,7 +171,7 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->pattern === null && $this->regex === null) {
             $this->setError('The name or regex attribute is required');
@@ -182,7 +186,6 @@ class FilenameSelector extends BaseExtendSelector
      * for this selector is offloaded into SelectorUtils, a static class
      * that provides the same services for both FilenameSelector and
      * DirectoryScanner.
-     *
      * {@inheritdoc}
      *
      * @param PhingFile $basedir  the base directory the scan is being done from
@@ -190,8 +193,10 @@ class FilenameSelector extends BaseExtendSelector
      * @param PhingFile $file     is a PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
+     *
+     * @throws RegexpException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

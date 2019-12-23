@@ -17,27 +17,35 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class PropertyHelperTest extends TestCase
 {
-    public function testUndefinedPropertyShouldNotBeReplaced()
+    /**
+     * @return void
+     */
+    public function testUndefinedPropertyShouldNotBeReplaced(): void
     {
         $project = new Project();
         $helper  = PropertyHelper::getPropertyHelper($project);
 
         $value = $helper->replaceProperties('${undefined.property}', []);
 
-        $this->assertEquals('${undefined.property}', $value);
+        self::assertEquals('${undefined.property}', $value);
     }
 
-    public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
+    /**
+     * @return void
+     */
+    public function testDefinedPropertyShouldBeReplacedWithPropertyValue(): void
     {
         $project = new Project();
         $helper  = PropertyHelper::getPropertyHelper($project);
 
         $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
 
-        $this->assertEquals('abc123', $value);
+        self::assertEquals('abc123', $value);
     }
 }

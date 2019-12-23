@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Uses CSS class that must be defined in the HTML page
  * where the Phing output is displayed.
@@ -80,8 +82,13 @@ class HtmlColorLogger extends DefaultLogger
     /**
      * Set the colors to use from a property file specified in the
      * special phing property file "phing/listener/defaults.properties".
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    final private function setColors()
+    final private function setColors(): void
     {
         $systemColorFile = new PhingFile(Phing::getResourcePath('phing/listener/defaults.properties'));
 
@@ -121,8 +128,13 @@ class HtmlColorLogger extends DefaultLogger
      * @param string       $message
      * @param OutputStream $stream
      * @param int          $priority
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    final protected function printMessage($message, OutputStream $stream, $priority)
+    final protected function printMessage(string $message, OutputStream $stream, int $priority): void
     {
         if ($message !== null) {
             if (!$this->colorsSet) {
@@ -139,7 +151,7 @@ class HtmlColorLogger extends DefaultLogger
             $message = str_replace($search, $replace, $message);
 
             if (preg_match('@^( +)([^ ].+)@', $message, $matches)) {
-                $len   = strlen($matches[1]);
+                $len   = strlen((string) $matches[1]);
                 $space = '&nbsp;';
                 for ($i = 1; $i < $len; $i++) {
                     $space .= '&nbsp;';

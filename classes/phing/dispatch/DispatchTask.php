@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tasks extending this class may contain multiple actions.
  * The method that is invoked for execution depends upon the
@@ -33,6 +35,9 @@
  */
 abstract class DispatchTask extends Task implements Dispatchable
 {
+    /**
+     * @var string
+     */
     private $action;
 
     /**
@@ -40,7 +45,7 @@ abstract class DispatchTask extends Task implements Dispatchable
      *
      * @return string the <code>String</code> "action" by default (can be overridden).
      */
-    public function getActionParameterName()
+    public function getActionParameterName(): string
     {
         return 'action';
     }
@@ -49,8 +54,10 @@ abstract class DispatchTask extends Task implements Dispatchable
      * Set the action.
      *
      * @param string $action the method name.
+     *
+     * @return void
      */
-    public function setAction($action)
+    public function setAction(string $action): void
     {
         $this->action = $action;
     }
@@ -60,7 +67,7 @@ abstract class DispatchTask extends Task implements Dispatchable
      *
      * @return string the action.
      */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }

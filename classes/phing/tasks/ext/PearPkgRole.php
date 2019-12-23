@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encapsulates file roles
  *
@@ -38,8 +40,10 @@ class PearPkgRole
      * Sets the file extension
      *
      * @param string $extension
+     *
+     * @return void
      */
-    public function setExtension($extension)
+    public function setExtension(string $extension): void
     {
         $this->extension = $extension;
     }
@@ -47,9 +51,9 @@ class PearPkgRole
     /**
      * Retrieves the file extension
      *
-     * @return string
+     * @return string|null
      */
-    public function getExtension()
+    public function getExtension(): ?string
     {
         return $this->extension;
     }
@@ -58,8 +62,10 @@ class PearPkgRole
      * Sets the role
      *
      * @param string $role
+     *
+     * @return void
      */
-    public function setRole($role)
+    public function setRole(string $role): void
     {
         $this->role = $role;
     }
@@ -67,9 +73,9 @@ class PearPkgRole
     /**
      * Retrieves the role
      *
-     * @return string
+     * @return string|null
      */
-    public function getRole()
+    public function getRole(): ?string
     {
         return $this->role;
     }

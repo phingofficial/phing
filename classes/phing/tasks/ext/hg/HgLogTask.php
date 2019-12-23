@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg log
  *
@@ -55,13 +57,13 @@ class HgLogTask extends HgBaseTask
     /**
      * Set maximum number of changes to get.
      *
-     * @param int $count Maximum number of log entries to retrieve.
+     * @param int|string $count Maximum number of log entries to retrieve.
      *
      * @return void
      */
-    public function setMaxcount($count)
+    public function setMaxcount($count): void
     {
-        $this->maxCount = $count;
+        $this->maxCount = (int) $count;
     }
 
     /**
@@ -69,7 +71,7 @@ class HgLogTask extends HgBaseTask
      *
      * @return int
      */
-    public function getMaxcount()
+    public function getMaxcount(): int
     {
         return $this->maxCount;
     }
@@ -81,7 +83,7 @@ class HgLogTask extends HgBaseTask
      *
      * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
@@ -91,7 +93,7 @@ class HgLogTask extends HgBaseTask
      *
      * @return string
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return $this->format;
     }
@@ -103,7 +105,7 @@ class HgLogTask extends HgBaseTask
      *
      * @return void
      */
-    public function setOutputProperty($property)
+    public function setOutputProperty(string $property): void
     {
         $this->outputProperty = $property;
     }
@@ -115,7 +117,7 @@ class HgLogTask extends HgBaseTask
      *
      * @return void
      */
-    public function setRevision($revision)
+    public function setRevision(string $revision): void
     {
         $this->revision = $revision;
     }
@@ -125,7 +127,7 @@ class HgLogTask extends HgBaseTask
      *
      * @return void
      */
-    public function main()
+    public function main(): void
     {
         $clone = $this->getFactoryInstance('log');
 

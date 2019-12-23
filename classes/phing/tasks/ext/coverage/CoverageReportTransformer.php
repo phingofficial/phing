@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.
@@ -27,18 +29,30 @@
  */
 class CoverageReportTransformer
 {
-    private $task     = null;
+    /**
+     * @var Task|null
+     */
+    private $task = null;
+
+    /**
+     * @var string
+     */
     private $styleDir = '';
 
     /**
      * @var PhingFile
      */
-    private $toDir = '';
+    private $toDir;
 
+    /**
+     * @var DOMDocument|SimpleXMLElement|null
+     */
     private $document = null;
 
     /**
      * title of the project, used in the coverage report
+     *
+     * @var string
      */
     private $title = '';
 
@@ -60,24 +74,30 @@ class CoverageReportTransformer
 
     /**
      * @param string $styleDir
+     *
+     * @return void
      */
-    public function setStyleDir($styleDir)
+    public function setStyleDir(string $styleDir): void
     {
         $this->styleDir = $styleDir;
     }
 
     /**
      * @param PhingFile $toDir
+     *
+     * @return void
      */
-    public function setToDir(PhingFile $toDir)
+    public function setToDir(PhingFile $toDir): void
     {
         $this->toDir = $toDir;
     }
 
     /**
      * @param DOMDocument|SimpleXMLElement $document
+     *
+     * @return void
      */
-    public function setXmlDocument($document)
+    public function setXmlDocument($document): void
     {
         $this->document = $document;
     }
@@ -86,8 +106,10 @@ class CoverageReportTransformer
      * Setter for title parameter
      *
      * @param string $title
+     *
+     * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -97,13 +119,21 @@ class CoverageReportTransformer
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
      * @param bool $useSortTable
+     *
+     * @return void
      */
-    public function setUseSortTable($useSortTable)
+    public function setUseSortTable(bool $useSortTable): void
     {
         $this->useSortTable = (bool) $useSortTable;
     }
 
-    public function transform()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws IOException
+     */
+    public function transform(): void
     {
         if (!$this->toDir->exists()) {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
@@ -145,9 +175,11 @@ class CoverageReportTransformer
     /**
      * @return PhingFile
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    private function getStyleSheet()
+    private function getStyleSheet(): PhingFile
     {
         $xslname = 'coverage-frames.xsl';
 

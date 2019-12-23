@@ -17,26 +17,45 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class LineContainsRegexpTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/linecontainsregexp.xml');
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testLineContainsRegexp()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testLineContainsRegexp(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -45,7 +64,12 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsRegexpNegate()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testLineContainsRegexpNegate(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -54,7 +78,12 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsRegexpCaseInsensitive()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testLineContainsRegexpCaseInsensitive(): void
     {
         $this->executeTarget(__FUNCTION__);
 

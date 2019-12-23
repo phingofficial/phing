@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\MockObject\MockObject;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\MockObject\MockObject;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\MockObject\MockObject;
+
 /**
  * WikiPublish task test
  *
@@ -29,19 +30,15 @@ use PHPUnit\Framework\MockObject\MockObject;
 class WikiPublishTaskTest extends BuildFileTest
 {
     /**
+     * Test Wiki api success request and response sequence
+     *
+     * @return void
+     *
      * @requires PHP >= 7.2
      */
-    public function testApiEdit()
+    public function testApiEdit(): void
     {
         $task = $this->getWikiPublishMock();
-
-        $task->setApiUrl('http://localhost/testApi.php');
-        $task->setApiUser('testUser');
-        $task->setApiPassword('testPassword');
-
-        $task->setTitle('some page');
-        $task->setContent('some content');
-        $task->setMode('prepend');
 
         $task->expects($this->at(0))
             ->method('callApi')
@@ -72,14 +69,28 @@ class WikiPublishTaskTest extends BuildFileTest
             )
             ->willReturn(['edit' => ['result' => 'Success']]);
 
+        /** @var WikiPublishTask $task */
+        $task->setApiUrl('http://localhost/testApi.php');
+        $task->setApiUser('testUser');
+        $task->setApiPassword('testPassword');
+
+        $task->setTitle('some page');
+        $task->setContent('some content');
+        $task->setMode('prepend');
+
         $task->main();
     }
 
     /**
+     * Test invalid input attributes
+     *
+     * @return void
+     *
      * @requires PHP >= 7.2
      */
-    public function testInvalidAttributes()
+    public function testInvalidAttributes(): void
     {
+        /** @var WikiPublishTask $task */
         $task = $this->getWikiPublishMock();
 
         try {
@@ -101,9 +112,9 @@ class WikiPublishTaskTest extends BuildFileTest
      *
      * @return MockObject|WikiPublishTask
      */
-    private function getWikiPublishMock()
+    private function getWikiPublishMock(): MockObject
     {
-        $result = $this->getMockBuilder('WikiPublishTask');
+        $result = $this->getMockBuilder(WikiPublishTask::class);
 
         return $result->setMethods(['callApi'])->getMock();
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper around git-tag
  *
@@ -144,8 +146,13 @@ class GitTagTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -229,8 +236,10 @@ class GitTagTask extends GitBaseTask
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAnnotate(bool $flag)
+    public function setAnnotate(bool $flag): void
     {
         $this->annotate = $flag;
     }
@@ -238,7 +247,7 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAnnotate()
+    public function getAnnotate(): bool
     {
         return $this->annotate;
     }
@@ -246,15 +255,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isAnnotate()
+    public function isAnnotate(): bool
     {
         return $this->getAnnotate();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setSign(bool $flag)
+    public function setSign(bool $flag): void
     {
         $this->sign = $flag;
     }
@@ -262,7 +273,7 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getSign()
+    public function getSign(): bool
     {
         return $this->sign;
     }
@@ -270,15 +281,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isSign()
+    public function isSign(): bool
     {
         return $this->getSign();
     }
 
     /**
      * @param string $keyId
+     *
+     * @return void
      */
-    public function setKeySign($keyId)
+    public function setKeySign(string $keyId): void
     {
         $this->keySign = $keyId;
     }
@@ -286,15 +299,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getKeySign()
+    public function getKeySign(): string
     {
         return $this->keySign;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setReplace(bool $flag)
+    public function setReplace(bool $flag): void
     {
         $this->replace = $flag;
     }
@@ -302,7 +317,7 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getReplace()
+    public function getReplace(): bool
     {
         return $this->replace;
     }
@@ -310,23 +325,27 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isReplace()
+    public function isReplace(): bool
     {
         return $this->getReplace();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setForce(bool $flag)
+    public function setForce(bool $flag): void
     {
-        return $this->setReplace($flag);
+        $this->setReplace($flag);
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setDelete(bool $flag)
+    public function setDelete(bool $flag): void
     {
         $this->delete = $flag;
     }
@@ -334,7 +353,7 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getDelete()
+    public function getDelete(): bool
     {
         return $this->delete;
     }
@@ -342,15 +361,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isDelete()
+    public function isDelete(): bool
     {
         return $this->getDelete();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setVerify(bool $flag)
+    public function setVerify(bool $flag): void
     {
         $this->verify = $flag;
     }
@@ -358,7 +379,7 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getVerify()
+    public function getVerify(): bool
     {
         return $this->verify;
     }
@@ -366,15 +387,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isVerify()
+    public function isVerify(): bool
     {
         return $this->getVerify();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setList(bool $flag)
+    public function setList(bool $flag): void
     {
         $this->list = $flag;
     }
@@ -382,7 +405,7 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getList()
+    public function getList(): bool
     {
         return $this->list;
     }
@@ -390,15 +413,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isList()
+    public function isList(): bool
     {
         return $this->getList();
     }
 
     /**
      * @param int $num
+     *
+     * @return void
      */
-    public function setNum($num)
+    public function setNum(int $num): void
     {
         $this->num = (int) $num;
     }
@@ -406,15 +431,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return int
      */
-    public function getNum()
+    public function getNum(): int
     {
         return $this->num;
     }
 
     /**
      * @param string $commit
+     *
+     * @return void
      */
-    public function setContains($commit)
+    public function setContains(string $commit): void
     {
         $this->contains = $commit;
     }
@@ -422,15 +449,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getContains()
+    public function getContains(): string
     {
         return $this->contains;
     }
 
     /**
      * @param string $msg
+     *
+     * @return void
      */
-    public function setMessage($msg)
+    public function setMessage(string $msg): void
     {
         $this->message = $msg;
     }
@@ -438,15 +467,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
      * @param string $file
+     *
+     * @return void
      */
-    public function setFile($file)
+    public function setFile(string $file): void
     {
         $this->file = $file;
     }
@@ -454,15 +485,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getFile()
+    public function getFile(): string
     {
         return $this->file;
     }
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -470,15 +503,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * @param string $commit
+     *
+     * @return void
      */
-    public function setCommit($commit)
+    public function setCommit(string $commit): void
     {
         $this->commit = $commit;
     }
@@ -486,15 +521,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getCommit()
+    public function getCommit(): string
     {
         return $this->commit;
     }
 
     /**
      * @param string $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject(string $object): void
     {
         $this->object = $object;
     }
@@ -502,15 +539,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getObject()
+    public function getObject(): string
     {
         return $this->object;
     }
 
     /**
      * @param string $pattern
+     *
+     * @return void
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         $this->pattern = $pattern;
     }
@@ -518,15 +557,17 @@ class GitTagTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getPattern()
+    public function getPattern(): string
     {
         return $this->pattern;
     }
 
     /**
      * @param string $prop
+     *
+     * @return void
      */
-    public function setOutputProperty($prop)
+    public function setOutputProperty(string $prop): void
     {
         $this->outputProperty = $prop;
     }

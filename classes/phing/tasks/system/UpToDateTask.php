@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Sets the given property if the specified target has a timestamp
  * greater than all of the source files.
@@ -52,6 +54,9 @@ class UpToDateTask extends Task implements Condition
      */
     private $targetFile;
 
+    /**
+     * @var Mapper
+     */
     protected $mapperElement = null;
 
     /**
@@ -59,8 +64,10 @@ class UpToDateTask extends Task implements Condition
      * (each of) the source file(s).
      *
      * @param string $property the name of the property to set if Target is up-to-date.
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -70,7 +77,7 @@ class UpToDateTask extends Task implements Condition
      *
      * @return string property the name of the property to set if Target is up-to-date.
      */
-    public function getProperty()
+    public function getProperty(): string
     {
         return $this->property;
     }
@@ -80,14 +87,18 @@ class UpToDateTask extends Task implements Condition
      * up-to-date than (each of) the source file(s). Defaults to 'true'.
      *
      * @param mixed $value the value to set the property to if Target is up-to-date
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
 
     /**
      * Returns the value, or "true" if a specific value wasn't provided.
+     *
+     * @return mixed
      */
     private function getValue()
     {
@@ -99,8 +110,13 @@ class UpToDateTask extends Task implements Condition
      * if the property is to be set.
      *
      * @param string|PhingFile $file the file we are checking against.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setTargetFile($file)
+    public function setTargetFile($file): void
     {
         if (is_string($file)) {
             $file = new PhingFile($file);
@@ -113,8 +129,13 @@ class UpToDateTask extends Task implements Condition
      * if the property is to be set.
      *
      * @param string|PhingFile $file the file we are checking against the target file.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setSrcfile($file)
+    public function setSrcfile($file): void
     {
         if (is_string($file)) {
             $file = new PhingFile($file);
@@ -124,8 +145,10 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
+     *
+     * @return Mapper
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(
@@ -145,8 +168,12 @@ class UpToDateTask extends Task implements Condition
      * @return bool
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws ConfigurationException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if (count($this->filesets) == 0 && count($this->filelists) == 0 && $this->sourceFile === null) {
             throw new BuildException(
@@ -227,9 +254,15 @@ class UpToDateTask extends Task implements Condition
      * Sets property to true if target file(s) have a more recent timestamp
      * than (each of) the corresponding source file(s).
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws ConfigurationException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->property === null) {
             throw new BuildException(
@@ -265,8 +298,12 @@ class UpToDateTask extends Task implements Condition
      * @param iterable  $files
      *
      * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ConfigurationException
      */
-    protected function scanDir(PhingFile $srcDir, $files)
+    protected function scanDir(PhingFile $srcDir, iterable $files): bool
     {
         $sfs    = new SourceFileScanner($this);
         $mapper = null;

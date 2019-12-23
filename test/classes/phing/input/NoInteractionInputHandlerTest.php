@@ -23,7 +23,10 @@ use PHPUnit\Framework\TestCase;
 
 class NoInteractionInputHandlerTest extends TestCase
 {
-    public function testDefaultValue()
+    /**
+     * @return void
+     */
+    public function testDefaultValue(): void
     {
         $request = new InputRequest('Enter a value');
         $request->setDefaultValue('default');
@@ -34,7 +37,10 @@ class NoInteractionInputHandlerTest extends TestCase
         self::assertEquals('default', $request->getInput());
     }
 
-    public function testMultipleChoiceQuestion()
+    /**
+     * @return void
+     */
+    public function testMultipleChoiceQuestion(): void
     {
         $request = new MultipleChoiceInputRequest('Enter a choice', ['choice1', 'choice2']);
         $handler = new NoInteractionInputHandler();
@@ -44,7 +50,10 @@ class NoInteractionInputHandlerTest extends TestCase
         self::assertNull($request->getInput());
     }
 
-    public function testYesNoQuestion()
+    /**
+     * @return void
+     */
+    public function testYesNoQuestion(): void
     {
         $request = new YesNoInputRequest('Enter a choice', ['yes', 'no']);
         $handler = new NoInteractionInputHandler();

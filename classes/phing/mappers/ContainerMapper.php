@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A <code>FileNameMapper</code> that contains
  * other <code>FileNameMapper</code>s.
@@ -34,8 +36,12 @@ abstract class ContainerMapper implements FileNameMapper
      * Add a <code>Mapper</code>.
      *
      * @param Mapper $mapper the <code>Mapper</code> to add.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function addMapper(Mapper $mapper)
+    public function addMapper(Mapper $mapper): void
     {
         $this->add($mapper->getImplementation());
     }
@@ -49,8 +55,10 @@ abstract class ContainerMapper implements FileNameMapper
      * chaining to work correctly.
      *
      * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
+     *
+     * @return void
      */
-    public function addConfigured(FileNameMapper $fileNameMapper)
+    public function addConfigured(FileNameMapper $fileNameMapper): void
     {
         $this->add($fileNameMapper);
     }
@@ -60,12 +68,14 @@ abstract class ContainerMapper implements FileNameMapper
      *
      * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
      *
+     * @return void
+     *
      * @throws BadMethodCallException if attempting to add this
      *         <code>ContainerMapper</code> to itself, or if the specified
      *         <code>FileNameMapper</code> is itself a <code>ContainerMapper</code>
      *         that contains this <code>ContainerMapper</code>.
      */
-    public function add(Mapper $fileNameMapper)
+    public function add(FileNameMapper $fileNameMapper): void
     {
         if ($this == $fileNameMapper || ($fileNameMapper instanceof ContainerMapper && $fileNameMapper->contains($this))) {
             throw new BadMethodCallException('Circular mapper containment condition detected');
@@ -82,7 +92,7 @@ abstract class ContainerMapper implements FileNameMapper
      *
      * @return bool
      */
-    protected function contains(FileNameMapper $fileNameMapper)
+    protected function contains(FileNameMapper $fileNameMapper): bool
     {
         $foundit = false;
         for ($iter = new ArrayIterator($this->mappers); $iter->valid() && !$foundit;) {
@@ -98,7 +108,7 @@ abstract class ContainerMapper implements FileNameMapper
      *
      * @return Mapper[]
      */
-    public function getMappers()
+    public function getMappers(): array
     {
         return $this->mappers;
     }
@@ -106,9 +116,11 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Empty implementation.
      *
-     * @param string $ignore ignored.
+     * @param string|null $ignore ignored.
+     *
+     * @return void
      */
-    public function setFrom($ignore)
+    public function setFrom(?string $ignore): void
     {
         //Empty
     }
@@ -116,9 +128,11 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Empty implementation.
      *
-     * @param string $ignore ignored.
+     * @param string|null $ignore ignored.
+     *
+     * @return void
      */
-    public function setTo($ignore)
+    public function setTo(?string $ignore): void
     {
         //Empty
     }

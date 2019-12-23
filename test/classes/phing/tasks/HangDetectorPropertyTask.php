@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
@@ -24,7 +26,14 @@
  */
 class HangDetectorPropertyTask extends PropertyTask
 {
-    protected function loadFile(PhingFile $file)
+    /**
+     * @param PhingFile $file
+     *
+     * @return void
+     *
+     * @throws IOException
+     */
+    protected function loadFile(PhingFile $file): void
     {
         $props = new HangDetectorProperties();
         $props->load($file);

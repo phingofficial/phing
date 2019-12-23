@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Send an e-mail message
  *
@@ -30,15 +32,42 @@ class MailTask extends Task
 {
     use FileSetAware;
 
-    protected $tolist  = null;
-    protected $subject = null;
-    protected $msg     = null;
-    protected $from    = null;
+    /**
+     * @var string|null
+     */
+    protected $tolist = null;
 
-    protected $backend       = 'mail';
+    /**
+     * @var string|null
+     */
+    protected $subject = null;
+
+    /**
+     * @var string|null
+     */
+    protected $msg = null;
+
+    /**
+     * @var string|null
+     */
+    protected $from = null;
+
+    /**
+     * @var string
+     */
+    protected $backend = 'mail';
+
+    /**
+     * @var array
+     */
     protected $backendParams = [];
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         if (empty($this->from)) {
             throw new BuildException('Missing "from" attribute');
@@ -55,7 +84,14 @@ class MailTask extends Task
         mail($this->tolist, $this->subject, $this->msg, sprintf("From: %s\n", $this->from));
     }
 
-    protected function sendFilesets()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    protected function sendFilesets(): void
     {
         @include_once 'Mail.php';
         @include_once 'Mail/mime.php';
@@ -92,8 +128,10 @@ class MailTask extends Task
      * Setter for message
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function setMsg($msg)
+    public function setMsg(string $msg)
     {
         $this->setMessage($msg);
     }
@@ -102,8 +140,10 @@ class MailTask extends Task
      * Alias setter
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function setMessage($msg)
+    public function setMessage(string $msg): void
     {
         $this->msg = (string) $msg;
     }
@@ -112,8 +152,10 @@ class MailTask extends Task
      * Setter for subject
      *
      * @param string $subject
+     *
+     * @return void
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): void
     {
         $this->subject = (string) $subject;
     }
@@ -122,8 +164,10 @@ class MailTask extends Task
      * Setter for tolist
      *
      * @param string $tolist
+     *
+     * @return void
      */
-    public function setToList($tolist)
+    public function setToList(string $tolist): void
     {
         $this->tolist = $tolist;
     }
@@ -132,8 +176,10 @@ class MailTask extends Task
      * Alias for (deprecated) recipient
      *
      * @param string $recipient
+     *
+     * @return void
      */
-    public function setRecipient($recipient)
+    public function setRecipient(string $recipient): void
     {
         $this->tolist = (string) $recipient;
     }
@@ -142,8 +188,10 @@ class MailTask extends Task
      * Alias for to
      *
      * @param string $to
+     *
+     * @return void
      */
-    public function setTo($to)
+    public function setTo(string $to): void
     {
         $this->tolist = (string) $to;
     }
@@ -152,8 +200,10 @@ class MailTask extends Task
      * Supports the <mail>Message</mail> syntax.
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function addText($msg)
+    public function addText(string $msg): void
     {
         $this->msg = (string) $msg;
     }
@@ -162,8 +212,10 @@ class MailTask extends Task
      * Sets email address of sender
      *
      * @param string $from
+     *
+     * @return void
      */
-    public function setFrom($from)
+    public function setFrom(string $from): void
     {
         $this->from = $from;
     }
@@ -172,8 +224,10 @@ class MailTask extends Task
      * Sets PEAR Mail backend to use
      *
      * @param string $backend
+     *
+     * @return void
      */
-    public function setBackend($backend)
+    public function setBackend(string $backend): void
     {
         $this->backend = $backend;
     }
@@ -182,8 +236,10 @@ class MailTask extends Task
      * Sets PEAR Mail backend params to use
      *
      * @param string $backendParams
+     *
+     * @return void
      */
-    public function setBackendParams($backendParams)
+    public function setBackendParams(string $backendParams): void
     {
         $params = explode(',', $backendParams);
 

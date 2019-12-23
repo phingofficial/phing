@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is an abstract class all SAX handler classes must extend
  *
@@ -60,17 +62,21 @@ abstract class AbstractHandler
      * @param string $name    name of the XML element
      * @param array  $attribs attributes of the XML element
      *
+     * @return void
+     *
      * @throws ExpatParseException
      */
-    public function startElement($name, $attribs)
+    public function startElement(string $name, array $attribs): void
     {
         throw new ExpatParseException('Unexpected element ' . $name);
     }
 
     /**
      * Gets invoked when element closes method.
+     *
+     * @return void
      */
-    protected function finished()
+    protected function finished(): void
     {
     }
 
@@ -81,8 +87,10 @@ abstract class AbstractHandler
      * over control to the parentHandler of this.
      *
      * @param string $name the name of the XML element
+     *
+     * @return void
      */
-    public function endElement($name)
+    public function endElement(string $name): void
     {
         $this->finished();
         $this->parser->setHandler($this->parentHandler);
@@ -93,11 +101,11 @@ abstract class AbstractHandler
      *
      * @param string $data contents
      *
-     * @throws ExpatParseException
-     * @throws ExpatParseException if there is no CDATA but method
-     *            was called
+     * @return void
+     *
+     * @throws ExpatParseException if there is no CDATA but method was called
      */
-    public function characters($data)
+    public function characters(string $data): void
     {
         $s = trim($data);
         if (strlen($s) > 0) {

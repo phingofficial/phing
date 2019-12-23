@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Checks out a repository to a local directory
  *
@@ -37,9 +39,12 @@ class SvnCheckoutTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('checkout');
 
@@ -57,8 +62,10 @@ class SvnCheckoutTask extends SvnBaseTask
 
     /**
      * @param string $revision
+     *
+     * @return void
      */
-    public function setRevision($revision)
+    public function setRevision(string $revision): void
     {
         $this->revision = $revision;
     }

@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+declare(strict_types=1);
+
 /**
  * Testcases for phing.util.DirectoryScanner
  *
@@ -31,21 +33,33 @@
  */
 class DirectoryScannerTest extends BuildFileTest
 {
+    /**
+     * @var string
+     */
     private $basedir = '';
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->basedir = PHING_TEST_BASE . '/etc/util/tmp';
         $this->configureProject(PHING_TEST_BASE . '/etc/util/directoryscanner.xml');
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testErrorOnMissingDir()
+    /**
+     * @return void
+     */
+    public function testErrorOnMissingDir(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir . '/THIS_DOES_NOT_EXIST');
@@ -57,14 +71,22 @@ class DirectoryScannerTest extends BuildFileTest
         $ds->scan();
     }
 
-    public function testNoErrorOnMissingDir()
+    /**
+     * @return void
+     */
+    public function testNoErrorOnMissingDir(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir . '/THIS_DOES_NOT_EXIST');
         $ds->scan();
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -74,7 +96,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, [], ['alpha']);
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -95,7 +120,10 @@ class DirectoryScannerTest extends BuildFileTest
         );
     }
 
-    public function test3()
+    /**
+     * @return void
+     */
+    public function test3(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -116,7 +144,10 @@ class DirectoryScannerTest extends BuildFileTest
         );
     }
 
-    public function testFullPathMatchesCaseSensitive()
+    /**
+     * @return void
+     */
+    public function testFullPathMatchesCaseSensitive(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -126,7 +157,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, [], []);
     }
 
-    public function testFullPathMatchesCaseInsensitive()
+    /**
+     * @return void
+     */
+    public function testFullPathMatchesCaseInsensitive(): void
     {
         $ds = new DirectoryScanner();
         $ds->setCaseSensitive(false);
@@ -137,7 +171,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, ['alpha/beta/gamma/gamma.xml'], []);
     }
 
-    public function test2ButCaseInsensitive()
+    /**
+     * @return void
+     */
+    public function test2ButCaseInsensitive(): void
     {
         $ds = new DirectoryScanner();
         $ds->setCaseSensitive(false);
@@ -159,7 +196,10 @@ class DirectoryScannerTest extends BuildFileTest
         );
     }
 
-    public function testExcludeOneFile()
+    /**
+     * @return void
+     */
+    public function testExcludeOneFile(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -170,7 +210,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, ['alpha/beta/gamma/gamma.xml'], []);
     }
 
-    public function testExcludeHasPrecedence()
+    /**
+     * @return void
+     */
+    public function testExcludeHasPrecedence(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -181,7 +224,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, [], []);
     }
 
-    public function testAlternateIncludeExclude()
+    /**
+     * @return void
+     */
+    public function testAlternateIncludeExclude(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -192,7 +238,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, [], ['alpha']);
     }
 
-    public function testAlternateExcludeInclude()
+    /**
+     * @return void
+     */
+    public function testAlternateExcludeInclude(): void
     {
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir);
@@ -203,7 +252,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, [], []);
     }
 
-    public function testChildrenOfExcludedDirectory()
+    /**
+     * @return void
+     */
+    public function testChildrenOfExcludedDirectory(): void
     {
         $this->executeTarget('children-of-excluded-dir-setup');
 
@@ -235,7 +287,10 @@ class DirectoryScannerTest extends BuildFileTest
         );
     }
 
-    public function testAbsolute1()
+    /**
+     * @return void
+     */
+    public function testAbsolute1(): void
     {
         $base   = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . '/tmp', $base->getPrefixLength());
@@ -264,7 +319,10 @@ class DirectoryScannerTest extends BuildFileTest
         );
     }
 
-    public function testAbsolute2()
+    /**
+     * @return void
+     */
+    public function testAbsolute2(): void
     {
         $base   = $this->getProject()->getBasedir();
         $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
@@ -279,7 +337,10 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, [], []);
     }
 
-    public function testAbsolute3()
+    /**
+     * @return void
+     */
+    public function testAbsolute3(): void
     {
         $base   = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . '/tmp', $base->getPrefixLength());
@@ -307,7 +368,10 @@ class DirectoryScannerTest extends BuildFileTest
         );
     }
 
-    public function testAbsolute4()
+    /**
+     * @return void
+     */
+    public function testAbsolute4(): void
     {
         $base   = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . '/tmp', $base->getPrefixLength());
@@ -333,8 +397,10 @@ class DirectoryScannerTest extends BuildFileTest
 
     /**
      * Inspired by http://www.phing.info/trac/ticket/137
+     *
+     * @return void
      */
-    public function testMultipleExcludes()
+    public function testMultipleExcludes(): void
     {
         $this->executeTarget('multiple-setup');
 
@@ -347,6 +413,13 @@ class DirectoryScannerTest extends BuildFileTest
         $this->compareFiles($ds, ['b/b.xml'], ['', 'a', 'b']);
     }
 
+    /**
+     * @param string|array $item
+     *
+     * @return string|array
+     *
+     * @throws IOException
+     */
     protected function replaceSeparator($item)
     {
         $fs = FileSystem::getFileSystem();
@@ -354,7 +427,14 @@ class DirectoryScannerTest extends BuildFileTest
         return str_replace($fs->getSeparator(), '/', $item);
     }
 
-    protected function compareFiles(DirectoryScanner $ds, $expectedFiles, $expectedDirectories)
+    /**
+     * @param DirectoryScanner $ds
+     * @param array            $expectedFiles
+     * @param array            $expectedDirectories
+     *
+     * @return void
+     */
+    protected function compareFiles(DirectoryScanner $ds, array $expectedFiles, array $expectedDirectories): void
     {
         $includedFiles       = $ds->getIncludedFiles();
         $includedDirectories = $ds->getIncludedDirectories();

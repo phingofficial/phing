@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Exits the active build, giving an additional message
  * if available.
@@ -33,9 +35,12 @@ class ThrowTask extends FailTask
     private $reference = null;
 
     /**
+     * @return void
+     *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $reffed = $this->reference !== null ? $this->reference->getReferencedObject($this->getProject()) : null;
 
@@ -51,15 +56,15 @@ class ThrowTask extends FailTask
      *
      * @return void
      */
-    public function setRefid(Reference $ref)
+    public function setRefid(Reference $ref): void
     {
         $this->reference = $ref;
     }
 
     /**
-     * @return Reference
+     * @return Reference|null
      */
-    public function getRefid()
+    public function getRefid(): ?Reference
     {
         return $this->reference;
     }

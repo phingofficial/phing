@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task that runs a target.
  *
@@ -29,8 +31,10 @@ class RunTargetTask extends Task
      * The target attribute
      *
      * @param string $target the name of a target to execute
+     *
+     * @return void
      */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
         $this->target = $target;
     }
@@ -38,9 +42,12 @@ class RunTargetTask extends Task
     /**
      * execute the target
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException if a target is not specified
      */
-    public function main()
+    public function main(): void
     {
         if ($this->target == null) {
             throw new BuildException('target property required');

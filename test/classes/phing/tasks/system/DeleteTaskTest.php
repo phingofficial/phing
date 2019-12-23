@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Delete Task
  *
@@ -25,7 +27,10 @@
  */
 class DeleteTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,31 +39,47 @@ class DeleteTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
     /**
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testCopyDanglingSymlink()
+    public function testCopyDanglingSymlink(): void
     {
         $this->executeTarget('testDeleteDanglingSymlink');
         $this->assertInLogs('Deleting 1 files from');
     }
 
-    public function testDeleteNonExistingDirectory()
+    /**
+     * @return void
+     */
+    public function testDeleteNonExistingDirectory(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'does not exist or is not a directory');
     }
 
-    public function testDeleteNonExistingFile()
+    /**
+     * @return void
+     */
+    public function testDeleteNonExistingFile(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Could not find file');
     }
 
-    public function testDirset()
+    /**
+     * @return void
+     */
+    public function testDirset(): void
     {
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
         $dir1   = $tmpDir . '/test-one';

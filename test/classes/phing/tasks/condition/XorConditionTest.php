@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the XorCondition
  *
@@ -25,50 +27,77 @@
  */
 class XorConditionTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/XorConditionTest.xml'
         );
     }
 
-    public function testEmpty()
+    /**
+     * @return void
+     */
+    public function testEmpty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('isEmpty');
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('testTrue');
     }
 
-    public function test0()
+    /**
+     * @return void
+     */
+    public function test0(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('testFalse');
     }
 
-    public function test10()
+    /**
+     * @return void
+     */
+    public function test10(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test10');
     }
 
-    public function test01()
+    /**
+     * @return void
+     */
+    public function test01(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test01');
     }
 
-    public function test00()
+    /**
+     * @return void
+     */
+    public function test00(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test00');
     }
 
-    public function test11()
+    /**
+     * @return void
+     */
+    public function test11(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test11');

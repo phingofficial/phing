@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,32 +17,51 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 class ParameterTest extends TestCase
 {
+    /**
+     * @var Parameter
+     */
     private $parameter;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->parameter = new Parameter();
     }
 
-    public function testSetName()
+    /**
+     * @return void
+     */
+    public function testSetName(): void
     {
-        $this->parameter->setName(1);
+        $this->parameter->setName('1');
         $this->assertEquals('1', $this->parameter->getName());
         $this->parameter->setName('foo');
         $this->assertEquals('foo', $this->parameter->getName());
     }
 
-    public function testSetType()
+    /**
+     * @return void
+     */
+    public function testSetType(): void
     {
-        $this->parameter->setType(1);
+        $this->parameter->setType('1');
         $this->assertEquals('1', $this->parameter->getType());
         $this->parameter->setType('foo');
         $this->assertEquals('foo', $this->parameter->getType());
     }
 
-    public function testSetValue()
+    /**
+     * @return void
+     */
+    public function testSetValue(): void
     {
         $this->parameter->setValue(1);
         $this->assertEquals('1', $this->parameter->getValue());
@@ -53,13 +69,19 @@ class ParameterTest extends TestCase
         $this->assertEquals('foo', $this->parameter->getValue());
     }
 
-    public function testGetParamsNoneSet()
+    /**
+     * @return void
+     */
+    public function testGetParamsNoneSet(): void
     {
         $params = $this->parameter->getParams();
         $this->assertEquals([], $params);
     }
 
-    public function testCreateParamGetParams()
+    /**
+     * @return void
+     */
+    public function testCreateParamGetParams(): void
     {
         $param = $this->parameter->createParam();
         $class = get_class($param);
@@ -68,7 +90,10 @@ class ParameterTest extends TestCase
         $this->assertNotEquals([], $params);
     }
 
-    public function testSetListeningValue()
+    /**
+     * @return void
+     */
+    public function testSetListeningValue(): void
     {
         $slot = new RegisterSlot('key');
         $slot->setValue('value1');

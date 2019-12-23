@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit tests for PhpLintTask
  *
@@ -24,17 +26,26 @@
  */
 class PhpLintTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phplint/build.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         @unlink(PHING_TEST_BASE . '/tmp/phplint_file.php');
     }
 
-    public function testSyntaxOK()
+    /**
+     * @return void
+     */
+    public function testSyntaxOK(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world'; ?>");
 
@@ -42,7 +53,10 @@ class PhpLintTaskTest extends BuildFileTest
         $this->assertInLogs('phplint_file.php: No syntax errors detected');
     }
 
-    public function testSyntaxError()
+    /**
+     * @return void
+     */
+    public function testSyntaxError(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 
@@ -53,9 +67,11 @@ class PhpLintTaskTest extends BuildFileTest
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/590
      *
+     * @return void
+     *
      * @requires PHP < 7.0
      */
-    public function testDeprecated()
+    public function testDeprecated(): void
     {
         file_put_contents(
             PHING_TEST_BASE . '/tmp/phplint_file.php',
@@ -66,7 +82,10 @@ class PhpLintTaskTest extends BuildFileTest
         $this->assertInLogs('Assigning the return value of new by reference is deprecated in');
     }
 
-    public function testHaltOnFailure()
+    /**
+     * @return void
+     */
+    public function testHaltOnFailure(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 

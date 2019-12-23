@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
  *
@@ -61,20 +63,40 @@ class ZendCodeAnalyzerTask extends Task
 {
     use FileSetAware;
 
+    /**
+     * @var string
+     */
     protected $analyzerPath = ''; // Path to ZendCodeAnalyzer binary
-    protected $file         = ''; // the source file (from xml attribute)
-    protected $counter      = 0;
-    protected $disable      = [];
-    protected $enable       = [];
 
+    /**
+     * @var PhingFile
+     */
+    protected $file    = null; // the source file (from xml attribute)
+    protected $counter = 0;
+
+    /**
+     * @var array
+     */
+    protected $disable = [];
+
+    /**
+     * @var array
+     */
+    protected $enable = [];
+
+    /**
+     * @var bool
+     */
     private $haltonwarning = false;
 
     /**
      * File to be analyzed
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -83,8 +105,10 @@ class ZendCodeAnalyzerTask extends Task
      * Path to ZendCodeAnalyzer binary
      *
      * @param string $analyzerPath
+     *
+     * @return void
      */
-    public function setAnalyzerPath($analyzerPath)
+    public function setAnalyzerPath(string $analyzerPath): void
     {
         $this->analyzerPath = $analyzerPath;
     }
@@ -93,8 +117,10 @@ class ZendCodeAnalyzerTask extends Task
      * Disable warning levels. Separate warning levels with ','
      *
      * @param string $disable
+     *
+     * @return void
      */
-    public function setDisable($disable)
+    public function setDisable(string $disable): void
     {
         $this->disable = explode(',', $disable);
     }
@@ -103,8 +129,10 @@ class ZendCodeAnalyzerTask extends Task
      * Enable warning levels. Separate warning levels with ','
      *
      * @param string $enable
+     *
+     * @return void
      */
-    public function setEnable($enable)
+    public function setEnable(string $enable): void
     {
         $this->enable = explode(',', $enable);
     }
@@ -113,16 +141,22 @@ class ZendCodeAnalyzerTask extends Task
      * Sets the haltonwarning flag
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setHaltonwarning($value)
+    public function setHaltonwarning(bool $value): void
     {
         $this->haltonwarning = $value;
     }
 
     /**
      * Analyze against PhingFile or a FileSet
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!isset($this->analyzerPath)) {
             throw new BuildException("Missing attribute 'analyzerPath'");
@@ -158,9 +192,10 @@ class ZendCodeAnalyzerTask extends Task
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function analyze($file)
+    protected function analyze(string $file): void
     {
         if (file_exists($file)) {
             if (is_readable($file)) {

@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for DataType
  *
@@ -27,8 +28,14 @@ use PHPUnit\Framework\TestCase;
  */
 class DataTypeTest extends TestCase
 {
+    /**
+     * @var DataType
+     */
     private $datatype;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->datatype = new DataType();
@@ -36,8 +43,10 @@ class DataTypeTest extends TestCase
 
     /**
      * testTooManyAttributes
+     *
+     * @return void
      */
-    public function testTooManyAttributes()
+    public function testTooManyAttributes(): void
     {
         $ex = $this->datatype->tooManyAttributes();
 
@@ -47,8 +56,10 @@ class DataTypeTest extends TestCase
 
     /**
      * testNoChildrenAllowedException
+     *
+     * @return void
      */
-    public function testNoChildrenAllowedException()
+    public function testNoChildrenAllowedException(): void
     {
         $ex = $this->datatype->noChildrenAllowed();
 
@@ -58,8 +69,10 @@ class DataTypeTest extends TestCase
 
     /**
      * testCircularReferenceException
+     *
+     * @return void
      */
-    public function testCircularReferenceException()
+    public function testCircularReferenceException(): void
     {
         $ex = $this->datatype->circularReference();
 
@@ -67,7 +80,10 @@ class DataTypeTest extends TestCase
         $this->assertSame('This data type contains a circular reference.', $ex->getMessage());
     }
 
-    public function testToString()
+    /**
+     * @return void
+     */
+    public function testToString(): void
     {
         $str  = '';
         $str .= $this->datatype;

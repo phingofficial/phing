@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Moved out of MatchingTask to make it a standalone object that could
  * be referenced (by scripts for example).
@@ -35,9 +37,11 @@ class FileSet extends AbstractFileSet
     /**
      * @return array
      *
-     * @throws Exception
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    protected function getFiles(...$options)
+    protected function getFiles(): array
     {
         $directoryScanner = $this->getDirectoryScanner($this->getProject());
         $files            = $directoryScanner->getIncludedFiles();

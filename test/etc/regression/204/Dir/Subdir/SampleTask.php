@@ -2,7 +2,10 @@
 
 class Dir_Subdir_SampleTask extends Task
 {
-    function main()
+    /**
+     * @throws \Exception
+     */
+    function main(): void
     {
         $this->log("SampleTask executed!");
     }

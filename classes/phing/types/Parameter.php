@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A parameter is composed of a name, type and value. Nested
  * Parameters are also possible, but the using task/type has
@@ -30,36 +32,48 @@ class Parameter extends DataType
 {
     /**
      * Parameter name
+     *
+     * @var string
      */
     protected $name;
 
     /**
      * Parameter type
+     *
+     * @var string
      */
     protected $type;
 
     /**
      * Parameter value
+     *
+     * @var mixed|string|RegisterSlot
      */
     protected $value;
 
     /**
      * Nested parameters
+     *
+     * @var Parameter[]
      */
     protected $parameters = [];
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = (string) $name;
     }
 
     /**
      * @param string $type
+     *
+     * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = (string) $type;
     }
@@ -68,34 +82,46 @@ class Parameter extends DataType
      * Sets value to dynamic register slot.
      *
      * @param RegisterSlot $value
+     *
+     * @return void
      */
-    public function setListeningValue(RegisterSlot $value)
+    public function setListeningValue(RegisterSlot $value): void
     {
         $this->value = $value;
     }
 
     /**
-     * @param string $value
+     * @param mixed $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = (string) $value;
     }
 
     /**
      * @param string $v
+     *
+     * @return void
      */
-    public function addText($v)
+    public function addText(string $v): void
     {
         $this->value = $v;
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getType()
+    /**
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
@@ -115,7 +141,7 @@ class Parameter extends DataType
     /**
      * @return Parameter
      */
-    public function createParam()
+    public function createParam(): Parameter
     {
         $num = array_push($this->parameters, new Parameter());
 
@@ -123,9 +149,9 @@ class Parameter extends DataType
     }
 
     /**
-     * @return array Nested parameters.
+     * @return Parameter[] Nested parameters.
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->parameters;
     }

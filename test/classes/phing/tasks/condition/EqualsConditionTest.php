@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Testcase for the &lt;equals&gt; condition.
  *
@@ -29,7 +30,10 @@ use PHPUnit\Framework\TestCase;
  */
 class EqualsConditionTest extends TestCase
 {
-    public function testTrim()
+    /**
+     * @return void
+     */
+    public function testTrim(): void
     {
         $eq = new EqualsCondition();
         $eq->setArg1('a');
@@ -37,13 +41,16 @@ class EqualsConditionTest extends TestCase
         $this->assertFalse($eq->evaluate());
 
         $eq->setTrim(true);
-        $this->assertTrue($eq->evaluate());
+        self::assertTrue($eq->evaluate());
 
         $eq->setArg2("a\t");
-        $this->assertTrue($eq->evaluate());
+        self::assertTrue($eq->evaluate());
     }
 
-    public function testCaseSensitive()
+    /**
+     * @return void
+     */
+    public function testCaseSensitive(): void
     {
         $eq = new EqualsCondition();
         $eq->setArg1('a');
@@ -51,6 +58,6 @@ class EqualsConditionTest extends TestCase
         $this->assertFalse($eq->evaluate());
 
         $eq->setCasesensitive(false);
-        $this->assertTrue($eq->evaluate());
+        self::assertTrue($eq->evaluate());
     }
 }

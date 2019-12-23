@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task to create a directory.
  *
@@ -51,10 +53,19 @@ class MkdirTask extends Task
     /**
      * create the directory and all parents
      *
-     * @throws BuildException if dir is somehow invalid, or creation failed.
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws Exception
+     * @throws IOException
      */
-    public function main()
+    public function main(): void
     {
+        $this->log(
+            self::class . '::' . __FUNCTION__,
+            Project::MSG_VERBOSE
+        );
+
         if ($this->dir === null) {
             throw new BuildException('dir attribute is required', $this->getLocation());
         }
@@ -63,8 +74,19 @@ class MkdirTask extends Task
                 'Unable to create directory as a file already exists with that name: ' . $this->dir->getAbsolutePath()
             );
         }
+
+        $this->log(
+            'Checking dir: ' . $this->dir->getAbsolutePath(),
+            Project::MSG_VERBOSE
+        );
+
         if (!$this->dir->exists()) {
+            $this->log(
+                'Dir ' . $this->dir->getAbsolutePath() . ' does not exist, try to create',
+                Project::MSG_VERBOSE
+            );
             $result = $this->dir->mkdirs($this->mode);
+
             if (!$result) {
                 if ($this->dir->exists()) {
                     $this->log('A different process or task has already created ' . $this->dir->getAbsolutePath());
@@ -89,8 +111,11 @@ class MkdirTask extends Task
      * @param PhingFile $dir
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws Exception
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(PhingFile $dir): void
     {
         $this->dir = $dir;
     }
@@ -98,12 +123,12 @@ class MkdirTask extends Task
     /**
      * Sets mode to create directory with
      *
-     * @param mixed $mode
+     * @param int $mode
      *
      * @return void
      */
-    public function setMode($mode)
+    public function setMode(int $mode): void
     {
-        $this->mode = base_convert((int) $mode, 8, 10);
+        $this->mode = (int) base_convert($mode, 8, 10);
     }
 }

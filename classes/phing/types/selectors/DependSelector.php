@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that filters files based on whether they are newer than
  * a matching file in another directory tree. It can contain a mapper
@@ -29,15 +31,30 @@
  */
 class DependSelector extends BaseSelector
 {
-    private $targetdir     = null;
+    /**
+     * @var PhingFile
+     */
+    private $targetdir = null;
+
+    /**
+     * @var Mapper
+     */
     private $mapperElement = null;
-    private $map           = null;
-    private $granularity   = 0;
+
+    /**
+     * @var ContainerMapper|FileNameMapper
+     */
+    private $map = null;
+
+    /**
+     * @var int
+     */
+    private $granularity = 0;
 
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '{dependselector targetdir: ';
         if ($this->targetdir === null) {
@@ -64,8 +81,10 @@ class DependSelector extends BaseSelector
      * files.
      *
      * @param PhingFile $targetdir the directory to scan looking for files.
+     *
+     * @return void
      */
-    public function setTargetdir(PhingFile $targetdir)
+    public function setTargetdir(PhingFile $targetdir): void
     {
         $this->targetdir = $targetdir;
     }
@@ -75,8 +94,10 @@ class DependSelector extends BaseSelector
      * a file out of date.
      *
      * @param int $granularity
+     *
+     * @return void
      */
-    public function setGranularity($granularity)
+    public function setGranularity(int $granularity): void
     {
         $this->granularity = (int) $granularity;
     }
@@ -84,9 +105,11 @@ class DependSelector extends BaseSelector
     /**
      * Defines the FileNameMapper to use (nested mapper element).
      *
+     * @return Mapper
+     *
      * @throws BuildException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException('Cannot define more than one mapper');
@@ -99,8 +122,12 @@ class DependSelector extends BaseSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the dest attribute has been set and we have a mapper.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->targetdir === null) {
             $this->setError('The targetdir attribute is required.');
@@ -125,9 +152,11 @@ class DependSelector extends BaseSelector
      *
      * @return bool whether the file should be selected or not
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

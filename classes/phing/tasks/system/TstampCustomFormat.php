@@ -17,22 +17,41 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package  phing.tasks.system
  */
 class TstampCustomFormat
 {
+    /**
+     * @var string
+     */
     private $propertyName = '';
-    private $pattern      = '';
-    private $locale       = '';
-    private $timezone     = '';
+
+    /**
+     * @var string
+     */
+    private $pattern = '';
+
+    /**
+     * @var string
+     */
+    private $locale = '';
+
+    /**
+     * @var string
+     */
+    private $timezone = '';
 
     /**
      * The property to receive the date/time string in the given pattern
      *
      * @param string $propertyName the name of the property.
+     *
+     * @return void
      */
-    public function setProperty($propertyName)
+    public function setProperty(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
@@ -42,8 +61,10 @@ class TstampCustomFormat
      * defined by the PHP strftime() function.
      *
      * @param string $pattern
+     *
+     * @return void
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         $this->pattern = $pattern;
     }
@@ -52,16 +73,20 @@ class TstampCustomFormat
      * The locale used to create date/time string.
      *
      * @param string $locale
+     *
+     * @return void
      */
-    public function setLocale($locale)
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }
 
     /**
      * @param string $timezone
+     *
+     * @return void
      */
-    public function setTimezone($timezone)
+    public function setTimezone(string $timezone): void
     {
         $this->timezone = $timezone;
     }
@@ -69,11 +94,15 @@ class TstampCustomFormat
     /**
      * validate parameter and execute the format.
      *
-     * @param TstampTask $tstamp reference to task
+     * @param TstampTask $tstamp   reference to task
+     * @param int        $d
+     * @param Location   $location
+     *
+     * @return void
      *
      * @throws BuildException
      */
-    public function execute(TstampTask $tstamp, $d, $location)
+    public function execute(TstampTask $tstamp, int $d, Location $location): void
     {
         if (empty($this->propertyName)) {
             throw new BuildException('property attribute must be provided', $location);

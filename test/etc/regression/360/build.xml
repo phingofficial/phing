@@ -14,7 +14,7 @@
 					$this->value = $value;
 				}
 
-				function main() {
+				function main(): void {
 				}
 			}
 	]]></adhoc-task>

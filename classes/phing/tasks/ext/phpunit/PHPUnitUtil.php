@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Various utility functions
  *
@@ -26,6 +28,9 @@
  */
 class PHPUnitUtil
 {
+    /**
+     * @var array[]
+     */
     protected static $definedClasses = [];
 
     /**
@@ -37,7 +42,7 @@ class PHPUnitUtil
      *
      * @throws ReflectionException
      */
-    public static function getPackageName($classname)
+    public static function getPackageName(string $classname): string
     {
         $reflect = new ReflectionClass($classname);
 
@@ -49,7 +54,7 @@ class PHPUnitUtil
             }
         }
 
-        if (preg_match('/@package[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
+        if (preg_match('/@package[\s]+([\.\w]+)/', (string) $reflect->getDocComment(), $matches)) {
             return $matches[1];
         }
 
@@ -68,11 +73,11 @@ class PHPUnitUtil
      *
      * @author Benjamin Schultz <bschultz@proqrent.de>
      */
-    public static function getSubpackageName($classname)
+    public static function getSubpackageName(string $classname): ?string
     {
         $reflect = new ReflectionClass($classname);
 
-        if (preg_match('/@subpackage[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
+        if (preg_match('/@subpackage[\s]+([\.\w]+)/', (string) $reflect->getDocComment(), $matches)) {
             return $matches[1];
         }
 
@@ -88,7 +93,7 @@ class PHPUnitUtil
      *
      * @return string the name fo the class
      */
-    public static function getClassFromFileName($filename)
+    public static function getClassFromFileName(string $filename): string
     {
         $filename = basename($filename);
 
@@ -109,7 +114,7 @@ class PHPUnitUtil
      *
      * @throws Exception
      */
-    public static function getDefinedClasses($filename, $classpath = null)
+    public static function getDefinedClasses(string $filename, $classpath = null): array
     {
         $filename = realpath($filename);
 

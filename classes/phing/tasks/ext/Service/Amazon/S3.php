@@ -1,7 +1,4 @@
 <?php
-
-use Aws\S3\S3Client;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,6 +16,10 @@ use Aws\S3\S3Client;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use Aws\S3\S3Client;
 
 /**
  * Abstract Service_Amazon_S3 class.
@@ -47,7 +48,7 @@ abstract class S3 extends Amazon
      *
      * @throws BuildException
      */
-    public function getClient()
+    public function getClient(): Aws\S3\S3Client
     {
         if ($this->client === null) {
             try {
@@ -70,9 +71,11 @@ abstract class S3 extends Amazon
     /**
      * @param string $bucket
      *
+     * @return void
+     *
      * @throws BuildException if $bucket is a empty string
      */
-    public function setBucket($bucket)
+    public function setBucket(string $bucket): void
     {
         if (empty($bucket) || !is_string($bucket)) {
             throw new BuildException('Bucket must be a non-empty string');
@@ -86,7 +89,7 @@ abstract class S3 extends Amazon
      *
      * @throws BuildException if bucket is not set
      */
-    public function getBucket()
+    public function getBucket(): string
     {
         if (!($bucket = $this->bucket)) {
             throw new BuildException('Bucket is not set');
@@ -104,7 +107,7 @@ abstract class S3 extends Amazon
      *
      * @throws BuildException
      */
-    public function getObjectInstance($object)
+    public function getObjectInstance($object): Aws\Result
     {
         return $this->getClientInstance()->getObject($object);
     }
@@ -116,7 +119,7 @@ abstract class S3 extends Amazon
      *
      * @return bool
      */
-    public function isObjectAvailable($object)
+    public function isObjectAvailable($object): bool
     {
         return (bool) $this->getObjectInstance($object)->load(Services_Amazon_S3_Resource_Object::LOAD_METADATA_ONLY);
     }
@@ -126,7 +129,7 @@ abstract class S3 extends Amazon
      *
      * @return S3Client
      */
-    public function getClientInstance()
+    public function getClientInstance(): Aws\S3\S3Client
     {
         return $this->getClient();
     }
@@ -138,7 +141,7 @@ abstract class S3 extends Amazon
      *
      * @throws BuildException
      */
-    public function isBucketAvailable()
+    public function isBucketAvailable(): bool
     {
         return $this->getClientInstance()->doesBucketExist($this->getBucket());
     }
@@ -150,7 +153,7 @@ abstract class S3 extends Amazon
      *
      * @throws BuildException
      */
-    public function createBucket()
+    public function createBucket(): bool
     {
         $client = $this->getClientInstance();
         $client->createBucket(['Bucket' => $this->getBucket()]);
@@ -163,7 +166,7 @@ abstract class S3 extends Amazon
      *
      * @return void
      */
-    final public function main()
+    final public function main(): void
     {
         $this->execute();
     }
@@ -173,5 +176,5 @@ abstract class S3 extends Amazon
      *
      * @return void
      */
-    abstract public function execute();
+    abstract public function execute(): void;
 }

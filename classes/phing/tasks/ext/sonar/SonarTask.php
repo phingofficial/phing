@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Runs SonarQube Scanner.
  *
@@ -52,7 +54,7 @@ class SonarTask extends Task
     /**
      * @see Property
      *
-     * @var array Nested *Property* elements.
+     * @var SonarProperty[] Nested *Property* elements.
      */
     private $propertyElements = [];
 
@@ -75,15 +77,16 @@ class SonarTask extends Task
 
     /**
      * Sets the path of the SonarQube Scanner executable.
-     *
      * If the SonarQube Scanner is included in the PATH environment variable,
      * the file name is sufficient.
      *
      * @param string $executable
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setExecutable($executable)
+    public function setExecutable(string $executable): void
     {
         $this->executable = (string) $executable;
 
@@ -94,12 +97,13 @@ class SonarTask extends Task
     /**
      * Sets or unsets the "--errors" flag of SonarQube Scanner.
      *
-     * @param string $errors
-     *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
+     * @param string $errors Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setErrors($errors)
+    public function setErrors(string $errors): void
     {
         $this->errors = strtolower((string) $errors);
 
@@ -110,12 +114,13 @@ class SonarTask extends Task
     /**
      * Sets or unsets the "--debug" flag of SonarQube Scanner.
      *
-     * @param string $debug
-     *            Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
+     * @param string $debug Allowed values are "true"/"false", "yes"/"no", or "1"/"0".
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setDebug($debug)
+    public function setDebug(string $debug): void
     {
         $this->debug = strtolower((string) $debug);
 
@@ -129,8 +134,10 @@ class SonarTask extends Task
      * @param string $configuration
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setConfiguration($configuration)
+    public function setConfiguration(string $configuration): void
     {
         $this->configuration = (string) $configuration;
 
@@ -144,8 +151,10 @@ class SonarTask extends Task
      * @param SonarProperty $property
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function addProperty(SonarProperty $property)
+    public function addProperty(SonarProperty $property): void
     {
         $this->propertyElements[] = $property;
 
@@ -157,8 +166,10 @@ class SonarTask extends Task
      * {@inheritdoc}
      *
      * @see Task::init()
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->checkExecAllowed();
     }
@@ -167,8 +178,12 @@ class SonarTask extends Task
      * {@inheritdoc}
      *
      * @see Task::main()
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->validateErrors();
         $this->validateDebug();
@@ -216,7 +231,7 @@ class SonarTask extends Task
      *
      * @throws BuildException
      */
-    private function checkExecAllowed()
+    private function checkExecAllowed(): void
     {
         if (!function_exists('exec') || !is_callable('exec')) {
             $message = 'Cannot execute SonarQube Scanner because calling PHP function exec() is not permitted by PHP configuration.';
@@ -227,9 +242,10 @@ class SonarTask extends Task
     /**
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    private function validateExecutable()
+    private function validateExecutable(): void
     {
         if (($this->executable === null) || ($this->executable === '')) {
             $message = 'You must specify the path of the SonarQube Scanner using the "executable" attribute.';
@@ -271,7 +287,7 @@ class SonarTask extends Task
 
         $isOk = false;
         foreach ($output as $line) {
-            if (preg_match('/SonarQube Scanner \d+\\.\d+/', $line) === 1) {
+            if (preg_match('/SonarQube Scanner \d+\\.\d+/', (string) $line) === 1) {
                 $isOk = true;
                 break;
             }
@@ -294,7 +310,7 @@ class SonarTask extends Task
      *
      * @throws BuildException
      */
-    private function validateErrors()
+    private function validateErrors(): void
     {
         if (($this->errors === '1') || ($this->errors === 'true') || ($this->errors === 'yes')) {
             $errors = true;
@@ -314,7 +330,7 @@ class SonarTask extends Task
      *
      * @throws BuildException
      */
-    private function validateDebug()
+    private function validateDebug(): void
     {
         if (($this->debug === '1') || ($this->debug === 'true') || ($this->debug === 'yes')) {
             $debug = true;
@@ -334,7 +350,7 @@ class SonarTask extends Task
      *
      * @throws BuildException
      */
-    private function validateConfiguration()
+    private function validateConfiguration(): void
     {
         if (($this->configuration === null) || ($this->configuration === '')) {
             // NOTE: Ignore an empty configuration. This allows for
@@ -348,7 +364,7 @@ class SonarTask extends Task
             throw new BuildException($message);
         }
 
-        if (!@is_readable($this->configuration)) {
+        if (!@is_readable((string) $this->configuration)) {
             $message = sprintf('Cannot read configuration file [%s].', $this->configuration);
             throw new BuildException($message);
         }
@@ -359,9 +375,10 @@ class SonarTask extends Task
     /**
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    private function validateProperties()
+    private function validateProperties(): void
     {
         $this->properties = $this->parseConfigurationFile();
 
@@ -405,8 +422,10 @@ class SonarTask extends Task
 
     /**
      * @return array
+     *
+     * @throws Exception
      */
-    private function parseConfigurationFile()
+    private function parseConfigurationFile(): array
     {
         if (($this->configuration === null) || ($this->configuration === '')) {
             return [];
@@ -419,7 +438,7 @@ class SonarTask extends Task
     /**
      * @return bool
      */
-    private function isWindows()
+    private function isWindows(): bool
     {
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }

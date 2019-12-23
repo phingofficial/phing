@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Stores the output of a list command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
@@ -30,24 +32,39 @@
  */
 class SvnListTask extends SvnBaseTask
 {
-    private $propertyName    = 'svn.list';
-    private $limit           = null;
+    /**
+     * @var string
+     */
+    private $propertyName = 'svn.list';
+
+    /**
+     * @var int|null
+     */
+    private $limit = null;
+
+    /**
+     * @var bool
+     */
     private $orderDescending = false;
 
     /**
      * Sets the name of the property to use
      *
      * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
@@ -56,8 +73,10 @@ class SvnListTask extends SvnBaseTask
      * Sets the max num of tags to display
      *
      * @param int $limit
+     *
+     * @return void
      */
-    public function setLimit($limit)
+    public function setLimit(int $limit): void
     {
         $this->limit = (int) $limit;
     }
@@ -66,8 +85,10 @@ class SvnListTask extends SvnBaseTask
      * Sets whether to sort tags in descending order
      *
      * @param bool $orderDescending
+     *
+     * @return void
      */
-    public function setOrderDescending($orderDescending)
+    public function setOrderDescending(bool $orderDescending): void
     {
         $this->orderDescending = $orderDescending;
     }
@@ -75,9 +96,11 @@ class SvnListTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('list');
 

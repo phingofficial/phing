@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class TaskdefTestSimpleTask extends Task
 {
     private $echo;
@@ -24,14 +26,17 @@ class TaskdefTestSimpleTask extends Task
     /**
      * @return TestEcho
      */
-    public function createEcho()
+    public function createEcho(): TestEcho
     {
         $this->echo = new TestEcho();
 
         return $this->echo;
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         $this->log('simpletask: ' . $this->echo->message, Project::MSG_INFO);
     }

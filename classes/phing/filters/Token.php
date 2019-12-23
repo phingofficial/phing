@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Holds a token.
  *
@@ -42,8 +44,10 @@ class Token
      * Sets the token key.
      *
      * @param string $key The key for this token. Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function setKey($key)
+    public function setKey(string $key): void
     {
         $this->key = (string) $key;
     }
@@ -51,9 +55,11 @@ class Token
     /**
      * Sets the token value.
      *
-     * @param string $value The value for this token. Must not be <code>null</code>.
+     * @param string|bool $value The value for this token. Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         // special case for boolean values
         if (is_bool($value)) {
@@ -72,7 +78,7 @@ class Token
      *
      * @return string The key for this token.
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -82,7 +88,7 @@ class Token
      *
      * @return string The value for this token.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -90,9 +96,11 @@ class Token
     /**
      * Sets the token value from text.
      *
-     * @param string $value The value for this token. Must not be <code>null</code>.
+     * @param string|bool $value The value for this token. Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function addText($value)
+    public function addText($value): void
     {
         $this->setValue($value);
     }

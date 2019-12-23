@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task that invokes phing on another build file.
  *
@@ -41,36 +43,50 @@ class PhingTask extends Task
 
     /**
      * the basedir where is executed the build file
+     *
+     * @var PhingFile
      */
     private $dir;
 
     /**
      * build.xml (can be absolute) in this case dir will be ignored
+     *
+     * @var string
      */
     private $phingFile;
 
     /**
      * the target to call if any
+     *
+     * @var string
      */
     protected $newTarget;
 
     /**
      * should we inherit properties from the parent ?
+     *
+     * @var bool
      */
     private $inheritAll = true;
 
     /**
      * should we inherit references from the parent ?
+     *
+     * @var bool
      */
     private $inheritRefs = false;
 
     /**
      * the properties to pass to the new project
+     *
+     * @var PropertyTask[]
      */
     private $properties = [];
 
     /**
      * the references to pass to the new project
+     *
+     * @var PhingReference[]
      */
     private $references = [];
 
@@ -83,6 +99,8 @@ class PhingTask extends Task
 
     /**
      * Fail the build process when the called build fails?
+     *
+     * @var bool
      */
     private $haltOnFailure = false;
 
@@ -91,8 +109,10 @@ class PhingTask extends Task
      *  Defaults to false.
      *
      * @param bool $hof new value
+     *
+     * @return void
      */
-    public function setHaltOnFailure($hof)
+    public function setHaltOnFailure(bool $hof): void
     {
         $this->haltOnFailure = (bool) $hof;
     }
@@ -101,8 +121,10 @@ class PhingTask extends Task
      * Creates a Project instance for the project to call.
      *
      * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function init()
+    public function init(): void
     {
         $this->newProject = new Project();
         $tdf              = $this->project->getTaskDefinitions();
@@ -111,15 +133,19 @@ class PhingTask extends Task
 
     /**
      * Called in execute or createProperty if newProject is null.
-     *
      * <p>This can happen if the same instance of this task is run
      * twice as newProject is set to null at the end of execute (to
      * save memory and help the GC).</p>
-     *
      * <p>Sets all properties that have been defined as nested
      * property elements.</p>
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ConfigurationException
      */
-    private function reinit()
+    private function reinit(): void
     {
         $this->init();
         $count = count($this->properties);
@@ -163,8 +189,13 @@ class PhingTask extends Task
      * Main entry point for the task.
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         // Call Phing on the file set with the attribute "phingfile"
         if ($this->phingFile !== null || $this->dir !== null) {
@@ -219,9 +250,10 @@ class PhingTask extends Task
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    private function processFile()
+    private function processFile(): void
     {
         $buildFailed    = false;
         $savedDir       = $this->dir;
@@ -297,7 +329,7 @@ class PhingTask extends Task
             $this->newProject->executeTarget($this->newTarget);
         } catch (Throwable $e) {
             $buildFailed = true;
-            $this->log($e->getMessage(), Project::MSG_ERR);
+            $this->log((string) $e, Project::MSG_ERR);
             if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) {
                 $lines = explode("\n", $e->getTraceAsString());
                 foreach ($lines as $line) {
@@ -333,6 +365,10 @@ class PhingTask extends Task
      * Get the (sub)-Project instance currently in use.
      *
      * @return Project
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ConfigurationException
      */
     protected function getNewProject(): Project
     {
@@ -347,12 +383,15 @@ class PhingTask extends Task
      * (copy from father project), add Task and Datatype definitions,
      * copy properties and references from old project if these options
      * are set via the attributes of the XML tag.
-     *
      * Developer note:
      * This function replaces the old methods "init", "_reinit" and
      * "_initializeProject".
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    private function initializeProject()
+    private function initializeProject(): void
     {
         $this->newProject->setInputHandler($this->project->getInputHandler());
 
@@ -409,8 +448,9 @@ class PhingTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    private function overrideProperties()
+    private function overrideProperties(): void
     {
         foreach (array_keys($this->properties) as $i) {
             $p = $this->properties[$i];
@@ -429,8 +469,9 @@ class PhingTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    private function addReferences()
+    private function addReferences(): void
     {
         // parent project references
         $projReferences = $this->project->getReferences();
@@ -488,7 +529,6 @@ class PhingTask extends Task
      * Try to clone and reconfigure the object referenced by oldkey in
      * the parent project and add it to the new project with the key
      * newkey.
-     *
      * <p>If we cannot clone it, copy the referenced object itself and
      * keep our fingers crossed.</p>
      *
@@ -497,9 +537,10 @@ class PhingTask extends Task
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    private function copyReference($oldKey, $newKey)
+    private function copyReference(string $oldKey, string $newKey): void
     {
         $orig = $this->project->getReference($oldKey);
         if ($orig === null) {
@@ -533,8 +574,10 @@ class PhingTask extends Task
      * Defaults to true.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setInheritAll($value)
+    public function setInheritAll(bool $value): void
     {
         $this->inheritAll = (bool) $value;
     }
@@ -544,8 +587,10 @@ class PhingTask extends Task
      * Defaults to false.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setInheritRefs($value)
+    public function setInheritRefs(bool $value): void
     {
         $this->inheritRefs = (bool) $value;
     }
@@ -557,8 +602,13 @@ class PhingTask extends Task
      * value. This will override the basedir setting of the called project.
      *
      * @param PhingFile|string $d
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setDir($d)
+    public function setDir($d): void
     {
         if (is_string($d)) {
             $this->dir = new PhingFile($d);
@@ -573,8 +623,10 @@ class PhingTask extends Task
      * to the dir attribute given.
      *
      * @param string $s
+     *
+     * @return void
      */
-    public function setPhingFile($s)
+    public function setPhingFile(string $s): void
     {
         // it is a string and not a file to handle relative/absolute
         // otherwise a relative file will be resolved based on the current
@@ -586,8 +638,10 @@ class PhingTask extends Task
      * Alias function for setPhingfile
      *
      * @param string $s
+     *
+     * @return void
      */
-    public function setBuildfile($s)
+    public function setBuildfile(string $s): void
     {
         $this->setPhingFile($s);
     }
@@ -597,8 +651,10 @@ class PhingTask extends Task
      * Defaults to the new project's default target.
      *
      * @param string $s
+     *
+     * @return void
      */
-    public function setTarget(string $s)
+    public function setTarget(string $s): void
     {
         if ('' === $s) {
             throw new BuildException('target attribute must not be empty');
@@ -610,8 +666,14 @@ class PhingTask extends Task
     /**
      * Property to pass to the new project.
      * The property is passed as a 'user property'
+     *
+     * @return PropertyTask
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function createProperty()
+    public function createProperty(): PropertyTask
     {
         $p = new PropertyTask();
         $p->setFallback($this->getNewProject());
@@ -626,8 +688,10 @@ class PhingTask extends Task
      * over to the new project.
      *
      * @param PhingReference $ref
+     *
+     * @return void
      */
-    public function addReference(PhingReference $ref)
+    public function addReference(PhingReference $ref): void
     {
         $this->references[] = $ref;
     }

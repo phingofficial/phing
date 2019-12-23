@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task definition for the phing task to switch on a particular value.
  *
@@ -78,7 +80,7 @@ class SwitchTask extends Task
     private $value = null;
 
     /**
-     * @var array $cases
+     * @var CaseTask[] $cases
      */
     private $cases = [];
 
@@ -99,7 +101,7 @@ class SwitchTask extends Task
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -111,7 +113,7 @@ class SwitchTask extends Task
      *
      * @return void
      */
-    public function addCase(CaseTask $case)
+    public function addCase(CaseTask $case): void
     {
         $this->cases[] = $case;
     }
@@ -121,15 +123,19 @@ class SwitchTask extends Task
      *
      * @return void
      */
-    public function setCaseInsensitive($bool)
+    public function setCaseInsensitive(bool $bool): void
     {
         $this->caseInsensitive = $bool;
     }
 
     /**
      * Creates the `<default>` tag
+     *
+     * @param SequentialTask $res
+     *
+     * @return void
      */
-    public function addDefault(SequentialTask $res)
+    public function addDefault(SequentialTask $res): void
     {
         if ($this->defaultCase !== null) {
             throw new BuildException('Cannot specify multiple default cases');
@@ -138,7 +144,12 @@ class SwitchTask extends Task
         $this->defaultCase = $res;
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         if ($this->value === null) {
             throw new BuildException('Value is missing <switch>');
@@ -166,7 +177,7 @@ class SwitchTask extends Task
                 $mValue = strtoupper($this->value);
             }
 
-            if ($cValue === $mValue && $case != $this->defaultCase) {
+            if ($cValue === $mValue && $case !== $this->defaultCase) {
                 $selectedCase = $case;
             }
         }

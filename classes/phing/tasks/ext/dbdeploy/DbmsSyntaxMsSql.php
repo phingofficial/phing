@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Utility class for generating necessary server-specific SQL commands
  *
@@ -28,7 +30,7 @@ class DbmsSyntaxMsSql extends DbmsSyntax
     /**
      * @return string
      */
-    public function generateTimestamp()
+    public function generateTimestamp(): string
     {
         return "DATEDIFF(s, '19700101', GETDATE())";
     }

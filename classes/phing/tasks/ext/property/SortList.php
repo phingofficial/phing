@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * SortList Task
  *
@@ -57,30 +59,50 @@ class SortList extends AbstractPropertySetterTask
      */
     private $flags = '';
 
-    public function setValue($value)
+    /**
+     * @param string $value
+     *
+     * @return void
+     */
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
-    public function setRefid(Reference $ref)
+    /**
+     * @param Reference $ref
+     *
+     * @return void
+     */
+    public function setRefid(Reference $ref): void
     {
         $this->ref = $ref;
     }
 
-    public function setDelimiter($delimiter)
+    /**
+     * @param string $delimiter
+     *
+     * @return void
+     */
+    public function setDelimiter(string $delimiter): void
     {
         $this->delimiter = $delimiter;
     }
 
     /**
      * @param string $flags
+     *
+     * @return void
      */
-    public function setFlags($flags)
+    public function setFlags(string $flags): void
     {
         $this->flags = $flags;
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         $this->validate();
 
@@ -108,12 +130,15 @@ class SortList extends AbstractPropertySetterTask
         $this->setPropertyValue(implode($this->delimiter, $propList));
     }
 
+    /**
+     * @return int|mixed
+     */
     private function validateFlags()
     {
         $flags = 0;
 
         foreach (explode('|', $this->flags) as $flag) {
-            $flag = trim($flag);
+            $flag = trim((string) $flag);
             $flag = strtoupper($flag);
 
             if (!in_array($flag, self::$allowedFlags, true)) {

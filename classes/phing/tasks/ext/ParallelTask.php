@@ -19,6 +19,8 @@
  * @package phing.tasks.ext
  */
 
+declare(strict_types=1);
+
 /**
  * Uses the DocBlox_Parallel library to run nested Phing tasks concurrently.
  *
@@ -43,17 +45,25 @@ class ParallelTask extends SequentialTask
      * Sets the maximum number of threads / processes to use
      *
      * @param int $threadCount
+     *
+     * @return void
      */
-    public function setThreadCount($threadCount)
+    public function setThreadCount(int $threadCount): void
     {
         $this->threadCount = $threadCount;
     }
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         if (!class_exists('MehrAlsNix\Parallel\Worker')) {
             throw new BuildException(

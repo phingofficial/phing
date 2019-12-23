@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/376
  * - ReplaceToken boolean problems
@@ -25,12 +27,21 @@
  */
 class ReplaceTokenBooleanTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/376/build.xml');
     }
 
-    public function testCustomTask()
+    /**
+     * @return void
+     */
+    public function testCustomTask(): void
     {
         $this->executeTarget('main');
         $this->assertInLogs('Replaced "@TOKEN_KEY_TRUE@" with "true"');

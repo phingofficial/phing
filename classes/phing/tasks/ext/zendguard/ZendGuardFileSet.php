@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a FileSet with the to specify permissions.
  *
@@ -32,14 +34,15 @@ class ZendGuardFileSet extends FileSet
     /**
      *  Get a list of files and directories specified in the fileset.
      *
-     * @param array $options
-     *
-     * @return array a list of file and directory names, relative to
+     * @return array A list of file and directory names, relative to
      *               the baseDir for the project.
      *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      * @throws BuildException
      */
-    public function getFiles(...$options)
+    public function getFiles(): array
     {
         if ($this->files === null) {
             $ds          = $this->getDirectoryScanner($this->getProject());

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Condition Task
  *
@@ -25,47 +27,67 @@
  */
 class ConditionTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ConditionTest.xml'
         );
     }
 
-    public function testEquals()
+    /**
+     * @return void
+     */
+    public function testEquals(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isEquals');
     }
 
-    public function testContains()
+    /**
+     * @return void
+     */
+    public function testContains(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isContains');
     }
 
-    public function testCustomCondition()
+    /**
+     * @return void
+     */
+    public function testCustomCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isCustom');
     }
 
-    public function testReferenceExists()
+    /**
+     * @return void
+     */
+    public function testReferenceExists(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('ref.exists');
     }
 
     /**
+     * @return void
+     *
      * @requires extension sockets
      */
-    public function testSocketCondition()
+    public function testSocketCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('socket');
     }
 
-    public function testMatches()
+    /**
+     * @return void
+     */
+    public function testMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('matches', 'true');

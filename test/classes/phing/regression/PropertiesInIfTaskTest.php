@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/1041
  * - Properties within then/else blocks are not expanded
@@ -25,12 +27,21 @@
  */
 class PropertiesInIfTaskTest extends BuildFileTest
 {
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
     public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/1041/build.xml');
     }
 
-    public function testCopyTask()
+    /**
+     * @return void
+     */
+    public function testCopyTask(): void
     {
         $this->executeTarget('test');
 

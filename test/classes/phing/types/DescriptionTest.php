@@ -17,20 +17,34 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class DescriptionTest extends BuildFileTest
 {
     /**
      * Test that the aaddText method appends text to description w/o any spaces
      *
+     * @param string $fileName
+     * @param string $outcome
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @dataProvider getFiles
      */
-    public function test($fileName, $outcome)
+    public function test(string $fileName, string $outcome): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/types/' . $fileName . '.xml');
         $this->assertEquals($outcome, $this->getProject()->getDescription());
     }
 
-    public function getFiles()
+    /**
+     * @return array
+     */
+    public function getFiles(): array
     {
         return [
             'Single' => ['description1', 'Test Project Description'],

@@ -17,18 +17,29 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
  */
 class HttpGetTaskTest extends BaseHttpTaskTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httpget.xml');
     }
 
-    public function testMissingDir()
+    /**
+     * @return void
+     */
+    public function testMissingDir(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Required attribute \'dir\' is missing');
@@ -36,7 +47,13 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->executeTarget('missingDir');
     }
 
-    public function testError404()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_Exception
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testError404(): void
     {
         $this->copyTasksAddingCustomRequest(
             'error404',
@@ -59,7 +76,13 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->executeTarget('recipient');
     }
 
-    public function testFileNamingOptions()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_Exception
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testFileNamingOptions(): void
     {
         $this->executeTarget('mkdir');
 
@@ -88,15 +111,15 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
         $this->executeTarget('recipient');
 
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foobar.txt',
             'This file is named explicitly'
         );
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/disposition.txt',
             'This file is named according to Content-Disposition header'
         );
-        $this->assertStringEqualsFile(
+        self::assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foo.bar',
             'This file is named according to an URL part'
         );
@@ -104,7 +127,12 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->executeTarget('rmdir');
     }
 
-    public function testExplicitConfiguration()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testExplicitConfiguration(): void
     {
         $trace = new TraceHttpAdapter();
         $this->copyTasksAddingCustomRequest('configuration', 'recipient', $this->createRequest($trace));
@@ -121,10 +149,15 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             'follow_redirects' => true,
         ]);
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        self::assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 
-    public function testAuthentication()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testAuthentication(): void
     {
         $trace = new TraceHttpAdapter();
 
@@ -135,13 +168,18 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             // the request returns error 400, but we don't really care
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             ['user' => 'luser', 'password' => 'secret', 'scheme' => 'basic'],
             $trace->requests[0]['auth']
         );
     }
 
-    public function testConfigAndHeaderTags()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testConfigAndHeaderTags(): void
     {
         $trace = new TraceHttpAdapter();
 
@@ -152,11 +190,16 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             // the request returns error 400, but we don't really care
         }
 
-        $this->assertEquals(15, $trace->requests[0]['config']['timeout']);
-        $this->assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
+        self::assertEquals(15, $trace->requests[0]['config']['timeout']);
+        self::assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
     }
 
-    public function testConfigurationViaProperties()
+    /**
+     * @return void
+     *
+     * @throws HTTP_Request2_LogicException
+     */
+    public function testConfigurationViaProperties(): void
     {
         $trace = new TraceHttpAdapter();
         $this->copyTasksAddingCustomRequest('config-properties', 'recipient', $this->createRequest($trace));
@@ -173,6 +216,6 @@ class HttpGetTaskTest extends BaseHttpTaskTest
             'max_redirects' => 9,
         ]);
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        self::assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 }

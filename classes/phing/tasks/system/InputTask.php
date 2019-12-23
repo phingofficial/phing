@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Reads input from the InputHandler.
  *
@@ -66,8 +68,10 @@ class InputTask extends Task
      * be accepted you need to define both values as accepted arguments.
      *
      * @param string $validargs A comma separated String defining valid input args.
+     *
+     * @return void
      */
-    public function setValidargs($validargs)
+    public function setValidargs(string $validargs): void
     {
         $this->validargs = $validargs;
     }
@@ -76,8 +80,10 @@ class InputTask extends Task
      * Defines the name of a property to be set from input.
      *
      * @param string $name Name for the property to be set from input
+     *
+     * @return void
      */
-    public function setPropertyName($name)
+    public function setPropertyName(string $name): void
     {
         $this->propertyName = $name;
     }
@@ -86,8 +92,10 @@ class InputTask extends Task
      * Sets the Message which gets displayed to the user during the build run.
      *
      * @param string $message The message to be displayed.
+     *
+     * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
@@ -96,8 +104,10 @@ class InputTask extends Task
      * Set a multiline message.
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function addText($msg)
+    public function addText(string $msg): void
     {
         $this->message .= $this->project->replaceProperties($msg);
     }
@@ -106,8 +116,10 @@ class InputTask extends Task
      * Add a default value.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setDefaultValue($v)
+    public function setDefaultValue(string $v): void
     {
         $this->defaultValue = $v;
     }
@@ -116,16 +128,20 @@ class InputTask extends Task
      * Set the character/string to use for the prompt.
      *
      * @param string $c
+     *
+     * @return void
      */
-    public function setPromptChar($c)
+    public function setPromptChar(string $c): void
     {
         $this->promptChar = $c;
     }
 
     /**
      * @param bool $hidden
+     *
+     * @return void
      */
-    public function setHidden($hidden)
+    public function setHidden(bool $hidden): void
     {
         $this->hidden = $hidden;
     }
@@ -133,9 +149,11 @@ class InputTask extends Task
     /**
      * Actual method executed by phing.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->propertyName === null) {
             throw new BuildException('You must specify a value for propertyName attribute.');

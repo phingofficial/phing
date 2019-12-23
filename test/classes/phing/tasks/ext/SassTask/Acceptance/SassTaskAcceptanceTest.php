@@ -1,7 +1,4 @@
 <?php
-
-use ScssPhp\ScssPhp\Compiler;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use ScssPhp\ScssPhp\Compiler;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use ScssPhp\ScssPhp\Compiler;
+
 class SassTaskAcceptanceTest extends BuildFileTest
 {
     use SassCleaner;
@@ -29,18 +30,32 @@ class SassTaskAcceptanceTest extends BuildFileTest
     /** @var FileSystem */
     private $fs;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(self::SASS_TEST_BASE . 'SassTaskTest.xml');
         $this->fs = FileSystem::getFileSystem();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->sassCleanUp(self::SASS_TEST_BASE, 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testNothing(): void
     {
         $this->expectException(BuildException::class);
@@ -49,6 +64,9 @@ class SassTaskAcceptanceTest extends BuildFileTest
         $this->executeTarget('nothing');
     }
 
+    /**
+     * @return void
+     */
     public function testSetStyleToUnrecognised(): void
     {
         $this->expectException(BuildException::class);
@@ -59,6 +77,9 @@ class SassTaskAcceptanceTest extends BuildFileTest
         $this->assertInLogs('Style compacted ignored', Project::MSG_INFO);
     }
 
+    /**
+     * @return void
+     */
     public function testNoFilesetAndNoFileSet(): void
     {
         $this->expectBuildExceptionContaining(
@@ -68,15 +89,21 @@ class SassTaskAcceptanceTest extends BuildFileTest
         );
     }
 
+    /**
+     * @return void
+     */
     public function testItCompilesWithSass(): void
     {
         if (!$this->fs->which('sass')) {
-            $this->markTestSkipped('Sass not found');
+            self::markTestSkipped('Sass not found');
         }
         $this->executeTarget('testItCompilesWithSass');
         $this->assertFileExists(self::SASS_TEST_BASE . 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testItCompilesWithScssPhp(): void
     {
         if (!class_exists(Compiler::class)) {

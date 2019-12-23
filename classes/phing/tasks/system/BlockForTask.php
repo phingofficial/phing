@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Based on Apache Ant Block For:
  *
@@ -42,10 +44,15 @@ class BlockForTask extends WaitForTask
 {
     /**
      * Text to include in a message
+     *
+     * @var string
      */
     private $text;
 
-    public function __construct($taskName = 'blockfor')
+    /**
+     * @param string $taskName
+     */
+    public function __construct(string $taskName = 'blockfor')
     {
         parent::__construct($taskName);
     }
@@ -53,9 +60,11 @@ class BlockForTask extends WaitForTask
     /**
      * If the wait fails, a BuildException is thrown. All the superclasses actions are called first.
      *
+     * @return void
+     *
      * @throws BuildTimeoutException on timeout, using the text in {@link #text}
      */
-    protected function processTimeout()
+    protected function processTimeout(): void
     {
         parent::processTimeout();
         throw new BuildTimeoutException($this->text);
@@ -65,8 +74,10 @@ class BlockForTask extends WaitForTask
      * Set the error text; all properties are expanded in the message.
      *
      * @param string $message the text to use in a failure message
+     *
+     * @return void
      */
-    public function addText($message)
+    public function addText(string $message): void
     {
         $this->text = $this->getProject()->replaceProperties($message);
     }

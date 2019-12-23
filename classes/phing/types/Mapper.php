@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
  *
@@ -66,9 +68,14 @@ class Mapper extends DataType
      *
      * @param Path $classpath An Path object containing the classpath.
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function setClasspath(Path $classpath)
+    public function setClasspath(Path $classpath): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -82,8 +89,12 @@ class Mapper extends DataType
 
     /**
      * Create the classpath to be used when searching for component being defined
+     *
+     * @return Path
+     *
+     * @throws Exception
      */
-    public function createClasspath()
+    public function createClasspath(): Path
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -100,9 +111,12 @@ class Mapper extends DataType
      *
      * @param Reference $r
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function setClasspathRef(Reference $r)
+    public function setClasspathRef(Reference $r): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -116,9 +130,11 @@ class Mapper extends DataType
      *
      * @param string $type
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -131,9 +147,12 @@ class Mapper extends DataType
      *
      * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
      *
+     * @return void
+     *
+     * @throws ConfigurationException
      * @throws BuildException
      */
-    public function add(Mapper $fileNameMapper)
+    public function add(FileNameMapper $fileNameMapper): void
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -157,9 +176,13 @@ class Mapper extends DataType
     /**
      * Add a Mapper
      *
-     * @param Mapper $mapper the mapper to add
+     * @param FileNameMapper $mapper the mapper to add
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function addMapper(Mapper $mapper)
+    public function addMapper(FileNameMapper $mapper): void
     {
         $this->add($mapper);
     }
@@ -169,9 +192,11 @@ class Mapper extends DataType
      *
      * @param string $classname
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setClassname($classname)
+    public function setClassname(string $classname): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -184,9 +209,11 @@ class Mapper extends DataType
      *
      * @param string $from
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setFrom($from)
+    public function setFrom($from): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -199,9 +226,11 @@ class Mapper extends DataType
      *
      * @param string $to
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setTo($to)
+    public function setTo(string $to): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -216,9 +245,11 @@ class Mapper extends DataType
      *
      * @param Reference $r
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         if ($this->type !== null || $this->from !== null || $this->to !== null) {
             throw DataType::tooManyAttributes();
@@ -228,6 +259,10 @@ class Mapper extends DataType
 
     /**
      * Factory, returns inmplementation of file name mapper as new instance
+     *
+     * @return ContainerMapper|FileNameMapper
+     *
+     * @throws ConfigurationException
      */
     public function getImplementation()
     {
@@ -300,6 +335,8 @@ class Mapper extends DataType
 
     /**
      * Performs the check for circular references and returns the referenced Mapper.
+     *
+     * @return mixed
      */
     private function getRef()
     {

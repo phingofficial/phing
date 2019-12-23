@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/745
  * - MkdirTask mode param mistake
@@ -25,12 +27,24 @@
  */
 class MkdirTaskModeTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/745/build.xml');
     }
 
-    public function testCorrectModeSet()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testCorrectModeSet(): void
     {
         $this->executeTarget('test');
 
@@ -38,7 +52,7 @@ class MkdirTaskModeTest extends BuildFileTest
 
         $mode = $dir->getMode() & 511;
 
-        $this->assertEquals($mode, 511);
+        self::assertEquals($mode, 511);
 
         $dir->delete(true);
     }

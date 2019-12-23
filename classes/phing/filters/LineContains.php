@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Filter which includes only those lines that contain all the user-specified
  * strings.
@@ -59,7 +61,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Array of Contains objects.
      *
-     * @var array
+     * @var Contains[]
      */
     private $contains = [];
 
@@ -72,9 +74,14 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Remaining line to be read from this filter, or <code>null</code> if
      * the next call to <code>read()</code> should read the original stream
      * to find the next matching line.
+     *
+     * @var string|null
      */
     private $line;
 
+    /**
+     * @var bool
+     */
     private $matchAny = false;
 
     /**
@@ -82,14 +89,14 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * the next call to <code>read()</code> should read the original stream
      * to find the next matching line.
      *
-     * @param int|int $len
+     * @param int|null $len
      *
      * @return int|string  the next character in the resulting stream, or -1
      *                     if the end of the resulting stream has been reached
      *
      * @throws IOException if the underlying stream throws an IOException during reading
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -100,7 +107,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
         if ($this->line !== null) {
             $ch = $this->line[0] ?? -1;
-            if (strlen($this->line) === 1) {
+            if (strlen((string) $this->line) === 1) {
                 $this->line = null;
             } else {
                 $part = substr($this->line, 1);
@@ -148,8 +155,10 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Set the negation mode.  Default false (no negation).
      *
      * @param bool $b the boolean negation mode to set.
+     *
+     * @return void
      */
-    public function setNegate(bool $b)
+    public function setNegate(bool $b): void
     {
         $this->negate = $b;
     }
@@ -181,13 +190,15 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Sets the array of words which must be contained within a line read
      * from the original stream in order for it to match this filter.
      *
-     * @param array $contains An array of words which must be contained
-     *                        within a line in order for it to match in this filter.
-     *                        Must not be <code>null</code>.
+     * @param Contains[] $contains An array of words which must be contained
+     * within a line in order for it to match in this filter.
+     * Must not be <code>null</code>.
+     *
+     * @return void
      *
      * @throws Exception
      */
-    private function setContains(array $contains)
+    private function setContains(array $contains): void
     {
         $this->contains = $contains;
     }
@@ -196,10 +207,10 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Returns the vector of words which must be contained within a line read
      * from the original stream in order for it to match this filter.
      *
-     * @return array The array of words which must be contained within a line read
-     *               from the original stream in order for it to match this filter. The
-     *               returned object is "live" - in other words, changes made to the
-     *               returned object are mirrored in the filter.
+     * @return Contains[] The array of words which must be contained within a line read
+     * from the original stream in order for it to match this filter. The
+     * returned object is "live" - in other words, changes made to the
+     * returned object are mirrored in the filter.
      */
     public function getContains(): array
     {
@@ -218,7 +229,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *
      * @throws Exception
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new self($reader);
         $newFilter->setContains($this->getContains());
@@ -232,8 +243,10 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Parses the parameters to add user-defined contains strings.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {
@@ -251,6 +264,8 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
     /**
      * @param bool $matchAny
+     *
+     * @return void
      */
     public function setMatchAny(bool $matchAny): void
     {

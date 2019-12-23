@@ -14,6 +14,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * Class for reading/writing ini config file
  *
@@ -33,7 +35,7 @@ class IniFileConfig
     /**
      * Lines of ini file
      *
-     * @var array
+     * @var array[]
      */
     protected $lines = [];
 
@@ -44,21 +46,21 @@ class IniFileConfig
      *
      * @return void
      */
-    public function read($file)
+    public function read(string $file): void
     {
         $this->lines = [];
 
         $section = '';
 
         foreach (file($file) as $line) {
-            if (preg_match('/^\s*(;.*)?$/', $line)) {
+            if (preg_match('/^\s*(;.*)?$/', (string) $line)) {
                 // comment or whitespace
                 $this->lines[] = [
                     'type' => 'comment',
                     'data' => $line,
                     'section' => $section,
                 ];
-            } elseif (preg_match('/^\s?\[(.*)\]/', $line, $match)) {
+            } elseif (preg_match('/^\s?\[(.*)\]/', (string) $line, $match)) {
                 // section
                 $section       = $match[1];
                 $this->lines[] = [
@@ -66,7 +68,7 @@ class IniFileConfig
                     'data' => $line,
                     'section' => $section,
                 ];
-            } elseif (preg_match('/^\s*(.*?)\s*=\s*(.*?)\s*$/', $line, $match)) {
+            } elseif (preg_match('/^\s*(.*?)\s*=\s*(.*?)\s*$/', (string) $line, $match)) {
                 // entry
                 $this->lines[] = [
                     'type' => 'entry',
@@ -87,7 +89,7 @@ class IniFileConfig
      *
      * @return string
      */
-    public function get($section, $key)
+    public function get(string $section, string $key): string
     {
         foreach ($this->lines as $line) {
             if ($line['type'] != 'entry') {
@@ -114,7 +116,7 @@ class IniFileConfig
      *
      * @return void
      */
-    public function set($section, $key, $value)
+    public function set(string $section, string $key, string $value): void
     {
         foreach ($this->lines as &$line) {
             if ($line['type'] != 'entry') {
@@ -139,12 +141,12 @@ class IniFileConfig
      *
      * If key is not specified, then the entire section will be removed.
      *
-     * @param string $section Section to manipulate/remove
-     * @param string $key     Name of key to remove, might be null/empty
+     * @param string      $section Section to manipulate/remove
+     * @param string|null $key     Name of key to remove, might be null/empty
      *
      * @return void
      */
-    public function remove($section, $key)
+    public function remove(string $section, ?string $key): void
     {
         if ($section == '') {
             throw new RuntimeException('Section not set.');
@@ -176,7 +178,7 @@ class IniFileConfig
      *
      * @return void
      */
-    public function write($file)
+    public function write(string $file): void
     {
         if (file_exists($file) && !is_writable($file)) {
             throw new RuntimeException($file . ' is not writable');

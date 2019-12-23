@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Coverts a path to a fileset.
  * This is useful if you have a path but need to use a fileset as input in a phing task.
@@ -63,32 +65,40 @@ class PathToFileSet extends Task
 
     /**
      * @param PhingFile $dir
+     *
+     * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(PhingFile $dir): void
     {
         $this->dir = $dir;
     }
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
      * @param string $pathRefId
+     *
+     * @return void
      */
-    public function setPathRefId($pathRefId)
+    public function setPathRefId(string $pathRefId): void
     {
         $this->pathRefId = $pathRefId;
     }
 
     /**
      * @param bool $ignoreNonRelative
+     *
+     * @return void
      */
-    public function setIgnoreNonRelative($ignoreNonRelative)
+    public function setIgnoreNonRelative(bool $ignoreNonRelative): void
     {
         $this->ignoreNonRelative = $ignoreNonRelative;
     }
@@ -96,10 +106,14 @@ class PathToFileSet extends Task
     /**
      * {@inheritdoc}
      *
-     * @throws BuildException
+     * @return void
+     *
      * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->dir == null) {
             throw new BuildException('missing dir');
@@ -158,11 +172,11 @@ class PathToFileSet extends Task
      * @param string    $dirNormal
      * @param PhingFile $file
      *
-     * @return string|false
+     * @return string
      *
      * @throws IOException
      */
-    private function getIncludePattern($dirNormal, PhingFile $file)
+    private function getIncludePattern(string $dirNormal, PhingFile $file): string
     {
         $fileUtils  = new FileUtils();
         $fileNormal = $fileUtils->normalize($file->getAbsolutePath());

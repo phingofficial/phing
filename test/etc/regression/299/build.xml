@@ -12,7 +12,7 @@
 
   <adhoc-task name="bar"><![CDATA[
       class BarTask extends Task {
-          function main() {
+          function main(): void {
               print("BarTask: success!\n");
           }
       }

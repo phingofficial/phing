@@ -17,26 +17,45 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @package phing.filters
  */
 class LineContainsTest extends BuildFileTest
 {
-    protected $fu;
+    /**
+     * @var FileUtils
+     */
+    private $fu;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/linecontains.xml');
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testLineContains()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testLineContains(): void
     {
         $this->executeTarget('testLineContains');
 
@@ -45,7 +64,12 @@ class LineContainsTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsNegate()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testLineContainsNegate(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -54,7 +78,12 @@ class LineContainsTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsMatchAny()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testLineContainsMatchAny(): void
     {
         $this->executeTarget(__FUNCTION__);
 

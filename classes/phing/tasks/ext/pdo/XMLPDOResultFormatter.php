@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * XML formatter for PDO results.
  *
@@ -70,21 +72,28 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      * Set the DOM document encoding.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setEncoding($v)
+    public function setEncoding(string $v): void
     {
         $this->encoding = $v;
     }
 
     /**
      * @param bool $v
+     *
+     * @return void
      */
-    public function setFormatOutput($v)
+    public function setFormatOutput(bool $v): void
     {
         $this->formatOutput = (bool) $v;
     }
 
-    public function initialize()
+    /**
+     * @return void
+     */
+    public function initialize(): void
     {
         $this->doc      = new DOMDocument('1.0', $this->encoding);
         $this->rootNode = $this->doc->createElement('results');
@@ -96,8 +105,10 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      * Processes a specific row from PDO result set.
      *
      * @param array $row Row of PDO result set.
+     *
+     * @return void
      */
-    public function processRow($row)
+    public function processRow(array $row): void
     {
         $rowNode = $this->doc->createElement('row');
         $this->rootNode->appendChild($rowNode);
@@ -107,7 +118,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
             $colNode->setAttribute('name', $columnName);
 
             if ($columnValue != null) {
-                $columnValue        = trim($columnValue);
+                $columnValue        = trim((string) $columnValue);
                 $colNode->nodeValue = $columnValue;
             }
             $rowNode->appendChild($colNode);
@@ -116,21 +127,27 @@ class XMLPDOResultFormatter extends PDOResultFormatter
 
     /**
      * Gets a preferred filename for an output file.
-     *
      * If no filename is specified, this is where the results will be placed
      * (unless usefile=false).
      *
-     * @return string
+     * @return PhingFile
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): PhingFile
     {
         return new PhingFile('results.xml');
     }
 
     /**
      * Write XML to file and free the DOM objects.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function close()
+    public function close(): void
     {
         $this->out->write($this->doc->saveXML());
         $this->rootNode = null;

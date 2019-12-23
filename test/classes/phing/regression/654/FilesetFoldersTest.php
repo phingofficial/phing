@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/654
  * - fileset not selecting folders
@@ -25,12 +27,24 @@
  */
 class FilesetFoldersTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/654/build.xml');
     }
 
-    public function testFilesetNotSelectingFolders()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testFilesetNotSelectingFolders(): void
     {
         $f = new PhingFile(PHING_TEST_BASE . '/etc/regression/654/build.xml');
         $this->executeTarget('main');

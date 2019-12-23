@@ -17,9 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgArchiveTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -28,12 +36,18 @@ class HgArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testDestinationNotSpecified()
+    /**
+     * @return void
+     */
+    public function testDestinationNotSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'destinationNotSpecified',

@@ -17,22 +17,25 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitFetchTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -40,12 +43,19 @@ class GitFetchTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testAllParamsSet()
+    /**
+     * @return void
+     */
+    public function testAllParamsSet(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
@@ -53,7 +63,10 @@ class GitFetchTaskTest extends BuildFileTest
         $this->assertInLogs('git-fetch output: '); // no output actually
     }
 
-    public function testFetchAllRemotes()
+    /**
+     * @return void
+     */
+    public function testFetchAllRemotes(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fetchAllRemotes');
@@ -61,7 +74,10 @@ class GitFetchTaskTest extends BuildFileTest
         $this->assertInLogs('git-fetch output: Fetching origin');
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -70,7 +86,10 @@ class GitFetchTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTargetSpecified()
+    /**
+     * @return void
+     */
+    public function testNoTargetSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTarget',
@@ -79,7 +98,10 @@ class GitFetchTaskTest extends BuildFileTest
         );
     }
 
-    public function testRefspecSet()
+    /**
+     * @return void
+     */
+    public function testRefspecSet(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('refspecSet');

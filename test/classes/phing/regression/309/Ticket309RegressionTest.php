@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class Ticket309RegressionTest extends BuildFileTest
 {
     /**
@@ -30,8 +32,13 @@ class Ticket309RegressionTest extends BuildFileTest
      *
      * This test uses several buildfiles that reference the /etc/regression/309
      * directory as their project root in various ways.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function testPhingCallTask()
+    public function testPhingCallTask(): void
     {
         $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . '/etc/regression/309');
 

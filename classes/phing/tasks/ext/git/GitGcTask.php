@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper around git-gc
  *
@@ -58,8 +60,13 @@ class GitGcTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -94,8 +101,10 @@ class GitGcTask extends GitBaseTask
 
     /**
      * @see getAggressive()
+     *
+     * @return bool
      */
-    public function isAggressive()
+    public function isAggressive(): bool
     {
         return $this->getAggressive();
     }
@@ -103,23 +112,27 @@ class GitGcTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAggressive()
+    public function getAggressive(): bool
     {
         return $this->isAggressive;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAggressive(bool $flag)
+    public function setAggressive(bool $flag): void
     {
         $this->isAggressive = $flag;
     }
 
     /**
      * @see getAuto()
+     *
+     * @return bool
      */
-    public function isAuto()
+    public function isAuto(): bool
     {
         return $this->getAuto();
     }
@@ -127,23 +140,27 @@ class GitGcTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAuto()
+    public function getAuto(): bool
     {
         return $this->isAuto;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAuto(bool $flag)
+    public function setAuto(bool $flag): void
     {
         $this->isAuto = $flag;
     }
 
     /**
      * @see NoPrune()
+     *
+     * @return bool
      */
-    public function isNoPrune()
+    public function isNoPrune(): bool
     {
         return $this->getNoPrune();
     }
@@ -151,15 +168,17 @@ class GitGcTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoPrune()
+    public function getNoPrune(): bool
     {
         return $this->noPrune;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoPrune(bool $flag)
+    public function setNoPrune(bool $flag): void
     {
         $this->noPrune = $flag;
     }
@@ -167,15 +186,17 @@ class GitGcTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getPrune()
+    public function getPrune(): string
     {
         return $this->prune;
     }
 
     /**
      * @param string $date
+     *
+     * @return void
      */
-    public function setPrune($date)
+    public function setPrune(string $date): void
     {
         $this->prune = $date;
     }

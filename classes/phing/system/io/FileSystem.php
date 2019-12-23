@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is an abstract class for platform specific filesystem implementations
  * you have to implement each method in the platform specific filesystem implementation
@@ -64,7 +66,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public static function getFileSystem()
+    public static function getFileSystem(): FileSystem
     {
         if (self::$fs === null) {
             switch (Phing::getProperty('host.fstype')) {
@@ -86,29 +88,37 @@ abstract class FileSystem
 
     /**
      * Return the local filesystem's name-separator character.
+     *
+     * @return string
      */
-    abstract public function getSeparator();
+    abstract public function getSeparator(): string;
 
     /**
      * Return the local filesystem's path-separator character.
+     *
+     * @return string
      */
-    abstract public function getPathSeparator();
+    abstract public function getPathSeparator(): string;
 
     /**
      * Convert the given pathname string to normal form.  If the string is
      * already in normal form then it is simply returned.
      *
      * @param string $strPath
+     *
+     * @return string
      */
-    abstract public function normalize($strPath);
+    abstract public function normalize(string $strPath): string;
 
     /**
      * Compute the length of this pathname string's prefix.  The pathname
      * string must be in normal form.
      *
      * @param string $pathname
+     *
+     * @return int
      */
-    abstract public function prefixLength($pathname);
+    abstract public function prefixLength(string $pathname): int;
 
     /**
      * Resolve the child pathname string against the parent.
@@ -117,23 +127,29 @@ abstract class FileSystem
      *
      * @param string $parent
      * @param string $child
+     *
+     * @return string
      */
-    abstract public function resolve($parent, $child);
+    abstract public function resolve(string $parent, string $child): string;
 
     /**
      * Resolve the given abstract pathname into absolute form.  Invoked by the
      * getAbsolutePath and getCanonicalPath methods in the PhingFile class.
      *
      * @param PhingFile $f
+     *
+     * @return string
      */
-    abstract public function resolveFile(PhingFile $f);
+    abstract public function resolveFile(PhingFile $f): string;
 
     /**
      * Return the parent pathname string to be used when the parent-directory
      * argument in one of the two-argument PhingFile constructors is the empty
      * pathname.
+     *
+     * @return string
      */
-    abstract public function getDefaultParent();
+    abstract public function getDefaultParent(): string;
 
     /**
      * Post-process the given URI path string if necessary.  This is used on
@@ -142,8 +158,10 @@ abstract class FileSystem
      * after this method returns.
      *
      * @param string $path
+     *
+     * @return string
      */
-    abstract public function fromURIPath($path);
+    abstract public function fromURIPath(string $path): string;
 
     /* -- Path operations -- */
 
@@ -151,17 +169,19 @@ abstract class FileSystem
      * Tell whether or not the given abstract pathname is absolute.
      *
      * @param PhingFile $f
+     *
+     * @return bool
      */
-    abstract public function isAbsolute(PhingFile $f);
+    abstract public function isAbsolute(PhingFile $f): bool;
 
     /**
      * canonicalize filename by checking on disk
      *
      * @param string $strPath
      *
-     * @return mixed  Canonical path or false if the file doesn't exist.
+     * @return string|false Canonical path or false if the file doesn't exist.
      */
-    public function canonicalize($strPath)
+    public function canonicalize(string $strPath)
     {
         return @realpath($strPath);
     }
@@ -181,7 +201,7 @@ abstract class FileSystem
      *
      * @return bool
      */
-    public function checkAccess(PhingFile $f, $write = false)
+    public function checkAccess(PhingFile $f, bool $write = false): bool
     {
         // we clear stat cache, its expensive to look up from scratch,
         // but we need to be sure
@@ -204,7 +224,7 @@ abstract class FileSystem
         }
 
         if (!$write) {
-            return (bool) @is_readable($strPath);
+            return (bool) @is_readable((string) $strPath);
         }
 
         return (bool) @is_writable($strPath);
@@ -216,8 +236,10 @@ abstract class FileSystem
      * @param PhingFile $f
      *
      * @return bool
+     *
+     * @throws IOException
      */
-    public function canDelete(PhingFile $f)
+    public function canDelete(PhingFile $f): bool
     {
         clearstatcache();
         $dir = dirname($f->getAbsolutePath());
@@ -236,7 +258,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function getLastModifiedTime(PhingFile $f)
+    public function getLastModifiedTime(PhingFile $f): int
     {
         if (!$f->exists()) {
             return 0;
@@ -279,7 +301,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function getLength(PhingFile $f)
+    public function getLength(PhingFile $f): int
     {
         error_clear_last();
         $strPath = (string) $f->getAbsolutePath();
@@ -308,7 +330,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function createNewFile($strPathname)
+    public function createNewFile(string $strPathname): bool
     {
         if (@file_exists($strPathname)) {
             return false;
@@ -332,9 +354,12 @@ abstract class FileSystem
      * @param PhingFile $f
      * @param bool      $recursive
      *
+     * @return void
+     *
      * @throws IOException
+     * @throws Exception
      */
-    public function delete(PhingFile $f, $recursive = false)
+    public function delete(PhingFile $f, bool $recursive = false): void
     {
         if ($f->isDirectory()) {
             $this->rmdir($f->getPath(), $recursive);
@@ -350,14 +375,19 @@ abstract class FileSystem
      *
      * @param PhingFile $f
      *
-     * @throws IOException
+     * @return void
      */
-    public function deleteOnExit(PhingFile $f)
+    public function deleteOnExit(PhingFile $f): void
     {
         self::$filesToDelete[] = $f;
     }
 
-    public static function deleteFilesOnExit()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public static function deleteFilesOnExit(): void
     {
         foreach (self::$filesToDelete as $file) {
             $file->delete();
@@ -367,15 +397,16 @@ abstract class FileSystem
     /**
      * Create a new directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
-     *
      * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
      *
      * @param PhingFile $f
      * @param int       $mode
      *
      * @return bool
+     *
+     * @throws IOException
      */
-    public function createDirectory(&$f, $mode = 0755)
+    public function createDirectory(PhingFile $f, int $mode = 0755): bool
     {
         $old_umask = umask(0);
         $return    = @mkdir($f->getAbsolutePath(), $mode);
@@ -396,7 +427,7 @@ abstract class FileSystem
      *
      * @throws IOException if rename cannot be performed
      */
-    public function rename(PhingFile $f1, PhingFile $f2)
+    public function rename(PhingFile $f1, PhingFile $f2): void
     {
         error_clear_last();
         // get the canonical paths of the file to rename
@@ -422,7 +453,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function setLastModifiedTime(PhingFile $f, $time)
+    public function setLastModifiedTime(PhingFile $f, int $time): void
     {
         error_clear_last();
         $path    = $f->getPath();
@@ -458,7 +489,7 @@ abstract class FileSystem
      *
      * @throws IOException if file cannot be copied.
      */
-    public function copy(PhingFile $src, PhingFile $dest)
+    public function copy(PhingFile $src, PhingFile $dest): void
     {
         // Recursively copy a directory
         if ($src->isDirectory()) {
@@ -493,7 +524,7 @@ abstract class FileSystem
      * @author  Aidan Lister <aidan@php.net>
      * @version 1.0.1
      */
-    public function copyr($source, $dest)
+    public function copyr(string $source, string $dest): bool
     {
         // Check for symlinks
         if (is_link($source)) {
@@ -538,7 +569,7 @@ abstract class FileSystem
      *
      * @throws IOException if operation failed.
      */
-    public function chown($pathname, $user)
+    public function chown(string $pathname, string $user): void
     {
         error_clear_last();
         if (false === @chown($pathname, $user)) { // FAILED.
@@ -563,7 +594,7 @@ abstract class FileSystem
      *
      * @throws IOException if operation failed.
      */
-    public function chgrp($pathname, $group)
+    public function chgrp(string $pathname, string $group): void
     {
         error_clear_last();
         if (false === @chgrp($pathname, $group)) { // FAILED.
@@ -590,7 +621,7 @@ abstract class FileSystem
      *
      * @throws IOException if operation failed.
      */
-    public function chmod($pathname, $mode)
+    public function chmod(string $pathname, int $mode): void
     {
         error_clear_last();
         $str_mode = decoct($mode); // Show octal in messages.
@@ -615,7 +646,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function lock(PhingFile $f)
+    public function lock(PhingFile $f): void
     {
         $filename = $f->getPath();
         $fp       = @fopen($filename, 'w');
@@ -635,7 +666,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function unlock(PhingFile $f)
+    public function unlock(PhingFile $f): void
     {
         $filename = $f->getPath();
         $fp       = @fopen($filename, 'w');
@@ -655,7 +686,7 @@ abstract class FileSystem
      *
      * @throws IOException - if an error is encountered.
      */
-    public function unlink($file)
+    public function unlink(string $file): void
     {
         error_clear_last();
         if (false === @unlink($file)) {
@@ -678,7 +709,7 @@ abstract class FileSystem
      *
      * @throws IOException
      */
-    public function symlink($target, $link)
+    public function symlink(string $target, string $link): void
     {
         error_clear_last();
         // If Windows OS then symlink() will report it is not supported in
@@ -696,14 +727,15 @@ abstract class FileSystem
     /**
      * Set the modification and access time on a file to the present time.
      *
-     * @param string $file Path and/or name of file to touch.
-     * @param int    $time
+     * @param string   $file Path and/or name of file to touch.
+     * @param int|null $time
      *
      * @return void
      *
      * @throws Exception
+     * @throws Exception
      */
-    public function touch($file, $time = null)
+    public function touch(string $file, ?int $time = null): void
     {
         error_clear_last();
         if (null === $time) {
@@ -732,7 +764,7 @@ abstract class FileSystem
      *
      * @throws Exception
      */
-    public function rmdir($dir, $children = false)
+    public function rmdir(string $dir, bool $children = false): void
     {
         error_clear_last();
 
@@ -814,7 +846,7 @@ abstract class FileSystem
      *
      * @throws Exception
      */
-    public function umask($mode)
+    public function umask(int $mode): void
     {
         error_clear_last();
         // CONSIDERME:
@@ -845,7 +877,7 @@ abstract class FileSystem
      *
      * @throws Exception - if cannot get modified time of either file.
      */
-    public function compareMTimes($file1, $file2)
+    public function compareMTimes(string $file1, string $file2): int
     {
         $mtime1 = filemtime($file1);
         $mtime2 = filemtime($file2);
@@ -877,8 +909,10 @@ abstract class FileSystem
      * @param PhingFile $f
      *
      * @return string[]
+     *
+     * @throws IOException
      */
-    public function listContents(PhingFile $f)
+    public function listContents(PhingFile $f): array
     {
         return array_keys(
             iterator_to_array(
@@ -895,20 +929,21 @@ abstract class FileSystem
      *
      * Used to retrieve/determine the full path for a command.
      *
-     * @param string $executable Executable file to search for
-     * @param mixed  $fallback   Default to fallback to.
+     * @param string|int $executable Executable file to search for
+     * @param mixed      $fallback   Default to fallback to.
      *
-     * @return string Full path for the specified executable/command.
+     * @return mixed Full path for the specified executable/command.
      */
     public function which($executable, $fallback = false)
     {
-        if (is_string($executable)) {
-            if (trim($executable) === '') {
-                return $fallback;
-            }
-        } else {
+        if (!is_string($executable)) {
             return $fallback;
         }
+
+        if (trim($executable) === '') {
+            return $fallback;
+        }
+
         if (basename($executable) === $executable) {
             $path = getenv('PATH');
         } else {

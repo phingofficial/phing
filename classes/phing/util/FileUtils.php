@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * File utility class.
  * - handles os independent stuff etc
@@ -29,13 +31,20 @@ class FileUtils
 {
     /**
      * path separator string, static, obtained from FileSystem (; or :)
+     *
+     * @var string
      */
     public static $pathSeparator;
     /**
      * separator string, static, obtained from FileSystem
+     *
+     * @var string
      */
     public static $separator;
 
+    /**
+     * @throws IOException
+     */
     public function __construct()
     {
         if (self::$separator === null || self::$pathSeparator === null) {
@@ -50,7 +59,7 @@ class FileUtils
      *
      * @return string
      */
-    public static function getTempDir()
+    public static function getTempDir(): string
     {
         return Phing::getProperty('php.tmpdir');
     }
@@ -63,7 +72,7 @@ class FileUtils
      *
      * @return int  Creation Mask in octal representation
      */
-    public static function getDefaultFileCreationMask($dirmode = false)
+    public static function getDefaultFileCreationMask(bool $dirmode = false): int
     {
         // Preparing the creation mask base permission
         $permission = $dirmode === true ? 0777 : 0666;
@@ -78,13 +87,15 @@ class FileUtils
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
      *
-     * @param Reader  $in            Reader to modify (if appropriate).
-     * @param array   &$filterChains filter chains to apply.
+     * @param Reader  $in           Reader to modify (if appropriate).
+     * @param array   $filterChains Filter chains to apply.
      * @param Project $project
      *
      * @return Reader  Assembled Reader (w/ filter chains).
+     *
+     * @throws Exception
      */
-    public static function getChainedReader(Reader $in, &$filterChains, Project $project)
+    public static function getChainedReader(Reader $in, array &$filterChains, Project $project): Reader
     {
         if (!empty($filterChains)) {
             $crh = new ChainReaderHelper();
@@ -101,14 +112,14 @@ class FileUtils
     /**
      * Copies a file using filter chains.
      *
-     * @param PhingFile $sourceFile
-     * @param PhingFile $destFile
-     * @param bool      $overwrite
-     * @param bool      $preserveLastModified
-     * @param array     $filterChains
-     * @param Project   $project
-     * @param int       $mode
-     * @param bool      $preservePermissions
+     * @param PhingFile  $sourceFile
+     * @param PhingFile  $destFile
+     * @param Project    $project
+     * @param bool       $overwrite
+     * @param bool       $preserveLastModified
+     * @param array|null $filterChains
+     * @param int        $mode
+     * @param bool       $preservePermissions
      *
      * @return void
      *
@@ -119,12 +130,12 @@ class FileUtils
         PhingFile $sourceFile,
         PhingFile $destFile,
         Project $project,
-        $overwrite = false,
-        $preserveLastModified = true,
-        &$filterChains = null,
-        $mode = 0755,
-        $preservePermissions = true
-    ) {
+        bool $overwrite = false,
+        bool $preserveLastModified = true,
+        ?array &$filterChains = null,
+        int $mode = 0755,
+        bool $preservePermissions = true
+    ): void {
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && ($destFile->isFile() || $destFile->isLink())) {
                 $destFile->delete();
@@ -186,10 +197,14 @@ class FileUtils
      *
      * @param PhingFile $sourceFile
      * @param PhingFile $destFile
+     * @param bool      $overwrite
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false)
+    public function renameFile(PhingFile $sourceFile, PhingFile $destFile, bool $overwrite = false): void
     {
         // ensure that parent dir of dest file exists!
         $parent = $destFile->getParentFile();
@@ -227,9 +242,10 @@ class FileUtils
      * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *                   and uses the correct separator for the current platform.
      *
+     * @throws NullPointerException
      * @throws IOException
      */
-    public function resolveFile($file, $filename)
+    public function resolveFile(PhingFile $file, string $filename): PhingFile
     {
         // remove this and use the static class constant File::separator
         // as soon as ZE2 is ready
@@ -288,7 +304,7 @@ class FileUtils
      *
      * @throws IOException
      */
-    public function normalize($path)
+    public function normalize(string $path): string
     {
         $path = (string) $path;
         $orig = $path;
@@ -395,33 +411,34 @@ class FileUtils
 
     /**
      * Create a temporary file in a given directory.
-     *
      * <p>The file denoted by the returned abstract pathname did not
      * exist before this method was invoked, any subsequent invocation
      * of this method will yield a different file name.</p>
      *
-     * @param string    $prefix       prefix before the random number.
-     * @param string    $suffix       file extension; include the '.'.
-     * @param PhingFile $parentDir    Directory to create the temporary file in;
-     *                                sys_get_temp_dir() used if not specified.
-     * @param bool      $deleteOnExit whether to set the tempfile for deletion on
-     *                                normal exit.
-     * @param bool      $createFile   true if the file must actually be created. If false
-     *                                chances exist that a file with the same name is
-     *                                created in the time between invoking this method
-     *                                and the moment the file is actually created. If
-     *                                possible set to true.
+     * @param string|null    $prefix       prefix before the random number.
+     * @param string         $suffix       file extension; include the '.'.
+     * @param PhingFile|null $parentDir    Directory to create the temporary file in;
+     *                                     sys_get_temp_dir() used if not specified.
+     * @param bool|null      $deleteOnExit whether to set the tempfile for deletion on
+     *                                     normal exit.
+     * @param bool|null      $createFile   true if the file must actually be created. If false
+     *                                     chances exist that a file with the same name is
+     *                                     created in the time between invoking this method
+     *                                     and the moment the file is actually created. If
+     *                                     possible set to true.
      *
-     * @return PhingFile a File reference to the new temporary file.
+     * @return PhingFile            a File reference to the new temporary file.
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function createTempFile(
-        $prefix,
-        $suffix,
+        ?string $prefix,
+        string $suffix,
         ?PhingFile $parentDir = null,
-        $deleteOnExit = false,
-        $createFile = false
+        ?bool $deleteOnExit = false,
+        ?bool $createFile = false
     ) {
         $result = null;
         $parent = $parentDir === null ? self::getTempDir() : $parentDir->getPath();
@@ -459,8 +476,10 @@ class FileUtils
      * @param PhingFile $file2
      *
      * @return bool Whether contents of two files is the same.
+     *
+     * @throws IOException
      */
-    public function contentEquals(PhingFile $file1, PhingFile $file2)
+    public function contentEquals(PhingFile $file1, PhingFile $file2): bool
     {
         if (!($file1->exists() && $file2->exists())) {
             return false;
@@ -477,6 +496,6 @@ class FileUtils
         $c1 = file_get_contents($file1->getAbsolutePath());
         $c2 = file_get_contents($file2->getAbsolutePath());
 
-        return trim($c1) == trim($c2);
+        return trim((string) $c1) == trim((string) $c2);
     }
 }

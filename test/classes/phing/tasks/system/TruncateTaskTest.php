@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
 
 /**
  * Tests the Truncate Task
@@ -26,7 +27,15 @@
  */
 class TruncateTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,65 +44,115 @@ class TruncateTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testBasic()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testBasic(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.basic.length'), 0);
+        self::assertSame($this->getProject()->getProperty('test.basic.length'), '0');
     }
 
-    public function testExplicit()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testExplicit(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.explicit.length'), 1034);
+        self::assertSame($this->getProject()->getProperty('test.explicit.length'), '1034');
     }
 
-    public function testExtend()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testExtend(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.extend.length'), 5);
-        $this->assertSame($this->getProject()->getProperty('test.extend.adjust.length'), 10);
+        self::assertSame($this->getProject()->getProperty('test.extend.length'), '5');
+        self::assertSame($this->getProject()->getProperty('test.extend.adjust.length'), '10');
     }
 
-    public function testTruncate()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testTruncate(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.truncate.length'), 5);
-        $this->assertSame($this->getProject()->getProperty('test.truncate.adjust.length'), 0);
+        self::assertSame($this->getProject()->getProperty('test.truncate.length'), '5');
+        self::assertSame($this->getProject()->getProperty('test.truncate.adjust.length'), '0');
     }
 
-    public function testNoCreate()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testNoCreate(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/foo');
+        self::assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/foo');
     }
 
-    public function testMkdirs()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testMkdirs(): void
     {
-        $this->assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/baz');
+        self::assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/baz');
         $this->executeTarget(__FUNCTION__);
-        $this->assertSame($this->getProject()->getProperty('test.mkdirs.length'), 0);
+        self::assertSame($this->getProject()->getProperty('test.mkdirs.length'), '0');
     }
 
-    public function testInvalidAttrs()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testInvalidAttrs(): void
     {
         $this->expectException(BuildException::class);
 
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testBadLength()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testBadLength(): void
     {
         $this->expectException(BuildException::class);
 
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testNoFiles()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testNoFiles(): void
     {
         $this->expectException(BuildException::class);
 

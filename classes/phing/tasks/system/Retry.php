@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Retries the nested task a set number of times.
  *
@@ -51,9 +53,11 @@ class Retry extends Task implements TaskContainer
      *
      * @param Task $t the task to retry.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function addTask(Task $t)
+    public function addTask(Task $t): void
     {
         if ($this->nestedTask !== null) {
             throw new BuildException(
@@ -68,8 +72,10 @@ class Retry extends Task implements TaskContainer
      * Set the number of times to retry the task.
      *
      * @param int $n the number to use.
+     *
+     * @return void
      */
-    public function setRetryCount($n)
+    public function setRetryCount(int $n): void
     {
         $this->retryCount = $n;
     }
@@ -79,9 +85,11 @@ class Retry extends Task implements TaskContainer
      *
      * @param int $retryDelay the time between retries.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setRetryDelay($retryDelay)
+    public function setRetryDelay(int $retryDelay): void
     {
         if ($retryDelay < 0) {
             throw new BuildException(
@@ -94,9 +102,12 @@ class Retry extends Task implements TaskContainer
     /**
      * Perform the work.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException if there is an error.
      */
-    public function main()
+    public function main(): void
     {
         $errorMessages = '';
         for ($i = 0; $i <= $this->retryCount; $i++) {

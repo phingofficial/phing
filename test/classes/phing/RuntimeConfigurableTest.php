@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +17,18 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 class RuntimeConfigurableTest extends TestCase
 {
-    public function testLiteral0ShouldBeKept()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testLiteral0ShouldBeKept(): void
     {
         $project             = new Project();
         $proxy               = new Proxy();

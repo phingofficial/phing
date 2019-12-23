@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Contains some shared attributes and methods -- and some abstract methods with
  * engine-specific implementations that sub-classes must override.
@@ -33,42 +35,46 @@ interface RegexpEngine
      *
      * @return void
      */
-    public function setIgnoreCase($bit);
+    public function setIgnoreCase(bool $bit): void;
 
     /**
      * Returns status of ignore case flag.
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getIgnoreCase();
+    public function getIgnoreCase(): ?bool;
 
     /**
      * Sets whether regexp should be applied in multiline mode.
      *
      * @param bool $bit
+     *
+     * @return void
      */
-    public function setMultiline($bit);
+    public function setMultiline(bool $bit): void;
 
     /**
      * Gets whether regexp is to be applied in multiline mode.
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getMultiline();
+    public function getMultiline(): ?bool;
 
     /**
      * Sets the maximum possible replacements for each pattern.
      *
      * @param int $limit
+     *
+     * @return void
      */
-    public function setLimit($limit);
+    public function setLimit(int $limit): void;
 
     /**
      * Returns the maximum possible replacements for each pattern.
      *
      * @return int
      */
-    public function getLimit();
+    public function getLimit(): int;
 
     /**
      * Matches pattern against source string and sets the matches array.
@@ -79,7 +85,7 @@ interface RegexpEngine
      *
      * @return bool Success of matching operation.
      */
-    public function match($pattern, $source, &$matches);
+    public function match(string $pattern, string $source, array &$matches): bool;
 
     /**
      * Matches all patterns in source string and sets the matches array.
@@ -90,7 +96,7 @@ interface RegexpEngine
      *
      * @return bool Success of matching operation.
      */
-    public function matchAll($pattern, $source, &$matches);
+    public function matchAll(string $pattern, string $source, array &$matches): bool;
 
     /**
      * Replaces $pattern with $replace in $source string.
@@ -101,5 +107,5 @@ interface RegexpEngine
      *
      * @return string The replaced source string.
      */
-    public function replace($pattern, $replace, $source);
+    public function replace(string $pattern, string $replace, string $source): string;
 }

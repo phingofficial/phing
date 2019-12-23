@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener
@@ -40,6 +42,9 @@ class StatisticsListener implements SubBuildListener
      */
     private $statisticsReport;
 
+    /**
+     * @param Clock|null $clock
+     */
     public function __construct(?Clock $clock = null)
     {
         $this->projectTimerMap  = new ProjectTimerMap();
@@ -51,14 +56,24 @@ class StatisticsListener implements SubBuildListener
         }
     }
 
-    public function buildStarted(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function buildStarted(BuildEvent $buildEvent): void
     {
         if (self::$BUILDEVENT_PROJECT_NAME_HAS_NULL_VALUE) {
             $this->findInitialProjectTimer()->start();
         }
     }
 
-    public function buildFinished(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function buildFinished(BuildEvent $buildEvent): void
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
         $this->updateDurationWithInitialProjectTimer($projectTimer);
@@ -66,48 +81,91 @@ class StatisticsListener implements SubBuildListener
         $this->statisticsReport->write();
     }
 
-    public function targetStarted(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function targetStarted(BuildEvent $buildEvent): void
     {
         $this->findTargetTimer($buildEvent)->start();
     }
 
-    public function targetFinished(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function targetFinished(BuildEvent $buildEvent): void
     {
         $this->findTargetTimer($buildEvent)->finish();
     }
 
-    public function taskStarted(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function taskStarted(BuildEvent $buildEvent): void
     {
         $this->findTaskTimer($buildEvent)->start();
     }
 
-    public function taskFinished(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function taskFinished(BuildEvent $buildEvent): void
     {
         $this->findTaskTimer($buildEvent)->finish();
     }
 
-    public function messageLogged(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function messageLogged(BuildEvent $buildEvent): void
     {
     }
 
-    public function subBuildStarted(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function subBuildStarted(BuildEvent $buildEvent): void
     {
         $this->findProjectTimer($buildEvent)->start();
     }
 
-    public function subBuildFinished(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return void
+     */
+    public function subBuildFinished(BuildEvent $buildEvent): void
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
         $this->buildFinishedTimer($projectTimer);
     }
 
-    private function findProjectTimer(BuildEvent $buildEvent)
+    /**
+     * @param BuildEvent $buildEvent
+     *
+     * @return StatsTimer
+     */
+    private function findProjectTimer(BuildEvent $buildEvent): StatsTimer
     {
         $project = $buildEvent->getProject();
         return $this->projectTimerMap->find($project, $this->clock);
     }
 
-    protected function findInitialProjectTimer()
+    /**
+     * @return StatsTimer
+     */
+    protected function findInitialProjectTimer(): StatsTimer
     {
         return $this->projectTimerMap->find('', $this->clock);
     }
@@ -115,9 +173,9 @@ class StatisticsListener implements SubBuildListener
     /**
      * @param BuildEvent $buildEvent
      *
-     * @return SeriesTimer
+     * @return StatsTimer
      */
-    private function findTargetTimer(BuildEvent $buildEvent)
+    private function findTargetTimer(BuildEvent $buildEvent): StatsTimer
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
         $target       = $buildEvent->getTarget();
@@ -128,9 +186,9 @@ class StatisticsListener implements SubBuildListener
     /**
      * @param BuildEvent $buildEvent
      *
-     * @return SeriesTimer
+     * @return StatsTimer
      */
-    private function findTaskTimer(BuildEvent $buildEvent)
+    private function findTaskTimer(BuildEvent $buildEvent): StatsTimer
     {
         $projectTimer = $this->findProjectTimer($buildEvent);
         $task         = $buildEvent->getTask();
@@ -138,13 +196,23 @@ class StatisticsListener implements SubBuildListener
         return $projectTimer->getTaskTimer($name);
     }
 
-    private function buildFinishedTimer(ProjectTimer $projectTimer)
+    /**
+     * @param StatsTimer $projectTimer
+     *
+     * @return void
+     */
+    private function buildFinishedTimer(StatsTimer $projectTimer): void
     {
         $projectTimer->finish();
         $this->statisticsReport->push($projectTimer);
     }
 
-    private function updateDurationWithInitialProjectTimer(ProjectTimer $projectTimer)
+    /**
+     * @param ProjectTimer $projectTimer
+     *
+     * @return void
+     */
+    private function updateDurationWithInitialProjectTimer(ProjectTimer $projectTimer): void
     {
         $rootProjectTimer = $this->findInitialProjectTimer();
         $duration         = $rootProjectTimer->getSeries()->current();

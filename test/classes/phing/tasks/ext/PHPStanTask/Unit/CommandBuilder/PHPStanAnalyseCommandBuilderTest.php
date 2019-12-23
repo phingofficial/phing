@@ -26,11 +26,17 @@ class PHPStanAnalyseCommandBuilderTest extends TestCase
     /** @var PHPStanAnalyseCommandBuilder */
     private $builder;
 
+    /**
+     * @return void
+     */
     public function setUp(): void
     {
         $this->builder = new PHPStanAnalyseCommandBuilder();
     }
 
+    /**
+     * @return void
+     */
     public function testItHandlesCommandOptions(): void
     {
         $task = new PHPStanTask();
@@ -61,6 +67,6 @@ Executing 'phpstan' with arguments:
 The ' characters around the executable and arguments are not part of the command.
 CMD;
 
-        $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
+        self::assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 }

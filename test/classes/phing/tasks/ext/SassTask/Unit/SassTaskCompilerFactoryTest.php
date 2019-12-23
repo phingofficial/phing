@@ -23,6 +23,9 @@ use PHPUnit\Framework\TestCase;
 
 class SassTaskCompilerFactoryTest extends TestCase
 {
+    /**
+     * @return void
+     */
     public function testItFailsWhenNoCompilerIsSet(): void
     {
         $sassTask = new SassTask();
@@ -37,6 +40,9 @@ class SassTaskCompilerFactoryTest extends TestCase
         $factory->prepareCompiler($sassTask);
     }
 
+    /**
+     * @return void
+     */
     public function testItReturnSassCompiler(): void
     {
         $sassTask = new SassTask();
@@ -47,9 +53,12 @@ class SassTaskCompilerFactoryTest extends TestCase
 
         $compiler = $factory->prepareCompiler($sassTask);
 
-        $this->assertInstanceOf(SassCompiler::class, $compiler);
+        self::assertInstanceOf(SassCompiler::class, $compiler);
     }
 
+    /**
+     * @return void
+     */
     public function testItPrefersSassCompiler(): void
     {
         $sassTask = new SassTask();
@@ -60,9 +69,12 @@ class SassTaskCompilerFactoryTest extends TestCase
 
         $compiler = $factory->prepareCompiler($sassTask);
 
-        $this->assertInstanceOf(SassCompiler::class, $compiler);
+        self::assertInstanceOf(SassCompiler::class, $compiler);
     }
 
+    /**
+     * @return void
+     */
     public function testItFailsWhenSassExecutableNotFound(): void
     {
         $sassTask = new SassTask();

@@ -28,6 +28,12 @@ class ScssPhpCompiler implements SassTaskCompiler
      */
     private $scssCompiler;
 
+    /**
+     * @param string $style
+     * @param string $encoding
+     * @param bool   $lineNumbers
+     * @param string $loadPath
+     */
     public function __construct(string $style, string $encoding, bool $lineNumbers, string $loadPath)
     {
         $this->scssCompiler = new Compiler();
@@ -46,6 +52,13 @@ class ScssPhpCompiler implements SassTaskCompiler
         }
     }
 
+    /**
+     * @param string $inputFilePath
+     * @param string $outputFilePath
+     * @param bool   $failOnError
+     *
+     * @return void
+     */
     public function compile(string $inputFilePath, string $outputFilePath, bool $failOnError): void
     {
         if (!$this->checkInputFile($inputFilePath, $failOnError)) {
@@ -71,7 +84,13 @@ class ScssPhpCompiler implements SassTaskCompiler
         }
     }
 
-    private function checkInputFile($inputFilePath, $failOnError): bool
+    /**
+     * @param string $inputFilePath
+     * @param bool   $failOnError
+     *
+     * @return bool
+     */
+    private function checkInputFile(string $inputFilePath, bool $failOnError): bool
     {
         if (file_exists($inputFilePath) && is_readable($inputFilePath)) {
             return true;

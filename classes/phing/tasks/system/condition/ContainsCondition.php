@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Is one string part of another string?
  *
@@ -26,16 +28,29 @@
  */
 class ContainsCondition implements Condition
 {
+    /**
+     * @var string
+     */
     private $string;
+
+    /**
+     * @var string
+     */
     private $subString;
+
+    /**
+     * @var bool
+     */
     private $caseSensitive = true;
 
     /**
      * The string to search in.
      *
      * @param string $a1
+     *
+     * @return void
      */
-    public function setString($a1)
+    public function setString(string $a1): void
     {
         $this->string = $a1;
     }
@@ -44,8 +59,10 @@ class ContainsCondition implements Condition
      * The string to search for.
      *
      * @param string $a2
+     *
+     * @return void
      */
-    public function setSubstring($a2)
+    public function setSubstring(string $a2): void
     {
         $this->subString = $a2;
     }
@@ -54,8 +71,10 @@ class ContainsCondition implements Condition
      * Whether to search ignoring case or not.
      *
      * @param bool $b
+     *
+     * @return void
      */
-    public function setCaseSensitive($b)
+    public function setCaseSensitive(bool $b): void
     {
         $this->caseSensitive = (bool) $b;
     }
@@ -63,9 +82,11 @@ class ContainsCondition implements Condition
     /**
      * Check whether string contains substring.
      *
+     * @return bool
+     *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->string === null || $this->subString === null) {
             throw new BuildException(

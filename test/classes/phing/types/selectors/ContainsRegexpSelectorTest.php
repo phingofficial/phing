@@ -17,12 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Test cases for different selectors.
  */
 class ContainsRegexpSelectorTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/ContainsRegexpSelectorTest.xml'
@@ -30,12 +35,18 @@ class ContainsRegexpSelectorTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testContainsRegexpSelector()
+    /**
+     * @return void
+     */
+    public function testContainsRegexpSelector(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();

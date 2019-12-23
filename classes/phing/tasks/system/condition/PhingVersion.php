@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * An phing version condition/task.
  *
@@ -25,16 +27,30 @@
  */
 class PhingVersion extends Task implements Condition
 {
-    private $atLeast      = null;
-    private $exactly      = null;
+    /**
+     * @var string|null
+     */
+    private $atLeast = null;
+
+    /**
+     * @var string|null
+     */
+    private $exactly = null;
+
+    /**
+     * @var string|null
+     */
     private $propertyname = null;
 
     /**
      * Run as a task.
      *
-     * @throws BuildException if an error occurs.
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws NullPointerException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->propertyname == null) {
             throw new BuildException("'property' must be set.");
@@ -53,11 +69,13 @@ class PhingVersion extends Task implements Condition
     /**
      * Evaluate the condition.
      *
-     * @return true if the condition is true.
+     * @return bool true if the condition is true.
      *
+     * @throws ConfigurationException
+     * @throws NullPointerException
      * @throws BuildException if an error occurs.
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         $this->validate();
         $actual = $this->getVersion();
@@ -72,7 +90,10 @@ class PhingVersion extends Task implements Condition
         return false;
     }
 
-    private function validate()
+    /**
+     * @return void
+     */
+    private function validate(): void
     {
         if ($this->atLeast != null && $this->exactly != null) {
             throw new BuildException('Only one of atleast or exactly may be set.');
@@ -82,7 +103,13 @@ class PhingVersion extends Task implements Condition
         }
     }
 
-    private function getVersion()
+    /**
+     * @return string
+     *
+     * @throws ConfigurationException
+     * @throws NullPointerException
+     */
+    private function getVersion(): string
     {
         $p = new Project();
 
@@ -92,9 +119,9 @@ class PhingVersion extends Task implements Condition
     /**
      * Get the atleast attribute.
      *
-     * @return string the atleast attribute.
+     * @return string|null the atleast attribute.
      */
-    public function getAtLeast()
+    public function getAtLeast(): ?string
     {
         return $this->atLeast;
     }
@@ -105,8 +132,10 @@ class PhingVersion extends Task implements Condition
      * For example 1.7.0.
      *
      * @param string $atLeast the version to check against.
+     *
+     * @return void
      */
-    public function setAtLeast($atLeast)
+    public function setAtLeast(string $atLeast): void
     {
         $this->atLeast = $atLeast;
     }
@@ -114,9 +143,9 @@ class PhingVersion extends Task implements Condition
     /**
      * Get the exactly attribute.
      *
-     * @return string the exactly attribute.
+     * @return string|null the exactly attribute.
      */
-    public function getExactly()
+    public function getExactly(): ?string
     {
         return $this->exactly;
     }
@@ -127,8 +156,10 @@ class PhingVersion extends Task implements Condition
      * For example 1.7.0.
      *
      * @param string $exactly the version to check against.
+     *
+     * @return void
      */
-    public function setExactly($exactly)
+    public function setExactly(string $exactly): void
     {
         $this->exactly = $exactly;
     }
@@ -136,9 +167,9 @@ class PhingVersion extends Task implements Condition
     /**
      * Get the name of the property to hold the phing version.
      *
-     * @return string the name of the property.
+     * @return string|null the name of the property.
      */
-    public function getProperty()
+    public function getProperty(): ?string
     {
         return $this->propertyname;
     }
@@ -147,8 +178,10 @@ class PhingVersion extends Task implements Condition
      * Set the name of the property to hold the phing version.
      *
      * @param string $propertyname the name of the property.
+     *
+     * @return void
      */
-    public function setProperty($propertyname)
+    public function setProperty(string $propertyname): void
     {
         $this->propertyname = $propertyname;
     }

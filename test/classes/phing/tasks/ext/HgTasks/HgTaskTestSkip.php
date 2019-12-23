@@ -21,6 +21,9 @@ declare(strict_types=1);
 
 trait HgTaskTestSkip
 {
+    /**
+     * @return void
+     */
     public function markTestAsSkippedWhenHgNotInstalled(): void
     {
         exec('hg help > /dev/null 2>&1', $output, $code);

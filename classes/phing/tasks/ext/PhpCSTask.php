@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
@@ -56,6 +58,9 @@ class PhpCSTask extends Task
         parent::__construct();
     }
 
+    /**
+     * @return Commandline
+     */
     public function getCommandline(): Commandline
     {
         return $this->cmd;
@@ -63,6 +68,8 @@ class PhpCSTask extends Task
 
     /**
      * @param bool $cache
+     *
+     * @return void
      */
     public function setCache(bool $cache): void
     {
@@ -71,6 +78,8 @@ class PhpCSTask extends Task
 
     /**
      * @param bool $ignore
+     *
+     * @return void
      */
     public function setIgnoreAnnotations(bool $ignore): void
     {
@@ -79,6 +88,8 @@ class PhpCSTask extends Task
 
     /**
      * @param bool $checkreturn
+     *
+     * @return void
      */
     public function setCheckreturn(bool $checkreturn): void
     {
@@ -87,6 +98,8 @@ class PhpCSTask extends Task
 
     /**
      * @param string $bin
+     *
+     * @return void
      */
     public function setBin(string $bin): void
     {
@@ -95,13 +108,21 @@ class PhpCSTask extends Task
 
     /**
      * @param PhingFile $file
+     *
+     * @return void
      */
     public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function main(): void
     {
         if ($this->file === null) {
             throw new BuildException('Missing attribute "file".');

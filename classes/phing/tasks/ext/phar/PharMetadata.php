@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.tasks.ext.phar
  * @author Alexey Shockov <alexey@shockov.com>
@@ -32,7 +34,7 @@ class PharMetadata
     /**
      * @return PharMetadataElement
      */
-    public function createElement()
+    public function createElement(): PharMetadataElement
     {
         return $this->elements[] = new PharMetadataElement();
     }
@@ -40,7 +42,7 @@ class PharMetadata
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $metadata = [];
 

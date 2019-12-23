@@ -17,25 +17,41 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
  */
 class SonarConfigurationFileParserTest extends BuildFileTest
 {
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
     protected function setUp(): void
     {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/ConfigurationFileParserTest.xml';
         $this->configureProject($buildXmlFile);
     }
 
-    private function initParser($fileName)
+    /**
+     * @param string $fileName
+     *
+     * @return SonarConfigurationFileParser
+     */
+    private function initParser(string $fileName): SonarConfigurationFileParser
     {
         $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
         return new SonarConfigurationFileParser($fullFileName, $this->getProject());
     }
 
-    public function testConstructFileIsNullThrowsException()
+    /**
+     * @return void
+     */
+    public function testConstructFileIsNullThrowsException(): void
     {
         $file = null;
 
@@ -44,7 +60,10 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         new SonarConfigurationFileParser($file, $this->getProject());
     }
 
-    public function testConstructFileIsEmptyFhrowsException()
+    /**
+     * @return void
+     */
+    public function testConstructFileIsEmptyFhrowsException(): void
     {
         $file = '';
 
@@ -53,7 +72,10 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         new SonarConfigurationFileParser($file, $this->getProject());
     }
 
-    public function testConstructFileDoesNotExistThrowsException()
+    /**
+     * @return void
+     */
+    public function testConstructFileDoesNotExistThrowsException(): void
     {
         $file   = 'ThisFileDoesNotExist';
         $parser = new SonarConfigurationFileParser($file, $this->getProject());
@@ -63,7 +85,10 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $parser->parse();
     }
 
-    public function testEmptyFile()
+    /**
+     * @return void
+     */
+    public function testEmptyFile(): void
     {
         $parser = $this->initParser('test-empty-file');
 
@@ -77,47 +102,62 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertEmpty($properties);
     }
 
-    public function testPropertyWithColonAndWithoutWhitespace()
+    /**
+     * @return void
+     */
+    public function testPropertyWithColonAndWithoutWhitespace(): void
     {
         $parser = $this->initParser('test-property-with-colon-and-without-whitespace');
 
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
-    public function testPropertyWithColonAndWithWhitespace()
+    /**
+     * @return void
+     */
+    public function testPropertyWithColonAndWithWhitespace(): void
     {
         $parser = $this->initParser('test-property-with-colon-and-with-whitespace');
 
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
-    public function testPropertyWithEqualsSignAndWithoutWhitespace()
+    /**
+     * @return void
+     */
+    public function testPropertyWithEqualsSignAndWithoutWhitespace(): void
     {
         $parser = $this->initParser('test-property-with-equals-sign-and-without-whitespace');
 
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
-    public function testPropertyWithEqualsSignAndWithWhitespace()
+    /**
+     * @return void
+     */
+    public function testPropertyWithEqualsSignAndWithWhitespace(): void
     {
         $parser = $this->initParser('test-property-with-equals-sign-and-with-whitespace');
 
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('bar', $properties);
+        self::assertContains('bar', $properties);
     }
 
-    public function testCommentAtBeginOfLine()
+    /**
+     * @return void
+     */
+    public function testCommentAtBeginOfLine(): void
     {
         $parser = $this->initParser('test-property-with-comment-at-begin-of-line');
 
@@ -126,7 +166,10 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertArrayNotHasKey('comment', $properties);
     }
 
-    public function testCommentInMiddleOfLine()
+    /**
+     * @return void
+     */
+    public function testCommentInMiddleOfLine(): void
     {
         $parser = $this->initParser('test-property-with-comment-in-middle-of-line');
 
@@ -135,17 +178,23 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertArrayNotHasKey('comment', $properties);
     }
 
-    public function testPropertyHasMultiLineValue()
+    /**
+     * @return void
+     */
+    public function testPropertyHasMultiLineValue(): void
     {
         $parser = $this->initParser('test-multiline-property');
 
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('This is a multi-line comment.', $properties);
+        self::assertContains('This is a multi-line comment.', $properties);
     }
 
-    public function testPropertyEndsWithABackSlash()
+    /**
+     * @return void
+     */
+    public function testPropertyEndsWithABackSlash(): void
     {
         $parser = $this->initParser('test-property-with-trailing-backslash');
 
@@ -153,17 +202,20 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $this->assertArrayHasKey('foo', $properties);
         $this->assertArrayHasKey('bar', $properties);
-        $this->assertContains('This is not a multi-line property, but ends with a backslash\\', $properties);
-        $this->assertContains('baz', $properties);
+        self::assertContains('This is not a multi-line property, but ends with a backslash\\', $properties);
+        self::assertContains('baz', $properties);
     }
 
-    public function testPropertyHasMultiLineValueIntermediateLineIsEmpty()
+    /**
+     * @return void
+     */
+    public function testPropertyHasMultiLineValueIntermediateLineIsEmpty(): void
     {
         $parser = $this->initParser('test-multiline-property-with-empty-intermediate-line');
 
         $properties = $parser->parse();
 
         $this->assertArrayHasKey('foo', $properties);
-        $this->assertContains('This is a multi-line comment.', $properties);
+        self::assertContains('This is a multi-line comment.', $properties);
     }
 }

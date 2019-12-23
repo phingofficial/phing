@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for RegisterSlot
  *
@@ -28,36 +29,54 @@ use PHPUnit\Framework\TestCase;
  */
 class RegisterSlotTest extends TestCase
 {
-    private $slot = null;
+    /**
+     * @var RegisterSlot
+     */
+    private $slot;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->slot = new RegisterSlot('key123');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
-        unset($this->slot);
+        $this->slot = null;
     }
 
-    public function testToString()
+    /**
+     * @return void
+     */
+    public function testToString(): void
     {
         $this->slot->setValue('test123');
 
-        $this->assertEquals((string) $this->slot, 'test123');
+        self::assertEquals((string) $this->slot, 'test123');
     }
 
-    public function testArrayToString()
+    /**
+     * @return void
+     */
+    public function testArrayToString(): void
     {
         $this->slot->setValue(['test1', 'test2', 'test3']);
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,test3}');
+        self::assertEquals((string) $this->slot, '{test1,test2,test3}');
     }
 
-    public function testMultiArrayToString()
+    /**
+     * @return void
+     */
+    public function testMultiArrayToString(): void
     {
         $this->slot->setValue(['test1', 'test2', ['test4', 'test5', ['test6', 'test7']], 'test3']);
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
+        self::assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
     }
 }

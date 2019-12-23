@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Adds a listener to the current build process that records the
  * output to a file.
@@ -38,23 +40,37 @@ class RecorderTask extends Task implements SubBuildListener
 {
     /**
      * The name of the file to record to.
+     *
+     * @var string
      */
     private $filename = null;
+
     /**
      * Whether or not to append. Need Boolean to record an unset state (null).
+     *
+     * @var bool
      */
     private $append = null;
+
     /**
      * Whether to start or stop recording. Need Boolean to record an unset
      * state (null).
+     *
+     * @var bool
      */
     private $start = null;
+
     /**
      * The level to log at. A level of -1 means not initialized yet.
+     *
+     * @var string
      */
     private $loglevel = -1;
+
     /**
      * Strip task banners if true.
+     *
+     * @var bool
      */
     private $emacsMode = false;
 
@@ -75,8 +91,10 @@ class RecorderTask extends Task implements SubBuildListener
 
     /**
      * Overridden so we can add the task as build listener.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->getProject()->addBuildListener($this);
     }
@@ -86,8 +104,10 @@ class RecorderTask extends Task implements SubBuildListener
      * entry.
      *
      * @param string $fname File name of logfile.
+     *
+     * @return void
      */
-    public function setName($fname)
+    public function setName(string $fname): void
     {
         $this->filename = $fname;
     }
@@ -96,8 +116,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Sets the action for the associated recorder entry.
      *
      * @param string $action The action for the entry to take: start or stop.
+     *
+     * @return void
      */
-    public function setAction($action)
+    public function setAction(string $action): void
     {
         $this->start = strtolower($action) === 'start';
     }
@@ -106,8 +128,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Whether or not the logger should append to a previous file.
      *
      * @param bool $append if true, append to a previous file.
+     *
+     * @return void
      */
-    public function setAppend(bool $append)
+    public function setAppend(bool $append): void
     {
         $this->append = $append;
     }
@@ -116,8 +140,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Set emacs mode.
      *
      * @param bool $emacsMode if true use emacs mode
+     *
+     * @return void
      */
-    public function setEmacsMode($emacsMode)
+    public function setEmacsMode(bool $emacsMode): void
     {
         $this->emacsMode = $emacsMode;
     }
@@ -126,8 +152,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Sets the level to which this recorder entry should log to.
      *
      * @param string $level the level to set.
+     *
+     * @return void
      */
-    public function setLoglevel($level)
+    public function setLoglevel(string $level): void
     {
         $this->loglevel = $level;
     }
@@ -135,9 +163,13 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * The main execution.
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException on error
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->filename == null) {
             throw new BuildException('No filename specified');
@@ -178,8 +210,9 @@ class RecorderTask extends Task implements SubBuildListener
      * @return RecorderEntry a recorder
      *
      * @throws BuildException on error
+     * @throws Exception
      */
-    protected function getRecorder($name, Project $proj)
+    protected function getRecorder(string $name, Project $proj): RecorderEntry
     {
         // create a recorder entry
         $entry = self::$recorderEntries[$name] ?? new RecorderEntry($name);
@@ -199,8 +232,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
     }
 
@@ -208,8 +243,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function subBuildStarted(BuildEvent $event)
+    public function subBuildStarted(BuildEvent $event): void
     {
     }
 
@@ -217,8 +254,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
     }
 
@@ -226,8 +265,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
     }
 
@@ -235,8 +276,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
     }
 
@@ -244,8 +287,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
     }
 
@@ -253,8 +298,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Empty implementation required by SubBuildListener interface.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
     }
 
@@ -262,8 +309,10 @@ class RecorderTask extends Task implements SubBuildListener
      * Cleans recorder registry.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $this->cleanup();
     }
@@ -273,22 +322,26 @@ class RecorderTask extends Task implements SubBuildListener
      * been created in.
      *
      * @param BuildEvent $event ignored.
+     *
+     * @return void
      */
-    public function subBuildFinished(BuildEvent $event)
+    public function subBuildFinished(BuildEvent $event): void
     {
-        if ($event->getProject() == $this->getProject()) {
+        if ($event->getProject() === $this->getProject()) {
             $this->cleanup();
         }
     }
 
     /**
      * cleans recorder registry and removes itself from BuildListener list.
+     *
+     * @return void
      */
-    private function cleanup()
+    private function cleanup(): void
     {
         $entries = self::$recorderEntries;
         foreach ($entries as $key => $entry) {
-            if ($entry->getProject() == $this->getProject()) {
+            if ($entry->getProject() === $this->getProject()) {
                 unset(self::$recorderEntries[$key]);
             }
         }

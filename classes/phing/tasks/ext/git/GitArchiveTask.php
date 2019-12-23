@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Repository archive task
  *
@@ -28,9 +30,9 @@
 class GitArchiveTask extends GitBaseTask
 {
     /**
-     * @var string|false $format
+     * @var string|null $format
      */
-    private $format = false;
+    private $format = null;
 
     /**
      * @var PhingFile $output
@@ -38,24 +40,29 @@ class GitArchiveTask extends GitBaseTask
     private $output;
 
     /**
-     * @var string|false $prefix
+     * @var string|null
      */
-    private $prefix = false;
+    private $prefix = null;
 
     /**
-     * @var string $treeish
+     * @var string|null
      */
     private $treeish;
 
     /**
-     * @var string|false $remoteRepo
+     * @var string|null $remoteRepo
      */
-    private $remoteRepo = false;
+    private $remoteRepo = null;
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository() && false === $this->getRemoteRepo()) {
             throw new BuildException('"repository" is required parameter');
@@ -82,17 +89,19 @@ class GitArchiveTask extends GitBaseTask
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFormat()
+    public function getFormat(): ?string
     {
         return $this->format;
     }
 
     /**
      * @param string $format
+     *
+     * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
@@ -100,63 +109,71 @@ class GitArchiveTask extends GitBaseTask
     /**
      * @return PhingFile
      */
-    public function getOutput()
+    public function getOutput(): PhingFile
     {
         return $this->output;
     }
 
     /**
      * @param PhingFile $output
+     *
+     * @return void
      */
-    public function setOutput(PhingFile $output)
+    public function setOutput(PhingFile $output): void
     {
         $this->output = $output;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPrefix()
+    public function getPrefix(): ?string
     {
         return $this->prefix;
     }
 
     /**
      * @param string $prefix
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTreeish()
+    public function getTreeish(): ?string
     {
         return $this->treeish;
     }
 
     /**
      * @param string $treeish
+     *
+     * @return void
      */
-    public function setTreeish($treeish)
+    public function setTreeish(string $treeish): void
     {
         $this->treeish = $treeish;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRemoteRepo()
+    public function getRemoteRepo(): ?string
     {
         return $this->remoteRepo;
     }
 
     /**
      * @param string $repo
+     *
+     * @return void
      */
-    public function setRemoteRepo($repo)
+    public function setRemoteRepo(string $repo): void
     {
         $this->remoteRepo = $repo;
     }

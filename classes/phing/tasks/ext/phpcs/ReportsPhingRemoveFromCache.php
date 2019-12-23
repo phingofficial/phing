@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Remove from cache files where contains errors
  *
@@ -37,8 +39,10 @@ class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
      * Set cache object
      *
      * @param DataStore $cache
+     *
+     * @return void
      */
-    public static function setCache($cache)
+    public static function setCache(DataStore $cache): void
     {
         self::$cache = $cache;
     }
@@ -52,13 +56,15 @@ class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
      * @param int                  $width       Maximum allowed line width.
      *
      * @return bool
+     *
+     * @throws IOException
      */
     public function generateFileReport(
-        $report,
+        array $report,
         PHP_CodeSniffer_File $phpcsFile,
-        $showSources = false,
-        $width = 80
-    ) {
+        bool $showSources = false,
+        int $width = 80
+    ): bool {
         if (!self::$cache || ($report['errors'] === 0 && $report['warnings'] === 0)) {
             // Nothing to do
             return false;
@@ -84,15 +90,15 @@ class ReportsPhingRemoveFromCache implements PHP_CodeSniffer_Report
      * @return void
      */
     public function generate(
-        $cachedData,
-        $totalFiles,
-        $totalErrors,
-        $totalWarnings,
-        $totalFixable,
-        $showSources = false,
-        $width = 80,
-        $toScreen = true
-    ) {
+        string $cachedData,
+        int $totalFiles,
+        int $totalErrors,
+        int $totalWarnings,
+        int $totalFixable,
+        bool $showSources = false,
+        int $width = 80,
+        bool $toScreen = true
+    ): void {
         // Do nothing
     }
 }

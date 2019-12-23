@@ -17,10 +17,18 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class DefaultLoggerTest extends TestCase
 {
+    /**
+     * @param Throwable $error
+     * @param bool      $verbose
+     *
+     * @return string
+     */
     private static function msg(Throwable $error, bool $verbose): string
     {
         $m = '';
@@ -29,22 +37,26 @@ class DefaultLoggerTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @test
      */
-    public function throwableMessageOne()
+    public function throwableMessageOne(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
-        $this->assertEquals('build.xml:1:0 oops' . PHP_EOL, static::msg($be, false));
+        self::assertEquals('build.xml:1:0 oops' . PHP_EOL, static::msg($be, false));
     }
 
     /**
+     * @return void
+     *
      * @test
      */
-    public function throwableMessageTwo()
+    public function throwableMessageTwo(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 2, 0));
-        $this->assertEquals(
+        self::assertEquals(
             'build.xml:2:0 The following error occurred while executing this line:' . PHP_EOL .
             'build.xml:1:0 oops' . PHP_EOL,
             static::msg($be, false)
@@ -52,14 +64,16 @@ class DefaultLoggerTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @test
      */
-    public function throwableMessageThree()
+    public function throwableMessageThree(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 2, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 3, 0));
-        $this->assertEquals(
+        self::assertEquals(
             'build.xml:3:0 The following error occurred while executing this line:' . PHP_EOL .
             'build.xml:2:0 The following error occurred while executing this line:' . PHP_EOL .
             'build.xml:1:0 oops' . PHP_EOL,
@@ -68,18 +82,34 @@ class DefaultLoggerTest extends TestCase
     }
 
     /**
+     * @return void
+     *
+     * @throws Exception
+     *
      * @test
      */
-    public function buildFinished()
+    public function buildFinished(): void
     {
         $event  = new BuildEvent(new Project());
         $logger = new class extends DefaultLogger {
-            public function printMessage($message, ?OutputStream $stream = null, $priority = null)
+            /**
+             * @param string            $message
+             * @param OutputStream|null $stream
+             * @param int|null          $priority
+             *
+             * @return void
+             */
+            public function printMessage(string $message, ?OutputStream $stream = null, ?int $priority = null): void
             {
                 echo $message;
             }
 
-            public static function formatTime($micros)
+            /**
+             * @param float $micros
+             *
+             * @return string
+             */
+            public static function formatTime(float $micros): string
             {
                 return 'TIME_STRING';
             }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A selector that selects readable files.
  *
@@ -33,8 +35,10 @@ class ReadableSelector implements FileSelector
      * @param PhingFile $file
      *
      * @return bool
+     *
+     * @throws IOException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         return $file !== null && $file->canRead();
     }

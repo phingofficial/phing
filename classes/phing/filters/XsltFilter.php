@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Applies XSL stylesheet to incoming text.
  *
@@ -54,6 +56,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Whether to use loadHTML() to parse the input XML file.
+     *
+     * @var bool
      */
     private $html = false;
 
@@ -80,7 +84,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return XsltParam
      */
-    public function createParam()
+    public function createParam(): XsltParam
     {
         $num = array_push($this->xsltParams, new XsltParam());
 
@@ -91,9 +95,11 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Sets the XSLT params for this class.
      * This is used to "clone" this class, in the chain() method.
      *
-     * @param array $params
+     * @param XsltParam[] $params
+     *
+     * @return void
      */
-    public function setParams($params)
+    public function setParams(array $params): void
     {
         $this->xsltParams = $params;
     }
@@ -102,9 +108,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Returns the XSLT params set for this class.
      * This is used to "clone" this class, in the chain() method.
      *
-     * @return array
+     * @return XsltParam[]
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->xsltParams;
     }
@@ -112,9 +118,11 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Set the XSLT stylesheet.
      *
-     * @param mixed $file PhingFile object or path.
+     * @param PhingFile $file PhingFile object or path.
+     *
+     * @return void
      */
-    public function setStyle(PhingFile $file)
+    public function setStyle(PhingFile $file): void
     {
         $this->xslFile = $file;
     }
@@ -125,7 +133,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return bool
      */
-    public function getHtml()
+    public function getHtml(): bool
     {
         return $this->html;
     }
@@ -134,8 +142,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Whether to use HTML parser for XML.
      *
      * @param bool $b
+     *
+     * @return void
      */
-    public function setHtml($b)
+    public function setHtml(bool $b): void
     {
         $this->html = (bool) $b;
     }
@@ -145,7 +155,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return PhingFile XSLT stylesheet path.
      */
-    public function getStyle()
+    public function getStyle(): PhingFile
     {
         return $this->xslFile;
     }
@@ -155,9 +165,11 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param bool $resolveExternals
      *
+     * @return void
+     *
      * @since 2.4
      */
-    public function setResolveDocumentExternals(bool $resolveExternals)
+    public function setResolveDocumentExternals(bool $resolveExternals): void
     {
         $this->resolveDocumentExternals = $resolveExternals;
     }
@@ -167,7 +179,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @since 2.4
      */
-    public function getResolveDocumentExternals()
+    public function getResolveDocumentExternals(): bool
     {
         return $this->resolveDocumentExternals;
     }
@@ -177,9 +189,11 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param bool $resolveExternals
      *
+     * @return void
+     *
      * @since 2.4
      */
-    public function setResolveStylesheetExternals(bool $resolveExternals)
+    public function setResolveStylesheetExternals(bool $resolveExternals): void
     {
         $this->resolveStylesheetExternals = $resolveExternals;
     }
@@ -189,7 +203,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @since 2.4
      */
-    public function getResolveStylesheetExternals()
+    public function getResolveStylesheetExternals(): bool
     {
         return $this->resolveStylesheetExternals;
     }
@@ -197,13 +211,14 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
-     * @return string         transformed buffer.
+     * @return string Transformed buffer.
      *
+     * @throws IOException
      * @throws BuildException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!class_exists('XSLTProcessor')) {
             throw new BuildException('Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.');
@@ -267,7 +282,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @throws BuildException On XSLT errors
      */
-    protected function process($xml, $xsl)
+    protected function process(string $xml, string $xsl): string
     {
         $processor = new XSLTProcessor();
 
@@ -327,7 +342,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * @return XsltFilter A new filter based on this configuration, but filtering
      *                    the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new XsltFilter($reader);
         $newFilter->setProject($this->getProject());
@@ -341,8 +356,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Parses the parameters to get stylesheet path.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

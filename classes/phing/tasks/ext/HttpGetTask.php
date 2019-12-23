@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A HTTP download task.
  *
@@ -69,8 +71,9 @@ class HttpGetTask extends HttpTask
      *
      * @throws BuildException
      * @throws HTTP_Request2_LogicException
+     * @throws Exception
      */
-    protected function createRequest()
+    protected function createRequest(): HTTP_Request2
     {
         if (!isset($this->dir)) {
             throw new BuildException("Required attribute 'dir' is missing", $this->getLocation());
@@ -102,8 +105,10 @@ class HttpGetTask extends HttpTask
      * @return void
      *
      * @throws BuildException
+     * @throws HTTP_Request2_Exception
+     * @throws Exception
      */
-    protected function processResponse(HTTP_Request2_Response $response)
+    protected function processResponse(HTTP_Request2_Response $response): void
     {
         if ($response->getStatus() != 200) {
             throw new BuildException(
@@ -121,7 +126,7 @@ class HttpGetTask extends HttpTask
         } elseif (
             $disposition
             && 0 == strpos($disposition, 'attachment')
-            && preg_match('/filename="([^"]+)"/', $disposition, $m)
+            && preg_match('/filename="([^"]+)"/', (string) $disposition, $m)
         ) {
             $filename = basename($m[1]);
         } else {
@@ -142,8 +147,10 @@ class HttpGetTask extends HttpTask
      * Sets the filename to store the output in
      *
      * @param string $filename
+     *
+     * @return void
      */
-    public function setFilename($filename)
+    public function setFilename(string $filename): void
     {
         $this->filename = $filename;
     }
@@ -152,8 +159,10 @@ class HttpGetTask extends HttpTask
      * Sets the save location
      *
      * @param string $dir
+     *
+     * @return void
      */
-    public function setDir($dir)
+    public function setDir(string $dir): void
     {
         $this->dir = $dir;
     }
@@ -162,8 +171,10 @@ class HttpGetTask extends HttpTask
      * Sets the ssl_verify_peer option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setSslVerifyPeer($value)
+    public function setSslVerifyPeer(bool $value): void
     {
         $this->sslVerifyPeer = $value;
     }
@@ -172,8 +183,10 @@ class HttpGetTask extends HttpTask
      * Sets the follow_redirects option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setFollowRedirects($value)
+    public function setFollowRedirects(bool $value): void
     {
         $this->followRedirects = $value;
     }
@@ -182,8 +195,10 @@ class HttpGetTask extends HttpTask
      * Sets the proxy
      *
      * @param string $proxy
+     *
+     * @return void
      */
-    public function setProxy($proxy)
+    public function setProxy(string $proxy): void
     {
         $this->proxy = $proxy;
     }
@@ -192,13 +207,24 @@ class HttpGetTask extends HttpTask
      * If true, set default log level to Project.MSG_ERR.
      *
      * @param bool $v if "true" then be quiet
+     *
+     * @return void
      */
-    public function setQuiet($v)
+    public function setQuiet(bool $v): void
     {
         $this->quiet = $v;
     }
 
-    public function log($msg, $msgLevel = Project::MSG_INFO, ?Throwable $t = null)
+    /**
+     * @param string         $msg
+     * @param int|null       $msgLevel
+     * @param Exception|null $t
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function log(string $msg, ?int $msgLevel = Project::MSG_INFO, ?Throwable $t = null): void
     {
         if (!$this->quiet || $msgLevel <= Project::MSG_ERR) {
             parent::log($msg, $msgLevel, $t);

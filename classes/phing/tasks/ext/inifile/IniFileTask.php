@@ -14,6 +14,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * InifileTask
  *
@@ -50,21 +52,21 @@ class IniFileTask extends Task
     /**
      * Gets
      *
-     * @var array
+     * @var IniFileGet[]
      */
     protected $gets = [];
 
     /**
      * Sets
      *
-     * @var array
+     * @var IniFileSet[]
      */
     protected $sets = [];
 
     /**
      * Removals
      *
-     * @var array
+     * @var IniFileRemove[]
      */
     protected $removals = [];
 
@@ -92,11 +94,13 @@ class IniFileTask extends Task
     /**
      * Check file to be read from
      *
-     * @param string $readFile Filename
+     * @param string|null $readFile Filename
      *
      * @return bool
+     *
+     * @throws Exception
      */
-    public function checkReadFile($readFile)
+    public function checkReadFile(?string $readFile): bool
     {
         if (null === $readFile) {
             return false;
@@ -109,7 +113,7 @@ class IniFileTask extends Task
             $this->log($msg, Project::MSG_ERR);
             return false;
         }
-        if (!is_readable($readFile)) {
+        if (!is_readable((string) $readFile)) {
             $msg = $readFile . ' is not readable.';
             if ($this->haltonerror) {
                 throw new BuildException($msg);
@@ -128,8 +132,10 @@ class IniFileTask extends Task
      * @param string $writeFile Filename
      *
      * @return bool
+     *
+     * @throws Exception
      */
-    public function checkWriteFile($writeFile)
+    public function checkWriteFile(string $writeFile): bool
     {
         if (file_exists($writeFile) && !is_writable($writeFile)) {
             $msg = $writeFile . ' is not writable';
@@ -146,8 +152,10 @@ class IniFileTask extends Task
      * The main entry point method.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->ini = new IniFileConfig();
         $readFile  = null;
@@ -208,8 +216,10 @@ class IniFileTask extends Task
      * Work through all Get commands.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function enumerateGets()
+    public function enumerateGets(): void
     {
         foreach ($this->gets as $get) {
             $outProperty = $get->getOutputProperty();
@@ -261,8 +271,10 @@ class IniFileTask extends Task
      * Work through all Set commands.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function enumerateSets()
+    public function enumerateSets(): void
     {
         foreach ($this->sets as $set) {
             $value     = $set->getValue();
@@ -330,8 +342,10 @@ class IniFileTask extends Task
      * Work through all Remove commands.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function enumerateRemoves()
+    public function enumerateRemoves(): void
     {
         foreach ($this->removals as $remove) {
             $key     = $remove->getProperty();
@@ -361,7 +375,7 @@ class IniFileTask extends Task
      *
      * @return void
      */
-    public function setSource($source)
+    public function setSource(string $source): void
     {
         $this->source = $source;
     }
@@ -373,7 +387,7 @@ class IniFileTask extends Task
      *
      * @return void
      */
-    public function setDest($dest)
+    public function setDest(string $dest): void
     {
         $this->dest = $dest;
     }
@@ -385,7 +399,7 @@ class IniFileTask extends Task
      *
      * @return void
      */
-    public function setHaltonerror($halt)
+    public function setHaltonerror(string $halt): void
     {
         $this->haltonerror = StringHelper::booleanValue($halt);
     }
@@ -399,7 +413,7 @@ class IniFileTask extends Task
      *
      * @return void
      */
-    public function setVerbose($verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = StringHelper::booleanValue($verbose);
     }
@@ -409,7 +423,7 @@ class IniFileTask extends Task
      *
      * @return IniFileGet
      */
-    public function createGet()
+    public function createGet(): IniFileGet
     {
         $get          = new IniFileGet();
         $this->gets[] = $get;
@@ -421,7 +435,7 @@ class IniFileTask extends Task
      *
      * @return IniFileSet
      */
-    public function createSet()
+    public function createSet(): IniFileSet
     {
         $set          = new IniFileSet();
         $this->sets[] = $set;
@@ -433,7 +447,7 @@ class IniFileTask extends Task
      *
      * @return IniFileRemove
      */
-    public function createRemove()
+    public function createRemove(): IniFileRemove
     {
         $remove           = new IniFileRemove();
         $this->removals[] = $remove;
@@ -446,8 +460,10 @@ class IniFileTask extends Task
      * @param string $message Message to log
      *
      * @return bool False if message is only logged at debug level.
+     *
+     * @throws Exception
      */
-    public function logDebugOrMore($message)
+    public function logDebugOrMore(string $message): bool
     {
         $this->log($message, Project::MSG_DEBUG);
         if ($this->verbose) {

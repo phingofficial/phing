@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a FileSet with the option to specify permissions.
  *
@@ -29,27 +31,48 @@ class TarFileSet extends FileSet
 {
     private $files = null;
 
+    /**
+     * @var int
+     */
     private $mode = 0100644;
 
-    private $userName               = '';
-    private $groupName              = '';
-    private $prefix                 = '';
-    private $fullpath               = '';
+    /**
+     * @var string
+     */
+    private $userName = '';
+
+    /**
+     * @var string
+     */
+    private $groupName = '';
+
+    /**
+     * @var string
+     */
+    private $prefix = '';
+
+    /**
+     * @var string
+     */
+    private $fullpath = '';
+
+    /**
+     * @var bool
+     */
     private $preserveLeadingSlashes = false;
 
     /**
      * Get a list of files and directories specified in the fileset.
      *
-     * @param Project $p
-     * @param bool    $includeEmpty
+     * @param bool $includeEmpty
      *
-     * @return array a list of file and directory names, relative to
+     * @return array A list of file and directory names, relative to
      *               the baseDir for the project.
      *
      * @throws BuildException
      * @throws Exception
      */
-    protected function getFiles($includeEmpty = true, ...$options)
+    protected function getFiles(bool $includeEmpty = true): array
     {
         if ($this->files === null) {
             $ds          = $this->getDirectoryScanner($this->getProject());
@@ -98,8 +121,10 @@ class TarFileSet extends FileSet
      * optional, default=0644
      *
      * @param string $octalString
+     *
+     * @return void
      */
-    public function setMode($octalString)
+    public function setMode(string $octalString): void
     {
         $octal      = (int) $octalString;
         $this->mode = 0100000 | $octal;
@@ -108,7 +133,7 @@ class TarFileSet extends FileSet
     /**
      * @return int
      */
-    public function getMode()
+    public function getMode(): int
     {
         return $this->mode;
     }
@@ -119,8 +144,10 @@ class TarFileSet extends FileSet
      * not currently set by the task.
      *
      * @param string $userName
+     *
+     * @return void
      */
-    public function setUserName($userName)
+    public function setUserName(string $userName): void
     {
         $this->userName = $userName;
     }
@@ -128,7 +155,7 @@ class TarFileSet extends FileSet
     /**
      * @return string
      */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->userName;
     }
@@ -139,8 +166,10 @@ class TarFileSet extends FileSet
      * not currently set by the task.
      *
      * @param string $groupName
+     *
+     * @return void
      */
-    public function setGroup($groupName)
+    public function setGroup(string $groupName): void
     {
         $this->groupName = $groupName;
     }
@@ -148,7 +177,7 @@ class TarFileSet extends FileSet
     /**
      * @return string
      */
-    public function getGroup()
+    public function getGroup(): string
     {
         return $this->groupName;
     }
@@ -158,9 +187,11 @@ class TarFileSet extends FileSet
      * are prefixed with that path in the archive.
      * optional.
      *
-     * @param bool $prefix
+     * @param string $prefix
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
     }
@@ -168,7 +199,7 @@ class TarFileSet extends FileSet
     /**
      * @return string
      */
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
@@ -180,8 +211,10 @@ class TarFileSet extends FileSet
      * such a fileset.
      *
      * @param string $fullpath
+     *
+     * @return void
      */
-    public function setFullpath($fullpath)
+    public function setFullpath(string $fullpath): void
     {
         $this->fullpath = $fullpath;
     }
@@ -189,7 +222,7 @@ class TarFileSet extends FileSet
     /**
      * @return string
      */
-    public function getFullpath()
+    public function getFullpath(): string
     {
         return $this->fullpath;
     }
@@ -203,7 +236,7 @@ class TarFileSet extends FileSet
      *
      * @return void
      */
-    public function setPreserveLeadingSlashes($b)
+    public function setPreserveLeadingSlashes(bool $b): void
     {
         $this->preserveLeadingSlashes = (bool) $b;
     }
@@ -211,7 +244,7 @@ class TarFileSet extends FileSet
     /**
      * @return bool
      */
-    public function getPreserveLeadingSlashes()
+    public function getPreserveLeadingSlashes(): bool
     {
         return $this->preserveLeadingSlashes;
     }

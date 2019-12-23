@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * FtpDeployTask
  *
@@ -45,21 +47,72 @@ class FtpDeployTask extends Task
     use FileSetAware;
     use LogLevelAware;
 
-    private $host     = null;
-    private $port     = 21;
-    private $ssl      = false;
+    /**
+     * @var string|null
+     */
+    private $host = null;
+
+    /**
+     * @var int
+     */
+    private $port = 21;
+
+    /**
+     * @var bool
+     */
+    private $ssl = false;
+
+    /**
+     * @var string|null
+     */
     private $username = null;
+
+    /**
+     * @var string|null
+     */
     private $password = null;
-    private $dir      = null;
+
+    /**
+     * @var string|null
+     */
+    private $dir = null;
     private $completeDirMap;
-    private $mode            = FTP_BINARY;
-    private $clearFirst      = false;
-    private $passive         = false;
-    private $depends         = false;
-    private $dirmode         = false;
-    private $filemode        = false;
+    private $mode = FTP_BINARY;
+
+    /**
+     * @var bool
+     */
+    private $clearFirst = false;
+
+    /**
+     * @var bool
+     */
+    private $passive = false;
+
+    /**
+     * @var bool
+     */
+    private $depends = false;
+
+    /**
+     * @var float|int|bool
+     */
+    private $dirmode = false;
+
+    /**
+     * @var float|int|bool
+     */
+    private $filemode = false;
+
+    /**
+     * @var bool
+     */
     private $rawDataFallback = false;
-    private $skipOnSameSize  = false;
+
+    /**
+     * @var bool
+     */
+    private $skipOnSameSize = false;
 
     public function __construct()
     {
@@ -70,56 +123,70 @@ class FtpDeployTask extends Task
 
     /**
      * @param string $host
+     *
+     * @return void
      */
-    public function setHost($host)
+    public function setHost(string $host): void
     {
         $this->host = $host;
     }
 
     /**
      * @param int $port
+     *
+     * @return void
      */
-    public function setPort($port)
+    public function setPort(int $port): void
     {
         $this->port = (int) $port;
     }
 
     /**
      * @param bool $ssl
+     *
+     * @return void
      */
-    public function setSsl(bool $ssl)
+    public function setSsl(bool $ssl): void
     {
         $this->ssl = $ssl;
     }
 
     /**
      * @param string $username
+     *
+     * @return void
      */
-    public function setUsername($username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
     /**
      * @param string $password
+     *
+     * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
     /**
      * @param string $dir
+     *
+     * @return void
      */
-    public function setDir($dir)
+    public function setDir(string $dir): void
     {
         $this->dir = $dir;
     }
 
     /**
      * @param string $mode
+     *
+     * @return void
      */
-    public function setMode($mode)
+    public function setMode(string $mode): void
     {
         switch (strtolower($mode)) {
             case 'ascii':
@@ -134,69 +201,85 @@ class FtpDeployTask extends Task
 
     /**
      * @param bool $passive
+     *
+     * @return void
      */
-    public function setPassive(bool $passive)
+    public function setPassive(bool $passive): void
     {
         $this->passive = $passive;
     }
 
     /**
      * @param bool $clearFirst
+     *
+     * @return void
      */
-    public function setClearFirst(bool $clearFirst)
+    public function setClearFirst(bool $clearFirst): void
     {
         $this->clearFirst = $clearFirst;
     }
 
     /**
      * @param bool $depends
+     *
+     * @return void
      */
-    public function setDepends(bool $depends)
+    public function setDepends(bool $depends): void
     {
         $this->depends = $depends;
     }
 
     /**
      * @param string $filemode
+     *
+     * @return void
      */
-    public function setFilemode($filemode)
+    public function setFilemode(string $filemode): void
     {
         $this->filemode = octdec(str_pad($filemode, 4, '0', STR_PAD_LEFT));
     }
 
     /**
      * @param string $dirmode
+     *
+     * @return void
      */
-    public function setDirmode($dirmode)
+    public function setDirmode(string $dirmode): void
     {
         $this->dirmode = octdec(str_pad($dirmode, 4, '0', STR_PAD_LEFT));
     }
 
     /**
      * @param bool $fallback
+     *
+     * @return void
      */
-    public function setRawdatafallback(bool $fallback)
+    public function setRawdatafallback(bool $fallback): void
     {
         $this->rawDataFallback = $fallback;
     }
 
     /**
      * @param bool|string|int $skipOnSameSize
+     *
+     * @return void
      */
-    public function setSkipOnSameSize($skipOnSameSize)
+    public function setSkipOnSameSize($skipOnSameSize): void
     {
         $this->skipOnSameSize = StringHelper::booleanValue($skipOnSameSize);
     }
 
     /**
      * The init method: check if Net_FTP is available
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         $paths = Phing::explodeIncludePath();
         foreach ($paths as $path) {
             if (file_exists($path . DIRECTORY_SEPARATOR . 'Net' . DIRECTORY_SEPARATOR . 'FTP.php')) {
-                return true;
+                return;
             }
         }
         throw new BuildException('The FTP Deploy task requires the Net_FTP PEAR package.');
@@ -204,8 +287,12 @@ class FtpDeployTask extends Task
 
     /**
      * The main entry point method.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $project = $this->getProject();
 
@@ -276,12 +363,13 @@ class FtpDeployTask extends Task
         $fs      = FileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
 
-        foreach ($this->filesets as $fs) {
+        foreach ($this->filesets as $fileset) {
             // Array for holding directory content informations
             $remoteFileInformations = [];
 
-            $ds       = $fs->getDirectoryScanner($project);
-            $fromDir  = $fs->getDir($project);
+            /** @var FileSet $fileset */
+            $ds       = $fileset->getDirectoryScanner($project);
+            $fromDir  = $fileset->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs  = $ds->getIncludedDirectories();
 
@@ -354,8 +442,10 @@ class FtpDeployTask extends Task
      * @param string|null $directory
      *
      * @return bool
+     *
+     * @throws Exception
      */
-    private function _directoryInformations(Net_FTP $ftp, &$remoteFileInformations, $directory)
+    private function _directoryInformations(Net_FTP $ftp, array &$remoteFileInformations, string $directory): bool
     {
         $content = $ftp->ls($directory);
         if (@PEAR::isError($content)) {
@@ -389,8 +479,10 @@ class FtpDeployTask extends Task
      * @param string|null $directory
      *
      * @return array
+     *
+     * @throws Exception
      */
-    private function parseRawFtpContent($content, $directory = null)
+    private function parseRawFtpContent(array $content, ?string $directory = null): array
     {
         if (!is_array($content)) {
             return [];
@@ -402,7 +494,7 @@ class FtpDeployTask extends Task
             $rawInfo  = explode(' ', $rawInfo);
             $rawInfo2 = [];
             foreach ($rawInfo as $part) {
-                $part = trim($part);
+                $part = trim((string) $part);
                 if (!empty($part)) {
                     $rawInfo2[] = $part;
                 }

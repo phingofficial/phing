@@ -17,19 +17,34 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class Table
 {
+    /**
+     * @var array
+     */
     private $header;
 
+    /**
+     * @var array
+     */
     private $output;
 
+    /**
+     * @var array
+     */
     private $maxLengths;
 
-    public function __construct(array $header = [], $rows = 0)
+    /**
+     * @param array $header
+     * @param int   $rows
+     */
+    public function __construct(array $header = [], int $rows = 0)
     {
         $this->header     = $header;
         $columnSize       = $rows >= 0 ? $rows + 1 : 1;
@@ -38,44 +53,75 @@ class Table
         $this->maxLengths = $this->getHeaderLengths();
     }
 
-    private function getHeaderLengths()
+    /**
+     * @return array
+     */
+    private function getHeaderLengths(): array
     {
         return array_map('strlen', $this->header);
     }
 
-    public function getMaxLengths()
+    /**
+     * @return array
+     */
+    public function getMaxLengths(): array
     {
         return $this->maxLengths;
     }
 
-    public function put($x, $y, $value)
+    /**
+     * @param int        $x
+     * @param int        $y
+     * @param int|string $value
+     *
+     * @return void
+     */
+    public function put(int $x, int $y, $value): void
     {
         $this->maxLengths[$y] = $this->max($y, strlen((string) $value));
         $this->output[$x][$y] = $value;
     }
 
-    private function max($column, $length)
+    /**
+     * @param int $column
+     * @param int $length
+     *
+     * @return int
+     */
+    private function max(int $column, int $length): int
     {
         $max   = $length;
         $total = count($this->output);
         for ($i = 0; $i < $total; $i++) {
-            $valueLength = $this->output[$i][$column] !== null ? strlen($this->output[$i][$column]) : 0;
+            $valueLength = $this->output[$i][$column] !== null ? strlen((string) $this->output[$i][$column]) : 0;
             $max         = max([$max, $valueLength]);
         }
         return $max;
     }
 
-    public function get($x, $y)
+    /**
+     * @param int $x
+     * @param int $y
+     *
+     * @return mixed
+     */
+    public function get(int $x, int $y)
     {
         return $this->output[$x][$y];
     }
 
-    public function rows()
+    /**
+     * @return int
+     */
+    public function rows(): int
     {
         return count($this->output);
     }
 
-    public function columns()
+    /**
+     * @return int
+     */
+    public function columns(): int
     {
         return count($this->header);
     }

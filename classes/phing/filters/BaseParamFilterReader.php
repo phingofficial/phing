@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for core filter readers.
  *
@@ -31,7 +33,7 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
     /**
      * The passed in parameter array.
      *
-     * @var array $parameters
+     * @var Parameter[]
      */
     protected $parameters = [];
 
@@ -39,8 +41,8 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      * Sets the parameters used by this filter, and sets
      * the filter to an uninitialized status.
      *
-     * @param array $parameters Array of parameters to be used by this filter.
-     *              Should not be <code>null</code>.
+     * @param Parameter[] $parameters Array of parameters to be used by this filter.
+     * Should not be <code>null</code>.
      *
      * @return void
      *
@@ -57,7 +59,7 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      *
      * @return Parameter[] the parameters to be used by this filter
      */
-    public function &getParameters()
+    public function &getParameters(): array
     {
         return $this->parameters;
     }

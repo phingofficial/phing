@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -52,8 +54,10 @@ class ProgressLogger extends AnsiColorLogger
      * Fired before any targets are started.
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
         $this->startTime = Phing::currentTimeMillis();
         $this->bar->setMessage($event->getProject()->getProperty('phing.file'), 'buildfile');
@@ -65,8 +69,12 @@ class ProgressLogger extends AnsiColorLogger
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $this->bar->finish();
         echo "\n";
@@ -80,8 +88,12 @@ class ProgressLogger extends AnsiColorLogger
      * @see   BuildEvent::getTarget()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         $this->bar->setMessage($event->getTarget()->getName(), 'target');
         $this->determineDepth($event);
@@ -93,8 +105,10 @@ class ProgressLogger extends AnsiColorLogger
      * @see   BuildEvent#getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         $this->remTargets--;
     }
@@ -105,8 +119,12 @@ class ProgressLogger extends AnsiColorLogger
      * @see   BuildEvent::getTask()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
         // ignore tasks in root
         if ($event->getTarget()->getName() == '') {
@@ -124,8 +142,10 @@ class ProgressLogger extends AnsiColorLogger
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
         // ignore tasks in root
         if ($event->getTarget()->getName() == '') {
@@ -142,8 +162,10 @@ class ProgressLogger extends AnsiColorLogger
      * @see   BuildEvent::getMessage()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
@@ -155,9 +177,11 @@ class ProgressLogger extends AnsiColorLogger
     /**
      * @param BuildEvent $event
      *
+     * @return void
+     *
      * @throws Exception
      */
-    protected function determineDepth(BuildEvent $event)
+    protected function determineDepth(BuildEvent $event): void
     {
         if ($this->numTargets == 0) {
             $this->numTasks   = 0;

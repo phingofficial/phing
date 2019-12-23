@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * ManifestTask
  *
@@ -101,7 +103,7 @@ class ManifestTask extends Task
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -113,7 +115,7 @@ class ManifestTask extends Task
      *
      * @return void
      */
-    public function setChecksum($mixed)
+    public function setChecksum($mixed): void
     {
         if (is_string($mixed)) {
             $data = [strtolower($mixed)];
@@ -135,7 +137,7 @@ class ManifestTask extends Task
      *
      * @return void
      */
-    public function setSalt($string)
+    public function setSalt(string $string): void
     {
         $this->salt = $string;
     }
@@ -146,17 +148,24 @@ class ManifestTask extends Task
      * {@inheritdoc}
      *
      * @internal nothing to do here
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
     }
 
     /**
      * Delegate the work.
-     *
      * {@inheritdoc}
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         $this->validateAttributes();
 
@@ -171,9 +180,14 @@ class ManifestTask extends Task
      * Creates Manifest file
      * Writes to $this->file
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    private function write()
+    private function write(): void
     {
         $project = $this->getProject();
 
@@ -186,6 +200,8 @@ class ManifestTask extends Task
         if (is_array($this->checksum)) {
             $this->log('Using ' . implode(', ', $this->checksum) . ' for checksuming.', Project::MSG_INFO);
         }
+
+        $manifest = [];
 
         foreach ($this->filesets as $fs) {
             $dir = $fs->getDir($this->project)->getPath();
@@ -214,7 +230,7 @@ class ManifestTask extends Task
             }
         }
 
-        file_put_contents($this->file, $manifest);
+        file_put_contents((string) $this->file, $manifest);
 
         $this->log(
             'Done. Total files: ' . $this->meta['totalFileCount'] . '. Total file size: ' . $this->meta['totalFileSize'] . ' bytes.',
@@ -223,9 +239,11 @@ class ManifestTask extends Task
     }
 
     /**
+     * @return void
+     *
      * @todo implement
      */
-    private function read()
+    private function read(): void
     {
         throw new BuildException('Checking against manifest not yet supported.');
     }
@@ -241,9 +259,9 @@ class ManifestTask extends Task
      * @param string $msg  The string that should be hashed
      * @param string $algo Algorithm
      *
-     * @return mixed  String on success, false if $algo is not available
+     * @return string|float|int|bool string on success, false if $algo is not available
      */
-    private function hash($msg, $algo)
+    private function hash(string $msg, string $algo)
     {
         if (extension_loaded('hash')) {
             $algo = strtolower($algo);
@@ -277,9 +295,9 @@ class ManifestTask extends Task
      * @param string $file
      * @param string $algo
      *
-     * @return mixed  String on success, false if $algo is not available
+     * @return string|float|int|bool  String on success, false if $algo is not available
      */
-    private function hashFile($file, $algo)
+    private function hashFile(string $file, string $algo)
     {
         if (!file_exists($file)) {
             return false;
@@ -296,8 +314,10 @@ class ManifestTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws Exception
      */
-    protected function validateAttributes()
+    protected function validateAttributes(): void
     {
         if ($this->action != 'r' && $this->action != 'w') {
             throw new BuildException("'action' attribute has non valid value. Use 'r' or 'w'");

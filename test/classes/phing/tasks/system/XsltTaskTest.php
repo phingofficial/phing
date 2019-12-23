@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Xslt Task
  *
@@ -27,18 +29,29 @@
  */
 class XsltTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/XsltTaskTest.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('tearDown');
     }
 
+    /**
+     * @return void
+     */
     public function testHtmlButNotValidXml(): void
     {
         $this->executeTarget(__FUNCTION__);
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Register a task for use within a buildfile.
  *
@@ -45,6 +47,8 @@ class TaskdefTask extends Task
 
     /**
      * Tag name for task that will be used in XML
+     *
+     * @var string
      */
     private $name;
 
@@ -68,8 +72,10 @@ class TaskdefTask extends Task
      * Sets the name that will be used in XML buildfile.
      *
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -78,8 +84,10 @@ class TaskdefTask extends Task
      * Sets the class name / dotpath to use.
      *
      * @param string $class
+     *
+     * @return void
      */
-    public function setClassname($class)
+    public function setClassname(string $class): void
     {
         $this->classname = $class;
     }
@@ -88,16 +96,23 @@ class TaskdefTask extends Task
      * Sets the file of definitionas to use to use.
      *
      * @param string $file
+     *
+     * @return void
      */
-    public function setFile($file)
+    public function setFile(string $file): void
     {
         $this->typeFile = $file;
     }
 
     /**
      * Main entry point
+     *
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (
             $this->typeFile === null

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The Target component. Carries all required target data. Implements the
  * abstract class {@link TaskContainer}
@@ -96,8 +98,10 @@ class Target implements TaskContainer
      * References the project to the current component.
      *
      * @param Project $project The reference to the current project
+     *
+     * @return void
      */
-    public function setProject(Project $project)
+    public function setProject(Project $project): void
     {
         $this->project = $project;
     }
@@ -107,7 +111,7 @@ class Target implements TaskContainer
      *
      * @return Project Reference to current porject object
      */
-    public function getProject()
+    public function getProject(): Project
     {
         return $this->project;
     }
@@ -118,14 +122,16 @@ class Target implements TaskContainer
      * @param string $depends Comma separated list of targetnames that depend on
      *                         this target
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setDepends($depends)
+    public function setDepends(string $depends): void
     {
         // explode should be faster than strtok
         $deps = explode(',', $depends);
         for ($i = 0, $size = count($deps); $i < $size; $i++) {
-            $trimmed = trim($deps[$i]);
+            $trimmed = trim((string) $deps[$i]);
             if ($trimmed === '') {
                 throw new BuildException(
                     'Syntax Error: Depend attribute for target ' . $this->getName() . ' is malformed.'
@@ -139,8 +145,10 @@ class Target implements TaskContainer
      * Adds a singular dependent target name to the list
      *
      * @param string $dependency The dependency target to add
+     *
+     * @return void
      */
-    public function addDependency($dependency)
+    public function addDependency(string $dependency): void
     {
         $this->dependencies[] = (string) $dependency;
     }
@@ -150,7 +158,7 @@ class Target implements TaskContainer
      *
      * @return array Reference to target dependencoes
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return $this->dependencies;
     }
@@ -159,8 +167,10 @@ class Target implements TaskContainer
      * Sets the name of the target
      *
      * @param string $name Name of this target
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = (string) $name;
     }
@@ -170,7 +180,7 @@ class Target implements TaskContainer
      *
      * @return string The name of the target
      */
-    public function getName()
+    public function getName(): string
     {
         return (string) $this->name;
     }
@@ -180,13 +190,11 @@ class Target implements TaskContainer
      *
      * @param bool $flag
      *
-     * @return Target
+     * @return void
      */
-    public function setHidden($flag)
+    public function setHidden(bool $flag): void
     {
         $this->hidden = (bool) $flag;
-
-        return $this;
     }
 
     /**
@@ -194,7 +202,7 @@ class Target implements TaskContainer
      *
      * @return bool
      */
-    public function getHidden()
+    public function getHidden(): bool
     {
         return $this->hidden;
     }
@@ -204,7 +212,7 @@ class Target implements TaskContainer
      *
      * @return bool
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return $this->getHidden();
     }
@@ -213,8 +221,10 @@ class Target implements TaskContainer
      * Adds a task element to the list of this targets child elements
      *
      * @param Task $task The task object to add
+     *
+     * @return void
      */
-    public function addTask(Task $task)
+    public function addTask(Task $task): void
     {
         $this->children[] = $task;
     }
@@ -223,9 +233,11 @@ class Target implements TaskContainer
      * Adds a runtime configurable element to the list of this targets child
      * elements.
      *
-     * @param RuntimeConfigurable $rtc The RuntimeConfigurable object
+     * @param RuntimeConfigurable|string $rtc The RuntimeConfigurable object
+     *
+     * @return void
      */
-    public function addDataType($rtc)
+    public function addDataType($rtc): void
     {
         $this->children[] = $rtc;
     }
@@ -236,9 +248,9 @@ class Target implements TaskContainer
      * The task objects are copied here. Don't use this method to modify
      * task objects.
      *
-     * @return array Task[]
+     * @return Task[]
      */
-    public function getTasks()
+    public function getTasks(): array
     {
         $tasks = [];
         for ($i = 0, $size = count($this->children); $i < $size; $i++) {
@@ -256,9 +268,11 @@ class Target implements TaskContainer
      * Set the if-condition from the XML tag, if any. The property name given
      * as parameter must be present so the if condition evaluates to true
      *
-     * @param string $property The property name that has to be present
+     * @param string|null $property The property name that has to be present
+     *
+     * @return void
      */
-    public function setIf($property)
+    public function setIf(?string $property): void
     {
         $this->ifCondition = $property ?? '';
     }
@@ -268,9 +282,11 @@ class Target implements TaskContainer
      * given as parameter must be present so the unless condition evaluates
      * to true
      *
-     * @param string $property The property name that has to be present
+     * @param string|null $property The property name that has to be present
+     *
+     * @return void
      */
-    public function setUnless($property)
+    public function setUnless(?string $property): void
     {
         $this->unlessCondition = $property ?? '';
     }
@@ -278,9 +294,11 @@ class Target implements TaskContainer
     /**
      * Sets a textual description of this target.
      *
-     * @param string $description The description text
+     * @param string|null $description The description text
+     *
+     * @return void
      */
-    public function setDescription($description)
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -288,22 +306,27 @@ class Target implements TaskContainer
     /**
      * Returns the description of this target.
      *
-     * @return string The description text of this target
+     * @return string|null The description text of this target
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setLogSkipped(bool $log)
+    /**
+     * @param bool $log
+     *
+     * @return void
+     */
+    public function setLogSkipped(bool $log): void
     {
         $this->logSkipped = $log;
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
-    public function getLogSkipped()
+    public function getLogSkipped(): bool
     {
         if ($this->logSkipped === null) {
             $this->setLogSkipped(false);
@@ -318,7 +341,7 @@ class Target implements TaskContainer
      *
      * @return string The string representation of this target
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->name;
     }
@@ -326,8 +349,12 @@ class Target implements TaskContainer
     /**
      * The entry point for this class. Does some checking, then processes and
      * performs the tasks for this target.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->testIfCondition() && $this->testUnlessCondition()) {
             foreach ($this->children as $o) {
@@ -355,11 +382,14 @@ class Target implements TaskContainer
     /**
      * Performs the tasks by calling the main method of this target that
      * actually executes the tasks.
-     *
      * This method is for ZE2 and used for proper exception handling of
      * task exceptions.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function performTasks()
+    public function performTasks(): void
     {
         try { // try to execute this target
             $this->project->fireTargetStarted($this);
@@ -379,7 +409,7 @@ class Target implements TaskContainer
      *              in <code>$this->ifCondition</code> exists;
      *              <code>false</code> otherwise
      */
-    private function testIfCondition()
+    private function testIfCondition(): bool
     {
         if ($this->ifCondition === '') {
             return true;
@@ -403,7 +433,7 @@ class Target implements TaskContainer
      *              in <code>$this->unlessCondition</code> exists;
      *              <code>false</code> otherwise
      */
-    private function testUnlessCondition()
+    private function testUnlessCondition(): bool
     {
         if ($this->unlessCondition === '') {
             return true;

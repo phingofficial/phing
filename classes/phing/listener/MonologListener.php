@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use Monolog\Logger;
 
 /**
@@ -37,9 +39,6 @@ class MonologListener implements BuildListener
      */
     private $log;
 
-    /**
-     * Construct the listener
-     */
     public function __construct()
     {
         $this->log = new Logger(self::LOG_PHING);
@@ -47,9 +46,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#buildStarted
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
         $log = $this->log->withName(Project::class);
         $log->info('Build started.');
@@ -57,9 +59,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#buildFinished
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $log = $this->log->withName(Project::class);
         if ($event->getException() === null) {
@@ -71,9 +76,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#targetStarted
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         $log = $this->log->withName(Target::class);
         $log->info(sprintf('Target "%s" started.', $event->getTarget()->getName()));
@@ -81,9 +89,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#targetFinished
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         $targetName = $event->getTarget()->getName();
         $cat        = $this->log->withName(Target::class);
@@ -96,9 +107,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#taskStarted
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
         $task = $event->getTask();
         $log  = $this->log->withName(get_class($task));
@@ -107,9 +121,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#taskFinished
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
         $task = $event->getTask();
         $log  = $this->log->withName(get_class($task));
@@ -122,9 +139,12 @@ class MonologListener implements BuildListener
 
     /**
      * @see BuildListener#messageLogged
-     * {@inheritDoc}.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         $categoryObject = $event->getTask();
         if ($categoryObject === null) {

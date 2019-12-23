@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Variable Task.
  *
@@ -25,6 +27,9 @@
  */
 class Variable extends PropertyTask
 {
+    /**
+     * @var bool
+     */
     private $remove = false;
 
     /**
@@ -33,8 +38,10 @@ class Variable extends PropertyTask
      * existence will find this property does not exist.
      *
      * @param bool $b set to true to remove the property from the project.
+     *
+     * @return void
      */
-    public function setUnset($b)
+    public function setUnset(bool $b): void
     {
         $this->remove = $b;
     }
@@ -42,9 +49,13 @@ class Variable extends PropertyTask
     /**
      * Execute this task.
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException  Description of the Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->remove) {
             if ($this->name === null || $this->name === '') {
@@ -76,8 +87,12 @@ class Variable extends PropertyTask
     /**
      * Remove a property from the project's property table and the userProperty table.
      * Note that Ant 1.6 uses a helper for this.
+     *
+     * @param string $name
+     *
+     * @return void
      */
-    private function removeProperty($name)
+    private function removeProperty(string $name): void
     {
         $properties = null;
         try {
@@ -98,7 +113,13 @@ class Variable extends PropertyTask
         }
     }
 
-    private function forceProperty($name, $value)
+    /**
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @return void
+     */
+    private function forceProperty(string $name, $value): void
     {
         try {
             $properties = $this->getPropValue($this->getProject(), 'properties');
@@ -123,7 +144,7 @@ class Variable extends PropertyTask
      *
      * @throws Exception
      */
-    private function getField($thisClass, $fieldName)
+    private function getField($thisClass, string $fieldName): ReflectionProperty
     {
         $refClazz = new ReflectionObject($thisClass);
         if (!$refClazz->hasProperty($fieldName)) {
@@ -143,14 +164,23 @@ class Variable extends PropertyTask
      *
      * @throws Exception
      */
-    private function getPropValue($instance, $fieldName)
+    private function getPropValue($instance, string $fieldName)
     {
         $field = $this->getField($instance, $fieldName);
         $field->setAccessible(true);
         return $field->getValue($instance);
     }
 
-    private function setPropValue($value, $instance, $fieldName)
+    /**
+     * @param mixed  $value
+     * @param mixed  $instance
+     * @param string $fieldName
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    private function setPropValue($value, $instance, string $fieldName): void
     {
         $field = $this->getField($instance, $fieldName);
         $field->setAccessible(true);
@@ -162,9 +192,12 @@ class Variable extends PropertyTask
      *
      * @param PhingFile $file file to load
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(PhingFile $file): void
     {
         $props = new Properties();
         try {
@@ -187,8 +220,12 @@ class Variable extends PropertyTask
      * iterate through a set of properties, resolve them, then assign them
      *
      * @param Properties $props The feature to be added to the Properties attribute
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function addProperties($props)
+    protected function addProperties(Properties $props): void
     {
         $this->resolveAllProperties($props);
         foreach ($props->keys() as $name) {
@@ -201,9 +238,12 @@ class Variable extends PropertyTask
      *
      * @param Properties $props properties object to resolve
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException  Description of the Exception
      */
-    protected function resolveAllProperties(Properties $props)
+    protected function resolveAllProperties(Properties $props): void
     {
         foreach ($props->keys() as $name) {
             // There may be a nice regex/callback way to handle this

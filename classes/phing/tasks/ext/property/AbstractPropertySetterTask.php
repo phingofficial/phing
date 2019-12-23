@@ -17,29 +17,56 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 abstract class AbstractPropertySetterTask extends Task
 {
+    /**
+     * @var string
+     */
     private $property;
+
+    /**
+     * @var bool
+     */
     private $override = false;
 
-    public function setOverride($override)
+    /**
+     * @param bool $override
+     *
+     * @return void
+     */
+    public function setOverride(bool $override): void
     {
         $this->override = $override;
     }
 
-    public function setProperty($property)
+    /**
+     * @param string $property
+     *
+     * @return void
+     */
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
 
-    protected function validate()
+    /**
+     * @return void
+     */
+    protected function validate(): void
     {
         if ($this->property == null) {
             throw new BuildException('You must specify a property to set.');
         }
     }
 
-    protected function setPropertyValue($value)
+    /**
+     * @param mixed $value
+     *
+     * @return void
+     */
+    protected function setPropertyValue($value): void
     {
         if ($value !== null) {
             if ($this->override) {

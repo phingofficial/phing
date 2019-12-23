@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A HTTP request task.
  * Making an HTTP request and try to match the response against an provided
@@ -86,8 +88,10 @@ class HttpRequestTask extends HttpTask
      * Sets the response regex
      *
      * @param string $regex
+     *
+     * @return void
      */
-    public function setResponseRegex($regex)
+    public function setResponseRegex(string $regex): void
     {
         $this->responseRegex = $regex;
     }
@@ -96,8 +100,10 @@ class HttpRequestTask extends HttpTask
      * Sets the response code regex
      *
      * @param string $regex
+     *
+     * @return void
      */
-    public function setResponseCodeRegex($regex)
+    public function setResponseCodeRegex(string $regex): void
     {
         $this->responseCodeRegex = $regex;
     }
@@ -106,8 +112,10 @@ class HttpRequestTask extends HttpTask
      * Sets whether to enable detailed logging
      *
      * @param bool $verbose
+     *
+     * @return void
      */
-    public function setVerbose($verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = StringHelper::booleanValue($verbose);
     }
@@ -116,8 +124,10 @@ class HttpRequestTask extends HttpTask
      * Sets a list of observer events that will be logged if verbose output is enabled.
      *
      * @param string $observerEvents List of observer events
+     *
+     * @return void
      */
-    public function setObserverEvents($observerEvents)
+    public function setObserverEvents(string $observerEvents): void
     {
         $this->observerEvents = [];
 
@@ -134,8 +144,10 @@ class HttpRequestTask extends HttpTask
      * The setter for the method
      *
      * @param string $method
+     *
+     * @return void
      */
-    public function setMethod($method)
+    public function setMethod(string $method): void
     {
         $this->method = $method;
     }
@@ -145,7 +157,7 @@ class HttpRequestTask extends HttpTask
      *
      * @return Parameter The created post parameter
      */
-    public function createPostParameter()
+    public function createPostParameter(): Parameter
     {
         $num = array_push($this->postParameters, new Parameter());
 
@@ -155,9 +167,11 @@ class HttpRequestTask extends HttpTask
     /**
      * Load the necessary environment for running this task.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -177,7 +191,7 @@ class HttpRequestTask extends HttpTask
      * @throws HTTP_Request2_Exception
      * @throws HTTP_Request2_LogicException
      */
-    protected function createRequest()
+    protected function createRequest(): HTTP_Request2
     {
         $request = parent::createRequest();
 
@@ -214,7 +228,13 @@ class HttpRequestTask extends HttpTask
         return $request;
     }
 
-    private function isHeaderSet($headerName, $headerValue)
+    /**
+     * @param string $headerName
+     * @param mixed  $headerValue
+     *
+     * @return bool
+     */
+    private function isHeaderSet(string $headerName, $headerValue): bool
     {
         $isSet = false;
 
@@ -237,8 +257,9 @@ class HttpRequestTask extends HttpTask
      * @throws BuildException
      * @throws HTTP_Request2_Exception
      * @throws RegexpException
+     * @throws Exception
      */
-    protected function processResponse(HTTP_Request2_Response $response)
+    protected function processResponse(HTTP_Request2_Response $response): void
     {
         if ($this->responseRegex !== '') {
             $this->regexp->setPattern($this->responseRegex);
@@ -253,7 +274,7 @@ class HttpRequestTask extends HttpTask
         if ($this->responseCodeRegex !== '') {
             $this->regexp->setPattern($this->responseCodeRegex);
 
-            if (!$this->regexp->matches($response->getStatus())) {
+            if (!$this->regexp->matches((string) $response->getStatus())) {
                 throw new BuildException('The received response status-code did not match the given regular expression');
             }
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * "Inner" class used for nested xml command line definitions.
  *
@@ -38,8 +40,10 @@ class CommandlineArgument
 
     /**
      * @param bool $escape
+     *
+     * @return void
      */
-    public function setEscape($escape)
+    public function setEscape(bool $escape): void
     {
         $this->escape = $escape;
     }
@@ -48,8 +52,10 @@ class CommandlineArgument
      * Sets a single commandline argument.
      *
      * @param string $value a single commandline argument.
+     *
+     * @return void
      */
-    public function setValue(string $value)
+    public function setValue(string $value): void
     {
         $this->parts = [$value];
     }
@@ -57,11 +63,13 @@ class CommandlineArgument
     /**
      * Line to split into several commandline arguments.
      *
-     * @param string $line line to split into several commandline arguments
+     * @param string|null $line line to split into several commandline arguments
+     *
+     * @return void
      *
      * @throws BuildException
      */
-    public function setLine($line)
+    public function setLine(?string $line): void
     {
         if ($line === null) {
             return;
@@ -75,6 +83,8 @@ class CommandlineArgument
      * is used.
      *
      * @param Path $value a single commandline argument
+     *
+     * @return void
      */
     public function setPath(Path $value): void
     {
@@ -85,7 +95,11 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param PhingFile $value
+     * @param PhingFile $value a single commandline argument.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
     public function setFile(PhingFile $value): void
     {

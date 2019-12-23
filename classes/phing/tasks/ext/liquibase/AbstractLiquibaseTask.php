@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract Liquibase task. Base class for all Liquibase Phing tasks.
  *
@@ -36,11 +38,34 @@ abstract class AbstractLiquibaseTask extends Task
      */
     private $parameters = [];
 
+    /**
+     * @var string
+     */
     protected $jar;
+
+    /**
+     * @var string
+     */
     protected $changeLogFile;
+
+    /**
+     * @var string
+     */
     protected $username;
+
+    /**
+     * @var string
+     */
     protected $password;
+
+    /**
+     * @var string
+     */
     protected $url;
+
+    /**
+     * @var string
+     */
     protected $classpathref;
 
     /**
@@ -61,6 +86,8 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Set true if we should run liquibase with PHP passthru
      * instead of exec.
+     *
+     * @var bool
      */
     protected $passthru = true;
 
@@ -75,8 +102,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Sets the absolute path to liquibase jar.
      *
      * @param string $jar the absolute path to the liquibase jar.
+     *
+     * @return void
      */
-    public function setJar($jar)
+    public function setJar(string $jar): void
     {
         $this->jar = $jar;
     }
@@ -85,8 +114,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Sets the absolute path to the changelog file to use.
      *
      * @param string $changelogFile the absolute path to the changelog file
+     *
+     * @return void
      */
-    public function setChangeLogFile($changelogFile)
+    public function setChangeLogFile(string $changelogFile): void
     {
         $this->changeLogFile = $changelogFile;
     }
@@ -95,8 +126,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Sets the username to connect to the database.
      *
      * @param string $username the username
+     *
+     * @return void
      */
-    public function setUsername($username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
@@ -105,8 +138,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Sets the password to connect to the database.
      *
      * @param string $password the password
+     *
+     * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -118,8 +153,10 @@ abstract class AbstractLiquibaseTask extends Task
      * </code>
      *
      * @param string $url jdbc connection string
+     *
+     * @return void
      */
-    public function setUrl($url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -129,8 +166,10 @@ abstract class AbstractLiquibaseTask extends Task
      *
      * @param string $classpathref A reference to the classpath that contains the database
      *                             driver, liquibase.jar, and the changelog.xml file
+     *
+     * @return void
      */
-    public function setclasspathref($classpathref)
+    public function setclasspathref(string $classpathref): void
     {
         $this->classpathref = $classpathref;
     }
@@ -139,8 +178,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Sets whether to display the output of the command
      *
      * @param bool $display
+     *
+     * @return void
      */
-    public function setDisplay($display)
+    public function setDisplay(bool $display): void
     {
         $this->display = StringHelper::booleanValue($display);
     }
@@ -149,8 +190,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Whether to check the liquibase return code.
      *
      * @param bool $checkreturn
+     *
+     * @return void
      */
-    public function setCheckreturn($checkreturn)
+    public function setCheckreturn(bool $checkreturn): void
     {
         $this->checkreturn = StringHelper::booleanValue($checkreturn);
     }
@@ -159,8 +202,10 @@ abstract class AbstractLiquibaseTask extends Task
      * Whether to check the liquibase return code.
      *
      * @param bool $passthru
+     *
+     * @return void
      */
-    public function setPassthru($passthru)
+    public function setPassthru(bool $passthru): void
     {
         $this->passthru = StringHelper::booleanValue($passthru);
     }
@@ -172,7 +217,7 @@ abstract class AbstractLiquibaseTask extends Task
      *
      * @return void
      */
-    public function setOutputProperty($prop)
+    public function setOutputProperty(string $prop): void
     {
         $this->outputProperty = $prop;
     }
@@ -182,7 +227,7 @@ abstract class AbstractLiquibaseTask extends Task
      *
      * @return LiquibaseProperty Argument object
      */
-    public function createProperty()
+    public function createProperty(): LiquibaseProperty
     {
         $prop               = new LiquibaseProperty();
         $this->properties[] = $prop;
@@ -195,7 +240,7 @@ abstract class AbstractLiquibaseTask extends Task
      *
      * @return LiquibaseParameter Argument object
      */
-    public function createParameter()
+    public function createParameter(): LiquibaseParameter
     {
         $param              = new LiquibaseParameter();
         $this->parameters[] = $param;
@@ -210,7 +255,7 @@ abstract class AbstractLiquibaseTask extends Task
      *
      * @throws BuildException
      */
-    protected function checkParams()
+    protected function checkParams(): void
     {
         if ((null === $this->jar) || !file_exists($this->jar)) {
             throw new BuildException(
@@ -246,11 +291,11 @@ abstract class AbstractLiquibaseTask extends Task
      * @param string $lbcommand
      * @param string $lbparams  the command to execute
      *
-     * @return string the output of the executed command
+     * @return void
      *
      * @throws BuildException
      */
-    protected function execute($lbcommand, $lbparams = '')
+    protected function execute(string $lbcommand, string $lbparams = ''): void
     {
         $nestedparams = '';
         foreach ($this->parameters as $p) {
@@ -295,11 +340,12 @@ abstract class AbstractLiquibaseTask extends Task
                 throw new BuildException('Liquibase exited with code ' . $return);
             }
         }
-
-        return;
     }
 
-    protected function checkChangeLogFile()
+    /**
+     * @return void
+     */
+    protected function checkChangeLogFile(): void
     {
         if (null === $this->changeLogFile) {
             throw new BuildException('Specify the name of the changelog file.');

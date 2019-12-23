@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Diagnostics Task
  *
@@ -25,64 +27,94 @@
  */
 class BasenameTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/BasenameTest.xml'
         );
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $this->expectBuildException('test1', '');
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $this->expectBuildException('test2', '');
     }
 
-    public function test3()
+    /**
+     * @return void
+     */
+    public function test3(): void
     {
         $this->expectBuildException('test3', '');
     }
 
-    public function test4()
+    /**
+     * @return void
+     */
+    public function test4(): void
     {
         $this->executeTarget('test4');
         $checkprop = $this->getProject()->getProperty('file.w.suf');
         $this->assertEquals('foo.txt', $checkprop);
     }
 
-    public function test5()
+    /**
+     * @return void
+     */
+    public function test5(): void
     {
         $this->executeTarget('test5');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('foo', $checkprop);
     }
 
-    public function testMultipleDots()
+    /**
+     * @return void
+     */
+    public function testMultipleDots(): void
     {
         $this->executeTarget('testMultipleDots');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('foo.bar', $checkprop);
     }
 
-    public function testNoDots()
+    /**
+     * @return void
+     */
+    public function testNoDots(): void
     {
         $this->executeTarget('testNoDots');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('foo.bar', $checkprop);
     }
 
-    public function testValueEqualsSuffixWithDot()
+    /**
+     * @return void
+     */
+    public function testValueEqualsSuffixWithDot(): void
     {
         $this->executeTarget('testValueEqualsSuffixWithDot');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('', $checkprop);
     }
 
-    public function testValueEqualsSuffixWithoutDot()
+    /**
+     * @return void
+     */
+    public function testValueEqualsSuffixWithoutDot(): void
     {
         $this->executeTarget('testValueEqualsSuffixWithoutDot');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');

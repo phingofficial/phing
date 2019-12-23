@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * testcases for phing.IntrospectionHelper.
  *
@@ -28,8 +30,13 @@ class IHFail4
 {
     /**
      * 2 params!
+     *
+     * @param mixed $blah
+     * @param mixed $blah2
+     *
+     * @return void
      */
-    public function setBlah($blah, $blah2)
+    public function setBlah($blah, $blah2): void
     {
     }
 }

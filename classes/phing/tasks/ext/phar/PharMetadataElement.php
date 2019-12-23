@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.tasks.ext.phar
  * @author Alexey Shockov <alexey@shockov.com>
@@ -35,16 +37,20 @@ class PharMetadataElement extends PharMetadata
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -52,7 +58,7 @@ class PharMetadataElement extends PharMetadata
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

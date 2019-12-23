@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/204
  * - PHPUnit task fails with formatter type 'xml'
@@ -25,12 +27,21 @@
  */
 class PearStyleNamingTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/204/build.xml');
     }
 
-    public function testPhingCallTask()
+    /**
+     * @return void
+     */
+    public function testPhingCallTask(): void
     {
         $this->executeTarget('main');
         $this->assertInLogs('SampleTask executed!');

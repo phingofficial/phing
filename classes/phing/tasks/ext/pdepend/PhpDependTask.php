@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Runs the PHP_Depend software analyzer and metric tool.
  * Performs static code analysis on a given source base.
@@ -128,9 +130,12 @@ class PhpDependTask extends Task
     /**
      * Load the necessary environment for running PHP_Depend
      *
+     * @return void
+     *
+     * @throws ReflectionException
      * @throws BuildException
      */
-    protected function requireDependencies()
+    protected function requireDependencies(): void
     {
         if (!empty($this->pharLocation)) {
             include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
@@ -170,8 +175,10 @@ class PhpDependTask extends Task
      * Set the input source file or directory
      *
      * @param PhingFile $file The input source file or directory
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -180,8 +187,10 @@ class PhpDependTask extends Task
      * Sets a list of filename extensions for valid php source code files
      *
      * @param string $fileExtensions List of valid file extensions
+     *
+     * @return void
      */
-    public function setAllowedFileExtensions($fileExtensions)
+    public function setAllowedFileExtensions(string $fileExtensions): void
     {
         $this->allowedFileExtensions = [];
 
@@ -198,8 +207,10 @@ class PhpDependTask extends Task
      * Sets a list of exclude directories
      *
      * @param string $excludeDirectories List of exclude directories
+     *
+     * @return void
      */
-    public function setExcludeDirectories($excludeDirectories)
+    public function setExcludeDirectories(string $excludeDirectories): void
     {
         $this->excludeDirectories = [];
 
@@ -216,8 +227,10 @@ class PhpDependTask extends Task
      * Sets a list of exclude packages
      *
      * @param string $excludePackages Exclude packages
+     *
+     * @return void
      */
-    public function setExcludePackages($excludePackages)
+    public function setExcludePackages(string $excludePackages): void
     {
         $this->excludePackages = [];
 
@@ -234,8 +247,10 @@ class PhpDependTask extends Task
      * Should the parser ignore doc comment annotations?
      *
      * @param bool $withoutAnnotations
+     *
+     * @return void
      */
-    public function setWithoutAnnotations($withoutAnnotations)
+    public function setWithoutAnnotations(bool $withoutAnnotations): void
     {
         $this->withoutAnnotations = StringHelper::booleanValue($withoutAnnotations);
     }
@@ -246,8 +261,10 @@ class PhpDependTask extends Task
      * <b>+global</b> as a regular project package.
      *
      * @param bool $supportBadDocumentation
+     *
+     * @return void
      */
-    public function setSupportBadDocumentation($supportBadDocumentation)
+    public function setSupportBadDocumentation(bool $supportBadDocumentation): void
     {
         $this->supportBadDocumentation = StringHelper::booleanValue($supportBadDocumentation);
     }
@@ -256,8 +273,10 @@ class PhpDependTask extends Task
      * Set debugging On/Off
      *
      * @param bool $debug
+     *
+     * @return void
      */
-    public function setDebug($debug)
+    public function setDebug(bool $debug): void
     {
         $this->debug = StringHelper::booleanValue($debug);
     }
@@ -266,8 +285,10 @@ class PhpDependTask extends Task
      * Set halt on error
      *
      * @param bool $haltonerror
+     *
+     * @return void
      */
-    public function setHaltonerror($haltonerror)
+    public function setHaltonerror(bool $haltonerror): void
     {
         $this->haltonerror = StringHelper::booleanValue($haltonerror);
     }
@@ -276,8 +297,10 @@ class PhpDependTask extends Task
      * Set the configuration file
      *
      * @param PhingFile $configFile The configuration file
+     *
+     * @return void
      */
-    public function setConfigFile(PhingFile $configFile)
+    public function setConfigFile(PhingFile $configFile): void
     {
         $this->configFile = $configFile;
     }
@@ -287,7 +310,7 @@ class PhpDependTask extends Task
      *
      * @return PhpDependLoggerElement
      */
-    public function createLogger()
+    public function createLogger(): PhpDependLoggerElement
     {
         $num = array_push($this->loggers, new PhpDependLoggerElement());
 
@@ -299,7 +322,7 @@ class PhpDependTask extends Task
      *
      * @return PhpDependAnalyzerElement
      */
-    public function createAnalyzer()
+    public function createAnalyzer(): PhpDependAnalyzerElement
     {
         $num = array_push($this->analyzers, new PhpDependAnalyzerElement());
 
@@ -308,8 +331,10 @@ class PhpDependTask extends Task
 
     /**
      * @param string $pharLocation
+     *
+     * @return void
      */
-    public function setPharLocation($pharLocation)
+    public function setPharLocation(string $pharLocation): void
     {
         $this->pharLocation = $pharLocation;
     }
@@ -317,9 +342,13 @@ class PhpDependTask extends Task
     /**
      * Executes PHP_Depend_TextUI_Runner against PhingFile or a FileSet
      *
+     * @return void
+     *
+     * @throws ReflectionException
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->requireDependencies();
 
@@ -405,9 +434,11 @@ class PhpDependTask extends Task
     /**
      * Validates the available loggers
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function validateLoggers()
+    protected function validateLoggers(): void
     {
         foreach ($this->loggers as $logger) {
             if ($logger->getType() === '') {
@@ -423,9 +454,11 @@ class PhpDependTask extends Task
     /**
      * Validates the available analyzers
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function validateAnalyzers()
+    protected function validateAnalyzers(): void
     {
         foreach ($this->analyzers as $analyzer) {
             if ($analyzer->getType() === '') {
@@ -440,8 +473,12 @@ class PhpDependTask extends Task
 
     /**
      * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    private function getFilesToParse()
+    private function getFilesToParse(): array
     {
         $filesToParse = [];
 
@@ -471,7 +508,7 @@ class PhpDependTask extends Task
             return $this->createLegacyRunner();
         }
 
-        $applicationClassName = 'PDepend\\Application';
+        $applicationClassName = PDepend\Application::class;
         $application          = new $applicationClassName();
 
         $runner = $application->getRunner();
@@ -501,7 +538,6 @@ class PhpDependTask extends Task
         $runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
 
         if ($this->debug) {
-            include_once 'PHP/Depend/Util/Log.php';
             // Enable debug logging
             PHP_Depend_Util_Log::setSeverity(PHP_Depend_Util_Log::DEBUG);
         }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Chown Task
  *
@@ -26,19 +28,30 @@
  */
 class ChownTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ChownTaskTest.xml'
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testChangeGroup()
+    /**
+     * @return void
+     *
+     * @requires extension posix
+     */
+    public function testChangeGroup(): void
     {
         $userinfo = posix_getpwuid(posix_geteuid());
         $username = $userinfo['name'];

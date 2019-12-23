@@ -56,6 +56,10 @@ class VisualizerTask extends HttpTask
 
     /**
      * Setting some default values and checking requirements
+     *
+     * @return void
+     *
+     * @throws Exception
      */
     public function init(): void
     {
@@ -69,10 +73,13 @@ class VisualizerTask extends HttpTask
 
     /**
      * Checks that `\HTTP_Request2` class is available
-     *
      * Instead of checking that `pear/http_request2` library is loaded we only check `\HTTP_Request2` class availability
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function checkHttpRequestLibrary()
+    protected function checkHttpRequestLibrary(): void
     {
         $this->classExists('HTTP_Request2', "Please install 'pear/http_request2' library");
     }
@@ -82,6 +89,10 @@ class VisualizerTask extends HttpTask
      *
      * @param string $class   Name of the class to verify
      * @param string $message Error message to display when class don't exists
+     *
+     * @return void
+     *
+     * @throws Exception
      */
     protected function classExists(string $class, string $message): void
     {
@@ -93,11 +104,14 @@ class VisualizerTask extends HttpTask
 
     /**
      * Checks that `encodep` function is available
-     *
      * Instead of checking that `jawira/plantuml-encoding` library is loaded we only check 'encodep' function
      * availability
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function checkPlantUmlLibrary()
+    protected function checkPlantUmlLibrary(): void
     {
         $function = '\Jawira\PlantUml\encodep';
         $message  = "Please install 'jawira/plantuml-encoding' library";
@@ -110,8 +124,11 @@ class VisualizerTask extends HttpTask
 
     /**
      * Checks that `XSLTProcessor` class is available
-     *
      * Instead of checking that XSL extension is loaded we only check `XSLTProcessor` class availability
+     *
+     * @return void
+     *
+     * @throws Exception
      */
     protected function checkXslExtension(): void
     {
@@ -120,8 +137,11 @@ class VisualizerTask extends HttpTask
 
     /**
      * Checks that `SimpleXMLElement` class is available
-     *
      * Instead of checking that SimpleXML extension is loaded we only check `SimpleXMLElement` class availability
+     *
+     * @return void
+     *
+     * @throws Exception
      */
     protected function checkXmlExtension(): void
     {
@@ -131,9 +151,12 @@ class VisualizerTask extends HttpTask
     /**
      * The main entry point method.
      *
-     * @throws HTTP_Request2_Exception
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
+     * @throws Exception
+     * @throws HTTP_Request2_Exception
      */
     public function main(): void
     {
@@ -148,6 +171,8 @@ class VisualizerTask extends HttpTask
      * Retrieves loaded buildfiles and generates a PlantUML diagram
      *
      * @return string
+     *
+     * @throws Exception
      */
     protected function generatePumlDiagram(): string
     {
@@ -166,6 +191,8 @@ class VisualizerTask extends HttpTask
      * @param PhingFile[] $buildFiles
      *
      * @return string
+     *
+     * @throws Exception
      */
     protected function generatePuml(array $buildFiles): string
     {
@@ -194,6 +221,8 @@ class VisualizerTask extends HttpTask
      * @param string    $xslFile   XSLT file
      *
      * @return string
+     *
+     * @throws Exception
      */
     protected function transformToPuml(PhingFile $buildfile, string $xslFile): string
     {
@@ -212,6 +241,8 @@ class VisualizerTask extends HttpTask
      * @param string $xmlFile XML or XSLT file
      *
      * @return SimpleXMLElement
+     *
+     * @throws Exception
      */
     protected function loadXmlFile(string $xmlFile): SimpleXMLElement
     {
@@ -258,9 +289,11 @@ class VisualizerTask extends HttpTask
      *
      * @param string $format
      *
-     * @return VisualizerTask
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setFormat(string $format): VisualizerTask
+    public function setFormat(string $format): void
     {
         switch ($format) {
             case self::FORMAT_PUML:
@@ -275,8 +308,6 @@ class VisualizerTask extends HttpTask
                 throw new BuildException($message);
                 break;
         }
-
-        return $this;
     }
 
     /**
@@ -290,13 +321,11 @@ class VisualizerTask extends HttpTask
     /**
      * @param string $destination
      *
-     * @return VisualizerTask
+     * @return void
      */
-    public function setDestination(?string $destination): VisualizerTask
+    public function setDestination(?string $destination): void
     {
         $this->destination = $destination;
-
-        return $this;
     }
 
     /**
@@ -307,6 +336,8 @@ class VisualizerTask extends HttpTask
      * @param string|null $destination   Desired destination provided by user
      *
      * @return string
+     *
+     * @throws Exception
      */
     protected function resolveDestination(string $buildfilePath, string $format, ?string $destination): string
     {
@@ -341,6 +372,7 @@ class VisualizerTask extends HttpTask
      * @return string
      *
      * @throws HTTP_Request2_Exception
+     * @throws Exception
      */
     protected function generateImage(string $pumlDiagram, string $format): string
     {
@@ -365,6 +397,10 @@ class VisualizerTask extends HttpTask
      *
      * @param string $format
      * @param string $encodedPuml
+     *
+     * @return void
+     *
+     * @throws Exception
      */
     protected function prepareImageUrl(string $format, string $encodedPuml): void
     {
@@ -394,23 +430,22 @@ class VisualizerTask extends HttpTask
     /**
      * @param string $server
      *
-     * @return VisualizerTask
+     * @return void
      */
-    public function setServer(string $server): VisualizerTask
+    public function setServer(string $server): void
     {
         $this->server = $server;
-
-        return $this;
     }
 
     /**
      * Receive server's response
-     *
      * This method validates `$response`'s status
      *
      * @param HTTP_Request2_Response $response Response from server
      *
      * @return void
+     *
+     * @throws Exception
      */
     protected function processResponse(HTTP_Request2_Response $response): void
     {
@@ -433,6 +468,9 @@ class VisualizerTask extends HttpTask
      * @param PhingFile $destination Location where $content is saved
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws Exception
      */
     protected function saveToFile(string $content, PhingFile $destination): void
     {

@@ -21,5 +21,12 @@ declare(strict_types=1);
 
 interface SassTaskCompiler
 {
+    /**
+     * @param string $inputFilePath
+     * @param string $outputFilePath
+     * @param bool   $failOnError
+     *
+     * @return void
+     */
     public function compile(string $inputFilePath, string $outputFilePath, bool $failOnError): void;
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit tests for PHPUnit task
  *
@@ -26,7 +28,10 @@ class PHPUnitTaskTest extends BuildFileTest
 {
     protected $backupGlobals = false;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpunit/build.xml');
     }
@@ -34,8 +39,10 @@ class PHPUnitTaskTest extends BuildFileTest
     /**
      * Regression test for http://www.phing.info/trac/ticket/655
      * "PlainPHPUnitResultFormatter7 does not display errors if dataProvider was used"
+     *
+     * @return void
      */
-    public function testPlainFormatterDataProvider()
+    public function testPlainFormatterDataProvider(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Tests run: 2, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:');
@@ -44,8 +51,10 @@ class PHPUnitTaskTest extends BuildFileTest
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/363
      * "PHPUnit task fails with formatter type 'xml'"
+     *
+     * @return void
      */
-    public function testXmlFormatter()
+    public function testXmlFormatter(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('<testcase name="testSayHello" class="HelloWorldTest"');
@@ -53,25 +62,33 @@ class PHPUnitTaskTest extends BuildFileTest
 
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/893
+     *
+     * @return void
      */
-    public function testDoubleAutoloader()
+    public function testDoubleAutoloader(): void
     {
         $this->executeTarget(__FUNCTION__);
     }
 
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/945
+     *
+     * @return void
      */
-    public function testShouldNotIgnoreFailuresAfterError()
+    public function testShouldNotIgnoreFailuresAfterError(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Fail');
     }
 
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/1159
+     *
+     * @return void
      */
-    public function testExcludeGroups()
+    public function testExcludeGroups(): void
     {
         $this->executeTarget(__FUNCTION__);
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 }

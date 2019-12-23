@@ -17,28 +17,41 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * List all properties on files, dirs, or revisions from the working copy
  */
 class SvnPropsetTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $svnPropertyName;
+
+    /**
+     * @var string
+     */
     private $svnPropertyValue;
 
     /**
      * Sets the name of the property to use
      *
      * @param string $svnPropertyName
+     *
+     * @return void
      */
-    public function setSvnPropertyName($svnPropertyName)
+    public function setSvnPropertyName(string $svnPropertyName): void
     {
         $this->svnPropertyName = $svnPropertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getSvnPropertyName()
+    public function getSvnPropertyName(): string
     {
         return $this->svnPropertyName;
     }
@@ -46,17 +59,21 @@ class SvnPropsetTask extends SvnBaseTask
     /**
      * Sets the value of the property to use
      *
-     * @param mixed $svnPropertyValue
+     * @param string $svnPropertyValue
+     *
+     * @return void
      */
-    public function setSvnPropertyValue($svnPropertyValue)
+    public function setSvnPropertyValue(string $svnPropertyValue): void
     {
         $this->svnPropertyValue = $svnPropertyValue;
     }
 
     /**
      * Returns the value of the property to use
+     *
+     * @return string
      */
-    public function getSvnPropertyValue()
+    public function getSvnPropertyValue(): string
     {
         return $this->svnPropertyValue;
     }
@@ -64,14 +81,17 @@ class SvnPropsetTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('propset');
 
         $this->log("Set svn property for '" . $this->getToDir() . "'");
 
-        $output = $this->run([$this->getSvnPropertyName(), $this->getSvnPropertyValue(), $this->getToDir()]);
+        $this->run([$this->getSvnPropertyName(), $this->getSvnPropertyValue(), $this->getToDir()]);
     }
 }

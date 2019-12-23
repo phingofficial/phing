@@ -1,9 +1,4 @@
 <?php
-
-use PHPMD\AbstractRule;
-use PHPMD\PHPMD;
-use PHPMD\RuleSetFactory;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +16,12 @@ use PHPMD\RuleSetFactory;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use PHPMD\AbstractRule;
+use PHPMD\PHPMD;
+use PHPMD\RuleSetFactory;
 
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems
@@ -104,8 +105,10 @@ class PHPMDTask extends Task
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -114,8 +117,10 @@ class PHPMDTask extends Task
      * Sets the minimum rule priority.
      *
      * @param int $minimumPriority Minimum rule priority.
+     *
+     * @return void
      */
-    public function setMinimumPriority($minimumPriority)
+    public function setMinimumPriority(int $minimumPriority): void
     {
         $this->minimumPriority = $minimumPriority;
     }
@@ -124,8 +129,10 @@ class PHPMDTask extends Task
      * Sets the rule-sets.
      *
      * @param string $ruleSetFileNames Comma-separated string of rule-set filenames or identifier.
+     *
+     * @return void
      */
-    public function setRulesets($ruleSetFileNames)
+    public function setRulesets(string $ruleSetFileNames): void
     {
         $this->rulesets = $ruleSetFileNames;
     }
@@ -134,8 +141,10 @@ class PHPMDTask extends Task
      * Sets a list of filename extensions for valid php source code files.
      *
      * @param string $fileExtensions List of valid file extensions without leading dot.
+     *
+     * @return void
      */
-    public function setAllowedFileExtensions($fileExtensions)
+    public function setAllowedFileExtensions(string $fileExtensions): void
     {
         $this->allowedFileExtensions = [];
 
@@ -152,8 +161,10 @@ class PHPMDTask extends Task
      * Sets a list of ignore patterns that is used to exclude directories from the source analysis.
      *
      * @param string $ignorePatterns List of ignore patterns.
+     *
+     * @return void
      */
-    public function setIgnorePatterns($ignorePatterns)
+    public function setIgnorePatterns(string $ignorePatterns): void
     {
         $this->ignorePatterns = [];
 
@@ -171,7 +182,7 @@ class PHPMDTask extends Task
      *
      * @return PHPMDFormatterElement
      */
-    public function createFormatter()
+    public function createFormatter(): PHPMDFormatterElement
     {
         $num = array_push($this->formatters, new PHPMDFormatterElement());
 
@@ -180,16 +191,20 @@ class PHPMDTask extends Task
 
     /**
      * @param string $format
+     *
+     * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
 
     /**
      * @param string $pharLocation
+     *
+     * @return void
      */
-    public function setPharLocation($pharLocation)
+    public function setPharLocation(string $pharLocation): void
     {
         $this->pharLocation = $pharLocation;
     }
@@ -198,8 +213,12 @@ class PHPMDTask extends Task
      * Whether to store last-modified times in cache
      *
      * @param PhingFile $file
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(PhingFile $file): void
     {
         $this->cache = new DataStore($file);
     }
@@ -211,7 +230,7 @@ class PHPMDTask extends Task
      *
      * @throws BuildException
      */
-    protected function loadDependencies()
+    protected function loadDependencies(): string
     {
         if (!empty($this->pharLocation)) {
             include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
@@ -251,8 +270,12 @@ class PHPMDTask extends Task
      * Return the list of files to parse
      *
      * @return string[] list of absolute files to parse
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    protected function getFilesToParse()
+    protected function getFilesToParse(): array
     {
         $filesToParse = [];
 
@@ -283,9 +306,14 @@ class PHPMDTask extends Task
     /**
      * Executes PHPMD against PhingFile or a FileSet
      *
-     * @throws BuildException - if the phpmd classes can't be loaded.
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $className = $this->loadDependencies();
 

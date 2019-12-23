@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition that tests whether a given string evals to true.
  *
@@ -28,6 +30,8 @@ class IsTrueCondition extends ProjectComponent implements Condition
 {
     /**
      * what we eval
+     *
+     * @var bool
      */
     private $value;
 
@@ -35,8 +39,10 @@ class IsTrueCondition extends ProjectComponent implements Condition
      * Set the value to be tested.
      *
      * @param mixed $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = (bool) $value;
     }
@@ -44,9 +50,11 @@ class IsTrueCondition extends ProjectComponent implements Condition
     /**
      * return the inverted value;
      *
+     * @return bool
+     *
      * @throws BuildException if someone forgot to spec a value
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->value === null) {
             throw new BuildException('Nothing to test for falsehood');

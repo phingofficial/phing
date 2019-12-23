@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Recorder Task
  *
@@ -25,19 +27,28 @@
  */
 class RecorderTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/RecorderTaskTest.xml'
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testRecordtoFiles()
+    /**
+     * @return void
+     */
+    public function testRecordtoFiles(): void
     {
         $this->executeTarget(__FUNCTION__);
         $fileContent = $this->getProject()->getProperty('file.content');

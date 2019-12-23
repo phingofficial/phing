@@ -1,9 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestResult;
-use PHPUnit\Runner\Version;
-use SebastianBergmann\CodeCoverage\Report\Crap4j;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,6 +17,11 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Runner\Version;
+
 /**
  * Prints Clover XML output of the test
  *
@@ -34,6 +34,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @var TestResult
      */
     private $result = null;
+
     /**
      * PHPUnit version
      *
@@ -53,7 +54,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         return '.xml';
     }
@@ -61,26 +62,35 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): string
     {
         return 'crap4j-coverage';
     }
 
     /**
      * @param TestResult $result
+     *
+     * @return void
      */
-    public function processResult(TestResult $result)
+    public function processResult(TestResult $result): void
     {
         $this->result = $result;
     }
 
-    public function endTestRun()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function endTestRun(): void
     {
         $coverage = $this->result->getCodeCoverage();
         if (!empty($coverage)) {
             $crapClass = Crap4j::class;
-            $crap      = new $crapClass();
-            $contents  = $crap->process($coverage);
+
+            /** @var Crap4j $crap */
+            $crap     = new $crapClass();
+            $contents = $crap->process($coverage);
             if ($this->out) {
                 $this->out->write($contents);
                 $this->out->close();

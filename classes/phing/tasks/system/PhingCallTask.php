@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Call another target in the same project.
  *
@@ -73,9 +75,11 @@ class PhingCallTask extends Task
      *  If true, pass all properties to the new Phing project.
      *  Defaults to true. Future use.
      *
-     * @param bool $inherit new value
+     * @param bool $inherit
+     *
+     * @return void
      */
-    public function setInheritAll($inherit)
+    public function setInheritAll(bool $inherit): void
     {
         $this->inheritAll = (bool) $inherit;
     }
@@ -84,9 +88,11 @@ class PhingCallTask extends Task
      *  If true, pass all references to the new Phing project.
      *  Defaults to false. Future use.
      *
-     * @param bool $inheritRefs new value
+     * @param bool $inheritRefs
+     *
+     * @return void
      */
-    public function setInheritRefs($inheritRefs)
+    public function setInheritRefs(bool $inheritRefs): void
     {
         $this->inheritRefs = (bool) $inheritRefs;
     }
@@ -95,8 +101,14 @@ class PhingCallTask extends Task
      * Alias for createProperty
      *
      * @see createProperty()
+     *
+     * @return PropertyTask
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function createParam()
+    public function createParam(): PropertyTask
     {
         if ($this->callee === null) {
             $this->init();
@@ -107,8 +119,14 @@ class PhingCallTask extends Task
 
     /**
      * Property to pass to the invoked target.
+     *
+     * @return PropertyTask
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function createProperty()
+    public function createProperty(): PropertyTask
     {
         if ($this->callee === null) {
             $this->init();
@@ -121,8 +139,10 @@ class PhingCallTask extends Task
      * Target to execute, required.
      *
      * @param string $target
+     *
+     * @return void
      */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
         $this->subTarget = (string) $target;
     }
@@ -132,8 +152,12 @@ class PhingCallTask extends Task
      * over to the invoked target.
      *
      * @param PhingReference $r the specified `PhingReference`.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function addReference(PhingReference $r)
+    public function addReference(PhingReference $r): void
     {
         if ($this->callee === null) {
             $this->init();
@@ -142,10 +166,14 @@ class PhingCallTask extends Task
     }
 
     /**
-     *  init this task by creating new instance of the phing task and
-     *  configuring it's by calling its own init method.
+     * init this task by creating new instance of the phing task and
+     * configuring it's by calling its own init method.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function init()
+    public function init(): void
     {
         $this->callee = $this->project->createTask('phing');
         $this->callee->setOwningTarget($this->getOwningTarget());
@@ -156,12 +184,17 @@ class PhingCallTask extends Task
     }
 
     /**
-     *  hand off the work to the phing task of ours, after setting it up
+     * hand off the work to the phing task of ours, after setting it up
      *
-     * @throws BuildException on validation failure or if the target didn't
-     *                        execute
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
+     * @throws ConfigurationException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->getOwningTarget()->getName() === '') {
             $this->log("Cowardly refusing to call target '" . $this->subTarget . "' from the root", Project::MSG_WARN);

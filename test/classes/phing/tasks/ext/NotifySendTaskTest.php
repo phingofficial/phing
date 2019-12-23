@@ -17,17 +17,31 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class NotifySendTaskTest extends BuildFileTest
 {
-    protected $object;
+    /**
+     * @var NotifySendTask
+     */
+    private $object;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/NotifySendTaskTest.xml');
         $this->object = new NotifySendTask();
     }
 
-    public function testEmptyMessage()
+    /**
+     * @return void
+     */
+    public function testEmptyMessage(): void
     {
         $this->executeTarget('testEmptyMessage');
         $this->assertInLogs('cmd: notify-send -i info Phing');
@@ -36,7 +50,10 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertInLogs('Silent flag set; not executing', Project::MSG_DEBUG);
     }
 
-    public function testSettingTitle()
+    /**
+     * @return void
+     */
+    public function testSettingTitle(): void
     {
         $this->object->setTitle('Test');
         $this->assertEquals('Test', $this->object->getTitle());
@@ -44,7 +61,10 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals('Test Again', $this->object->getTitle());
     }
 
-    public function testSettingMsg()
+    /**
+     * @return void
+     */
+    public function testSettingMsg(): void
     {
         $this->object->setMsg('Test');
         $this->assertEquals('Test', $this->object->getMsg());
@@ -52,7 +72,10 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals('Test Again', $this->object->getMsg());
     }
 
-    public function testSetStandardIcon()
+    /**
+     * @return void
+     */
+    public function testSetStandardIcon(): void
     {
         $this->object->setIcon('info');
         $this->assertEquals('info', $this->object->getIcon());
@@ -64,7 +87,10 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals('warning', $this->object->getIcon());
     }
 
-    public function testSetNonStandardIcon()
+    /**
+     * @return void
+     */
+    public function testSetNonStandardIcon(): void
     {
         $this->object->setIcon('informational');
         $this->assertEquals('info', $this->object->getIcon());

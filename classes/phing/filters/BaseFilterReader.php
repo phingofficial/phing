@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for core filter readers.
  *
@@ -29,6 +31,8 @@ class BaseFilterReader extends FilterReader
 {
     /**
      * Have the parameters passed been interpreted?
+     *
+     * @var bool
      */
     protected $initialized = false;
 
@@ -47,9 +51,9 @@ class BaseFilterReader extends FilterReader
      * no real data to filter). ChainedReaderHelper uses
      * this placeholder instance to create a chain of real filters.
      *
-     * @param Reader $in
+     * @param Reader|null $in
      */
-    public function __construct($in = null)
+    public function __construct(?Reader $in = null)
     {
         if ($in === null) {
             $dummy = '';
@@ -63,7 +67,7 @@ class BaseFilterReader extends FilterReader
      *
      * @return bool whether or not the filter is initialized
      */
-    public function getInitialized()
+    public function getInitialized(): bool
     {
         return $this->initialized;
     }
@@ -72,8 +76,10 @@ class BaseFilterReader extends FilterReader
      * Sets the initialized status.
      *
      * @param bool $initialized Whether or not the filter is initialized.
+     *
+     * @return void
      */
-    public function setInitialized($initialized)
+    public function setInitialized(bool $initialized): void
     {
         $this->initialized = (bool) $initialized;
     }
@@ -83,8 +89,10 @@ class BaseFilterReader extends FilterReader
      *
      * @param object|Project $project The project this filter is part of.
      *                        Should not be <code>null</code>.
+     *
+     * @return void
      */
-    public function setProject(Project $project)
+    public function setProject(Project $project): void
     {
         // type check, error must never occur, bad code of it does
         $this->project = $project;
@@ -93,9 +101,9 @@ class BaseFilterReader extends FilterReader
     /**
      * Returns the project this filter is part of.
      *
-     * @return object The project this filter is part of
+     * @return Project The project this filter is part of
      */
-    public function getProject()
+    public function getProject(): Project
     {
         return $this->project;
     }
@@ -103,14 +111,14 @@ class BaseFilterReader extends FilterReader
     /**
      * Reads characters.
      *
-     * @param int $len Maximum number of characters to read.
+     * @param int|null $len Maximum number of characters to read.
      *
-     * @return string Characters read, or -1 if the end of the stream
+     * @return string|int Characters read, or -1 if the end of the stream
      *                    has been reached
      *
      * @throws IOException If an I/O error occurs
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         return $this->in->read($len);
     }
@@ -125,7 +133,7 @@ class BaseFilterReader extends FilterReader
      * @throws IOException if the underlying reader throws one during
      *                     reading
      */
-    public function readLine()
+    public function readLine(): ?string
     {
         $line = null;
 
@@ -144,7 +152,7 @@ class BaseFilterReader extends FilterReader
      *
      * @return bool
      */
-    public function eof()
+    public function eof(): bool
     {
         return $this->in->eof();
     }
@@ -156,8 +164,10 @@ class BaseFilterReader extends FilterReader
      * @param int    $level Priority level.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function log($msg, $level = Project::MSG_INFO)
+    public function log(string $msg, int $level = Project::MSG_INFO): void
     {
         if ($this->project !== null) {
             $this->project->log('[filter:' . static::class . '] ' . $msg, $level);

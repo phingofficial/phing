@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * LoadFileTask
  *
@@ -44,22 +46,32 @@ class LoadFileTask extends Task
      */
     private $property;
 
+    /**
+     * @var bool
+     */
     private $failOnError = true;
 
+    /**
+     * @var bool
+     */
     private $quiet = false;
 
     /**
      * @param bool $fail
+     *
+     * @return void
      */
-    public function setFailOnError($fail)
+    public function setFailOnError(bool $fail): void
     {
         $this->failOnError = $fail;
     }
 
     /**
      * @param bool $quiet
+     *
+     * @return void
      */
-    public function setQuiet($quiet)
+    public function setQuiet(bool $quiet): void
     {
         $this->quiet = $quiet;
         if ($quiet) {
@@ -71,8 +83,10 @@ class LoadFileTask extends Task
      * Set file to read
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile($file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -81,10 +95,12 @@ class LoadFileTask extends Task
      * Convenience setter to maintain Ant compatibility (@see setFile())
      *
      * @param PhingFile $srcFile
+     *
+     * @return void
      */
-    public function setSrcFile($srcFile)
+    public function setSrcFile($srcFile): void
     {
-        $this->file = $srcFile;
+        $this->setFile($srcFile);
     }
 
     /**
@@ -94,7 +110,7 @@ class LoadFileTask extends Task
      *
      * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -105,8 +121,10 @@ class LoadFileTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (empty($this->file)) {
             throw new BuildException("Attribute 'file' required", $this->getLocation());

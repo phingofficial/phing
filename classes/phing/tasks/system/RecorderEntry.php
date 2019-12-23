@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a class that represents a recorder. This is the listener to the
  * build process.
@@ -42,6 +44,8 @@ class RecorderEntry implements BuildLogger, SubBuildListener
 
     /**
      * The current verbosity level to record at.
+     *
+     * @var int
      */
     private $loglevel;
 
@@ -54,11 +58,15 @@ class RecorderEntry implements BuildLogger, SubBuildListener
 
     /**
      * The start time of the last know target.
+     *
+     * @var float
      */
     private $targetStartTime;
 
     /**
      * Strip task banners if true.
+     *
+     * @var bool
      */
     private $emacsMode = false;
 
@@ -72,7 +80,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * @param string $name The name of this recorder (used as the filename).
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->targetStartTime = Phing::currentTimeMillis();
         $this->filename        = $name;
@@ -82,7 +90,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * @return string the name of the file the output is sent to.
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
@@ -91,8 +99,12 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * Turns off or on this recorder.
      *
      * @param bool|null $state True for on, false for off, null for no change.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setRecordState($state)
+    public function setRecordState(?bool $state): void
     {
         if ($state != null) {
             $this->flush();
@@ -101,17 +113,25 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
         $this->log('> BUILD STARTED', Project::MSG_DEBUG);
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $this->log('< BUILD FINISHED', Project::MSG_DEBUG);
 
@@ -137,10 +157,14 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * instance.
      *
      * @param BuildEvent $event the buildFinished event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function subBuildFinished(BuildEvent $event)
+    public function subBuildFinished(BuildEvent $event): void
     {
-        if ($event->getProject() == $this->project) {
+        if ($event->getProject() === $this->project) {
             $this->cleanup();
         }
     }
@@ -149,15 +173,21 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * Empty implementation to satisfy the BuildListener interface.
      *
      * @param BuildEvent $event the buildStarted event
+     *
+     * @return void
      */
-    public function subBuildStarted(BuildEvent $event)
+    public function subBuildStarted(BuildEvent $event): void
     {
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         $this->log('>> TARGET STARTED -- ' . $event->getTarget()->getName(), Project::MSG_DEBUG);
         $this->log(
@@ -168,9 +198,13 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         $this->log('<< TARGET FINISHED -- ' . $event->getTarget()->getName(), Project::MSG_DEBUG);
 
@@ -181,26 +215,38 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
         $this->log('>>> TASK STARTED -- ' . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
         $this->log('<<< TASK FINISHED -- ' . $event->getTask()->getTaskName(), Project::MSG_DEBUG);
         $this->flush();
     }
 
     /**
-     * {@inheritDoc}.
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         $this->log('--- MESSAGE LOGGED', Project::MSG_DEBUG);
 
@@ -229,15 +275,24 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      *
      * @param string $mesg  The message to log.
      * @param int    $level The verbosity level of the message.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    private function log($mesg, $level)
+    private function log(string $mesg, int $level): void
     {
         if ($this->record && ($level <= $this->loglevel) && $this->out != null) {
             $this->out->write($mesg . PHP_EOL);
         }
     }
 
-    private function flush()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    private function flush(): void
     {
         if ($this->record && $this->out != null) {
             $this->out->flush();
@@ -245,9 +300,11 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     }
 
     /**
-     * {@inheritDoc}.
+     * @param int $level
+     *
+     * @return void
      */
-    public function setMessageOutputLevel($level)
+    public function setMessageOutputLevel(int $level): void
     {
         if ($level >= Project::MSG_ERR && $level <= Project::MSG_DEBUG) {
             $this->loglevel = $level;
@@ -255,26 +312,36 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     }
 
     /**
-     * {@inheritDoc}.
+     * @param OutputStream $output
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setOutputStream(OutputStream $output)
+    public function setOutputStream(OutputStream $output): void
     {
         $this->closeFile();
         $this->out = $output;
     }
 
     /**
-     * {@inheritDoc}.
+     * @param bool $emacsMode
+     *
+     * @return void
      */
-    public function setEmacsMode($emacsMode)
+    public function setEmacsMode(bool $emacsMode): void
     {
         $this->emacsMode = $emacsMode;
     }
 
     /**
-     * {@inheritDoc}.
+     * @param OutputStream $err
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setErrorStream(OutputStream $err)
+    public function setErrorStream(OutputStream $err): void
     {
         $this->setOutputStream($err);
     }
@@ -283,8 +350,10 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * Set the project associated with this recorder entry.
      *
      * @param Project $project the project instance
+     *
+     * @return void
      */
-    public function setProject(Project $project)
+    public function setProject(Project $project): void
     {
         $this->project = $project;
         if ($this->project != null) {
@@ -294,13 +363,20 @@ class RecorderEntry implements BuildLogger, SubBuildListener
 
     /**
      * Get the project associated with this recorder entry.
+     *
+     * @return Project
      */
-    public function getProject()
+    public function getProject(): Project
     {
         return $this->project;
     }
 
-    public function cleanup()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function cleanup(): void
     {
         $this->closeFile();
         if ($this->project != null) {
@@ -314,11 +390,14 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * Used by Recorder.
      *
      * @param bool $append Indicates if output must be appended to the logfile or that
-     * the logfile should be overwritten.
+     *                     the logfile should be overwritten.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function openFile($append)
+    public function openFile(bool $append): void
     {
         $this->openFileImpl($append);
     }
@@ -326,8 +405,12 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * Closes the file associated with this recorder.
      * Used by Recorder.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function closeFile()
+    public function closeFile(): void
     {
         if ($this->out != null) {
             $this->out->close();
@@ -339,14 +422,24 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      * Re-opens the file associated with this recorder.
      * Used by Recorder.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function reopenFile()
+    public function reopenFile(): void
     {
         $this->openFileImpl(true);
     }
 
-    private function openFileImpl($append)
+    /**
+     * @param bool $append
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    private function openFileImpl(bool $append): void
     {
         if ($this->out == null) {
             try {

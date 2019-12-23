@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.tasks.ext
  */
@@ -45,8 +47,10 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
 
     /**
      * Validate config.
+     *
+     * @return void
      */
-    public function parsingComplete()
+    public function parsingComplete(): void
     {
         if (empty($this->type)) {
             throw new BuildException("Format missing required 'type' attribute.");
@@ -58,8 +62,10 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
 
     /**
      * @param string $type
+     *
+     * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -67,15 +73,17 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
     /**
      * @param bool $useFile
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = $useFile;
     }
@@ -83,15 +91,17 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
     /**
      * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
 
     /**
      * @param string $outfile
+     *
+     * @return void
      */
-    public function setOutfile($outfile)
+    public function setOutfile(string $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -99,7 +109,7 @@ class PhpCodeSnifferTaskFormatterElement extends DataType
     /**
      * @return string
      */
-    public function getOutfile()
+    public function getOutfile(): string
     {
         return $this->outfile;
     }

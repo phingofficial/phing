@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Publish Wiki document using Wiki API.
  *
@@ -31,42 +33,49 @@ class WikiPublishTask extends Task
      * @var string
      */
     private $apiUrl;
+
     /**
      * Wiki API user name
      *
      * @var string
      */
     private $apiUser;
+
     /**
      * Wiki API password
      *
      * @var string
      */
     private $apiPassword;
+
     /**
      * Wiki document Id. Document can be identified by title instead.
      *
      * @var int
      */
     private $id;
+
     /**
      * Wiki document title
      *
      * @var string
      */
     private $title;
+
     /**
      * Wiki document content
      *
      * @var string
      */
     private $content;
+
     /**
      * Publishing mode (append, prepend, overwrite).
      *
      * @var string
      */
     private $mode = 'append';
+
     /**
      * Publish modes map
      *
@@ -77,18 +86,21 @@ class WikiPublishTask extends Task
         'append' => 'appendtext',
         'prepend' => 'prependtext',
     ];
+
     /**
      * Curl handler
      *
      * @var resource
      */
     private $curl;
+
     /**
      * Wiki api edit token
      *
      * @var string
      */
     private $apiEditToken;
+
     /**
      * Temporary cookies file
      *
@@ -98,8 +110,10 @@ class WikiPublishTask extends Task
 
     /**
      * @param string $apiPassword
+     *
+     * @return void
      */
-    public function setApiPassword($apiPassword)
+    public function setApiPassword(string $apiPassword): void
     {
         $this->apiPassword = $apiPassword;
     }
@@ -107,15 +121,17 @@ class WikiPublishTask extends Task
     /**
      * @return string
      */
-    public function getApiPassword()
+    public function getApiPassword(): string
     {
         return $this->apiPassword;
     }
 
     /**
      * @param string $apiUrl
+     *
+     * @return void
      */
-    public function setApiUrl($apiUrl)
+    public function setApiUrl(string $apiUrl): void
     {
         $this->apiUrl = $apiUrl;
     }
@@ -123,15 +139,17 @@ class WikiPublishTask extends Task
     /**
      * @return string
      */
-    public function getApiUrl()
+    public function getApiUrl(): string
     {
         return $this->apiUrl;
     }
 
     /**
      * @param string $apiUser
+     *
+     * @return void
      */
-    public function setApiUser($apiUser)
+    public function setApiUser(string $apiUser): void
     {
         $this->apiUser = $apiUser;
     }
@@ -139,15 +157,17 @@ class WikiPublishTask extends Task
     /**
      * @return string
      */
-    public function getApiUser()
+    public function getApiUser(): string
     {
         return $this->apiUser;
     }
 
     /**
      * @param int $id
+     *
+     * @return void
      */
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -155,7 +175,7 @@ class WikiPublishTask extends Task
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -163,9 +183,11 @@ class WikiPublishTask extends Task
     /**
      * @param string $mode
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setMode($mode)
+    public function setMode(string $mode): void
     {
         if (false === isset($this->modeMap[$mode])) {
             throw new BuildException(
@@ -181,15 +203,17 @@ class WikiPublishTask extends Task
     /**
      * @return string
      */
-    public function getMode()
+    public function getMode(): string
     {
         return $this->mode;
     }
 
     /**
      * @param string $title
+     *
+     * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -197,15 +221,17 @@ class WikiPublishTask extends Task
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
      * @param string $content
+     *
+     * @return void
      */
-    public function setContent($content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -213,7 +239,7 @@ class WikiPublishTask extends Task
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -221,9 +247,11 @@ class WikiPublishTask extends Task
     /**
      * Prepare CURL object
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function init()
+    public function init(): void
     {
         $this->cookiesFile = tempnam(FileUtils::getTempDir(), 'WikiPublish.' . uniqid('', true) . '.cookies');
 
@@ -239,8 +267,10 @@ class WikiPublishTask extends Task
 
     /**
      * The main entry point method
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->validateAttributes();
         $this->callApiLogin();
@@ -263,9 +293,11 @@ class WikiPublishTask extends Task
     /**
      * Validates attributes coming in from XML
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    private function validateAttributes()
+    private function validateAttributes(): void
     {
         if (null === $this->apiUrl) {
             throw new BuildException('Wiki apiUrl is required');
@@ -281,9 +313,11 @@ class WikiPublishTask extends Task
      *
      * @param string|null $token
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    private function callApiLogin($token = null)
+    private function callApiLogin(?string $token = null): void
     {
         $postData = ['lgname' => $this->apiUser, 'lgpassword' => $this->apiPassword];
         if (null !== $token) {
@@ -309,8 +343,10 @@ class WikiPublishTask extends Task
 
     /**
      * Call Wiki webapi edit action
+     *
+     * @return void
      */
-    private function callApiEdit()
+    private function callApiEdit(): void
     {
         $this->callApiTokens();
         $result = $this->callApi('action=edit&token=' . urlencode($this->apiEditToken), $this->getApiEditData());
@@ -322,7 +358,7 @@ class WikiPublishTask extends Task
      *
      * @return array
      */
-    private function getApiEditData()
+    private function getApiEditData(): array
     {
         $result = [
             'minor' => '',
@@ -341,9 +377,11 @@ class WikiPublishTask extends Task
     /**
      * Call Wiki webapi tokens action
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    private function callApiTokens()
+    private function callApiTokens(): void
     {
         $result = $this->callApi('action=tokens&type=edit');
         if (false == isset($result['tokens']) || false == isset($result['tokens']['edittoken'])) {
@@ -363,7 +401,7 @@ class WikiPublishTask extends Task
      *
      * @throws BuildException
      */
-    protected function callApi($queryString, $postData = null)
+    protected function callApi(string $queryString, ?array $postData = null): array
     {
         $this->setPostData($postData);
 
@@ -390,8 +428,10 @@ class WikiPublishTask extends Task
      * Set POST data for curl call
      *
      * @param array|null $data
+     *
+     * @return void
      */
-    private function setPostData($data = null)
+    private function setPostData(?array $data = null): void
     {
         if (null === $data) {
             curl_setopt($this->curl, CURLOPT_POST, false);
@@ -415,9 +455,11 @@ class WikiPublishTask extends Task
      * @param array  $response
      * @param string $expect
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    private function checkApiResponseResult($action, $response, $expect = 'Success')
+    private function checkApiResponseResult(string $action, array $response, string $expect = 'Success'): void
     {
         if (isset($response['error'])) {
             throw new BuildException(

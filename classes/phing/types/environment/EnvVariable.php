@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Representation of a single env value.
  *
@@ -28,16 +30,24 @@ class EnvVariable
     /**
      * env key and value pair; everything gets expanded to a string
      * during assignment
+     *
+     * @var string
      */
     private $key;
+
+    /**
+     * @var string
+     */
     private $value;
 
     /**
      * set the key
      *
      * @param string $key string
+     *
+     * @return void
      */
-    public function setKey($key)
+    public function setKey(string $key): void
     {
         $this->key = $key;
     }
@@ -46,8 +56,10 @@ class EnvVariable
      * set the value
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
@@ -57,7 +69,7 @@ class EnvVariable
      *
      * @return string key
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -67,7 +79,7 @@ class EnvVariable
      *
      * @return string value
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -78,8 +90,10 @@ class EnvVariable
      * separator
      *
      * @param Path $path
+     *
+     * @return void
      */
-    public function setPath(Path $path)
+    public function setPath(Path $path): void
     {
         $this->value = (string) $path;
     }
@@ -88,8 +102,12 @@ class EnvVariable
      * get the absolute path of a file and assign it to the value
      *
      * @param PhingFile $file file to use as the value
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->value = $file->getAbsolutePath();
     }
@@ -103,7 +121,7 @@ class EnvVariable
      *
      * @throws BuildException if key or value are unassigned
      */
-    public function getContent()
+    public function getContent(): string
     {
         $this->validate();
         return trim($this->key) . '=' . trim($this->value);
@@ -112,9 +130,11 @@ class EnvVariable
     /**
      * checks whether all required attributes have been specified.
      *
+     * @return void
+     *
      * @throws BuildException if key or value are unassigned
      */
-    public function validate()
+    public function validate(): void
     {
         if ($this->key === null || $this->value === null) {
             throw new BuildException('key and value must be specified for environment variables.');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Stops the build if any of the specified coverage threshold was not reached
  *
@@ -102,8 +104,10 @@ class CoverageThresholdTask extends Task
      * Sets the optional coverage database to use
      *
      * @param PhingFile $database The database file
+     *
+     * @return void
      */
-    public function setDatabase(PhingFile $database)
+    public function setDatabase(PhingFile $database): void
     {
         $this->database = $database;
     }
@@ -112,8 +116,10 @@ class CoverageThresholdTask extends Task
      * Sets the coverage threshold for entire project
      *
      * @param int $threshold Coverage threshold for entire project
+     *
+     * @return void
      */
-    public function setPerProject($threshold)
+    public function setPerProject(int $threshold): void
     {
         $this->perProject = $threshold;
     }
@@ -122,8 +128,10 @@ class CoverageThresholdTask extends Task
      * Sets the coverage threshold for any class
      *
      * @param int $threshold Coverage threshold for any class
+     *
+     * @return void
      */
-    public function setPerClass($threshold)
+    public function setPerClass(int $threshold): void
     {
         $this->perClass = $threshold;
     }
@@ -132,8 +140,10 @@ class CoverageThresholdTask extends Task
      * Sets the coverage threshold for any method
      *
      * @param int $threshold Coverage threshold for any method
+     *
+     * @return void
      */
-    public function setPerMethod($threshold)
+    public function setPerMethod(int $threshold): void
     {
         $this->perMethod = $threshold;
     }
@@ -142,8 +152,10 @@ class CoverageThresholdTask extends Task
      * Sets whether to enable detailed logging or not
      *
      * @param bool $verbose
+     *
+     * @return void
      */
-    public function setVerbose($verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = StringHelper::booleanValue($verbose);
     }
@@ -155,7 +167,7 @@ class CoverageThresholdTask extends Task
      *
      * @return bool
      */
-    protected function filterCovered($var)
+    protected function filterCovered(int $var): bool
     {
         return $var >= 0 || $var === -2;
     }
@@ -164,8 +176,11 @@ class CoverageThresholdTask extends Task
      * Create excludes object
      *
      * @return Excludes
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function createExcludes()
+    public function createExcludes(): Excludes
     {
         $this->excludes = new Excludes($this->project);
 
@@ -178,9 +193,13 @@ class CoverageThresholdTask extends Task
      * @param string $filename            The filename to analyse
      * @param array  $coverageInformation Array with coverage information
      *
+     * @return void
+     *
+     * @throws ReflectionException
      * @throws BuildException
+     * @throws Exception
      */
-    protected function calculateCoverageThreshold($filename, $coverageInformation)
+    protected function calculateCoverageThreshold(string $filename, array $coverageInformation): void
     {
         $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
@@ -359,7 +378,15 @@ class CoverageThresholdTask extends Task
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
+     * @throws IOException
+     */
+    public function main(): void
     {
         if ($this->database === null) {
             $coverageDatabase = $this->project

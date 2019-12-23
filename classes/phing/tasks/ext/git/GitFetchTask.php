@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper aroung git-fetch
  *
@@ -106,8 +108,13 @@ class GitFetchTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -154,8 +161,10 @@ class GitFetchTask extends GitBaseTask
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setForce($flag)
+    public function setForce(bool $flag): void
     {
         $this->force = $flag;
     }
@@ -163,7 +172,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getForce()
+    public function getForce(): bool
     {
         return $this->force;
     }
@@ -171,15 +180,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isForce()
+    public function isForce(): bool
     {
         return $this->getForce();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setQuiet($flag)
+    public function setQuiet(bool $flag): void
     {
         $this->quiet = $flag;
     }
@@ -187,7 +198,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getQuiet()
+    public function getQuiet(): bool
     {
         return $this->quiet;
     }
@@ -195,15 +206,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isQuiet()
+    public function isQuiet(): bool
     {
         return $this->getQuiet();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAll($flag)
+    public function setAll(bool $flag): void
     {
         $this->allRemotes = $flag;
     }
@@ -211,7 +224,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAll()
+    public function getAll(): bool
     {
         return $this->allRemotes;
     }
@@ -219,15 +232,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isAllRemotes()
+    public function isAllRemotes(): bool
     {
         return $this->getAll();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setKeep($flag)
+    public function setKeep(bool $flag): void
     {
         $this->keepFiles = $flag;
     }
@@ -235,7 +250,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getKeep()
+    public function getKeep(): bool
     {
         return $this->keepFiles;
     }
@@ -243,15 +258,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isKeepFiles()
+    public function isKeepFiles(): bool
     {
         return $this->getKeep();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setPrune($flag)
+    public function setPrune(bool $flag): void
     {
         $this->prune = $flag;
     }
@@ -259,7 +276,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getPrune()
+    public function getPrune(): bool
     {
         return $this->prune;
     }
@@ -267,15 +284,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isPrune()
+    public function isPrune(): bool
     {
         return $this->getPrune();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoTags($flag)
+    public function setNoTags(bool $flag): void
     {
         $this->noTags = $flag;
     }
@@ -283,7 +302,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoTags()
+    public function getNoTags(): bool
     {
         return $this->noTags;
     }
@@ -291,15 +310,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNoTags()
+    public function isNoTags(): bool
     {
         return $this->getNoTags();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setTags($flag)
+    public function setTags(bool $flag): void
     {
         $this->tags = $flag;
     }
@@ -307,7 +328,7 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getTags()
+    public function getTags(): bool
     {
         return $this->tags;
     }
@@ -315,15 +336,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isTags()
+    public function isTags(): bool
     {
         return $this->getTags();
     }
 
     /**
      * @param string $source
+     *
+     * @return void
      */
-    public function setSource($source)
+    public function setSource(string $source): void
     {
         $this->source = $source;
     }
@@ -331,15 +354,17 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource(): string
     {
         return $this->source;
     }
 
     /**
      * @param string $spec
+     *
+     * @return void
      */
-    public function setRefspec($spec)
+    public function setRefspec(string $spec): void
     {
         $this->refspec = $spec;
     }
@@ -347,23 +372,25 @@ class GitFetchTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getRefspec()
+    public function getRefspec(): string
     {
         return $this->refspec;
     }
 
     /**
      * @param string $group
+     *
+     * @return void
      */
-    public function setGroup($group)
+    public function setGroup(string $group): void
     {
         $this->group = $group;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGroup()
+    public function getGroup(): ?string
     {
         return $this->group;
     }

@@ -1,13 +1,4 @@
 <?php
-
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\TestListener;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Runner\Version;
-use PHPUnit\Util\Configuration;
-use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Filter;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,6 +17,16 @@ use SebastianBergmann\CodeCoverage\Filter;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Runner\Version;
+use PHPUnit\Util\Configuration;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Filter;
+
 /**
  * Runs PHPUnit tests.
  *
@@ -41,23 +42,79 @@ class PHPUnitTask extends Task
     /**
      * @var FormatterElement[] $formatters
      */
-    private $formatters       = [];
-    private $bootstrap        = '';
-    private $haltonerror      = false;
-    private $haltonfailure    = false;
+    private $formatters = [];
+
+    /**
+     * @var string
+     */
+    private $bootstrap = '';
+
+    /**
+     * @var bool
+     */
+    private $haltonerror = false;
+
+    /**
+     * @var bool
+     */
+    private $haltonfailure = false;
+
+    /**
+     * @var bool
+     */
     private $haltonincomplete = false;
-    private $haltonskipped    = false;
+
+    /**
+     * @var bool
+     */
+    private $haltonskipped = false;
+
+    /**
+     * @var string
+     */
     private $errorproperty;
+
+    /**
+     * @var string
+     */
     private $failureproperty;
+
+    /**
+     * @var string
+     */
     private $incompleteproperty;
+
+    /**
+     * @var string
+     */
     private $skippedproperty;
-    private $printsummary          = false;
-    private $testfailed            = false;
-    private $testfailuremessage    = '';
-    private $codecoverage          = null;
-    private $groups                = [];
-    private $excludeGroups         = [];
-    private $processIsolation      = false;
+
+    /**
+     * @var bool
+     */
+    private $printsummary       = false;
+    private $testfailed         = false;
+    private $testfailuremessage = '';
+    private $codecoverage       = null;
+
+    /**
+     * @var array
+     */
+    private $groups = [];
+
+    /**
+     * @var array
+     */
+    private $excludeGroups = [];
+
+    /**
+     * @var bool
+     */
+    private $processIsolation = false;
+
+    /**
+     * @var bool
+     */
     private $usecustomerrorhandler = true;
 
     /**
@@ -80,12 +137,17 @@ class PHPUnitTask extends Task
      * This method includes any necessary PHPUnit libraries and triggers
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
     }
 
-    private function loadPHPUnit()
+    /**
+     * @return void
+     */
+    private function loadPHPUnit(): void
     {
         /**
          * Determine PHPUnit version number, try
@@ -113,56 +175,70 @@ class PHPUnitTask extends Task
      * executing the tests
      *
      * @param string $bootstrap the name of the bootstrap file
+     *
+     * @return void
      */
-    public function setBootstrap($bootstrap)
+    public function setBootstrap(string $bootstrap): void
     {
         $this->bootstrap = $bootstrap;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setErrorproperty($value)
+    public function setErrorproperty(string $value): void
     {
         $this->errorproperty = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setFailureproperty($value)
+    public function setFailureproperty(string $value): void
     {
         $this->failureproperty = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setIncompleteproperty($value)
+    public function setIncompleteproperty(string $value): void
     {
         $this->incompleteproperty = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setSkippedproperty($value)
+    public function setSkippedproperty(string $value): void
     {
         $this->skippedproperty = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setHaltonerror($value)
+    public function setHaltonerror(bool $value): void
     {
         $this->haltonerror = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setHaltonfailure($value)
+    public function setHaltonfailure(bool $value): void
     {
         $this->haltonfailure = $value;
     }
@@ -170,15 +246,17 @@ class PHPUnitTask extends Task
     /**
      * @return bool
      */
-    public function getHaltonfailure()
+    public function getHaltonfailure(): bool
     {
         return $this->haltonfailure;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setHaltonincomplete($value)
+    public function setHaltonincomplete(bool $value): void
     {
         $this->haltonincomplete = $value;
     }
@@ -186,15 +264,17 @@ class PHPUnitTask extends Task
     /**
      * @return bool
      */
-    public function getHaltonincomplete()
+    public function getHaltonincomplete(): bool
     {
         return $this->haltonincomplete;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setHaltonskipped($value)
+    public function setHaltonskipped(bool $value): void
     {
         $this->haltonskipped = $value;
     }
@@ -202,47 +282,57 @@ class PHPUnitTask extends Task
     /**
      * @return bool
      */
-    public function getHaltonskipped()
+    public function getHaltonskipped(): bool
     {
         return $this->haltonskipped;
     }
 
     /**
      * @param bool $printsummary
+     *
+     * @return void
      */
-    public function setPrintsummary($printsummary)
+    public function setPrintsummary(bool $printsummary): void
     {
         $this->printsummary = $printsummary;
     }
 
     /**
      * @param bool $codecoverage
+     *
+     * @return void
      */
-    public function setCodecoverage($codecoverage)
+    public function setCodecoverage($codecoverage): void
     {
         $this->codecoverage = $codecoverage;
     }
 
     /**
      * @param bool $processIsolation
+     *
+     * @return void
      */
-    public function setProcessIsolation($processIsolation)
+    public function setProcessIsolation(bool $processIsolation): void
     {
         $this->processIsolation = $processIsolation;
     }
 
     /**
      * @param bool $usecustomerrorhandler
+     *
+     * @return void
      */
-    public function setUseCustomErrorHandler($usecustomerrorhandler)
+    public function setUseCustomErrorHandler(bool $usecustomerrorhandler): void
     {
         $this->usecustomerrorhandler = $usecustomerrorhandler;
     }
 
     /**
      * @param string $groups
+     *
+     * @return void
      */
-    public function setGroups($groups)
+    public function setGroups(string $groups): void
     {
         $token        = ' ,;';
         $this->groups = [];
@@ -255,8 +345,10 @@ class PHPUnitTask extends Task
 
     /**
      * @param string $excludeGroups
+     *
+     * @return void
      */
-    public function setExcludeGroups($excludeGroups)
+    public function setExcludeGroups(string $excludeGroups): void
     {
         $token               = ' ,;';
         $this->excludeGroups = [];
@@ -271,8 +363,10 @@ class PHPUnitTask extends Task
      * Add a new formatter to all tests of this task.
      *
      * @param FormatterElement $fe formatter element
+     *
+     * @return void
      */
-    public function addFormatter(FormatterElement $fe)
+    public function addFormatter(FormatterElement $fe): void
     {
         $fe->setParent($this);
         $this->formatters[] = $fe;
@@ -282,24 +376,30 @@ class PHPUnitTask extends Task
      * Add a new listener to all tests of this taks
      *
      * @param TestListener $listener
+     *
+     * @return void
      */
-    private function addListener($listener)
+    private function addListener($listener): void
     {
         $this->listeners[] = $listener;
     }
 
     /**
      * @param PhingFile $configuration
+     *
+     * @return void
      */
-    public function setConfiguration(PhingFile $configuration)
+    public function setConfiguration(PhingFile $configuration): void
     {
         $this->configuration = $configuration;
     }
 
     /**
      * @param string $pharLocation
+     *
+     * @return void
      */
-    public function setPharLocation($pharLocation)
+    public function setPharLocation(string $pharLocation): void
     {
         $this->pharLocation = $pharLocation;
     }
@@ -313,8 +413,9 @@ class PHPUnitTask extends Task
      *
      * @throws ReflectionException
      * @throws BuildException
+     * @throws IOException
      */
-    protected function handlePHPUnitConfiguration(PhingFile $configuration)
+    protected function handlePHPUnitConfiguration(PhingFile $configuration): array
     {
         if (!$configuration->exists()) {
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
@@ -401,9 +502,12 @@ class PHPUnitTask extends Task
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->codecoverage && !extension_loaded('xdebug')) {
             throw new BuildException('PHPUnitTask depends on Xdebug being installed to gather code coverage information.');
@@ -438,10 +542,18 @@ class PHPUnitTask extends Task
         }
 
         foreach ($this->batchtests as $batchTest) {
-            $this->appendBatchTestToTestSuite($batchTest, $suite);
+            try {
+                $this->appendBatchTestToTestSuite($batchTest, $suite);
+            } catch (ReflectionException $e) {
+                throw new BuildException($this->testfailuremessage, $e);
+            }
         }
 
-        $this->execute($suite);
+        try {
+            $this->execute($suite);
+        } catch (ReflectionException $e) {
+            throw new BuildException($this->testfailuremessage, $e);
+        }
 
         if ($this->testfailed) {
             throw new BuildException($this->testfailuremessage);
@@ -464,10 +576,13 @@ class PHPUnitTask extends Task
     /**
      * @param TestSuite $suite
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws ReflectionException
+     * @throws IOException
      */
-    protected function execute($suite)
+    protected function execute(TestSuite $suite): void
     {
         if (
             class_exists(Version::class, false) &&
@@ -592,10 +707,13 @@ class PHPUnitTask extends Task
      * @param BatchTest $batchTest
      * @param TestSuite $suite
      *
-     * @throws BuildException
+     * @return void
+     *
      * @throws ReflectionException
+     * @throws \Exception
+     * @throws BuildException
      */
-    protected function appendBatchTestToTestSuite(BatchTest $batchTest, $suite)
+    protected function appendBatchTestToTestSuite(BatchTest $batchTest, TestSuite $suite): void
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
@@ -613,7 +731,7 @@ class PHPUnitTask extends Task
     /**
      * @return LogWriter
      */
-    protected function getDefaultOutput()
+    protected function getDefaultOutput(): LogWriter
     {
         return new LogWriter($this);
     }
@@ -623,7 +741,7 @@ class PHPUnitTask extends Task
      *
      * @return BatchTest a new instance of a batch test.
      */
-    public function createBatchTest()
+    public function createBatchTest(): BatchTest
     {
         $batchtest = new BatchTest($this->getProject());
 

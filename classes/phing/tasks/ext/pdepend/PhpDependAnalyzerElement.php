@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Analyzer element for the PhpDependTask
  *
@@ -45,9 +47,11 @@ class PhpDependAnalyzerElement
      *
      * @param string $type Type of the analyzer
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
 
@@ -65,7 +69,7 @@ class PhpDependAnalyzerElement
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -74,8 +78,10 @@ class PhpDependAnalyzerElement
      * Sets the value for the analyzer
      *
      * @param string $value Value for the analyzer
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = [];
 
@@ -91,9 +97,9 @@ class PhpDependAnalyzerElement
     /**
      * Get the analyzer value
      *
-     * @return string
+     * @return array
      */
-    public function getValue()
+    public function getValue(): array
     {
         return $this->value;
     }

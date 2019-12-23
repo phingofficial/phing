@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 trait FileListAware
 {
     /**
@@ -24,12 +26,20 @@ trait FileListAware
      */
     protected $filelists = [];
 
-    public function addFileList(FileList $fileList)
+    /**
+     * @param FileList $fileList
+     *
+     * @return void
+     */
+    public function addFileList(FileList $fileList): void
     {
         $this->filelists[] = $fileList;
     }
 
-    public function getFileLists()
+    /**
+     * @return FileList[]
+     */
+    public function getFileLists(): array
     {
         return $this->filelists;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that selects a certain kind of file: directory or regular file.
  *
@@ -41,7 +43,7 @@ class TypeSelector extends BaseExtendSelector
     /**
      * @return string A string describing this object
      */
-    public function __toString()
+    public function __toString(): string
     {
         return '{typeselector type: ' . $this->type . '}';
     }
@@ -50,8 +52,10 @@ class TypeSelector extends BaseExtendSelector
      * Set the type of file to require.
      *
      * @param string $type The type of file - 'file' or 'dir'
+     *
+     * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -82,8 +86,10 @@ class TypeSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the pattern attribute has been set.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->type === null) {
             $this->setError('The type attribute is required');
@@ -101,8 +107,11 @@ class TypeSelector extends BaseExtendSelector
      * @param PhingFile $file     is a PhingFile object the selector can use
      *
      * @return bool Whether the file should be selected or not
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         // throw BuildException on error
         $this->validate();

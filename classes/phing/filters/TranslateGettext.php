@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
  *
@@ -47,16 +49,22 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * The domain to use
+     *
+     * @var string
      */
     private $domain = 'messages';
 
     /**
      * The dir containing LC_MESSAGES
+     *
+     * @var PhingFile
      */
     private $dir;
 
     /**
      * The locale to use
+     *
+     * @var string
      */
     private $locale;
 
@@ -72,8 +80,10 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *         "mydomain" ==> $dir/LC_MESSAGES/mydomain.mo
      *
      * @param string $domain
+     *
+     * @return void
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
     }
@@ -83,7 +93,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return string
      */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->domain;
     }
@@ -92,8 +102,10 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Sets the root locale directory.
      *
      * @param PhingFile $dir
+     *
+     * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(PhingFile $dir): void
     {
         $this->dir = $dir;
     }
@@ -103,7 +115,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return PhingFile
      */
-    public function getDir()
+    public function getDir(): PhingFile
     {
         return $this->dir;
     }
@@ -115,8 +127,10 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * but others will require 'en_US', etc.).
      *
      * @param string $locale
+     *
+     * @return void
      */
-    public function setLocale($locale)
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }
@@ -126,7 +140,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -134,9 +148,11 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     /**
      * Make sure that required attributes are set.
      *
-     * @throws BuldException - if any required attribs aren't set.
+     * @return void
+     *
+     * @throws BuildException - if any required attribs aren't set.
      */
-    protected function checkAttributes()
+    protected function checkAttributes(): void
     {
         if (!$this->domain || !$this->locale || !$this->dir) {
             throw new BuildException('You must specify values for domain, locale, and dir attributes.');
@@ -152,9 +168,10 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return void
      *
-     * @throws BuildException - if locale cannot be set.
+     * @throws BuildException If locale cannot be set.
+     * @throws IOException
      */
-    protected function initEnvironment()
+    protected function initEnvironment(): void
     {
         $this->storedLocale = getenv('LANG');
 
@@ -180,7 +197,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return void
      */
-    protected function restoreEnvironment()
+    protected function restoreEnvironment(): void
     {
         putenv('LANG=' . $this->storedLocale);
         setlocale(LC_ALL, $this->storedLocale);
@@ -197,7 +214,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      *
      * @return string Translated text
      */
-    private function xlateStringCallback($matches)
+    private function xlateStringCallback(array $matches): string
     {
         $charbefore = $matches[1];
         $msgid      = $matches[2];
@@ -211,13 +228,15 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and then translation is performed.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
+     * @throws IOException
      * @throws BuildException
+     * @throws NullPointerException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -260,7 +279,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
         // Check to see if there are any unmatched gettext() calls -- and flag an error
 
         $matches = [];
-        if (preg_match('/(\W|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
+        if (preg_match('/(\W|^)(gettext\([^\)]+\))/', (string) $buffer, $matches)) {
             $this->log('Unable to perform translation on: ' . $matches[2], Project::MSG_WARN);
         }
 
@@ -279,7 +298,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * @return TranslateGettext A new filter based on this configuration, but filtering
      *                          the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new TranslateGettext($reader);
         $newFilter->setProject($this->getProject());
@@ -292,8 +311,13 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Parses the parameters if this filter is being used in "generic" mode.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

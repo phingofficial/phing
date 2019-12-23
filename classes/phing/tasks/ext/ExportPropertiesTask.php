@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Saves currently defined properties into a specified file
  *
@@ -31,7 +33,7 @@ class ExportPropertiesTask extends Task
      *
      * (default value: null)
      *
-     * @var array
+     * @var array|null
      */
     private $properties = null;
 
@@ -64,11 +66,11 @@ class ExportPropertiesTask extends Task
      *
      * @param string $file
      *
-     * @return bool
+     * @return void
      *
      * @throws BuildException
      */
-    public function setTargetFile($file)
+    public function setTargetFile(string $file): void
     {
         if (!is_dir(dirname($file))) {
             throw new BuildException("Parent directory of target file doesn't exist");
@@ -79,8 +81,6 @@ class ExportPropertiesTask extends Task
         }
 
         $this->targetFile = $file;
-
-        return true;
     }
 
     /**
@@ -88,16 +88,17 @@ class ExportPropertiesTask extends Task
      *
      * @param string $prefixes
      *
-     * @return bool
+     * @return void
      */
-    public function setDisallowedPropertyPrefixes($prefixes)
+    public function setDisallowedPropertyPrefixes(string $prefixes): void
     {
         $this->disallowedPropertyPrefixes = explode(',', $prefixes);
-
-        return true;
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         // Sets the currently declared properties
         $this->properties = $this->getProject()->getProperties();
@@ -110,7 +111,7 @@ class ExportPropertiesTask extends Task
                 }
             }
 
-            if (!file_put_contents($this->targetFile, $propertiesString)) {
+            if (!file_put_contents((string) $this->targetFile, $propertiesString)) {
                 throw new BuildException('Failed writing to ' . $this->targetFile);
             }
         }
@@ -123,7 +124,7 @@ class ExportPropertiesTask extends Task
      *
      * @return bool
      */
-    protected function isDisallowedPropery($propertyName)
+    protected function isDisallowedPropery(string $propertyName): bool
     {
         foreach ($this->disallowedPropertyPrefixes as $property) {
             if (substr($propertyName, 0, strlen($property)) == $property) {

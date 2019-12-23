@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition that tests the OS type.
  *
@@ -32,17 +34,25 @@ class OsCondition implements Condition
 
     private const DARWIN = 'darwin';
 
+    /**
+     * @var string
+     */
     private $family;
 
     /**
      * @param string $f
+     *
+     * @return void
      */
-    public function setFamily($f)
+    public function setFamily(string $f): void
     {
         $this->family = strtolower($f);
     }
 
-    public function evaluate()
+    /**
+     * @return bool
+     */
+    public function evaluate(): bool
     {
         return self::isOS($this->family);
     }
@@ -55,7 +65,7 @@ class OsCondition implements Condition
      *
      * @return true if the OS matches
      */
-    public static function isFamily($family)
+    public static function isFamily(string $family): bool
     {
         return self::isOS($family);
     }
@@ -67,14 +77,14 @@ class OsCondition implements Condition
      *
      * @throws BuildException
      */
-    public static function isOS($family)
+    public static function isOS(string $family): bool
     {
         $osName = strtolower(Phing::getProperty('os.name'));
 
         if ($family !== null) {
             $isWindows = StringHelper::startsWith('win', $osName);
 
-            if ($family === 'windows') {
+            if ($family === self::FAMILY_WINDOWS) {
                 return $isWindows;
             }
 

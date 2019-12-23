@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Test cases for symlink selectors.
  *
@@ -24,25 +26,37 @@
  */
 class SymlinkSelectorTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/SymlinkSelectorTest.xml'
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testAsFalseConditions()
+    /**
+     * @return void
+     */
+    public function testAsFalseConditions(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');
     }
 
-    public function testAsTrueConditions()
+    /**
+     * @return void
+     */
+    public function testAsTrueConditions(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('selected');

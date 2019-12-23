@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg add
  *
@@ -39,8 +41,12 @@ class HgAddTask extends HgBaseTask
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $filesAdded = false;
         $clone      = $this->getFactoryInstance('add');
@@ -122,12 +128,12 @@ class HgAddTask extends HgBaseTask
      *
      * @return void
      */
-    public function loadIgnoreFile()
+    public function loadIgnoreFile(): void
     {
         $ignores = [];
         $lines   = file('.hgignore');
         foreach ($lines as $line) {
-            $nline     =  trim($line);
+            $nline     =  trim((string) $line);
             $nline     = preg_replace('/\/\*$/', '/', $nline);
             $ignores[] = $nline;
         }
@@ -141,7 +147,7 @@ class HgAddTask extends HgBaseTask
      *
      * @return bool
      */
-    public function fileIsIgnored($file)
+    public function fileIsIgnored(string $file): bool
     {
         $line    = $this->ignoreFile[0];
         $mode    = 'regexp';
@@ -167,7 +173,7 @@ class HgAddTask extends HgBaseTask
      *
      * @return bool
      */
-    public function ignoredByGlob($file)
+    public function ignoredByGlob(string $file): bool
     {
         $lfile = $file;
         if (strpos($lfile, './') === 0) {
@@ -188,7 +194,7 @@ class HgAddTask extends HgBaseTask
      *
      * @return bool
      */
-    public function ignoredByRegex($file)
+    public function ignoredByRegex(string $file): bool
     {
         return true;
     }

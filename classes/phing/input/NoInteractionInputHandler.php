@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Plugin to Phing to disable user input.
  *
@@ -24,7 +26,12 @@
  */
 class NoInteractionInputHandler implements InputHandler
 {
-    public function handleInput(InputRequest $inputRequest)
+    /**
+     * @param InputRequest $inputRequest
+     *
+     * @return void
+     */
+    public function handleInput(InputRequest $inputRequest): void
     {
         $defaultValue = $inputRequest->getDefaultValue();
         $inputRequest->setInput($defaultValue);

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the PropertyRegexTask Task
  *
@@ -25,7 +27,13 @@
  */
 class VariableTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/VariableTest.xml'
@@ -33,9 +41,11 @@ class VariableTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @requires PHP > 5.3
      */
-    public function testVariable()
+    public function testVariable(): void
     {
         $this->executeTarget(__FUNCTION__);
 

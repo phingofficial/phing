@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Interface for elements that want to be able to create custom child elements
  * at runtime.
@@ -34,5 +36,5 @@ interface CustomChildCreator
      *
      * @return object  Returns the nested element
      */
-    public function customChildCreator($elementName, Project $project);
+    public function customChildCreator(string $elementName, Project $project);
 }

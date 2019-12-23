@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This class is a wrapper for the PHP's internal expat parser.
  *
@@ -48,6 +50,9 @@ class ExpatParser extends AbstractSAXParser
      */
     private $file;
 
+    /**
+     * @var int
+     */
     private $buffer = 4096;
 
     /**
@@ -62,12 +67,12 @@ class ExpatParser extends AbstractSAXParser
      * for the file to be parsed. It sets up php's internal expat parser
      * and options.
      *
-     * @param Reader $reader   The Reader Object that is to be read from.
-     * @param string $filename Filename to read.
+     * @param Reader      $reader   The Reader Object that is to be read from.
+     * @param string|null $filename Filename to read.
      *
      * @throws Exception if the given argument is not a PhingFile object
      */
-    public function __construct(Reader $reader, $filename = null)
+    public function __construct(Reader $reader, ?string $filename = null)
     {
         $this->reader = $reader;
         if ($filename !== null) {
@@ -89,7 +94,7 @@ class ExpatParser extends AbstractSAXParser
      *
      * @return bool true if the option could be set, otherwise false
      */
-    public function parserSetOption($opt, $val)
+    public function parserSetOption(int $opt, $val): bool
     {
         return xml_parser_set_option($this->parser, $opt, $val);
     }
@@ -100,7 +105,7 @@ class ExpatParser extends AbstractSAXParser
      *
      * @return Location the location of the current parser
      */
-    public function getLocation()
+    public function getLocation(): Location
     {
         if ($this->file !== null) {
             $path = $this->file->getRealPath() !== false ? $this->file->getRealPath() : null;
@@ -126,7 +131,7 @@ class ExpatParser extends AbstractSAXParser
      * @throws ExpatParseException if something gone wrong during parsing
      * @throws IOException         if XML file can not be accessed
      */
-    public function parse()
+    public function parse(): int
     {
         while (($data = $this->reader->read()) !== -1) {
             if (!xml_parse($this->parser, $data, $this->reader->eof())) {

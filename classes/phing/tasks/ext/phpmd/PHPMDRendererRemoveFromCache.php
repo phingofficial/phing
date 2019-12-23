@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,6 +16,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
 
 use PHPMD\AbstractRenderer;
 use PHPMD\Report;
@@ -42,7 +43,7 @@ class PHPMDRendererRemoveFromCache extends AbstractRenderer
      *
      * @param DataStore $cache
      */
-    public function __construct($cache)
+    public function __construct(DataStore $cache)
     {
         $this->cache = $cache;
     }
@@ -54,8 +55,10 @@ class PHPMDRendererRemoveFromCache extends AbstractRenderer
      * @param Report $report
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function renderReport(Report $report)
+    public function renderReport(Report $report): void
     {
         foreach ($report->getRuleViolations() as $violation) {
             $fileName = $violation->getFileName();

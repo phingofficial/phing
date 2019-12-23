@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A phing copy task.  Copies a file or directory to a new file
  * or directory.  Files are only copied if the source file is newer
@@ -46,11 +48,30 @@ class CopyTask extends Task
      */
     protected $destDir = null; // the destination dir (from xml attribute)
 
-    protected $overwrite           = false; // overwrite destination (from xml attribute)
-    protected $preserveLMT         = false; // sync timestamps (from xml attribute)
+    /**
+     * @var bool
+     */
+    protected $overwrite = false; // overwrite destination (from xml attribute)
+
+    /**
+     * @var bool
+     */
+    protected $preserveLMT = false; // sync timestamps (from xml attribute)
+
+    /**
+     * @var bool
+     */
     protected $preservePermissions = true; // sync permissions (from xml attribute)
-    protected $includeEmpty        = true; // include empty dirs? (from XML)
-    protected $flatten             = false; // apply the FlattenMapper right way (from XML)
+
+    /**
+     * @var bool
+     */
+    protected $includeEmpty = true; // include empty dirs? (from XML)
+
+    /**
+     * @var bool
+     */
+    protected $flatten = false; // apply the FlattenMapper right way (from XML)
 
     /**
      * @var Mapper
@@ -78,6 +99,9 @@ class CopyTask extends Task
      */
     protected $haltonerror = true; // stop build on errors
 
+    /**
+     * @var bool
+     */
     protected $enableMultipleMappings = false;
 
     /**
@@ -100,7 +124,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setOverwrite($bool)
+    public function setOverwrite(bool $bool): void
     {
         $this->overwrite = (bool) $bool;
     }
@@ -114,8 +138,10 @@ class CopyTask extends Task
      *
      * @param bool $flatten if true flatten the destination directory. Default
      *                is false.
+     *
+     * @return void
      */
-    public function setFlatten($flatten)
+    public function setFlatten(bool $flatten): void
     {
         $this->flatten = $flatten;
     }
@@ -124,8 +150,10 @@ class CopyTask extends Task
      * Used to force listing of all names of copied files.
      *
      * @param bool $verbosity
+     *
+     * @return void
      */
-    public function setVerbose($verbosity)
+    public function setVerbose(bool $verbosity): void
     {
         if ($verbosity) {
             $this->verbosity = Project::MSG_INFO;
@@ -138,8 +166,10 @@ class CopyTask extends Task
      * @see CopyTask::setPreserveLastModified
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setTstamp($bool)
+    public function setTstamp(bool $bool): void
     {
         $this->setPreserveLastModified($bool);
     }
@@ -153,7 +183,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setPreserveLastModified($bool)
+    public function setPreserveLastModified(bool $bool): void
     {
         $this->preserveLMT = (bool) $bool;
     }
@@ -167,15 +197,17 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setPreservepermissions($bool)
+    public function setPreservepermissions(bool $bool): void
     {
         $this->preservePermissions = (bool) $bool;
     }
 
     /**
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setPreservemode($bool)
+    public function setPreservemode(bool $bool): void
     {
         $this->setPreservepermissions($bool);
     }
@@ -189,7 +221,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setIncludeEmptyDirs($bool)
+    public function setIncludeEmptyDirs(bool $bool): void
     {
         $this->includeEmpty = (bool) $bool;
     }
@@ -203,7 +235,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -217,7 +249,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setTofile(PhingFile $file)
+    public function setTofile(PhingFile $file): void
     {
         $this->destFile = $file;
     }
@@ -230,7 +262,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setMode($mode)
+    public function setMode(int $mode): void
     {
         $this->mode = (int) base_convert($mode, 8, 10);
     }
@@ -244,17 +276,25 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setTodir(PhingFile $dir)
+    public function setTodir(PhingFile $dir): void
     {
         $this->destDir = $dir;
     }
 
-    public function setEnableMultipleMappings($enableMultipleMappings)
+    /**
+     * @param bool $enableMultipleMappings
+     *
+     * @return void
+     */
+    public function setEnableMultipleMappings(bool $enableMultipleMappings): void
     {
         $this->enableMultipleMappings = (bool) $enableMultipleMappings;
     }
 
-    public function isEnabledMultipleMappings()
+    /**
+     * @return bool
+     */
+    public function isEnabledMultipleMappings(): bool
     {
         return $this->enableMultipleMappings;
     }
@@ -267,7 +307,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    public function setHaltonerror($haltonerror)
+    public function setHaltonerror(bool $haltonerror): void
     {
         $this->haltonerror = (bool) $haltonerror;
     }
@@ -279,7 +319,7 @@ class CopyTask extends Task
      *
      * @throws BuildException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException('Cannot define more than one mapper', $this->getLocation());
@@ -294,9 +334,12 @@ class CopyTask extends Task
      *
      * @return void
      *
+     * @throws IOException
      * @throws BuildException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->validateAttributes();
 
@@ -400,8 +443,10 @@ class CopyTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    protected function validateAttributes()
+    protected function validateAttributes(): void
     {
         if ($this->file === null && count($this->dirsets) === 0 && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException('CopyTask. Specify at least one source - a file, fileset or filelist.');
@@ -438,8 +483,12 @@ class CopyTask extends Task
      * @param iterable  $dirs
      *
      * @return void
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function _scan(&$fromDir, &$toDir, &$files, &$dirs)
+    private function _scan(&$fromDir, &$toDir, &$files, &$dirs): void
     {
         /* mappers should be generic, so we get the mappers here and
         pass them on to buildMap. This method is not redundant like it seems */
@@ -452,6 +501,11 @@ class CopyTask extends Task
         }
     }
 
+    /**
+     * @return ContainerMapper|FileNameMapper|FlattenMapper|IdentityMapper|null
+     *
+     * @throws ConfigurationException
+     */
     private function getMapper()
     {
         $mapper = null;
@@ -475,8 +529,11 @@ class CopyTask extends Task
      * @param array          $map
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function buildMap(&$fromDir, &$toDir, &$names, &$mapper, &$map)
+    private function buildMap(PhingFile $fromDir, PhingFile $toDir, iterable &$names, FileNameMapper $mapper, array &$map): void
     {
         $toCopy = null;
         if ($this->overwrite) {
@@ -520,8 +577,11 @@ class CopyTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    protected function doWork()
+    protected function doWork(): void
     {
         // These "slots" allow filters to retrieve information about the currently-being-process files
         $fromSlot         = $this->getRegisterSlot('currentFromFile');
@@ -612,17 +672,22 @@ class CopyTask extends Task
      * @param RegisterSlot $toBasenameSlot
      * @param int          $count
      * @param int          $total
+     *
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws Exception
      */
     private function copyToSingleDestination(
-        $from,
-        $to,
-        $fromSlot,
-        $fromBasenameSlot,
-        $toSlot,
-        $toBasenameSlot,
-        &$count,
-        &$total
-    ) {
+        string $from,
+        string $to,
+        RegisterSlot $fromSlot,
+        RegisterSlot $fromBasenameSlot,
+        RegisterSlot $toSlot,
+        RegisterSlot $toBasenameSlot,
+        int &$count,
+        int &$total
+    ): void {
         if ($from === $to) {
             $this->log('Skipping self-copy of ' . $from, $this->verbosity);
             $total--;
@@ -660,9 +725,12 @@ class CopyTask extends Task
      * @param string $message
      * @param null   $location
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function logError($message, $location = null)
+    protected function logError(string $message, $location = null): void
     {
         if ($this->haltonerror) {
             throw new BuildException($message, $location);

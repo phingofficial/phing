@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Generic option class is used for non-complex options.
  *
@@ -24,39 +26,58 @@
  */
 class PearPkgOption
 {
+    /**
+     * @var string|null
+     */
     private $name;
+
+    /**
+     * @var string|null
+     */
     private $value;
 
     /**
      * @param string $v
+     *
+     * @return void
      */
-    public function setName($v)
+    public function setName(string $v): void
     {
         $this->name = $v;
     }
 
-    public function getName()
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $v
+     * @param string $v
+     *
+     * @return void
      */
-    public function setValue($v)
+    public function setValue(string $v): void
     {
         $this->value = $v;
     }
 
-    public function getValue()
+    /**
+     * @return string|null
+     */
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
     /**
      * @param string $txt
+     *
+     * @return void
      */
-    public function addText($txt)
+    public function addText(string $txt): void
     {
         $this->value = trim($txt);
     }

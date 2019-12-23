@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Downloads an object off S3
  *
@@ -31,7 +33,7 @@ class S3GetTask extends S3
      *
      * (default value: null)
      *
-     * @var mixed
+     * @var string
      */
     protected $objectTarget = null;
 
@@ -40,16 +42,18 @@ class S3GetTask extends S3
      *
      * (default value: null)
      *
-     * @var mixed
+     * @var string
      */
     protected $object = null;
 
     /**
      * @param string $object
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setObject($object)
+    public function setObject(string $object): void
     {
         if (empty($object) || !is_string($object)) {
             throw new BuildException('Object must be a non-empty string');
@@ -59,11 +63,11 @@ class S3GetTask extends S3
     }
 
     /**
-     * @return mixed
+     * @return string
      *
      * @throws BuildException
      */
-    public function getObject()
+    public function getObject(): string
     {
         if ($this->object === null) {
             throw new BuildException('Object is not set');
@@ -75,9 +79,11 @@ class S3GetTask extends S3
     /**
      * @param string $target
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
         if (!is_file($target) && !is_dir($target) && !is_link($target)) {
             if (!is_writable(dirname($target))) {
@@ -93,11 +99,11 @@ class S3GetTask extends S3
     }
 
     /**
-     * @return mixed
+     * @return string
      *
      * @throws BuildException
      */
-    public function getTarget()
+    public function getTarget(): string
     {
         if ($this->objectTarget === null) {
             throw new BuildException('Target is not set');
@@ -106,7 +112,10 @@ class S3GetTask extends S3
         return $this->objectTarget;
     }
 
-    public function execute()
+    /**
+     * @return void
+     */
+    public function execute(): void
     {
         $target = $this->getTarget();
 

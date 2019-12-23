@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
  *
@@ -52,19 +54,28 @@ class AppendTask extends Task
 
     /**
      * Append stuff to this file.
+     *
+     * @var PhingFile
      */
     private $to;
 
     /**
      * Explicit file to append.
+     *
+     * @var PhingFile
      */
     private $file;
 
     /**
      * Text to append. (cannot be used in conjunction w/ files or filesets)
+     *
+     * @var string
      */
     private $text;
 
+    /**
+     * @var bool
+     */
     private $filtering = true;
 
     /**
@@ -77,26 +88,42 @@ class AppendTask extends Task
      */
     private $footer;
 
+    /**
+     * @var bool
+     */
     private $append = true;
 
+    /**
+     * @var bool
+     */
     private $fixLastLine = false;
 
+    /**
+     * @var bool
+     */
     private $overwrite = true;
 
+    /**
+     * @var string
+     */
     private $eolString;
 
     /**
      * @param bool $filtering
+     *
+     * @return void
      */
-    public function setFiltering(bool $filtering)
+    public function setFiltering(bool $filtering): void
     {
         $this->filtering = $filtering;
     }
 
     /**
      * @param bool $overwrite
+     *
+     * @return void
      */
-    public function setOverwrite($overwrite)
+    public function setOverwrite(bool $overwrite): void
     {
         $this->overwrite = $overwrite;
     }
@@ -108,7 +135,7 @@ class AppendTask extends Task
      *
      * @return void
      */
-    public function setDestFile(PhingFile $f)
+    public function setDestFile(PhingFile $f): void
     {
         $this->to = $f;
     }
@@ -120,8 +147,10 @@ class AppendTask extends Task
      * overwritten. Defaults to <code>false</code>.
      *
      * @param bool $append if true append output.
+     *
+     * @return void
      */
-    public function setAppend($append)
+    public function setAppend(bool $append): void
     {
         $this->append = $append;
     }
@@ -133,8 +162,10 @@ class AppendTask extends Task
      *
      * @param string $crlf the type of new line to add -
      *              cr, mac, lf, unix, crlf, or dos
+     *
+     * @return void
      */
-    public function setEol($crlf)
+    public function setEol(string $crlf): void
     {
         $s = $crlf;
         if ($s === 'cr' || $s === 'mac') {
@@ -152,13 +183,20 @@ class AppendTask extends Task
      * Sets specific file to append.
      *
      * @param PhingFile $f
+     *
+     * @return void
      */
-    public function setFile(PhingFile $f)
+    public function setFile(PhingFile $f): void
     {
         $this->file = $f;
     }
 
-    public function createPath()
+    /**
+     * @return Path
+     *
+     * @throws Exception
+     */
+    public function createPath(): Path
     {
         $path             = new Path($this->getProject());
         $this->filesets[] = $path;
@@ -172,7 +210,7 @@ class AppendTask extends Task
      *
      * @return void
      */
-    public function setText($txt)
+    public function setText(string $txt): void
     {
         $this->text = (string) $txt;
     }
@@ -184,17 +222,27 @@ class AppendTask extends Task
      *
      * @return void
      */
-    public function addText($txt)
+    public function addText(string $txt): void
     {
         $this->text .= (string) $txt;
     }
 
-    public function addHeader(TextElement $headerToAdd)
+    /**
+     * @param TextElement $headerToAdd
+     *
+     * @return void
+     */
+    public function addHeader(TextElement $headerToAdd): void
     {
         $this->header = $headerToAdd;
     }
 
-    public function addFooter(TextElement $footerToAdd)
+    /**
+     * @param TextElement $footerToAdd
+     *
+     * @return void
+     */
+    public function addFooter(TextElement $footerToAdd): void
     {
         $this->footer = $footerToAdd;
     }
@@ -205,18 +253,23 @@ class AppendTask extends Task
      *
      * @param bool $fixLastLine if true make sure each input file has
      *                          new line on the concatenated stream
+     *
+     * @return void
      */
-    public function setFixLastLine($fixLastLine)
+    public function setFixLastLine(bool $fixLastLine): void
     {
         $this->fixLastLine = $fixLastLine;
     }
 
     /**
      * Append the file(s).
-     *
      * {@inheritdoc}
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function main()
+    public function main(): void
     {
         $this->validate();
 
@@ -292,7 +345,15 @@ class AppendTask extends Task
         $writer->close();
     }
 
-    private function appendHeader($string)
+    /**
+     * @param string $string
+     *
+     * @return string
+     *
+     * @throws IOException
+     * @throws Exception
+     */
+    private function appendHeader(string $string): string
     {
         $result = $string;
         if ($this->header !== null) {
@@ -308,7 +369,15 @@ class AppendTask extends Task
         return $result;
     }
 
-    private function appendFooter($string)
+    /**
+     * @param string $string
+     *
+     * @return string
+     *
+     * @throws IOException
+     * @throws Exception
+     */
+    private function appendFooter(string $string): string
     {
         $result = $string;
         if ($this->footer !== null) {
@@ -323,7 +392,10 @@ class AppendTask extends Task
         return $result;
     }
 
-    private function validate()
+    /**
+     * @return void
+     */
+    private function validate(): void
     {
         $this->sanitizeText();
 
@@ -340,14 +412,24 @@ class AppendTask extends Task
         }
     }
 
-    private function sanitizeText()
+    /**
+     * @return void
+     */
+    private function sanitizeText(): void
     {
         if ($this->text !== null && '' === trim($this->text)) {
             $this->text = null;
         }
     }
 
-    private function getFilteredReader(Reader $r)
+    /**
+     * @param Reader $r
+     *
+     * @return Reader
+     *
+     * @throws Exception
+     */
+    private function getFilteredReader(Reader $r): Reader
     {
         return FileUtils::getChainedReader($r, $this->filterChains, $this->getProject());
     }
@@ -355,13 +437,15 @@ class AppendTask extends Task
     /**
      * Append an array of files in a directory.
      *
-     * @param Writer    $writer The FileWriter that is appending to target file.
-     * @param array     $files  array of files to delete; can be of zero length
-     * @param PhingFile $dir    directory to work from
+     * @param Writer         $writer The FileWriter that is appending to target file.
+     * @param array          $files  array of files to delete; can be of zero length
+     * @param PhingFile|null $dir    directory to work from
      *
      * @return void
+     *
+     * @throws Exception
      */
-    private function appendFiles(Writer $writer, $files, ?PhingFile $dir = null)
+    private function appendFiles(Writer $writer, array $files, ?PhingFile $dir = null): void
     {
         if (!empty($files)) {
             $this->log(
@@ -400,7 +484,17 @@ class AppendTask extends Task
         }
     }
 
-    private function checkFilename($filename, $dir = null)
+    /**
+     * @param string         $filename
+     * @param PhingFile|null $dir
+     *
+     * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
+     */
+    private function checkFilename(string $filename, ?PhingFile $dir = null): bool
     {
         if ($dir !== null) {
             $f = new PhingFile($dir, $filename);
@@ -434,12 +528,15 @@ class AppendTask extends Task
     }
 
     /**
-     * @param FileWriter $writer
-     * @param PhingFile  $f
+     * @param Writer    $writer
+     * @param PhingFile $f
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws Exception
      */
-    private function appendFile(Writer $writer, PhingFile $f)
+    private function appendFile(Writer $writer, PhingFile $f): void
     {
         $in = $this->getFilteredReader(new FileReader($f));
 

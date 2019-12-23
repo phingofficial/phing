@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A selector that selects files based on their POSIX permissions.
  *
@@ -32,6 +34,8 @@ class PosixPermissionsSelector implements FileSelector
      * Sets the permissions to look for.
      *
      * @param string $permissions the permissions string (rwxrwxrwx or octal)
+     *
+     * @return void
      */
     public function setPermissions(string $permissions): void
     {
@@ -62,6 +66,11 @@ class PosixPermissionsSelector implements FileSelector
         );
     }
 
+    /**
+     * @param string $permissions
+     *
+     * @return void
+     */
     private function validate(string $permissions): void
     {
         if (
@@ -72,7 +81,14 @@ class PosixPermissionsSelector implements FileSelector
         }
     }
 
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file): bool
+    /**
+     * @param PhingFile $basedir
+     * @param string    $filename
+     * @param PhingFile $file
+     *
+     * @return bool
+     */
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         if ($this->permissions === null) {
             throw new BuildException('the permissions attribute is required');

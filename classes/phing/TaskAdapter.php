@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with
  * similar patterns).
@@ -29,6 +31,8 @@ class TaskAdapter extends Task
 {
     /**
      * target object
+     *
+     * @var object
      */
     private $proxy;
 
@@ -40,7 +44,7 @@ class TaskAdapter extends Task
      * @throws BuildException
      * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (method_exists($this->proxy, 'setLocation')) {
             try { // try to set location
@@ -81,7 +85,7 @@ class TaskAdapter extends Task
      *
      * @return void
      */
-    public function setProxy($o)
+    public function setProxy($o): void
     {
         $this->proxy = $o;
     }

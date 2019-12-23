@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Creates a zip archive using PHP ZipArchive extension/
  *
@@ -38,17 +40,25 @@ class ZipTask extends MatchingTask
 
     /**
      * Whether to include empty dirs in the archive.
+     *
+     * @var bool
      */
     private $includeEmpty = true;
 
+    /**
+     * @var ZipFileSet[]
+     */
     private $filesets = [];
 
+    /**
+     * @var bool
+     */
     private $ignoreLinks = false;
 
     /**
      * File path prefix in zip archive
      *
-     * @var string
+     * @var string|null
      */
     private $prefix = null;
 
@@ -64,7 +74,7 @@ class ZipTask extends MatchingTask
      *
      * @return ZipFileSet
      */
-    public function createFileSet()
+    public function createFileSet(): ZipFileSet
     {
         $this->fileset    = new ZipFileSet();
         $this->filesets[] = $this->fileset;
@@ -76,8 +86,10 @@ class ZipTask extends MatchingTask
      * Add a new fileset.
      *
      * @param ZipFileSet $fileset
+     *
+     * @return void
      */
-    public function addZipFileSet(ZipFileSet $fileset)
+    public function addZipFileSet(ZipFileSet $fileset): void
     {
         $this->filesets[] = $fileset;
     }
@@ -86,8 +98,10 @@ class ZipTask extends MatchingTask
      * Set is the name/location of where to create the zip file.
      *
      * @param PhingFile $destFile The output of the zip
+     *
+     * @return void
      */
-    public function setDestFile(PhingFile $destFile)
+    public function setDestFile(PhingFile $destFile): void
     {
         $this->zipFile = $destFile;
     }
@@ -96,8 +110,10 @@ class ZipTask extends MatchingTask
      * This is the base directory to look in for things to zip.
      *
      * @param PhingFile $baseDir
+     *
+     * @return void
      */
-    public function setBasedir(PhingFile $baseDir)
+    public function setBasedir(PhingFile $baseDir): void
     {
         $this->baseDir = $baseDir;
     }
@@ -109,7 +125,7 @@ class ZipTask extends MatchingTask
      *
      * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
     }
@@ -121,7 +137,7 @@ class ZipTask extends MatchingTask
      *
      * @return void
      */
-    public function setIncludeEmptyDirs($bool)
+    public function setIncludeEmptyDirs(bool $bool): void
     {
         $this->includeEmpty = (bool) $bool;
     }
@@ -133,7 +149,7 @@ class ZipTask extends MatchingTask
      *
      * @return void
      */
-    public function setIgnoreLinks($bool)
+    public function setIgnoreLinks(bool $bool): void
     {
         $this->ignoreLinks = (bool) $bool;
     }
@@ -145,7 +161,7 @@ class ZipTask extends MatchingTask
      *
      * @return void
      */
-    public function setComment($text)
+    public function setComment(string $text): void
     {
         $this->comment = $text;
     }
@@ -153,9 +169,14 @@ class ZipTask extends MatchingTask
     /**
      * do the work
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!extension_loaded('zip')) {
             throw new BuildException('Zip extension is required');
@@ -232,12 +253,15 @@ class ZipTask extends MatchingTask
     }
 
     /**
-     * @param array     $files array of filenames
+     * @param iterable  $files array of filenames
      * @param PhingFile $dir
      *
      * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function archiveIsUpToDate($files, $dir)
+    private function archiveIsUpToDate(iterable $files, PhingFile $dir): bool
     {
         $sfs = new SourceFileScanner($this);
         $mm  = new MergeMapper();
@@ -247,11 +271,14 @@ class ZipTask extends MatchingTask
     }
 
     /**
-     * @return array
+     * @return bool
      *
      * @throws BuildException
+     * @throws ReflectionException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function areFilesetsUpToDate()
+    public function areFilesetsUpToDate(): bool
     {
         /**
          * @var FileSet $fs
@@ -272,8 +299,14 @@ class ZipTask extends MatchingTask
 
     /**
      * @param ZipArchive $zip
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    private function addFilesetsToArchive($zip)
+    private function addFilesetsToArchive(ZipArchive $zip): void
     {
         foreach ($this->filesets as $fs) {
             $fsBasedir = null != $this->baseDir ? $this->baseDir :
@@ -285,7 +318,7 @@ class ZipTask extends MatchingTask
                 $f = new PhingFile($fsBasedir, $file);
 
                 $pathInZip = $this->prefix
-                    . $f->getPathWithoutBase($fsBasedir);
+                    . $f->getPathWithoutBase((string) $fsBasedir);
 
                 $pathInZip = str_replace('\\', '/', $pathInZip);
 

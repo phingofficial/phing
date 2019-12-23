@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the FilesMatch Condition
  *
@@ -25,26 +27,41 @@
  */
 class FilesMatchTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/FilesMatchTest.xml'
         );
     }
 
-    public function testFileMatches()
+    /**
+     * @return void
+     */
+    public function testFileMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('matches');
     }
 
-    public function testNoFileMatches()
+    /**
+     * @return void
+     */
+    public function testNoFileMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');
     }
 
-    public function testDirectoryMatches()
+    /**
+     * @return void
+     */
+    public function testDirectoryMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('directory');

@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for EventObject
  *
@@ -31,23 +32,39 @@ class EventObjectTest extends TestCase
     /** @var EventObject */
     private $eventObject;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    protected function setUp(): void
     {
         $this->eventObject = new EventObject(new stdClass());
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         unset($this->eventObject);
     }
 
-    public function testEventObject()
+    /**
+     * @return void
+     */
+    public function testEventObject(): void
     {
-        $this->assertInstanceOf('stdClass', $this->eventObject->getSource());
-        $this->assertSame('EventObject[source=stdClass]', (string) $this->eventObject);
+        self::assertInstanceOf(stdClass::class, $this->eventObject->getSource());
+        self::assertSame('EventObject[source=stdClass]', (string) $this->eventObject);
     }
 
-    public function testEventObjectThrowsExceptionOnNull()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testEventObjectThrowsExceptionOnNull(): void
     {
         $this->expectException(Throwable::class);
         $this->expectExceptionMessage('Null source');

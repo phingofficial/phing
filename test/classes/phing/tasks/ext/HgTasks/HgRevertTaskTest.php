@@ -17,11 +17,19 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgRevertTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 
@@ -32,12 +40,18 @@ class HgRevertTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testFileNotSpecified()
+    /**
+     * @return void
+     */
+    public function testFileNotSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'fileNotSpecified',
@@ -48,14 +62,20 @@ class HgRevertTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testRevertAll()
+    /**
+     * @return void
+     */
+    public function testRevertAll(): void
     {
         $this->executeTarget('revertAll');
         $this->assertInLogs('Executing: hg revert --all', Project::MSG_INFO);
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testRevertAllRevSet()
+    /**
+     * @return void
+     */
+    public function testRevertAllRevSet(): void
     {
         $this->expectBuildExceptionContaining(
             'revertAllWithRevisionSet',

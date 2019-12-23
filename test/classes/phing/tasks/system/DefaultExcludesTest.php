@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the DefaultExcludes Task
  *
@@ -25,9 +27,10 @@
  */
 class DefaultExcludesTest extends BuildFileTest
 {
-    private $output;
-
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -36,16 +39,21 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
         $this->executeTarget('cleanup-excludes');
     }
 
     /**
+     * @return void
+     *
      * @requires PHPUnit < 8
      */
-    public function test1()
+    public function test1(): void
     {
         $expected = [
             '**/*~',
@@ -84,9 +92,11 @@ class DefaultExcludesTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @requires PHPUnit < 8
      */
-    public function test2()
+    public function test2(): void
     {
         $expected = [
             '**/*~',
@@ -126,9 +136,11 @@ class DefaultExcludesTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @requires PHPUnit < 8
      */
-    public function test3()
+    public function test3(): void
     {
         $expected = [
             '**/*~',
@@ -166,27 +178,36 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
     }
 
-    public function testCopyNoExplicitExcludes()
+    /**
+     * @return void
+     */
+    public function testCopyNoExplicitExcludes(): void
     {
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
-        $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileNotExists($output . '/.svn/entries');
+        self::assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
+        self::assertFileNotExists($output . '/.svn/entries');
     }
 
-    public function testCopyExplicitExcludes()
+    /**
+     * @return void
+     */
+    public function testCopyExplicitExcludes(): void
     {
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
-        $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileNotExists($output . '/.svn/entries');
+        self::assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
+        self::assertFileNotExists($output . '/.svn/entries');
     }
 
-    public function testCopyExplicitNoExcludes()
+    /**
+     * @return void
+     */
+    public function testCopyExplicitNoExcludes(): void
     {
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
-        $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileExists($output . '/.svn/entries');
+        self::assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
+        self::assertFileExists($output . '/.svn/entries');
     }
 }

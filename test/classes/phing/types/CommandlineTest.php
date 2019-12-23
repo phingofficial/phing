@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for mappers.
  *
@@ -34,14 +35,18 @@ class CommandlineTest extends TestCase
      */
     private $cmd;
 
-    //private $project;
-
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->cmd = new Commandline();
     }
 
-    public function testTranslateCommandline()
+    /**
+     * @return void
+     */
+    public function testTranslateCommandline(): void
     {
         // This should work fine; we expect 5 args
         $cmd1 = 'cvs -d:pserver:hans@xmpl.org:/cvs commit -m "added a new test file" Test.php';
@@ -78,18 +83,24 @@ class CommandlineTest extends TestCase
         new Commandline($cmd4);
     }
 
-    public function testCreateMarkerWithArgument()
+    /**
+     * @return void
+     */
+    public function testCreateMarkerWithArgument(): void
     {
         $this->cmd->addArguments(['foo']);
         $marker = $this->cmd->createMarker();
-        self::assertInstanceOf('CommandlineMarker', $marker);
-        self::assertEquals(1, $marker->getPosition());
+        $this->assertInstanceOf('CommandlineMarker', $marker);
+        $this->assertEquals(1, $marker->getPosition());
     }
 
-    public function testCreateMarkerWithoutArgument()
+    /**
+     * @return void
+     */
+    public function testCreateMarkerWithoutArgument(): void
     {
         $marker = $this->cmd->createMarker();
-        self::assertInstanceOf('CommandlineMarker', $marker);
-        self::assertEquals(0, $marker->getPosition());
+        $this->assertInstanceOf('CommandlineMarker', $marker);
+        $this->assertEquals(0, $marker->getPosition());
     }
 }

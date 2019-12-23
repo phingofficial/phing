@@ -17,12 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Test cases for different selectors.
  */
 class DifferentSelectorTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/DifferentSelectorTest.xml'
@@ -30,12 +35,18 @@ class DifferentSelectorTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testSameTime()
+    /**
+     * @return void
+     */
+    public function testSameTime(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
@@ -43,7 +54,10 @@ class DifferentSelectorTest extends BuildFileTest
         $this->assertFileNotExists($result . '/a.txt');
     }
 
-    public function testDifferentTime()
+    /**
+     * @return void
+     */
+    public function testDifferentTime(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();

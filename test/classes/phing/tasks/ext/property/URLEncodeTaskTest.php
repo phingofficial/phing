@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the URLEncode Task
  *
@@ -25,20 +27,32 @@
  */
 class URLEncodeTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/URLEncodeTaskTest.xml'
         );
     }
 
-    public function testURLEncodeTask()
+    /**
+     * @return void
+     */
+    public function testURLEncodeTask(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test1', '%C3%B6%C3%B6%C3%B6%C3%B6');
     }
 
-    public function testRefid()
+    /**
+     * @return void
+     */
+    public function testRefid(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test2', '%C3%BC%C3%BC%C3%BC%C3%BC');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the IsPropertyFalse Condition
  *
@@ -25,20 +27,32 @@
  */
 class IsPropertyFalseConditionTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/IsPropertyTrueFalseTest.xml'
         );
     }
 
-    public function testIsPropertyFalse()
+    /**
+     * @return void
+     */
+    public function testIsPropertyFalse(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('IsFalse');
     }
 
-    public function testIsPropertyNotFalse()
+    /**
+     * @return void
+     */
+    public function testIsPropertyNotFalse(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('IsNotFalse');

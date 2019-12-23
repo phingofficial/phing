@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Alters the default excludes for the <strong>entire</strong> build.
  *
@@ -55,9 +57,12 @@ class DefaultExcludes extends Task
     /**
      * Does the work.
      *
+     * @return void
+     *
      * @throws BuildException if something goes wrong with the build
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!$this->defaultrequested && $this->add === '' && $this->remove === '' && !$this->echo) {
             throw new BuildException(
@@ -89,8 +94,10 @@ class DefaultExcludes extends Task
      * go back to standard default patterns
      *
      * @param bool $def if true go back to default patterns
+     *
+     * @return void
      */
-    public function setDefault($def)
+    public function setDefault(bool $def): void
     {
         $this->defaultrequested = $def;
     }
@@ -99,8 +106,10 @@ class DefaultExcludes extends Task
      * Pattern to add to the default excludes
      *
      * @param string $add Sets the value for the pattern to exclude.
+     *
+     * @return void
      */
-    public function setAdd($add)
+    public function setAdd(string $add): void
     {
         $this->add = $add;
     }
@@ -110,8 +119,10 @@ class DefaultExcludes extends Task
      *
      * @param string $remove Sets the value for the pattern that
      *                       should no longer be excluded.
+     *
+     * @return void
      */
-    public function setRemove($remove)
+    public function setRemove(string $remove): void
     {
         $this->remove = $remove;
     }
@@ -119,10 +130,12 @@ class DefaultExcludes extends Task
     /**
      * If true, echo the default excludes.
      *
-     * @param bool $echo whether or not to echo the contents of
-     * the default excludes.
+     * @param bool $echo Whether or not to echo the contents of
+     *                   the default excludes.
+     *
+     * @return void
      */
-    public function setEcho($echo)
+    public function setEcho(bool $echo): void
     {
         $this->echo = $echo;
     }

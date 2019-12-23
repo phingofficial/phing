@@ -14,6 +14,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * InifileSet
  *
@@ -29,28 +31,28 @@ class IniFileSet
     /**
      * Property
      *
-     * @var string
+     * @var string|null
      */
     protected $property = null;
 
     /**
      * Section
      *
-     * @var string
+     * @var string|null
      */
     protected $section = null;
 
     /**
      * Value
      *
-     * @var mixed
+     * @var string|null
      */
     protected $value = null;
 
     /**
      * Operation
      *
-     * @var mixed
+     * @var string|null
      */
     protected $operation = null;
 
@@ -61,7 +63,7 @@ class IniFileSet
      *
      * @return void
      */
-    public function setOperation($operation)
+    public function setOperation(string $operation): void
     {
         $this->operation = $operation;
     }
@@ -69,9 +71,9 @@ class IniFileSet
     /**
      * Get Operation
      *
-     * @return string
+     * @return string|null
      */
-    public function getOperation()
+    public function getOperation(): ?string
     {
         return $this->operation;
     }
@@ -83,7 +85,7 @@ class IniFileSet
      *
      * @return void
      */
-    public function setSection($section)
+    public function setSection(string $section): void
     {
         $this->section = trim($section);
     }
@@ -95,7 +97,7 @@ class IniFileSet
      *
      * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -107,7 +109,7 @@ class IniFileSet
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
@@ -115,9 +117,9 @@ class IniFileSet
     /**
      * Get Property
      *
-     * @return string
+     * @return string|null
      */
-    public function getProperty()
+    public function getProperty(): ?string
     {
         return $this->property;
     }
@@ -125,9 +127,9 @@ class IniFileSet
     /**
      * Get Value
      *
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -135,9 +137,9 @@ class IniFileSet
     /**
      * Get Section
      *
-     * @return string
+     * @return string|null
      */
-    public function getSection()
+    public function getSection(): ?string
     {
         return $this->section;
     }

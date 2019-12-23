@@ -29,7 +29,10 @@ class ScssPhpCompilerTest extends TestCase
     /** @var ScssPhpCompiler */
     private $compiler;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         if (!class_exists(Compiler::class)) {
             $this->markTestSkipped('ScssPhp not found');
@@ -38,7 +41,12 @@ class ScssPhpCompilerTest extends TestCase
         $this->compiler = new ScssPhpCompiler('compressed', 'UTF-8', false, '');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    protected function tearDown(): void
     {
         parent::tearDown();
         if (file_exists(self::SASS_TEST_BASE . 'test.css')) {
@@ -47,6 +55,9 @@ class ScssPhpCompilerTest extends TestCase
         }
     }
 
+    /**
+     * @return void
+     */
     public function testItProducesAnyCompiledOutput(): void
     {
         $this->compiler->compile(
@@ -55,9 +66,12 @@ class ScssPhpCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileExists(self::SASS_TEST_BASE . 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testItNotProducesAnyCompiledOutputWhenNoInput(): void
     {
         $this->compiler->compile(
@@ -66,9 +80,12 @@ class ScssPhpCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testItThrowsExceptionWhenFailOnErrorIsSet(): void
     {
         $this->expectException(BuildException::class);
@@ -79,6 +96,6 @@ class ScssPhpCompilerTest extends TestCase
             true
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        self::assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 }

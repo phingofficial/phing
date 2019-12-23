@@ -17,42 +17,54 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @requires extension xsl
  */
 class VisualizerTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
     /**
      * Test VisualizerTask with all the default values
+     *
+     * @return void
      */
-    public function testDefaultValues()
+    public function testDefaultValues(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
     }
 
     /**
      * Testing different diagram formats: png, puml, svg and eps
+     *
+     * @return void
      */
-    public function testFormat()
+    public function testFormat(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.puml');
         $this->assertInLogs('VisualizerTaskTest.svg');
@@ -65,8 +77,10 @@ class VisualizerTaskTest extends BuildFileTest
 
     /**
      * Test that an exception is raised when invalid format is used
+     *
+     * @return void
      */
-    public function testInvalidFormat()
+    public function testInvalidFormat(): void
     {
         $this->expectBuildException(__FUNCTION__, "'jpg' is not a valid format");
         $this->assertInLogs("'jpg' is not a valid format");
@@ -74,30 +88,36 @@ class VisualizerTaskTest extends BuildFileTest
 
     /**
      * Testing custom destination including filename
+     *
+     * @return void
      */
-    public function testDestinationFile()
+    public function testDestinationFile(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.png');
+        self::assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.png');
         $this->assertInLogs('my-diagram.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/my-diagram.png', 80000);
     }
 
     /**
      * Testing custom destination without filename
+     *
+     * @return void
      */
-    public function testDestinationDirectory()
+    public function testDestinationDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png', 80000);
     }
 
     /**
      * Testing that an exception is raised when an invalid directory is used as destination
+     *
+     * @return void
      */
-    public function testInvalidDestination()
+    public function testInvalidDestination(): void
     {
         $this->expectBuildException(__FUNCTION__, "Directory 'foo/bar/baz/' is invalid");
         $this->assertInLogs("Directory 'foo/bar/baz/' is invalid");
@@ -105,19 +125,23 @@ class VisualizerTaskTest extends BuildFileTest
 
     /**
      * Testing that a custom PlantUML server can be used
+     *
+     * @return void
      */
-    public function testCustomServer()
+    public function testCustomServer(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
+        self::assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
     }
 
     /**
      * Testing that exception is raised when an invalid URL is used
+     *
+     * @return void
      */
-    public function testInvalidServer()
+    public function testInvalidServer(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Invalid PlantUml server');
         $this->assertInLogs('Invalid PlantUml server');

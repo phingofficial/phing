@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the EchoProperties Task
  *
@@ -25,21 +27,30 @@
  */
 class EchoPropertiesTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/EchoPropertiesTest.xml'
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testEchoProperties()
+    /**
+     * @return void
+     */
+    public function testEchoProperties(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists($this->getProject()->getProperty('property.file'));
+        self::assertFileExists($this->getProject()->getProperty('property.file'));
     }
 }

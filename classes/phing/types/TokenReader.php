@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract class for TokenReaders.
  *
@@ -48,7 +50,7 @@ abstract class TokenReader
      *
      * @return void
      */
-    public function log($level, $msg)
+    public function log(string $level, int $msg): void
     {
         $this->project->log($level, $msg);
     }
@@ -56,9 +58,9 @@ abstract class TokenReader
     /**
      * Reads the next token from the Reader.
      *
-     * @return string
+     * @return Token|null
      *
-     * @throws IOException - On error
+     * @throws IOException On error
      */
-    abstract public function readToken();
+    abstract public function readToken(): ?Token;
 }

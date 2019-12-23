@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
@@ -50,7 +52,7 @@ class PharDataTask extends MatchingTask
     /**
      * @return FileSet
      */
-    public function createFileSet()
+    public function createFileSet(): FileSet
     {
         $this->fileset    = new FileSet();
         $this->filesets[] = $this->fileset;
@@ -61,8 +63,10 @@ class PharDataTask extends MatchingTask
      * Compression type (gzip, bzip2, none) to apply to the packed files.
      *
      * @param string $compression
+     *
+     * @return void
      */
-    public function setCompression($compression)
+    public function setCompression(string $compression): void
     {
         /**
          * If we don't support passed compression, leave old one.
@@ -83,8 +87,10 @@ class PharDataTask extends MatchingTask
      * Destination (output) file.
      *
      * @param PhingFile $destinationFile
+     *
+     * @return void
      */
-    public function setDestFile(PhingFile $destinationFile)
+    public function setDestFile(PhingFile $destinationFile): void
     {
         $this->destinationFile = $destinationFile;
     }
@@ -94,16 +100,21 @@ class PharDataTask extends MatchingTask
      * Paths with deleted basedir part are local paths in archive.
      *
      * @param PhingFile $baseDirectory
+     *
+     * @return void
      */
-    public function setBaseDir(PhingFile $baseDirectory)
+    public function setBaseDir(PhingFile $baseDirectory): void
     {
         $this->baseDirectory = $baseDirectory;
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->checkPreconditions();
 
@@ -118,6 +129,7 @@ class PharDataTask extends MatchingTask
              */
             if ($this->destinationFile->exists()) {
                 $this->destinationFile->delete();
+
                 if ($this->destinationFile->exists()) {
                     $this->log('Could not delete destination file ' . $this->destinationFile, Project::MSG_WARN);
                 }
@@ -131,7 +143,7 @@ class PharDataTask extends MatchingTask
                     Project::MSG_VERBOSE
                 );
 
-                $pharData->buildFromIterator($fileset->getIterator(), $fileset->getDir($this->project));
+                $pharData->buildFromIterator($fileset->getIterator(), (string) $fileset->getDir($this->project));
             }
 
             if ($this->compression !== Phar::NONE && $pharData->canCompress($this->compression)) {
@@ -153,9 +165,12 @@ class PharDataTask extends MatchingTask
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
      */
-    private function checkPreconditions()
+    private function checkPreconditions(): void
     {
         if (!extension_loaded('phar')) {
             throw new BuildException(

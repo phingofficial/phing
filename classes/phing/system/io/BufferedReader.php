@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convenience class for reading files.
  *
@@ -27,9 +29,20 @@
  */
 class BufferedReader extends Reader
 {
+    /**
+     * @var int
+     */
     private $bufferSize = 0;
-    private $buffer     = null;
-    private $bufferPos  = 0;
+
+    /**
+     * @var null
+     */
+    private $buffer = null;
+
+    /**
+     * @var int
+     */
+    private $bufferPos = 0;
 
     /**
      * The Reader we are buffering for.
@@ -44,7 +57,7 @@ class BufferedReader extends Reader
      *                                    A large buffer ensures that most files (all scripts?)
      *                                    are parsed in 1 buffer.
      */
-    public function __construct(InputStreamReader $reader, $buffsize = 65536)
+    public function __construct(InputStreamReader $reader, int $buffsize = 65536)
     {
         $this->in         = $reader;
         $this->bufferSize = $buffsize;
@@ -53,11 +66,11 @@ class BufferedReader extends Reader
     /**
      * Reads and returns a chunk of data.
      *
-     * @param int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
+     * @param int|null $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
      *
      * @return mixed buffer or -1 if EOF.
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         // if $len is specified, we'll use that; otherwise, use the configured buffer size.
         if ($len === null) {
@@ -68,12 +81,12 @@ class BufferedReader extends Reader
             // not all files end with a newline character, so we also need to check EOF
             if (!$this->in->eof()) {
                 $notValidPart     = strrchr($data, "\n");
-                $notValidPartSize = strlen($notValidPart);
+                $notValidPartSize = strlen((string) $notValidPart);
 
                 if ($notValidPartSize > 1) {
                     // Block doesn't finish on a EOL
                     // Find the last EOL and forget all following stuff
-                    $dataSize  = strlen($data);
+                    $dataSize  = strlen((string) $data);
                     $validSize = $dataSize - $notValidPartSize + 1;
 
                     $data = substr($data, 0, $validSize);
@@ -92,25 +105,37 @@ class BufferedReader extends Reader
      *
      * @return int
      */
-    public function skip($n)
+    public function skip(int $n): int
     {
         return $this->in->skip($n);
     }
 
-    public function reset()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function reset(): void
     {
         $this->in->reset();
     }
 
-    public function close()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function close(): void
     {
         $this->in->close();
     }
 
     /**
      * Read a line from input stream.
+     *
+     * @return string|null
      */
-    public function readLine()
+    public function readLine(): ?string
     {
         $line = null;
         while (($ch = $this->readChar()) !== -1) {
@@ -131,7 +156,7 @@ class BufferedReader extends Reader
     /**
      * Reads a single char from the reader.
      *
-     * @return string single char or -1 if EOF.
+     * @return string|int single char or -1 if EOF.
      */
     public function readChar()
     {
@@ -151,7 +176,7 @@ class BufferedReader extends Reader
             // so we just return empty string (char) at this point.  (Probably could also return -1 ...?)
             $ch = $this->buffer !== '' ? $this->buffer[$this->bufferPos] : '';
             $this->bufferPos++;
-            if ($this->bufferPos >= strlen($this->buffer)) {
+            if ($this->bufferPos >= strlen((string) $this->buffer)) {
                 $this->buffer    = null;
                 $this->bufferPos = 0;
             }
@@ -167,7 +192,7 @@ class BufferedReader extends Reader
      *
      * @return bool
      */
-    public function eof()
+    public function eof(): bool
     {
         return $this->in->eof();
     }
@@ -175,7 +200,7 @@ class BufferedReader extends Reader
     /**
      * @return string
      */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->in->getResource();
     }

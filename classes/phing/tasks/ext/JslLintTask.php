@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A Javascript lint task. Checks syntax of Javascript files.
  * Javascript lint (http://www.javascriptlint.com) must be in the system path.
@@ -88,8 +90,10 @@ class JslLintTask extends Task
      * Sets the flag if warnings should be shown
      *
      * @param bool $show
+     *
+     * @return void
      */
-    public function setShowWarnings($show)
+    public function setShowWarnings(bool $show): void
     {
         $this->showWarnings = StringHelper::booleanValue($show);
     }
@@ -98,8 +102,10 @@ class JslLintTask extends Task
      * The haltonfailure property
      *
      * @param bool $aValue
+     *
+     * @return void
      */
-    public function setHaltOnFailure($aValue)
+    public function setHaltOnFailure(bool $aValue): void
     {
         $this->haltOnFailure = $aValue;
     }
@@ -108,8 +114,10 @@ class JslLintTask extends Task
      * The haltonwarning property
      *
      * @param bool $aValue
+     *
+     * @return void
      */
-    public function setHaltOnWarning($aValue)
+    public function setHaltOnWarning(bool $aValue): void
     {
         $this->haltOnWarning = $aValue;
     }
@@ -118,8 +126,10 @@ class JslLintTask extends Task
      * File to be performed syntax check on
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -128,8 +138,12 @@ class JslLintTask extends Task
      * Whether to store last-modified times in cache
      *
      * @param PhingFile $file
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(PhingFile $file): void
     {
         $this->cache = new DataStore($file);
     }
@@ -138,8 +152,10 @@ class JslLintTask extends Task
      * jsl config file
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setConfFile(PhingFile $file)
+    public function setConfFile(PhingFile $file): void
     {
         $this->conf = $file;
     }
@@ -147,9 +163,11 @@ class JslLintTask extends Task
     /**
      * @param string $path
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setExecutable($path)
+    public function setExecutable(string $path): void
     {
         $this->executable = $path;
 
@@ -161,7 +179,7 @@ class JslLintTask extends Task
     /**
      * @return string
      */
-    public function getExecutable()
+    public function getExecutable(): string
     {
         return $this->executable;
     }
@@ -170,16 +188,24 @@ class JslLintTask extends Task
      * File to save error messages to
      *
      * @param PhingFile $tofile
+     *
+     * @return void
      */
-    public function setToFile(PhingFile $tofile)
+    public function setToFile(PhingFile $tofile): void
     {
         $this->tofile = $tofile;
     }
 
     /**
      * Execute lint check against PhingFile or a FileSet
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         if (!isset($this->file) && count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
@@ -239,11 +265,13 @@ class JslLintTask extends Task
      *
      * @param string $file
      *
-     * @return bool|void
+     * @return void
      *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    protected function lint($file)
+    protected function lint(string $file): void
     {
         $command = $this->executable . ' -output-format ' . escapeshellarg(
             'file:__FILE__;line:__LINE__;message:__ERROR__'
@@ -263,7 +291,7 @@ class JslLintTask extends Task
                     if ($lastmtime >= filemtime($file)) {
                         $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
 
-                        return false;
+                        return;
                     }
                 }
 
@@ -276,10 +304,10 @@ class JslLintTask extends Task
 
                 $summary = $messages[count($messages) - 1];
 
-                preg_match('/(\d+)\serror/', $summary, $matches);
+                preg_match('/(\d+)\serror/', (string) $summary, $matches);
                 $errorCount = (count($matches) > 1 ? $matches[1] : 0);
 
-                preg_match('/(\d+)\swarning/', $summary, $matches);
+                preg_match('/(\d+)\swarning/', (string) $summary, $matches);
                 $warningCount = (count($matches) > 1 ? $matches[1] : 0);
 
                 $errors   = [];
@@ -288,7 +316,7 @@ class JslLintTask extends Task
                     $last = false;
                     foreach ($messages as $message) {
                         $matches = [];
-                        if (preg_match('/^(\.*)\^$/', $message)) {
+                        if (preg_match('/^(\.*)\^$/', (string) $message)) {
                             $column = strlen($message);
                             if ($last == 'error') {
                                 $errors[count($errors) - 1]['column'] = $column;
@@ -299,16 +327,16 @@ class JslLintTask extends Task
                             }
                             $last = false;
                         }
-                        if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) {
+                        if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', (string) $message, $matches)) {
                             continue;
                         }
                         $msg  = $matches[3];
                         $data = ['filename' => $matches[1], 'line' => $matches[2], 'message' => $msg];
-                        if (preg_match('/^.*error:.+$/i', $msg)) {
+                        if (preg_match('/^.*error:.+$/i', (string) $msg)) {
                             $errors[] = $data;
                             $last     = 'error';
                         } else {
-                            if (preg_match('/^.*warning:.+$/i', $msg)) {
+                            if (preg_match('/^.*warning:.+$/i', (string) $msg)) {
                                 $warnings[] = $data;
                                 $last       = 'warning';
                             }

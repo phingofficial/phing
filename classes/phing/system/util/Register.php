@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Static class to handle a slot-listening system.
  *
@@ -58,6 +60,8 @@ class Register
 {
     /**
      * Slots that have been registered
+     *
+     * @var array
      */
     private static $slots = [];
 
@@ -70,7 +74,7 @@ class Register
      *
      * @return RegisterSlot
      */
-    public static function getSlot($key)
+    public static function getSlot(string $key): RegisterSlot
     {
         if (!isset(self::$slots[$key])) {
             self::$slots[$key] = new RegisterSlot($key);

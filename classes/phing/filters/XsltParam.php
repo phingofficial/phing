@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class that holds an XSLT parameter.
  *
@@ -24,6 +26,9 @@
  */
 class XsltParam
 {
+    /**
+     * @var string
+     */
     private $name;
 
     /**
@@ -35,8 +40,10 @@ class XsltParam
      * Sets param name.
      *
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -46,7 +53,7 @@ class XsltParam
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -57,8 +64,10 @@ class XsltParam
      * @see   setExpression()
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setValue($v)
+    public function setValue(string $v): void
     {
         $this->setExpression($v);
     }
@@ -70,7 +79,7 @@ class XsltParam
      *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->getExpression();
     }
@@ -79,8 +88,10 @@ class XsltParam
      * Sets expression value.
      *
      * @param string $expr
+     *
+     * @return void
      */
-    public function setExpression($expr)
+    public function setExpression(string $expr): void
     {
         $this->expr = $expr;
     }
@@ -89,8 +100,10 @@ class XsltParam
      * Sets expression to dynamic register slot.
      *
      * @param RegisterSlot $expr
+     *
+     * @return void
      */
-    public function setListeningExpression(RegisterSlot $expr)
+    public function setListeningExpression(RegisterSlot $expr): void
     {
         $this->expr = $expr;
     }
@@ -100,7 +113,7 @@ class XsltParam
      *
      * @return string
      */
-    public function getExpression()
+    public function getExpression(): string
     {
         if ($this->expr instanceof RegisterSlot) {
             return $this->expr->getValue();

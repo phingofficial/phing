@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * our own personal build listener
  *
@@ -28,15 +30,22 @@ class PhingTestListener implements BuildListener
 {
     private $parent;
 
+    /**
+     * @param mixed $parent
+     */
     public function __construct($parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     *  Fired before any targets are started.
+     * Fired before any targets are started.
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
     }
 
@@ -45,8 +54,12 @@ class PhingTestListener implements BuildListener
      *  will still be thrown if an error occurred during the build.
      *
      * @see BuildEvent#getException()
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
     }
 
@@ -54,8 +67,12 @@ class PhingTestListener implements BuildListener
      *  Fired when a target is started.
      *
      * @see BuildEvent#getTarget()
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         //System.out.println("targetStarted " + event.getTarget().getName());
     }
@@ -65,8 +82,12 @@ class PhingTestListener implements BuildListener
      *  still be thrown if an error occurred during the build.
      *
      * @see BuildEvent#getException()
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         //System.out.println("targetFinished " + event.getTarget().getName());
     }
@@ -75,8 +96,12 @@ class PhingTestListener implements BuildListener
      *  Fired when a task is started.
      *
      * @see BuildEvent#getTask()
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
         //System.out.println("taskStarted " + event.getTask().getTaskName());
     }
@@ -86,8 +111,12 @@ class PhingTestListener implements BuildListener
      *  be throw if an error occurred during the build.
      *
      * @see BuildEvent#getException()
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
         //System.out.println("taskFinished " + event.getTask().getTaskName());
     }
@@ -97,8 +126,12 @@ class PhingTestListener implements BuildListener
      *
      * @see BuildEvent#getMessage()
      * @see BuildEvent#getPriority()
+     *
+     * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         $this->parent->logBuffer[] = [
             'message' => $event->getMessage(),

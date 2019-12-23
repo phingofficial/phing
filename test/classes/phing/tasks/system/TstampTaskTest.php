@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Tstamp Task
  *
@@ -28,7 +30,10 @@ class TstampTaskTest extends BuildFileTest
     /** @var TstampTask */
     private $tstamp;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/TstampTest.xml'
@@ -38,35 +43,50 @@ class TstampTaskTest extends BuildFileTest
         $this->tstamp->setProject($this->project);
     }
 
-    public function testMagicProperty()
+    /**
+     * @return void
+     */
+    public function testMagicProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('DSTAMP', 19700102);
     }
 
-    public function testMagicPropertyIso()
+    /**
+     * @return void
+     */
+    public function testMagicPropertyIso(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('DSTAMP', 19720417);
     }
 
-    public function testMagicPropertyBoth()
+    /**
+     * @return void
+     */
+    public function testMagicPropertyBoth(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('DSTAMP', 19720417);
     }
 
-    public function testMagicPropertyIsoCustomFormat()
+    /**
+     * @return void
+     */
+    public function testMagicPropertyIsoCustomFormat(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('tstamp.test', '1972-04-17');
     }
 
-    public function testPrefix()
+    /**
+     * @return void
+     */
+    public function testPrefix(): void
     {
         $this->tstamp->setPrefix('prefix');
         $this->tstamp->main();
         $prop = $this->project->getProperty('prefix.DSTAMP');
-        $this->assertNotNull($prop);
+        self::assertNotNull($prop);
     }
 }

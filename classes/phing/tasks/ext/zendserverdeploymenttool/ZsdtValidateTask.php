@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
@@ -28,7 +30,7 @@ class ZsdtValidateTask extends ZsdtBaseTask
      *
      * @inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         $this->action = 'validate';
     }
@@ -40,7 +42,7 @@ class ZsdtValidateTask extends ZsdtBaseTask
      *
      * @throws BuildException
      */
-    protected function validate()
+    protected function validate(): void
     {
         parent::validate();
 

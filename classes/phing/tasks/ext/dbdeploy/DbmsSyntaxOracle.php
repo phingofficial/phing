@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Utility class for generating necessary server-specific SQL commands
  *
@@ -27,8 +29,10 @@ class DbmsSyntaxOracle extends DbmsSyntax
 {
     /**
      * @param PDO $db
+     *
+     * @return void
      */
-    public function applyAttributes($db)
+    public function applyAttributes(PDO $db): void
     {
         $db->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
     }
@@ -36,7 +40,7 @@ class DbmsSyntaxOracle extends DbmsSyntax
     /**
      * @return string
      */
-    public function generateTimestamp()
+    public function generateTimestamp(): string
     {
         return "(sysdate - to_date('01-JAN-1970','DD-MON-YYYY')) * (86400)";
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a condition that checks to see if a file passes an embedded selector.
  */
@@ -32,8 +34,10 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
      * The file to check.
      *
      * @param PhingFile $file the file to check if if passes the embedded selector.
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -42,16 +46,23 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
      * The base directory to use.
      *
      * @param PhingFile $baseDir the base directory to use, if null use the project's basedir.
+     *
+     * @return void
      */
-    public function setBaseDir(PhingFile $baseDir)
+    public function setBaseDir(PhingFile $baseDir): void
     {
         $this->baseDir = $baseDir;
     }
 
     /**
      * validate the parameters.
+     *
+     * @return void
+     *
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function validate()
+    public function validate(): void
     {
         if ($this->count() != 1) {
             throw new BuildException('Only one selector allowed');
@@ -62,9 +73,13 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
     /**
      * Evaluate the selector with the file.
      *
-     * @return true if the file is selected by the embedded selector.
+     * @return bool if the file is selected by the embedded selector.
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->file === null) {
             throw new BuildException('file attribute not set');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This task sets a property to the name of a temporary file.
  * Unlike {@link PhingFile::createTempFile()}, this task does not (by default) actually create the
@@ -44,31 +46,43 @@ class TempFile extends Task
 {
     /**
      * Name of property to set.
+     *
+     * @var string
      */
     private $property = '';
 
     /**
      * Directory to create the file in. Can be null.
+     *
+     * @var PhingFile
      */
     private $destDir;
 
     /**
      * Prefix for the file.
+     *
+     * @var string
      */
     private $prefix;
 
     /**
      * Suffix for the file.
+     *
+     * @var string
      */
     private $suffix = '';
 
     /**
      * deleteOnExit flag
+     *
+     * @var bool
      */
     private $deleteOnExit;
 
     /**
      * createFile flag
+     *
+     * @var bool
      */
     private $createFile;
 
@@ -76,8 +90,10 @@ class TempFile extends Task
      * Sets the property you wish to assign the temporary file to.
      *
      * @param string $property The property to set
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -87,8 +103,13 @@ class TempFile extends Task
      * the basedir directory is used instead.
      *
      * @param string|PhingFile $destDir The new destDir value
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setDestDir($destDir)
+    public function setDestDir($destDir): void
     {
         if ($destDir instanceof PhingFile) {
             $this->destDir = $destDir;
@@ -101,8 +122,10 @@ class TempFile extends Task
      * Sets the optional prefix string for the temp file.
      *
      * @param string $prefix string to prepend to generated string
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
     }
@@ -111,8 +134,10 @@ class TempFile extends Task
      * Sets the optional suffix string for the temp file.
      *
      * @param string $suffix suffix including any "." , e.g ".xml"
+     *
+     * @return void
      */
-    public function setSuffix($suffix)
+    public function setSuffix(string $suffix): void
     {
         $this->suffix = $suffix;
     }
@@ -122,8 +147,10 @@ class TempFile extends Task
      * for deletion on normal VM exit.
      *
      * @param bool $deleteOnExit boolean flag.
+     *
+     * @return void
      */
-    public function setDeleteOnExit($deleteOnExit)
+    public function setDeleteOnExit(bool $deleteOnExit): void
     {
         $this->deleteOnExit = $deleteOnExit;
     }
@@ -133,7 +160,7 @@ class TempFile extends Task
      *
      * @return bool deleteOnExit flag.
      */
-    public function isDeleteOnExit()
+    public function isDeleteOnExit(): bool
     {
         return $this->deleteOnExit;
     }
@@ -142,8 +169,10 @@ class TempFile extends Task
      * If set the file is actually created, if not just a name is created.
      *
      * @param bool $createFile boolean flag.
+     *
+     * @return void
      */
-    public function setCreateFile($createFile)
+    public function setCreateFile(bool $createFile): void
     {
         $this->createFile = $createFile;
     }
@@ -153,7 +182,7 @@ class TempFile extends Task
      *
      * @return bool the createFile flag.
      */
-    public function isCreateFile()
+    public function isCreateFile(): bool
     {
         return $this->createFile;
     }
@@ -161,9 +190,12 @@ class TempFile extends Task
     /**
      * Creates the temporary file.
      *
-     * @throws BuildException if something goes wrong with the build
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->property === '') {
             throw new BuildException('no property specified');

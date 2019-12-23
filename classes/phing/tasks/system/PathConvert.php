@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Converts path and classpath information to a specific target OS
  * format. The resulting formatted path is placed into the specified property.
@@ -26,55 +28,94 @@
  */
 class PathConvert extends Task
 {
-    // Members
     /**
      * Path to be converted
+     *
+     * @var Path
      */
     private $path = null;
+
     /**
      * Reference to path/fileset to convert
      *
      * @var Reference $refid
      */
     private $refid = null;
+
     /**
      * The target OS type
+     *
+     * @var string
      */
     private $targetOS = null;
+
     /**
      * Set when targetOS is set to windows
+     *
+     * @var bool
      */
     private $targetWindows = false;
+
     /**
      * Set if we're running on windows
+     *
+     * @var bool
      */
     public $onWindows = false;
+
     /**
      * Set if we should create a new property even if the result is empty
+     *
+     * @var bool
      */
     private $setonempty = true;
+
     /**
      * The property to receive the conversion
+     *
+     * @var string
      */
     private $property = null;
+
     /**
      * Path prefix map
      *
      * @var MapEntry[]
      */
     private $prefixMap = [];
+
     /**
      * User override on path sep char
+     *
+     * @var string
      */
     private $pathSep = null;
+
     /**
      * User override on directory sep char
+     *
+     * @var string
      */
     private $dirSep = null;
 
+    /**
+     * @var string
+     */
     public $from = null;
-    public $to   = null;
+
+    /**
+     * @var string
+     */
+    public $to = null;
+
+    /**
+     * @var Mapper
+     */
     private $mapper;
+
+    /**
+     * @var bool
+     */
     private $preserveDuplicates = false;
 
     /**
@@ -88,8 +129,12 @@ class PathConvert extends Task
 
     /**
      * Create a nested PATH element
+     *
+     * @return Path
+     *
+     * @throws Exception
      */
-    public function createPath()
+    public function createPath(): Path
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -106,7 +151,7 @@ class PathConvert extends Task
      *
      * @return MapEntry a Map to configure
      */
-    public function createMap()
+    public function createMap(): MapEntry
     {
         $entry = new MapEntry($this);
 
@@ -119,8 +164,12 @@ class PathConvert extends Task
      * Set targetos to a platform to one of
      * "windows", "unix", "netware", or "os/2"; required unless
      * unless pathsep and/or dirsep are specified.
+     *
+     * @param string $target
+     *
+     * @return void
      */
-    public function setTargetos($target)
+    public function setTargetos(string $target): void
     {
         $this->targetOS      = $target;
         $this->targetWindows = $this->targetOS !== 'unix';
@@ -132,16 +181,22 @@ class PathConvert extends Task
      * If false, don't set the new property if the result is the empty string.
      *
      * @param bool $setonempty true or false
+     *
+     * @return void
      */
-    public function setSetonempty($setonempty)
+    public function setSetonempty(bool $setonempty): void
     {
         $this->setonempty = $setonempty;
     }
 
     /**
      * The property into which the converted path will be placed.
+     *
+     * @param string $p
+     *
+     * @return void
      */
-    public function setProperty($p)
+    public function setProperty(string $p): void
     {
         $this->property = $p;
     }
@@ -152,9 +207,11 @@ class PathConvert extends Task
      *
      * @param Reference $r
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         if ($this->path !== null) {
             throw $this->noChildrenAllowed();
@@ -168,8 +225,10 @@ class PathConvert extends Task
      * defaults to current JVM
      *
      * @param string $sep path separator string
+     *
+     * @return void
      */
-    public function setPathSep($sep)
+    public function setPathSep(string $sep): void
     {
         $this->pathSep = $sep;
     }
@@ -178,8 +237,10 @@ class PathConvert extends Task
      * Set the default directory separator string
      *
      * @param string $sep directory separator string
+     *
+     * @return void
      */
-    public function setDirSep($sep)
+    public function setDirSep(string $sep): void
     {
         $this->dirSep = $sep;
     }
@@ -187,9 +248,9 @@ class PathConvert extends Task
     /**
      * Has the refid attribute of this element been set?
      *
-     * @return true if refid is valid
+     * @return bool true if refid is valid
      */
-    public function isReference()
+    public function isReference(): bool
     {
         return $this->refid !== null;
     }
@@ -197,9 +258,13 @@ class PathConvert extends Task
     /**
      * Do the execution.
      *
-     * @throws BuildException if something is invalid
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws Exception
+     * @throws IOException
      */
-    public function main()
+    public function main(): void
     {
         $savedPath    = $this->path;
         $savedPathSep = $this->pathSep;// may be altered in validateSetup
@@ -308,7 +373,7 @@ class PathConvert extends Task
      *
      * @return string Updated element
      */
-    private function mapElement($elem)
+    private function mapElement(string $elem): string
     {
         $size = count($this->prefixMap);
 
@@ -333,10 +398,11 @@ class PathConvert extends Task
     }
 
     /**
+     * @return Mapper
+     *
      * @throws BuildException
-     * @throws IOException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapper !== null) {
             throw new BuildException('Cannot define more than one mapper', $this->getLocation());
@@ -349,9 +415,11 @@ class PathConvert extends Task
     /**
      * Validate that all our parameters have been properly initialized.
      *
+     * @return void
+     *
      * @throws BuildException if something is not setup properly
      */
-    private function validateSetup()
+    private function validateSetup(): void
     {
         if ($this->path === null) {
             throw new BuildException('You must specify a path to convert');
@@ -363,7 +431,7 @@ class PathConvert extends Task
 
         // Must either have a target OS or both a dirSep and pathSep
 
-        if ($this->targetOS == null && $this->pathSep == null && $this->dirSep == null) {
+        if ($this->targetOS === null && $this->pathSep === null && $this->dirSep === null) {
             throw new BuildException(
                 'You must specify at least one of '
                 . 'targetOS, dirSep, or pathSep'
@@ -395,8 +463,10 @@ class PathConvert extends Task
     /**
      * Creates an exception that indicates that this XML element must not have
      * child elements if the refid attribute is set.
+     *
+     * @return BuildException
      */
-    private function noChildrenAllowed()
+    private function noChildrenAllowed(): BuildException
     {
         return new BuildException(
             'You must not specify nested <path> '
@@ -416,6 +486,8 @@ class PathConvert extends Task
 
     /**
      * @param bool $preserveDuplicates
+     *
+     * @return void
      */
     public function setPreserveDuplicates(bool $preserveDuplicates): void
     {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Writer class for OutputStream objects.
  *
@@ -47,8 +49,10 @@ class OutputStreamWriter extends Writer
      * Close the stream.
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function close()
+    public function close(): void
     {
         $this->outStream->close();
     }
@@ -56,21 +60,27 @@ class OutputStreamWriter extends Writer
     /**
      * Write char data to stream.
      *
-     * @param string $buf
-     * @param int    $off
-     * @param int    $len
+     * @param string   $buf
+     * @param int|null $off
+     * @param int|null $len
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function write($buf, $off = null, $len = null)
+    public function write(string $buf, ?int $off = null, ?int $len = null): void
     {
         $this->outStream->write($buf, $off, $len);
     }
 
     /**
      * Flush output to the stream.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function flush()
+    public function flush(): void
     {
         $this->outStream->flush();
     }
@@ -80,7 +90,7 @@ class OutputStreamWriter extends Writer
      *
      * @return string String representation of output stream
      */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->outStream->__toString();
     }

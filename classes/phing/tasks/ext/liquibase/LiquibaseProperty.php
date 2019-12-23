@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
  * @since 2.4.10
@@ -24,21 +26,32 @@
  */
 class LiquibaseProperty extends DataType
 {
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $value;
 
     /**
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
@@ -62,7 +75,7 @@ class LiquibaseProperty extends DataType
     /**
      * @param Project $p
      *
-     * @return mixed
+     * @return object
      *
      * @throws BuildException
      */

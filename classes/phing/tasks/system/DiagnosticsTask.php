@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a task that hands off work to the Diagnostics module.
  * It lets you run diagnostics in an IDE.
@@ -30,9 +32,13 @@ class DiagnosticsTask extends Task
      * Execute the task.
      * This delegates to the Diagnostics class.
      *
-     * @throws BuildException on error.
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function main()
+    public function main(): void
     {
         Diagnostics::doReport(new PrintStream(Phing::getOutputStream()));
     }

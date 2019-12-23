@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Implements an XmlFileParser.
  *
@@ -25,12 +27,25 @@
  */
 class XmlFileParser implements FileParserInterface
 {
-    private $keepRoot     = true;
+    /**
+     * @var bool
+     */
+    private $keepRoot = true;
+
+    /**
+     * @var bool
+     */
     private $collapseAttr = true;
-    private $delimiter    = ',';
+
+    /**
+     * @var string
+     */
+    private $delimiter = ',';
 
     /**
      * @param bool $keepRoot
+     *
+     * @return void
      */
     public function setKeepRoot(bool $keepRoot): void
     {
@@ -39,6 +54,8 @@ class XmlFileParser implements FileParserInterface
 
     /**
      * @param bool $collapseAttr
+     *
+     * @return void
      */
     public function setCollapseAttr(bool $collapseAttr): void
     {
@@ -47,6 +64,8 @@ class XmlFileParser implements FileParserInterface
 
     /**
      * @param string $delimiter
+     *
+     * @return void
      */
     public function setDelimiter(string $delimiter): void
     {
@@ -54,10 +73,18 @@ class XmlFileParser implements FileParserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param PhingFile $file
+     *
+     * @return array
+     *
+     * @throws IOException
      */
-    public function parseFile(PhingFile $file)
+    public function parseFile(PhingFile $file): array
     {
+        if (!$file->canRead()) {
+            throw new IOException('Unable to read file: ' . $file);
+        }
+
         $properties = $this->getProperties($file);
 
         return $properties->getProperties();
@@ -72,13 +99,13 @@ class XmlFileParser implements FileParserInterface
      *
      * @throws IOException
      */
-    private function getProperties(PhingFile $file)
+    private function getProperties(PhingFile $file): Properties
     {
         // load() already made sure that file is readable
         // but we'll double check that when reading the file into
         // an array
 
-        if (@file($file) === false) {
+        if (@file((string) $file) === false) {
             throw new IOException('Unable to parse contents of ' . $file);
         }
 
@@ -125,7 +152,7 @@ class XmlFileParser implements FileParserInterface
      *
      * @return void
      */
-    private function addNode($node, $path, $prop)
+    private function addNode(SimpleXMLElement $node, array $path, Properties $prop): void
     {
         foreach ($node as $tag => $value) {
             $prefix = implode('.', $path);

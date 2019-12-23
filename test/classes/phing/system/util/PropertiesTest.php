@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for Properties class
  *
@@ -31,59 +32,86 @@ class PropertiesTest extends TestCase
     /**
      * @var Properties
      */
-    private $props = null;
+    private $props;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->props = new Properties();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         unset($this->props);
     }
 
-    public function testComments()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testComments(): void
     {
         $file = new PhingFile(PHING_TEST_BASE . '/etc/system/util/comments.properties');
         $this->props->load($file);
 
-        $this->assertEquals(
+        self::assertEquals(
             $this->props->getProperty('useragent'),
             'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
         );
-        $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
-        $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
-        $this->assertEquals($this->props->getProperty('testline3'), true);
-        $this->assertEquals($this->props->getProperty('testline4'), false);
+        self::assertEquals($this->props->getProperty('testline1'), 'Testline1');
+        self::assertEquals($this->props->getProperty('testline2'), 'Testline2');
+        self::assertEquals($this->props->getProperty('testline3'), true);
+        self::assertEquals($this->props->getProperty('testline4'), false);
     }
 
-    public function testEmpty()
+    /**
+     * @return void
+     */
+    public function testEmpty(): void
     {
-        $this->assertTrue($this->props->isEmpty());
+        self::assertTrue($this->props->isEmpty());
     }
 
-    public function testAppendPropertyValues()
+    /**
+     * @return void
+     */
+    public function testAppendPropertyValues(): void
     {
         $this->props->append('t', 'a');
         $this->props->append('t', 'b');
-        $this->assertEquals('a,b', $this->props->get('t'));
+        self::assertEquals('a,b', $this->props->get('t'));
     }
 
-    public function testToString()
+    /**
+     * @return void
+     */
+    public function testToString(): void
     {
         $this->props->put('a', 'b');
 
         $this->assertEquals('a=b' . PHP_EOL, (string) $this->props);
     }
 
-    public function testStore()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testStore(): void
     {
         $file = new PhingFile(PHING_TEST_BASE . '/tmp/props');
         $this->props->put('t', 'a');
         $this->props->store($file, 'header');
-        $this->assertFileExists($file->getPath());
-        $this->assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
+        self::assertFileExists($file->getPath());
+        self::assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
         unlink($file->getPath());
     }
 }

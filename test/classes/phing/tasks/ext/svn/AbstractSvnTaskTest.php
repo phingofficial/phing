@@ -17,17 +17,26 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
 abstract class AbstractSvnTaskTest extends BuildFileTest
 {
-    protected $backupGlobals = false;
-
     protected $savedErrorLevel = 0;
 
-    protected function initialize($buildFilename, $createDirectory = true)
+    /**
+     * @param string $buildFilename
+     * @param bool   $createDirectory
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function initialize(string $buildFilename, bool $createDirectory = true): void
     {
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
@@ -49,7 +58,10 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         error_reporting($this->savedErrorLevel);
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');

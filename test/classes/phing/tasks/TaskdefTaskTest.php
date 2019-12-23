@@ -17,32 +17,49 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.tasks.system
  */
 class TaskdefTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/taskdef.xml');
     }
 
-    public function testEmpty()
+    /**
+     * @return void
+     */
+    public function testEmpty(): void
     {
         $this->expectBuildException('empty', 'required argument not specified');
     }
 
-    public function testNoName()
+    /**
+     * @return void
+     */
+    public function testNoName(): void
     {
         $this->expectBuildException('noName', 'required argument not specified');
     }
 
-    public function testNoClassname()
+    /**
+     * @return void
+     */
+    public function testNoClassname(): void
     {
         $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
-    public function testClassNotFound()
+    /**
+     * @return void
+     */
+    public function testClassNotFound(): void
     {
         $this->expectException(BuildException::class);
 
@@ -57,7 +74,10 @@ class TaskdefTaskTest extends BuildFileTest
         }
     }
 
-    public function testGlobal()
+    /**
+     * @return void
+     */
+    public function testGlobal(): void
     {
         $this->expectLog('testGlobal', 'simpletask: testGlobal echo');
         $refs = $this->project->getReferences();
@@ -66,7 +86,10 @@ class TaskdefTaskTest extends BuildFileTest
         $this->assertEquals('TaskdefTestSimpleTask', get_class($ref));
     }
 
-    public function testLocal()
+    /**
+     * @return void
+     */
+    public function testLocal(): void
     {
         $this->expectLog('testLocal', 'Task local will be handled by class example.tasks.TaskdefTestSimpleTask');
         $refs = $this->project->getReferences();
@@ -75,7 +98,10 @@ class TaskdefTaskTest extends BuildFileTest
         $this->assertInstanceOf('TaskdefTestSimpleTask', $ref);
     }
 
-    public function tesFile()
+    /**
+     * @return void
+     */
+    public function tesFile(): void
     {
         $this->expectLog('testFile', 'simpletask: testTdfile echo');
         $refs = $this->project->getReferences();

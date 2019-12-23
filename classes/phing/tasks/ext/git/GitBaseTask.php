@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for Git tasks
  *
@@ -43,15 +45,17 @@ abstract class GitBaseTask extends Task
     /**
      * Current repository directory
      *
-     * @var string
+     * @var string|null
      */
     private $repository;
 
     /**
      * Initialize Task.
      * Check and include necessary libraries.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         @include_once 'VersionControl/Git.php';
         if (false == class_exists('VersionControl_Git')) {
@@ -66,23 +70,21 @@ abstract class GitBaseTask extends Task
     /**
      * Set repository directory
      *
-     * @param string $repository Repo directory
+     * @param string|null $repository Repo directory
      *
-     * @return GitBaseTask
+     * @return void
      */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): void
     {
         $this->repository = $repository;
-
-        return $this;
     }
 
     /**
      * Get repository directory
      *
-     * @return string
+     * @return string|null
      */
-    public function getRepository()
+    public function getRepository(): ?string
     {
         return $this->repository;
     }
@@ -92,13 +94,11 @@ abstract class GitBaseTask extends Task
      *
      * @param string $gitPath New path to git repository
      *
-     * @return GitBaseTask
+     * @return void
      */
-    public function setGitPath($gitPath)
+    public function setGitPath(string $gitPath): void
     {
         $this->gitPath = $gitPath;
-
-        return $this;
     }
 
     /**
@@ -106,20 +106,20 @@ abstract class GitBaseTask extends Task
      *
      * @return string
      */
-    public function getGitPath()
+    public function getGitPath(): string
     {
         return $this->gitPath;
     }
 
     /**
-     * @param bool $reset
-     * @param null $repository
+     * @param bool|null   $reset
+     * @param string|null $repository
      *
      * @return VersionControl_Git|null
      *
      * @throws BuildException
      */
-    protected function getGitClient($reset = false, $repository = null)
+    protected function getGitClient(?bool $reset = false, ?string $repository = null): ?VersionControl_Git
     {
         $this->gitClient = $reset === true ? null : $this->gitClient;
         $repository      = $repository ?? $this->getRepository();

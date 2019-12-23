@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A mapper that strips of the a configurable number of leading
  * directories from a file name.
@@ -31,26 +33,34 @@ class CutDirsMapper implements FileNameMapper
     /**
      * Empty implementation.
      *
-     * @param mixed $ignore ignored.
+     * @param string|null $ignore ignored.
+     *
+     * @return void
      */
-    public function setFrom($ignore)
+    public function setFrom(?string $ignore): void
     {
     }
 
     /**
      * The number of leading directories to cut.
      *
-     * @param int $dirs
+     * @param string|null $dirs
+     *
+     * @return void
      */
-    public function setTo($dirs)
+    public function setTo(?string $dirs): void
     {
         $this->dirs = (int) $dirs;
     }
 
     /**
      * {@inheritDoc}.
+     *
+     * @param string $sourceFileName
+     *
+     * @return array|null
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         if ($this->dirs <= 0) {
             throw new BuildException('dirs must be set to a positive number');

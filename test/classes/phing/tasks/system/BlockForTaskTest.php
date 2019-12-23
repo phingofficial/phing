@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the BlockFor Task
  *
@@ -25,20 +27,29 @@
  */
 class BlockForTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/BlockForTest.xml'
         );
     }
 
-    public function testConditionMet()
+    /**
+     * @return void
+     */
+    public function testConditionMet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('blockfor: condition was met');
     }
 
-    public function testTimeout()
+    /**
+     * @return void
+     */
+    public function testTimeout(): void
     {
         $this->expectException(BuildTimeoutException::class);
 

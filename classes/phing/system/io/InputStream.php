@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper class for PHP stream that supports read operations.
  *
@@ -61,7 +63,7 @@ class InputStream
      *
      * @return int
      */
-    public function skip($n)
+    public function skip(int $n): int
     {
         $start = $this->currentPosition;
 
@@ -84,11 +86,11 @@ class InputStream
     /**
      * Read data from stream until $len chars or EOF.
      *
-     * @param int $len Num chars to read.  If not specified this stream will read until EOF.
+     * @param int|null $len Num chars to read.  If not specified this stream will read until EOF.
      *
      * @return mixed chars read or -1 if eof.
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if ($this->eof()) {
             return -1;
@@ -111,9 +113,11 @@ class InputStream
     /**
      * Marks the current position in this input stream.
      *
+     * @return void
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
-    public function mark()
+    public function mark(): void
     {
         if (!$this->markSupported()) {
             throw new IOException(static::class . ' does not support mark() and reset() methods.');
@@ -126,7 +130,7 @@ class InputStream
      *
      * @return bool
      */
-    public function markSupported()
+    public function markSupported(): bool
     {
         return false;
     }
@@ -134,9 +138,11 @@ class InputStream
     /**
      * Repositions this stream to the position at the time the mark method was last called on this input stream.
      *
+     * @return void
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
-    public function reset()
+    public function reset(): void
     {
         if (!$this->markSupported()) {
             throw new IOException(static::class . ' does not support mark() and reset() methods.');
@@ -149,9 +155,11 @@ class InputStream
     /**
      * Closes stream.
      *
+     * @return void
+     *
      * @throws IOException if stream cannot be closed (note that calling close() on an already-closed stream will not raise an exception)
      */
-    public function close()
+    public function close(): void
     {
         if ($this->stream === null) {
             return;
@@ -172,7 +180,7 @@ class InputStream
      *
      * @return bool
      */
-    public function eof()
+    public function eof(): bool
     {
         return feof($this->stream);
     }
@@ -182,7 +190,7 @@ class InputStream
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->stream;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
@@ -24,26 +26,40 @@
 class SuffixLinesTest extends BuildFileTest
 {
     /** @var FileUtils $fu */
-    protected $fu;
+    private $fu;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/suffixlines.xml');
         $this->fu = new FileUtils();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testSuffixLines()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testSuffixLines(): void
     {
         $this->executeTarget('testSuffixLines');
 
         $expected = $this->getProject()->resolveFile('expected/suffixlines.test');
         $result   = $this->getProject()->resolveFile('result/suffixlines.test');
 
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
+        self::assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

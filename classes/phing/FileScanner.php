@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * An interface used to describe the actions required of any type of
  * directory scanner.
@@ -28,8 +30,10 @@ interface FileScanner
 {
     /**
      * Adds default exclusions to the current exclusions set.
+     *
+     * @return void
      */
-    public function addDefaultExcludes();
+    public function addDefaultExcludes(): void;
 
     /**
      * Returns the base directory to be scanned.
@@ -37,7 +41,7 @@ interface FileScanner
      *
      * @return string the base directory to be scanned
      */
-    public function getBasedir();
+    public function getBasedir(): string;
 
     /**
      * Returns the names of the directories which matched at least one of the
@@ -47,7 +51,7 @@ interface FileScanner
      * @return string[] the names of the directories which matched at least one of the
      *                  include patterns and at least one of the exclude patterns.
      */
-    public function getExcludedDirectories();
+    public function getExcludedDirectories(): array;
 
     /**
      * Returns the names of the files which matched at least one of the
@@ -57,7 +61,7 @@ interface FileScanner
      * @return string[] the names of the files which matched at least one of the
      *                  include patterns and at least one of the exclude patterns.
      */
-    public function getExcludedFiles();
+    public function getExcludedFiles(): array;
 
     /**
      * Returns the names of the directories which matched at least one of the
@@ -66,8 +70,10 @@ interface FileScanner
      *
      * @return string[] the names of the directories which matched at least one of the
      *                  include patterns and none of the exclude patterns.
+     *
+     * @throws UnexpectedValueException
      */
-    public function getIncludedDirectories();
+    public function getIncludedDirectories(): array;
 
     /**
      * Returns the names of the files which matched at least one of the
@@ -76,8 +82,10 @@ interface FileScanner
      *
      * @return string[] the names of the files which matched at least one of the
      *                  include patterns and none of the exclude patterns.
+     *
+     * @throws UnexpectedValueException
      */
-    public function getIncludedFiles();
+    public function getIncludedFiles(): array;
 
     /**
      * Returns the names of the directories which matched none of the include
@@ -86,7 +94,7 @@ interface FileScanner
      * @return string[] the names of the directories which matched none of the include
      *                  patterns.
      */
-    public function getNotIncludedDirectories();
+    public function getNotIncludedDirectories(): array;
 
     /**
      * Returns the names of the files which matched none of the include
@@ -95,13 +103,18 @@ interface FileScanner
      * @return array the names of the files which matched none of the include
      *         patterns.
      */
-    public function getNotIncludedFiles();
+    public function getNotIncludedFiles(): array;
 
     /**
      * Scans the base directory for files which match at least one include
      * pattern and don't match any exclude patterns.
+     *
+     * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function scan();
+    public function scan(): bool;
 
     /**
      * Sets the base directory to be scanned. This is the directory which is
@@ -111,8 +124,10 @@ interface FileScanner
      *
      * @param string $basedir The base directory to scan.
      *                        Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function setBasedir($basedir);
+    public function setBasedir(string $basedir): void;
 
     /**
      * Sets the list of exclude patterns to use.
@@ -121,25 +136,31 @@ interface FileScanner
      *                           May be <code>null</code>, indicating that no files
      *                           should be excluded. If a non-<code>null</code> list is
      *                           given, all elements must be non-<code>null</code>.
+     *
+     * @return void
      */
-    public function setExcludes($excludes);
+    public function setExcludes(array $excludes = []): void;
 
     /**
      * Sets the list of include patterns to use.
      *
-     * @param string[] $includes A list of include patterns.
-     *                           May be <code>null</code>, indicating that all files
-     *                           should be included. If a non-<code>null</code>
-     *                           list is given, all elements must be
+     * @param string[]|null $includes A list of include patterns.
+     *                                May be <code>null</code>, indicating that all files
+     *                                should be included. If a non-<code>null</code>
+     *                                list is given, all elements must be
      * non-<code>null</code>.
+     *
+     * @return void
      */
-    public function setIncludes($includes);
+    public function setIncludes(?array $includes = []): void;
 
     /**
      * Sets whether or not the file system should be regarded as case sensitive.
      *
      * @param bool $isCaseSensitive whether or not the file system should be
      *                              regarded as a case sensitive one
+     *
+     * @return void
      */
-    public function setCaseSensitive($isCaseSensitive);
+    public function setCaseSensitive(bool $isCaseSensitive): void;
 }

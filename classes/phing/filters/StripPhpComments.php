@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a Php comment and string stripper reader that filters
  * those lexical tokens out for purposes of simple Php parsing.
@@ -49,12 +51,14 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
     /**
      * Returns the  stream without Php comments.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
+     *
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         $buffer = $this->in->read($len);
         if ($buffer === -1) {
@@ -88,13 +92,13 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader A Reader object providing the underlying stream.
-     *                         Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
      * @return self A new filter based on this configuration, but filtering
      *              the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new StripPhpComments($reader);
         $newFilter->setProject($this->getProject());

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This mapper does nothing ;)
  *
@@ -31,9 +33,9 @@ class IdentityMapper implements FileNameMapper
      *
      * @param string $sourceFileName The data the mapper works on.
      *
-     * @return array  The data after the mapper has been applied
+     * @return array|null The data after the mapper has been applied
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         return [$sourceFileName];
     }
@@ -42,11 +44,11 @@ class IdentityMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param string $to
+     * @param string|null $to
      *
      * @return void
      */
-    public function setTo($to)
+    public function setTo(?string $to): void
     {
     }
 
@@ -54,11 +56,11 @@ class IdentityMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param string $from
+     * @param string|null $from
      *
      * @return void
      */
-    public function setFrom($from)
+    public function setFrom(?string $from): void
     {
     }
 }

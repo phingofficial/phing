@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.
  *
@@ -35,10 +37,17 @@ class TouchTask extends Task
     private $file;
     private $millis = -1;
     private $dateTime;
+
+    /**
+     * @var FileUtils
+     */
     private $fileUtils;
     private $mkdirs  = false;
     private $verbose = true;
 
+    /**
+     * @throws IOException
+     */
     public function __construct()
     {
         parent::__construct();
@@ -53,7 +62,7 @@ class TouchTask extends Task
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -63,11 +72,11 @@ class TouchTask extends Task
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
      *
-     * @param int $millis
+     * @param int|string $millis
      *
      * @return void
      */
-    public function setMillis($millis)
+    public function setMillis($millis): void
     {
         $this->millis = (int) $millis;
     }
@@ -81,7 +90,7 @@ class TouchTask extends Task
      *
      * @return void
      */
-    public function setDatetime($dateTime)
+    public function setDatetime(string $dateTime): void
     {
         $this->dateTime = (string) $dateTime;
     }
@@ -91,8 +100,10 @@ class TouchTask extends Task
      * when touching new files.
      *
      * @param bool $mkdirs whether to create parent directories.
+     *
+     * @return void
      */
-    public function setMkdirs($mkdirs)
+    public function setMkdirs(bool $mkdirs): void
     {
         $this->mkdirs = $mkdirs;
     }
@@ -102,8 +113,10 @@ class TouchTask extends Task
      * defaults to <code>true</code>.
      *
      * @param bool $verbose flag.
+     *
+     * @return void
      */
-    public function setVerbose($verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = $verbose;
     }
@@ -111,10 +124,12 @@ class TouchTask extends Task
     /**
      * Execute the touch operation.
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws IOException
      */
-    public function main()
+    public function main(): void
     {
         $savedMillis = $this->millis;
 
@@ -143,8 +158,15 @@ class TouchTask extends Task
 
     /**
      * Does the actual work.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function _touch()
+    public function _touch(): void
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
@@ -210,9 +232,13 @@ class TouchTask extends Task
     /**
      * @param PhingFile $file
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    private function touchFile($file)
+    private function touchFile(PhingFile $file): void
     {
         if (!$file->canWrite()) {
             throw new BuildException('Can not change modification date of read-only file ' . $file->__toString());

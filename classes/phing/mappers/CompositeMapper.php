@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A <code>ContainerMapper</code> that unites the results of its constituent
  * <code>FileNameMapper</code>s into a single set of result filenames.
@@ -28,8 +30,14 @@ class CompositeMapper extends ContainerMapper
 {
     /**
      * {@inheritDoc}.
+     *
+     * @param string $sourceFileName
+     *
+     * @return array|null
+     *
+     * @throws ConfigurationException
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         $results = [];
         foreach ($this->getMappers() as $mapper) {

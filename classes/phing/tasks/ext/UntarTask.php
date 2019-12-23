@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar
  *
@@ -33,16 +35,20 @@ class UntarTask extends ExtractBaseTask
 
     /**
      * @param bool $preservePermissions
+     *
+     * @return void
      */
-    public function setPreservePermissions($preservePermissions)
+    public function setPreservePermissions(bool $preservePermissions): void
     {
         $this->preservePermissions = $preservePermissions;
     }
 
     /**
      * Ensures that PEAR lib exists.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         include_once 'Archive/Tar.php';
         if (!class_exists('Archive_Tar')) {
@@ -53,11 +59,12 @@ class UntarTask extends ExtractBaseTask
     /**
      * @param PhingFile $tarfile
      *
-     * @return mixed|void
+     * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function extractArchive(PhingFile $tarfile)
+    protected function extractArchive(PhingFile $tarfile): void
     {
         $this->log(
             'Extracting tar file: ' . $tarfile->__toString() . ' to ' . $this->todir->__toString(),
@@ -79,6 +86,8 @@ class UntarTask extends ExtractBaseTask
      * @param PhingFile $tarfile
      *
      * @return array|int
+     *
+     * @throws IOException
      */
     protected function listArchiveContent(PhingFile $tarfile)
     {
@@ -93,8 +102,10 @@ class UntarTask extends ExtractBaseTask
      * @param PhingFile $tarfile
      *
      * @return Archive_Tar the tar class instance
+     *
+     * @throws IOException
      */
-    private function initTar(PhingFile $tarfile)
+    private function initTar(PhingFile $tarfile): Archive_Tar
     {
         $compression = null;
         $tarfileName = $tarfile->getName();

@@ -1,9 +1,4 @@
 <?php
-
-use SebastianBergmann\PHPLOC\Log\Text;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\StreamOutput;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,13 +17,25 @@ use Symfony\Component\Console\Output\StreamOutput;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use SebastianBergmann\PHPLOC\Log\Text;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\StreamOutput;
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc
  */
 class PHPLocTextFormatter extends AbstractPHPLocFormatter
 {
-    public function printResult(array $count, $countTests = false)
+    /**
+     * @param array $count
+     * @param bool  $countTests
+     *
+     * @return void
+     */
+    public function printResult(array $count, bool $countTests = false): void
     {
         if ($this->getUseFile()) {
             $outputClass = StreamOutput::class;

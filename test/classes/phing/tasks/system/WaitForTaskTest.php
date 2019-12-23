@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the WaitFor Task
  *
@@ -25,23 +27,32 @@
  */
 class WaitForTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/WaitForTest.xml'
         );
     }
 
-    public function testConditionMet()
+    /**
+     * @return void
+     */
+    public function testConditionMet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('waitfor: condition was met');
     }
 
-    public function testTimeout()
+    /**
+     * @return void
+     */
+    public function testTimeout(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('waitfor: timeout');
-        $this->assertEquals('true', $this->project->getProperty('waitfor.timeout'));
+        self::assertEquals('true', $this->project->getProperty('waitfor.timeout'));
     }
 }

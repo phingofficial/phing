@@ -17,11 +17,19 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgTagTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -30,12 +38,18 @@ class HgTagTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testRepoDoesntExist()
+    /**
+     * @return void
+     */
+    public function testRepoDoesntExist(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepositoryDirDoesntExist',
@@ -44,19 +58,24 @@ class HgTagTaskTest extends BuildFileTest
         );
     }
 
-    /*
-    public function testTag()
+    /**
+     * @return void
+     */
+    public function testTag(): void
     {
+        $this->markTestSkipped();
         $this->expectBuildExceptionContaining(
-            "tag",
-            "tag",
-            "abort: cannot tag null revision"
+            'tag',
+            'tag',
+            'abort: cannot tag null revision'
         );
         $this->assertInLogs('Executing: tag --user \'test\' new-tag');
     }
-    */
 
-    public function testRevision()
+    /**
+     * @return void
+     */
+    public function testRevision(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 

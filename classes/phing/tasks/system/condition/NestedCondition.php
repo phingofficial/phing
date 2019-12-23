@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Nested conditions.
  *
@@ -25,7 +27,10 @@
  */
 class NestedCondition extends ConditionBase implements Condition
 {
-    public function evaluate()
+    /**
+     * @return bool
+     */
+    public function evaluate(): bool
     {
         if ($this->countConditions() != 1) {
             throw new BuildException(

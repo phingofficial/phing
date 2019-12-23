@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper aroung git-log
  *
@@ -102,8 +104,13 @@ class GitLogTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -163,8 +170,10 @@ class GitLogTask extends GitBaseTask
 
     /**
      * @param bool|string $stat
+     *
+     * @return void
      */
-    public function setStat($stat)
+    public function setStat($stat): void
     {
         $this->stat = $stat;
     }
@@ -179,8 +188,10 @@ class GitLogTask extends GitBaseTask
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNameStatus($flag)
+    public function setNameStatus(bool $flag): void
     {
         $this->nameStatus = (bool) $flag;
     }
@@ -188,7 +199,7 @@ class GitLogTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNameStatus()
+    public function getNameStatus(): bool
     {
         return $this->nameStatus;
     }
@@ -196,15 +207,17 @@ class GitLogTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNameStatus()
+    public function isNameStatus(): bool
     {
         return $this->getNameStatus();
     }
 
     /**
      * @param int $count
+     *
+     * @return void
      */
-    public function setMaxCount($count)
+    public function setMaxCount(int $count): void
     {
         $this->maxCount = (int) $count;
     }
@@ -212,15 +225,17 @@ class GitLogTask extends GitBaseTask
     /**
      * @return int
      */
-    public function getMaxCount()
+    public function getMaxCount(): int
     {
         return $this->maxCount;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoMerges(bool $flag)
+    public function setNoMerges(bool $flag): void
     {
         $this->noMerges = $flag;
     }
@@ -228,7 +243,7 @@ class GitLogTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoMerges()
+    public function getNoMerges(): bool
     {
         return $this->noMerges;
     }
@@ -236,15 +251,17 @@ class GitLogTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNoMerges()
+    public function isNoMerges(): bool
     {
         return $this->getNoMerges();
     }
 
     /**
      * @param string $format
+     *
+     * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
@@ -252,15 +269,17 @@ class GitLogTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return $this->format;
     }
 
     /**
      * @param string $date
+     *
+     * @return void
      */
-    public function setDate($date)
+    public function setDate(string $date): void
     {
         $this->date = $date;
     }
@@ -268,15 +287,17 @@ class GitLogTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getDate()
+    public function getDate(): string
     {
         return $this->date;
     }
 
     /**
      * @param string $since
+     *
+     * @return void
      */
-    public function setSince($since)
+    public function setSince(string $since): void
     {
         $this->since = $since;
     }
@@ -284,23 +305,27 @@ class GitLogTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getSince()
+    public function getSince(): string
     {
         return $this->since;
     }
 
     /**
      * @param string $after
+     *
+     * @return void
      */
-    public function setAfter($after)
+    public function setAfter(string $after): void
     {
         $this->setSince($after);
     }
 
     /**
      * @param string $until
+     *
+     * @return void
      */
-    public function setUntil($until)
+    public function setUntil(string $until): void
     {
         $this->until = $until;
     }
@@ -308,23 +333,27 @@ class GitLogTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getUntil()
+    public function getUntil(): string
     {
         return $this->until;
     }
 
     /**
      * @param string $before
+     *
+     * @return void
      */
-    public function setBefore($before)
+    public function setBefore(string $before): void
     {
         $this->setUntil($before);
     }
 
     /**
      * @param string $paths
+     *
+     * @return void
      */
-    public function setPaths($paths)
+    public function setPaths(string $paths): void
     {
         $this->paths = $paths;
     }
@@ -332,15 +361,17 @@ class GitLogTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getPaths()
+    public function getPaths(): string
     {
         return $this->paths;
     }
 
     /**
      * @param string $prop
+     *
+     * @return void
      */
-    public function setOutputProperty($prop)
+    public function setOutputProperty(string $prop): void
     {
         $this->outputProperty = $prop;
     }

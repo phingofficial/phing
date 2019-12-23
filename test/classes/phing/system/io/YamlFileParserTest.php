@@ -1,8 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Yaml\Parser;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +16,11 @@ use Symfony\Component\Yaml\Parser;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Unit test for YamlFileParser
@@ -45,9 +46,11 @@ class YamlFileParserTest extends TestCase
     private $incorrectYamlFileStub;
 
     /**
+     * @return void
+     *
      * @{inheritDoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         if (!class_exists(Parser::class)) {
             $this->markTestSkipped('Yaml parser is not installed.');
@@ -59,17 +62,24 @@ class YamlFileParserTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @{inheritDoc}
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->objectToTest = null;
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFileNotReadable()
+    public function testParseFileFileNotReadable(): void
     {
         $tmpFile = tempnam(FileUtils::getTempDir(), 'test');
         touch($tmpFile);
@@ -82,9 +92,14 @@ class YamlFileParserTest extends TestCase
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFileIncorrectYaml()
+    public function testParseFileFileIncorrectYaml(): void
     {
         $file = new PhingFile($this->incorrectYamlFileStub);
 
@@ -97,21 +112,26 @@ class YamlFileParserTest extends TestCase
      * The YamlFileParser has to provide a flattened array which then is
      * compatible to the actual behaviour of properties.
      *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFile()
+    public function testParseFileFile(): void
     {
         $file       = new PhingFile($this->yamlFileStub);
         $properties = $this->objectToTest->parseFile($file);
 
-        $this->assertEquals('testvalue', $properties['testarea']);
-        $this->assertEquals(1, $properties['testarea1.testkey1']);
-        $this->assertEquals(2, $properties['testarea1.testkey2']);
-        $this->assertEquals('testvalue1,testvalue2,testvalue3', $properties['testarea2']);
-        $this->assertEquals(false, $properties['testarea3']);
-        $this->assertEquals(true, $properties['testarea4']);
-        $this->assertEquals('testvalue1', $properties['testarea6.testkey1.testkey1']);
-        $this->assertEquals('testvalue2', $properties['testarea6.testkey1.testkey2']);
-        $this->assertEquals('testvalue1', $properties['testarea6.testkey2.testkey1']);
+        self::assertEquals('testvalue', $properties['testarea']);
+        self::assertEquals(1, $properties['testarea1.testkey1']);
+        self::assertEquals(2, $properties['testarea1.testkey2']);
+        self::assertEquals('testvalue1,testvalue2,testvalue3', $properties['testarea2']);
+        self::assertEquals(false, $properties['testarea3']);
+        self::assertEquals(true, $properties['testarea4']);
+        self::assertEquals('testvalue1', $properties['testarea6.testkey1.testkey1']);
+        self::assertEquals('testvalue2', $properties['testarea6.testkey1.testkey2']);
+        self::assertEquals('testvalue1', $properties['testarea6.testkey2.testkey1']);
     }
 }

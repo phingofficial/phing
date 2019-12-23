@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Retry Task
  *
@@ -25,14 +27,20 @@
  */
 class RetryTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/RetryTest.xml'
         );
     }
 
-    public function testRetry()
+    /**
+     * @return void
+     */
+    public function testRetry(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Task [fail] failed after [3] attempts; giving up');

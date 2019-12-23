@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * "Inner" class for IfTask.
  * This class has same basic structure as the IfTask, although of course it doesn't support <else> tags.
@@ -25,14 +27,19 @@
  */
 class ElseIfTask extends ConditionBase
 {
+    /**
+     * @var SequentialTask
+     */
     private $thenTasks = null;
 
     /**
      * @param SequentialTask $t
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function addThen(SequentialTask $t)
+    public function addThen(SequentialTask $t): void
     {
         if ($this->thenTasks != null) {
             throw new BuildException('You must not nest more than one <then> into <elseif>');
@@ -45,7 +52,7 @@ class ElseIfTask extends ConditionBase
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->countConditions() > 1) {
             throw new BuildException('You must not nest more than one condition into <elseif>');
@@ -60,9 +67,14 @@ class ElseIfTask extends ConditionBase
         return $c->evaluate();
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
-        if ($this->thenTasks != null) {
+        if ($this->thenTasks !== null) {
             $this->thenTasks->main();
         }
     }

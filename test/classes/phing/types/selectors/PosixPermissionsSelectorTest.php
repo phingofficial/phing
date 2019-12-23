@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use OsCondition as Os;
 use PHPUnit\Framework\TestCase;
 
@@ -25,6 +27,9 @@ class PosixPermissionsSelectorTest extends TestCase
     /** @var PosixPermissionsSelector $selector */
     private $selector;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         if (!Os::isFamily(Os::FAMILY_UNIX)) {
@@ -34,12 +39,17 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->selector = new PosixPermissionsSelector();
     }
 
+    /**
+     * @return void
+     */
     public function tearDown(): void
     {
         $this->selector = null;
     }
 
     /**
+     * @return void
+     *
      * @test
      */
     public function argumentRequired(): void
@@ -51,6 +61,8 @@ class PosixPermissionsSelectorTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @test
      */
     public function isSelected(): void
@@ -70,11 +82,13 @@ class PosixPermissionsSelectorTest extends TestCase
      * @param string $permission
      * @param bool   $throws
      *
+     * @return void
+     *
      * @test
      * @dataProvider illegalArgumentProvider
      * @dataProvider legalArgumentProvider
      */
-    public function argument(string $permission, $throws = false): void
+    public function argument(string $permission, bool $throws = false): void
     {
         if ($throws) {
             $this->expectException(BuildException::class);
@@ -85,6 +99,9 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->selector->setPermissions($permission);
     }
 
+    /**
+     * @return array
+     */
     public function legalArgumentProvider(): array
     {
         return [
@@ -93,6 +110,9 @@ class PosixPermissionsSelectorTest extends TestCase
         ];
     }
 
+    /**
+     * @return array
+     */
     public function illegalArgumentProvider(): array
     {
         return [

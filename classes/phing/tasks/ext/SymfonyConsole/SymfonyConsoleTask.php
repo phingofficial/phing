@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Symfony Console Task
  *
@@ -69,8 +71,10 @@ class SymfonyConsoleTask extends Task
      * sets the symfony console command to execute
      *
      * @param string $command
+     *
+     * @return void
      */
-    public function setCommand($command)
+    public function setCommand(string $command): void
     {
         $this->command = $command;
     }
@@ -80,7 +84,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): string
     {
         return $this->command;
     }
@@ -89,8 +93,10 @@ class SymfonyConsoleTask extends Task
      * sets the path to symfony console application
      *
      * @param string $console
+     *
+     * @return void
      */
-    public function setConsole($console)
+    public function setConsole(string $console): void
     {
         $this->console = $console;
     }
@@ -100,7 +106,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return string
      */
-    public function getConsole()
+    public function getConsole(): string
     {
         return $this->console;
     }
@@ -112,7 +118,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return void
      */
-    public function setPropertyName($property)
+    public function setPropertyName(string $property): void
     {
         $this->propertyName = $property;
     }
@@ -124,7 +130,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return void
      */
-    public function setCheckreturn(bool $checkreturn)
+    public function setCheckreturn(bool $checkreturn): void
     {
         $this->checkreturn = $checkreturn;
     }
@@ -136,7 +142,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return void
      */
-    public function setDebug(bool $debug)
+    public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
     }
@@ -146,17 +152,25 @@ class SymfonyConsoleTask extends Task
      *
      * @return bool
      */
-    public function getDebug()
+    public function getDebug(): bool
     {
         return $this->debug;
     }
 
-    public function setSilent(bool $flag)
+    /**
+     * @param bool $flag
+     *
+     * @return void
+     */
+    public function setSilent(bool $flag): void
     {
         $this->silent = $flag;
     }
 
-    public function getSilent()
+    /**
+     * @return bool
+     */
+    public function getSilent(): bool
     {
         return $this->silent;
     }
@@ -166,7 +180,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return Arg Argument object
      */
-    public function createArg()
+    public function createArg(): Arg
     {
         $num = array_push($this->args, new Arg());
 
@@ -176,9 +190,9 @@ class SymfonyConsoleTask extends Task
     /**
      * return the argumments passed to this task
      *
-     * @return array of Arg()
+     * @return Arg[]
      */
-    public function getArgs()
+    public function getArgs(): array
     {
         return $this->args;
     }
@@ -188,7 +202,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return bool
      */
-    private function isNoDebugArgPresent()
+    private function isNoDebugArgPresent(): bool
     {
         foreach ($this->args as $arg) {
             if ($arg->getName() == 'no-debug') {
@@ -204,7 +218,7 @@ class SymfonyConsoleTask extends Task
      *
      * @return string
      */
-    public function getCmdString()
+    public function getCmdString(): string
     {
         // Add no-debug arg if it isn't already present
         if (!$this->debug && !$this->isNoDebugArgPresent()) {
@@ -222,8 +236,12 @@ class SymfonyConsoleTask extends Task
 
     /**
      * executes the synfony console application
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $cmd = $this->getCmdString();
 

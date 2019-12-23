@@ -24,6 +24,11 @@ class PHPStanListCommandBuilder extends PHPStanCommandBuilder
     private const ARG_FORMAT = '--format=%s';
     private const ARG_RAW    = '--raw';
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     public function build(PHPStanTask $task): void
     {
         parent::build($task);

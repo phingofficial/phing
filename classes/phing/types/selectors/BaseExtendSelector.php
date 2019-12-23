@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convenience base class for all selectors accessed through ExtendSelector.
  * It provides support for gathering the parameters together as well as for
@@ -31,6 +33,8 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
 {
     /**
      * The passed in parameter array.
+     *
+     * @var array
      */
     protected $parameters;
 
@@ -40,7 +44,7 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return mixed|void
+     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -53,7 +57,7 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      *
      * @return array the set of parameters defined for this selector
      */
-    protected function getParameters()
+    protected function getParameters(): array
     {
         return $this->parameters;
     }

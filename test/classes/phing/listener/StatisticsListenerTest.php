@@ -17,14 +17,20 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class StatisticsListenerTest extends TestCase
 {
     /**
+     * @return void
+     *
+     * @throws Exception
+     *
      * @test
      */
-    public function buildFinished()
+    public function buildFinished(): void
     {
         $event  = new BuildEvent(new Project());
         $logger = new class extends StatisticsListener

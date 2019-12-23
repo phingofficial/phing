@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <foreach> task
  *
@@ -46,11 +48,15 @@ class ForeachTask extends Task
 
     /**
      * Delimter-separated list of values to process.
+     *
+     * @var string
      */
     private $list;
 
     /**
      * Name of parameter to pass to callee
+     *
+     * @var string
      */
     private $param;
 
@@ -61,11 +67,15 @@ class ForeachTask extends Task
 
     /**
      * Name of absolute path parameter to pass to callee
+     *
+     * @var string
      */
     private $absparam;
 
     /**
      * Delimiter that separates items in $list
+     *
+     * @var string
      */
     private $delimiter = ',';
 
@@ -78,6 +88,8 @@ class ForeachTask extends Task
 
     /**
      * Instance of mapper
+     *
+     * @var Mapper
      */
     private $mapperElement;
 
@@ -108,7 +120,7 @@ class ForeachTask extends Task
     private $trim = false;
 
     /**
-     * @var $inheritAll
+     * @var bool $inheritAll
      */
     private $inheritAll = false;
 
@@ -137,9 +149,13 @@ class ForeachTask extends Task
      *
      * @return void
      *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->list === null && $this->currPath === null && count($this->dirsets) === 0 && count($this->filesets) == 0 && count($this->filelists) == 0) {
             throw new BuildException('Need either list, path, nested dirset, nested fileset or nested filelist to iterate through');
@@ -164,7 +180,7 @@ class ForeachTask extends Task
 
             foreach ($arr as $index => $value) {
                 if ($this->trim) {
-                    $value = trim($value);
+                    $value = trim((string) $value);
                 }
                 $premapped = '';
                 if ($mapper !== null) {
@@ -245,12 +261,17 @@ class ForeachTask extends Task
     /**
      * Processes a list of files & directories
      *
-     * @param PhingCallTask $callee
-     * @param PhingFile     $fromDir
-     * @param array         $srcFiles
-     * @param array         $srcDirs
+     * @param Task      $callee
+     * @param PhingFile $fromDir
+     * @param array     $srcFiles
+     * @param array     $srcDirs
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws IOException
      */
-    protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
+    protected function process(Task $callee, PhingFile $fromDir, array $srcFiles, array $srcDirs): void
     {
         $mapper = null;
 
@@ -261,24 +282,27 @@ class ForeachTask extends Task
         $filecount          = count($srcFiles);
         $this->total_files += $filecount;
 
-        $this->processResources($filecount, $srcFiles, $callee, $fromDir, $mapper);
+        $this->processResources($filecount, $srcFiles, $callee, (string) $fromDir, $mapper);
 
         $dircount          = count($srcDirs);
         $this->total_dirs += $dircount;
 
-        $this->processResources($dircount, $srcDirs, $callee, $fromDir, $mapper);
+        $this->processResources($dircount, $srcDirs, $callee, (string) $fromDir, $mapper);
     }
 
     /**
-     * @param int           $rescount
-     * @param array         $srcRes
-     * @param PhingCallTask $callee
-     * @param string        $fromDir
-     * @param Mapper        $mapper
+     * @param int                                 $rescount
+     * @param array                               $srcRes
+     * @param Task                                $callee
+     * @param string                              $fromDir
+     * @param ContainerMapper|FileNameMapper|null $mapper
+     *
+     * @return void
      *
      * @throws IOException
+     * @throws Exception
      */
-    private function processResources(int $rescount, array $srcRes, $callee, $fromDir, $mapper)
+    private function processResources(int $rescount, array $srcRes, Task $callee, string $fromDir, $mapper): void
     {
         for ($j = 0; $j < $rescount; $j++) {
             $value     = $srcRes[$j];
@@ -318,31 +342,42 @@ class ForeachTask extends Task
         }
     }
 
-    public function setTrim($trim)
+    /**
+     * @param bool $trim
+     *
+     * @return void
+     */
+    public function setTrim(bool $trim): void
     {
         $this->trim = $trim;
     }
 
     /**
      * @param string $list
+     *
+     * @return void
      */
-    public function setList($list)
+    public function setList(string $list): void
     {
         $this->list = (string) $list;
     }
 
     /**
      * @param string $target
+     *
+     * @return void
      */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
         $this->calleeTarget = (string) $target;
     }
 
     /**
      * @param PropertyTask $param
+     *
+     * @return void
      */
-    public function addParam(PropertyTask $param)
+    public function addParam(PropertyTask $param): void
     {
         $this->params[] = $param;
     }
@@ -350,34 +385,52 @@ class ForeachTask extends Task
     /**
      * Corresponds to <code>&lt;phingcall&gt;</code>'s nested
      * <code>&lt;reference&gt;</code> element.
+     *
+     * @param PhingReference $r
+     *
+     * @return void
      */
-    public function addReference(PhingReference $r)
+    public function addReference(PhingReference $r): void
     {
         $this->references[] = $r;
     }
 
     /**
      * @param string $absparam
+     *
+     * @return void
      */
-    public function setAbsparam($absparam)
+    public function setAbsparam(string $absparam): void
     {
         $this->absparam = (string) $absparam;
     }
 
     /**
      * @param string $delimiter
+     *
+     * @return void
      */
-    public function setDelimiter($delimiter)
+    public function setDelimiter(string $delimiter): void
     {
         $this->delimiter = (string) $delimiter;
     }
 
-    public function setIndex($index)
+    /**
+     * @param string $index
+     *
+     * @return void
+     */
+    public function setIndex(string $index): void
     {
         $this->index = $index;
     }
 
-    public function createPath()
+    /**
+     * @return Path
+     *
+     * @throws Exception
+     */
+    public function createPath(): Path
     {
         if ($this->currPath === null) {
             $this->currPath = new Path($this->getProject());
@@ -389,11 +442,11 @@ class ForeachTask extends Task
     /**
      * Nested creator, creates one Mapper for this task
      *
-     * @return object         The created Mapper type object
+     * @return Mapper The created Mapper type object
      *
      * @throws BuildException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException('Cannot define more than one mapper', $this->getLocation());
@@ -405,24 +458,34 @@ class ForeachTask extends Task
 
     /**
      * @return PropertyTask
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function createProperty()
+    public function createProperty(): PropertyTask
     {
         return $this->callee->createProperty();
     }
 
     /**
      * @return PropertyTask
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function createParam()
+    public function createParam(): PropertyTask
     {
         return $this->callee->createProperty();
     }
 
     /**
      * @param string $param
+     *
+     * @return void
      */
-    public function setParam($param)
+    public function setParam(string $param): void
     {
         $this->param = $param;
     }
@@ -430,8 +493,12 @@ class ForeachTask extends Task
     /**
      * Corresponds to <code>&lt;antcall&gt;</code>'s <code>inheritall</code>
      * attribute.
+     *
+     * @param bool $b
+     *
+     * @return void
      */
-    public function setInheritall($b)
+    public function setInheritall(bool $b): void
     {
         $this->inheritAll = $b;
     }
@@ -439,13 +506,24 @@ class ForeachTask extends Task
     /**
      * Corresponds to <code>&lt;antcall&gt;</code>'s <code>inheritrefs</code>
      * attribute.
+     *
+     * @param bool $b
+     *
+     * @return void
      */
-    public function setInheritrefs($b)
+    public function setInheritrefs(bool $b): void
     {
         $this->inheritRefs = $b;
     }
 
-    private function createCallTarget()
+    /**
+     * @return PhingCallTask
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    private function createCallTarget(): PhingCallTask
     {
         /**
          * @var PhingCallTask $ct

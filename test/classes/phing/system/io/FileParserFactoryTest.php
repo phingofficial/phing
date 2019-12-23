@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for FileParserFactory
  *
@@ -34,39 +35,43 @@ class FileParserFactoryTest extends TestCase
     private $objectToTest;
 
     /**
-     * @var string
-     */
-    private $iniFileStub;
-
-    /**
+     * @return void
+     *
      * @{inheritDoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->objectToTest = new FileParserFactory();
     }
 
     /**
+     * @return void
+     *
      * @{inheritDoc}
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->objectToTest = null;
     }
 
     /**
+     * @param string $parserName
+     * @param string $expectedType
+     *
+     * @return void
+     *
      * @covers       FileParserFactory::createParser
      * @dataProvider parserTypeProvider
      */
-    public function testCreateParser($parserName, $expectedType)
+    public function testCreateParser(string $parserName, string $expectedType): void
     {
-        $this->assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
+        self::assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function parserTypeProvider()
+    public function parserTypeProvider(): array
     {
         return [
             ['properties', 'IniFileParser'],

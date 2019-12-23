@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
@@ -25,16 +27,24 @@ class SvnListTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnListTest.xml');
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testGetList()
+    /**
+     * @return void
+     */
+    public function testGetList(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getList');
         $this->assertPropertyEquals(
             'svn.list',

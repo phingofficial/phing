@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Alexey Shockov <alexey@shockov.com>
  * @package phing.tasks.ext.phk
@@ -30,8 +32,10 @@ class PhkPackageWebAccessPath
 
     /**
      * @param string $path
+     *
+     * @return void
      */
-    public function addText($path)
+    public function addText(string $path): void
     {
         $this->path = trim($path);
     }
@@ -39,7 +43,7 @@ class PhkPackageWebAccessPath
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }

@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for Timer
  *
@@ -31,25 +32,34 @@ class TimerTest extends TestCase
     /** @var Timer */
     private $timer;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->timer = new Timer();
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
-        unset($this->timer);
+        $this->timer = null;
     }
 
-    public function testTimer()
+    /**
+     * @return void
+     */
+    public function testTimer(): void
     {
         $this->timer->start();
         $this->timer->stop();
 
         if (method_exists($this, '')) {
-            $this->assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.001);
+            self::assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.001);
         } else {
-            $this->assertEquals(0.0, $this->timer->getElapsedTime(), '', 0.001);
+            self::assertEquals(0.0, $this->timer->getElapsedTime(), '', 0.001);
         }
     }
 }

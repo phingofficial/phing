@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This selector has a collection of other selectors. All of those selectors
  * must refuse to select a file before the file is considered selected by
@@ -31,7 +33,7 @@ class NoneSelector extends BaseSelectorContainer
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         if ($this->hasSelectors()) {
@@ -53,7 +55,7 @@ class NoneSelector extends BaseSelectorContainer
      *
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

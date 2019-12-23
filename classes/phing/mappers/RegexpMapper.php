@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Uses regular expressions to perform filename transformations.
  *
@@ -38,7 +40,14 @@ class RegexpMapper implements FileNameMapper
      */
     private $reg;
 
-    private $handleDirSep  = false;
+    /**
+     * @var bool
+     */
+    private $handleDirSep = false;
+
+    /**
+     * @var bool
+     */
     private $caseSensitive = true;
 
     /**
@@ -55,8 +64,10 @@ class RegexpMapper implements FileNameMapper
      * between / and \ (the two common directory characters).
      *
      * @param bool $handleDirSep a boolean, default is false.
+     *
+     * @return void
      */
-    public function setHandleDirSep($handleDirSep)
+    public function setHandleDirSep(bool $handleDirSep): void
     {
         $this->handleDirSep = $handleDirSep;
     }
@@ -64,8 +75,10 @@ class RegexpMapper implements FileNameMapper
     /**
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
+     *
+     * @return bool
      */
-    public function getHandleDirSep()
+    public function getHandleDirSep(): bool
     {
         return $this->handleDirSep;
     }
@@ -75,8 +88,10 @@ class RegexpMapper implements FileNameMapper
      * in the names.
      *
      * @param bool $caseSensitive a boolean, default is false.
+     *
+     * @return void
      */
-    public function setCaseSensitive($caseSensitive)
+    public function setCaseSensitive(bool $caseSensitive): void
     {
         $this->caseSensitive = $caseSensitive;
     }
@@ -85,11 +100,11 @@ class RegexpMapper implements FileNameMapper
      * Sets the &quot;from&quot; pattern. Required.
      * {@inheritdoc}
      *
-     * @param string $from
+     * @param string|null $from
      *
      * @return void
      */
-    public function setFrom($from)
+    public function setFrom(?string $from): void
     {
         if ($from === null) {
             throw new BuildException("this mapper requires a 'from' attribute");
@@ -103,14 +118,14 @@ class RegexpMapper implements FileNameMapper
      *
      * {@inheritdoc}
      *
-     * @param string $to
+     * @param string|null $to
      *
      * @return void
      *
      * @intern [HL] I'm changing the way this works for now to just use string
      *              <code>$this->to = StringHelper::toCharArray($to);</code>
      */
-    public function setTo($to)
+    public function setTo(?string $to): void
     {
         if ($to === null) {
             throw new BuildException("this mapper requires a 'to' attribute");
@@ -122,11 +137,13 @@ class RegexpMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param mixed $sourceFileName
+     * @param string $sourceFileName
      *
      * @return array|null
+     *
+     * @throws RegexpException
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         if ($this->handleDirSep) {
             if (strpos('\\', $sourceFileName) !== false) {
@@ -154,7 +171,7 @@ class RegexpMapper implements FileNameMapper
      *         so no need to pass $source again to the engine.
      *         Replaces \1 with value of reg->getGroup(1) and return the modified "to" string.
      */
-    private function replaceReferences($source)
+    private function replaceReferences(string $source)
     {
         return preg_replace_callback('/\\\([\d]+)/', [$this, 'replaceReferencesCallback'], $this->to);
     }
@@ -166,7 +183,7 @@ class RegexpMapper implements FileNameMapper
      *
      * @return string
      */
-    private function replaceReferencesCallback($matches)
+    private function replaceReferencesCallback(array $matches): string
     {
         return (string) $this->reg->getGroup($matches[1]);
     }

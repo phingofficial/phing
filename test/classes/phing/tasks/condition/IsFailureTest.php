@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Testcase for the IsFailure condition.
  *
@@ -25,20 +27,32 @@
  */
 class IsFailureTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/IsFailureTest.xml'
         );
     }
 
-    public function testFailureAfterNonExistingCommand()
+    /**
+     * @return void
+     */
+    public function testFailureAfterNonExistingCommand(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Command failed with return code 1');
     }
 
-    public function testNoFailureWithZeroValue()
+    /**
+     * @return void
+     */
+    public function testNoFailureWithZeroValue(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Command failed with return code 0');

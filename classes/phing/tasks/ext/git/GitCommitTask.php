@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper around git-commit
  *
@@ -42,8 +44,15 @@ class GitCommitTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -93,8 +102,12 @@ class GitCommitTask extends GitBaseTask
     /**
      * @param array $options
      * @param array $arguments
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function logCommand(array $options, array $arguments)
+    protected function logCommand(array $options, array $arguments): void
     {
         $msg = 'git-commit: Executed git commit ';
         foreach ($options as $option => $value) {
@@ -111,15 +124,17 @@ class GitCommitTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAllFiles()
+    public function getAllFiles(): bool
     {
         return $this->allFiles;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAllFiles(bool $flag)
+    public function setAllFiles(bool $flag): void
     {
         $this->allFiles = $flag;
     }
@@ -127,15 +142,17 @@ class GitCommitTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
      * @param string $message
+     *
+     * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }

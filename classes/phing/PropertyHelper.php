@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Component creation and configuration
  *
@@ -58,8 +60,10 @@ class PropertyHelper
      * Set the project for which this helper is performing property resolution
      *
      * @param Project $p the project instance.
+     *
+     * @return void
      */
-    private function setProject(Project $p)
+    private function setProject(Project $p): void
     {
         $this->project = $p;
     }
@@ -74,8 +78,10 @@ class PropertyHelper
      *  least for non-dynamic properties)
      *
      * @param PropertyHelper $next the next property helper in the chain.
+     *
+     * @return void
      */
-    public function setNext(PropertyHelper $next)
+    public function setNext(PropertyHelper $next): void
     {
         $this->next = $next;
     }
@@ -83,9 +89,9 @@ class PropertyHelper
     /**
      * Get the next property helper in the chain.
      *
-     * @return PropertyHelper the next property helper.
+     * @return PropertyHelper|null the next property helper.
      */
-    public function getNext()
+    public function getNext(): ?PropertyHelper
     {
         return $this->next;
     }
@@ -99,8 +105,10 @@ class PropertyHelper
      * @param Project $project the project fro which the property helper is required.
      *
      * @return PropertyHelper the project's property helper.
+     *
+     * @throws Exception
      */
-    public static function getPropertyHelper(Project $project)
+    public static function getPropertyHelper(Project $project): self
     {
         /**
          * @var PropertyHelper $helper
@@ -126,20 +134,20 @@ class PropertyHelper
      * If all helpers return false, the property will be saved in
      * the default properties table by setProperty.
      *
-     * @param string $ns        The namespace that the property is in (currently not used).
-     * @param string $name      The name of property to set.
-     *                          Must not be <code>null</code>.
-     * @param string $value     The new value of the property.
-     *                          Must not be <code>null</code>.
-     * @param bool   $inherited True if this property is inherited (an [sub]ant[call] property).
-     * @param bool   $user      True if this property is a user property.
-     * @param bool   $isNew     True is this is a new property.
+     * @param string|null     $ns        The namespace that the property is in (currently not used).
+     * @param string          $name      The name of property to set.
+     *                                   Must not be <code>null</code>.
+     * @param string|int|null $value     The new value of the property.
+     *                                   Must not be <code>null</code>.
+     * @param bool            $inherited True if this property is inherited (an [sub]ant[call] property).
+     * @param bool            $user      True if this property is a user property.
+     * @param bool            $isNew     True is this is a new property.
      *
      * @return bool True if this helper has stored the property, false if it
      *              couldn't. Each helper should delegate to the next one (unless it
      *              has a good reason not to).
      */
-    public function setPropertyHook($ns, $name, $value, $inherited, $user, $isNew)
+    public function setPropertyHook(?string $ns, string $name, $value, bool $inherited, bool $user, bool $isNew): bool
     {
         if ($this->getNext() !== null) {
             $subst = $this->getNext()->setPropertyHook($ns, $name, $value, $inherited, $user, $isNew);
@@ -156,13 +164,13 @@ class PropertyHelper
      * Get a property. If all hooks return null, the default
      * tables will be used.
      *
-     * @param string $ns   namespace of the sought property.
-     * @param string $name name of the sought property.
-     * @param bool   $user True if this is a user property.
+     * @param string|null $ns   namespace of the sought property.
+     * @param string      $name name of the sought property.
+     * @param bool        $user True if this is a user property.
      *
-     * @return string The property, if returned by a hook, or null if none.
+     * @return string|null The property, if returned by a hook, or null if none.
      */
-    public function getPropertyHook($ns, $name, $user)
+    public function getPropertyHook(?string $ns, string $name, bool $user): ?string
     {
         if ($this->getNext() !== null) {
             $o = $this->getNext()->getPropertyHook($ns, $name, $user);
@@ -190,21 +198,21 @@ class PropertyHelper
      * Replaces <code>${xxx}</code> style constructions in the given value
      * with the string value of the corresponding data types.
      *
-     * @param string   $value The string to be scanned for property references.
-     *                        May be <code>null</code>, in which case this
-     *                        method returns immediately with no effect.
-     * @param string[] $keys  Mapping (String to String) of property names to their
-     *                        values. If <code>null</code>, only project properties will
-     *                        be used.
+     * @param string|null   $value The string to be scanned for property references.
+     *                             May be <code>null</code>, in which case this
+     *                             method returns immediately with no effect.
+     * @param string[]|null $keys  Mapping (String to String) of property names to their
+     *                             values. If <code>null</code>, only project properties will
+     *                             be used.
      *
-     * @return string The original string with the properties replaced, or
-     *                <code>null</code> if the original string is <code>null</code>.
+     * @return string|null The original string with the properties replaced, or
+     *                     <code>null</code> if the original string is <code>null</code>.
      *
      * @throws BuildException if the string contains an opening
      *                           <code>${</code> without a closing
      *                           <code>}</code>
      */
-    public function replaceProperties($value, $keys)
+    public function replaceProperties(?string $value, ?array $keys): ?string
     {
         if ($value === null) {
             return null;
@@ -273,14 +281,16 @@ class PropertyHelper
      *  This is the original 1.5 implementation, with calls to the hook
      *  added.
      *
-     * @param string $ns      The namespace for the property (currently not used).
-     * @param string $name    The name of the property.
-     * @param string $value   The value to set the property to.
-     * @param bool   $verbose If this is true output extra log messages.
+     * @param string|null $ns      The namespace for the property (currently not used).
+     * @param string      $name    The name of the property.
+     * @param string|null $value   The value to set the property to.
+     * @param bool        $verbose If this is true output extra log messages.
      *
      * @return bool true if the property is set.
+     *
+     * @throws Exception
      */
-    public function setProperty($ns, $name, $value, $verbose)
+    public function setProperty(?string $ns, string $name, ?string $value, bool $verbose): bool
     {
         // user (CLI) properties take precedence
         if (isset($this->userProperties[$name])) {
@@ -319,13 +329,17 @@ class PropertyHelper
      * exists already, a message is logged and the method returns with
      * no other effect.
      *
-     * @param string $ns    The namespace for the property (currently not used).
-     * @param string $name  The name of property to set.
-     *                      Must not be <code>null</code>.
-     * @param string $value The new value of the property.
-     *                      Must not be <code>null</code>.
+     * @param string|null $ns    The namespace for the property (currently not used).
+     * @param string      $name  The name of property to set.
+     *                           Must not be <code>null</code>.
+     * @param string|int  $value The new value of the property.
+     *                           Must not be <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setNewProperty($ns, $name, $value)
+    public function setNewProperty(?string $ns, string $name, $value): void
     {
         if (isset($this->properties[$name])) {
             $this->project->log('Override ignored for property ' . $name, Project::MSG_VERBOSE);
@@ -348,13 +362,17 @@ class PropertyHelper
      * Sets a user property, which cannot be overwritten by
      * set/unset property calls. Any previous value is overwritten.
      *
-     * @param string $ns    The namespace for the property (currently not used).
-     * @param string $name  The name of property to set.
-     *                      Must not be <code>null</code>.
-     * @param string $value The new value of the property.
-     *                      Must not be <code>null</code>.
+     * @param string|null $ns    The namespace for the property (currently not used).
+     * @param string      $name  The name of property to set.
+     *                           Must not be <code>null</code>.
+     * @param string      $value The new value of the property.
+     *                           Must not be <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setUserProperty($ns, $name, $value)
+    public function setUserProperty(?string $ns, string $name, string $value): void
     {
         if ($name === null || $value === null) {
             return;
@@ -376,13 +394,17 @@ class PropertyHelper
      * these properties as properties that have not come from the
      * command line.
      *
-     * @param string $ns    The namespace for the property (currently not used).
-     * @param string $name  The name of property to set.
-     *                      Must not be <code>null</code>.
-     * @param string $value The new value of the property.
-     *                      Must not be <code>null</code>.
+     * @param string|null $ns    The namespace for the property (currently not used).
+     * @param string      $name  The name of property to set.
+     *                           Must not be <code>null</code>.
+     * @param string      $value The new value of the property.
+     *                           Must not be <code>null</code>.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setInheritedProperty($ns, $name, $value)
+    public function setInheritedProperty(?string $ns, string $name, string $value): void
     {
         if ($name === null || $value === null) {
             return;
@@ -410,15 +432,15 @@ class PropertyHelper
      * Returns the value of a property, if it is set.  You can override
      * this method in order to plug your own storage.
      *
-     * @param string $ns   The namespace for the property (currently not used).
-     * @param string $name The name of the property.
-     *                     May be <code>null</code>, in which case
-     *                     the return value is also <code>null</code>.
+     * @param string|null $ns   The namespace for the property (currently not used).
+     * @param string      $name The name of the property.
+     *                          May be <code>null</code>, in which case
+     *                          the return value is also <code>null</code>.
      *
-     * @return string The property value, or <code>null</code> for no match
-     *                or if a <code>null</code> name is provided.
+     * @return string|bool|null The property value, or <code>null</code> for no match
+     *                          or if a <code>null</code> name is provided.
      */
-    public function getProperty($ns, $name)
+    public function getProperty(?string $ns, string $name)
     {
         if ($name === null) {
             return null;
@@ -430,7 +452,7 @@ class PropertyHelper
 
         $found = $this->properties[$name] ?? null;
         // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
+        if (is_string($found) && false !== strpos($found, '${')) {
             // attempt to resolve properties
             $found = $this->replaceProperties($found, null);
             // save resolved value
@@ -443,15 +465,15 @@ class PropertyHelper
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param string $ns   The namespace for the property (currently not used).
-     * @param string $name The name of the property.
-     *                     May be <code>null</code>, in which case
-     *                     the return value is also <code>null</code>.
+     * @param string|null $ns   The namespace for the property (currently not used).
+     * @param string      $name The name of the property.
+     *                          May be <code>null</code>, in which case
+     *                          the return value is also <code>null</code>.
      *
-     * @return string The property value, or <code>null</code> for no match
+     * @return string|null The property value, or <code>null</code> for no match
      *                or if a <code>null</code> name is provided.
      */
-    public function getUserProperty($ns, $name)
+    public function getUserProperty(?string $ns, string $name): ?string
     {
         if ($name === null) {
             return null;
@@ -474,7 +496,7 @@ class PropertyHelper
      * @return array A hashtable containing all properties
      *               (including user properties).
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -498,8 +520,10 @@ class PropertyHelper
      * {@link #copyUserProperties copyUserProperties}.</p>
      *
      * @param Project $other the project to copy the properties to.  Must not be null.
+     *
+     * @return void
      */
-    public function copyInheritedProperties(Project $other)
+    public function copyInheritedProperties(Project $other): void
     {
         foreach ($this->inheritedProperties as $arg => $value) {
             if ($other->getUserProperty($arg) !== null) {
@@ -519,8 +543,10 @@ class PropertyHelper
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
      * @param Project $other the project to copy the properties to.  Must not be null.
+     *
+     * @return void
      */
-    public function copyUserProperties(Project $other)
+    public function copyUserProperties(Project $other): void
     {
         foreach ($this->userProperties as $arg => $value) {
             if (isset($this->inheritedProperties[$arg])) {
@@ -545,11 +571,13 @@ class PropertyHelper
      * @param array  $propertyRefs List to add property names to.
      *                             Must not be <code>null</code>.
      *
+     * @return void
+     *
      * @throws BuildException If the string contains an opening
      *                        <code>${</code> without a closing
      *                        <code>}</code>
      */
-    public function parsePropertyString($value, &$fragments, &$propertyRefs)
+    public function parsePropertyString(string $value, array &$fragments, array &$propertyRefs): void
     {
         $prev = 0;
         $pos  = 0;

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encodes files using Zeng Guard Encoder
  *
@@ -180,144 +182,180 @@ class ZendGuardEncodeTask extends MatchingTask
      * TASK PROPERTIES SETTERS
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setZendEncoderPath($value)
+    public function setZendEncoderPath($value): void
     {
         $this->zendEncoderPath = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setPrivateKeyPath($value)
+    public function setPrivateKeyPath($value): void
     {
         $this->privateKeyPath = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setShortTags(bool $value)
+    public function setShortTags(bool $value): void
     {
         $this->shortTags = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setAspTags(bool $value)
+    public function setAspTags(bool $value): void
     {
         $this->aspTags = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setDeleteSource(bool $value)
+    public function setDeleteSource(bool $value): void
     {
         $this->shortTags = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setUseCrypto(bool $value)
+    public function setUseCrypto(bool $value): void
     {
         $this->useCrypto = $value;
     }
 
     /**
      * @param int $value
+     *
+     * @return void
      */
-    public function setObfuscationLevel($value)
+    public function setObfuscationLevel(int $value): void
     {
         $this->obfuscationLevel = (int) $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setLicenseProduct(bool $value)
+    public function setLicenseProduct(bool $value): void
     {
         $this->licenseProduct = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setPrologFile($value)
+    public function setPrologFile($value): void
     {
         $this->prologFile = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setSignProduct(bool $value)
+    public function setSignProduct(bool $value): void
     {
         $this->signProduct = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setForceEncode(bool $value)
+    public function setForceEncode(bool $value): void
     {
         $this->forceEncode = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setEncodedOnly(bool $value)
+    public function setEncodedOnly(bool $value): void
     {
         $this->encodedOnly = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setIgnoreFileModes(bool $value)
+    public function setIgnoreFileModes(bool $value): void
     {
         $this->ignoreFileModes = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setExpires($value)
+    public function setExpires($value): void
     {
         $this->expires = $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setProductName($value)
+    public function setProductName($value): void
     {
         $this->productName = $value;
     }
 
     /**
      * @param int $value
+     *
+     * @return void
      */
-    public function setOptMask($value)
+    public function setOptMask(int $value): void
     {
         $this->optMask = (int) $value;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setRenameSourceExt($value)
+    public function setRenameSourceExt($value): void
     {
         $this->renameSourceExt = $value;
     }
 
     /**
      * @param bool $value
+     *
+     * @return void
      */
-    public function setNoHeader(bool $value)
+    public function setNoHeader(bool $value): void
     {
         $this->noHeader = $value;
     }
@@ -325,9 +363,9 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Add a new fileset.
      *
-     * @return FileSet
+     * @return ZendGuardFileSet
      */
-    public function createFileSet()
+    public function createFileSet(): ZendGuardFileSet
     {
         $this->fileset    = new ZendGuardFileSet();
         $this->filesets[] = $this->fileset;
@@ -338,9 +376,11 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Verifies that the configuration is correct
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function verifyConfiguration()
+    protected function verifyConfiguration(): void
     {
         // Check that the zend encoder path is specified
         if (empty($this->zendEncoderPath)) {
@@ -377,9 +417,13 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Do the work
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->verifyConfiguration();
         $this->prepareEncoderCommand();
@@ -426,8 +470,10 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Prepares the main part of the command that will be
      * used to encode the given file(s).
+     *
+     * @return void
      */
-    protected function prepareEncoderCommand()
+    protected function prepareEncoderCommand(): void
     {
         $command = $this->zendEncoderPath . ' ';
 
@@ -507,9 +553,10 @@ class ZendGuardEncodeTask extends MatchingTask
      *
      * @return bool
      *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function encodeFile($filePath)
+    protected function encodeFile(string $filePath): bool
     {
         $command = $this->encodeCommand . $filePath . ' 2>&1';
 

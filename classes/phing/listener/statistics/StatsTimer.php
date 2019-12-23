@@ -17,48 +17,78 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class StatsTimer
 {
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var Series
+     */
     protected $series;
 
+    /**
+     * @var Clock
+     */
     protected $clock;
 
-    public function __construct($name, Clock $clock)
+    /**
+     * @param string $name
+     * @param Clock  $clock
+     */
+    public function __construct(string $name, Clock $clock)
     {
         $this->name   = $name;
         $this->clock  = $clock;
         $this->series = new Series();
     }
 
-    public function start()
+    /**
+     * @return void
+     */
+    public function start(): void
     {
         $duration = new Duration();
         $duration->setStartTime($this->clock->getCurrentTime());
         $this->series->add($duration);
     }
 
-    public function finish()
+    /**
+     * @return void
+     */
+    public function finish(): void
     {
         $this->series->setFinishTime($this->clock->getCurrentTime());
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @return float|int
+     */
     public function getTime()
     {
         return $this->series->getTotalTime();
     }
 
-    public function getSeries()
+    /**
+     * @return Series
+     */
+    public function getSeries(): Series
     {
         return $this->series;
     }

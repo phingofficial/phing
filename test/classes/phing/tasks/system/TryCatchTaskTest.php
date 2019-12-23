@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Echo Task
  *
@@ -25,14 +27,20 @@
  */
 class TryCatchTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/TryCatchTest.xml'
         );
     }
 
-    public function testTryCatchFinally()
+    /**
+     * @return void
+     */
+    public function testTryCatchFinally(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('In <catch>.');

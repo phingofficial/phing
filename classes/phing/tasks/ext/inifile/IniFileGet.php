@@ -12,6 +12,7 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
 
 /**
  * InifileGet
@@ -35,21 +36,21 @@ class IniFileGet
     /**
      * Property
      *
-     * @var string
+     * @var string|null
      */
     protected $property = null;
 
     /**
      * Section
      *
-     * @var string
+     * @var string|null
      */
     protected $section = null;
 
     /**
      * Output property name
      *
-     * @var string
+     * @var string|null
      */
     protected $output = null;
 
@@ -60,7 +61,7 @@ class IniFileGet
      *
      * @return void
      */
-    public function setDefault($default)
+    public function setDefault(string $default): void
     {
         $this->default = trim($default);
     }
@@ -70,7 +71,7 @@ class IniFileGet
      *
      * @return string
      */
-    public function getDefault()
+    public function getDefault(): string
     {
         return $this->default;
     }
@@ -82,7 +83,7 @@ class IniFileGet
      *
      * @return void
      */
-    public function setSection($section)
+    public function setSection(string $section): void
     {
         $this->section = trim($section);
     }
@@ -90,9 +91,9 @@ class IniFileGet
     /**
      * Get Section
      *
-     * @return string
+     * @return string|null
      */
-    public function getSection()
+    public function getSection(): ?string
     {
         return $this->section;
     }
@@ -104,7 +105,7 @@ class IniFileGet
      *
      * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -112,9 +113,9 @@ class IniFileGet
     /**
      * Get Property
      *
-     * @return string
+     * @return string|null
      */
-    public function getProperty()
+    public function getProperty(): ?string
     {
         return $this->property;
     }
@@ -126,7 +127,7 @@ class IniFileGet
      *
      * @return void
      */
-    public function setOutputProperty($output)
+    public function setOutputProperty(string $output): void
     {
         $this->output = $output;
     }
@@ -134,9 +135,9 @@ class IniFileGet
     /**
      * Get name of property to set retrieved value to
      *
-     * @return string
+     * @return string|null
      */
-    public function getOutputProperty()
+    public function getOutputProperty(): ?string
     {
         return $this->output;
     }

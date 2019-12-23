@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
  *
@@ -27,18 +29,34 @@ class XmlLintTask extends Task
 {
     use FileSetAware;
 
+    /**
+     * @var PhingFile
+     */
     protected $file; // the source file (from xml attribute)
+
+    /**
+     * @var PhingFile
+     */
     protected $schema; // the schema file (from xml attribute)
+
+    /**
+     * @var bool
+     */
     protected $useRNG = false;
 
+    /**
+     * @var bool
+     */
     protected $haltonfailure = true;
 
     /**
      * File to be performed syntax check on
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -47,8 +65,10 @@ class XmlLintTask extends Task
      * XML Schema Description file to validate against
      *
      * @param PhingFile $schema
+     *
+     * @return void
      */
-    public function setSchema(PhingFile $schema)
+    public function setSchema(PhingFile $schema): void
     {
         $this->schema = $schema;
     }
@@ -57,8 +77,10 @@ class XmlLintTask extends Task
      * Use RNG instead of DTD schema validation
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setUseRNG($bool)
+    public function setUseRNG(bool $bool): void
     {
         $this->useRNG = (bool) $bool;
     }
@@ -70,21 +92,24 @@ class XmlLintTask extends Task
      *
      * @return void
      */
-    public function setHaltonfailure(bool $haltonfailure)
+    public function setHaltonfailure(bool $haltonfailure): void
     {
         $this->haltonfailure = $haltonfailure;
     }
 
     /**
      * Execute lint check against PhingFile or a FileSet.
-     *
      * {@inheritdoc}
      *
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (isset($this->schema) && !file_exists($this->schema->getPath())) {
             throw new BuildException('Schema file not found: ' . $this->schema->getPath());
@@ -116,8 +141,9 @@ class XmlLintTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function logError($message)
+    protected function logError(string $message): void
     {
         if ($this->haltonfailure) {
             throw new BuildException($message);
@@ -132,8 +158,10 @@ class XmlLintTask extends Task
      * @param string $file
      *
      * @return void
+     *
+     * @throws Exception
      */
-    protected function lint($file)
+    protected function lint(string $file): void
     {
         if (file_exists($file)) {
             if (is_readable($file)) {
@@ -181,8 +209,10 @@ class XmlLintTask extends Task
      * @param mixed  $context
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function errorHandler($level, $message, $file, $line, $context)
+    public function errorHandler(int $level, string $message, string $file, int $line, $context): void
     {
         $matches = [];
         preg_match('/^.*\(\): (.*)$/', $message, $matches);

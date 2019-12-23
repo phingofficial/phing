@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * testcases for phing.IntrospectionHelper.
  *
@@ -28,8 +30,12 @@ class IHCreatorFail1
 {
     /**
      * cannot take param!
+     *
+     * @param mixed $param
+     *
+     * @return void
      */
-    public function createBlah($param)
+    public function createBlah($param): void
     {
     }
 }

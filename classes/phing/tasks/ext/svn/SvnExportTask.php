@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Exports/checks out a repository to a local directory
  * with authentication
@@ -39,9 +41,12 @@ class SvnExportTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('export');
 
@@ -58,8 +63,10 @@ class SvnExportTask extends SvnBaseTask
 
     /**
      * @param string $revision
+     *
+     * @return void
      */
-    public function setRevision($revision)
+    public function setRevision(string $revision): void
     {
         $this->revision = $revision;
     }

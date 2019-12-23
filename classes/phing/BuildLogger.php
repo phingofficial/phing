@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Interface for build loggers.
  *
@@ -48,28 +50,36 @@ interface BuildLogger extends BuildListener
      *   - Project::MSG_DEBUG
      *
      * @param int $level The log level integer (e.g. Project::MSG_VERBOSE, etc.).
+     *
+     * @return void
      */
-    public function setMessageOutputLevel($level);
+    public function setMessageOutputLevel(int $level): void;
 
     /**
      * Sets the standard output stream to use.
      *
      * @param OutputStream $output Configured output stream (e.g. STDOUT) for standard output.
+     *
+     * @return void
      */
-    public function setOutputStream(OutputStream $output);
+    public function setOutputStream(OutputStream $output): void;
 
     /**
      * Sets the output stream to use for errors.
      *
      * @param OutputStream $err Configured output stream (e.g. STDERR) for errors.
+     *
+     * @return void
      */
-    public function setErrorStream(OutputStream $err);
+    public function setErrorStream(OutputStream $err): void;
 
     /**
      * Sets this logger to produce emacs (and other editor) friendly output.
      *
      * @param bool $emacsMode true if output is to be unadorned so that emacs and other editors
      *                             can parse files names, etc.
+     *
+     * @return void
      */
-    public function setEmacsMode($emacsMode);
+    public function setEmacsMode(bool $emacsMode): void;
 }

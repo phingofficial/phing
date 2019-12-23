@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract
  *
@@ -37,8 +39,10 @@ abstract class PDOResultFormatter
      * Sets the output writer.
      *
      * @param Writer $out
+     *
+     * @return void
      */
-    public function setOutput(Writer $out)
+    public function setOutput(Writer $out): void
     {
         $this->out = $out;
     }
@@ -48,7 +52,7 @@ abstract class PDOResultFormatter
      *
      * @return Writer
      */
-    public function getOutput()
+    public function getOutput(): Writer
     {
         return $this->out;
     }
@@ -56,14 +60,16 @@ abstract class PDOResultFormatter
     /**
      * Gets the preferred output filename for this formatter.
      *
-     * @return string
+     * @return PhingFile
      */
-    abstract public function getPreferredOutfile();
+    abstract public function getPreferredOutfile(): PhingFile;
 
     /**
      * Perform any initialization.
+     *
+     * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
     }
 
@@ -71,13 +77,19 @@ abstract class PDOResultFormatter
      * Processes a specific row from PDO result set.
      *
      * @param array $row Row of PDO result set.
+     *
+     * @return void
      */
-    abstract public function processRow($row);
+    abstract public function processRow(array $row): void;
 
     /**
      * Perform any final tasks and Close the writer.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function close()
+    public function close(): void
     {
         $this->out->close();
     }

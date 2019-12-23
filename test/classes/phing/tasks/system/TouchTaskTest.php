@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Touch Task
  *
@@ -25,7 +27,10 @@
  */
 class TouchTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,12 +39,18 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testSimpleTouch()
+    /**
+     * @return void
+     */
+    public function testSimpleTouch(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -48,7 +59,10 @@ class TouchTaskTest extends BuildFileTest
         );
     }
 
-    public function testMkdirs()
+    /**
+     * @return void
+     */
+    public function testMkdirs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -57,7 +71,10 @@ class TouchTaskTest extends BuildFileTest
         );
     }
 
-    public function testMkdirsFails()
+    /**
+     * @return void
+     */
+    public function testMkdirsFails(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Error touch()ing file');
@@ -70,7 +87,10 @@ class TouchTaskTest extends BuildFileTest
         );
     }
 
-    public function testFilelist()
+    /**
+     * @return void
+     */
+    public function testFilelist(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -79,7 +99,10 @@ class TouchTaskTest extends BuildFileTest
         );
     }
 
-    public function testFileset()
+    /**
+     * @return void
+     */
+    public function testFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(

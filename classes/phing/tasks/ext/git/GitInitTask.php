@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Repository initialization task
  *
@@ -31,14 +33,18 @@ class GitInitTask extends GitBaseTask
     /**
      * Whether --bare key should be set for git-init
      *
-     * @var string
+     * @var bool
      */
     private $isBare = false;
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -56,25 +62,27 @@ class GitInitTask extends GitBaseTask
     /**
      * Alias @see getBare()
      *
-     * @return string
+     * @return bool
      */
-    public function isBare()
+    public function isBare(): bool
     {
         return $this->getBare();
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getBare()
+    public function getBare(): bool
     {
         return $this->isBare;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setBare(bool $flag)
+    public function setBare(bool $flag): void
     {
         $this->isBare = $flag;
     }

@@ -17,29 +17,46 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * List all properties on files, dirs, or revisions from the working copy
  */
 class SvnPropgetTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $fromDir;
+
+    /**
+     * @var string
+     */
     private $svnPropertyName;
+
+    /**
+     * @var string
+     */
     private $propertyName = 'svn.propget';
 
     /**
      * Sets the name of the property to use
      *
      * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
@@ -48,16 +65,20 @@ class SvnPropgetTask extends SvnBaseTask
      * Sets the name of the property to use
      *
      * @param string $fromDir
+     *
+     * @return void
      */
-    public function setFromDir($fromDir)
+    public function setFromDir(string $fromDir): void
     {
         $this->fromDir = $fromDir;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getFromDir()
+    public function getFromDir(): string
     {
         return $this->fromDir;
     }
@@ -66,16 +87,20 @@ class SvnPropgetTask extends SvnBaseTask
      * Sets the name of the property to use
      *
      * @param string $svnPropertyName
+     *
+     * @return void
      */
-    public function setSvnPropertyName($svnPropertyName)
+    public function setSvnPropertyName(string $svnPropertyName): void
     {
         $this->svnPropertyName = $svnPropertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getSvnPropertyName()
+    public function getSvnPropertyName(): string
     {
         return $this->svnPropertyName;
     }
@@ -83,9 +108,12 @@ class SvnPropgetTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('propget');
 

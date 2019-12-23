@@ -30,6 +30,7 @@ stages:
   - test with coverage
 
 before_install:
+  - stty cols 130
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
   - phpenv config-add .travis.php.ini
   - phpenv rehash
@@ -70,6 +71,7 @@ jobs:
       php: 7.2
       env: DEPS="NORMAL"
       before_install:
+        - stty cols 130
         - phpenv config-add .travis.php.ini
         - phpenv rehash
         - set -e

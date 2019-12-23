@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Writer class for OutputStream objects.
  *
@@ -46,9 +48,11 @@ class InputStreamReader extends Reader
     /**
      * Close the stream.
      *
+     * @return void
+     *
      * @throws IOException
      */
-    public function close()
+    public function close(): void
     {
         $this->inStream->close();
     }
@@ -60,7 +64,7 @@ class InputStreamReader extends Reader
      *
      * @return int
      */
-    public function skip($n)
+    public function skip(int $n): int
     {
         return $this->inStream->skip($n);
     }
@@ -72,7 +76,7 @@ class InputStreamReader extends Reader
      *
      * @return mixed chars read or -1 if eof.
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         return $this->inStream->read($len);
     }
@@ -80,9 +84,11 @@ class InputStreamReader extends Reader
     /**
      * Marks the current position in this input stream.
      *
+     * @return void
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
-    public function mark()
+    public function mark(): void
     {
         $this->inStream->mark();
     }
@@ -92,7 +98,7 @@ class InputStreamReader extends Reader
      *
      * @return bool
      */
-    public function markSupported()
+    public function markSupported(): bool
     {
         return $this->inStream->markSupported();
     }
@@ -100,9 +106,11 @@ class InputStreamReader extends Reader
     /**
      * Repositions this stream to the position at the time the mark method was last called on this input stream.
      *
+     * @return void
+     *
      * @throws IOException - if the underlying stream doesn't support this method.
      */
-    public function reset()
+    public function reset(): void
     {
         $this->inStream->reset();
     }
@@ -112,7 +120,7 @@ class InputStreamReader extends Reader
      *
      * @return bool
      */
-    public function eof()
+    public function eof(): bool
     {
         return $this->inStream->eof();
     }
@@ -122,7 +130,7 @@ class InputStreamReader extends Reader
      *
      * @return string
      */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->inStream->__toString();
     }

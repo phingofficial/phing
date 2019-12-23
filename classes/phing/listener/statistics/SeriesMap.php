@@ -17,15 +17,23 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class SeriesMap
 {
+    /**
+     * @var Series[]
+     */
     protected $map = [];
 
-    public function getNames()
+    /**
+     * @return string[]
+     */
+    public function getNames(): array
     {
         return array_keys($this->map);
     }
@@ -35,12 +43,18 @@ class SeriesMap
      *
      * @return Series
      */
-    public function get($name)
+    public function get(string $name): Series
     {
         return $this->map[$name];
     }
 
-    public function put($key, Series $series)
+    /**
+     * @param string $key
+     * @param Series $series
+     *
+     * @return void
+     */
+    public function put(string $key, Series $series): void
     {
         $this->map[$key] = $series;
     }

@@ -17,46 +17,69 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.mappers
  */
 class TaskdefForCopyTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/types/mapper.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $this->executeTarget('test1');
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $this->executeTarget('test2');
     }
 
-    public function test3()
+    /**
+     * @return void
+     */
+    public function test3(): void
     {
         $this->executeTarget('test3');
         $this->assertInLogs('php1');
         $this->assertInLogs('php2');
     }
 
-    public function test4()
+    /**
+     * @return void
+     */
+    public function test4(): void
     {
         $this->executeTarget('test4');
         $this->assertNotInLogs('.php1');
         $this->assertInLogs('.php2');
     }
 
-    public function testCutDirsMapper()
+    /**
+     * @return void
+     */
+    public function testCutDirsMapper(): void
     {
         $this->executeTarget('testCutDirsMapper');
         $outputDir = $this->getProject()->getProperty('output');

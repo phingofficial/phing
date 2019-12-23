@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Interface for build listeners.
  *
@@ -36,8 +38,10 @@ interface BuildListener
      * Fired before any targets are started.
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function buildStarted(BuildEvent $event);
+    public function buildStarted(BuildEvent $event): void;
 
     /**
      * Fired after the last target has finished.
@@ -45,8 +49,10 @@ interface BuildListener
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function buildFinished(BuildEvent $event);
+    public function buildFinished(BuildEvent $event): void;
 
     /**
      * Fired when a target is started.
@@ -54,8 +60,10 @@ interface BuildListener
      * @see   BuildEvent::getTarget()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function targetStarted(BuildEvent $event);
+    public function targetStarted(BuildEvent $event): void;
 
     /**
      * Fired when a target has finished.
@@ -63,8 +71,10 @@ interface BuildListener
      * @see   BuildEvent#getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event);
+    public function targetFinished(BuildEvent $event): void;
 
     /**
      * Fired when a task is started.
@@ -72,8 +82,10 @@ interface BuildListener
      * @see   BuildEvent::getTask()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function taskStarted(BuildEvent $event);
+    public function taskStarted(BuildEvent $event): void;
 
     /**
      * Fired when a task has finished.
@@ -81,8 +93,10 @@ interface BuildListener
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event);
+    public function taskFinished(BuildEvent $event): void;
 
     /**
      * Fired whenever a message is logged.
@@ -90,6 +104,8 @@ interface BuildListener
      * @see   BuildEvent::getMessage()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function messageLogged(BuildEvent $event);
+    public function messageLogged(BuildEvent $event): void;
 }

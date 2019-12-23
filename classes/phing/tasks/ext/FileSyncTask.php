@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The FileSyncTask class copies files either to or from a remote host, or locally
  * on the current host. It allows rsync to transfer the differences between two
@@ -202,8 +204,10 @@ class FileSyncTask extends Task
      * Phing's main method. Wraps the executeCommand() method.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->executeCommand();
     }
@@ -211,11 +215,12 @@ class FileSyncTask extends Task
     /**
      * Executes the rsync command and returns the exit code.
      *
-     * @return int            Return code from execution.
+     * @return int|null Return code from execution.
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function executeCommand()
+    public function executeCommand(): ?int
     {
         if ($this->rsyncPath === null) {
             throw new BuildException('The "rsyncPath" attribute is missing or undefined.');
@@ -282,7 +287,7 @@ class FileSyncTask extends Task
      *
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): string
     {
         $options = $this->defaultOptions;
 
@@ -348,7 +353,7 @@ class FileSyncTask extends Task
      *
      * @return string|null
      */
-    public function getErrorMessage($code)
+    public function getErrorMessage(int $code): ?string
     {
         $error[0]  = 'Success';
         $error[1]  = 'Syntax or usage error';
@@ -384,7 +389,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setRsyncPath($path)
+    public function setRsyncPath(string $path): void
     {
         $this->rsyncPath = $path;
     }
@@ -396,7 +401,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    protected function setIsRemoteConnection($isRemote)
+    protected function setIsRemoteConnection(bool $isRemote): void
     {
         $this->isRemoteConnection = $isRemote;
     }
@@ -408,7 +413,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setSourceDir($dir)
+    public function setSourceDir(string $dir): void
     {
         $this->sourceDir = $dir;
     }
@@ -420,7 +425,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setOptions($options)
+    public function setOptions(string $options): void
     {
         $this->options = $options;
     }
@@ -433,7 +438,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setDestinationDir($dir)
+    public function setDestinationDir(string $dir): void
     {
         $this->destinationDir = $dir;
     }
@@ -445,7 +450,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setRemoteHost($host)
+    public function setRemoteHost(string $host): void
     {
         $this->remoteHost = $host;
     }
@@ -458,7 +463,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setRemoteUser($user)
+    public function setRemoteUser(string $user): void
     {
         $this->remoteUser = $user;
     }
@@ -472,7 +477,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setRemotePass($pass)
+    public function setRemotePass(string $pass): void
     {
         $this->remotePass = $pass;
     }
@@ -487,7 +492,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setRemoteShell($shell)
+    public function setRemoteShell(string $shell): void
     {
         $this->remoteShell = $shell;
     }
@@ -502,7 +507,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setVerbose(bool $verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = $verbose;
     }
@@ -517,7 +522,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setChecksum(bool $checksum)
+    public function setChecksum(bool $checksum): void
     {
         $this->checksum = $checksum;
     }
@@ -531,7 +536,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setDryRun(bool $dryRun)
+    public function setDryRun(bool $dryRun): void
     {
         $this->dryRun = $dryRun;
     }
@@ -543,7 +548,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setItemizeChanges(bool $itemizeChanges)
+    public function setItemizeChanges(bool $itemizeChanges): void
     {
         $this->itemizeChanges = $itemizeChanges;
     }
@@ -557,7 +562,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setDelete(bool $delete)
+    public function setDelete(bool $delete): void
     {
         $this->delete = $delete;
     }
@@ -570,7 +575,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setExcludeFile($file)
+    public function setExcludeFile(string $file): void
     {
         $this->excludeFile = $file;
     }
@@ -582,7 +587,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setBackupDir($dir)
+    public function setBackupDir(string $dir): void
     {
         $this->backupDir = $dir;
     }
@@ -594,7 +599,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setIdentityFile($identity)
+    public function setIdentityFile(string $identity): void
     {
         $this->identityFile = $identity;
     }
@@ -603,8 +608,10 @@ class FileSyncTask extends Task
      * Sets the port of the remote computer.
      *
      * @param int $remotePort
+     *
+     * @return void
      */
-    public function setRemotePort($remotePort)
+    public function setRemotePort(int $remotePort): void
     {
         $this->remotePort = $remotePort;
     }
@@ -616,7 +623,7 @@ class FileSyncTask extends Task
      *
      * @return void
      */
-    public function setExclude($exclude)
+    public function setExclude(string $exclude): void
     {
         $this->exclude = $exclude;
     }

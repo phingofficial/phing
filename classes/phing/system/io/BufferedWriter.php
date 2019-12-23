@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convenience class for writing files.
  *
@@ -26,7 +28,7 @@
 class BufferedWriter extends Writer
 {
     /**
-     * The size of the buffer in kb.
+     * @var int The size of the buffer in kb.
      */
     private $bufferSize = 0;
 
@@ -39,47 +41,57 @@ class BufferedWriter extends Writer
      * @param Writer $writer
      * @param int    $buffsize
      */
-    public function __construct(Writer $writer, $buffsize = 8192)
+    public function __construct(Writer $writer, int $buffsize = 8192)
     {
         $this->out        = $writer;
         $this->bufferSize = $buffsize;
     }
 
     /**
-     * @param string $buf
-     * @param int    $off
-     * @param int    $len
+     * @param string   $buf
+     * @param int|null $off
+     * @param int|null $len
      *
-     * @return mixed
+     * @return void
      */
-    public function write($buf, $off = null, $len = null)
+    public function write(string $buf, ?int $off = null, ?int $len = null): void
     {
-        return $this->out->write($buf, $off, $len);
+        $this->out->write($buf, $off, $len);
     }
 
-    public function newLine()
+    /**
+     * @return void
+     */
+    public function newLine(): void
     {
         $this->write(PHP_EOL);
     }
 
     /**
-     * @return string
+     * @return mixed
      */
     public function getResource()
     {
         return $this->out->getResource();
     }
 
-    public function flush()
+    /**
+     * @return void
+     */
+    public function flush(): void
     {
         $this->out->flush();
     }
 
     /**
      * Close attached stream.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function close()
+    public function close(): void
     {
-        return $this->out->close();
+        $this->out->close();
     }
 }

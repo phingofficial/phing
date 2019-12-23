@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests for PhpCodeSnifferTask
  *
@@ -25,7 +27,13 @@
  */
 class PhpCodeSnifferTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         if (!class_exists('PHP_CodeSniffer')) {
             $this->markTestSkipped('PHP CodeSniffer package not available.');
@@ -34,7 +42,10 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/build.xml');
     }
 
-    public function testNestedFormatters()
+    /**
+     * @return void
+     */
+    public function testNestedFormatters(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
@@ -46,7 +57,10 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt');
     }
 
-    public function testCustomStandard()
+    /**
+     * @return void
+     */
+    public function testCustomStandard(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
@@ -58,11 +72,14 @@ class PhpCodeSnifferTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt');
     }
 
-    public function testPropertyOutput()
+    /**
+     * @return void
+     */
+    public function testPropertyOutput(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
-        $output = ob_get_clean();
+        ob_get_clean();
         $this->assertPropertyEquals(
             'PhpCodeSnifferTaskTest.testPropertyOutput',
             '- Generic_Sniffs_PHP_DisallowShortOpenTagSniff' . PHP_EOL

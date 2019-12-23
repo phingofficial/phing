@@ -17,12 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class Series
 {
+    /**
+     * @var SplStack
+     */
     private $stack;
 
     /**
@@ -35,19 +40,33 @@ class Series
         $this->stack = new SplStack();
     }
 
-    public function add(Duration $duration)
+    /**
+     * @param Duration $duration
+     *
+     * @return void
+     */
+    public function add(Duration $duration): void
     {
         $this->list[] = $duration;
         $this->stack->push($duration);
     }
 
-    public function setFinishTime($time)
+    /**
+     * @param int|float $time
+     *
+     * @return void
+     */
+    public function setFinishTime($time): void
     {
+        /** @var Duration $duration */
         $duration = $this->stack->pop();
         $duration->setFinishTime($time);
     }
 
-    public function getTimes()
+    /**
+     * @return <int|float>[]
+     */
+    public function getTimes(): array
     {
         return array_map(
             static function (Duration $elem) {
@@ -57,11 +76,17 @@ class Series
         );
     }
 
+    /**
+     * @return float|int
+     */
     public function getTotalTime()
     {
         return array_sum($this->getTimes());
     }
 
+    /**
+     * @return float|int
+     */
     public function getAverageTime()
     {
         if (count($this->list) === 0) {
@@ -70,12 +95,18 @@ class Series
         return $this->getTotalTime() / count($this->list);
     }
 
-    public function size()
+    /**
+     * @return int
+     */
+    public function size(): int
     {
         return count($this->list);
     }
 
-    public function current()
+    /**
+     * @return Duration
+     */
+    public function current(): Duration
     {
         if ($this->stack->isEmpty()) {
             $this->stack->push(new Duration());

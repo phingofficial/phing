@@ -22,6 +22,7 @@
  *  limitations under the License.
  */
 
+declare(strict_types=1);
 
 /**
  * Patches a file by applying a 'diff' file to it
@@ -71,7 +72,6 @@ class PatchTask extends Task
 
     /**
      * The file containing the diff output
-     *
      * Required.
      *
      * @param PhingFile $file File containing the diff output
@@ -79,8 +79,9 @@ class PatchTask extends Task
      * @return void
      *
      * @throws BuildException if $file not exists
+     * @throws IOException
      */
-    public function setPatchFile(PhingFile $file)
+    public function setPatchFile(PhingFile $file): void
     {
         if (!$file->exists()) {
             throw new BuildException('patchfile ' . $file . " doesn't exist", $this->getLocation());
@@ -94,8 +95,10 @@ class PatchTask extends Task
      * flag to create backups; optional, default=false
      *
      * @param bool $backups if true create backups
+     *
+     * @return void
      */
-    public function setBackups($backups)
+    public function setBackups(bool $backups): void
     {
         if ($backups) {
             $this->cmd->createArgument()->setValue('-b');
@@ -106,8 +109,10 @@ class PatchTask extends Task
      * flag to ignore whitespace differences; default=false
      *
      * @param bool $ignore if true ignore whitespace differences
+     *
+     * @return void
      */
-    public function setIgnorewhitespace($ignore)
+    public function setIgnorewhitespace(bool $ignore): void
     {
         if ($ignore) {
             $this->cmd->createArgument()->setValue('-l');
@@ -123,7 +128,7 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setOriginalFile(PhingFile $file)
+    public function setOriginalFile(PhingFile $file): void
     {
         $this->originalFile = $file;
     }
@@ -131,14 +136,15 @@ class PatchTask extends Task
     /**
      * The name of a file to send the output to, instead of patching
      * the file(s) in place
-     *
      * Optional.
      *
      * @param PhingFile $file File to send the output to
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function setDestFile(PhingFile $file)
+    public function setDestFile(PhingFile $file): void
     {
         $this->cmd->createArgument()->setValue('-o');
         $this->cmd->createArgument()->setFile($file);
@@ -156,7 +162,7 @@ class PatchTask extends Task
      *
      * @throws BuildException if num is < 0, or other errors
      */
-    public function setStrip($num)
+    public function setStrip(int $num): void
     {
         if ($num < 0) {
             throw new BuildException('strip has to be >= 0');
@@ -174,7 +180,7 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setQuiet($flag)
+    public function setQuiet(bool $flag): void
     {
         if ($flag) {
             $this->cmd->createArgument()->setValue('-s');
@@ -190,10 +196,10 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setReverse($flag)
+    public function setReverse(bool $flag): void
     {
         if ($flag) {
-            $this->cmd->createArgument('-R');
+            $this->cmd->createArgument()->setValue('-R');
         }
     }
 
@@ -206,7 +212,7 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setDir(PhingFile $directory)
+    public function setDir(PhingFile $directory): void
     {
         $this->directory = $directory;
     }
@@ -218,7 +224,7 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setForward($flag)
+    public function setForward(bool $flag): void
     {
         if ($flag) {
             $this->cmd->createArgument()->setValue('-N');
@@ -234,7 +240,7 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setFuzz($value)
+    public function setFuzz(string $value): void
     {
         $this->cmd->createArgument()->setValue('-F ' . $value);
     }
@@ -249,15 +255,17 @@ class PatchTask extends Task
      *
      * @return void
      */
-    public function setFailOnError($value)
+    public function setFailOnError(bool $value): void
     {
         $this->failOnError = $value;
     }
 
     /**
-     * @param string $value
+     * @param bool $value
+     *
+     * @return void
      */
-    public function setHaltOnFailure(string $value)
+    public function setHaltOnFailure(bool $value): void
     {
         $this->failOnError = $value;
     }
@@ -268,8 +276,10 @@ class PatchTask extends Task
      * @return void
      *
      * @throws BuildException when it all goes a bit pear shaped
+     * @throws IOException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!$this->havePatchFile) {
             throw new BuildException('patchfile argument is required', $this->getLocation());
@@ -298,8 +308,8 @@ class PatchTask extends Task
             }
 
             $this->log($toExecute->describeCommand(), Project::MSG_VERBOSE);
-
-            $returnCode = $exe->main();
+            $exe->main();
+            $returnCode = $exe->getExitValue();
             if ($exe->isFailure($returnCode)) {
                 $msg = "'" . self::$PATCH . "' failed with exit code " . $returnCode;
                 if ($this->failOnError) {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit test for Win32FileSystem
  *
@@ -26,7 +28,10 @@
  */
 class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {
-    protected function createFileSystem()
+    /**
+     * @return WindowsFileSystem
+     */
+    protected function createFileSystem(): WindowsFileSystem
     {
         return new WindowsFileSystem();
     }

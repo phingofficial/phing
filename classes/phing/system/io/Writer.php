@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract class for writing character streams.
  *
@@ -27,30 +29,36 @@ abstract class Writer
     /**
      * Writes data to output stream.
      *
-     * @param string $buf
-     * @param int    $off
-     * @param int    $len
+     * @param string   $buf
+     * @param int|null $off
+     * @param int|null $len
+     *
+     * @return void
      */
-    abstract public function write($buf, $off = null, $len = null);
+    abstract public function write(string $buf, ?int $off = null, ?int $len = null): void;
 
     /**
      * Close the stream.
      *
+     * @return void
+     *
      * @throws IOException - if there is an error closing stream.
      */
-    abstract public function close();
+    abstract public function close(): void;
 
     /**
      * Flush the stream, if supported by the stream.
+     *
+     * @return void
      */
-    public function flush()
+    public function flush(): void
     {
     }
 
     /**
      * Returns a string representation of resource filename, url, etc. that is being written to.
      *
-     * @return string
+     * @return mixed
      */
     abstract public function getResource();
 }

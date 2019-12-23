@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper aroung git-pull
  *
@@ -139,8 +141,12 @@ class GitPullTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -217,8 +223,10 @@ class GitPullTask extends GitBaseTask
 
     /**
      * @param string $strategy
+     *
+     * @return void
      */
-    public function setStrategy($strategy)
+    public function setStrategy(string $strategy): void
     {
         $this->strategy = $strategy;
     }
@@ -226,15 +234,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getStrategy()
+    public function getStrategy(): string
     {
         return $this->strategy;
     }
 
     /**
      * @param string $strategyOption
+     *
+     * @return void
      */
-    public function setStrategyOption($strategyOption)
+    public function setStrategyOption(string $strategyOption): void
     {
         $this->strategyOption = $strategyOption;
     }
@@ -242,15 +252,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getStrategyOption()
+    public function getStrategyOption(): string
     {
         return $this->strategyOption;
     }
 
     /**
      * @param string $source
+     *
+     * @return void
      */
-    public function setSource($source)
+    public function setSource(string $source): void
     {
         $this->source = $source;
     }
@@ -258,15 +270,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource(): string
     {
         return $this->source;
     }
 
     /**
      * @param string $spec
+     *
+     * @return void
      */
-    public function setRefspec($spec)
+    public function setRefspec(string $spec): void
     {
         $this->refspec = $spec;
     }
@@ -274,15 +288,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getRefspec()
+    public function getRefspec(): string
     {
         return $this->refspec;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAll($flag)
+    public function setAll(bool $flag): void
     {
         $this->allRemotes = $flag;
     }
@@ -290,7 +306,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAll()
+    public function getAll(): bool
     {
         return $this->allRemotes;
     }
@@ -298,15 +314,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isAllRemotes()
+    public function isAllRemotes(): bool
     {
         return $this->getAll();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAppend($flag)
+    public function setAppend(bool $flag): void
     {
         $this->append = (bool) $flag;
     }
@@ -314,7 +332,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAppend()
+    public function getAppend(): bool
     {
         return $this->append;
     }
@@ -322,15 +340,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isAppend()
+    public function isAppend(): bool
     {
         return $this->getAppend();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setKeep($flag)
+    public function setKeep(bool $flag): void
     {
         $this->keepFiles = $flag;
     }
@@ -338,7 +358,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getKeep()
+    public function getKeep(): bool
     {
         return $this->keepFiles;
     }
@@ -346,15 +366,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isKeepFiles()
+    public function isKeepFiles(): bool
     {
         return $this->getKeep();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoTags($flag)
+    public function setNoTags(bool $flag): void
     {
         $this->noTags = $flag;
     }
@@ -362,7 +384,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoTags()
+    public function getNoTags(): bool
     {
         return $this->noTags;
     }
@@ -370,15 +392,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNoTags()
+    public function isNoTags(): bool
     {
         return $this->getNoTags();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setTags($flag)
+    public function setTags(bool $flag): void
     {
         $this->tags = $flag;
     }
@@ -386,7 +410,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getTags()
+    public function getTags(): bool
     {
         return $this->tags;
     }
@@ -394,15 +418,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isTags()
+    public function isTags(): bool
     {
         return $this->getTags();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setQuiet($flag)
+    public function setQuiet(bool $flag): void
     {
         $this->quiet = $flag;
     }
@@ -410,7 +436,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getQuiet()
+    public function getQuiet(): bool
     {
         return $this->quiet;
     }
@@ -425,8 +451,10 @@ class GitPullTask extends GitBaseTask
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setRebase($flag)
+    public function setRebase(bool $flag): void
     {
         $this->rebase = (bool) $flag;
     }
@@ -434,7 +462,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getRebase()
+    public function getRebase(): bool
     {
         return $this->rebase;
     }
@@ -442,15 +470,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isRebase()
+    public function isRebase(): bool
     {
         return $this->getRebase();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setNoRebase($flag)
+    public function setNoRebase(bool $flag): void
     {
         $this->noRebase = (bool) $flag;
     }
@@ -458,7 +488,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getNoRebase()
+    public function getNoRebase(): bool
     {
         return $this->noRebase;
     }
@@ -466,15 +496,17 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isNoRebase()
+    public function isNoRebase(): bool
     {
         return $this->getNoRebase();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setForce($flag)
+    public function setForce(bool $flag): void
     {
         $this->force = $flag;
     }
@@ -482,7 +514,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getForce()
+    public function getForce(): bool
     {
         return $this->force;
     }
@@ -490,7 +522,7 @@ class GitPullTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isForce()
+    public function isForce(): bool
     {
         return $this->getForce();
     }

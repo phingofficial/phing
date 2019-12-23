@@ -17,27 +17,48 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class Duration
 {
+    /**
+     * @var float
+     */
     private $startTime;
 
+    /**
+     * @var float
+     */
     private $finishTime;
 
-    public function setFinishTime($finishTime)
+    /**
+     * @param float $finishTime
+     *
+     * @return void
+     */
+    public function setFinishTime(float $finishTime): void
     {
         $this->finishTime = $finishTime;
     }
 
-    public function setStartTime($startTime)
+    /**
+     * @param float $startTime
+     *
+     * @return void
+     */
+    public function setStartTime(float $startTime): void
     {
         $this->startTime = $startTime;
     }
 
-    public function getTime()
+    /**
+     * @return float
+     */
+    public function getTime(): float
     {
         return $this->finishTime - $this->startTime;
     }

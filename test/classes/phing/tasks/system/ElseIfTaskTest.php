@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the ElseIf Task
  *
@@ -25,7 +27,10 @@
  */
 class ElseIfTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ElseIfTest.xml'
@@ -35,9 +40,11 @@ class ElseIfTaskTest extends BuildFileTest
     /**
      * Test the 'elseif' conditional of the if-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testAddThen()
+    public function testAddThen(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -50,9 +57,11 @@ class ElseIfTaskTest extends BuildFileTest
      * Test that evaluating a correct elseif condition gives the
      * expected result
      *
+     * @return void
+     *
      * @test
      */
-    public function testEvaluate()
+    public function testEvaluate(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -65,9 +74,11 @@ class ElseIfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got two
      * conditions inside an elseif-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testMultipleConditions()
+    public function testMultipleConditions(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
@@ -81,9 +92,11 @@ class ElseIfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got
      * no conditions inside an elseif-task
      *
+     * @return void
+     *
      * @test
      */
-    public function testNoConditions()
+    public function testNoConditions(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;

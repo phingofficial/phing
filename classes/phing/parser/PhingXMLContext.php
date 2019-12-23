@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Track the current state of the Xml parse operation.
  *
@@ -61,6 +63,8 @@ class PhingXMLContext
 
     /**
      * The project to configure.
+     *
+     * @var Project
      */
     private $project;
 
@@ -68,13 +72,18 @@ class PhingXMLContext
 
     /**
      * @param string $cfg
+     *
+     * @return void
      */
-    public function startConfigure($cfg)
+    public function startConfigure($cfg): void
     {
         $this->configurators[] = $cfg;
     }
 
-    public function endConfigure()
+    /**
+     * @return void
+     */
+    public function endConfigure(): void
     {
         array_pop($this->configurators);
     }
@@ -99,8 +108,10 @@ class PhingXMLContext
 
     /**
      * @param string $file
+     *
+     * @return void
      */
-    public function addImport($file)
+    public function addImport($file): void
     {
         $this->importStack[] = $file;
     }
@@ -116,9 +127,9 @@ class PhingXMLContext
     /**
      * find out the project to which this context belongs
      *
-     * @return project
+     * @return Project
      */
-    public function getProject()
+    public function getProject(): Project
     {
         return $this->project;
     }
@@ -126,15 +137,17 @@ class PhingXMLContext
     /**
      * @return Target
      */
-    public function getImplicitTarget()
+    public function getImplicitTarget(): Target
     {
         return $this->implicitTarget;
     }
 
     /**
      * @param Target $target
+     *
+     * @return void
      */
-    public function setImplicitTarget(Target $target)
+    public function setImplicitTarget(Target $target): void
     {
         $this->implicitTarget = $target;
     }
@@ -142,15 +155,17 @@ class PhingXMLContext
     /**
      * @return Target
      */
-    public function getCurrentTarget()
+    public function getCurrentTarget(): Target
     {
         return $this->currentTarget;
     }
 
     /**
      * @param Target $target
+     *
+     * @return void
      */
-    public function setCurrentTarget(Target $target)
+    public function setCurrentTarget(Target $target): void
     {
         $this->currentTarget = $target;
     }
@@ -158,15 +173,17 @@ class PhingXMLContext
     /**
      * @return Target[]
      */
-    public function &getCurrentTargets()
+    public function &getCurrentTargets(): array
     {
         return $this->currentTargets;
     }
 
     /**
      * @param Target[] $currentTargets
+     *
+     * @return void
      */
-    public function setCurrentTargets(array $currentTargets)
+    public function setCurrentTargets(array $currentTargets): void
     {
         $this->currentTargets = $currentTargets;
     }

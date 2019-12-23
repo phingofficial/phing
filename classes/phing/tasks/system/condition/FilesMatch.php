@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Compares two files for equality based on size and
  * content. Timestamps are not at all looked at.
@@ -28,16 +30,24 @@ class FilesMatch implements Condition
 {
     /**
      * files to compare
+     *
+     * @var PhingFile
      */
     private $file1;
+
+    /**
+     * @var PhingFile
+     */
     private $file2;
 
     /**
      * Sets the File1 attribute
      *
      * @param PhingFile $file1 The new File1 value
+     *
+     * @return void
      */
-    public function setFile1(PhingFile $file1)
+    public function setFile1(PhingFile $file1): void
     {
         $this->file1 = $file1;
     }
@@ -46,8 +56,10 @@ class FilesMatch implements Condition
      * Sets the File2 attribute
      *
      * @param PhingFile $file2 The new File2 value
+     *
+     * @return void
      */
-    public function setFile2(PhingFile $file2)
+    public function setFile2(PhingFile $file2): void
     {
         $this->file2 = $file2;
     }
@@ -58,8 +70,9 @@ class FilesMatch implements Condition
      * @return bool if the files are equal
      *
      * @throws BuildException if it all went pear-shaped
+     * @throws IOException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->file1 == null || $this->file2 == null) {
             throw new BuildException('both file1 and file2 are required in filesmatch');

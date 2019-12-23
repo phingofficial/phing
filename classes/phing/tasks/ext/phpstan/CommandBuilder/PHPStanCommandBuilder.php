@@ -29,6 +29,11 @@ abstract class PHPStanCommandBuilder
     private const ARG_NO_INTERACTION = '--no-interaction';
     private const ARG_VERBOSE        = '--verbose';
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     public function build(PHPStanTask $task): void
     {
         $this->validate($task);
@@ -59,6 +64,11 @@ abstract class PHPStanCommandBuilder
         }
     }
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     private function validate(PHPStanTask $task): void
     {
         if (empty($task->getExecutable())) {

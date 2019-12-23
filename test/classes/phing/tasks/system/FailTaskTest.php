@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Fail Task
  *
@@ -25,20 +27,29 @@
  */
 class FailTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/FailTaskTest.xml'
         );
     }
 
-    public function testNested1()
+    /**
+     * @return void
+     */
+    public function testNested1(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('condition satisfied');
     }
 
-    public function testNested2()
+    /**
+     * @return void
+     */
+    public function testNested2(): void
     {
         $this->expectBuildException(__FUNCTION__, 'condition satisfied');
     }

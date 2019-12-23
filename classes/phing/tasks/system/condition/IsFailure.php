@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition to test a return-code for failure.
  *
@@ -33,9 +35,11 @@ class IsFailure implements Condition
     /**
      * Set the return code to check.
      *
-     * @param int $c the return code.
+     * @param int|string $c the return code.
+     *
+     * @return void
      */
-    public function setCode($c)
+    public function setCode($c): void
     {
         $this->code = (int) $c;
     }
@@ -45,7 +49,7 @@ class IsFailure implements Condition
      *
      * @return int return code as int.
      */
-    public function getCode()
+    public function getCode(): int
     {
         return $this->code;
     }
@@ -57,7 +61,7 @@ class IsFailure implements Condition
      *
      * @return bool
      */
-    protected function isFailureCode($code)
+    protected function isFailureCode(int $code): bool
     {
         return $code !== 0;
     }
@@ -67,7 +71,7 @@ class IsFailure implements Condition
      *
      * @return bool the result of evaluating the specified return code.
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         return $this->isFailureCode($this->code);
     }

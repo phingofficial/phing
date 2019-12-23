@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Merges code coverage snippets into a code coverage database
  *
@@ -32,8 +34,12 @@ class CoverageMergerTask extends Task
      * Iterate over all filesets and return all the filenames.
      *
      * @return array an array of filenames
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    private function getFilenames()
+    private function getFilenames(): array
     {
         $files = [];
 
@@ -53,7 +59,15 @@ class CoverageMergerTask extends Task
         return $files;
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
+     * @throws IOException
+     */
+    public function main(): void
     {
         $files = $this->getFilenames();
 

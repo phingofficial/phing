@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This selector has a collection of other selectors, any of which have to
  * select a file in order for this selector to select it.
@@ -30,7 +32,7 @@ class OrSelector extends BaseSelectorContainer
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         if ($this->hasSelectors()) {
@@ -52,7 +54,7 @@ class OrSelector extends BaseSelectorContainer
      *
      * @return bool Whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

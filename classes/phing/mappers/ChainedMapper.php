@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A <code>ContainerMapper</code> that chains the results of the first
  * nested <code>FileNameMapper</code>s into sourcefiles for the second,
@@ -27,8 +29,14 @@ class ChainedMapper extends ContainerMapper
 {
     /**
      * {@inheritDoc}.
+     *
+     * @param string $sourceFileName
+     *
+     * @return array|null
+     *
+     * @throws ConfigurationException
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         $results[] = $sourceFileName;
         $mapper    = null;

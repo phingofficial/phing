@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Uses PEAR Mail package to send the build log to one or
  * more recipients.
@@ -56,8 +58,10 @@ class MailLogger extends DefaultLogger
      * @param string       $message
      * @param OutputStream $stream
      * @param int          $priority
+     *
+     * @return void
      */
-    final protected function printMessage($message, OutputStream $stream, $priority)
+    final protected function printMessage(string $message, OutputStream $stream, int $priority): void
     {
         if ($message !== null) {
             $this->mailMessage .= $message . "\n";
@@ -70,8 +74,13 @@ class MailLogger extends DefaultLogger
      * @see   DefaultLogger#buildFinished
      *
      * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         parent::buildFinished($event);
 
@@ -138,7 +147,7 @@ class MailLogger extends DefaultLogger
      *
      * @throws BadMethodCallException
      */
-    private function getValue(array $properties, $name, $defaultValue)
+    private function getValue(array $properties, string $name, $defaultValue)
     {
         $propertyName = 'phing.log.mail.' . $name;
         $value        = $properties[$propertyName];

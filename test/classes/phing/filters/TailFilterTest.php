@@ -17,23 +17,39 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class TailFilterTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/tailfilter.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testTailFilter()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testTailFilter(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -43,7 +59,12 @@ class TailFilterTest extends BuildFileTest
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
 
-    public function testTailHeadFilter()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testTailHeadFilter(): void
     {
         $this->executeTarget(__FUNCTION__);
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * testcases for phing.IntrospectionHelper.
  *
@@ -26,19 +28,39 @@
  */
 class IHProjectComponent
 {
+    /**
+     * @var string
+     */
     public $text;
+
+    /**
+     * @var array
+     */
     public $container = [];
 
-    public function addText($text)
+    /**
+     * @param string $text
+     *
+     * @return void
+     */
+    public function addText(string $text): void
     {
         $this->text .= $text;
     }
 
-    public function createOne()
+    /**
+     * @return string
+     */
+    public function createOne(): string
     {
         return 'test';
     }
 
+    /**
+     * @param FileSet $fs
+     *
+     * @return void
+     */
     public function addFileSet(FileSet $fs): void
     {
         $this->container[] = $fs;

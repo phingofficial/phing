@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Produce license files using Zeng Guard.
  * The task can produce a license file from the given
@@ -172,24 +174,30 @@ class ZendGuardLicenseTask extends Task
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setLicenseTemplate($value)
+    public function setLicenseTemplate($value): void
     {
         $this->licenseTemplate = $value;
     }
 
     /**
      * @param string $productName
+     *
+     * @return void
      */
-    public function setProductName($productName)
+    public function setProductName($productName): void
     {
         $this->productName = $productName;
     }
 
     /**
      * @param string $registeredTo
+     *
+     * @return void
      */
-    public function setRegisteredTo($registeredTo)
+    public function setRegisteredTo($registeredTo): void
     {
         $this->registeredTo = $registeredTo;
     }
@@ -200,13 +208,13 @@ class ZendGuardLicenseTask extends Task
      * Otherwise it will run the value through strtotime so relative
      * date and time notation can be used (e.g. +1 month)
      *
-     * @param mixed $expires
+     * @param string|bool $expires
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function setExpires($expires)
+    public function setExpires($expires): void
     {
         // process the expires value
         if (false === $expires || '0' === $expires || strtolower($expires) == 'never' || '' === $expires) {
@@ -222,64 +230,80 @@ class ZendGuardLicenseTask extends Task
 
     /**
      * @param string $iprange
+     *
+     * @return void
      */
-    public function setIpRange($iprange)
+    public function setIpRange($iprange): void
     {
         $this->ipRange = $iprange;
     }
 
     /**
      * @param string $hostID
+     *
+     * @return void
      */
-    public function setHostID($hostID)
+    public function setHostID($hostID): void
     {
         $this->hostID = $hostID;
     }
 
     /**
      * @param bool $hardwareLocked
+     *
+     * @return void
      */
-    public function setHardwareLocked(bool $hardwareLocked)
+    public function setHardwareLocked(bool $hardwareLocked): void
     {
         $this->hardwareLocked = $hardwareLocked;
     }
 
     /**
      * @param string $userDefinedValues
+     *
+     * @return void
      */
-    public function setUserDefinedValues($userDefinedValues)
+    public function setUserDefinedValues($userDefinedValues): void
     {
         $this->userDefinedValues = $userDefinedValues;
     }
 
     /**
      * @param string $xUserDefinedValues
+     *
+     * @return void
      */
-    public function setXUserDefinedValues($xUserDefinedValues)
+    public function setXUserDefinedValues($xUserDefinedValues): void
     {
         $this->xUserDefinedValues = $xUserDefinedValues;
     }
 
     /**
      * @param string $zendsignPath
+     *
+     * @return void
      */
-    public function setZendsignPath($zendsignPath)
+    public function setZendsignPath($zendsignPath): void
     {
         $this->zendsignPath = $zendsignPath;
     }
 
     /**
      * @param string $privateKeyPath
+     *
+     * @return void
      */
-    public function setPrivateKeyPath($privateKeyPath)
+    public function setPrivateKeyPath($privateKeyPath): void
     {
         $this->privateKeyPath = $privateKeyPath;
     }
 
     /**
      * @param string $outputFile
+     *
+     * @return void
      */
-    public function setOutputFile($outputFile)
+    public function setOutputFile($outputFile): void
     {
         $this->outputFile = $outputFile;
     }
@@ -287,9 +311,11 @@ class ZendGuardLicenseTask extends Task
     /**
      * Verifies that the configuration is correct
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function verifyConfiguration()
+    protected function verifyConfiguration(): void
     {
         // Check that the zend encoder path is specified
         if (empty($this->zendsignPath)) {
@@ -355,9 +381,12 @@ class ZendGuardLicenseTask extends Task
     /**
      * Do the work
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         try {
             $this->verifyConfiguration();
@@ -377,8 +406,10 @@ class ZendGuardLicenseTask extends Task
      * this will remove it
      *
      * @return void
+     *
+     * @throws Exception
      */
-    private function cleanupTmpFiles()
+    private function cleanupTmpFiles(): void
     {
         if (!empty($this->tmpLicensePath) && file_exists($this->tmpLicensePath)) {
             $this->log('Deleting temporary license template ' . $this->tmpLicensePath, Project::MSG_VERBOSE);
@@ -392,8 +423,10 @@ class ZendGuardLicenseTask extends Task
      * used to create the license.
      *
      * @return string
+     *
+     * @throws Exception
      */
-    protected function prepareSignCommand()
+    protected function prepareSignCommand(): string
     {
         $command = $this->zendsignPath;
 
@@ -419,8 +452,10 @@ class ZendGuardLicenseTask extends Task
      * provide it as a template.
      *
      * @return string
+     *
+     * @throws Exception
      */
-    protected function getLicenseTemplatePath()
+    protected function getLicenseTemplatePath(): string
     {
         if (!empty($this->licenseTemplate)) {
             return $this->licenseTemplate;
@@ -435,8 +470,9 @@ class ZendGuardLicenseTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function generateLicense()
+    protected function generateLicense(): void
     {
         $command = $this->prepareSignCommand() . ' 2>&1';
 
@@ -462,13 +498,14 @@ class ZendGuardLicenseTask extends Task
      * @return string Path of the temporary license template file
      *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function generateLicenseTemplate()
+    protected function generateLicenseTemplate(): string
     {
         $this->tmpLicensePath = tempnam(FileUtils::getTempDir(), 'zendlicense');
 
         $this->log('Creating temporary license template ' . $this->tmpLicensePath, Project::MSG_VERBOSE);
-        if (file_put_contents($this->tmpLicensePath, $this->generateLicenseTemplateContent()) === false) {
+        if (file_put_contents((string) $this->tmpLicensePath, $this->generateLicenseTemplateContent()) === false) {
             throw new BuildException('Unable to create temporary template license file: ' . $this->tmpLicensePath);
         }
 
@@ -481,7 +518,7 @@ class ZendGuardLicenseTask extends Task
      *
      * @return string
      */
-    protected function generateLicenseTemplateContent()
+    protected function generateLicenseTemplateContent(): string
     {
         $contentArr = [];
 
@@ -541,11 +578,11 @@ class ZendGuardLicenseTask extends Task
      * @return void
      */
     protected function parseAndAddUserDefinedValues(
-        $valueString,
+        string $valueString,
         array &$valueArray,
-        $keyPrefix = '',
-        $pairSeparator = ';'
-    ) {
+        string $keyPrefix = '',
+        string $pairSeparator = ';'
+    ): void {
         // explode the valueString (semicolon)
         $valuePairs = explode($pairSeparator, $valueString);
         if (!empty($valuePairs)) {

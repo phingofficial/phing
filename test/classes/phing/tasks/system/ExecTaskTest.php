@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Exec Task
  *
@@ -30,9 +32,15 @@ class ExecTaskTest extends BuildFileTest
      *
      * @var bool
      */
-    protected $windows;
+    private $windows;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ExecTest.xml'
@@ -40,17 +48,34 @@ class ExecTaskTest extends BuildFileTest
         $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
     }
 
-    protected function getTargetByName($name)
+    /**
+     * @param string $name
+     *
+     * @return Target
+     *
+     * @throws Exception
+     */
+    protected function getTargetByName(string $name): Target
     {
         foreach ($this->project->getTargets() as $target) {
-            if ($target->getName() == $name) {
+            if ($target->getName() === $name) {
                 return $target;
             }
         }
         throw new Exception(sprintf('Target "%s" not found', $name));
     }
 
-    protected function getTaskFromTarget($target, $taskname, $pos = 0)
+    /**
+     * @param Target $target
+     * @param string $taskname
+     * @param int    $pos
+     *
+     * @return mixed
+     *
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    protected function getTaskFromTarget(Target $target, string $taskname, int $pos = 0)
     {
         $rchildren = new ReflectionProperty(get_class($target), 'children');
         $rchildren->setAccessible(true);
@@ -65,7 +90,16 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    protected function getConfiguredTask($target, $task, $pos = 0)
+    /**
+     * @param string $target
+     * @param string $task
+     *
+     * @return mixed|string
+     *
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    protected function getConfiguredTask(string $target, string $task)
     {
         $target = $this->getTargetByName($target);
         $task   = $this->getTaskFromTarget($target, $task);
@@ -74,7 +108,16 @@ class ExecTaskTest extends BuildFileTest
         return $task;
     }
 
-    protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
+    /**
+     * @param string      $property
+     * @param mixed       $value
+     * @param string|null $propertyName
+     *
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    protected function assertAttributeIsSetTo(string $property, $value, ?string $propertyName = null): void
     {
         $task = $this->getConfiguredTask(
             'testPropertySet' . ucfirst($property),
@@ -94,12 +137,24 @@ class ExecTaskTest extends BuildFileTest
         $this->assertEquals($value, $rprop->getValue($task));
     }
 
-    public function testPropertySetCommandline()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetCommandline(): void
     {
         $this->assertAttributeIsSetTo('commandline', new Commandline("echo 'foo'"));
     }
 
-    public function testPropertySetDir()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    public function testPropertySetDir(): void
     {
         $this->assertAttributeIsSetTo(
             'dir',
@@ -109,47 +164,94 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    public function testPropertySetOs()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetOs(): void
     {
         $this->assertAttributeIsSetTo('os', 'linux');
     }
 
-    public function testPropertySetEscape()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetEscape(): void
     {
         $this->assertAttributeIsSetTo('escape', true);
     }
 
-    public function testPropertySetLogoutput()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLogoutput(): void
     {
         $this->assertAttributeIsSetTo('logoutput', true, 'logOutput');
     }
 
-    public function testPropertySetPassthru()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetPassthru(): void
     {
         $this->assertAttributeIsSetTo('passthru', true);
     }
 
-    public function testPropertySetSpawn()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetSpawn(): void
     {
         $this->assertAttributeIsSetTo('spawn', true);
     }
 
-    public function testPropertySetReturnProperty()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetReturnProperty(): void
     {
         $this->assertAttributeIsSetTo('returnProperty', 'retval');
     }
 
-    public function testPropertySetOutputProperty()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetOutputProperty(): void
     {
         $this->assertAttributeIsSetTo('outputProperty', 'outval');
     }
 
-    public function testPropertySetCheckReturn()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetCheckReturn(): void
     {
         $this->assertAttributeIsSetTo('checkreturn', true);
     }
 
-    public function testPropertySetOutput()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    public function testPropertySetOutput(): void
     {
         $this->assertAttributeIsSetTo(
             'output',
@@ -160,7 +262,14 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    public function testPropertySetError()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    public function testPropertySetError(): void
     {
         $this->assertAttributeIsSetTo(
             'error',
@@ -171,32 +280,62 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    public function testPropertySetLevelError()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLevelError(): void
     {
         $this->assertAttributeIsSetTo('levelError', Project::MSG_ERR, 'logLevel');
     }
 
-    public function testPropertySetLevelWarning()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLevelWarning(): void
     {
         $this->assertAttributeIsSetTo('levelWarning', Project::MSG_WARN, 'logLevel');
     }
 
-    public function testPropertySetLevelInfo()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLevelInfo(): void
     {
         $this->assertAttributeIsSetTo('levelInfo', Project::MSG_INFO, 'logLevel');
     }
 
-    public function testPropertySetLevelVerbose()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLevelVerbose(): void
     {
         $this->assertAttributeIsSetTo('levelVerbose', Project::MSG_VERBOSE, 'logLevel');
     }
 
-    public function testPropertySetLevelDebug()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLevelDebug(): void
     {
         $this->assertAttributeIsSetTo('levelDebug', Project::MSG_DEBUG, 'logLevel');
     }
 
-    public function testPropertySetLevelUnknown()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    public function testPropertySetLevelUnknown(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Unknown log level "unknown"');
@@ -204,7 +343,10 @@ class ExecTaskTest extends BuildFileTest
         $this->getConfiguredTask('testPropertySetLevelUnknown', 'ExecTask');
     }
 
-    public function testDoNotExecuteOnWrongOs()
+    /**
+     * @return void
+     */
+    public function testDoNotExecuteOnWrongOs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('not found in the specified list of valid OSes: unknownos');
@@ -214,24 +356,36 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    public function testDoNotExecuteOnWrongOsFamily()
+    /**
+     * @return void
+     */
+    public function testDoNotExecuteOnWrongOsFamily(): void
     {
         $this->expectBuildException(__FUNCTION__, "Don't know how to detect os family 'unknownos'");
     }
 
-    public function testExecuteOnCorrectOs()
+    /**
+     * @return void
+     */
+    public function testExecuteOnCorrectOs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('this should be executed');
     }
 
-    public function testExecuteOnCorrectOsFamily()
+    /**
+     * @return void
+     */
+    public function testExecuteOnCorrectOsFamily(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('this should be executed');
     }
 
-    public function testFailOnNonExistingDir()
+    /**
+     * @return void
+     */
+    public function testFailOnNonExistingDir(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageRegExp('/' . preg_quote(str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"), '/') . '/');
@@ -250,15 +404,22 @@ class ExecTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testChangeToDir()
+    public function testChangeToDir(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ExecTaskTest.php');
     }
 
-    public function testCheckreturnTrue()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testCheckreturnTrue(): void
     {
         if (FileSystem::getFileSystem()->which('true') === false) {
             $this->markTestSkipped("'true' not found.");
@@ -267,7 +428,12 @@ class ExecTaskTest extends BuildFileTest
         $this->assertTrue(true);
     }
 
-    public function testCheckreturnFalse()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testCheckreturnFalse(): void
     {
         if (FileSystem::getFileSystem()->which('false') === false) {
             $this->markTestSkipped("'false' not found.");
@@ -279,25 +445,37 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testOutputProperty()
+    /**
+     * @return void
+     */
+    public function testOutputProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('The output property\'s value is: "foo"');
     }
 
-    public function testReturnProperty()
+    /**
+     * @return void
+     */
+    public function testReturnProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('The return property\'s value is: "1"');
     }
 
-    public function testEscape()
+    /**
+     * @return void
+     */
+    public function testEscape(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs($this->windows ? '"foo" "|" "cat"' : 'foo | cat');
     }
 
-    public function testPassthru()
+    /**
+     * @return void
+     */
+    public function testPassthru(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
@@ -308,7 +486,10 @@ class ExecTaskTest extends BuildFileTest
         $this->assertNotContains('foo', $this->logBuffer);
     }
 
-    public function testOutput()
+    /**
+     * @return void
+     */
+    public function testOutput(): void
     {
         $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
@@ -317,7 +498,10 @@ class ExecTaskTest extends BuildFileTest
         unlink($file);
     }
 
-    public function testError()
+    /**
+     * @return void
+     */
+    public function testError(): void
     {
         $file = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
@@ -326,7 +510,10 @@ class ExecTaskTest extends BuildFileTest
         unlink($file);
     }
 
-    public function testSpawn()
+    /**
+     * @return void
+     */
+    public function testSpawn(): void
     {
         $start = time();
         $this->executeTarget(__FUNCTION__);
@@ -339,13 +526,19 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    public function testNestedArg()
+    /**
+     * @return void
+     */
+    public function testNestedArg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs($this->windows ? 'nested-arg "b  ar"' : 'nested-arg b  ar');
     }
 
-    public function testMissingExecutableAndCommand()
+    /**
+     * @return void
+     */
+    public function testMissingExecutableAndCommand(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('ExecTask: Please provide "executable"');
@@ -355,22 +548,29 @@ class ExecTaskTest extends BuildFileTest
 
     /**
      * Inspired by {@link http://www.phing.info/trac/ticket/833}
+     *
+     * @return void
      */
-    public function testEscapedArg()
+    public function testEscapedArg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('outval', $this->windows ? 'abc$b3 SB' : 'abc$b3!SB');
     }
 
-    public function testEscapedArgWithoutWhitespace()
+    /**
+     * @return void
+     */
+    public function testEscapedArgWithoutWhitespace(): void
     {
-        $arg = 'foo|bar';
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs($this->windows ? '"echo" "foo|bar" 2>&1' : '\'echo\' \'foo|bar\' 2>&1');
         $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');
     }
 
-    public function testNestedEnv()
+    /**
+     * @return void
+     */
+    public function testNestedEnv(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));

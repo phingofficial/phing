@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg update
  *
@@ -38,7 +40,7 @@ class HgPullTask extends HgBaseTask
      *
      * @return void
      */
-    public function setTargetPath($targetPath)
+    public function setTargetPath(string $targetPath): void
     {
         $this->targetPath = $targetPath;
     }
@@ -50,7 +52,7 @@ class HgPullTask extends HgBaseTask
      *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $clone = $this->getFactoryInstance('pull');
         $clone->setInsecure($this->getInsecure());

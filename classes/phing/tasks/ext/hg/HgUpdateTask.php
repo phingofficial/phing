@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg update
  *
@@ -47,7 +49,7 @@ class HgUpdateTask extends HgBaseTask
      *
      * @return void
      */
-    public function setClean($value)
+    public function setClean(string $value): void
     {
         $this->clean = StringHelper::booleanValue($value);
     }
@@ -57,7 +59,7 @@ class HgUpdateTask extends HgBaseTask
      *
      * @return bool
      */
-    public function getClean()
+    public function getClean(): bool
     {
         return $this->clean;
     }
@@ -69,7 +71,7 @@ class HgUpdateTask extends HgBaseTask
      *
      * @return void
      */
-    public function setBranch($value)
+    public function setBranch(string $value): void
     {
         $this->branch = $value;
     }
@@ -79,7 +81,7 @@ class HgUpdateTask extends HgBaseTask
      *
      * @return string
      */
-    public function getBranch()
+    public function getBranch(): string
     {
         return $this->branch;
     }
@@ -89,9 +91,10 @@ class HgUpdateTask extends HgBaseTask
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $pull = $this->getFactoryInstance('update');
         try {

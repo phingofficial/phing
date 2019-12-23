@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Saves coverage output of the test to a specified database
  *
@@ -32,7 +34,7 @@ class CoverageMerger
      *
      * @return array
      */
-    private static function mergeCodeCoverage($left, $right)
+    private static function mergeCodeCoverage(array $left, array $right): array
     {
         $coverageMerged = [];
 
@@ -79,9 +81,11 @@ class CoverageMerger
      *
      * @return Properties
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    protected static function _getDatabase($project)
+    protected static function _getDatabase(Project $project): Properties
     {
         $coverageDatabase = $project->getProperty('coverage.database');
 
@@ -102,9 +106,11 @@ class CoverageMerger
      *
      * @return array
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    public static function getWhiteList($project)
+    public static function getWhiteList(Project $project): array
     {
         $whitelist = [];
         $props     = self::_getDatabase($project);
@@ -121,10 +127,13 @@ class CoverageMerger
      * @param Project $project
      * @param array   $codeCoverageInformation
      *
-     * @throws BuildException
+     * @return void
+     *
      * @throws IOException
+     * @throws NullPointerException
+     * @throws BuildException
      */
-    public static function merge($project, $codeCoverageInformation)
+    public static function merge(Project $project, array $codeCoverageInformation): void
     {
         $props = self::_getDatabase($project);
 

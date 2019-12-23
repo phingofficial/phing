@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A logger which logs nothing but build failure and what task might output.
  *
@@ -25,33 +27,59 @@
  */
 class ProjectTimer extends StatsTimer
 {
+    /**
+     * @var TimerMap
+     */
     private $targetMap;
 
+    /**
+     * @var TimerMap
+     */
     private $taskMap;
 
-    public function __construct($name, Clock $clock)
+    /**
+     * @param string $name
+     * @param Clock  $clock
+     */
+    public function __construct(string $name, Clock $clock)
     {
         parent::__construct($name, $clock);
         $this->targetMap = new TimerMap();
         $this->taskMap   = new TimerMap();
     }
 
-    public function getTargetTimer($name)
+    /**
+     * @param mixed $name
+     *
+     * @return StatsTimer
+     */
+    public function getTargetTimer($name): StatsTimer
     {
         return $this->targetMap->find($name, $this->clock);
     }
 
-    public function getTaskTimer($name)
+    /**
+     * @param mixed $name
+     *
+     * @return StatsTimer
+     */
+    public function getTaskTimer($name): StatsTimer
     {
         return $this->taskMap->find($name, $this->clock);
     }
 
-    public function toTargetSeriesMap()
+    /**
+     * @return SeriesMap
+     */
+    public function toTargetSeriesMap(): SeriesMap
     {
         return $this->targetMap->toSeriesMap();
     }
 
-    public function toTaskSeriesMap()
+    /**
+     * @return SeriesMap
+     */
+    public function toTaskSeriesMap(): SeriesMap
     {
         return $this->taskMap->toSeriesMap();
     }

@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+declare(strict_types=1);
+
 /**
  * Testcases for phing.util.FileUtils
  *
@@ -30,28 +32,39 @@ class FileUtilsTest extends BuildFileTest
     /** @var FileUtils $fu */
     private $fu;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->fu = new FileUtils();
         $this->configureProject(PHING_TEST_BASE . '/etc/util/fileutils.xml');
         $this->executeTarget('dummy');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->fu = null;
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @test
      */
-    public function contentEquals()
+    public function contentEquals(): void
     {
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile('does_not_exists')));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile('does_not_exists'), new PhingFile(__FILE__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__DIR__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__DIR__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__FILE__)));
-        $this->assertTrue($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__FILE__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile('does_not_exists')));
+        self::assertFalse($this->fu->contentEquals(new PhingFile('does_not_exists'), new PhingFile(__FILE__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__DIR__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__DIR__)));
+        self::assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__FILE__)));
+        self::assertTrue($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__FILE__)));
     }
 }

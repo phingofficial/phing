@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
@@ -31,22 +33,39 @@ class FormatterElement
      */
     protected $formatter;
 
+    /**
+     * @var string
+     */
     protected $type = '';
 
+    /**
+     * @var bool
+     */
     protected $useFile = true;
 
+    /**
+     * @var PhingFile|string
+     */
     protected $toDir = '.';
 
+    /**
+     * @var string
+     */
     protected $outfile = '';
 
+    /**
+     * @var PHPUnitTask
+     */
     protected $parent;
 
     /**
      * Sets parent task
      *
-     * @param Task $parent Calling Task
+     * @param PHPUnitTask $parent Calling Task
+     *
+     * @return void
      */
-    public function setParent($parent)
+    public function setParent(PHPUnitTask $parent): void
     {
         $this->parent = $parent;
     }
@@ -55,8 +74,10 @@ class FormatterElement
      * Loads a specific formatter type
      *
      * @param string $type
+     *
+     * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -65,8 +86,12 @@ class FormatterElement
      * Loads a specific formatter class
      *
      * @param string $className
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function setClassName($className)
+    public function setClassName(string $className): void
     {
         $classNameNoDot = Phing::import($className);
 
@@ -77,16 +102,20 @@ class FormatterElement
      * Sets whether to store formatting results in a file
      *
      * @param bool $useFile
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = $useFile;
     }
 
     /**
      * Returns whether to store formatting results in a file
+     *
+     * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
@@ -96,10 +125,12 @@ class FormatterElement
      *
      * @param string $toDir
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setToDir($toDir)
+    public function setToDir(string $toDir): void
     {
         if (!is_dir($toDir)) {
             $toDir = new PhingFile($toDir);
@@ -112,7 +143,7 @@ class FormatterElement
     /**
      * Returns output directory
      *
-     * @return string
+     * @return string|PhingFile
      */
     public function getToDir()
     {
@@ -123,8 +154,10 @@ class FormatterElement
      * Sets output filename
      *
      * @param string $outfile
+     *
+     * @return void
      */
-    public function setOutfile($outfile)
+    public function setOutfile(string $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -134,7 +167,7 @@ class FormatterElement
      *
      * @return string
      */
-    public function getOutfile()
+    public function getOutfile(): string
     {
         if ($this->outfile) {
             return $this->outfile;
@@ -148,7 +181,7 @@ class FormatterElement
      *
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         return $this->formatter->getExtension();
     }
@@ -160,7 +193,7 @@ class FormatterElement
      *
      * @throws BuildException
      */
-    public function getFormatter()
+    public function getFormatter(): PHPUnitResultFormatter7
     {
         if ($this->formatter !== null) {
             return $this->formatter;

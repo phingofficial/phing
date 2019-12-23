@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convenience class for performing file write operations.
  *
@@ -27,10 +29,12 @@ class FileWriter extends OutputStreamWriter
     /**
      * Construct a new FileWriter.
      *
-     * @param mixed $file   PhingFile or string pathname.
-     * @param bool  $append Append to existing file?
+     * @param PhingFile|string $file   PhingFile or string pathname.
+     * @param bool             $append Append to existing file?
+     *
+     * @throws IOException
      */
-    public function __construct($file, $append = false)
+    public function __construct($file, bool $append = false)
     {
         $out = new FileOutputStream($file, $append);
         parent::__construct($out);

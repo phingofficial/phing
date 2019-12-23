@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * fileHash
  *
@@ -58,13 +60,20 @@ class FileHashTask extends Task
      * Specify if MD5 or SHA1 hash should be used
      *
      * @param int $type 0=MD5, 1=SHA1
+     *
+     * @return void
      */
-    public function setHashtype($type): void
+    public function setHashtype(int $type): void
     {
         $this->hashtype = $type;
     }
 
-    public function setAlgorithm($type): void
+    /**
+     * @param string $type
+     *
+     * @return void
+     */
+    public function setAlgorithm(string $type): void
     {
         $this->algorithm = strtolower($type);
     }
@@ -73,8 +82,10 @@ class FileHashTask extends Task
      * Which file to calculate the hash value of
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile($file): void
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -86,7 +97,7 @@ class FileHashTask extends Task
      *
      * @return void
      */
-    public function setPropertyName($property): void
+    public function setPropertyName(string $property): void
     {
         $this->propertyName = $property;
     }
@@ -94,9 +105,12 @@ class FileHashTask extends Task
     /**
      * Main-Method for the Task
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->checkFile();
         $this->checkPropertyName();
@@ -104,26 +118,24 @@ class FileHashTask extends Task
         // read file
         if ($this->algorithm !== '' && in_array($this->algorithm, hash_algos())) {
             $this->log('Calculating ' . $this->algorithm . ' hash from: ' . $this->file);
-            $hashValue = hash_file($this->algorithm, $this->file);
+            $hashValue = hash_file($this->algorithm, (string) $this->file);
         } elseif ((int) $this->hashtype === 0) {
             $this->log('Calculating MD5 hash from: ' . $this->file);
-            $hashValue       = md5_file($this->file, false);
+            $hashValue       = md5_file((string) $this->file, false);
             $this->algorithm = 'md5';
         } elseif ((int) $this->hashtype === 1) {
             $this->log('Calculating SHA1 hash from: ' . $this->file);
-            $hashValue       = sha1_file($this->file, false);
+            $hashValue       = sha1_file((string) $this->file, false);
             $this->algorithm = 'sha1';
+        } elseif ($this->algorithm !== '') {
+            throw new BuildException(
+                sprintf(
+                    '[FileHash] Unknown algorithm specified %d. Must be one of %s',
+                    $this->algorithm,
+                    implode(', ', hash_algos())
+                )
+            );
         } else {
-            if ($this->algorithm !== '') {
-                throw new BuildException(
-                    sprintf(
-                        '[FileHash] Unknown algorithm specified %d. Must be one of %s',
-                        $this->algorithm,
-                        implode(', ', hash_algos())
-                    )
-                );
-            }
-
             throw new BuildException(
                 sprintf(
                     '[FileHash] Unknown hashtype specified %d. Must be either 0 (=MD5) or 1 (=SHA1)',
@@ -135,11 +147,13 @@ class FileHashTask extends Task
         // publish hash value
         $this->project->setProperty($this->propertyName, $hashValue);
         $fos = new FileOutputStream($this->file . '.' . $this->algorithm);
-        $fos->write(sprintf('%s  %s', $hashValue, basename($this->file)));
+        $fos->write(sprintf('%s  %s', $hashValue, basename((string) $this->file)));
     }
 
     /**
      * checks file attribute
+     *
+     * @return void
      *
      * @throws BuildException
      */
@@ -150,7 +164,7 @@ class FileHashTask extends Task
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
         }
 
-        if (!is_readable($this->file)) {
+        if (!is_readable((string) $this->file)) {
             throw new BuildException(
                 sprintf(
                     '[FileHash] Input file does not exist or is not readable: %s',
@@ -162,6 +176,8 @@ class FileHashTask extends Task
 
     /**
      * checks property attribute
+     *
+     * @return void
      *
      * @throws BuildException
      */

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
@@ -24,27 +26,42 @@
  */
 class TypedefTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/typedef.xml');
     }
 
-    public function testEmpty()
+    /**
+     * @return void
+     */
+    public function testEmpty(): void
     {
         $this->expectBuildException('empty', 'required argument not specified');
     }
 
-    public function testNoName()
+    /**
+     * @return void
+     */
+    public function testNoName(): void
     {
         $this->expectBuildException('noName', 'required argument not specified');
     }
 
-    public function testNoClassname()
+    /**
+     * @return void
+     */
+    public function testNoClassname(): void
     {
         $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
-    public function testClassNotFound()
+    /**
+     * @return void
+     */
+    public function testClassNotFound(): void
     {
         $this->expectException(BuildException::class);
 
@@ -58,21 +75,27 @@ class TypedefTaskTest extends BuildFileTest
         }
     }
 
-    public function testGlobal()
+    /**
+     * @return void
+     */
+    public function testGlobal(): void
     {
         $this->expectLog('testGlobal', 'Adding reference: global -> TypedefTestType');
         $refs = $this->project->getReferences();
         $ref  = $refs['global'];
-        $this->assertNotNull('ref is not null', $ref);
+        $this->assertNotNull('ref is not null', (string) $ref);
         $this->assertEquals('TypedefTestType', get_class($ref));
     }
 
-    public function testLocal()
+    /**
+     * @return void
+     */
+    public function testLocal(): void
     {
         $this->expectLog('testLocal', 'Adding reference: local -> TypedefTestType');
         $refs = $this->project->getReferences();
         $ref  = $refs['local'];
-        $this->assertNotNull('ref is not null', $ref);
+        $this->assertNotNull('ref is not null', (string) $ref);
         $this->assertEquals('TypedefTestType', get_class($ref));
     }
 }

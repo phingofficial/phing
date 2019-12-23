@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * "Inner" class for handling enumerations.
  * Uses build-in PHP5 iterator support.
@@ -27,11 +29,15 @@ class ConditionEnumeration implements Iterator
 {
     /**
      * Current element number
+     *
+     * @var int
      */
     private $num = 0;
 
     /**
      * "Outer" ConditionBase class.
+     *
+     * @var ConditionBase
      */
     private $outer;
 
@@ -46,11 +52,14 @@ class ConditionEnumeration implements Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->outer->countConditions() > $this->num;
     }
 
+    /**
+     * @return mixed
+     */
     public function current()
     {
         $o = $this->outer->conditions[$this->num];
@@ -61,7 +70,10 @@ class ConditionEnumeration implements Iterator
         return $o;
     }
 
-    public function next()
+    /**
+     * @return void
+     */
+    public function next(): void
     {
         $this->num++;
     }
@@ -69,12 +81,15 @@ class ConditionEnumeration implements Iterator
     /**
      * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->num;
     }
 
-    public function rewind()
+    /**
+     * @return void
+     */
+    public function rewind(): void
     {
         $this->num = 0;
     }

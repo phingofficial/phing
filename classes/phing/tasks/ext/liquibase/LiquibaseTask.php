@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task for running liquibase commands that doesn't have their own
  * commands yet.
@@ -31,18 +33,25 @@ class LiquibaseTask extends AbstractLiquibaseTask
 {
     /**
      * What liquibase command you wish to run.
+     *
+     * @var string
      */
     private $command;
 
     /**
      * @param string $command
+     *
+     * @return void
      */
-    public function setCommand($command)
+    public function setCommand(string $command): void
     {
         $this->command = (string) $command;
     }
 
-    protected function checkParams()
+    /**
+     * @return void
+     */
+    protected function checkParams(): void
     {
         parent::checkParams();
 
@@ -51,7 +60,10 @@ class LiquibaseTask extends AbstractLiquibaseTask
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         $this->checkParams();
         $this->execute($this->command, '');

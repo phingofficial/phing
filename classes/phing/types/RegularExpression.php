@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A regular expression datatype.  Keeps an instance of the
  * compiled expression for speed purposes.  This compiled
@@ -31,7 +33,11 @@
  */
 class RegularExpression extends DataType
 {
+    /**
+     * @var Regexp|null
+     */
     private $regexp = null;
+
     /**
      * @todo Probably both $ignoreCase and $multiline should be removed
      * from attribute list of RegularExpression class:
@@ -49,16 +55,20 @@ class RegularExpression extends DataType
 
     /**
      * @param string $pattern
+     *
+     * @return void
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         $this->regexp->setPattern($pattern);
     }
 
     /**
      * @param string $replace
+     *
+     * @return void
      */
-    public function setReplace($replace)
+    public function setReplace(string $replace): void
     {
         $this->regexp->setReplace($replace);
     }
@@ -70,7 +80,7 @@ class RegularExpression extends DataType
      *
      * @throws BuildException
      */
-    public function getPattern($p)
+    public function getPattern(Project $p): string
     {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
@@ -88,7 +98,7 @@ class RegularExpression extends DataType
      *
      * @throws BuildException
      */
-    public function getReplace($p)
+    public function getReplace(Project $p): string
     {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
@@ -100,9 +110,11 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param string $modifiers
+     * @param string|null $modifiers
+     *
+     * @return void
      */
-    public function setModifiers($modifiers)
+    public function setModifiers(?string $modifiers): void
     {
         $this->regexp->setModifiers($modifiers);
     }
@@ -110,15 +122,17 @@ class RegularExpression extends DataType
     /**
      * @return string
      */
-    public function getModifiers()
+    public function getModifiers(): string
     {
         return $this->regexp->getModifiers();
     }
 
     /**
      * @param bool $bit
+     *
+     * @return void
      */
-    public function setIgnoreCase($bit)
+    public function setIgnoreCase(bool $bit): void
     {
         $this->regexp->setIgnoreCase($bit);
     }
@@ -126,15 +140,17 @@ class RegularExpression extends DataType
     /**
      * @return bool
      */
-    public function getIgnoreCase()
+    public function getIgnoreCase(): bool
     {
         return $this->regexp->getIgnoreCase();
     }
 
     /**
      * @param bool $multiline
+     *
+     * @return void
      */
-    public function setMultiline($multiline)
+    public function setMultiline(bool $multiline): void
     {
         $this->regexp->setMultiline($multiline);
     }
@@ -142,7 +158,7 @@ class RegularExpression extends DataType
     /**
      * @return bool
      */
-    public function getMultiline()
+    public function getMultiline(): bool
     {
         return $this->regexp->getMultiline();
     }
@@ -154,7 +170,7 @@ class RegularExpression extends DataType
      *
      * @throws BuildException
      */
-    public function getRegexp(Project $p)
+    public function getRegexp(Project $p): ?Regexp
     {
         if ($this->isReference()) {
             $ref = $this->getRef($p);

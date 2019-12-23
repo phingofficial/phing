@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/269
  * - Allow properties to be recursively named
@@ -25,17 +27,29 @@
  */
 class RecursivePropertyTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/269/build.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         @unlink(PHING_TEST_BASE . '/etc/regression/269/testoutput');
     }
 
-    public function testCopyTask()
+    /**
+     * @return void
+     */
+    public function testCopyTask(): void
     {
         $this->executeTarget('main');
 

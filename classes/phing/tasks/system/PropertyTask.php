@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task for setting properties in buildfiles.
  *
@@ -34,7 +36,7 @@ class PropertyTask extends Task
     protected $name;
 
     /**
-     * @var string $value of the property
+     * @var string|int|null value of the property
      */
     protected $value;
 
@@ -65,16 +67,22 @@ class PropertyTask extends Task
 
     /**
      * Whether to force overwrite of existing property.
+     *
+     * @var bool
      */
     protected $override = false;
 
     /**
      * Whether property should be treated as "user" property.
+     *
+     * @var bool
      */
     protected $userProperty = false;
 
     /**
      * Whether to log messages as INFO or VERBOSE
+     *
+     * @var bool
      */
     protected $logOutput = true;
 
@@ -85,6 +93,8 @@ class PropertyTask extends Task
 
     /**
      * Whether a warning should be displayed when the property ismissing.
+     *
+     * @var bool
      */
     private $quiet = false;
 
@@ -124,6 +134,8 @@ class PropertyTask extends Task
      * Sets a the name of current property component
      *
      * @param string $name
+     *
+     * @return void
      */
     public function setName(string $name): void
     {
@@ -132,8 +144,10 @@ class PropertyTask extends Task
 
     /**
      * Get property component name.
+     *
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -141,9 +155,11 @@ class PropertyTask extends Task
     /**
      * Sets a the value of current property component.
      *
-     * @param string $value Value of name, all scalars allowed
+     * @param string|int $value Value of name, all scalars allowed
+     *
+     * @return void
      */
-    public function setValue(string $value): void
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -153,7 +169,9 @@ class PropertyTask extends Task
      *
      * @param string $value
      *
-     * @since    2.2.0
+     * @return void
+     *
+     * @since  2.2.0
      */
     public function addText(string $value): void
     {
@@ -162,6 +180,8 @@ class PropertyTask extends Task
 
     /**
      * Get the value of current property component.
+     *
+     * @return mixed
      */
     public function getValue()
     {
@@ -173,10 +193,12 @@ class PropertyTask extends Task
      *
      * @param PhingFile|string $file
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setFile($file)
+    public function setFile($file): void
     {
         if (is_string($file)) {
             $file = new PhingFile($file);
@@ -186,21 +208,28 @@ class PropertyTask extends Task
 
     /**
      * Get the PhingFile that is being used as property source.
+     *
+     * @return PhingFile|null
      */
-    public function getFile()
+    public function getFile(): ?PhingFile
     {
         return $this->file;
     }
 
     /**
      * @param Reference $ref
+     *
+     * @return void
      */
     public function setRefid(Reference $ref): void
     {
         $this->reference = $ref;
     }
 
-    public function getRefid()
+    /**
+     * @return Reference|null
+     */
+    public function getRefid(): ?Reference
     {
         return $this->reference;
     }
@@ -224,11 +253,11 @@ class PropertyTask extends Task
     }
 
     /**
-     * @return string
+     * @return string|null
      *
      * @since 2.0
      */
-    public function getPrefix()
+    public function getPrefix(): ?string
     {
         return $this->prefix;
     }
@@ -251,13 +280,18 @@ class PropertyTask extends Task
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
      *
      * @param string $env
+     *
+     * @return void
      */
     public function setEnvironment(string $env): void
     {
         $this->env = $env;
     }
 
-    public function getEnvironment()
+    /**
+     * @return string|null
+     */
+    public function getEnvironment(): ?string
     {
         return $this->env;
     }
@@ -269,6 +303,8 @@ class PropertyTask extends Task
      * allow this method to function.
      *
      * @param bool $v
+     *
+     * @return void
      */
     public function setUserProperty(bool $v): void
     {
@@ -278,13 +314,15 @@ class PropertyTask extends Task
     /**
      * @return bool
      */
-    public function getUserProperty()
+    public function getUserProperty(): bool
     {
         return $this->userProperty;
     }
 
     /**
-     * @param string $v
+     * @param bool $v
+     *
+     * @return void
      */
     public function setOverride(bool $v): void
     {
@@ -294,7 +332,7 @@ class PropertyTask extends Task
     /**
      * @return bool
      */
-    public function getOverride()
+    public function getOverride(): bool
     {
         return $this->override;
     }
@@ -302,26 +340,33 @@ class PropertyTask extends Task
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**
-     * @param Project $p
+     * @param Project|null $p
+     *
+     * @return void
      */
-    public function setFallback($p): void
+    public function setFallback(?Project $p): void
     {
         $this->fallback = $p;
     }
 
-    public function getFallback()
+    /**
+     * @return Project|null
+     */
+    public function getFallback(): ?Project
     {
         return $this->fallback;
     }
 
     /**
      * @param bool $logOutput
+     *
+     * @return void
      */
     public function setLogoutput(bool $logOutput): void
     {
@@ -331,7 +376,7 @@ class PropertyTask extends Task
     /**
      * @return bool
      */
-    public function getLogoutput()
+    public function getLogoutput(): bool
     {
         return $this->logOutput;
     }
@@ -342,6 +387,8 @@ class PropertyTask extends Task
      * @see   setFailonerror()
      *
      * @param bool $bool
+     *
+     * @return void
      */
     public function setQuiet(bool $bool): void
     {
@@ -360,8 +407,12 @@ class PropertyTask extends Task
      * set the property in the project to the value.
      * if the task was give a file or env attribute
      * here is where it is loaded
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->name !== null) {
             if ($this->value === null && $this->reference === null) {
@@ -428,8 +479,12 @@ class PropertyTask extends Task
      * load the environment values
      *
      * @param string $prefix prefix to place before them
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function loadEnvironment(string $prefix)
+    protected function loadEnvironment(string $prefix): void
     {
         $props = new Properties();
         if (substr($prefix, strlen($prefix) - 1) === '.') {
@@ -448,9 +503,13 @@ class PropertyTask extends Task
      *
      * @param Properties $props
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    protected function addProperties($props)
+    protected function addProperties(Properties $props): void
     {
         $this->resolveAllProperties($props);
         foreach ($props->keys() as $name) {
@@ -466,10 +525,15 @@ class PropertyTask extends Task
     /**
      * add a name value pair to the project property set
      *
-     * @param string $name  name of property
-     * @param string $value value to set
+     * @param string     $name  name of property
+     * @param string|int $value value to set
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws Exception
      */
-    protected function addProperty($name, $value)
+    protected function addProperty(string $name, $value): void
     {
         if (count($this->filterChains) > 0) {
             $in    = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
@@ -497,9 +561,13 @@ class PropertyTask extends Task
      *
      * @param PhingFile $file
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(PhingFile $file): void
     {
         $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
         $props      = new Properties(null, $fileParser);
@@ -531,9 +599,10 @@ class PropertyTask extends Task
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    protected function resolveAllProperties(Properties $props)
+    protected function resolveAllProperties(Properties $props): void
     {
         foreach ($props->keys() as $name) {
             // There may be a nice regex/callback way to handle this

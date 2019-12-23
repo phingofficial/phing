@@ -17,13 +17,22 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
  */
 abstract class BaseHttpTaskTest extends BuildFileTest
 {
-    protected function copyTasksAddingCustomRequest($fromTarget, $toTarget, HTTP_Request2 $request)
+    /**
+     * @param string        $fromTarget
+     * @param string        $toTarget
+     * @param HTTP_Request2 $request
+     *
+     * @return void
+     */
+    protected function copyTasksAddingCustomRequest(string $fromTarget, string $toTarget, HTTP_Request2 $request): void
     {
         /** @var Target[] $targets */
         $targets = $this->project->getTargets();
@@ -39,7 +48,14 @@ abstract class BaseHttpTaskTest extends BuildFileTest
         }
     }
 
-    protected function createRequest(HTTP_Request2_Adapter $adapter)
+    /**
+     * @param HTTP_Request2_Adapter $adapter
+     *
+     * @return HTTP_Request2
+     *
+     * @throws HTTP_Request2_LogicException
+     */
+    protected function createRequest(HTTP_Request2_Adapter $adapter): HTTP_Request2
     {
         $request = new HTTP_Request2();
         $request->setAdapter($adapter);
@@ -47,7 +63,14 @@ abstract class BaseHttpTaskTest extends BuildFileTest
         return $request;
     }
 
-    protected function createMockAdapter(array $responses)
+    /**
+     * @param array $responses
+     *
+     * @return HTTP_Request2_Adapter_Mock
+     *
+     * @throws HTTP_Request2_Exception
+     */
+    protected function createMockAdapter(array $responses): HTTP_Request2_Adapter_Mock
     {
         $adapter = new HTTP_Request2_Adapter_Mock();
         foreach ($responses as $response) {
@@ -57,7 +80,10 @@ abstract class BaseHttpTaskTest extends BuildFileTest
         return $adapter;
     }
 
-    public function testMissingUrl()
+    /**
+     * @return void
+     */
+    public function testMissingUrl(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Required attribute \'url\' is missing');

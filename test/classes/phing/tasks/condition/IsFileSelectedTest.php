@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the IsFileSelected Condition
  *
@@ -25,20 +27,32 @@
  */
 class IsFileSelectedTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/IsFileSelectedTest.xml'
         );
     }
 
-    public function testIsFileSelected()
+    /**
+     * @return void
+     */
+    public function testIsFileSelected(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('selected');
     }
 
-    public function testNonFileSelected()
+    /**
+     * @return void
+     */
+    public function testNonFileSelected(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that selects files by forwarding the request on to other classes.
  *
@@ -29,24 +31,39 @@
  */
 class ExtendSelector extends BaseSelector
 {
+    /**
+     * @var string
+     */
     private $classname;
+
+    /**
+     * @var FileSelector
+     */
     private $dynselector;
+
+    /**
+     * @var Parameter[]
+     */
     private $parameters = [];
 
     /**
      * Sets the classname of the custom selector.
      *
      * @param string $classname is the class which implements this selector
+     *
+     * @return void
      */
-    public function setClassname($classname)
+    public function setClassname(string $classname): void
     {
         $this->classname = $classname;
     }
 
     /**
      * Instantiates the identified custom selector class.
+     *
+     * @return void
      */
-    public function selectorCreate()
+    public function selectorCreate(): void
     {
         if ($this->classname !== null && $this->classname !== '') {
             try {
@@ -77,7 +94,7 @@ class ExtendSelector extends BaseSelector
      *
      * @return void
      */
-    public function addParam(Parameter $p)
+    public function addParam(Parameter $p): void
     {
         $this->parameters[] = $p;
     }
@@ -86,8 +103,10 @@ class ExtendSelector extends BaseSelector
      * These are errors specific to ExtendSelector only. If there are
      * errors in the custom selector, it should throw a BuildException
      * when isSelected() is called.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         // Creation is done here rather than in isSelected() because some
         // containers may do a validation pass before running isSelected(),
@@ -120,7 +139,7 @@ class ExtendSelector extends BaseSelector
      *
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

@@ -39,6 +39,8 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  */
 
+declare(strict_types=1);
+
 /**
  * Tests for GrowlNotifyTask
  *
@@ -56,14 +58,18 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @var object
      */
-    protected $mockTask;
+    private $mockTask;
 
     /**
      * Sets up the fixture.
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws Net_Growl_Exception
+     * @throws NullPointerException
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         if (!class_exists('Net_Growl')) {
             $this->markTestSkipped('Need Net_Growl installed to test');
@@ -103,7 +109,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testEmptyMessage()
+    public function testEmptyMessage(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('"message" attribute cannot be empty');
@@ -116,7 +122,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleNotification()
+    public function testSingleNotification(): void
     {
         $this->mockTask->setMessage('Single test message.');
 
@@ -129,10 +135,10 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleStickyNotification()
+    public function testSingleStickyNotification(): void
     {
         $this->mockTask->setMessage('Sticky message !!!');
-        $this->mockTask->setSticky('true');
+        $this->mockTask->setSticky(true);
 
         $this->executeTarget('test');
         $this->assertInLogs('Notification-Sticky: 1', Project::MSG_DEBUG);
@@ -143,7 +149,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleCustomAppIconNotification()
+    public function testSingleCustomAppIconNotification(): void
     {
         $this->mockTask->setMessage('Test with custom Application Icon.');
         $this->mockTask->setAppicon('..\..\..\..\data\Help.ico');
@@ -157,7 +163,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleNotificationType()
+    public function testSingleNotificationType(): void
     {
         $this->mockTask->setMessage('Build FINISHED.');
         $this->mockTask->setNotification('Status');
@@ -171,7 +177,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleNotificationTitled()
+    public function testSingleNotificationTitled(): void
     {
         $this->mockTask->setMessage('Build FAILED.');
         $this->mockTask->setTitle('PhingNotify');
@@ -185,7 +191,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testBroadcastNotification()
+    public function testBroadcastNotification(): void
     {
         $this->mockTask->setMessage('Broadcast message : Build FAILED.');
         $this->mockTask->setHost('192.168.1.2');
@@ -199,7 +205,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleNotificationWithPriority()
+    public function testSingleNotificationWithPriority(): void
     {
         $this->mockTask->setMessage('Build DEPLOYED.');
         $this->mockTask->setPriority('high');
@@ -216,7 +222,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleCustomIconNotification()
+    public function testSingleCustomIconNotification(): void
     {
         $this->mockTask->setMessage('Custom Application and Icon message.');
         $this->mockTask->setAppicon('..\..\..\..\data\Help.ico');

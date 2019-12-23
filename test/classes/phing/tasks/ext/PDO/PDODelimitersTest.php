@@ -19,6 +19,8 @@
  * @package phing.tasks.ext
  */
 
+declare(strict_types=1);
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
@@ -32,12 +34,17 @@ class PDODelimitersTest extends BuildFileTest
 
     protected $mockTask;
 
-    public function setUp(): void
+    /**
+     * @return void
+     * @throws \IOException
+     * @throws \NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
         $this->queries = [];
 
-        $this->mockTask = $this->getMockBuilder('PDOSQLExecTask')
+        $this->mockTask = $this->getMockBuilder(PDOSQLExecTask::class)
             ->setMethods(['getConnection', 'execSQL'])
             ->getMock();
         $this->mockTask->setProject($this->project);
@@ -51,7 +58,10 @@ class PDODelimitersTest extends BuildFileTest
         $this->mockTask->setOwningTarget($targets['test']);
     }
 
-    public function storeQuery($query)
+    /**
+     * @return void
+     */
+    public function storeQuery(string $query)
     {
         $query = trim($query);
         if (strlen($query)) {
@@ -60,9 +70,12 @@ class PDODelimitersTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     * @throws \IOException
+     * @throws \NullPointerException
      * @requires PHP >= 7.2
      */
-    public function testDelimiterTypeNormal()
+    public function testDelimiterTypeNormal(): void
     {
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
@@ -106,9 +119,12 @@ SQL
     }
 
     /**
+     * @return void
+     * @throws \IOException
+     * @throws \NullPointerException
      * @requires PHP >= 7.2
      */
-    public function testDelimiterTypeRow()
+    public function testDelimiterTypeRow(): void
     {
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
@@ -145,9 +161,12 @@ SQL
      *
      * @link http://www.phing.info/trac/ticket/499
      * @link http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
+     * @return void
+     * @throws \IOException
+     * @throws \NullPointerException
      * @requires PHP >= 7.2
      */
-    public function testRequest499()
+    public function testRequest499(): void
     {
         $expected = [
             <<<SQL

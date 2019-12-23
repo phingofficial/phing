@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit tests for DirSet -- including Selectors.
  *
@@ -31,15 +32,24 @@ class DirSetTest extends TestCase
     /** @var DirSet */
     private $dirset;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->dirset = new DirSet();
     }
 
-    public function testDirSetIterator()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testDirSetIterator(): void
     {
         $this->dirset->setProject(new Project());
         $this->dirset->setDir(__DIR__);
-        $this->assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
+        self::assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
     }
 }

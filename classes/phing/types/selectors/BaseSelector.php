@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A convenience base class that you can subclass Selectors from. It
  * provides some helpful common behaviour. Note that there is no need
@@ -44,10 +46,12 @@ abstract class BaseSelector extends DataType implements FileSelector
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param string    $msg   The error message any BuildException should throw.
-     * @param Exception $cause
+     * @param string         $msg   The error message any BuildException should throw.
+     * @param Throwable|null $cause
+     *
+     * @return void
      */
-    public function setError($msg, ?Throwable $cause = null)
+    public function setError(string $msg, ?Throwable $cause = null)
     {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
@@ -58,9 +62,9 @@ abstract class BaseSelector extends DataType implements FileSelector
     /**
      * Returns any error messages that have been set.
      *
-     * @return string the error condition
+     * @return string|null the error condition
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->errmsg;
     }
@@ -72,9 +76,11 @@ abstract class BaseSelector extends DataType implements FileSelector
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->isReference()) {
             $this->getCheckedRef(self::class, StringHelper::unqualify(self::class))->verifySettings();
@@ -85,9 +91,11 @@ abstract class BaseSelector extends DataType implements FileSelector
      * Subclasses can use this to throw the requisite exception
      * in isSelected() in the case of an error condition.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function validate()
+    public function validate(): void
     {
         if ($this->getError() === null) {
             $this->verifySettings();

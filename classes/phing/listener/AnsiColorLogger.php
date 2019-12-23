@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Uses ANSI Color Code Sequences to colorize messages
  * sent to the console.
@@ -149,8 +151,13 @@ class AnsiColorLogger extends DefaultLogger
     /**
      * Set the colors to use from a property file specified by the
      * special ant property ant.logger.defaults
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    final private function setColors()
+    final private function setColors(): void
     {
         $userColorFile   = Phing::getProperty('phing.logger.defaults');
         $systemColorFile = new PhingFile(Phing::getResourcePath('phing/listener/defaults.properties'));
@@ -197,8 +204,13 @@ class AnsiColorLogger extends DefaultLogger
      * @param string       $message
      * @param OutputStream $stream
      * @param int          $priority
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    final protected function printMessage($message, OutputStream $stream, $priority)
+    final protected function printMessage(string $message, OutputStream $stream, int $priority): void
     {
         if ($message !== null) {
             if (!$this->colorsSet) {

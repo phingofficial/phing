@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the PropertyCopy Task
  *
@@ -25,14 +27,23 @@
  */
 class PropertyCopyTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/PropertyCopyTest.xml'
         );
     }
 
-    public function testPropertyCopy()
+    /**
+     * @return void
+     */
+    public function testPropertyCopy(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('displayName', 'My Organiziation');

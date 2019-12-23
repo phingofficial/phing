@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
@@ -25,22 +27,32 @@ class SvnInfoTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnInfoTest.xml');
     }
 
-    public function testGetUrl()
+    /**
+     * @return void
+     */
+    public function testGetUrl(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getUrl');
         $this->assertPropertyEquals('svn.url', $this->project->getProperty('repo.url'));
     }
 
-    public function testGetAuthor()
+    /**
+     * @return void
+     */
+    public function testGetAuthor(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getAuthor');
         $this->assertPropertyEquals('svn.author', 'michiel.rook');
     }

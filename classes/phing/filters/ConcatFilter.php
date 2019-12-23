@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Concats a file before and/or after the file.
  *
@@ -81,7 +83,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * effectively at an end. Otherwise, the next character from the
      * underlying stream is read and returned.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return int|string the next character in the resulting stream, or -1
      * if the end of the resulting stream has been reached
@@ -91,7 +93,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * @throws BuildException
      * @throws NullPointerException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         // do the "singleton" initialization
         if (!$this->getInitialized()) {
@@ -131,10 +133,12 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * it to set the number of lines to be returned in the filtered stream.
      * also scan for skip parameter.
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    private function initialize()
+    private function initialize(): void
     {
         // get parameters
         $params = $this->getParameters();
@@ -180,7 +184,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * @throws IOException
      * @throws NullPointerException
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new ConcatFilter($reader);
         $newFilter->setProject($this->getProject());
@@ -195,7 +199,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return PhingFile prepend attribute
      */
-    public function getPrepend()
+    public function getPrepend(): PhingFile
     {
         return $this->prepend;
     }
@@ -205,10 +209,12 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param PhingFile|string $prepend prepend new value
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setPrepend($prepend)
+    public function setPrepend($prepend): void
     {
         if ($prepend instanceof PhingFile) {
             $this->prepend = $prepend;
@@ -232,8 +238,10 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * Sets `append` attribute.
      *
      * @param PhingFile|string $append append new value
+     *
+     * @return void
      */
-    public function setAppend($append)
+    public function setAppend($append): void
     {
         $this->append = $append;
     }

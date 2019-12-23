@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Available Task
  *
@@ -25,12 +27,17 @@
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class AvailableTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
+        $this->markTestIncomplete();
+
         $this->configureProject(
             PHING_TEST_BASE
             . '/etc/tasks/system/AvailableTaskTest.xml'
@@ -38,42 +45,63 @@ class AvailableTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testDanglingSymlink()
+    /**
+     * @return void
+     */
+    public function testDanglingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testFileSymlink()
+    /**
+     * @return void
+     */
+    public function testFileSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testFileAbsoluteSymlink()
+    /**
+     * @return void
+     */
+    public function testFileAbsoluteSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testDirectorySymlink()
+    /**
+     * @return void
+     */
+    public function testDirectorySymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testDirectoryAbsoluteSymlink()
+    /**
+     * @return void
+     */
+    public function testDirectoryAbsoluteSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testDirectorySymlinkBC()
+    /**
+     * @return void
+     */
+    public function testDirectorySymlinkBC(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty('prop.' . __FUNCTION__));

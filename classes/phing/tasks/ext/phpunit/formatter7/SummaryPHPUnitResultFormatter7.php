@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Prints short summary output of the test to Phing's logging system.
  *
@@ -26,7 +28,12 @@
  */
 class SummaryPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 {
-    public function endTestRun()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function endTestRun(): void
     {
         parent::endTestRun();
 
@@ -45,9 +52,9 @@ class SummaryPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @return null
+     * @return string|null
      */
-    public function getExtension()
+    public function getExtension(): ?string
     {
         return null;
     }

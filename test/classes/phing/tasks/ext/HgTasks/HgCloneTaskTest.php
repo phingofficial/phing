@@ -17,11 +17,20 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgCloneTaskTest extends BuildFileTest
 {
     use HgTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ConfigurationException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -29,7 +38,12 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongRepository()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testWrongRepository(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 
@@ -40,7 +54,12 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -49,7 +68,12 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTargetPathSpecified()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testNoTargetPathSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTargetPath',

@@ -23,6 +23,11 @@ use PHPUnit\Framework\Assert;
 
 class PHPStanTaskAssert extends Assert
 {
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     public function assertDefaults(PHPStanTask $task): void
     {
         $this->assertEquals('phpstan', $task->getExecutable());
@@ -34,6 +39,11 @@ class PHPStanTaskAssert extends Assert
         $this->assertListDefaults($task);
     }
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     private function assertCommonDefaults(PHPStanTask $task): void
     {
         $this->assertNull($task->isHelp());
@@ -46,6 +56,11 @@ class PHPStanTaskAssert extends Assert
         $this->assertNull($task->isCheckreturn());
     }
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     private function assertAnalyseDefaults(PHPStanTask $task): void
     {
         $this->assertNull($task->getConfiguration());
@@ -58,6 +73,11 @@ class PHPStanTaskAssert extends Assert
         $this->assertNull($task->getPaths());
     }
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     private function assertHelpDefaults(PHPStanTask $task): void
     {
         $this->assertNull($task->getFormat());
@@ -65,6 +85,11 @@ class PHPStanTaskAssert extends Assert
         $this->assertNull($task->getCommandName());
     }
 
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     private function assertListDefaults(PHPStanTask $task): void
     {
         $this->assertNull($task->getFormat());

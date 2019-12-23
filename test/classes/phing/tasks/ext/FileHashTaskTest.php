@@ -17,18 +17,29 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
 class FileHashTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/filehash.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.crc32')) {
             unlink(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.crc32');
@@ -41,17 +52,26 @@ class FileHashTaskTest extends BuildFileTest
         }
     }
 
-    public function testMD5()
+    /**
+     * @return void
+     */
+    public function testMD5(): void
     {
         $this->expectLog('testMD5', 'c9dcdf095de0ef3d2e3f71cb4dc7ee11');
     }
 
-    public function testSHA1()
+    /**
+     * @return void
+     */
+    public function testSHA1(): void
     {
         $this->expectLog('testSHA1', 'dadd0aafb79d9fb8299a928efb23c112874bbda3');
     }
 
-    public function testCRC32()
+    /**
+     * @return void
+     */
+    public function testCRC32(): void
     {
         $this->expectLog('testCRC32', 'd34c2e86');
     }

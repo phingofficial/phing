@@ -17,22 +17,25 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitPushTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -40,54 +43,70 @@ class GitPushTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
         $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testAllParamsSet()
+    /**
+     * @return void
+     */
+    public function testAllParamsSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-push: pushing to origin master:foobranch');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testAllReposSet()
+    /**
+     * @return void
+     */
+    public function testAllReposSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allReposSet');
         $this->assertInLogs('git-push: push to all refs');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testTagsSet()
+    /**
+     * @return void
+     */
+    public function testTagsSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('tagsSet');
         $this->assertInLogs('git-push: pushing to origin master:foobranch');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testDeleteSet()
+    /**
+     * @return void
+     */
+    public function testDeleteSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('deleteSet');
         $this->assertInLogs('git-push: pushing to origin master:newbranch');
         $this->assertInLogs('git-push: branch delete requested');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testMirrorSet()
+    /**
+     * @return void
+     */
+    public function testMirrorSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('mirrorSet');
         $this->assertInLogs('git-push: mirror all refs');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -96,7 +115,10 @@ class GitPushTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongRepo()
+    /**
+     * @return void
+     */
+    public function testWrongRepo(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepo',
@@ -105,7 +127,10 @@ class GitPushTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoDestinationSpecified()
+    /**
+     * @return void
+     */
+    public function testNoDestinationSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noDestination',

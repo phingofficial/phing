@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Performs a regexp find/replace on stream.
  * <p>
@@ -34,7 +36,7 @@
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 {
     /**
-     * @var array RegularExpression[]
+     * @var RegularExpression[]
      */
     private $regexps = [];
 
@@ -43,7 +45,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      *
      * @return RegularExpression
      */
-    public function createRegexp()
+    public function createRegexp(): RegularExpression
     {
         $num = array_push($this->regexps, new RegularExpression());
 
@@ -55,8 +57,10 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * (Used when, e.g., cloning/chaining the method.)
      *
      * @param RegularExpression[] $regexps
+     *
+     * @return void
      */
-    public function setRegexps($regexps)
+    public function setRegexps(array $regexps): void
     {
         $this->regexps = $regexps;
     }
@@ -65,9 +69,9 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * Gets the current regexps.
      * (Used when, e.g., cloning/chaining the method.)
      *
-     * @return array RegularExpression[]
+     * @return RegularExpression[]
      */
-    public function getRegexps()
+    public function getRegexps(): array
     {
         return $this->regexps;
     }
@@ -76,14 +80,14 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and the regex replace is performed.
      *
-     * @param int $len Required $len for Reader compliance.
+     * @param int|null $len Required $len for Reader compliance.
      *
      * @return mixed The filtered stream, or -1 if the end of the resulting stream has been reached.
      *
      * @throws IOException if the underlying stream throws an IOException
      * during reading
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         $buffer = $this->in->read($len);
 
@@ -119,7 +123,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * @return ReplaceRegexp A new filter based on this configuration, but filtering
      *                       the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new ReplaceRegexp($reader);
         $newFilter->setProject($this->getProject());

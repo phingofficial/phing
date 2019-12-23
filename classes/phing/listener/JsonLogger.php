@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Generates a file in the current directory with
  * an JSON description of what happened during a build.
@@ -35,9 +37,12 @@ class JsonLogger extends XmlLogger
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $elapsedTime = Phing::currentTimeMillis() - $this->getBuildTimerStart();
 
@@ -82,7 +87,13 @@ class JsonLogger extends XmlLogger
         array_pop($this->getTimesStack());
     }
 
-    private function xml2js(SimpleXMLElement $xmlnode, $isRoot = true)
+    /**
+     * @param SimpleXMLElement $xmlnode
+     * @param bool             $isRoot
+     *
+     * @return array|false|string
+     */
+    private function xml2js(SimpleXMLElement $xmlnode, bool $isRoot = true)
     {
         $jsnode = [];
 

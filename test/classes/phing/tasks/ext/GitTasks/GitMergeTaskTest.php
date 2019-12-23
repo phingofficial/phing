@@ -17,22 +17,25 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitMergeTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -40,45 +43,60 @@ class GitMergeTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testAllParamsSet()
+    /**
+     * @return void
+     */
+    public function testAllParamsSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
         $this->assertInLogs('git-merge output: Already up');
     }
 
-    public function testNoCommitSet()
+    /**
+     * @return void
+     */
+    public function testNoCommitSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
     }
 
-    public function testRemoteSet()
+    /**
+     * @return void
+     */
+    public function testRemoteSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
     }
 
-    public function testFastForwardCommitSet()
+    /**
+     * @return void
+     */
+    public function testFastForwardCommitSet(): void
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fastForwardCommitSet');
         $this->assertInLogs('git-merge command: LC_ALL=C && git merge --no-ff \'origin/master\'');
         $this->assertInLogs('git-merge: replaying "origin/master" commits');
         $this->assertInLogs('Merge remote-tracking branch \'origin/master\' into merge-test-1');
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -87,7 +105,10 @@ class GitMergeTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRemotesSpecified()
+    /**
+     * @return void
+     */
+    public function testNoRemotesSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRemotes',
@@ -96,7 +117,10 @@ class GitMergeTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongStrategySet()
+    /**
+     * @return void
+     */
+    public function testWrongStrategySet(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongStrategySet',

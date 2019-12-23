@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is the interface to be used by all custom selectors, those that are
  * called through the &lt;custom&gt; tag. It is the amalgamation of two

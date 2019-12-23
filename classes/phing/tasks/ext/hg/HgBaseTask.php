@@ -1,7 +1,4 @@
 <?php
-
-use Siad007\VersionControl\HG\Factory;
-
 /**
  * Utilise Mercurial from within Phing.
  *
@@ -14,6 +11,11 @@ use Siad007\VersionControl\HG\Factory;
  * @author   Ken Guest <kguest@php.net>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
+
+declare(strict_types=1);
+
+use Siad007\VersionControl\HG\Command\AbstractCommand;
+use Siad007\VersionControl\HG\Factory;
 
 /**
  * Base task for integrating phing and mercurial.
@@ -30,16 +32,16 @@ abstract class HgBaseTask extends Task
     /**
      * Insecure argument
      *
-     * @var string
+     * @var bool
      */
-    protected $insecure = '';
+    protected $insecure = false;
 
     /**
      * Repository directory
      *
-     * @var string
+     * @var string|null
      */
-    protected $repository = '';
+    protected $repository;
 
     /**
      * Whether to be quiet... --quiet argument.
@@ -55,6 +57,9 @@ abstract class HgBaseTask extends Task
      */
     protected $user = '';
 
+    /**
+     * @var \Siad07\VersionControl\HG\Factory|null
+     */
     public static $factory = null;
 
     /**
@@ -64,7 +69,7 @@ abstract class HgBaseTask extends Task
      *
      * @return void
      */
-    public function setRepository($repository)
+    public function setRepository(string $repository): void
     {
         $this->repository = $repository;
     }
@@ -76,7 +81,7 @@ abstract class HgBaseTask extends Task
      *
      * @return void
      */
-    public function setQuiet($quiet)
+    public function setQuiet(string $quiet): void
     {
         $this->quiet = StringHelper::booleanValue($quiet);
     }
@@ -86,7 +91,7 @@ abstract class HgBaseTask extends Task
      *
      * @return bool
      */
-    public function getQuiet()
+    public function getQuiet(): bool
     {
         return $this->quiet;
     }
@@ -94,9 +99,9 @@ abstract class HgBaseTask extends Task
     /**
      * Get Repository attribute/directory.
      *
-     * @return string
+     * @return string|null
      */
-    public function getRepository()
+    public function getRepository(): ?string
     {
         return $this->repository;
     }
@@ -108,7 +113,7 @@ abstract class HgBaseTask extends Task
      *
      * @return void
      */
-    public function setInsecure($insecure)
+    public function setInsecure(string $insecure): void
     {
         $this->insecure = StringHelper::booleanValue($insecure);
     }
@@ -116,9 +121,9 @@ abstract class HgBaseTask extends Task
     /**
      * Get 'insecure' attribute value. (--insecure or null)
      *
-     * @return string
+     * @return bool
      */
-    public function getInsecure()
+    public function getInsecure(): bool
     {
         return $this->insecure;
     }
@@ -130,7 +135,7 @@ abstract class HgBaseTask extends Task
      *
      * @return void
      */
-    public function setUser($user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }
@@ -140,7 +145,7 @@ abstract class HgBaseTask extends Task
      *
      * @return string
      */
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
@@ -154,7 +159,7 @@ abstract class HgBaseTask extends Task
      *
      * @throws BuildException
      */
-    public function checkRepositoryIsDirAndExists($dir)
+    public function checkRepositoryIsDirAndExists(string $dir): bool
     {
         if (!file_exists($dir)) {
             throw new BuildException(sprintf("Repository directory '%s' does not exist.", $dir));
@@ -171,15 +176,20 @@ abstract class HgBaseTask extends Task
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         @include_once 'vendor/autoload.php';
     }
 
-    public function getFactoryInstance($command, $options = [])
+    /**
+     * @param mixed $command
+     * @param array $options
+     *
+     * @return AbstractCommand
+     */
+    public function getFactoryInstance($command, $options = []): AbstractCommand
     {
-        $vchq          = Factory::class;
-        self::$factory = $vchq::getInstance($command, $options);
+        self::$factory = Factory::getInstance($command, $options);
         return self::$factory;
     }
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Commits changes in a local working copy to the repository
  *
@@ -28,12 +30,16 @@ class SvnCommitTask extends SvnBaseTask
 {
     /**
      * Commit message
+     *
+     * @var string
      */
     private $message = '';
 
     /**
      * Property name where we store the revision number of the just
      * committed version.
+     *
+     * @var string
      */
     private $propertyName = 'svn.committedrevision';
 
@@ -41,16 +47,20 @@ class SvnCommitTask extends SvnBaseTask
      * Sets the commit message
      *
      * @param string $message
+     *
+     * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
 
     /**
      * Gets the commit message
+     *
+     * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -59,16 +69,20 @@ class SvnCommitTask extends SvnBaseTask
      * Sets the name of the property to use for returned revision
      *
      * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns the name of the property to use for returned revision
+     *
+     * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
@@ -76,9 +90,12 @@ class SvnCommitTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if (trim($this->message) === '') {
             throw new BuildException('SVN Commit message can not be empty.');

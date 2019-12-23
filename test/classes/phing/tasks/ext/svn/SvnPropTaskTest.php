@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
@@ -25,13 +27,22 @@ class SvnPropTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnPropTest.xml');
     }
 
-    public function testProperties()
+    /**
+     * @return void
+     */
+    public function testProperties(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('svn.propget', 'test');

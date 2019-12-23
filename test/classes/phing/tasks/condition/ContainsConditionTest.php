@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Testcase for the &lt;contains&gt; condition.
  *
@@ -29,7 +30,10 @@ use PHPUnit\Framework\TestCase;
  */
 class ContainsConditionTest extends TestCase
 {
-    public function testCaseSensitive()
+    /**
+     * @return void
+     */
+    public function testCaseSensitive(): void
     {
         $con = new ContainsCondition();
         $con->setString('abc');

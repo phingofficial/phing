@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit tests for PHPMD task
  *
@@ -24,33 +26,45 @@
  */
 class PHPMDTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/build.xml');
     }
 
-    public function testReportText()
+    /**
+     * @return void
+     */
+    public function testReportText(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
     }
 
-    public function testReportHtml()
+    /**
+     * @return void
+     */
+    public function testReportHtml(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html');
     }
 
-    public function testReportXml()
+    /**
+     * @return void
+     */
+    public function testReportXml(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
+        self::assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml');

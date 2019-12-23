@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests for PhpCSTask
  *
@@ -25,15 +27,21 @@
  */
 class PhpCSTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         if (class_exists('PHP_CodeSniffer')) {
-            $this->markTestSkipped('PHP CodeSniffer 2 package available.');
+            self::markTestSkipped('PHP CodeSniffer 2 package available.');
         }
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/build.xml');
     }
 
-    public function testPhpCs()
+    /**
+     * @return void
+     */
+    public function testPhpCs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Missing');

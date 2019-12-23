@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,18 +42,22 @@ abstract class BuildFileTest extends TestCase
      */
     public $logBuffer = [];
 
-    private $outBuffer;
-    private $errBuffer;
-    private $buildException;
+    protected $outBuffer;
+    protected $errBuffer;
+
+    /** @var BuildException|null */
+    protected $buildException;
 
     /**
      * Asserts that the log buffer contains specified message at specified priority.
      *
-     * @param string $expected Message subsctring
-     * @param int    $priority Message priority (default: any)
-     * @param string $errmsg   The error message to display.
+     * @param string   $expected Message subsctring
+     * @param int|null $priority Message priority (default: any)
+     * @param string   $errormsg The error message to display.
+     *
+     * @return void
      */
-    protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
+    protected function assertInLogs(string $expected, ?int $priority = null, string $errormsg = "Expected to find '%s' in logs: %s"): void
     {
         $found = false;
         foreach ($this->logBuffer as $log) {
@@ -81,23 +87,25 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $expected Message subsctring
      * @param int    $priority Message priority (default: any)
-     * @param string $errmsg   The error message to display.
+     * @param string $errormsg The error message to display.
+     *
+     * @return void
      */
     protected function assertLogLineContaining(
-        $expected,
-        $priority = null,
-        $errormsg = "Expected to find a log line that starts with '%s': %s"
-    ) {
+        string $expected,
+        ?int $priority = null,
+        string $errormsg = "Expected to find a log line that starts with '%s': %s"
+    ): void {
         $found = false;
         foreach ($this->logBuffer as $log) {
             if (false !== strpos($log['message'], $expected)) {
                 $this->assertEquals(1, 1); // increase number of positive assertions
                 if ($priority === null) {
                     return;
-                } elseif ($priority !== null) {
-                    if ($priority >= $log['priority']) {
-                        $found = true;
-                    }
+                }
+
+                if ($priority >= $log['priority']) {
+                    $found = true;
                 }
             }
             if ($found) {
@@ -114,20 +122,22 @@ abstract class BuildFileTest extends TestCase
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
      *
-     * @param string $expected Message subsctring
-     * @param int    $priority Message priority (default: any)
-     * @param string $errmsg   The error message to display.
+     * @param string   $message  Message subsctring
+     * @param int|null $priority Message priority (default: any)
+     * @param string   $errormsg The error message to display.
+     *
+     * @return void
      */
     protected function assertNotInLogs(
-        $message,
-        $priority = null,
-        $errormsg = "Unexpected string '%s' found in logs: %s"
-    ) {
+        string $message,
+        ?int $priority = null,
+        string $errormsg = "Unexpected string '%s' found in logs: %s"
+    ): void {
         foreach ($this->logBuffer as $log) {
             if (false !== stripos($log['message'], $message)) {
                 $representation = [];
-                foreach ($this->logBuffer as $log) {
-                    $representation[] = sprintf('[msg="%s",priority=%s]', $log['message'], $log['priority']);
+                foreach ($this->logBuffer as $log2) {
+                    $representation[] = sprintf('[msg="%s",priority=%s]', $log2['message'], $log2['priority']);
                 }
                 $this->fail(sprintf($errormsg, $message, var_export($representation, true)));
             }
@@ -141,8 +151,12 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $target target to run
      * @param string $cause  information string to reader of report
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectBuildException($target, $cause)
+    protected function expectBuildException(string $target, string $cause): void
     {
         $this->expectSpecificBuildException($target, $cause, null);
     }
@@ -150,8 +164,15 @@ abstract class BuildFileTest extends TestCase
     /**
      * Assert that only the given message has been logged with a
      * priority &gt;= INFO when running the given target.
+     *
+     * @param string $target
+     * @param string $log
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectLog($target, $log)
+    protected function expectLog(string $target, string $log): void
     {
         $this->executeTarget($target);
         $this->assertInLogs($log);
@@ -160,8 +181,15 @@ abstract class BuildFileTest extends TestCase
     /**
      * Assert that the given message has been logged with a priority
      * &gt;= INFO when running the given target.
+     *
+     * @param string $target
+     * @param string $log
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectLogContaining($target, $log)
+    protected function expectLogContaining(string $target, string $log): void
     {
         $this->executeTarget($target);
         $this->assertInLogs($log);
@@ -170,8 +198,15 @@ abstract class BuildFileTest extends TestCase
     /**
      * Assert that the given message has been logged with a priority
      * &gt;= DEBUG when running the given target.
+     *
+     * @param string $target
+     * @param string $log
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectDebuglog($target, $log)
+    protected function expectDebuglog(string $target, string $log): void
     {
         $this->executeTarget($target);
         $this->assertInLogs($log, Project::MSG_DEBUG);
@@ -182,8 +217,12 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $target target to execute
      * @param string $output output to look for
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectOutput($target, $output)
+    protected function expectOutput(string $target, string $output): void
     {
         $this->executeTarget($target);
         $realOutput = $this->getOutput();
@@ -197,8 +236,12 @@ abstract class BuildFileTest extends TestCase
      * @param string $target target to execute
      * @param string $output output to look for
      * @param string $error  Description of Parameter
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectOutputAndError($target, $output, $error)
+    protected function expectOutputAndError(string $target, string $output, string $error): void
     {
         $this->executeTarget($target);
         $realOutput = $this->getOutput();
@@ -207,22 +250,36 @@ abstract class BuildFileTest extends TestCase
         $this->assertEquals($error, $realError);
     }
 
-    protected function getOutput()
+    /**
+     * @return string
+     */
+    protected function getOutput(): string
     {
         return $this->cleanBuffer($this->outBuffer);
     }
 
-    protected function getError()
+    /**
+     * @return string
+     */
+    protected function getError(): string
     {
         return $this->cleanBuffer($this->errBuffer);
     }
 
-    protected function getBuildException()
+    /**
+     * @return BuildException|null
+     */
+    protected function getBuildException(): ?BuildException
     {
         return $this->buildException;
     }
 
-    private function cleanBuffer($buffer)
+    /**
+     * @param string $buffer
+     *
+     * @return string
+     */
+    private function cleanBuffer(string $buffer): string
     {
         $cleanedBuffer = '';
         $cr            = false;
@@ -252,9 +309,15 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $filename name of project file to run
      *
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ConfigurationException
+     * @throws Exception
+     * @throws IOException
      * @throws BuildException
      */
-    protected function configureProject($filename)
+    protected function configureProject(string $filename): void
     {
         $this->logBuffer     = [];
         $this->fullLogBuffer = '';
@@ -272,9 +335,13 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $targetName target to run
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @pre configureProject has been called
      */
-    protected function executeTarget($targetName)
+    protected function executeTarget(string $targetName): void
     {
         if (empty($this->project)) {
             return;
@@ -293,7 +360,7 @@ abstract class BuildFileTest extends TestCase
      *
      * @return Project the Project instance for this test.
      */
-    protected function getProject()
+    protected function getProject(): Project
     {
         return $this->project;
     }
@@ -302,21 +369,28 @@ abstract class BuildFileTest extends TestCase
      * get the directory of the project
      *
      * @return PhingFile the base dir of the project
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    protected function getProjectDir()
+    protected function getProjectDir(): PhingFile
     {
         return $this->project->getBasedir();
     }
 
     /**
-     *  run a target, wait for a build exception
+     * run a target, wait for a build exception
      *
-     * @param string $target target to run
-     * @param string $cause  information string to reader of report
-     * @param string $msg    the message value of the build exception we are waiting for
-     *                       set to null for any build exception to be valid
+     * @param string      $target target to run
+     * @param string      $cause  information string to reader of report
+     * @param string|null $msg    the message value of the build exception we are waiting for
+     *                            set to null for any build exception to be valid
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectSpecificBuildException($target, $cause, $msg)
+    protected function expectSpecificBuildException(string $target, string $cause, ?string $msg = null): void
     {
         try {
             $this->executeTarget($target);
@@ -343,8 +417,12 @@ abstract class BuildFileTest extends TestCase
      * @param string $target   target to run
      * @param string $cause    information string to reader of report
      * @param string $contains substring of the build exception to look for
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectBuildExceptionContaining($target, $cause, $contains)
+    protected function expectBuildExceptionContaining(string $target, string $cause, string $contains): void
     {
         try {
             $this->executeTarget($target);
@@ -375,11 +453,15 @@ abstract class BuildFileTest extends TestCase
     /**
      * call a target, verify property is as expected
      *
-     * @param string $target   build file target
-     * @param string $property property name
-     * @param string $value    expected value
+     * @param string      $target   build file target
+     * @param string      $property property name
+     * @param string|null $value    expected value
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectPropertySet($target, $property, $value = 'true')
+    protected function expectPropertySet(string $target, string $property, ?string $value = 'true'): void
     {
         $this->executeTarget($target);
         $this->assertPropertyEquals($property, $value);
@@ -388,10 +470,14 @@ abstract class BuildFileTest extends TestCase
     /**
      * assert that a property equals a value; comparison is case sensitive.
      *
-     * @param string $property property name
-     * @param string $value    expected value
+     * @param string          $property property name
+     * @param string|int|null $value    expected value
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function assertPropertyEquals($property, $value)
+    protected function assertPropertyEquals(string $property, $value): void
     {
         $result = $this->project->getProperty($property);
         $this->assertEquals($value, $result, 'property ' . $property);
@@ -401,8 +487,12 @@ abstract class BuildFileTest extends TestCase
      * assert that a property equals &quot;true&quot;
      *
      * @param string $property property name
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function assertPropertySet($property)
+    protected function assertPropertySet(string $property): void
     {
         $this->assertPropertyEquals($property, 'true');
     }
@@ -411,8 +501,12 @@ abstract class BuildFileTest extends TestCase
      * assert that a property is null
      *
      * @param string $property property name
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function assertPropertyUnset($property)
+    protected function assertPropertyUnset(string $property): void
     {
         $this->assertPropertyEquals($property, null);
     }
@@ -422,8 +516,12 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $target   build file target
      * @param string $property property name
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    protected function expectPropertyUnset($target, $property)
+    protected function expectPropertyUnset(string $target, string $property): void
     {
         $this->expectPropertySet($target, $property, null);
     }
@@ -435,17 +533,25 @@ abstract class BuildFileTest extends TestCase
      *
      * @param resource $resource the resource to retrieve its url.
      *
+     * @return void
+     *
      * @throws BuildException if resource is not found.
      */
-    protected function getResource($resource)
+    protected function getResource($resource): void
     {
+        $this->markTestIncomplete('getResource() not yet implemented');
         throw new BuildException('getResource() not yet implemented');
         //$url = ggetClass().getResource(resource);
         //assertNotNull("Could not find resource :" + resource, url);
         //return url;
     }
 
-    protected function rmdir($dir)
+    /**
+     * @param string $dir
+     *
+     * @return bool
+     */
+    protected function rmdir(string $dir): bool
     {
         if (!file_exists($dir)) {
             return true;
@@ -473,7 +579,7 @@ abstract class BuildFileTest extends TestCase
      *
      * @return string
      */
-    protected function getRelativeDate($timestamp, $type = 'fulldate')
+    protected function getRelativeDate(int $timestamp, string $type = 'fulldate'): string
     {
         // calculate the diffrence
         $timediff = time() - $timestamp;
@@ -523,7 +629,13 @@ abstract class BuildFileTest extends TestCase
         return $returndate;
     }
 
-    public function assertFileSizeAtLeast(string $filepath, int $bytes)
+    /**
+     * @param string $filepath
+     * @param int    $bytes
+     *
+     * @return void
+     */
+    public function assertFileSizeAtLeast(string $filepath, int $bytes): void
     {
         $actualSize = filesize($filepath);
 

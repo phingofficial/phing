@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The base class for all Tasks.
  *
@@ -62,8 +64,10 @@ abstract class Task extends ProjectComponent
      * Sets the owning target this task belongs to.
      *
      * @param Target $target Reference to owning target
+     *
+     * @return void
      */
-    public function setOwningTarget(Target $target)
+    public function setOwningTarget(Target $target): void
     {
         $this->target = $target;
     }
@@ -79,9 +83,9 @@ abstract class Task extends ProjectComponent
     /**
      * Returns the owning target of this task.
      *
-     * @return Target The target object that owns this task
+     * @return Target|null The target object that owns this task
      */
-    public function getOwningTarget()
+    public function getOwningTarget(): ?Target
     {
         return $this->target;
     }
@@ -91,7 +95,7 @@ abstract class Task extends ProjectComponent
      *
      * @return string Name of this task
      */
-    public function getTaskName()
+    public function getTaskName(): string
     {
         if ($this->taskName === null) {
             // if no task name is set, then it's possible
@@ -109,8 +113,10 @@ abstract class Task extends ProjectComponent
      * Sets the name of this task for log messages
      *
      * @param string $name
+     *
+     * @return void
      */
-    public function setTaskName($name)
+    public function setTaskName(string $name): void
     {
         $this->taskName = (string) $name;
     }
@@ -121,7 +127,7 @@ abstract class Task extends ProjectComponent
      *
      * @return string The type of this task (XML Tag)
      */
-    public function getTaskType()
+    public function getTaskType(): string
     {
         return $this->taskType;
     }
@@ -130,8 +136,10 @@ abstract class Task extends ProjectComponent
      * Sets the type of the task. Usually this is the name of the XML tag
      *
      * @param string $name The type of this task (XML Tag)
+     *
+     * @return void
      */
-    public function setTaskType($name)
+    public function setTaskType(string $name): void
     {
         $this->taskType = (string) $name;
     }
@@ -143,7 +151,7 @@ abstract class Task extends ProjectComponent
      *
      * @return RegisterSlot
      */
-    protected function getRegisterSlot($slotName)
+    protected function getRegisterSlot(string $slotName): RegisterSlot
     {
         return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
     }
@@ -153,12 +161,18 @@ abstract class Task extends ProjectComponent
      *
      * @see   BuildEvent
      * @see   BuildListener
+     * @see   BuildListener
+     * @see   BuildEvent
      *
      * @param string         $msg   The message to log
-     * @param int            $level The priority of the message
-     * @param Exception|null $t
+     * @param int|null       $level The priority of the message
+     * @param Throwable|null $t
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function log($msg, $level = Project::MSG_INFO, ?Throwable $t = null)
+    public function log(string $msg, ?int $level = Project::MSG_INFO, ?Throwable $t = null): void
     {
         if ($this->getProject() !== null) {
             $this->getProject()->logObject($this, $msg, $level, $t);
@@ -173,30 +187,34 @@ abstract class Task extends ProjectComponent
      *
      * This is abstract here, but may not be overloaded by subclasses.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function init()
+    public function init(): void
     {
     }
 
     /**
-     *  Called by the project to let the task do it's work. This method may be
-     *  called more than once, if the task is invoked more than once. For
-     *  example, if target1 and target2 both depend on target3, then running
-     *  <em>phing target1 target2</em> will run all tasks in target3 twice.
+     * Called by the project to let the task do it's work. This method may be
+     * called more than once, if the task is invoked more than once. For
+     * example, if target1 and target2 both depend on target3, then running
+     * <em>phing target1 target2</em> will run all tasks in target3 twice.
      *
-     *  Should throw a BuildException if someting goes wrong with the build
+     * Should throw a BuildException if someting goes wrong with the build
      *
-     *  This is abstract here. Must be overloaded by real tasks.
+     * This is abstract here. Must be overloaded by real tasks.
+     *
+     * @return void
      */
-    abstract public function main();
+    abstract public function main(): void;
 
     /**
      * Returns the wrapper object for runtime configuration
      *
      * @return RuntimeConfigurable The wrapper object used by this task
      */
-    public function getRuntimeConfigurableWrapper()
+    public function getRuntimeConfigurableWrapper(): RuntimeConfigurable
     {
         if ($this->wrapper === null) {
             $this->wrapper = new RuntimeConfigurable($this, $this->getTaskName());
@@ -206,20 +224,26 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     *  Sets the wrapper object this task should use for runtime
-     *  configurable elements.
+     * Sets the wrapper object this task should use for runtime
+     * configurable elements.
      *
      * @param RuntimeConfigurable $wrapper The wrapper object this task should use
+     *
+     * @return void
      */
-    public function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper)
+    public function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper): void
     {
         $this->wrapper = $wrapper;
     }
 
     /**
-     *  Configure this task if it hasn't been done already.
+     * Configure this task if it hasn't been done already.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function maybeConfigure()
+    public function maybeConfigure(): void
     {
         if ($this->wrapper !== null) {
             $this->wrapper->maybeConfigure($this->project);
@@ -232,7 +256,8 @@ abstract class Task extends ProjectComponent
      * @return void
      *
      * @throws BuildException
-     * @throws Error
+     * @throws Error*@throws \Exception
+     * @throws Exception
      */
     public function perform(): void
     {

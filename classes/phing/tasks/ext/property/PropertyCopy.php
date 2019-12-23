@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * PropertyCopy
  *
@@ -47,21 +49,28 @@ class PropertyCopy extends AbstractPropertySetterTask
 
     /**
      * @param string $from
+     *
+     * @return void
      */
-    public function setFrom($from)
+    public function setFrom(string $from): void
     {
         $this->from = $from;
     }
 
     /**
      * @param bool $silent
+     *
+     * @return void
      */
-    public function setSilent($silent)
+    public function setSilent(bool $silent): void
     {
         $this->silent = $silent;
     }
 
-    protected function validate()
+    /**
+     * @return void
+     */
+    protected function validate(): void
     {
         parent::validate();
         if ($this->from === null) {
@@ -69,7 +78,10 @@ class PropertyCopy extends AbstractPropertySetterTask
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
         $this->validate();
 

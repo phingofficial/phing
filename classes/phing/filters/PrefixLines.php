@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Attaches a prefix to every line.
  *
@@ -55,13 +57,13 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a prefix to each line of input stream and returns resulting stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed buffer, -1 on EOF
      *
      * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -101,8 +103,10 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * @param string $prefix The prefix to add at the start of each input line.
      *                       May be <code>null</code>, in which case no prefix
      *                       is added.
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = (string) $prefix;
     }
@@ -112,7 +116,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      *
      * @return string The prefix which will be added at the start of each input line
      */
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
@@ -127,7 +131,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * @return PrefixLines A new filter based on this configuration, but filtering
      *                     the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new PrefixLines($reader);
         $newFilter->setPrefix($this->getPrefix());
@@ -139,8 +143,10 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Initializes the prefix if it is available from the parameters.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

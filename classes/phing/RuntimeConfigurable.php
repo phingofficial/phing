@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Wrapper class that holds the attributes of a Task (or elements
  *  nested below that level) and takes care of configuring that element
@@ -33,27 +35,27 @@ class RuntimeConfigurable
     private $elementTag = null;
 
     /**
-     * @var array $children
+     * @var array
      */
     private $children = [];
 
     /**
-     * @var object|Task $wrappedObject
+     * @var object|Task
      */
     private $wrappedObject = null;
 
     /**
-     * @var array $attributes
+     * @var array
      */
     private $attributes = [];
 
     /**
-     * @var string $characters
+     * @var string
      */
     private $characters = '';
 
     /**
-     * @var bool $proxyConfigured
+     * @var bool
      */
     private $proxyConfigured = false;
 
@@ -84,7 +86,7 @@ class RuntimeConfigurable
      *
      * @return void
      */
-    public function setProxy($proxy)
+    public function setProxy($proxy): void
     {
         $this->wrappedObject   = $proxy;
         $this->proxyConfigured = false;
@@ -97,7 +99,7 @@ class RuntimeConfigurable
      *
      * @return void
      */
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes): void
     {
         $this->attributes = $attributes;
     }
@@ -107,7 +109,7 @@ class RuntimeConfigurable
      *
      * @return array
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
@@ -119,7 +121,7 @@ class RuntimeConfigurable
      *
      * @return void
      */
-    public function addChild(RuntimeConfigurable $child)
+    public function addChild(RuntimeConfigurable $child): void
     {
         $this->children[] = $child;
     }
@@ -131,7 +133,7 @@ class RuntimeConfigurable
      *
      * @return RuntimeConfigurable
      */
-    public function getChild($index)
+    public function getChild(int $index): RuntimeConfigurable
     {
         return $this->children[(int) $index];
     }
@@ -143,7 +145,7 @@ class RuntimeConfigurable
      *
      * @return void
      */
-    public function addText($data)
+    public function addText(string $data): void
     {
         $this->characters .= (string) $data;
     }
@@ -160,6 +162,9 @@ class RuntimeConfigurable
         return (string) $this->characters;
     }
 
+    /**
+     * @return mixed
+     */
     public function getElementTag()
     {
         return $this->elementTag;
@@ -175,7 +180,7 @@ class RuntimeConfigurable
      * @throws BuildException
      * @throws Exception
      */
-    public function maybeConfigure(Project $project)
+    public function maybeConfigure(Project $project): void
     {
         if ($this->proxyConfigured) {
             return;

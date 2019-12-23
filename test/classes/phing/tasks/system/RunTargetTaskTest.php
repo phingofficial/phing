@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the RunTarget Task
  *
@@ -27,13 +29,18 @@ class RunTargetTaskTest extends BuildFileTest
 {
     /**
      * Setup the test
+     *
+     * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/RunTargetTaskTest.xml');
     }
 
-    public function testRunTargetTask()
+    /**
+     * @return void
+     */
+    public function testRunTargetTask(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'THIS COMES FROM ANOTHER TARGET');
     }

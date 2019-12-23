@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This interface can be used to implement a fileParserFactory to create FileParsers based on config.
  * Currently it is used in the PropertyTask to deliver the correct parser based on filetype.
@@ -33,5 +35,5 @@ interface FileParserFactoryInterface
      *
      * @return FileParserInterface
      */
-    public function createParser($fileExtension);
+    public function createParser(string $fileExtension): FileParserInterface;
 }

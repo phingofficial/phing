@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *
@@ -78,7 +80,7 @@ class PharPackageTask extends MatchingTask
     private $signatureAlgorithm = Phar::SHA1;
 
     /**
-     * @var array
+     * @var FileSet[]
      */
     private $filesets = [];
 
@@ -95,7 +97,7 @@ class PharPackageTask extends MatchingTask
     /**
      * @return PharMetadata
      */
-    public function createMetadata()
+    public function createMetadata(): PharMetadata
     {
         return $this->metadata = new PharMetadata();
     }
@@ -103,7 +105,7 @@ class PharPackageTask extends MatchingTask
     /**
      * @return FileSet
      */
-    public function createFileSet()
+    public function createFileSet(): FileSet
     {
         $this->fileset    = new FileSet();
         $this->filesets[] = $this->fileset;
@@ -116,8 +118,10 @@ class PharPackageTask extends MatchingTask
      * used for this package.
      *
      * @param string $algorithm
+     *
+     * @return void
      */
-    public function setSignature($algorithm)
+    public function setSignature(string $algorithm): void
     {
         /*
          * If we don't support passed algprithm, leave old one.
@@ -147,8 +151,10 @@ class PharPackageTask extends MatchingTask
      * Compression type (gzip, bzip2, none) to apply to the packed files.
      *
      * @param string $compression
+     *
+     * @return void
      */
-    public function setCompression($compression)
+    public function setCompression(string $compression): void
     {
         /**
          * If we don't support passed compression, leave old one.
@@ -169,8 +175,10 @@ class PharPackageTask extends MatchingTask
      * Destination (output) file.
      *
      * @param PhingFile $destinationFile
+     *
+     * @return void
      */
-    public function setDestFile(PhingFile $destinationFile)
+    public function setDestFile(PhingFile $destinationFile): void
     {
         $this->destinationFile = $destinationFile;
     }
@@ -180,8 +188,10 @@ class PharPackageTask extends MatchingTask
      * Paths with deleted basedir part are local paths in package.
      *
      * @param PhingFile $baseDirectory
+     *
+     * @return void
      */
-    public function setBaseDir(PhingFile $baseDirectory)
+    public function setBaseDir(PhingFile $baseDirectory): void
     {
         $this->baseDirectory = $baseDirectory;
     }
@@ -191,8 +201,10 @@ class PharPackageTask extends MatchingTask
      * if accessed on the command line.
      *
      * @param PhingFile $stubFile
+     *
+     * @return void
      */
-    public function setCliStub(PhingFile $stubFile)
+    public function setCliStub(PhingFile $stubFile): void
     {
         $this->cliStubFile = $stubFile;
     }
@@ -202,8 +214,10 @@ class PharPackageTask extends MatchingTask
      * if accessed through a web browser.
      *
      * @param PhingFile $stubFile
+     *
+     * @return void
      */
-    public function setWebStub(PhingFile $stubFile)
+    public function setWebStub(PhingFile $stubFile): void
     {
         $this->webStubFile = $stubFile;
     }
@@ -212,8 +226,10 @@ class PharPackageTask extends MatchingTask
      * A path to a php file that contains a custom stub.
      *
      * @param string $stubPath
+     *
+     * @return void
      */
-    public function setStub($stubPath)
+    public function setStub(string $stubPath): void
     {
         $this->stubPath = $stubPath;
     }
@@ -222,8 +238,10 @@ class PharPackageTask extends MatchingTask
      * An alias to assign to the phar package.
      *
      * @param string $alias
+     *
+     * @return void
      */
-    public function setAlias($alias)
+    public function setAlias(string $alias): void
     {
         $this->alias = $alias;
     }
@@ -232,8 +250,10 @@ class PharPackageTask extends MatchingTask
      * Sets the private key to use to sign the Phar with.
      *
      * @param PhingFile $key Private key to sign the Phar with.
+     *
+     * @return void
      */
-    public function setKey(PhingFile $key)
+    public function setKey(PhingFile $key): void
     {
         $this->key = $key;
     }
@@ -242,16 +262,20 @@ class PharPackageTask extends MatchingTask
      * Password for the private key.
      *
      * @param string $keyPassword
+     *
+     * @return void
      */
-    public function setKeyPassword($keyPassword)
+    public function setKeyPassword(string $keyPassword): void
     {
         $this->keyPassword = $keyPassword;
     }
 
     /**
+     * @return void
+     *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->checkPreconditions();
 
@@ -274,7 +298,7 @@ class PharPackageTask extends MatchingTask
             $phar = $this->buildPhar();
             $phar->startBuffering();
 
-            $baseDirectory = realpath($this->baseDirectory->getPath());
+            $baseDirectory = realpath((string) $this->baseDirectory->getPath());
 
             foreach ($this->filesets as $fileset) {
                 $this->log(
@@ -296,7 +320,7 @@ class PharPackageTask extends MatchingTask
 
             if ($this->signatureAlgorithm == Phar::OPENSSL) {
                 // Load up the contents of the key
-                $keyContents = file_get_contents($this->key);
+                $keyContents = file_get_contents((string) $this->key);
 
                 // Attempt to load the given key as a PKCS#12 Cert Store first.
                 if (openssl_pkcs12_read($keyContents, $certs, $this->keyPassword)) {
@@ -328,9 +352,12 @@ class PharPackageTask extends MatchingTask
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
      * @throws BuildException
      */
-    private function checkPreconditions()
+    private function checkPreconditions(): void
     {
         if (ini_get('phar.readonly') == '1') {
             throw new BuildException(
@@ -390,26 +417,26 @@ class PharPackageTask extends MatchingTask
      *
      * @return Phar
      */
-    private function buildPhar()
+    private function buildPhar(): Phar
     {
-        $phar = new Phar($this->destinationFile);
+        $phar = new Phar((string) $this->destinationFile);
 
         if (!empty($this->stubPath)) {
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             if (!empty($this->cliStubFile)) {
-                $cliStubFile = str_replace('\\', '/', $this->cliStubFile->getPathWithoutBase($this->baseDirectory));
+                $cliStubFile = str_replace('\\', '/', $this->cliStubFile->getPathWithoutBase((string) $this->baseDirectory));
             } else {
                 $cliStubFile = null;
             }
 
             if (!empty($this->webStubFile)) {
-                $webStubFile = str_replace('\\', '/', $this->webStubFile->getPathWithoutBase($this->baseDirectory));
+                $webStubFile = str_replace('\\', '/', $this->webStubFile->getPathWithoutBase((string) $this->baseDirectory));
             } else {
                 $webStubFile = null;
             }
 
-            $phar->setDefaultStub($cliStubFile, $webStubFile);
+            $phar->setDefaultStub($cliStubFile, (string) $webStubFile);
         }
 
         if ($this->metadata === null) {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Transforms information in a code coverage database to XML
  *
@@ -28,17 +30,27 @@ class CoverageReportTask extends Task
 {
     use ClasspathAware;
 
+    /**
+     * @var string
+     */
     private $outfile = 'coverage.xml';
 
+    /**
+     * @var array
+     */
     private $transformers = [];
 
     /**
      * the path to the GeSHi library (optional)
+     *
+     * @var string
      */
     private $geshipath = '';
 
     /**
      * the path to the GeSHi language files (optional)
+     *
+     * @var string
      */
     private $geshilanguagespath = '';
 
@@ -49,16 +61,20 @@ class CoverageReportTask extends Task
 
     /**
      * @param string $path
+     *
+     * @return void
      */
-    public function setGeshiPath($path)
+    public function setGeshiPath(string $path): void
     {
         $this->geshipath = $path;
     }
 
     /**
      * @param string $path
+     *
+     * @return void
      */
-    public function setGeshiLanguagesPath($path)
+    public function setGeshiLanguagesPath(string $path): void
     {
         $this->geshilanguagespath = $path;
     }
@@ -74,16 +90,20 @@ class CoverageReportTask extends Task
 
     /**
      * @param string $outfile
+     *
+     * @return void
      */
-    public function setOutfile($outfile)
+    public function setOutfile(string $outfile): void
     {
         $this->outfile = $outfile;
     }
 
     /**
      * Generate a report based on the XML created by this task
+     *
+     * @return CoverageReportTransformer
      */
-    public function createReport()
+    public function createReport(): CoverageReportTransformer
     {
         $transformer          = new CoverageReportTransformer($this);
         $this->transformers[] = $transformer;
@@ -96,7 +116,7 @@ class CoverageReportTask extends Task
      *
      * @return DOMElement|null
      */
-    protected function getPackageElement($packageName): ?DOMNode
+    protected function getPackageElement(string $packageName): ?DOMNode
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
@@ -113,8 +133,10 @@ class CoverageReportTask extends Task
     /**
      * @param string  $packageName
      * @param DOMNode $element
+     *
+     * @return void
      */
-    protected function addClassToPackage($packageName, $element)
+    protected function addClassToPackage(string $packageName, DOMNode $element): void
     {
         $package = $this->getPackageElement($packageName);
 
@@ -137,7 +159,7 @@ class CoverageReportTask extends Task
      *
      * @author Benjamin Schultz <bschultz@proqrent.de>
      */
-    protected function addSubpackageToPackage($packageName, $subpackageName)
+    protected function addSubpackageToPackage(string $packageName, string $subpackageName): void
     {
         $package    = $this->getPackageElement($packageName);
         $subpackage = $this->getSubpackageElement($subpackageName);
@@ -165,8 +187,9 @@ class CoverageReportTask extends Task
      *
      * @author Benjamin Schultz <bschultz@proqrent.de>
      */
-    protected function getSubpackageElement($subpackageName)
+    protected function getSubpackageElement(string $subpackageName): ?DOMNode
     {
+        /** @var DOMNodeList $subpackages */
         $subpackages = $this->doc->documentElement->getElementsByTagName('subpackage');
 
         foreach ($subpackages as $subpackage) {
@@ -186,9 +209,11 @@ class CoverageReportTask extends Task
      *
      * @return void
      *
+     * @throws ReflectionException
+     *
      * @author Benjamin Schultz <bschultz@proqrent.de>
      */
-    protected function addClassToSubpackage($classname, $element)
+    protected function addClassToSubpackage(string $classname, DOMNode $element): void
     {
         $subpackageName = PHPUnitUtil::getSubpackageName($classname);
 
@@ -208,7 +233,7 @@ class CoverageReportTask extends Task
      *
      * @return string
      */
-    protected function stripDiv($source)
+    protected function stripDiv(string $source): string
     {
         $openpos  = strpos($source, '<div');
         $closepos = strpos($source, '>', $openpos);
@@ -227,7 +252,7 @@ class CoverageReportTask extends Task
      *
      * @return array
      */
-    protected function highlightSourceFile($filename)
+    protected function highlightSourceFile(string $filename): array
     {
         if ($this->geshipath) {
             include_once $this->geshipath . '/geshi.php';
@@ -288,7 +313,7 @@ class CoverageReportTask extends Task
      *
      * @return DOMElement
      */
-    protected function transformSourceFile($filename, $coverageInformation, $classStartLine = 1)
+    protected function transformSourceFile(string $filename, array $coverageInformation, int $classStartLine = 1): DOMElement
     {
         $sourceElement = $this->doc->createElement('sourcefile');
         $sourceElement->setAttribute('name', basename($filename));
@@ -332,10 +357,13 @@ class CoverageReportTask extends Task
      *
      * @return void
      *
+     * @throws ReflectionException
+     * @throws Exception
+     *
      * @author Michiel Rook <mrook@php.net>
      * @author Benjamin Schultz <bschultz@proqrent.de>
      */
-    protected function transformCoverageInformation($filename, $coverageInformation)
+    protected function transformCoverageInformation(string $filename, array $coverageInformation): void
     {
         $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
@@ -463,7 +491,10 @@ class CoverageReportTask extends Task
         }
     }
 
-    protected function calculateStatistics()
+    /**
+     * @return void
+     */
+    protected function calculateStatistics(): void
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
@@ -545,7 +576,14 @@ class CoverageReportTask extends Task
         $this->doc->documentElement->setAttribute('totalcovered', $totalmethodscovered + $totalstatementscovered);
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    public function main(): void
     {
         $coverageDatabase = $this->project->getProperty('coverage.database');
 

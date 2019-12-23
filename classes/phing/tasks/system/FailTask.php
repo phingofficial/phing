@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Exits the active build, giving an additional message
  * if available.
@@ -59,7 +61,7 @@ class FailTask extends Task
      *
      * @return void
      */
-    public function setMsg($value)
+    public function setMsg(string $value): void
     {
         $this->setMessage($value);
     }
@@ -71,7 +73,7 @@ class FailTask extends Task
      *
      * @return void
      */
-    public function setMessage($value)
+    public function setMessage(string $value): void
     {
         $this->message = $value;
     }
@@ -83,7 +85,7 @@ class FailTask extends Task
      *
      * @return void
      */
-    public function setIf($c)
+    public function setIf(string $c): void
     {
         $this->ifCondition = $c;
     }
@@ -96,7 +98,7 @@ class FailTask extends Task
      *
      * @return void
      */
-    public function setUnless($c)
+    public function setUnless(string $c): void
     {
         $this->unlessCondition = $c;
     }
@@ -105,8 +107,10 @@ class FailTask extends Task
      * Set the status code to associate with the thrown Exception.
      *
      * @param int $int the <code>int</code> status
+     *
+     * @return void
      */
-    public function setStatus($int)
+    public function setStatus(int $int): void
     {
         $this->status = (int) $int;
     }
@@ -117,8 +121,9 @@ class FailTask extends Task
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $fail = $this->nestedConditionPresent() ? $this->testNestedCondition() :
             $this->testIfCondition() && $this->testUnlessCondition();
@@ -164,7 +169,7 @@ class FailTask extends Task
      *
      * @throws BuildException
      */
-    public function createCondition()
+    public function createCondition(): NestedCondition
     {
         if ($this->nestedCondition !== null) {
             throw new BuildException('Only one nested condition is allowed.');
@@ -180,7 +185,7 @@ class FailTask extends Task
      *
      * @return void
      */
-    public function addText($msg)
+    public function addText(string $msg): void
     {
         if ($this->message === null) {
             $this->message = '';
@@ -191,7 +196,7 @@ class FailTask extends Task
     /**
      * @return bool
      */
-    protected function testIfCondition()
+    protected function testIfCondition(): bool
     {
         if ($this->ifCondition === null || $this->ifCondition === '') {
             return true;
@@ -203,7 +208,7 @@ class FailTask extends Task
     /**
      * @return bool
      */
-    protected function testUnlessCondition()
+    protected function testUnlessCondition(): bool
     {
         if ($this->unlessCondition === null || $this->unlessCondition === '') {
             return true;
@@ -219,7 +224,7 @@ class FailTask extends Task
      *
      * @throws BuildException
      */
-    private function testNestedCondition()
+    private function testNestedCondition(): bool
     {
         $result = $this->nestedConditionPresent();
 
@@ -235,7 +240,7 @@ class FailTask extends Task
      *
      * @return bool
      */
-    private function nestedConditionPresent()
+    private function nestedConditionPresent(): bool
     {
         return $this->nestedCondition !== null;
     }

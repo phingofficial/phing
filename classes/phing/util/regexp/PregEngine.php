@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * PREG Regexp Engine.
  * Implements a regexp engine using PHP's preg_match(), preg_match_all(), and preg_replace() functions.
@@ -45,7 +47,7 @@ class PregEngine implements RegexpEngine
      *
      * @link http://php.net/manual/en/reference.pcre.pattern.modifiers.php
      *
-     * @var string
+     * @var string|null
      */
     private $modifiers = null;
 
@@ -64,11 +66,11 @@ class PregEngine implements RegexpEngine
     /**
      * Sets pattern modifiers for regex engine
      *
-     * @param string $mods Modifiers to be applied to a given regex
+     * @param string|null $mods Modifiers to be applied to a given regex
      *
      * @return void
      */
-    public function setModifiers($mods)
+    public function setModifiers(?string $mods): void
     {
         $this->modifiers = (string) $mods;
     }
@@ -76,11 +78,11 @@ class PregEngine implements RegexpEngine
     /**
      * Gets pattern modifiers.
      *
-     * @return string
+     * @return string|null
      */
-    public function getModifiers()
+    public function getModifiers(): ?string
     {
-        $mods = $this->modifiers;
+        $mods = (string) $this->modifiers;
         if ($this->getIgnoreCase()) {
             $mods .= 'i';
         } elseif ($this->getIgnoreCase() === false) {
@@ -92,7 +94,7 @@ class PregEngine implements RegexpEngine
             $mods = str_replace('s', '', $mods);
         }
         // filter out duplicates
-        $mods = preg_split('//', $mods, -1, PREG_SPLIT_NO_EMPTY);
+        $mods = preg_split('//', (string) $mods, -1, PREG_SPLIT_NO_EMPTY);
         $mods = implode('', array_unique($mods));
 
         return $mods;
@@ -105,7 +107,7 @@ class PregEngine implements RegexpEngine
      *
      * @return void
      */
-    public function setIgnoreCase($bit)
+    public function setIgnoreCase(bool $bit): void
     {
         $this->ignoreCase = (bool) $bit;
     }
@@ -113,9 +115,9 @@ class PregEngine implements RegexpEngine
     /**
      * Gets whether or not regex operation is case sensitive.
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getIgnoreCase()
+    public function getIgnoreCase(): ?bool
     {
         return $this->ignoreCase;
     }
@@ -124,8 +126,10 @@ class PregEngine implements RegexpEngine
      * Sets whether regexp should be applied in multiline mode.
      *
      * @param bool $bit
+     *
+     * @return void
      */
-    public function setMultiline($bit)
+    public function setMultiline(bool $bit): void
     {
         $this->multiline = $bit;
     }
@@ -133,9 +137,9 @@ class PregEngine implements RegexpEngine
     /**
      * Gets whether regexp is to be applied in multiline mode.
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getMultiline()
+    public function getMultiline(): ?bool
     {
         return $this->multiline;
     }
@@ -144,8 +148,10 @@ class PregEngine implements RegexpEngine
      * Sets the maximum possible replacements for each pattern.
      *
      * @param int $limit
+     *
+     * @return void
      */
-    public function setLimit($limit)
+    public function setLimit(int $limit): void
     {
         $this->limit = $limit;
     }
@@ -155,7 +161,7 @@ class PregEngine implements RegexpEngine
      *
      * @return int
      */
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }
@@ -167,7 +173,7 @@ class PregEngine implements RegexpEngine
      *
      * @return string prepared pattern.
      */
-    private function preparePattern($pattern)
+    private function preparePattern(string $pattern): string
     {
         $delimiterPattern = '/\\\\*' . self::DELIMITER . '/';
 
@@ -193,13 +199,13 @@ class PregEngine implements RegexpEngine
     /**
      * Matches pattern against source string and sets the matches array.
      *
-     * @param string $pattern The regex pattern to match.
-     * @param string $source  The source string.
-     * @param array  $matches The array in which to store matches.
+     * @param string     $pattern The regex pattern to match.
+     * @param string     $source  The source string.
+     * @param array|null $matches The array in which to store matches.
      *
      * @return bool Success of matching operation.
      */
-    public function match($pattern, $source, &$matches)
+    public function match(string $pattern, string $source, ?array &$matches): bool
     {
         return preg_match($this->preparePattern($pattern), $source, $matches) > 0;
     }
@@ -207,13 +213,13 @@ class PregEngine implements RegexpEngine
     /**
      * Matches all patterns in source string and sets the matches array.
      *
-     * @param string $pattern The regex pattern to match.
-     * @param string $source  The source string.
-     * @param array  $matches The array in which to store matches.
+     * @param string     $pattern The regex pattern to match.
+     * @param string     $source  The source string.
+     * @param array|null $matches The array in which to store matches.
      *
      * @return bool Success of matching operation.
      */
-    public function matchAll($pattern, $source, &$matches)
+    public function matchAll(string $pattern, string $source, ?array &$matches): bool
     {
         return preg_match_all($this->preparePattern($pattern), $source, $matches) > 0;
     }
@@ -229,7 +235,7 @@ class PregEngine implements RegexpEngine
      *
      * @return string The replaced source string.
      */
-    public function replace($pattern, $replace, $source)
+    public function replace(string $pattern, string $replace, string $source): string
     {
         // convert \1 -> $1, because we want to use the more generic \1 in the XML
         // but PREG prefers $1 syntax.

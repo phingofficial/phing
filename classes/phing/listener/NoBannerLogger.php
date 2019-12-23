@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Extends DefaultLogger to strip out empty targets.
  *
@@ -30,8 +32,10 @@ class NoBannerLogger extends DefaultLogger
 
     /**
      * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         $target           = $event->getTarget();
         $this->targetName = $target->getName();
@@ -39,16 +43,22 @@ class NoBannerLogger extends DefaultLogger
 
     /**
      * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         $this->targetName = null;
     }
 
     /**
      * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         if (
             $event->getPriority() > $this->msgOutputLevel

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Simple regular expression condition.
  *
@@ -52,8 +54,10 @@ class Matches extends ProjectComponent implements Condition
 
     /**
      * @param bool $caseSensitive
+     *
+     * @return void
      */
-    public function setCaseSensitive($caseSensitive)
+    public function setCaseSensitive(bool $caseSensitive): void
     {
         $this->caseSensitive = $caseSensitive;
     }
@@ -62,8 +66,10 @@ class Matches extends ProjectComponent implements Condition
      * Whether to match should be multiline.
      *
      * @param bool $multiLine
+     *
+     * @return void
      */
-    public function setMultiLine($multiLine)
+    public function setMultiLine(bool $multiLine): void
     {
         $this->multiLine = $multiLine;
     }
@@ -71,9 +77,11 @@ class Matches extends ProjectComponent implements Condition
     /**
      * @param string $pattern
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         if ($this->regularExpression !== null) {
             throw new BuildException('Only one regular expression is allowed.');
@@ -86,21 +94,30 @@ class Matches extends ProjectComponent implements Condition
      * The string to match
      *
      * @param string $string
+     *
+     * @return void
      */
-    public function setString($string)
+    public function setString(string $string): void
     {
         $this->string = $string;
     }
 
     /**
      * @param string $modifiers
+     *
+     * @return void
      */
-    public function setModifiers($modifiers)
+    public function setModifiers(string $modifiers): void
     {
         $this->modifiers = $modifiers;
     }
 
-    public function evaluate()
+    /**
+     * @return bool
+     *
+     * @throws RegexpException
+     */
+    public function evaluate(): bool
     {
         if ($this->string === null) {
             throw new BuildException('Parameter string is required in matches.');

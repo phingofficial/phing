@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Checks the value of a specified property.
  *
@@ -37,7 +39,7 @@ class IsPropertyTrueCondition extends ConditionBase implements Condition
      *
      * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -47,7 +49,7 @@ class IsPropertyTrueCondition extends ConditionBase implements Condition
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->property === null) {
             throw new BuildException('Property name must be set.');

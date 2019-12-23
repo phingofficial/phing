@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Plugin to Phing to handle requests for user input.
  *
@@ -38,5 +40,5 @@ interface InputHandler
      *
      * @return void
      */
-    public function handleInput(InputRequest $request);
+    public function handleInput(InputRequest $request): void;
 }

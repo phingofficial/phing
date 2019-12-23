@@ -17,17 +17,25 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitArchiveTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,20 +43,30 @@ class GitArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testGitArchive()
+    /**
+     * @return void
+     */
+    public function testGitArchive(): void
     {
         $this->executeTarget('gitArchive');
         $this->assertInLogs('git-archive:');
         $this->assertInLogs('repository (HEAD)', Project::MSG_DEBUG);
-        $this->assertFileExists($this->getProject()->getProperty('tmp.dir.resolved') . '/output.zip');
+        self::assertFileExists($this->getProject()->getProperty('tmp.dir.resolved') . '/output.zip');
     }
 
-    public function testWrongRepository()
+    /**
+     * @return void
+     */
+    public function testWrongRepository(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepository',
@@ -57,7 +75,10 @@ class GitArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -66,7 +87,10 @@ class GitArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTreeishSpecified()
+    /**
+     * @return void
+     */
+    public function testNoTreeishSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTreeish',

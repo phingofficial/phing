@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper for comments for ionCube tasks
  *
@@ -26,20 +28,25 @@
  */
 class IoncubeComment
 {
+    /**
+     * @var string
+     */
     private $value = '';
 
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
     /**
      * @param string $txt
+     *
+     * @return void
      */
-    public function addText($txt)
+    public function addText(string $txt): void
     {
         $this->value = trim($txt);
     }

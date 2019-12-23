@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task to tag the current database state. In case you tag the database multiple
  * times without applying a new changelog before, the tags will overwrite each
@@ -28,6 +30,9 @@
  */
 class LiquibaseTagTask extends AbstractLiquibaseTask
 {
+    /**
+     * @var string
+     */
     protected $tag;
 
     /**
@@ -35,16 +40,20 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
      * possible future rollback.
      *
      * @param string $tag the name to tag the database with
+     *
+     * @return void
      */
-    public function setTag($tag)
+    public function setTag(string $tag): void
     {
         $this->tag = $tag;
     }
 
     /**
      * @see AbstractTask::checkParams()
+     *
+     * @return void
      */
-    protected function checkParams()
+    protected function checkParams(): void
     {
         parent::checkParams();
 
@@ -55,8 +64,10 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
 
     /**
      * @see Task::main()
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->checkParams();
         $this->execute('tag', escapeshellarg($this->tag));

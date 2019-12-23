@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class PrintStream
 {
     /**
@@ -38,7 +40,7 @@ class PrintStream
      * @param OutputStream $out
      * @param bool         $autoFlush
      */
-    public function __construct(OutputStream $out, $autoFlush = false)
+    public function __construct(OutputStream $out, bool $autoFlush = false)
     {
         $this->out       = $out;
         $this->autoFlush = $autoFlush;
@@ -48,8 +50,10 @@ class PrintStream
 
     /**
      * @param mixed $value
+     *
+     * @return void
      */
-    public function println($value)
+    public function println($value): void
     {
         $this->prints($value);
         $this->newLine();
@@ -57,8 +61,10 @@ class PrintStream
 
     /**
      * @param mixed $value
+     *
+     * @return void
      */
-    public function prints($value)
+    public function prints($value): void
     {
         if (is_bool($value)) {
             $value = $value === true ? 'true' : 'false';
@@ -67,7 +73,10 @@ class PrintStream
         $this->write((string) $value);
     }
 
-    private function newLine()
+    /**
+     * @return void
+     */
+    private function newLine(): void
     {
         $this->textOut->newLine();
 
@@ -77,11 +86,13 @@ class PrintStream
     }
 
     /**
-     * @param string $buf
-     * @param int    $off
-     * @param int    $len
+     * @param string   $buf
+     * @param int|null $off
+     * @param int|null $len
+     *
+     * @return void
      */
-    private function write($buf, $off = null, $len = null)
+    private function write(string $buf, ?int $off = null, ?int $len = null): void
     {
         $this->textOut->write($buf, $off, $len);
 

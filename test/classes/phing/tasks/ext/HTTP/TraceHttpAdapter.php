@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A subclass of Mock adapter for HTTP_Request2 that also saves array representations of sent requests
  *
@@ -25,9 +27,20 @@
  */
 class TraceHttpAdapter extends HTTP_Request2_Adapter_Mock
 {
-    public $requests;
+    /**
+     * @var array
+     */
+    public $requests = [];
 
-    public function sendRequest(HTTP_Request2 $request)
+    /**
+     * @param HTTP_Request2 $request
+     *
+     * @return HTTP_Request2_Response
+     *
+     * @throws HTTP_Request2_LogicException
+     * @throws Exception
+     */
+    public function sendRequest(HTTP_Request2 $request): HTTP_Request2_Response
     {
         $this->requests[] = [
             'config' => $request->getConfig(),

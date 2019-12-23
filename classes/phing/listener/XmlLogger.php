@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Generates a file in the current directory with
  * an XML description of what happened during a build.
@@ -136,9 +138,11 @@ class XmlLogger implements BuildLogger
      * Fired when the build starts, this builds the top-level element for the
      * document and remembers the time of the start of the build.
      *
-     * @param BuildEvent $event
+     * @param BuildEvent $event Ignored.
+     *
+     * @return void
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
         $this->buildTimerStart = Phing::currentTimeMillis();
         $this->buildElement    = $this->doc->createElement(self::BUILD_TAG);
@@ -153,9 +157,12 @@ class XmlLogger implements BuildLogger
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $xslUri = $event->getProject()->getProperty('phing.XmlLogger.stylesheet.uri');
         if ($xslUri === null) {
@@ -217,8 +224,10 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
+     * @return void
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         $target = $event->getTarget();
 
@@ -235,8 +244,10 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
         $targetTimerStart = array_pop($this->timesStack);
         $targetElement    = array_pop($this->elementStack);
@@ -253,8 +264,10 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
+     * @return void
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
         $task = $event->getTask();
 
@@ -272,8 +285,10 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
         $taskTimerStart = array_pop($this->timesStack);
         $taskElement    = array_pop($this->elementStack);
@@ -292,8 +307,10 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
+     *
+     * @return void
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         $priority = $event->getPriority();
 
@@ -357,8 +374,10 @@ class XmlLogger implements BuildLogger
      * @see   BuildLogger#setMessageOutputLevel()
      *
      * @param int $level The logging level for the logger.
+     *
+     * @return void
      */
-    public function setMessageOutputLevel($level)
+    public function setMessageOutputLevel(int $level): void
     {
         $this->msgOutputLevel = (int) $level;
     }
@@ -369,8 +388,10 @@ class XmlLogger implements BuildLogger
      * @see   BuildLogger#setOutputStream()
      *
      * @param OutputStream $output
+     *
+     * @return void
      */
-    public function setOutputStream(OutputStream $output)
+    public function setOutputStream(OutputStream $output): void
     {
         $this->out = $output;
     }
@@ -381,8 +402,10 @@ class XmlLogger implements BuildLogger
      * @see   BuildLogger#setErrorStream()
      *
      * @param OutputStream $err
+     *
+     * @return void
      */
-    public function setErrorStream(OutputStream $err)
+    public function setErrorStream(OutputStream $err): void
     {
         $this->err = $err;
     }
@@ -392,15 +415,17 @@ class XmlLogger implements BuildLogger
      *
      * @param bool $emacsMode true if output is to be unadorned so that emacs and other editors
      *                             can parse files names, etc.
+     *
+     * @return void
      */
-    public function setEmacsMode($emacsMode)
+    public function setEmacsMode(bool $emacsMode): void
     {
     }
 
     /**
      * @return DOMDocument
      */
-    public function getDoc()
+    public function getDoc(): DOMDocument
     {
         return $this->doc;
     }
@@ -408,7 +433,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return int
      */
-    public function getBuildTimerStart()
+    public function getBuildTimerStart(): int
     {
         return $this->buildTimerStart;
     }
@@ -416,12 +441,17 @@ class XmlLogger implements BuildLogger
     /**
      * @return DOMElement
      */
-    public function getBuildElement()
+    public function getBuildElement(): DOMElement
     {
         return $this->buildElement;
     }
 
-    public function setBuildElement($elem)
+    /**
+     * @param DOMElement $elem
+     *
+     * @return void
+     */
+    public function setBuildElement(DOMElement $elem): void
     {
         $this->buildElement = $elem;
     }
@@ -445,7 +475,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return int
      */
-    public function getMsgOutputLevel()
+    public function getMsgOutputLevel(): int
     {
         return $this->msgOutputLevel;
     }
@@ -453,7 +483,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return OutputStream
      */
-    public function getOut()
+    public function getOut(): OutputStream
     {
         return $this->out;
     }
@@ -461,7 +491,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return OutputStream
      */
-    public function getErr()
+    public function getErr(): OutputStream
     {
         return $this->err;
     }
@@ -469,7 +499,7 @@ class XmlLogger implements BuildLogger
     /**
      * @return string
      */
-    public function getOutFilename()
+    public function getOutFilename(): string
     {
         return $this->outFilename;
     }

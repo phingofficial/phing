@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Attaches a suffix to every line.
  *
@@ -54,11 +56,13 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return mixed buffer, -1 on EOF
+     *
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -89,7 +93,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
                     } elseif (StringHelper::endsWith($this->queuedData, "\n")) {
                         $lf = "\n";
                     }
-                    $this->queuedData = substr($this->queuedData, 0, strlen($this->queuedData) - strlen($lf)) . $this->suffix . $lf;
+                    $this->queuedData = substr($this->queuedData, 0, strlen((string) $this->queuedData) - strlen($lf)) . $this->suffix . $lf;
                 }
                 return $this->read();
             }
@@ -103,8 +107,10 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * @param string $suffix The suffix to add at the start of each input line.
      *                       May be <code>null</code>, in which case no suffix
      *                       is added.
+     *
+     * @return void
      */
-    public function setSuffix($suffix)
+    public function setSuffix(string $suffix): void
     {
         $this->suffix = (string) $suffix;
     }
@@ -114,7 +120,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      *
      * @return string The suffix which will be added at the end of each input line
      */
-    public function getSuffix()
+    public function getSuffix(): string
     {
         return $this->suffix;
     }
@@ -129,7 +135,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * @return SuffixLines A new filter based on this configuration, but filtering
      *                     the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new SuffixLines($reader);
         $newFilter->setSuffix($this->getSuffix());
@@ -141,8 +147,10 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Initializes the suffix if it is available from the parameters.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc
@@ -47,8 +49,10 @@ class PHPLocFormatterElement
      * Loads a specific formatter type
      *
      * @param string $type
+     *
+     * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -56,7 +60,7 @@ class PHPLocFormatterElement
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -65,16 +69,20 @@ class PHPLocFormatterElement
      * Sets whether to store formatting results in a file
      *
      * @param bool $useFile
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = $useFile;
     }
 
     /**
      * Returns whether to store formatting results in a file
+     *
+     * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
@@ -83,8 +91,10 @@ class PHPLocFormatterElement
      * Sets output directory
      *
      * @param string $toDir
+     *
+     * @return void
      */
-    public function setToDir($toDir)
+    public function setToDir(string $toDir): void
     {
         $this->toDir = $toDir;
     }
@@ -94,7 +104,7 @@ class PHPLocFormatterElement
      *
      * @return string
      */
-    public function getToDir()
+    public function getToDir(): string
     {
         return $this->toDir;
     }
@@ -103,8 +113,10 @@ class PHPLocFormatterElement
      * Sets output filename
      *
      * @param string $outfile
+     *
+     * @return void
      */
-    public function setOutfile($outfile)
+    public function setOutfile(string $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -114,7 +126,7 @@ class PHPLocFormatterElement
      *
      * @return string
      */
-    public function getOutfile()
+    public function getOutfile(): string
     {
         return $this->outfile;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
  *
@@ -101,7 +103,7 @@ class PDOSQLExecFormatterElement
     /**
      * Parameters for a custom formatter.
      *
-     * @var array Parameter[]
+     * @var Parameter[]
      */
     private $formatterParams = [];
 
@@ -135,7 +137,7 @@ class PDOSQLExecFormatterElement
      *
      * @return Parameter
      */
-    public function createParam()
+    public function createParam(): Parameter
     {
         $num = array_push($this->parameters, new Parameter());
 
@@ -146,8 +148,11 @@ class PDOSQLExecFormatterElement
      * Gets a configured output writer.
      *
      * @return Writer
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function getOutputWriter()
+    private function getOutputWriter(): Writer
     {
         if ($this->useFile) {
             $of = $this->getOutfile();
@@ -164,9 +169,15 @@ class PDOSQLExecFormatterElement
     /**
      * Configures wrapped formatter class with any attributes on this element.
      *
-     * @throws BuildException
+     * @param Location $location
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function prepare(Location $location)
+    public function prepare(Location $location): void
     {
         if (!$this->formatter) {
             throw new BuildException('No formatter specified (use type or classname attribute)', $location);
@@ -206,9 +217,11 @@ class PDOSQLExecFormatterElement
      *
      * @param string $type
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
         if ($this->type == 'xml') {
@@ -224,8 +237,12 @@ class PDOSQLExecFormatterElement
      * Set classname for a custom formatter (must extend PDOResultFormatter).
      *
      * @param string $className
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function setClassName($className)
+    public function setClassName(string $className): void
     {
         $classNameNoDot  = Phing::import($className);
         $this->formatter = new $classNameNoDot();
@@ -235,8 +252,10 @@ class PDOSQLExecFormatterElement
      * Set whether to write formatter results to file.
      *
      * @param bool $useFile
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = (bool) $useFile;
     }
@@ -246,7 +265,7 @@ class PDOSQLExecFormatterElement
      *
      * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
@@ -255,8 +274,10 @@ class PDOSQLExecFormatterElement
      * Sets the output file for the formatter results.
      *
      * @param PhingFile $outfile
+     *
+     * @return void
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(PhingFile $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -266,7 +287,7 @@ class PDOSQLExecFormatterElement
      *
      * @return PhingFile
      */
-    public function getOutfile()
+    public function getOutfile(): PhingFile
     {
         return $this->outfile;
     }
@@ -276,8 +297,10 @@ class PDOSQLExecFormatterElement
      * an existing file.  Defaults to false.
      *
      * @param bool $append
+     *
+     * @return void
      */
-    public function setAppend($append)
+    public function setAppend(bool $append): void
     {
         $this->append = (bool) $append;
     }
@@ -287,7 +310,7 @@ class PDOSQLExecFormatterElement
      *
      * @return bool
      */
-    public function getAppend()
+    public function getAppend(): bool
     {
         return $this->append;
     }
@@ -297,8 +320,10 @@ class PDOSQLExecFormatterElement
      * statements; optional, default true.
      *
      * @param bool $showheaders
+     *
+     * @return void
      */
-    public function setShowheaders($showheaders)
+    public function setShowheaders(bool $showheaders): void
     {
         $this->showheaders = (bool) $showheaders;
     }
@@ -307,8 +332,10 @@ class PDOSQLExecFormatterElement
      * Sets the column delimiter.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setColdelim($v)
+    public function setColdelim(string $v): void
     {
         $this->coldelimiter = $v;
     }
@@ -317,8 +344,10 @@ class PDOSQLExecFormatterElement
      * Sets the row delimiter.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setRowdelim($v)
+    public function setRowdelim(string $v): void
     {
         $this->rowdelimiter = $v;
     }
@@ -327,16 +356,20 @@ class PDOSQLExecFormatterElement
      * Set the DOM document encoding.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setEncoding($v)
+    public function setEncoding(string $v): void
     {
         $this->encoding = $v;
     }
 
     /**
      * @param bool $v
+     *
+     * @return void
      */
-    public function setFormatOutput($v)
+    public function setFormatOutput(bool $v): void
     {
         $this->formatOutput = (bool) $v;
     }
@@ -344,9 +377,9 @@ class PDOSQLExecFormatterElement
     /**
      * Gets a default output writer for this task.
      *
-     * @return Writer
+     * @return LogWriter
      */
-    private function getDefaultOutput()
+    private function getDefaultOutput(): LogWriter
     {
         return new LogWriter($this->parentTask);
     }
@@ -356,7 +389,7 @@ class PDOSQLExecFormatterElement
      *
      * @return PDOResultFormatter
      */
-    public function getFormatter()
+    public function getFormatter(): PDOResultFormatter
     {
         return $this->formatter;
     }

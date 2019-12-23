@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
@@ -41,9 +43,19 @@ class StatisticsReport
         '%',
     ];
 
+    /**
+     * @var TimeFormatter
+     */
     private static $TIME_FORMATTER;
+
+    /**
+     * @var StringFormatter
+     */
     private static $FORMATTER;
 
+    /**
+     * @var SplStack
+     */
     private $stack;
 
     public function __construct()
@@ -53,7 +65,13 @@ class StatisticsReport
         $this->stack          = new SplStack();
     }
 
-    public function create($title, SeriesMap $seriesMap)
+    /**
+     * @param string    $title
+     * @param SeriesMap $seriesMap
+     *
+     * @return string
+     */
+    public function create(string $title, SeriesMap $seriesMap): string
     {
         $keys = $seriesMap->getNames();
         sort($keys);
@@ -76,7 +94,14 @@ class StatisticsReport
         return $this->toString($title, $table);
     }
 
-    private function updateTableWithPercentagesOfTotalTime(Table $table, array $totalTimes, $runningTotalTime)
+    /**
+     * @param Table     $table
+     * @param array     $totalTimes
+     * @param float|int $runningTotalTime
+     *
+     * @return void
+     */
+    private function updateTableWithPercentagesOfTotalTime(Table $table, array $totalTimes, $runningTotalTime): void
     {
         $total = count($totalTimes);
         for ($i = 0; $i < $total; $i++) {
@@ -86,7 +111,13 @@ class StatisticsReport
         }
     }
 
-    private function toString($title, Table $table)
+    /**
+     * @param string $title
+     * @param Table  $table
+     *
+     * @return string
+     */
+    private function toString(string $title, Table $table): string
     {
         $sb             = '';
         $maxLengths     = $table->getMaxLengths();
@@ -96,7 +127,7 @@ class StatisticsReport
 
         for ($i = 0; $i < $table->rows(); $i++) {
             for ($j = 0; $j < $table->columns(); $j++) {
-                $sb .= self::$FORMATTER->left($table->get($i, $j), $maxLengths[$j]);
+                $sb .= self::$FORMATTER->left((string) $table->get($i, $j), $maxLengths[$j]);
             }
             $sb .= PHP_EOL;
             $sb .= $this->createTitleBarIfFirstRow($titleBarLength, $i);
@@ -106,7 +137,13 @@ class StatisticsReport
         return $sb;
     }
 
-    private function createTitleBarIfFirstRow($titleBarLength, $i)
+    /**
+     * @param int $titleBarLength
+     * @param int $i
+     *
+     * @return string
+     */
+    private function createTitleBarIfFirstRow(int $titleBarLength, int $i): string
     {
         if ($i !== 0) {
             return '';
@@ -114,7 +151,12 @@ class StatisticsReport
         return self::$FORMATTER->toChars('-', $titleBarLength) . PHP_EOL;
     }
 
-    private function calculateFixedLength(array $maxLengths)
+    /**
+     * @param array $maxLengths
+     *
+     * @return int
+     */
+    private function calculateFixedLength(array $maxLengths): int
     {
         $fixedLength = 0;
         $total       = count($maxLengths);
@@ -124,12 +166,22 @@ class StatisticsReport
         return $fixedLength;
     }
 
-    public function push(ProjectTimer $projectTimer)
+    /**
+     * @param StatsTimer $projectTimer
+     *
+     * @return void
+     */
+    public function push(StatsTimer $projectTimer): void
     {
         $this->stack->push($projectTimer);
     }
 
-    public function write(?ProjectTimer $projectTimer = null)
+    /**
+     * @param ProjectTimer|null $projectTimer
+     *
+     * @return void
+     */
+    public function write(?ProjectTimer $projectTimer = null): void
     {
         if ($projectTimer !== null) {
             $this->create('Target Statistics', $projectTimer->toTargetSeriesMap());
@@ -151,12 +203,22 @@ class StatisticsReport
         }
     }
 
-    private function createTaskStatistics(ProjectTimer $projectTimer)
+    /**
+     * @param ProjectTimer $projectTimer
+     *
+     * @return string
+     */
+    private function createTaskStatistics(ProjectTimer $projectTimer): string
     {
         return $this->create('Task Statistics - ' . $projectTimer->getName(), $projectTimer->toTaskSeriesMap());
     }
 
-    private function createTargetStatistics(ProjectTimer $projectTimer)
+    /**
+     * @param ProjectTimer $projectTimer
+     *
+     * @return string
+     */
+    private function createTargetStatistics(ProjectTimer $projectTimer): string
     {
         return $this->create('Target Statistics - ' . $projectTimer->getName(), $projectTimer->toTargetSeriesMap());
     }

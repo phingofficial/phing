@@ -17,13 +17,20 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
 class TimeFormatter
 {
-    public function format($time)
+    /**
+     * @param float $time
+     *
+     * @return string
+     */
+    public function format(float $time): string
     {
         $format = '%0.5f';
         return sprintf($format, $time) . ' sec';

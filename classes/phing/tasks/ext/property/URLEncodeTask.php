@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.ext.property
@@ -33,31 +35,52 @@ class URLEncodeTask extends AbstractPropertySetterTask
      */
     private $ref;
 
-    public function setValue(string $value)
+    /**
+     * @param string $value
+     *
+     * @return void
+     */
+    public function setValue(string $value): void
     {
         $this->value = urlencode($value);
     }
 
+    /**
+     * @param Project $p
+     *
+     * @return string
+     */
     public function getValue(Project $p): string
     {
         if ($this->ref !== null) {
-            $this->setValue($this->ref->getReferencedObject($p));
+            $this->setValue((string) $this->ref->getReferencedObject($p));
         }
 
         return $this->value;
     }
 
-    public function setRefid(Reference $ref)
+    /**
+     * @param Reference $ref
+     *
+     * @return void
+     */
+    public function setRefid(Reference $ref): void
     {
         $this->ref = $ref;
     }
 
-    public function __toString()
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
         return $this->value;
     }
 
-    protected function validate()
+    /**
+     * @return void
+     */
+    protected function validate(): void
     {
         parent::validate();
         if ($this->value === null && $this->ref === null) {
@@ -68,9 +91,12 @@ class URLEncodeTask extends AbstractPropertySetterTask
         }
     }
 
-    public function main()
+    /**
+     * @return void
+     */
+    public function main(): void
     {
-        parent::validate();
+        self::validate();
         $val = $this->getValue($this->getProject());
         $this->setPropertyValue($val);
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.
  *
@@ -42,7 +44,7 @@ class HasFreeSpaceCondition implements Condition
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         $this->validate();
 
@@ -55,7 +57,7 @@ class HasFreeSpaceCondition implements Condition
      *
      * @throws BuildException
      */
-    private function validate()
+    private function validate(): void
     {
         if (null == $this->partition) {
             throw new BuildException('Please set the partition attribute.');
@@ -72,7 +74,7 @@ class HasFreeSpaceCondition implements Condition
      *
      * @return void
      */
-    public function setPartition($partition)
+    public function setPartition(string $partition): void
     {
         $this->partition = $partition;
     }
@@ -80,9 +82,11 @@ class HasFreeSpaceCondition implements Condition
     /**
      * Set the amount of free space required.
      *
+     * @param string $needed
+     *
      * @return void
      */
-    public function setNeeded($needed)
+    public function setNeeded(string $needed): void
     {
         $this->needed = $needed;
     }
@@ -92,7 +96,7 @@ class HasFreeSpaceCondition implements Condition
      *
      * @return float
      */
-    private function parseHumanSizes($humanSize)
+    private function parseHumanSizes(string $humanSize): float
     {
         if (ctype_alpha($char = $humanSize[strlen($humanSize - 1)])) {
             $value = (float) substr($humanSize, 0, strlen($humanSize - 1));

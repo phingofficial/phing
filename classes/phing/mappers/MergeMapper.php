@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * For merging files into a single file.  In practice just returns whatever value
  * was set for "to".
@@ -34,15 +36,15 @@ class MergeMapper implements FileNameMapper
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param mixed $sourceFileName The data the mapper works on
+     * @param string $sourceFileName The data the mapper works on
      *
-     * @return mixed The data after the mapper has been applied
+     * @return array|null The data after the mapper has been applied
      *
      * @throws BuildException
      *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         if ($this->mergedFile === null) {
             throw new BuildException('MergeMapper error, to attribute not set');
@@ -54,13 +56,13 @@ class MergeMapper implements FileNameMapper
     /**
      * Accessor. Sets the to property
      *
-     * @param string $to To what this mapper should convert the from string
+     * @param string|null $to To what this mapper should convert the from string
      *
      * @return void
      *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
-    public function setTo($to)
+    public function setTo(?string $to): void
     {
         $this->mergedFile = $to;
     }
@@ -68,9 +70,11 @@ class MergeMapper implements FileNameMapper
     /**
      * Ignored.
      *
-     * @param string $from
+     * @param string|null $from
+     *
+     * @return void
      */
-    public function setFrom($from)
+    public function setFrom(?string $from): void
     {
     }
 }

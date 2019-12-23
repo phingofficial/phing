@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Uses glob patterns to perform filename transformations.
  *
@@ -67,18 +69,35 @@ class GlobMapper implements FileNameMapper
      */
     private $toPostfix = null;
 
+    /**
+     * @var bool
+     */
     private $fromContainsStar = false;
-    private $toContainsStar   = false;
-    private $handleDirSep     = false;
-    private $caseSensitive    = true;
+
+    /**
+     * @var bool
+     */
+    private $toContainsStar = false;
+
+    /**
+     * @var bool
+     */
+    private $handleDirSep = false;
+
+    /**
+     * @var bool
+     */
+    private $caseSensitive = true;
 
     /**
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
      * @param bool $handleDirSep a boolean, default is false.
+     *
+     * @return void
      */
-    public function setHandleDirSep($handleDirSep)
+    public function setHandleDirSep(bool $handleDirSep): void
     {
         $this->handleDirSep = $handleDirSep;
     }
@@ -86,8 +105,10 @@ class GlobMapper implements FileNameMapper
     /**
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
+     *
+     * @return bool
      */
-    public function getHandleDirSep()
+    public function getHandleDirSep(): bool
     {
         return $this->handleDirSep;
     }
@@ -97,8 +118,10 @@ class GlobMapper implements FileNameMapper
      * in the names.
      *
      * @param bool $caseSensitive a boolean, default is false.
+     *
+     * @return void
      */
-    public function setCaseSensitive($caseSensitive)
+    public function setCaseSensitive(bool $caseSensitive): void
     {
         $this->caseSensitive = $caseSensitive;
     }
@@ -106,11 +129,11 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param mixed $sourceFileName
+     * @param string $sourceFileName
      *
      * @return array|null
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         $modName = $this->modifyName($sourceFileName);
         if (
@@ -136,11 +159,11 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param string $from
+     * @param string|null $from
      *
      * @return void
      */
-    public function setFrom($from)
+    public function setFrom(?string $from): void
     {
         if ($from === null) {
             throw new BuildException("this mapper requires a 'from' attribute");
@@ -164,11 +187,11 @@ class GlobMapper implements FileNameMapper
      * Sets the &quot;to&quot; pattern. Required.
      * {@inheritdoc}
      *
-     * @param string $to
+     * @param string|null $to
      *
      * @return void
      */
-    public function setTo($to)
+    public function setTo(?string $to): void
     {
         if ($to === null) {
             throw new BuildException("this mapper requires a 'to' attribute");
@@ -192,7 +215,7 @@ class GlobMapper implements FileNameMapper
      *
      * @return string
      */
-    private function extractVariablePart($name)
+    private function extractVariablePart(string $name): string
     {
         return StringHelper::substring($name, $this->prefixLength, strlen($name) - $this->postfixLength - 1);
     }
@@ -204,7 +227,7 @@ class GlobMapper implements FileNameMapper
      *
      * @return string the converted name
      */
-    private function modifyName($name)
+    private function modifyName(string $name): string
     {
         if (!$this->caseSensitive) {
             $name = strtolower($name);

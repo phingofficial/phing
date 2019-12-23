@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition to wait for a HTTP request to succeed.
  *
@@ -31,10 +33,29 @@ class HttpCondition extends ProjectComponent implements Condition
 {
     public const DEFAULT_REQUEST_METHOD = 'GET';
 
+    /**
+     * @var int
+     */
     private $errorsBeginAt = 400;
+
+    /**
+     * @var string
+     */
     private $url;
-    private $quiet           = false;
-    private $requestMethod   = self::DEFAULT_REQUEST_METHOD;
+
+    /**
+     * @var bool
+     */
+    private $quiet = false;
+
+    /**
+     * @var string
+     */
+    private $requestMethod = self::DEFAULT_REQUEST_METHOD;
+
+    /**
+     * @var bool
+     */
     private $followRedirects = true;
 
     /**
@@ -44,7 +65,7 @@ class HttpCondition extends ProjectComponent implements Condition
      *
      * @return void
      */
-    public function setUrl($url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -52,11 +73,11 @@ class HttpCondition extends ProjectComponent implements Condition
     /**
      * Set the errorsBeginAt attribute.
      *
-     * @param string $errorsBeginAt number at which errors begin at, default is 400
+     * @param int $errorsBeginAt number at which errors begin at, default is 400
      *
      * @return void
      */
-    public function setErrorsBeginAt($errorsBeginAt)
+    public function setErrorsBeginAt(int $errorsBeginAt): void
     {
         $this->errorsBeginAt = $errorsBeginAt;
     }
@@ -67,8 +88,10 @@ class HttpCondition extends ProjectComponent implements Condition
      * @param string $method The HTTP request method to use. Valid values are
      *               "GET", "HEAD", "TRACE", etc. The default
      *               if not specified is "GET".
+     *
+     * @return void
      */
-    public function setRequestMethod($method)
+    public function setRequestMethod(string $method): void
     {
         $this->requestMethod = $method === null ? self::DEFAULT_REQUEST_METHOD : strtoupper($method);
     }
@@ -78,8 +101,10 @@ class HttpCondition extends ProjectComponent implements Condition
      * defaults to true.
      *
      * @param bool $f
+     *
+     * @return void
      */
-    public function setFollowRedirects($f)
+    public function setFollowRedirects(bool $f): void
     {
         $this->followRedirects = $f;
     }
@@ -88,8 +113,10 @@ class HttpCondition extends ProjectComponent implements Condition
      * Set quiet mode, which suppresses warnings if curl_exec() fails.
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $bool): void
     {
         $this->quiet = $bool;
     }
@@ -97,11 +124,12 @@ class HttpCondition extends ProjectComponent implements Condition
     /**
      * {@inheritdoc}
      *
-     * @return true if the HTTP request succeeds
+     * @return bool true if the HTTP request succeeds
      *
      * @throws BuildException if an error occurs
+     * @throws Exception
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->url === null) {
             throw new BuildException('No url specified in http condition');

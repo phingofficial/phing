@@ -17,23 +17,41 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 
 class TimestampedLoggerTest extends TestCase
 {
     /**
+     * @return void
+     *
+     * @throws Exception
+     *
      * @test
      */
-    public function buildFinished()
+    public function buildFinished(): void
     {
         $event  = new BuildEvent(new Project());
         $logger = new class extends TimestampedLogger {
-            public function printMessage($message, ?OutputStream $stream = null, $priority = null)
+            /**
+             * @param string            $message
+             * @param OutputStream|null $stream
+             * @param int|null          $priority
+             *
+             * @return void
+             */
+            public function printMessage(string $message, ?OutputStream $stream = null, ?int $priority = null): void
             {
                 echo $message;
             }
 
-            public static function formatTime($micros)
+            /**
+             * @param float $micros
+             *
+             * @return string
+             */
+            public static function formatTime(float $micros): string
             {
                 return 'TIME_STRING';
             }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract class for creating adhoc Phing components in buildfile.
  *
@@ -38,12 +40,19 @@ class AdhocTask extends Task
      */
     protected $script;
 
+    /**
+     * @var array
+     */
     protected $newClasses = [];
 
     /**
      * Main entry point
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->execute();
         if ($this->newClasses) {
@@ -60,7 +69,7 @@ class AdhocTask extends Task
      *
      * @return array
      */
-    protected function getNewClasses()
+    protected function getNewClasses(): array
     {
         return $this->newClasses;
     }
@@ -72,7 +81,7 @@ class AdhocTask extends Task
      *
      * @throws BuildException - if more than one class is defined.
      */
-    protected function execute()
+    protected function execute(): void
     {
         $classes = get_declared_classes();
         eval($this->script);
@@ -83,8 +92,10 @@ class AdhocTask extends Task
      * Set the script.
      *
      * @param string $script
+     *
+     * @return void
      */
-    public function addText($script)
+    public function addText(string $script): void
     {
         $this->script = $script;
     }

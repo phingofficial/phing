@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+declare(strict_types=1);
+
 /**
  * Testcases for phing.types.PearPackageFileSet
  *
@@ -27,7 +29,10 @@
  */
 class PearPackageFileSetTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
             $this->markTestSkipped('This test requires PEAR to be installed');
@@ -37,7 +42,10 @@ class PearPackageFileSetTest extends BuildFileTest
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
     }
 
-    public function testGetDirectoryScannerConsoleGetopt()
+    /**
+     * @return void
+     */
+    public function testGetDirectoryScannerConsoleGetopt(): void
     {
         $ppfs = new PearPackageFileSet();
         $ppfs->setPackage('console_getopt');
@@ -60,7 +68,10 @@ class PearPackageFileSetTest extends BuildFileTest
         );
     }
 
-    public function testRoleDoc()
+    /**
+     * @return void
+     */
+    public function testRoleDoc(): void
     {
         $ppfs = new PearPackageFileSet();
         $ppfs->setPackage('pear.php.net/Archive_Tar');
@@ -78,7 +89,10 @@ class PearPackageFileSetTest extends BuildFileTest
         }
     }
 
-    public function testGetDir()
+    /**
+     * @return void
+     */
+    public function testGetDir(): void
     {
         $proj = new Project();
         $ppfs = new PearPackageFileSet();
@@ -97,7 +111,10 @@ class PearPackageFileSetTest extends BuildFileTest
         );
     }
 
-    public function testGetDirWithoutScanner()
+    /**
+     * @return void
+     */
+    public function testGetDirWithoutScanner(): void
     {
         $ppfs = new PearPackageFileSet();
         $ppfs->setPackage('console_getopt');
@@ -114,7 +131,10 @@ class PearPackageFileSetTest extends BuildFileTest
         );
     }
 
-    public function testSetPackageInvalid()
+    /**
+     * @return void
+     */
+    public function testSetPackageInvalid(): void
     {
         $ppfs = new PearPackageFileSet();
 

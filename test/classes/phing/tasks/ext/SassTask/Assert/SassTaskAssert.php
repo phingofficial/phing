@@ -23,6 +23,11 @@ use PHPUnit\Framework\Assert;
 
 class SassTaskAssert extends Assert
 {
+    /**
+     * @param SassTask $task
+     *
+     * @return void
+     */
     public function assertDefaults(SassTask $task): void
     {
         $this->assertEquals('', $task->getPath());
@@ -45,6 +50,11 @@ class SassTaskAssert extends Assert
         $this->assertTrue($task->getNested());
     }
 
+    /**
+     * @param SassTask $task
+     *
+     * @return void
+     */
     public function assertCompactStyle(SassTask $task): void
     {
         $this->assertTrue($task->getCompact());
@@ -56,6 +66,11 @@ class SassTaskAssert extends Assert
         $this->assertFalse($task->getNested());
     }
 
+    /**
+     * @param SassTask $task
+     *
+     * @return void
+     */
     public function assertCompressedStyle(SassTask $task): void
     {
         $this->assertTrue($task->getCompressed());

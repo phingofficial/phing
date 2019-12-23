@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Instances of classes that implement this interface can register
  * to be also notified when things happened during a subbuild.
@@ -39,8 +41,10 @@ interface SubBuildListener extends BuildListener
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function subBuildStarted(BuildEvent $event);
+    public function subBuildStarted(BuildEvent $event): void;
 
     /**
      * Signals that the last target has finished. This event
@@ -50,6 +54,8 @@ interface SubBuildListener extends BuildListener
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function subBuildFinished(BuildEvent $event);
+    public function subBuildFinished(BuildEvent $event): void;
 }

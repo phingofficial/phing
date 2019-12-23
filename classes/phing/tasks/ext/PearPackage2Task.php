@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A task to create a PEAR package.xml version 2.0 file.
  *
@@ -85,7 +87,10 @@
  */
 class PearPackage2Task extends PearPackageTask
 {
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
         include_once 'PEAR/PackageFileManager2.php';
         if (!class_exists('PEAR_PackageFileManager2')) {
@@ -93,7 +98,10 @@ class PearPackage2Task extends PearPackageTask
         }
     }
 
-    protected function setVersion2Options()
+    /**
+     * @return void
+     */
+    protected function setVersion2Options(): void
     {
         $this->pkg->setPackage($this->package);
         $this->pkg->setDate(strftime('%Y-%m-%d'));
@@ -261,9 +269,11 @@ class PearPackage2Task extends PearPackageTask
      *
      * @return void
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->dir === null) {
             throw new BuildException('You must specify the "dir" attribute for PEAR package 2 task.');

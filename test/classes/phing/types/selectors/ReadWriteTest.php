@@ -17,12 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Test cases for isReadable/isWritable selectors.
  */
 class ReadWriteTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/ReadWriteTest.xml'
@@ -30,12 +35,18 @@ class ReadWriteTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testReadable()
+    /**
+     * @return void
+     */
+    public function testReadable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
@@ -44,7 +55,10 @@ class ReadWriteTest extends BuildFileTest
         $this->assertTrue(is_readable(sprintf('%s/%s', $output, $file)));
     }
 
-    public function testWritable()
+    /**
+     * @return void
+     */
+    public function testWritable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
@@ -53,7 +67,10 @@ class ReadWriteTest extends BuildFileTest
         $this->assertTrue(is_writable(sprintf('%s/%s', $output, $file)));
     }
 
-    public function testUnwritable()
+    /**
+     * @return void
+     */
+    public function testUnwritable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();

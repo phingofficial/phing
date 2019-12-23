@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Sets properties to the current time, or offsets from the current time.
  * The default properties are TSTAMP, DSTAMP and TODAY;
@@ -41,8 +43,10 @@ class TstampTask extends Task
      * one is automatically added.
      *
      * @param string $prefix the prefix to use.
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
 
@@ -55,8 +59,10 @@ class TstampTask extends Task
      * Adds a custom format
      *
      * @param TstampCustomFormat $cf custom format
+     *
+     * @return void
      */
-    public function addFormat(TstampCustomFormat $cf)
+    public function addFormat(TstampCustomFormat $cf): void
     {
         $this->customFormats[] = $cf;
     }
@@ -65,9 +71,12 @@ class TstampTask extends Task
      * Create the timestamps. Custom ones are done before
      * the standard ones.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $d = $this->getNow();
 
@@ -91,12 +100,19 @@ class TstampTask extends Task
      *
      * @param string $name
      * @param string $value
+     *
+     * @return void
      */
-    public function prefixProperty($name, $value)
+    public function prefixProperty(string $name, string $value): void
     {
         $this->getProject()->setNewProperty($this->prefix . $name, $value);
     }
 
+    /**
+     * @return int
+     *
+     * @throws Exception
+     */
     protected function getNow(): int
     {
         $property = $this->getProject()->getProperty('phing.tstamp.now.iso');

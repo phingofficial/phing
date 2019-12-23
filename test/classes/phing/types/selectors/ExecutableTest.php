@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Test cases for isExecutable selectors.
  *
@@ -24,7 +26,10 @@
  */
 class ExecutableTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/selectors/ExecutableTest.xml'
@@ -32,18 +37,27 @@ class ExecutableTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testExecutable()
+    /**
+     * @return void
+     */
+    public function testExecutable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('selected');
     }
 
-    public function testUnexecutable()
+    /**
+     * @return void
+     */
+    public function testUnexecutable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');

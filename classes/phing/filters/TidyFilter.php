@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.
  *
@@ -40,7 +42,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     private $encoding = 'utf8';
 
     /**
-     * @var array Parameter[]
+     * @var Parameter[]
      */
     private $configParameters = [];
 
@@ -48,8 +50,10 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      * Set the encoding for resulting (X)HTML document.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setEncoding($v)
+    public function setEncoding(string $v): void
     {
         $this->encoding = $v;
     }
@@ -60,8 +64,10 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      * @see   chain()
      *
      * @param Parameter[] $params
+     *
+     * @return void
      */
-    public function setConfigParameters($params)
+    public function setConfigParameters(array $params): void
     {
         $this->configParameters = $params;
     }
@@ -71,7 +77,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return Parameter
      */
-    public function createConfig()
+    public function createConfig(): Parameter
     {
         $num = array_push($this->configParameters, new Parameter());
 
@@ -83,7 +89,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return array
      */
-    private function getDistilledConfig()
+    private function getDistilledConfig(): array
     {
         $config = [];
         foreach ($this->configParameters as $p) {
@@ -96,13 +102,14 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads input and returns Tidy-filtered output.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return string Characters read, or -1 if the end of the stream has been reached
      *
      * @throws BuildException
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!class_exists('Tidy')) {
             throw new BuildException("You must enable the 'tidy' extension in your PHP configuration in order to use the Tidy filter.");
@@ -135,7 +142,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return TidyFilter a new filter based on this configuration, but filtering the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new self($reader);
         $newFilter->setConfigParameters($this->configParameters);
@@ -148,8 +155,10 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Initializes any parameters (e.g. config options).
      * This method is only called when this filter is used through a <filterreader> tag in build file.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if (!empty($params)) {

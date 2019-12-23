@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task for resolving relative paths and setting absolute path in property value.
  *
@@ -43,11 +45,15 @@ class ResolvePathTask extends Task
 
     /**
      * Name of property to set.
+     *
+     * @var string
      */
     private $propertyName;
 
     /**
      * The [possibly] relative file/path that needs to be resolved.
+     *
+     * @var string|PhingFile|null
      */
     private $file;
 
@@ -65,7 +71,7 @@ class ResolvePathTask extends Task
      *
      * @return void
      */
-    public function setPropertyName($v)
+    public function setPropertyName(string $v): void
     {
         $this->propertyName = $v;
     }
@@ -74,8 +80,10 @@ class ResolvePathTask extends Task
      * Sets a base dir to use for resolution.
      *
      * @param PhingFile $d
+     *
+     * @return void
      */
-    public function setDir(PhingFile $d)
+    public function setDir(PhingFile $d): void
     {
         $this->dir = $d;
     }
@@ -88,8 +96,10 @@ class ResolvePathTask extends Task
      * @see   setFile()
      *
      * @param string $f
+     *
+     * @return void
      */
-    public function setPath($f)
+    public function setPath(string $f): void
     {
         $this->file = $f;
     }
@@ -98,16 +108,24 @@ class ResolvePathTask extends Task
      * Sets a file that we want to resolve.
      *
      * @param string $f
+     *
+     * @return void
      */
-    public function setFile($f)
+    public function setFile(string $f): void
     {
         $this->file = $f;
     }
 
     /**
      * Perform the resolution & set property.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (!$this->propertyName) {
             throw new BuildException('You must specify the propertyName attribute', $this->getLocation());
@@ -127,7 +145,7 @@ class ResolvePathTask extends Task
             $this->file = new PhingFile($this->dir->getPath(), $this->file);
         }
 
-        $resolved = $this->project->resolveFile($this->file);
+        $resolved = $this->project->resolveFile((string) $this->file);
 
         $this->log('Resolved ' . $this->file . ' to ' . $resolved->getAbsolutePath(), $this->logLevel);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());

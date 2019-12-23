@@ -12,6 +12,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * Fileset that contains files of an installed PEAR package.
  * It can be used to package up PEAR package dependencies in own
@@ -86,11 +88,11 @@ class PearPackageFileSet extends FileSet
      * Creates and returns the pear package scanner.
      * Scanner already has scan() called.
      *
-     * @param Project $p Current phing project
+     * @param Project|null $p Current phing project
      *
-     * @return PearPackageScanner
+     * @return DirectoryScanner
      */
-    public function getDirectoryScanner(?Project $p = null)
+    public function getDirectoryScanner(?Project $p = null): DirectoryScanner
     {
         if ($p === null) {
             $p = $this->getProject();
@@ -112,8 +114,11 @@ class PearPackageFileSet extends FileSet
      * @param Project $p Current phing project
      *
      * @return PhingFile Base directory
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function getDir(?Project $p = null)
+    public function getDir(?Project $p = null): PhingFile
     {
         if ($p === null) {
             $p = $this->getProject();
@@ -132,7 +137,7 @@ class PearPackageFileSet extends FileSet
      *
      * @return void
      */
-    protected function loadPearPackageScanner(Project $p)
+    protected function loadPearPackageScanner(Project $p): void
     {
         $this->pps = new PearPackageScanner();
         $this->pps->setDescFile($this->packageFile);
@@ -153,7 +158,7 @@ class PearPackageFileSet extends FileSet
      *
      * @return void
      */
-    public function setDescFile($descFile)
+    public function setDescFile(string $descFile): void
     {
         $this->packageFile = $descFile;
     }
@@ -168,7 +173,7 @@ class PearPackageFileSet extends FileSet
      *
      * @throws BuildException
      */
-    public function setPackage($package)
+    public function setPackage(string $package): void
     {
         $parts = explode('/', $package);
         if (count($parts) > 2) {
@@ -192,7 +197,7 @@ class PearPackageFileSet extends FileSet
      *
      * @return void
      */
-    public function setRole($role)
+    public function setRole(string $role): void
     {
         $this->role = $role;
     }
@@ -204,7 +209,7 @@ class PearPackageFileSet extends FileSet
      *
      * @return void
      */
-    public function setConfig($config)
+    public function setConfig(string $config): void
     {
         $this->config = $config;
     }

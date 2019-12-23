@@ -17,12 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\NullOutput;
 
 class ConsoleInputHandlerTest extends TestCase
 {
-    public function testDefaultValue()
+    /**
+     * @return void
+     */
+    public function testDefaultValue(): void
     {
         $inputStream = $this->createStream([' ']);
         $output      = new NullOutput();
@@ -32,10 +37,13 @@ class ConsoleInputHandlerTest extends TestCase
 
         $handler->handleInput($request);
 
-        self::assertEquals('default', $request->getInput());
+        $this->assertEquals('default', $request->getInput());
     }
 
-    public function testMultipleChoiceQuestion()
+    /**
+     * @return void
+     */
+    public function testMultipleChoiceQuestion(): void
     {
         $inputStream = $this->createStream(['choice1']);
         $output      = new NullOutput();
@@ -44,10 +52,13 @@ class ConsoleInputHandlerTest extends TestCase
 
         $handler->handleInput($request);
 
-        self::assertEquals('choice1', $request->getInput());
+        $this->assertEquals('choice1', $request->getInput());
     }
 
-    public function testYesNoQuestion()
+    /**
+     * @return void
+     */
+    public function testYesNoQuestion(): void
     {
         $inputStream = $this->createStream(['no']);
         $output      = new NullOutput();
@@ -56,9 +67,14 @@ class ConsoleInputHandlerTest extends TestCase
 
         $handler->handleInput($request);
 
-        self::assertFalse($request->getInput());
+        $this->assertFalse($request->getInput());
     }
 
+    /**
+     * @param array $inputs
+     *
+     * @return resource|false
+     */
     private function createStream(array $inputs)
     {
         $stream = fopen('php://memory', 'r+', false);

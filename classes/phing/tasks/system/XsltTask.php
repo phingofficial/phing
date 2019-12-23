@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Implements an XSLT processing filter while copying files.
  *
@@ -40,8 +42,10 @@ class XsltTask extends CopyTask
 
     /**
      * Setup the filterchains w/ XSLTFilter that we will use while copying the files.
+     *
+     * @return void
      */
-    public function init()
+    public function init(): void
     {
         $xf    = new XsltFilter();
         $chain = new FilterChain($this->getProject());
@@ -54,8 +58,12 @@ class XsltTask extends CopyTask
      * Set any XSLT Param and invoke CopyTask::main()
      *
      * @see CopyTask::main()
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->log('Doing XSLT transformation using stylesheet ' . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
         $this->xsltFilter->setParams($this->parameters);
@@ -64,8 +72,10 @@ class XsltTask extends CopyTask
 
     /**
      * @param bool $isHtml
+     *
+     * @return void
      */
-    public function setHtml(bool $isHtml)
+    public function setHtml(bool $isHtml): void
     {
         $this->xsltFilter->setHtml($isHtml);
     }
@@ -74,8 +84,10 @@ class XsltTask extends CopyTask
      * Set the stylesheet to use.
      *
      * @param PhingFile $style
+     *
+     * @return void
      */
-    public function setStyle(PhingFile $style)
+    public function setStyle(PhingFile $style): void
     {
         $this->xsltFilter->setStyle($style);
     }
@@ -85,9 +97,11 @@ class XsltTask extends CopyTask
      *
      * @param bool $resolveExternals
      *
+     * @return void
+     *
      * @since 2.4
      */
-    public function setResolveDocumentExternals(bool $resolveExternals)
+    public function setResolveDocumentExternals(bool $resolveExternals): void
     {
         $this->xsltFilter->setResolveDocumentExternals($resolveExternals);
     }
@@ -97,9 +111,11 @@ class XsltTask extends CopyTask
      *
      * @param bool $resolveExternals
      *
+     * @return void
+     *
      * @since 2.4
      */
-    public function setResolveStylesheetExternals(bool $resolveExternals)
+    public function setResolveStylesheetExternals(bool $resolveExternals): void
     {
         $this->xsltFilter->setResolveStylesheetExternals($resolveExternals);
     }
@@ -109,7 +125,7 @@ class XsltTask extends CopyTask
      *
      * @return XsltParam
      */
-    public function createParam()
+    public function createParam(): XsltParam
     {
         $num = array_push($this->parameters, new XsltParam());
 

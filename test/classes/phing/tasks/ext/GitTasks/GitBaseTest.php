@@ -17,37 +17,56 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitBaseTest extends BuildFileTest
 {
-    protected $mock;
+    /** @var GitBaseTask */
+    private $mock;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
             . '/etc/tasks/ext/git/GitBaseTest.xml'
         );
-        $this->mock = $this->getMockForAbstractClass('GitBaseTask');
-    }
-
-    public function testInitialization()
-    {
-        $this->assertInstanceOf('GitBaseTask', $this->mock);
+        $this->mock = $this->getMockForAbstractClass(GitBaseTask::class);
     }
 
     /**
-     * @todo - make sure that required arguments are checked
+     * @return void
      */
-    public function testArguments()
+    public function testInitialization(): void
     {
+        $this->assertInstanceOf(GitBaseTask::class, $this->mock);
     }
 
-    public function testMutators()
+    /**
+     * @return void
+     *
+     * @todo - make sure that required arguments are checked
+     */
+    public function testArguments(): void
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
+     * @return void
+     */
+    public function testMutators(): void
     {
         // gitPath
         $gitPath = $this->mock->getGitPath();

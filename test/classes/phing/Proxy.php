@@ -17,16 +17,29 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class Proxy
 {
+    /**
+     * @var string
+     */
     private $text = '';
 
-    public function addText($text)
+    /**
+     * @param string $text
+     *
+     * @return void
+     */
+    public function addText(string $text): void
     {
         $this->text = $text;
     }
 
-    public function getText()
+    /**
+     * @return string
+     */
+    public function getText(): string
     {
         return $this->text;
     }

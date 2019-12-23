@@ -3,10 +3,10 @@
 		<adhoc-task name="doThis"><![CDATA[
 			require_once 'phing/Task.php';
 			require_once 'BaseTask.php';
-			
+
 			class doThisTask extends BaseTask
 			{
-				public function main()
+				public function main(): void
 				{
 					$this->log("doThisTask success!",
 					Project::MSG_INFO);

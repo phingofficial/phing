@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Switches a repository at a given local directory to a different location
  *
@@ -37,9 +39,12 @@ class SvnSwitchTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('switch');
 
@@ -58,8 +63,10 @@ class SvnSwitchTask extends SvnBaseTask
 
     /**
      * @param string $revision
+     *
+     * @return void
      */
-    public function setRevision($revision)
+    public function setRevision(string $revision): void
     {
         $this->revision = $revision;
     }
@@ -67,7 +74,7 @@ class SvnSwitchTask extends SvnBaseTask
     /**
      * @return string
      */
-    public function getRevision()
+    public function getRevision(): string
     {
         return $this->revision;
     }

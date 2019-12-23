@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <not> condition.
  *
@@ -34,7 +36,7 @@ class NotCondition extends ConditionBase implements Condition
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->countConditions() > 1) {
             throw new BuildException('You must not nest more than one condition into <not>');

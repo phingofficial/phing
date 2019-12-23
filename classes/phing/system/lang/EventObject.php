@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.system.lang
  */
@@ -24,6 +26,8 @@ class EventObject
 {
     /**
      * The object on which the Event initially occurred.
+     *
+     * @var object
      */
     protected $source;
 
@@ -44,6 +48,8 @@ class EventObject
 
     /**
      * The object on which the Event initially occurred.
+     *
+     * @return object
      */
     public function getSource()
     {
@@ -52,8 +58,10 @@ class EventObject
 
     /**
      * Returns a String representation of this EventObject.
+     *
+     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (method_exists($this->getSource(), 'toString')) {
             return static::class . '[source=' . $this->getSource()->toString() . ']';

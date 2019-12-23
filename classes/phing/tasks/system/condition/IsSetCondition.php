@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition that tests whether a given property has been set.
  *
@@ -26,12 +28,17 @@
  */
 class IsSetCondition extends ProjectComponent implements Condition
 {
+    /**
+     * @var string
+     */
     private $property;
 
     /**
      * @param string $p
+     *
+     * @return void
      */
-    public function setProperty($p)
+    public function setProperty(string $p): void
     {
         $this->property = $p;
     }
@@ -39,9 +46,11 @@ class IsSetCondition extends ProjectComponent implements Condition
     /**
      * Check whether property is set.
      *
+     * @return bool
+     *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->property === null) {
             throw new BuildException(

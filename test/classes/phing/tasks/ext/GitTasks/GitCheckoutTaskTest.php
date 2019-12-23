@@ -17,22 +17,25 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class GitCheckoutTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            $this->rmdir(PHING_TEST_BASE . '/tmp/git');
-        }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -40,12 +43,19 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
+        $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testCheckoutExistingBranch()
+    /**
+     * @return void
+     */
+    public function testCheckoutExistingBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutExistingBranch');
@@ -57,7 +67,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-checkout output: '); // no output actually
     }
 
-    public function testCheckoutNonExistingBranch()
+    /**
+     * @return void
+     */
+    public function testCheckoutNonExistingBranch(): void
     {
         $this->expectBuildExceptionContaining(
             'checkoutNonExistingBranch',
@@ -66,7 +79,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -75,7 +91,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoBranchnameSpecified()
+    /**
+     * @return void
+     */
+    public function testNoBranchnameSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noBranchname',
@@ -84,7 +103,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function testCheckoutMerge()
+    /**
+     * @return void
+     */
+    public function testCheckoutMerge(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutMerge');
@@ -93,7 +115,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: Deleted branch master');
     }
 
-    public function testCheckoutCreateBranch()
+    /**
+     * @return void
+     */
+    public function testCheckoutCreateBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutCreateBranch');
@@ -104,7 +129,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');
     }
 
-    public function testForceCheckoutCreateBranch()
+    /**
+     * @return void
+     */
+    public function testForceCheckoutCreateBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutForceCreateBranch');
@@ -112,7 +140,10 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');
     }
 
-    public function testForceCheckoutCreateBranchFailed()
+    /**
+     * @return void
+     */
+    public function testForceCheckoutCreateBranchFailed(): void
     {
         $this->expectBuildExceptionContaining(
             'checkoutForceCreateBranchFailed',

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Writes a build event to the console.
  *
@@ -92,8 +94,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildLogger#setMessageOutputLevel()
      *
      * @param int $level The logging level for the logger.
+     *
+     * @return void
      */
-    public function setMessageOutputLevel($level)
+    public function setMessageOutputLevel(int $level): void
     {
         $this->msgOutputLevel = (int) $level;
     }
@@ -104,8 +108,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildLogger#setOutputStream()
      *
      * @param OutputStream $output
+     *
+     * @return void
      */
-    public function setOutputStream(OutputStream $output)
+    public function setOutputStream(OutputStream $output): void
     {
         $this->out = $output;
     }
@@ -116,8 +122,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildLogger#setErrorStream()
      *
      * @param OutputStream $err
+     *
+     * @return void
      */
-    public function setErrorStream(OutputStream $err)
+    public function setErrorStream(OutputStream $err): void
     {
         $this->err = $err;
     }
@@ -127,8 +135,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @param bool $emacsMode <code>true</code> if output is to be unadorned so that
      *                  emacs and other editors can parse files names, etc.
+     *
+     * @return void
      */
-    public function setEmacsMode($emacsMode)
+    public function setEmacsMode(bool $emacsMode): void
     {
         $this->emacsMode = $emacsMode;
     }
@@ -138,8 +148,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  the build-time.
      *
      * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function buildStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event): void
     {
         $this->startTime = Phing::currentTimeMillis();
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
@@ -158,8 +172,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function buildFinished(BuildEvent $event)
+    public function buildFinished(BuildEvent $event): void
     {
         $msg   = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         $error = $event->getException();
@@ -176,15 +194,22 @@ class DefaultLogger implements StreamRequiredBuildLogger
             : $this->printMessage($msg, $this->err, Project::MSG_ERR);
     }
 
-    public static function throwableMessage(&$msg, $error, $verbose)
+    /**
+     * @param string    $msg
+     * @param Throwable $error
+     * @param bool      $verbose
+     *
+     * @return void
+     */
+    public static function throwableMessage(string &$msg, Throwable $error, bool $verbose): void
     {
         while ($error instanceof BuildException) {
             $cause = $error->getPrevious();
             if ($cause === null) {
                 break;
             }
-            $msg1 = trim($error);
-            $msg2 = trim($cause);
+            $msg1 = trim((string) $error);
+            $msg2 = trim((string) $cause);
             if (StringHelper::endsWith($msg2, $msg1)) {
                 $msg  .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2) - 1);
                 $error = $cause;
@@ -202,7 +227,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @return string The classic "BUILD FAILED"
      */
-    protected function getBuildFailedMessage()
+    protected function getBuildFailedMessage(): string
     {
         return 'BUILD FAILED';
     }
@@ -212,7 +237,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @return string The classic "BUILD FINISHED"
      */
-    protected function getBuildSuccessfulMessage()
+    protected function getBuildSuccessfulMessage(): string
     {
         return 'BUILD FINISHED';
     }
@@ -223,8 +248,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildEvent::getTarget()
      *
      * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function targetStarted(BuildEvent $event)
+    public function targetStarted(BuildEvent $event): void
     {
         if (
             Project::MSG_INFO <= $this->msgOutputLevel
@@ -243,8 +272,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function targetFinished(BuildEvent $event)
+    public function targetFinished(BuildEvent $event): void
     {
     }
 
@@ -255,8 +286,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildEvent::getTask()
      *
      * @param BuildEvent $event
+     *
+     * @return void
      */
-    public function taskStarted(BuildEvent $event)
+    public function taskStarted(BuildEvent $event): void
     {
     }
 
@@ -267,8 +300,10 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildEvent::getException()
      *
      * @param BuildEvent $event The BuildEvent
+     *
+     * @return void
      */
-    public function taskFinished(BuildEvent $event)
+    public function taskFinished(BuildEvent $event): void
     {
     }
 
@@ -278,8 +313,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @see   BuildEvent::getMessage()
      *
      * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    public function messageLogged(BuildEvent $event)
+    public function messageLogged(BuildEvent $event): void
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
@@ -303,11 +342,11 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Formats a time micro integer to human readable format.
      *
-     * @param int $micros The time stamp
+     * @param float $micros The time stamp
      *
      * @return string
      */
-    public static function formatTime($micros)
+    public static function formatTime(float $micros): string
     {
         $seconds = $micros;
         $minutes = (int) floor($seconds / 60);
@@ -337,7 +376,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @throws IOException
      */
-    protected function printMessage($message, OutputStream $stream, $priority)
+    protected function printMessage(string $message, OutputStream $stream, int $priority): void
     {
         $stream->write($message . PHP_EOL);
     }

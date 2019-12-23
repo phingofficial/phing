@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Sub-element of <mapping>.
  *
@@ -24,18 +26,34 @@
  */
 class PearPkgMappingElement
 {
+    /**
+     * @var int|string|null
+     */
     private $key;
+
+    /**
+     * @var mixed
+     */
     private $value;
+
+    /**
+     * @var \PearPkgMappingElement[]
+     */
     private $elements = [];
 
     /**
-     * @param string $v
+     * @param int|string $v
+     *
+     * @return void
      */
-    public function setKey($v)
+    public function setKey($v): void
     {
         $this->key = $v;
     }
 
+    /**
+     * @return int|string|null
+     */
     public function getKey()
     {
         return $this->key;
@@ -43,8 +61,10 @@ class PearPkgMappingElement
 
     /**
      * @param mixed $v
+     *
+     * @return void
      */
-    public function setValue($v)
+    public function setValue($v): void
     {
         $this->value = $v;
     }
@@ -75,8 +95,10 @@ class PearPkgMappingElement
 
     /**
      * Handles nested <element> tags.
+     *
+     * @return \PearPkgMappingElement
      */
-    public function createElement()
+    public function createElement(): PearPkgMappingElement
     {
         $e                = new PearPkgMappingElement();
         $this->elements[] = $e;

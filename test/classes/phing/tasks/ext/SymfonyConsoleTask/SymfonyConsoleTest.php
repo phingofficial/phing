@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Test class for the SymfonyConsoleTask.
  *
@@ -31,11 +32,13 @@ class SymfonyConsoleTest extends TestCase
     /**
      * @var SymfonyConsoleTask
      */
-    protected $object;
+    private $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     *
+     * @return void
      */
     protected function setUp(): void
     {
@@ -43,18 +46,12 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
-    }
-
-    /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::setCommand
      * @covers SymfonyConsoleTask::getCommand
      */
-    public function testSetGetCommand()
+    public function testSetGetCommand(): void
     {
         $o = $this->object;
         $o->setCommand('foo');
@@ -62,10 +59,12 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::setConsole
      * @covers SymfonyConsoleTask::getConsole
      */
-    public function testSetGetConsole()
+    public function testSetGetConsole(): void
     {
         $o = $this->object;
         $o->setConsole('foo');
@@ -73,10 +72,12 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::setDebug
      * @covers SymfonyConsoleTask::getDebug
      */
-    public function testSetGetDebug()
+    public function testSetGetDebug(): void
     {
         $o = $this->object;
         $o->setDebug(false);
@@ -84,10 +85,12 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::setSilent
      * @covers SymfonyConsoleTask::getSilent
      */
-    public function testSetGetSilent()
+    public function testSetGetSilent(): void
     {
         $o = $this->object;
         $o->setSilent(true);
@@ -95,9 +98,11 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::createArg
      */
-    public function testCreateArg()
+    public function testCreateArg(): void
     {
         $o   = $this->object;
         $arg = $o->createArg();
@@ -105,22 +110,26 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::getArgs
      */
-    public function testGetArgs()
+    public function testGetArgs(): void
     {
-        $o   = $this->object;
-        $arg = $o->createArg();
-        $arg = $o->createArg();
-        $arg = $o->createArg();
+        $o = $this->object;
+        $o->createArg();
+        $o->createArg();
+        $o->createArg();
         $this->assertCount(3, $o->getArgs());
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::getCmdString
      * @todo Implement testMain().
      */
-    public function testGetCmdString()
+    public function testGetCmdString(): void
     {
         $o   = $this->object;
         $arg = $o->createArg();
@@ -136,9 +145,11 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::getCmdString
      */
-    public function testNoDebugGetCmdString()
+    public function testNoDebugGetCmdString(): void
     {
         $o   = $this->object;
         $arg = $o->createArg();
@@ -155,9 +166,11 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
+     * @return void
+     *
      * @covers SymfonyConsoleTask::getCmdString
      */
-    public function testNoDebugOnlyOnce()
+    public function testNoDebugOnlyOnce(): void
     {
         $o   = $this->object;
         $arg = $o->createArg();

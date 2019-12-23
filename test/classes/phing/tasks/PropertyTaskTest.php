@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
@@ -24,34 +26,52 @@
  */
 class PropertyTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/property.xml');
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         // should get no output at all
         $this->expectOutputAndError('test1', '', '');
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $this->expectLog('test2', 'testprop1=aa, testprop3=xxyy, testprop4=aazz');
     }
 
-    public function test4()
+    /**
+     * @return void
+     */
+    public function test4(): void
     {
         $this->expectLog('test4', 'http.url is http://localhost:999');
     }
 
-    public function testPrefixSuccess()
+    /**
+     * @return void
+     */
+    public function testPrefixSuccess(): void
     {
         $this->executeTarget('prefix.success');
         $this->assertEquals('80', $this->project->getProperty('server1.http.port'));
     }
 
-    public function testPrefixFailure()
+    /**
+     * @return void
+     */
+    public function testPrefixFailure(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageRegExp('/Prefix is only valid/');
@@ -68,13 +88,19 @@ class PropertyTaskTest extends BuildFileTest
         $this->executeTarget('prefix.fail');
     }
 
-    public function testFilterChain()
+    /**
+     * @return void
+     */
+    public function testFilterChain(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('World', $this->project->getProperty('filterchain.test'));
     }
 
-    public function circularDefinitionTargets()
+    /**
+     * @return array[]
+     */
+    public function circularDefinitionTargets(): array
     {
         return [
             ['test3'],
@@ -84,9 +110,15 @@ class PropertyTaskTest extends BuildFileTest
     }
 
     /**
+     * @param string $target
+     *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @dataProvider circularDefinitionTargets
      */
-    public function testCircularDefinitionDetection($target)
+    public function testCircularDefinitionDetection(string $target): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageRegExp('/was circularly defined/');
@@ -103,7 +135,10 @@ class PropertyTaskTest extends BuildFileTest
         $this->executeTarget($target);
     }
 
-    public function testToString()
+    /**
+     * @return void
+     */
+    public function testToString(): void
     {
         $this->expectLog(__FUNCTION__, 'sourcefiles = filehash.bin');
     }
@@ -111,10 +146,14 @@ class PropertyTaskTest extends BuildFileTest
     /**
      * Inspired by @link http://www.phing.info/trac/ticket/1118
      * This test should not throw exceptions
+     *
+     * @return void
      */
-    public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException()
+    public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException(): void
     {
         $this->executeTarget(__FUNCTION__);
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 
     public function testRequired()

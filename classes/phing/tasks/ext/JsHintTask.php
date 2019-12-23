@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * JsHintTask
  *
@@ -92,40 +94,50 @@ class JsHintTask extends Task
      * File to be performed syntax check on
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
 
     /**
      * @param bool $haltOnError
+     *
+     * @return void
      */
-    public function setHaltOnError($haltOnError)
+    public function setHaltOnError(bool $haltOnError): void
     {
         $this->haltOnError = $haltOnError;
     }
 
     /**
      * @param bool $haltOnWarning
+     *
+     * @return void
      */
-    public function setHaltOnWarning($haltOnWarning)
+    public function setHaltOnWarning(bool $haltOnWarning): void
     {
         $this->haltOnWarning = $haltOnWarning;
     }
 
     /**
      * @param string $checkstyleReportPath
+     *
+     * @return void
      */
-    public function setCheckstyleReportPath($checkstyleReportPath)
+    public function setCheckstyleReportPath(string $checkstyleReportPath): void
     {
         $this->checkstyleReportPath = $checkstyleReportPath;
     }
 
     /**
      * @param string $reporter
+     *
+     * @return void
      */
-    public function setReporter($reporter)
+    public function setReporter(string $reporter): void
     {
         $this->reporter = $reporter;
 
@@ -142,13 +154,23 @@ class JsHintTask extends Task
 
     /**
      * @param string $config
+     *
+     * @return void
      */
-    public function setConfig($config)
+    public function setConfig(string $config): void
     {
         $this->config = $config;
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
+     * @throws IOException
+     */
+    public function main(): void
     {
         if (!isset($this->file) && count($this->filesets) === 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
@@ -246,9 +268,11 @@ class JsHintTask extends Task
     /**
      * @return string Path to the project basedir
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    private function _getProjectBasedir()
+    private function _getProjectBasedir(): string
     {
         return $this->getProject()->getBasedir()->getAbsolutePath() . DIRECTORY_SEPARATOR;
     }
@@ -256,9 +280,11 @@ class JsHintTask extends Task
     /**
      * Checks, wheter the JSHint can be executed
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    private function _checkJsHintIsInstalled()
+    private function _checkJsHintIsInstalled(): void
     {
         exec('jshint -v', $output, $return);
         if ($return !== 0) {

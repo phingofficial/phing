@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/252
  * - foreach on a fileset
@@ -25,12 +27,24 @@
  */
 class ForeachFileSetTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/252/build.xml');
     }
 
-    public function testCustomTask()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testCustomTask(): void
     {
         $f = new PhingFile(PHING_TEST_BASE . '/etc/regression/252/build.xml');
         $this->executeTarget('main');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Determines and Executes the action method for the task.
  *
@@ -28,11 +30,13 @@ class DispatchUtils
     /**
      * Determines and Executes the action method for the task.
      *
-     * @param object $task the task to execute.
+     * @param Dispatchable|UnknownElement $task the task to execute.
+     *
+     * @return void
      *
      * @throws BuildException on error.
      */
-    public static function main($task)
+    public static function main($task): void
     {
         $methodName   = 'main';
         $dispatchable = null;
@@ -46,7 +50,7 @@ class DispatchUtils
                     $dispatchable = $realThing;
                 }
             }
-            if ($dispatchable != null) {
+            if ($dispatchable !== null) {
                 $mName = null;
 
                 $name = trim($dispatchable->getActionParameterName());

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc
@@ -27,9 +29,9 @@ abstract class AbstractPHPLocFormatter
      * @param array $count
      * @param bool  $countTests
      *
-     * @return mixed
+     * @return void
      */
-    abstract public function printResult(array $count, $countTests = false);
+    abstract public function printResult(array $count, bool $countTests = false): void;
 
     /**
      * @var bool
@@ -37,7 +39,7 @@ abstract class AbstractPHPLocFormatter
     protected $useFile = true;
 
     /**
-     * @var string
+     * @var string|PhingFile
      */
     protected $toDir = '.';
 
@@ -50,16 +52,20 @@ abstract class AbstractPHPLocFormatter
      * Sets whether to store formatting results in a file
      *
      * @param bool $useFile
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = $useFile;
     }
 
     /**
      * Returns whether to store formatting results in a file
+     *
+     * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
@@ -68,8 +74,13 @@ abstract class AbstractPHPLocFormatter
      * Sets output directory
      *
      * @param string $toDir
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setToDir($toDir)
+    public function setToDir(string $toDir): void
     {
         if (!is_dir($toDir) && null !== $toDir) {
             $toDir = new PhingFile($toDir);
@@ -82,7 +93,7 @@ abstract class AbstractPHPLocFormatter
     /**
      * Returns output directory
      *
-     * @return string
+     * @return string|PhingFile
      */
     public function getToDir()
     {
@@ -93,8 +104,10 @@ abstract class AbstractPHPLocFormatter
      * Sets output filename
      *
      * @param string $outfile
+     *
+     * @return void
      */
-    public function setOutfile($outfile)
+    public function setOutfile(string $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -104,7 +117,7 @@ abstract class AbstractPHPLocFormatter
      *
      * @return string
      */
-    public function getOutfile()
+    public function getOutfile(): string
     {
         return $this->outfile;
     }

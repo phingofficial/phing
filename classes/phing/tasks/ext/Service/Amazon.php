@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract Service_Amazon class.
  *
@@ -44,8 +46,10 @@ abstract class Amazon extends Task
     /**
      * @param string $var
      * @param mixed  $val
+     *
+     * @return void
      */
-    public function __set($var, $val)
+    public function __set(string $var, $val): void
     {
         $this->options[$var] = $val;
     }
@@ -58,11 +62,11 @@ abstract class Amazon extends Task
      *
      * This way, we can define global properties for the "Amazon" service, like key and secret
      *
-     * @param mixed $var
+     * @param string $var
      *
      * @return mixed
      */
-    public function __get($var)
+    public function __get(string $var)
     {
         if (!isset($this->$var)) {
             if (!($val = $this->getProject()->getProperty('amazon.' . strtolower($var)))) {
@@ -80,7 +84,7 @@ abstract class Amazon extends Task
      *
      * @return bool
      */
-    public function __isset($var)
+    public function __isset(string $var): bool
     {
         return array_key_exists($var, $this->options);
     }
@@ -88,9 +92,11 @@ abstract class Amazon extends Task
     /**
      * @param string $key
      *
+     * @return void
+     *
      * @throws BuildException if $key is an empty string
      */
-    public function setKey($key)
+    public function setKey(string $key): void
     {
         if (empty($key) || !is_string($key)) {
             throw new BuildException('Key must be a non empty string');
@@ -104,7 +110,7 @@ abstract class Amazon extends Task
      *
      * @throws BuildException if key is not set
      */
-    public function getKey()
+    public function getKey(): string
     {
         if (!($key = $this->key)) {
             throw new BuildException('Key is not set');
@@ -116,9 +122,11 @@ abstract class Amazon extends Task
     /**
      * @param string $secret
      *
+     * @return void
+     *
      * @throws BuildException if $secret is a empty string
      */
-    public function setSecret($secret)
+    public function setSecret(string $secret): void
     {
         if (empty($secret) || !is_string($secret)) {
             throw new BuildException('Secret must be a non empty string');
@@ -132,7 +140,7 @@ abstract class Amazon extends Task
      *
      * @throws BuildException if secret is not set
      */
-    public function getSecret()
+    public function getSecret(): string
     {
         if (!($secret = $this->secret)) {
             throw new BuildException('Secret is not set');

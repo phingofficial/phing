@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This is a FileSet with the to specify permissions.
  *
@@ -27,20 +29,22 @@
  */
 class ZipFileSet extends FileSet
 {
+    /**
+     * @var array|null
+     */
     private $files = null;
 
     /**
      *  Get a list of files and directories specified in the fileset.
      *
-     * @param bool  $includeEmpty
-     * @param array ...$options
+     * @param bool $includeEmpty
      *
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      *
      * @throws Exception
      */
-    protected function getFiles($includeEmpty = true, ...$options)
+    protected function getFiles(bool $includeEmpty = true): array
     {
         if ($this->files === null) {
             $ds          = $this->getDirectoryScanner($this->getProject());

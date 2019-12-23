@@ -21,6 +21,15 @@ declare(strict_types=1);
 
 trait SassCleaner
 {
+    /**
+     * @param string $compileDirectoryPath
+     * @param string $testFileName
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws Exception
+     */
     public function sassCleanUp(string $compileDirectoryPath, string $testFileName): void
     {
         $fs = FileSystem::getFileSystem();

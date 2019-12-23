@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A class for creating adhoc datatypes in build file.
  *
@@ -27,6 +29,8 @@ class AdhocTypedefTask extends AdhocTask
 {
     /**
      * The tag that refers to this task.
+     *
+     * @var string
      */
     private $name;
 
@@ -34,16 +38,23 @@ class AdhocTypedefTask extends AdhocTask
      * Set the tag that will represent this adhoc task/type.
      *
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
      * Main entry point
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ($this->name === null) {
             throw new BuildException('The name attribute is required for adhoc task definition.', $this->getLocation());

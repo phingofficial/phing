@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the DependSet Task
  *
@@ -25,24 +27,36 @@
  */
 class DependSetTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/dependset.xml'
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $this->expectBuildException(__FUNCTION__, 'At least one <srcfileset> or <srcfilelist> element must be set');
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $this->expectBuildException(
             __FUNCTION__,
@@ -50,22 +64,35 @@ class DependSetTest extends BuildFileTest
         );
     }
 
-    public function test3()
+    /**
+     * @return void
+     */
+    public function test3(): void
     {
         $this->expectBuildException(__FUNCTION__, 'At least one <srcfileset> or <srcfilelist> element must be set');
     }
 
-    public function test4()
+    /**
+     * @return void
+     */
+    public function test4(): void
     {
         $this->executeTarget(__FUNCTION__);
+
+        $this->assertEquals(1, 1); // increase number of positive assertions
     }
 
-    public function test5()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function test5(): void
     {
         $this->executeTarget(__FUNCTION__);
         $f = new PhingFile($this->getProjectDir(), 'older.tmp');
-        if ($f->exists()) {
-            $this->fail('dependset failed to remove out of date file ' . (string) $f);
-        }
+
+        $this->assertFalse($f->exists(), 'dependset failed to remove out of date file ' . (string) $f);
     }
 }

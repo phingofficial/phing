@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <socket> condition container.
  *
@@ -39,16 +41,20 @@ class SocketCondition implements Condition
 
     /**
      * @param string $server
+     *
+     * @return void
      */
-    public function setServer($server)
+    public function setServer(string $server): void
     {
         $this->server = $server;
     }
 
     /**
      * @param int $port
+     *
+     * @return void
      */
-    public function setPort($port)
+    public function setPort(int $port): void
     {
         $this->port = $port;
     }
@@ -58,7 +64,7 @@ class SocketCondition implements Condition
      *
      * @throws BuildException
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if (empty($this->server)) {
             throw new BuildException('No server specified');

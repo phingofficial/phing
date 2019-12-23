@@ -17,21 +17,32 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author   Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package  phing.tasks.system
  */
 trait LogLevelAware
 {
-    protected $logLevel     = Project::MSG_VERBOSE;
+    /**
+     * @var int
+     */
+    protected $logLevel = Project::MSG_VERBOSE;
+
+    /**
+     * @var string
+     */
     protected $logLevelName = 'verbose';
 
     /**
      * Set level of log messages generated (default = verbose)
      *
      * @param string $level
+     *
+     * @return void
      */
-    public function setLevel($level): void
+    public function setLevel(string $level): void
     {
         switch ($level) {
             case 'error':

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The abstract SAX parser class.
  *
@@ -44,15 +46,17 @@ abstract class AbstractSAXParser
      *
      * @return bool
      */
-    abstract public function parserSetOption($opt, $val);
+    abstract public function parserSetOption(int $opt, $val): bool;
 
     /**
      * Sets the current element handler object for this parser. Usually this
      * is an object using extending "AbstractHandler".
      *
      * @param AbstractHandler $obj The handler object.
+     *
+     * @return void
      */
-    public function setHandler(AbstractHandler $obj)
+    public function setHandler(AbstractHandler $obj): void
     {
         $this->handler = $obj;
     }
@@ -69,9 +73,11 @@ abstract class AbstractSAXParser
      * @param string $name    the open tag name
      * @param array  $attribs the tag's attributes if any
      *
+     * @return void
+     *
      * @throws Exception - Exceptions may be thrown by the Handler
      */
-    public function startElement($parser, $name, $attribs)
+    public function startElement($parser, string $name, array $attribs): void
     {
         $this->handler->startElement($name, $attribs);
     }
@@ -88,9 +94,11 @@ abstract class AbstractSAXParser
      * @param object $parser the php's internal parser handle
      * @param string $name   the closing tag name
      *
+     * @return void
+     *
      * @throws Exception - Exceptions may be thrown by the Handler
      */
-    public function endElement($parser, $name)
+    public function endElement($parser, string $name): void
     {
         $this->handler->endElement($name);
     }
@@ -107,9 +115,11 @@ abstract class AbstractSAXParser
      * @param resource $parser php's internal parser handle.
      * @param string   $data   the CDATA
      *
+     * @return void
+     *
      * @throws Exception - Exceptions may be thrown by the Handler
      */
-    public function characters($parser, $data)
+    public function characters($parser, string $data): void
     {
         $this->handler->characters($data);
     }
@@ -117,6 +127,8 @@ abstract class AbstractSAXParser
     /**
      * Entrypoint for parser. This method needs to be implemented by the
      * child classt that utilizes the concrete parser
+     *
+     * @return int
      */
-    abstract public function parse();
+    abstract public function parse(): int;
 }

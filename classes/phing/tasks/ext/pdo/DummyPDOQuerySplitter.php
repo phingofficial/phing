@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+declare(strict_types=1);
+
 /**
  * Dummy query splitter: converts entire input into single
  * SQL string
@@ -33,14 +35,14 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
      *
      * @return string|null
      */
-    public function nextQuery()
+    public function nextQuery(): ?string
     {
         $sql = null;
 
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project   = $this->parent->getOwningTarget()->getProject();
-            $line      = $project->replaceProperties(trim($line));
+            $line      = $project->replaceProperties(trim((string) $line));
 
             if (
                 ($line != $delimiter)

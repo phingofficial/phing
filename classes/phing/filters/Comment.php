@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The class that holds a comment representation.
  *
@@ -26,6 +28,8 @@ class Comment
 {
     /**
      * The prefix for a line comment.
+     *
+     * @var string
      */
     private $value;
 
@@ -34,18 +38,20 @@ class Comment
      *
      * @param string $value The prefix for a line comment of this type.
      *                      Must not be <code>null</code>.
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = (string) $value;
     }
 
-    /*
+    /**
      * Returns the prefix for this type of line comment.
      *
      * @return string The prefix for this type of line comment.
-    */
-    public function getValue()
+     */
+    public function getValue(): string
     {
         return $this->value;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper aroung git-push
  *
@@ -49,7 +51,7 @@ class GitPushTask extends GitBaseTask
      * Same as prefixing repos with colon
      * --delete argument to git-push
      *
-     * @var string
+     * @var bool
      */
     private $delete = false;
 
@@ -91,8 +93,13 @@ class GitPushTask extends GitBaseTask
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws VersionControl_Git_Exception
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -148,8 +155,10 @@ class GitPushTask extends GitBaseTask
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setAll($flag)
+    public function setAll(bool $flag): void
     {
         $this->allRemotes = $flag;
     }
@@ -157,7 +166,7 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getAll()
+    public function getAll(): bool
     {
         return $this->allRemotes;
     }
@@ -165,15 +174,17 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isAllRemotes()
+    public function isAllRemotes(): bool
     {
         return $this->getAll();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setMirror($flag)
+    public function setMirror(bool $flag): void
     {
         $this->mirror = (bool) $flag;
     }
@@ -181,7 +192,7 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getMirror()
+    public function getMirror(): bool
     {
         return $this->mirror;
     }
@@ -189,39 +200,43 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isMirror()
+    public function isMirror(): bool
     {
         return $this->getMirror();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setDelete($flag)
+    public function setDelete(bool $flag): void
     {
         $this->delete = (bool) $flag;
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getDelete()
+    public function getDelete(): bool
     {
         return $this->delete;
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function isDelete()
+    public function isDelete(): bool
     {
         return $this->getDelete();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setTags($flag)
+    public function setTags(bool $flag): void
     {
         $this->tags = $flag;
     }
@@ -229,7 +244,7 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getTags()
+    public function getTags(): bool
     {
         return $this->tags;
     }
@@ -237,15 +252,17 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isTags()
+    public function isTags(): bool
     {
         return $this->getTags();
     }
 
     /**
      * @param string $destination
+     *
+     * @return void
      */
-    public function setDestination($destination)
+    public function setDestination(string $destination): void
     {
         $this->destination = $destination;
     }
@@ -253,15 +270,17 @@ class GitPushTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getDestination()
+    public function getDestination(): string
     {
         return $this->destination;
     }
 
     /**
      * @param string $spec
+     *
+     * @return void
      */
-    public function setRefspec($spec)
+    public function setRefspec(string $spec): void
     {
         $this->refspec = $spec;
     }
@@ -269,15 +288,17 @@ class GitPushTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getRefspec()
+    public function getRefspec(): string
     {
         return $this->refspec;
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setForce($flag)
+    public function setForce(bool $flag): void
     {
         $this->force = $flag;
     }
@@ -285,7 +306,7 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getForce()
+    public function getForce(): bool
     {
         return $this->force;
     }
@@ -293,15 +314,17 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isForce()
+    public function isForce(): bool
     {
         return $this->getForce();
     }
 
     /**
      * @param bool $flag
+     *
+     * @return void
      */
-    public function setQuiet($flag)
+    public function setQuiet(bool $flag): void
     {
         $this->quiet = $flag;
     }
@@ -309,7 +332,7 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getQuiet()
+    public function getQuiet(): bool
     {
         return $this->quiet;
     }
@@ -317,7 +340,7 @@ class GitPushTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isQuiet()
+    public function isQuiet(): bool
     {
         return $this->getQuiet();
     }

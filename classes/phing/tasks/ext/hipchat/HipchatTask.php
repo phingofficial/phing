@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * HipchatTask
  * Sends a simple hipchat notification.
@@ -35,15 +37,47 @@
  */
 class HipchatTask extends Task
 {
-    private $domain    = 'api.hipchat.com';
-    private $room      = null;
-    private $authToken = null;
-    private $color     = 'yellow';
-    private $notify    = false;
-    private $message   = null;
-    private $format    = 'text';
+    /**
+     * @var string
+     */
+    private $domain = 'api.hipchat.com';
 
-    public function main()
+    /**
+     * @var string|null
+     */
+    private $room = null;
+
+    /**
+     * @var string|null
+     */
+    private $authToken = null;
+
+    /**
+     * @var string
+     */
+    private $color = 'yellow';
+
+    /**
+     * @var bool
+     */
+    private $notify = false;
+
+    /**
+     * @var string|null
+     */
+    private $message = null;
+
+    /**
+     * @var string
+     */
+    private $format = 'text';
+
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         if (null === $this->getRoom()) {
             throw new BuildException('(HipChat) room is not defined');
@@ -79,15 +113,17 @@ class HipchatTask extends Task
     /**
      * @return string
      */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->domain;
     }
 
     /**
      * @param string $domain
+     *
+     * @return void
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
     }
@@ -95,48 +131,54 @@ class HipchatTask extends Task
     /**
      * @return string
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return $this->format;
     }
 
     /**
      * @param string $format
+     *
+     * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $format       = $format != 'text' && $format != 'html' ? 'text' : $format;
         $this->format = $format;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRoom()
+    public function getRoom(): ?string
     {
         return $this->room;
     }
 
     /**
      * @param string $room
+     *
+     * @return void
      */
-    public function setRoom($room)
+    public function setRoom(string $room): void
     {
         $this->room = $room;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthToken()
+    public function getAuthToken(): ?string
     {
         return $this->authToken;
     }
 
     /**
      * @param string $authToken
+     *
+     * @return void
      */
-    public function setAuthToken($authToken)
+    public function setAuthToken(string $authToken): void
     {
         $this->authToken = $authToken;
     }
@@ -144,23 +186,25 @@ class HipchatTask extends Task
     /**
      * @return string
      */
-    public function getColor()
+    public function getColor(): string
     {
         return $this->color;
     }
 
     /**
      * @param string $color
+     *
+     * @return void
      */
-    public function setColor($color)
+    public function setColor(string $color): void
     {
         $this->color = $color;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -168,28 +212,38 @@ class HipchatTask extends Task
     /**
      * @return bool
      */
-    public function isNotify()
+    public function isNotify(): bool
     {
         return $this->notify;
     }
 
     /**
      * @param bool $notify
+     *
+     * @return void
      */
-    public function setNotify($notify)
+    public function setNotify(bool $notify): void
     {
         $this->notify = $notify;
     }
 
     /**
      * @param string $message
+     *
+     * @return void
      */
-    public function addText($message)
+    public function addText(string $message): void
     {
         $this->message = trim($message);
     }
 
-    private function executeApiCall($url, $data)
+    /**
+     * @param string $url
+     * @param mixed  $data
+     *
+     * @return bool|string
+     */
+    private function executeApiCall(string $url, $data)
     {
         $postData = json_encode($data);
 

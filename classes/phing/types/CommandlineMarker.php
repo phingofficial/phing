@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class to keep track of the position of an Argument.
  *
@@ -28,17 +30,36 @@
  */
 class CommandlineMarker
 {
+    /**
+     * @var int
+     */
     private $position;
+
+    /**
+     * @var int
+     */
     private $realPos = -1;
+
+    /**
+     * @var Commandline
+     */
     private $outer;
+
+    /**
+     * @var string
+     */
     private $prefix;
+
+    /**
+     * @var string
+     */
     private $suffix;
 
     /**
      * @param Commandline $outer
      * @param int         $position
      */
-    public function __construct(Commandline $outer, $position)
+    public function __construct(Commandline $outer, int $position)
     {
         $this->outer    = $outer;
         $this->position = $position;
@@ -49,8 +70,10 @@ class CommandlineMarker
      *
      * <p>The name of the executable - if set - is counted as the
      * very first argument.</p>
+     *
+     * @return int
      */
-    public function getPosition()
+    public function getPosition(): int
     {
         if ($this->realPos === -1) {
             $this->realPos = ($this->outer->executable === null ? 0 : 1);
@@ -67,16 +90,20 @@ class CommandlineMarker
      * Set the prefix to be placed in front of the inserted argument.
      *
      * @param string $prefix fixed prefix string.
+     *
+     * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix ?? '';
     }
 
     /**
      * Get the prefix to be placed in front of the inserted argument.
+     *
+     * @return string
      */
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
@@ -85,16 +112,20 @@ class CommandlineMarker
      * Set the suffix to be placed at the end of the inserted argument.
      *
      * @param string $suffix fixed suffix string.
+     *
+     * @return void
      */
-    public function setSuffix($suffix)
+    public function setSuffix(string $suffix): void
     {
         $this->suffix = $suffix ?? '';
     }
 
     /**
      * Get the suffix to be placed at the end of the inserted argument.
+     *
+     * @return string
      */
-    public function getSuffix()
+    public function getSuffix(): string
     {
         return $this->suffix;
     }

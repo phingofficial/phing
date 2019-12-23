@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.
  *
@@ -25,7 +27,12 @@
  */
 class WarnTask extends EchoTask
 {
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         $this->log($this->msg, Project::MSG_WARN);
     }

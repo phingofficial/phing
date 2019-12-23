@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Apply Task
  *
@@ -30,12 +32,18 @@ class ApplyTaskTest extends BuildFileTest
      *
      * @var bool
      */
-    protected $windows;
+    private $windows;
 
     /**
      * Setup the test
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ConfigurationException
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
@@ -48,72 +56,114 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the OS configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetOs()
+    public function testPropertySetOs(): void
     {
         $this->assertAttributeIsSetTo('os', 'linux');
     }
 
     /**
      * Tests the dir configuration setting
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function testPropertySetDir()
+    public function testPropertySetDir(): void
     {
         $this->assertAttributeIsSetTo('dir', new PhingFile($this->project->getProperty('php.tmpdir')));
     }
 
     /**
      * Tests the escape configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetEscape()
+    public function testPropertySetEscape(): void
     {
         $this->assertAttributeIsSetTo('escape', true);
     }
 
     /**
      * Tests the pass-thru configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetPassthru()
+    public function testPropertySetPassthru(): void
     {
         $this->assertAttributeIsSetTo('passthru', true);
     }
 
     /**
      * Tests the spawn configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetSpawn()
+    public function testPropertySetSpawn(): void
     {
         $this->assertAttributeIsSetTo('spawn', true);
     }
 
     /**
      * Tests the returnProperty configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetReturnProperty()
+    public function testPropertySetReturnProperty(): void
     {
         $this->assertAttributeIsSetTo('returnProperty', 'retval');
     }
 
     /**
      * Tests the outputProperty configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetOutputProperty()
+    public function testPropertySetOutputProperty(): void
     {
         $this->assertAttributeIsSetTo('outputProperty', 'outval');
     }
 
     /**
      * Tests the checkReturn/failonerror configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetCheckReturn()
+    public function testPropertySetCheckReturn(): void
     {
         $this->assertAttributeIsSetTo('checkreturn', true);
     }
 
     /**
      * Tests the output configuration setting
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function testPropertySetOutput()
+    public function testPropertySetOutput(): void
     {
         $this->assertAttributeIsSetTo(
             'output',
@@ -123,8 +173,15 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the error configuration setting
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function testPropertySetError()
+    public function testPropertySetError(): void
     {
         $this->assertAttributeIsSetTo(
             'error',
@@ -134,56 +191,84 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the append configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetAppend()
+    public function testPropertySetAppend(): void
     {
         $this->assertAttributeIsSetTo('append', true, 'appendoutput');
     }
 
     /**
      * Tests the parallel configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetParallel()
+    public function testPropertySetParallel(): void
     {
         $this->assertAttributeIsSetTo('parallel', false);
     }
 
     /**
      * Tests the addsourcefile configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetAddsourcefile()
+    public function testPropertySetAddsourcefile(): void
     {
         $this->assertAttributeIsSetTo('addsourcefile', false);
     }
 
     /**
      * Tests the relative configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetRelative()
+    public function testPropertySetRelative(): void
     {
         $this->assertAttributeIsSetTo('relative', false);
     }
 
     /**
      * Tests the forwardslash configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetForwardslash()
+    public function testPropertySetForwardslash(): void
     {
         $this->assertAttributeIsSetTo('forwardslash', true);
     }
 
     /**
      * Tests the maxparallel configuration setting
+     *
+     * @return void
+     *
+     * @throws ReflectionException
      */
-    public function testPropertySetMaxparallel()
+    public function testPropertySetMaxparallel(): void
     {
         $this->assertAttributeIsSetTo('maxparallel', 10);
     }
 
     /**
      * Tests the OS execution for the unspecified OS
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testDoNotExecuteOnWrongOs()
+    public function testDoNotExecuteOnWrongOs(): void
     {
         // Process
         $this->executeTarget(__FUNCTION__);
@@ -194,8 +279,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the OS execution for the specified OS list
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testExecuteOnCorrectOs()
+    public function testExecuteOnCorrectOs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('this should be executed');
@@ -203,15 +292,19 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the dir changing on a non-existent directory
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testFailOnNonExistingDir()
+    public function testFailOnNonExistingDir(): void
     {
         $nonExistentDir = $this->project->getProperty('php.tmpdir') . DIRECTORY_SEPARATOR
             . 'non' . DIRECTORY_SEPARATOR
             . 'existent' . DIRECTORY_SEPARATOR
             . 'dir';
 
-        return $this->expectBuildExceptionContaining(
+        $this->expectBuildExceptionContaining(
             __FUNCTION__,
             __FUNCTION__,
             sprintf("'%s' is not a valid directory", $nonExistentDir)
@@ -221,9 +314,13 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the dir changing on an existent directory
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testChangeToDir()
+    public function testChangeToDir(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Working directory change successful');
@@ -232,9 +329,13 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the failonerror/checkreturn value for 'true'
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testCheckreturnTrue()
+    public function testCheckreturnTrue(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertTrue(true);
@@ -243,17 +344,25 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the failonerror/checkreturn value for 'false'
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testCheckreturnFalse()
+    public function testCheckreturnFalse(): void
     {
-        return $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
+        $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
     }
 
     /**
      * Tests the outputProperty setting
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testOutputProperty()
+    public function testOutputProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('The output property\'s value is: "foo"');
@@ -261,8 +370,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the returnProperty setting
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testReturnProperty()
+    public function testReturnProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('The return property\'s value is: "1"');
@@ -270,8 +383,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the command escaping for execution
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testEscape()
+    public function testEscape(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs(
@@ -283,8 +400,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the command execution with 'passthru' function
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testPassThru()
+    public function testPassThru(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Executing command:');
@@ -292,8 +413,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the output file functionality
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testOutput()
+    public function testOutput(): void
     {
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
@@ -311,9 +436,13 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the error file functionality
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testError()
+    public function testError(): void
     {
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
@@ -337,9 +466,13 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the execution with the background process spawning
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testSpawn()
+    public function testSpawn(): void
     {
         // Process
         $start = time();
@@ -354,8 +487,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the nested arguments specified for the execution
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testNestedArgs()
+    public function testNestedArgs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('echo Hello World');
@@ -363,16 +500,24 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the missing/unspecified executable information
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testMissingExecutable()
+    public function testMissingExecutable(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Please provide "executable" information');
     }
 
     /**
      * Tests the escape functionality for special characters in argument
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testEscapedArg()
+    public function testEscapedArg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('outval', $this->windows ? 'abc$b3 SB' : 'abc$b3!SB');
@@ -381,9 +526,13 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the relative source filenames functionality
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testRelativeSourceFilenames()
+    public function testRelativeSourceFilenames(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('/etc/');
@@ -392,9 +541,13 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the source filename addition functionality
      *
+     * @return void
+     *
+     * @throws Exception
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function testSourceFilename()
+    public function testSourceFilename(): void
     {
         $this->executeTarget(__FUNCTION__);
         // As the addsourcefilename is 'off', only the executable should be processed in the execution
@@ -403,8 +556,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the output file append functionality
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testOutputAppend()
+    public function testOutputAppend(): void
     {
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
@@ -421,8 +578,12 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the parallel configuration
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function testParallel()
+    public function testParallel(): void
     {
         $this->executeTarget(__FUNCTION__);
         $messages = [];
@@ -432,7 +593,12 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertEquals(1, substr_count(implode("\n", $messages), 'Executing command:'));
     }
 
-    public function testMapperSupport()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testMapperSupport(): void
     {
         // Getting a temp. file
         $tempfile = tempnam(FileUtils::getTempDir(), 'phing-exectest-');
@@ -457,10 +623,10 @@ class ApplyTaskTest extends BuildFileTest
      *
      * @throws Exception
      */
-    protected function getTargetByName($name)
+    protected function getTargetByName(string $name): Target
     {
         foreach ($this->project->getTargets() as $target) {
-            if ($target->getName() == $name) {
+            if ($target->getName() === $name) {
                 return $target;
             }
         }
@@ -468,17 +634,27 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param string $target
-     * @param string $taskName
-     * @param int    $pos
+     * @param Target|string $target
+     * @param string        $taskName
+     * @param int           $pos
      *
      * @return Task
      *
      * @throws Exception
      */
-    protected function getTaskFromTarget($target, $taskName, $pos = 0)
+    protected function getTaskFromTarget($target, string $taskName, int $pos = 0)
     {
-        $rchildren = new ReflectionProperty(get_class($target), 'children');
+        if (is_string($target)) {
+            $class = $target;
+        } else {
+            $class = get_class($target);
+
+            if (false === $class) {
+                throw new Exception(sprintf('could not get class from target %s', $target));
+            }
+        }
+
+        $rchildren = new ReflectionProperty($class, 'children');
         $rchildren->setAccessible(true);
         $n = -1;
         foreach ($rchildren->getValue($target) as $child) {
@@ -495,8 +671,10 @@ class ApplyTaskTest extends BuildFileTest
      * @param string $task
      *
      * @return Task
+     *
+     * @throws Exception
      */
-    protected function getConfiguredTask($target, $task)
+    protected function getConfiguredTask(string $target, string $task): Task
     {
         $target = $this->getTargetByName($target);
         $task   = $this->getTaskFromTarget($target, $task);
@@ -510,11 +688,16 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param string $property
-     * @param string $value
-     * @param string $propertyName
+     * @param string                $property
+     * @param string|bool|PhingFile $value
+     * @param string|null           $propertyName
+     *
+     * @return void
+     *
+     * @throws ReflectionException
+     * @throws Exception
      */
-    protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
+    protected function assertAttributeIsSetTo(string $property, $value, ?string $propertyName = null): void
     {
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), 'ApplyTask');
 

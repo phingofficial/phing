@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit test for ForeachTask.
  *
@@ -30,7 +32,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ForeachTaskTest.xml');
@@ -41,7 +43,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testRequiredParameters()
+    public function testRequiredParameters(): void
     {
         $this->expectException(BuildException::class);
 
@@ -53,7 +55,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testListWithoutParam()
+    public function testListWithoutParam(): void
     {
         $this->expectException(BuildException::class);
 
@@ -65,7 +67,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testListWithoutCalleeTarget()
+    public function testListWithoutCalleeTarget(): void
     {
         $this->expectException(BuildException::class);
 
@@ -77,7 +79,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testLogMessageWithFileset()
+    public function testLogMessageWithFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
@@ -88,7 +90,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testLogMessageWithDirset()
+    public function testLogMessageWithDirset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
@@ -99,7 +101,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testLogMessageWithList()
+    public function testLogMessageWithList(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 3 entries in list', Project::MSG_VERBOSE);
@@ -110,7 +112,7 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testLogMessageWithListUniqueEntry()
+    public function testLogMessageWithListUniqueEntry(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 1 entry in list', Project::MSG_VERBOSE);
@@ -121,13 +123,16 @@ class ForeachTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testLogMessageWithPath()
+    public function testLogMessageWithPath(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
     }
 
-    public function testIndex()
+    /**
+     * @return void
+     */
+    public function testIndex(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('2 - de');

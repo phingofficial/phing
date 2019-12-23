@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Stores an object on S3
  *
@@ -51,7 +53,7 @@ class S3PutTask extends S3
      *
      * (default value: array())
      *
-     * @var array
+     * @var FileSet[]
      */
     protected $filesets = [];
 
@@ -123,14 +125,20 @@ class S3PutTask extends S3
      * @var bool
      */
     protected $fileNameOnly = false;
+
+    /**
+     * @var string
+     */
     private $object;
 
     /**
      * @param string $source
      *
+     * @return void
+     *
      * @throws BuildException if $source is not readable
      */
-    public function setSource($source)
+    public function setSource(string $source): void
     {
         if (!is_readable($source)) {
             throw new BuildException('Source is not readable: ' . $source);
@@ -144,12 +152,12 @@ class S3PutTask extends S3
      *
      * @throws BuildException if source is null
      */
-    public function getSource()
+    public function getSource(): string
     {
         if ($this->content !== null) {
             $tempFile = tempnam($this->getProject()->getProperty('php.tmpdir'), 's3_put_');
 
-            file_put_contents($tempFile, $this->content);
+            file_put_contents((string) $tempFile, $this->content);
             $this->source = $tempFile;
         }
 
@@ -163,9 +171,11 @@ class S3PutTask extends S3
     /**
      * @param string $content
      *
+     * @return void
+     *
      * @throws BuildException if $content is a empty string
      */
-    public function setContent($content)
+    public function setContent(string $content): void
     {
         if (empty($content) || !is_string($content)) {
             throw new BuildException('Content must be a non-empty string');
@@ -179,7 +189,7 @@ class S3PutTask extends S3
      *
      * @throws BuildException if content is null
      */
-    public function getContent()
+    public function getContent(): string
     {
         if ($this->content === null) {
             throw new BuildException('Content is not set');
@@ -191,9 +201,11 @@ class S3PutTask extends S3
     /**
      * @param string $object
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setObject($object)
+    public function setObject(string $object): void
     {
         if (empty($object) || !is_string($object)) {
             throw new BuildException('Object must be a non-empty string');
@@ -207,7 +219,7 @@ class S3PutTask extends S3
      *
      * @throws BuildException
      */
-    public function getObject()
+    public function getObject(): string
     {
         if ($this->object === null) {
             throw new BuildException('Object is not set');
@@ -219,9 +231,11 @@ class S3PutTask extends S3
     /**
      * @param string $permission
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setAcl($permission)
+    public function setAcl(string $permission): void
     {
         $valid_acl = ['private', 'public-read', 'public-read-write', 'authenticated-read'];
         if (empty($permission) || !is_string($permission) || !in_array($permission, $valid_acl)) {
@@ -233,15 +247,17 @@ class S3PutTask extends S3
     /**
      * @return string
      */
-    public function getAcl()
+    public function getAcl(): string
     {
         return $this->acl;
     }
 
     /**
      * @param string $contentType
+     *
+     * @return void
      */
-    public function setContentType($contentType)
+    public function setContentType(string $contentType): void
     {
         $this->contentType = $contentType;
     }
@@ -251,7 +267,7 @@ class S3PutTask extends S3
      *
      * @throws BuildException
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         if ($this->contentType === 'auto') {
             $ext = strtolower(substr(strrchr($this->getSource(), '.'), 1));
@@ -261,7 +277,12 @@ class S3PutTask extends S3
         return $this->contentType;
     }
 
-    public function setCreateBuckets(bool $createBuckets)
+    /**
+     * @param bool $createBuckets
+     *
+     * @return void
+     */
+    public function setCreateBuckets(bool $createBuckets): void
     {
         $this->createBuckets = $createBuckets;
     }
@@ -269,7 +290,7 @@ class S3PutTask extends S3
     /**
      * @return bool
      */
-    public function getCreateBuckets()
+    public function getCreateBuckets(): bool
     {
         return $this->createBuckets;
     }
@@ -278,8 +299,10 @@ class S3PutTask extends S3
      * Set seconds in max-age, null value exclude max-age setup.
      *
      * @param int $seconds
+     *
+     * @return void
      */
-    public function setMaxage($seconds)
+    public function setMaxage(int $seconds): void
     {
         $this->maxage = $seconds;
     }
@@ -289,7 +312,7 @@ class S3PutTask extends S3
      *
      * @return int Number of seconds in maxage or null.
      */
-    public function getMaxage()
+    public function getMaxage(): int
     {
         return $this->maxage;
     }
@@ -298,8 +321,10 @@ class S3PutTask extends S3
      * Set if content is gzipped.
      *
      * @param bool $gzipped
+     *
+     * @return void
      */
-    public function setGzip($gzipped)
+    public function setGzip(bool $gzipped): void
     {
         $this->gzipped = $gzipped;
     }
@@ -309,7 +334,7 @@ class S3PutTask extends S3
      *
      * @return bool Indicate if content is gzipped.
      */
-    public function getGzip()
+    public function getGzip(): bool
     {
         return $this->gzipped;
     }
@@ -319,7 +344,7 @@ class S3PutTask extends S3
      *
      * @return array HttpHeader to set in S3 Object.
      */
-    protected function getHttpHeaders()
+    protected function getHttpHeaders(): array
     {
         $headers = [];
         if (null !== $this->maxage) {
@@ -332,7 +357,12 @@ class S3PutTask extends S3
         return $headers;
     }
 
-    public function setFileNameOnly(bool $fileNameOnly)
+    /**
+     * @param bool $fileNameOnly
+     *
+     * @return void
+     */
+    public function setFileNameOnly(bool $fileNameOnly): void
     {
         $this->fileNameOnly = $fileNameOnly;
     }
@@ -342,7 +372,7 @@ class S3PutTask extends S3
      *
      * @return FileSet
      */
-    public function createFileset()
+    public function createFileset(): FileSet
     {
         $num = array_push($this->filesets, new FileSet());
 
@@ -352,9 +382,9 @@ class S3PutTask extends S3
     /**
      * getter for _filesets
      *
-     * @return array
+     * @return FileSet[]
      */
-    public function getFilesets()
+    public function getFilesets(): array
     {
         return $this->filesets;
     }
@@ -369,7 +399,7 @@ class S3PutTask extends S3
      *
      * @throws BuildException
      */
-    public function getObjectData()
+    public function getObjectData(): string
     {
         $source = $this->getSource();
 
@@ -386,8 +416,11 @@ class S3PutTask extends S3
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function execute()
+    public function execute(): void
     {
         if (!$this->isBucketAvailable()) {
             if (!$this->getCreateBuckets()) {
@@ -417,7 +450,7 @@ class S3PutTask extends S3
             if ($this->fileNameOnly) {
                 foreach ($objects as $object) {
                     $this->source = $object;
-                    $this->saveObject(basename($object), $fromDir . DIRECTORY_SEPARATOR . $object);
+                    $this->saveObject(basename((string) $object), $fromDir . DIRECTORY_SEPARATOR . $object);
                 }
             } else {
                 foreach ($objects as $object) {
@@ -439,9 +472,11 @@ class S3PutTask extends S3
      * @param string $key
      * @param string $sourceFile
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function saveObject($key, $sourceFile)
+    protected function saveObject(string $key, string $sourceFile): void
     {
         $client = $this->getClientInstance();
         $client->putObject(

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encode data from <code>in</code> encoding to <code>out</code> encoding.
  *
@@ -37,20 +39,26 @@
  */
 class IconvFilter extends BaseParamFilterReader implements ChainableReader
 {
+    /**
+     * @var string
+     */
     private $inputEncoding;
 
+    /**
+     * @var string
+     */
     private $outputEncoding;
 
     /**
      * Returns first n lines of stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
-     * @return string Characters read, or -1 if the end of the stream has been reached
+     * @return string|int Characters read, or -1 if the end of the stream has been reached
      *
      * @throws IOException if the underlying stream throws an IOException during reading
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         $this->initialize();
 
@@ -75,8 +83,10 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * @param string $encoding Input encoding.
+     *
+     * @return void
      */
-    public function setInputEncoding($encoding)
+    public function setInputEncoding(string $encoding): void
     {
         $this->inputEncoding = $encoding;
     }
@@ -84,15 +94,17 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * @return string
      */
-    public function getInputEncoding()
+    public function getInputEncoding(): string
     {
         return $this->inputEncoding;
     }
 
     /**
      * @param string $encoding Output encoding.
+     *
+     * @return void
      */
-    public function setOutputEncoding($encoding)
+    public function setOutputEncoding(string $encoding): void
     {
         $this->outputEncoding = $encoding;
     }
@@ -100,7 +112,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * @return string
      */
-    public function getOutputEncoding()
+    public function getOutputEncoding(): string
     {
         return $this->outputEncoding;
     }
@@ -112,7 +124,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return self A new filter based on this configuration, but filtering the specified reader.
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $filter = new self($reader);
 
@@ -127,8 +139,10 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Configuring object from the parameters list.
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         if ($this->getInitialized()) {
             return;

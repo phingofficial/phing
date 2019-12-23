@@ -17,17 +17,37 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
 class TruncateTask extends Task
 {
+    /**
+     * @var bool
+     */
     private $create = true;
+
+    /**
+     * @var bool
+     */
     private $mkdirs = false;
 
+    /**
+     * @var int
+     */
     private $length;
+
+    /**
+     * @var int
+     */
     private $adjust;
+
+    /**
+     * @var PhingFile
+     */
     private $file;
 
     /**
@@ -35,10 +55,12 @@ class TruncateTask extends Task
      *
      * @param PhingFile|string $f the single File
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setFile($f)
+    public function setFile($f): void
     {
         if (is_string($f)) {
             $f = new PhingFile($f);
@@ -51,8 +73,10 @@ class TruncateTask extends Task
      * It is permissible to append K / M / G / T / P.
      *
      * @param int $adjust (positive or negative) adjustment amount.
+     *
+     * @return void
      */
-    public function setAdjust($adjust)
+    public function setAdjust(int $adjust): void
     {
         $this->adjust = $adjust;
     }
@@ -63,9 +87,11 @@ class TruncateTask extends Task
      *
      * @param int $length (positive) adjustment amount.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setLength($length)
+    public function setLength(int $length): void
     {
         $this->length = $length;
         if ($this->length !== null && $this->length < 0) {
@@ -77,8 +103,10 @@ class TruncateTask extends Task
      * Set whether to create nonexistent files.
      *
      * @param bool $create default <code>true</code>.
+     *
+     * @return void
      */
-    public function setCreate($create)
+    public function setCreate(bool $create): void
     {
         $this->create = $create;
     }
@@ -88,8 +116,10 @@ class TruncateTask extends Task
      * should also be created.
      *
      * @param bool $mkdirs default <code>false</code>.
+     *
+     * @return void
      */
-    public function setMkdirs($mkdirs)
+    public function setMkdirs(bool $mkdirs): void
     {
         $this->mkdirs = $mkdirs;
     }
@@ -97,9 +127,12 @@ class TruncateTask extends Task
     /**
      * {@inheritDoc}.
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->length !== null && $this->adjust !== null) {
             throw new BuildException(
@@ -124,8 +157,10 @@ class TruncateTask extends Task
      * @return bool
      *
      * @throws BuildException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function shouldProcess(PhingFile $f)
+    private function shouldProcess(PhingFile $f): bool
     {
         if ($f->isFile()) {
             return true;
@@ -157,7 +192,14 @@ class TruncateTask extends Task
         throw new BuildException($msg, $exception);
     }
 
-    private function process(PhingFile $f)
+    /**
+     * @param PhingFile $f
+     *
+     * @return void
+     *
+     * @throws IOException
+     */
+    private function process(PhingFile $f): void
     {
         $len       = $f->length();
         $newLength = $this->length ?? $len + $this->adjust;

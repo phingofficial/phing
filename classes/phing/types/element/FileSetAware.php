@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 trait FileSetAware
 {
     /**
@@ -24,12 +26,20 @@ trait FileSetAware
      */
     protected $filesets = [];
 
-    public function addFileSet(FileSet $fileSet)
+    /**
+     * @param FileSet $fileSet
+     *
+     * @return void
+     */
+    public function addFileSet(FileSet $fileSet): void
     {
         $this->filesets[] = $fileSet;
     }
 
-    public function getFileSets()
+    /**
+     * @return FileSet[]
+     */
+    public function getFileSets(): array
     {
         return $this->filesets;
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for Subversion tasks
  *
@@ -46,10 +48,19 @@ abstract class SvnBaseTask extends Task
 
     protected $svn = null;
 
+    /**
+     * @var string
+     */
     private $mode = '';
 
+    /**
+     * @var array
+     */
     private $svnArgs = [];
 
+    /**
+     * @var array
+     */
     private $svnSwitches = [];
 
     private $toDir = '';
@@ -63,8 +74,12 @@ abstract class SvnBaseTask extends Task
      * This method includes any necessary SVN libraries and triggers
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function init()
+    public function init(): void
     {
         include_once 'VersionControl/SVN.php';
         $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
@@ -77,16 +92,20 @@ abstract class SvnBaseTask extends Task
      * Sets the path to the workingcopy
      *
      * @param string $workingCopy
+     *
+     * @return void
      */
-    public function setWorkingCopy($workingCopy)
+    public function setWorkingCopy(string $workingCopy): void
     {
         $this->workingCopy = $workingCopy;
     }
 
     /**
      * Returns the path to the workingcopy
+     *
+     * @return string
      */
-    public function getWorkingCopy()
+    public function getWorkingCopy(): string
     {
         return $this->workingCopy;
     }
@@ -95,16 +114,20 @@ abstract class SvnBaseTask extends Task
      * Sets the path/URI to the repository
      *
      * @param string $repositoryUrl
+     *
+     * @return void
      */
-    public function setRepositoryUrl($repositoryUrl)
+    public function setRepositoryUrl(string $repositoryUrl): void
     {
         $this->repositoryUrl = $repositoryUrl;
     }
 
     /**
      * Returns the path/URI to the repository
+     *
+     * @return string
      */
-    public function getRepositoryUrl()
+    public function getRepositoryUrl(): string
     {
         return $this->repositoryUrl;
     }
@@ -113,16 +136,20 @@ abstract class SvnBaseTask extends Task
      * Sets the path to the SVN executable
      *
      * @param string $svnPath
+     *
+     * @return void
      */
-    public function setSvnPath($svnPath)
+    public function setSvnPath(string $svnPath): void
     {
         $this->svnPath = $svnPath;
     }
 
     /**
      * Returns the path to the SVN executable
+     *
+     * @return string
      */
-    public function getSvnPath()
+    public function getSvnPath(): string
     {
         return $this->svnPath;
     }
@@ -133,16 +160,20 @@ abstract class SvnBaseTask extends Task
      * Sets the path to export/checkout to
      *
      * @param string $toDir
+     *
+     * @return void
      */
-    public function setToDir($toDir)
+    public function setToDir(string $toDir): void
     {
         $this->toDir = $toDir;
     }
 
     /**
      * Returns the path to export/checkout to
+     *
+     * @return string
      */
-    public function getToDir()
+    public function getToDir(): string
     {
         return $this->toDir;
     }
@@ -153,16 +184,20 @@ abstract class SvnBaseTask extends Task
      * Sets the force switch
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setForce($value)
+    public function setForce(string $value): void
     {
         $this->svnSwitches['force'] = $value;
     }
 
     /**
      * Returns the force switch
+     *
+     * @return string
      */
-    public function getForce()
+    public function getForce(): string
     {
         return isset($this->svnSwitches['force']) ? $this->svnSwitches['force'] : '';
     }
@@ -171,16 +206,20 @@ abstract class SvnBaseTask extends Task
      * Sets the username of the user to export
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setUsername($value)
+    public function setUsername(string $value): void
     {
         $this->svnSwitches['username'] = $value;
     }
 
     /**
      * Returns the username
+     *
+     * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return isset($this->svnSwitches['username']) ? $this->svnSwitches['username'] : '';
     }
@@ -189,16 +228,20 @@ abstract class SvnBaseTask extends Task
      * Sets the password of the user to export
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setPassword($value)
+    public function setPassword(string $value): void
     {
         $this->svnSwitches['password'] = $value;
     }
 
     /**
      * Returns the password
+     *
+     * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return isset($this->svnSwitches['password']) ? $this->svnSwitches['password'] : '';
     }
@@ -207,16 +250,20 @@ abstract class SvnBaseTask extends Task
      * Sets the no-auth-cache switch
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setNoCache($value)
+    public function setNoCache(string $value): void
     {
         $this->svnSwitches['no-auth-cache'] = $value;
     }
 
     /**
      * Returns the no-auth-cache switch
+     *
+     * @return string
      */
-    public function getNoCache()
+    public function getNoCache(): string
     {
         return isset($this->svnSwitches['no-auth-cache']) ? $this->svnSwitches['no-auth-cache'] : '';
     }
@@ -225,16 +272,20 @@ abstract class SvnBaseTask extends Task
      * Sets the depth switch
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setDepth($value)
+    public function setDepth(string $value): void
     {
         $this->svnSwitches['depth'] = $value;
     }
 
     /**
      * Returns the depth switch
+     *
+     * @return string
      */
-    public function getDepth()
+    public function getDepth(): string
     {
         return isset($this->svnSwitches['depth']) ? $this->svnSwitches['depth'] : '';
     }
@@ -243,16 +294,20 @@ abstract class SvnBaseTask extends Task
      * Sets the ignore-externals switch
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setIgnoreExternals($value)
+    public function setIgnoreExternals(string $value): void
     {
         $this->svnSwitches['ignore-externals'] = $value;
     }
 
     /**
      * Returns the ignore-externals switch
+     *
+     * @return string
      */
-    public function getIgnoreExternals()
+    public function getIgnoreExternals(): string
     {
         return isset($this->svnSwitches['ignore-externals']) ? $this->svnSwitches['ignore-externals'] : '';
     }
@@ -261,16 +316,20 @@ abstract class SvnBaseTask extends Task
      * Sets the trust-server-cert switch
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setTrustServerCert($value)
+    public function setTrustServerCert(string $value): void
     {
         $this->svnSwitches['trust-server-cert'] = $value;
     }
 
     /**
      * Returns the trust-server-cert switch
+     *
+     * @return string
      */
-    public function getTrustServerCert()
+    public function getTrustServerCert(): string
     {
         return isset($this->svnSwitches['trust-server-cert']) ? $this->svnSwitches['trust-server-cert'] : '';
     }
@@ -280,9 +339,12 @@ abstract class SvnBaseTask extends Task
      *
      * @param string $mode The SVN mode to use (info, export, checkout, ...)
      *
+     * @return void
+     *
+     * @throws VersionControl_SVN_Exception
      * @throws BuildException
      */
-    protected function setup($mode)
+    protected function setup(string $mode): void
     {
         $this->mode = $mode;
 
@@ -331,11 +393,11 @@ abstract class SvnBaseTask extends Task
      * @param array $args     Additional arguments to pass to SVN.
      * @param array $switches Switches to pass to SVN.
      *
-     * @return string Output generated by SVN.
+     * @return string|array Output generated by SVN.
      *
      * @throws BuildException
      */
-    protected function run($args = [], $switches = [])
+    protected function run(array $args = [], array $switches = [])
     {
         $tempArgs     = array_merge($this->svnArgs, $args);
         $tempSwitches = array_merge($this->svnSwitches, $switches);
@@ -364,5 +426,7 @@ abstract class SvnBaseTask extends Task
                 throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $e->getMessage());
             }
         }
+
+        return '';
     }
 }

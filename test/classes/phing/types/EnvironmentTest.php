@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,28 +17,47 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 class EnvironmentTest extends TestCase
 {
+    /**
+     * @var Environment
+     */
     private $environment;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->environment = new Environment();
     }
 
-    public function testVariablesNull()
+    /**
+     * @return void
+     */
+    public function testVariablesNull(): void
     {
         $count = $this->environment->getVariables();
-        $this->assertNull($count);
+        self::assertNull($count);
     }
 
-    public function testVariablesObjectIsArrayObject()
+    /**
+     * @return void
+     */
+    public function testVariablesObjectIsArrayObject(): void
     {
         $variablesObj = $this->environment->getVariablesObject();
         $this->assertEquals('ArrayObject', get_class($variablesObj));
     }
 
-    public function testValidateWithoutKeyAndValueSetRaisesException()
+    /**
+     * @return void
+     */
+    public function testValidateWithoutKeyAndValueSetRaisesException(): void
     {
         $ev = new EnvVariable();
 
@@ -51,7 +67,10 @@ class EnvironmentTest extends TestCase
         $ev->validate();
     }
 
-    public function testValuesAgainstGetContent()
+    /**
+     * @return void
+     */
+    public function testValuesAgainstGetContent(): void
     {
         $ev = new EnvVariable();
         $ev->setKey(' key ');

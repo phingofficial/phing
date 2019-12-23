@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Changes the attributes of a file or all files inside specified directories.
  * Right now it has effect only under Windows. Each of the 4 possible
@@ -42,7 +44,10 @@ class AttribTask extends ApplyTask
 
     private $attr = false;
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
         parent::init();
         parent::setExecutable('attrib');
@@ -50,9 +55,12 @@ class AttribTask extends ApplyTask
     }
 
     /**
+     * @return void
+     *
      * @throws BuildException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         $this->checkConfiguration();
         parent::main();
@@ -60,8 +68,10 @@ class AttribTask extends ApplyTask
 
     /**
      * @param bool $b
+     *
+     * @return void
      */
-    public function setVerbose($b)
+    public function setVerbose(bool $b): void
     {
         $this->loglevel = Project::MSG_VERBOSE;
     }
@@ -70,8 +80,13 @@ class AttribTask extends ApplyTask
      * A file to be attribed.
      *
      * @param PhingFile $src a file
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function setFile(PhingFile $src)
+    public function setFile(PhingFile $src): void
     {
         $fs = new FileSet();
         $fs->setFile($src);
@@ -82,8 +97,10 @@ class AttribTask extends ApplyTask
      * Set the ReadOnly file attribute.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setReadonly($value)
+    public function setReadonly(bool $value): void
     {
         $this->addArg($value, self::$ATTR_READONLY);
     }
@@ -92,8 +109,10 @@ class AttribTask extends ApplyTask
      * Set the Archive file attribute.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setArchive($value)
+    public function setArchive(bool $value): void
     {
         $this->addArg($value, self::$ATTR_ARCHIVE);
     }
@@ -102,8 +121,10 @@ class AttribTask extends ApplyTask
      * Set the System file attribute.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setSystem($value)
+    public function setSystem(bool $value): void
     {
         $this->addArg($value, self::$ATTR_SYSTEM);
     }
@@ -112,8 +133,10 @@ class AttribTask extends ApplyTask
      * Set the Hidden file attribute.
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setHidden($value)
+    public function setHidden(bool $value): void
     {
         $this->addArg($value, self::$ATTR_HIDDEN);
     }
@@ -121,9 +144,11 @@ class AttribTask extends ApplyTask
     /**
      * Check the attributes.
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function checkConfiguration()
+    protected function checkConfiguration(): void
     {
         if (!$this->hasAttr()) {
             throw new BuildException(
@@ -138,6 +163,8 @@ class AttribTask extends ApplyTask
      * This is not allowed, and it always throws a BuildException.
      *
      * @param mixed $e
+     *
+     * @return void
      *
      * @throws BuildException
      */
@@ -155,9 +182,11 @@ class AttribTask extends ApplyTask
      *
      * @param bool $b ignored
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setAddsourcefile(bool $b)
+    public function setAddsourcefile(bool $b): void
     {
         throw new BuildException(
             $this->getTaskType()
@@ -172,9 +201,11 @@ class AttribTask extends ApplyTask
      *
      * @param int $max ignored
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setMaxParallel($max)
+    public function setMaxParallel(int $max): void
     {
         throw new BuildException(
             $this->getTaskType()
@@ -189,9 +220,11 @@ class AttribTask extends ApplyTask
      *
      * @param bool $parallel ignored
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setParallel(bool $parallel)
+    public function setParallel(bool $parallel): void
     {
         throw new BuildException(
             $this->getTaskType()
@@ -200,12 +233,23 @@ class AttribTask extends ApplyTask
         );
     }
 
-    private static function getSignString($attr)
+    /**
+     * @param bool $attr
+     *
+     * @return string
+     */
+    private static function getSignString(bool $attr): string
     {
         return $attr ? self::$SET : self::$UNSET;
     }
 
-    private function addArg($sign, $attribute)
+    /**
+     * @param bool   $sign
+     * @param string $attribute
+     *
+     * @return void
+     */
+    private function addArg(bool $sign, string $attribute): void
     {
         $this->createArg()->setValue(self::getSignString($sign) . $attribute);
         $this->attr = true;
@@ -214,7 +258,7 @@ class AttribTask extends ApplyTask
     /**
      * @return bool
      */
-    private function hasAttr()
+    private function hasAttr(): bool
     {
         return $this->attr;
     }

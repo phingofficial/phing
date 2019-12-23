@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Test cases for the pearpkg/pearpkg2 tasks
  *
@@ -25,9 +27,18 @@
  */
 class PearPackageTest extends BuildFileTest
 {
+    /**
+     * @var int
+     */
     private $savedErrorLevel;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
@@ -41,13 +52,19 @@ class PearPackageTest extends BuildFileTest
         $GLOBALS['_PEAR_Common_file_roles'] = ['php', 'ext', 'test', 'doc', 'data', 'src', 'script'];
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         error_reporting($this->savedErrorLevel);
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
     }
 
-    public function testRoleSet()
+    /**
+     * @return void
+     */
+    public function testRoleSet(): void
     {
         $this->executeTarget('main');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');

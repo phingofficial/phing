@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * UTF-8 to Unicode Code Points
  *
@@ -40,15 +42,15 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
      * Returns the next line in the filtered stream, converting non latin
      * characters to unicode escapes.
      *
-     * @param int $len optional
+     * @param int|null $len optional
      *
-     * @return string      the converted lines in the resulting stream, or -1
+     * @return string|int  the converted lines in the resulting stream, or -1
      *                     if the end of the resulting stream has been reached
      *
      * @throws IOException if the underlying stream throws
      *                     an IOException during reading
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -70,7 +72,7 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
 
         $lines = [];
         foreach ($textArray as $offset => $line) {
-            $lines[] = trim(json_encode($line), '"');
+            $lines[] = trim((string) json_encode($line), '"');
             if (strlen($line) !== strlen($lines[$offset])) {
                 $this->log(
                     'Escape unicode chars on line ' . ($offset + 1)
@@ -93,7 +95,7 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
      * @return EscapeUnicode a new filter based on this configuration, but filtering
      *         the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new self($reader);
         $newFilter->setInitialized(true);
@@ -104,8 +106,10 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
 
     /**
      * Parses the parameters (currently unused)
+     *
+     * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
     }
 }

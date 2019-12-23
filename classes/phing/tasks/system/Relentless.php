@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Relentless is an Ant task that will relentlessly execute other tasks,
  * ignoring any failures until all tasks have completed. If any of the executed
@@ -29,20 +31,27 @@ class Relentless extends Task implements TaskContainer
 {
     /**
      * We keep the list of tasks we will execute here.
+     *
+     * @var Task[]
      */
     private $taskList = [];
 
     /**
      * Flag indicating how much output to generate.
+     *
+     * @var bool
      */
     private $terse = false;
 
     /**
      * This method will be called when it is time to execute the task.
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $failCount = 0;
         $taskNo    = 0;
@@ -77,24 +86,34 @@ class Relentless extends Task implements TaskContainer
 
     /**
      * Ant will call this to inform us of nested tasks.
+     *
+     * @param Task $task
+     *
+     * @return void
      */
-    public function addTask(Task $task)
+    public function addTask(Task $task): void
     {
         $this->taskList[] = $task;
     }
 
     /**
      * Set this to true to reduce the amount of output generated.
+     *
+     * @param bool $terse
+     *
+     * @return void
      */
-    public function setTerse($terse)
+    public function setTerse(bool $terse): void
     {
         $this->terse = $terse;
     }
 
     /**
      * Retrieve the terse property, indicating how much output we will generate.
+     *
+     * @return bool
      */
-    public function isTerse()
+    public function isTerse(): bool
     {
         return $this->terse;
     }

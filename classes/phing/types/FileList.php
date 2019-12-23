@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * FileList represents an explicitly named list of files. FileLists
  * are useful when you want to capture a list of files regardless of
@@ -60,9 +62,9 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Construct a new FileList.
      *
-     * @param FileList $filelist
+     * @param FileList|null $filelist
      */
-    public function __construct($filelist = null)
+    public function __construct(?FileList $filelist = null)
     {
         parent::__construct();
 
@@ -73,7 +75,13 @@ class FileList extends DataType implements IteratorAggregate
         }
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator
+     *
+     * @throws IOException
+     * @throws ReflectionException
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getFiles($this->getProject()));
     }
@@ -84,9 +92,11 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @param Reference $r
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         if ($this->dir !== null || count($this->filenames) !== 0) {
             throw $this->tooManyAttributes();
@@ -99,10 +109,12 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @param PhingFile $dir
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(PhingFile $dir): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -117,9 +129,10 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @return PhingFile
      *
+     * @throws ReflectionException
      * @throws BuildException
      */
-    public function getDir(Project $p)
+    public function getDir(Project $p): PhingFile
     {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
@@ -133,11 +146,13 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Set the array of files in list.
      *
-     * @param array $filenames
+     * @param string $filenames
+     *
+     * @return void
      *
      * @throws BuildException
      */
-    public function setFiles($filenames)
+    public function setFiles(string $filenames): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -159,10 +174,12 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @param string $file
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setListFile($file)
+    public function setListFile(string $file): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -179,8 +196,10 @@ class FileList extends DataType implements IteratorAggregate
      * @param Project $p
      *
      * @return PhingFile
+     *
+     * @throws ReflectionException
      */
-    public function getListFile(Project $p)
+    public function getListFile(Project $p): PhingFile
     {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
@@ -200,8 +219,9 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @throws IOException
      * @throws BuildException
+     * @throws ReflectionException
      */
-    public function getFiles(Project $p)
+    public function getFiles(Project $p): array
     {
         if ($this->isReference()) {
             $ret = $this->getRef($p);
@@ -233,9 +253,10 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @return FileList
      *
+     * @throws ReflectionException
      * @throws BuildException
      */
-    public function getRef(Project $p)
+    public function getRef(Project $p): FileList
     {
         return $this->getCheckedRef(self::class, $this->getDataTypeName());
     }
@@ -245,10 +266,12 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @param Project $p
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws IOException
      */
-    private function readListFile(Project $p)
+    private function readListFile(Project $p): void
     {
         $listReader = null;
         try {

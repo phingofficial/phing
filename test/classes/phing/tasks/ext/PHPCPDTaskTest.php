@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests for PHPCPDTask
  *
@@ -25,12 +27,21 @@
  */
 class PHPCPDTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/build.xml');
     }
 
-    public function testFormatterOutfile()
+    /**
+     * @return void
+     */
+    public function testFormatterOutfile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -39,7 +50,10 @@ class PHPCPDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
     }
 
-    public function testFormatterPMD()
+    /**
+     * @return void
+     */
+    public function testFormatterPMD(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -48,7 +62,10 @@ class PHPCPDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
     }
 
-    public function testFormatterNoFile()
+    /**
+     * @return void
+     */
+    public function testFormatterNoFile(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);

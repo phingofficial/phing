@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Condition interface specification:
  *
@@ -32,5 +34,5 @@ interface Condition
      *
      * @throws BuildException
      */
-    public function evaluate();
+    public function evaluate(): bool;
 }

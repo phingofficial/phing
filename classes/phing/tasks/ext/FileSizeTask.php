@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * fileHash
  *
@@ -46,8 +48,10 @@ class FileSizeTask extends Task
      * Which file to calculate the file size of
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile($file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -59,7 +63,7 @@ class FileSizeTask extends Task
      *
      * @return void
      */
-    public function setPropertyName($property)
+    public function setPropertyName(string $property): void
     {
         $this->propertyName = $property;
     }
@@ -71,19 +75,19 @@ class FileSizeTask extends Task
      *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->checkFile();
         $this->checkPropertyName();
 
-        $size = filesize($this->file);
+        $size = filesize((string) $this->file);
 
         if ($size === false) {
             throw new BuildException(sprintf('[FileSize] Cannot determine size of file: %s', $this->file));
         }
 
         // publish hash value
-        $this->project->setProperty($this->propertyName, $size);
+        $this->project->setProperty($this->propertyName, (string) $size);
     }
 
     /**
@@ -93,17 +97,17 @@ class FileSizeTask extends Task
      *
      * @throws BuildException
      */
-    private function checkFile()
+    private function checkFile(): void
     {
         // check File
         if (
             $this->file === null
-            || strlen($this->file) == 0
+            || strlen((string) $this->file) == 0
         ) {
             throw new BuildException('[FileSize] You must specify an input file.', $this->file);
         }
 
-        if (!is_readable($this->file)) {
+        if (!is_readable((string) $this->file)) {
             throw new BuildException(
                 sprintf(
                     '[FileSize] Input file does not exist or is not readable: %s',
@@ -120,7 +124,7 @@ class FileSizeTask extends Task
      *
      * @throws BuildException
      */
-    private function checkPropertyName()
+    private function checkPropertyName(): void
     {
         if (
             null === $this->propertyName

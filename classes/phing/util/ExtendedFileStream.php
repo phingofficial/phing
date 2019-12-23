@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Extended file stream wrapper class which auto-creates directories
  *
@@ -27,22 +29,33 @@ class ExtendedFileStream
 {
     private $fp = null;
 
-    public static function registerStream()
+    /**
+     * @return void
+     */
+    public static function registerStream(): void
     {
         if (!in_array('efile', stream_get_wrappers())) {
             stream_wrapper_register('efile', 'ExtendedFileStream');
         }
     }
 
-    public static function unregisterStream()
+    /**
+     * @return void
+     */
+    public static function unregisterStream(): void
     {
         stream_wrapper_unregister('efile');
     }
 
     /**
-     * @param string $path
+     * @param PhingFile|string $path
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function createDirectories($path)
+    private function createDirectories($path): void
     {
         $f = new PhingFile($path);
         if (!$f->exists()) {
@@ -61,8 +74,9 @@ class ExtendedFileStream
      * @return bool
      *
      * @throws IOException
+     * @throws \NullPointerException
      */
-    public function stream_open($path, $mode, $options, &$opened_path)
+    public function stream_open(string $path, int $mode, $options, &$opened_path): bool
     {
         // if we're on Windows, urldecode() the path again
         if (FileSystem::getFileSystem()->getSeparator() == '\\') {
@@ -82,7 +96,10 @@ class ExtendedFileStream
         return true;
     }
 
-    public function stream_close()
+    /**
+     * @return void
+     */
+    public function stream_close(): void
     {
         fclose($this->fp);
         $this->fp = null;
@@ -93,17 +110,16 @@ class ExtendedFileStream
      *
      * @return string
      */
-    public function stream_read($count)
+    public function stream_read(int $count): string
     {
         return fread($this->fp, $count);
     }
 
     /**
      * @param string $data
-     *
-     * @return int
+     * @return int|false
      */
-    public function stream_write($data)
+    public function stream_write(string $data)
     {
         return fwrite($this->fp, $data);
     }
@@ -111,13 +127,13 @@ class ExtendedFileStream
     /**
      * @return bool
      */
-    public function stream_eof()
+    public function stream_eof(): bool
     {
         return feof($this->fp);
     }
 
     /**
-     * @return int
+     * @return false|int
      */
     public function stream_tell()
     {
@@ -130,7 +146,7 @@ class ExtendedFileStream
      *
      * @return int
      */
-    public function stream_seek($offset, $whence)
+    public function stream_seek(int $offset, int $whence): int
     {
         return fseek($this->fp, $offset, $whence);
     }
@@ -138,15 +154,19 @@ class ExtendedFileStream
     /**
      * @return bool
      */
-    public function stream_flush()
+    public function stream_flush(): bool
     {
+        if (!is_resource($this->fp)) {
+            return false;
+        }
+
         return fflush($this->fp);
     }
 
     /**
      * @return array
      */
-    public function stream_stat()
+    public function stream_stat(): array
     {
         return fstat($this->fp);
     }
@@ -158,7 +178,7 @@ class ExtendedFileStream
      *
      * @return bool
      */
-    public function unlink($path)
+    public function unlink(string $path): bool
     {
         return false;
     }
@@ -169,7 +189,7 @@ class ExtendedFileStream
      *
      * @return bool
      */
-    public function rename($path_from, $path_to)
+    public function rename(string $path_from, string $path_to): bool
     {
         return false;
     }
@@ -181,7 +201,7 @@ class ExtendedFileStream
      *
      * @return bool
      */
-    public function mkdir($path, $mode, $options)
+    public function mkdir(string $path, $mode, $options): bool
     {
         return false;
     }
@@ -192,7 +212,7 @@ class ExtendedFileStream
      *
      * @return bool
      */
-    public function rmdir($path, $options)
+    public function rmdir($path, $options): bool
     {
         return false;
     }

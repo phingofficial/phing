@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Output stream subclass for file streams.
  *
@@ -32,13 +34,13 @@ class FileOutputStream extends OutputStream
     /**
      * Construct a new FileOutputStream.
      *
-     * @param mixed $file
-     * @param bool  $append Whether to append bytes to end of file rather than beginning.
+     * @param PhingFile|string $file
+     * @param bool             $append Whether to append bytes to end of file rather than beginning.
      *
      * @throws Exception   - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */
-    public function __construct($file, $append = false)
+    public function __construct($file, bool $append = false)
     {
         if ($file instanceof PhingFile) {
             $this->file = $file;
@@ -47,6 +49,7 @@ class FileOutputStream extends OutputStream
         } else {
             throw new Exception('Invalid argument type for $file.');
         }
+
         error_clear_last();
         if ($append) {
             $stream = @fopen($this->file->getAbsolutePath(), 'ab');
@@ -66,7 +69,7 @@ class FileOutputStream extends OutputStream
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->file->getPath();
     }

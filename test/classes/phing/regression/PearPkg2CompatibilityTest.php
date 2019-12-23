@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for tickets
  * http://www.phing.info/trac/ticket/524
@@ -29,7 +31,13 @@ class PearPkg2CompatibilityTest extends BuildFileTest
 {
     private $savedErrorLevel;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
@@ -43,12 +51,18 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         error_reporting($this->savedErrorLevel);
         $this->executeTarget('teardown');
     }
 
+    /**
+     * @return void
+     */
     protected function assertPreConditions(): void
     {
         try {
@@ -60,21 +74,30 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         }
     }
 
-    public function testInactiveMaintainers()
+    /**
+     * @return void
+     */
+    public function testInactiveMaintainers(): void
     {
         $this->executeTarget('inactive');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertStringContainsString('<active>no</active>', $content);
     }
 
-    public function testActiveMaintainers()
+    /**
+     * @return void
+     */
+    public function testActiveMaintainers(): void
     {
         $this->executeTarget('active');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertStringContainsString('<active>yes</active>', $content);
     }
 
-    public function testNotSetMaintainers()
+    /**
+     * @return void
+     */
+    public function testNotSetMaintainers(): void
     {
         $this->executeTarget('notset');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');

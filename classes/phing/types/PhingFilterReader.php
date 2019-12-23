@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A PhingFilterReader is a wrapper class that encloses the className
  * and configuration of a Configurable FilterReader.
@@ -36,8 +38,10 @@ class PhingFilterReader extends DataType
 
     /**
      * @param string $className
+     *
+     * @return void
      */
-    public function setClassName($className)
+    public function setClassName(string $className): void
     {
         $this->className = $className;
     }
@@ -45,7 +49,7 @@ class PhingFilterReader extends DataType
     /**
      * @return string
      */
-    public function getClassName()
+    public function getClassName(): string
     {
         return $this->className;
     }
@@ -55,9 +59,13 @@ class PhingFilterReader extends DataType
      *
      * @param Path $classpath
      *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    public function setClasspath(Path $classpath)
+    public function setClasspath(Path $classpath): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -77,8 +85,9 @@ class PhingFilterReader extends DataType
      * @return Path
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function createClasspath()
+    public function createClasspath(): Path
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -90,7 +99,10 @@ class PhingFilterReader extends DataType
         return $this->classPath->createPath();
     }
 
-    public function getClasspath()
+    /**
+     * @return Path|null
+     */
+    public function getClasspath(): ?Path
     {
         return $this->classPath;
     }
@@ -98,9 +110,12 @@ class PhingFilterReader extends DataType
     /**
      * @param Reference $r
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function setClasspathRef(Reference $r)
+    public function setClasspathRef(Reference $r): void
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -111,13 +126,18 @@ class PhingFilterReader extends DataType
 
     /**
      * @param Parameter $param
+     *
+     * @return void
      */
-    public function addParam(Parameter $param)
+    public function addParam(Parameter $param): void
     {
         $this->parameters[] = $param;
     }
 
-    public function createParam()
+    /**
+     * @return Parameter
+     */
+    public function createParam(): Parameter
     {
         $num = array_push($this->parameters, new Parameter());
 
@@ -127,7 +147,7 @@ class PhingFilterReader extends DataType
     /**
      * @return array
      */
-    public function getParams()
+    public function getParams(): array
     {
         // We return a COPY
         $ret = [];
@@ -147,14 +167,9 @@ class PhingFilterReader extends DataType
      *
      * @param Reference $r the reference to which this instance is associated
      * @throws BuildException if this instance already has been configured.
-    */
-
-    /**
-     * @param Reference $r
-     *
-     * @throws BuildException
+     * @return void
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         if ((count($this->parameters) !== 0) || ($this->className !== null)) {
             throw $this->tooManyAttributes();

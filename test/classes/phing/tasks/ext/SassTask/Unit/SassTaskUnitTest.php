@@ -29,17 +29,26 @@ class SassTaskUnitTest extends TestCase
     /** @var SassTaskAssert */
     private $sassTaskAssert;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->object         = new SassTask();
         $this->sassTaskAssert = new SassTaskAssert();
     }
 
+    /**
+     * @return void
+     */
     public function testCheckDefaults(): void
     {
         $this->sassTaskAssert->assertDefaults($this->object);
     }
 
+    /**
+     * @return void
+     */
     public function testSetStyleCompactViaSetStyle(): void
     {
         $this->object->setStyle('crunched');
@@ -47,6 +56,9 @@ class SassTaskUnitTest extends TestCase
         $this->sassTaskAssert->assertCompactStyle($this->object);
     }
 
+    /**
+     * @return void
+     */
     public function testSetStyleCompactViaOwnMethod(): void
     {
         $this->object->setStyle('crunched');
@@ -54,6 +66,9 @@ class SassTaskUnitTest extends TestCase
         $this->sassTaskAssert->assertCompactStyle($this->object);
     }
 
+    /**
+     * @return void
+     */
     public function testSetStyleCompressedViaSetStyle(): void
     {
         $this->object->setStyle('crunched');
@@ -61,6 +76,9 @@ class SassTaskUnitTest extends TestCase
         $this->sassTaskAssert->assertCompressedStyle($this->object);
     }
 
+    /**
+     * @return void
+     */
     public function testSetStyleCompressedViaOwnMethod(): void
     {
         $this->object->setStyle('crunched');

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext
@@ -25,35 +27,43 @@ class AutoloaderTask extends Task
 {
     public const DEFAULT_AUTOLOAD_PATH = 'vendor/autoload.php';
 
+    /**
+     * @var string
+     */
     private $autoloaderPath = self::DEFAULT_AUTOLOAD_PATH;
 
     /**
      * @return string
      */
-    public function getAutoloaderPath()
+    public function getAutoloaderPath(): string
     {
         return $this->autoloaderPath;
     }
 
     /**
      * @param string $autoloaderPath
+     *
+     * @return void
      */
-    public function setAutoloaderPath($autoloaderPath)
+    public function setAutoloaderPath(string $autoloaderPath): void
     {
         $this->autoloaderPath = $autoloaderPath;
     }
 
     /**
-     *  Called by the project to let the task do it's work. This method may be
-     *  called more than once, if the task is invoked more than once. For
-     *  example, if target1 and target2 both depend on target3, then running
-     *  <em>phing target1 target2</em> will run all tasks in target3 twice.
+     * Called by the project to let the task do it's work. This method may be
+     * called more than once, if the task is invoked more than once. For
+     * example, if target1 and target2 both depend on target3, then running
+     * <em>phing target1 target2</em> will run all tasks in target3 twice.
      *
-     *  Should throw a BuildException if someting goes wrong with the build
+     * Should throw a BuildException if someting goes wrong with the build
+     * This is here. Must be overloaded by real tasks.
      *
-     *  This is here. Must be overloaded by real tasks.
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (is_dir($this->autoloaderPath) || !is_readable($this->autoloaderPath)) {
             throw new BuildException(

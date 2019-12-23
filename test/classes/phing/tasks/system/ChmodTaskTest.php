@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Chmod Task
  *
@@ -26,19 +28,28 @@
  */
 class ChmodTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ChmodTaskTest.xml'
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testChangeModeFile()
+    /**
+     * @return void
+     */
+    public function testChangeModeFile(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -48,7 +59,10 @@ class ChmodTaskTest extends BuildFileTest
         $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
-    public function testChangeModeFileSet()
+    /**
+     * @return void
+     */
+    public function testChangeModeFileSet(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -58,7 +72,10 @@ class ChmodTaskTest extends BuildFileTest
         $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
-    public function testChangeModeDirSet()
+    /**
+     * @return void
+     */
+    public function testChangeModeDirSet(): void
     {
         $this->executeTarget(__FUNCTION__);
 

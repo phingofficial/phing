@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg commit
  *
@@ -38,7 +40,7 @@ class HgCommitTask extends HgBaseTask
      *
      * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
@@ -48,7 +50,7 @@ class HgCommitTask extends HgBaseTask
      *
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -58,10 +60,10 @@ class HgCommitTask extends HgBaseTask
      *
      * @return void
      *
-     * @throws BuildException If message is not set
      * @throws BuildException If error occurs during commit
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $message = $this->getMessage();
         if ($message === '') {

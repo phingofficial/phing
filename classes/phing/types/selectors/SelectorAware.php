@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 trait SelectorAware
 {
     /**
@@ -26,16 +28,20 @@ trait SelectorAware
 
     /**
      * Indicates whether there are any selectors here.
+     *
+     * @return bool
      */
-    public function hasSelectors()
+    public function hasSelectors(): bool
     {
         return !empty($this->selectorsList);
     }
 
     /**
      * Gives the count of the number of selectors in this container
+     *
+     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->selectorsList);
     }
@@ -47,7 +53,7 @@ trait SelectorAware
      *
      * @return array
      */
-    public function getSelectors(Project $p)
+    public function getSelectors(Project $p): array
     {
         $result = [];
         for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
@@ -59,8 +65,10 @@ trait SelectorAware
 
     /**
      * Returns an array for accessing the set of selectors (not a copy).
+     *
+     * @return array
      */
-    public function selectorElements()
+    public function selectorElements(): array
     {
         return $this->selectorsList;
     }
@@ -69,184 +77,274 @@ trait SelectorAware
      * Add a new selector into this container.
      *
      * @param FileSelector $selector new selector to add
+     *
+     * @return void
      */
-    public function appendSelector(FileSelector $selector)
+    public function appendSelector(FileSelector $selector): void
     {
         $this->selectorsList[] = $selector;
     }
 
     /**
      * add a "Select" selector entry on the selector list
+     *
+     * @param SelectSelector $selector
+     *
+     * @return void
      */
-    public function addSelector(SelectSelector $selector)
+    public function addSelector(SelectSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add an "And" selector entry on the selector list
+     *
+     * @param AndSelector $selector
+     *
+     * @return void
      */
-    public function addAnd(AndSelector $selector)
+    public function addAnd(AndSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add an "Or" selector entry on the selector list
+     *
+     * @param OrSelector $selector
+     *
+     * @return void
      */
-    public function addOr(OrSelector $selector)
+    public function addOr(OrSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a "Not" selector entry on the selector list
+     *
+     * @param NotSelector $selector
+     *
+     * @return void
      */
-    public function addNot(NotSelector $selector)
+    public function addNot(NotSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a "None" selector entry on the selector list
+     *
+     * @param NoneSelector $selector
+     *
+     * @return void
      */
-    public function addNone(NoneSelector $selector)
+    public function addNone(NoneSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a majority selector entry on the selector list
+     *
+     * @param MajoritySelector $selector
+     *
+     * @return void
      */
-    public function addMajority(MajoritySelector $selector)
+    public function addMajority(MajoritySelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a selector date entry on the selector list
+     *
+     * @param DateSelector $selector
+     *
+     * @return void
      */
-    public function addDate(DateSelector $selector)
+    public function addDate(DateSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a selector size entry on the selector list
+     *
+     * @param SizeSelector $selector
+     *
+     * @return void
      */
-    public function addSize(SizeSelector $selector)
+    public function addSize(SizeSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a selector filename entry on the selector list
+     *
+     * @param FilenameSelector $selector
+     *
+     * @return void
      */
-    public function addFilename(FilenameSelector $selector)
+    public function addFilename(FilenameSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add an extended selector entry on the selector list
+     *
+     * @param ExtendSelector $selector
+     *
+     * @return void
      */
-    public function addCustom(ExtendSelector $selector)
+    public function addCustom(ExtendSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a contains selector entry on the selector list
+     *
+     * @param ContainsSelector $selector
+     *
+     * @return void
      */
-    public function addContains(ContainsSelector $selector)
+    public function addContains(ContainsSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a contains selector entry on the selector list
+     *
+     * @param ContainsRegexpSelector $selector
+     *
+     * @return void
      */
-    public function addContainsRegexp(ContainsRegexpSelector $selector)
+    public function addContainsRegexp(ContainsRegexpSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a present selector entry on the selector list
+     *
+     * @param PresentSelector $selector
+     *
+     * @return void
      */
-    public function addPresent(PresentSelector $selector)
+    public function addPresent(PresentSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a depth selector entry on the selector list
+     *
+     * @param DepthSelector $selector
+     *
+     * @return void
      */
-    public function addDepth(DepthSelector $selector)
+    public function addDepth(DepthSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a depends selector entry on the selector list
+     *
+     * @param DependSelector $selector
+     *
+     * @return void
      */
-    public function addDepend(DependSelector $selector)
+    public function addDepend(DependSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a different selector entry on the selector list
+     *
+     * @param DifferentSelector $selector
+     *
+     * @return void
      */
-    public function addDifferent(DifferentSelector $selector)
+    public function addDifferent(DifferentSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a type selector entry on the selector list
+     *
+     * @param TypeSelector $selector
+     *
+     * @return void
      */
-    public function addType(TypeSelector $selector)
+    public function addType(TypeSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a executable selector entry on the selector list
+     *
+     * @param ExecutableSelector $selector
+     *
+     * @return void
      */
-    public function addExecutable(ExecutableSelector $selector)
+    public function addExecutable(ExecutableSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a readable selector entry on the selector list
+     *
+     * @param ReadableSelector $selector
+     *
+     * @return void
      */
-    public function addReadable(ReadableSelector $selector)
+    public function addReadable(ReadableSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a writable selector entry on the selector list
+     *
+     * @param WritableSelector $selector
+     *
+     * @return void
      */
-    public function addWritable(WritableSelector $selector)
+    public function addWritable(WritableSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a symlink selector entry on the selector list
+     *
+     * @param SymlinkSelector $selector
+     *
+     * @return void
      */
-    public function addSymlink(SymlinkSelector $selector)
+    public function addSymlink(SymlinkSelector $selector): void
     {
         $this->appendSelector($selector);
     }
 
     /**
      * add a symlink selector entry on the selector list
+     *
+     * @param PosixPermissionsSelector $selector
+     *
+     * @return void
      */
-    public function addPosixPermissions(PosixPermissionsSelector $selector)
+    public function addPosixPermissions(PosixPermissionsSelector $selector): void
     {
         $this->appendSelector($selector);
     }

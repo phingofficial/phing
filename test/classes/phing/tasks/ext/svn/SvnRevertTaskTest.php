@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
@@ -25,23 +27,34 @@ class SvnRevertTaskTest extends AbstractSvnTaskTest
 {
     use SvnTaskTestSkip;
 
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->markTestAsSkippedWhenSvnNotInstalled();
         $this->initialize('SvnRevertTest.xml');
     }
 
     /**
+     * @return void
+     *
      * @test
      */
-    public function recursiveRevert()
+    public function recursiveRevert(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

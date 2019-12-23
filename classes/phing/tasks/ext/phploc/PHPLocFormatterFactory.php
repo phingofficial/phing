@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
@@ -32,25 +34,24 @@ class PHPLocFormatterFactory
      *
      * @return AbstractPHPLocFormatter
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    public static function createFormatter($formatterElement)
+    public static function createFormatter(PHPLocFormatterElement $formatterElement): AbstractPHPLocFormatter
     {
         $formatter = null;
         $type      = $formatterElement->getType();
 
         switch ($type) {
             case 'xml':
-                include_once 'phing/tasks/ext/phploc/PHPLocXMLFormatter.php';
                 $formatter = new PHPLocXMLFormatter();
                 break;
             case 'csv':
-                include_once 'phing/tasks/ext/phploc/PHPLocCSVFormatter.php';
                 $formatter = new PHPLocCSVFormatter();
                 break;
             case 'txt':
             case 'cli':
-                include_once 'phing/tasks/ext/phploc/PHPLocTextFormatter.php';
                 $formatter = new PHPLocTextFormatter();
                 break;
             default:

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This selector just holds one other selector and forwards all
  * requests to it. It exists so that there is a single selector
@@ -34,7 +36,7 @@ class SelectSelector extends AndSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->hasSelectors() ? sprintf('{select: %s}', parent::__toString()) : '';
     }
@@ -42,6 +44,8 @@ class SelectSelector extends AndSelector
     /**
      * Performs the check for circular references and returns the
      * referenced Selector.
+     *
+     * @return mixed
      */
     private function getRef()
     {
@@ -50,16 +54,20 @@ class SelectSelector extends AndSelector
 
     /**
      * Indicates whether there are any selectors here.
+     *
+     * @return bool
      */
-    public function hasSelectors()
+    public function hasSelectors(): bool
     {
         return $this->isReference() ? $this->getRef()->hasSelectors() : parent::hasSelectors();
     }
 
     /**
      * Gives the count of the number of selectors in this container
+     *
+     * @return int
      */
-    public function count()
+    public function count(): int
     {
         if ($this->isReference()) {
             return count($this->getRef());
@@ -73,17 +81,19 @@ class SelectSelector extends AndSelector
      *
      * @param Project $p
      *
-     * @return array
+     * @return BaseSelectorContainer[]
      */
-    public function getSelectors(Project $p)
+    public function getSelectors(Project $p): array
     {
         return $this->isReference() ? $this->getRef()->getSelectors($p) : parent::getSelectors($p);
     }
 
     /**
      * Returns an enumerator for accessing the set of selectors.
+     *
+     * @return BaseSelectorContainer[]
      */
-    public function selectorElements()
+    public function selectorElements(): array
     {
         return $this->isReference() ? $this->getRef()->selectorElements() : parent::selectorElements();
     }
@@ -97,7 +107,7 @@ class SelectSelector extends AndSelector
      *
      * @throws BuildException
      */
-    public function appendSelector(FileSelector $selector)
+    public function appendSelector(FileSelector $selector): void
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
@@ -108,8 +118,10 @@ class SelectSelector extends AndSelector
     /**
      * Makes sure that there is only one entry, sets an error message if
      * not.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->count() != 1) {
             $this->setError(

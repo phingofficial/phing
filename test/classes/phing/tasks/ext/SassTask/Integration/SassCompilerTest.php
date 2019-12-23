@@ -30,6 +30,11 @@ class SassCompilerTest extends TestCase
     /** @var SassCompiler */
     private $compiler;
 
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
     protected function setUp(): void
     {
         $fs = FileSystem::getFileSystem();
@@ -40,12 +45,18 @@ class SassCompilerTest extends TestCase
         $this->compiler = new SassCompiler('sass', '');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->sassCleanUp(self::SASS_TEST_BASE, 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testItProducesAnyCompiledOutput(): void
     {
         $this->compiler->compile(
@@ -57,6 +68,9 @@ class SassCompilerTest extends TestCase
         $this->assertFileExists(self::SASS_TEST_BASE . 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testItNotProducesAnyCompiledOutputWhenNoInput(): void
     {
         $this->compiler->compile(
@@ -68,6 +82,9 @@ class SassCompilerTest extends TestCase
         $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
     }
 
+    /**
+     * @return void
+     */
     public function testItThrowsExceptionWhenFailOnErrorIsSet(): void
     {
         $this->compiler->compile(

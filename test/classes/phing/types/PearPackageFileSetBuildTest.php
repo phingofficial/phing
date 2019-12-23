@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+declare(strict_types=1);
+
 /**
  * Testcases for phing.types.PearPackageFileSet
  *
@@ -27,7 +29,10 @@
  */
 class PearPackageFileSetBuildTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
             $this->markTestSkipped('This test requires PEAR to be installed');
@@ -41,35 +46,53 @@ class PearPackageFileSetBuildTest extends BuildFileTest
         );
     }
 
-    public function testConsoleGetopt()
+    /**
+     * @return void
+     */
+    public function testConsoleGetopt(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Console' . DIRECTORY_SEPARATOR . 'Getopt.php');
     }
 
-    public function testDirect()
+    /**
+     * @return void
+     */
+    public function testDirect(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Console' . DIRECTORY_SEPARATOR . 'Getopt.php');
     }
 
-    public function testRoleDoc()
+    /**
+     * @return void
+     */
+    public function testRoleDoc(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs(DIRECTORY_SEPARATOR . 'Archive_Tar.txt');
     }
 
-    public function testCopyConsoleGetopt()
+    /**
+     * @return void
+     */
+    public function testCopyConsoleGetopt(): void
     {
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testCopyMapperConsoleGetopt()
+    /**
+     * @return void
+     */
+    public function testCopyMapperConsoleGetopt(): void
     {
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testPackageXmlFilelist()
+    /**
+     * @return void
+     */
+    public function testPackageXmlFilelist(): void
     {
         $registry = new PEAR_Registry();
         if (!$registry->channelExists('pear.phpunit.de')) {
@@ -80,7 +103,10 @@ class PearPackageFileSetBuildTest extends BuildFileTest
         $this->assertInLogs('CONTRIBUTING.md');
     }
 
-    public function testPackageXmlIncludeCondition()
+    /**
+     * @return void
+     */
+    public function testPackageXmlIncludeCondition(): void
     {
         $registry = new PEAR_Registry();
         if (!$registry->channelExists('pear.phpunit.de')) {

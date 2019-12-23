@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * FilterChain may contain a chained set of filter readers.
  *
@@ -28,9 +30,9 @@ class FilterChain extends DataType
     private $filterReaders = [];
 
     /**
-     * @param null $project
+     * @param Project|null $project
      */
-    public function __construct($project = null)
+    public function __construct(?Project $project = null)
     {
         parent::__construct();
 
@@ -42,199 +44,247 @@ class FilterChain extends DataType
     /**
      * @return array
      */
-    public function getFilterReaders()
+    public function getFilterReaders(): array
     {
         return $this->filterReaders;
     }
 
     /**
      * @param ConcatFilter $o
+     *
+     * @return void
      */
-    public function addConcatFilter(ConcatFilter $o)
+    public function addConcatFilter(ConcatFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param ExpandProperties $o
+     *
+     * @return void
      */
-    public function addExpandProperties(ExpandProperties $o)
+    public function addExpandProperties(ExpandProperties $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param TranslateGettext $o
+     *
+     * @return void
      */
-    public function addGettext(TranslateGettext $o)
+    public function addGettext(TranslateGettext $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param HeadFilter $o
+     *
+     * @return void
      */
-    public function addHeadFilter(HeadFilter $o)
+    public function addHeadFilter(HeadFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param IconvFilter $o
+     *
+     * @return void
      */
-    public function addIconvFilter(IconvFilter $o)
+    public function addIconvFilter(IconvFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param TailFilter $o
+     *
+     * @return void
      */
-    public function addTailFilter(TailFilter $o)
+    public function addTailFilter(TailFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param LineContains $o
+     *
+     * @return void
      */
-    public function addLineContains(LineContains $o)
+    public function addLineContains(LineContains $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param LineContainsRegexp $o
+     *
+     * @return void
      */
-    public function addLineContainsRegExp(LineContainsRegexp $o)
+    public function addLineContainsRegExp(LineContainsRegexp $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param PrefixLines $o
+     *
+     * @return void
      */
-    public function addPrefixLines(PrefixLines $o)
+    public function addPrefixLines(PrefixLines $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param SuffixLines $o
+     *
+     * @return void
      */
-    public function addSuffixLines(SuffixLines $o)
+    public function addSuffixLines(SuffixLines $o): void
     {
         $this->add($o);
     }
 
     /**
-     * @param PrefixLines $o
+     * @param EscapeUnicode $o
+     *
+     * @return void
      */
-    public function addEscapeUnicode(EscapeUnicode $o)
+    public function addEscapeUnicode(EscapeUnicode $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param PhpArrayMapLines $o
+     *
+     * @return void
      */
-    public function addPhpArrayMapLines(PhpArrayMapLines $o)
+    public function addPhpArrayMapLines(PhpArrayMapLines $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param ReplaceTokens $o
+     *
+     * @return void
      */
-    public function addReplaceTokens(ReplaceTokens $o)
+    public function addReplaceTokens(ReplaceTokens $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param ReplaceTokensWithFile $o
+     *
+     * @return void
      */
-    public function addReplaceTokensWithFile(ReplaceTokensWithFile $o)
+    public function addReplaceTokensWithFile(ReplaceTokensWithFile $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param ReplaceRegexp $o
+     *
+     * @return void
      */
-    public function addReplaceRegexp(ReplaceRegexp $o)
+    public function addReplaceRegexp(ReplaceRegexp $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param StripPhpComments $o
+     *
+     * @return void
      */
-    public function addStripPhpComments(StripPhpComments $o)
+    public function addStripPhpComments(StripPhpComments $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param StripLineBreaks $o
+     *
+     * @return void
      */
-    public function addStripLineBreaks(StripLineBreaks $o)
+    public function addStripLineBreaks(StripLineBreaks $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param StripLineComments $o
+     *
+     * @return void
      */
-    public function addStripLineComments(StripLineComments $o)
+    public function addStripLineComments(StripLineComments $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param StripWhitespace $o
+     *
+     * @return void
      */
-    public function addStripWhitespace(StripWhitespace $o)
+    public function addStripWhitespace(StripWhitespace $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param TidyFilter $o
+     *
+     * @return void
      */
-    public function addTidyFilter(TidyFilter $o)
+    public function addTidyFilter(TidyFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param TabToSpaces $o
+     *
+     * @return void
      */
-    public function addTabToSpaces(TabToSpaces $o)
+    public function addTabToSpaces(TabToSpaces $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param XincludeFilter $o
+     *
+     * @return void
      */
-    public function addXincludeFilter(XincludeFilter $o)
+    public function addXincludeFilter(XincludeFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param XsltFilter $o
+     *
+     * @return void
      */
-    public function addXsltFilter(XsltFilter $o)
+    public function addXsltFilter(XsltFilter $o): void
     {
         $this->add($o);
     }
 
     /**
      * @param PhingFilterReader $o
+     *
+     * @return void
      */
-    public function addFilterReader(PhingFilterReader $o)
+    public function addFilterReader(PhingFilterReader $o): void
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
@@ -242,13 +292,20 @@ class FilterChain extends DataType
 
     /**
      * @param SortFilter $o
+     *
+     * @return void
      */
-    public function addSortFilter(SortFilter $o)
+    public function addSortFilter(SortFilter $o): void
     {
         $this->add($o);
     }
 
-    private function add(BaseFilterReader $o)
+    /**
+     * @param BaseFilterReader $o
+     *
+     * @return void
+     */
+    private function add(BaseFilterReader $o): void
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
@@ -261,16 +318,12 @@ class FilterChain extends DataType
      * <p>You must not set another attribute or nest elements inside
      * this element if you make it a reference.</p>
      *
-     * @param $r the reference to which this instance is associated
-     * @throws BuildException if this instance already has been configured.
-    */
-
-    /**
-     * @param Reference $r
+     * @param Reference $r The reference to which this instance is associated
      *
-     * @throws BuildException
+     * @throws BuildException If this instance already has been configured.
+     * @return void
      */
-    public function setRefid(Reference $r)
+    public function setRefid(Reference $r): void
     {
         if (count($this->filterReaders) !== 0) {
             throw $this->tooManyAttributes();

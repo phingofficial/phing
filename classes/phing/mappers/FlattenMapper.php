@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Removes any directory information from the passed path.
  *
@@ -31,9 +33,12 @@ class FlattenMapper implements FileNameMapper
      *
      * @param string $sourceFileName The data the mapper works on
      *
-     * @return array  The data after the mapper has been applied
+     * @return array|null The data after the mapper has been applied
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function main($sourceFileName)
+    public function main(string $sourceFileName): ?array
     {
         $f = new PhingFile($sourceFileName);
 
@@ -44,11 +49,11 @@ class FlattenMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param string $to
+     * @param string|null $to
      *
      * @return void
      */
-    public function setTo($to)
+    public function setTo(?string $to): void
     {
     }
 
@@ -56,11 +61,11 @@ class FlattenMapper implements FileNameMapper
      * Ignored here.
      * {@inheritdoc}
      *
-     * @param string $from
+     * @param string|null $from
      *
      * @return void
      */
-    public function setFrom($from)
+    public function setFrom(?string $from): void
     {
     }
 }

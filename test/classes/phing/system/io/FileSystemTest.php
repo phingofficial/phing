@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for FileSystem
  *
@@ -27,20 +28,36 @@ use PHPUnit\Framework\TestCase;
  */
 class FileSystemTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $oldFsType = '';
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->oldFsType = Phing::getProperty('host.fstype');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    protected function tearDown(): void
     {
         Phing::setProperty('host.fstype', $this->oldFsType);
-        $this->_resetFileSystem();
+        $this->resetFileSystem();
     }
 
-    protected function _resetFileSystem()
+    /**
+     * @return void
+     *
+     * @throws ReflectionException
+     */
+    protected function resetFileSystem(): void
     {
         $refClass    = new ReflectionClass('FileSystem');
         $refProperty = $refClass->getProperty('fs');
@@ -48,9 +65,15 @@ class FileSystemTest extends TestCase
         $refProperty->setValue(null);
     }
 
-    public function testGetFileSystemWithUnknownTypeKeyThrowsException()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws ReflectionException
+     */
+    public function testGetFileSystemWithUnknownTypeKeyThrowsException(): void
     {
-        $this->_resetFileSystem();
+        $this->resetFileSystem();
 
         $this->expectException('IOException');
 
@@ -60,20 +83,31 @@ class FileSystemTest extends TestCase
     }
 
     /**
+     * @param string $expectedFileSystemClass
+     * @param string $fsTypeKey
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws ReflectionException
+     *
      * @dataProvider fileSystemMappingsDataProvider
      */
-    public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
+    public function testGetFileSystemReturnsCorrect(string $expectedFileSystemClass, string $fsTypeKey): void
     {
-        $this->_resetFileSystem();
+        $this->resetFileSystem();
 
         Phing::setProperty('host.fstype', $fsTypeKey);
 
         $system = FileSystem::getFileSystem();
 
-        $this->assertInstanceOf($expectedFileSystemClass, $system);
+        self::assertInstanceOf($expectedFileSystemClass, $system);
     }
 
-    public function fileSystemMappingsDataProvider()
+    /**
+     * @return array[]
+     */
+    public function fileSystemMappingsDataProvider(): array
     {
         return [
             ['UnixFileSystem', 'UNIX'],
@@ -81,24 +115,39 @@ class FileSystemTest extends TestCase
         ];
     }
 
-    public function testWhichFailsNonStringExecutable()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testWhichFailsNonStringExecutable(): void
     {
         $fs   = FileSystem::getFileSystem();
         $path = $fs->which(42);
-        $this->assertEquals($path, false);
+        self::assertEquals($path, false);
     }
 
-    public function testWhichFailsDueToUnusualExecutableName()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testWhichFailsDueToUnusualExecutableName(): void
     {
         $fs   = FileSystem::getFileSystem();
         $path = $fs->which('tasword.bin');
-        $this->assertEquals($path, false);
+        self::assertEquals($path, false);
     }
 
-    public function testWhichHinkyExecutableNameWithSeparator()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testWhichHinkyExecutableNameWithSeparator(): void
     {
         $fs   = FileSystem::getFileSystem();
         $path = $fs->which('zx:\tasword.bin');
-        $this->assertEquals($path, false);
+        self::assertEquals($path, false);
     }
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A logger which logs nothing but build failure and what task might output.
  *
@@ -25,34 +27,66 @@
  */
 class SilentLogger extends DefaultLogger
 {
-    public function buildStarted(BuildEvent $event)
+    /**
+     * @param BuildEvent $event
+     *
+     * @return void
+     */
+    public function buildStarted(BuildEvent $event): void
     {
         // log nothing
     }
 
-    public function buildFinished(BuildEvent $event)
+    /**
+     * @param BuildEvent $event
+     *
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function buildFinished(BuildEvent $event): void
     {
-        if ($event->getException() != null) {
+        if ($event->getException() !== null) {
             parent::buildFinished($event);
         }
     }
 
-    public function targetStarted(BuildEvent $event)
+    /**
+     * @param BuildEvent $event
+     *
+     * @return void
+     */
+    public function targetStarted(BuildEvent $event): void
     {
         // log nothing
     }
 
-    public function targetFinished(BuildEvent $event)
+    /**
+     * @param BuildEvent $event
+     *
+     * @return void
+     */
+    public function targetFinished(BuildEvent $event): void
     {
         // log nothing
     }
 
-    public function taskStarted(BuildEvent $event)
+    /**
+     * @param BuildEvent $event
+     *
+     * @return void
+     */
+    public function taskStarted(BuildEvent $event): void
     {
         // log nothing
     }
 
-    public function taskFinished(BuildEvent $event)
+    /**
+     * @param BuildEvent $event
+     *
+     * @return void
+     */
+    public function taskFinished(BuildEvent $event): void
     {
         // log nothing
     }

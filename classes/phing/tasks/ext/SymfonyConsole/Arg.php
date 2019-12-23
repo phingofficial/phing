@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Implementation of console argument
  *
@@ -26,16 +28,27 @@
  */
 class Arg extends DataType
 {
-    private $name   = null;
-    private $value  = null;
+    /**
+     * @var string|null
+     */
+    private $name = null;
+
+    /**
+     * @var string|null
+     */
+    private $value = null;
+
+    /**
+     * @var bool
+     */
     private $quotes = false;
 
     /**
      * Gets the argument name
      *
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -44,8 +57,10 @@ class Arg extends DataType
      * Sets the argument name
      *
      * @param string $name
+     *
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -53,9 +68,9 @@ class Arg extends DataType
     /**
      * Gets the argument value
      *
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -64,8 +79,10 @@ class Arg extends DataType
      * Sets the argument value
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
@@ -75,7 +92,7 @@ class Arg extends DataType
      *
      * @return bool
      */
-    public function getQuotes()
+    public function getQuotes(): bool
     {
         return $this->quotes;
     }
@@ -84,8 +101,10 @@ class Arg extends DataType
      * Should the argument value be enclosed in double quotes
      *
      * @param bool $quotes
+     *
+     * @return void
      */
-    public function setQuotes($quotes)
+    public function setQuotes(bool $quotes): void
     {
         $this->quotes = $quotes;
     }
@@ -96,7 +115,7 @@ class Arg extends DataType
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $name  = '';
         $value = '';

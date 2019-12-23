@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * testcases for phing.IntrospectionHelper.
  *
@@ -28,8 +30,12 @@ class IHCreatorFail2
 {
     /**
      * no class hint!
+     *
+     * @param mixed $blah
+     *
+     * @return void
      */
-    public function addBlah($blah)
+    public function addBlah($blah): void
     {
     }
 }

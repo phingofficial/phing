@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Dirname Task
  *
@@ -25,14 +27,20 @@
  */
 class DirnameTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/DirnameTest.xml'
         );
     }
 
-    public function testDirnameSetToPhingRoot()
+    /**
+     * @return void
+     */
+    public function testDirnameSetToPhingRoot(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('dirname', $this->getProject()->getProperty('phing.home'));

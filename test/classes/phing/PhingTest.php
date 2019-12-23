@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Core Phing class test
  * Do not know why there was no test at all
@@ -36,14 +37,14 @@ class PhingTest extends TestCase
     private const DOTED_CLASS           = 'Vendor.Package.DotedClass';
     private const DOTED_CLASS_SHORTNAME = 'DotedClass';
 
-    protected $classpath;
-
     /**
      * Test a PSR-0 support of class loading
      *
      * @link http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+     *
+     * @return void
      */
-    public function testImportPSR0()
+    public function testImportPSR0(): void
     {
         // Test the namespace support
         $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
@@ -58,8 +59,10 @@ class PhingTest extends TestCase
 
     /**
      * Test the default dot separated class loading
+     *
+     * @return void
      */
-    public function testImportDotPath()
+    public function testImportDotPath(): void
     {
         $className = Phing::import(self::DOTED_CLASS, self::getClassPath());
         self::assertEquals(self::DOTED_CLASS_SHORTNAME, $className);
@@ -68,8 +71,10 @@ class PhingTest extends TestCase
 
     /**
      * Test the convertShorthand function
+     *
+     * @return void
      */
-    public function testConvertShorthand()
+    public function testConvertShorthand(): void
     {
         self::assertEquals(0, Phing::convertShorthand('0'));
         self::assertEquals(-1, Phing::convertShorthand('-1'));
@@ -85,12 +90,18 @@ class PhingTest extends TestCase
         self::assertEquals(200, Phing::convertShorthand('200j'));
     }
 
-    public function testTimer()
+    /**
+     * @return void
+     */
+    public function testTimer(): void
     {
         $this->assertInstanceOf('Timer', Phing::getTimer());
     }
 
-    public function testFloatOnCurrentTimeMillis()
+    /**
+     * @return void
+     */
+    public function testFloatOnCurrentTimeMillis(): void
     {
         if (method_exists($this, 'assertIsFloat')) {
             $this->assertIsFloat(Phing::currentTimeMillis());
@@ -99,15 +110,22 @@ class PhingTest extends TestCase
         }
     }
 
-    public function testGetPhingVersion()
+    /**
+     * @return void
+     *
+     * @throws ConfigurationException
+     */
+    public function testGetPhingVersion(): void
     {
         $this->assertStringStartsWith('Phing ', Phing::getPhingVersion());
     }
 
     /**
+     * @return void
+     *
      * @requires PHP >= 7.2
      */
-    public function testPrintTargets()
+    public function testPrintTargets(): void
     {
         $target = $this->getMockBuilder(Target::class)->getMock();
         $target->method('getDependencies')->willReturn([]);
@@ -116,10 +134,14 @@ class PhingTest extends TestCase
         $phing = new Phing();
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $this->assertNull($phing->printTargets($project));
+        $phing->printTargets($project);
+
+        $this->assertSame(1, 1);
     }
 
     /**
+     * @return void
+     *
      * @requires PHP >= 7.2
      */
     public function testPrintUsage(): void
@@ -127,16 +149,29 @@ class PhingTest extends TestCase
         $phing = new Phing();
         $phing::setErrorStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $this->assertNull($phing::printUsage());
+        $phing::printUsage();
+
+        $this->assertSame(1, 1);
     }
 
-    public function testCallStartupShutdown()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws Exception
+     */
+    public function testCallStartupShutdown(): void
     {
-        $this->assertNull(Phing::startup());
-        $this->assertNull(Phing::shutdown());
+        Phing::startup();
+        Phing::shutdown();
+
+        $this->assertSame(1, 1);
     }
 
-    public function testCurrentProject()
+    /**
+     * @return void
+     */
+    public function testCurrentProject(): void
     {
         $project  = new Project();
         $currProj = Phing::getCurrentProject();
@@ -154,7 +189,7 @@ class PhingTest extends TestCase
      *
      * @return string Classpath
      */
-    protected static function getClassPath()
+    private static function getClassPath(): string
     {
         return __DIR__ . '/../../etc/importclasses';
     }

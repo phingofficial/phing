@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task to create the diff between two databases. Will output the changes needed
  * to convert the reference database to the database.
@@ -27,16 +29,29 @@
  */
 class LiquibaseDiffTask extends AbstractLiquibaseTask
 {
+    /**
+     * @var string
+     */
     protected $referenceUsername;
+
+    /**
+     * @var string
+     */
     protected $referencePassword;
+
+    /**
+     * @var string
+     */
     protected $referenceUrl;
 
     /**
      * Sets the username to connect to the reference database.
      *
      * @param string $username the username
+     *
+     * @return void
      */
-    public function setReferenceUsername($username)
+    public function setReferenceUsername(string $username): void
     {
         $this->referenceUsername = $username;
     }
@@ -45,8 +60,10 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
      * Sets the password to connect to the reference database.
      *
      * @param string $password the password
+     *
+     * @return void
      */
-    public function setReferencePassword($password)
+    public function setReferencePassword(string $password): void
     {
         $this->referencePassword = $password;
     }
@@ -58,16 +75,20 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
      * </code>
      *
      * @param string $url jdbc connection string
+     *
+     * @return void
      */
-    public function setReferenceUrl($url)
+    public function setReferenceUrl(string $url): void
     {
         $this->referenceUrl = $url;
     }
 
     /**
      * @see AbstractTask::checkParams()
+     *
+     * @return void
      */
-    protected function checkParams()
+    protected function checkParams(): void
     {
         parent::checkParams();
 
@@ -86,8 +107,10 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
 
     /**
      * @see Task::main()
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->checkParams();
 

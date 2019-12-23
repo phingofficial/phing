@@ -17,21 +17,38 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class IniFileTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /** @var string */
+    private $inifiletestdir;
+
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/inifile/inifile.xml');
         $this->inifiletestdir = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'inifile';
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testNoSourceOrDestSet()
+    /**
+     * @return void
+     */
+    public function testNoSourceOrDestSet(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Neither source nor dest is set');
@@ -39,7 +56,10 @@ class IniFileTaskTest extends BuildFileTest
         $this->executeTarget('noSourceOrDestSet');
     }
 
-    public function testNonexistingSourceOnly()
+    /**
+     * @return void
+     */
+    public function testNonexistingSourceOnly(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('doesnotexist.ini does not exist');
@@ -47,21 +67,30 @@ class IniFileTaskTest extends BuildFileTest
         $this->executeTarget('nonexistingSourceOnly');
     }
 
-    public function testNonexistingDestOnly()
+    /**
+     * @return void
+     */
+    public function testNonexistingDestOnly(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('doesnotexist.ini does not exist');
         $this->executeTarget('nonexistingDestOnly');
     }
 
-    public function testNonexistingDestAndSource()
+    /**
+     * @return void
+     */
+    public function testNonexistingDestAndSource(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('sourcedoesnotexist.ini does not exist');
         $this->executeTarget('nonexistingDestAndSource');
     }
 
-    public function testExistingSource()
+    /**
+     * @return void
+     */
+    public function testExistingSource(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -72,7 +101,10 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
     }
 
-    public function testExistingSourceWithVerbose()
+    /**
+     * @return void
+     */
+    public function testExistingSourceWithVerbose(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -83,7 +115,10 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
     }
 
-    public function testRemoveKeyFromSectionInSourceFile()
+    /**
+     * @return void
+     */
+    public function testRemoveKeyFromSectionInSourceFile(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -96,7 +131,10 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertEquals($result, "[test]\n; a comment\n");
     }
 
-    public function testRemoveSectionFromSourceFile()
+    /**
+     * @return void
+     */
+    public function testRemoveSectionFromSourceFile(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -109,7 +147,10 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertEquals($result, '');
     }
 
-    public function testDefaultValueInSecondSection()
+    /**
+     * @return void
+     */
+    public function testDefaultValueInSecondSection(): void
     {
         $fill = ["[test]\n", "foo=bar\n", "[test2]\n", "foo=\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);

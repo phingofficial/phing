@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg init
  *
@@ -38,7 +40,7 @@ class HgInitTask extends HgBaseTask
      *
      * @return void
      */
-    public function setTargetPath($targetPath)
+    public function setTargetPath(string $targetPath): void
     {
         $this->targetPath = $targetPath;
     }
@@ -47,8 +49,10 @@ class HgInitTask extends HgBaseTask
      * Main entry point for this task.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $clone = $this->getFactoryInstance('init');
         $this->log('Initializing', Project::MSG_INFO);

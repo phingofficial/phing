@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A property element nested in SonarTask.
  *
@@ -26,19 +28,19 @@
 class SonarProperty
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $value;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -48,15 +50,15 @@ class SonarProperty
      *
      * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = (string) $name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -66,7 +68,7 @@ class SonarProperty
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = (string) $value;
     }

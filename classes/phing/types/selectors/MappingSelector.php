@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A mapping selector is an abstract class adding mapping support to the
  * base selector
@@ -46,8 +48,10 @@ abstract class MappingSelector extends BaseSelector
      * files.
      *
      * @param PhingFile $targetdir the directory to scan looking for files.
+     *
+     * @return void
      */
-    public function setTargetdir(PhingFile $targetdir)
+    public function setTargetdir(PhingFile $targetdir): void
     {
         $this->targetdir = $targetdir;
     }
@@ -59,7 +63,7 @@ abstract class MappingSelector extends BaseSelector
      *
      * @throws BuildException if more than one mapper defined
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->map !== null || $this->mapperElement !== null) {
             throw new BuildException('Cannot define more than one mapper');
@@ -73,9 +77,11 @@ abstract class MappingSelector extends BaseSelector
      *
      * @param FileNameMapper $fileNameMapper the FileNameMapper to add
      *
+     * @return void
+     *
      * @throws BuildException if more than one mapper defined
      */
-    public function addConfigured(FileNameMapper $fileNameMapper)
+    public function addConfigured(FileNameMapper $fileNameMapper): void
     {
         if ($this->map !== null || $this->mapperElement !== null) {
             throw new BuildException('Cannot define more than one mapper');
@@ -86,8 +92,12 @@ abstract class MappingSelector extends BaseSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the dest attribute has been set and we have a mapper.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->targetdir === null) {
             $this->setError('The targetdir attribute is required.');
@@ -114,9 +124,10 @@ abstract class MappingSelector extends BaseSelector
      *
      * @return bool whether the file should be selected or not
      *
-     * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         // throw BuildException on error
         $this->validate();
@@ -150,5 +161,5 @@ abstract class MappingSelector extends BaseSelector
      *
      * @return true if source file compares with destination file
      */
-    abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile);
+    abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile): bool;
 }

@@ -23,6 +23,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Executes Sass for a particular fileset.
  *
@@ -141,7 +143,7 @@ class SassTask extends Task
     /**
      * The fileset we will be running Sass on.
      *
-     * @var array
+     * @var FileSet[]
      */
     protected $filesets = [];
 
@@ -206,7 +208,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setInput($file)
+    public function setInput(string $file): void
     {
         $this->setFile($file);
     }
@@ -218,7 +220,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setOutput($file)
+    public function setOutput(string $file): void
     {
         $this->output = $file;
     }
@@ -229,10 +231,8 @@ class SassTask extends Task
      * @param string $failonerror Jenkins style boolean value
      *
      * @return void
-     *
-     * @access public
      */
-    public function setFailonerror($failonerror)
+    public function setFailonerror(string $failonerror): void
     {
         $this->failonerror = StringHelper::booleanValue($failonerror);
     }
@@ -254,6 +254,8 @@ class SassTask extends Task
 
     /**
      * Return name/path of sass executable.
+     *
+     * @return string
      */
     public function getExecutable(): string
     {
@@ -269,10 +271,8 @@ class SassTask extends Task
      * @param string $extfilter Extension to filter for.
      *
      * @return void
-     *
-     * @access public
      */
-    public function setExtfilter($extfilter)
+    public function setExtfilter(string $extfilter): void
     {
         $this->extfilter = trim($extfilter, ' .');
     }
@@ -282,7 +282,7 @@ class SassTask extends Task
      *
      * @return string
      */
-    public function getExtfilter()
+    public function getExtfilter(): string
     {
         return $this->extfilter;
     }
@@ -304,6 +304,8 @@ class SassTask extends Task
 
     /**
      * Return flags to be used when running the sass executable.
+     *
+     * @return string
      */
     public function getFlags(): string
     {
@@ -322,7 +324,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function setRemoveoldext($removeoldext)
+    public function setRemoveoldext(string $removeoldext): void
     {
         $this->removeoldext = StringHelper::booleanValue($removeoldext);
     }
@@ -332,7 +334,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getRemoveoldext()
+    public function getRemoveoldext(): bool
     {
         return $this->removeoldext;
     }
@@ -344,7 +346,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setEncoding($encoding)
+    public function setEncoding(string $encoding): void
     {
         $encoding = trim($encoding);
         if ($encoding !== '') {
@@ -364,7 +366,7 @@ class SassTask extends Task
      *
      * @return string
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }
@@ -378,10 +380,8 @@ class SassTask extends Task
      * @param string $newext New extension to use, e.g. css
      *
      * @return void
-     *
-     * @access public
      */
-    public function setNewext($newext)
+    public function setNewext(string $newext): void
     {
         $this->newext = trim($newext, ' .');
     }
@@ -391,7 +391,7 @@ class SassTask extends Task
      *
      * @return string
      */
-    public function getNewext()
+    public function getNewext(): string
     {
         return $this->newext;
     }
@@ -408,7 +408,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function setOutputpath($outputpath)
+    public function setOutputpath(string $outputpath): void
     {
         $this->outputpath = rtrim(trim($outputpath), DIRECTORY_SEPARATOR);
     }
@@ -418,7 +418,7 @@ class SassTask extends Task
      *
      * @return string
      */
-    public function getOutputpath()
+    public function getOutputpath(): string
     {
         return $this->outputpath;
     }
@@ -437,7 +437,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function setKeepsubdirectories($keepsubdirectories)
+    public function setKeepsubdirectories(bool $keepsubdirectories): void
     {
         $this->keepsubdirectories = StringHelper::booleanValue($keepsubdirectories);
     }
@@ -447,7 +447,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getKeepsubdirectories()
+    public function getKeepsubdirectories(): bool
     {
         return $this->keepsubdirectories;
     }
@@ -457,7 +457,7 @@ class SassTask extends Task
      *
      * @return FileSet The created fileset object
      */
-    public function createFileSet()
+    public function createFileSet(): FileSet
     {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num - 1];
@@ -470,7 +470,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setCheck($value)
+    public function setCheck(string $value): void
     {
         $check       = StringHelper::booleanValue($value);
         $this->check = $check;
@@ -486,7 +486,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getCheck()
+    public function getCheck(): bool
     {
         return $this->check;
     }
@@ -498,7 +498,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setCompact($value)
+    public function setCompact(string $value): void
     {
         $compress = StringHelper::booleanValue($value);
         if ($compress) {
@@ -515,7 +515,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getCompact()
+    public function getCompact(): bool
     {
         return $this->style === 'compact';
     }
@@ -527,7 +527,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setCompressed($value)
+    public function setCompressed(string $value): void
     {
         $compress = StringHelper::booleanValue($value);
         if ($compress) {
@@ -544,7 +544,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getCompressed()
+    public function getCompressed(): bool
     {
         return $this->style === 'compressed';
     }
@@ -556,7 +556,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setCrunched($value)
+    public function setCrunched(string $value): void
     {
         $compress = StringHelper::booleanValue($value);
         if ($compress) {
@@ -571,7 +571,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getCrunched()
+    public function getCrunched(): bool
     {
         return $this->style === 'crunched';
     }
@@ -583,7 +583,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setExpand($value)
+    public function setExpand(string $value): void
     {
         $expand = StringHelper::booleanValue($value);
         if ($expand) {
@@ -600,7 +600,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getExpand()
+    public function getExpand(): bool
     {
         return $this->style === 'expanded';
     }
@@ -612,7 +612,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setNested($value)
+    public function setNested(string $value): void
     {
         $nested = StringHelper::booleanValue($value);
         if ($nested) {
@@ -629,7 +629,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getNested()
+    public function getNested(): bool
     {
         return $this->style === 'nested';
     }
@@ -641,7 +641,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setForce($value)
+    public function setForce(string $value): void
     {
         $force       = StringHelper::booleanValue($value);
         $this->force = $force;
@@ -657,7 +657,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getForce()
+    public function getForce(): bool
     {
         return $this->force;
     }
@@ -669,7 +669,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setNoCache($value)
+    public function setNoCache(string $value): void
     {
         $noCache       = StringHelper::booleanValue($value);
         $this->noCache = $noCache;
@@ -685,7 +685,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getNoCache()
+    public function getNoCache(): bool
     {
         return $this->noCache;
     }
@@ -705,6 +705,8 @@ class SassTask extends Task
 
     /**
      * Return the SASS import path.
+     *
+     * @return string
      */
     public function getPath(): string
     {
@@ -717,6 +719,8 @@ class SassTask extends Task
      * @param string $style nested|compact|compressed|expanded|crunched
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function setStyle(string $style): void
     {
@@ -738,6 +742,8 @@ class SassTask extends Task
 
     /**
      * Return style used for generating output.
+     *
+     * @return string
      */
     public function getStyle(): string
     {
@@ -753,7 +759,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setTrace($trace)
+    public function setTrace(string $trace): void
     {
         $this->trace = StringHelper::booleanValue($trace);
         if ($this->trace) {
@@ -768,7 +774,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getTrace()
+    public function getTrace(): bool
     {
         return $this->trace;
     }
@@ -780,7 +786,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setUnixnewlines($newlines)
+    public function setUnixnewlines(string $newlines): void
     {
         $unixnewlines       = StringHelper::booleanValue($newlines);
         $this->unixnewlines = $unixnewlines;
@@ -796,7 +802,7 @@ class SassTask extends Task
      *
      * @return bool
      */
-    public function getUnixnewlines()
+    public function getUnixnewlines(): bool
     {
         return $this->unixnewlines;
     }
@@ -805,6 +811,8 @@ class SassTask extends Task
      * Whether to identify source-file and line number for generated CSS.
      *
      * @param string $lineNumbers Jenkins style boolean value
+     *
+     * @return void
      */
     public function setLineNumbers(string $lineNumbers): void
     {
@@ -819,6 +827,8 @@ class SassTask extends Task
 
     /**
      * Return line-numbers setting.
+     *
+     * @return bool
      */
     public function getLineNumbers(): bool
     {
@@ -834,7 +844,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setUseSass($value)
+    public function setUseSass(string $value): void
     {
         $this->useSass = StringHelper::booleanValue($value);
     }
@@ -858,7 +868,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setUseScssphp($value)
+    public function setUseScssphp(string $value): void
     {
         $this->useScssphp = StringHelper::booleanValue($value);
     }
@@ -880,7 +890,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setFile($file)
+    public function setFile(string $file): void
     {
         $this->file = $file;
     }
@@ -892,7 +902,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function init()
+    public function init(): void
     {
         @include_once 'vendor/autoload.php';
     }
@@ -904,10 +914,8 @@ class SassTask extends Task
      *
      * @throws BuildException
      * @throws Exception
-     *
-     * @access public
      */
-    public function main()
+    public function main(): void
     {
         if ($this->useSass) {
             if (strlen($this->executable) < 0) {
@@ -940,7 +948,6 @@ class SassTask extends Task
 
     /**
      * Compile a specified file.
-     *
      * If output file is not specified, but outputpath is, place output in
      * that directory. If neither is specified, place .css file in the
      * directory that the input file is in.
@@ -948,8 +955,10 @@ class SassTask extends Task
      * @param SassTaskCompiler $compiler Compiler to use for processing fileset
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function processFile(SassTaskCompiler $compiler)
+    public function processFile(SassTaskCompiler $compiler): void
     {
         $this->log('Process file', Project::MSG_INFO);
         if (null === $this->output) {
@@ -983,6 +992,11 @@ class SassTask extends Task
      * @param SassTaskCompiler $compiler Compiler to use for processing fileset
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
     public function processFilesets(SassTaskCompiler $compiler): void
     {
@@ -1027,14 +1041,12 @@ class SassTask extends Task
      * Builds the full path to the output file based on our settings.
      *
      * @return string
-     *
-     * @access protected
      */
-    protected function buildOutputFilePath()
+    protected function buildOutputFilePath(): string
     {
         $outputFile = $this->outputpath . DIRECTORY_SEPARATOR;
 
-        $subpath = trim($this->pathInfo['dirname'], ' .');
+        $subpath = trim((string) $this->pathInfo['dirname'], ' .');
 
         if ($this->keepsubdirectories === true && strlen($subpath) > 0) {
             $outputFile .= $subpath . DIRECTORY_SEPARATOR;

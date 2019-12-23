@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A wrapper for the implementations of PHPCPDResultFormatter.
  *
@@ -49,7 +51,7 @@ class PHPCPDFormatterElement
     /**
      * Output file for formatter.
      *
-     * @var PhingFile
+     * @var PhingFile|null
      */
     protected $outfile = null;
 
@@ -75,9 +77,11 @@ class PHPCPDFormatterElement
      *
      * @param string $type Type of the formatter
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
 
@@ -87,14 +91,10 @@ class PHPCPDFormatterElement
                     throw new BuildException('Formatter "' . $this->type . '" can only print the result to an file');
                 }
 
-                include_once 'phing/tasks/ext/phpcpd/formatter/PMDPHPCPDResultFormatter.php';
-
                 $this->formatter = new PMDPHPCPDResultFormatter();
                 break;
 
             case 'default':
-                include_once 'phing/tasks/ext/phpcpd/formatter/DefaultPHPCPDResultFormatter.php';
-
                 $this->formatter = new DefaultPHPCPDResultFormatter();
                 break;
 
@@ -108,7 +108,7 @@ class PHPCPDFormatterElement
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -117,8 +117,10 @@ class PHPCPDFormatterElement
      * Set whether to write formatter results to file or not.
      *
      * @param bool $useFile True or false.
+     *
+     * @return void
      */
-    public function setUseFile($useFile)
+    public function setUseFile(bool $useFile): void
     {
         $this->useFile = StringHelper::booleanValue($useFile);
     }
@@ -128,7 +130,7 @@ class PHPCPDFormatterElement
      *
      * @return bool
      */
-    public function getUseFile()
+    public function getUseFile(): bool
     {
         return $this->useFile;
     }
@@ -137,8 +139,10 @@ class PHPCPDFormatterElement
      * Sets the output file for the formatter results.
      *
      * @param PhingFile $outfile The output file
+     *
+     * @return void
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(PhingFile $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -146,9 +150,9 @@ class PHPCPDFormatterElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return PhingFile|null
      */
-    public function getOutfile()
+    public function getOutfile(): ?PhingFile
     {
         return $this->outfile;
     }
@@ -158,7 +162,7 @@ class PHPCPDFormatterElement
      *
      * @return PHPCPDResultFormatter
      */
-    public function getFormatter()
+    public function getFormatter(): PHPCPDResultFormatter
     {
         return $this->formatter;
     }

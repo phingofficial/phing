@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Stores the number of the last revision of a workingcopy in a property
  *
@@ -28,15 +30,24 @@
  */
 class SvnLastRevisionTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $propertyName = 'svn.lastrevision';
-    private $lastChanged  = false;
+
+    /**
+     * @var bool
+     */
+    private $lastChanged = false;
 
     /**
      * Sets the name of the property to use
      *
      * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
@@ -46,7 +57,7 @@ class SvnLastRevisionTask extends SvnBaseTask
      *
      * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
@@ -55,8 +66,10 @@ class SvnLastRevisionTask extends SvnBaseTask
      * Sets whether to retrieve the last changed revision
      *
      * @param bool $lastChanged
+     *
+     * @return void
      */
-    public function setLastChanged(bool $lastChanged)
+    public function setLastChanged(bool $lastChanged): void
     {
         $this->lastChanged = $lastChanged;
     }
@@ -64,9 +77,11 @@ class SvnLastRevisionTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('info');
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <p>This is a utility class used by selectors and DirectoryScanner. The
  * functionality more properly belongs just to selectors, but unfortunately
@@ -37,8 +39,10 @@ class SelectorUtils
 
     /**
      * Retrieves the instance of the Singleton.
+     *
+     * @return \SelectorUtils
      */
-    public static function getInstance()
+    public static function getInstance(): SelectorUtils
     {
         if (!isset(self::$instance)) {
             self::$instance = new SelectorUtils();
@@ -65,7 +69,7 @@ class SelectorUtils
      * @return bool whether or not a given path matches the start of a given
      *                 pattern up to the first "**".
      */
-    public static function matchPatternStart($pattern, $str, $isCaseSensitive = true)
+    public static function matchPatternStart(string $pattern, string $str, bool $isCaseSensitive = true)
     {
         // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
         // DIRECTORY_SEPARATOR.
@@ -118,7 +122,7 @@ class SelectorUtils
      *
      * @return bool <code>true</code> if the pattern matches against the string,
      */
-    public static function matchPath($pattern, $str, $isCaseSensitive = true)
+    public static function matchPath(string $pattern, string $str, bool $isCaseSensitive = true): bool
     {
         // explicitly exclude directory itself
         if ($str == '' && $pattern == '**/*') {
@@ -158,7 +162,7 @@ class SelectorUtils
      * @return bool <code>true</code> if the string matches against the pattern,
      *                           or <code>false</code> otherwise.
      */
-    public static function match($pattern, $str, $isCaseSensitive = true)
+    public static function match(string $pattern, string $str, bool $isCaseSensitive = true): bool
     {
         $rePattern = preg_quote($pattern, '/');
         $rePattern = str_replace(['\*', '\?'], ['.*', '.'], $rePattern);
@@ -181,8 +185,10 @@ class SelectorUtils
      *                               determining out of dateness
      *
      * @return bool whether   the target is out of date
+     *
+     * @throws IOException
      */
-    public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity)
+    public static function isOutOfDate(PhingFile $src, PhingFile $target, int $granularity): bool
     {
         if (!$src->exists()) {
             return false;
@@ -198,7 +204,7 @@ class SelectorUtils
      *
      * @return string
      */
-    public static function removeWhitespace($string)
+    public static function removeWhitespace(string $string): string
     {
         return preg_replace(
             "/(\t|\n|\v|\f|\r| |\xC2\x85|\xc2\xa0|\xe1\xa0\x8e|\xe2\x80[\x80-\x8D]|\xe2\x80\xa8|\xe2\x80\xa9|\xe2\x80\xaF|\xe2\x81\x9f|\xe2\x81\xa0|\xe3\x80\x80|\xef\xbb\xbf)+/",

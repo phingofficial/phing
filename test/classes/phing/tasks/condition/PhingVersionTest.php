@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Testcase for the PhingVersion task/condition.
  *
@@ -25,40 +27,61 @@
  */
 class PhingVersionTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/PhingVersionTest.xml'
         );
     }
 
-    public function testPhingVersion()
+    /**
+     * @return void
+     */
+    public function testPhingVersion(): void
     {
         $this->executeTarget(__FUNCTION__);
         $expectedVersion = $this->getProject()->getProperty('version1');
         $this->assertPropertyEquals('version1', $expectedVersion);
     }
 
-    public function testPhingVersionAtLeastPos()
+    /**
+     * @return void
+     */
+    public function testPhingVersionAtLeastPos(): void
     {
         $this->executeTarget(__FUNCTION__);
         $expectedVersion = $this->getProject()->getProperty('version2');
         $this->assertPropertyEquals('version2', $expectedVersion);
     }
 
-    public function testPhingVersionAtLeastNeg()
+    /**
+     * @return void
+     */
+    public function testPhingVersionAtLeastNeg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('version3');
     }
 
-    public function testPhingVersionIsNotExact()
+    /**
+     * @return void
+     */
+    public function testPhingVersionIsNotExact(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('version4');
     }
 
-    public function testPhingVersionAsCondition()
+    /**
+     * @return void
+     */
+    public function testPhingVersionAsCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isTrue');

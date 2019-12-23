@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * An interface used to describe the actions required by any type of
  * directory scanner that supports Selecters.
@@ -31,20 +33,22 @@ interface SelectorScanner
      * Sets the selectors the scanner should use.
      *
      * @param array $selectors the list of selectors
+     *
+     * @return void
      */
-    public function setSelectors($selectors);
+    public function setSelectors(array $selectors): void;
 
     /**
      * Directories which were selected out of a scan.
      *
      * @return array the names of the directories which were deselected.
      */
-    public function getDeselectedDirectories();
+    public function getDeselectedDirectories(): array;
 
     /**
      * Files which were selected out of a scan.
      *
      * @return array the names of the files which were deselected.
      */
-    public function getDeselectedFiles();
+    public function getDeselectedFiles(): array;
 }

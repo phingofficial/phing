@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Echo Task
  *
@@ -25,38 +27,56 @@
  */
 class EchoTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/EchoTest.xml'
         );
     }
 
-    public function testPropertyMsg()
+    /**
+     * @return void
+     */
+    public function testPropertyMsg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('This is a msg');
     }
 
-    public function testPropertyMessage()
+    /**
+     * @return void
+     */
+    public function testPropertyMessage(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('This is a message');
     }
 
-    public function testInlineText()
+    /**
+     * @return void
+     */
+    public function testInlineText(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('This is a nested inline text message');
     }
 
-    public function testFileset()
+    /**
+     * @return void
+     */
+    public function testFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('EchoTest.xml');
     }
 
-    public function testDirset()
+    /**
+     * @return void
+     */
+    public function testDirset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ext');
@@ -64,14 +84,20 @@ class EchoTaskTest extends BuildFileTest
         $this->assertInLogs('system');
     }
 
-    public function testFilesetInline()
+    /**
+     * @return void
+     */
+    public function testFilesetInline(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('foo');
         $this->assertInLogs('EchoTest.xml');
     }
 
-    public function testFilesetMsg()
+    /**
+     * @return void
+     */
+    public function testFilesetMsg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("foo\n");

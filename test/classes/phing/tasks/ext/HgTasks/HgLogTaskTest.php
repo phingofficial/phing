@@ -17,9 +17,17 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 class HgLogTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
@@ -28,12 +36,18 @@ class HgLogTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testMaxCountShouldBeAnInteger()
+    /**
+     * @return void
+     */
+    public function testMaxCountShouldBeAnInteger(): void
     {
         $this->expectBuildExceptionContaining(
             'maxCountShouldBeAnInteger',
@@ -42,7 +56,10 @@ class HgLogTaskTest extends BuildFileTest
         );
     }
 
-    public function testMaxCountShouldBeAnInteger2()
+    /**
+     * @return void
+     */
+    public function testMaxCountShouldBeAnInteger2(): void
     {
         $this->expectBuildExceptionContaining(
             'maxCountShouldBeAnInteger2',

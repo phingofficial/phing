@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit test for UnixFileSystem
  *
@@ -33,35 +34,49 @@ class UnixFileSystemTest extends TestCase
      */
     private $fs;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->fs = new UnixFileSystem();
     }
 
-    public function tearDown(): void
-    {
-    }
-
-    public function testCompare()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testCompare(): void
     {
         $f1 = new PhingFile(__FILE__);
         $f2 = new PhingFile(__FILE__);
 
-        $this->assertEquals($this->fs->compare($f1, $f2), 0);
+        self::assertEquals($this->fs->compare($f1, $f2), 0);
     }
 
-    public function testHomeDirectory1()
+    /**
+     * @return void
+     */
+    public function testHomeDirectory1(): void
     {
-        $this->assertEquals($this->fs->normalize('~/test'), '~/test');
+        self::assertEquals($this->fs->normalize('~/test'), '~/test');
     }
 
-    public function testHomeDirectory2()
+    /**
+     * @return void
+     */
+    public function testHomeDirectory2(): void
     {
-        $this->assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
+        self::assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
     }
 
-    public function testHomeDirectory3()
+    /**
+     * @return void
+     */
+    public function testHomeDirectory3(): void
     {
-        $this->assertEquals($this->fs->normalize('~test'), '~test');
+        self::assertEquals($this->fs->normalize('~test'), '~test');
     }
 }

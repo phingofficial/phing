@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Append / Concat Task
  *
@@ -29,54 +31,87 @@ class AppendTaskTest extends BuildFileTest
 
     /**
      * Setup the test
+     *
+     * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/AppendTest.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->getProject()->executeTarget('cleanup');
     }
 
-    public function test1()
+    /**
+     * @return void
+     */
+    public function test1(): void
     {
         $this->expectException(BuildException::class);
 
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
-    public function test2()
+    /**
+     * @return void
+     */
+    public function test2(): void
     {
         $this->expectException(BuildException::class);
 
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
-    public function test3()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function test3(): void
     {
         $file = new PhingFile($this->getProject()->getBasedir(), $this->tempFile);
         if ($file->exists()) {
             $file->delete();
         }
 
+        $this->assertFalse($file->exists());
+
         $this->executeTarget(__FUNCTION__);
 
         $this->assertTrue($file->exists());
     }
 
-    public function test4()
+    /**
+     * @return void
+     */
+    public function test4(): void
     {
         $this->expectLog(__FUNCTION__, 'Hello, World!');
     }
 
-    public function testConcatNoNewline()
+    /**
+     * @return void
+     */
+    public function testConcatNoNewline(): void
     {
         $this->expectLog(__FUNCTION__, 'ab');
     }
 
-    public function testPath()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
+     * @depends test3
+     */
+    public function testPath(): void
     {
         $this->test3();
 
@@ -91,7 +126,15 @@ class AppendTaskTest extends BuildFileTest
         $this->assertEquals($origSize, $newSize);
     }
 
-    public function testAppend()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
+     * @depends test3
+     */
+    public function testAppend(): void
     {
         $this->test3();
 
@@ -106,12 +149,21 @@ class AppendTaskTest extends BuildFileTest
         $this->assertEquals($origSize * 2, $newSize);
     }
 
-    public function testFilter()
+    /**
+     * @return void
+     */
+    public function testFilter(): void
     {
         $this->expectLog('testfilter', 'REPLACED');
     }
 
-    public function testNoOverwrite()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testNoOverwrite(): void
     {
         $this->executeTarget('testnooverwrite');
         $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
@@ -119,13 +171,27 @@ class AppendTaskTest extends BuildFileTest
         $this->assertEquals($size, 0);
     }
 
-    public function testheaderfooter()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
+     * @depends test3
+     */
+    public function testheaderfooter(): void
     {
         $this->test3();
         $this->expectLog('testheaderfooter', 'headerHello, World!footer');
     }
 
-    public function testfileheader()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testfileheader(): void
     {
         $this->test3();
         $this->expectLog('testfileheader', 'Hello, World!Hello, World!');
@@ -133,20 +199,28 @@ class AppendTaskTest extends BuildFileTest
 
     /**
      * Expect an exception when attempting to cat an file to itself
+     *
+     * @return void
      */
-    public function testsame()
+    public function testsame(): void
     {
         $this->expectException(BuildException::class);
 
         $this->executeTarget('samefile');
     }
 
-    public function testfilterinline()
+    /**
+     * @return void
+     */
+    public function testfilterinline(): void
     {
         $this->expectLogContaining('testfilterinline', 'REPLACED');
     }
 
-    public function testfixlastline()
+    /**
+     * @return void
+     */
+    public function testfixlastline(): void
     {
         $this->executeTarget('testfixlastline');
         $this->assertStringContainsString(
@@ -155,7 +229,10 @@ class AppendTaskTest extends BuildFileTest
         );
     }
 
-    public function testfixlastlineeol()
+    /**
+     * @return void
+     */
+    public function testfixlastlineeol(): void
     {
         $this->executeTarget('testfixlastlineeol');
         $this->assertStringContainsString(

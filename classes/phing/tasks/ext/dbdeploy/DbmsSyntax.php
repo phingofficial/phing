@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Utility class for generating necessary server-specific SQL commands
  *
@@ -27,10 +29,15 @@ abstract class DbmsSyntax
 {
     /**
      * @param PDO $db
+     *
+     * @return void
      */
-    public function applyAttributes($db)
+    public function applyAttributes(PDO $db): void
     {
     }
 
-    abstract public function generateTimestamp();
+    /**
+     * @return string
+     */
+    abstract public function generateTimestamp(): string;
 }

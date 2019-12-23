@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Base class for extracting tasks such as Unzip and Untar.
  *
@@ -32,6 +34,7 @@ abstract class ExtractBaseTask extends MatchingTask
      * @var PhingFile $file
      */
     protected $file;
+
     /**
      * @var PhingFile $todir
      */
@@ -53,7 +56,7 @@ abstract class ExtractBaseTask extends MatchingTask
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -65,7 +68,7 @@ abstract class ExtractBaseTask extends MatchingTask
      *
      * @return void
      */
-    public function setToDir(PhingFile $todir)
+    public function setToDir(PhingFile $todir): void
     {
         $this->todir = $todir;
     }
@@ -75,7 +78,7 @@ abstract class ExtractBaseTask extends MatchingTask
      *
      * @return void
      */
-    public function setRemovePath($removepath)
+    public function setRemovePath($removepath): void
     {
         $this->removepath = $removepath;
     }
@@ -87,7 +90,7 @@ abstract class ExtractBaseTask extends MatchingTask
      *
      * @return void
      */
-    public function setForceExtract(bool $forceExtract)
+    public function setForceExtract(bool $forceExtract): void
     {
         $this->forceExtract = $forceExtract;
     }
@@ -95,9 +98,13 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * do the work
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws IOException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->validateAttributes();
 
@@ -155,8 +162,11 @@ abstract class ExtractBaseTask extends MatchingTask
      * @return bool
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    protected function isDestinationUpToDate(PhingFile $compressedArchiveFile)
+    protected function isDestinationUpToDate(PhingFile $compressedArchiveFile): bool
     {
         if (!$compressedArchiveFile->exists()) {
             throw new BuildException('Could not find file ' . $compressedArchiveFile->__toString() . ' to extract.');
@@ -194,7 +204,7 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * @param PhingFile $compressedArchiveFile
      *
-     * @return mixed
+     * @return array|int
      */
     abstract protected function listArchiveContent(PhingFile $compressedArchiveFile);
 
@@ -204,8 +214,9 @@ abstract class ExtractBaseTask extends MatchingTask
      * @return void
      *
      * @throws BuildException
+     * @throws IOException
      */
-    protected function validateAttributes()
+    protected function validateAttributes(): void
     {
         if ($this->file === null && count($this->filesets) === 0) {
             throw new BuildException('Specify at least one source compressed archive - a file or a fileset.');

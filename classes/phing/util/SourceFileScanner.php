@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  *  Utility class that collects the functionality of the various
  *  scanDir methods that have been scattered in several tasks before.
@@ -30,19 +32,21 @@
 class SourceFileScanner
 {
     /**
-     * Instance of FileUtils
+     * @var FileUtils
      */
     private $fileUtils;
 
     /**
-     * Task this class is working for -- for logging purposes.
+     * @var Task this class is working for -- for logging purposes.
      */
     private $task;
 
     /**
      * @param Task $task The task we should log messages through
+     *
+     * @throws IOException
      */
-    public function __construct($task)
+    public function __construct(Task $task)
     {
         $this->task      = $task;
         $this->fileUtils = new FileUtils();
@@ -54,7 +58,7 @@ class SourceFileScanner
      *
      * @param iterable       $files   the original set of files
      * @param PhingFile      $srcDir  all files are relative to this directory
-     * @param PhingFile      $destDir target files live here. if null file names
+     * @param PhingFile|null $destDir target files live here. if null file names
      *                                returned by the mapper are assumed to be absolute.
      * @param FilenameMapper $mapper  knows how to construct a target file names from
      *                                source file names.
@@ -62,8 +66,12 @@ class SourceFileScanner
      *                                forced to be copied.
      *
      * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
+    public function restrict(iterable &$files, PhingFile $srcDir, ?PhingFile $destDir, FileNameMapper $mapper, bool $force = false): array
     {
         $now        = time();
         $targetList = '';
@@ -84,7 +92,7 @@ class SourceFileScanner
         $v = [];
 
         for ($i = 0, $size = count($files); $i < $size; $i++) {
-            $targets = $mapper->main($files[$i]);
+            $targets = $mapper->main((string) $files[$i]);
             if (empty($targets)) {
                 $this->task->log($files[$i] . " skipped - don't know how to handle it", Project::MSG_VERBOSE);
                 continue;
@@ -95,7 +103,7 @@ class SourceFileScanner
                 if ($srcDir === null) {
                     $src = new PhingFile($files[$i]);
                 } else {
-                    $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
+                    $src = $this->fileUtils->resolveFile($srcDir, (string) $files[$i]);
                 }
 
                 if ($src->lastModified() > $now) {
@@ -170,11 +178,14 @@ class SourceFileScanner
      * @param iterable       $files
      * @param PhingFile      $srcDir
      * @param PhingFile      $destDir
-     * @param FilenameMapper $mapper
+     * @param FileNameMapper $mapper
      *
      * @return array
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)
+    public function restrictAsFiles(iterable &$files, PhingFile $srcDir, PhingFile $destDir, FileNameMapper &$mapper): array
     {
         $res    = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = [];

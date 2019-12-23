@@ -17,23 +17,39 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.filters
  */
 class StripWhitespaceTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/filters/stripwhitespace.xml');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('cleanup');
     }
 
-    public function testStripWhitespace()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function testStripWhitespace(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -41,11 +57,11 @@ class StripWhitespaceTest extends BuildFileTest
 
         $expected = <<<EXPECTED
 <?php
-class { public function __construct() { return ''; } } 
+class { public function __construct() { return ''; } }
 EXPECTED;
 
         $result = file_get_contents($resultFile->getAbsolutePath());
 
-        $this->assertEquals($expected, $result, "Files don't match!");
+        self::assertEquals($expected, $result, "Files don't match!");
     }
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Invokes the ionCube Encoder (PHP4 or PHP5)
  *
@@ -28,34 +30,69 @@
  */
 class IoncubeEncoderTask extends Task
 {
+    /**
+     * @var array
+     */
     private $ionSwitches = [];
 
+    /**
+     * @var array
+     */
     private $ionOptions = [];
 
+    /**
+     * @var array
+     */
     private $ionOptionsXS = [];
 
+    /**
+     * @var IoncubeComment[]
+     */
     private $comments = [];
 
+    /**
+     * @var string
+     */
     private $encoderName = 'ioncube_encoder';
 
+    /**
+     * @var string
+     */
     private $fromDir = '';
 
+    /**
+     * @var string
+     */
     private $ioncubePath = '/usr/local/ioncube';
 
+    /**
+     * @var string
+     */
     private $phpVersion = '5';
 
+    /**
+     * @var string
+     */
     private $targetOption = '';
 
+    /**
+     * @var string
+     */
     private $toDir = '';
 
+    /**
+     * @var bool
+     */
     private $showCommandLine = false;
 
     /**
      * Sets whether to show command line before it is executed
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setShowCommandLine($value)
+    public function setShowCommandLine(bool $value): void
     {
         $this->showCommandLine = $value;
     }
@@ -64,8 +101,10 @@ class IoncubeEncoderTask extends Task
      * Adds a comment to be used in encoded files
      *
      * @param IoncubeComment $comment
+     *
+     * @return void
      */
-    public function addComment(IoncubeComment $comment)
+    public function addComment(IoncubeComment $comment): void
     {
         $this->comments[] = $comment;
     }
@@ -74,16 +113,20 @@ class IoncubeEncoderTask extends Task
      * Sets the allowed server
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setAllowedServer($value)
+    public function setAllowedServer(string $value): void
     {
         $this->ionOptionsXS['allowed-server'] = $value;
     }
 
     /**
      * Returns the allowed server setting
+     *
+     * @return string
      */
-    public function getAllowedServer()
+    public function getAllowedServer(): string
     {
         return $this->ionOptionsXS['allowed-server'];
     }
@@ -92,16 +135,20 @@ class IoncubeEncoderTask extends Task
      * Sets the binary option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setBinary($value)
+    public function setBinary(bool $value): void
     {
         $this->ionSwitches['binary'] = $value;
     }
 
     /**
      * Returns the binary option
+     *
+     * @return bool
      */
-    public function getBinary()
+    public function getBinary(): bool
     {
         return $this->ionSwitches['binary'];
     }
@@ -110,16 +157,20 @@ class IoncubeEncoderTask extends Task
      * Sets files or folders to copy (separated by space)
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setCopy($value)
+    public function setCopy(string $value): void
     {
         $this->ionOptionsXS['copy'] = $value;
     }
 
     /**
      * Returns the copy setting
+     *
+     * @return string
      */
-    public function getCopy()
+    public function getCopy(): string
     {
         return $this->ionOptionsXS['copy'];
     }
@@ -129,16 +180,20 @@ class IoncubeEncoderTask extends Task
      * or to reverse the effect of copy (separated by space)
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setEncode($value)
+    public function setEncode(string $value): void
     {
         $this->ionOptionsXS['encode'] = $value;
     }
 
     /**
      * Returns the encode setting
+     *
+     * @return string
      */
-    public function getEncode()
+    public function getEncode(): string
     {
         return $this->ionOptionsXS['encode'];
     }
@@ -147,16 +202,20 @@ class IoncubeEncoderTask extends Task
      * Sets regexps of additional files to encrypt (separated by space)
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setEncrypt($value)
+    public function setEncrypt(string $value): void
     {
         $this->ionOptionsXS['encrypt'] = $value;
     }
 
     /**
      * Returns regexps of additional files to encrypt (separated by space)
+     *
+     * @return string
      */
-    public function getEncrypt()
+    public function getEncrypt(): string
     {
         return $this->ionOptionsXS['encrypt'];
     }
@@ -165,16 +224,20 @@ class IoncubeEncoderTask extends Task
      * Sets a period after which the files expire
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setExpirein($value)
+    public function setExpirein(string $value): void
     {
         $this->ionOptions['expire-in'] = $value;
     }
 
     /**
      * Returns the expireIn setting
+     *
+     * @return string
      */
-    public function getExpirein()
+    public function getExpirein(): string
     {
         return $this->ionOptions['expire-in'];
     }
@@ -183,16 +246,20 @@ class IoncubeEncoderTask extends Task
      * Sets a YYYY-MM-DD date to expire the files
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setExpireon($value)
+    public function setExpireon(string $value): void
     {
         $this->ionOptions['expire-on'] = $value;
     }
 
     /**
      * Returns the expireOn setting
+     *
+     * @return string
      */
-    public function getExpireon()
+    public function getExpireon(): string
     {
         return $this->ionOptions['expire-on'];
     }
@@ -201,16 +268,20 @@ class IoncubeEncoderTask extends Task
      * Sets the source directory
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setFromDir($value)
+    public function setFromDir(string $value): void
     {
         $this->fromDir = $value;
     }
 
     /**
      * Returns the source directory
+     *
+     * @return string
      */
-    public function getFromDir()
+    public function getFromDir(): string
     {
         return $this->fromDir;
     }
@@ -220,16 +291,20 @@ class IoncubeEncoderTask extends Task
      * (separated by space).
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setIgnore($value)
+    public function setIgnore(string $value): void
     {
         $this->ionOptionsXS['ignore'] = $value;
     }
 
     /**
      * Returns the ignore setting
+     *
+     * @return string
      */
-    public function getIgnore()
+    public function getIgnore(): string
     {
         return $this->ionOptionsXS['ignore'];
     }
@@ -238,16 +313,20 @@ class IoncubeEncoderTask extends Task
      * Sets the path to the ionCube encoder
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setIoncubePath($value)
+    public function setIoncubePath(string $value): void
     {
         $this->ioncubePath = $value;
     }
 
     /**
      * Returns the path to the ionCube encoder
+     *
+     * @return string
      */
-    public function getIoncubePath()
+    public function getIoncubePath(): string
     {
         return $this->ioncubePath;
     }
@@ -256,16 +335,20 @@ class IoncubeEncoderTask extends Task
      * Set files and directories not to be ignored (separated by space).
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setKeep($value)
+    public function setKeep(string $value): void
     {
         $this->ionOptionsXS['keep'] = $value;
     }
 
     /**
      * Returns the ignore setting
+     *
+     * @return string
      */
-    public function getKeep()
+    public function getKeep(): string
     {
         return $this->ionOptionsXS['keep'];
     }
@@ -274,16 +357,20 @@ class IoncubeEncoderTask extends Task
      * Sets the path to the license file to use
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setLicensePath($value)
+    public function setLicensePath(string $value): void
     {
         $this->ionOptions['with-license'] = $value;
     }
 
     /**
      * Returns the path to the license file to use
+     *
+     * @return string
      */
-    public function getLicensePath()
+    public function getLicensePath(): string
     {
         return $this->ionOptions['with-license'];
     }
@@ -292,16 +379,20 @@ class IoncubeEncoderTask extends Task
      * Sets the no-doc-comments option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setNoDocComments($value)
+    public function setNoDocComments(bool $value): void
     {
         $this->ionSwitches['no-doc-comment'] = $value;
     }
 
     /**
      * Returns the no-doc-comments option
+     *
+     * @return bool
      */
-    public function getNoDocComments()
+    public function getNoDocComments(): bool
     {
         return $this->ionSwitches['no-doc-comment'];
     }
@@ -310,16 +401,20 @@ class IoncubeEncoderTask extends Task
      * Sets the obfuscate option
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setObfuscate($value)
+    public function setObfuscate(string $value): void
     {
         $this->ionOptionsXS['obfuscate'] = $value;
     }
 
     /**
      * Returns the optimize option
+     *
+     * @return string
      */
-    public function getObfuscate()
+    public function getObfuscate(): string
     {
         return $this->ionOptionsXS['obfuscate'];
     }
@@ -328,16 +423,20 @@ class IoncubeEncoderTask extends Task
      * Sets the obfuscation key (required if using the obfuscate option)
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setObfuscationKey($value)
+    public function setObfuscationKey(string $value): void
     {
         $this->ionOptions['obfuscation-key'] = $value;
     }
 
     /**
      * Returns the optimize option
+     *
+     * @return string
      */
-    public function getObfuscationKey()
+    public function getObfuscationKey(): string
     {
         return $this->ionOptions['obfuscation-key'];
     }
@@ -346,16 +445,20 @@ class IoncubeEncoderTask extends Task
      * Sets the optimize option
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setOptimize($value)
+    public function setOptimize(string $value): void
     {
         $this->ionOptions['optimize'] = $value;
     }
 
     /**
      * Returns the optimize option
+     *
+     * @return string
      */
-    public function getOptimize()
+    public function getOptimize(): string
     {
         return $this->ionOptions['optimize'];
     }
@@ -364,16 +467,20 @@ class IoncubeEncoderTask extends Task
      * Sets the passphrase to use when encoding files
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setPassPhrase($value)
+    public function setPassPhrase(string $value): void
     {
         $this->ionOptions['passphrase'] = $value;
     }
 
     /**
      * Returns the passphrase to use when encoding files
+     *
+     * @return string
      */
-    public function getPassPhrase()
+    public function getPassPhrase(): string
     {
         return $this->ionOptions['passphrase'];
     }
@@ -382,16 +489,20 @@ class IoncubeEncoderTask extends Task
      * Sets the version of PHP to use (defaults to 5)
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setPhpVersion($value)
+    public function setPhpVersion(string $value): void
     {
         $this->phpVersion = $value;
     }
 
     /**
      * Returns the version of PHP to use (defaults to 5)
+     *
+     * @return string
      */
-    public function getPhpVersion()
+    public function getPhpVersion(): string
     {
         return $this->phpVersion;
     }
@@ -400,16 +511,20 @@ class IoncubeEncoderTask extends Task
      * Sets the target directory
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setToDir($value)
+    public function setToDir(string $value): void
     {
         $this->toDir = $value;
     }
 
     /**
      * Returns the target directory
+     *
+     * @return string
      */
-    public function getToDir()
+    public function getToDir(): string
     {
         return $this->toDir;
     }
@@ -418,16 +533,20 @@ class IoncubeEncoderTask extends Task
      * Sets the without-runtime-loader-support option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setWithoutRuntimeLoaderSupport($value)
+    public function setWithoutRuntimeLoaderSupport(bool $value): void
     {
         $this->ionSwitches['without-runtime-loader-support'] = $value;
     }
 
     /**
      * Returns the without-runtime-loader-support option
+     *
+     * @return bool
      */
-    public function getWithoutRuntimeLoaderSupport()
+    public function getWithoutRuntimeLoaderSupport(): bool
     {
         return $this->ionSwitches['without-runtime-loader-support'];
     }
@@ -436,16 +555,20 @@ class IoncubeEncoderTask extends Task
      * Sets the no-short-open-tags option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setNoShortOpenTags($value)
+    public function setNoShortOpenTags(bool $value): void
     {
         $this->ionSwitches['no-short-open-tags'] = $value;
     }
 
     /**
      * Returns the no-short-open-tags option
+     *
+     * @return bool
      */
-    public function getNoShortOpenTags()
+    public function getNoShortOpenTags(): bool
     {
         return $this->ionSwitches['no-short-open-tags'];
     }
@@ -454,16 +577,20 @@ class IoncubeEncoderTask extends Task
      * Sets the ignore-deprecated-warnings option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setIgnoreDeprecatedWarnings($value)
+    public function setIgnoreDeprecatedWarnings(bool $value): void
     {
         $this->ionSwitches['ignore-deprecated-warnings'] = $value;
     }
 
     /**
      * Returns the ignore-deprecated-warnings option
+     *
+     * @return bool
      */
-    public function getIgnoreDeprecatedWarnings()
+    public function getIgnoreDeprecatedWarnings(): bool
     {
         return $this->ionSwitches['ignore-deprecated-warnings'];
     }
@@ -472,16 +599,20 @@ class IoncubeEncoderTask extends Task
      * Sets the ignore-strict-warnings option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setIgnoreStrictWarnings($value)
+    public function setIgnoreStrictWarnings(bool $value): void
     {
         $this->ionSwitches['ignore-strict-warnings'] = $value;
     }
 
     /**
      * Returns the ignore-strict-warnings option
+     *
+     * @return bool
      */
-    public function getIgnoreStrictWarnings()
+    public function getIgnoreStrictWarnings(): bool
     {
         return $this->ionSwitches['ignore-strict-warnings'];
     }
@@ -490,16 +621,20 @@ class IoncubeEncoderTask extends Task
      * Sets the allow-encoding-into-source option
      *
      * @param bool $value
+     *
+     * @return void
      */
-    public function setAllowEncodingIntoSource($value)
+    public function setAllowEncodingIntoSource(bool $value): void
     {
         $this->ionSwitches['allow-encoding-into-source'] = $value;
     }
 
     /**
      * Returns the allow-encoding-into-source option
+     *
+     * @return bool
      */
-    public function getAllowEncodingIntoSource()
+    public function getAllowEncodingIntoSource(): bool
     {
         return $this->ionSwitches['allow-encoding-into-source'];
     }
@@ -508,16 +643,20 @@ class IoncubeEncoderTask extends Task
      * Sets the message-if-no-loader option
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setMessageIfNoLoader($value)
+    public function setMessageIfNoLoader(string $value): void
     {
         $this->ionOptions['message-if-no-loader'] = $value;
     }
 
     /**
      * Returns the message-if-no-loader option
+     *
+     * @return string
      */
-    public function getMessageIfNoLoader()
+    public function getMessageIfNoLoader(): string
     {
         return $this->ionOptions['message-if-no-loader'];
     }
@@ -526,16 +665,20 @@ class IoncubeEncoderTask extends Task
      * Sets the action-if-no-loader option
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setActionIfNoLoader($value)
+    public function setActionIfNoLoader(string $value): void
     {
         $this->ionOptions['action-if-no-loader'] = $value;
     }
 
     /**
      * Returns the action-if-no-loader option
+     *
+     * @return string
      */
-    public function getActionIfNoLoader()
+    public function getActionIfNoLoader(): string
     {
         return $this->ionOptions['action-if-no-loader'];
     }
@@ -544,16 +687,20 @@ class IoncubeEncoderTask extends Task
      * Sets the option to use when encoding target directory already exists (defaults to none)
      *
      * @param string $targetOption
+     *
+     * @return void
      */
-    public function setTargetOption($targetOption)
+    public function setTargetOption(string $targetOption): void
     {
         $this->targetOption = $targetOption;
     }
 
     /**
      * Returns the option to use when encoding target directory already exists (defaults to none)
+     *
+     * @return string
      */
-    public function getTargetOption()
+    public function getTargetOption(): string
     {
         return $this->targetOption;
     }
@@ -562,16 +709,20 @@ class IoncubeEncoderTask extends Task
      * Sets the callback-file option
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setCallbackFile($value)
+    public function setCallbackFile(string $value): void
     {
         $this->ionOptions['callback-file'] = $value;
     }
 
     /**
      * Returns the callback-file option
+     *
+     * @return string
      */
-    public function getCallbackFile()
+    public function getCallbackFile(): string
     {
         return $this->ionOptions['callback-file'];
     }
@@ -580,16 +731,20 @@ class IoncubeEncoderTask extends Task
      * Sets the obfuscation-exclusions-file option
      *
      * @param string $value
+     *
+     * @return void
      */
-    public function setObfuscationExclusionFile($value)
+    public function setObfuscationExclusionFile(string $value): void
     {
         $this->ionOptions['obfuscation-exclusion-file'] = $value;
     }
 
     /**
      * Returns the obfuscation-exclusions-file option
+     *
+     * @return string
      */
-    public function getObfuscationExclusionFile()
+    public function getObfuscationExclusionFile(): string
     {
         return $this->ionOptions['obfuscation-exclusion-file'];
     }
@@ -597,9 +752,13 @@ class IoncubeEncoderTask extends Task
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $arguments = $this->constructArguments();
 
@@ -620,8 +779,10 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Constructs an argument string for the ionCube encoder
+     *
+     * @return string
      */
-    private function constructArguments()
+    private function constructArguments(): string
     {
         $arguments = '';
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task that changes the permissions on a file/directory.
  *
@@ -29,13 +31,30 @@ class ChmodTask extends Task
     use DirSetAware;
     use FileSetAware;
 
+    /**
+     * @var PhingFile
+     */
     private $file;
 
+    /**
+     * @var string
+     */
     private $mode;
 
-    private $quiet       = false;
+    /**
+     * @var bool
+     */
+    private $quiet = false;
+
+    /**
+     * @var bool
+     */
     private $failonerror = true;
-    private $verbose     = true;
+
+    /**
+     * @var bool
+     */
+    private $verbose = true;
 
     /**
      * This flag means 'note errors to the output, but keep going'
@@ -43,8 +62,10 @@ class ChmodTask extends Task
      * @see   setQuiet()
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setFailonerror($bool)
+    public function setFailonerror(bool $bool): void
     {
         $this->failonerror = $bool;
     }
@@ -55,8 +76,10 @@ class ChmodTask extends Task
      * @see   setFailonerror()
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $bool): void
     {
         $this->quiet = $bool;
         if ($this->quiet) {
@@ -69,8 +92,10 @@ class ChmodTask extends Task
      * of what happened.
      *
      * @param bool $bool
+     *
+     * @return void
      */
-    public function setVerbose(bool $bool)
+    public function setVerbose(bool $bool): void
     {
         $this->verbose = $bool;
     }
@@ -80,16 +105,20 @@ class ChmodTask extends Task
      * an empty file will be created.
      *
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
 
     /**
      * @param string $str
+     *
+     * @return void
      */
-    public function setMode($str)
+    public function setMode(string $str): void
     {
         $this->mode = $str;
     }
@@ -98,8 +127,10 @@ class ChmodTask extends Task
      * Execute the touch operation.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         // Check Parameters
         $this->checkParams();
@@ -135,8 +166,10 @@ class ChmodTask extends Task
      * Does the actual work.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    private function chmod()
+    private function chmod(): void
     {
         if (strlen($this->mode) === 4) {
             $mode = octdec($this->mode);
@@ -190,10 +223,12 @@ class ChmodTask extends Task
      * @param PhingFile $file
      * @param int       $mode
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws Exception
      */
-    private function chmodFile(PhingFile $file, $mode)
+    private function chmodFile(PhingFile $file, int $mode): void
     {
         if (!$file->exists()) {
             throw new BuildException('The file ' . $file->__toString() . ' does not exist');

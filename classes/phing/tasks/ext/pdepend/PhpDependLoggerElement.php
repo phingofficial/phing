@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Logger element for the PhpDependTask.
  *
@@ -45,9 +47,11 @@ class PhpDependLoggerElement
      *
      * @param string $type Type of the logger
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
 
@@ -69,7 +73,7 @@ class PhpDependLoggerElement
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -78,8 +82,10 @@ class PhpDependLoggerElement
      * Sets the output file for the logger results.
      *
      * @param PhingFile $outfile The output file
+     *
+     * @return void
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(PhingFile $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -89,7 +95,7 @@ class PhpDependLoggerElement
      *
      * @return PhingFile
      */
-    public function getOutfile()
+    public function getOutfile(): PhingFile
     {
         return $this->outfile;
     }

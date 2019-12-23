@@ -32,7 +32,7 @@ goto run
 goto cleanup
 
 :run
-"%PHP_COMMAND%" -d phar.readonly=off -d html_errors=off -qC "%PHING_HOME%\bin\phing.php" %*
+"%PHP_COMMAND%" -d phar.readonly=off -d html_errors=off -qC "%PHING_HOME%\bin\phing.php" -debug -verbose %*
 goto cleanup
 
 :no_phpcommand

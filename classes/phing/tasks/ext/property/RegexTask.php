@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regular Expression Task for properties.
  *
@@ -78,7 +80,7 @@ class RegexTask extends AbstractPropertySetterTask
     private $caseSensitive = true;
 
     /**
-     * @var array $modifiers
+     * @var string $modifiers
      */
     private $modifiers = '';
 
@@ -92,31 +94,42 @@ class RegexTask extends AbstractPropertySetterTask
      */
     private $limit = -1;
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
         $this->reg = new Regexp();
     }
 
     /**
      * @param int $limit
+     *
+     * @return void
      */
-    public function setLimit($limit)
+    public function setLimit(int $limit): void
     {
         $this->limit = $limit;
     }
 
     /**
      * @param string $subject
+     *
+     * @return void
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): void
     {
         $this->subject = $subject;
     }
 
     /**
      * @param string $defaultValue
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setDefaultValue($defaultValue)
+    public function setDefaultValue(string $defaultValue): void
     {
         $this->log('Set default value to ' . $defaultValue, Project::MSG_DEBUG);
 
@@ -126,9 +139,12 @@ class RegexTask extends AbstractPropertySetterTask
     /**
      * @param string $pattern
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         if ($this->pattern !== null) {
             throw new BuildException(
@@ -144,9 +160,12 @@ class RegexTask extends AbstractPropertySetterTask
     /**
      * @param string $replace
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function setReplace($replace)
+    public function setReplace(string $replace): void
     {
         if ($this->replace !== null) {
             throw new BuildException(
@@ -167,9 +186,12 @@ class RegexTask extends AbstractPropertySetterTask
     /**
      * @param string $match
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function setMatch($match)
+    public function setMatch(string $match): void
     {
         if ($this->match !== null) {
             throw new BuildException(
@@ -184,8 +206,12 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @param bool $caseSensitive
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function setCaseSensitive($caseSensitive)
+    public function setCaseSensitive(bool $caseSensitive): void
     {
         $this->log('Set case-sensitive to ' . $caseSensitive, Project::MSG_DEBUG);
 
@@ -193,11 +219,11 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @return mixed|string
+     * @return string
      *
      * @throws BuildException
      */
-    protected function doReplace()
+    protected function doReplace(): string
     {
         if ($this->replace === null) {
             throw new BuildException('No replace expression specified.');
@@ -222,7 +248,7 @@ class RegexTask extends AbstractPropertySetterTask
      *
      * @throws BuildException
      */
-    protected function doSelect()
+    protected function doSelect(): string
     {
         $this->reg->setPattern($this->pattern);
         $this->reg->setModifiers($this->modifiers);
@@ -242,9 +268,11 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function validate()
+    protected function validate(): void
     {
         if ($this->pattern === null) {
             throw new BuildException('No match expression specified.');
@@ -257,13 +285,13 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
+     * @return void
+     *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->validate();
-
-        $output = $this->match;
 
         if ($this->replace !== null) {
             $output = $this->doReplace();

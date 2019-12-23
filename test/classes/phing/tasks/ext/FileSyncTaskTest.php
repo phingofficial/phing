@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the FileSync Task
  *
@@ -25,7 +27,13 @@
  */
 class FileSyncTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -34,12 +42,18 @@ class FileSyncTaskTest extends BuildFileTest
         $this->executeTarget('setup');
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->executeTarget('clean');
     }
 
-    public function testNoSourceSpecified()
+    /**
+     * @return void
+     */
+    public function testNoSourceSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noSourceDir',
@@ -48,7 +62,10 @@ class FileSyncTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoDestinationSpecified()
+    /**
+     * @return void
+     */
+    public function testNoDestinationSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noDestinationDir',
@@ -57,7 +74,10 @@ class FileSyncTaskTest extends BuildFileTest
         );
     }
 
-    public function testNonexistentSource()
+    /**
+     * @return void
+     */
+    public function testNonexistentSource(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongSource',
@@ -66,17 +86,28 @@ class FileSyncTaskTest extends BuildFileTest
         );
     }
 
-//    public function testLocalFileSync()
-//    {
-//        $this->executeTarget(__FUNCTION__);
-//    }
-//
-//    public function testRemoteFileSync()
-//    {
-//        $this->executeTarget(__FUNCTION__);
-//    }
+    /**
+     * @return void
+     */
+    public function testLocalFileSync(): void
+    {
+        $this->markTestSkipped();
+        $this->executeTarget(__FUNCTION__);
+    }
 
-    public function testRemoteToRemoteSync()
+    /**
+     * @return void
+     */
+    public function testRemoteFileSync(): void
+    {
+        $this->markTestSkipped();
+        $this->executeTarget(__FUNCTION__);
+    }
+
+    /**
+     * @return void
+     */
+    public function testRemoteToRemoteSync(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,

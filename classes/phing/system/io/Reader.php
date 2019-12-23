@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract class for reading character streams.
  *
@@ -38,14 +40,16 @@ abstract class Reader
      *
      * @throws IOException
      */
-    abstract public function read($len = null);
+    abstract public function read(?int $len = null);
 
     /**
      * Close stream.
      *
+     * @return void
+     *
      * @throws IOException if there is an error closing stream
      */
-    abstract public function close();
+    abstract public function close(): void;
 
     /**
      * Returns the filename, url, etc. that is being read from.
@@ -54,21 +58,26 @@ abstract class Reader
      *
      * @return string
      */
-    abstract public function getResource();
+    abstract public function getResource(): string;
 
     /**
      * Move stream position relative to current pos.
      *
      * @param int $n
+     *
+     * @return int
      */
-    public function skip($n)
+    public function skip(int $n): int
     {
+        return 0;
     }
 
     /**
      * Reset the current position in stream to beginning or last mark (if supported).
+     *
+     * @return void
      */
-    public function reset()
+    public function reset(): void
     {
     }
 
@@ -76,8 +85,10 @@ abstract class Reader
      * If supported, places a "marker" (like a bookmark) at current stream position.
      * A subsequent call to reset() will move stream position back
      * to last marker (if supported).
+     *
+     * @return void
      */
-    public function mark()
+    public function mark(): void
     {
     }
 
@@ -86,7 +97,7 @@ abstract class Reader
      *
      * @return bool
      */
-    public function markSupported()
+    public function markSupported(): bool
     {
         return false;
     }
@@ -96,7 +107,7 @@ abstract class Reader
      *
      * @return bool
      */
-    public function ready()
+    public function ready(): bool
     {
         return true;
     }

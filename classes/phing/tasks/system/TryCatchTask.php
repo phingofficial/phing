@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A wrapper task that lets you run tasks(s) when another set
  * of tasks fails.
@@ -28,11 +30,29 @@
  */
 class TryCatchTask extends Task
 {
-    protected $propertyName  = '';
+    /**
+     * @var string
+     */
+    protected $propertyName = '';
+
+    /**
+     * @var string
+     */
     protected $referenceName = '';
 
-    protected $tryContainer     = null;
-    protected $catchContainer   = null;
+    /**
+     * @var SequentialTask
+     */
+    protected $tryContainer = null;
+
+    /**
+     * @var SequentialTask
+     */
+    protected $catchContainer = null;
+
+    /**
+     * @var SequentialTask
+     */
     protected $finallyContainer = null;
 
     /**
@@ -40,9 +60,10 @@ class TryCatchTask extends Task
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $exc = null;
 
@@ -82,8 +103,10 @@ class TryCatchTask extends Task
      * contain the exception message.
      *
      * @param string $property
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->propertyName = (string) $property;
     }
@@ -92,11 +115,11 @@ class TryCatchTask extends Task
      * Sets the name of the reference that will
      * contain the exception.
      *
-     * @param Exception $reference
+     * @param string $reference
      *
      * @return void
      */
-    public function setReference($reference)
+    public function setReference(string $reference): void
     {
         $this->referenceName = $reference;
     }
@@ -105,8 +128,10 @@ class TryCatchTask extends Task
      * Add nested <try> element
      *
      * @param SequentialTask $container
+     *
+     * @return void
      */
-    public function addTry(SequentialTask $container)
+    public function addTry(SequentialTask $container): void
     {
         $this->tryContainer = $container;
     }
@@ -115,8 +140,10 @@ class TryCatchTask extends Task
      * Add nested <catch> element
      *
      * @param SequentialTask $container
+     *
+     * @return void
      */
-    public function addCatch(SequentialTask $container)
+    public function addCatch(SequentialTask $container): void
     {
         $this->catchContainer = $container;
     }
@@ -125,8 +152,10 @@ class TryCatchTask extends Task
      * Add nested <finally> element
      *
      * @param SequentialTask $container
+     *
+     * @return void
      */
-    public function addFinally(SequentialTask $container)
+    public function addFinally(SequentialTask $container): void
     {
         $this->finallyContainer = $container;
     }

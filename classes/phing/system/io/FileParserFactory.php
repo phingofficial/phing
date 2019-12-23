@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * The factory to create fileParsers based on extension name from
  * PhingFile->getFileExtension()
@@ -27,6 +29,7 @@
 class FileParserFactory implements FileParserFactoryInterface
 {
     private const XML_FILE_EXTENSION = 'xml';
+
     /**
      * @const string
      */
@@ -38,9 +41,11 @@ class FileParserFactory implements FileParserFactoryInterface
     private const YAML_FILE_EXTENSION_LONG = 'yaml';
 
     /**
-     * {@inheritDoc}
+     * @param string $fileExtension
+     *
+     * @return FileParserInterface
      */
-    public function createParser($fileExtension)
+    public function createParser(string $fileExtension): FileParserInterface
     {
         switch ($fileExtension) {
             case self::XML_FILE_EXTENSION:

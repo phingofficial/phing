@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Test class for the ComposerTask.
  *
@@ -31,11 +32,13 @@ class ComposerTaskTest extends TestCase
     /**
      * @var ComposerTask
      */
-    protected $object;
+    private $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     *
+     * @return void
      */
     protected function setUp(): void
     {
@@ -44,40 +47,40 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
-    }
-
-    /**
+     * @return void
+     *
      * @covers ComposerTask::setCommand
      * @covers ComposerTask::getCommand
      */
-    public function testSetGetCommand()
+    public function testSetGetCommand(): void
     {
         $o = $this->object;
         $o->setCommand('foo');
-        $this->assertEquals('foo', $o->getCommand());
+        self::assertEquals('foo', $o->getCommand());
     }
 
     /**
+     * @return void
+     *
      * @covers ComposerTask::getPhp
      * @covers ComposerTask::setPhp
      */
-    public function testSetGetPhp()
+    public function testSetGetPhp(): void
     {
         $o = $this->object;
         $o->setPhp('foo');
-        $this->assertEquals('foo', $o->getPhp());
+        self::assertEquals('foo', $o->getPhp());
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
+     *
      * @covers ComposerTask::setComposer
      * @covers ComposerTask::getComposer
      */
-    public function testSetGetComposer()
+    public function testSetGetComposer(): void
     {
         $composer = 'foo';
         $o        = $this->object;
@@ -86,20 +89,28 @@ class ComposerTaskTest extends TestCase
         if (false === $composerFile->isFile()) {
             $composer = FileSystem::getFileSystem()->which('composer');
         }
-        $this->assertEquals($composer, $o->getComposer());
+        self::assertEquals($composer, $o->getComposer());
     }
 
     /**
+     * @return void
+     *
      * @covers ComposerTask::createArg
      */
-    public function testCreateArg()
+    public function testCreateArg(): void
     {
         $o   = $this->object;
         $arg = $o->createArg();
-        $this->assertTrue(get_class($arg) == 'CommandlineArgument');
+        self::assertTrue(get_class($arg) == 'CommandlineArgument');
     }
 
-    public function testMultipleCalls()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws ReflectionException
+     */
+    public function testMultipleCalls(): void
     {
         $o = $this->object;
         $o->setPhp('php');
@@ -108,9 +119,9 @@ class ComposerTaskTest extends TestCase
         $composer = $o->getComposer();
         $method   = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
+        self::assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
-        $this->assertEquals('php ' . $composer . ' update --dev', (string) $method->invoke($o));
+        self::assertEquals('php ' . $composer . ' update --dev', (string) $method->invoke($o));
     }
 }

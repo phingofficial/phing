@@ -12,6 +12,8 @@
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  */
 
+declare(strict_types=1);
+
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
  *
@@ -104,6 +106,9 @@ class RSTTask extends Task
      */
     protected $destination = null;
 
+    /**
+     * @var Mapper|null
+     */
     protected $mapperElement = null;
 
     /**
@@ -140,9 +145,13 @@ class RSTTask extends Task
      *
      * @return void
      *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws ConfigurationException
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $tool = $this->getToolPath($this->format);
         if (count($this->filterChains)) {
@@ -178,7 +187,7 @@ class RSTTask extends Task
             foreach ($srcFiles as $src) {
                 $file = new PhingFile($fromDir, $src);
                 if ($mapper !== null) {
-                    $results = $mapper->main($file);
+                    $results = $mapper->main((string) $file);
                     if ($results === null) {
                         throw new BuildException(
                             sprintf(
@@ -189,9 +198,9 @@ class RSTTask extends Task
                     }
                     $targetFile = reset($results);
                 } else {
-                    $targetFile = $this->getTargetFile($file, $this->destination);
+                    $targetFile = $this->getTargetFile((string) $file, $this->destination);
                 }
-                $this->render($tool, $file, $targetFile);
+                $this->render($tool, (string) $file, $targetFile);
             }
         }
     }
@@ -204,8 +213,12 @@ class RSTTask extends Task
      * @param string $targetFile target file name
      *
      * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    protected function render($tool, $source, $targetFile)
+    protected function render(string $tool, string $source, string $targetFile): void
     {
         if (count($this->filterChains) == 0) {
             $this->renderFile($tool, $source, $targetFile);
@@ -237,8 +250,9 @@ class RSTTask extends Task
      * @return void
      *
      * @throws BuildException When the conversion fails
+     * @throws Exception
      */
-    protected function renderFile($tool, $source, $targetFile)
+    protected function renderFile(string $tool, string $source, string $targetFile): void
     {
         if (
             $this->uptodate
@@ -252,7 +266,7 @@ class RSTTask extends Task
         $targetDir = str_replace('/./', '/', dirname($targetFile));
         if (!is_dir($targetDir)) {
             $this->log(sprintf("Creating directory '%s'", $targetDir), Project::MSG_VERBOSE);
-            mkdir($targetDir, $this->mode, true);
+            mkdir($targetDir, (int) $this->mode, true);
         }
 
         $cmd = $tool
@@ -279,8 +293,9 @@ class RSTTask extends Task
      * @return string Full path to rst2$format
      *
      * @throws BuildException When the tool cannot be found
+     * @throws IOException
      */
-    protected function getToolPath($format)
+    protected function getToolPath(string $format): string
     {
         if ($this->toolPath !== null) {
             return $this->toolPath;
@@ -305,13 +320,13 @@ class RSTTask extends Task
      * @uses $format
      * @uses $targetExt
      *
-     * @param string $file        Input file
-     * @param string $destination Destination file or directory name,
+     * @param string      $file        Input file
+     * @param string|null $destination Destination file or directory name,
      *                            may be null
      *
      * @return string Target file name
      */
-    public function getTargetFile($file, $destination = null)
+    public function getTargetFile(string $file, ?string $destination = null): string
     {
         if (
             $destination != ''
@@ -335,7 +350,7 @@ class RSTTask extends Task
      *
      * @return void
      */
-    public function setFile($file)
+    public function setFile(string $file): void
     {
         $this->file = $file;
     }
@@ -349,7 +364,7 @@ class RSTTask extends Task
      *
      * @throws BuildException When the format is not supported
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         if (!in_array($format, self::$supportedFormats)) {
             throw new BuildException(
@@ -371,7 +386,7 @@ class RSTTask extends Task
      *
      * @return void
      */
-    public function setDestination($destination)
+    public function setDestination(string $destination): void
     {
         $this->destination = $destination;
     }
@@ -383,7 +398,7 @@ class RSTTask extends Task
      *
      * @return void
      */
-    public function setToolparam($param)
+    public function setToolparam(string $param): void
     {
         $this->toolParam = $param;
     }
@@ -395,9 +410,10 @@ class RSTTask extends Task
      *
      * @return void
      *
+     * @throws IOException
      * @throws BuildException
      */
-    public function setToolpath($path)
+    public function setToolpath(string $path): void
     {
         if (!file_exists($path)) {
             $fs       = FileSystem::getFileSystem();
@@ -420,11 +436,11 @@ class RSTTask extends Task
     /**
      * The setter for the attribute "uptodate"
      *
-     * @param string $uptodate True/false
+     * @param bool $uptodate True/false
      *
      * @return void
      */
-    public function setUptodate($uptodate)
+    public function setUptodate(bool $uptodate): void
     {
         $this->uptodate = (bool) $uptodate;
     }
@@ -436,7 +452,7 @@ class RSTTask extends Task
      *
      * @throws BuildException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException(

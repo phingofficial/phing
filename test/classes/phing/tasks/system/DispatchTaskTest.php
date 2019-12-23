@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the Dispatch Task
  *
@@ -25,7 +27,10 @@
  */
 class DispatchTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -33,7 +38,10 @@ class DispatchTaskTest extends BuildFileTest
         );
     }
 
-    public function testDispatch()
+    /**
+     * @return void
+     */
+    public function testDispatch(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'first success!');
         $this->expectLogContaining(__FUNCTION__, 'second success!');

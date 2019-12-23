@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <condition> task as a generalization of <available>
  *
@@ -62,7 +64,7 @@ class ConditionTask extends ConditionBase
      *
      * @return void
      */
-    public function setProperty($p)
+    public function setProperty(string $p): void
     {
         $this->property = $p;
     }
@@ -74,7 +76,7 @@ class ConditionTask extends ConditionBase
      *
      * @return void
      */
-    public function setValue($v)
+    public function setValue(string $v): void
     {
         $this->value = $v;
     }
@@ -84,8 +86,10 @@ class ConditionTask extends ConditionBase
      * If this attribute is not specified, the property will not be set.
      *
      * @param string $v
+     *
+     * @return void
      */
-    public function setElse($v)
+    public function setElse(string $v): void
     {
         $this->alternative = $v;
     }
@@ -95,9 +99,10 @@ class ConditionTask extends ConditionBase
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->countConditions() > 1) {
             throw new BuildException(

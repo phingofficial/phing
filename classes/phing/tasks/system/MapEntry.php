@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Helper class, holds the nested &lt;map&gt; values. Elements will look like
  * this: &lt;map from=&quot;d:&quot; to=&quot;/foo&quot;/&gt;
@@ -31,6 +33,9 @@ class MapEntry
      */
     private $outer;
 
+    /**
+     * @param PathConvert $outer
+     */
     public function __construct(PathConvert $outer)
     {
         $this->outer = $outer;
@@ -41,13 +46,22 @@ class MapEntry
      * Note that this value is case-insensitive when the build is
      * running on a Windows platform and case-sensitive when running on
      * a Unix platform.
+     *
+     * @param string $from
+     *
+     * @return void
      */
-    public function setFrom($from)
+    public function setFrom(string $from): void
     {
         $this->outer->from = $from;
     }
 
-    public function setTo($to)
+    /**
+     * @param string $to
+     *
+     * @return void
+     */
+    public function setTo(string $to): void
     {
         $this->outer->to = $to;
     }
@@ -61,7 +75,7 @@ class MapEntry
      *
      * @throws BuildException
      */
-    public function apply($elem)
+    public function apply(string $elem): string
     {
         if ($this->outer->from === null || $this->outer->to === null) {
             throw new BuildException(

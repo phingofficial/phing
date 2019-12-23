@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This interface can be used to implement a fileParser for property files.
  * For example: You can implement a .ini-Fileparser or .yaml/.xml/.php.
@@ -35,5 +37,5 @@ interface FileParserInterface
      *
      * @throws IOException
      */
-    public function parseFile(PhingFile $file);
+    public function parseFile(PhingFile $file): array;
 }

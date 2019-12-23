@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Convenience class for reading and writing property files.
  *
@@ -27,6 +29,9 @@
  */
 class Properties
 {
+    /**
+     * @var array
+     */
     private $properties = [];
 
     /**
@@ -42,10 +47,10 @@ class Properties
     /**
      * Constructor
      *
-     * @param array               $properties
-     * @param FileParserInterface $fileParser
+     * @param array|null               $properties
+     * @param FileParserInterface|null $fileParser
      */
-    public function __construct($properties = null, ?FileParserInterface $fileParser = null)
+    public function __construct(?array $properties = null, ?FileParserInterface $fileParser = null)
     {
         $this->fileParser = $fileParser == null ? new IniFileParser() : $fileParser;
 
@@ -65,7 +70,7 @@ class Properties
      *
      * @throws IOException - if unable to read file.
      */
-    public function load(PhingFile $file)
+    public function load(PhingFile $file): void
     {
         if ($file->canRead()) {
             $this->parse($file);
@@ -80,8 +85,12 @@ class Properties
      * Parses the file given.
      *
      * @param PhingFile $file
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    protected function parse(PhingFile $file)
+    protected function parse(PhingFile $file): void
     {
         $this->properties = $this->fileParser->parseFile($file);
     }
@@ -90,11 +99,11 @@ class Properties
      * Process values when being written out to properties file.
      * does things like convert true => "true"
      *
-     * @param mixed $val The property value (may be boolean, etc.)
+     * @param bool|string $val The property value (may be boolean, etc.)
      *
      * @return string
      */
-    protected function outVal($val)
+    protected function outVal($val): string
     {
         if ($val === true) {
             $val = 'true';
@@ -113,7 +122,7 @@ class Properties
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         foreach ($this->properties as $key => $item) {
@@ -126,14 +135,14 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param PhingFile $file   File to create/overwrite with properties.
-     * @param string    $header Header text that will be placed (within comments) at the top of properties file.
+     * @param PhingFile|null $file   File to create/overwrite with properties.
+     * @param string|null    $header Header text that will be placed (within comments) at the top of properties file.
      *
      * @return void
      *
      * @throws IOException - on error writing properties file.
      */
-    public function store(?PhingFile $file = null, $header = null)
+    public function store(?PhingFile $file = null, ?string $header = null): void
     {
         if ($file == null) {
             $file = $this->file;
@@ -158,12 +167,24 @@ class Properties
         }
     }
 
-    public function storeOutputStream(OutputStream $os, $comments)
+    /**
+     * @param OutputStream $os
+     * @param string       $comments
+     *
+     * @return void
+     */
+    public function storeOutputStream(OutputStream $os, string $comments): void
     {
         $this->_storeOutputStream(new BufferedWriter(new OutputStreamWriter($os)), $comments);
     }
 
-    private function _storeOutputStream(BufferedWriter $bw, $comments)
+    /**
+     * @param BufferedWriter $bw
+     * @param string         $comments
+     *
+     * @return void
+     */
+    private function _storeOutputStream(BufferedWriter $bw, string $comments): void
     {
         if ($comments != null) {
             self::writeComments($bw, $comments);
@@ -177,12 +198,18 @@ class Properties
         $bw->flush();
     }
 
-    private static function writeComments(BufferedWriter $bw, $comments)
+    /**
+     * @param BufferedWriter $bw
+     * @param string         $comments
+     *
+     * @return void
+     */
+    private static function writeComments(BufferedWriter $bw, string $comments): void
     {
         $rows = explode("\n", $comments);
         $bw->write('#' . PHP_EOL);
         foreach ($rows as $row) {
-            $bw->write(sprintf('#%s%s', trim($row), PHP_EOL));
+            $bw->write(sprintf('#%s%s', trim((string) $row), PHP_EOL));
         }
         $bw->write('#');
         $bw->newLine();
@@ -195,7 +222,7 @@ class Properties
      *
      * @return array
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -210,7 +237,7 @@ class Properties
      *
      * @return mixed
      */
-    public function getProperty($prop)
+    public function getProperty(string $prop)
     {
         if (!isset($this->properties[$prop])) {
             return null;
@@ -230,7 +257,7 @@ class Properties
      *
      * @return mixed
      */
-    public function get($prop)
+    public function get(string $prop)
     {
         if (!isset($this->properties[$prop])) {
             return null;
@@ -247,7 +274,7 @@ class Properties
      *
      * @return mixed  Old property value or null if none was set.
      */
-    public function setProperty($key, $value)
+    public function setProperty(string $key, $value)
     {
         $oldValue               = $this->properties[$key] ?? null;
         $this->properties[$key] = $value;
@@ -265,7 +292,7 @@ class Properties
      *
      * @return mixed
      */
-    public function put($key, $value)
+    public function put(string $key, $value)
     {
         return $this->setProperty($key, $value);
     }
@@ -278,8 +305,10 @@ class Properties
      * @param string $key
      * @param mixed  $value
      * @param string $delimiter
+     *
+     * @return void
      */
-    public function append($key, $value, $delimiter = ',')
+    public function append(string $key, $value, string $delimiter = ','): void
     {
         $newValue = $value;
         if (isset($this->properties[$key]) && !empty($this->properties[$key])) {
@@ -293,7 +322,7 @@ class Properties
      *
      * @return array
      */
-    public function propertyNames()
+    public function propertyNames(): array
     {
         return $this->keys();
     }
@@ -305,7 +334,7 @@ class Properties
      *
      * @return bool
      */
-    public function containsKey($key)
+    public function containsKey(string $key): bool
     {
         return isset($this->properties[$key]);
     }
@@ -317,7 +346,7 @@ class Properties
      *
      * @return array
      */
-    public function keys()
+    public function keys(): array
     {
         return array_keys($this->properties);
     }
@@ -327,7 +356,7 @@ class Properties
      *
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->properties);
     }

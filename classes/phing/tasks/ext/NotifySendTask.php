@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * NotifySendTask
  *
@@ -24,9 +26,24 @@
  */
 class NotifySendTask extends Task
 {
-    protected $msg    = null;
-    protected $title  = null;
-    protected $icon   = 'info';
+    /**
+     * @var string|null
+     */
+    protected $msg = null;
+
+    /**
+     * @var string|null
+     */
+    protected $title = null;
+
+    /**
+     * @var string
+     */
+    protected $icon = 'info';
+
+    /**
+     * @var bool
+     */
     protected $silent = false;
 
     /**
@@ -35,8 +52,10 @@ class NotifySendTask extends Task
      * @param string $icon name/location of icon
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setIcon($icon)
+    public function setIcon(string $icon): void
     {
         switch ($icon) {
             case 'info':
@@ -66,7 +85,7 @@ class NotifySendTask extends Task
      *
      * @return string
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         return $this->icon;
     }
@@ -78,7 +97,7 @@ class NotifySendTask extends Task
      *
      * @return void
      */
-    public function setSilent($silent)
+    public function setSilent(string $silent): void
     {
         $this->silent = StringHelper::booleanValue($silent);
     }
@@ -90,7 +109,7 @@ class NotifySendTask extends Task
      *
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -98,9 +117,9 @@ class NotifySendTask extends Task
     /**
      * Get Title
      *
-     * @return string
+     * @return string|null
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -112,7 +131,7 @@ class NotifySendTask extends Task
      *
      * @return void
      */
-    public function setMsg($msg)
+    public function setMsg(string $msg): void
     {
         $this->msg = $msg;
     }
@@ -120,9 +139,9 @@ class NotifySendTask extends Task
     /**
      * Get message.
      *
-     * @return string
+     * @return string|null
      */
-    public function getMsg()
+    public function getMsg(): ?string
     {
         return $this->msg;
     }
@@ -132,9 +151,11 @@ class NotifySendTask extends Task
      *
      * @return void
      *
+     * @throws IOException
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $msg        = '';
         $title      = 'Phing';

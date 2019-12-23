@@ -1,9 +1,4 @@
 <?php
-
-use SebastianBergmann\PHPCPD\Log\Text;
-use SebastianBergmann\PHPCPD\TextUI\ResultPrinter;
-use Symfony\Component\Console\Output\StreamOutput;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,6 +17,12 @@ use Symfony\Component\Console\Output\StreamOutput;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use SebastianBergmann\PHPCPD\Log\Text;
+use SebastianBergmann\PHPCPD\TextUI\ResultPrinter;
+use Symfony\Component\Console\Output\StreamOutput;
+
 /**
  * Prints plain text output of phpcpd run
  *
@@ -37,8 +38,13 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param Project        $project
      * @param bool           $useFile
      * @param PhingFile|null $outFile
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    public function processClones($clones, Project $project, $useFile = false, $outFile = null)
+    public function processClones($clones, Project $project, bool $useFile = false, ?PhingFile $outFile = null): void
     {
         if (get_class($clones) == 'SebastianBergmann\PHPCPD\CodeCloneMap') {
             if (class_exists('SebastianBergmann\PHPCPD\Log\Text')) {
@@ -71,8 +77,10 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param CodeCloneMap   $clones
      * @param bool           $useFile
      * @param PhingFile|null $outFile
+     *
+     * @return void
      */
-    private function processClonesNew($clones, $useFile = false, $outFile = null)
+    private function processClonesNew($clones, bool $useFile = false, ?PhingFile $outFile = null): void
     {
         if ($useFile) {
             $resource = fopen($outFile->getPath(), 'w');

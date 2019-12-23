@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * <available> task.
  *
@@ -30,86 +32,120 @@ class AvailableTask extends Task implements Condition
 {
     /**
      * Property to check for.
+     *
+     * @var string
      */
     private $property;
 
     /**
      * Value property should be set to.
+     *
+     * @var string
      */
     private $value = 'true';
 
     /**
      * File/directory to check existence
+     *
+     * @var PhingFile
      */
     private $file;
 
     /**
      * Resource to check for
+     *
+     * @var string
      */
     private $resource;
 
     /**
      * Extension to check if is loaded
+     *
+     * @var string
      */
     private $extension;
 
-    private $type     = null;
+    /**
+     * @var string|null
+     */
+    private $type = null;
+
+    /**
+     * @var Path
+     */
     private $filepath = null;
 
+    /**
+     * @var bool
+     */
     private $followSymlinks = false;
 
     /**
      * @param string $property
+     *
+     * @return void
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = (string) $property;
     }
 
     /**
      * @param string $value
+     *
+     * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = (string) $value;
     }
 
     /**
      * @param PhingFile $file
+     *
+     * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
 
     /**
      * @param string $resource
+     *
+     * @return void
      */
-    public function setResource($resource)
+    public function setResource(string $resource): void
     {
         $this->resource = (string) $resource;
     }
 
     /**
      * @param string $extension
+     *
+     * @return void
      */
-    public function setExtension($extension)
+    public function setExtension(string $extension): void
     {
         $this->extension = (string) $extension;
     }
 
     /**
      * @param string $type
+     *
+     * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = (string) strtolower($type);
     }
 
     /**
      * @param bool $followSymlinks
+     *
+     * @return void
      */
-    public function setFollowSymlinks(bool $followSymlinks)
+    public function setFollowSymlinks(bool $followSymlinks): void
     {
         $this->followSymlinks = $followSymlinks;
     }
@@ -118,8 +154,14 @@ class AvailableTask extends Task implements Condition
      * Set the path to use when looking for a file.
      *
      * @param Path $filepath a Path instance containing the search path for files.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function setFilepath(Path $filepath)
+    public function setFilepath(Path $filepath): void
     {
         if ($this->filepath === null) {
             $this->filepath = $filepath;
@@ -132,8 +174,10 @@ class AvailableTask extends Task implements Condition
      * Creates a path to be configured
      *
      * @return Path
+     *
+     * @throws Exception
      */
-    public function createFilepath()
+    public function createFilepath(): Path
     {
         if ($this->filepath === null) {
             $this->filepath = new Path($this->project);
@@ -142,7 +186,12 @@ class AvailableTask extends Task implements Condition
         return $this->filepath->createPath();
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         if ($this->property === null) {
             throw new BuildException('property attribute is required', $this->getLocation());
@@ -156,8 +205,9 @@ class AvailableTask extends Task implements Condition
      * @return bool
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         if ($this->file === null && $this->resource === null && $this->extension === null) {
             throw new BuildException('At least one of (file|resource|extension) is required', $this->getLocation());
@@ -201,8 +251,12 @@ class AvailableTask extends Task implements Condition
 
     /**
      * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function _checkFile()
+    private function _checkFile(): bool
     {
         if ($this->filepath === null) {
             return $this->_checkFile1($this->file);
@@ -226,8 +280,9 @@ class AvailableTask extends Task implements Condition
      * @return bool
      *
      * @throws IOException
+     * @throws NullPointerException
      */
-    private function _checkFile1(PhingFile $file)
+    private function _checkFile1(PhingFile $file): bool
     {
         // Resolve symbolic links
         if ($this->followSymlinks && $file->isLink()) {
@@ -262,8 +317,11 @@ class AvailableTask extends Task implements Condition
      * @param string $resource
      *
      * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
-    private function _checkResource($resource)
+    private function _checkResource(string $resource): bool
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
             return $this->_checkFile1(new PhingFile($resourcePath));

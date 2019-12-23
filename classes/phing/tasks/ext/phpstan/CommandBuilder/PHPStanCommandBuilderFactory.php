@@ -21,6 +21,11 @@ declare(strict_types=1);
 
 class PHPStanCommandBuilderFactory
 {
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return PHPStanCommandBuilder
+     */
     public function createBuilder(PHPStanTask $task): PHPStanCommandBuilder
     {
         switch ($task->getCommand()) {

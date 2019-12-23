@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Executes a series of SQL statements on a database using PDO.
  *
@@ -118,6 +120,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * SQL transactions to perform
+     *
+     * @var PDOSQLExecTransaction[]
      */
     private $transactions = [];
 
@@ -141,6 +145,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Encoding to use when reading SQL statements from a file
+     *
+     * @var string
      */
     private $encoding = null;
 
@@ -156,8 +162,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Required unless statements are enclosed in the build file
      *
      * @param PhingFile $srcFile
+     *
+     * @return void
      */
-    public function setSrc(PhingFile $srcFile)
+    public function setSrc(PhingFile $srcFile): void
     {
         $this->srcFile = $srcFile;
     }
@@ -167,8 +175,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * NB: Properties are not expanded in this text.
      *
      * @param string $sql
+     *
+     * @return void
      */
-    public function addText($sql)
+    public function addText(string $sql): void
     {
         $this->sqlCommand .= $sql;
     }
@@ -177,8 +187,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Adds a set of files (nested fileset attribute).
      *
      * @param FileSet $set
+     *
+     * @return void
      */
-    public function addFileset(FileSet $set)
+    public function addFileset(FileSet $set): void
     {
         $this->filesets[] = $set;
     }
@@ -187,8 +199,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Adds a set of files (nested filelist attribute).
      *
      * @param FileList $list
+     *
+     * @return void
      */
-    public function addFilelist(FileList $list)
+    public function addFilelist(FileList $list): void
     {
         $this->filelists[] = $list;
     }
@@ -198,7 +212,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @return PDOSQLExecFormatterElement
      */
-    public function createFormatter()
+    public function createFormatter(): PDOSQLExecFormatterElement
     {
         $fe                 = new PDOSQLExecFormatterElement($this);
         $this->formatters[] = $fe;
@@ -208,8 +222,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Add a SQL transaction to execute
+     *
+     * @return PDOSQLExecTransaction
      */
-    public function createTransaction()
+    public function createTransaction(): PDOSQLExecTransaction
     {
         $t                    = new PDOSQLExecTransaction($this);
         $this->transactions[] = $t;
@@ -221,8 +237,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Set the file encoding to use on the SQL files read in
      *
      * @param string $encoding the encoding to use on the files
+     *
+     * @return void
      */
-    public function setEncoding($encoding)
+    public function setEncoding(string $encoding): void
     {
         $this->encoding = $encoding;
     }
@@ -234,6 +252,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Sybase ASE or MS SQL Server.</p>
      *
      * @param string $delimiter
+     *
+     * @return void
      */
     public function setDelimiter(string $delimiter): void
     {
@@ -257,6 +277,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * the delimiter is recognized as the end of the command.
      *
      * @param string $delimiterType
+     *
+     * @return void
      */
     public function setDelimiterType(string $delimiterType): void
     {
@@ -268,8 +290,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * optional; default &quot;abort&quot;
      *
      * @param string $action continue|stop|abort
+     *
+     * @return void
      */
-    public function setOnerror($action): void
+    public function setOnerror(string $action): void
     {
         $this->onError = $action;
     }
@@ -277,7 +301,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Sets the fetch mode to use for the PDO resultset.
      *
-     * @param mixed $mode The PDO fetchmode integer or constant name.
+     * @param int|string $mode The PDO fetchmode integer or constant name.
+     *
+     * @return void
      *
      * @throws BuildException
      */
@@ -297,21 +323,23 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Gets a default output writer for this task.
      *
-     * @return Writer
+     * @return LogWriter
      */
-    private function getDefaultOutput()
+    private function getDefaultOutput(): LogWriter
     {
         return new LogWriter($this);
     }
 
     /**
      * Load the sql file and then execute it.
-     *
      * {@inheritdoc}
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         // Set a default fetchmode if none was specified
         // (We're doing that here to prevent errors loading the class is PDO is not available.)
@@ -449,13 +477,16 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param Reader $reader
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function runStatements(Reader $reader)
+    public function runStatements(Reader $reader): void
     {
         if (self::DELIM_NONE == $this->delimiterType) {
             $splitter = new DummyPDOQuerySplitter($this, $reader);
-        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
+        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos((string) $this->getUrl(), 'pgsql:')) {
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
@@ -480,7 +511,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @return bool Whether specified SQL looks like a SELECT query.
      */
-    protected function isSelectSql($sql)
+    protected function isSelectSql(string $sql): bool
     {
         $sql = trim($sql);
 
@@ -492,10 +523,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $sql
      *
+     * @return void
+     *
      * @throws BuildException
      * @throws Exception
      */
-    protected function execSQL($sql)
+    protected function execSQL(string $sql): void
     {
         // Check and ignore empty statements
         if (trim($sql) == '') {
@@ -530,9 +563,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Returns configured PDOResultFormatter objects
      * (which were created from PDOSQLExecFormatterElement objects).
      *
-     * @return array PDOResultFormatter[]
+     * @return PDOResultFormatter[]
      */
-    protected function getConfiguredFormatters()
+    protected function getConfiguredFormatters(): array
     {
         $formatters = [];
         foreach ($this->formatters as $fe) {
@@ -544,8 +577,10 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Initialize the formatters.
+     *
+     * @return void
      */
-    protected function initFormatters()
+    protected function initFormatters(): void
     {
         $formatters = $this->getConfiguredFormatters();
         foreach ($formatters as $formatter) {
@@ -555,8 +590,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Run cleanup and close formatters.
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    protected function closeFormatters()
+    protected function closeFormatters(): void
     {
         $formatters = $this->getConfiguredFormatters();
         foreach ($formatters as $formatter) {
@@ -567,9 +606,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Passes results from query to any formatters.
      *
+     * @return void
+     *
+     * @throws IOException
      * @throws PDOException
      */
-    protected function processResults()
+    protected function processResults(): void
     {
         try {
             $this->log('Processing new result set.', Project::MSG_VERBOSE);
@@ -592,6 +634,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Closes current connection
+     *
+     * @return void
      */
     protected function closeConnection(): void
     {
@@ -603,15 +647,15 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * PDOSQLExecTask as condition
-     *
      * Returns false when the database connection fails, and true otherwise.
      * This method only uses three properties: url (required), userId and
      * password.
-     *
      * The database connection is not stored in a variable, this allow to
      * immediately close the connections since there's no reference to it.
      *
      * @return bool
+     *
+     * @throws Exception
      *
      * @author Jawira Portugal <dev@tugal.be>
      */

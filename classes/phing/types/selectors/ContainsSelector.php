@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that filters files based on whether they contain a
  * particular string.
@@ -37,7 +39,7 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf  = '{containsselector text: ';
         $buf .= $this->contains;
@@ -62,8 +64,10 @@ class ContainsSelector extends BaseExtendSelector
      * The string to search for within a file.
      *
      * @param string $contains the string that a file must contain to be selected.
+     *
+     * @return void
      */
-    public function setText($contains)
+    public function setText(string $contains): void
     {
         $this->contains = $contains;
     }
@@ -72,16 +76,20 @@ class ContainsSelector extends BaseExtendSelector
      * Whether to ignore case in the string being searched.
      *
      * @param bool $casesensitive whether to pay attention to case sensitivity
+     *
+     * @return void
      */
-    public function setCasesensitive($casesensitive)
+    public function setCasesensitive(bool $casesensitive): void
     {
         $this->casesensitive = $casesensitive;
     }
 
     /**
      * @param bool $ignoreWhitespace
+     *
+     * @return void
      */
-    public function setIgnoreWhitespace($ignoreWhitespace)
+    public function setIgnoreWhitespace(bool $ignoreWhitespace): void
     {
         $this->ignorewhitespace = $ignoreWhitespace;
     }
@@ -92,7 +100,7 @@ class ContainsSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return mixed|void
+     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -120,8 +128,10 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the pattern attribute has been set.
+     *
+     * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->contains === null) {
             $this->setError('The text attribute is required');
@@ -138,9 +148,10 @@ class ContainsSelector extends BaseExtendSelector
      *
      * @return bool whether the file should be selected or not
      *
+     * @throws IOException
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

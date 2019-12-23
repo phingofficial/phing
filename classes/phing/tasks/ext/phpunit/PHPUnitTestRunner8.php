@@ -1,20 +1,4 @@
 <?php
-
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\TestListener;
-use PHPUnit\Framework\TestResult;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\Warning;
-use PHPUnit\Runner\Filter\ExcludeGroupFilterIterator;
-use PHPUnit\Runner\Filter\Factory;
-use PHPUnit\Runner\Filter\IncludeGroupFilterIterator;
-use PHPUnit\Runner\TestHook;
-use PHPUnit\Util\ErrorHandler;
-use SebastianBergmann\CodeCoverage\CodeCoverage;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,6 +17,23 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
+use PHPUnit\Runner\Filter\ExcludeGroupFilterIterator;
+use PHPUnit\Runner\Filter\Factory;
+use PHPUnit\Runner\Filter\IncludeGroupFilterIterator;
+use PHPUnit\Runner\TestHook;
+use PHPUnit\Util\ErrorHandler;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
@@ -41,18 +42,65 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
  */
 class PHPUnitTestRunner8 implements TestHook, TestListener
 {
-    private $hasErrors             = false;
-    private $hasFailures           = false;
-    private $hasWarnings           = false;
-    private $hasIncomplete         = false;
-    private $hasSkipped            = false;
-    private $hasRisky              = false;
-    private $lastErrorMessage      = '';
-    private $lastFailureMessage    = '';
-    private $lastWarningMessage    = '';
+    /**
+     * @var bool
+     */
+    private $hasErrors = false;
+
+    /**
+     * @var bool
+     */
+    private $hasFailures = false;
+
+    /**
+     * @var bool
+     */
+    private $hasWarnings = false;
+
+    /**
+     * @var bool
+     */
+    private $hasIncomplete = false;
+
+    /**
+     * @var bool
+     */
+    private $hasSkipped = false;
+
+    /**
+     * @var bool
+     */
+    private $hasRisky = false;
+
+    /**
+     * @var string
+     */
+    private $lastErrorMessage = '';
+
+    /**
+     * @var string
+     */
+    private $lastFailureMessage = '';
+
+    /**
+     * @var string
+     */
+    private $lastWarningMessage = '';
+
+    /**
+     * @var string
+     */
     private $lastIncompleteMessage = '';
-    private $lastSkippedMessage    = '';
-    private $lastRiskyMessage      = '';
+
+    /**
+     * @var string
+     */
+    private $lastSkippedMessage = '';
+
+    /**
+     * @var string
+     */
+    private $lastRiskyMessage = '';
 
     /**
      * @var PHPUnitResultFormatter7[]
@@ -74,11 +122,24 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      */
     private $project;
 
-    private $groups        = [];
+    /**
+     * @var array
+     */
+    private $groups = [];
+
+    /**
+     * @var array
+     */
     private $excludeGroups = [];
 
+    /**
+     * @var bool
+     */
     private $processIsolation = false;
 
+    /**
+     * @var bool
+     */
     private $useCustomErrorHandler = true;
 
     /**
@@ -89,9 +150,9 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      */
     public function __construct(
         Project $project,
-        $groups = [],
-        $excludeGroups = [],
-        $processIsolation = false
+        array $groups = [],
+        array $excludeGroups = [],
+        bool $processIsolation = false
     ) {
         $this->project          = $project;
         $this->groups           = $groups;
@@ -101,6 +162,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
 
     /**
      * @param CodeCoverage $codecoverage
+     *
+     * @return void
      */
     public function setCodecoverage($codecoverage): void
     {
@@ -109,6 +172,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
 
     /**
      * @param bool $useCustomErrorHandler
+     *
+     * @return void
      */
     public function setUseCustomErrorHandler($useCustomErrorHandler): void
     {
@@ -117,8 +182,10 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
 
     /**
      * @param PHPUnitResultFormatter7 $formatter
+     *
+     * @return void
      */
-    public function addFormatter($formatter): void
+    public function addFormatter(TestHook $formatter): void
     {
         $this->addListener($formatter);
         $this->formatters[] = $formatter;
@@ -126,6 +193,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
 
     /**
      * @param TestListener $listener
+     *
+     * @return void
      */
     public function addListener($listener): void
     {
@@ -140,7 +209,7 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      *
      * @return bool
      */
-    public function handleError($level, $message, $file, $line): bool
+    public function handleError(int $level, string $message, string $file, int $line): bool
     {
         $invoke = new ErrorHandler(true, true, true, true);
         return $invoke($level, $message, $file, $line);
@@ -150,6 +219,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * Run a test
      *
      * @param TestSuite $suite
+     *
+     * @return void
      *
      * @throws BuildException
      * @throws ReflectionException
@@ -203,6 +274,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
     /**
      * @param TestSuite $suite
      *
+     * @return void
+     *
      * @throws ReflectionException
      */
     private function injectFilters(TestSuite $suite): void
@@ -232,6 +305,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
 
     /**
      * @param TestResult $res
+     *
+     * @return void
      */
     private function checkResult(TestResult $res): void
     {
@@ -362,6 +437,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addError(Test $test, Throwable $e, float $time): void
     {
@@ -375,7 +452,7 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      *
      * @return string
      */
-    protected function composeMessage($message, Test $test, Throwable $e)
+    protected function composeMessage(string $message, Test $test, Throwable $e): string
     {
         $name    = ($test instanceof TestCase ? $test->getName() : '');
         $message = 'Test ' . $message . ' (' . $name . ' in class ' . get_class($test) . ' ' . $e->getFile()
@@ -394,6 +471,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addFailure(
         Test $test,
@@ -409,6 +488,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -421,6 +502,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
@@ -433,6 +516,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      *
      * @since Method available since Release 3.0.0
      */
@@ -447,6 +532,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addRiskyTest(Test $test, Throwable $e, float $time): void
     {
@@ -457,8 +544,10 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * A test started.
      *
      * @param string $testName
+     *
+     * @return void
      */
-    public function testStarted($testName): void
+    public function testStarted(string $testName): void
     {
     }
 
@@ -466,8 +555,10 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * A test ended.
      *
      * @param string $testName
+     *
+     * @return void
      */
-    public function testEnded($testName): void
+    public function testEnded(string $testName): void
     {
     }
 
@@ -477,8 +568,10 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * @param int                  $status
      * @param Test                 $test
      * @param AssertionFailedError $e
+     *
+     * @return void
      */
-    public function testFailed($status, Test $test, AssertionFailedError $e): void
+    public function testFailed(int $status, Test $test, AssertionFailedError $e): void
     {
     }
 
@@ -486,6 +579,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * A test suite started.
      *
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -495,6 +590,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * A test suite ended.
      *
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -504,6 +601,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      * A test started.
      *
      * @param Test $test
+     *
+     * @return void
      */
     public function startTest(Test $test): void
     {
@@ -514,6 +613,8 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      *
      * @param Test  $test
      * @param float $time
+     *
+     * @return void
      */
     public function endTest(Test $test, float $time): void
     {
@@ -528,9 +629,11 @@ class PHPUnitTestRunner8 implements TestHook, TestListener
      *
      * @param string $message
      *
+     * @return void
+     *
      * @throws BuildException
      */
-    protected function runFailed($message): void
+    protected function runFailed(string $message): void
     {
         throw new BuildException($message);
     }

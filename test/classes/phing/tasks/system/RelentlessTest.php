@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Tests the Relentless Task
  *
@@ -8,25 +10,37 @@
  */
 class RelentlessTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/RelentlessTest.xml'
         );
     }
 
-    public function testRelentless()
+    /**
+     * @return void
+     */
+    public function testRelentless(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'Executing: task 3');
     }
 
-    public function testTerse()
+    /**
+     * @return void
+     */
+    public function testTerse(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Executing: task 3');
     }
 
-    public function testFailure()
+    /**
+     * @return void
+     */
+    public function testFailure(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Relentless execution: 1 of 5 tasks failed.');

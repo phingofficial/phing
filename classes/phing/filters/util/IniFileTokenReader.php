@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Class that allows reading tokens from INI files.
  *
@@ -28,8 +30,8 @@ class IniFileTokenReader extends TokenReader
     /**
      * Holds the path to the INI file that is to be read.
      *
-     * @var object  Reference to a PhingFile Object representing
-     *              the path to the INI file.
+     * @var PhingFile Reference to a PhingFile Object representing
+     * the path to the INI file.
      */
     private $file = null;
 
@@ -40,18 +42,19 @@ class IniFileTokenReader extends TokenReader
     private $section = null;
 
     /**
-     * @var array
+     * @var Token[]|null
      */
     private $tokens = null;
 
     /**
      * Reads the next token from the INI file
      *
-     * @return Token
+     * @return Token|null
      *
+     * @throws IOException
      * @throws BuildException
      */
-    public function readToken()
+    public function readToken(): ?Token
     {
         if ($this->file === null) {
             throw new BuildException('No File set for IniFileTokenReader');
@@ -70,8 +73,12 @@ class IniFileTokenReader extends TokenReader
 
     /**
      * Parse & process the ini file
+     *
+     * @return void
+     *
+     * @throws IOException
      */
-    protected function processFile()
+    protected function processFile(): void
     {
         $arr = parse_ini_file($this->file->getAbsolutePath(), true);
 
@@ -104,8 +111,10 @@ class IniFileTokenReader extends TokenReader
      * Process an individual section
      *
      * @param array $section
+     *
+     * @return void
      */
-    protected function processSection(array $section)
+    protected function processSection(array $section): void
     {
         foreach ($section as $key => $value) {
             $tok = new Token();
@@ -118,10 +127,12 @@ class IniFileTokenReader extends TokenReader
     /**
      * @param string|PhingFile $file
      *
+     * @return void
+     *
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setFile($file)
+    public function setFile($file): void
     {
         if (is_string($file)) {
             $this->file = new PhingFile($file);
@@ -140,8 +151,10 @@ class IniFileTokenReader extends TokenReader
 
     /**
      * @param string $str
+     *
+     * @return void
      */
-    public function setSection($str)
+    public function setSection(string $str): void
     {
         $this->section = (string) $str;
     }

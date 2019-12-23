@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Handler class for the <project> XML element This class handles all elements
  * under the <project> element.
@@ -66,9 +68,14 @@ class ProjectHandler extends AbstractHandler
      * @param string $tag   the tag that comes in
      * @param array  $attrs attributes the tag carries
      *
+     * @return void
+     *
      * @throws ExpatParseException if attributes are incomplete or invalid
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    public function init($tag, $attrs)
+    public function init(string $tag, array $attrs): void
     {
         $def     = null;
         $name    = null;
@@ -103,7 +110,7 @@ class ProjectHandler extends AbstractHandler
         }
         // these things get done no matter what
         if (null == $name) {
-            $name = basename($this->configurator->getBuildFile());
+            $name = basename((string) $this->configurator->getBuildFile());
         }
 
         $canonicalName = self::canonicalName($name);
@@ -171,9 +178,12 @@ class ProjectHandler extends AbstractHandler
      * @param string $name  the tag that comes in
      * @param array  $attrs attributes the tag carries
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws ExpatParseException if a unxepected element occurs
      */
-    public function startElement($name, $attrs)
+    public function startElement(string $name, array $attrs): void
     {
         $project = $this->configurator->project;
         $types   = $project->getDataTypeDefinitions();
@@ -197,9 +207,9 @@ class ProjectHandler extends AbstractHandler
     /**
      * @param string $name
      *
-     * @return mixed
+     * @return string|array|null
      */
-    public static function canonicalName($name)
+    public static function canonicalName(string $name)
     {
         return preg_replace('/\W/', '_', strtolower($name));
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Examines and removes out of date target files.  If any of the target files
  * are out of date with respect to any of the source files, all target
@@ -76,8 +78,10 @@ class DependSet extends MatchingTask
      * Add a set of source files.
      *
      * @param FileSet $fs the FileSet to add.
+     *
+     * @return void
      */
-    public function addSrcfileset(FileSet $fs)
+    public function addSrcfileset(FileSet $fs): void
     {
         $this->sourceFileSets[] = $fs;
     }
@@ -86,8 +90,10 @@ class DependSet extends MatchingTask
      * Add a list of source files.
      *
      * @param FileList $fl the FileList to add.
+     *
+     * @return void
      */
-    public function addSrcfilelist(FileList $fl)
+    public function addSrcfilelist(FileList $fl): void
     {
         $this->sourceFileLists[] = $fl;
     }
@@ -96,8 +102,10 @@ class DependSet extends MatchingTask
      * Add a set of target files.
      *
      * @param FileSet $fs the FileSet to add.
+     *
+     * @return void
      */
-    public function addTargetfileset(FileSet $fs)
+    public function addTargetfileset(FileSet $fs): void
     {
         $this->targetFileSets[] = $fs;
     }
@@ -106,8 +114,10 @@ class DependSet extends MatchingTask
      * Add a list of target files.
      *
      * @param FileList $fl the FileList to add.
+     *
+     * @return void
      */
-    public function addTargetfilelist(FileList $fl)
+    public function addTargetfilelist(FileList $fl): void
     {
         $this->targetFileLists[] = $fl;
     }
@@ -115,9 +125,14 @@ class DependSet extends MatchingTask
     /**
      * Executes the task.
      *
-     * @throws BuildException if errors occur.
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if ((count($this->sourceFileSets) === 0) && (count($this->sourceFileLists) === 0)) {
             throw new BuildException(

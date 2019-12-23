@@ -26,11 +26,17 @@ class PHPStanCommandBuilderTest extends TestCase
     /** @var PHPStanCommandBuilderFake */
     private $builder;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->builder = new PHPStanCommandBuilderFake();
     }
 
+    /**
+     * @return void
+     */
     public function testItHandleBaseCommandParts(): void
     {
         $task = new PHPStanTask();
@@ -45,9 +51,12 @@ Executing 'anyExecutable' with arguments:
 The ' characters around the executable and arguments are not part of the command.
 CMD;
 
-        $this->assertEquals($cmd, str_replace("\r", '', $task->getCommandline()->describeCommand()));
+        self::assertEquals($cmd, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 
+    /**
+     * @return void
+     */
     public function testItFailsWhenExecutableNotSet(): void
     {
         $task = new PHPStanTask();
@@ -58,6 +67,9 @@ CMD;
         $this->builder->build($task);
     }
 
+    /**
+     * @return void
+     */
     public function testItHandlesCommonOptions(): void
     {
         $task = new PHPStanTask();
@@ -87,6 +99,6 @@ Executing 'anyExecutable' with arguments:
 The ' characters around the executable and arguments are not part of the command.
 CMD;
 
-        $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
+        self::assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
 }

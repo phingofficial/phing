@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Reads the first <code>n</code> lines of a stream.
  * (Default is first 10 lines.)
@@ -68,12 +70,14 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns first n lines of stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
      * @return string|int the resulting stream, or -1
      *                    if the end of the resulting stream has been reached
+     *
+     * @throws IOException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!$this->getInitialized()) {
             $this->initialize();
@@ -115,7 +119,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return void
      */
-    public function setLines($lines)
+    public function setLines(int $lines): void
     {
         $this->lines = (int) $lines;
     }
@@ -125,7 +129,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return int The number of lines to be returned in the filtered stream.
      */
-    public function getLines()
+    public function getLines(): int
     {
         return $this->lines;
     }
@@ -134,8 +138,10 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * Sets the number of lines to be skipped in the filtered stream.
      *
      * @param int $skip the number of lines to be skipped in the filtered stream
+     *
+     * @return void
      */
-    public function setSkip($skip)
+    public function setSkip(int $skip): void
     {
         $this->skip = (int) $skip;
     }
@@ -145,7 +151,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return int the number of lines to be skipped in the filtered stream
      */
-    private function getSkip()
+    private function getSkip(): int
     {
         return $this->skip;
     }
@@ -160,7 +166,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * @return HeadFilter A new filter based on this configuration, but filtering
      *                    the specified reader.
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new self($reader);
         $newFilter->setLines($this->getLines());
@@ -177,7 +183,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return void
      */
-    private function initialize()
+    private function initialize(): void
     {
         $params = $this->getParameters();
         if ($params !== null) {

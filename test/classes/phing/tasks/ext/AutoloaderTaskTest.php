@@ -17,18 +17,29 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext
  */
 class AutoloaderTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/autoloader/autoloader.xml');
     }
 
-    public function testDefault()
+    /**
+     * @return void
+     */
+    public function testDefault(): void
     {
         $this->expectBuildException(
             'testDefault',
@@ -36,7 +47,10 @@ class AutoloaderTaskTest extends BuildFileTest
         );
     }
 
-    public function testExisting()
+    /**
+     * @return void
+     */
+    public function testExisting(): void
     {
         $this->expectLog('testExisting', 'Loading autoloader from autoload.php');
         $this->assertTrue(class_exists('Phing_Autoload_Stub', false));

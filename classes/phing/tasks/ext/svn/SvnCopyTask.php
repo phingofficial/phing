@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Copies a repository from the repository url to another
  *
@@ -25,22 +27,29 @@
  */
 class SvnCopyTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $message = '';
 
     /**
      * Sets the message
      *
      * @param string $message
+     *
+     * @return void
      */
-    public function setMessage($message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
 
     /**
      * Gets the message
+     *
+     * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -48,9 +57,12 @@ class SvnCopyTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('copy');
 

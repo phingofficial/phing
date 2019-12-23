@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
@@ -24,10 +26,16 @@
  */
 class GitInitTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        @mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(
             PHING_TEST_BASE
@@ -35,12 +43,18 @@ class GitInitTaskTest extends BuildFileTest
         );
     }
 
-    public function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testWrongRepository()
+    /**
+     * @return void
+     */
+    public function testWrongRepository(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepository',
@@ -49,7 +63,10 @@ class GitInitTaskTest extends BuildFileTest
         );
     }
 
-    public function testGitInit()
+    /**
+     * @return void
+     */
+    public function testGitInit(): void
     {
         $repository  = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
@@ -60,10 +77,12 @@ class GitInitTaskTest extends BuildFileTest
         $this->assertDirectoryExists($gitFilesDir);
     }
 
-    public function testGitInitBare()
+    /**
+     * @return void
+     */
+    public function testGitInitBare(): void
     {
-        $repository  = PHING_TEST_BASE . '/tmp/git';
-        $gitFilesDir = $repository . '/.git';
+        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
         $this->assertDirectoryExists($repository);
@@ -73,7 +92,10 @@ class GitInitTaskTest extends BuildFileTest
         $this->assertDirectoryExists($repository . '/refs');
     }
 
-    public function testNoRepositorySpecified()
+    /**
+     * @return void
+     */
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

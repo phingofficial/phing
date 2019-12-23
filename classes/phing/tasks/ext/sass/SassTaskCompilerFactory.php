@@ -28,11 +28,19 @@ class SassTaskCompilerFactory
      */
     private $fs;
 
+    /**
+     * @param FileSystem $fs
+     */
     public function __construct(FileSystem $fs)
     {
         $this->fs = $fs;
     }
 
+    /**
+     * @param SassTask $sassTask
+     *
+     * @return SassTaskCompiler
+     */
     public function prepareCompiler(SassTask $sassTask): SassTaskCompiler
     {
         $this->assertCompilerIsSet($sassTask);
@@ -63,6 +71,11 @@ class SassTaskCompilerFactory
         return new SassCompiler($sassTask->getExecutable(), $sassTask->getFlags());
     }
 
+    /**
+     * @param SassTask $sassTask
+     *
+     * @return void
+     */
     private function assertCompilerIsSet(SassTask $sassTask): void
     {
         if (!$sassTask->getUseSass() && !$sassTask->getUseScssPhp()) {
@@ -70,6 +83,9 @@ class SassTaskCompilerFactory
         }
     }
 
+    /**
+     * @return void
+     */
     private function assertScssPhpIsAvailable(): void
     {
         if (!$this->isScssPhpLoaded()) {
@@ -80,6 +96,11 @@ class SassTaskCompilerFactory
         }
     }
 
+    /**
+     * @param SassTask $sassTask
+     *
+     * @return void
+     */
     private function assertSassIsAvailable(SassTask $sassTask): void
     {
         if ($this->fs->which($sassTask->getExecutable()) === false) {
@@ -91,6 +112,9 @@ class SassTaskCompilerFactory
         }
     }
 
+    /**
+     * @return bool
+     */
     private function isScssPhpLoaded(): bool
     {
         return class_exists(Compiler::class);

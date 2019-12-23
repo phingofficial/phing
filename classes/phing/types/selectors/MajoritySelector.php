@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * This selector is here just to shake up your thinking a bit. Don't get
  * too caught up in boolean, there are other ways you can evaluate a
@@ -32,12 +34,15 @@
  */
 class MajoritySelector extends BaseSelectorContainer
 {
+    /**
+     * @var bool
+     */
     private $allowtie = true;
 
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
         if ($this->hasSelectors()) {
@@ -51,8 +56,10 @@ class MajoritySelector extends BaseSelectorContainer
 
     /**
      * @param bool $tiebreaker
+     *
+     * @return void
      */
-    public function setAllowtie($tiebreaker)
+    public function setAllowtie(bool $tiebreaker): void
     {
         $this->allowtie = $tiebreaker;
     }
@@ -68,7 +75,7 @@ class MajoritySelector extends BaseSelectorContainer
      *
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

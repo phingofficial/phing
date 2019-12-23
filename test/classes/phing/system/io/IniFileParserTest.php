@@ -1,60 +1,71 @@
 <?php
 
+declare(strict_types=1);
+
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://phing.info>.
- */
-
-/**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OS WIN32|WINNT
  */
 class IniFileParserTest extends TestCase
 {
-    private $parser;
-    private $root;
+    private const DATA_PATH = 'root';
 
+    /**
+     * @var IniFileParser
+     */
+    private $parser;
+
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->parser = new IniFileParser();
-        $this->root   = vfsStream::setUp();
+
+        $structure = [
+            'tmp' => [],
+        ];
+
+        vfsStream::setup(self::DATA_PATH, null, $structure);
     }
 
     /**
+     * @param string $data
+     * @param array  $expected
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @dataProvider provideIniFiles
      * @covers       IniFileParser::parseFile
      * @covers       IniFileParser::inVal
      */
-    public function testParseFile($data, $expected)
+    public function testParseFile(string $data, array $expected): void
     {
-        $file = $this->root->url() . '/test';
-        file_put_contents($file, $data);
+        $file         = vfsStream::url(self::DATA_PATH . '/tmp/test.ini');
+        $writtenBytes = file_put_contents($file, $data);
 
-        $phingFile = new PhingFile($file);
-        $this->assertSame($expected, $this->parser->parseFile($phingFile));
+        $this->assertNotFalse($writtenBytes, 'could not write test data to file ' . $file);
+
+        $phingFile = new PhingFile($file);var_dump($file, (string) $phingFile);
+        self::assertSame($expected, $this->parser->parseFile($phingFile));
     }
 
     /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileCouldntOpenFile()
+    public function testParseFileCouldntOpenFile(): void
     {
         $phingFile = new PhingFile(uniqid('', true));
 
@@ -64,9 +75,9 @@ class IniFileParserTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function provideIniFiles()
+    public function provideIniFiles(): array
     {
         return [
             [

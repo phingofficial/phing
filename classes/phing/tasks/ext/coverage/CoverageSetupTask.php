@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Initializes a code coverage database
  *
@@ -32,6 +34,8 @@ class CoverageSetupTask extends Task
 
     /**
      * the filename of the coverage database
+     *
+     * @var string
      */
     private $database = 'coverage.db';
 
@@ -39,8 +43,10 @@ class CoverageSetupTask extends Task
      * Sets the filename of the coverage database to use
      *
      * @param string $database the filename of the database
+     *
+     * @return void
      */
-    public function setDatabase($database)
+    public function setDatabase(string $database): void
     {
         $this->database = $database;
     }
@@ -49,8 +55,13 @@ class CoverageSetupTask extends Task
      * Iterate over all filesets and return the filename of all files.
      *
      * @return array an array of (basedir, filenames) pairs
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
-    private function getFilenames()
+    private function getFilenames(): array
     {
         $files = [];
 
@@ -73,7 +84,7 @@ class CoverageSetupTask extends Task
             $includedFiles = $ds->getIncludedFiles();
 
             foreach ($includedFiles as $file) {
-                $fs = new PhingFile(realpath($ds->getBaseDir()), $file);
+                $fs = new PhingFile(realpath((string) $ds->getBaseDir()), $file);
 
                 $files[] = ['key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath()];
             }
@@ -82,11 +93,22 @@ class CoverageSetupTask extends Task
         return $files;
     }
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
     }
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
+     * @throws IOException
+     */
+    public function main(): void
     {
         $files = $this->getFilenames();
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Rollbacks the database changes.
  *
@@ -26,22 +28,29 @@
  */
 class LiquibaseRollbackTask extends AbstractLiquibaseTask
 {
+    /**
+     * @var string
+     */
     protected $rollbackTag;
 
     /**
      * Sets the name of the tag to roll back to.
      *
      * @param string $rollbackTag the name to roll back to
+     *
+     * @return void
      */
-    public function setRollbackTag($rollbackTag)
+    public function setRollbackTag(string $rollbackTag): void
     {
         $this->rollbackTag = $rollbackTag;
     }
 
     /**
      * @see AbstractTask::checkParams()
+     *
+     * @return void
      */
-    protected function checkParams()
+    protected function checkParams(): void
     {
         parent::checkParams();
 
@@ -52,8 +61,10 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
 
     /**
      * @see Task::main()
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->checkParams();
         $this->execute('rollback', escapeshellarg($this->rollbackTag));

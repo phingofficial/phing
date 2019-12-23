@@ -21,13 +21,25 @@ declare(strict_types=1);
 
 class FileSystemWhichStub extends UnixFileSystem
 {
+    /**
+     * @var bool
+     */
     private $isWhichSuccessful;
 
+    /**
+     * @param bool $isWhichSuccessful
+     */
     public function __construct(bool $isWhichSuccessful)
     {
         $this->isWhichSuccessful = $isWhichSuccessful;
     }
 
+    /**
+     * @param string|int $executable
+     * @param mixed      $fallback
+     *
+     * @return mixed
+     */
     public function which($executable, $fallback = false)
     {
         if ($this->isWhichSuccessful) {
@@ -42,9 +54,11 @@ class FileSystemWhichStub extends UnixFileSystem
      * @param PhingFile $f1
      * @param PhingFile $f2
      *
+     * @return int
+     *
      * @throws IOException
      */
-    public function compare(PhingFile $f1, PhingFile $f2)
+    public function compare(PhingFile $f1, PhingFile $f2): int
     {
         throw new IOException('compare() not implemented by local fs driver');
     }

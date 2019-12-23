@@ -12,6 +12,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+declare(strict_types=1);
+
 /**
  * Integration/Wrapper for hg push
  *
@@ -38,7 +40,7 @@ class HgPushTask extends HgBaseTask
      *
      * @return void
      */
-    public function setHaltonerror($halt)
+    public function setHaltonerror(string $halt): void
     {
         $this->haltonerror = StringHelper::booleanValue($halt);
     }
@@ -48,7 +50,7 @@ class HgPushTask extends HgBaseTask
      *
      * @return bool
      */
-    public function getHaltonerror()
+    public function getHaltonerror(): bool
     {
         return $this->haltonerror;
     }
@@ -58,9 +60,10 @@ class HgPushTask extends HgBaseTask
      *
      * @return void
      *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $clone = $this->getFactoryInstance('push');
         $this->log('Pushing...', Project::MSG_INFO);

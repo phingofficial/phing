@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A factory class for regex functions.
  *
@@ -60,7 +62,7 @@ class Regexp
      *
      * @throws BuildException
      */
-    public function __construct($engineType = 'preg')
+    public function __construct(string $engineType = 'preg')
     {
         if ($engineType == 'preg') {
             $this->engine = new PregEngine();
@@ -76,7 +78,7 @@ class Regexp
      *
      * @return void
      */
-    public function setPattern($pat)
+    public function setPattern(string $pat): void
     {
         $this->pattern = (string) $pat;
     }
@@ -86,7 +88,7 @@ class Regexp
      *
      * @return string The pattern to match on.
      */
-    public function getPattern()
+    public function getPattern(): string
     {
         return $this->pattern;
     }
@@ -98,7 +100,7 @@ class Regexp
      *
      * @return void
      */
-    public function setReplace($rep)
+    public function setReplace(string $rep): void
     {
         $this->replace = (string) $rep;
     }
@@ -108,7 +110,7 @@ class Regexp
      *
      * @return string The pattern to replace matches with.
      */
-    public function getReplace()
+    public function getReplace(): string
     {
         return $this->replace;
     }
@@ -122,7 +124,7 @@ class Regexp
      *
      * @throws RegexpException
      */
-    public function matches($subject)
+    public function matches(string $subject): bool
     {
         if ($this->pattern === null) {
             throw new RegexpException('No pattern specified for regexp match().');
@@ -140,7 +142,7 @@ class Regexp
      *
      * @throws RegexpException
      */
-    public function replace($subject)
+    public function replace(string $subject): string
     {
         if ($this->pattern === null || $this->replace === null) {
             throw new RegexpException('Missing pattern or replacement string regexp replace().');
@@ -154,7 +156,7 @@ class Regexp
      *
      * @return array Matched groups
      */
-    public function getGroups()
+    public function getGroups(): array
     {
         return $this->groups;
     }
@@ -164,9 +166,9 @@ class Regexp
      *
      * @param int $idx
      *
-     * @return string  specified group or NULL if group is not set.
+     * @return string|null Specified group or NULL if group is not set.
      */
-    public function getGroup($idx)
+    public function getGroup(int $idx): ?string
     {
         if (!isset($this->groups[$idx])) {
             return null;
@@ -178,11 +180,11 @@ class Regexp
     /**
      * Sets pattern modifiers for regex engine
      *
-     * @param string $mods Modifiers to be applied to a given regex
+     * @param string|null $mods Modifiers to be applied to a given regex
      *
      * @return void
      */
-    public function setModifiers($mods)
+    public function setModifiers(?string $mods): void
     {
         $this->engine->setModifiers($mods);
     }
@@ -195,7 +197,7 @@ class Regexp
      *
      * @return string
      */
-    public function getModifiers()
+    public function getModifiers(): string
     {
         return $this->engine->getModifiers();
     }
@@ -205,8 +207,10 @@ class Regexp
      * (default is false -- i.e. case sensisitive)
      *
      * @param bool $bit
+     *
+     * @return void
      */
-    public function setIgnoreCase($bit)
+    public function setIgnoreCase(bool $bit): void
     {
         $this->engine->setIgnoreCase($bit);
     }
@@ -216,7 +220,7 @@ class Regexp
      *
      * @return bool
      */
-    public function getIgnoreCase()
+    public function getIgnoreCase(): bool
     {
         return $this->engine->getIgnoreCase();
     }
@@ -225,8 +229,10 @@ class Regexp
      * Sets whether regexp should be applied in multiline mode.
      *
      * @param bool $bit
+     *
+     * @return void
      */
-    public function setMultiline($bit)
+    public function setMultiline(bool $bit): void
     {
         $this->engine->setMultiline($bit);
     }
@@ -236,7 +242,7 @@ class Regexp
      *
      * @return bool
      */
-    public function getMultiline()
+    public function getMultiline(): bool
     {
         return $this->engine->getMultiline();
     }
@@ -245,8 +251,10 @@ class Regexp
      * Sets the maximum possible replacements for each pattern.
      *
      * @param int $limit
+     *
+     * @return void
      */
-    public function setLimit($limit)
+    public function setLimit(int $limit): void
     {
         $this->engine->setLimit($limit);
     }

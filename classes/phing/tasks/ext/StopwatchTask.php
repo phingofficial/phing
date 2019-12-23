@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
@@ -53,7 +55,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         if (!class_exists(Stopwatch::class)) {
             throw new BuildException('StopwatchTask requires symfony/stopwatch to be installed.');
@@ -67,7 +69,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return Stopwatch
      */
-    private function getStopwatchInstance()
+    private function getStopwatchInstance(): Stopwatch
     {
         if (self::$timer === null) {
             self::$timer = new Stopwatch();
@@ -81,7 +83,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    public function start()
+    public function start(): void
     {
         $timer = $this->getStopwatchInstance();
         $timer->start($this->name, $this->category);
@@ -91,8 +93,10 @@ class StopwatchTask extends DispatchTask
      * Stop timer.
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function stop()
+    public function stop(): void
     {
         $timer = $this->getStopwatchInstance();
         $event = $timer->stop($this->name);
@@ -118,7 +122,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    public function lap()
+    public function lap(): void
     {
         $timer = $this->getStopwatchInstance();
         $timer->lap($this->name);
@@ -131,7 +135,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -143,7 +147,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return void
      */
-    public function setCategory($category)
+    public function setCategory(string $category): void
     {
         $this->category = $category;
     }
@@ -154,8 +158,9 @@ class StopwatchTask extends DispatchTask
      * @return void
      *
      * @throws BuildException
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         switch ($this->getAction()) {
             case 'start':

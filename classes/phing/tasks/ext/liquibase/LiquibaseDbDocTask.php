@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Task to create a javadoc-like documentation based on current database and
  * changelog.
@@ -27,22 +29,29 @@
  */
 class LiquibaseDbDocTask extends AbstractLiquibaseTask
 {
+    /**
+     * @var string
+     */
     protected $outputDir;
 
     /**
      * Sets the output directory where the documentation gets generated to.
      *
      * @param string $outputDir the output directory
+     *
+     * @return void
      */
-    public function setOutputDir($outputDir)
+    public function setOutputDir(string $outputDir): void
     {
         $this->outputDir = $outputDir;
     }
 
     /**
      * @see AbstractTask::checkParams()
+     *
+     * @return void
      */
-    protected function checkParams()
+    protected function checkParams(): void
     {
         parent::checkParams();
 
@@ -69,8 +78,10 @@ class LiquibaseDbDocTask extends AbstractLiquibaseTask
 
     /**
      * @see Task::main()
+     *
+     * @return void
      */
-    public function main()
+    public function main(): void
     {
         $this->checkParams();
         $this->execute('dbdoc', escapeshellarg($this->outputDir));

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract baseclass for the <condition> task as well as several
  * conditions - ensures that the types of conditions inside the task
@@ -29,6 +31,9 @@
  */
 abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator
 {
+    /**
+     * @var Condition[]
+     */
     public $conditions = []; // needs to be public for "inner" class access
 
     /**
@@ -36,10 +41,13 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      */
     private $taskName = 'condition';
 
-    public function __construct($taskName = 'component')
+    /**
+     * @param string $taskName
+     */
+    public function __construct(string $taskName = 'component')
     {
         parent::__construct();
-        $this->taskName = $taskName;
+        $this->setTaskName($taskName);
     }
 
     /**
@@ -47,8 +55,10 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      *
      * @param string $name The name to use in logging messages.
      *                     Should not be <code>null</code>.
+     *
+     * @return void
      */
-    public function setTaskName($name)
+    public function setTaskName(string $name): void
     {
         $this->taskName = $name;
     }
@@ -58,7 +68,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      *
      * @return string the name to use in logging messages.
      */
-    public function getTaskName()
+    public function getTaskName(): string
     {
         return $this->taskName;
     }
@@ -66,15 +76,17 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return int
      */
-    public function countConditions()
+    public function countConditions(): int
     {
         return count($this->conditions);
     }
 
     /**
      * Required for IteratorAggregate
+     *
+     * @return ConditionEnumeration
      */
-    public function getIterator()
+    public function getIterator(): ConditionEnumeration
     {
         return new ConditionEnumeration($this);
     }
@@ -82,7 +94,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return Condition[]
      */
-    public function getConditions()
+    public function getConditions(): array
     {
         return $this->conditions;
     }
@@ -92,7 +104,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      *
      * @return void
      */
-    public function addAvailable(AvailableTask $a)
+    public function addAvailable(AvailableTask $a): void
     {
         $this->conditions[] = $a;
     }
@@ -100,7 +112,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return NotCondition
      */
-    public function createNot()
+    public function createNot(): NotCondition
     {
         $num = array_push($this->conditions, new NotCondition());
 
@@ -110,7 +122,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return AndCondition
      */
-    public function createAnd()
+    public function createAnd(): AndCondition
     {
         $num = array_push($this->conditions, new AndCondition());
 
@@ -120,7 +132,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return OrCondition
      */
-    public function createOr()
+    public function createOr(): OrCondition
     {
         $num = array_push($this->conditions, new OrCondition());
 
@@ -130,7 +142,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return XorCondition
      */
-    public function createXor()
+    public function createXor(): XorCondition
     {
         $num = array_push($this->conditions, new XorCondition());
 
@@ -140,7 +152,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return EqualsCondition
      */
-    public function createEquals()
+    public function createEquals(): EqualsCondition
     {
         $num = array_push($this->conditions, new EqualsCondition());
 
@@ -150,7 +162,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return OsCondition
      */
-    public function createOs()
+    public function createOs(): OsCondition
     {
         $num = array_push($this->conditions, new OsCondition());
 
@@ -160,7 +172,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return IsFalseCondition
      */
-    public function createIsFalse()
+    public function createIsFalse(): IsFalseCondition
     {
         $num = array_push($this->conditions, new IsFalseCondition());
 
@@ -170,7 +182,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return IsTrueCondition
      */
-    public function createIsTrue()
+    public function createIsTrue(): IsTrueCondition
     {
         $num = array_push($this->conditions, new IsTrueCondition());
 
@@ -180,7 +192,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return IsPropertyFalseCondition
      */
-    public function createIsPropertyFalse()
+    public function createIsPropertyFalse(): IsPropertyFalseCondition
     {
         $num = array_push($this->conditions, new IsPropertyFalseCondition());
 
@@ -190,7 +202,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return IsPropertyTrueCondition
      */
-    public function createIsPropertyTrue()
+    public function createIsPropertyTrue(): IsPropertyTrueCondition
     {
         $num = array_push($this->conditions, new IsPropertyTrueCondition());
 
@@ -200,7 +212,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return ContainsCondition
      */
-    public function createContains()
+    public function createContains(): ContainsCondition
     {
         $num = array_push($this->conditions, new ContainsCondition());
 
@@ -210,7 +222,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return IsSetCondition
      */
-    public function createIsSet()
+    public function createIsSet(): IsSetCondition
     {
         $num = array_push($this->conditions, new IsSetCondition());
 
@@ -220,77 +232,107 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * @return ReferenceExistsCondition
      */
-    public function createReferenceExists()
+    public function createReferenceExists(): ReferenceExistsCondition
     {
         $num = array_push($this->conditions, new ReferenceExistsCondition());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createVersionCompare()
+    /**
+     * @return VersionCompareCondition
+     */
+    public function createVersionCompare(): VersionCompareCondition
     {
         $num = array_push($this->conditions, new VersionCompareCondition());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createHttp()
+    /**
+     * @return HttpCondition
+     */
+    public function createHttp(): HttpCondition
     {
         $num = array_push($this->conditions, new HttpCondition());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createPhingVersion()
+    /**
+     * @return PhingVersion
+     */
+    public function createPhingVersion(): PhingVersion
     {
         $num = array_push($this->conditions, new PhingVersion());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createHasFreeSpace()
+    /**
+     * @return HasFreeSpaceCondition
+     */
+    public function createHasFreeSpace(): HasFreeSpaceCondition
     {
         $num = array_push($this->conditions, new HasFreeSpaceCondition());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createFilesMatch()
+    /**
+     * @return FilesMatch
+     */
+    public function createFilesMatch(): FilesMatch
     {
         $num = array_push($this->conditions, new FilesMatch());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createSocket()
+    /**
+     * @return SocketCondition
+     */
+    public function createSocket(): SocketCondition
     {
         $num = array_push($this->conditions, new SocketCondition());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createIsFailure()
+    /**
+     * @return IsFailure
+     */
+    public function createIsFailure(): IsFailure
     {
         $num = array_push($this->conditions, new IsFailure());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createIsFileSelected()
+    /**
+     * @return IsFileSelected
+     */
+    public function createIsFileSelected(): IsFileSelected
     {
         $num = array_push($this->conditions, new IsFileSelected());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createMatches()
+    /**
+     * @return Matches
+     */
+    public function createMatches(): Matches
     {
         $num = array_push($this->conditions, new Matches());
 
         return $this->conditions[$num - 1];
     }
 
-    public function createPdoSqlExec()
+    /**
+     * @return PDOSQLExecTask
+     */
+    public function createPdoSqlExec(): PDOSQLExecTask
     {
         $num = array_push($this->conditions, new PDOSQLExecTask());
 
@@ -305,7 +347,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      *
      * @throws BuildException
      */
-    public function customChildCreator($elementName, Project $project)
+    public function customChildCreator(string $elementName, Project $project)
     {
         $condition = $project->createCondition($elementName);
         $num       = array_push($this->conditions, $condition);

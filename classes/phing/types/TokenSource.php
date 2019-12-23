@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A parameter is composed of a name, type and value.
  *
@@ -72,8 +74,12 @@ class TokenSource extends DataType
     /**
      * This method is called to load the sources from the reader
      * into the buffer of the source.
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
      */
-    public function load()
+    public function load(): void
     {
         // Create new Reader
         if ($this->classname === null) {
@@ -101,8 +107,12 @@ class TokenSource extends DataType
     /**
      * This function uses the wrapper to read the tokens and then
      * returns them.
+     *
+     * @return array
+     *
+     * @throws ConfigurationException
      */
-    public function getTokens()
+    public function getTokens(): array
     {
         if (count($this->tokens) == 0) {
             $this->load();
@@ -116,8 +126,10 @@ class TokenSource extends DataType
      * TokenSource.
      *
      * @param TokenReader $reader
+     *
+     * @return void
      */
-    private function configureTokenReader(TokenReader $reader)
+    private function configureTokenReader(TokenReader $reader): void
     {
         $count = count($this->parameters);
         for ($i = 0; $i < $count; $i++) {
@@ -131,8 +143,10 @@ class TokenSource extends DataType
      * Set the classname (dot-path) to use for handling token replacement.
      *
      * @param string $c
+     *
+     * @return void
      */
-    public function setClassname($c)
+    public function setClassname(string $c): void
     {
         $this->classname = $c;
     }
@@ -142,7 +156,7 @@ class TokenSource extends DataType
      *
      * @return string
      */
-    public function getClassname()
+    public function getClassname(): string
     {
         return $this->classname;
     }
@@ -153,7 +167,7 @@ class TokenSource extends DataType
      *
      * @return Parameter
      */
-    public function createParam()
+    public function createParam(): Parameter
     {
         $num = array_push($this->parameters, new Parameter());
 

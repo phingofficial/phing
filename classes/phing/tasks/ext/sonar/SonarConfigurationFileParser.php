@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
@@ -55,10 +57,10 @@ class SonarConfigurationFileParser
     private $value;
 
     /**
-     * @param string $file
-     *            The properties file.
+     * @param string|null $file    The properties file.
+     * @param Project     $project
      */
-    public function __construct($file, Project $project)
+    public function __construct(?string $file, Project $project)
     {
         if (($file === null) || ($file === '')) {
             throw new BuildException('File name must not be null or empty.');
@@ -71,9 +73,10 @@ class SonarConfigurationFileParser
     /**
      * @return array
      *
+     * @throws Exception
      * @throws BuildException
      */
-    public function parse()
+    public function parse(): array
     {
         $this->properties = [];
 
@@ -130,7 +133,7 @@ class SonarConfigurationFileParser
      *
      * @return bool
      */
-    private function extractNameAndValue($line)
+    private function extractNameAndValue(string $line): bool
     {
         $isMultiLine = false;
 
@@ -156,7 +159,7 @@ class SonarConfigurationFileParser
      *
      * @return bool
      */
-    private function extractContinuedValue($line)
+    private function extractContinuedValue(string $line): bool
     {
         $isMultiLine = false;
 
@@ -179,7 +182,7 @@ class SonarConfigurationFileParser
     /**
      * @return bool
      */
-    private function checkMultiLine()
+    private function checkMultiLine(): bool
     {
         $isMultiLine = false;
 
@@ -198,7 +201,7 @@ class SonarConfigurationFileParser
      *
      * @return bool
      */
-    private function isCommentLine($line)
+    private function isCommentLine(string $line): bool
     {
         return preg_match('/^\\s*[!#]/', $line) === 1;
     }

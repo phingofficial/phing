@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * BuildException is for when things go wrong in a build execution.
  *
@@ -42,11 +44,11 @@ class BuildException extends RuntimeException
      *         throw new BuildException($msg, $loc);
      *         throw new BuildException($msg, $causeExc, $loc);
      *
-     * @param Exception|string        $p1
-     * @param Location|Exception|null $p2
+     * @param Throwable|string        $p1
+     * @param Location|Throwable|null $p2
      * @param Location|null           $p3
      */
-    public function __construct($p1 = '', $p2 = null, $p3 = null)
+    public function __construct($p1 = '', $p2 = null, ?Location $p3 = null)
     {
         $cause = null;
         $loc   = null;
@@ -58,17 +60,15 @@ class BuildException extends RuntimeException
             }
             $loc = $p3;
             $msg = $p1;
-        } elseif ($p2 !== null) {
-            if ($p2 instanceof Throwable) {
-                $cause = $p2;
-                $msg   = $p1;
-            } elseif ($p2 instanceof Location) {
-                $loc = $p2;
-                if ($p1 instanceof Throwable) {
-                    $cause = $p1;
-                } else {
-                    $msg = $p1;
-                }
+        } elseif ($p2 instanceof Throwable) {
+            $cause = $p2;
+            $msg   = $p1;
+        } elseif ($p2 instanceof Location) {
+            $loc = $p2;
+            if ($p1 instanceof Throwable) {
+                $cause = $p1;
+            } else {
+                $msg = $p1;
             }
         } elseif ($p1 instanceof Throwable) {
             $cause = $p1;
@@ -87,9 +87,9 @@ class BuildException extends RuntimeException
     /**
      * Gets the location of error in XML file.
      *
-     * @return Location
+     * @return Location|null
      */
-    public function getLocation()
+    public function getLocation(): ?Location
     {
         return $this->location;
     }
@@ -98,13 +98,18 @@ class BuildException extends RuntimeException
      * Sets the location of error in XML file.
      *
      * @param Location $loc
+     *
+     * @return void
      */
-    public function setLocation(Location $loc)
+    public function setLocation(Location $loc): void
     {
         $this->location = $loc;
     }
 
-    public function __toString()
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
         return (string) $this->location . ' ' . $this->getMessage();
     }

@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 class ReferenceTest extends TestCase
 {
     /**
@@ -31,7 +32,7 @@ class ReferenceTest extends TestCase
      *
      * @return void
      */
-    public function testGetProject()
+    public function testGetProject(): void
     {
         $project     = new Project();
         $description = 'desc' . rand();
@@ -41,7 +42,10 @@ class ReferenceTest extends TestCase
         $this->assertEquals($retrieved->getDescription(), $description);
     }
 
-    public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
+    /**
+     * @return void
+     */
+    public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet(): void
     {
         $project   = new Project();
         $reference = new Reference($project, 'refOne');
@@ -52,7 +56,10 @@ class ReferenceTest extends TestCase
         $reference->getReferencedObject(null);
     }
 
-    public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven()
+    /**
+     * @return void
+     */
+    public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven(): void
     {
         $project   = new Project();
         $reference = new Reference($project);

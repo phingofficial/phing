@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Represents a slot in the register.
  *
@@ -26,11 +28,15 @@ class RegisterSlot
 {
     /**
      * The name of this slot.
+     *
+     * @var string
      */
     private $key;
 
     /**
      * The value for this slot.
+     *
+     * @var mixed
      */
     private $value;
 
@@ -39,17 +45,19 @@ class RegisterSlot
      *
      * @param string $key
      */
-    public function __construct($key)
+    public function __construct(string $key)
     {
-        $this->key = (string) $key;
+        $this->setKey($key);
     }
 
     /**
      * Sets the key / name for this slot.
      *
      * @param string $k
+     *
+     * @return void
      */
-    public function setKey($k)
+    public function setKey(string $k): void
     {
         $this->key = (string) $k;
     }
@@ -59,7 +67,7 @@ class RegisterSlot
      *
      * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -68,8 +76,10 @@ class RegisterSlot
      * Sets the value for this slot.
      *
      * @param mixed $v
+     *
+     * @return void
      */
-    public function setValue($v)
+    public function setValue($v): void
     {
         $this->value = $v;
     }
@@ -91,7 +101,7 @@ class RegisterSlot
      *
      * @return string
      */
-    private function implodeArray(array $arr)
+    private function implodeArray(array $arr): string
     {
         $values = [];
 
@@ -111,7 +121,7 @@ class RegisterSlot
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (is_array($this->value)) {
             return $this->implodeArray($this->value);

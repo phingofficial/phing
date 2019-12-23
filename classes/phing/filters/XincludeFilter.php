@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Applies Xinclude parsing to incoming text.
  *
@@ -50,9 +52,11 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param bool $resolveExternals
      *
+     * @return void
+     *
      * @since 2.4
      */
-    public function setResolveExternals(bool $resolveExternals)
+    public function setResolveExternals(bool $resolveExternals): void
     {
         $this->resolveExternals = $resolveExternals;
     }
@@ -62,15 +66,17 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @since 2.4
      */
-    public function getResolveExternals()
+    public function getResolveExternals(): bool
     {
         return $this->resolveExternals;
     }
 
     /**
      * @param PhingFile $dir
+     *
+     * @return void
      */
-    public function setBasedir(PhingFile $dir)
+    public function setBasedir(PhingFile $dir): void
     {
         $this->basedir = $dir;
     }
@@ -78,7 +84,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * @return PhingFile
      */
-    public function getBasedir()
+    public function getBasedir(): PhingFile
     {
         return $this->basedir;
     }
@@ -86,14 +92,14 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      *
-     * @param int $len
+     * @param int|null $len
      *
-     * @return string         transformed buffer.
+     * @return mixed Transformed buffer.
      *
      * @throws IOException
      * @throws BuildException
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if (!class_exists('DOMDocument')) {
             throw new BuildException('Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.');
@@ -139,7 +145,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return string
      */
-    protected function process($xml)
+    protected function process(string $xml): string
     {
         if ($this->basedir) {
             $cwd = getcwd();
@@ -171,7 +177,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * @return XincludeFilter A new filter based on this configuration, but filtering
      *                        the specified reader
      */
-    public function chain(Reader $reader): Reader
+    public function chain(Reader $reader): BaseFilterReader
     {
         $newFilter = new self($reader);
         $newFilter->setProject($this->getProject());

@@ -21,6 +21,11 @@ declare(strict_types=1);
 
 class PHPStanAnalyseCommandBuilder extends PHPStanCommandBuilder
 {
+    /**
+     * @param PHPStanTask $task
+     *
+     * @return void
+     */
     public function build(PHPStanTask $task): void
     {
         parent::build($task);

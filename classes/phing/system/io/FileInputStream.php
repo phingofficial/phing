@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Input stream subclass for file streams.
  *
@@ -71,7 +73,7 @@ class FileInputStream extends InputStream
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->file->getPath();
     }
@@ -81,7 +83,7 @@ class FileInputStream extends InputStream
      *
      * @return bool TRUE
      */
-    public function markSupported()
+    public function markSupported(): bool
     {
         return true;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Tests PDOSQLExecTask as condition
  *
@@ -8,14 +10,23 @@
  */
 class PDOSQLExecTaskConditionTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/PDOSQLExecTaskConditionTest.xml'
         );
     }
 
-    public function testUrlIsRequiredException()
+    /**
+     * @return void
+     */
+    public function testUrlIsRequiredException(): void
     {
         $this->expectSpecificBuildException(
             __FUNCTION__,
@@ -24,7 +35,10 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         );
     }
 
-    public function testFalseWhenInvalidHost()
+    /**
+     * @return void
+     */
+    public function testFalseWhenInvalidHost(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Trying to reach mysql:host=dummy', Project::MSG_DEBUG);
@@ -32,7 +46,10 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         $this->assertInLogs('pdosqlexec condition returned false', Project::MSG_INFO);
     }
 
-    public function testFalseWhenInvalidDriver()
+    /**
+     * @return void
+     */
+    public function testFalseWhenInvalidDriver(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Trying to reach invalid:host=localhost', Project::MSG_DEBUG);
@@ -40,21 +57,30 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         $this->assertInLogs('pdosqlexec condition returned false', Project::MSG_INFO);
     }
 
-    public function testCompatibleWithConditionTask()
+    /**
+     * @return void
+     */
+    public function testCompatibleWithConditionTask(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('condition.result', 'condition-not-met');
         $this->assertInLogs('Trying to reach mysql:host=localhost', Project::MSG_DEBUG);
     }
 
-    public function testCompatibleWithWaitForTask()
+    /**
+     * @return void
+     */
+    public function testCompatibleWithWaitForTask(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('waitfor.timeout', 'true');
         $this->assertInLogs('Trying to reach mysql:host=localhost', Project::MSG_DEBUG);
     }
 
-    public function testSuccessfulCondition()
+    /**
+     * @return void
+     */
+    public function testSuccessfulCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('pdosqlexec condition returned true', Project::MSG_INFO);

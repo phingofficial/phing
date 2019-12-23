@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Root filter class for a phing buildfile.
  *
@@ -31,6 +33,8 @@ class RootHandler extends AbstractHandler
 {
     /**
      * The phing project configurator object
+     *
+     * @var ProjectConfigurator
      */
     private $configurator;
 
@@ -62,7 +66,6 @@ class RootHandler extends AbstractHandler
 
     /**
      * Kick off a custom action for a start element tag.
-     *
      * The root element of our buildfile is the &lt;project&gt; element. The
      * root filter handles this element if it occurs, creates ProjectHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
@@ -71,10 +74,14 @@ class RootHandler extends AbstractHandler
      * @param string $tag   The xml tagname
      * @param array  $attrs The attributes of the tag
      *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws ExpatParseException if the first element within our build file
-     *                                   is not the &gt;project&lt; element
+     *                             is not the &gt;project&lt; element
      */
-    public function startElement($tag, $attrs)
+    public function startElement(string $tag, array $attrs): void
     {
         if ($tag === 'project') {
             $ph = new ProjectHandler($this->parser, $this, $this->configurator, $this->context);

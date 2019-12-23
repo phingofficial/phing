@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
@@ -24,9 +26,9 @@
 class DefaultClock implements Clock
 {
     /**
-     * @return int
+     * @return float
      */
-    public function getCurrentTime()
+    public function getCurrentTime(): float
     {
         return microtime(true);
     }

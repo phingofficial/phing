@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper around git-clone
  *
@@ -59,14 +61,18 @@ class GitCloneTask extends GitBaseTask
     /**
      * Path to target directory
      *
-     * @var string
+     * @var string|null
      */
     private $targetPath;
 
     /**
      * The main entry point for the task
+     *
+     * @return void
+     *
+     * @throws Exception
      */
-    public function main()
+    public function main(): void
     {
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
@@ -105,9 +111,11 @@ class GitCloneTask extends GitBaseTask
      *
      * @param VersionControl_Git $client
      *
+     * @return void
+     *
      * @throws VersionControl_Git_Exception
      */
-    protected function doClone(VersionControl_Git $client)
+    protected function doClone(VersionControl_Git $client): void
     {
         $command = $client->getCommand('clone')
             ->setOption('q')
@@ -140,15 +148,17 @@ class GitCloneTask extends GitBaseTask
     /**
      * @return int
      */
-    public function getDepth()
+    public function getDepth(): int
     {
         return $this->depth;
     }
 
     /**
      * @param int $depth
+     *
+     * @return void
      */
-    public function setDepth($depth)
+    public function setDepth(int $depth): void
     {
         $this->depth = $depth;
     }
@@ -156,7 +166,7 @@ class GitCloneTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function hasDepth()
+    public function hasDepth(): bool
     {
         return $this->depth > 0;
     }
@@ -164,9 +174,9 @@ class GitCloneTask extends GitBaseTask
     /**
      * Get path to target direcotry repo
      *
-     * @return string
+     * @return string|null
      */
-    public function getTargetPath()
+    public function getTargetPath(): ?string
     {
         return $this->targetPath;
     }
@@ -178,7 +188,7 @@ class GitCloneTask extends GitBaseTask
      *
      * @return void
      */
-    public function setTargetPath($targetPath)
+    public function setTargetPath(string $targetPath): void
     {
         $this->targetPath = $targetPath;
     }
@@ -188,7 +198,7 @@ class GitCloneTask extends GitBaseTask
      *
      * @return bool
      */
-    public function isBare()
+    public function isBare(): bool
     {
         return $this->getBare();
     }
@@ -196,15 +206,17 @@ class GitCloneTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function getBare()
+    public function getBare(): bool
     {
         return $this->isBare;
     }
 
     /**
      * @param bool $bare
+     *
+     * @return void
      */
-    public function setBare(bool $bare)
+    public function setBare(bool $bare): void
     {
         $this->isBare = $bare;
     }
@@ -212,15 +224,17 @@ class GitCloneTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function isSingleBranch()
+    public function isSingleBranch(): bool
     {
         return $this->singleBranch;
     }
 
     /**
      * @param bool $singleBranch
+     *
+     * @return void
      */
-    public function setSingleBranch($singleBranch)
+    public function setSingleBranch(bool $singleBranch): void
     {
         $this->singleBranch = $singleBranch;
     }
@@ -228,7 +242,7 @@ class GitCloneTask extends GitBaseTask
     /**
      * @return string
      */
-    public function getBranch()
+    public function getBranch(): string
     {
         return $this->branch;
     }
@@ -236,15 +250,17 @@ class GitCloneTask extends GitBaseTask
     /**
      * @return bool
      */
-    public function hasBranch()
+    public function hasBranch(): bool
     {
         return !empty($this->branch);
     }
 
     /**
      * @param string $branch
+     *
+     * @return void
      */
-    public function setBranch($branch)
+    public function setBranch(string $branch): void
     {
         $this->branch = $branch;
     }

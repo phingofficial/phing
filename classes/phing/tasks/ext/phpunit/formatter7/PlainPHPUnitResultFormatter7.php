@@ -1,11 +1,4 @@
 <?php
-
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\ExceptionWrapper;
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\Warning;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,6 +17,13 @@ use PHPUnit\Framework\Warning;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
+
 /**
  * Prints plain text output of the test to a specified Writer.
  *
@@ -37,7 +37,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         return '.txt';
     }
@@ -45,13 +45,15 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     /**
      * @return string
      */
-    public function getPreferredOutfile()
+    public function getPreferredOutfile(): string
     {
         return 'testresults';
     }
 
     /**
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -62,6 +64,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
     /**
      * @param TestSuite $suite
+     *
+     * @return void
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -90,6 +94,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addError(Test $test, Throwable $e, float $time): void
     {
@@ -102,6 +108,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addFailure(
         Test $test,
@@ -116,6 +124,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test                 $test
      * @param AssertionFailedError $e
      * @param float                $time
+     *
+     * @return void
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -127,6 +137,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addIncompleteTest(Test $test, Throwable $e, float $time): void
     {
@@ -139,6 +151,8 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      * @param Test      $test
      * @param Throwable $e
      * @param float     $time
+     *
+     * @return void
      */
     public function addSkippedTest(Test $test, Throwable $e, float $time): void
     {
@@ -147,11 +161,13 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     }
 
     /**
-     * @param string    $type
-     * @param Test      $test
-     * @param Exception $e
+     * @param string         $type
+     * @param Test           $test
+     * @param Throwable|null $e
+     *
+     * @return void
      */
-    private function formatError($type, Test $test, ?Throwable $e = null)
+    private function formatError(string $type, Test $test, ?Throwable $e = null): void
     {
         if ($test != null) {
             $this->endTest($test, time());
@@ -160,15 +176,21 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
         $this->inner .= $test->getName() . ' ' . $type . "\n";
 
         if ($e !== null) {
-            if ($e instanceof ExceptionWrapper) {
+            /*if ($e instanceof ExceptionWrapper) {
                 $this->inner .= $e->getPreviousWrapped() ? $e->getPreviousWrapped()->getMessage() : $e->getMessage() . "\n";
             } else {
                 $this->inner .= $e->getMessage() . "\n";
-            }
+            }*/
+            $this->inner .= "\n" . $e . "\n\n";
         }
     }
 
-    public function endTestRun()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     */
+    public function endTestRun(): void
     {
         parent::endTestRun();
 

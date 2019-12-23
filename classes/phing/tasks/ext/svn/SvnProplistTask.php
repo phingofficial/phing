@@ -17,42 +17,63 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * List all properties on files, dirs, or revisions from the working copy
  */
 class SvnProplistTask extends SvnBaseTask
 {
+    /**
+     * @var string
+     */
     private $propertyName = 'svn.proplist';
-    private $recursive    = false;
+
+    /**
+     * @var bool
+     */
+    private $recursive = false;
 
     /**
      * Sets the name of the property to use
+     *
+     * @param string $propertyName
+     *
+     * @return void
      */
-    public function setPropertyName($propertyName)
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return string
      */
-    public function getPropertyName()
+    public function getPropertyName(): string
     {
         return $this->propertyName;
     }
 
     /**
      * Sets the name of the property to use
+     *
+     * @param bool $recursive
+     *
+     * @return void
      */
-    public function setRecursive($recursive)
+    public function setRecursive(bool $recursive): void
     {
         $this->recursive = $recursive;
     }
 
     /**
      * Returns the name of the property to use
+     *
+     * @return bool
      */
-    public function getRecursive()
+    public function getRecursive(): bool
     {
         return $this->recursive;
     }
@@ -60,9 +81,12 @@ class SvnProplistTask extends SvnBaseTask
     /**
      * The main entry point
      *
+     * @return void
+     *
+     * @throws Exception
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->setup('proplist');
 

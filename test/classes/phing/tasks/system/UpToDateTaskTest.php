@@ -17,13 +17,18 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @package phing.tasks.ext
  */
 class UpToDateTaskTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE
@@ -32,9 +37,11 @@ class UpToDateTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @group ticket-559
      */
-    public function testOverrideNoPropertySet()
+    public function testOverrideNoPropertySet(): void
     {
         $this->executeTarget('overrideNoPropertySet');
         $this->assertInLogs('Property ${prop} has not been set.');
@@ -44,9 +51,11 @@ class UpToDateTaskTest extends BuildFileTest
     }
 
     /**
+     * @return void
+     *
      * @group ticket-559
      */
-    public function testOverridePropertySet()
+    public function testOverridePropertySet(): void
     {
         $this->executeTarget('overridePropertySet');
         $this->assertInLogs('Setting project property: prop -> value exists');

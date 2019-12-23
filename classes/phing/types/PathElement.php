@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Helper class, holds the nested <code>&lt;pathelement&gt;</code> values.
  *
@@ -46,18 +48,22 @@ class PathElement
      * @param PhingFile $loc
      *
      * @return void
+     *
+     * @throws IOException
      */
-    public function setDir(PhingFile $loc)
+    public function setDir(PhingFile $loc): void
     {
         $this->parts = [Path::translateFile($loc->getAbsolutePath())];
     }
 
     /**
-     * @param string $path
+     * @param string|null $path
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setPath($path)
+    public function setPath(?string $path): void
     {
         $this->parts = Path::translatePath($this->outer->getProject(), $path);
     }
@@ -65,7 +71,7 @@ class PathElement
     /**
      * @return array
      */
-    public function getParts()
+    public function getParts(): array
     {
         return $this->parts;
     }

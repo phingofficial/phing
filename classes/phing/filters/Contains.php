@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Holds a contains element.
  *
@@ -33,8 +35,10 @@ class Contains
      * Set 'contains' value.
      *
      * @param string $contains
+     *
+     * @return void
      */
-    public function setValue($contains)
+    public function setValue(string $contains): void
     {
         $this->value = (string) $contains;
     }
@@ -44,7 +48,7 @@ class Contains
      *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

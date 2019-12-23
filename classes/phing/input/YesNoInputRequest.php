@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encapsulates an input request that returns a boolean (yes/no).
  *
@@ -28,7 +30,7 @@ class YesNoInputRequest extends MultipleChoiceInputRequest
     /**
      * @return bool true if the input is one of the allowed values.
      */
-    public function isInputValid()
+    public function isInputValid(): bool
     {
         return StringHelper::isBoolean($this->input);
     }

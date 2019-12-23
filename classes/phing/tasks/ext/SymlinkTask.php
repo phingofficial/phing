@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Generates symlinks based on a target / link combination.
  * Can also symlink contents of a directory, individually
@@ -69,7 +71,7 @@ class SymlinkTask extends Task
      *
      * (default value: array())
      *
-     * @var array
+     * @var FileSet[]
      */
     private $filesets = [];
 
@@ -97,7 +99,7 @@ class SymlinkTask extends Task
      *
      * @return void
      */
-    public function setTarget($linkTarget)
+    public function setTarget(string $linkTarget): void
     {
         $this->linkTarget = $linkTarget;
     }
@@ -109,7 +111,7 @@ class SymlinkTask extends Task
      *
      * @return void
      */
-    public function setLink($link)
+    public function setLink(string $link): void
     {
         $this->link = $link;
     }
@@ -119,7 +121,7 @@ class SymlinkTask extends Task
      *
      * @return FileSet
      */
-    public function createFileset()
+    public function createFileset(): FileSet
     {
         $num = array_push($this->filesets, new FileSet());
 
@@ -133,15 +135,17 @@ class SymlinkTask extends Task
      *
      * @return void
      */
-    public function setOverwrite($overwrite)
+    public function setOverwrite(bool $overwrite): void
     {
         $this->overwrite = $overwrite;
     }
 
     /**
      * @param bool $relative
+     *
+     * @return void
      */
-    public function setRelative($relative)
+    public function setRelative(bool $relative): void
     {
         $this->relative = $relative;
     }
@@ -153,7 +157,7 @@ class SymlinkTask extends Task
      *
      * @throws BuildException
      */
-    public function getTarget()
+    public function getTarget(): string
     {
         if ($this->linkTarget === null) {
             throw new BuildException('Target not set');
@@ -169,7 +173,7 @@ class SymlinkTask extends Task
      *
      * @throws BuildException
      */
-    public function getLink()
+    public function getLink(): string
     {
         if ($this->link === null) {
             throw new BuildException('Link not set');
@@ -181,9 +185,9 @@ class SymlinkTask extends Task
     /**
      * getter for _filesets
      *
-     * @return array
+     * @return FileSet[]
      */
-    public function getFilesets()
+    public function getFilesets(): array
     {
         return $this->filesets;
     }
@@ -193,7 +197,7 @@ class SymlinkTask extends Task
      *
      * @return bool
      */
-    public function getOverwrite()
+    public function getOverwrite(): bool
     {
         return $this->overwrite;
     }
@@ -201,7 +205,7 @@ class SymlinkTask extends Task
     /**
      * @return bool
      */
-    public function isRelative()
+    public function isRelative(): bool
     {
         return $this->relative;
     }
@@ -214,7 +218,7 @@ class SymlinkTask extends Task
      *
      * @return string Path of target relative to starting path
      */
-    public function makePathRelative($endPath, $startPath)
+    public function makePathRelative(string $endPath, string $startPath): string
     {
         // Normalize separators on Windows
         if ('\\' === DIRECTORY_SEPARATOR) {
@@ -253,6 +257,10 @@ class SymlinkTask extends Task
      * @return array|string
      *
      * @throws BuildException
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
+     * @throws Exception
      */
     protected function getMap()
     {
@@ -307,23 +315,25 @@ class SymlinkTask extends Task
     /**
      * Main entry point for task
      *
-     * @return bool
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    public function main()
+    public function main(): void
     {
         $map = $this->getMap();
 
         // Single file symlink
         if (is_string($map)) {
-            return $this->symlink($map, $this->getLink());
+            $this->symlink($map, $this->getLink());
         }
 
         // Multiple symlinks
         foreach ($map as $name => $targetPath) {
             $this->symlink($targetPath, $this->getLink() . DIRECTORY_SEPARATOR . $name);
         }
-
-        return true;
     }
 
     /**
@@ -333,8 +343,12 @@ class SymlinkTask extends Task
      * @param string $link
      *
      * @return bool
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    protected function symlink($target, $link)
+    protected function symlink(string $target, string $link): bool
     {
         $fs = FileSystem::getFileSystem();
 
@@ -367,6 +381,7 @@ class SymlinkTask extends Task
 
         $this->log('Linking: ' . $target . ' to ' . $link, Project::MSG_INFO);
 
-        return $fs->symlink($target, $link);
+        $fs->symlink($target, $link);
+        return true;
     }
 }

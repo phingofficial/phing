@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Echos a message to the logging system or to a file
  *
@@ -35,9 +37,17 @@ class EchoTask extends Task
 
     protected $append = false;
 
+    /**
+     * @var string
+     */
     protected $level = 'info';
 
-    public function main()
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function main(): void
     {
         switch ($this->level) {
             case 'error':
@@ -86,8 +96,12 @@ class EchoTask extends Task
      * Merges all filesets into a string to be echoed out
      *
      * @return string String to echo
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws ReflectionException
      */
-    protected function getFilesetsMsg()
+    protected function getFilesetsMsg(): string
     {
         $project = $this->getProject();
         $msg     = '';
@@ -97,7 +111,7 @@ class EchoTask extends Task
             $srcDirs  = $ds->getIncludedDirectories();
             $srcFiles = $ds->getIncludedFiles();
             $msg     .= 'Directory: ' . $fromDir . ' => '
-                . realpath($fromDir) . "\n";
+                . realpath((string) $fromDir) . "\n";
             foreach ($srcDirs as $dir) {
                 $relPath = $fromDir . DIRECTORY_SEPARATOR . $dir;
                 $msg    .= $relPath . "\n";
@@ -115,8 +129,10 @@ class EchoTask extends Task
      * setter for file
      *
      * @param string $file
+     *
+     * @return void
      */
-    public function setFile(string $file)
+    public function setFile(string $file): void
     {
         $this->file = $file;
     }
@@ -125,8 +141,10 @@ class EchoTask extends Task
      * setter for level
      *
      * @param string $level
+     *
+     * @return void
      */
-    public function setLevel(string $level)
+    public function setLevel(string $level): void
     {
         $this->level = $level;
     }
@@ -135,8 +153,10 @@ class EchoTask extends Task
      * setter for append
      *
      * @param bool $append
+     *
+     * @return void
      */
-    public function setAppend(bool $append)
+    public function setAppend(bool $append): void
     {
         $this->append = $append;
     }
@@ -145,8 +165,10 @@ class EchoTask extends Task
      * setter for message
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function setMsg(string $msg)
+    public function setMsg(string $msg): void
     {
         $this->setMessage($msg);
     }
@@ -155,8 +177,10 @@ class EchoTask extends Task
      * alias setter
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function setMessage(string $msg)
+    public function setMessage(string $msg): void
     {
         $this->msg = $msg;
     }
@@ -165,8 +189,10 @@ class EchoTask extends Task
      * Supporting the <echo>Message</echo> syntax.
      *
      * @param string $msg
+     *
+     * @return void
      */
-    public function addText(string $msg)
+    public function addText(string $msg): void
     {
         $this->msg = $msg;
     }

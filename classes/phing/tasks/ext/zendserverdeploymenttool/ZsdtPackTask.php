@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
@@ -60,7 +62,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function setPackage($package)
+    public function setPackage(string $package): void
     {
         $this->package = escapeshellarg($package);
     }
@@ -72,7 +74,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function setLint($lint)
+    public function setLint(bool $lint): void
     {
         $this->lint = $lint;
     }
@@ -85,7 +87,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function setOutput($output)
+    public function setOutput(string $output): void
     {
         $this->output = escapeshellarg($output);
     }
@@ -97,7 +99,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function setPhpbin($phpbin)
+    public function setPhpbin(string $phpbin): void
     {
         $this->phpbin = escapeshellarg($phpbin);
     }
@@ -110,7 +112,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function setScripts($scripts)
+    public function setScripts(string $scripts): void
     {
         $this->scripts = escapeshellarg($scripts);
     }
@@ -123,7 +125,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function setSource($source)
+    public function setSource(string $source): void
     {
         $this->source = escapeshellarg($source);
     }
@@ -133,7 +135,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->action = 'pack';
     }
@@ -145,7 +147,7 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @throws BuildException
      */
-    protected function validate()
+    protected function validate(): void
     {
         if ($this->descriptor === null || $this->scripts === null || $this->package === null) {
             throw new BuildException(

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * A task to create PEAR package.xml file.
  *
@@ -74,15 +76,22 @@ class PearPackageTask extends MatchingTask
 {
     use FileSetAware;
 
+    /**
+     * @var string
+     */
     protected $package;
 
     /**
      * Base directory for reading files.
+     *
+     * @var PhingFile
      */
     protected $dir;
 
     /**
      * Package file
+     *
+     * @var PhingFile
      */
     private $packageFile;
 
@@ -94,12 +103,14 @@ class PearPackageTask extends MatchingTask
     private $preparedOptions = [];
 
     /**
-     * @var array PearPkgOption[]
+     * @var PearPkgOption[]
      */
     protected $options = [];
 
     /**
      * Nested <mapping> (complex options) types.
+     *
+     * @var PearPkgMapping[]
      */
     protected $mappings = [];
 
@@ -110,7 +121,10 @@ class PearPackageTask extends MatchingTask
      */
     protected $roles = [];
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
         include_once 'PEAR/PackageFileManager.php';
         if (!class_exists('PEAR_PackageFileManager')) {
@@ -123,9 +137,11 @@ class PearPackageTask extends MatchingTask
      *
      * @return void
      *
+     * @throws IOException
+     * @throws NullPointerException
      * @throws BuildException
      */
-    protected function setOptions()
+    protected function setOptions(): void
     {
         // 1) first prepare/populate options
         $this->populateOptions();
@@ -174,7 +190,7 @@ class PearPackageTask extends MatchingTask
      *
      * @return array
      */
-    private function fixDeps($deps)
+    private function fixDeps(array $deps): array
     {
         foreach (array_keys($deps) as $dep) {
             if (isset($deps[$dep]['optional']) && $deps[$dep]['optional']) {
@@ -187,8 +203,14 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Adds the options that are set via attributes and the nested tags to the options array.
+     *
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws Exception
      */
-    private function populateOptions()
+    private function populateOptions(): void
     {
         // These values could be overridden if explicitly defined using nested tags
         $this->preparedOptions['package']          = $this->package;
@@ -230,7 +252,7 @@ class PearPackageTask extends MatchingTask
      *
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         if ($this->dir === null) {
             throw new BuildException('You must specify the "dir" attribute for PEAR package task.');
@@ -253,9 +275,9 @@ class PearPackageTask extends MatchingTask
     /**
      * Used by the PEARPackageFileManagerFileset lister.
      *
-     * @return array FileSet[]
+     * @return FileSet[]
      */
-    public function getFileSets()
+    public function getFileSets(): array
     {
         return $this->filesets;
     }
@@ -273,7 +295,7 @@ class PearPackageTask extends MatchingTask
      *
      * @return void
      */
-    public function setPackage($v)
+    public function setPackage(string $v): void
     {
         $this->package = $v;
     }
@@ -285,7 +307,7 @@ class PearPackageTask extends MatchingTask
      *
      * @return void
      */
-    public function setDir(PhingFile $f)
+    public function setDir(PhingFile $f): void
     {
         $this->dir = $f;
     }
@@ -297,7 +319,7 @@ class PearPackageTask extends MatchingTask
      *
      * @return void
      */
-    public function setName($v)
+    public function setName(string $v): void
     {
         $this->package = $v;
     }
@@ -306,16 +328,20 @@ class PearPackageTask extends MatchingTask
      * Sets the file to use for generated package.xml
      *
      * @param PhingFile $f
+     *
+     * @return void
      */
-    public function setDestFile(PhingFile $f)
+    public function setDestFile(PhingFile $f): void
     {
         $this->packageFile = $f;
     }
 
     /**
      * Handles nested generic <option> elements.
+     *
+     * @return PearPkgOption
      */
-    public function createOption()
+    public function createOption(): PearPkgOption
     {
         $o               = new PearPkgOption();
         $this->options[] = $o;
@@ -325,8 +351,10 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Handles nested generic <option> elements.
+     *
+     * @return PearPkgMapping
      */
-    public function createMapping()
+    public function createMapping(): PearPkgMapping
     {
         $o                = new PearPkgMapping();
         $this->mappings[] = $o;
@@ -339,7 +367,7 @@ class PearPackageTask extends MatchingTask
      *
      * @return PearPkgRole
      */
-    public function createRole()
+    public function createRole(): PearPkgRole
     {
         $role          = new PearPkgRole();
         $this->roles[] = $role;

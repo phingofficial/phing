@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * @package phing.system.lang
  */
@@ -27,7 +29,7 @@ class Character
      *
      * @return bool
      */
-    public static function isLetter($char)
+    public static function isLetter(string $char): bool
     {
         return strlen($char) === 1 && ctype_alpha($char);
     }

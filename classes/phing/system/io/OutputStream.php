@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper class for PHP stream that supports write operations.
  *
@@ -51,7 +53,7 @@ class OutputStream
      *
      * @throws IOException if cannot close stream (note that attempting to close an already closed stream will not raise an IOException)
      */
-    public function close()
+    public function close(): void
     {
         if ($this->stream === null) {
             return;
@@ -72,11 +74,18 @@ class OutputStream
     /**
      * Flushes stream.
      *
+     * @return void
+     *
      * @throws IOException if unable to flush data (e.g. stream is not open).
      */
-    public function flush()
+    public function flush(): void
     {
         error_clear_last();
+
+        if (!is_resource($this->stream)) {
+            throw new IOException('Could not flush stream: no stream set');
+        }
+
         if (false === @fflush($this->stream)) {
             $lastError = error_get_last();
             $errormsg  = $lastError['message'];
@@ -87,15 +96,15 @@ class OutputStream
     /**
      * Writes data to stream.
      *
-     * @param string $buf Binary/character data to write.
-     * @param int    $off (Optional) offset.
-     * @param int    $len (Optional) number of bytes/chars to write.
+     * @param string   $buf Binary/character data to write.
+     * @param int|null $off (Optional) offset.
+     * @param int|null $len (Optional) number of bytes/chars to write.
      *
      * @return void
      *
      * @throws IOException - if there is an error writing to stream
      */
-    public function write($buf, $off = null, $len = null)
+    public function write(string $buf, ?int $off = null, ?int $len = null): void
     {
         if ($off === null && $len === null) {
             $to_write = $buf;
@@ -119,7 +128,7 @@ class OutputStream
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->stream;
     }

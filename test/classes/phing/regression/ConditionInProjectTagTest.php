@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/943
  * - If task with "equals" directly in "project" tag does not work
@@ -25,12 +27,21 @@
  */
 class ConditionInProjectTagTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/943/build.xml');
     }
 
-    public function testConditionInProjectTag()
+    /**
+     * @return void
+     */
+    public function testConditionInProjectTag(): void
     {
         $this->executeTarget('test');
         $this->assertInLogs('Message');

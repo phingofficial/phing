@@ -1,7 +1,4 @@
 <?php
-
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +17,10 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit tests for AbstractFileSet.
  *
@@ -31,20 +32,35 @@ abstract class AbstractFileSetTest extends TestCase
     /** @var Project */
     private $project;
 
-    public function setUp(): void
+    /**
+     * @return void
+     */
+    protected function setUp(): void
     {
         $this->project = new Project();
         $this->project->setBasedir(PHING_TEST_BASE);
     }
 
+    /**
+     * @return mixed
+     */
     abstract protected function getInstance();
 
-    final protected function getProject()
+    /**
+     * @return Project
+     */
+    protected function getProject(): Project
     {
         return $this->project;
     }
 
-    final public function testEmptyElementIfIsReference()
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    public function testEmptyElementIfIsReference(): void
     {
         /** @var FileSet $f */
         $f = $this->getInstance();

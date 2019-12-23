@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Selector that filters files based on their size.
  *
@@ -101,7 +103,7 @@ class SizeSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf  = '{sizeselector value: ';
         $buf .= $this->sizelimit;
@@ -127,7 +129,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setValue($size)
+    public function setValue(int $size): void
     {
         $this->size = $size;
         if (($this->multiplier !== 0) && ($this->size > -1)) {
@@ -162,7 +164,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setUnits($units)
+    public function setUnits(array $units): void
     {
         $i = array_search($units, self::$byteUnits, true);
         if ($i === false) {
@@ -201,7 +203,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function setWhen($cmp)
+    public function setWhen(array $cmp): void
     {
         $c = array_search($cmp, self::$sizeComparisons, true);
         if ($c !== false) {
@@ -265,7 +267,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * @return void
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->size < 0) {
             $this->setError('The value attribute is required, and must be positive');
@@ -279,7 +281,6 @@ class SizeSelector extends BaseExtendSelector
     /**
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
-     *
      * {@inheritdoc}
      *
      * @param PhingFile $basedir  A PhingFile object for the base directory
@@ -287,8 +288,10 @@ class SizeSelector extends BaseExtendSelector
      * @param PhingFile $file     A PhingFile object for this filename
      *
      * @return bool whether the file should be selected or not
+     *
+     * @throws IOException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, string $filename, PhingFile $file): bool
     {
         $this->validate();
 

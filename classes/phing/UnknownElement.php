@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Wrapper class that holds all information necessary to create a task
  * that did not exist when Phing started.
@@ -31,8 +33,13 @@
  */
 class UnknownElement extends Task
 {
+    /** @var string  */
     private $elementName;
+
+    /** @var object */
     private $realThing;
+
+    /** @var array  */
     private $children = [];
 
     /**
@@ -40,7 +47,7 @@ class UnknownElement extends Task
      *
      * @param string $elementName The XML element name that is unknown
      */
-    public function __construct($elementName)
+    public function __construct(string $elementName)
     {
         parent::__construct();
         $this->elementName = (string) $elementName;
@@ -52,7 +59,7 @@ class UnknownElement extends Task
      *
      * @return string The XML element name that is unknown
      */
-    public function getTag()
+    public function getTag(): string
     {
         return (string) $this->elementName;
     }
@@ -60,9 +67,12 @@ class UnknownElement extends Task
     /**
      * Tries to configure the unknown element
      *
+     * @return void
+     *
      * @throws BuildException if the element can not be configured
+     * @throws Exception
      */
-    public function maybeConfigure()
+    public function maybeConfigure(): void
     {
         $this->realThing = $this->makeObject($this, $this->wrapper);
         $this->wrapper->setProxy($this->realThing);
@@ -78,9 +88,11 @@ class UnknownElement extends Task
     /**
      * Called when the real task has been configured for the first time.
      *
+     * @return void
+     *
      * @throws BuildException if the task can not be created
      */
-    public function main()
+    public function main(): void
     {
         if ($this->realThing === null) {
             // plain impossible to get here, maybeConfigure should
@@ -97,8 +109,10 @@ class UnknownElement extends Task
      * Add a child element to the unknown element
      *
      * @param UnknownElement $child The object representing the child element
+     *
+     * @return void
      */
-    public function addChild(UnknownElement $child)
+    public function addChild(UnknownElement $child): void
     {
         $this->children[] = $child;
     }
@@ -108,8 +122,13 @@ class UnknownElement extends Task
      *
      * @param object $parent        The parent object the unknown element belongs to
      * @param object $parentWrapper The parent wrapper object
+     *
+     * @return void
+     *
+     * @throws ConfigurationException
+     * @throws ReflectionException
      */
-    public function handleChildren($parent, $parentWrapper)
+    public function handleChildren($parent, $parentWrapper): void
     {
         if ($parent instanceof TaskAdapter) {
             $parent = $parent->getProxy();
@@ -152,6 +171,7 @@ class UnknownElement extends Task
      * @return object The Task or DataType represented by the given unknown element.
      *
      * @throws BuildException
+     * @throws Exception
      */
     protected function makeObject(UnknownElement $ue, RuntimeConfigurable $w)
     {
@@ -175,11 +195,12 @@ class UnknownElement extends Task
      * @param RuntimeConfigurable $w          The wrapper object
      * @param bool                $onTopLevel Whether to treat this task as if it is top-level.
      *
-     * @return Task The freshly created task
+     * @return Task|null The freshly created task
      *
      * @throws BuildException
+     * @throws Exception
      */
-    protected function makeTask(UnknownElement $ue, RuntimeConfigurable $w, $onTopLevel = false)
+    protected function makeTask(UnknownElement $ue, RuntimeConfigurable $w, bool $onTopLevel = false): ?Task
     {
         $task = $this->project->createTask($ue->getTag());
 
@@ -214,7 +235,7 @@ class UnknownElement extends Task
      *
      * @return string The task's name
      */
-    public function getTaskName()
+    public function getTaskName(): string
     {
         return $this->realThing === null || !$this->realThing instanceof Task
             ? parent::getTaskName()
@@ -235,8 +256,10 @@ class UnknownElement extends Task
      * Set the configured object
      *
      * @param object $realThing the configured object
+     *
+     * @return void
      */
-    public function setRealThing($realThing)
+    public function setRealThing($realThing): void
     {
         $this->realThing = $realThing;
     }

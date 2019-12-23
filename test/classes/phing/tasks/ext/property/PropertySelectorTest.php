@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Tests the PropertySelector Task
  *
@@ -25,14 +27,23 @@
  */
 class PropertySelectorTest extends BuildFileTest
 {
-    public function setUp(): void
+    /**
+     * @return void
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     */
+    protected function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/property/PropertySelectorTest.xml'
         );
     }
 
-    public function testPropertySelector()
+    /**
+     * @return void
+     */
+    public function testPropertySelector(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('pack.list', 'ABC,DEF,GHI,JKL');

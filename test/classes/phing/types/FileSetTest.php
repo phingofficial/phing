@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Unit tests for FileSet -- including Selectors.
  *
@@ -25,7 +27,10 @@
  */
 class FileSetTest extends AbstractFileSetTest
 {
-    protected function getInstance()
+    /**
+     * @return FileSet
+     */
+    protected function getInstance(): FileSet
     {
         return new FileSet();
     }

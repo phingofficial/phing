@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encapsulates an input request.
  *
@@ -32,7 +34,7 @@ class InputRequest
     protected $prompt;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $input;
 
@@ -56,7 +58,7 @@ class InputRequest
      *
      * @throws BuildException
      */
-    public function __construct($prompt)
+    public function __construct(string $prompt)
     {
         if ($prompt === null) {
             throw new BuildException('prompt must not be null');
@@ -66,8 +68,10 @@ class InputRequest
 
     /**
      * Retrieves the prompt text.
+     *
+     * @return string
      */
-    public function getPrompt()
+    public function getPrompt(): string
     {
         return $this->prompt;
     }
@@ -75,23 +79,29 @@ class InputRequest
     /**
      * Sets the user provided input.
      *
-     * @param string $input
+     * @param string|null $input
+     *
+     * @return void
      */
-    public function setInput($input)
+    public function setInput(?string $input): void
     {
         $this->input = $input;
     }
 
     /**
      * Is the user input valid?
+     *
+     * @return bool
      */
-    public function isInputValid()
+    public function isInputValid(): bool
     {
         return true;
     }
 
     /**
      * Retrieves the user input.
+     *
+     * @return string|null
      */
     public function getInput()
     {
@@ -101,9 +111,11 @@ class InputRequest
     /**
      * Set the default value to use.
      *
-     * @param mixed $v
+     * @param string $v
+     *
+     * @return void
      */
-    public function setDefaultValue($v)
+    public function setDefaultValue(string $v): void
     {
         $this->defaultValue = $v;
     }
@@ -111,9 +123,9 @@ class InputRequest
     /**
      * Return the default value to use.
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getDefaultValue()
+    public function getDefaultValue(): ?string
     {
         return $this->defaultValue;
     }
@@ -122,8 +134,10 @@ class InputRequest
      * Set the default value to use.
      *
      * @param string $c
+     *
+     * @return void
      */
-    public function setPromptChar($c)
+    public function setPromptChar(string $c): void
     {
         $this->promptChar = $c;
     }
@@ -131,9 +145,9 @@ class InputRequest
     /**
      * Return the default value to use.
      *
-     * @return string
+     * @return string|null
      */
-    public function getPromptChar()
+    public function getPromptChar(): ?string
     {
         return $this->promptChar;
     }
@@ -141,15 +155,17 @@ class InputRequest
     /**
      * @return bool
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return $this->hidden;
     }
 
     /**
      * @param bool $hidden
+     *
+     * @return void
      */
-    public function setHidden($hidden)
+    public function setHidden(bool $hidden): void
     {
         $this->hidden = $hidden;
     }

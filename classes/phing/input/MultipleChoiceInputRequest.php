@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Encapsulates an input request.
  *
@@ -35,7 +37,7 @@ class MultipleChoiceInputRequest extends InputRequest
      * @param array  $choices holds all input values that are allowed.
      *                         Must not be null.
      */
-    public function __construct($prompt, $choices)
+    public function __construct(string $prompt, array $choices)
     {
         parent::__construct($prompt);
         $this->choices = $choices;
@@ -44,7 +46,7 @@ class MultipleChoiceInputRequest extends InputRequest
     /**
      * @return array The possible values.
      */
-    public function getChoices()
+    public function getChoices(): array
     {
         return $this->choices;
     }
@@ -52,7 +54,7 @@ class MultipleChoiceInputRequest extends InputRequest
     /**
      * @return bool true if the input is one of the allowed values.
      */
-    public function isInputValid()
+    public function isInputValid(): bool
     {
         return in_array($this->getInput(), $this->choices); // not strict (?)
     }

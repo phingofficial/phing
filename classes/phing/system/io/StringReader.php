@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+declare(strict_types=1);
+
 /**
  * Dummy class for reading from string of characters.
  *
@@ -42,24 +44,27 @@ class StringReader extends InputStreamReader
     /**
      * @param string $string
      */
-    public function __construct($string)
+    public function __construct(string $string)
     {
         $this->string = $string;
     }
 
     /**
      * @param int $n
+     *
+     * @return int
      */
-    public function skip($n)
+    public function skip(int $n): int
     {
+        return 0;
     }
 
     /**
-     * @param null $len
+     * @param int|null $len
      *
      * @return int|string
      */
-    public function read($len = null)
+    public function read(?int $len = null)
     {
         if ($len === null) {
             return $this->string;
@@ -74,32 +79,48 @@ class StringReader extends InputStreamReader
         return $out;
     }
 
-    public function mark()
+    /**
+     * @return void
+     */
+    public function mark(): void
     {
         $this->mark = $this->currPos;
     }
 
-    public function reset()
+    /**
+     * @return void
+     */
+    public function reset(): void
     {
         $this->currPos = $this->mark;
     }
 
-    public function close()
+    /**
+     * @return void
+     */
+    public function close(): void
     {
     }
 
-    public function open()
-    {
-    }
-
-    public function ready()
+    /**
+     * @return void
+     */
+    public function open(): void
     {
     }
 
     /**
      * @return bool
      */
-    public function markSupported()
+    public function ready(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function markSupported(): bool
     {
         return true;
     }
@@ -107,7 +128,7 @@ class StringReader extends InputStreamReader
     /**
      * @return string
      */
-    public function getResource()
+    public function getResource(): string
     {
         return '(string) "' . $this->string . '"';
     }
