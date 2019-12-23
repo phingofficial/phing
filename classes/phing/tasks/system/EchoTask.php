@@ -116,9 +116,9 @@ class EchoTask extends Task
      *
      * @param $file
      */
-    public function setFile($file)
+    public function setFile(string $file)
     {
-        $this->file = (string) $file;
+        $this->file = $file;
     }
 
     /**
@@ -126,9 +126,9 @@ class EchoTask extends Task
      *
      * @param $level
      */
-    public function setLevel($level)
+    public function setLevel(string $level)
     {
-        $this->level = (string) $level;
+        $this->level = $level;
     }
 
     /**
@@ -136,7 +136,7 @@ class EchoTask extends Task
      *
      * @param $append
      */
-    public function setAppend($append)
+    public function setAppend(bool $append)
     {
         $this->append = $append;
     }
@@ -146,7 +146,7 @@ class EchoTask extends Task
      *
      * @param $msg
      */
-    public function setMsg($msg)
+    public function setMsg(string $msg)
     {
         $this->setMessage($msg);
     }
@@ -156,9 +156,9 @@ class EchoTask extends Task
      *
      * @param $msg
      */
-    public function setMessage($msg)
+    public function setMessage(string $msg)
     {
-        $this->msg = (string) $msg;
+        $this->msg = $msg;
     }
 
     /**
@@ -166,8 +166,8 @@ class EchoTask extends Task
      *
      * @param $msg
      */
-    public function addText($msg)
+    public function addText(string $msg)
     {
-        $this->msg = (string) $msg;
+        $this->msg = $msg;
     }
 }
