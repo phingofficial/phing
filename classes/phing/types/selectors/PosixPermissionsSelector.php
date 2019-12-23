@@ -32,7 +32,7 @@ class PosixPermissionsSelector implements FileSelector
      * Sets the permissions to look for.
      * @param string $permissions the permissions string (rwxrwxrwx or octal)
      */
-    public function setPermissions($permissions): void
+    public function setPermissions(string $permissions): void
     {
         $this->validate($permissions);
 
@@ -71,7 +71,7 @@ class PosixPermissionsSelector implements FileSelector
         }
     }
 
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file): bool
     {
         if ($this->permissions === null) {
             throw new BuildException('the permissions attribute is required');

@@ -37,7 +37,7 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->selector = new PosixPermissionsSelector();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->selector = null;
     }
@@ -56,7 +56,7 @@ class PosixPermissionsSelectorTest extends TestCase
     /**
      * @test
      */
-    public function isSelected()
+    public function isSelected(): void
     {
         $this->selector->setPermissions('rw-rw-r--');
         $this->assertTrue(
