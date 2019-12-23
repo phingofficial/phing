@@ -20,7 +20,6 @@
  */
 
 require_once 'phing/BuildFileTest.php';
-require_once 'HTTP/Request2.php';
 require_once dirname(__FILE__) . '/TraceHttpAdapter.php';
 
 /**
