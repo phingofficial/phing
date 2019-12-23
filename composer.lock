@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "a135fb8d57147f95c516492bd0fc8afe",
@@ -387,8 +387,7 @@
                 {
                     "name": "Kevin Herrera",
                     "email": "kevin@herrera.io",
-                    "homepage": "http://kevin.herrera.io/",
-                    "role": "Developer"
+                    "homepage": "http://kevin.herrera.io"
                 }
             ],
             "description": "A library for simplifying JSON linting and validation.",
@@ -718,8 +717,7 @@
             "authors": [
                 {
                     "name": "Kevin Herrera",
-                    "email": "me@kevingh.com",
-                    "homepage": "http://www.kevingh.com/"
+                    "email": "me@kevingh.com"
                 }
             ],
             "description": "A parsing and comparison library for semantic versioning.",
@@ -728,16 +726,16 @@
             "time": "2012-08-16T17:13:03+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
+                "url": "https://github.com/bovigo/vfsStream.git",
                 "reference": "fefd182fa739d4e23d9dc7c80d3344f528d600ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/fefd182fa739d4e23d9dc7c80d3344f528d600ab",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/fefd182fa739d4e23d9dc7c80d3344f528d600ab",
                 "reference": "fefd182fa739d4e23d9dc7c80d3344f528d600ab",
                 "shasum": ""
             },
@@ -1054,24 +1052,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/HTTP_Request2.git",
-                "reference": "f36670a10bb9586d0e5f9d291f979cb6c8f94bfc"
+                "reference": "868738273408c364d1d3e6ce687a0dcd0701497f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/f36670a10bb9586d0e5f9d291f979cb6c8f94bfc",
-                "reference": "f36670a10bb9586d0e5f9d291f979cb6c8f94bfc",
+                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/868738273408c364d1d3e6ce687a0dcd0701497f",
+                "reference": "868738273408c364d1d3e6ce687a0dcd0701497f",
                 "shasum": ""
             },
             "require": {
-                "pear/net_url2": "~2.2.0",
-                "pear/pear_exception": "*",
+                "pear/net_url2": "^2.2.0",
+                "pear/pear_exception": "^1.0.0",
                 "php": ">=5.2.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "^3.7|^4.8|^5.7"
+            },
             "suggest": {
+                "ext-curl": "Allows using cURL as a request backend.",
                 "ext-fileinfo": "Adds support for looking up mime-types using finfo.",
-                "ext-zlib": "Allows handling gzip compressed responses.",
-                "lib-curl": "Allows using cURL as a request backend.",
-                "lib-openssl": "Allows handling SSL requests when not using cURL."
+                "ext-openssl": "Allows handling SSL requests when not using cURL.",
+                "ext-zlib": "Allows handling gzip compressed responses."
             },
             "type": "library",
             "autoload": {
@@ -1080,9 +1081,6 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "./"
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1093,34 +1091,35 @@
                 }
             ],
             "description": "Provides an easy way to perform HTTP requests.",
-            "homepage": "http://pear.php.net/package/HTTP_Request2",
+            "homepage": "https://pear.php.net/package/HTTP_Request2",
             "keywords": [
                 "PEAR",
                 "curl",
                 "http",
                 "request"
             ],
-            "time": "2015-06-30T14:57:04+00:00"
+            "time": "2019-10-30T22:42:14+00:00"
         },
         {
             "name": "pear/net_growl",
-            "version": "dev-trunk",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Net_Growl.git",
-                "reference": "845dac9651ef06337fb62ac51da1d4004081f767"
+                "reference": "9e828a6dde4f85337358209bd98bd260a558e4a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_Growl/zipball/845dac9651ef06337fb62ac51da1d4004081f767",
-                "reference": "845dac9651ef06337fb62ac51da1d4004081f767",
+                "url": "https://api.github.com/repos/pear/Net_Growl/zipball/9e828a6dde4f85337358209bd98bd260a558e4a9",
+                "reference": "9e828a6dde4f85337358209bd98bd260a558e4a9",
                 "shasum": ""
             },
             "require": {
-                "pear/pear_exception": "*"
+                "pear/pear_exception": "*",
+                "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "*"
+                "phpunit/phpunit": "<6.0"
             },
             "type": "library",
             "autoload": {
@@ -1152,7 +1151,7 @@
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/Net_Growl",
-            "time": "2015-12-02T08:18:46+00:00"
+            "time": "2019-03-05T14:25:46+00:00"
         },
         {
             "name": "pear/net_url2",
@@ -1320,20 +1319,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/VersionControl_Git.git",
-                "reference": "d2fd5c37a27541a4cea554d67cd39c73d7cb71fe"
+                "reference": "6308acdf0ef5c57d1545e6a720fbddf755813753"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/d2fd5c37a27541a4cea554d67cd39c73d7cb71fe",
-                "reference": "d2fd5c37a27541a4cea554d67cd39c73d7cb71fe",
+                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/6308acdf0ef5c57d1545e6a720fbddf755813753",
+                "reference": "6308acdf0ef5c57d1545e6a720fbddf755813753",
                 "shasum": ""
             },
             "require": {
                 "pear/pear-core-minimal": "^1.9",
-                "pear/pear_exception": "*"
+                "pear/pear_exception": "~1.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "*"
+                "phpunit/phpunit": "^5"
             },
             "type": "library",
             "autoload": {
@@ -1346,7 +1345,7 @@
                 "./"
             ],
             "license": [
-                "Apache License"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -1356,7 +1355,7 @@
                 }
             ],
             "description": "VersionControl_Git is a library that provides OO interface to handle Git repository.",
-            "time": "2015-11-04T13:03:54+00:00"
+            "time": "2018-01-29T21:14:27+00:00"
         },
         {
             "name": "pear/versioncontrol_svn",
@@ -1546,12 +1545,12 @@
             "version": "v2.8.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpDocumentor/phpDocumentor2.git",
+                "url": "https://github.com/phpDocumentor/phpDocumentor.git",
                 "reference": "adfb4affa80e8cc0134616f2d2d264dd25c243eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/phpDocumentor2/zipball/adfb4affa80e8cc0134616f2d2d264dd25c243eb",
+                "url": "https://api.github.com/repos/phpDocumentor/phpDocumentor/zipball/adfb4affa80e8cc0134616f2d2d264dd25c243eb",
                 "reference": "adfb4affa80e8cc0134616f2d2d264dd25c243eb",
                 "shasum": ""
             },
@@ -2200,16 +2199,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.19",
+            "version": "4.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b2caaf8947aba5e002d42126723e9d69795f32b4"
+                "reference": "558a3a0d28b4cb7e4a593a4fbd2220e787076225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b2caaf8947aba5e002d42126723e9d69795f32b4",
-                "reference": "b2caaf8947aba5e002d42126723e9d69795f32b4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/558a3a0d28b4cb7e4a593a4fbd2220e787076225",
+                "reference": "558a3a0d28b4cb7e4a593a4fbd2220e787076225",
                 "shasum": ""
             },
             "require": {
@@ -2223,7 +2222,7 @@
                 "phpunit/php-code-coverage": "~2.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
-                "phpunit/php-timer": ">=1.0.6",
+                "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "~2.3",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
@@ -2268,7 +2267,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-11-30T08:18:59+00:00"
+            "time": "2016-11-14T06:25:28+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2324,6 +2323,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
@@ -2361,9 +2361,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
