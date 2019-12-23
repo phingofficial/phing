@@ -102,9 +102,9 @@ class PropertyTask extends Task
      *
      * @param $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $this->name = (string) $name;
+        $this->name = $name;
     }
 
     /**
@@ -120,7 +120,7 @@ class PropertyTask extends Task
      *
      * @param mixed $value Value of name, all scalars allowed
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
         $this->value = $value;
     }
@@ -132,7 +132,7 @@ class PropertyTask extends Task
      * @internal param string $values
      * @since    2.2.0
      */
-    public function addText($value)
+    public function addText(string $value)
     {
         $this->setValue($value);
     }
@@ -187,7 +187,7 @@ class PropertyTask extends Task
      * @return void
      * @since  2.0
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix)
     {
         $this->prefix = $prefix;
         if (!StringHelper::endsWith(".", $prefix)) {
@@ -223,9 +223,9 @@ class PropertyTask extends Task
      *
      * @param string $env
      */
-    public function setEnvironment($env)
+    public function setEnvironment(string $env)
     {
-        $this->env = (string) $env;
+        $this->env = $env;
     }
 
     public function getEnvironment()
@@ -241,9 +241,9 @@ class PropertyTask extends Task
      *
      * @param boolean $v
      */
-    public function setUserProperty($v)
+    public function setUserProperty(bool $v)
     {
-        $this->userProperty = (bool) $v;
+        $this->userProperty = $v;
     }
 
     /**
@@ -257,9 +257,9 @@ class PropertyTask extends Task
     /**
      * @param $v
      */
-    public function setOverride($v)
+    public function setOverride(bool $v)
     {
-        $this->override = (bool) $v;
+        $this->override = $v;
     }
 
     /**
@@ -275,7 +275,7 @@ class PropertyTask extends Task
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return $this->value;
     }
 
     /**
@@ -313,7 +313,7 @@ class PropertyTask extends Task
      * @see   setFailonerror()
      * @param $bool
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $bool)
     {
         $this->quiet = $bool;
     }
@@ -399,7 +399,7 @@ class PropertyTask extends Task
      *
      * @param string $prefix prefix to place before them
      */
-    protected function loadEnvironment($prefix)
+    protected function loadEnvironment(string $prefix)
     {
         $props = new Properties();
         if (substr($prefix, strlen($prefix) - 1) == '.') {
