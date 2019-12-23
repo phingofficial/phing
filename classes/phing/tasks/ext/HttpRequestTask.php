@@ -146,7 +146,7 @@ class HttpRequestTask extends HttpTask
         $this->authScheme = HTTP_Request2::AUTH_BASIC;
 
         // Other dependencies that should only be loaded when class is actually used
-        require_once 'HTTP/Request2/Observer/Log.php';
+        class_exists(HTTP_Request2_Observer_Log::class, true);
     }
 
     /**
