@@ -3,17 +3,17 @@
 
 <target name="main" description="Check project dependencies">
 	<adhoc-task name="parameter"><![CDATA[
-			class ParameterTest extends Task {
+			class ParameterRegressionTest extends Task {
 				private $value;
-				
+
 				function setName($name) {
 				}
-				
+
 				function setValue($value) {
 					$this->log($value);
 					$this->value = $value;
 				}
-				
+
 				function main() {
 				}
 			}
