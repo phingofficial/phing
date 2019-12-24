@@ -814,4 +814,37 @@
         <para>The <literal>&lt;symlink></literal> selector selects only files that are symbolic links.</para>
 
     </sect1>
+    <sect1 role="typedef" xml:id="PosixPermissions" xreflabel="&lt;PosixPermissions>">
+        <title>PosixPermissions Selector </title>
+
+        <para>The <literal>&lt;posixpermissions></literal> selector selects only files that have the given POSIX permissions.</para>
+
+        <table>
+            <title> Attributes for the <literal>&lt;posixpermissions></literal> selector </title>
+            <tgroup cols="4">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="description" colnum="2" colwidth="3*"/>
+                <colspec colname="default" colnum="3" colwidth="1*"/>
+                <colspec colname="required" colnum="4" colwidth="1*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>permissions</literal></entry>
+                        <entry>POSIX permissions in string (<literal>rwxrwxrwx</literal>) or
+                            octal (<literal>777</literal>) format</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+    </sect1>
 </appendix>

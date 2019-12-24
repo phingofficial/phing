@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a
  * given regular expression with a substitution pattern in a selected file or

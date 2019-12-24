@@ -32,11 +32,11 @@ class Project
 {
 
     // Logging level constants.
-    const MSG_DEBUG = 4;
-    const MSG_VERBOSE = 3;
-    const MSG_INFO = 2;
-    const MSG_WARN = 1;
-    const MSG_ERR = 0;
+    public const MSG_DEBUG = 4;
+    public const MSG_VERBOSE = 3;
+    public const MSG_INFO = 2;
+    public const MSG_WARN = 1;
+    public const MSG_ERR = 0;
 
     /**
      * contains the targets
@@ -403,7 +403,7 @@ class Project
      */
     public function setDescription($description)
     {
-        $this->description = (string) trim($description);
+        $this->description = $description;
     }
 
     /**
@@ -413,6 +413,9 @@ class Project
      */
     public function getDescription()
     {
+        if ($this->description === null) {
+            $this->description = Description::getAll($this);
+        }
         return $this->description;
     }
 

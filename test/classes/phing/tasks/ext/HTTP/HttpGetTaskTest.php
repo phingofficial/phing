@@ -1,6 +1,5 @@
 <?php
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,19 +28,14 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httpget.xml");
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Required attribute 'dir' is missing
-     */
     public function testMissingDir()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Required attribute \'dir\' is missing');
+
         $this->executeTarget('missingDir');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Response from server: 404 Not Found
-     */
     public function testError404()
     {
         $this->copyTasksAddingCustomRequest(
@@ -58,6 +52,10 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 )
             )
         );
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Response from server: 404 Not Found');
+
         $this->executeTarget('recipient');
     }
 
@@ -121,8 +119,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 'proxy' => 'socks5://localhost:1080/',
                 'ssl_verify_peer' => false,
                 'follow_redirects' => true
-            ]
-        );
+            ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
@@ -174,8 +171,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 'proxy' => 'http://localhost:8080/',
                 'timeout' => 20,
                 'max_redirects' => 9
-            ]
-        );
+            ]);
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }

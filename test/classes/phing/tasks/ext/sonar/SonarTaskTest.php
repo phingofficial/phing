@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,8 +35,12 @@ class SonarTaskTest extends BuildFileTest
         // NOTE: Execution will finally fail due to missing properties.
         // We ignore this failure, but pass ary failures that are
         // caused by other errors.
-        if (strpos($e->getMessage(),
-                'SonarQube Scanner misses some parameters. The following properties are mandatory') !== false) {
+        if (
+            strpos(
+                $e->getMessage(),
+                'SonarQube Scanner misses some parameters. The following properties are mandatory'
+            ) !== false
+        ) {
             throw $e;
         }
     }
@@ -45,7 +49,7 @@ class SonarTaskTest extends BuildFileTest
     // Test "executable" attribute ...
     //
 
-    public function test_executableAttributeIsMissing_throwsException()
+    public function testExecutableAttributeIsMissingThrowsException()
     {
         $this->expectBuildExceptionContaining(
             'executable-attribute-is-missing',
@@ -54,7 +58,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_executableAttributeIsEmpty_throwsException()
+    public function testExecutableAttributeIsEmptyThrowsException()
     {
         $this->expectBuildExceptionContaining(
             'executable-attribute-is-empty',
@@ -63,7 +67,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_executablePathDoesNotExist_throwsException()
+    public function testExecutablePathDoesNotExistThrowsException()
     {
         $this->expectBuildExceptionContaining(
             'executable-path-does-not-exist',
@@ -71,12 +75,12 @@ class SonarTaskTest extends BuildFileTest
             'Cannot find SonarQube Scanner'
         );
     }
-    
+
     /**
      * the return code of the exec command is always 0 under windows
      * @requires OS ^(?:(?!Win).)*$
      */
-    public function test_executableFileIsNotExecutable_throwsException()
+    public function testExecutableFileIsNotExecutableThrowsException()
     {
         $this->expectBuildExceptionContaining(
             'executable-file-is-not-executable',
@@ -85,7 +89,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_executableIsNotSonarScannerAndHasNoVersionString_throwsException()
+    public function testExecutableIsNotSonarScannerAndHasNoVersionStringThrowsException()
     {
         $this->expectBuildExceptionContaining(
             'executable-is-not-sonar-scanner-and-has-no-version-string',
@@ -94,7 +98,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_executableIsNotSonarScannerAndHasVersionString_throwsException()
+    public function testExecutableIsNotSonarScannerAndHasVersionStringThrowsException()
     {
         $this->expectBuildExceptionContaining(
             'executable-is-not-sonar-scanner-and-has-version-string',
@@ -107,7 +111,7 @@ class SonarTaskTest extends BuildFileTest
     // Test "errors" attribute ...
     //
 
-    public function test_errorsAttributeIsMissing()
+    public function testErrorsAttributeIsMissing()
     {
         try {
             $this->expectPropertySet('errors-attribute-is-missing', 'errors', 'false');
@@ -116,7 +120,7 @@ class SonarTaskTest extends BuildFileTest
         }
     }
 
-    public function test_errorsAttributeIsEmpty()
+    public function testErrorsAttributeIsEmpty()
     {
         $this->expectBuildExceptionContaining(
             'errors-attribute-is-empty',
@@ -125,7 +129,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_errorsValueIsInvalid()
+    public function testErrorsValueIsInvalid()
     {
         $this->expectBuildExceptionContaining(
             'errors-value-is-invalid',
@@ -138,7 +142,7 @@ class SonarTaskTest extends BuildFileTest
     // Test "debug" attribute ...
     //
 
-    public function test_debugAttributeIsMissing()
+    public function testDebugAttributeIsMissing()
     {
         try {
             $this->expectPropertySet('debug-attribute-is-missing', 'debug', 'false');
@@ -147,7 +151,7 @@ class SonarTaskTest extends BuildFileTest
         }
     }
 
-    public function test_debugAttributeIsEmpty()
+    public function testDebugAttributeIsEmpty()
     {
         $this->expectBuildExceptionContaining(
             'debug-attribute-is-empty',
@@ -156,7 +160,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_debugValueIsInvalid()
+    public function testDebugValueIsInvalid()
     {
         $this->expectBuildExceptionContaining(
             'debug-value-is-invalid',
@@ -169,7 +173,7 @@ class SonarTaskTest extends BuildFileTest
     // Test "configuration" attribute ...
     //
 
-    public function test_configurationAttributeIsMissing()
+    public function testConfigurationAttributeIsMissing()
     {
         try {
             $this->expectPropertySet('configuration-attribute-is-missing', 'configuration', null);
@@ -178,7 +182,7 @@ class SonarTaskTest extends BuildFileTest
         }
     }
 
-    public function test_configurationAttributeIsEmpty()
+    public function testConfigurationAttributeIsEmpty()
     {
         try {
             $this->expectPropertySet('configuration-attribute-is-empty', 'configuration', '');
@@ -187,7 +191,7 @@ class SonarTaskTest extends BuildFileTest
         }
     }
 
-    public function test_configurationPathDoesNotExist()
+    public function testConfigurationPathDoesNotExist()
     {
         $this->expectBuildExceptionContaining(
             'configuration-path-does-not-exist',
@@ -200,7 +204,7 @@ class SonarTaskTest extends BuildFileTest
     // Test "property" elements ...
     //
 
-    public function test_propertyAttributesAreMissing()
+    public function testPropertyAttributesAreMissing()
     {
         $this->expectBuildExceptionContaining(
             'attributes-are-missing',
@@ -209,7 +213,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function test_propertyNameIsMissing()
+    public function testPropertyNameIsMissing()
     {
         $this->expectBuildExceptionContaining(
             'name-is-missing',

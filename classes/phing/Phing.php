@@ -198,7 +198,7 @@ class Phing
     public static function start($args, array $additionalUserProperties = null)
     {
         try {
-            $m = new Phing();
+            $m = new self();
             $m->execute($args);
         } catch (Exception $exc) {
             self::handleLogfile();
@@ -245,13 +245,14 @@ class Phing
      */
     protected static function statusExit($exitCode)
     {
+        Phing::shutdown();
         exit($exitCode);
     }
 
     /**
      * Prints the message of the Exception if it's not null.
      *
-     * @param Exception $t
+     * @param Throwable $t
      */
     public static function printMessage(Throwable $t)
     {
@@ -1222,7 +1223,7 @@ class Phing
     public function printDescription(Project $project)
     {
         if ($project->getDescription() !== null) {
-            self::$out->write($project->getDescription() . PHP_EOL);
+            $project->log($project->getDescription());
         }
     }
 
@@ -1238,12 +1239,14 @@ class Phing
         $targets = $project->getTargets();
         $targetName = null;
         $targetDescription = null;
+        /** @var Target $currentTarget */
         $currentTarget = null;
 
         // split the targets in top-level and sub-targets depending
         // on the presence of a description
 
         $subNames = [];
+        $subDependencies = [];
         $topNameDescMap = [];
 
         foreach ($targets as $currentTarget) {
@@ -1256,6 +1259,10 @@ class Phing
             // subtargets are targets w/o descriptions
             if ($targetDescription === null) {
                 $subNames[] = $targetName;
+                $currentDependencies = $currentTarget->getDependencies();
+                if (!empty($currentDependencies)) {
+                    array_push($subDependencies, ...$currentTarget->getDependencies());
+                }
             } else {
                 // topNames and topDescriptions are handled later
                 // here we store in hash map (for sorting purposes)
@@ -1272,6 +1279,7 @@ class Phing
 
         $topNames = array_keys($topNameDescMap);
         $topDescriptions = array_values($topNameDescMap);
+        $topDependencies = $currentTarget->getDependencies();
 
         $defaultTarget = $project->getDefaultTarget();
 
@@ -1286,15 +1294,16 @@ class Phing
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
-            $this->_printTargets($defaultName, $defaultDesc, "Default target:", $maxLength);
+            $this->_printTargets($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
         }
-        $this->_printTargets($topNames, $topDescriptions, "Main targets:", $maxLength);
-        $this->_printTargets($subNames, null, "Subtargets:", 0);
+        $this->_printTargets($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
+        $this->_printTargets($project, $subNames, null, $subDependencies, "Subtargets:", 0);
     }
 
     /**
      * Writes a formatted list of target names with an optional description.
      *
+     * @param Project $project
      * @param array $names The names to be printed.
      *                             Must not be <code>null</code>.
      * @param array $descriptions The associated target descriptions.
@@ -1302,6 +1311,7 @@ class Phing
      *                             no descriptions are displayed.
      *                             If non-<code>null</code>, this should have
      *                             as many elements as <code>names</code>.
+     * @param $dependencies
      * @param string $heading The heading to display.
      *                             Should not be <code>null</code>.
      * @param int $maxlen The maximum length of the names of the targets.
@@ -1309,7 +1319,7 @@ class Phing
      *                             position so they line up (so long as the names really
      *                             <i>are</i> shorter than this).
      */
-    private function _printTargets($names, $descriptions, $heading, $maxlen)
+    private function _printTargets(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
     {
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
@@ -1328,10 +1338,12 @@ class Phing
                 $msg .= $descriptions[$i];
             }
             $msg .= PHP_EOL;
+            if (!empty($dependencies) && isset($dependencies[$i + 1])) {
+                $msg .= '   depends on: ' . implode(', ', $dependencies) . PHP_EOL;
+            }
         }
-        if ($total > 0) {
-            self::$out->write($msg . PHP_EOL);
-        }
+
+        $project->log($msg, Project::MSG_WARN);
     }
 
     /**
@@ -1576,13 +1588,12 @@ class Phing
         } else {
             self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
         }
-        $file = new PhingFile('.');
-        self::setProperty('file.separator', $file::$separator);
+        self::setProperty('file.separator', FileUtils::$separator);
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('path.separator', $file::$pathSeparator);
+        self::setProperty('path.separator', FileUtils::$pathSeparator);
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+        if (stripos(PHP_OS, 'WIN') !== 0) {
             self::setProperty('user.home', getenv('HOME'));
         } else {
             self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
@@ -1592,7 +1603,7 @@ class Phing
 
         // try to detect machine dependent information
         $sysInfo = [];
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' && function_exists("posix_uname")) {
+        if (function_exists("posix_uname") && stripos(PHP_OS, 'WIN') !== 0) {
             $sysInfo = posix_uname();
         } else {
             $sysInfo['nodename'] = php_uname('n');
@@ -1719,16 +1730,16 @@ class Phing
      * Converts shorthand notation values as returned by ini_get()
      *
      * @see    http://www.php.net/ini_get
-     * @param  string $val
+     * @param  string|int $val
      * @return int
      */
-    public static function convertShorthand($val)
+    public static function convertShorthand($val): int
     {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
 
         if (!is_numeric($last)) {
-            $val = (int) substr($val, 0, strlen($val) - 1);
+            $val = (int) substr($val, 0, -1);
 
             switch ($last) {
                 // The 'G' modifier is available since PHP 5.1.0
@@ -1748,10 +1759,8 @@ class Phing
 
     /**
      * Sets PHP INI values that Phing needs.
-     *
-     * @return void
      */
-    private static function setIni()
+    private static function setIni(): void
     {
         self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
 
@@ -1780,10 +1789,8 @@ class Phing
      * Currently the following settings are not restored:
      *  - max_execution_time (because getting current time limit is not possible)
      *  - memory_limit (which may have been increased by Phing)
-     *
-     * @return void
      */
-    private static function restoreIni()
+    private static function restoreIni(): void
     {
         foreach (self::$origIniSettings as $settingName => $settingValue) {
             switch ($settingName) {
@@ -1801,7 +1808,7 @@ class Phing
      *
      * @return Timer
      */
-    public static function getTimer()
+    public static function getTimer(): Timer
     {
         if (self::$timer === null) {
             self::$timer = new Timer();
@@ -1817,7 +1824,7 @@ class Phing
      * @return void
      * @throws Exception - If the Phing environment cannot be initialized.
      */
-    public static function startup()
+    public static function startup(): void
     {
 
         // setup STDOUT and STDERR defaults
@@ -1834,10 +1841,11 @@ class Phing
     /**
      * Performs any shutdown routines, such as stopping timers.
      *
-     * @return void
+     * @throws IOException
      */
-    public static function shutdown()
+    public static function shutdown(): void
     {
+        FileSystem::getFileSystem()::deleteFilesOnExit();
         self::$msgOutputLevel = Project::MSG_INFO;
         self::restoreIni();
         self::getTimer()->stop();

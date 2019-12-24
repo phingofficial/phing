@@ -81,7 +81,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Arg::__toString
      */
-    public function test__toString_withQuotes()
+    public function testToStringWithQuotes()
     {
         $o = $this->object;
         $o->setName('name');
@@ -94,7 +94,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Arg::__toString
      */
-    public function test__toString_withoutQuotes()
+    public function testToStringWithoutQuotes()
     {
         $o = $this->object;
         $o->setName('name');
@@ -107,7 +107,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Arg::__toString
      */
-    public function test__toString_justName()
+    public function testToStringJustName()
     {
         $o = $this->object;
         $o->setName('name');
@@ -119,7 +119,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Arg::__toString
      */
-    public function test__toString_justValueWithoutQuotes()
+    public function testToStringJustValueWithoutQuotes()
     {
         $o = $this->object;
         $o->setValue('value');
@@ -131,7 +131,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Arg::__toString
      */
-    public function test__toString_justValueWithQuotes()
+    public function testToStringJustValueWithQuotes()
     {
         $o = $this->object;
         $o->setValue('value');

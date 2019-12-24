@@ -45,7 +45,7 @@ class ExpatParser extends AbstractSAXParser
     private $reader;
 
     /**
-     * @var PhingFile
+     * @var SplFileObject
      */
     private $file;
 
@@ -71,7 +71,7 @@ class ExpatParser extends AbstractSAXParser
     {
         $this->reader = $reader;
         if ($filename !== null) {
-            $this->file = new PhingFile($filename);
+            $this->file = new SplFileObject($filename);
         }
         $this->parser = xml_parser_create();
         $this->buffer = 4096;
@@ -103,7 +103,7 @@ class ExpatParser extends AbstractSAXParser
     public function getLocation()
     {
         if ($this->file !== null) {
-            $path = $this->file->getAbsolutePath();
+            $path = $this->file->getRealPath() !== false ? $this->file->getRealPath() : null;
         } else {
             $path = $this->reader->getResource();
         }

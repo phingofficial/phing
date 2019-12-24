@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Sets properties to the current time, or offsets from the current time.
  * The default properties are TSTAMP, DSTAMP and TODAY;

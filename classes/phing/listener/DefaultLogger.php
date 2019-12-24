@@ -36,7 +36,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @var int
      */
-    const LEFT_COLUMN_SIZE = 12;
+    public const LEFT_COLUMN_SIZE = 12;
 
     /**
      *  The message output level that should be used. The default is
@@ -159,20 +159,19 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function buildFinished(BuildEvent $event)
     {
+        $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         $error = $event->getException();
-        if ($error === null) {
-            $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
-        } else {
+
+        if ($error !== null) {
             $msg = PHP_EOL . $this->getBuildFailedMessage() . PHP_EOL;
+
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: " . self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
+        $msg .= PHP_EOL . "Total time: " . static::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
 
-        if ($error === null) {
-            $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
-        } else {
-            $this->printMessage($msg, $this->err, Project::MSG_ERR);
-        }
+        $error === null
+            ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)
+            : $this->printMessage($msg, $this->err, Project::MSG_ERR);
     }
 
     public static function throwableMessage(&$msg, $error, $verbose)

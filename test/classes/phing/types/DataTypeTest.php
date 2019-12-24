@@ -33,38 +33,35 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * testTooManyAttributes
-     *
-     * @expectedException        BuildException
-     * @expectedExceptionMessage You must not specify more than one attribute when using refid
      */
     public function testTooManyAttributes()
     {
         $ex = $this->datatype->tooManyAttributes();
-        throw $ex;
+
+        $this->assertInstanceOf(BuildException::class, $ex);
+        $this->assertSame('You must not specify more than one attribute when using refid', $ex->getMessage());
     }
 
     /**
      * testNoChildrenAllowedException
-     *
-     * @expectedException        BuildException
-     * @expectedExceptionMessage You must not specify nested elements when using refid
      */
     public function testNoChildrenAllowedException()
     {
         $ex = $this->datatype->noChildrenAllowed();
-        throw $ex;
+
+        $this->assertInstanceOf(BuildException::class, $ex);
+        $this->assertSame('You must not specify nested elements when using refid', $ex->getMessage());
     }
 
     /**
      * testCircularReferenceException
-     *
-     * @expectedException        BuildException
-     * @expectedExceptionMessage This data type contains a circular reference.
      */
     public function testCircularReferenceException()
     {
         $ex = $this->datatype->circularReference();
-        throw $ex;
+
+        $this->assertInstanceOf(BuildException::class, $ex);
+        $this->assertSame('This data type contains a circular reference.', $ex->getMessage());
     }
 
     public function testToString()

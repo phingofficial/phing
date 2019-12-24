@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -55,6 +53,6 @@ class PHPCPDTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertContains("No clones found.\n\n", $output);
+        $this->assertStringContainsString("No clones found.\n\n", $output);
     }
 }

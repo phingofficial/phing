@@ -254,18 +254,10 @@
         ==============================================
     -->
     <target name="generate-hash" unless="${env.TRAVIS}">
-        <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
-        <basename property="basefilename" file="${filename}"/>
-        <echo file="${filename}.sha512">${phar.hash} ${basefilename}</echo>
-
-        <filehash file="${filename}" algorithm="sha384" propertyname="phar.hash"/>
-        <echo file="${filename}.sha384">${phar.hash} ${basefilename}</echo>
-
-        <filehash file="${filename}" algorithm="sha256" propertyname="phar.hash"/>
-        <echo file="${filename}.sha256">${phar.hash} ${basefilename}</echo>
-
-        <filehash file="${filename}" algorithm="sha1" propertyname="phar.hash"/>
-        <echo file="${filename}.sha1">${phar.hash} ${basefilename}</echo>
+        <filehash file="${filename}" algorithm="sha512" />
+        <filehash file="${filename}" algorithm="sha384" />
+        <filehash file="${filename}" algorithm="sha256" />
+        <filehash file="${filename}" algorithm="sha1" />
 
         <exec command="gpg -u mrook@php.net --detach-sign --output ${filename}.asc ${filename}" checkreturn="true" logoutput="true"/>
     </target>

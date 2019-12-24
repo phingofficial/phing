@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,15 +22,13 @@
  *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
+ *
+ * @requires PHP < 7.3
  */
 class PHPLOCTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (PHP_VERSION_ID >= 70300) {
-            $this->markTestSkipped('phploc task is not running on PHP 7.3');
-        }
-
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phploc/build.xml");
     }
 

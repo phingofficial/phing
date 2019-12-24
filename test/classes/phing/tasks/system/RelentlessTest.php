@@ -1,7 +1,5 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
-
 /**
  * Tests the Relentless Task
  *
@@ -28,13 +26,13 @@ class RelentlessTest extends BuildFileTest
         $this->assertNotInLogs('Executing: task 3');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Relentless execution: 1 of 5 tasks failed.
-     */
     public function testFailure()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Relentless execution: 1 of 5 tasks failed.');
+
         $this->executeTarget(__FUNCTION__);
+
         $this->assertInLogs('Task task 3 failed: baz');
     }
 }

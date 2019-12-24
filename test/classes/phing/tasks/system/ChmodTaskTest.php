@@ -22,16 +22,13 @@
  *
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.system
+ *
+ * @requires OS ^(?:(?!Win).)*$
  */
 class ChmodTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("chmod tests don't work on Windows");
-            return;
-        }
-
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ChmodTaskTest.xml'
         );

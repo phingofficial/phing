@@ -72,73 +72,68 @@ class RSTTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file);
     }
 
-
     /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
+     * @requires function ReflectionMethod::setAccessible
      */
     public function testGetToolPathFail()
     {
-        if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new RSTTask();
-            $ref = new ReflectionClass($rt);
-            $method = $ref->getMethod('getToolPath');
-            $method->setAccessible(true);
-            $method->invoke($rt, 'doesnotexist');
-        } else {
-            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
-        }
+        $rt = new RSTTask();
+        $ref = new ReflectionClass($rt);
+        $method = $ref->getMethod('getToolPath');
+        $method->setAccessible(true);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('"rst2doesnotexist" not found. Install python-docutils.');
+
+        $method->invoke($rt, 'doesnotexist');
     }
 
     /**
      * Get the tool path previously set with setToolpath()
+     *
+     * @requires function ReflectionMethod::setAccessible
      */
     public function testGetToolPathCustom()
     {
-        if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new RSTTask();
-            $rt->setToolpath('true'); //mostly /bin/true on unix
-            $ref = new ReflectionClass($rt);
-            $method = $ref->getMethod('getToolPath');
-            $method->setAccessible(true);
-            $this->assertContains('/true', $method->invoke($rt, 'foo'));
-        } else {
-            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
-        }
+        $rt = new RSTTask();
+        $rt->setToolpath('true'); //mostly /bin/true on unix
+        $ref = new ReflectionClass($rt);
+        $method = $ref->getMethod('getToolPath');
+        $method->setAccessible(true);
+        $this->assertStringContainsString('/true', $method->invoke($rt, 'foo'));
     }
 
-
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Tool does not exist. Path:
-     */
     public function testSetToolpathNotExisting()
     {
         $rt = new RSTTask();
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Tool does not exist. Path:');
+
         $rt->setToolpath('doesnotandwillneverexist');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Tool not executable. Path:
-     */
     public function testSetToolpathNonExecutable()
     {
         $rt = new RSTTask();
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Tool not executable. Path:');
+
         $rt->setToolpath(__FILE__);
     }
 
+    /**
+     * @throws ReflectionException
+     * @requires function ReflectionMethod::setAccessible
+     */
     public function testGetToolPathHtmlFormat()
     {
-        if (method_exists('ReflectionMethod', 'setAccessible')) {
-            $rt = new RSTTask();
-            $ref = new ReflectionClass($rt);
-            $method = $ref->getMethod('getToolPath');
-            $method->setAccessible(true);
-            $this->assertContains('rst2html', $method->invoke($rt, 'html'));
-        } else {
-            $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
-        }
+        $rt = new RSTTask();
+        $ref = new ReflectionClass($rt);
+        $method = $ref->getMethod('getToolPath');
+        $method->setAccessible(true);
+        $this->assertStringContainsString('rst2html', $method->invoke($rt, 'html'));
     }
 
     public function testSingleFileParameterFile()
@@ -274,12 +269,11 @@ class RSTTaskTest extends BuildFileTest
         $this->assertFileCreated('files/two.my.html');
     }
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage No filename mapper found for "./files/single.rst"
-     */
     public function testNotMatchingMapper()
     {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('No filename mapper found for "./files/single.rst"');
+
         $this->executeTarget(__FUNCTION__);
     }
 
@@ -290,7 +284,7 @@ class RSTTaskTest extends BuildFileTest
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/filterchain.html';
         $this->assertFileExists($file);
         $cont = file_get_contents($file);
-        $this->assertContains('This is a bar.', $cont);
+        $this->assertStringContainsString('This is a bar.', $cont);
         unlink($file);
     }
 
@@ -301,8 +295,8 @@ class RSTTaskTest extends BuildFileTest
         $this->assertFileExists('files/single.html');
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html';
         $cont = file_get_contents($file);
-        $this->assertContains('this is a custom css file', $cont);
-        $this->assertContains('#FF8000', $cont);
+        $this->assertStringContainsString('this is a custom css file', $cont);
+        $this->assertStringContainsString('#FF8000', $cont);
         unlink($file);
     }
 }

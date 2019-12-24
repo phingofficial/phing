@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Publish Wiki document using Wiki API.
  *
@@ -225,7 +224,7 @@ class WikiPublishTask extends Task
      */
     public function init()
     {
-        $this->cookiesFile = tempnam(sys_get_temp_dir(), 'WikiPublish.' . uniqid('', true) . '.cookies');
+        $this->cookiesFile = tempnam(FileUtils::getTempDir(), 'WikiPublish.' . uniqid('', true) . '.cookies');
 
         $this->curl = curl_init();
         if (false === is_resource($this->curl)) {

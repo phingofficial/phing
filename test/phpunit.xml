@@ -1,14 +1,22 @@
 <?xml version="1.0"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="./bootstrap.php"
-         colors="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="false"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         verbose="true">
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../vendor/phpunit/phpunit/phpunit.xsd"
+    beStrictAboutChangesToGlobalState="true"
+    beStrictAboutOutputDuringTests="true"
+    beStrictAboutTodoAnnotatedTests="true"
+    failOnWarning="true"
+    failOnRisky="true"
+    bootstrap="./bootstrap.php"
+    convertNoticesToExceptions="false"
+    verbose="true"
+    resolveDependencies="true">
+
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="memory_limit" value="-1"/>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
     <testsuites>
         <testsuite name="AllTests">
             <directory>classes/phing/</directory>
@@ -21,7 +29,7 @@
     </groups>
 
     <filter>
-        <whitelist>
+        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../classes/phing/</directory>
         </whitelist>
     </filter>

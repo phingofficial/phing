@@ -40,15 +40,15 @@
  */
 class WaitForTask extends ConditionBase
 {
-    const ONE_MILLISECOND = 1;
-    const ONE_SECOND = 1000;
-    const ONE_MINUTE = 60000;
-    const ONE_HOUR = 3600000;
-    const ONE_DAY = 86400000;
-    const ONE_WEEK = 604800000;
+    public const ONE_MILLISECOND = 1;
+    public const ONE_SECOND = 1000;
+    public const ONE_MINUTE = 60000;
+    public const ONE_HOUR = 3600000;
+    public const ONE_DAY = 86400000;
+    public const ONE_WEEK = 604800000;
 
-    const DEFAULT_MAX_WAIT_MILLIS = 180000;
-    const DEFAULT_CHECK_MILLIS = 500;
+    public const DEFAULT_MAX_WAIT_MILLIS = 180000;
+    public const DEFAULT_CHECK_MILLIS = 500;
 
     protected $maxWait = self::DEFAULT_MAX_WAIT_MILLIS;
     protected $maxWaitMultiplier = self::ONE_MILLISECOND;

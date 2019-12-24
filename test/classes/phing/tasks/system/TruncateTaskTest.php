@@ -79,27 +79,24 @@ class TruncateTaskTest extends BuildFileTest
         $this->assertSame($this->getProject()->getProperty('test.mkdirs.length'), 0);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testInvalidAttrs()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testBadLength()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 
-    /**
-     * @expectedException BuildException
-     */
     public function testNoFiles()
     {
+        $this->expectException(BuildException::class);
+
         $this->executeTarget(__FUNCTION__);
     }
 }

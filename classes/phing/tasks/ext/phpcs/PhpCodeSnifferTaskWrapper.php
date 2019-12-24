@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Wrapper to disable PHPCS's destructor
  *

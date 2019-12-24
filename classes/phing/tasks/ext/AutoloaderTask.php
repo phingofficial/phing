@@ -23,7 +23,7 @@
  */
 class AutoloaderTask extends Task
 {
-    const DEFAULT_AUTOLOAD_PATH = 'vendor/autoload.php';
+    public const DEFAULT_AUTOLOAD_PATH = 'vendor/autoload.php';
 
     private $autoloaderPath = self::DEFAULT_AUTOLOAD_PATH;
 

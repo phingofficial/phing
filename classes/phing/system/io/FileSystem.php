@@ -41,22 +41,22 @@ abstract class FileSystem
     /**
      * @var int
      */
-    const BA_EXISTS = 0x01;
+    public const BA_EXISTS = 0x01;
 
     /**
      * @var int
      */
-    const BA_REGULAR = 0x02;
+    public const BA_REGULAR = 0x02;
 
     /**
      * @var int
      */
-    const BA_DIRECTORY = 0x04;
+    public const BA_DIRECTORY = 0x04;
 
     /**
      * @var int
      */
-    const BA_HIDDEN = 0x08;
+    public const BA_HIDDEN = 0x08;
 
     /**
      * Instance for getFileSystem() method.
@@ -64,6 +64,11 @@ abstract class FileSystem
      * @var FileSystem
      */
     private static $fs;
+
+    /**
+     * @var PhingFile[]
+     */
+    private static $filesToDelete = [];
 
     /**
      * Static method to return the FileSystem singelton representing
@@ -174,19 +179,6 @@ abstract class FileSystem
     }
 
     /* -- Attribute accessors -- */
-
-    /**
-     * Return the simple boolean attributes for the file or directory denoted
-     * by the given abstract pathname, or zero if it does not exist or some
-     * other I/O error occurs.
-     *
-     * @param  PhingFile $f
-     * @throws IOException
-     */
-    public function getBooleanAttributes($f)
-    {
-        throw new IOException("getBooleanAttributes() not implemented by fs driver");
-    }
 
     /**
      * Check whether the file or directory denoted by the given abstract
@@ -363,9 +355,16 @@ abstract class FileSystem
      * @param  PhingFile $f
      * @throws IOException
      */
-    public function deleteOnExit($f)
+    public function deleteOnExit(PhingFile $f)
     {
-        throw new IOException("deleteOnExit() not implemented by local fs driver");
+        self::$filesToDelete[] = $f;
+    }
+
+    public static function deleteFilesOnExit()
+    {
+        foreach (self::$filesToDelete as $file) {
+            $file->delete();
+        }
     }
 
     /**
@@ -443,32 +442,6 @@ abstract class FileSystem
             $errormsg = $lastError['message'];
             throw new IOException("Could not touch '" . $path . "' due to: $errormsg");
         }
-    }
-
-    /**
-     * Mark the file or directory denoted by the given abstract pathname as
-     * read-only, returning <code>true</code> if and only if the operation
-     * succeeds.
-     *
-     * @param  PhingFile $f
-     * @throws IOException
-     */
-    public function setReadOnly($f)
-    {
-        throw new IOException("setReadonly() not implemented by local fs driver");
-    }
-
-    /* -- Filesystem interface -- */
-
-    /**
-     * List the available filesystem roots, return array of PhingFile objects
-     *
-     * @throws IOException
-     * @return PhingFile[]
-     */
-    public function listRoots()
-    {
-        throw new IOException("listRoots() not implemented by local fs driver");
     }
 
     /* -- Basic infrastructure -- */

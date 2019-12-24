@@ -35,11 +35,11 @@ class IsTrueCondition extends ProjectComponent implements Condition
     /**
      * Set the value to be tested.
      *
-     * @param boolean $value
+     * @param mixed $value
      */
-    public function setValue(bool $value)
+    public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = (bool) $value;
     }
 
     /**

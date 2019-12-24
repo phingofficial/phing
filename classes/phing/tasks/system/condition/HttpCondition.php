@@ -29,7 +29,7 @@
  */
 class HttpCondition extends ProjectComponent implements Condition
 {
-    const DEFAULT_REQUEST_METHOD = 'GET';
+    public const DEFAULT_REQUEST_METHOD = 'GET';
 
     private $errorsBeginAt = 400;
     private $url;

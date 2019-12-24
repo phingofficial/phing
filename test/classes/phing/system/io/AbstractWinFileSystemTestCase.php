@@ -1,7 +1,5 @@
 <?php
-
-/*
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -33,11 +31,6 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped(
-                'Testing not on a windows os.'
-            );
-        }
         $this->fs = $this->createFileSystem();
     }
 

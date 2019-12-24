@@ -82,6 +82,7 @@
         <zeroOrMore>
             <choice>
                 <ref name="classpath"/>
+                <ref name="description"/>
                 <ref name="dirset"/>
                 <ref name="excludes"/>
                 <ref name="filelist"/>
@@ -359,6 +360,7 @@
                 <ref name="none_selector"/>
                 <ref name="not_selector"/>
                 <ref name="or_selector"/>
+                <ref name="posixpermissions_selector"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -631,6 +633,14 @@
         </element>
     </define>
 
+    <define name="posixpermissions_selector">
+        <element name="posixpermissions">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
     <!--
         ===========================================================================================================
         Core types
@@ -844,6 +854,12 @@
             <attribute name="refid">
                 <data type="IDREF"/>
             </attribute>
+        </element>
+    </define>
+
+    <define name="description">
+        <element name="description">
+            <text/>
         </element>
     </define>
 
@@ -2591,20 +2607,26 @@
         </element>
     </define>
 
-    <define name="composer">
-        <element name="composer">
-            <interleave>
-                <optional>
-                    <attribute name="php"/>
-                    <attribute name="composer"/>
-                    <attribute name="command"/>
-                </optional>
-                <zeroOrMore>
-                    <ref name="arg"/>
-                </zeroOrMore>
-            </interleave>
-        </element>
-    </define>
+  <define name="composer">
+    <element name="composer">
+      <interleave>
+        <attribute name="composer">
+          <data type="string"/>
+        </attribute>
+        <optional>
+          <attribute name="command">
+            <data type="string"/>
+          </attribute>
+          <attribute name="php">
+            <data type="string"/>
+          </attribute>
+        </optional>
+        <zeroOrMore>
+          <ref name="arg"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
 
     <!--
         =========================================
