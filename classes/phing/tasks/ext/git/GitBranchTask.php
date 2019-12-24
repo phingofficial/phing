@@ -88,6 +88,9 @@ class GitBranchTask extends GitBaseTask
         'M' => false,
     );
 
+    /** @var string $setUpstreamTo */
+    private $setUpstreamTo = '';
+
     /**
      * The main entry point for the task
      */
@@ -108,9 +111,16 @@ class GitBranchTask extends GitBaseTask
         }
 
         $client = $this->getGitClient(false, $this->getRepository());
+
         $command = $client->getCommand('branch');
+
+        if (version_compare($client->getGitVersion(), '2.15.0', '<')) {
+            $command->setOption('set-upstream', $this->isSetUpstream());
+        } elseif ($this->isSetUpstreamTo()) {
+            $command->setOption('set-upstream-to', $this->getSetUpstreamTo());
+        }
+
         $command
-            ->setOption('set-upstream', $this->isSetUpstream())
             ->setOption('no-track', $this->isNoTrack())
             ->setOption('force', $this->isForce());
         if ($this->isNoTrack() == false) {
@@ -139,14 +149,14 @@ class GitBranchTask extends GitBaseTask
         try {
             $output = $command->execute();
         } catch (Exception $e) {
-            throw new BuildException('Task execution failed.', $e);
+            throw new BuildException('Task execution failed with git command "' . $command->createCommandString() . '""', $e);
         }
 
         $this->log(
             sprintf('git-branch: branch "%s" repository', $this->getRepository()),
             Project::MSG_INFO
         );
-        $this->log('git-branch output: ' . trim($output), Project::MSG_INFO);
+        $this->log('git-branch output: ' . str_replace('\'', '', trim($output)), Project::MSG_INFO);
     }
 
     /**
@@ -171,6 +181,30 @@ class GitBranchTask extends GitBaseTask
     public function isSetUpstream()
     {
         return $this->getSetUpstream();
+    }
+
+    /**
+     * @param string $branch
+     */
+    public function setSetUpstreamTo($branch)
+    {
+        $this->setUpstreamTo = $branch;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSetUpstreamTo()
+    {
+        return $this->setUpstreamTo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSetUpstreamTo()
+    {
+        return $this->getSetUpstreamTo() !== '';
     }
 
     /**
@@ -359,5 +393,4 @@ class GitBranchTask extends GitBaseTask
     {
         return $this->newbranch;
     }
-
 }

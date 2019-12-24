@@ -1376,7 +1376,7 @@
                         <entry>If specified branch does not exist yet or if --force has been given,
                             acts exactly like --track. Otherwise sets up configuration like --track
                             would when creating the branch, except that where branch points to is
-                            not changed. See --set-upstream option of <link
+                            not changed. See --set-upstream-to option of <link
                                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html"
                                 >git-branch</link>.</entry>
                         <entry/>
@@ -1429,7 +1429,7 @@
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Delete a branch. The branch must be fully merged in its upstream
                             branch, or in HEAD if no upstream was set with --track or
-                            --set-upstream.</entry>
+                            --set-upstream-to.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>

@@ -65,6 +65,21 @@
             setupstream="true" />
     </target>
 
+    <target name="setUpstreamToParamSet" description="git-branch --set-upstream-to">
+        <gitclone
+                singleBranch="true"
+                repository="${repo.dir.resolved}"
+                targetPath="${tmp.dir.resolved}" />
+        <gitcheckout
+                repository="${tmp.dir.resolved}"
+                branchname="set-upstream-param-set"
+                create="true" />
+        <gitbranch
+                repository="${tmp.dir.resolved}"
+                branchname="set-upstream-param-set"
+                setupstreamto="master" />
+    </target>
+
     <target name="forceParamSet" description="git-branch --force">
         <gitclone
             singleBranch="true"
