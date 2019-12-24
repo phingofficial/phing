@@ -296,7 +296,9 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
      */
     protected function composeMessage($message, PHPUnit\Framework\Test $test, \Throwable $e)
     {
-        $message = "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
+        $name = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
+        $message = "Test {$message} ({$name} in class " . get_class($test) . ' ' . $e->getFile()
+            . ' on line ' . $e->getLine() . '): ' . $e->getMessage();
 
         if ($e instanceof PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
             $message .= "\n" . $e->getComparisonFailure()->getDiff();
